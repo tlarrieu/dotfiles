@@ -1,5 +1,5 @@
-config
-======
+dotfiles
+========
 
 My personnal config files.
 
