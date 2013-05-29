@@ -83,7 +83,7 @@ prompt_git() {
 
     [[ -n $dirty ]] && echo -n ' ⮁ ✱'
     [[ -n $(git stash list) ]] && echo -n ' ⮁ ⚙'
-    [[ -n $(git status | grep "commit") ]] && echo -n ' ⮁ ⬆'
+    [[ -n $(git status | grep "ahead") ]] && echo -n ' ⮁ ⬆'
   fi
 }
 
