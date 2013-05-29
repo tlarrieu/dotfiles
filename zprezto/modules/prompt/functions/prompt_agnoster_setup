@@ -81,9 +81,9 @@ prompt_git() {
     # echo -n "${ref/refs\/heads\//⭠ }$dirty"
     echo -n "${ref/refs\/heads\//⭠ }"
 
-    [[ -n $dirty ]] && echo -n ' ⮁ ✱'
-    [[ -n $(git stash list) ]] && echo -n ' ⮁ ⚙'
-    [[ -n $(git status | grep "ahead") ]] && echo -n ' ⮁ ⬆'
+    [[ -n $dirty ]] && echo -n " $SOFT_SEPARATOR ✱"
+    [[ -n $(git stash list) ]] && echo -n " $SOFT_SEPARATOR ⚙"
+    [[ -n $(git status | grep "ahead") ]] && echo -n " $SOFT_SEPARATOR ⬆"
   fi
 }
 
@@ -92,7 +92,7 @@ prompt_dir() {
   if [[ "`pwd`" == "/" ]]; then
     prompt_segment cyan black "/"
   else
-    prompt_segment cyan black `get_short_path | sed 's:/: ⮁ :g' | sed 's: ⮁ ::'`
+    prompt_segment cyan black `get_short_path | sed "s:/: $SOFT_SEPARATOR :g" | sed "s: $SOFT_SEPARATOR ::"`
   fi
 }
 
@@ -193,6 +193,7 @@ function prompt_agnoster_setup {
 
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR='⮀'
+SOFT_SEPARATOR='⮁'
 
 PROMPT='%{%f%b%k%}$(build_prompt) '
 
