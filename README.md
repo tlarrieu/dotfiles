@@ -24,6 +24,9 @@ I sincerly apologize for this. The reason about that is that I'm quiet new to gi
 and could not find a way to include them properly. If you find this offensive
 or want to help me achieve cross-references, I'd be glad too ;)
 
+**Anyway, I will link all of theme soon enough so at least, they can get credit
+for their respective work!**
+
 Goals
 -----
 
