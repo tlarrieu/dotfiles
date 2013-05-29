@@ -1,0 +1,7 @@
+search 
+q
+open_with r
+shell sss
+open_with 
+shell s
+search .config

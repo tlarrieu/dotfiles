@@ -1,0 +1,60 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Source for get-short-path
+if [[ -s "${ZDOTDIR:-$HOME}/.yadr/zsh/get-short-path.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.yadr/zsh/get-short-path.zsh"
+fi
+
+# Source for git
+if [[ -s "${ZDOTDIR:-$HOME}/.yadr/zsh/git.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.yadr/zsh/git.zsh"
+fi
+
+export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$PATH:$HOME/bin/ADT/sdk/tools:$HOME/bin/ADT/sdk/platform-tools # Android SDK path
+
+export GTK_IM_MODULE=xim
+export GEDITOR=gvim
+export EDITOR=gvim
+
+### Custom part
+alias apt-get="sudo apt-get"
+alias gem="sudo gem"
+alias gvim="gvim -p"
+alias dpkg="sudo dpkg"
+alias dpkg-reconfigure="sudo dpkg-reconfigure"
+
+alias gosubb="cd /home/smockey/projects/gosubb"
+alias vimrc="gvim ~/.vimrc"
+alias zshrc="gvim ~/.zshrc"
+alias preztorc="gvim ~/.zpreztorc"
+
+alias au="apt-get update"
+alias auu="apt-get upgrade"
+alias ai="apt-get install"
+alias as="apt-cache search"
+alias ar="apt-get remove"
+alias yi="sudo yum install"
+alias yli="sudo yum localinstall"
+alias yu="sudo yum upgrade"
+alias yr="sudo yum remove"
+alias ys="yum search"
+
+alias pip="sudo python-pip"
+
+alias ccat="pygmentize -g"
+
+# Custom bindings
+bindkey '^[[1;5D' emacs-backward-word
+bindkey '^[[1;5C' emacs-forward-word

@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/home/smockey/projects'
+let g:netrw_dirhist_2='/home/smockey/.moc'
+let g:netrw_dirhist_3='/home/smockey/.rvm/gems/ruby-1.9.3-p362/gems/color-1.4.1/lib/color'
+let g:netrw_dirhist_4='/home/smockey/.zprezto'
+let g:netrw_dirhist_5='/home/smockey/.vim'
+let g:netrw_dirhist_6='/home/smockey/.config/terminator'

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="displays" version="1.0">
+  <property name="Default" type="empty">
+    <property name="LVDS" type="string" value="Portable">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1280x800"/>
+      <property name="RefreshRate" type="double" value="59.976321"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="HDMI-0" type="string" value="LG Philips 15&quot;">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="60.000000"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="1280"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DFP2" type="string" value="DFP2">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1920x1080"/>
+      <property name="RefreshRate" type="double" value="60.000000"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="1280"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="CRT1" type="string" value="CRT1">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1280x768"/>
+      <property name="RefreshRate" type="double" value="59.870228"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="default" type="string" value="default">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1024x768"/>
+      <property name="RefreshRate" type="double" value="61.000000"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+  <property name="MinimalAutoConfig" type="empty">
+    <property name="LVDS" type="string" value="Laptop">
+      <property name="Active" type="bool" value="false"/>
+      <property name="Resolution" type="string" value="1280x800"/>
+      <property name="RefreshRate" type="double" value="59.976321"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+    <property name="DFP2" type="string" value="DFP2">
+      <property name="Active" type="bool" value="true"/>
+      <property name="Resolution" type="string" value="1400x1050"/>
+      <property name="RefreshRate" type="double" value="59.978442"/>
+      <property name="Rotation" type="int" value="0"/>
+      <property name="Reflection" type="string" value="0"/>
+      <property name="Primary" type="bool" value="false"/>
+      <property name="Position" type="empty">
+        <property name="X" type="int" value="0"/>
+        <property name="Y" type="int" value="0"/>
+      </property>
+    </property>
+  </property>
+</channel>
