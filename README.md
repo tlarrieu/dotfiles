@@ -20,7 +20,7 @@ any time soon.
 
 ###About missing links
 I do know I have broken links to other git projects that are included in this one.
-I sincerly apologize for this. The reason about that is that I'm quiet new to git
+I sincerly apologize for this. The reason behind that is that I'm quiet new to git
 and could not find a way to include them properly. If you find this offensive
 or want to help me achieve cross-references, I'd be glad too ;)
 
