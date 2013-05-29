@@ -18,6 +18,27 @@ I might integrate a backup handler to automatize the process (backup / restore).
 This is not a priority however, and this has great chance not to come
 any time soon.
 
+###About missing links
+I do know I have broken links to other git projects that are included in this one.
+I sincerly apologize for this. The reason about that is that I'm quiet new to git
+and could not find a way to include them properly. If you find this offensive
+or want to help me achieve cross-references, I'd be glad too ;)
+
+Goals
+-----
+
+- Maintain a coherent config backup / bootstrap
+- Provide support for bépo (french dvorak variant, more about it here : http://bepo.fr/wiki/Accueil)
+- Provide uniformized solarized color scheme for various applications (more about this wonderful scheme 
+here : http://ethanschoonover.com/solarized)
+- Implement powerline wherever I can (as for now only in vim — with the real python plugin, and 
+in zsh through presto — although this one is "emulated"). More to come, whenever I find some time ;)
+
+####td;dr
+
+**I need bépo / solarized / powerline everywhere!!**
+
+
 Supported applications
 ----------------------
 - awesome
