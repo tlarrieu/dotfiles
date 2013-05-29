@@ -18,6 +18,13 @@ I might integrate a backup handler to automatize the process (backup / restore).
 This is not a priority however, and this has great chance not to come
 any time soon.
 
+Goals
+-----
+
+- Maintain a coherent config backup / bootstrap
+- Provide support for bépo (french dvorak variant, more about it here : http://bepo.fr/wiki/Accueil)
+- Provide uniformized solarized color scheme for various applications (more about this awesome scheme here : http://ethanschoonover.com/solarized)
+
 Supported applications
 ----------------------
 - awesome
