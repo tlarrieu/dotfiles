@@ -55,7 +55,5 @@ safelink $BASEDIR/moc $HOME/.moc
 # .mplayer
 safelink $BASEDIR/mplayer $HOME/.mplayer
 
-# .vimperator
-safelink $BASEDIR/vimperator $HOME/.vimperator
 # .vimperatorrc
 safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
