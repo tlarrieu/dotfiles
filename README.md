@@ -53,6 +53,7 @@ Supported applications
 - luakit
 - zsh / prezto
 - xfce4-terminal (Terminal)
+- zathura
 
 Some might be added, depending on my personnal needs.
 
