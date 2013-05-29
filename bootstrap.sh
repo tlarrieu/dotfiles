@@ -1,19 +1,26 @@
 #!/bin/sh
 
+[[ "$1" == "-f" ]] && FORCE=true
+
 safelink()
 {
   target=$1
   link=$2
-  if [ -d $target ]; then
-    echo -n "$link already exists, do you want to replace it? "
-    read answer
-    case $answer in
-      "yes"|"y")
-        rm $link -rf
-        ;;
-    esac
+  if [ -n $FORCE ]; then
+    rm $link -rf
+    ln -s -P $target $link
+  else
+    if [ -d $target ]; then
+      echo -n "$link already exists, do you want to replace it? "
+      read answer
+      case $answer in
+        "yes"|"y")
+          rm $link -rf
+          ;;
+      esac
+    fi
+    ln -s -P -i $target $link
   fi
-  ln -s -P -i $target $link
 }
 
 [[ -d ~/.config ]] || mkdir ~/.config
