@@ -1,0 +1,8 @@
+map c scroll left
+map t scroll down
+map T scroll full-down
+map s scroll up
+map S scroll full-up
+map r scroll right
+map . toggle_inputbar
+map f follow
