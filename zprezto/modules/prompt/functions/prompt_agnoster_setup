@@ -75,15 +75,14 @@ prompt_context() {
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  local ref dirty
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     col1=green
     # Dirty status
     [[ -n $(git status -s 2>/dev/null) ]] && col1=yellow && icons+=" $SOFT_SEPARATOR ✱"
     # Stash status
-    [[ -n $(git stash list) ]] && icons+=" $SOFT_SEPARATOR ⚙"
+    [[ -n $(git stash list 2>/dev/null) ]] && icons+=" $SOFT_SEPARATOR ⚙"
     # Commit status (ahead or not)
-    [[ -n $(git status | grep "ahead") ]] && icons+=" $SOFT_SEPARATOR ⬆"
+    [[ -n $(git status 2>/dev/null| grep "ahead") ]] && icons+=" $SOFT_SEPARATOR ⬆"
     # prompting result : branch and then status icons
     prompt_segment $col1 black "$(git rev-parse --abbrev-ref HEAD)$icons"
   fi
