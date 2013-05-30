@@ -36,6 +36,14 @@ prompt_segment() {
   [[ -n $3 ]] && echo -n $3
 }
 
+function __my_rvm_ruby_version {
+  local gemset=$(echo $GEM_HOME | awk -F'@' '{print $2}')
+  [[ "$gemset" != "" ]] && gemset="@$gemset"
+  local version=${MY_RUBY_HOME:t}
+  local full="$version$gemset"
+  [[ "$full" != "" ]] && echo "($full) "
+}
+
 # End the prompt, closing any open segments
 prompt_end() {
   br="
@@ -45,8 +53,7 @@ prompt_end() {
     echo -n $br
     echo -n "%{%f%}"
     [[ -n $VIRTUAL_ENV ]] && echo -n "(${VIRTUAL_ENV:t}) "
-    [[ -n $rvm_env_string ]] && echo -n "(${rvm_env_string}) "
-    echo "❯"
+    echo "$(__my_rvm_ruby_version)❯"
   else
     echo -n "%{%k%}"
   fi
@@ -101,7 +108,7 @@ prompt_status() {
   [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-  [[ (-n $VIRTUAL_ENV) || (-n $rvm_env_string) ]] && symbols+="%{%F{yellow}%}Ϟ"
+  [[ (-n $VIRTUAL_ENV) ]] && symbols+="%{%F{yellow}%}Ϟ"
 
   [[ -n "$symbols" ]] && prompt_segment black black "$symbols"
 }
