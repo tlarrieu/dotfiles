@@ -31,7 +31,6 @@ export EDITOR=gvim
 
 ### Custom part
 alias apt-get="sudo apt-get"
-alias gem="sudo gem"
 alias gvim="gvim -p"
 alias dpkg="sudo dpkg"
 alias dpkg-reconfigure="sudo dpkg-reconfigure"
@@ -55,6 +54,9 @@ alias ys="yum search"
 alias pip="sudo python-pip"
 
 alias ccat="pygmentize -g"
+
+alias todo="cat ~/.todo 2>/dev/null"
+alias vitodo="gvim ~/.todo"
 
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
