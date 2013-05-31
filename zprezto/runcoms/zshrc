@@ -54,6 +54,7 @@ alias ys="yum search"
 alias pip="sudo python-pip"
 
 alias ccat="pygmentize -g"
+alias tree="tree -C"
 
 alias todo="cat ~/.todo 2>/dev/null"
 alias vitodo="gvim ~/.todo"
