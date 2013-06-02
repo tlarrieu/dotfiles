@@ -119,11 +119,8 @@ globalkeys = awful.util.table.join(globalkeys,
   --    "' -sf '" .. beautiful.fg_focus .. "'")
   --end),
   awful.key({ modkey          }, " ",           function ()
-    awful.util.spawn("dmenu_run -l 5 -i -p 'Run :'")
+    awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-bold-*-*-*-16-*-*-*-*-*-*-*'") -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
   end),
-  --awful.key({ modkey          }, " ",           function ()
-  --  awful.util.spawn("dmenu_run -l 5 -i -p 'Run :'" .. "")
-  --end),
 
   -- Session control
   awful.key({ modkey          }, "q",           function () awful.util.spawn("xfce4-session-logout")      end),
