@@ -52,7 +52,7 @@ clientkeys = awful.util.table.join(
     function (c)
       local id = (awful.tag.getidx(c:tags()[1]))
       if id == 1 then
-        id = 9
+        id = 4
       else
         id = id - 1
       end
@@ -64,7 +64,7 @@ clientkeys = awful.util.table.join(
   ),
   awful.key({ modkey, "Control"   }, "r",
     function (c)
-      local id = (awful.tag.getidx(c:tags()[1])) % 9 + 1
+      local id = (awful.tag.getidx(c:tags()[1])) % 4 + 1
       local screen = client.focus.screen
       awful.client.movetotag(tags[screen][id])
       awful.tag.viewonly(tags[screen][id])
