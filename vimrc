@@ -50,9 +50,6 @@ call pathogen#helptags()
 
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-" autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-" Automatically open nerdtree when starting buffer is empty
-" autocmd vimenter * if !argc() | NERDTree | endif
 
 " Color theme and font
 set background=dark
@@ -71,7 +68,6 @@ filetype indent plugin on
 set number
 
 " Blank character
-"set lcs=tab:\→\ ,eol:↵,trail:~,nbsp:¤,extends:>,precedes:<
 set lcs=tab:\→\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set list
 
@@ -116,14 +112,17 @@ set complete=slf
 " Visualbell
 set novisualbell
 
-" comportement le de la case lors de la recherche
+" case behavior regarding searching
 set ignorecase
 set smartcase
 
+" some more search related stuff
+set hlsearch  " highlight search
+set incsearch " start search while typing
+
+" current line / column highligh
 set cursorline
 set cursorcolumn
-set hlsearch
-set incsearch
 
 " ----- Powerline -----
 if ! has('gui_running')
