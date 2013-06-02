@@ -57,3 +57,6 @@ safelink $BASEDIR/mplayer $HOME/.mplayer
 
 # .vimperatorrc
 safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
+
+# .gitconfig
+safelink $BASEDIR/gitconfig $HOME/.gitconfig
