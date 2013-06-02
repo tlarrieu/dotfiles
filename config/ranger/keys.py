@@ -236,8 +236,8 @@ def insert_before_filename(arg):
 	command = 'rename ' + arg.fm.env.cf.basename
 	arg.fm.open_console(command, position=len('rename '))
 
-map('cw', fm.open_console('rename '))
-map('cd', fm.open_console('cd '))
+# map('cw', fm.open_console('rename '))
+# map('cd', fm.open_console('cd '))
 map('f', fm.open_console('find '))
 map('d<bg>', fm.hint('d*u* (disk usage) d*d* (cut)'))
 map('@', fm.open_console('shell  %s', position=len('shell ')))
@@ -277,11 +277,11 @@ map('/', fm.open_console('search '))
 map('n', fm.search())
 map('N', fm.search(forward=False))
 
-map('ct', fm.search(order='tag'))
-map('cc', fm.search(order='ctime'))
-map('cm', fm.search(order='mimetype'))
-map('cs', fm.search(order='size'))
-map('c<bg>', fm.hint('*c*time *m*imetype *s*ize *t*ag  *w*:rename'))
+# map('ct', fm.search(order='tag'))
+# map('cc', fm.search(order='ctime'))
+# map('cm', fm.search(order='mimetype'))
+# map('cs', fm.search(order='size'))
+# map('c<bg>', fm.hint('*c*time *m*imetype *s*ize *t*ag  *w*:rename'))
 
 # ------------------------------------------------------- bookmarks
 for key in ALLOWED_BOOKMARK_KEYS:
