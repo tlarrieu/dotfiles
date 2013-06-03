@@ -54,7 +54,7 @@ autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 " Color theme and font
 set background=dark
 colorscheme solarized
-set guifont=Inconsolata-dz\ For\ Powerline\ 11.5
+set guifont=Inconsolata\ For\ Powerline\ 15
 " 80 characters limit
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/

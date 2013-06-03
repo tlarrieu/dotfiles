@@ -31,7 +31,7 @@ theme.colors.green   = "#859900"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Terminus For Powerline Bold 10"
+theme.font      = "Inconsolata For Powerline Bold 14"
 
 -- {{{ Colors
 theme.fg_normal  = theme.colors.base02
