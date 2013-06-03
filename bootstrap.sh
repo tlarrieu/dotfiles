@@ -63,3 +63,6 @@ safelink $BASEDIR/gitconfig $HOME/.gitconfig
 
 # .zsh (utility functions for prezto theme
 safelink $BASEDIR/zsh $HOME/.zsh
+
+# fonts
+cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
