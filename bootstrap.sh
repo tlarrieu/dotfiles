@@ -60,3 +60,6 @@ safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
 # .gitconfig
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
+
+# .zsh (utility functions for prezto theme
+safelink $BASEDIR/zsh $HOME/.zsh
