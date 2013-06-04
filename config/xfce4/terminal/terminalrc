@@ -27,4 +27,5 @@ MiscHighlightUrls=TRUE
 MiscScrollAlternateScreen=TRUE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 TabActivityColor=#92133bc50000
+FontAllowBold=FALSE
 
