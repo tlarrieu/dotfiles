@@ -10,7 +10,7 @@ function get_short_path() {
 
 	# check to see if the prompt path length has been specified
 	if [ ! -n "$PWD_LENGTH" ]; then
-		export PWD_LENGTH=50
+		export PWD_LENGTH=30
 	fi
 
     if [ ${#LONG_PATH} -gt $PWD_LENGTH ]; then
