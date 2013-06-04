@@ -17,7 +17,7 @@ fi
 
 # Source for git
 if [[ -s "${ZDOTDIR:-$HOME}/.yadr/zsh/git.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.yadr/zsh/git.zsh"
+  source "${ZDOTDIR:-$HOME}/.zsh/git.zsh"
 fi
 
 export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
