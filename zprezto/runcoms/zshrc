@@ -42,9 +42,12 @@ alias preztorc="gvim ~/.zpreztorc"
 
 alias au="apt-get update"
 alias auu="apt-get upgrade"
+alias adu="apt-get dist-upgrade"
 alias ai="apt-get install"
 alias as="apt-cache search"
 alias ar="apt-get remove"
+alias aar="apt-get autoremove"
+
 alias yi="sudo yum install"
 alias yli="sudo yum localinstall"
 alias yu="sudo yum upgrade"
