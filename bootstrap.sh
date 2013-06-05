@@ -6,7 +6,8 @@ safelink()
 {
   target=$1
   link=$2
-  if [ -n $FORCE ]; then
+  if [ $FORCE ]; then
+    echo "test"
     rm $link -rf
     ln -s -P $target $link
   else
