@@ -65,4 +65,5 @@ safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/zsh $HOME/.zsh
 
 # fonts
+[[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
