@@ -121,9 +121,6 @@ let g:Powerline_symbols = 'fancy'
 " ------------------------------------------------------------ Keyboard mapping
 " Search highlighting toggle
 noremap h :set hlsearch! hlsearch?<CR>
-" {/} -> [ê]
-noremap ê /
-noremap à /
 " Line / Character movements
 " {cr} = « left / right »
 noremap c h
@@ -140,6 +137,10 @@ noremap i w
 noremap u ge
 " End of the word (backward)
 noremap a b
+" Beginning of the line
+noremap à ^
+" End of the line
+noremap f $
 " Center screen on current line
 noremap <Return> zz
 " Fast cursor movement
