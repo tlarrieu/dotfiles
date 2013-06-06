@@ -150,8 +150,12 @@ noremap u ge
 noremap a b
 " Beginning of the line
 noremap à ^
+" Beginning of the line, entering insert mode
+noremap À I
 " End of the line
 noremap f $
+" End of the line, entering insert mode
+noremap F A
 " Center screen on current line
 noremap <Return> zz
 " Fast cursor movement
@@ -160,8 +164,8 @@ map S 5s
 map R 5r
 map C 5c
 " Window movement
-map <c-S> <c-y>
-map <c-T> <c-e>
+map <c-S> <c-y> " up
+map <c-T> <c-e> " down
 " Mode switching
 noremap ' .
 " Enter command mode
