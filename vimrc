@@ -47,11 +47,13 @@ endf
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-filetype indent plugin on
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
 " -------------------------------------------------------------- Overall layout
 set nocompatible
-syntax on
-" Color theme and font
+" Color / background theme
 set background=dark
 colorscheme solarized
 " 120 characters limit
@@ -67,14 +69,21 @@ set showmatch
 " Encoding and filetype
 set encoding=utf8
 set ffs=unix,dos,mac
-" current line / column highligh
+" current line / column highlight
 set cursorline
 set cursorcolumn
 " Command completion style
 set wildmode=list:longest,list:full
+" Only complete to the GCD part of file name
+set wildmenu
 set complete=slf
 " Visualbell
 set novisualbell
+set noerrorbells
+" A buffer becomes hidden when it is abandoned
+set hid
+" Set title when in console
+set title
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
@@ -91,11 +100,13 @@ set foldlevel=100
 set fillchars=vert:\|,fold:\ 
 set foldminlines=2
 " ----------------------------------------------------------------- GUI options
-set guifont=Inconsolata\ For\ Powerline\ 15
-set guioptions+=ce
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
-set guioptions-=r  "remove right-hand scroll bar
+if has("gui_running")
+  set guifont=Inconsolata\ For\ Powerline\ 15
+  set guioptions+=ce
+  set guioptions-=m  "remove menu bar
+  set guioptions-=T  "remove toolbar
+  set guioptions-=r  "remove right-hand scroll bar
+endif
 " ------------------------------------------------------------------- Searching
 " case behavior regarding searching
 set ignorecase
@@ -162,7 +173,7 @@ noremap , i
 vnoremap , i
 " Enter insert mode (after cursor)
 noremap é a
-" Multiline comment
+" Multi-line comment
 noremap <C-c> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
 " Delete word and enter insert mode
