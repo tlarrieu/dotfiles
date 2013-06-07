@@ -57,9 +57,6 @@ set nocompatible
 " Color / background theme
 set background=dark
 colorscheme solarized
-" 120 characters limit
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%121v.\+/
 " Line numbering (relative to current line)
 set relativenumber
 " Blank character
