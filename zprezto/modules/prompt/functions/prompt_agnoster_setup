@@ -93,7 +93,7 @@ prompt_dir() {
   if [[ "`pwd`" == "/" ]]; then
     prompt_segment cyan black "/"
   else
-    prompt_segment cyan black `get_short_path | sed "s:/: $SOFT_SEPARATOR :g" | sed "s: $SOFT_SEPARATOR ::"`
+    prompt_segment cyan black `get_short_path | sed "s:/: $SOFT_SEPARATOR :g" | sed "s:^ $SOFT_SEPARATOR ::"`
   fi
 }
 
