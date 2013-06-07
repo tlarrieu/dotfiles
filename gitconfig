@@ -9,7 +9,6 @@
 	default = matching
 [core]
 	editor = vim
-	pager = /usr/share/vim/vim73/macros/less.sh
 [alias]
 	clog = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	co = checkout
