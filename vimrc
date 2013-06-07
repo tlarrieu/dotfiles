@@ -150,25 +150,24 @@ vmap <leader>< k<><esc>P`]r
 vmap <leader>' k''<esc>P`]r
 vmap <leader>( k()<esc>P`]r
 vmap <leader>[ k[]<esc>P`]r
-" We need "delete and insert" mode
-noremap k c
-" Search highlighting toggle
-noremap h :set hlsearch! hlsearch?<CR>
-" Line / Character movements
-" {cr} = « left / right »
+" Delete word and enter insert mode
+noremap <leader>d viwc
+" ---------------------------------------- Movement
+" left
 noremap c h
+" right
 noremap r l
-" {ts} = « up / down »
-" Navigates through visual lines instead of normal lines
+" down (visual line)
 noremap t gj
+" up (visual line)
 noremap s gk
 " Cancel last action
 noremap b u
 " Beginning of the word (forward)
 noremap i w
-" Beginning of the word (backward)
-noremap u ge
 " End of the word (backward)
+noremap u ge
+" Beginning of the word (backward)
 noremap a b
 " Beginning of the line
 noremap à ^
@@ -188,7 +187,10 @@ map C 5c
 " Window movement
 noremap <c-S> <c-y> " up
 noremap <c-T> <c-e> " down
-" Mode switching
+" Insert new line after current one
+" without breaking it
+imap <C-CR> <Esc>o
+" ---------------------------------- Mode Switching
 noremap ' .
 " Enter command mode
 noremap . :
@@ -199,15 +201,15 @@ nnoremap , i
 vnoremap , i
 " Enter insert mode (after cursor)
 noremap é a
+" Change mode
+noremap k c
+" ---------------------------------------- Togglers
 " Multi-line comment
 noremap <C-c> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
-" Delete word and enter insert mode
-noremap DD viwc
-" Insert new line after current one without breaking it
-imap <C-CR> <Esc>o
-" Custom function mapping
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
 noremap <space> :call ToggleFold()<CR>
+" Search highlighting toggle
+noremap h :set hlsearch! hlsearch?<CR>

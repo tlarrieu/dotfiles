@@ -9,6 +9,7 @@
 	default = matching
 [core]
 	editor = vim
+	pager = less -F -X
 [alias]
 	clog = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	co = checkout
