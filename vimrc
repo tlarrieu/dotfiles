@@ -51,7 +51,8 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
-" -------------------------------------------------------------- Overall layout
+" -------------------------------------------------------------- General options
+" Disable the ugly vi compatibility
 set nocompatible
 " Color / background theme
 set background=dark
@@ -59,8 +60,8 @@ colorscheme solarized
 " 120 characters limit
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%121v.\+/
-" Line numbering
-set number
+" Line numbering (relative to current line)
+set relativenumber
 " Blank character
 set lcs=tab:\→\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set list
@@ -84,6 +85,8 @@ set noerrorbells
 set hid
 " Set title when in console
 set title
+" Activate undofile, that holds undo history
+set undofile
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
@@ -131,6 +134,24 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
 " ------------------------------------------------------------ Keyboard mapping
+let mapleader = "ç" " remapping leader (this is basically the same position as
+                    " "\" on qwerty
+" A buttload of delimiters insertion around current word (normal mode) or selection
+" (visual mode) through leader (this only works
+" with my bindings since I remapped "k" for "c" and "é" for "a"
+" shall do the trick)
+map <leader>" DD""<esc>P`]r
+map <leader>< DD<><esc>P`]r
+map <leader>' DD''<esc>P`]r
+map <leader>( DD()<esc>P`]r
+map <leader>[ DD[]<esc>P`]r
+vmap <leader>" k""<esc>P`]r
+vmap <leader>< k<><esc>P`]r
+vmap <leader>' k''<esc>P`]r
+vmap <leader>( k()<esc>P`]r
+vmap <leader>[ k[]<esc>P`]r
+" We need "delete and insert" mode
+noremap k c
 " Search highlighting toggle
 noremap h :set hlsearch! hlsearch?<CR>
 " Line / Character movements
@@ -165,8 +186,8 @@ map S 5s
 map R 5r
 map C 5c
 " Window movement
-map <c-S> <c-y> " up
-map <c-T> <c-e> " down
+noremap <c-S> <c-y> " up
+noremap <c-T> <c-e> " down
 " Mode switching
 noremap ' .
 " Enter command mode
@@ -174,7 +195,7 @@ noremap . :
 " Exit insert mode
 imap .' <esc>
 " Enter insert mode (before cursor)
-noremap , i
+nnoremap , i
 vnoremap , i
 " Enter insert mode (after cursor)
 noremap é a
@@ -183,7 +204,7 @@ noremap <C-c> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
 " Delete word and enter insert mode
 noremap DD viwc
-" Ruby block finisher
+" Insert new line after current one without breaking it
 imap <C-CR> <Esc>o
 " Custom function mapping
 " Smart completion
