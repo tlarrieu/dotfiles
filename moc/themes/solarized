@@ -1,5 +1,5 @@
 background           = white    black
-frame                = white    black  bold
+frame                = blue    black  bold
 window_title         = blue     black
 directory            = blue     black  bold
 selected_directory   = blue     black  reverse
