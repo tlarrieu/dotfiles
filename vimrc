@@ -51,6 +51,14 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType ruby set omnifunc=rubycomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
 set nocompatible
@@ -137,11 +145,11 @@ let mapleader = "ç" " remapping leader (this is basically the same position as
 " (visual mode) through leader (this only works
 " with my bindings since I remapped "k" for "c" and "é" for "a"
 " shall do the trick)
-map <leader>" DD""<esc>P`]r
-map <leader>< DD<><esc>P`]r
-map <leader>' DD''<esc>P`]r
-map <leader>( DD()<esc>P`]r
-map <leader>[ DD[]<esc>P`]r
+map <leader>" <leader>d""<esc>P`]r
+map <leader>< <leader>d<><esc>P`]r
+map <leader>' <leader>d''<esc>P`]r
+map <leader>( <leader>d()<esc>P`]r
+map <leader>[ <leader>d[]<esc>P`]r
 vmap <leader>" k""<esc>P`]r
 vmap <leader>< k<><esc>P`]r
 vmap <leader>' k''<esc>P`]r
@@ -186,13 +194,13 @@ noremap <c-S> <c-y> " up
 noremap <c-T> <c-e> " down
 " Insert new line after current one
 " without breaking it
-imap <C-CR> <Esc>o
+inoremap <C-CR> <Esc>o
 " ---------------------------------- Mode Switching
 noremap ' .
 " Enter command mode
 noremap . :
 " Exit insert mode
-imap .' <esc>
+inoremap .' <esc>
 " Enter insert mode (before cursor)
 nnoremap , i
 vnoremap , i
