@@ -68,7 +68,7 @@ colorscheme solarized
 " Line numbering (relative to current line)
 set relativenumber
 " Blank character
-set lcs=tab:\→\ ,trail:~,nbsp:¤,extends:>,precedes:<
+set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set list
 " Show matching braces
 set showmatch
