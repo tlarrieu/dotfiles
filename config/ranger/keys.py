@@ -188,7 +188,7 @@ map('ud', 'uy', fm.uncut())
 
 # ---------------------------------------------------- run programs
 map('S', fm.execute_command(os.environ['SHELL']))
-map('E', fm.edit_file())
+map('e', fm.edit_file())
 map('du', fm.execute_console('shell -p du --max-depth=1 -h --apparent-size'))
 
 # -------------------------------------------------- toggle options
@@ -226,7 +226,7 @@ map('or', 'Or', 'oR', 'OR', lambda arg: \
 		arg.fm.sort(reverse=not arg.fm.settings.sort_reverse))
 
 # ----------------------------------------------- console shortcuts
-@map("A")
+@map("A", "é")
 def append_to_filename(arg):
 	command = 'rename ' + arg.fm.env.cf.basename
 	arg.fm.open_console(command)
@@ -236,7 +236,7 @@ def insert_before_filename(arg):
 	command = 'rename ' + arg.fm.env.cf.basename
 	arg.fm.open_console(command, position=len('rename '))
 
-# map('cw', fm.open_console('rename '))
+map(',', fm.open_console('rename '))
 # map('cd', fm.open_console('cd '))
 map('f', fm.open_console('find '))
 map('d<bg>', fm.hint('d*u* (disk usage) d*d* (cut)'))
@@ -336,7 +336,7 @@ map('<space>', wdg.move(down=0.8, pages=True))
 map('<cr>', wdg.move(down=1))
 
 # ---------------------------------------------------------- others
-map('E', fm.edit_file())
+map('e', fm.edit_file())
 map('?', fm.display_help())
 
 # --------------------------------------------------- bind the keys

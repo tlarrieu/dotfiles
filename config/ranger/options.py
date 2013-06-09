@@ -75,7 +75,7 @@ draw_bookmark_borders = True
 dirname_in_tabs = False
 
 # How many columns are there, and what are their relative widths?
-column_ratios = (1, 1, 4, 3)
+column_ratios = (1, 3, 4)
 
 # Enable the mouse support?
 mouse_enabled = True
