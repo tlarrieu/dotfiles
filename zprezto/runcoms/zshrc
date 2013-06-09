@@ -16,7 +16,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zsh/get-short-path.zsh" ]]; then
 fi
 
 # Source for git
-if [[ -s "${ZDOTDIR:-$HOME}/.yadr/zsh/git.zsh" ]]; then
+if [[ -s "${ZDOTDIR:-$HOME}/.zsh/git.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zsh/git.zsh"
 fi
 
