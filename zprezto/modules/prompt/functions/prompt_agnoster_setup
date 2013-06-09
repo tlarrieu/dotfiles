@@ -53,7 +53,8 @@ prompt_end() {
     echo -n $br
     echo -n "%{%f%}"
     [[ -n $VIRTUAL_ENV ]] && echo -n "(${VIRTUAL_ENV:t}) "
-    echo "$(__my_rvm_ruby_version)❯"
+    # echo "$(__my_rvm_ruby_version)❯"
+    echo "❯"
   else
     echo -n "%{%k%}"
   fi
