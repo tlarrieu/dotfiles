@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
 [[ "$1" == "-f" ]] && FORCE=true
 
@@ -58,8 +58,10 @@ safelink $BASEDIR/mplayer $HOME/.mplayer
 # .vimperatorrc
 safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
-# .gitconfig
+# .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
+safelink $BASEDIR/gitignore $HOME/.gitignore
+
 
 # .zsh (utility functions for prezto theme
 safelink $BASEDIR/zsh $HOME/.zsh
