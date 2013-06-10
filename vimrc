@@ -92,6 +92,8 @@ set hid
 set title
 " Activate undofile, that holds undo history
 set undofile
+" Give backspace a reasonable behavior
+set backspace=indent,eol,start
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
