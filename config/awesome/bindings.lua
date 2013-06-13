@@ -38,40 +38,6 @@ globalkeys = awful.util.table.join(
   awful.key({ "Control", "Shift"}, "r",  awesome.restart                                  )
 )
 
---[[ Client Keys ]]----------------
-clientkeys = awful.util.table.join(
-  -- Fullscreen
-  awful.key({ modkey,           },   "f", function (c) c.fullscreen = not c.fullscreen end),
-  -- On Top
-  awful.key({ modkey,           },   "h", function (c) c.ontop = not c.ontop           end),
-  -- Kill
-  awful.key({ modkey,           },   "w", function (c) c:kill()                        end),
-  awful.key({ modkey, "Control"   }, "w", function (c) awful.util.spawn("xkill")       end),
-  -- Moving client arounds
-  awful.key({ modkey, "Control" },   "c",
-    function (c)
-      local id = (awful.tag.getidx(c:tags()[1]))
-      if id == 1 then
-        id = 4
-      else
-        id = id - 1
-      end
-      local screen = client.focus.screen
-      awful.client.movetotag(tags[screen][id])
-      awful.tag.viewonly(tags[screen][id])
-    end
-
-  ),
-  awful.key({ modkey, "Control"   }, "r",
-    function (c)
-      local id = (awful.tag.getidx(c:tags()[1])) % 4 + 1
-      local screen = client.focus.screen
-      awful.client.movetotag(tags[screen][id])
-      awful.tag.viewonly(tags[screen][id])
-    end
-  )
-)
-
 --[[ Workspace handling ]]----------------
 -- Compute the maximum number of digit we need, limited to 9
 keynumber = 0
@@ -97,6 +63,41 @@ for i = 1, keynumber do
     )
   )
 end
+
+--[[ Client Keys ]]----------------
+clientkeys = awful.util.table.join(
+  -- Fullscreen
+  awful.key({ modkey,           },   "f", function (c) c.fullscreen = not c.fullscreen end),
+  -- On Top
+  awful.key({ modkey,           },   "h", function (c) c.ontop = not c.ontop           end),
+  -- Kill
+  awful.key({ modkey,           },   "w", function (c) c:kill()                        end),
+  awful.key({ modkey, "Control"   }, "w", function (c) awful.util.spawn("xkill")       end),
+  -- Moving client arounds
+  awful.key({ modkey, "Control" },   "c",
+    function (c)
+      local id = (awful.tag.getidx(c:tags()[1]))
+      if id == 1 then
+        id = keynumber
+      else
+        id = id - 1
+      end
+      local screen = client.focus.screen
+      awful.client.movetotag(tags[screen][id])
+      awful.tag.viewonly(tags[screen][id])
+    end
+
+  ),
+  awful.key({ modkey, "Control"   }, "r",
+    function (c)
+      local id = (awful.tag.getidx(c:tags()[1])) % keynumber + 1
+      local screen = client.focus.screen
+      awful.client.movetotag(tags[screen][id])
+      awful.tag.viewonly(tags[screen][id])
+    end
+  )
+)
+
 
 --[[ Client mouse manipulation ]]----------------
 clientbuttons = awful.util.table.join(

@@ -8,6 +8,9 @@ layouts =
     awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
     awful.layout.suit.tile.top,
+    awful.layout.suit.magnifier,
+    awful.layout.suit.fair,
+    awful.layout.suit.fair.horizontal
 }
 -- }}}
 
@@ -16,8 +19,8 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    --tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
-    tags[s] = awful.tag({ "♥", "♠", "♦", "♣" }, s, layouts[1])
+    tags[s] = awful.tag({ "⚀", "⚁", "⚂", "⚃", "⚄", "⚅" }, s, layouts[1])
+
 
 end
 -- }}}
