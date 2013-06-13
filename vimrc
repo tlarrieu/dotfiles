@@ -159,6 +159,10 @@ vmap <leader>< k<><esc>P`]r
 vmap <leader>' k''<esc>P`]r
 vmap <leader>( k()<esc>P`]r
 vmap <leader>[ k[]<esc>P`]r
+
+map <leader>, :buf 
+map <leader>a :bp<cr>
+map <leader>e :bn<cr>
 " Delete word and enter insert mode
 noremap <leader>d viwc
 " ---------------------------------------- Movement

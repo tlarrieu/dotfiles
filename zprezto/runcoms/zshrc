@@ -29,9 +29,7 @@ export GTK_IM_MODULE=xim
 export GEDITOR=gvim
 export EDITOR=gvim
 
-### Custom part
 alias apt-get="sudo apt-get"
-alias gvim="gvim -p"
 alias dpkg="sudo dpkg"
 alias dpkg-reconfigure="sudo dpkg-reconfigure"
 
@@ -53,8 +51,6 @@ alias yli="sudo yum localinstall"
 alias yu="sudo yum upgrade"
 alias yr="sudo yum remove"
 alias ys="yum search"
-
-alias pip="sudo python-pip"
 
 alias ccat="pygmentize -g"
 alias tree="tree -C"
