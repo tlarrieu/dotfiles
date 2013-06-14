@@ -67,14 +67,14 @@ end
 --[[ Client Keys ]]----------------
 clientkeys = awful.util.table.join(
   -- Fullscreen
-  awful.key({ modkey,           },   "f", function (c) c.fullscreen = not c.fullscreen end),
+  awful.key({ modkey,           }, "f", function (c) c.fullscreen = not c.fullscreen end),
   -- On Top
-  awful.key({ modkey,           },   "h", function (c) c.ontop = not c.ontop           end),
+  awful.key({ modkey,           }, "h", function (c) c.ontop = not c.ontop           end),
   -- Kill
-  awful.key({ modkey,           },   "w", function (c) c:kill()                        end),
-  awful.key({ modkey, "Control"   }, "w", function (c) awful.util.spawn("xkill")       end),
+  awful.key({ modkey,           }, "w", function (c) c:kill()                        end),
+  awful.key({ modkey, "Control" }, "w", function (c) awful.util.spawn("xkill")       end),
   -- Moving client arounds
-  awful.key({ modkey, "Control" },   "c",
+  awful.key({ modkey, "Control" }, "c",
     function (c)
       local id = (awful.tag.getidx(c:tags()[1]))
       if id == 1 then
@@ -88,7 +88,7 @@ clientkeys = awful.util.table.join(
     end
 
   ),
-  awful.key({ modkey, "Control"   }, "r",
+  awful.key({ modkey, "Control" }, "r",
     function (c)
       local id = (awful.tag.getidx(c:tags()[1])) % keynumber + 1
       local screen = client.focus.screen
@@ -98,16 +98,14 @@ clientkeys = awful.util.table.join(
   )
 )
 
-
 --[[ Client mouse manipulation ]]----------------
 clientbuttons = awful.util.table.join(
-  awful.button({        }, 1, function (c) client.focus = c; c:raise() end),
-  awful.button({ modkey }, 1, awful.mouse.client.move                     ),
-  awful.button({ modkey }, 3, awful.mouse.client.resize                   ),
-  awful.button({ modkey }, 4, awful.tag.viewnext                          ),
-  awful.button({ modkey }, 5, awful.tag.viewprev                          )
+  awful.button({                }, 1, function (c) client.focus = c; c:raise() end),
+  awful.button({ modkey         }, 1, awful.mouse.client.move                     ),
+  awful.button({ modkey         }, 3, awful.mouse.client.resize                   ),
+  awful.button({ modkey         }, 4, awful.tag.viewnext                          ),
+  awful.button({ modkey         }, 5, awful.tag.viewprev                          )
 )
-
 
 --[[ Program bindings ]]----------------
 globalkeys = awful.util.table.join(globalkeys,
@@ -119,32 +117,33 @@ globalkeys = awful.util.table.join(globalkeys,
   --    "' -sb '" .. beautiful.bg_focus ..
   --    "' -sf '" .. beautiful.fg_focus .. "'")
   --end),
-  awful.key({ modkey          }, " ",           function ()
-    awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*'") -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
+  awful.key({ modkey            }, " ",           function ()
+    -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
+    awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-bold-*-*-*-18-*-*-*-*-*-*-*'")
   end),
 
   -- Session control
-  awful.key({ modkey          }, "q",           function () awful.util.spawn("xfce4-session-logout")      end),
+  awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")      end),
   -- XFCE4 properties
-  awful.key({ modkey          }, "b",           function () awful.util.spawn("xfce4-settings-manager")    end),
+  awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")    end),
   -- Media player controls
-  awful.key({                 }, "Print",       function () awful.util.spawn("mocp --previous")           end),
-  awful.key({                 }, "F10",         function () awful.util.spawn("mocp --previous")           end),
-  awful.key({                 }, "Scroll_Lock", function () awful.util.spawn("mocp --toggle-pause")       end),
-  awful.key({                 }, "F11",         function () awful.util.spawn("mocp --toggle-pause")       end),
-  awful.key({                 }, "Pause",       function () awful.util.spawn("mocp --next")               end),
-  awful.key({                 }, "F12",         function () awful.util.spawn("mocp --next")               end),
+  awful.key({                   }, "Print",       function () awful.util.spawn("mocp --previous")           end),
+  awful.key({                   }, "F10",         function () awful.util.spawn("mocp --previous")           end),
+  awful.key({                   }, "Scroll_Lock", function () awful.util.spawn("mocp --toggle-pause")       end),
+  awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")       end),
+  awful.key({                   }, "Pause",       function () awful.util.spawn("mocp --next")               end),
+  awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")               end),
 
-  awful.key({ modkey          }, ",",           function () awful.util.spawn("luakit")                    end),
-  awful.key({ modkey          }, "u",           function () awful.util.spawn("/home/smockey/bin/sublime") end),
-  awful.key({ modkey          }, "i",           function () awful.util.spawn(terminal .. "-x ranger") end),
+  awful.key({ modkey            }, ",",           function () awful.util.spawn("luakit")                    end),
+  awful.key({ modkey            }, "u",           function () awful.util.spawn("/home/smockey/bin/sublime") end),
+  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal .. "-x ranger")     end),
 
-  awful.key({ modkey          }, "m",           function () awful.util.spawn(terminal .. "-x mocp")        end),
-  awful.key({ modkey          }, "a",           function () awful.util.spawn(terminal .. "-x alsamixer")   end),
+  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal .. "-x mocp")       end),
+  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal .. "-x alsamixer")  end),
 
-  awful.key({ modkey          }, "Return",      function () awful.util.spawn(terminal)                end),
-  awful.key({ modkey, "Shift" }, "Return",      function () awful.util.spawn("gksu" .. terminal)           end),
-  awful.key({ "Control"       }, "F12",         function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/Screenshots/'")       end)
+  awful.key({ modkey            }, "Return",      function () awful.util.spawn(terminal)                    end),
+  awful.key({ modkey, "Shift"   }, "Return",      function () awful.util.spawn("gksu" .. terminal)          end),
+  awful.key({ "Control"         }, "F12",         function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/Screenshots/'") end)
 )
 
 -- Set keys

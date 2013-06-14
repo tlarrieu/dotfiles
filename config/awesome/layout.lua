@@ -4,13 +4,13 @@ beautiful.init("/home/smockey/.config/awesome/themes/awesome-solarized/dark/them
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {
-    awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
-    awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
-    awful.layout.suit.magnifier,
-    awful.layout.suit.fair,
-    awful.layout.suit.fair.horizontal
+  awful.layout.suit.tile,
+  awful.layout.suit.tile.left,
+  awful.layout.suit.tile.bottom,
+  awful.layout.suit.tile.top,
+  awful.layout.suit.magnifier,
+  awful.layout.suit.fair,
+  awful.layout.suit.fair.horizontal
 }
 -- }}}
 
@@ -18,30 +18,20 @@ layouts =
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
-    -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "⚀", "⚁", "⚂", "⚃", "⚄", "⚅" }, s, layouts[1])
-
-
+  -- Each screen has its own tag table.
+  tags[s] = awful.tag({ "⚀", "⚁", "⚂", "⚃", "⚄", "⚅" }, s, layouts[1])
 end
 -- }}}
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
 myawesomemenu = {
-   --{ "manual", terminal .. " -e man awesome" },
-   --{ "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "restart", awesome.restart },
-   { "quit", awesome.quit }
+ { "restart", awesome.restart },
+ { "quit"   , awesome.quit    }
 }
 
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    --{ "Debian", debian.menu.Debian_menu.Debian },
-                                    --{ "open terminal", terminal }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
-                                     menu = mymainmenu })
+mymainmenu = awful.menu({ items = {{ "awesome", myawesomemenu, beautiful.awesome_icon }}})
+mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
@@ -57,37 +47,37 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
-                    awful.button({ }, 1, awful.tag.viewonly),
-                    awful.button({ modkey }, 1, awful.client.movetotag),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, awful.client.toggletag),
-                    awful.button({ }, 4, awful.tag.viewnext),
-                    awful.button({ }, 5, awful.tag.viewprev)
+                      awful.button({        }, 1, awful.tag.viewonly),
+                      awful.button({ modkey }, 1, awful.client.movetotag),
+                      awful.button({        }, 3, awful.tag.viewtoggle),
+                      awful.button({ modkey }, 3, awful.client.toggletag),
+                      awful.button({        }, 4, awful.tag.viewnext),
+                      awful.button({        }, 5, awful.tag.viewprev)
                     )
 mytasklist = {}
 mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
-                                              if not c:isvisible() then
-                                                  awful.tag.viewonly(c:tags()[1])
-                                              end
-                                              client.focus = c
-                                              c:raise()
+                                            if not c:isvisible() then
+                                              awful.tag.viewonly(c:tags()[1])
+                                            end
+                                            client.focus = c
+                                            c:raise()
                                           end),
                      awful.button({ }, 3, function ()
-                                              if instance then
-                                                  instance:hide()
-                                                  instance = nil
-                                              else
-                                                  instance = awful.menu.clients({ width=250 })
-                                              end
+                                            if instance then
+                                              instance:hide()
+                                              instance = nil
+                                            else
+                                              instance = awful.menu.clients({ width=250 })
+                                            end
                                           end),
                      awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                              if client.focus then client.focus:raise() end
+                                            awful.client.focus.byidx(1)
+                                            if client.focus then client.focus:raise() end
                                           end),
                      awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                              if client.focus then client.focus:raise() end
+                                            awful.client.focus.byidx(-1)
+                                            if client.focus then client.focus:raise() end
                                           end))
 
 for s = 1, screen.count() do
@@ -106,7 +96,7 @@ for s = 1, screen.count() do
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(function(c)
-                                              return awful.widget.tasklist.label.currenttags(c, s)
+                                            return awful.widget.tasklist.label.currenttags(c, s)
                                           end, mytasklist.buttons)
 
     -- Create the wibox
@@ -114,10 +104,10 @@ for s = 1, screen.count() do
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
-            mylauncher,
-            mytaglist[s],
-            mypromptbox[s],
-            layout = awful.widget.layout.horizontal.leftright
+          mylauncher,
+          mytaglist[s],
+          mypromptbox[s],
+          layout = awful.widget.layout.horizontal.leftright
         },
         mylayoutbox[s],
         mytextclock,
