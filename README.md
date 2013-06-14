@@ -50,13 +50,15 @@ Supported applications
 - moc
 - mplayer
 - vimperator (firefox plugin)
+- stylish (firefox plugin) : *stylish.sqlite does not get linked properly by install script.
+You have to manually copy it in your profile directory (~/.mozilla/firefox/\<profile\>/)*
 - luakit
 - zsh / prezto
 - xfce4-terminal (Terminal)
 - zathura
-- Firefox : *userchrome is the only file that does not get
+- Firefox : *userchrome.css does not get
 linked properly by install script. You have to manually copy it
-in your profile repository (~/.mozilla/firefox/\<profile\>/chrome/)*
+in your profile directory (~/.mozilla/firefox/\<profile\>/chrome/)*
 
 Some might be added, depending on my personnal needs.
 
