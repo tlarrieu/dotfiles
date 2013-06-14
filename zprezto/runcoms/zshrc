@@ -55,6 +55,7 @@ alias ys="yum search"
 alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias wee="weechat-curses"
+alias a="atool"
 
 alias todo="cat ~/.todo 2>/dev/null"
 alias vitodo="gvim ~/.todo"

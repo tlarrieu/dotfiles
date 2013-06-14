@@ -17,9 +17,9 @@ function! ToggleFold()
     normal! l
   else
     if foldclosed('.') < 0
-       . foldclose
+      . foldclose
     else
-       . foldopen
+      . foldopen
     endif
   endif
   echo
@@ -113,7 +113,7 @@ set fillchars=vert:\|,fold:\
 set foldminlines=2
 " ----------------------------------------------------------------- GUI options
 if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 15
+  set guifont=Inconsolata\ For\ Powerline\ 13.6
   set guioptions+=ce
   set guioptions-=m  "remove menu bar
   set guioptions-=T  "remove toolbar
