@@ -96,6 +96,8 @@ set title
 set undofile
 " Give backspace a reasonable behavior
 set backspace=indent,eol,start
+set splitright
+set splitbelow
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
@@ -166,14 +168,17 @@ map <leader>e :bn<cr>
 " Delete word and enter insert mode
 noremap <leader>d viwc
 " ---------------------------------------- Movement
-" left
+" left / right / down (visual line) / up (visual line)
 noremap c h
-" right
 noremap r l
-" down (visual line)
 noremap t gj
-" up (visual line)
 noremap s gk
+" navigating between splits
+noremap <up> <C-w>k
+noremap <down> <C-w>j
+noremap <left> <C-w>h
+noremap <right> <C-w>l
+nnoremap <tab> <C-w>w
 " Cancel last action
 noremap b u
 " Beginning of the word (forward)
