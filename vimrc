@@ -203,6 +203,9 @@ noremap <c-T> <c-e> " down
 " Insert new line after current one
 " without breaking it
 inoremap <C-CR> <Esc>o
+" Gathering selected lines (or current one if none selected)
+" in one line
+noremap <C-l> J
 " ---------------------------------- Mode Switching
 noremap ' .
 " Enter command mode
