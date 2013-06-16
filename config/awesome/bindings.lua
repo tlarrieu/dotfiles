@@ -129,11 +129,8 @@ globalkeys = awful.util.table.join(globalkeys,
   -- XFCE4 properties
   awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")    end),
   -- Media player controls
-  awful.key({                   }, "Print",       function () awful.util.spawn("mocp --previous")           end),
   awful.key({                   }, "F10",         function () awful.util.spawn("mocp --previous")           end),
-  awful.key({                   }, "Scroll_Lock", function () awful.util.spawn("mocp --toggle-pause")       end),
   awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")       end),
-  awful.key({                   }, "Pause",       function () awful.util.spawn("mocp --next")               end),
   awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")               end),
 
   awful.key({ modkey            }, ",",           function () awful.util.spawn("jumanji")                    end),
