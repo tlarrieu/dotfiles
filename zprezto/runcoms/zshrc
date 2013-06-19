@@ -24,6 +24,7 @@ export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/s
 export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$PATH:$HOME/bin/ADT/sdk/tools:$HOME/bin/ADT/sdk/platform-tools # Android SDK path
+export PATH=$PATH:/usr/local/heroku/bin
 
 export GTK_IM_MODULE=xim
 export GEDITOR=gvim
