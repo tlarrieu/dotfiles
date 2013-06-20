@@ -83,6 +83,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 autocmd WinLeave * set nocursorline
 autocmd WinEnter * set cursorline
+"Go to the cursor position before buffer was closed
+autocmd BufReadPost * normal g'"
 
 au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
@@ -196,7 +198,7 @@ noremap <leader>d viwc
 
 map <leader>s :silent Shell 
 map <leader>S :Shell 
-noremap <C-n> :silent Shell pylint %<cr>
+noremap <leader>m :silent Shell pylint %<cr>
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
 noremap c h
@@ -208,7 +210,7 @@ noremap <up> <C-w>k
 noremap <down> <C-w>j
 noremap <left> <C-w>h
 noremap <right> <C-w>l
-nnoremap <tab> <C-w>w
+" nnoremap <tab> <C-w>w
 " Cancel last action
 noremap b u
 " Beginning of the word (forward)
@@ -235,6 +237,9 @@ map C 5c
 " Window movement
 noremap <c-S> <c-y> " up
 noremap <c-T> <c-e> " down
+" move current line up or down
+noremap <c-up> :m-2<cr>
+noremap <c-down> :m+<cr>
 " Insert new line after current one
 " without breaking it
 inoremap <C-CR> <Esc>o
@@ -242,8 +247,11 @@ inoremap <C-CR> <Esc>o
 " in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
-vnoremap < <gv
-vnoremap > >gv
+nnoremap <Tab> >>_
+nnoremap <S-Tab> <<_
+inoremap <S-Tab> <C-D>
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
 " ---------------------------------- Mode Switching
 noremap ' .
 " Enter command mode
