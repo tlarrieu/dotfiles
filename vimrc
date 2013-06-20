@@ -220,6 +220,9 @@ noremap <leader>t :new ~/.todo<cr>
 
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gd :Gdiff<cr>
+noremap <leader>gw :Gwrite<cr>
+noremap <leader>gr :Gread<cr>
+noremap <leader>gc :Gcommit<cr>
 noremap <leader>gl :silent Shell git log<cr>
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
