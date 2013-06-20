@@ -44,6 +44,27 @@ function! Smart_Complete()
     return "\<C-X>\<C-O>"                     " plugin matching
   endif
 endf
+
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
+
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -156,17 +177,23 @@ map <leader>< <leader>d<><esc>P`]r
 map <leader>' <leader>d''<esc>P`]r
 map <leader>( <leader>d()<esc>P`]r
 map <leader>[ <leader>d[]<esc>P`]r
-vmap <leader>" k""<esc>P`]r
-vmap <leader>< k<><esc>P`]r
-vmap <leader>' k''<esc>P`]r
-vmap <leader>( k()<esc>P`]r
-vmap <leader>[ k[]<esc>P`]r
+vmap <leader>" "zd,"<C-R>z"<Esc>
+vmap <leader>< "zd,<<C-R>z><Esc>
+vmap <leader>' "zd,'<C-R>z'<Esc>
+vmap <leader>( "zd,(<C-R>z)<Esc>
+vmap <leader>[ "zd,[<C-R>z]<Esc>
 
 map <leader>, :buf 
 map <leader>a :bp<cr>
 map <leader>e :bn<cr>
+nmap <leader>é v,w
 " Delete word and enter insert mode
 noremap <leader>d viwc
+
+
+map <leader>s :silent Shell 
+map <leader>S :Shell 
+noremap <C-n> :silent Shell pylint %<cr>
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
 noremap c h
@@ -211,6 +238,9 @@ inoremap <C-CR> <Esc>o
 " Gathering selected lines (or current one if none selected)
 " in one line
 noremap <C-l> J
+" visual shifting (builtin-repeat)
+vnoremap < <gv
+vnoremap > >gv
 " ---------------------------------- Mode Switching
 noremap ' .
 " Enter command mode
