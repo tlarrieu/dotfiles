@@ -45,6 +45,9 @@ function! Smart_Complete()
   endif
 endf
 
+" This is a really handy function!
+" Basically, the Shell command will prompt the result of any out command
+" into a new split.
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
   echo a:cmdline
@@ -72,6 +75,7 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
+" A few completion related stuff
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -81,8 +85,13 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+" Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
+autocmd WinLeave * set nocursorcolumn
 autocmd WinEnter * set cursorline
+autocmd WinEnter * set cursorcolumn
+" Automatically goes to the directory where the edited file is located
+autocmd BufEnter * lcd %:p:h
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 
@@ -171,34 +180,41 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
 " ------------------------------------------------------------ Keyboard mapping
-let mapleader = "ç" " remapping leader (this is basically the same position as
+let mapleader = "," " remapping leader (this is basically the same position as
                     " "\" on qwerty
 " A buttload of delimiters insertion around current word (normal mode) or selection
 " (visual mode) through leader (this only works
 " with my bindings since I remapped "k" for "c" and "é" for "a"
 " shall do the trick)
-map <leader>" <leader>d""<esc>P`]r
-map <leader>< <leader>d<><esc>P`]r
-map <leader>' <leader>d''<esc>P`]r
-map <leader>( <leader>d()<esc>P`]r
-map <leader>[ <leader>d[]<esc>P`]r
-vmap <leader>" "zd,"<C-R>z"<Esc>
-vmap <leader>< "zd,<<C-R>z><Esc>
-vmap <leader>' "zd,'<C-R>z'<Esc>
-vmap <leader>( "zd,(<C-R>z)<Esc>
-vmap <leader>[ "zd,[<C-R>z]<Esc>
+map  <leader>" <leader>d""<esc>P`]r
+map  <leader>< <leader>d<><esc>P`]r
+map  <leader>' <leader>d''<esc>P`]r
+map  <leader>( <leader>d()<esc>P`]r
+map  <leader>[ <leader>d[]<esc>P`]r
+vmap <leader>" "zdi"<C-R>z"<Esc>
+vmap <leader>< "zdi<<C-R>z><Esc>
+vmap <leader>' "zdi'<C-R>z'<Esc>
+vmap <leader>( "zdi(<C-R>z)<Esc>
+vmap <leader>[ "zdi[<C-R>z]<Esc>
 
-map <leader>, :buf 
-map <leader>a :bp<cr>
-map <leader>e :bn<cr>
-nmap <leader>é v,w
+map  <leader>b <c-w>
+map  <leader>, :buf 
+map  <leader>a :bp<cr>
+map  <leader>e :bn<cr>
+nmap <leader>é viw
 " Delete word and enter insert mode
 noremap <leader>d viwc
 
+noremap  <leader>y "+yy
+vnoremap <leader>y "+y
+noremap  <leader>p "+p
 
-map <leader>s :silent Shell 
-map <leader>S :Shell 
+map     <leader>s :silent Shell 
+map     <leader>S :Shell 
 noremap <leader>m :silent Shell pylint %<cr>
+
+" Basically, this is just a shortcut to pop my todo list
+noremap <leader>t :new ~/.todo<cr>
 
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gl :silent Shell git log<cr>
@@ -213,13 +229,6 @@ noremap <up> <C-w>k
 noremap <down> <C-w>j
 noremap <left> <C-w>h
 noremap <right> <C-w>l
-" nnoremap <tab> <C-w>w
-" Cancel last action
-noremap b u
-" Beginning of the word (forward)
-noremap i w
-" End of the word (backward)
-noremap u ge
 " Beginning of the word (backward)
 noremap a b
 " Beginning of the line
@@ -261,16 +270,13 @@ noremap ' .
 noremap . :
 " Exit insert mode
 inoremap .' <esc>
-" Enter insert mode (before cursor)
-nnoremap , i
-vnoremap , i
 " Enter insert mode (after cursor)
 noremap é a
 " Change mode
 noremap k c
 " ---------------------------------------- Togglers
 " Multi-line comment
-noremap <C-c> :TComment<CR>
+noremap  <C-c> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
@@ -278,3 +284,7 @@ inoremap <c-space> <c-r>=Smart_Complete()<CR>
 noremap <space> :call ToggleFold()<CR>
 " Search highlighting toggle
 noremap h :set hlsearch! hlsearch?<CR>
+noremap <silent> h :let @/ = ""<cr>
+" Handy trick that clears previous search and starts a new one (forcing
+" highlighting on the way
+noremap / :let @/ = ""<cr>:set hlsearch<cr>/
