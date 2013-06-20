@@ -199,6 +199,9 @@ noremap <leader>d viwc
 map <leader>s :silent Shell 
 map <leader>S :Shell 
 noremap <leader>m :silent Shell pylint %<cr>
+
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gl :silent Shell git log<cr>
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
 noremap c h
