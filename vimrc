@@ -81,6 +81,9 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+autocmd WinLeave * set nocursorline
+autocmd WinEnter * set cursorline
+
 au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
