@@ -91,7 +91,9 @@ autocmd WinLeave * set nocursorcolumn
 autocmd WinEnter * set cursorline
 autocmd WinEnter * set cursorcolumn
 " Automatically goes to the directory where the edited file is located
-autocmd BufEnter * lcd %:p:h
+" I added a try / catch there to handle fugitive that does not allow this
+" (since there is an 'incorrect' path related to it
+autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 
@@ -217,6 +219,7 @@ noremap <leader>m :silent Shell pylint %<cr>
 noremap <leader>t :new ~/.todo<cr>
 
 noremap <leader>gb :Gblame<cr>
+noremap <leader>gd :Gdiff<cr>
 noremap <leader>gl :silent Shell git log<cr>
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
