@@ -205,7 +205,7 @@ map  <leader>a :bp<cr>
 map  <leader>e :bn<cr>
 nmap <leader>é viw
 " Delete word and enter insert mode
-noremap <leader>d viwc
+noremap <leader>d ciw
 
 noremap  <leader>y "+yy
 vnoremap <leader>y "+y
