@@ -223,6 +223,7 @@ noremap <silent> <leader>bp :call DoSplitSwap()<CR>
 nmap <leader>é viw
 " Delete word and enter insert mode
 noremap <leader>d ciw
+noremap <leader>D diw
 
 noremap  <leader>y "+yy
 vnoremap <leader>y "+y
