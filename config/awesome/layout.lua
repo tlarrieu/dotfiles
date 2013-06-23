@@ -25,13 +25,13 @@ end
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myawesomemenu = {
- { "restart", awesome.restart },
- { "quit"   , awesome.quit    }
-}
+--myawesomemenu = {
+-- { "restart", awesome.restart },
+-- { "quit"   , awesome.quit    }
+--}
 
-mymainmenu = awful.menu({ items = {{ "awesome", myawesomemenu, beautiful.awesome_icon }}})
-mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
+--mymainmenu = awful.menu({ items = {{ "awesome", myawesomemenu, beautiful.awesome_icon }}})
+--mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
 -- }}}
 
 -- {{{ Wibox
@@ -104,7 +104,7 @@ for s = 1, screen.count() do
   -- Add widgets to the wibox - order matters
   mywibox[s].widgets = {
     {
-      mylauncher,
+      --mylauncher,
       mytaglist[s],
       mypromptbox[s],
       layout = awful.widget.layout.horizontal.leftright
