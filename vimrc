@@ -202,12 +202,9 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
 " ------------------------------------------------------------ Keyboard mapping
-let mapleader = "," " remapping leader (this is basically the same position as
-                    " "\" on qwerty
-" A buttload of delimiters insertion around current word (normal mode) or selection
-" (visual mode) through leader (this only works
-" with my bindings since I remapped "k" for "c" and "é" for "a"
-" shall do the trick)
+let mapleader = "," " remapping leader
+" A buttload of delimiters insertion around current word (normal mode) or
+" selection (visual mode) through leader
 map  <leader>" <leader>d""<esc>P`]r
 map  <leader>< <leader>d<><esc>P`]r
 map  <leader>' <leader>d''<esc>P`]r
