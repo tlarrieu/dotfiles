@@ -68,6 +68,26 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
+function! MarkSplitSwap()
+    let g:markedWinNum = winnr()
+endfunction
+
+function! DoSplitSwap()
+    "Mark destination
+    let curNum = winnr()
+    let curBuf = bufnr( "%" )
+    exe g:markedWinNum . "wincmd w"
+    "Switch to source and shuffle dest->source
+    let markedBuf = bufnr( "%" )
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' curBuf
+    "Switch to dest and shuffle source->dest
+    exe curNum . "wincmd w"
+    "Hide and open so that we aren't prompted and keep history
+    exe 'hide buf' markedBuf 
+endfunction
+
+
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -122,11 +142,11 @@ set wildmode=list:longest,list:full
 " Only complete to the GCD part of file name
 set wildmenu
 set complete=slf
-" Visualbell
+" Disable any kind of annoying bell
 set novisualbell
 set noerrorbells
-" A buffer becomes hidden when it is abandoned
-set hid
+" Allow a modified buffer to be sent to background without saving it
+set hidden
 " Set title when in console
 set title
 " Activate undofile, that holds undo history
@@ -201,8 +221,8 @@ vmap <leader>[ "zdi[<C-R>z]<Esc>
 
 map  <leader>b <c-w>
 map  <leader>, :buf 
-map  <leader>a :bp<cr>
-map  <leader>e :bn<cr>
+noremap <silent> <leader>by :call MarkSplitSwap()<CR>
+noremap <silent> <leader>bp :call DoSplitSwap()<CR>
 nmap <leader>é viw
 " Delete word and enter insert mode
 noremap <leader>d ciw
