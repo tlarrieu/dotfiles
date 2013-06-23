@@ -96,7 +96,9 @@ for s = 1, screen.count() do
 
   -- Create a tasklist widget
   mytasklist[s] = awful.widget.tasklist(function(c)
-                                          return awful.widget.tasklist.label.currenttags(c, s)
+                                          --return awful.widget.tasklist.label.currenttags(c, s)
+                                          local tmptask = { awful.widget.tasklist.label.currenttags(c, s) }
+                                          return tmptask[1], tmptask[2], tmptask[3], nil
                                         end, mytasklist.buttons)
 
   -- Create the wibox
