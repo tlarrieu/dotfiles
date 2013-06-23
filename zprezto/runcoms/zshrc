@@ -52,6 +52,7 @@ alias yli="sudo yum localinstall"
 alias yu="sudo yum upgrade"
 alias yr="sudo yum remove"
 alias ys="yum search"
+alias yh="sudo yum history"
 
 alias ccat="pygmentize -g"
 alias tree="tree -C"
