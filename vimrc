@@ -24,6 +24,7 @@ function! ToggleFold()
   endif
   echo
 endf
+
 " Smart completion
 function! Smart_Complete()
   let line = getline('.')                     " current line
@@ -87,6 +88,14 @@ function! DoSplitSwap()
     exe 'hide buf' markedBuf 
 endfunction
 
+function! SplitSwap()
+  if exists("g:markedWinNum")
+    silent call DoSplitSwap()
+    unlet g:markedWinNum
+  else
+    silent call MarkSplitSwap()
+  end
+endfunction
 
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -218,12 +227,7 @@ vmap <leader>[ "zdi[<C-R>z]<Esc>
 
 map  <leader>b <c-w>
 map  <leader>, :buf 
-noremap <silent> <leader>by :call MarkSplitSwap()<CR>
-noremap <silent> <leader>bp :call DoSplitSwap()<CR>
-nmap <leader>é viw
-" Delete word and enter insert mode
-noremap <leader>d ciw
-noremap <leader>D diw
+noremap <leader>e :call SplitSwap()<cr>
 
 noremap  <leader>y "+yy
 vnoremap <leader>y "+y
