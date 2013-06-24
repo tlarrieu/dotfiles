@@ -172,7 +172,7 @@ set fillchars=vert:\|,fold:\
 set foldminlines=2
 " ----------------------------------------------------------------- GUI options
 if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 13.6
+  set guifont=Inconsolata\ For\ Powerline\ 13
   set guioptions+=ce
   set guioptions-=m  "remove menu bar
   set guioptions-=T  "remove toolbar
