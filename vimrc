@@ -252,11 +252,14 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-" navigating between splits
-noremap <up> <C-w>k
-noremap <down> <C-w>j
-noremap <left> <C-w>h
+" Navigating between splits
+noremap <up>    <C-w>k
+noremap <down>  <C-w>j
+noremap <left>  <C-w>h
 noremap <right> <C-w>l
+" Navigating between tabs
+map <C-left>  :tabp<cr>
+map <C-right> :tabn<cr>
 " Beginning of the word (backward)
 noremap a b
 " Beginning of the line
