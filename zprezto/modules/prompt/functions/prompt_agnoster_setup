@@ -82,13 +82,15 @@ prompt_context() {
 prompt_git() {
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
     col1=green
+    STATUS=$(git status 2>/dev/null)
     # Dirty status
-    [[ -n $(git status -s 2>/dev/null) ]] && col1=yellow && icons+=" $SOFT_SEPARATOR ⚒"
+    [[ -n $(echo $STATUS | grep "[Untracked|not staged|to be commited]") ]] && col1=yellow && icons+=" $SOFT_SEPARATOR ⚒"
     # Stash status
     [[ -n $(git stash list 2>/dev/null) ]] && icons+=" $SOFT_SEPARATOR ⚙"
     # Commit status (ahead or not)
-    [[ -n $(git status 2>/dev/null| grep "ahead") ]] && icons+=" $SOFT_SEPARATOR ⇧"
-    [[ -n $(git status 2>/dev/null| grep "behind") ]] && icons+=" $SOFT_SEPARATOR ⇩"
+    [[ -n $(echo $STATUS | grep "ahead") ]] && icons+=" $SOFT_SEPARATOR ⇧"
+    # Commit status (behind or not)
+    [[ -n $(echo $STATUS | grep "behind") ]] && icons+=" $SOFT_SEPARATOR ⇩"
     # prompting result : branch and then status icons
     prompt_segment $col1 black "$(git rev-parse --abbrev-ref HEAD)$icons"
   fi
