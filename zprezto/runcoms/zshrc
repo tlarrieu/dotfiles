@@ -66,3 +66,33 @@ alias vitodo="gvim ~/.todo"
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
 bindkey '^[[1;5C' emacs-forward-word
+
+function alert {
+    RVAL=$?
+    zmodload zsh/parameter
+    LAST=$history[$HISTCMD]
+    DATE=`date`
+    [[ -n $1 ]] && TIMEOUT=$1 || TIMEOUT=0
+
+    # set window title so we can get back to it
+    echo -ne "\e]2;$LAST\a"
+
+    if [[ $RVAL == 0 ]]; then
+        RVAL="SUCCESS"
+        BG_COLOR="#859900"
+    else
+        RVAL="FAILURE"
+        BG_COLOR="#dc322f"
+    fi
+
+    MESSAGE="naughty.notify({ \
+            title = \"Command completed on: \t$DATE\", \
+            text = \"$ $LAST\" .. newline .. \"$RVAL\", \
+            timeout = $TIMEOUT, \
+            bg = \"$BG_COLOR\", \
+            fg = \"#eee8d5\", \
+            margin = 8, \
+            run = function () run_or_raise(nill, { name = \"$LAST\" }) end
+            })"
+    echo $MESSAGE | awesome-client -
+}

@@ -15,6 +15,7 @@ require("naughty")
 terminal = "terminal"
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal .. " -e " .. editor
+newline = "\n" -- This is used in a zsh scripts related to naughty
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -28,3 +29,4 @@ require "layout"
 require "bindings"
 require "signals"
 require "rules"
+
