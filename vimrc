@@ -235,8 +235,8 @@ vnoremap <leader>y "+y
 noremap  <leader>p "+p
 
 " Custom shell commands
-noremap <leader>s :silent Shell
-noremap <leader>S :Shell
+noremap <leader>s :silent Shell 
+noremap <leader>S :Shell 
 noremap <leader>m :silent Shell pylint % <cr>
 
 " Tabular bindings
