@@ -84,7 +84,7 @@ prompt_git() {
     col1=green
     STATUS=$(git status 2>/dev/null)
     # Dirty status
-    [[ -z $(echo $STATUS | grep "clean") ]] && col1=yellow && icons+=" $SOFT_SEPARATOR ⚒"
+    [[ -z $(echo $STATUS | grep "working directory clean") ]] && col1=yellow && icons+=" $SOFT_SEPARATOR ⚒"
     # Stash status
     [[ -n $(git stash list 2>/dev/null) ]] && icons+=" $SOFT_SEPARATOR ⚙"
     # Commit status (ahead or not)
