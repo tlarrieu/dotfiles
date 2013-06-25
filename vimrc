@@ -215,33 +215,39 @@ let g:Powerline_symbols = 'fancy'
 let mapleader = "," " remapping leader
 " A buttload of delimiters insertion around current word (normal mode) or
 " selection (visual mode) through leader
-map  <leader>" <leader>d""<esc>P`]r
-map  <leader>< <leader>d<><esc>P`]r
-map  <leader>' <leader>d''<esc>P`]r
-map  <leader>( <leader>d()<esc>P`]r
-map  <leader>[ <leader>d[]<esc>P`]r
-vmap <leader>" "zdi"<C-R>z"<Esc>
-vmap <leader>< "zdi<<C-R>z><Esc>
-vmap <leader>' "zdi'<C-R>z'<Esc>
-vmap <leader>( "zdi(<C-R>z)<Esc>
-vmap <leader>[ "zdi[<C-R>z]<Esc>
+noremap  <leader>" <leader>d""<esc>P`]r
+noremap  <leader>< <leader>d<><esc>P`]r
+noremap  <leader>' <leader>d''<esc>P`]r
+noremap  <leader>( <leader>d()<esc>P`]r
+noremap  <leader>[ <leader>d[]<esc>P`]r
+vnoremap <leader>" "zdi"<C-R>z"<Esc>
+vnoremap <leader>< "zdi<<C-R>z><Esc>
+vnoremap <leader>' "zdi'<C-R>z'<Esc>
+vnoremap <leader>( "zdi(<C-R>z)<Esc>
+vnoremap <leader>[ "zdi[<C-R>z]<Esc>
 
-map  <leader>b <c-w>
-" map  <leader>, :buf 
-map  <leader>, :CtrlPMixed<cr>
-noremap <leader>e :call SplitSwap()<cr>
+" CtrlP binding
+noremap  <leader>, :CtrlPMixed<cr>
 
+" System yanking / pasting
 noremap  <leader>y "+yy
 vnoremap <leader>y "+y
 noremap  <leader>p "+p
 
-map     <leader>s :silent Shell 
-map     <leader>S :Shell 
-noremap <leader>m :silent Shell pylint %<cr>
+" Custom shell commands
+noremap <leader>s :silent Shell
+noremap <leader>S :Shell
+noremap <leader>m :silent Shell pylint % <cr>
 
-" Basically, this is just a shortcut to pop my todo list
-noremap <leader>t :new ~/.todo<cr>
+" Tabular bindings
+noremap  <leader>tt :Tabularize /
+vnoremap <leader>tt :Tabularize /
+noremap  <leader>t= :Tabularize /=<cr>
+vnoremap <leader>t= :Tabularize /=<cr>
+noremap  <leader>t: :Tabularize /:<cr>
+vnoremap <leader>t: :Tabularize /:<cr>
 
+" Fugitive bindings
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gd :Gdiff<cr>
 noremap <leader>gw :Gwrite<cr>
@@ -280,14 +286,17 @@ map S 5s
 map R 5r
 map C 5c
 " Window movement
-noremap <c-S> <c-y> " up
-noremap <c-T> <c-e> " down
+" Up
+noremap <c-S> <c-y>
+" Down
+noremap <c-T> <c-e>
 " move current line up or down
-noremap <c-up> :m-2<cr>
+noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
-" Insert new line after current one
-" without breaking it
+" Insert new line after current one without breaking it
 inoremap <C-CR> <Esc>o
+" Same but before current one
+inoremap <s-C-CR> <Esc>O
 " Gathering selected lines (or current one if none selected)
 " in one line
 noremap <C-l> J
@@ -315,8 +324,11 @@ vnoremap <C-c> :TComment<CR>
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
 noremap <space> :call ToggleFold()<CR>
+" Swap 2 splits (only works within the same tab)
+noremap <leader>e :call SplitSwap()<cr>
 " Search highlighting toggle
-noremap h :set hlsearch! hlsearch?<CR>
+" noremap h :set hlsearch! hlsearch?<CR>
+" Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Handy trick that clears previous search and starts a new one (forcing
 " highlighting on the way
