@@ -142,6 +142,8 @@ set showmatch
 " Encoding and filetype
 set encoding=utf8
 set ffs=unix,dos,mac
+" Ignore those files
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 " current line / column highlight
 set cursorline
 set cursorcolumn
