@@ -256,8 +256,6 @@ noremap <right> <C-w>l
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
-" Beginning of the word (backward)
-" noremap a b
 " Beginning of the line
 noremap à ^
 " Beginning of the line, entering insert mode
