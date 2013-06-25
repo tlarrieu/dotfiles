@@ -213,18 +213,6 @@ set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusl
 let g:Powerline_symbols = 'fancy'
 " ------------------------------------------------------------ Keyboard mapping
 let mapleader = "," " remapping leader
-" A buttload of delimiters insertion around current word (normal mode) or
-" selection (visual mode) through leader
-noremap  <leader>" <leader>d""<esc>P`]r
-noremap  <leader>< <leader>d<><esc>P`]r
-noremap  <leader>' <leader>d''<esc>P`]r
-noremap  <leader>( <leader>d()<esc>P`]r
-noremap  <leader>[ <leader>d[]<esc>P`]r
-vnoremap <leader>" "zdi"<C-R>z"<Esc>
-vnoremap <leader>< "zdi<<C-R>z><Esc>
-vnoremap <leader>' "zdi'<C-R>z'<Esc>
-vnoremap <leader>( "zdi(<C-R>z)<Esc>
-vnoremap <leader>[ "zdi[<C-R>z]<Esc>
 
 " CtrlP binding
 noremap  <leader>, :CtrlPMixed<cr>
@@ -294,9 +282,9 @@ noremap <c-T> <c-e>
 noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
 " Insert new line after current one without breaking it
-inoremap <C-CR> <Esc>o
+inoremap <c-cr> <Esc>o
 " Same but before current one
-inoremap <s-C-CR> <Esc>O
+inoremap <s-cr> <Esc>O
 " Gathering selected lines (or current one if none selected)
 " in one line
 noremap <C-l> J
