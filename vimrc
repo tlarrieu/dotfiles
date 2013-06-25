@@ -9,7 +9,6 @@ call pathogen#infect()
 call pathogen#helptags()
 " ------------------------------------------------------------ Custom functions
 " Toggle fold state between closed and opened.
-"
 " If there is no fold at current line, just moves forward.
 " If it is present, reverse it's state.
 function! ToggleFold()
@@ -122,7 +121,7 @@ autocmd WinEnter * set cursorcolumn
 " Automatically goes to the directory where the edited file is located
 " I added a try / catch there to handle fugitive that does not allow this
 " (since there is an 'incorrect' path related to it
-autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
+" autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 
@@ -226,7 +225,8 @@ vmap <leader>( "zdi(<C-R>z)<Esc>
 vmap <leader>[ "zdi[<C-R>z]<Esc>
 
 map  <leader>b <c-w>
-map  <leader>, :buf 
+" map  <leader>, :buf 
+map  <leader>, :CtrlPMixed<cr>
 noremap <leader>e :call SplitSwap()<cr>
 
 noremap  <leader>y "+yy
@@ -261,7 +261,7 @@ noremap <right> <C-w>l
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
 " Beginning of the word (backward)
-noremap a b
+" noremap a b
 " Beginning of the line
 noremap à ^
 " Beginning of the line, entering insert mode
@@ -302,7 +302,7 @@ noremap . :
 " Exit insert mode
 inoremap .' <esc>
 " Enter insert mode (after cursor)
-noremap é a
+" noremap é a
 " Change mode
 noremap k c
 " ---------------------------------------- Togglers
