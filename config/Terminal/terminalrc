@@ -21,7 +21,7 @@ AccelPrevTab=<Alt>Left
 AccelNextTab=<Alt>Right
 AccelNewTab=
 AccelCloseTab=<Control>w
-AccelCloseWindow=<Control>q
+AccelCloseWindow=
 BackgroundImageFile=/home/smockey/Pictures/Wallpapers/26785-1920x1200.jpg
 BackgroundImageStyle=TERMINAL_BACKGROUND_STYLE_CENTERED
 TabActivityColor=#92133bc50000
@@ -50,7 +50,7 @@ AccelSwitchToTab2=<Primary>guillemotleft
 AccelSwitchToTab3=<Primary>guillemotright
 AccelSwitchToTab4=<Primary>parenleft
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
-AccelNewWindow=<Primary>t
+AccelNewWindow=
 Term=xterm-256color
 MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
 
