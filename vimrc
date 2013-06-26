@@ -317,6 +317,10 @@ noremap  <c-s> :w<cr>
 noremap  <c-q> :q<cr>
 inoremap <c-q> <esc>:q<cr>
 vnoremap <c-q> <esc>:q<cr>
+" Save and quit
+noremap  <c-x> :x<cr>
+inoremap <c-x> <esc>:x<cr>
+vnoremap <c-x> <esc>:x<cr>
 " Help
 noremap  <c-h> :h 
 vnoremap <c-h> <esc>:h 
