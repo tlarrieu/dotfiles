@@ -69,22 +69,22 @@ function! s:RunShellCommand(cmdline)
 endfunction
 
 function! MarkSplitSwap()
-    let g:markedWinNum = winnr()
+  let g:markedWinNum = winnr()
 endfunction
 
 function! DoSplitSwap()
-    "Mark destination
-    let curNum = winnr()
-    let curBuf = bufnr( "%" )
-    exe g:markedWinNum . "wincmd w"
-    "Switch to source and shuffle dest->source
-    let markedBuf = bufnr( "%" )
-    "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' curBuf
-    "Switch to dest and shuffle source->dest
-    exe curNum . "wincmd w"
-    "Hide and open so that we aren't prompted and keep history
-    exe 'hide buf' markedBuf 
+  "Mark destination
+  let curNum = winnr()
+  let curBuf = bufnr( "%" )
+  exe g:markedWinNum . "wincmd w"
+  "Switch to source and shuffle dest->source
+  let markedBuf = bufnr( "%" )
+  "Hide and open so that we aren't prompted and keep history
+  exe 'hide buf' curBuf
+  "Switch to dest and shuffle source->dest
+  exe curNum . "wincmd w"
+  "Hide and open so that we aren't prompted and keep history
+  exe 'hide buf' markedBuf 
 endfunction
 
 function! SplitSwap()
@@ -124,6 +124,7 @@ autocmd WinEnter * set cursorcolumn
 " autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
+autocmd BufReadPost *.md set ft=markdown
 
 au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
@@ -139,6 +140,8 @@ set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set list
 " Show matching braces
 set showmatch
+" Show command
+set showcmd
 " Encoding and filetype
 set encoding=utf8
 set ffs=unix,dos,mac
@@ -196,7 +199,8 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-" ------------------------------------------------------------------- Powerline
+" --------------------------------------------------------------------- Plugins
+" --------------------------------------- Powerline
 if ! has('gui_running')
     set ttimeoutlen=10
     augroup FastEscape
@@ -211,6 +215,10 @@ python del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
+" ---------------------------------------- Surround
+" I want to rebind some (one in fact) bindings and since I cant unbind
+" any at this point, I'll go for the brutal way.
+let g:surround_no_mappings=1
 " ------------------------------------------------------------ Keyboard mapping
 let mapleader = "," " remapping leader
 
@@ -243,10 +251,19 @@ noremap <leader>gr :Gread<cr>
 noremap <leader>gc :Gcommit<cr>
 noremap <leader>gl :silent Shell git log<cr>
 " ---------------------------------------- Surround
-" I using c as h since I'm in bépo layout, so I need to
-" change this
-unmap cs
-nmap ks <Plug>Csurround
+nmap ds  <Plug>Dsurround
+" I'm using « c » as « h » since I'm in bépo layout, so I need to change this
+nmap ks  <Plug>Csurround
+nmap ys  <Plug>Ysurround
+nmap yS  <Plug>YSurround
+nmap yss <Plug>Yssurround
+nmap ySs <Plug>YSsurround
+nmap ySS <Plug>YSsurround
+xmap S   <Plug>VSurround
+xmap gS  <Plug>VgSurround
+" ------------------------------------------ Search
+noremap « #
+noremap » *
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
 noremap c h
@@ -263,24 +280,13 @@ map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
 " Beginning of the line
 noremap à ^
-" Beginning of the line, entering insert mode
-noremap À I
 " End of the line
 noremap f $
-" End of the line, entering insert mode
-noremap F A
-" Center screen on current line
-" noremap <Return> zz
 " Fast cursor movement
 map T 5t
 map S 5s
 map R 5r
 map C 5c
-" Window movement
-" Up
-noremap <c-S> <c-y>
-" Down
-noremap <c-T> <c-e>
 " move current line up or down
 noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
@@ -298,20 +304,26 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 " ---------------------------------- Mode Switching
-noremap  <Return> :
-vnoremap <Return> :
-" noremap ' .
-" Enter command mode
-" noremap . :
-" Exit insert mode
-inoremap .' <esc>
-" Enter insert mode (after cursor)
-" noremap é a
+" Command mode
+noremap  <c-t> :
+vnoremap <c-t> :
+inoremap <c-t> <esc>:
 " Change mode
 noremap k c
+" Save file
+inoremap <c-s> <esc>:w<cr>
+noremap  <c-s> :w<cr>
+" Quit file 
+noremap  <c-q> :q<cr>
+inoremap <c-q> <esc>:q<cr>
+vnoremap <c-q> <esc>:q<cr>
+" Help
+noremap  <c-h> :h 
+vnoremap <c-h> <esc>:h 
+inoremap <c-h> <esc>:h 
 " ---------------------------------------- Togglers
 " Multi-line comment
-noremap  <C-c> :TComment<CR>
+noremap  <Cc> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
