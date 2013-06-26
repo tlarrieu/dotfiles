@@ -242,6 +242,11 @@ noremap <leader>gw :Gwrite<cr>
 noremap <leader>gr :Gread<cr>
 noremap <leader>gc :Gcommit<cr>
 noremap <leader>gl :silent Shell git log<cr>
+" ---------------------------------------- Surround
+" I using c as h since I'm in bépo layout, so I need to
+" change this
+unmap cs
+nmap ks <Plug>Csurround
 " ---------------------------------------- Movement
 " left / right / down (visual line) / up (visual line)
 noremap c h
@@ -265,7 +270,7 @@ noremap f $
 " End of the line, entering insert mode
 noremap F A
 " Center screen on current line
-noremap <Return> zz
+" noremap <Return> zz
 " Fast cursor movement
 map T 5t
 map S 5s
@@ -293,9 +298,11 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
 " ---------------------------------- Mode Switching
-noremap ' .
+noremap  <Return> :
+vnoremap <Return> :
+" noremap ' .
 " Enter command mode
-noremap . :
+" noremap . :
 " Exit insert mode
 inoremap .' <esc>
 " Enter insert mode (after cursor)
