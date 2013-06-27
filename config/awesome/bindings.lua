@@ -12,8 +12,8 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey,           }, "r",  awful.tag.viewnext                              ),
 
   -- Layout manipulation
-  awful.key({ modkey,           }, "t",  function () awful.client.swap.byidx(  1)     end),
-  awful.key({ modkey,           }, "s",  function () awful.client.swap.byidx( -1)     end),
+  awful.key({ modkey, "Control" }, "t",  function () awful.client.swap.byidx(  1)     end),
+  awful.key({ modkey, "Control" }, "s",  function () awful.client.swap.byidx( -1)     end),
   awful.key({ modkey,           }, "d",  function () awful.tag.incmwfact( 0.05)       end),
   awful.key({ modkey,           }, "v",  function () awful.tag.incmwfact(-0.05)       end),
   awful.key({ modkey, "Shift"   }, "d",  function () awful.client.incwfact( 0.05)     end),
@@ -22,12 +22,12 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey,           }, "\"", function () awful.layout.inc(layouts, 1)     end),
   awful.key({ modkey,           }, "«",  function () awful.layout.inc(layouts, -1)    end),
   -- Focus switching
-  awful.key({ modkey,           }, "Tab",
+  awful.key({ modkey,           }, "t",
     function ()
       awful.client.focus.byidx(1)
       if client.focus then client.focus:raise() end
     end),
-  awful.key({ modkey, "Shift"   }, "Tab",
+  awful.key({ modkey,           }, "s",
     function ()
       awful.client.focus.byidx(-1)
       if client.focus then client.focus:raise() end
