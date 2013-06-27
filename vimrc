@@ -327,7 +327,7 @@ vnoremap <c-h> <esc>:h
 inoremap <c-h> <esc>:h 
 " ---------------------------------------- Togglers
 " Multi-line comment
-noremap  <Cc> :TComment<CR>
+noremap  <C-c> :TComment<CR>
 vnoremap <C-c> :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
