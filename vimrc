@@ -96,6 +96,14 @@ function! SplitSwap()
   end
 endfunction
 
+function! g:ToggleNuMode()
+  if(&rnu == 1)
+    set nu
+  else
+    set rnu
+  endif
+endfunc
+
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -344,3 +352,5 @@ noremap <silent> h :let @/ = ""<cr>
 " Handy trick that clears previous search and starts a new one (forcing
 " highlighting on the way
 noremap / :let @/ = ""<cr>:set hlsearch<cr>/
+
+noremap <c-n> :call g:ToggleNuMode()<cr>
