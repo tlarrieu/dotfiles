@@ -270,6 +270,10 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 " Navigating between splits
 noremap <up>    <C-w>k
 noremap <down>  <C-w>j
@@ -292,8 +296,10 @@ noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
 " Insert new line after current one without breaking it
 inoremap <c-cr> <Esc>o
+noremap  <c-cr> m`o<esc>``
 " Same but before current one
 inoremap <s-cr> <Esc>O
+noremap  <s-cr> m`O<esc>``
 " Gathering selected lines (or current one if none selected)
 " in one line
 noremap <C-l> J
@@ -317,10 +323,6 @@ noremap  <c-s> :w<cr>
 noremap  <c-q> :q<cr>
 inoremap <c-q> <esc>:q<cr>
 vnoremap <c-q> <esc>:q<cr>
-" Save and quit
-noremap  <c-x> :x<cr>
-inoremap <c-x> <esc>:x<cr>
-vnoremap <c-x> <esc>:x<cr>
 " Help
 noremap  <c-h> :h 
 vnoremap <c-h> <esc>:h 
