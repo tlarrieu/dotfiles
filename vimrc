@@ -243,7 +243,7 @@ noremap <leader>s :silent Shell
 noremap <leader>S :Shell 
 noremap <leader>m :silent Shell pylint % <cr>
 
-" Tabular bindings
+" ----------------------------------------- Tabular
 noremap  <leader>tt :Tabularize /
 vnoremap <leader>tt :Tabularize /
 noremap  <leader>t= :Tabularize /=<cr>
@@ -251,7 +251,7 @@ vnoremap <leader>t= :Tabularize /=<cr>
 noremap  <leader>t: :Tabularize /:<cr>
 vnoremap <leader>t: :Tabularize /:<cr>
 
-" Fugitive bindings
+" ---------------------------------------- Fugitive
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gd :Gdiff<cr>
 noremap <leader>gw :Gwrite<cr>
@@ -269,6 +269,10 @@ nmap ySs <Plug>YSsurround
 nmap ySS <Plug>YSsurround
 xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
+" ------------------------------------------- RSpec
+nmap <leader>rs :RunSpec<cr>
+nmap <leader>rS :RunSpecs<cr>
+nmap <leader>rl :RunSpecLine<cr>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -278,9 +282,9 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <left> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
 inoremap <right> <nop>
 " Navigating between splits
 noremap <up>    <C-w>k
