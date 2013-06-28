@@ -239,17 +239,12 @@ vnoremap <leader>y "+y
 noremap  <leader>p "+p
 
 " Custom shell commands
-noremap <leader>s :silent Shell 
-noremap <leader>S :Shell 
-noremap <leader>m :silent Shell pylint % <cr>
-
+" noremap <leader>s :silent Shell 
+" noremap <leader>S :Shell 
+noremap <leader>s :ConqueTermSplit 
 " ----------------------------------------- Tabular
-noremap  <leader>tt :Tabularize /
-vnoremap <leader>tt :Tabularize /
-noremap  <leader>t= :Tabularize /=<cr>
-vnoremap <leader>t= :Tabularize /=<cr>
-noremap  <leader>t: :Tabularize /:<cr>
-vnoremap <leader>t: :Tabularize /:<cr>
+noremap  <leader>a :Tabularize /
+vnoremap <leader>a :Tabularize /
 
 " ---------------------------------------- Fugitive
 noremap <leader>gb :Gblame<cr>
@@ -270,9 +265,8 @@ nmap ySS <Plug>YSsurround
 xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 " ------------------------------------------- RSpec
-nmap <leader>rs :RunSpec<cr>
-nmap <leader>rS :RunSpecs<cr>
-nmap <leader>rl :RunSpecLine<cr>
+autocmd FileType ruby nmap <leader>tt :RunSpec<cr>
+autocmd FileType ruby nmap <leader>tl :RunSpecLine<cr>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
