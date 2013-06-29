@@ -3,6 +3,8 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
+let mapleader = "," " remapping leader
+
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#infect()
@@ -204,7 +206,6 @@ let g:Powerline_symbols = 'fancy'
 " any at this point, I'll go for the brutal way.
 let g:surround_no_mappings=1
 " ------------------------------------------------------------ Keyboard mapping
-let mapleader = "," " remapping leader
 
 noremap <leader>= <c-w>=
 
