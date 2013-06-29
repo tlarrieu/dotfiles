@@ -134,10 +134,10 @@ globalkeys = awful.util.table.join(globalkeys,
 
   awful.key({ modkey            }, ",",           function () awful.util.spawn("jumanji")                    end),
   awful.key({ modkey            }, "u",           function () awful.util.spawn("/home/smockey/bin/sublime") end),
-  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal .. " -x ranger")     end),
+  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal_exec .. "ranger")     end),
 
-  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal .. " -x mocp")       end),
-  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal .. " -x alsamixer")  end),
+  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")       end),
+  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer")  end),
 
   awful.key({ modkey            }, "Return",      function () awful.util.spawn(terminal)                    end),
   awful.key({ modkey, "Shift"   }, "Return",      function () awful.util.spawn("gksu" .. terminal)          end),

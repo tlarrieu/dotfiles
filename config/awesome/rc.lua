@@ -10,11 +10,10 @@ require("naughty")
 -- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
--- terminal = "x-terminal-emulator"
---terminal = "xfce4-terminal"
-terminal = "terminal"
+terminal = "st"
+terminal_exec = terminal .. " -e "
 editor = os.getenv("EDITOR") or "editor"
-editor_cmd = terminal .. " -e " .. editor
+editor_cmd = terminal_exec .. editor
 newline = "\n" -- This is used in a zsh scripts related to naughty
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -29,4 +28,3 @@ require "layout"
 require "bindings"
 require "signals"
 require "rules"
-
