@@ -123,8 +123,6 @@ globalkeys = awful.util.table.join(globalkeys,
     -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
     awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
   end),
-  -- Gvim
-  awful.key({ modkey            }, "g",           function () awful.util.spawn("gvim")      end),
   -- Session control
   awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")      end),
   -- XFCE4 properties
