@@ -109,7 +109,6 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
-autocmd BufWrite    *.vimrc so %
 
 au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
@@ -240,11 +239,6 @@ xmap gS  <Plug>VgSurround
 " ------------------------------------------- RSpec
 autocmd FileType ruby nmap <leader>tt :RunSpec<cr>
 autocmd FileType ruby nmap <leader>tl :RunSpecLine<cr>
-
-" ------------------------------------------ Pytest
-autocmd FileType python nmap <leader>tc :Pytest class<cr>
-autocmd FileType python nmap <leader>tf :Pytest file<cr>
-autocmd FileType python nmap <leader>tm :Pytest method<cr>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -271,6 +265,9 @@ noremap <leader>s <C-w>k
 noremap <leader>t <C-w>j
 noremap <leader>c <C-w>h
 noremap <leader>r <C-w>l
+" Creating new splits
+noremap <leader>v <C-w>v
+noremap <leader>h <C-w>s
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
@@ -304,6 +301,8 @@ inoremap <esc> $
 nnoremap <s-esc> #
 vnoremap <s-esc> #
 inoremap <s-esc> #
+" Don't make a # force column zero.
+inoremap # X<BS>#
 " ---------------------------------- Mode Switching
 " Command mode
 noremap  <c-t> :
@@ -311,13 +310,6 @@ vnoremap <c-t> :
 inoremap <c-t> <esc>:
 " Change mode
 noremap k c
-" Save file
-inoremap <c-s> <esc>:w<cr>
-noremap  <c-s> :w<cr>
-" Quit file 
-noremap  <c-q> :q<cr>
-inoremap <c-q> <esc>:q<cr>
-vnoremap <c-q> <esc>:q<cr>
 " Help
 noremap  <c-h> :h 
 vnoremap <c-h> <esc>:h 
@@ -341,6 +333,7 @@ noremap <silent> h :let @/ = ""<cr>
 " Handy trick that clears previous search and starts a new one (forcing
 " highlighting on the way
 noremap / :let @/ = ""<cr>:set hlsearch<cr>/
-
+" Toggle absolute / relative numbering
 noremap <c-n> :call g:ToggleNuMode()<cr>
+" Toggle line wrap
 noremap <leader>w :set wrap!<cr>
