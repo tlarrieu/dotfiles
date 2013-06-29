@@ -109,6 +109,7 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
+autocmd BufWrite    *.vimrc so %
 
 au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
@@ -300,7 +301,9 @@ vnoremap <S-Tab> <gv
 nnoremap <esc> $
 vnoremap <esc> $
 inoremap <esc> $
-
+nnoremap <s-esc> #
+vnoremap <s-esc> #
+inoremap <s-esc> #
 " ---------------------------------- Mode Switching
 " Command mode
 noremap  <c-t> :
