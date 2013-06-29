@@ -45,29 +45,6 @@ function! Smart_Complete()
   endif
 endf
 
-" This is a really handy function!
-" Basically, the Shell command will prompt the result of any out command
-" into a new split.
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  echo a:cmdline
-  let expanded_cmdline = a:cmdline
-  for part in split(a:cmdline, ' ')
-     if part[0] =~ '\v[%#<]'
-        let expanded_part = fnameescape(expand(part))
-        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
-     endif
-  endfor
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, 'You entered:    ' . a:cmdline)
-  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
-  call setline(3,substitute(getline(2),'.','=','g'))
-  execute '$read !'. expanded_cmdline
-  setlocal nomodifiable
-  1
-endfunction
-
 function! MarkSplitSwap()
   let g:markedWinNum = winnr()
 endfunction
@@ -103,7 +80,6 @@ function! g:ToggleNuMode()
     set rnu
   endif
 endfunc
-
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -240,21 +216,15 @@ noremap  <leader>b        :CtrlPBuffer<cr>
 noremap  <leader>y "+yy
 vnoremap <leader>y "+y
 noremap  <leader>p "+p
-
-" Custom shell commands
-"noremap <leader>s :silent Shell 
-"noremap <leader>S :Shell 
 " ----------------------------------------- Tabular
 noremap  <leader>a :Tabularize /
 vnoremap <leader>a :Tabularize /
-
 " ---------------------------------------- Fugitive
 noremap <leader>gb :Gblame<cr>
 noremap <leader>gd :Gdiff<cr>
 noremap <leader>gw :Gwrite<cr>
 noremap <leader>gr :Gread<cr>
 noremap <leader>gc :Gcommit<cr>
-noremap <leader>gl :silent Shell git log<cr>
 " ---------------------------------------- Surround
 nmap ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
