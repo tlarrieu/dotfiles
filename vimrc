@@ -193,7 +193,7 @@ set fillchars=vert:\|,fold:\
 set foldminlines=2
 " ----------------------------------------------------------------- GUI options
 if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 13
+  set guifont=Inconsolata\ For\ Powerline\ 14
   set guioptions+=ce
   set guioptions-=m  "remove menu bar
   set guioptions-=T  "remove toolbar
@@ -230,8 +230,11 @@ let g:surround_no_mappings=1
 " ------------------------------------------------------------ Keyboard mapping
 let mapleader = "," " remapping leader
 
+noremap <leader>= <c-w>=
+
 " CtrlP binding
-noremap  <leader>, :CtrlPMixed<cr>
+noremap  <leader><leader> :CtrlPMixed<cr>
+noremap  <leader>b        :CtrlPBuffer<cr>
 
 " System yanking / pasting
 noremap  <leader>y "+yy
@@ -239,9 +242,8 @@ vnoremap <leader>y "+y
 noremap  <leader>p "+p
 
 " Custom shell commands
-" noremap <leader>s :silent Shell 
-" noremap <leader>S :Shell 
-noremap <leader>s :ConqueTermSplit 
+noremap <leader>s :silent Shell 
+noremap <leader>S :Shell 
 " ----------------------------------------- Tabular
 noremap  <leader>a :Tabularize /
 vnoremap <leader>a :Tabularize /
@@ -267,6 +269,11 @@ xmap gS  <Plug>VgSurround
 " ------------------------------------------- RSpec
 autocmd FileType ruby nmap <leader>tt :RunSpec<cr>
 autocmd FileType ruby nmap <leader>tl :RunSpecLine<cr>
+
+" ------------------------------------------ Pytest
+autocmd FileType python nmap <leader>tc :Pytest class<cr>
+autocmd FileType python nmap <leader>tf :Pytest file<cr>
+autocmd FileType python nmap <leader>tm :Pytest method<cr>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -288,10 +295,6 @@ noremap <right> <C-w>l
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
-" Beginning of the line
-noremap à ^
-" End of the line
-noremap f $
 " Fast cursor movement
 map T 5t
 map S 5s
@@ -310,11 +313,16 @@ noremap  <s-cr> m`O<esc>``
 " in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
-nnoremap <Tab> >>_
+nnoremap <Tab>   >>_
 nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
-vnoremap <Tab> >gv
+vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
+
+nnoremap <esc> $
+vnoremap <esc> $
+inoremap <esc> $
+
 " ---------------------------------- Mode Switching
 " Command mode
 noremap  <c-t> :
@@ -335,8 +343,8 @@ vnoremap <c-h> <esc>:h
 inoremap <c-h> <esc>:h 
 " ---------------------------------------- Togglers
 " Multi-line comment
-noremap  <C-c> :TComment<CR>
-vnoremap <C-c> :TComment<CR>
+" noremap  <leader>cc :TComment<CR>
+" vnoremap <leader>cc :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
@@ -352,3 +360,4 @@ noremap <silent> h :let @/ = ""<cr>
 noremap / :let @/ = ""<cr>:set hlsearch<cr>/
 
 noremap <c-n> :call g:ToggleNuMode()<cr>
+noremap <leader>w :set wrap!<cr>
