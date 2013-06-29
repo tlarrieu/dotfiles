@@ -62,7 +62,7 @@ alias g="git"
 alias gcd='cd $(git-root)'
 
 alias todo="cat ~/.todo 2>/dev/null"
-alias vitodo="gvim ~/.todo"
+alias vitodo="vi ~/todo.md"
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
 bindkey '^[[1;5C' emacs-forward-word
