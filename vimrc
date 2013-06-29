@@ -193,7 +193,7 @@ set fillchars=vert:\|,fold:\
 set foldminlines=2
 " ----------------------------------------------------------------- GUI options
 if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 14
+  set guifont=Inconsolata\ For\ Powerline\ 13
   set guioptions+=ce
   set guioptions-=m  "remove menu bar
   set guioptions-=T  "remove toolbar
@@ -242,8 +242,8 @@ vnoremap <leader>y "+y
 noremap  <leader>p "+p
 
 " Custom shell commands
-noremap <leader>s :silent Shell 
-noremap <leader>S :Shell 
+"noremap <leader>s :silent Shell 
+"noremap <leader>S :Shell 
 " ----------------------------------------- Tabular
 noremap  <leader>a :Tabularize /
 vnoremap <leader>a :Tabularize /
@@ -283,15 +283,23 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
+nnoremap <right> <nop>
 inoremap <up>    <nop>
 inoremap <down>  <nop>
 inoremap <left>  <nop>
 inoremap <right> <nop>
+vnoremap <up>    <nop>
+vnoremap <down>  <nop>
+vnoremap <left>  <nop>
+vnoremap <right> <nop>
 " Navigating between splits
-noremap <up>    <C-w>k
-noremap <down>  <C-w>j
-noremap <left>  <C-w>h
-noremap <right> <C-w>l
+noremap <leader>s <C-w>k
+noremap <leader>t <C-w>j
+noremap <leader>c <C-w>h
+noremap <leader>r <C-w>l
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
@@ -341,6 +349,8 @@ vnoremap <c-q> <esc>:q<cr>
 noremap  <c-h> :h 
 vnoremap <c-h> <esc>:h 
 inoremap <c-h> <esc>:h 
+" Exit
+noremap <leader>q :q<cr>
 " ---------------------------------------- Togglers
 " Multi-line comment
 " noremap  <leader>cc :TComment<CR>
