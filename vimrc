@@ -155,6 +155,10 @@ set undofile
 set backspace=indent,eol,start
 set splitright
 set splitbelow
+" Scrolling
+set scrolloff=8
+set sidescrolloff=15
+set sidescroll=1
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
