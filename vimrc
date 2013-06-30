@@ -335,6 +335,6 @@ noremap <silent> h :let @/ = ""<cr>
 " highlighting on the way
 noremap / :let @/ = ""<cr>:set hlsearch<cr>/
 " Toggle absolute / relative numbering
-noremap <c-n> :call g:ToggleNuMode()<cr>
+noremap <leader>n :call g:ToggleNuMode()<cr>
 " Toggle line wrap
 noremap <leader>w :set wrap!<cr>
