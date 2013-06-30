@@ -112,6 +112,7 @@ function _update_ps1()
 preexec()
 {
   export CMD=$1
+  echo -n "\n"
 }
 precmd()
 {

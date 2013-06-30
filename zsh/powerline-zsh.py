@@ -219,7 +219,7 @@ def add_git_segment(powerline, cwd):
     if has_untracked_files:
         branch += ' ⚒ '
     if has_stash:
-        branch += ' ⚙ '
+        branch += ' ☣ '
 
     bg = Color.REPO_CLEAN_BG
     fg = Color.REPO_CLEAN_FG
@@ -298,6 +298,9 @@ def add_root_indicator(powerline, error, running_jobs):
     user = subprocess.Popen(['whoami'], stdout=subprocess.PIPE).communicate()[0]
     if user.rstrip() == "root":
       root_str += ' ⚡'
+    else:
+      root_str += ' ⌘'
+
     if running_jobs:
         root_str += ' ⚙'
 
