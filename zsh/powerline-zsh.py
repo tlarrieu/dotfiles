@@ -296,7 +296,7 @@ def add_root_indicator(powerline, error, running_jobs):
 
     root_str = ''
     if running_jobs:
-      root_str += ' ⚙ '
+        root_str += ' ⚙ '
     root_str += ' $'
 
     powerline.append(Segment(powerline, root_str, fg, bg))
@@ -331,7 +331,7 @@ if __name__ == '__main__':
     p = Powerline(mode='default')
     cwd = get_valid_cwd()
     if args.last_cmd != "clear":
-      sys.stdout.write("\n")
+        sys.stdout.write("\n")
     add_virtual_env_segment(p, cwd)
     #p.append(Segment(' \\u ', 250, 240))
     #p.append(Segment(' \\h ', 250, 238))
