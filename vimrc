@@ -4,6 +4,7 @@
 " -----------------------------------------------------------------------------
 
 let mapleader = "," " remapping leader
+let maplocalleader = ","
 
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
@@ -293,8 +294,7 @@ noremap  <c-cr> m`o<esc>``
 " Same but before current one
 inoremap <s-cr> <Esc>O
 noremap  <s-cr> m`O<esc>``
-" Gathering selected lines (or current one if none selected)
-" in one line
+" Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
 nnoremap <Tab>   >>_
