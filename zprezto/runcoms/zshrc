@@ -36,9 +36,9 @@ alias dpkg="sudo dpkg"
 alias dpkg-reconfigure="sudo dpkg-reconfigure"
 
 alias gosubb="cd /home/smockey/projects/gosubb"
-alias vimrc="gvim ~/.vimrc"
-alias zshrc="gvim ~/.zshrc"
-alias preztorc="gvim ~/.zpreztorc"
+alias vimrc="vim ~/.vimrc"
+alias zshrc="vim ~/.zshrc"
+alias preztorc="vim ~/.zpreztorc"
 
 alias au="apt-get update"
 alias auu="apt-get upgrade"
