@@ -297,7 +297,7 @@ def add_root_indicator(powerline, error, running_jobs):
     root_str = ''
     if running_jobs:
         root_str += ' ⚙ '
-    user = os.getenv('USER')
+    user = subprocess.Popen(['whoami'], stdout=subprocess.PIPE).communicate()[0]
     if user == "root":
       root_str += ' #'
     else:
