@@ -31,6 +31,10 @@ export GTK_IM_MODULE=xim
 export GEDITOR=gvim
 export EDITOR=gvim
 
+export LANG="fr_FR.UTF8"
+export LC_ALL="fr_FR.UTF8"
+
+
 alias apt-get="sudo apt-get"
 alias dpkg="sudo dpkg"
 alias dpkg-reconfigure="sudo dpkg-reconfigure"
@@ -64,6 +68,8 @@ alias gcd='cd $(git-root)'
 
 alias todo="cat ~/.todo 2>/dev/null"
 alias vitodo="vi ~/todo.md"
+
+alias vir="vi -R"
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
 bindkey '^[[1;5C' emacs-forward-word
@@ -96,4 +102,14 @@ function alert {
             run = function () run_or_raise(nill, { name = \"$LAST\" }) end
             })"
     echo $MESSAGE | awesome-client -
+}
+
+
+function _update_ps1()
+{
+  export PROMPT="$(~/.zsh/powerline-zsh.py $?)"
+}
+precmd()
+{
+  _update_ps1
 }
