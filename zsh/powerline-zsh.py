@@ -21,14 +21,17 @@ class Color:
     CWD_FG = 254  # nearly-white grey
     SEPARATOR_FG = 244
 
-    REPO_CLEAN_BG = 148  # a light green color
+    # REPO_CLEAN_BG = 148  # a light green color
+    REPO_CLEAN_BG = 2  # a light green color
     REPO_CLEAN_FG = 0  # black
-    REPO_DIRTY_BG = 161  # pink/red
+    # REPO_DIRTY_BG = 161  # pink/red
+    REPO_DIRTY_BG = 5  # pink/red
     REPO_DIRTY_FG = 15  # white
 
     CMD_PASSED_BG = 236
     CMD_PASSED_FG = 15
-    CMD_FAILED_BG = 161
+    # CMD_FAILED_BG = 161
+    CMD_FAILED_BG = 5
     CMD_FAILED_FG = 15
 
     SVN_CHANGES_BG = 148

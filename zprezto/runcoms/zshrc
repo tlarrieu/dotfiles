@@ -107,7 +107,7 @@ function alert {
 
 function _update_ps1()
 {
-  export PROMPT="$(~/.zsh/powerline-zsh.py $? $1 $2)"
+  export PROMPT="$(~/.zsh/powerline-zsh.py $1 $2 $3)"
 }
 preexec()
 {
@@ -117,5 +117,5 @@ preexec()
 precmd()
 {
   # We pass last commannd as well as running jobs
-  _update_ps1 $CMD "$(jobs -l 2>/dev/null)"
+  _update_ps1 $? $CMD "$(jobs -l 2>/dev/null)"
 }
