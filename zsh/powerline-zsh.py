@@ -297,12 +297,12 @@ def add_root_indicator(powerline, error, running_jobs):
     root_str = ''
     user = subprocess.Popen(['whoami'], stdout=subprocess.PIPE).communicate()[0]
     if user.rstrip() == "root":
-      root_str += ' ⚡'
+      root_str += ' ⚡ '
     else:
-      root_str += ' ⌘'
+      root_str += ' ⌘ '
 
     if running_jobs:
-        root_str += ' ⚙'
+        root_str += ' ⚛'
 
     powerline.append(Segment(powerline, root_str, fg, bg))
 
