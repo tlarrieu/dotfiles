@@ -268,8 +268,10 @@ noremap <leader>t <C-w>j
 noremap <leader>c <C-w>h
 noremap <leader>r <C-w>l
 " Creating new splits
-noremap <leader>v <C-w>v
-noremap <leader>h <C-w>s
+noremap <leader>v :vnew<space>
+noremap <leader>V <C-w>v
+noremap <leader>h :new<space>
+noremap <leader>H <C-w>s
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
@@ -313,9 +315,9 @@ inoremap <c-t> <esc>:
 " Change mode
 noremap k c
 " Help
-noremap  <c-h> :h 
-vnoremap <c-h> <esc>:h 
-inoremap <c-h> <esc>:h 
+noremap  <c-h> :h<space>
+vnoremap <c-h> <esc>:h<space>
+inoremap <c-h> <esc>:h<space>
 " Exit
 noremap <leader>q :q<cr>
 " ---------------------------------------- Togglers
@@ -332,9 +334,6 @@ noremap <leader>e :call SplitSwap()<cr>
 " noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
-" Handy trick that clears previous search and starts a new one (forcing
-" highlighting on the way
-noremap / :let @/ = ""<cr>:set hlsearch<cr>/
 " Toggle absolute / relative numbering
 noremap <leader>n :call g:ToggleNuMode()<cr>
 " Toggle line wrap
