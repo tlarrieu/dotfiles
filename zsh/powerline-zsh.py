@@ -340,8 +340,8 @@ if __name__ == '__main__':
     add_virtual_env_segment(p, cwd)
     #p.append(Segment(' \\u ', 250, 240))
     #p.append(Segment(' \\h ', 250, 238))
-    add_cwd_segment(p, cwd, 5, args.cwd_only)
     add_repo_segment(p, cwd)
+    add_cwd_segment(p, cwd, 5, args.cwd_only)
     add_root_indicator(p, args.prev_error, args.running_jobs)
     sys.stdout.write(p.draw())
 
