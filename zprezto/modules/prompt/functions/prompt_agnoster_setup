@@ -57,7 +57,7 @@ prompt_end() {
     echo -n $br
     echo -n "%{%f%}"
     [[ -n $VIRTUAL_ENV ]] && echo -n "(${VIRTUAL_ENV:t}) "
-    # echo "$(__my_rvm_ruby_version)❯"
+    [[ -n $rvm_current_rvmrc ]] && echo -n "`cat $rvm_current_rvmrc` "
     echo "❯"
   else
     echo -n "%{%k%}"
