@@ -98,6 +98,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType gitcommit startinsert!
 
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
