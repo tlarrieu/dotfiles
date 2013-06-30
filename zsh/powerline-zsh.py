@@ -179,7 +179,8 @@ def get_git_status():
             if origin_status[0][0] == 'ahead':
                 origin_position += '⇡'
 
-        if line.find('nothing to commit (working directory clean)') >= 0:
+        has_stash = False
+        if line.find('nothing to commit, working directory clean') >= 0:
             has_pending_commits = False
         if line.find('Untracked files') >= 0:
             has_untracked_files = True
@@ -187,7 +188,12 @@ def get_git_status():
             detached_head = True
         if line.find('On branch') >= 0:
             current_branch = re.findall('On branch ([^ ]+)', line)[0]
-    return has_pending_commits, has_untracked_files, origin_position, detached_head, current_branch
+    output = subprocess.Popen(['git', 'stash', 'list'], stdout=subprocess.PIPE).communicate()[0]
+    has_stash = True
+    if output == "":
+      has_stash = False
+
+    return has_pending_commits, has_untracked_files, has_stash, origin_position, detached_head, current_branch
 
 
 def add_git_segment(powerline, cwd):
@@ -198,7 +204,7 @@ def add_git_segment(powerline, cwd):
     if len(output) == 0:
         return False
 
-    has_pending_commits, has_untracked_files, origin_position, detached_head, current_branch = get_git_status()
+    has_pending_commits, has_untracked_files, has_stash, origin_position, detached_head, current_branch = get_git_status()
 
     if len(current_branch) > 0:
       branch = current_branch
@@ -211,7 +217,9 @@ def add_git_segment(powerline, cwd):
     branch += origin_position
 
     if has_untracked_files:
-        branch += ' +'
+        branch += ' ⚒ '
+    if has_stash:
+        branch += ' ⚙ '
 
     bg = Color.REPO_CLEAN_BG
     fg = Color.REPO_CLEAN_FG
@@ -279,13 +287,19 @@ def add_virtual_env_segment(powerline, cwd):
     return True
 
 
-def add_root_indicator(powerline, error):
+def add_root_indicator(powerline, error, running_jobs):
     bg = Color.CMD_PASSED_BG
     fg = Color.CMD_PASSED_FG
     if int(error) != 0:
         fg = Color.CMD_FAILED_FG
         bg = Color.CMD_FAILED_BG
-    powerline.append(Segment(powerline, ' $ ', fg, bg))
+
+    root_str = ''
+    if running_jobs:
+      root_str += ' ⚙ '
+    root_str += ' $'
+
+    powerline.append(Segment(powerline, root_str, fg, bg))
 
 
 def get_valid_cwd():
@@ -310,16 +324,20 @@ if __name__ == '__main__':
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--cwd-only', action="store_true")
     arg_parser.add_argument('prev_error', nargs='?', default=0)
+    arg_parser.add_argument('last_cmd', nargs='?', default=0)
+    arg_parser.add_argument('running_jobs', nargs='?', default=0)
     args = arg_parser.parse_args()
 
     p = Powerline(mode='default')
     cwd = get_valid_cwd()
+    if args.last_cmd != "clear":
+      sys.stdout.write("\n")
     add_virtual_env_segment(p, cwd)
     #p.append(Segment(' \\u ', 250, 240))
     #p.append(Segment(' \\h ', 250, 238))
     add_cwd_segment(p, cwd, 5, args.cwd_only)
     add_repo_segment(p, cwd)
-    add_root_indicator(p, args.prev_error)
+    add_root_indicator(p, args.prev_error, args.running_jobs)
     sys.stdout.write(p.draw())
 
 # vim: set expandtab:

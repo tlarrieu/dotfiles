@@ -104,12 +104,16 @@ function alert {
     echo $MESSAGE | awesome-client -
 }
 
-
 function _update_ps1()
 {
-  export PROMPT="$(~/.zsh/powerline-zsh.py $?)"
+  export PROMPT="$(~/.zsh/powerline-zsh.py $? $1 $2)"
+}
+preexec()
+{
+  export CMD=$1
 }
 precmd()
 {
-  _update_ps1
+  # We pass last commannd as well as running jobs
+  _update_ps1 $CMD "$(jobs -l 2>/dev/null)"
 }
