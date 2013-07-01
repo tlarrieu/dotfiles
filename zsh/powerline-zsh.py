@@ -13,31 +13,26 @@ def warn(msg):
 
 
 class Color:
-    # The following link is a pretty good resources for color values:
-    # http://www.calmar.ws/vim/color-output.png
 
-    PATH_BG = 237  # dark grey
-    PATH_FG = 250  # light grey
-    CWD_FG = 254  # nearly-white grey
-    SEPARATOR_FG = 244
+    PATH_BG = 11
+    PATH_FG = 15
+    CWD_FG = 15
+    SEPARATOR_FG = 14
 
-    # REPO_CLEAN_BG = 148  # a light green color
-    REPO_CLEAN_BG = 2  # a light green color
-    REPO_CLEAN_FG = 0  # black
-    # REPO_DIRTY_BG = 161  # pink/red
-    REPO_DIRTY_BG = 5  # pink/red
-    REPO_DIRTY_FG = 15  # white
+    REPO_CLEAN_BG = 2
+    REPO_CLEAN_FG = 0
+    REPO_DIRTY_BG = 5
+    REPO_DIRTY_FG = 15
 
-    CMD_PASSED_BG = 236
+    CMD_PASSED_BG = 12
     CMD_PASSED_FG = 15
-    # CMD_FAILED_BG = 161
     CMD_FAILED_BG = 5
     CMD_FAILED_FG = 15
 
     SVN_CHANGES_BG = 148
-    SVN_CHANGES_FG = 22  # dark green
+    SVN_CHANGES_FG = 22
 
-    VIRTUAL_ENV_BG = 35  # a mid-tone green
+    VIRTUAL_ENV_BG = 35
     VIRTUAL_ENV_FG = 22
 
 
