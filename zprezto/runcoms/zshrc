@@ -66,6 +66,7 @@ alias yh="sudo yum history"
 
 alias ccat="pygmentize -g"
 alias tree="tree -C"
+alias less="less -r"
 alias wee="weechat-curses"
 alias a="atool"
 alias g="git"
