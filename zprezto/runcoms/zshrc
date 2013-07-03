@@ -72,6 +72,12 @@ alias a="atool"
 alias g="git"
 alias gcd='cd $(git-root)'
 
+alias atx='atool -x'
+
+# A few typo fixers
+alias s='ls'
+alias zls='ls'
+
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
 bindkey '^[[1;5C' emacs-forward-word

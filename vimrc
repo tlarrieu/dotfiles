@@ -3,8 +3,8 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
-let mapleader = "," " remapping leader
-let maplocalleader = ","
+let mapleader = "é" " remapping leader
+let maplocalleader = "é"
 
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
@@ -268,9 +268,13 @@ vnoremap <down>  <nop>
 vnoremap <left>  <nop>
 vnoremap <right> <nop>
 " Navigating between splits
+noremap <s-s> <C-w>k
 noremap <leader>s <C-w>k
+noremap <s-t> <C-w>j
 noremap <leader>t <C-w>j
+noremap <s-c> <C-w>h
 noremap <leader>c <C-w>h
+noremap <s-r> <C-w>l
 noremap <leader>r <C-w>l
 " Creating new splits
 noremap <leader>v :vnew<space>
@@ -280,11 +284,6 @@ noremap <leader>H <C-w>s
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
-" Fast cursor movement
-map T 5t
-map S 5s
-map R 5r
-map C 5c
 " move current line up or down
 noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
