@@ -3,9 +3,6 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
-let mapleader = "é" " remapping leader
-let maplocalleader = "é"
-
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#infect()
@@ -213,25 +210,23 @@ let g:Powerline_symbols = 'fancy'
 let g:surround_no_mappings=1
 " ------------------------------------------------------------ Keyboard mapping
 
-noremap <leader>= <c-w>=
-
 " CtrlP binding
-noremap  <leader><leader> :CtrlPMixed<cr>
-noremap  <leader>b        :CtrlPBuffer<cr>
+noremap  ,, :CtrlPMixed<cr>
+noremap  ,b        :CtrlPBuffer<cr>
 
 " System yanking / pasting
-noremap  <leader>y "+yy
-vnoremap <leader>y "+y
-noremap  <leader>p "+p
+noremap  ,y "+yy
+vnoremap ,y "+y
+noremap  ,p "+p
 " ----------------------------------------- Tabular
-noremap  <leader>a :Tabularize /
-vnoremap <leader>a :Tabularize /
+noremap  ,a :Tabularize /
+vnoremap ,a :Tabularize /
 " ---------------------------------------- Fugitive
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gd :Gdiff<cr>
-noremap <leader>gw :Gwrite<cr>
-noremap <leader>gr :Gread<cr>
-noremap <leader>gc :Gcommit<cr>
+noremap ,gb :Gblame<cr>
+noremap ,gd :Gdiff<cr>
+noremap ,gw :Gwrite<cr>
+noremap ,gr :Gread<cr>
+noremap ,gc :Gcommit<cr>
 " ---------------------------------------- Surround
 nmap ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
@@ -244,8 +239,8 @@ nmap ySS <Plug>YSsurround
 xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 " ------------------------------------------- RSpec
-autocmd FileType ruby nmap <leader>tt :RunSpec<cr>
-autocmd FileType ruby nmap <leader>tl :RunSpecLine<cr>
+autocmd FileType ruby nmap ,tt :RunSpec<cr>
+autocmd FileType ruby nmap ,tl :RunSpecLine<cr>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -268,19 +263,19 @@ vnoremap <down>  <nop>
 vnoremap <left>  <nop>
 vnoremap <right> <nop>
 " Navigating between splits
-noremap <leader>s <C-w>k
+noremap ,s <C-w>k
 noremap S         <C-w>k
-noremap <leader>t <C-w>j
+noremap ,t <C-w>j
 noremap T         <C-w>J
-noremap <leader>c <C-w>h
+noremap ,c <C-w>h
 noremap C         <C-w>h
-noremap <leader>r <C-w>l
+noremap ,r <C-w>l
 noremap R         <C-w>l
 " Creating new splits
-noremap <leader>v :vnew<space>
-noremap <leader>V <C-w>v
-noremap <leader>h :new<space>
-noremap <leader>H <C-w>s
+noremap ,v :vnew<space>
+noremap ,V <C-w>v
+noremap ,h :new<space>
+noremap ,H <C-w>s
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
@@ -322,22 +317,22 @@ noremap  <c-h> :h<space>
 vnoremap <c-h> <esc>:h<space>
 inoremap <c-h> <esc>:h<space>
 " Exit
-noremap <leader>q :q<cr>
+noremap ,q :q<cr>
 " ---------------------------------------- Togglers
 " Multi-line comment
-" noremap  <leader>cc :TComment<CR>
-" vnoremap <leader>cc :TComment<CR>
+" noremap  ,cc :TComment<CR>
+" vnoremap ,cc :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
 noremap <space> :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
-noremap <leader>e :call SplitSwap()<cr>
+noremap ,e :call SplitSwap()<cr>
 " Search highlighting toggle
 " noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Toggle absolute / relative numbering
-noremap <leader>n :call g:ToggleNuMode()<cr>
+noremap ,n :call g:ToggleNuMode()<cr>
 " Toggle line wrap
-noremap <leader>w :set wrap!<cr>
+noremap ,w :set wrap!<cr>
