@@ -1,17 +1,20 @@
 -- Standard awesome library
-require("awful")
+awful = require("awful")
+awful.rules = require("awful.rules")
 require("awful.autofocus")
-require("awful.rules")
+wibox = require("wibox")
 -- Theme handling library
-require("beautiful")
+beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
+package.path = package.path .. ';/home/smockey/git/powerline/powerline/bindings/awesome/?.lua'
+require('powerline')
 
 -- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
-terminal_exec = terminal .. " -e "
+terminal = "xfce4-terminal"
+terminal_exec = terminal .. " -x "
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal_exec .. editor
 newline = "\n" -- This is used in a zsh scripts related to naughty

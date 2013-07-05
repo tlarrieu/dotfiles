@@ -78,7 +78,7 @@ clientkeys = awful.util.table.join(
   -- Moving client arounds
   awful.key({ modkey, "Control" }, "c",
     function (c)
-      local id = (awful.tag.getidx(c:tags()[1]))
+      local id = awful.tag.getidx()
       if id == 1 then
         id = keynumber
       else
@@ -92,7 +92,7 @@ clientkeys = awful.util.table.join(
   ),
   awful.key({ modkey, "Control" }, "r",
     function (c)
-      local id = (awful.tag.getidx(c:tags()[1])) % keynumber + 1
+      local id = awful.tag.getidx() % keynumber + 1
       local screen = client.focus.screen
       awful.client.movetotag(tags[screen][id])
       awful.tag.viewonly(tags[screen][id])
