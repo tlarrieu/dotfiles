@@ -269,9 +269,13 @@ vnoremap <left>  <nop>
 vnoremap <right> <nop>
 " Navigating between splits
 noremap <leader>s <C-w>k
+noremap S         <C-w>k
 noremap <leader>t <C-w>j
+noremap T         <C-w>J
 noremap <leader>c <C-w>h
+noremap C         <C-w>h
 noremap <leader>r <C-w>l
+noremap R         <C-w>l
 " Creating new splits
 noremap <leader>v :vnew<space>
 noremap <leader>V <C-w>v
@@ -280,11 +284,6 @@ noremap <leader>H <C-w>s
 " Navigating between tabs
 map <C-left>  :tabp<cr>
 map <C-right> :tabn<cr>
-" Fast cursor movement
-map T 5t
-map S 5s
-map R 5r
-map C 5c
 " move current line up or down
 noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
