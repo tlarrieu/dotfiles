@@ -268,14 +268,14 @@ vnoremap <down>  <nop>
 vnoremap <left>  <nop>
 vnoremap <right> <nop>
 " Navigating between splits
-noremap <s-s> <C-w>k
 noremap <leader>s <C-w>k
-noremap <s-t> <C-w>j
+noremap S         <C-w>k
 noremap <leader>t <C-w>j
-noremap <s-c> <C-w>h
+noremap T         <C-w>J
 noremap <leader>c <C-w>h
-noremap <s-r> <C-w>l
+noremap C         <C-w>h
 noremap <leader>r <C-w>l
+noremap R         <C-w>l
 " Creating new splits
 noremap <leader>v :vnew<space>
 noremap <leader>V <C-w>v
