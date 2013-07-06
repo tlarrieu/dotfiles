@@ -73,6 +73,7 @@ alias a="atool"
 alias atx="atool -x"
 alias g="git"
 alias gcd='cd $(git-root)'
+alias vip="vim -MR -"
 
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
