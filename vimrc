@@ -205,25 +205,25 @@ let g:Powerline_symbols = 'fancy'
 let g:surround_no_mappings=1
 " ------------------------------------------------------------ Keyboard mapping
 
-noremap <leader>= <c-w>=
+noremap <Leader>= <C-w>=
 
 " CtrlP binding
-noremap  <leader><leader> :CtrlPMixed<cr>
-noremap  <leader>b        :CtrlPBuffer<cr>
+noremap  <Leader><Leader> :CtrlPMixed<CR>
+noremap  <Leader>b        :CtrlPBuffer<CR>
 
 " System yanking / pasting
-noremap  <leader>y "+yy
-vnoremap <leader>y "+y
-noremap  <leader>p "+p
+noremap  <Leader>y "+yy
+vnoremap <Leader>y "+y
+noremap  <Leader>p "+p
 " ----------------------------------------- Tabular
-noremap  <leader>a :Tabularize /
-vnoremap <leader>a :Tabularize /
+noremap  <Leader>a :Tabularize /
+vnoremap <Leader>a :Tabularize /
 " ---------------------------------------- Fugitive
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gd :Gdiff<cr>
-noremap <leader>gw :Gwrite<cr>
-noremap <leader>gr :Gread<cr>
-noremap <leader>gc :Gcommit<cr>
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gdiff<CR>
+noremap <Leader>gw :Gwrite<CR>
+noremap <Leader>gr :Gread<CR>
+noremap <Leader>gc :Gcommit<CR>
 " ---------------------------------------- Surround
 nmap ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
@@ -236,8 +236,8 @@ nmap ySS <Plug>YSsurround
 xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 " ------------------------------------------- RSpec
-autocmd FileType ruby nmap <leader>tt :RunSpec<cr>
-autocmd FileType ruby nmap <leader>tl :RunSpecLine<cr>
+autocmd FileType ruby nmap <Leader>tt :RunSpec<CR>
+autocmd FileType ruby nmap <Leader>tl :RunSpecLine<CR>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -247,40 +247,40 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
-vnoremap <up>    <nop>
-vnoremap <down>  <nop>
-vnoremap <left>  <nop>
-vnoremap <right> <nop>
+nnoremap <Up>    <Nop>
+nnoremap <Down>  <Nop>
+nnoremap <Left>  <Nop>
+nnoremap <Right> <Nop>
+inoremap <Up>    <Nop>
+inoremap <Down>  <Nop>
+inoremap <Left>  <Nop>
+inoremap <Right> <Nop>
+vnoremap <Up>    <Nop>
+vnoremap <Down>  <Nop>
+vnoremap <Left>  <Nop>
+vnoremap <Right> <Nop>
 " Navigating between splits
-noremap S         <C-w>k
-noremap T         <C-w>j
-noremap C         <C-w>h
-noremap R         <C-w>l
+noremap <Leader>s         <C-w>k
+noremap <Leader>t         <C-w>j
+noremap <Leader>c         <C-w>h
+noremap <Leader>r         <C-w>l
 " Creating new splits
-noremap <leader>v :vnew<space>
-noremap <leader>V <C-w>v
-noremap <leader>h :new<space>
-noremap <leader>H <C-w>s
+noremap <Leader>v :vnew<Space>
+noremap <Leader>V <C-w>v
+noremap <Leader>h :new<Space>
+noremap <Leader>H <C-w>s
 " Navigating between tabs
-map <C-left>  :tabp<cr>
-map <C-right> :tabn<cr>
+map <C-left>  :tabp<CR>
+map <C-right> :tabn<CR>
 " move current line up or down
-noremap <c-up>   :m-2<cr>
-noremap <c-down> :m+<cr>
+noremap <C-up>   :m-2<CR>
+noremap <C-down> :m+<CR>
 " Insert new line after current one without breaking it
-inoremap <c-cr> <Esc>o
-noremap  <c-cr> m`o<esc>``
+inoremap <C-cr> <Esc>o
+noremap  <C-cr> m`o<Esc>``
 " Same but before current one
-inoremap <s-cr> <Esc>O
-noremap  <s-cr> m`O<esc>``
+inoremap <S-cr> <Esc>O
+noremap  <S-cr> m`O<Esc>``
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
@@ -294,29 +294,29 @@ vnoremap <S-Tab> <gv
 inoremap # X<BS>#
 " ---------------------------------- Mode Switching
 " Command mode
-noremap  <c-t> :
-vnoremap <c-t> :
-inoremap <c-t> <esc>:
+noremap  <C-t> :
+vnoremap <C-t> :
+inoremap <C-t> <Esc>:
 " Change mode
 noremap k c
 " Help
-noremap  <c-h> :h<space>
-vnoremap <c-h> <esc>:h<space>
-inoremap <c-h> <esc>:h<space>
+noremap  <C-h> :h<Space>
+vnoremap <C-h> <Esc>:h<Space>
+inoremap <C-h> <Esc>:h<Space>
 " Exit
-noremap <leader>q :q<cr>
+noremap <Leader>q :q<CR>
 " ---------------------------------------- Togglers
 " Smart completion
-inoremap <c-space> <c-r>=Smart_Complete()<CR>
+inoremap <C-Space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
-noremap <space> :call ToggleFold()<CR>
+noremap <Space> :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
-noremap <leader>e :call SplitSwap()<cr>
+noremap <Leader>e :call SplitSwap()<CR>
 " Search highlighting toggle
 " noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
-noremap <silent> h :let @/ = ""<cr>
+noremap <silent> h :let @/ = ""<CR>
 " Toggle absolute / relative numbering
-noremap <leader>n :call g:ToggleNuMode()<cr>
+noremap <Leader>n :call g:ToggleNuMode()<CR>
 " Toggle line wrap
-noremap <leader>w :set wrap!<cr>
+noremap <Leader>w :set wrap!<CR>
