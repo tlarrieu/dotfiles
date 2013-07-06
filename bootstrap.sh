@@ -62,6 +62,8 @@ safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
 
+# .tmux.conf
+safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
 # .zsh (utility functions for prezto theme
 safelink $BASEDIR/zsh $HOME/.zsh
