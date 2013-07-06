@@ -175,15 +175,6 @@ set foldnestmax=10
 set foldlevel=100
 set fillchars=vert:\|,fold:\ 
 set foldminlines=2
-" ----------------------------------------------------------------- GUI options
-if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 13
-  set guioptions+=ce
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=r  "remove right-hand scroll bar
-  set guioptions-=L  "remove left-hand scroll bar
-endif
 " ------------------------------------------------------------------- Searching
 " case behavior regarding searching
 set ignorecase
@@ -192,6 +183,7 @@ set smartcase
 set hlsearch  " highlight search
 set incsearch " start search while typing
 " --------------------------------------------------------------------- Plugins
+"
 " --------------------------------------- Powerline
 if ! has('gui_running')
     set ttimeoutlen=10
@@ -298,12 +290,6 @@ inoremap <S-Tab> <C-D>
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
 
-nnoremap <esc> $
-vnoremap <esc> $
-inoremap <esc> $
-nnoremap <s-esc> #
-vnoremap <s-esc> #
-inoremap <s-esc> #
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " ---------------------------------- Mode Switching
@@ -320,9 +306,6 @@ inoremap <c-h> <esc>:h<space>
 " Exit
 noremap <leader>q :q<cr>
 " ---------------------------------------- Togglers
-" Multi-line comment
-" noremap  <leader>cc :TComment<CR>
-" vnoremap <leader>cc :TComment<CR>
 " Smart completion
 inoremap <c-space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
