@@ -29,7 +29,7 @@ export PATH=$PATH:/usr/local/heroku/bin
 
 export GTK_IM_MODULE=xim
 export GEDITOR=gvim
-export EDITOR=gvim
+export EDITOR=vim
 export TERM="xterm-256color"
 
 
