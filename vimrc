@@ -3,8 +3,7 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
-let mapleader = "," " remapping leader
-let maplocalleader = ","
+let mapleader="," " remapping leader
 
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
@@ -100,7 +99,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit startinsert!
-
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
@@ -113,8 +111,6 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
-
-au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
 set nocompatible
@@ -203,67 +199,60 @@ let g:Powerline_symbols = 'fancy'
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
 let g:surround_no_mappings=1
+" ------------------------------------------- RSpec
+let g:RspecKeymap=0
 " ------------------------------------------------------------ Keyboard mapping
 
-noremap <Leader>= <C-w>=
-
-" CtrlP binding
+" ----------------------------------- CtrlP binding
 noremap  <Leader><Leader> :CtrlPMixed<CR>
 noremap  <Leader>b        :CtrlPBuffer<CR>
-
-" System yanking / pasting
-noremap  <Leader>y "+yy
-vnoremap <Leader>y "+y
-noremap  <Leader>p "+p
 " ----------------------------------------- Tabular
-noremap  <Leader>a :Tabularize /
-vnoremap <Leader>a :Tabularize /
+noremap  <Leader>aa :Tabularize /
+vnoremap <Leader>aa :Tabularize /
+noremap  <Leader>a= :Tabularize /=<CR>
+vnoremap <Leader>a= :Tabularize /=<CR>
 " ---------------------------------------- Fugitive
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gdiff<CR>
 noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
+" ------------------------ System yanking / pasting
+noremap  <Leader>y "+yy
+vnoremap <Leader>y "+y
+noremap  <Leader>p "+p
 " ---------------------------------------- Surround
-nmap ds  <Plug>Dsurround
+  nmap <Leader>ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
-nmap ks  <Plug>Csurround
-nmap ys  <Plug>Ysurround
-nmap yS  <Plug>YSurround
-nmap yss <Plug>Yssurround
-nmap ySs <Plug>YSsurround
-nmap ySS <Plug>YSsurround
-xmap S   <Plug>VSurround
-xmap gS  <Plug>VgSurround
+nmap <Leader>ks  <Plug>Csurround
+nmap <Leader>is  <Plug>Ysurround
+nmap <Leader>iS  <Plug>YSurround
+nmap <Leader>iss <Plug>Yssurround
+nmap <Leader>iSs <Plug>YSsurround
+nmap <Leader>iSS <Plug>YSsurround
 " ------------------------------------------- RSpec
-autocmd FileType ruby nmap <Leader>tt :RunSpec<CR>
-autocmd FileType ruby nmap <Leader>tl :RunSpecLine<CR>
+nmap <Leader>tt :RunSpec<CR>
+nmap <Leader>tl :RunSpecLine<CR>
+nmap <Leader>tr :RerunSpec<CR>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
+" ------------------------------------------- Marks
+noremap ' `
+noremap ` '
 " ---------------------------------------- Movement
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 " left / right / down (visual line) / up (visual line)
 noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-nnoremap <Up>    <Nop>
-nnoremap <Down>  <Nop>
-nnoremap <Left>  <Nop>
-nnoremap <Right> <Nop>
-inoremap <Up>    <Nop>
-inoremap <Down>  <Nop>
-inoremap <Left>  <Nop>
-inoremap <Right> <Nop>
-vnoremap <Up>    <Nop>
-vnoremap <Down>  <Nop>
-vnoremap <Left>  <Nop>
-vnoremap <Right> <Nop>
 " Navigating between splits
-noremap <Leader>s         <C-w>k
-noremap <Leader>t         <C-w>j
-noremap <Leader>c         <C-w>h
-noremap <Leader>r         <C-w>l
+noremap <S-s>  <C-w>k
+noremap <S-t>  <C-w>j
+noremap <S-c>  <C-w>h
+noremap <S-r>  <C-w>l
 " Creating new splits
 noremap <Leader>v :vnew<Space>
 noremap <Leader>V <C-w>v
@@ -289,10 +278,13 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
-
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " ---------------------------------- Mode Switching
+noremap  <C-c> <esc>
+inoremap <C-c> <esc>
+onoremap <C-c> <esc>
+vnoremap <C-c> <esc>
 " Command mode
 noremap  <C-t> :
 vnoremap <C-t> :
@@ -303,6 +295,10 @@ noremap k c
 noremap  <C-h> :h<Space>
 vnoremap <C-h> <Esc>:h<Space>
 inoremap <C-h> <Esc>:h<Space>
+" Edit
+noremap  <C-e> :e<Space>
+vnoremap <C-e> <Esc>:e<Space>
+inoremap <C-e> <Esc>:e<Space>
 " Exit
 noremap <Leader>q :q<CR>
 " ---------------------------------------- Togglers
