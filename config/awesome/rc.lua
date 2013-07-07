@@ -13,7 +13,7 @@ require('powerline')
 -- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xfce4-terminal"
+terminal = "sakura"
 terminal_exec = terminal .. " -x "
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal_exec .. editor
