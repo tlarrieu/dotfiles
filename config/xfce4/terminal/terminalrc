@@ -28,4 +28,5 @@ ColorBold=#93a1a1
 ColorBoldUseDefault=FALSE
 ScrollingLines=999999
 FontName=Inconsolata Medium 13
+CommandLoginShell=TRUE
 
