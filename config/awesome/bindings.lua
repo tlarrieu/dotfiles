@@ -124,23 +124,20 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
   end),
   -- Session control
-  awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")      end),
+  awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
   -- XFCE4 properties
-  awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")    end),
+  awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")     end),
   -- Media player controls
-  awful.key({                   }, "F10",         function () awful.util.spawn("mocp --previous")           end),
-  awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")       end),
-  awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")               end),
+  awful.key({                   }, "F10",         function () awful.util.spawn("mocp --previous")            end),
+  awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")        end),
+  awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")                end),
 
-  awful.key({ modkey            }, ",",           function () awful.util.spawn("jumanji")                    end),
-  awful.key({ modkey            }, "u",           function () awful.util.spawn("/home/smockey/bin/sublime") end),
-  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal_exec .. "ranger")     end),
+  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
+  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
+  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
 
-  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")       end),
-  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer")  end),
-
-  awful.key({ modkey            }, "Return",      function () awful.util.spawn(terminal)                    end),
-  awful.key({ modkey, "Shift"   }, "Return",      function () awful.util.spawn("gksu" .. terminal)          end),
+  awful.key({ modkey            }, "Return",      function () awful.util.spawn(terminal)                     end),
+  awful.key({ modkey, "Shift"   }, "Return",      function () awful.util.spawn("gksu" .. terminal)           end),
   awful.key({ "Control"         }, "F12",         function () awful.util.spawn("scrot -e 'mv $f ~/Pictures/Screenshots/'") end)
 )
 
