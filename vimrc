@@ -159,9 +159,9 @@ set sidescroll=1
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
-set tabstop=2
-set shiftwidth=2
-set expandtab
+set tabstop=4
+set shiftwidth=4
+autocmd BufRead,BufNewFile *.py setlocal expandtab
 " --------------------------------------------------------------------- Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
@@ -222,7 +222,7 @@ noremap  <Leader>y "+yy
 vnoremap <Leader>y "+y
 noremap  <Leader>p "+p
 " ---------------------------------------- Surround
-  nmap <Leader>ds  <Plug>Dsurround
+nmap <Leader>ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
 nmap <Leader>ks  <Plug>Csurround
 nmap <Leader>is  <Plug>Ysurround
@@ -285,6 +285,10 @@ noremap  <C-c> <esc>
 inoremap <C-c> <esc>
 onoremap <C-c> <esc>
 vnoremap <C-c> <esc>
+" Save
+noremap  <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+vnoremap <C-s> <Esc>:w<CR>
 " Command mode
 noremap  <C-t> :
 vnoremap <C-t> :
