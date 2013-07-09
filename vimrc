@@ -159,8 +159,8 @@ set sidescroll=1
 " ---------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 autocmd BufRead,BufNewFile *.py setlocal expandtab
 " --------------------------------------------------------------------- Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
@@ -217,6 +217,7 @@ noremap <Leader>gd :Gdiff<CR>
 noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
+noremap <Leader>gs :Gstatus<CR>
 " ------------------------ System yanking / pasting
 noremap  <Leader>y "+yy
 vnoremap <Leader>y "+y
@@ -230,10 +231,13 @@ nmap <Leader>iS  <Plug>YSurround
 nmap <Leader>iss <Plug>Yssurround
 nmap <Leader>iSs <Plug>YSsurround
 nmap <Leader>iSS <Plug>YSsurround
+vmap <Leader>s   <Plug>VSurround
+vmap <Leader>S  <Plug>VgSurround
 " ------------------------------------------- RSpec
-nmap <Leader>tt :RunSpec<CR>
-nmap <Leader>tl :RunSpecLine<CR>
-nmap <Leader>tr :RerunSpec<CR>
+autocmd BufRead,BufNewFile * noremap <Leader>tt :RerunSpec<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tt :RunSpec<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tr :RerunSpec<CR>
 " ------------------------------------------ Search
 noremap « #
 noremap » *
@@ -259,8 +263,8 @@ noremap <Leader>V <C-w>v
 noremap <Leader>h :new<Space>
 noremap <Leader>H <C-w>s
 " Navigating between tabs
-map <C-left>  :tabp<CR>
-map <C-right> :tabn<CR>
+map <Leader>c :tabp<CR>
+map <Leader>r :tabn<CR>
 " move current line up or down
 noremap <C-up>   :m-2<CR>
 noremap <C-down> :m+<CR>
