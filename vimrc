@@ -203,7 +203,7 @@ let g:surround_no_mappings=1
 let g:RspecKeymap=0
 " ------------------------------------------------------------ Keyboard mapping
 
-" ----------------------------------- CtrlP binding
+" ------------------------------------------- CtrlP
 noremap  <Leader><Leader> :CtrlPMixed<CR>
 noremap  <Leader>b        :CtrlPBuffer<CR>
 " ----------------------------------------- Tabular
@@ -218,10 +218,11 @@ noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
-" ------------------------ System yanking / pasting
-noremap  <Leader>y "+yy
-vnoremap <Leader>y "+y
-noremap  <Leader>p "+p
+" ------------------------------------------- RSpec
+autocmd BufRead,BufNewFile * noremap <Leader>tt :RerunSpec<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tt :RunSpec<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
+autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
 nmap <Leader>ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
@@ -233,25 +234,17 @@ nmap <Leader>iSs <Plug>YSsurround
 nmap <Leader>iSS <Plug>YSsurround
 vmap <Leader>s   <Plug>VSurround
 vmap <Leader>S  <Plug>VgSurround
-" ------------------------------------------- RSpec
-autocmd BufRead,BufNewFile * noremap <Leader>tt :RerunSpec<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tt :RunSpec<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tr :RerunSpec<CR>
+" ------------------------ System yanking / pasting
+noremap  <Leader>y "+yy
+vnoremap <Leader>y "+y
+noremap  <Leader>p "+p
 " ------------------------------------------ Search
 noremap « #
 noremap » *
 " ------------------------------------------- Marks
 noremap ' `
 noremap ` '
-" ---------------------------------------- Movement
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-" left / right / down (visual line) / up (visual line)
-noremap c h
-noremap r l
-noremap t gj
-noremap s gk
+" ------------------------------------------ Splits
 " Navigating between splits
 noremap <S-s>  <C-w>k
 noremap <S-t>  <C-w>j
@@ -262,9 +255,18 @@ noremap <Leader>v :vnew<Space>
 noremap <Leader>V <C-w>v
 noremap <Leader>h :new<Space>
 noremap <Leader>H <C-w>s
+" -------------------------------------------- Tabs
 " Navigating between tabs
 map <Leader>c :tabp<CR>
 map <Leader>r :tabn<CR>
+" ---------------------------------------- Movement
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
+" left / right / down (visual line) / up (visual line)
+noremap c h
+noremap r l
+noremap t gj
+noremap s gk
 " move current line up or down
 noremap <C-up>   :m-2<CR>
 noremap <C-down> :m+<CR>
