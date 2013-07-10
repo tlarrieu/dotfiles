@@ -63,7 +63,7 @@ function! DoSplitSwap()
   "Switch to dest and shuffle source->dest
   exe curNum . "wincmd w"
   "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' markedBuf 
+  exe 'hide buf' markedBuf
 endfunction
 
 function! SplitSwap()
@@ -259,6 +259,10 @@ noremap <Leader>H <C-w>s
 " Navigating between tabs
 map <Leader>c :tabp<CR>
 map <Leader>r :tabn<CR>
+map <Leader>' :tabnew 
+" ---------------------------------------- Sessions
+map <Leader>ss :mksession! 
+map <Leader>sl :source 
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -311,6 +315,7 @@ vnoremap <C-e> <Esc>:e<Space>
 inoremap <C-e> <Esc>:e<Space>
 " Exit
 noremap <Leader>q :q<CR>
+noremap <Leader>Q :qa<CR>
 " ---------------------------------------- Togglers
 " Smart completion
 inoremap <C-Space> <c-r>=Smart_Complete()<CR>
