@@ -219,10 +219,11 @@ noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
 " ------------------------------------------- RSpec
-autocmd BufRead,BufNewFile * noremap <Leader>tt :RerunSpec<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tt :RunSpec<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
-autocmd BufRead,BufNewFile *_spec.rb noremap <Leader>tr :RerunSpec<CR>
+autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
+autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
+autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
+autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
+autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
 nmap <Leader>ds  <Plug>Dsurround
 " I'm using « c » as « h » since I'm in bépo layout, so I need to change this
