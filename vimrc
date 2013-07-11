@@ -161,7 +161,7 @@ set ai "autoindent
 set si "smart indent
 set tabstop=2
 set shiftwidth=2
-autocmd BufRead,BufNewFile *.py setlocal expandtab
+set expandtab
 " --------------------------------------------------------------------- Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
@@ -256,6 +256,12 @@ noremap <Leader>v :vnew<Space>
 noremap <Leader>V <C-w>v
 noremap <Leader>h :new<Space>
 noremap <Leader>H <C-w>s
+" Resize splits
+map <Up>    <C-w>+
+map <Down>  <C-w>-
+map <Left>  <C-w><
+map <Right> <C-w>>
+map <Leader>= <C-w>=
 " -------------------------------------------- Tabs
 " Navigating between tabs
 map <Leader>c :tabp<CR>
