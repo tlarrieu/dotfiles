@@ -225,16 +225,25 @@ autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
 autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
 autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
-nmap <Leader>ds  <Plug>Dsurround
-" I'm using « c » as « h » since I'm in bépo layout, so I need to change this
-nmap <Leader>ks  <Plug>Csurround
-nmap <Leader>is  <Plug>Ysurround
-nmap <Leader>iS  <Plug>YSurround
-nmap <Leader>iss <Plug>Yssurround
-nmap <Leader>iSs <Plug>YSsurround
-nmap <Leader>iSS <Plug>YSsurround
-vmap <Leader>s   <Plug>VSurround
-vmap <Leader>S  <Plug>VgSurround
+nmap du  <Plug>Dsurround
+nmap ku  <plug>csurround
+nmap yu  <Plug>Ysurround
+nmap yU  <Plug>YSurround
+nmap yuu <Plug>Yssurround
+nmap yUu <Plug>YSsurround
+nmap yUU <Plug>YSsurround
+vmap u   <Plug>VSurround
+vmap U   <Plug>VgSurround
+
+" nmap <Leader>ds  <Plug>Dsurround
+" nmap <leader>ks  <plug>csurround
+" nmap <Leader>is  <Plug>Ysurround
+" nmap <Leader>iS  <Plug>YSurround
+" nmap <Leader>iss <Plug>Yssurround
+" nmap <Leader>iSs <Plug>YSsurround
+" nmap <Leader>iSS <Plug>YSsurround
+" vmap <Leader>s   <Plug>VSurround
+" vmap <Leader>S   <Plug>VgSurround
 " ------------------------ System yanking / pasting
 noremap  <Leader>y "+yy
 vnoremap <Leader>y "+y
