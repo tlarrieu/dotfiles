@@ -18,3 +18,4 @@
 	br = branch
 	ci = commit
 	st = status
+  ft = fetch

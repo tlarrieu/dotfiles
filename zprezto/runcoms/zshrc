@@ -29,10 +29,9 @@ export PATH=$PATH:/usr/local/heroku/bin
 
 export GTK_IM_MODULE=xim
 export GEDITOR=gvim
-export EDITOR=gvim
+export EDITOR=vim
 export TERM="xterm-256color"
-
-
+stty -ixon
 
 alias apt-get="sudo apt-get"
 alias dpkg="sudo dpkg"
@@ -73,12 +72,7 @@ alias a="atool"
 alias atx="atool -x"
 alias g="git"
 alias gcd='cd $(git-root)'
-
-alias atx='atool -x'
-
-# A few typo fixers
-alias s='ls'
-alias zls='ls'
+alias vip="vim -MR -"
 
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
@@ -123,6 +117,7 @@ preexec()
   export CMD=$1
   echo -n "\n"
 }
+
 precmd()
 {
   # We pass last commannd as well as running jobs
