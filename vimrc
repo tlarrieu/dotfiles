@@ -3,6 +3,8 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
+let mapleader="," " remapping leader
+
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#infect()
@@ -61,7 +63,7 @@ function! DoSplitSwap()
   "Switch to dest and shuffle source->dest
   exe curNum . "wincmd w"
   "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' markedBuf 
+  exe 'hide buf' markedBuf
 endfunction
 
 function! SplitSwap()
@@ -97,7 +99,6 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit startinsert!
-
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
@@ -110,8 +111,6 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
-
-au BufWritePost *.coffee silent CoffeeMake!
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
 set nocompatible
@@ -172,15 +171,6 @@ set foldnestmax=10
 set foldlevel=100
 set fillchars=vert:\|,fold:\ 
 set foldminlines=2
-" ----------------------------------------------------------------- GUI options
-if has("gui_running")
-  set guifont=Inconsolata\ For\ Powerline\ 13
-  set guioptions+=ce
-  set guioptions-=m  "remove menu bar
-  set guioptions-=T  "remove toolbar
-  set guioptions-=r  "remove right-hand scroll bar
-  set guioptions-=L  "remove left-hand scroll bar
-endif
 " ------------------------------------------------------------------- Searching
 " case behavior regarding searching
 set ignorecase
@@ -189,6 +179,7 @@ set smartcase
 set hlsearch  " highlight search
 set incsearch " start search while typing
 " --------------------------------------------------------------------- Plugins
+"
 " --------------------------------------- Powerline
 if ! has('gui_running')
     set ttimeoutlen=10
@@ -208,86 +199,103 @@ let g:Powerline_symbols = 'fancy'
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
 let g:surround_no_mappings=1
+" ------------------------------------------- RSpec
+let g:RspecKeymap=0
 " ------------------------------------------------------------ Keyboard mapping
 
-" CtrlP binding
-noremap  ,, :CtrlPMixed<cr>
-noremap  ,b        :CtrlPBuffer<cr>
-
-" System yanking / pasting
-noremap  ,y "+yy
-vnoremap ,y "+y
-noremap  ,p "+p
+" ------------------------------------------- CtrlP
+noremap  <Leader><Leader> :CtrlPMixed<CR>
+noremap  <Leader>b        :CtrlPBuffer<CR>
 " ----------------------------------------- Tabular
-noremap  ,a :Tabularize /
-vnoremap ,a :Tabularize /
+noremap  <Leader>aa :Tabularize /
+vnoremap <Leader>aa :Tabularize /
+noremap  <Leader>a= :Tabularize /=<CR>
+vnoremap <Leader>a= :Tabularize /=<CR>
 " ---------------------------------------- Fugitive
-noremap ,gb :Gblame<cr>
-noremap ,gd :Gdiff<cr>
-noremap ,gw :Gwrite<cr>
-noremap ,gr :Gread<cr>
-noremap ,gc :Gcommit<cr>
-" ---------------------------------------- Surround
-nmap ds  <Plug>Dsurround
-" I'm using « c » as « h » since I'm in bépo layout, so I need to change this
-nmap ks  <Plug>Csurround
-nmap ys  <Plug>Ysurround
-nmap yS  <Plug>YSurround
-nmap yss <Plug>Yssurround
-nmap ySs <Plug>YSsurround
-nmap ySS <Plug>YSsurround
-xmap S   <Plug>VSurround
-xmap gS  <Plug>VgSurround
+noremap <Leader>gb :Gblame<CR>
+noremap <Leader>gd :Gdiff<CR>
+noremap <Leader>gw :Gwrite<CR>
+noremap <Leader>gr :Gread<CR>
+noremap <Leader>gc :Gcommit<CR>
+noremap <Leader>gs :Gstatus<CR>
 " ------------------------------------------- RSpec
-autocmd FileType ruby nmap ,tt :RunSpec<cr>
-autocmd FileType ruby nmap ,tl :RunSpecLine<cr>
+autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
+autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
+autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
+autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
+autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
+" ---------------------------------------- Surround
+nmap du  <Plug>Dsurround
+nmap ku  <plug>csurround
+nmap yu  <Plug>Ysurround
+nmap yU  <Plug>YSurround
+nmap yuu <Plug>Yssurround
+nmap yUu <Plug>YSsurround
+nmap yUU <Plug>YSsurround
+vmap u   <Plug>VSurround
+vmap U   <Plug>VgSurround
+
+" nmap <Leader>ds  <Plug>Dsurround
+" nmap <leader>ks  <plug>csurround
+" nmap <Leader>is  <Plug>Ysurround
+" nmap <Leader>iS  <Plug>YSurround
+" nmap <Leader>iss <Plug>Yssurround
+" nmap <Leader>iSs <Plug>YSsurround
+" nmap <Leader>iSS <Plug>YSsurround
+" vmap <Leader>s   <Plug>VSurround
+" vmap <Leader>S   <Plug>VgSurround
+" ------------------------ System yanking / pasting
+noremap  <Leader>y "+yy
+vnoremap <Leader>y "+y
+noremap  <Leader>p "+p
 " ------------------------------------------ Search
 noremap « #
 noremap » *
+" ------------------------------------------- Marks
+noremap ' `
+noremap ` '
+" ------------------------------------------ Splits
+" Navigating between splits
+noremap <S-s>  <C-w>k
+noremap <S-t>  <C-w>j
+noremap <S-c>  <C-w>h
+noremap <S-r>  <C-w>l
+" Creating new splits
+noremap <Leader>v :vnew<Space>
+noremap <Leader>V <C-w>v
+noremap <Leader>h :new<Space>
+noremap <Leader>H <C-w>s
+" Resize splits
+map <Up>    <C-w>+
+map <Down>  <C-w>-
+map <Left>  <C-w><
+map <Right> <C-w>>
+map <Leader>= <C-w>=
+" -------------------------------------------- Tabs
+" Navigating between tabs
+map <Leader>c :tabp<CR>
+map <Leader>r :tabn<CR>
+map <Leader>' :tabnew 
+" ---------------------------------------- Sessions
+map <Leader>ss :mksession! 
+map <Leader>sl :source 
 " ---------------------------------------- Movement
+cnoremap <C-a> <Home>
+cnoremap <C-e> <End>
 " left / right / down (visual line) / up (visual line)
 noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
-vnoremap <up>    <nop>
-vnoremap <down>  <nop>
-vnoremap <left>  <nop>
-vnoremap <right> <nop>
-" Navigating between splits
-noremap ,s <C-w>k
-noremap S         <C-w>k
-noremap ,t <C-w>j
-noremap T         <C-w>J
-noremap ,c <C-w>h
-noremap C         <C-w>h
-noremap ,r <C-w>l
-noremap R         <C-w>l
-" Creating new splits
-noremap ,v :vnew<space>
-noremap ,V <C-w>v
-noremap ,h :new<space>
-noremap ,H <C-w>s
-" Navigating between tabs
-map <C-left>  :tabp<cr>
-map <C-right> :tabn<cr>
 " move current line up or down
-noremap <c-up>   :m-2<cr>
-noremap <c-down> :m+<cr>
+noremap <C-up>   :m-2<CR>
+noremap <C-down> :m+<CR>
 " Insert new line after current one without breaking it
-inoremap <c-cr> <Esc>o
-noremap  <c-cr> m`o<esc>``
+inoremap <C-cr> <Esc>o
+noremap  <C-cr> m`o<Esc>``
 " Same but before current one
-inoremap <s-cr> <Esc>O
-noremap  <s-cr> m`O<esc>``
+inoremap <S-cr> <Esc>O
+noremap  <S-cr> m`O<Esc>``
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
@@ -296,43 +304,46 @@ nnoremap <S-Tab> <<_
 inoremap <S-Tab> <C-D>
 vnoremap <Tab>   >gv
 vnoremap <S-Tab> <gv
-
-nnoremap <esc> $
-vnoremap <esc> $
-inoremap <esc> $
-nnoremap <s-esc> #
-vnoremap <s-esc> #
-inoremap <s-esc> #
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " ---------------------------------- Mode Switching
+noremap  <C-c> <esc>
+inoremap <C-c> <esc>
+onoremap <C-c> <esc>
+vnoremap <C-c> <esc>
+" Save
+noremap  <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+vnoremap <C-s> <Esc>:w<CR>
 " Command mode
-noremap  <c-t> :
-vnoremap <c-t> :
-inoremap <c-t> <esc>:
+noremap  <C-t> :
+vnoremap <C-t> :
+inoremap <C-t> <Esc>:
 " Change mode
 noremap k c
 " Help
-noremap  <c-h> :h<space>
-vnoremap <c-h> <esc>:h<space>
-inoremap <c-h> <esc>:h<space>
+noremap  <C-h> :h<Space>
+vnoremap <C-h> <Esc>:h<Space>
+inoremap <C-h> <Esc>:h<Space>
+" Edit
+noremap  <C-e> :e<Space>
+vnoremap <C-e> <Esc>:e<Space>
+inoremap <C-e> <Esc>:e<Space>
 " Exit
-noremap ,q :q<cr>
+noremap <Leader>q :q<CR>
+noremap <Leader>Q :qa<CR>
 " ---------------------------------------- Togglers
-" Multi-line comment
-" noremap  ,cc :TComment<CR>
-" vnoremap ,cc :TComment<CR>
 " Smart completion
-inoremap <c-space> <c-r>=Smart_Complete()<CR>
+inoremap <C-Space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
-noremap <space> :call ToggleFold()<CR>
+noremap <Space> :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
-noremap ,e :call SplitSwap()<cr>
+noremap <Leader>e :call SplitSwap()<CR>
 " Search highlighting toggle
 " noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
-noremap <silent> h :let @/ = ""<cr>
+noremap <silent> h :let @/ = ""<CR>
 " Toggle absolute / relative numbering
-noremap ,n :call g:ToggleNuMode()<cr>
+noremap <Leader>n :call g:ToggleNuMode()<CR>
 " Toggle line wrap
-noremap ,w :set wrap!<cr>
+noremap <Leader>w :set wrap!<CR>
