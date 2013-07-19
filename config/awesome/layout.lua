@@ -24,17 +24,6 @@ for s = 1, screen.count() do
 end
 -- }}}
 
--- {{{ Menu
--- Create a laucher widget and a main menu
---myawesomemenu = {
--- { "restart", awesome.restart },
--- { "quit"   , awesome.quit    }
---}
-
---mymainmenu = awful.menu({ items = {{ "awesome", myawesomemenu, beautiful.awesome_icon }}})
---mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon), menu = mymainmenu })
--- }}}
-
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
@@ -98,11 +87,6 @@ for s = 1, screen.count() do
   mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
   -- Create a tasklist widget
-  --mytasklist[s] = awful.widget.tasklist(function(c)
-  --                                        --return awful.widget.tasklist.label.currenttags(c, s)
-  --                                        local tmptask = { awful.widget.tasklist.label.currenttags(c, s) }
-  --                                        return tmptask[1], tmptask[2], tmptask[3], nil
-  --                                      end, mytasklist.buttons)
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
   -- Create the wibox
@@ -111,10 +95,10 @@ for s = 1, screen.count() do
   local left_layout = wibox.layout.fixed.horizontal()
   left_layout:add(mytaglist[s])
   left_layout:add(mypromptbox[s])
+  if s == 1 then left_layout:add(wibox.widget.systray()) end
 
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
-  if s == 1 then right_layout:add(wibox.widget.systray()) end
   right_layout:add(powerline_widget)
   --right_layout:add(mytextclock)
   right_layout:add(mylayoutbox[s])
@@ -122,7 +106,7 @@ for s = 1, screen.count() do
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()
   layout:set_left(left_layout)
-  layout:set_middle(mytasklist[s])
+  --layout:set_middle(mytasklist[s])
   layout:set_right(right_layout)
 
   mywibox[s]:set_widget(layout)
