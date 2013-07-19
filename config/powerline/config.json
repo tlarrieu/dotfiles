@@ -41,7 +41,7 @@
 			}
 		},
 		"wm": {
-			"colorscheme": "solarized",
+			"colorscheme": "default",
 			"theme": "default"
 		}
 	}

@@ -6,6 +6,9 @@
 				"name": "weather",
 				"priority": 50
 			},
+      {
+        "name": "network_load"
+      },
 			{
 				"name": "date"
 			},
