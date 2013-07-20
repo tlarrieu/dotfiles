@@ -8,19 +8,19 @@ root.buttons(awful.util.table.join(
 --[[ Global keys ]]----------------
 globalkeys = awful.util.table.join(
   -- Workspace switching
-  awful.key({ modkey,           }, "c",  awful.tag.viewprev                              ),
-  awful.key({ modkey,           }, "r",  awful.tag.viewnext                              ),
+  awful.key({ modkey,           }, "c", awful.tag.viewprev                              ),
+  awful.key({ modkey,           }, "r", awful.tag.viewnext                              ),
 
   -- Layout manipulation
-  awful.key({ modkey, "Control" }, "t",  function () awful.client.swap.byidx(  1)     end),
-  awful.key({ modkey, "Control" }, "s",  function () awful.client.swap.byidx( -1)     end),
-  awful.key({ modkey,           }, "d",  function () awful.tag.incmwfact( 0.05)       end),
-  awful.key({ modkey,           }, "v",  function () awful.tag.incmwfact(-0.05)       end),
-  awful.key({ modkey, "Shift"   }, "d",  function () awful.client.incwfact( 0.05)     end),
-  awful.key({ modkey, "Shift"   }, "v",  function () awful.client.incwfact(-0.05)     end),
+  awful.key({ modkey, "Control" }, "t", function () awful.client.swap.byidx(  1)     end),
+  awful.key({ modkey, "Control" }, "s", function () awful.client.swap.byidx( -1)     end),
+  awful.key({ modkey,           }, "d", function () awful.tag.incmwfact( 0.05)       end),
+  awful.key({ modkey,           }, "v", function () awful.tag.incmwfact(-0.05)       end),
+  awful.key({ modkey, "Shift"   }, "d", function () awful.client.incwfact( 0.05)     end),
+  awful.key({ modkey, "Shift"   }, "v", function () awful.client.incwfact(-0.05)     end),
   -- Layout switching
-  awful.key({ modkey,           }, "\"", function () awful.layout.inc(layouts, 1)     end),
-  awful.key({ modkey,           }, "«",  function () awful.layout.inc(layouts, -1)    end),
+  awful.key({ modkey,           }, "l", function () awful.layout.inc(layouts, 1)     end),
+  awful.key({ modkey, "Shift"   }, "L", function () awful.layout.inc(layouts, -1)    end),
   -- Focus switching
   awful.key({ modkey,           }, "t",
     function ()
@@ -33,11 +33,11 @@ globalkeys = awful.util.table.join(
       if client.focus then client.focus:raise() end
     end),
   -- Screen switching
-  awful.key({ modkey,           }, "e",  function () awful.screen.focus_relative(1)    end),
+  awful.key({ modkey,           }, "e", function () awful.screen.focus_relative(1)    end),
   -- Window screen switching
-  awful.key({ modkey,           }, "o",  awful.client.movetoscreen                        ),
+  awful.key({ modkey,           }, "o", awful.client.movetoscreen                        ),
 
-  awful.key({ "Control", "Shift"}, "r",  awesome.restart                                  )
+  awful.key({ "Control", "Shift"}, "r", awesome.restart                                  )
 )
 
 --[[ Workspace handling ]]----------------
@@ -112,13 +112,6 @@ clientbuttons = awful.util.table.join(
 --[[ Program bindings ]]----------------
 globalkeys = awful.util.table.join(globalkeys,
   -- dmenu
-  --awful.key({ modkey          }, " ",           function ()
-  --  awful.util.spawn("dmenu_run -l 5 -i -p 'Run :'" ..
-  --    " -nb '" ..  beautiful.bg_normal ..
-  --    "' -nf '" .. beautiful.fg_normal ..
-  --    "' -sb '" .. beautiful.bg_focus ..
-  --    "' -sf '" .. beautiful.fg_focus .. "'")
-  --end),
   awful.key({ modkey            }, " ",           function ()
     -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
     awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
