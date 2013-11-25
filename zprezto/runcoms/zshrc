@@ -39,6 +39,7 @@ alias dpkg-reconfigure="sudo dpkg-reconfigure"
 
 alias gosubb="cd /home/smockey/projects/gosubb"
 
+alias py2="python2"
 alias vi="vim"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
