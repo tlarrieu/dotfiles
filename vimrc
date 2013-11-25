@@ -104,12 +104,9 @@ autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
 autocmd WinEnter * set cursorline
 autocmd WinEnter * set cursorcolumn
-" Automatically goes to the directory where the edited file is located
-" I added a try / catch there to handle fugitive that does not allow this
-" (since there is an 'incorrect' path related to it
-" autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
-"Go to the cursor position before buffer was closed
+" Go to the last cursor position upon reading a buffer
 autocmd BufReadPost * normal g'"
+" Set *.md as markdown files
 autocmd BufReadPost *.md set ft=markdown
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
@@ -182,12 +179,12 @@ set incsearch " start search while typing
 "
 " --------------------------------------- Powerline
 if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
 endif
 python from powerline.vim import setup as powerline_setup
 python powerline_setup()
@@ -202,6 +199,8 @@ let g:surround_no_mappings=1
 " ------------------------------------------- RSpec
 let g:RspecKeymap=0
 " ------------------------------------------------------------ Keyboard mapping
+" Keep in mind that this is designed for french bépo layout, thus a lots
+" of mapping won't make sense for you ;)
 
 " ------------------------------------------- CtrlP
 noremap  <Leader><Leader> :CtrlPMixed<CR>
@@ -319,6 +318,8 @@ vnoremap <C-s> <Esc>:w<CR>
 noremap  <C-t> :
 vnoremap <C-t> :
 inoremap <C-t> <Esc>:
+" Shell mode
+noremap ! :!
 " Change mode
 noremap k c
 " Help
@@ -332,6 +333,10 @@ inoremap <C-e> <Esc>:e<Space>
 " Exit
 noremap <Leader>q :q<CR>
 noremap <Leader>Q :qa<CR>
+" Select All
+noremap  <C-a> ggVG
+vnoremap <C-a> <Esc>ggVG
+inoremap <C-a> <Esc>ggVG
 " ---------------------------------------- Togglers
 " Smart completion
 inoremap <C-Space> <c-r>=Smart_Complete()<CR>
@@ -347,3 +352,5 @@ noremap <silent> h :let @/ = ""<CR>
 noremap <Leader>n :call g:ToggleNuMode()<CR>
 " Toggle line wrap
 noremap <Leader>w :set wrap!<CR>
+" Toggle spell checking
+noremap gs :setlocal spell!<CR>
