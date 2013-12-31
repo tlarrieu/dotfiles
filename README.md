@@ -27,6 +27,15 @@ or want to help me achieve cross-references, I'd be glad too ;)
 **Anyway, I will link all of theme soon enough so at least, they can get credit
 for their respective work!**
 
+###About branches
+This project currently holds two branches : master and archlinux.
+Basically, master is just an outdated version of archlinux. Or should I say, a
+version for linux distros that are not up to date package-version-wise. (In the newer
+version of some apps, syntax changes have happened in configuration files, so I had
+to adapt some files).
+Since I work almost exclusively on Arch, master might not be perfectly on par with archlinux.
+
+
 Goals
 -----
 
