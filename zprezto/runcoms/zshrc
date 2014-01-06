@@ -1,3 +1,4 @@
+alias python2="/usr/bin/python"
 #
 # Executes commands at the start of an interactive session.
 #
@@ -20,8 +21,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zsh/git.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zsh/git.zsh"
 fi
 
-#. /home/smockey/git/powerline/powerline/bindings/zsh/powerline.zsh
-
 export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
@@ -33,12 +32,7 @@ export EDITOR=vim
 export TERM="xterm-256color"
 stty -ixon
 
-alias apt-get="sudo apt-get"
-alias dpkg="sudo dpkg"
-alias dpkg-reconfigure="sudo dpkg-reconfigure"
-
-alias gosubb="cd /home/smockey/projects/gosubb"
-
+alias python2="python2.7"
 alias vi="vim"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
@@ -46,23 +40,6 @@ alias preztorc="vim ~/.zpreztorc"
 alias todo="cat ~/.todo 2>/dev/null"
 alias vitodo="vi ~/todo.md"
 alias vir="vi -R"
-
-alias au="apt-get update"
-alias auu="apt-get upgrade"
-alias adu="apt-get dist-upgrade"
-alias ai="apt-get install"
-alias as="apt-cache search"
-alias ar="apt-get remove"
-alias aar="apt-get autoremove"
-
-alias yi="sudo yum install"
-alias yli="sudo yum localinstall"
-alias yu="sudo yum upgrade"
-alias yr="sudo yum remove"
-alias ys="yum search"
-alias yh="sudo yum history"
-
-alias pa="pacman"
 
 alias ccat="pygmentize -g"
 alias tree="tree -C"

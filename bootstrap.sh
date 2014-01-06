@@ -19,7 +19,7 @@ safelink()
           ;;
       esac
     fi
-    ln -s -P -i $target $link
+    ln -s -i $target $link
   fi
 }
 

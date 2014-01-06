@@ -182,19 +182,21 @@ set incsearch " start search while typing
 "
 " --------------------------------------- Powerline
 if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
+   set ttimeoutlen=10
+   augroup FastEscape
+       autocmd!
+       au InsertEnter * set timeoutlen=0
+       au InsertLeave * set timeoutlen=1000
+   augroup END
 endif
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
+" python from powerline.ext.vim import source_plugin; source_plugin()
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
+set t_Co=256
 " ---------------------------------------- Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
