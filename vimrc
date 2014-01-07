@@ -184,7 +184,6 @@ if ! has('gui_running')
        au InsertLeave * set timeoutlen=1000
    augroup END
 endif
-" python from powerline.ext.vim import source_plugin; source_plugin()
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
