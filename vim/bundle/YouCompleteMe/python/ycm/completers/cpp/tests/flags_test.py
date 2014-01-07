@@ -18,8 +18,6 @@
 # along with YouCompleteMe.  If not, see <http://www.gnu.org/licenses/>.
 
 from nose.tools import eq_
-from ycm.test_utils import MockVimModule
-vim_mock = MockVimModule()
 from .. import flags
 
 
@@ -108,4 +106,31 @@ def RemoveUnusedFlags_RemoveFilename_test():
   eq_( expected,
        flags._RemoveUnusedFlags(
          expected[ :1 ] + to_remove + expected[ -1: ], filename ) )
+
+
+def RemoveUnusedFlags_RemoveFlagWithoutPrecedingDashFlag_test():
+  expected = [ '-foo', '-x', 'c++', '-bar', 'include_dir' ]
+  to_remove = [ 'unrelated_file' ]
+  filename = 'file'
+
+  eq_( expected,
+       flags._RemoveUnusedFlags( expected + to_remove, filename ) )
+
+  eq_( expected,
+       flags._RemoveUnusedFlags( to_remove + expected, filename ) )
+
+
+def RemoveUnusedFlags_RemoveFilenameWithoutPrecedingInclude_test():
+  expected = [ '-I', '/foo/bar', '-isystem/zoo/goo' ]
+  to_remove = [ '/moo/boo' ]
+  filename = 'file'
+
+  eq_( expected,
+       flags._RemoveUnusedFlags( expected + to_remove, filename ) )
+
+  eq_( expected,
+       flags._RemoveUnusedFlags( to_remove + expected, filename ) )
+
+  eq_( expected + expected,
+       flags._RemoveUnusedFlags( expected + to_remove + expected, filename ) )
 

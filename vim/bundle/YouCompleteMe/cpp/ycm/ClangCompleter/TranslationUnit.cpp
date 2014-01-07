@@ -56,13 +56,15 @@ TranslationUnit::TranslationUnit(
 
   std::vector< CXUnsavedFile > cxunsaved_files =
     ToCXUnsavedFiles( unsaved_files );
+  const CXUnsavedFile *unsaved = cxunsaved_files.size() > 0
+                                 ? &cxunsaved_files[ 0 ] : NULL;
 
   clang_translation_unit_ = clang_parseTranslationUnit(
                               clang_index,
                               filename.c_str(),
                               &pointer_flags[ 0 ],
                               pointer_flags.size(),
-                              &cxunsaved_files[ 0 ],
+                              const_cast<CXUnsavedFile *>( unsaved ),
                               cxunsaved_files.size(),
                               clang_defaultEditingTranslationUnitOptions() );
 
@@ -90,25 +92,11 @@ void TranslationUnit::Destroy() {
 
 
 std::vector< Diagnostic > TranslationUnit::LatestDiagnostics() {
-  std::vector< Diagnostic > diagnostics;
-
   if ( !clang_translation_unit_ )
-    return diagnostics;
+    return std::vector< Diagnostic >();
 
   unique_lock< mutex > lock( diagnostics_mutex_ );
-
-  // We don't need the latest diags after we return them once so we swap the
-  // internal data with a new, empty diag vector. This vector is then returned
-  // and on C++11 compilers a move ctor is invoked, thus no copy is created.
-  // Theoretically, just returning the value of a
-  // [boost::|std::]move(latest_diagnostics_) call _should_ leave the
-  // latest_diagnostics_ vector in an emtpy, valid state but I'm not going to
-  // rely on that. I just had to look this up in the standard to be sure, and
-  // future readers of this code (myself included) should not be forced to do
-  // that to understand what the hell is going on.
-
-  std::swap( latest_diagnostics_, diagnostics );
-  return diagnostics;
+  return latest_diagnostics_;
 }
 
 
@@ -123,12 +111,15 @@ bool TranslationUnit::IsCurrentlyUpdating() const {
 }
 
 
-void TranslationUnit::Reparse(
+std::vector< Diagnostic > TranslationUnit::Reparse(
   const std::vector< UnsavedFile > &unsaved_files ) {
   std::vector< CXUnsavedFile > cxunsaved_files =
     ToCXUnsavedFiles( unsaved_files );
 
   Reparse( cxunsaved_files );
+
+  unique_lock< mutex > lock( diagnostics_mutex_ );
+  return latest_diagnostics_;
 }
 
 
@@ -154,6 +145,8 @@ std::vector< CompletionData > TranslationUnit::CandidatesForLocation(
 
   std::vector< CXUnsavedFile > cxunsaved_files =
     ToCXUnsavedFiles( unsaved_files );
+  const CXUnsavedFile *unsaved = cxunsaved_files.size() > 0
+                                 ? &cxunsaved_files[ 0 ] : NULL;
 
   // codeCompleteAt reparses the TU if the underlying source file has changed on
   // disk since the last time the TU was updated and there are no unsaved files.
@@ -170,7 +163,7 @@ std::vector< CompletionData > TranslationUnit::CandidatesForLocation(
                           filename_.c_str(),
                           line,
                           column,
-                          &cxunsaved_files[ 0 ],
+                          const_cast<CXUnsavedFile *>( unsaved ),
                           cxunsaved_files.size(),
                           clang_defaultCodeCompleteOptions() ),
     clang_disposeCodeCompleteResults );
@@ -250,9 +243,12 @@ void TranslationUnit::Reparse( std::vector< CXUnsavedFile > &unsaved_files,
     if ( !clang_translation_unit_ )
       return;
 
+    CXUnsavedFile *unsaved = unsaved_files.size() > 0
+                             ? &unsaved_files[ 0 ] : NULL;
+
     failure = clang_reparseTranslationUnit( clang_translation_unit_,
                                             unsaved_files.size(),
-                                            &unsaved_files[ 0 ],
+                                            unsaved,
                                             parse_options );
   }
 

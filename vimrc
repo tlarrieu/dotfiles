@@ -5,6 +5,38 @@
 
 let mapleader="," " remapping leader
 
+" ---------------------------------------------------------------------- Vundle
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'vim-scripts/Conque-Shell'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'othree/html5.vim'
+Bundle 'ervandew/supertab'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-scripts/tComment'
+Bundle 'vim-scripts/tlib'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'stephenmckinney/vim-solarized-powerline'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'slim-template/vim-slim'
+Bundle 'honza/vim-snippets'
+Bundle 'wavded/vim-stylus'
+
+filetype plugin indent on
+
 " -------------------------------------------------------------------- Pathogen
 call pathogen#runtime_append_all_bundles()
 call pathogen#infect()

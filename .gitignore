@@ -5,3 +5,7 @@
 config/xfce4/panel/*
 config/xfce4/desktop/*
 config/xfce4/helpers.rc
+
+vim/bundle/**
+vim/doc
+!vim/bundle/vundle
