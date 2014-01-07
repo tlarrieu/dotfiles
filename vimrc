@@ -37,10 +37,6 @@ Bundle 'wavded/vim-stylus'
 
 filetype plugin indent on
 
-" -------------------------------------------------------------------- Pathogen
-call pathogen#runtime_append_all_bundles()
-call pathogen#infect()
-call pathogen#helptags()
 " ------------------------------------------------------------ Custom functions
 " Toggle fold state between closed and opened.
 " If there is no fold at current line, just moves forward.
