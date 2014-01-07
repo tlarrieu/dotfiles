@@ -7,7 +7,7 @@ safelink()
   target=$1
   link=$2
   if [ $FORCE ]; then
-    rm $link -rf
+    rm -rf $link
     ln -s -P $target $link
   else
     if [ -d $target ]; then
@@ -15,7 +15,7 @@ safelink()
       read answer
       case $answer in
         "yes"|"y")
-          rm $link -rf
+          rm -rf $link
           ;;
       esac
     fi
@@ -50,9 +50,6 @@ for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
   link=~/.`basename $file`
   safelink $target $link;
 done
-
-# .vimperatorrc
-safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
