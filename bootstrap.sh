@@ -8,7 +8,7 @@ safelink()
   link=$2
   if [ $FORCE ]; then
     rm -rf $link
-    ln -s -P $target $link
+    ln -sfF $target $link
   else
     if [ -d $target ]; then
       echo -n "$link already exists, do you want to replace it? "
@@ -37,6 +37,12 @@ done
 safelink $BASEDIR/vimrc $HOME/.vimrc
 # Vundle package installation
 vim +BundleInstall +qall
+# YouCompleteMe installation
+if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
+  brew install cmake
+  cd ~/.vim/bundle/YouCompleteMe
+  ./install.sh
+fi
 
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
