@@ -267,15 +267,6 @@ nmap yUU <Plug>YSsurround
 vmap u   <Plug>VSurround
 vmap U   <Plug>VgSurround
 
-" nmap <Leader>ds  <Plug>Dsurround
-" nmap <leader>ks  <plug>csurround
-" nmap <Leader>is  <Plug>Ysurround
-" nmap <Leader>iS  <Plug>YSurround
-" nmap <Leader>iss <Plug>Yssurround
-" nmap <Leader>iSs <Plug>YSsurround
-" nmap <Leader>iSS <Plug>YSsurround
-" vmap <Leader>s   <Plug>VSurround
-" vmap <Leader>S   <Plug>VgSurround
 " ------------------------ System yanking / pasting
 noremap  <Leader>y "+yy
 vnoremap <Leader>y "+y
