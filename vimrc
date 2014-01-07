@@ -13,27 +13,30 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+" Utils
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'vim-scripts/Conque-Shell'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'othree/html5.vim'
+Bundle 'kien/ctrlp.vim'
+Bundle 'vim-scripts/Conque-Shell'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/tComment'
 Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'ludovicchabant/vim-lawrencium'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'stephenmckinney/vim-solarized-powerline'
 Bundle 'thoughtbot/vim-rspec'
-Bundle 'slim-template/vim-slim'
 Bundle 'honza/vim-snippets'
+" VCS
+Bundle 'tpope/vim-fugitive'
+Bundle 'ludovicchabant/vim-lawrencium'
+" Languages support
+Bundle 'othree/html5.vim'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'slim-template/vim-slim'
 Bundle 'wavded/vim-stylus'
+" Good looking
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'bling/vim-airline'
 
 filetype plugin indent on
 
@@ -203,21 +206,25 @@ set hlsearch  " highlight search
 set incsearch " start search while typing
 " --------------------------------------------------------------------- Plugins
 "
-" --------------------------------------- Powerline
-if ! has('gui_running')
-   set ttimeoutlen=10
-   augroup FastEscape
-       autocmd!
-       au InsertEnter * set timeoutlen=0
-       au InsertLeave * set timeoutlen=1000
-   augroup END
+" --------------------------------------- Airline
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
 endif
+
+let g:airline_left_sep = '⮀'
+let g:airline_left_alt_sep = '⮁'
+let g:airline_right_sep = '⮂'
+let g:airline_right_alt_sep = '⮃'
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = '⭤'
+let g:airline_symbols.linenr = '⭡'
+
+
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-let g:Powerline_symbols = 'fancy'
-set t_Co=256
-let g:Powerline_theme='short'
-let g:Powerline_colorscheme='solarized16_dark'
+let g:airline_theme = 'solarized'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 " ---------------------------------------- Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
