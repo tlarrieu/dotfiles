@@ -75,13 +75,6 @@ function! SplitSwap()
   end
 endfunction
 
-function! g:ToggleNuMode()
-  if(&rnu == 1)
-    set nu
-  else
-    set rnu
-  endif
-endfunc
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -118,7 +111,9 @@ set nocompatible
 set background=dark
 colorscheme solarized
 " Line numbering (relative to current line)
-set relativenumber
+set rnu
+" Current line
+set nu
 " Blank character
 set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set list
@@ -344,7 +339,5 @@ noremap <Leader>e :call SplitSwap()<CR>
 " noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<CR>
-" Toggle absolute / relative numbering
-noremap <Leader>n :call g:ToggleNuMode()<CR>
 " Toggle line wrap
 noremap <Leader>w :set wrap!<CR>
