@@ -35,6 +35,8 @@ done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
+# Vundle package installation
+vim +BundleInstall +qall
 
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
