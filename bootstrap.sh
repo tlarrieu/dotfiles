@@ -49,12 +49,6 @@ for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
   safelink $target $link;
 done
 
-# .moc
-safelink $BASEDIR/moc $HOME/.moc
-
-# .mplayer
-safelink $BASEDIR/mplayer $HOME/.mplayer
-
 # .vimperatorrc
 safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
