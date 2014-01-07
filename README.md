@@ -35,6 +35,9 @@ version of some apps, syntax changes have happened in configuration files, so I 
 to adapt some files).
 Since I work almost exclusively on Arch, master might not be perfectly on par with archlinux.
 
+Mac is pretty self-explenatory : this is basically a port of the archlinux branch for OSX.
+I removed a lot of irrelevant stuff and adapted a few things (for vim in particular).
+
 
 Goals
 -----
