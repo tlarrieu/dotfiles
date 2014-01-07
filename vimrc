@@ -194,6 +194,8 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'
 set t_Co=256
+let g:Powerline_theme='short'
+let g:Powerline_colorscheme='solarized16_dark'
 " ---------------------------------------- Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
