@@ -1,4 +1,4 @@
-alias python2="/usr/bin/python"
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 #
 # Executes commands at the start of an interactive session.
 #
@@ -25,7 +25,6 @@ fi
 
 export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
-export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$PATH:/usr/local/heroku/bin
 export PATH=$PATH:/opt/local/bin
 export PATH=/Library/PostgreSQL/9.2/bin:$PATH
@@ -54,6 +53,9 @@ alias atx="atool -x"
 alias g="git"
 alias gcd='cd $(git-root)'
 alias vip="vim -MR -"
+
+alias shops="cd ~/mercurial/shopmium/shops"
+alias server="cd ~/mercurial/shopmium/server"
 
 # Custom bindings
 bindkey '^[[1;5D' emacs-backward-word
