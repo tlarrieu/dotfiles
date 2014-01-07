@@ -28,7 +28,7 @@ export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$PATH:/usr/local/heroku/bin
 export PATH=$PATH:/opt/local/bin
-export PATH=$PATH:"/Applications/Postgres.app/Contents/MacOS/bin"
+export PATH=/Library/PostgreSQL/9.2/bin:$PATH
 
 export GTK_IM_MODULE=xim
 export GEDITOR=gvim
