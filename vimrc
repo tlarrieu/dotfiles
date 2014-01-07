@@ -190,9 +190,6 @@ if ! has('gui_running')
    augroup END
 endif
 " python from powerline.ext.vim import source_plugin; source_plugin()
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:Powerline_symbols = 'fancy'

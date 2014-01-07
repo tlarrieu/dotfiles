@@ -6,6 +6,8 @@ alias python2="/usr/bin/python"
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 #
+export PGHOST=localhost
+#
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
@@ -25,6 +27,7 @@ export PATH=$PATH:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/s
 export PATH=$PATH:/home/smockey/bin:.:/home/smockey/scripts
 export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH=$PATH:/usr/local/heroku/bin
+export PATH=$PATH:/opt/local/bin
 
 export GTK_IM_MODULE=xim
 export GEDITOR=gvim
