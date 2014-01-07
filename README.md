@@ -28,12 +28,15 @@ or want to help me achieve cross-references, I'd be glad too ;)
 for their respective work!**
 
 ###About branches
-This project currently holds two branches : master and archlinux.
+This project currently holds three branches : master, archlinux and mac.
 Basically, master is just an outdated version of archlinux. Or should I say, a
 version for linux distros that are not up to date package-version-wise. (In the newer
 version of some apps, syntax changes have happened in configuration files, so I had
 to adapt some files).
 Since I work almost exclusively on Arch, master might not be perfectly on par with archlinux.
+
+Mac branch is pretty self-explainatory. Basically, this is an archlinux equivalent with less
+app supported and some minor tweaks.
 
 
 Goals
@@ -53,21 +56,10 @@ in zsh through presto — although this one is "emulated"). More to come, whenev
 
 Supported applications
 ----------------------
-- awesome
 - ranger
 - vim
-- moc
-- mplayer
-- vimperator (firefox plugin)
-- stylish (firefox plugin) : *stylish.sqlite does not get linked properly by install script.
-You have to manually copy it in your profile directory (~/.mozilla/firefox/\<profile\>/)*
-- luakit
 - zsh / prezto
-- xfce4-terminal (Terminal)
-- zathura
-- Firefox : *userchrome.css does not get
-linked properly by install script. You have to manually copy it
-in your profile directory (~/.mozilla/firefox/\<profile\>/chrome/)*
+- ranger
 
 Some might be added, depending on my personnal needs.
 
