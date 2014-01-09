@@ -97,6 +97,7 @@ function __smockey_in_hg
 end
 
 function __smockey_hg_branch
+  echo "$branch_glyph "
   command hg branch
 end
 
