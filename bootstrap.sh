@@ -42,7 +42,7 @@ safelink $BASEDIR/vim $HOME/.vim
 # Fish
 brew install fish
 # Oh My Fish!
-curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+[[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
