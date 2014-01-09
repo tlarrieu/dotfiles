@@ -23,15 +23,7 @@ safelink()
   fi
 }
 
-[[ -d ~/.config ]] || mkdir ~/.config
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
-
-# .config directories
-for file in `ls -d $BASEDIR/config/*`; do
-  target=$BASEDIR/config/`basename $file`
-  link=~/.config/`basename $file`
-  safelink $target $link
-done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
@@ -47,18 +39,18 @@ fi
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
 
-# .zprezto
-# safelink $BASEDIR/zprezto $HOME/.zprezto
+# Fish
+brew install fish
+# Oh My Fish!
+curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 
-# # .zsh (utility functions for prezto theme
-# safelink $BASEDIR/zsh $HOME/.zsh
-
-# zsh / zprezto dotfiles
-# for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
-#   target=$BASEDIR/zprezto/runcoms/`basename $file`
-#   link=~/.`basename $file`
-#   safelink $target $link;
-# done
+# .config directories
+[[ -d ~/.config ]] || mkdir ~/.config
+for file in `ls -d $BASEDIR/config/*`; do
+  target=$BASEDIR/config/`basename $file`
+  link=~/.config/`basename $file`
+  safelink $target $link
+done
 
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig

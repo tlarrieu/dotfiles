@@ -3,7 +3,9 @@
 " Designed for dvorak-bepo keyboard
 " -----------------------------------------------------------------------------
 
+set shell=/bin/zsh
 let mapleader="," " remapping leader
+let g:ruby_path = system('rvm current')
 
 " ---------------------------------------------------------------------- Vundle
 set nocompatible
@@ -26,6 +28,7 @@ Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'honza/vim-snippets'
+Bundle 'rking/ag.vim'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'ludovicchabant/vim-lawrencium'
@@ -37,6 +40,7 @@ Bundle 'wavded/vim-stylus'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
+Bundle 'kshenoy/vim-signature'
 
 filetype plugin indent on
 
@@ -116,6 +120,7 @@ syntax on
 " A few completion related stuff
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType ruby set omnifunc=rubycomplete#Complete
+autocmd FileType ruby set re=1
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
@@ -123,6 +128,7 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit startinsert!
+autocmd FileType hgcommit startinsert!
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
@@ -141,6 +147,8 @@ set nocompatible
 " Color / background theme
 set background=dark
 colorscheme solarized
+" Set proper color for gutter line
+hi! SignColumn ctermbg=8
 " Line numbering (relative to current line)
 set rnu
 " Current line

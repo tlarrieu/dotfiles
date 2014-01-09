@@ -1,4 +1,4 @@
-set PATH $PATH $HOME/.rvm/bin
+set PATH $HOME/.rvm/bin $PATH
 set PATH $PATH /usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 set PATH $PATH /home/smockey/bin:.:/home/smockey/scripts
 set PATH $PATH /usr/local/heroku/bin
@@ -34,7 +34,18 @@ alias vip="vim -MR -"
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
 
-function fish_prompt
-    ~/git/powerline-shell/powerline-shell.py $status --shell bare ^/dev/null
-end
+# Path to your oh-my-fish.
+set fish_path $HOME/.oh-my-fish
 
+# Theme
+set fish_theme agnoster
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
+# Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
+# Example format: set fish_plugins autojump bundler
+
+# Path to your custom folder (default path is $FISH/custom)
+#set fish_custom $HOME/dotfiles/oh-my-fish
+
+# Load oh-my-fish configuration.
+. $fish_path/oh-my-fish.fish
