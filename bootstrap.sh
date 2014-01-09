@@ -48,14 +48,17 @@ fi
 safelink $BASEDIR/vim $HOME/.vim
 
 # .zprezto
-safelink $BASEDIR/zprezto $HOME/.zprezto
+# safelink $BASEDIR/zprezto $HOME/.zprezto
+
+# # .zsh (utility functions for prezto theme
+# safelink $BASEDIR/zsh $HOME/.zsh
 
 # zsh / zprezto dotfiles
-for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
-  target=$BASEDIR/zprezto/runcoms/`basename $file`
-  link=~/.`basename $file`
-  safelink $target $link;
-done
+# for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
+#   target=$BASEDIR/zprezto/runcoms/`basename $file`
+#   link=~/.`basename $file`
+#   safelink $target $link;
+# done
 
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
@@ -63,9 +66,6 @@ safelink $BASEDIR/gitignore $HOME/.gitignore
 
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
-
-# .zsh (utility functions for prezto theme
-safelink $BASEDIR/zsh $HOME/.zsh
 
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
