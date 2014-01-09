@@ -141,6 +141,7 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
+autocmd BufReadPost *.fish set ft=sh
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
 set nocompatible
