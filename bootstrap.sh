@@ -31,7 +31,7 @@ safelink $BASEDIR/vimrc $HOME/.vimrc
 vim +BundleInstall +qall
 # YouCompleteMe installation
 if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
-  brew install cmake
+  [[ -n $(brew list | grep cmake) ]] || brew install cmake
   cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
 fi
@@ -40,7 +40,7 @@ fi
 safelink $BASEDIR/vim $HOME/.vim
 
 # Fish
-brew install fish
+[[ -n $(brew list | grep fish) ]]  || brew install fish
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 
