@@ -9,3 +9,5 @@ config/xfce4/helpers.rc
 vim/bundle/**
 vim/doc
 !vim/bundle/vundle
+
+config/fish/fish_history
