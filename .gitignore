@@ -6,8 +6,8 @@ config/xfce4/panel/*
 config/xfce4/desktop/*
 config/xfce4/helpers.rc
 
+config/fish/fish_history
+
 vim/bundle/**
 vim/doc
 !vim/bundle/vundle
-
-config/fish/fish_history
