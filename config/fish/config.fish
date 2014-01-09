@@ -9,7 +9,7 @@ set PGHOST localhost
 
 set GTK_IM_MODULE=xim
 set GEDITOR=gvim
-set EDITOR=vim
+set -g -x EDITOR=vim
 set TERM="xterm-256color"
 stty -ixon
 
@@ -38,7 +38,9 @@ alias server="cd ~/mercurial/shopmium/server"
 set fish_path $HOME/.oh-my-fish
 
 # Theme
-set fish_theme bobthefish
+set fish_theme smockey
+set -g theme_display_user yes
+set -g default_user thomaslarrieu
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
 # Custom plugins may be added to ~/.oh-my-fish/custom/plugins/

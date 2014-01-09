@@ -43,6 +43,7 @@ safelink $BASEDIR/vim $HOME/.vim
 [[ -n $(brew list | grep fish) ]]  || brew install fish
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
 
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
