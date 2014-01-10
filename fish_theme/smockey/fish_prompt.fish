@@ -101,10 +101,6 @@ function __smockey_hg_branch
   command hg branch
 end
 
-function __smockey_pretty_hg_parent
-  echo -n (dirname $argv[1]) | sed -e 's|/private||' -e "s|^$HOME|~|" -e 's-/\(\.\{0,1\}[^/]\)\([^/]*\)-/\1-g' -e 's|/$||'
-end
-
 function __smockey_hg_project_dir
   command hg root
 end
