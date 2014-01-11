@@ -96,15 +96,6 @@ function __smockey_in_hg
   return 1
 end
 
-function __smockey_hg_branch
-  echo "$branch_glyph "
-  command hg branch
-end
-
-function __smockey_hg_pwd
-  echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**'
-end
-
 
 # ===========================
 # Segment functions
@@ -272,8 +263,15 @@ end
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  set -l hg_status (hg prompt "{branch}{ {status}}")
-  if test (count $hg_status) != 0
+  set -l hg_status (
+    hg status 2> /dev/null \
+      | awk '$1 == "?" { print "?" } $1 != "?" { print "!" }' \
+      | sort | uniq | head -c1
+  )
+  set -l hg_branch $branch_glyph ' ' (hg branch)
+  set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )
+
+  if test $hg_status
     set flag_bg $med_red
     set flag_fg fff
   end
@@ -281,18 +279,18 @@ function __smockey_prompt_hg -d 'Display the actual mercurial state'
 
   __smockey_start_segment $flag_bg $flag_fg
   set_color $flag_fg --bold
-  echo -n -s $hg_status ' '
+  echo -n -s $hg_branch ' '
+  test $hg_status; and echo -n -s $hg_status ' '
   set_color normal
 
-  set -l project_pwd  (__smockey_hg_pwd)
-  if test "$project_pwd"
+  if test "$hg_pwd"
     if test -w "$PWD"
       __smockey_start_segment 333 999
     else
       __smockey_start_segment $med_red $lt_red
     end
 
-    echo -n -s $project_pwd ' '
+    echo -n -s $hg_pwd ' '
   end
 end
 
