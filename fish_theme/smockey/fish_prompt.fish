@@ -86,7 +86,7 @@ function __smockey_in_hg
 
   while test $dir != "/"
     if test -f $dir'/.hg/dirstate'
-      set -g HG_ROOT $dir"/.hg"
+      set -g HG_ROOT (hg root)
       return 0
     end
 
@@ -101,13 +101,8 @@ function __smockey_hg_branch
   command hg branch
 end
 
-function __smockey_hg_project_dir
-  command hg root
-end
-
 function __smockey_hg_pwd
-  set -l base_dir (__smockey_hg_project_dir)
-  echo "$PWD" | sed -e "s*$base_dir**g" -e 's*^/**'
+  echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**'
 end
 
 
@@ -275,42 +270,18 @@ end
 
 
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
-  # set -e dirty
-  # if test (count (hg status)) != 0
-  #   set -l dirty '*'
-  # end
-
-  set -l dirty (test (count (hg status)) != 0; or echo -n '*')
-
-  # set -l dirty   (command git diff --no-ext-diff --quiet --exit-code; or echo -n '*')
-  # set -l staged  (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n '~')
-  # set -l stashed (command git rev-parse --verify refs/stash > /dev/null 2>&1; and echo -n '$')
-  # set -l ahead   (command git branch -v 2> /dev/null | grep -Eo '^\* [^ ]* *[^ ]* *\[[^]]*\]' | grep -Eo '\[[^]]*\]$' | awk 'ORS="";/ahead/ {print "+"} /behind/ {print "-"}' | sed -e 's/+-/±/')
-
-  # set -l new (command git ls-files --other --exclude-standard);
-  # test "$new"; and set new '…'
-
-  # set -l flags   "$dirty$staged$stashed$ahead$new"
-  # test "$flags"; and set flags " $flags"
-
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  if test (count (hg status)) != 0
+  set -l hg_status (hg prompt "{branch}{ {status}}")
+  if test (count $hg_status) != 0
     set flag_bg $med_red
     set flag_fg fff
   end
-  # else
-  #   if test "$stashed"
-  #     set flag_bg $lt_orange
-  #     set flag_fg $dk_orange
-  #   end
-  # end
-
-  __smockey_path_segment (__smockey_hg_project_dir)
+  __smockey_path_segment $HG_ROOT
 
   __smockey_start_segment $flag_bg $flag_fg
   set_color $flag_fg --bold
-  echo -n -s (__smockey_hg_branch) $flags ' '
+  echo -n -s $hg_status ' '
   set_color normal
 
   set -l project_pwd  (__smockey_hg_pwd)
