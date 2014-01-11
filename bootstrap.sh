@@ -44,6 +44,8 @@ safelink $BASEDIR/vim $HOME/.vim
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
+# RVM fix for fish
+curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
 
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
@@ -59,6 +61,7 @@ safelink $BASEDIR/gitignore $HOME/.gitignore
 
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
+
 
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
