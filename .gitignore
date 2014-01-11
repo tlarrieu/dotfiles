@@ -8,6 +8,7 @@ config/xfce4/helpers.rc
 
 config/fish/fish_history
 config/fish/fishd.*
+config/fish/functions/rvm.fish
 
 vim/bundle/**
 vim/doc
