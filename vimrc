@@ -303,6 +303,7 @@ map <Down>  <C-w>-
 map <Left>  <C-w><
 map <Right> <C-w>>
 map <Leader>= <C-w>=
+map <Leader>% :res<CR>:vertical res<CR>$
 " -------------------------------------------- Tabs
 " Navigating between tabs
 map <Leader>c :tabp<CR>
