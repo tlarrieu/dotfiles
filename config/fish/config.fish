@@ -1,8 +1,6 @@
 set PATH $HOME/.rvm/bin $PATH
-set PATH $PATH /usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
-set PATH $PATH /home/smockey/bin:.:/home/smockey/scripts
+set PATH $PATH /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 set PATH $PATH /usr/local/heroku/bin
-set PATH $PATH /opt/local/bin
 set PATH /Library/PostgreSQL/9.2/bin $PATH
 
 set PGHOST localhost
