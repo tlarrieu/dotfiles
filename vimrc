@@ -267,7 +267,7 @@ autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
 autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
 nmap du  <Plug>Dsurround
-nmap ku  <plug>csurround
+nmap ku  <Plug>Csurround
 nmap yu  <Plug>Ysurround
 nmap yU  <Plug>YSurround
 nmap yuu <Plug>Yssurround
