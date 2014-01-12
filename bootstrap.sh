@@ -31,6 +31,8 @@ git submodule init
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
+#.vim
+safelink $BASEDIR/vim $HOME/.vim
 # Vundle package installation
 vim +BundleInstall +qall
 # YouCompleteMe installation
@@ -39,10 +41,8 @@ if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
   cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
 fi
-#.vim
-safelink $BASEDIR/vim $HOME/.vim
 
-# vcprompt (a tool to speed up prompting informations with VCS)
+# vcprompt (a tool to speed up prompting informations from VCS)
 safebrew vcprompt
 # Ponysay
 safebrew ponysay
