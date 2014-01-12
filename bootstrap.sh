@@ -64,6 +64,9 @@ safelink $BASEDIR/gitignore $HOME/.gitignore
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
+# iTerm2
+safelink $BASEDIR/com.googlecode.iterm2.plist $HOME/Library/Preferences
+
 
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
