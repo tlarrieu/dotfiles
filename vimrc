@@ -42,6 +42,7 @@ Bundle 'wavded/vim-stylus'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
+Bundle 'vim-scripts/AnsiEsc.vim'
 
 filetype plugin indent on
 

@@ -1,19 +1,20 @@
 [user]
-	name = Thomas Larrieu
-	email = thomas.larrieu@gmail.com
+name = Thomas Larrieu
+email = thomas.larrieu@gmail.com
 [color]
-	ui = auto
+ui = auto
 [push]
-	default = matching
+default = matching
 [core]
-	editor = vim
-	excludesfile = /home/smockey/.gitignore
+editor = vim
+excludesfile = /home/smockey/.gitignore
+pager = vim -R -c AnsiEsc -
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
-  lgsa = "!f() { git lgs --author=$1; }; f"
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
-  ft = fetch
+lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
+lgsa = "!f() { git lgs --author=$1; }; f"
+co = checkout
+br = branch
+ci = commit
+st = status
+ft = fetch
