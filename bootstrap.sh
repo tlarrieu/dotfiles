@@ -25,6 +25,8 @@ safelink()
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
 
+git submodule init
+
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
 # Vundle package installation
