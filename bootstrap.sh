@@ -46,6 +46,8 @@ safelink $BASEDIR/vim $HOME/.vim
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
+# RVM
+curl -sSL https://get.rvm.io | bash -s stable
 # RVM fix for fish
 curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
 
