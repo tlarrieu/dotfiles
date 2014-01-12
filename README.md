@@ -46,9 +46,7 @@ Goals
 - Provide support for bépo (french dvorak variant, more about it here : http://bepo.fr/wiki/Accueil)
 - Provide uniformized solarized color scheme for various applications (more about this wonderful scheme 
 here : http://ethanschoonover.com/solarized)
-- Implement powerline wherever I can (as for now only in vim — with the real python plugin, and 
-in zsh through presto — although this one is "emulated"). More to come, whenever I find some time ;)
-
+- Implement powerline style wherever I can
 ####td;dr
 
 **I need bépo / solarized / powerline everywhere!!**
@@ -56,16 +54,9 @@ in zsh through presto — although this one is "emulated"). More to come, whenev
 
 Supported applications
 ----------------------
-- ranger
+- tmux
 - vim
-- zsh / prezto
-- ranger
+- fish
+- Oh My Fish!
 
 Some might be added, depending on my personnal needs.
-
-
-Warning
--------
-/!\ You will need powerline (https://github.com/Lokaltog/powerline) for
-the vimrc file to be fully operationnal. (if you don't need it,
-just tweak a bit the file in order to get the old status bar displayed).
