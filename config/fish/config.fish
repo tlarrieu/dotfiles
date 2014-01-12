@@ -1,5 +1,6 @@
 set PATH $HOME/.rvm/bin $PATH
-set PATH $PATH /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+# set PATH $PATH /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+set PATH /usr/local/bin $PATH
 set PATH $PATH /usr/local/heroku/bin
 set PATH /Library/PostgreSQL/9.2/bin $PATH
 

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 [[ "$1" == "-f" ]] && FORCE=true
 
