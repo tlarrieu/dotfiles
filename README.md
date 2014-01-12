@@ -60,10 +60,3 @@ Supported applications
 - Oh My Fish!
 
 Some might be added, depending on my personnal needs.
-
-
-Warning
--------
-/!\ You will need powerline (https://github.com/Lokaltog/powerline) for
-the vimrc file to be fully operationnal. (if you don't need it,
-just tweak a bit the file in order to get the old status bar displayed).
