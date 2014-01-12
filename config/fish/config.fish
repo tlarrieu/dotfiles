@@ -6,6 +6,12 @@ set PATH /Library/PostgreSQL/9.2/bin $PATH
 
 set PGHOST localhost
 
+set PAGER /bin/sh\ -c\ \"unset\ PAGER\;col\ -b\ -x\ \|\ vim\ -c\ \'set\ ft=man\ nomod\ nolist\'\ -\"
+
+function man
+  command man $argv | eval $PAGER
+end
+
 set GTK_IM_MODULE=xim
 set GEDITOR=gvim
 set -g -x EDITOR=vim

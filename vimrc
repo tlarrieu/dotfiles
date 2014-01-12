@@ -4,6 +4,7 @@
 " -----------------------------------------------------------------------------
 
 set shell=/bin/sh
+let $PAGER=''
 let mapleader="," " remapping leader
 let g:ruby_path = system('rvm current')
 
