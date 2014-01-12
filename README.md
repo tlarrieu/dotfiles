@@ -46,9 +46,7 @@ Goals
 - Provide support for bépo (french dvorak variant, more about it here : http://bepo.fr/wiki/Accueil)
 - Provide uniformized solarized color scheme for various applications (more about this wonderful scheme 
 here : http://ethanschoonover.com/solarized)
-- Implement powerline wherever I can (as for now only in vim — with the real python plugin, and 
-in zsh through presto — although this one is "emulated"). More to come, whenever I find some time ;)
-
+- Implement powerline style wherever I can
 ####td;dr
 
 **I need bépo / solarized / powerline everywhere!!**
