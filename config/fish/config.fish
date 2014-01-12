@@ -8,14 +8,6 @@ set PGHOST localhost
 
 set PAGER /bin/sh\ -c\ \"unset\ PAGER\;col\ -b\ -x\ \|\ vim\ -c\ \'set\ ft=man\ nomod\ nolist\'\ -\"
 
-function man
-  command man $argv | eval $PAGER
-end
-
-function todo
-  cat ~/todo.md 2> /dev/null | ponysay
-end
-
 set GTK_IM_MODULE=xim
 set GEDITOR=gvim
 set -g -x EDITOR=vim
