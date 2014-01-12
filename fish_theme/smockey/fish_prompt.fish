@@ -86,7 +86,7 @@ function __smockey_in_hg
 
   while test $dir != "/"
     if test -f $dir'/.hg/dirstate'
-      set -g HG_ROOT (hg root)
+      set -g HG_ROOT $dir
       return 0
     end
 
@@ -263,12 +263,8 @@ end
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  set -l hg_status (
-    hg status 2> /dev/null \
-      | awk '$1 == "?" { print "?" } $1 != "?" { print "!" }' \
-      | sort | uniq | head -c1
-  )
-  set -l hg_branch $branch_glyph ' ' (hg branch)
+  set -l hg_status (vcprompt -f "%u%m")
+  set -l hg_branch $branch_glyph ' ' (vcprompt -f "%b")
   set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )
 
   if test $hg_status

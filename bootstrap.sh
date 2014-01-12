@@ -37,10 +37,11 @@ if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
   cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
 fi
-
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
 
+# vcprompt (a tool to speed up prompting informations with VCS)
+[[ -n $(brew list | grep vcprompt) ]] || brew install vcprompt
 # Fish
 [[ -n $(brew list | grep fish) ]]  || brew install fish
 # Oh My Fish!
