@@ -2576,7 +2576,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>0 365 730 501 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 390 730 501 0 0 1440 900 </string>
+	<string>0 368 730 501 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>886 279 650 476 0 0 1920 1058 </string>
 	<key>NeverWarnAboutShortLivedSessions_44026C37-6AFF-4C34-B7D1-6613693F1754</key>
@@ -2777,7 +2777,7 @@
 			<key>Columns</key>
 			<integer>80</integer>
 			<key>Command</key>
-			<string>zsh -ci fish</string>
+			<string>/usr/local/bin/fish -c "tmux"</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -2799,7 +2799,7 @@
 			<key>Cursor Type</key>
 			<integer>2</integer>
 			<key>Custom Command</key>
-			<string>No</string>
+			<string>Yes</string>
 			<key>Custom Directory</key>
 			<string>No</string>
 			<key>Default Bookmark</key>
@@ -3376,7 +3376,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2014-01-11T11:58:53Z</date>
+	<date>2014-01-12T11:58:53Z</date>
 	<key>SUSkippedVersion</key>
 	<string>1.0.0.20131228</string>
 	<key>SavePasteHistory</key>
