@@ -2,8 +2,7 @@
 
 [[ "$1" == "-f" ]] && FORCE=true
 
-safelink()
-{
+safelink() {
   target=$1
   link=$2
   if [ $FORCE ]; then
@@ -23,8 +22,11 @@ safelink()
   fi
 }
 
-BASEDIR=$(cd "$(dirname "$0")"; pwd)
+safebrew() {
+  [[ -n $(brew list | grep $1) ]] || brew install $1
+}
 
+BASEDIR=$(cd "$(dirname "$0")"; pwd)
 git submodule init
 
 # .vimrc
@@ -33,7 +35,7 @@ safelink $BASEDIR/vimrc $HOME/.vimrc
 vim +BundleInstall +qall
 # YouCompleteMe installation
 if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
-  [[ -n $(brew list | grep cmake) ]] || brew install cmake
+  safebrew cmake
   cd ~/.vim/bundle/YouCompleteMe
   ./install.sh
 fi
@@ -41,18 +43,20 @@ fi
 safelink $BASEDIR/vim $HOME/.vim
 
 # vcprompt (a tool to speed up prompting informations with VCS)
-[[ -n $(brew list | grep vcprompt) ]] || brew install vcprompt
+safebrew vcprompt
 # Ponysay
-[[ -n $(brew list | grep ponysay) ]]  || brew install ponysay
+safebrew ponysay
 # Fish
-[[ -n $(brew list | grep fish) ]]  || brew install fish
+safebrew fish
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
-# RVM
-curl -sSL https://get.rvm.io | bash -s stable
-# RVM fix for fish
-curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
+# RVM and fix for fish
+if [[ -d ~/.rvm ]]; then
+else
+  curl -sSL https://get.rvm.io | bash -s stable
+  curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
+fi
 
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
@@ -65,14 +69,5 @@ done
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
-
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
-
-# iTerm2
-safelink $BASEDIR/com.googlecode.iterm2.plist $HOME/Library/Preferences
-
-
-# fonts
-[[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
-cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
