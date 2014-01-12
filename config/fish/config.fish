@@ -12,6 +12,10 @@ function man
   command man $argv | eval $PAGER
 end
 
+function todo
+  cat ~/todo.md 2> /dev/null | ponysay
+end
+
 set GTK_IM_MODULE=xim
 set GEDITOR=gvim
 set -g -x EDITOR=vim
@@ -23,7 +27,6 @@ alias vi="vim"
 alias vimrc="vim ~/.vimrc"
 alias zshrc="vim ~/.zshrc"
 alias preztorc="vim ~/.zpreztorc"
-alias todo="cat ~/.todo 2>/dev/null"
 alias vitodo="vi ~/todo.md"
 alias vir="vi -R"
 

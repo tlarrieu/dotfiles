@@ -42,6 +42,8 @@ safelink $BASEDIR/vim $HOME/.vim
 
 # vcprompt (a tool to speed up prompting informations with VCS)
 [[ -n $(brew list | grep vcprompt) ]] || brew install vcprompt
+# Ponysay
+[[ -n $(brew list | grep ponysay) ]]  || brew install ponysay
 # Fish
 [[ -n $(brew list | grep fish) ]]  || brew install fish
 # Oh My Fish!
