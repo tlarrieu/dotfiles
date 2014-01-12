@@ -54,10 +54,10 @@ here : http://ethanschoonover.com/solarized)
 
 Supported applications
 ----------------------
-- ranger
+- tmux
 - vim
-- zsh / prezto
-- ranger
+- fish
+- Oh My Fish!
 
 Some might be added, depending on my personnal needs.
 
