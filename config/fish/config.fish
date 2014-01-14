@@ -1,12 +1,9 @@
-set PATH $HOME/.rvm/bin $PATH
-# set PATH $PATH /usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
 set PATH /usr/local/bin $PATH
-set PATH $PATH /usr/local/heroku/bin
 set PATH /Library/PostgreSQL/9.2/bin $PATH
+set PATH /usr/local/heroku/bin $PATH
+set PATH $HOME/.rvm/bin $PATH
 
 set PGHOST localhost
-
-set PAGER /bin/sh\ -c\ \"unset\ PAGER\;col\ -b\ -x\ \|\ vim\ -c\ \'set\ ft=man\ nomod\ nolist\'\ -\"
 
 set GTK_IM_MODULE=xim
 set GEDITOR=gvim
@@ -22,6 +19,8 @@ alias preztorc="vim ~/.zpreztorc"
 alias vitodo="vi ~/todo.md"
 alias vir="vi -R"
 
+alias gcd="cd (git rev-parse --show-toplevel)"
+
 alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias less="less -r"
@@ -29,7 +28,10 @@ alias wee="weechat-curses"
 alias a="atool"
 alias atx="atool -x"
 alias g="git"
-alias vip="vim -MR -"
+alias vip="vim -MR -c AnsiEsc -"
+
+alias rc="rails console"
+alias rs="rails server"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
