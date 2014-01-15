@@ -262,6 +262,14 @@ noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
+" ---------------------------------------- Fugitive
+noremap <Leader>hb :Hgblame<CR>
+noremap <Leader>hd :Hgvdiff<CR>
+noremap <Leader>hw :Hgwrite<CR>
+noremap <Leader>hr :Hgread<CR>
+noremap <Leader>hc :Hgcommit<CR>
+noremap <Leader>hs :Hgstatus<CR>
+
 " ------------------------------------------- RSpec
 " I'll care about that when the proper time comes
 " autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
@@ -373,6 +381,8 @@ noremap à :q<CR>
 inoremap à <ESC>:q<CR>
 
 " ---------------------------------------- Togglers
+" Only
+noremap <Leader>o :on<CR>
 " Smart completion
 inoremap <C-Space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
