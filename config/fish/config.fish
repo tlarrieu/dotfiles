@@ -32,6 +32,8 @@ alias vip="vim -MR -c AnsiEsc -"
 
 alias rc="rails console"
 alias rs="rails server"
+alias rud="rvm use default"
+alias rus="rvm use system"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
