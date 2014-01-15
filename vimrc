@@ -20,7 +20,7 @@ Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'kien/ctrlp.vim'
+Bundle 'wincent/Command-T'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
@@ -244,16 +244,17 @@ let g:airline#extensions#tabline#tab_min_count = 2
 let g:surround_no_mappings=1
 " ------------------------------------------- RSpec
 let g:RspecKeymap=0
+" --------------------------------------- Command-T
+let g:CommandTMaxHeight = "15"
+let g:CommandTMatchWindowReverse = 1
+
 " ------------------------------------------------------------ Keyboard mapping
 
-" ------------------------------------------- CtrlP
-noremap  <Leader><Leader> :CtrlPMixed<CR>
-noremap  <Leader>b        :CtrlPBuffer<CR>
+" --------------------------------------- Command-T
+noremap <Leader><Leader> :CommandT<CR>
 " ----------------------------------------- Tabular
-noremap  <Leader>aa :Tabularize /
-vnoremap <Leader>aa :Tabularize /
-noremap  <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
+noremap  <Leader>a :Tabularize /
+vnoremap <Leader>a :Tabularize /
 " ---------------------------------------- Fugitive
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gdiff<CR>
@@ -262,11 +263,12 @@ noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
 " ------------------------------------------- RSpec
-autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
-autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
-autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
-autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
-autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
+" I'll care about that when the proper time comes
+" autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
+" autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
+" autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
+" autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
+" autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
 nmap du  <Plug>Dsurround
 nmap ku  <Plug>Csurround
@@ -297,8 +299,8 @@ noremap <S-r>  <C-w>l
 " Creating new splits
 noremap <Leader>v :vnew<Space>
 noremap <Leader>V <C-w>v
-noremap <Leader>h :new<Space>
-noremap <Leader>H <C-w>s
+noremap <Leader>s :new<Space>
+noremap <Leader>S <C-w>s
 " Resize splits
 map <Up>    <C-w>+
 map <Down>  <C-w>-
@@ -310,10 +312,7 @@ map <Leader>% :res<CR>:vertical res<CR>$
 " Navigating between tabs
 map <Leader>c :tabp<CR>
 map <Leader>r :tabn<CR>
-map <Leader>' :tabnew 
-" ---------------------------------------- Sessions
-map <Leader>ss :mksession! 
-map <Leader>sl :source 
+map <Leader>t :tabnew 
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -351,9 +350,12 @@ noremap  <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
 vnoremap <C-s> <Esc>:w<CR>
 " Command mode
-noremap  <C-t> :
-vnoremap <C-t> :
-inoremap <C-t> <Esc>:
+" noremap  <C-t> :
+" vnoremap <C-t> :
+" inoremap <C-t> <Esc>:
+noremap   é  :
+vnoremap  é  :
+inoremap  éé <Esc>:
 " Change mode
 noremap k c
 " Help
@@ -365,8 +367,11 @@ noremap  <C-e> :e<Space>
 vnoremap <C-e> <Esc>:e<Space>
 inoremap <C-e> <Esc>:e<Space>
 " Exit
-noremap <Leader>q :q<CR>
-noremap <Leader>Q :qa<CR>
+" noremap <Leader>q :q<CR>
+" noremap <Leader>Q :qa<CR>
+noremap à :q<CR>
+inoremap à <ESC>:q<CR>
+
 " ---------------------------------------- Togglers
 " Smart completion
 inoremap <C-Space> <c-r>=Smart_Complete()<CR>
