@@ -27,9 +27,19 @@ Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/tComment'
 Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'thoughtbot/vim-rspec'
 Bundle 'honza/vim-snippets'
 Bundle 'rking/ag.vim'
+Bundle 'kana/vim-fakeclip'
+Bundle 'kana/vim-textobj-user'
+Bundle 'vim-scripts/Parameter-Text-Objects'
+" Ruby
+" Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-rails'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'ludovicchabant/vim-lawrencium'
@@ -262,13 +272,17 @@ noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
-" ---------------------------------------- Fugitive
+" -------------------------------------- Lawrencium
 noremap <Leader>hb :Hgblame<CR>
 noremap <Leader>hd :Hgvdiff<CR>
 noremap <Leader>hw :Hgwrite<CR>
 noremap <Leader>hr :Hgread<CR>
 noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
+
+" ----------------------------------------- Calcium
+
+noremap <Leader>hl :Calcium<CR>
 
 " ------------------------------------------- RSpec
 " I'll care about that when the proper time comes
@@ -289,9 +303,6 @@ vmap u   <Plug>VSurround
 vmap U   <Plug>VgSurround
 
 " ------------------------ System yanking / pasting
-noremap  <Leader>y "+yy
-vnoremap <Leader>y "+y
-noremap  <Leader>p "+p
 " ------------------------------------------ Search
 noremap « #
 noremap » *
