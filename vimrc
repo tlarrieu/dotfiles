@@ -42,7 +42,8 @@ Bundle 'tsaleh/vim-matchit'
 Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
-Bundle 'ludovicchabant/vim-lawrencium'
+" Bundle 'ludovicchabant/vim-lawrencium'
+Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
@@ -141,6 +142,7 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit startinsert!
 autocmd FileType hgcommit startinsert!
+autocmd FileType diff syn on
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
@@ -225,6 +227,8 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
+" --------------------------------------------------------------- Spellchecking
+set spelllang=en,fr
 " --------------------------------------------------------------------- Plugins
 "
 " --------------------------------------- Airline
@@ -329,8 +333,10 @@ map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
 " -------------------------------------------- Tabs
 " Navigating between tabs
-map <Leader>c :tabp<CR>
-map <Leader>r :tabn<CR>
+noremap <silent> <C-c> :tabp<CR>
+inoremap <silent> <C-c> <ESC>:tabp<CR>
+noremap <silent> <C-r> :tabn<CR>
+inoremap <silent> <C-r> <ESC>:tabn<CR>
 map <Leader>t :tabnew 
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
@@ -344,10 +350,10 @@ noremap s gk
 noremap <C-up>   :m-2<CR>
 noremap <C-down> :m+<CR>
 " Insert new line after current one without breaking it
-inoremap <C-cr> <Esc>o
-noremap  <C-cr> m`o<Esc>``
+inoremap <C-CR> <ESC>o
+noremap  <C-CR> m`o<Esc>``
 " Same but before current one
-inoremap <S-cr> <Esc>O
+inoremap <S-cr> <ESC>O
 noremap  <S-cr> m`O<Esc>``
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
@@ -360,34 +366,21 @@ vnoremap <S-Tab> <gv
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " ---------------------------------- Mode Switching
-noremap  <C-c> <esc>
-inoremap <C-c> <esc>
-onoremap <C-c> <esc>
-vnoremap <C-c> <esc>
+noremap  jj <esc>
+inoremap jj <esc>
+onoremap jj <esc>
+vnoremap jj <esc>
 " Save
 noremap  <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>
-vnoremap <C-s> <Esc>:w<CR>
+inoremap <C-s> <ESC>:w<CR>
+vnoremap <C-s> <ESC>:w<CR>
 " Command mode
-" noremap  <C-t> :
-" vnoremap <C-t> :
-" inoremap <C-t> <Esc>:
 noremap   é  :
 vnoremap  é  :
 inoremap  éé <Esc>:
 " Change mode
 noremap k c
-" Help
-noremap  <C-h> :h<Space>
-vnoremap <C-h> <Esc>:h<Space>
-inoremap <C-h> <Esc>:h<Space>
-" Edit
-noremap  <C-e> :e<Space>
-vnoremap <C-e> <Esc>:e<Space>
-inoremap <C-e> <Esc>:e<Space>
 " Exit
-" noremap <Leader>q :q<CR>
-" noremap <Leader>Q :qa<CR>
 noremap à :q<CR>
 inoremap à <ESC>:q<CR>
 
@@ -400,9 +393,9 @@ inoremap <C-Space> <c-r>=Smart_Complete()<CR>
 noremap <Space> :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
 noremap <Leader>e :call SplitSwap()<CR>
-" Search highlighting toggle
-" noremap h :set hlsearch! hlsearch?<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<CR>
+noremap <silent> <C-h> :set spell!<CR>
 " Toggle line wrap
 noremap <Leader>w :set wrap!<CR>
+noremap U :redo<CR>
