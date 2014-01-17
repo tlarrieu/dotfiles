@@ -37,6 +37,7 @@ alias rus="rvm use system"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
+alias dotfiles="cd ~/git/dotfiles"
 
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
