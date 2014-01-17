@@ -5,6 +5,9 @@ email = thomas.larrieu@gmail.com
 ui = auto
 [push]
 default = matching
+[color]
+status = auto
+  diff = no
 [core]
 editor = vim
 excludesfile = /home/smockey/.gitignore
