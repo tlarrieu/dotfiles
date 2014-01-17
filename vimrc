@@ -395,7 +395,10 @@ noremap <Space> :call ToggleFold()<CR>
 noremap <Leader>e :call SplitSwap()<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<CR>
+" Spell checking
 noremap <silent> <C-h> :set spell!<CR>
+inoremap <silent> <C-h> <ESC>:set spell!<CR>
+vnoremap <silent> <C-h> <ESC>:set spell!<CR>
 " Toggle line wrap
 noremap <Leader>w :set wrap!<CR>
 noremap U :redo<CR>
