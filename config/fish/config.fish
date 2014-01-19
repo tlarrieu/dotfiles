@@ -1,3 +1,4 @@
+set PATH $HOME/scripts $PATH
 set PATH /usr/local/bin $PATH
 set PATH /Library/PostgreSQL/9.2/bin $PATH
 set PATH /usr/local/heroku/bin $PATH
@@ -13,9 +14,7 @@ stty -ixon
 
 alias python2="python2.7"
 alias vi="vim"
-alias vimrc="vim ~/.vimrc"
-alias zshrc="vim ~/.zshrc"
-alias preztorc="vim ~/.zpreztorc"
+alias vimrc="vi ~/.vimrc"
 alias vitodo="vi ~/todo.md"
 alias vir="vi -R"
 
@@ -38,6 +37,7 @@ alias rus="rvm use system"
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
 alias dotfiles="cd ~/git/dotfiles"
+alias blog="cd ~/git/blog"
 
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
