@@ -42,7 +42,6 @@ Bundle 'tsaleh/vim-matchit'
 Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
-" Bundle 'ludovicchabant/vim-lawrencium'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
@@ -123,6 +122,28 @@ function! SplitSwap()
   end
 endfunction
 
+function! DelTagOfFile(file)
+  let fullpath = a:file
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+  let f = substitute(fullpath, cwd . "/", "", "")
+  let f = escape(f, './')
+  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
+  let resp = system(cmd)
+endfunction
+ 
+function! UpdateTags()
+  let f = expand("%:p")
+  let cwd = getcwd()
+  let tagfilename = cwd . "/tags"
+ 
+  if filereadable(tagfilename)
+    let cmd = 'ctags -a -f ' . tagfilename . ' "' . f . '"'
+    call DelTagOfFile(f)
+    let resp = system(cmd)
+  endif
+endfunction
+
 " ---------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
@@ -156,6 +177,7 @@ autocmd WinEnter * set cursorcolumn
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
 autocmd BufReadPost *.fish set ft=sh
+autocmd BufWritePost * call UpdateTags()
 " -------------------------------------------------------------- General options
 " Disable the ugly vi compatibility
 set nocompatible
@@ -180,6 +202,8 @@ set encoding=utf8
 set ffs=unix,dos,mac
 " Ignore those files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+" ctags
+set tags=.tags,./.tags,./tags,tags
 " current line / column highlight
 set cursorline
 set cursorcolumn
@@ -264,11 +288,13 @@ let g:CommandTMatchWindowReverse = 1
 
 " ------------------------------------------------------------ Keyboard mapping
 
+" Ag
+noremap <Leader>a  :Ag 
 " --------------------------------------- Command-T
 noremap <Leader><Leader> :CommandT<CR>
 " ----------------------------------------- Tabular
-noremap  <Leader>a :Tabularize /
-vnoremap <Leader>a :Tabularize /
+noremap  <Leader>t :Tabularize /
+vnoremap <Leader>t :Tabularize /
 " ---------------------------------------- Fugitive
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gdiff<CR>
@@ -297,7 +323,7 @@ noremap <Leader>hl :Calcium<CR>
 " autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
 " ---------------------------------------- Surround
 nmap du  <Plug>Dsurround
-nmap ku  <Plug>Csurround
+nmap lu  <Plug>Csurround
 nmap yu  <Plug>Ysurround
 nmap yU  <Plug>YSurround
 nmap yuu <Plug>Yssurround
@@ -306,10 +332,6 @@ nmap yUU <Plug>YSsurround
 vmap u   <Plug>VSurround
 vmap U   <Plug>VgSurround
 
-" ------------------------ System yanking / pasting
-" ------------------------------------------ Search
-noremap « #
-noremap » *
 " ------------------------------------------- Marks
 noremap ' `
 noremap ` '
@@ -337,7 +359,6 @@ noremap <silent> <C-c> :tabp<CR>
 inoremap <silent> <C-c> <ESC>:tabp<CR>
 noremap <silent> <C-r> :tabn<CR>
 inoremap <silent> <C-r> <ESC>:tabn<CR>
-map <Leader>t :tabnew 
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -358,13 +379,15 @@ noremap  <S-cr> m`O<Esc>``
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
 " visual shifting (builtin-repeat)
-nnoremap <Tab>   >>_
-nnoremap <S-Tab> <<_
+nmap » >>_
+nmap « <<_
 inoremap <S-Tab> <C-D>
-vnoremap <Tab>   >gv
-vnoremap <S-Tab> <gv
+vmap » >gv
+vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<BS>#
+" Ctags
+map <C-t> <C-]>
 " ---------------------------------- Mode Switching
 noremap  jj <esc>
 inoremap jj <esc>
@@ -379,7 +402,7 @@ noremap   é  :
 vnoremap  é  :
 inoremap  éé <Esc>:
 " Change mode
-noremap k c
+noremap l c
 " Exit
 noremap à :q<CR>
 inoremap à <ESC>:q<CR>
