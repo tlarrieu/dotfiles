@@ -2,12 +2,10 @@
 " Smockey's vimrc
 " Designed for dvorak-bepo keyboard
 " ------------------------------------------------------------------------------
-
 set shell=/bin/sh
 let $PAGER=''
 let mapleader="," " remapping leader
 let g:ruby_path = system('rvm current')
-
 " ----------------------------------------------------------------------- Vundle
 set nocompatible
 filetype off
@@ -54,8 +52,8 @@ Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
 Bundle 'vim-scripts/AnsiEsc.vim'
 
+filetype on
 filetype plugin indent on
-
 " ------------------------------------------------------------- Custom functions
 " Toggle fold state between closed and opened.
 " If there is no fold at current line, just moves forward.
@@ -147,9 +145,9 @@ endfunction
 " ----------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-filetype on
-filetype plugin on
-filetype indent on
+" filetype on
+" filetype plugin on
+" filetype indent on
 syntax on
 " A few completion related stuff
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -163,24 +161,19 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit startinsert!
 autocmd FileType hgcommit startinsert!
-autocmd FileType diff syn on
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
 autocmd WinEnter * set cursorline
 autocmd WinEnter * set cursorcolumn
-" Automatically goes to the directory where the edited file is located
-" I added a try / catch there to handle fugitive that does not allow this
-" (since there is an 'incorrect' path related to it
-" autocmd BufEnter * execute 'try | lcd %:p:h | catch | | endtry'
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
 autocmd BufReadPost *.fish set ft=sh
 autocmd BufWritePost * call UpdateTags()
+" Don't add the comment prefix when I hit enter or o/O on a comment line.
+au FileType * setlocal formatoptions-=o formatoptions-=r
 " -------------------------------------------------------------- General options
-" Disable the ugly vi compatibility
-set nocompatible
 " Color / background theme
 set background=dark
 colorscheme solarized
@@ -194,8 +187,6 @@ set nu
 " set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
 set list
-" Don't add the comment prefix when I hit enter or o/O on a comment line.
-set formatoptions-=or
 " Show matching braces
 set showmatch
 " Show command
