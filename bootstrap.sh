@@ -71,3 +71,7 @@ safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
+# agignore
+safelink $BASEDIR/agignore $HOME/.aginore
+# irbrc
+safelink $BASEDIR/irbrc $HOME/.irbrc
