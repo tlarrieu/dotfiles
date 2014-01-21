@@ -191,8 +191,11 @@ set rnu
 " Current line
 set nu
 " Blank character
-set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
+" set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
+set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
 set list
+" Don't add the comment prefix when I hit enter or o/O on a comment line.
+set formatoptions-=or
 " Show matching braces
 set showmatch
 " Show command
@@ -200,6 +203,9 @@ set showcmd
 " Encoding and filetype
 set encoding=utf8
 set ffs=unix,dos,mac
+" Backup and swap files
+set backupdir=~/.tmp
+set directory=~/.tmp
 " Ignore those files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
 " ctags
@@ -235,6 +241,7 @@ set si "smart indent
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set shiftround
 " ---------------------------------------------------------------------- Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
@@ -321,9 +328,7 @@ noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
 
 " ----------------------------------------- Calcium
-
 noremap <Leader>hl :Calcium<CR>
-
 " ------------------------------------------- RSpec
 " I'll care about that when the proper time comes
 " autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
@@ -341,7 +346,6 @@ nmap yUu <Plug>YSsurround
 nmap yUU <Plug>YSsurround
 vmap u   <Plug>VSurround
 vmap U   <Plug>VgSurround
-
 " ------------------------------------------- Marks
 noremap ' `
 noremap ` '
@@ -372,6 +376,8 @@ map <Leader>% :res<CR>:vertical res<CR>$
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+imap <C-a> <C-o>^
+imap <C-e> <C-o>$
 " left / right / down (visual line) / up (visual line)
 noremap c h
 noremap r l
