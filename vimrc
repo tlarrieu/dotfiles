@@ -1,14 +1,14 @@
-" -----------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 " Smockey's vimrc
 " Designed for dvorak-bepo keyboard
-" -----------------------------------------------------------------------------
+" ------------------------------------------------------------------------------
 
 set shell=/bin/sh
 let $PAGER=''
 let mapleader="," " remapping leader
 let g:ruby_path = system('rvm current')
 
-" ---------------------------------------------------------------------- Vundle
+" ----------------------------------------------------------------------- Vundle
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle
@@ -33,7 +33,7 @@ Bundle 'kana/vim-fakeclip'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 " Ruby
-" Bundle 'ecomba/vim-ruby-refactoring'
+Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-rails'
@@ -56,7 +56,7 @@ Bundle 'vim-scripts/AnsiEsc.vim'
 
 filetype plugin indent on
 
-" ------------------------------------------------------------ Custom functions
+" ------------------------------------------------------------- Custom functions
 " Toggle fold state between closed and opened.
 " If there is no fold at current line, just moves forward.
 " If it is present, reverse it's state.
@@ -131,12 +131,12 @@ function! DelTagOfFile(file)
   let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
   let resp = system(cmd)
 endfunction
- 
+
 function! UpdateTags()
   let f = expand("%:p")
   let cwd = getcwd()
   let tagfilename = cwd . "/tags"
- 
+
   if filereadable(tagfilename)
     let cmd = 'ctags -a -f ' . tagfilename . ' "' . f . '"'
     call DelTagOfFile(f)
@@ -144,7 +144,7 @@ function! UpdateTags()
   endif
 endfunction
 
-" ---------------------------------------------------------------- File Related
+" ----------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 filetype on
@@ -229,13 +229,13 @@ set splitbelow
 set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
-" ---------------------------------------------------------------------- Indent
+" ----------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
 set tabstop=2
 set shiftwidth=2
 set expandtab
-" --------------------------------------------------------------------- Folding
+" ---------------------------------------------------------------------- Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
 set foldclose=
@@ -244,16 +244,16 @@ set foldnestmax=10
 set foldlevel=100
 set fillchars=vert:\|,fold:\ 
 set foldminlines=2
-" ------------------------------------------------------------------- Searching
+" -------------------------------------------------------------------- Searching
 " case behavior regarding searching
 set ignorecase
 set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-" --------------------------------------------------------------- Spellchecking
+" ---------------------------------------------------------------- Spellchecking
 set spelllang=en,fr
-" --------------------------------------------------------------------- Plugins
+" ---------------------------------------------------------------------- Plugins
 "
 " --------------------------------------- Airline
 if !exists('g:airline_symbols')
@@ -267,7 +267,6 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
-
 
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -285,10 +284,21 @@ let g:RspecKeymap=0
 " --------------------------------------- Command-T
 let g:CommandTMaxHeight = "15"
 let g:CommandTMatchWindowReverse = 1
+" -------------------------------- Ruby Refactoring
+let g:ruby_refactoring_map_keys=0
 
-" ------------------------------------------------------------ Keyboard mapping
-
-" Ag
+" ------------------------------------------------------------- Keyboard mapping
+" -------------------------------- Ruby Refactoring
+nnoremap <leader>rap  :RAddParameter<cr>
+nnoremap <leader>rcpc :RConvertPostConditional<cr>
+nnoremap <leader>rel  :RExtractLet<cr>
+vnoremap <leader>rec  :RExtractConstant<cr>
+vnoremap <leader>relv :RExtractLocalVariable<cr>
+nnoremap <leader>rit  :RInlineTemp<cr>
+vnoremap <leader>rrlv :RRenameLocalVariable<cr>
+vnoremap <leader>rriv :RRenameInstanceVariable<cr>
+vnoremap <leader>rem  :RExtractMethod<cr>
+" ---------------------------------------------- Ag
 noremap <Leader>a  :Ag 
 " --------------------------------------- Command-T
 noremap <Leader><Leader> :CommandT<CR>
@@ -355,10 +365,10 @@ map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
 " -------------------------------------------- Tabs
 " Navigating between tabs
-noremap <silent> <C-c> :tabp<CR>
-inoremap <silent> <C-c> <ESC>:tabp<CR>
-noremap <silent> <C-r> :tabn<CR>
-inoremap <silent> <C-r> <ESC>:tabn<CR>
+" noremap <silent> <C-c> :tabp<CR>
+" inoremap <silent> <C-c> <ESC>:tabp<CR>
+" noremap <silent> <C-r> :tabn<CR>
+" inoremap <silent> <C-r> <ESC>:tabn<CR>
 " ---------------------------------------- Movement
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -387,20 +397,15 @@ vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " Ctags
-map <C-t> <C-]>
+noremap <C-t> <C-]>
+noremap <C-s> <C-t>
+
 " ---------------------------------- Mode Switching
-noremap  jj <esc>
-inoremap jj <esc>
-onoremap jj <esc>
-vnoremap jj <esc>
-" Save
-noremap  <C-s> :w<CR>
-inoremap <C-s> <ESC>:w<CR>
-vnoremap <C-s> <ESC>:w<CR>
 " Command mode
 noremap   é  :
 vnoremap  é  :
-inoremap  éé <Esc>:
+inoremap  éé <Esc>
+onoremap  éé <Esc>
 " Change mode
 noremap l c
 " Exit
