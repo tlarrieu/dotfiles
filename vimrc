@@ -40,6 +40,7 @@ Bundle 'tsaleh/vim-matchit'
 Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
+Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
@@ -310,9 +311,10 @@ noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
+" --------------------------------------- Mercenary
+noremap <Leader>hb :HGblame<CR>
+noremap <Leader>hd :HGdiff<CR>
 " -------------------------------------- Lawrencium
-noremap <Leader>hb :Hgblame<CR>
-noremap <Leader>hd :Hgvdiff<CR>
 noremap <Leader>hw :Hgwrite<CR>
 noremap <Leader>hr :Hgread<CR>
 noremap <Leader>hc :Hgcommit<CR>
@@ -393,7 +395,8 @@ vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " Ctags
-noremap <C-t> <C-]>
+" noremap <C-t> <C-]>
+noremap <C-t> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <C-s> <C-t>
 " ---------------------------------- Mode Switching
 " Command mode
