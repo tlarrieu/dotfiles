@@ -226,6 +226,8 @@ set splitbelow
 set scrolloff=8
 set sidescrolloff=15
 set sidescroll=1
+" Disable line wrap
+set nowrap
 " ----------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
@@ -252,7 +254,6 @@ set incsearch " start search while typing
 " ---------------------------------------------------------------- Spellchecking
 set spelllang=en,fr
 " ---------------------------------------------------------------------- Plugins
-"
 " --------------------------------------- Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -284,7 +285,6 @@ let g:CommandTMaxHeight = "15"
 let g:CommandTMatchWindowReverse = 1
 " -------------------------------- Ruby Refactoring
 let g:ruby_refactoring_map_keys=0
-
 " ------------------------------------------------------------- Keyboard mapping
 " -------------------------------- Ruby Refactoring
 nnoremap <leader>rap  :RAddParameter<cr>
@@ -317,7 +317,6 @@ noremap <Leader>hw :Hgwrite<CR>
 noremap <Leader>hr :Hgread<CR>
 noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
-
 " ----------------------------------------- Calcium
 noremap <Leader>hl :Calcium<CR>
 " ------------------------------------------- RSpec
@@ -396,7 +395,6 @@ inoremap # X<BS>#
 " Ctags
 noremap <C-t> <C-]>
 noremap <C-s> <C-t>
-
 " ---------------------------------- Mode Switching
 " Command mode
 noremap   é  :
@@ -408,7 +406,6 @@ noremap l c
 " Exit
 noremap à :q<CR>
 inoremap à <ESC>:q<CR>
-
 " ---------------------------------------- Togglers
 " Only
 noremap <Leader>o :on<CR>
