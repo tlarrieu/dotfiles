@@ -1,8 +1,8 @@
-set PATH $HOME/scripts $PATH
-set PATH /usr/local/bin $PATH
-set PATH /Library/PostgreSQL/9.2/bin $PATH
-set PATH /usr/local/heroku/bin $PATH
-set PATH $HOME/.rvm/bin $PATH
+set -x PATH $HOME/scripts $PATH
+set -x PATH /usr/local/bin $PATH
+set -x PATH /Library/PostgreSQL/9.2/bin $PATH
+set -x PATH /usr/local/heroku/bin $PATH
+set -x PATH $HOME/.rvm/bin $PATH
 
 set PGHOST localhost
 
@@ -27,7 +27,7 @@ alias wee="weechat-curses"
 alias a="atool"
 alias atx="atool -x"
 alias g="git"
-alias vip="vim -MR -c AnsiEsc -"
+alias vip="vi -MR -c AnsiEsc -"
 
 alias rc="rails console"
 alias rs="rails server"

@@ -69,6 +69,8 @@ done
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
+# install fix for vim clipboard
+safebrew reattach-to-user-namespace
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 # agignore
