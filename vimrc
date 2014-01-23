@@ -30,6 +30,7 @@ Bundle 'rking/ag.vim'
 Bundle 'kana/vim-fakeclip'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
+Bundle 'tpope/vim-unimpaired'
 " Ruby
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'thoughtbot/vim-rspec'
