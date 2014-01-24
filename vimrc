@@ -19,23 +19,19 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'wincent/Command-T'
-Bundle 'vim-scripts/Conque-Shell'
-Bundle 'ervandew/supertab'
 Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/tComment'
 Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'rking/ag.vim'
-Bundle 'kana/vim-fakeclip'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
-Bundle 'tpope/vim-unimpaired'
 " Ruby
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'thoughtbot/vim-rspec'
 Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-rails'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'rhysd/vim-textobj-ruby'
@@ -45,9 +41,6 @@ Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'slim-template/vim-slim'
-Bundle 'wavded/vim-stylus'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -71,27 +64,6 @@ function! ToggleFold()
     endif
   endif
   echo
-endf
-
-" Smart completion
-function! Smart_Complete()
-  let line = getline('.')                     " current line
-  let substr = strpart(line, -1, col('.')+1)  " from the start of the current
-                                              " line to one character right
-                                              " of the cursor
-  let substr = matchstr(substr, "[^ \t]*$")   " word till cursor
-  if (strlen(substr)==0)                      " nothing to match on empty string
-    return "\<tab>"
-  endif
-  let has_period = match(substr, '\.') != -1  " position of period, if any
-  let has_slash = match(substr, '\/') != -1   " position of slash, if any
-  if (!has_period && !has_slash)
-    return "\<C-X>\<C-P>"                     " existing text matching
-  elseif ( has_slash )
-    return "\<C-X>\<C-F>"                     " file matching
-  else
-    return "\<C-X>\<C-O>"                     " plugin matching
-  endif
 endf
 
 function! MarkSplitSwap()
@@ -147,9 +119,6 @@ endfunction
 " ----------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-" filetype on
-" filetype plugin on
-" filetype indent on
 syntax on
 " A few completion related stuff
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -186,7 +155,6 @@ set rnu
 " Current line
 set nu
 " Blank character
-" set lcs=tab:\›\ ,trail:~,nbsp:¤,extends:>,precedes:<
 set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
 set list
 " Show matching braces
@@ -298,6 +266,9 @@ nnoremap <leader>rit  :RInlineTemp<cr>
 vnoremap <leader>rrlv :RRenameLocalVariable<cr>
 vnoremap <leader>rriv :RRenameInstanceVariable<cr>
 vnoremap <leader>rem  :RExtractMethod<cr>
+" ----------------------------------- YouCompleteMe
+" I want tab for Snipmate so I deactivate it for YCM
+let g:ycm_key_list_select_completion = []
 " ---------------------------------------------- Ag
 noremap <Leader>a  :Ag 
 " --------------------------------------- Command-T
@@ -361,12 +332,9 @@ map <Right> <C-w>>
 map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
 " -------------------------------------------- Tabs
-" Navigating between tabs
-" noremap <silent> <C-c> :tabp<CR>
-" inoremap <silent> <C-c> <ESC>:tabp<CR>
-" noremap <silent> <C-r> :tabn<CR>
-" inoremap <silent> <C-r> <ESC>:tabn<CR>
+noremap <silent> <Leader>n :tabnew<CR>
 " ---------------------------------------- Movement
+" Beginning / end of the line
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 imap <C-a> <C-o>^
@@ -379,18 +347,27 @@ noremap s gk
 " move current line up or down
 noremap <C-up>   :m-2<CR>
 noremap <C-down> :m+<CR>
-" Insert new line after current one without breaking it
-inoremap <C-CR> <ESC>o
-noremap  <C-CR> m`o<Esc>``
-" Same but before current one
-inoremap <S-cr> <ESC>O
-noremap  <S-cr> m`O<Esc>``
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-l> J
+" Till (in place of t)
+noremap  è  t
+vnoremap è  t
+noremap  È  T
+vnoremap È  T
+" Switching w for é (much saner spot)
+noremap é w
+noremap É W
+onoremap aé aw
+onoremap aÉ aW
+onoremap ié iw
+onoremap iÉ iW
+noremap aé aw
+noremap aÉ aW
+noremap ié iw
+noremap iÉ iW
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
-inoremap <S-Tab> <C-D>
 vmap » >gv
 vmap « <gv
 " Don't make a # force column zero.
@@ -400,11 +377,10 @@ inoremap # X<BS>#
 noremap <C-t> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <C-s> <C-t>
 " ---------------------------------- Mode Switching
-" Command mode
-noremap   é  :
-vnoremap  é  :
-inoremap  éé <Esc>
-onoremap  éé <Esc>
+" Normal mode
+noremap  <C-c> :
+vnoremap <C-c> <ESC>
+inoremap <C-c> <ESC>
 " Change mode
 noremap l c
 " Exit
@@ -413,14 +389,14 @@ inoremap à <ESC>:q<CR>
 " ---------------------------------------- Togglers
 " Only
 noremap <Leader>o :on<CR>
-" Smart completion
-inoremap <C-Space> <c-r>=Smart_Complete()<CR>
 " Code folding toggle
 noremap <Space> :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
 noremap <Leader>e :call SplitSwap()<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<CR>
+" Search within visual selection
+map <C-f> <Esc>/\%V
 " Spell checking
 noremap <silent> <C-h> :set spell!<CR>
 inoremap <silent> <C-h> <ESC>:set spell!<CR>
