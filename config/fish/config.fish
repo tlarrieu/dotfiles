@@ -1,8 +1,6 @@
 set -x PATH $HOME/scripts $PATH
-set -x PATH /usr/local/bin $PATH
 set -x PATH /Library/PostgreSQL/9.2/bin $PATH
 set -x PATH /usr/local/heroku/bin $PATH
-set -x PATH $HOME/.rvm/bin $PATH
 
 set PGHOST localhost
 
@@ -39,20 +37,14 @@ alias server="cd ~/mercurial/shopmium/server"
 alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
-
 # Theme
 set fish_theme smockey
 set -g theme_display_user yes
 set -g default_user thomaslarrieu
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-fish/plugins/*)
-# Custom plugins may be added to ~/.oh-my-fish/custom/plugins/
-# Example format: set fish_plugins autojump bundler
-
-# Path to your custom folder (default path is $FISH/custom)
-#set fish_custom $HOME/dotfiles/oh-my-fish
-
+# Path to your oh-my-fish.
+set fish_path $HOME/.oh-my-fish
+# Oh-my-fish plugins
+set fish_plugins brew bundler git rails rvm
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
