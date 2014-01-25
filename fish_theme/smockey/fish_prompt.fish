@@ -82,8 +82,13 @@ end
 
 function __smockey_in_hg
   set -l dir (pwd)
-  set -e HG_ROOT
+  if test $HG_ROOT
+    if test (echo $dir | grep $HG_ROOT)
+      return 0
+    end
+  end
 
+  set -e HG_ROOT
   while test $dir != "/"
     if test -f $dir'/.hg/dirstate'
       set -g HG_ROOT $dir
@@ -95,7 +100,6 @@ function __smockey_in_hg
 
   return 1
 end
-
 
 # ===========================
 # Segment functions
@@ -262,18 +266,20 @@ end
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  set -l hg_prompt (hg prompt "{{branch} }{{status} }")
+  set -l hg_status (~/mercurial/fast-hg-prompt/fast-hg-status)
+  set -l hg_branch (cat $HG_ROOT'/.hg/branch')
 
-  if test (echo "$hg_prompt" | grep -E "[!?]")
+  if test $hg_status
     set flag_bg $med_red
     set flag_fg fff
+    set -x hg_status $hg_status ' '
   end
 
   __smockey_path_segment $HG_ROOT
-
   __smockey_start_segment $flag_bg $flag_fg
+
   set_color $flag_fg --bold
-  echo -n -s $hg_prompt
+  echo -n -s $branch_glyph ' ' $hg_branch ' ' $hg_status
   set_color normal
 
   set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )

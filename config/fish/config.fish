@@ -38,7 +38,7 @@ alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 
 # Theme
-set fish_theme smockey
+set -g fish_theme smockey
 set -g theme_display_user yes
 set -g default_user thomaslarrieu
 
