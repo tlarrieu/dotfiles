@@ -1,3 +1,4 @@
+" vim:fdm=marker
 " ------------------------------------------------------------------------------
 " Smockey's vimrc
 " Designed for dvorak-bepo keyboard
@@ -6,7 +7,7 @@ set shell=/bin/sh
 let $PAGER=''
 let mapleader="," " remapping leader
 let g:ruby_path = system('rvm current')
-" ----------------------------------------------------------------------- Vundle
+" {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/vundle
@@ -49,7 +50,8 @@ Bundle 'vim-scripts/AnsiEsc.vim'
 
 filetype on
 filetype plugin indent on
-" ------------------------------------------------------------- Custom functions
+" }}}
+" {{{ --------------------------------------------------------- Custom functions
 " Toggle fold state between closed and opened.
 " If there is no fold at current line, just moves forward.
 " If it is present, reverse it's state.
@@ -115,8 +117,8 @@ function! UpdateTags()
     let resp = system(cmd)
   endif
 endfunction
-
-" ----------------------------------------------------------------- File Related
+" }}}
+" {{{ ------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 syntax on
@@ -130,8 +132,12 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType gitcommit startinsert!
-autocmd FileType hgcommit startinsert!
+autocmd FileType gitcommit,hgcommit startinsert!
+autocmd FileType vim setlocal foldlevel=0
+" autocmd FileType hgcommit startinsert!
+autocmd BufReadPost *.md set ft=markdown
+autocmd BufReadPost *.md,*.markdown setlocal spell
+autocmd BufReadPost *.fish,*.load set ft=sh
 " Only current splits gets cursor line / column highlighted
 autocmd WinLeave * set nocursorline
 autocmd WinLeave * set nocursorcolumn
@@ -139,13 +145,11 @@ autocmd WinEnter * set cursorline
 autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
-autocmd BufReadPost *.md set ft=markdown
-autocmd BufReadPost *.md,*.markdown setlocal spell
-autocmd BufReadPost *.fish,*.load set ft=sh
 autocmd BufWritePost * call UpdateTags()
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 au FileType * setlocal formatoptions-=o formatoptions-=r
-" -------------------------------------------------------------- General options
+" }}}
+" {{{ ---------------------------------------------------------- General options
 " Color / background theme
 set background=dark
 colorscheme solarized
@@ -199,32 +203,37 @@ set sidescrolloff=15
 set sidescroll=1
 " Disable line wrap
 set nowrap
-" ----------------------------------------------------------------------- Indent
+" }}}
+" {{{ ------------------------------------------------------------------- Indent
 set ai "autoindent
 set si "smart indent
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set shiftround
-" ---------------------------------------------------------------------- Folding
+" }}}
+" {{{ ------------------------------------------------------------------ Folding
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
 set foldclose=
 set foldmethod=syntax
 set foldnestmax=10
-set foldlevel=100
+set foldlevel=4
 set fillchars=vert:\|,fold:\ 
-set foldminlines=2
-" -------------------------------------------------------------------- Searching
+set foldminlines=5
+" }}}
+" {{{ ---------------------------------------------------------------- Searching
 " case behavior regarding searching
 set ignorecase
 set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-" ---------------------------------------------------------------- Spellchecking
+" }}}
+" {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
-" ---------------------------------------------------------------------- Plugins
+" }}}
+" {{{ ------------------------------------------------------------------ Plugins
 " --------------------------------------- Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -256,8 +265,9 @@ let g:CommandTMaxHeight = "15"
 let g:CommandTMatchWindowReverse = 1
 " -------------------------------- Ruby Refactoring
 let g:ruby_refactoring_map_keys=0
-" ------------------------------------------------------------- Keyboard mapping
-" -------------------------------- Ruby Refactoring
+" }}}
+" {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ---------------------------- Ruby Refactoring
 nnoremap <leader>rap  :RAddParameter<cr>
 nnoremap <leader>rcpc :RConvertPostConditional<cr>
 nnoremap <leader>rel  :RExtractLet<cr>
@@ -267,41 +277,51 @@ nnoremap <leader>rit  :RInlineTemp<cr>
 vnoremap <leader>rrlv :RRenameLocalVariable<cr>
 vnoremap <leader>rriv :RRenameInstanceVariable<cr>
 vnoremap <leader>rem  :RExtractMethod<cr>
-" ----------------------------------- YouCompleteMe
+" }}}
+" {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
 let g:ycm_key_list_select_completion = []
-" ---------------------------------------------- Ag
+" }}}
+" {{{ ------------------------------------------ Ag
 noremap <Leader>a  :Ag 
-" --------------------------------------- Command-T
+" }}}
+" {{{ ----------------------------------- Command-T
 noremap <Leader><Leader> :CommandT<CR>
-" ----------------------------------------- Tabular
+" }}}
+" {{{ ------------------------------------- Tabular
 noremap  <Leader>t :Tabularize /
 vnoremap <Leader>t :Tabularize /
-" ---------------------------------------- Fugitive
+" }}}
+" {{{ ------------------------------------ Fugitive
 noremap <Leader>gb :Gblame<CR>
 noremap <Leader>gd :Gdiff<CR>
 noremap <Leader>gw :Gwrite<CR>
 noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
-" --------------------------------------- Mercenary
+" }}}
+" {{{ ----------------------------------- Mercenary
 noremap <Leader>hb :HGblame<CR>
 noremap <Leader>hd :HGdiff<CR>
-" -------------------------------------- Lawrencium
+" }}}
+" {{{ ---------------------------------- Lawrencium
 noremap <Leader>hw :Hgwrite<CR>
 noremap <Leader>hr :Hgread<CR>
 noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
-" ----------------------------------------- Calcium
+" }}}
+" {{{ ------------------------------------- Calcium
 noremap <Leader>hl :Calcium<CR>
-" ------------------------------------------- RSpec
+" }}}
+" {{{ --------------------------------------- RSpec
 " I'll care about that when the proper time comes
 " autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
 " autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
 " autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
 " autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
 " autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
-" ---------------------------------------- Surround
+" }}}
+" {{{ ------------------------------------ Surround
 nmap du  <Plug>Dsurround
 nmap lu  <Plug>Csurround
 nmap yu  <Plug>Ysurround
@@ -311,10 +331,12 @@ nmap yUu <Plug>YSsurround
 nmap yUU <Plug>YSsurround
 vmap u   <Plug>VSurround
 vmap U   <Plug>VgSurround
-" ------------------------------------------- Marks
+" }}}
+" {{{ --------------------------------------- Marks
 noremap ' `
 noremap ` '
-" ------------------------------------------ Splits
+" }}}
+" {{{ -------------------------------------- Splits
 " Navigating between splits
 noremap <S-s>  <C-w>k
 noremap <S-t>  <C-w>j
@@ -332,9 +354,11 @@ map <Left>  <C-w><
 map <Right> <C-w>>
 map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
-" -------------------------------------------- Tabs
+" }}}
+" {{{ ---------------------------------------- Tabs
 noremap <silent> <Leader>n :tabnew<CR>
-" ---------------------------------------- Movement
+" }}}
+" {{{ ------------------------------------ Movement
 " Beginning / end of the line
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
@@ -377,7 +401,8 @@ inoremap # X<BS>#
 " noremap <C-t> <C-]>
 noremap <C-t> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <C-s> <C-t>
-" ---------------------------------- Mode Switching
+" }}}
+" {{{ ------------------------------ Mode Switching
 " Normal mode
 noremap  <C-c> :
 vnoremap <C-c> <ESC>
@@ -387,7 +412,8 @@ noremap l c
 " Exit
 noremap à :q<CR>
 inoremap à <ESC>:q<CR>
-" ---------------------------------------- Togglers
+" }}}
+" {{{ ------------------------------------ Togglers
 " Only
 noremap <Leader>o :on<CR>
 " Code folding toggle
@@ -405,3 +431,5 @@ vnoremap <silent> <C-h> <ESC>:set spell!<CR>
 " Toggle line wrap
 noremap <Leader>w :set wrap!<CR>
 noremap U :redo<CR>
+" }}}
+" }}}
