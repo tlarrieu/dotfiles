@@ -140,7 +140,8 @@ autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
 autocmd BufReadPost * normal g'"
 autocmd BufReadPost *.md set ft=markdown
-autocmd BufReadPost *.fish set ft=sh
+autocmd BufReadPost *.md,*.markdown setlocal spell
+autocmd BufReadPost *.fish,*.load set ft=sh
 autocmd BufWritePost * call UpdateTags()
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 au FileType * setlocal formatoptions-=o formatoptions-=r
@@ -361,10 +362,10 @@ onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
 onoremap iÉ iW
-noremap aé aw
-noremap aÉ aW
-noremap ié iw
-noremap iÉ iW
+vnoremap aé aw
+vnoremap aÉ aW
+vnoremap ié iw
+vnoremap iÉ iW
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
