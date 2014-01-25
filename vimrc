@@ -12,8 +12,8 @@ filetype off
 set rtp+=~/.vim/bundle/vundle
 call vundle#rc()
 
+" Vundle
 Bundle 'gmarik/vundle'
-
 " Utils
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
@@ -210,7 +210,7 @@ set shiftround
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
 set foldclose=
-set foldmethod=indent
+set foldmethod=syntax
 set foldnestmax=10
 set foldlevel=100
 set fillchars=vert:\|,fold:\ 
