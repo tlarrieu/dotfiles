@@ -259,26 +259,24 @@ function __smockey_prompt_git -d 'Display the actual git state'
   end
 end
 
-
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  set -l hg_status (vcprompt -f "%u%m")
-  set -l hg_branch $branch_glyph ' ' (vcprompt -f "%b")
-  set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )
+  set -l hg_prompt (hg prompt "{{branch} }{{status} }")
 
-  if test $hg_status
+  if test (echo "$hg_prompt" | grep -E "[!?]")
     set flag_bg $med_red
     set flag_fg fff
   end
+
   __smockey_path_segment $HG_ROOT
 
   __smockey_start_segment $flag_bg $flag_fg
   set_color $flag_fg --bold
-  echo -n -s $hg_branch ' '
-  test $hg_status; and echo -n -s $hg_status ' '
+  echo -n -s $hg_prompt
   set_color normal
 
+  set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )
   if test "$hg_pwd"
     if test -w "$PWD"
       __smockey_start_segment 333 999
