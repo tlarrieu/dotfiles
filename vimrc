@@ -390,6 +390,11 @@ vnoremap aé aw
 vnoremap aÉ aW
 vnoremap ié iw
 vnoremap iÉ iW
+" Mapping z to a more conveniant spot
+noremap  k z
+vnoremap k z
+noremap  K Z
+vnoremap K Z
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -398,11 +403,14 @@ vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<BS>#
 " Ctags
-" noremap <C-t> <C-]>
-noremap <C-t> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-noremap <C-s> <C-t>
+" noremap <C-w> :silent tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+noremap <C-t> <C-]>
+noremap <C-r> <C-t>
 " }}}
 " {{{ ------------------------------ Mode Switching
+" Save
+noremap  <C-s> :w<CR>
+inoremap <C-s> <ESC>:w<CR>
 " Normal mode
 noremap  <C-c> :
 vnoremap <C-c> <ESC>
@@ -410,7 +418,7 @@ inoremap <C-c> <ESC>
 " Change mode
 noremap l c
 " Exit
-noremap à :q<CR>
+noremap  à :q<CR>
 inoremap à <ESC>:q<CR>
 " }}}
 " {{{ ------------------------------------ Togglers
