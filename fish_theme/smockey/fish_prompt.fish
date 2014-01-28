@@ -83,7 +83,7 @@ end
 function __smockey_in_hg
   set -l dir (pwd)
   if test $HG_ROOT
-    if test (echo $dir | grep $HG_ROOT)
+    if test (echo $dir | ag $HG_ROOT)
       return 0
     end
   end
@@ -268,7 +268,7 @@ function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_fg $dk_green
   set -l hg_status (hg prompt "{{branch} }{{status} }")
 
-  if test (echo $hg_status | grep "[?!]")
+  if test (echo $hg_status | ag "[?!]")
     set flag_bg $med_red
     set flag_fg fff
   end
