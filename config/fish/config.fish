@@ -34,6 +34,7 @@ alias rus="rvm use system"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
+alias mobile="cd ~/mercurial/shopmium/mobile"
 alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 
