@@ -26,9 +26,10 @@ Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-Bundle 'rking/ag.vim'
+Bundle 'epmatsw/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
+Bundle 'AndrewRadev/switch.vim'
 " Ruby
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'thoughtbot/vim-rspec'
@@ -180,7 +181,8 @@ set tags=.tags,./.tags,./tags,tags
 set cursorline
 set cursorcolumn
 " Command completion style
-set wildmode=list:longest,list:full
+" set wildmode=list:longest,list:full
+set wildmode=list:full,full
 " Only complete to the GCD part of file name
 set wildmenu
 set complete=slf
@@ -282,8 +284,11 @@ vnoremap <leader>rem  :RExtractMethod<cr>
 " I want tab for Snipmate so I deactivate it for YCM
 let g:ycm_key_list_select_completion = []
 " }}}
+" {{{ ------------------------------------------ Switch
+noremap -  :Switch<CR>
+" }}}
 " {{{ ------------------------------------------ Ag
-noremap <Leader>a  :Ag 
+noremap <Leader>a  :Ag! 
 " }}}
 " {{{ ----------------------------------- Command-T
 noremap <Leader><Leader> :CommandT<CR>
@@ -305,10 +310,11 @@ noremap <Leader>hb :HGblame<CR>
 noremap <Leader>hd :HGdiff<CR>
 " }}}
 " {{{ ---------------------------------- Lawrencium
-noremap <Leader>hw :Hgwrite<CR>
-noremap <Leader>hr :Hgread<CR>
+noremap <leader>hh :Hg! 
 noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
+noremap <Leader>hrr :Hg resolve -m %:p<CR>
+noremap <Leader>hrl :Hg! resolve -l<CR>
 " }}}
 " {{{ ------------------------------------- Calcium
 noremap <Leader>hl :Calcium<CR>
@@ -432,6 +438,8 @@ noremap <Leader>e :call SplitSwap()<CR>
 noremap <silent> h :let @/ = ""<CR>
 " Search within visual selection
 map <C-f> <Esc>/\%V
+" Replace in visual selection
+map <C-g> <ESC>:%s/\%V
 " Spell checking
 noremap <silent> <C-h> :set spell!<CR>
 inoremap <silent> <C-h> <ESC>:set spell!<CR>
