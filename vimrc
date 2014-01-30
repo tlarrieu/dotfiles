@@ -122,20 +122,9 @@ endfunction
 " {{{ ------------------------------------------------------------- File Related
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-syntax on
-" A few completion related stuff
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType ruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby set re=1
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType gitcommit,hgcommit startinsert!
 autocmd FileType vim setlocal foldlevel=0
-" autocmd FileType hgcommit startinsert!
 autocmd BufReadPost *.md set ft=markdown
 autocmd BufReadPost *.md,*.markdown setlocal spell
 autocmd BufReadPost *.fish,*.load set ft=sh
@@ -145,10 +134,11 @@ autocmd WinLeave * set nocursorcolumn
 autocmd WinEnter * set cursorline
 autocmd WinEnter * set cursorcolumn
 "Go to the cursor position before buffer was closed
-autocmd BufReadPost * normal g'"
+autocmd BufReadPost * silent normal g'"
 autocmd BufWritePost * call UpdateTags()
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 au FileType * setlocal formatoptions-=o formatoptions-=r
+syntax on
 " }}}
 " {{{ ---------------------------------------------------------- General options
 " Color / background theme
@@ -425,7 +415,7 @@ inoremap <C-c> <ESC>
 noremap l c
 " Exit
 noremap  à :q<CR>
-inoremap à <ESC>:q<CR>
+noremap  À :qa<CR>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Only
