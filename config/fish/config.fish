@@ -1,7 +1,3 @@
-set -x PATH $HOME/scripts $PATH
-set -x PATH /Library/PostgreSQL/9.2/bin $PATH
-set -x PATH /usr/local/heroku/bin $PATH
-
 set PGHOST localhost
 
 set GTK_IM_MODULE=xim
@@ -37,6 +33,7 @@ alias server="cd ~/mercurial/shopmium/server"
 alias mobile="cd ~/mercurial/shopmium/mobile"
 alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
+alias budget="cd ~/git/budget"
 
 # Theme
 set -g fish_theme smockey
@@ -46,6 +43,10 @@ set -g default_user thomaslarrieu
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 # Oh-my-fish plugins
-set fish_plugins brew bundler git rails rvm
+set fish_plugins rvm brew bundler git rails
+# PATH
+set -x PATH $PATH $HOME/scripts
+set -x PATH $PATH /Library/PostgreSQL/9.2/bin
+set -x PATH $PATH /usr/local/heroku/bin
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish

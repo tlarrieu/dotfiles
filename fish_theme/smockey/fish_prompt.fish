@@ -266,9 +266,10 @@ end
 function __smockey_prompt_hg -d 'Display the actual mercurial state'
   set -l flag_bg $lt_green
   set -l flag_fg $dk_green
-  set -l hg_status (hg prompt "{{branch} }{{status} }")
+  set -l hg_dirty (~/mercurial/fast-hg-prompt/fast-hg-status)
+  set -l hg_bookmark (~/mercurial/fast-hg-prompt/fast-hg-bookmark)
 
-  if test (echo $hg_status | ag "[?!]")
+  if test (echo $hg_dirty | ag "\*")
     set flag_bg $med_red
     set flag_fg fff
   end
@@ -277,7 +278,7 @@ function __smockey_prompt_hg -d 'Display the actual mercurial state'
   __smockey_start_segment $flag_bg $flag_fg
 
   set_color $flag_fg --bold
-  echo -n -s $branch_glyph ' ' $hg_status
+  echo -n -s $branch_glyph ' ' $hg_bookmark ' '
   set_color normal
 
   set -l hg_pwd  ( echo "$PWD" | sed -e "s*$HG_ROOT**g" -e 's*^/**' )
