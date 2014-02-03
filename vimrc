@@ -30,9 +30,11 @@ Bundle 'epmatsw/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'AndrewRadev/switch.vim'
+Bundle 'Townk/vim-autoclose'
 " Ruby
 Bundle 'ecomba/vim-ruby-refactoring'
-Bundle 'thoughtbot/vim-rspec'
+" Bundle 'thoughtbot/vim-rspec'
+Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'tpope/vim-endwise'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'tsaleh/vim-matchit'
@@ -311,11 +313,11 @@ noremap <Leader>hl :Calcium<CR>
 " }}}
 " {{{ --------------------------------------- RSpec
 " I'll care about that when the proper time comes
-" autocmd BufEnter * noremap <Leader>tt :RerunSpec<CR>
-" autocmd BufEnter *_spec.rb noremap <Leader>tt :RunSpec<CR>
-" autocmd BufEnter *_spec.rb noremap <Leader>tl :RunSpecLine<CR>
-" autocmd BufLeave *_spec.rb noremap <Leader>tl <Nop>
-" autocmd BufEnter * noremap <Leader>tr :RerunSpec<CR>
+" map <Leader>rs :call RunCurrentSpecFile()<CR>
+" map <Leader>rS :call RunLastSpec()<CR>
+map <Leader>rs :SweetVimRspecRunFile<CR>
+map <Leader>rS :SweetVimRspecRunPrevious<CR>
+map <Leader>rl :SweetVimRspecRunFocused<CR>
 " }}}
 " {{{ ------------------------------------ Surround
 nmap du  <Plug>Dsurround
@@ -350,6 +352,7 @@ map <Left>  <C-w><
 map <Right> <C-w>>
 map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
+ 
 " }}}
 " {{{ ---------------------------------------- Tabs
 noremap <silent> <Leader>n :tabnew<CR>
@@ -369,7 +372,7 @@ noremap s gk
 noremap <C-up>   :m-2<CR>
 noremap <C-down> :m+<CR>
 " Gathering selected lines (or current one if none selected) in one line
-noremap <C-l> J
+noremap <C-j> J
 " Till (in place of t)
 noremap  è  t
 vnoremap è  t
@@ -386,6 +389,13 @@ vnoremap aé aw
 vnoremap aÉ aW
 vnoremap ié iw
 vnoremap iÉ iW
+" Mapping w to C-w
+noremap  w <C-w>
+vnoremap w <C-w>
+onoremap w <C-w>
+" Navigating tabs
+noremap <C-d> gT
+noremap <C-l> gt
 " Mapping z to a more conveniant spot
 noremap  k z
 vnoremap k z
@@ -402,6 +412,14 @@ inoremap # X<BS>#
 " noremap <C-w> :silent tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 noremap <C-t> <C-]>
 noremap <C-r> <C-t>
+" Center screen when scrolling search results
+noremap n nzz
+noremap N Nzz
+noremap * *zz
+noremap # #zz
+" New line
+inoremap <C-CR> <C-o>o
+inoremap <S-CR> <C-o>O
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
@@ -411,6 +429,7 @@ inoremap <C-s> <ESC>:w<CR>
 noremap  <C-c> :
 vnoremap <C-c> <ESC>
 inoremap <C-c> <ESC>
+snoremap <C-c> <ESC>
 " Change mode
 noremap l c
 " Exit
