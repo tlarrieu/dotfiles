@@ -9,7 +9,6 @@ stty -ixon
 alias python2="python2.7"
 alias vi="vim"
 alias vimrc="vi ~/.vimrc"
-alias vitodo="vi ~/todo.md"
 alias vir="vi -R"
 
 alias gcd="cd (git rev-parse --show-toplevel)"
@@ -35,6 +34,8 @@ alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
 
+alias ec2="ssh -i ~/.ssh/shopmium-deploy.pem ec2-user@ec2-176-34-102-3.eu-west-1.compute.amazonaws.com"
+
 # Theme
 set -g fish_theme smockey
 set -g theme_display_user yes
@@ -43,7 +44,7 @@ set -g default_user thomaslarrieu
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 # Oh-my-fish plugins
-set fish_plugins rvm brew bundler git rails
+set fish_plugins rvm brew bundler git rails rake
 # PATH
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.2/bin

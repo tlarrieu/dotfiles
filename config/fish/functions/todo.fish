@@ -1,3 +1,7 @@
 function todo
-  cat ~/todo.md 2> /dev/null | ponysay
+  cat ~/todo.tasks 2> /dev/null | ponysay
+end
+
+function vitodo
+  vim ~/todo.tasks
 end
