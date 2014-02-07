@@ -29,15 +29,19 @@ Bundle 'honza/vim-snippets'
 Bundle 'epmatsw/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
-Bundle 'AndrewRadev/switch.vim'
 Bundle 'Townk/vim-autoclose'
+Bundle 'chrisbra/NrrwRgn'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'AndrewRadev/switch.vim'
+Bundle 'jpalardy/vim-slime'
+Bundle 'sjl/gundo.vim'
+Bundle 'samsonw/vim-task'
 " Ruby
+Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
 " Bundle 'thoughtbot/vim-rspec'
 Bundle 'duskhacker/sweet-rspec-vim'
-Bundle 'tpope/vim-endwise'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'tsaleh/vim-matchit'
 Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
@@ -45,6 +49,8 @@ Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
+Bundle 'vim-scripts/fish-syntax'
+Bundle 'plasticboy/vim-markdown'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -122,24 +128,33 @@ function! UpdateTags()
 endfunction
 " }}}
 " {{{ ------------------------------------------------------------- File Related
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby set re=1
-autocmd FileType gitcommit,hgcommit startinsert!
-autocmd FileType vim setlocal foldlevel=0
-autocmd BufReadPost *.md set ft=markdown
-autocmd BufReadPost *.md,*.markdown setlocal spell
-autocmd BufReadPost *.fish,*.load set ft=sh
-" Only current splits gets cursor line / column highlighted
-autocmd WinLeave * set nocursorline
-autocmd WinLeave * set nocursorcolumn
-autocmd WinEnter * set cursorline
-autocmd WinEnter * set cursorcolumn
-"Go to the cursor position before buffer was closed
-autocmd BufReadPost * silent normal g'"
-autocmd BufWritePost * call UpdateTags()
-" Don't add the comment prefix when I hit enter or o/O on a comment line.
-au FileType * setlocal formatoptions-=o formatoptions-=r
+augroup vimrc_autocmd
+  autocmd!
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType gitcommit,hgcommit startinsert!
+  autocmd FileType vim setlocal foldlevel=0
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldminlines=1
+  autocmd BufReadPost *.md set ft=markdown
+  autocmd BufReadPost *.md,*.markdown setlocal spell
+  autocmd BufReadPost *.fish,*.load set ft=sh
+  " Only current splits gets cursor line / column highlighted
+  autocmd WinLeave * set nocursorline
+  autocmd WinLeave * set nocursorcolumn
+  autocmd WinEnter * set cursorline
+  autocmd WinEnter * set cursorcolumn
+  "Go to the cursor position before buffer was closed
+  autocmd BufReadPost * silent normal g'"
+  autocmd BufWritePost * call UpdateTags()
+  " Don't add the comment prefix when I hit enter or o/O on a comment line.
+  autocmd FileType * setlocal formatoptions-=o formatoptions-=r
+  " Don't screw up folds when inserting text that might affect them, until
+  " leaving insert mode. Foldmethod is local to the window.
+  autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
+  autocmd InsertLeave * let &l:foldmethod=w:last_fdm
+  autocmd FileType man setlocal foldlevel=10
+augroup END
 syntax on
 " }}}
 " {{{ ---------------------------------------------------------- General options
@@ -152,6 +167,9 @@ hi! SignColumn ctermbg=8
 set rnu
 " Current line
 set nu
+" Line length warning
+highlight OverLength ctermbg=red ctermfg=black
+match OverLength /\%81v.\+/
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
 set list
@@ -166,14 +184,14 @@ set ffs=unix,dos,mac
 set backupdir=~/.tmp
 set directory=~/.tmp
 " Ignore those files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " current line / column highlight
 set cursorline
 set cursorcolumn
 " Command completion style
-" set wildmode=list:longest,list:full
+set wildmode=list:longest,list:full
 set wildmode=list:full,full
 " Only complete to the GCD part of file name
 set wildmenu
@@ -210,11 +228,11 @@ set shiftround
 hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
 set foldcolumn=0
 set foldclose=
-set foldmethod=syntax
-set foldnestmax=10
-set foldlevel=4
+set foldmethod=indent
+set foldnestmax=1
+set foldlevel=10
 set fillchars=vert:\|,fold:\ 
-set foldminlines=5
+set foldminlines=1
 " }}}
 " {{{ ---------------------------------------------------------------- Searching
 " case behavior regarding searching
@@ -228,7 +246,7 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" --------------------------------------- Airline
+" {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -248,19 +266,45 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
-" ---------------------------------------- Surround
+" }}}
+" {{{ --------------------------------------- Slime
+let g:slime_target = "tmux"
+let g:slime_no_mapping=1
+" }}}
+" {{{ ------------------------------------ Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
 let g:surround_no_mappings=1
-" ------------------------------------------- RSpec
+" }}}
+" {{{ --------------------------------------- RSpec
 let g:RspecKeymap=0
-" --------------------------------------- Command-T
+" }}}
+" {{{ ----------------------------------- Command-T
 let g:CommandTMaxHeight = "15"
 let g:CommandTMatchWindowReverse = 1
-" -------------------------------- Ruby Refactoring
+" }}}
+" {{{ ---------------------------- Ruby Refactoring
 let g:ruby_refactoring_map_keys=0
 " }}}
+" }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ------------------------------------ Vim-Task
+noremap <leader>m :call Toggle_task_status()<CR>
+" }}}
+" {{{ --------------------------------------- Gundo
+noremap gu :GundoToggle<CR>
+" }}}
+" {{{ --------------------------------------- Slime
+xmap <leader>ll <Plug>SlimeRegionSend
+nmap <leader>ll <Plug>SlimeParagraphSend
+nmap <leader>lv <Plug>SlimeConfig
+" }}}
+" {{{ ------------------------------------- NrrwRgn
+noremap <Leader>n :NarrowRegion<cr>
+vnoremap <Leader>n :NarrowRegion<cr>
+noremap <Leader>N :NarrowRegion!<cr>
+vnoremap <Leader>N :NarrowRegion!<cr>
+" }}}
 " {{{ ---------------------------- Ruby Refactoring
 nnoremap <leader>rap  :RAddParameter<cr>
 nnoremap <leader>rcpc :RConvertPostConditional<cr>
@@ -276,7 +320,7 @@ vnoremap <leader>rem  :RExtractMethod<cr>
 " I want tab for Snipmate so I deactivate it for YCM
 let g:ycm_key_list_select_completion = []
 " }}}
-" {{{ ------------------------------------------ Switch
+" {{{ -------------------------------------- Switch
 noremap -  :Switch<CR>
 " }}}
 " {{{ ------------------------------------------ Ag
@@ -352,10 +396,9 @@ map <Left>  <C-w><
 map <Right> <C-w>>
 map <Leader>= <C-w>=
 map <Leader>% :res<CR>:vertical res<CR>$
- 
 " }}}
 " {{{ ---------------------------------------- Tabs
-noremap <silent> <Leader>n :tabnew<CR>
+" noremap <silent> <Leader>n :tabnew<CR>
 " }}}
 " {{{ ------------------------------------ Movement
 " Beginning / end of the line
@@ -396,11 +439,6 @@ onoremap w <C-w>
 " Navigating tabs
 noremap <C-d> gT
 noremap <C-l> gt
-" Mapping z to a more conveniant spot
-noremap  k z
-vnoremap k z
-noremap  K Z
-vnoremap K Z
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -426,7 +464,8 @@ inoremap <S-CR> <C-o>O
 noremap  <C-s> :w<CR>
 inoremap <C-s> <ESC>:w<CR>
 " Normal mode
-noremap  <C-c> :
+" noremap  <C-c> :
+noremap  <Space> :
 vnoremap <C-c> <ESC>
 inoremap <C-c> <ESC>
 snoremap <C-c> <ESC>
@@ -440,7 +479,8 @@ noremap  À :qa<CR>
 " Only
 noremap <Leader>o :on<CR>
 " Code folding toggle
-noremap <Space> :call ToggleFold()<CR>
+" noremap <Space> :call ToggleFold()<CR>
+noremap <Leader>c :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
 noremap <Leader>e :call SplitSwap()<CR>
 " Clear search
