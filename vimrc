@@ -185,6 +185,8 @@ set backupdir=~/.tmp
 set directory=~/.tmp
 " Ignore those files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags
+" Case insensitive matching
+set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " current line / column highlight
