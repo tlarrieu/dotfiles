@@ -213,6 +213,7 @@ set splitright
 set splitbelow
 " Scrolling
 set scrolloff=8
+let &scrolloff=999-&scrolloff
 set sidescrolloff=15
 set sidescroll=1
 " Disable line wrap
