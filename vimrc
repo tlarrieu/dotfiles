@@ -154,6 +154,8 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
+  autocmd FileType gundo noremap <buffer> t 2gj
+  autocmd FileType gundo noremap <buffer> s 2gk
 augroup END
 syntax on
 " }}}
