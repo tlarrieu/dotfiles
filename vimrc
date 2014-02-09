@@ -36,6 +36,8 @@ Bundle 'AndrewRadev/switch.vim'
 Bundle 'jpalardy/vim-slime'
 Bundle 'sjl/gundo.vim'
 Bundle 'samsonw/vim-task'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'michaeljsmith/vim-indent-object'
 " Ruby
 Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -64,18 +66,18 @@ filetype plugin indent on
 " Toggle fold state between closed and opened.
 " If there is no fold at current line, just moves forward.
 " If it is present, reverse it's state.
-function! ToggleFold()
-  if foldlevel('.') == 0
-    normal! l
-  else
-    if foldclosed('.') < 0
-      . foldclose
-    else
-      . foldopen
-    endif
-  endif
-  echo
-endf
+" function! ToggleFold()
+"   if foldlevel('.') == 0
+"     normal! l
+"   else
+"     if foldclosed('.') < 0
+"       . foldclose
+"     else
+"       . foldopen
+"     endif
+"   endif
+"   echo
+" endf
 
 function! MarkSplitSwap()
   let g:markedWinNum = winnr()
@@ -251,6 +253,15 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ---------------------------------- Easymotion
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+" }}}
+" {{{ ------------------------------- YouCompleteMe
+" I want tab for Snipmate so I deactivate it for YCM
+let g:ycm_key_list_select_completion = []
+" }}}
 " {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -293,6 +304,16 @@ let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ---------------------------------- Easymotion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map <Leader>er <Plug>(easymotion-lineforward)
+map <Leader>et <Plug>(easymotion-j)
+map <Leader>es <Plug>(easymotion-k)
+map <Leader>ec <Plug>(easymotion-linebackward)
+map f <Plug>(easymotion-s2)
+map è <Plug>(easymotion-t2)
+" }}}
 " {{{ ------------------------------------ Vim-Task
 noremap <leader>m :call Toggle_task_status()<CR>
 " }}}
@@ -305,9 +326,9 @@ nmap <leader>ll <Plug>SlimeParagraphSend
 nmap <leader>lv <Plug>SlimeConfig
 " }}}
 " {{{ ------------------------------------- NrrwRgn
-noremap <Leader>n :NarrowRegion<cr>
+noremap  <Leader>n :NarrowRegion<cr>
 vnoremap <Leader>n :NarrowRegion<cr>
-noremap <Leader>N :NarrowRegion!<cr>
+noremap  <Leader>N :NarrowRegion!<cr>
 vnoremap <Leader>N :NarrowRegion!<cr>
 " }}}
 " {{{ ---------------------------- Ruby Refactoring
@@ -320,10 +341,6 @@ nnoremap <leader>rit  :RInlineTemp<cr>
 vnoremap <leader>rrlv :RRenameLocalVariable<cr>
 vnoremap <leader>rriv :RRenameInstanceVariable<cr>
 vnoremap <leader>rem  :RExtractMethod<cr>
-" }}}
-" {{{ ------------------------------- YouCompleteMe
-" I want tab for Snipmate so I deactivate it for YCM
-let g:ycm_key_list_select_completion = []
 " }}}
 " {{{ -------------------------------------- Switch
 noremap -  :Switch<CR>
@@ -346,11 +363,9 @@ noremap <Leader>gr :Gread<CR>
 noremap <Leader>gc :Gcommit<CR>
 noremap <Leader>gs :Gstatus<CR>
 " }}}
-" {{{ ----------------------------------- Mercenary
+" {{{ ---------------------- Mercenary / Lawrencium
 noremap <Leader>hb :HGblame<CR>
 noremap <Leader>hd :HGdiff<CR>
-" }}}
-" {{{ ---------------------------------- Lawrencium
 noremap <leader>hh :Hg! 
 noremap <Leader>hc :Hgcommit<CR>
 noremap <Leader>hs :Hgstatus<CR>
@@ -411,6 +426,8 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 imap <C-a> <C-o>^
 imap <C-e> <C-o>$
+nmap ç ^
+vmap ç ^
 " left / right / down (visual line) / up (visual line)
 noremap c h
 noremap r l
@@ -422,10 +439,10 @@ noremap <C-down> :m+<CR>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <C-j> J
 " Till (in place of t)
-noremap  è  t
-vnoremap è  t
-noremap  È  T
-vnoremap È  T
+" noremap  è  t
+" vnoremap è  t
+" noremap  È  T
+" vnoremap È  T
 " Switching w for é (much saner spot)
 noremap é w
 noremap É W
@@ -467,9 +484,9 @@ inoremap <S-CR> <C-o>O
 " {{{ ------------------------------ Mode Switching
 " Save
 noremap  <C-s> :w<CR>
+vnoremap <C-s> <ESC>:w<CR>
 inoremap <C-s> <ESC>:w<CR>
 " Normal mode
-" noremap  <C-c> :
 noremap  <Space> :
 vnoremap <C-c> <ESC>
 inoremap <C-c> <ESC>
@@ -485,9 +502,9 @@ noremap  À :qa<CR>
 noremap <Leader>o :on<CR>
 " Code folding toggle
 " noremap <Space> :call ToggleFold()<CR>
-noremap <Leader>c :call ToggleFold()<CR>
+" noremap <Leader>c :call ToggleFold()<CR>
 " Swap 2 splits (only works within the same tab)
-noremap <Leader>e :call SplitSwap()<CR>
+" noremap <Leader>e :call SplitSwap()<CR>
 " Clear search
 noremap <silent> h :let @/ = ""<CR>
 " Search within visual selection
