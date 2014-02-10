@@ -26,7 +26,8 @@ Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-Bundle 'epmatsw/ag.vim'
+" Bundle 'epmatsw/ag.vim'
+Bundle 'mutewinter/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'Townk/vim-autoclose'
@@ -141,6 +142,7 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
   autocmd BufReadPost *.fish,*.load set ft=sh
+  autocmd FileType hgcommit,gitcommit setlocal spell
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
   autocmd WinLeave * set nocursorcolumn
@@ -253,10 +255,21 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------------ Ag
+let g:ag_apply_qmappings = 0
+let g:ag_apply_lmappings = 0
+" }}}
 " {{{ ---------------------------------- Easymotion
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
+let g:EasyMotion_cursor_highlight = 1
+let g:EasyMotion_keys               = get(g:,
+      \'EasyMotion_keys', 'auie,ctsrnbpovdljyx.kqgh;')
+hi link EasyMotionShade  Comment
+hi EasyMotionTarget ctermfg=2 gui=bold
+hi Search ctermbg=none ctermfg=2 gui=bold
+hi IncSearch ctermbg=none ctermfg=2 gui=bold
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
@@ -304,21 +317,23 @@ let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ------------------------------------------ Ag
+nnoremap <silent> <C-t> <C-W><CR><C-W>T
+nnoremap <silent> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+" }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
-map <Leader>er <Plug>(easymotion-lineforward)
-map <Leader>et <Plug>(easymotion-j)
-map <Leader>es <Plug>(easymotion-k)
-map <Leader>ec <Plug>(easymotion-linebackward)
+map e <Plug>(easymotion-lineforward)
+map b <Plug>(easymotion-linebackward)
 map f <Plug>(easymotion-s2)
 map è <Plug>(easymotion-t2)
 " }}}
 " {{{ ------------------------------------ Vim-Task
-noremap <leader>m :call Toggle_task_status()<CR>
+noremap zt :call Toggle_task_status()<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
-noremap gu :GundoToggle<CR>
+noremap gu :GundoToggle<cr>
 " }}}
 " {{{ --------------------------------------- Slime
 xmap <leader>ll <Plug>SlimeRegionSend
@@ -326,62 +341,56 @@ nmap <leader>ll <Plug>SlimeParagraphSend
 nmap <leader>lv <Plug>SlimeConfig
 " }}}
 " {{{ ------------------------------------- NrrwRgn
-noremap  <Leader>n :NarrowRegion<cr>
-vnoremap <Leader>n :NarrowRegion<cr>
-noremap  <Leader>N :NarrowRegion!<cr>
-vnoremap <Leader>N :NarrowRegion!<cr>
+noremap  <leader>n :NarrowRegion<cr>
+vnoremap <leader>n :NarrowRegion<cr>
+noremap  <leader>N :NarrowRegion!<cr>
+vnoremap <leader>N :NarrowRegion!<cr>
 " }}}
 " {{{ ---------------------------- Ruby Refactoring
-nnoremap <leader>rap  :RAddParameter<cr>
-nnoremap <leader>rcpc :RConvertPostConditional<cr>
-nnoremap <leader>rel  :RExtractLet<cr>
-vnoremap <leader>rec  :RExtractConstant<cr>
-vnoremap <leader>relv :RExtractLocalVariable<cr>
-nnoremap <leader>rit  :RInlineTemp<cr>
-vnoremap <leader>rrlv :RRenameLocalVariable<cr>
-vnoremap <leader>rriv :RRenameInstanceVariable<cr>
-vnoremap <leader>rem  :RExtractMethod<cr>
-" }}}
-" {{{ -------------------------------------- Switch
-noremap -  :Switch<CR>
-" }}}
-" {{{ ------------------------------------------ Ag
-noremap <Leader>a  :Ag! 
-" }}}
-" {{{ ----------------------------------- Command-T
-noremap <Leader><Leader> :CommandT<CR>
-" }}}
-" {{{ ------------------------------------- Tabular
-noremap  <Leader>t :Tabularize /
-vnoremap <Leader>t :Tabularize /
-" }}}
-" {{{ ------------------------------------ Fugitive
-noremap <Leader>gb :Gblame<CR>
-noremap <Leader>gd :Gdiff<CR>
-noremap <Leader>gw :Gwrite<CR>
-noremap <Leader>gr :Gread<CR>
-noremap <Leader>gc :Gcommit<CR>
-noremap <Leader>gs :Gstatus<CR>
-" }}}
-" {{{ ---------------------- Mercenary / Lawrencium
-noremap <Leader>hb :HGblame<CR>
-noremap <Leader>hd :HGdiff<CR>
-noremap <leader>hh :Hg! 
-noremap <Leader>hc :Hgcommit<CR>
-noremap <Leader>hs :Hgstatus<CR>
-noremap <Leader>hrr :Hg resolve -m %:p<CR>
-noremap <Leader>hrl :Hg! resolve -l<CR>
-" }}}
-" {{{ ------------------------------------- Calcium
-noremap <Leader>hl :Calcium<CR>
+nnoremap <leader>rap :RAddParameter<cr>
+nnoremap <leader>rel :RExtractLet<cr>
+vnoremap <leader>rlv :RRenameLocalVariable<cr>
+vnoremap <leader>riv :RRenameInstanceVariable<cr>
+vnoremap <leader>rem :RExtractMethod<cr>
 " }}}
 " {{{ --------------------------------------- RSpec
-" I'll care about that when the proper time comes
-" map <Leader>rs :call RunCurrentSpecFile()<CR>
-" map <Leader>rS :call RunLastSpec()<CR>
-map <Leader>rs :SweetVimRspecRunFile<CR>
-map <Leader>rS :SweetVimRspecRunPrevious<CR>
-map <Leader>rl :SweetVimRspecRunFocused<CR>
+map <leader>rs :SweetVimRspecRunFile<cr>
+map <leader>rr :SweetVimRspecRunPrevious<cr>
+map <leader>rl :SweetVimRspecRunFocused<cr>
+" }}}
+" {{{ -------------------------------------- Switch
+noremap -  :Switch<cr>
+" }}}
+" {{{ ------------------------------------------ Ag
+noremap <leader>a  :Ag! 
+" }}}
+" {{{ ----------------------------------- Command-T
+noremap <leader><leader> :CommandT<cr>
+noremap <leader>cb :CommandTBuffer<cr>
+" }}}
+" {{{ ------------------------------------- Tabular
+noremap  <leader>t :Tabularize /
+vnoremap <leader>t :Tabularize /
+" }}}
+" {{{ ------------------------------------ Fugitive
+noremap <leader>gb :Gblame<cr>
+noremap <leader>gd :Gdiff<cr>
+noremap <leader>gw :Gwrite<cr>
+noremap <leader>gr :Gread<cr>
+noremap <leader>gc :Gcommit<cr>
+noremap <leader>gs :Gstatus<cr>
+" }}}
+" {{{ ---------------------- Mercenary / Lawrencium
+noremap <leader>hb :HGblame<cr>
+noremap <leader>hd :HGdiff<cr>
+noremap <leader>hh :Hg! 
+noremap <leader>hc :Hgcommit<cr>
+noremap <leader>hs :Hgstatus<cr>
+noremap <leader>hrr :Hg resolve -m %:p<cr>
+noremap <leader>hrl :Hg! resolve -l<cr>
+" }}}
+" {{{ ------------------------------------- Calcium
+noremap <leader>hl :Calcium<cr>
 " }}}
 " {{{ ------------------------------------ Surround
 nmap du  <Plug>Dsurround
@@ -400,32 +409,32 @@ noremap ` '
 " }}}
 " {{{ -------------------------------------- Splits
 " Navigating between splits
-noremap <S-s>  <C-w>k
-noremap <S-t>  <C-w>j
-noremap <S-c>  <C-w>h
-noremap <S-r>  <C-w>l
+noremap <S-s>  <c-w>k
+noremap <S-t>  <c-w>j
+noremap <S-c>  <c-w>h
+noremap <S-r>  <c-w>l
 " Creating new splits
-noremap <Leader>v :vnew<Space>
-noremap <Leader>V <C-w>v
-noremap <Leader>s :new<Space>
-noremap <Leader>S <C-w>s
+noremap <leader>v :vnew<space>
+noremap <leader>V <c-w>v
+noremap <leader>s :new<space>
+noremap <leader>S <c-w>s
 " Resize splits
-map <Up>    <C-w>+
-map <Down>  <C-w>-
-map <Left>  <C-w><
-map <Right> <C-w>>
-map <Leader>= <C-w>=
-map <Leader>% :res<CR>:vertical res<CR>$
+map <Up>    <c-w>+
+map <Down>  <c-w>-
+map <Left>  <c-w><
+map <Right> <c-w>>
+map <leader>= <c-w>=
+map <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ---------------------------------------- Tabs
-" noremap <silent> <Leader>n :tabnew<CR>
+" noremap <silent> <leader>n :tabnew<cr>
 " }}}
 " {{{ ------------------------------------ Movement
 " Beginning / end of the line
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-imap <C-a> <C-o>^
-imap <C-e> <C-o>$
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+imap <c-a> <c-o>^
+imap <c-e> <c-o>$
 nmap ç ^
 vmap ç ^
 " left / right / down (visual line) / up (visual line)
@@ -434,10 +443,10 @@ noremap r l
 noremap t gj
 noremap s gk
 " move current line up or down
-noremap <C-up>   :m-2<CR>
-noremap <C-down> :m+<CR>
+noremap <c-up>   :m-2<cr>
+noremap <c-down> :m+<cr>
 " Gathering selected lines (or current one if none selected) in one line
-noremap <C-j> J
+noremap <c-j> J
 " Till (in place of t)
 " noremap  è  t
 " vnoremap è  t
@@ -455,68 +464,71 @@ vnoremap aÉ aW
 vnoremap ié iw
 vnoremap iÉ iW
 " Mapping w to C-w
-noremap  w <C-w>
-vnoremap w <C-w>
-onoremap w <C-w>
+noremap  w <c-w>
+vnoremap w <c-w>
+onoremap w <c-w>
 " Navigating tabs
-noremap <C-d> gT
-noremap <C-l> gt
+noremap <c-d> gT
+noremap <c-l> gt
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
 vmap » >gv
 vmap « <gv
 " Don't make a # force column zero.
-inoremap # X<BS>#
+inoremap # X<bs>#
 " Ctags
-" noremap <C-w> :silent tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-noremap <C-t> <C-]>
-noremap <C-r> <C-t>
+" noremap <c-w> :silent tab split<cr>:exec("tag ".expand("<cword>"))<cr>
+" noremap <c-t> <c-]>
+" noremap <c-r> <c-t>
 " Center screen when scrolling search results
 noremap n nzz
 noremap N Nzz
 noremap * *zz
 noremap # #zz
 " New line
-inoremap <C-CR> <C-o>o
-inoremap <S-CR> <C-o>O
+inoremap <c-cr> <c-o>o
+inoremap <S-cr> <c-o>O
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
-noremap  <C-s> :w<CR>
-vnoremap <C-s> <ESC>:w<CR>
-inoremap <C-s> <ESC>:w<CR>
+noremap  <c-s> :w<cr>
+vnoremap <c-s> <esc>:w<cr>
+inoremap <c-s> <esc>:w<cr>
 " Normal mode
 noremap  <Space> :
-vnoremap <C-c> <ESC>
-inoremap <C-c> <ESC>
-snoremap <C-c> <ESC>
+vnoremap <c-c> <esc>
+inoremap <c-c> <esc>
+snoremap <c-c> <esc>
 " Change mode
 noremap l c
 " Exit
-noremap  à :q<CR>
-noremap  À :qa<CR>
+noremap  à :q<cr>
+noremap  À :qa<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
+" Quifix togglers
+noremap <leader>co :copen<cr>
+noremap <leader>cc :cclose<cr>
 " Only
-noremap <Leader>o :on<CR>
+noremap <leader>o :on<cr>
 " Code folding toggle
-" noremap <Space> :call ToggleFold()<CR>
-" noremap <Leader>c :call ToggleFold()<CR>
+" noremap <Space> :call ToggleFold()<cr>
+" noremap <leader>c :call ToggleFold()<cr>
 " Swap 2 splits (only works within the same tab)
-" noremap <Leader>e :call SplitSwap()<CR>
+" noremap <leader>e :call SplitSwap()<cr>
 " Clear search
-noremap <silent> h :let @/ = ""<CR>
+noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
-map <C-f> <Esc>/\%V
+map <c-f> <Esc>/\%V
 " Replace in visual selection
-map <C-g> <ESC>:%s/\%V
+map <c-g> <esc>:%s/\%V
 " Spell checking
-noremap <silent> <C-h> :set spell!<CR>
-inoremap <silent> <C-h> <ESC>:set spell!<CR>
-vnoremap <silent> <C-h> <ESC>:set spell!<CR>
+noremap <silent> <c-h> :set spell!<cr>
+inoremap <silent> <c-h> <esc>:set spell!<cr>
+vnoremap <silent> <c-h> <esc>:set spell!<cr>
 " Toggle line wrap
-noremap <Leader>w :set wrap!<CR>
-noremap U :redo<CR>
+noremap <leader>w :set wrap!<cr>
+noremap U :redo<cr>
 " }}}
 " }}}
