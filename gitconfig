@@ -11,7 +11,7 @@ status = auto
 [core]
 editor = vim
 excludesfile = /home/smockey/.gitignore
-pager = vim -R -c AnsiEsc -
+pager = vim -R -c AnsiEsc -c 'syn on' -
 [alias]
 lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
