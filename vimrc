@@ -5,7 +5,7 @@
 " ------------------------------------------------------------------------------
 set shell=/bin/sh
 let $PAGER=''
-let mapleader="," " remapping leader
+let mapleader=","
 let g:ruby_path = system('rvm current')
 " {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
@@ -26,12 +26,10 @@ Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-" Bundle 'epmatsw/ag.vim'
 Bundle 'mutewinter/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'Townk/vim-autoclose'
-Bundle 'chrisbra/NrrwRgn'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'jpalardy/vim-slime'
@@ -42,7 +40,6 @@ Bundle 'michaeljsmith/vim-indent-object'
 " Ruby
 Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
-" Bundle 'thoughtbot/vim-rspec'
 Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'rhysd/vim-textobj-ruby'
@@ -92,6 +89,16 @@ function! SplitSwap()
   end
 endfunction
 
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+
 function! DelTagOfFile(file)
   let fullpath = a:file
   let cwd = getcwd()
@@ -133,7 +140,11 @@ augroup vimrc_autocmd
   autocmd WinEnter * set cursorline
   autocmd WinEnter * set cursorcolumn
   "Go to the cursor position before buffer was closed
-  autocmd BufReadPost * silent normal g'"
+  " autocmd BufReadPost * silent normal g'"
+  autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal g`\"" |
+      \ endif"`""'")
   autocmd BufWritePost * call UpdateTags()
   " Don't add the comment prefix when I hit enter or o/O on a comment line.
   autocmd FileType * setlocal formatoptions-=o formatoptions-=r
@@ -198,11 +209,13 @@ set title
 set undofile
 " Give backspace a reasonable behavior
 set backspace=indent,eol,start
-" Splits
-set splitright
-set splitbelow
 " Disable line wrap
 set nowrap
+" }}}
+" {{{ ------------------------------------------------------------------- Splits
+hi VertSplit ctermfg=11 ctermbg=0
+set splitright
+set splitbelow
 " }}}
 " {{{ ---------------------------------------------------------------- Scrolling
 set scrolloff=8
@@ -219,13 +232,13 @@ set expandtab
 set shiftround
 " }}}
 " {{{ ------------------------------------------------------------------ Folding
-hi FoldColumn guibg=grey78 gui=Bold guifg=DarkBlue
+hi Folded term=bold cterm=bold ctermfg=12 ctermbg=0
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
 set foldnestmax=1
 set foldlevel=10
-set fillchars=vert:\|,fold:\ 
+set fillchars+=fold: 
 set foldminlines=1
 " }}}
 " {{{ ---------------------------------------------------------------- Searching
@@ -318,7 +331,7 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
-noremap <leader>a  :Ag! 
+noremap <leader>a  :Ag! 
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
@@ -327,8 +340,8 @@ map e <Plug>(easymotion-lineforward)
 map b <Plug>(easymotion-linebackward)
 map f <Plug>(easymotion-s)
 map F <Plug>(easymotion-s2)
-map é <Plug>(easymotion-t)
-map É <Plug>(easymotion-t2)
+map è <Plug>(easymotion-t)
+map È <Plug>(easymotion-t2)
 " }}}
 " {{{ ------------------------------------ Vim-Task
 noremap zt :call Toggle_task_status()<cr>
@@ -337,12 +350,6 @@ noremap zt :call Toggle_task_status()<cr>
 xmap <leader>ll <Plug>SlimeRegionSend
 nmap <leader>ll <Plug>SlimeParagraphSend
 nmap <leader>lv <Plug>SlimeConfig
-" }}}
-" {{{ ------------------------------------- NrrwRgn
-noremap  <leader>n :NarrowRegion<cr>
-vnoremap <leader>n :NarrowRegion<cr>
-noremap  <leader>N :NarrowRegion!<cr>
-vnoremap <leader>N :NarrowRegion!<cr>
 " }}}
 " {{{ ---------------------------- Ruby Refactoring
 nnoremap <leader>rap :RAddParameter<cr>
@@ -378,7 +385,7 @@ noremap <leader>gs :Gstatus<cr>
 " {{{ ---------------------- Mercenary / Lawrencium
 noremap <leader>hb :HGblame<cr>
 noremap <leader>hd :HGdiff<cr>
-noremap <leader>hh :Hg! 
+noremap <leader>hh :Hg! 
 noremap <leader>hc :Hgcommit<cr>
 noremap <leader>hs :Hgstatus<cr>
 noremap <leader>hrr :Hg resolve -m %:p<cr>
@@ -440,8 +447,8 @@ noremap <c-down> :m+<cr>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Switching w for é (much saner spot)
-" noremap é w
-" noremap É W
+noremap é w
+noremap É W
 onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
@@ -467,6 +474,8 @@ noremap n nzz
 noremap N Nzz
 noremap * *zz
 noremap # #zz
+" Paste from system buffer
+map <leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
@@ -486,6 +495,8 @@ noremap à :q<cr>
 noremap À :qa<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
+" Rename file
+map <leader>n :call RenameFile()<cr>
 " Quifix togglers
 noremap <leader>co :copen<cr>
 noremap <leader>cc :cclose<cr>
