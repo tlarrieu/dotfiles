@@ -199,7 +199,7 @@ set wildmode=list:full,full
 set wildmenu
 set complete=slf
 " Disable any kind of annoying bell
-set novisualbell
+set visualbell
 set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
 set hidden
