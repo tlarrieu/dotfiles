@@ -480,6 +480,7 @@ inoremap <c-c> <esc>
 snoremap <c-c> <esc>
 " Change mode
 noremap l c
+noremap L C
 " Exit
 noremap à :q<cr>
 noremap À :qa<cr>
