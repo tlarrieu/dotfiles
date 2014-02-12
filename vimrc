@@ -64,22 +64,6 @@ filetype on
 filetype plugin indent on
 " }}}
 " {{{ --------------------------------------------------------- Custom functions
-" Toggle fold state between closed and opened.
-" If there is no fold at current line, just moves forward.
-" If it is present, reverse it's state.
-" function! ToggleFold()
-"   if foldlevel('.') == 0
-"     normal! l
-"   else
-"     if foldclosed('.') < 0
-"       . foldclose
-"     else
-"       . foldopen
-"     endif
-"   endif
-"   echo
-" endf
-
 function! MarkSplitSwap()
   let g:markedWinNum = winnr()
 endfunction
@@ -158,8 +142,6 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
-  autocmd FileType gundo noremap <buffer> t 2gj
-  autocmd FileType gundo noremap <buffer> s 2gk
 augroup END
 syntax on
 " }}}
@@ -169,13 +151,14 @@ set background=dark
 colorscheme solarized
 " Set proper color for gutter line
 hi! SignColumn ctermbg=8
-" Line numbering (relative to current line)
+" Line numbering (relative and current)
 set rnu
-" Current line
 set nu
-" Line length warning
-highlight OverLength ctermbg=red ctermfg=black
-match OverLength /\%81v.\+/
+" Line length warning (disabled for now)
+" highlight OverLength ctermbg=red ctermfg=black
+" match OverLength /\%81v.\+/
+" Virtual editing
+set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
 set list
@@ -215,15 +198,17 @@ set title
 set undofile
 " Give backspace a reasonable behavior
 set backspace=indent,eol,start
+" Splits
 set splitright
 set splitbelow
-" Scrolling
+" Disable line wrap
+set nowrap
+" }}}
+" {{{ ---------------------------------------------------------------- Scrolling
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
 set sidescroll=1
-" Disable line wrap
-set nowrap
 " }}}
 " {{{ ------------------------------------------------------------------- Indent
 set ai "autoindent
@@ -264,12 +249,14 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_cursor_highlight = 1
-let g:EasyMotion_keys               = get(g:,
-      \'EasyMotion_keys', 'auie,ctsrnbpovdljyx.kqgh;')
-hi link EasyMotionShade  Comment
-hi EasyMotionTarget ctermfg=2 gui=bold
-hi Search ctermbg=none ctermfg=2 gui=bold
-hi IncSearch ctermbg=none ctermfg=2 gui=bold
+let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
+let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkgh;')
+let g:EasyMotion_incsearch = 0
+hi EasyMotionShade     ctermfg=10
+hi EasyMotionTarget    ctermfg=5
+hi EasyMotionIncSearch ctermfg=2
+hi Search    ctermbg=none ctermfg=2
+hi IncSearch ctermbg=none ctermfg=2
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
@@ -317,23 +304,34 @@ let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ --------------------------------------- Gundo
+augroup Gundo
+  autocmd!
+  autocmd FileType gundo noremap <buffer> t 2gj
+  autocmd FileType gundo noremap <buffer> s 2gk
+augroup END
+noremap gu :GundoToggle<cr>
+" }}}
 " {{{ ------------------------------------------ Ag
-nnoremap <silent> <C-t> <C-W><CR><C-W>T
-nnoremap <silent> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+augroup Ag
+  autocmd!
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+augroup END
+noremap <leader>a  :Ag! 
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
 map e <Plug>(easymotion-lineforward)
 map b <Plug>(easymotion-linebackward)
-map f <Plug>(easymotion-s2)
-map è <Plug>(easymotion-t2)
+map f <Plug>(easymotion-s)
+map F <Plug>(easymotion-s2)
+map é <Plug>(easymotion-t)
+map É <Plug>(easymotion-t2)
 " }}}
 " {{{ ------------------------------------ Vim-Task
 noremap zt :call Toggle_task_status()<cr>
-" }}}
-" {{{ --------------------------------------- Gundo
-noremap gu :GundoToggle<cr>
 " }}}
 " {{{ --------------------------------------- Slime
 xmap <leader>ll <Plug>SlimeRegionSend
@@ -360,9 +358,6 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 " }}}
 " {{{ -------------------------------------- Switch
 noremap -  :Switch<cr>
-" }}}
-" {{{ ------------------------------------------ Ag
-noremap <leader>a  :Ag! 
 " }}}
 " {{{ ----------------------------------- Command-T
 noremap <leader><leader> :CommandT<cr>
@@ -407,12 +402,12 @@ vmap U   <Plug>VgSurround
 noremap ' `
 noremap ` '
 " }}}
-" {{{ -------------------------------------- Splits
+" {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
-noremap <S-s>  <c-w>k
-noremap <S-t>  <c-w>j
-noremap <S-c>  <c-w>h
-noremap <S-r>  <c-w>l
+noremap <s-s>  <c-w>W
+noremap <s-t>  <c-w>w
+noremap <s-c>  gT
+noremap <s-r>  gt
 " Creating new splits
 noremap <leader>v :vnew<space>
 noremap <leader>V <c-w>v
@@ -425,9 +420,6 @@ map <Left>  <c-w><
 map <Right> <c-w>>
 map <leader>= <c-w>=
 map <leader>% :res<cr>:vertical res<cr>$
-" }}}
-" {{{ ---------------------------------------- Tabs
-" noremap <silent> <leader>n :tabnew<cr>
 " }}}
 " {{{ ------------------------------------ Movement
 " Beginning / end of the line
@@ -446,15 +438,10 @@ noremap s gk
 noremap <c-up>   :m-2<cr>
 noremap <c-down> :m+<cr>
 " Gathering selected lines (or current one if none selected) in one line
-noremap <c-j> J
-" Till (in place of t)
-" noremap  è  t
-" vnoremap è  t
-" noremap  È  T
-" vnoremap È  T
+noremap <c-l> J
 " Switching w for é (much saner spot)
-noremap é w
-noremap É W
+" noremap é w
+" noremap É W
 onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
@@ -465,11 +452,6 @@ vnoremap ié iw
 vnoremap iÉ iW
 " Mapping w to C-w
 noremap  w <c-w>
-vnoremap w <c-w>
-onoremap w <c-w>
-" Navigating tabs
-noremap <c-d> gT
-noremap <c-l> gt
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -478,21 +460,17 @@ vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
 " Ctags
-" noremap <c-w> :silent tab split<cr>:exec("tag ".expand("<cword>"))<cr>
-" noremap <c-t> <c-]>
-" noremap <c-r> <c-t>
+noremap <c-t> <c-]>
+noremap <c-r> <c-t>
 " Center screen when scrolling search results
 noremap n nzz
 noremap N Nzz
 noremap * *zz
 noremap # #zz
-" New line
-inoremap <c-cr> <c-o>o
-inoremap <S-cr> <c-o>O
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
-noremap  <c-s> :w<cr>
+nnoremap <c-s> :w<cr>
 vnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 " Normal mode
@@ -503,20 +481,13 @@ snoremap <c-c> <esc>
 " Change mode
 noremap l c
 " Exit
-noremap  à :q<cr>
-noremap  À :qa<cr>
+noremap à :q<cr>
+noremap À :qa<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Quifix togglers
 noremap <leader>co :copen<cr>
 noremap <leader>cc :cclose<cr>
-" Only
-noremap <leader>o :on<cr>
-" Code folding toggle
-" noremap <Space> :call ToggleFold()<cr>
-" noremap <leader>c :call ToggleFold()<cr>
-" Swap 2 splits (only works within the same tab)
-" noremap <leader>e :call SplitSwap()<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
@@ -524,7 +495,7 @@ map <c-f> <Esc>/\%V
 " Replace in visual selection
 map <c-g> <esc>:%s/\%V
 " Spell checking
-noremap <silent> <c-h> :set spell!<cr>
+noremap  <silent> <c-h> :set spell!<cr>
 inoremap <silent> <c-h> <esc>:set spell!<cr>
 vnoremap <silent> <c-h> <esc>:set spell!<cr>
 " Toggle line wrap
