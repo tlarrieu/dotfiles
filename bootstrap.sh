@@ -39,15 +39,29 @@ safelink $BASEDIR/vimrc $HOME/.vimrc
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
 
-# .zprezto
-safelink $BASEDIR/zprezto $HOME/.zprezto
+# Bundler
+vim +BundleInstall +qall
 
-# zsh / zprezto dotfiles
-for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
-  target=$BASEDIR/zprezto/runcoms/`basename $file`
-  link=~/.`basename $file`
-  safelink $target $link;
-done
+# YouCompleteMe
+ if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
+  cd ~/.vim/bundle/YouCompleteMe
+  ./install.sh
+fi
+
+# Fish
+ # Oh My Fish!
+[[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
+
+# # .zprezto
+# safelink $BASEDIR/zprezto $HOME/.zprezto
+#
+# # zsh / zprezto dotfiles
+# for file in `ls $BASEDIR/zprezto/runcoms/z*`; do
+#   target=$BASEDIR/zprezto/runcoms/`basename $file`
+#   link=~/.`basename $file`
+#   safelink $target $link;
+# done
 
 # .moc
 safelink $BASEDIR/moc $HOME/.moc
