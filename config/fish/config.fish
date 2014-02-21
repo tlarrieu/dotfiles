@@ -1,8 +1,8 @@
 set PGHOST localhost
 
 set GTK_IM_MODULE=xim
-set GEDITOR=gvim
-set -g -x EDITOR=vim
+set -g -x GEDITOR mvim
+set -g -x EDITOR vim
 set TERM="xterm-256color"
 stty -ixon
 
@@ -24,6 +24,7 @@ alias vip="vi -MR -c AnsiEsc -"
 
 alias rc="rails console"
 alias rs="rails server"
+alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
 
