@@ -390,7 +390,6 @@ nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
 map <leader><leader> :CommandT<cr>
-map <leader>cb :CommandTBuffer<cr>
 " }}}
 " {{{ ------------------------------------- Tabular
 map  <leader>t :Tabularize /
@@ -407,7 +406,7 @@ map <leader>gs :Gstatus<cr>
 " {{{ ---------------------- Mercenary / Lawrencium
 map <leader>hb :HGblame<cr>
 map <leader>hd :HGdiff<cr>
-map <leader>hh :Hg! 
+map <leader>hh :Hg! 
 map <leader>hc :Hgcommit<cr>
 map <leader>hs :Hgstatus<cr>
 map <leader>hrr :Hg resolve -m %:p<cr>
@@ -521,8 +520,7 @@ noremap À :qa<cr>
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quifix togglers
-map <leader>co :copen<cr>
-map <leader>cc :cclose<cr>
+map <leader>q :copen<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
