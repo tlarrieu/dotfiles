@@ -120,6 +120,23 @@ function! UpdateTags()
     let resp = system(cmd)
   endif
 endfunction
+
+function! s:AgOperator(type)
+  let saved_register = @@
+
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+
+  silent execute "Ag! " . shellescape(@@) . " ."
+  copen
+
+  let @@ = saved_register
+endfunction
 " }}}
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
@@ -331,9 +348,9 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
-nnoremap <leader>a :Ag! 
-xnoremap <leader>U "zy:Ag! <c-r>z
-xnoremap <leader>u "zy:Ag! <c-r>z<cr>
+nmap <leader>a :Ag! 
+nmap <leader>u :set operatorfunc=<SID>AgOperator<cr>g@
+vmap <leader>u :<c-u>call <SID>AgOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
@@ -346,7 +363,10 @@ map è <Plug>(easymotion-t)
 map È <Plug>(easymotion-t2)
 " }}}
 " {{{ ------------------------------------ Vim-Task
-noremap zt :call Toggle_task_status()<cr>
+augroup task
+  autocmd!
+  autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
+augroup END
 " }}}
 " {{{ --------------------------------------- Slime
 xmap <leader>ll <Plug>SlimeRegionSend
@@ -354,11 +374,11 @@ nmap <leader>ll <Plug>SlimeParagraphSend
 nmap <leader>lv <Plug>SlimeConfig
 " }}}
 " {{{ ---------------------------- Ruby Refactoring
-nnoremap <leader>rap :RAddParameter<cr>
-nnoremap <leader>rel :RExtractLet<cr>
-vnoremap <leader>rlv :RRenameLocalVariable<cr>
-vnoremap <leader>riv :RRenameInstanceVariable<cr>
-vnoremap <leader>rem :RExtractMethod<cr>
+nmap <leader>rap :RAddParameter<cr>
+nmap <leader>rel :RExtractLet<cr>
+vmap <leader>rlv :RRenameLocalVariable<cr>
+vmap <leader>riv :RRenameInstanceVariable<cr>
+vmap <leader>rem :RExtractMethod<cr>
 " }}}
 " {{{ --------------------------------------- RSpec
 map <leader>rs :SweetVimRspecRunFile<cr>
@@ -366,35 +386,35 @@ map <leader>rr :SweetVimRspecRunPrevious<cr>
 map <leader>rl :SweetVimRspecRunFocused<cr>
 " }}}
 " {{{ -------------------------------------- Switch
-noremap -  :Switch<cr>
+nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
-noremap <leader><leader> :CommandT<cr>
-noremap <leader>cb :CommandTBuffer<cr>
+map <leader><leader> :CommandT<cr>
+map <leader>cb :CommandTBuffer<cr>
 " }}}
 " {{{ ------------------------------------- Tabular
-noremap  <leader>t :Tabularize /
-vnoremap <leader>t :Tabularize /
+map  <leader>t :Tabularize /
+vmap <leader>t :Tabularize /
 " }}}
 " {{{ ------------------------------------ Fugitive
-noremap <leader>gb :Gblame<cr>
-noremap <leader>gd :Gdiff<cr>
-noremap <leader>gw :Gwrite<cr>
-noremap <leader>gr :Gread<cr>
-noremap <leader>gc :Gcommit<cr>
-noremap <leader>gs :Gstatus<cr>
+map <leader>gb :Gblame<cr>
+map <leader>gd :Gdiff<cr>
+map <leader>gw :Gwrite<cr>
+map <leader>gr :Gread<cr>
+map <leader>gc :Gcommit<cr>
+map <leader>gs :Gstatus<cr>
 " }}}
 " {{{ ---------------------- Mercenary / Lawrencium
-noremap <leader>hb :HGblame<cr>
-noremap <leader>hd :HGdiff<cr>
-noremap <leader>hh :Hg! 
-noremap <leader>hc :Hgcommit<cr>
-noremap <leader>hs :Hgstatus<cr>
-noremap <leader>hrr :Hg resolve -m %:p<cr>
-noremap <leader>hrl :Hg! resolve -l<cr>
+map <leader>hb :HGblame<cr>
+map <leader>hd :HGdiff<cr>
+map <leader>hh :Hg! 
+map <leader>hc :Hgcommit<cr>
+map <leader>hs :Hgstatus<cr>
+map <leader>hrr :Hg resolve -m %:p<cr>
+map <leader>hrl :Hg! resolve -l<cr>
 " }}}
 " {{{ ------------------------------------- Calcium
-noremap <leader>hl :Calcium<cr>
+map <leader>hl :Calcium<cr>
 " }}}
 " {{{ ------------------------------------ Surround
 nmap du  <Plug>Dsurround
@@ -418,10 +438,10 @@ noremap <s-t>  <c-w>w
 noremap <s-c>  gT
 noremap <s-r>  gt
 " Creating new splits
-noremap <leader>v :vnew<space>
-noremap <leader>V <c-w>v
-noremap <leader>s :new<space>
-noremap <leader>S <c-w>s
+map <leader>v :vnew<space>
+map <leader>V <c-w>v
+map <leader>s :new<space>
+map <leader>S <c-w>s
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -443,9 +463,6 @@ noremap c h
 noremap r l
 noremap t gj
 noremap s gk
-" move current line up or down
-noremap <c-up>   :m-2<cr>
-noremap <c-down> :m+<cr>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Switching w for é (much saner spot)
@@ -504,8 +521,8 @@ noremap À :qa<cr>
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quifix togglers
-noremap <leader>co :copen<cr>
-noremap <leader>cc :cclose<cr>
+map <leader>co :copen<cr>
+map <leader>cc :cclose<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
@@ -517,9 +534,9 @@ noremap  <silent> <c-h> :set spell!<cr>
 inoremap <silent> <c-h> <esc>:set spell!<cr>
 vnoremap <silent> <c-h> <esc>:set spell!<cr>
 " Toggle line wrap
-noremap <leader>w :set wrap!<cr>
+map <leader>w :set wrap!<cr>
 noremap U :redo<cr>
 " Split swap
-noremap <leader>e :call SplitSwap()<cr>
+map <leader>e :call SplitSwap()<cr>
 " }}}
 " }}}
