@@ -26,7 +26,7 @@ Bundle 'vim-scripts/tlib'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-Bundle 'mutewinter/ag.vim'
+Bundle 'rking/ag.vim'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'Townk/vim-autoclose'
@@ -331,7 +331,9 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
-noremap <leader>a  :Ag! 
+nnoremap <leader>a :Ag! 
+xnoremap <leader>U "zy:Ag! <c-r>z
+xnoremap <leader>u "zy:Ag! <c-r>z<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
@@ -476,6 +478,10 @@ noremap * *zz
 noremap # #zz
 " Paste from system buffer
 map <leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+map <leader>y :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
+" Method move
+map <leader>m ]m
+map <leader>M [m
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
@@ -513,5 +519,7 @@ vnoremap <silent> <c-h> <esc>:set spell!<cr>
 " Toggle line wrap
 noremap <leader>w :set wrap!<cr>
 noremap U :redo<cr>
+" Split swap
+noremap <leader>e :call SplitSwap()<cr>
 " }}}
 " }}}
