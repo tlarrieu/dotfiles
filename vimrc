@@ -157,7 +157,6 @@ augroup vimrc_autocmd
   autocmd WinEnter * set cursorline
   autocmd WinEnter * set cursorcolumn
   "Go to the cursor position before buffer was closed
-  " autocmd BufReadPost * silent normal g'"
   autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
       \   exe "normal g`\"" |
@@ -281,7 +280,7 @@ let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_cursor_highlight = 1
 let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
 let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkgh;')
-let g:EasyMotion_incsearch = 0
+let g:EasyMotion_incsearch = 1
 hi EasyMotionShade     ctermfg=10
 hi EasyMotionTarget    ctermfg=5
 hi EasyMotionIncSearch ctermfg=2
