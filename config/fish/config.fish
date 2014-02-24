@@ -20,7 +20,7 @@ alias wee="weechat-curses"
 alias a="atool"
 alias atx="atool -x"
 alias g="git"
-alias vip="vi -MR -c AnsiEsc -"
+alias vip="vi -c AnsiEsc -"
 
 alias rc="rails console"
 alias rs="rails server"
