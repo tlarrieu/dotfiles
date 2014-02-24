@@ -121,7 +121,8 @@ function! UpdateTags()
   endif
 endfunction
 
-function! s:AgOperator(type)
+" Those 2 functions should be refactored into a single one
+function! s:AgOperator(type,prefix)
   let saved_register = @@
 
   if a:type ==# 'v'
@@ -132,7 +133,24 @@ function! s:AgOperator(type)
     return
   endif
 
-  silent execute "Ag! " . shellescape(@@) . " ."
+  silent execute "Ag! " . shellescape(a:prefix . @@) . " ."
+  copen
+
+  let @@ = saved_register
+endfunction
+
+function! s:DefinitionOperator(type)
+  let saved_register = @@
+
+  if a:type ==# 'v'
+    normal! `<v`>y
+  elseif a:type ==# 'char'
+    normal! `[v`]y
+  else
+    return
+  endif
+
+  silent execute "Ag! " . shellescape('(def (self.)?|class )' . @@) . " ."
   copen
 
   let @@ = saved_register
@@ -269,6 +287,18 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ -------------------------------------- Switch
+augroup switch
+  autocmd!
+  autocmd FileType ruby let b:switch_custom_definitions =
+        \[
+        \ {
+        \   'lambda { |\(.*\)| \(.*\) }': '->(\1) { \2 }',
+        \   'lambda { \(.*\) }': '-> { \1 }',
+        \ },
+        \]
+augroup END
+" }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
@@ -350,6 +380,8 @@ augroup END
 nmap <leader>a :Ag! 
 nmap <leader>u :set operatorfunc=<SID>AgOperator<cr>g@
 vmap <leader>u :<c-u>call <SID>AgOperator(visualmode())<cr>
+nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
+vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
