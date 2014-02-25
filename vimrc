@@ -122,7 +122,7 @@ function! UpdateTags()
 endfunction
 
 " Those 2 functions should be refactored into a single one
-function! s:AgOperator(type,prefix)
+function! s:AgOperator(type)
   let saved_register = @@
 
   if a:type ==# 'v'
@@ -133,7 +133,7 @@ function! s:AgOperator(type,prefix)
     return
   endif
 
-  silent execute "Ag! " . shellescape(a:prefix . @@) . " ."
+  silent execute "Ag! " . shellescape(@@) . " ."
   copen
 
   let @@ = saved_register
@@ -161,6 +161,7 @@ augroup vimrc_autocmd
   autocmd!
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+  autocmd FileType ruby set makeprg=ruby\ %
   autocmd FileType gitcommit,hgcommit startinsert!
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
@@ -440,7 +441,7 @@ map <leader>hd :HGdiff<cr>
 map <leader>hh :Hg! 
 map <leader>hc :Hgcommit<cr>
 map <leader>hs :Hgstatus<cr>
-map <leader>hrr :Hg resolve -m %:p<cr>
+map <leader>hrr :<c-u>let @+ = expand("%")<cr>:Hg resolve -m <c-r>+<cr>
 map <leader>hrl :Hg! resolve -l<cr>
 " }}}
 " {{{ ------------------------------------- Calcium
@@ -496,8 +497,8 @@ noremap s gk
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Switching w for é (much saner spot)
-noremap é w
-noremap É W
+nnoremap é w
+nnoremap É W
 onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
@@ -546,6 +547,8 @@ noremap L C
 " Exit
 noremap à :q<cr>
 noremap À :qa<cr>
+noremap Q :bd<cr>
+noremap ê :bd<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
