@@ -37,6 +37,9 @@ Bundle 'sjl/gundo.vim'
 Bundle 'samsonw/vim-task'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'michaeljsmith/vim-indent-object'
+" Document browser
+Bundle 'rizzatti/funcoo.vim'
+Bundle 'rizzatti/dash.vim'
 " Ruby
 Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -372,6 +375,9 @@ augroup Gundo
 augroup END
 noremap gu :GundoToggle<cr>
 " }}}
+" {{{ -----------------------------------------Dash
+nmap <leader>s :Dash<cr>
+" }}}
 " {{{ ------------------------------------------ Ag
 augroup Ag
   autocmd!
@@ -468,11 +474,6 @@ noremap <s-s>  <c-w>W
 noremap <s-t>  <c-w>w
 noremap <s-c>  gT
 noremap <s-r>  gt
-" Creating new splits
-map <leader>v :vnew<space>
-map <leader>V <c-w>v
-map <leader>s :new<space>
-map <leader>S <c-w>s
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
