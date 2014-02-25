@@ -28,14 +28,33 @@ alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
 
+alias gd="git diff"
+alias gcl="git clone"
+alias gst="git status"
+alias gci="git commit"
+alias gpl="git pull"
+alias gps="git push"
+
+alias hd="hg diff"
+alias hdpr="hg diff -r \"ancestor(default,.)\""
+function hdprc
+  hg diff -r "ancestor($argv,.)"
+end
+alias hcl="hg clone"
+alias hs="hg status"
+alias hci="hg commit"
+alias hpu="hg purge"
+alias hpl="hg pull"
+alias hps="hg push -b"
+alias hlb="hg log --graph -b ."
+alias hrlu="hg resolve -l | grep U"
+
 alias shops="cd ~/mercurial/shopmium/shops"
 alias server="cd ~/mercurial/shopmium/server"
 alias mobile="cd ~/mercurial/shopmium/mobile"
 alias dotfiles="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
-
-alias ec2="ssh -i ~/.ssh/shopmium-deploy.pem ec2-user@ec2-176-34-102-3.eu-west-1.compute.amazonaws.com"
 
 # Theme
 set -g fish_theme smockey
