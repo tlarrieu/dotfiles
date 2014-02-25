@@ -291,6 +291,11 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ---------------------------------------- Dash
+let g:dash_map = {
+      \ 'ruby': ['rails', 'ruby']
+      \ }
+" }}}
 " {{{ -------------------------------------- Switch
 augroup switch
   autocmd!
@@ -376,7 +381,7 @@ augroup END
 noremap gu :GundoToggle<cr>
 " }}}
 " {{{ -----------------------------------------Dash
-nmap <leader>s :Dash<cr>
+nmap <leader>s <plug>DashSearch
 " }}}
 " {{{ ------------------------------------------ Ag
 augroup Ag
