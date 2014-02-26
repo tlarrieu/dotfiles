@@ -3,7 +3,7 @@
 " Smockey's vimrc
 " Designed for dvorak-bepo keyboard
 " ------------------------------------------------------------------------------
-set shell=/bin/sh
+set shell=/bin/bash
 let $PAGER=''
 let mapleader=","
 let g:ruby_path = system('rvm current')
@@ -15,29 +15,37 @@ call vundle#rc()
 
 " Vundle
 Bundle 'gmarik/vundle'
-" Utils
+" Terminal within vim
+Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/vimshell.vim'
+" File Manipulation
+Bundle 'wincent/Command-T'
+Bundle 'rking/ag.vim'
+" repl for vim (using tmux)
+Bundle 'jpalardy/vim-slime'
+" Text manipulation
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'wincent/Command-T'
-Bundle 'godlygeek/tabular'
-Bundle 'vim-scripts/tComment'
-Bundle 'vim-scripts/tlib'
-Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
-Bundle 'rking/ag.vim'
+Bundle 'AndrewRadev/switch.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'vim-scripts/tlib'
+Bundle 'vim-scripts/tComment'
+Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
+Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'jpalardy/vim-slime'
-Bundle 'sjl/gundo.vim'
+" Task manager
 Bundle 'samsonw/vim-task'
+" Undo tree explorer
+Bundle 'sjl/gundo.vim'
+" Better motion
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'michaeljsmith/vim-indent-object'
-" Document browser
+" Documentation browser
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
 " Ruby
@@ -162,6 +170,7 @@ endfunction
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
   autocmd!
+  autocmd BufReadPost *.arb setf ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
@@ -293,7 +302,7 @@ set spelllang=en,fr
 " {{{ ------------------------------------------------------------------ Plugins
 " {{{ ---------------------------------------- Dash
 let g:dash_map = {
-      \ 'ruby': ['rails', 'ruby']
+      \ 'ruby': ['rails', 'ruby', 'gemsets']
       \ }
 " }}}
 " {{{ -------------------------------------- Switch
@@ -389,6 +398,8 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
+
+
 nmap <leader>a :Ag! 
 nmap <leader>u :set operatorfunc=<SID>AgOperator<cr>g@
 vmap <leader>u :<c-u>call <SID>AgOperator(visualmode())<cr>
@@ -531,7 +542,8 @@ noremap N Nzz
 noremap * *zz
 noremap # #zz
 " Paste from system buffer
-map <leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>"
+map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
+map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
 map <leader>y :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Method move
 map <leader>m ]m
@@ -561,16 +573,16 @@ noremap ê :bd<cr>
 map <leader>n :call RenameFile()<cr>
 " Quifix togglers
 map <leader>q :copen<cr>
+augroup Quickfix
+  autocmd!
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <leader>q :close<cr>
+augroup END
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
 map <c-f> <Esc>/\%V
 " Replace in visual selection
 map <c-g> <esc>:%s/\%V
-" Spell checking
-noremap  <silent> <c-h> :set spell!<cr>
-inoremap <silent> <c-h> <esc>:set spell!<cr>
-vnoremap <silent> <c-h> <esc>:set spell!<cr>
 " Toggle line wrap
 map <leader>w :set wrap!<cr>
 noremap U :redo<cr>
