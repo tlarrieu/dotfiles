@@ -1,9 +1,8 @@
 set PGHOST localhost
 
-set GTK_IM_MODULE=xim
 set -g -x GEDITOR mvim
 set -g -x EDITOR vim
-set TERM="xterm-256color"
+set -g -x TERM xterm-256color
 stty -ixon
 
 alias python2="python2.7"
@@ -35,13 +34,15 @@ alias gci="git commit"
 alias gpl="git pull"
 alias gps="git push"
 
+alias hb="hg branch"
+alias hbs="hg branches"
+alias hci="hg commit"
+alias hcl="hg clone"
 alias hd="hg diff"
 alias hdpr="hg diff -r \"ancestor(default,.)\""
 function hdprc
   hg diff -r "ancestor($argv,.)"
 end
-alias hci="hg commit"
-alias hcl="hg clone"
 alias hlb="hg log --graph -b ."
 alias hm="hg merge"
 alias hpl="hg pull"
@@ -49,8 +50,12 @@ alias hplb="hg pull -b ."
 alias hps="hg push"
 alias hr="hg revert -C"
 alias hrlu="hg resolve -l | grep U"
+alias hrm="hg resolve -m"
 alias hs="hg status"
+alias hsh="hg shelve"
+alias hsl="hg shelve -l"
 alias hu="hg update"
+alias hus="hg unshelve"
 
 alias k="kill -9"
 alias kbg="kill (jobs -p)"
