@@ -166,6 +166,33 @@ function! s:DefinitionOperator(type)
 
   let @@ = saved_register
 endfunction
+
+ function! GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  " if winnr() != winnr
+  "   wincmd p
+  " endif
+endfunction
 " }}}
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
@@ -249,7 +276,7 @@ set complete=slf
 set visualbell
 set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
-set hidden
+set nohidden
 " Set title when in console
 set title
 " Activate undofile, that holds undo history
@@ -572,11 +599,7 @@ noremap ê :bd<cr>
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quifix togglers
-map <leader>q :copen<cr>
-augroup Quickfix
-  autocmd!
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <leader>q :close<cr>
-augroup END
+nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
