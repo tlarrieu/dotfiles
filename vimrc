@@ -470,7 +470,7 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
-map <leader><leader> :CommandT<cr>
+map   :<c-u>CommandT<cr>
 " }}}
 " {{{ ------------------------------------- Tabular
 map  <leader>t :Tabularize /
