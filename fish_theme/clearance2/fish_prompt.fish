@@ -5,7 +5,9 @@
 # - Git branch and dirty state (if inside a git repo)
 # - Hg branch and dirty state (if inside hg repo)
 
-set branch_glyph \uE0A0
+set branch_glyph       \uE0A0
+set superuser_glyph    '⌬ '
+set bg_job_glyph       '⌂ '
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -38,6 +40,7 @@ function fish_prompt
   # Add a newline before new prompts
   echo -e ''
 
+
   # Print pwd or full path
   echo -n -s $cwd $normal
 
@@ -64,7 +67,18 @@ function fish_prompt
     end
   end
 
-  # Terminate with a nice prompt char
   echo -e ''
+
+  # if superuser (uid == 0)
+  set -l uid (id -u $USER)
+  if [ $uid -eq 0 ]
+    echo -n $superuser_glyph
+  end
+
+  # Jobs display
+  if [ (jobs -l | wc -l) -gt 0 ]
+    echo -n $bg_job_glyph
+  end
+  # Terminate with a nice prompt char
   echo -e -n -s '⟩ ' $normal
 end
