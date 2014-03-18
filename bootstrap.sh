@@ -51,6 +51,7 @@ safebrew fish
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
+safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
 # RVM and fix for fish
 if [[ -d ~/.rvm ]]; then
 else
