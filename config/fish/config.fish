@@ -10,8 +10,6 @@ alias vi="vim"
 alias vimrc="vi ~/.vimrc"
 alias vir="vi -R"
 
-alias gcd="cd (git rev-parse --show-toplevel)"
-
 alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias less="less -r"
@@ -27,6 +25,8 @@ alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
 
+alias gcd="cd (git rev-parse --show-toplevel)"
+alias ga="git add"
 alias gb="git branch"
 alias gbs="git branches"
 alias gd="git diff"
@@ -40,6 +40,7 @@ alias gpl="git pull"
 alias gps="git push"
 alias gs="git status"
 
+alias hcd="cd (hg root)"
 alias hb="hg branch"
 alias hbs="hg branches"
 alias hci="hg commit"
@@ -78,15 +79,17 @@ alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
 
+alias mep="vi ~/mep.tasks"
+
 # Theme
-set -g fish_theme smockey
+set -g fish_theme clearance2
 set -g theme_display_user yes
 set -g default_user thomaslarrieu
 
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 # Oh-my-fish plugins
-set fish_plugins rvm brew bundler git rails rake
+set fish_plugins rvm rails rake brew bundler ec2 autojump tmux
 # PATH
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.2/bin
