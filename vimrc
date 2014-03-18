@@ -354,7 +354,7 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
 let g:EasyMotion_cursor_highlight = 1
 let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
-let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkgh;')
+let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIECTSRNQBPOVDLJYXKGH;')
 let g:EasyMotion_incsearch = 1
 hi EasyMotionShade     ctermfg=10
 hi EasyMotionTarget    ctermfg=5
@@ -442,6 +442,8 @@ map f <Plug>(easymotion-s)
 map F <Plug>(easymotion-s2)
 map è <Plug>(easymotion-t)
 map È <Plug>(easymotion-t2)
+map <leader>t <Plug>(easymotion-j)
+map <leader>s <Plug>(easymotion-k)
 " }}}
 " {{{ ------------------------------------ Vim-Task
 augroup task
@@ -473,8 +475,8 @@ nmap -  :Switch<cr>
 map   :<c-u>CommandT<cr>
 " }}}
 " {{{ ------------------------------------- Tabular
-map  <leader>t :Tabularize /
-vmap <leader>t :Tabularize /
+map  <leader><leader> :Tabularize /
+vmap <leader><leader> :Tabularize /
 " }}}
 " {{{ ------------------------------------ Fugitive
 map <leader>gb :Gblame<cr>
@@ -540,6 +542,7 @@ noremap t gj
 noremap s gk
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
+noremap <return> i<CR><ESC>
 " Switching w for é (much saner spot)
 nnoremap é w
 nnoremap É W
