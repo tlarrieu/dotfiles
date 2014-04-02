@@ -25,6 +25,10 @@ alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
 
+alias zc="zeus console"
+alias zs="zeus server"
+alias zst="zeus start"
+
 alias gcd="cd (git rev-parse --show-toplevel)"
 alias ga="git add"
 alias gb="git branch"
@@ -64,13 +68,14 @@ alias hsh="hg shelve"
 alias hsl="hg shelve -l"
 alias hu="hg update"
 alias hus="hg unshelve"
+alias rstruct="hg revert -C db/structure.sql"
 
 alias k="kill -9"
 alias kbg="kill (jobs -p)"
 
 alias epry="pry -r ./config/environment"
 alias pspec="bundle exec rake parallel:spec"
-alias raclette="bundle exec rake parallel:spec"
+alias raklette="bundle exec rake parallel:spec"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
