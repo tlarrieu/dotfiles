@@ -15,14 +15,9 @@ call vundle#rc()
 
 " Vundle
 Bundle 'gmarik/vundle'
-" Terminal within vim
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/vimshell.vim'
 " File Manipulation
-Bundle 'wincent/Command-T'
+Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
-" repl for vim (using tmux)
-Bundle 'jpalardy/vim-slime'
 " Text manipulation
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
@@ -38,7 +33,7 @@ Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
-Bundle 'tsaleh/vim-matchit'
+Bundle 'edsono/vim-matchit'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -48,6 +43,8 @@ Bundle 'Lokaltog/vim-easymotion'
 " Documentation browser
 Bundle 'rizzatti/funcoo.vim'
 Bundle 'rizzatti/dash.vim'
+" List toggler
+Bundle 'milkypostman/vim-togglelist'
 " Ruby
 Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
@@ -60,8 +57,10 @@ Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
 Bundle 'othree/html5.vim'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
 Bundle 'plasticboy/vim-markdown'
+Bundle 'scrooloose/syntastic'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -167,32 +166,6 @@ function! s:DefinitionOperator(type)
   let @@ = saved_register
 endfunction
 
- function! GetBufferList()
-  redir =>buflist
-  silent! ls
-  redir END
-  return buflist
-endfunction
-
-function! ToggleList(bufname, pfx)
-  let buflist = GetBufferList()
-  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
-    if bufwinnr(bufnum) != -1
-      exec(a:pfx.'close')
-      return
-    endif
-  endfor
-  if a:pfx == 'l' && len(getloclist(0)) == 0
-      echohl ErrorMsg
-      echo "Location List is Empty."
-      return
-  endif
-  let winnr = winnr()
-  exec(a:pfx.'open')
-  " if winnr() != winnr
-  "   wincmd p
-  " endif
-endfunction
 " }}}
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
@@ -205,6 +178,7 @@ augroup vimrc_autocmd
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
+  autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
   autocmd BufReadPost *.fish,*.load set ft=sh
@@ -327,6 +301,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------- Syntastic
+let g:syntastic_javascript_checkers = ['jsl']
+let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
+" }}}
 " {{{ ---------------------------------------- Dash
 let g:dash_map = {
       \ 'ruby': ['rails', 'ruby', 'gemsets']
@@ -383,6 +361,7 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 let g:airline_theme = 'solarized'
 let g:airline_powerline_fonts = 1
+let g:airline_inactive_collapse=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
@@ -400,8 +379,15 @@ let g:surround_no_mappings=1
 let g:RspecKeymap=0
 " }}}
 " {{{ ----------------------------------- Command-T
-let g:CommandTMaxHeight = "15"
-let g:CommandTMatchWindowReverse = 1
+
+" let g:CommandTMaxHeight = "15"
+" let g:CommandTMatchWindowReverse = 1
+" }}}
+" {{{ --------------------------------------- CtrlP
+let g:ctrlp_map = ' '
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_switch_buffer = 1
 " }}}
 " {{{ ---------------------------- Ruby Refactoring
 let g:ruby_refactoring_map_keys=0
@@ -426,8 +412,7 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
 
-
-nmap <leader>a :Ag! 
+nmap <leader>a :Ag! ""<left>
 nmap <leader>u :set operatorfunc=<SID>AgOperator<cr>g@
 vmap <leader>u :<c-u>call <SID>AgOperator(visualmode())<cr>
 nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
@@ -472,7 +457,11 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
-map   :<c-u>CommandT<cr>
+" map   :<c-u>CommandT<cr>
+" map <leader>f :<c-u>CommandTFlush<cr>
+" }}}
+" {{{ --------------------------------------- CtrlP
+map <leader>f :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ ------------------------------------- Tabular
 map  <leader><leader> :Tabularize /
@@ -602,7 +591,8 @@ noremap ê :bd<cr>
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quifix togglers
-nmap <silent> <leader>q :call ToggleList("Quickfix List", 'c')<cr>
+nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
+nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
@@ -616,3 +606,4 @@ noremap U :redo<cr>
 map <leader>e :call SplitSwap()<cr>
 " }}}
 " }}}
+smapclear
