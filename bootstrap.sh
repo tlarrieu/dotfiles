@@ -25,6 +25,8 @@ safelink()
 
 [[ -d ~/.config ]] || mkdir ~/.config
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
+git submodule init
+git submodule update
 
 # .config directories
 for file in `ls -d $BASEDIR/config/*`; do
