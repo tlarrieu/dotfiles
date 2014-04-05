@@ -18,6 +18,7 @@ Bundle 'gmarik/vundle'
 " File Manipulation
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
+Bundle 'skwp/greplace.vim'
 " Text manipulation
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
@@ -34,6 +35,7 @@ Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
 Bundle 'edsono/vim-matchit'
+Bundle 'tpope/vim-abolish'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -301,6 +303,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------ Greplace
+set grepprg=ag
+let g:grep_cmd_opts = '--line-numbers --noheading'
+" }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
@@ -394,6 +400,10 @@ let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ------------------------------------ Greplace
+noremap <leader>S :Gsearch 
+noremap <leader>R :Greplace<cr>
+" }}}
 " {{{ --------------------------------------- Gundo
 augroup Gundo
   autocmd!
