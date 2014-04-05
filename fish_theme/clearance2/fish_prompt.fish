@@ -59,9 +59,9 @@ function fish_prompt
     if [ (_hg_branch_name) ]
       set -l hg_branch (_hg_branch_name)
       if [ (_hg_is_dirty) ]
-        set hg_info $yellow $branch_glyph $hg_branch $normal
+        set hg_info $yellow $branch_glyph ' ' $hg_branch $normal
       else
-        set hg_info $green $branch_glyph $hg_branch $normal
+        set hg_info $green $branch_glyph ' ' $hg_branch $normal
       end
       echo -n -s ' · ' $hg_info $normal
     end
