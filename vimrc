@@ -36,6 +36,7 @@ Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
 Bundle 'edsono/vim-matchit'
 Bundle 'tpope/vim-abolish'
+Bundle 'vim-scripts/CSSMinister'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
