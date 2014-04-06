@@ -112,7 +112,7 @@ clientbuttons = awful.util.table.join(
 --[[ Program bindings ]]----------------
 globalkeys = awful.util.table.join(globalkeys,
   -- dmenu
-  awful.key({ modkey            }, " ",           function ()
+  awful.key({ "Control"         }, " ",           function ()
     -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
     awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
   end),
