@@ -18,6 +18,7 @@ Bundle 'gmarik/vundle'
 " File Manipulation
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
+Bundle 'skwp/greplace.vim'
 " Text manipulation
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'tpope/vim-repeat'
@@ -34,6 +35,8 @@ Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
 Bundle 'edsono/vim-matchit'
+Bundle 'tpope/vim-abolish'
+Bundle 'vim-scripts/CSSMinister'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -175,6 +178,7 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
   autocmd FileType gitcommit,hgcommit startinsert!
+  autocmd FileType gitconfig set noexpandtab
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
@@ -182,6 +186,7 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
   autocmd BufReadPost *.fish,*.load set ft=sh
+  autocmd BufReadPost *.yml set ft=yaml
   autocmd FileType hgcommit,gitcommit setlocal spell
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
@@ -206,10 +211,18 @@ syntax on
 " }}}
 " {{{ ---------------------------------------------------------- General options
 " Color / background theme
-set background=dark
+set background=light
 colorscheme solarized
+if has('gui_running')
+  set guifont=Inconsolata\ For\ Powerline:h17.6
+  set guioptions-=l
+  set guioptions-=r
+  set guioptions-=b
+  set guicursor+=n-v-c-i:ver11-iCursor
+  hi! iCursor guifg=white guibg=#667B83
+endif
 " Set proper color for gutter line
-hi! SignColumn ctermbg=8
+hi! link SignColumn CursorColumn
 " Line numbering (relative and current)
 set rnu
 set nu
@@ -280,7 +293,7 @@ set expandtab
 set shiftround
 " }}}
 " {{{ ------------------------------------------------------------------ Folding
-hi Folded term=bold cterm=bold ctermfg=12 ctermbg=0
+" hi Folded term=bold cterm=bold ctermfg=12 ctermbg=0
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
@@ -301,6 +314,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------ Greplace
+set grepprg=ag
+let g:grep_cmd_opts = '--line-numbers --noheading'
+" }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
@@ -334,11 +351,19 @@ let g:EasyMotion_cursor_highlight = 1
 let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
 let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIECTSRNQBPOVDLJYXKGH;')
 let g:EasyMotion_incsearch = 1
-hi EasyMotionShade     ctermfg=10
-hi EasyMotionTarget    ctermfg=5
-hi EasyMotionIncSearch ctermfg=2
-hi Search    ctermbg=none ctermfg=2
-hi IncSearch ctermbg=none ctermfg=2
+if has('gui_running')
+  hi! EasyMotionShade     guifg=#93A1A1
+  hi! EasyMotionTarget    guifg=#D13A82
+  hi! EasyMotionIncSearch guifg=#85981C
+  hi! Search              guibg=#FDF6E4 guifg=#85981C
+  hi! IncSearch           guibg=#FDF6E4 guifg=#85981C
+else
+  hi! EasyMotionShade     ctermfg=12
+  hi! EasyMotionTarget    ctermfg=5
+  hi! EasyMotionIncSearch ctermfg=2
+  hi! Search              ctermbg=none ctermfg=2
+  hi! IncSearch           ctermbg=none ctermfg=2
+endif
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
@@ -394,6 +419,10 @@ let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ------------------------------------ Greplace
+noremap <leader>S :Gsearch 
+noremap <leader>R :Greplace<cr>
+" }}}
 " {{{ --------------------------------------- Gundo
 augroup Gundo
   autocmd!
@@ -457,7 +486,7 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
-" map   :<c-u>CommandT<cr>
+" map   :<c-u>CommandT<cr>
 " map <leader>f :<c-u>CommandTFlush<cr>
 " }}}
 " {{{ --------------------------------------- CtrlP
