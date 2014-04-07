@@ -173,7 +173,6 @@ endfunction
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
   autocmd!
-  autocmd BufReadPost *.arb setf ruby
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
@@ -185,7 +184,6 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
-  autocmd BufReadPost *.fish,*.load set ft=sh
   autocmd BufReadPost *.yml set ft=yaml
   autocmd FileType hgcommit,gitcommit setlocal spell
   " Only current splits gets cursor line / column highlighted
@@ -351,19 +349,11 @@ let g:EasyMotion_cursor_highlight = 1
 let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
 let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIECTSRNQBPOVDLJYXKGH;')
 let g:EasyMotion_incsearch = 1
-if has('gui_running')
-  hi! EasyMotionShade     guifg=#93A1A1
-  hi! EasyMotionTarget    guifg=#D13A82
-  hi! EasyMotionIncSearch guifg=#85981C
-  hi! Search              guibg=#FDF6E4 guifg=#85981C
-  hi! IncSearch           guibg=#FDF6E4 guifg=#85981C
-else
-  hi! EasyMotionShade     ctermfg=12
-  hi! EasyMotionTarget    ctermfg=5
-  hi! EasyMotionIncSearch ctermfg=2
-  hi! Search              ctermbg=none ctermfg=2
-  hi! IncSearch           ctermbg=none ctermfg=2
-endif
+hi EasyMotionShade     ctermfg=12 guifg=#93A1A1
+hi EasyMotionTarget    ctermfg=5 guifg=#D13A82
+hi EasyMotionIncSearch ctermfg=2 guifg=#85981C
+hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#85981C
+hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#85981C
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
@@ -381,6 +371,7 @@ let g:airline_right_alt_sep = '⮃'
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = '⭤'
 let g:airline_symbols.linenr = '⭡'
+let g:airline_symbols.paste = 'ρ'
 
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
