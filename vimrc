@@ -429,6 +429,7 @@ nmap <leader>s <plug>DashSearch
 augroup Ag
   autocmd!
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-w>
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
 
@@ -610,9 +611,11 @@ noremap ê :bd<cr>
 " {{{ ------------------------------------ Togglers
 " Rename file
 map <leader>n :call RenameFile()<cr>
-" Quifix togglers
+" Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
+" todo-list
+nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
