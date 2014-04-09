@@ -41,6 +41,8 @@ Bundle 'vim-scripts/CSSMinister'
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
 Bundle 'sjl/gundo.vim'
+" Diff
+Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
 " Documentation browser
@@ -55,7 +57,7 @@ Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'rhysd/vim-textobj-ruby'
 " VCS
-Bundle 'tpope/vim-fugitive'
+" Bundle 'tpope/vim-fugitive'
 Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Languages support
