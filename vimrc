@@ -623,6 +623,8 @@ noremap Q :bd<cr>
 noremap ê :bd<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
+" Empty buffers
+map <leader>b :bufdo bd<cr>
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
