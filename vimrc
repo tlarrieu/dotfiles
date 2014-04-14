@@ -204,6 +204,7 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
+  autocmd CursorMoved * silent! exe printf('match TabLine /\<%s\>/', expand('<cword>'))
 augroup END
 syntax on
 " }}}
@@ -251,6 +252,8 @@ set tags=.tags,./.tags,./tags,tags
 " current line / column highlight
 set cursorline
 set cursorcolumn
+" mouse
+set mouse=c
 " Command completion style
 set wildmode=list:longest,list:full
 set wildmode=list:full,full
@@ -351,9 +354,19 @@ let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIE
 let g:EasyMotion_incsearch = 1
 hi EasyMotionShade     ctermfg=12 guifg=#93A1A1
 hi EasyMotionTarget    ctermfg=5 guifg=#D13A82
-hi EasyMotionIncSearch ctermfg=2 guifg=#85981C
-hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#85981C
-hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#85981C
+hi EasyMotionIncSearch ctermfg=2 guifg=#80A441
+hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+" }}}
+" {{{ ------------------------------------- VimTask
+augroup vimtask
+  autocmd!
+  autocmd FileType task hi taskKeyword     ctermfg=9 guifg=#96CBFE
+  autocmd FileType task hi taskWorkingIcon ctermfg=9 guifg=#FF6C60
+  autocmd FileType task hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
+  autocmd FileType task hi taskWorkingItem ctermfg=9 guifg=#FF6C60
+  autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
+augroup END
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for Snipmate so I deactivate it for YCM
@@ -455,6 +468,7 @@ map <leader>s <Plug>(easymotion-k)
 augroup task
   autocmd!
   autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
+  autocmd FileType task vnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
 " {{{ --------------------------------------- Slime
@@ -614,8 +628,9 @@ map <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
-" todo-list
+" todo-lists
 nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
+nmap <silent> <leader>M :tabe ~/mep.tasks<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
