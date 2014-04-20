@@ -22,6 +22,7 @@ alias rs="rails server"
 alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
+alias bspec="bundle exec rspec"
 
 alias zc="zeus console"
 alias zs="zeus server"
@@ -81,6 +82,8 @@ alias mob="cd ~/mercurial/shopmium/mobile"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
+alias dand="cd ~/git/dand"
+alias dand.io="cd ~/git/dand.io"
 
 alias mep="vi ~/mep.tasks"
 
