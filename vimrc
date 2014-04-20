@@ -41,7 +41,8 @@ Bundle 'vim-scripts/CSSMinister'
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
 Bundle 'sjl/gundo.vim'
-" Diff
+" Diff / Merge
+Bundle 'vim-scripts/DirDiff.vim'
 Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
@@ -66,6 +67,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
+" Emmet coding
+Bundle 'mattn/emmet-vim'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -282,6 +285,7 @@ set splitbelow
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
+let &sidescrolloff=999-&sidescrolloff
 set sidescroll=1
 " }}}
 " {{{ ------------------------------------------------------------------- Indent
@@ -314,6 +318,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- DirDiff
+let g:DirDiffDynamicDiffText = 1
+" }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
@@ -383,6 +390,20 @@ let g:airline_inactive_collapse=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'NOR',
+    \ 'i'  : 'INS',
+    \ 'R'  : 'REP',
+    \ 'c'  : 'CHA',
+    \ 'v'  : 'VIS',
+    \ 'V'  : 'L-VIS',
+    \ '' : 'B-VIS',
+    \ 's'  : 'SEL',
+    \ 'S'  : 'L-SEL',
+    \ '' : 'B-SEL',
+    \ }
 " }}}
 " {{{ --------------------------------------- Slime
 let g:slime_target = "tmux"
@@ -518,8 +539,8 @@ nmap yU  <Plug>YSurround
 nmap yuu <Plug>Yssurround
 nmap yUu <Plug>YSsurround
 nmap yUU <Plug>YSsurround
-vmap u   <Plug>VSurround
-vmap U   <Plug>VgSurround
+xmap u   <Plug>VSurround
+xmap U   <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- Marks
 noremap ' `
@@ -548,10 +569,18 @@ imap <c-e> <c-o>$
 nmap ç ^
 vmap ç ^
 " left / right / down (visual line) / up (visual line)
-noremap c h
-noremap r l
-noremap t gj
-noremap s gk
+nnoremap c h
+nnoremap r l
+nnoremap t gj
+nnoremap s gk
+onoremap c h
+onoremap r l
+onoremap t gj
+onoremap s gk
+xnoremap c h
+xnoremap r l
+xnoremap t gj
+xnoremap s gk
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 noremap <return> i<CR><ESC>
@@ -562,10 +591,10 @@ onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
 onoremap iÉ iW
-vnoremap aé aw
-vnoremap aÉ aW
-vnoremap ié iw
-vnoremap iÉ iW
+xnoremap aé aw
+xnoremap aÉ aW
+xnoremap ié iw
+xnoremap iÉ iW
 " Mapping w to C-w
 noremap  w <c-w>
 " visual shifting (builtin-repeat)
@@ -602,13 +631,17 @@ vnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 snoremap <c-c> <esc>
 " Change mode
-noremap l c
-noremap L C
+nnoremap l c
+nnoremap L C
+onoremap l c
+onoremap L C
+xnoremap l c
+xnoremap L C
 " Exit
-noremap à :q<cr>
-noremap À :qa<cr>
-noremap Q :bd<cr>
-noremap ê :bd<cr>
+nnoremap à :q<cr>
+nnoremap À :qa<cr>
+nnoremap Q :bd<cr>
+nnoremap ê :bd<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
@@ -631,4 +664,3 @@ noremap U :redo<cr>
 map <leader>e :call SplitSwap()<cr>
 " }}}
 " }}}
-smapclear
