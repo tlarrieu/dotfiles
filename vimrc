@@ -186,6 +186,10 @@ augroup vimrc_autocmd
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
+  autocmd FileType html setlocal foldlevel=1
+  autocmd FileType html setlocal foldmethod=syntax
+  autocmd FileType html setlocal foldminlines=1
+  autocmd FileType html,css,eruby imap <tab> <plug>(emmet-expand-abbr)
   autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
@@ -318,6 +322,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ --------------------------------------- Emmet
+let g:user_emmet_leader_key='<c-e>'
+" }}}
 " {{{ ------------------------------------- DirDiff
 let g:DirDiffDynamicDiffText = 1
 " }}}
@@ -464,13 +471,20 @@ vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
+sunmap /
 omap / <Plug>(easymotion-tn)
 map e <Plug>(easymotion-lineforward)
+sunmap e
 map b <Plug>(easymotion-linebackward)
+sunmap b
 map f <Plug>(easymotion-s)
+sunmap f
 map F <Plug>(easymotion-s2)
+sunmap F
 map è <Plug>(easymotion-t)
+sunmap è
 map È <Plug>(easymotion-t2)
+sunmap È
 map <leader>t <Plug>(easymotion-j)
 map <leader>s <Plug>(easymotion-k)
 " }}}
@@ -549,9 +563,13 @@ noremap ` '
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
 noremap <s-s>  <c-w>W
+sunmap <s-s>
 noremap <s-t>  <c-w>w
+sunmap <s-t>
 noremap <s-c>  gT
+sunmap <s-c>
 noremap <s-r>  gt
+sunmap <s-r>
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -597,6 +615,7 @@ xnoremap ié iw
 xnoremap iÉ iW
 " Mapping w to C-w
 noremap  w <c-w>
+sunmap w
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -609,9 +628,13 @@ noremap <c-t> <c-]>
 noremap <c-r> <c-t>
 " Center screen when scrolling search results
 noremap n nzz
+sunmap n
 noremap N Nzz
+sunmap N
 noremap * *zz
+sunmap *
 noremap # #zz
+sunmap #
 " Paste from system buffer
 map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
 map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
