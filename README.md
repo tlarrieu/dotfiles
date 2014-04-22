@@ -26,6 +26,7 @@ Goals
 - Provide uniformized solarized color scheme for various applications (more about this wonderful scheme 
 here : http://ethanschoonover.com/solarized)
 - Implement powerline style wherever I can
+
 ####td;dr
 
 **I need bépo / solarized / powerline everywhere!!**
