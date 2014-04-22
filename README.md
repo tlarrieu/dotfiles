@@ -44,5 +44,6 @@ Supported applications
 - moc
 - git
 - mercurial
+- Firefox : userchrome.css does not get linked properly by install script. You have to manually copy it in your profile directory (~/.mozilla/firefox/<profile>/chrome/)
 
 Some might be added, depending on my personnal needs.
