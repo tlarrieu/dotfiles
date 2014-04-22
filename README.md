@@ -18,27 +18,6 @@ I might integrate a backup handler to automatize the process (backup / restore).
 This is not a priority however, and this has great chance not to come
 any time soon.
 
-###About missing links
-I do know I have broken links to other git projects that are included in this one.
-I sincerly apologize for this. The reason behind that is that I'm quiet new to git
-and could not find a way to include them properly. If you find this offensive
-or want to help me achieve cross-references, I'd be glad too ;)
-
-**Anyway, I will link all of theme soon enough so at least, they can get credit
-for their respective work!**
-
-###About branches
-This project currently holds three branches : master, archlinux and mac.
-Basically, master is just an outdated version of archlinux. Or should I say, a
-version for linux distros that are not up to date package-version-wise. (In the newer
-version of some apps, syntax changes have happened in configuration files, so I had
-to adapt some files).
-Since I work almost exclusively on Arch, master might not be perfectly on par with archlinux.
-
-Mac branch is pretty self-explainatory. Basically, this is an archlinux equivalent with less
-app supported and some minor tweaks.
-
-
 Goals
 -----
 
@@ -58,5 +37,12 @@ Supported applications
 - vim
 - fish
 - Oh My Fish!
+- awesome
+- ranger
+- sakura
+- mplayer
+- moc
+- git
+- mercurial
 
 Some might be added, depending on my personnal needs.
