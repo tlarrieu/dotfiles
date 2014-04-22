@@ -1,13 +1,13 @@
-# name: clearance2
+ # name: clearance2
 # ---------------
 # Based on clearance. Display the following bits on the left:
 # - Current directory name
 # - Git branch and dirty state (if inside a git repo)
 # - Hg branch and dirty state (if inside hg repo)
 
-set branch_glyph       \uE0A0
-set superuser_glyph    '⌬ '
-set bg_job_glyph       '⌂ '
+set branch_glyph \uE0A0
+set superuser_glyph '⌬ '
+set bg_job_glyph '⌂ '
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -18,7 +18,7 @@ function _git_is_dirty
 end
 
 function _hg_branch_name
-  echo (command hg prompt "{$branch_glyph {branch} }" ^/dev/null)
+  echo (command hg branch ^/dev/null)
 end
 
 function _hg_is_dirty
@@ -59,9 +59,9 @@ function fish_prompt
     if [ (_hg_branch_name) ]
       set -l hg_branch (_hg_branch_name)
       if [ (_hg_is_dirty) ]
-        set hg_info $yellow $hg_branch $normal
+        set hg_info $yellow $branch_glyph ' ' $hg_branch $normal
       else
-        set hg_info $green $hg_branch $normal
+        set hg_info $green $branch_glyph ' ' $hg_branch $normal
       end
       echo -n -s ' · ' $hg_info $normal
     end

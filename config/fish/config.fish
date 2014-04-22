@@ -1,6 +1,5 @@
 set PGHOST localhost
-
-set -g -x GEDITOR mvim
+set -g -x GEDITOR gvim
 set -g -x EDITOR vim
 set -g -x TERM xterm-256color
 stty -ixon
@@ -24,6 +23,8 @@ alias rs="rails server"
 alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
+alias bspec="bundle exec rspec"
+alias bguard="bundle exec guard"
 
 alias zc="zeus console"
 alias zs="zeus server"
@@ -36,6 +37,7 @@ alias gbs="git branches"
 alias gd="git diff"
 alias gcl="git clone"
 alias gci="git commit"
+alias gco="git checkout"
 alias gf="git fetch"
 alias gl="git log"
 alias glg="git lg"
@@ -83,6 +85,8 @@ alias mob="cd ~/mercurial/shopmium/mobile"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
+alias dand="cd ~/git/dand"
+alias dand.io="cd ~/git/dand.io"
 
 alias mep="vi ~/mep.tasks"
 

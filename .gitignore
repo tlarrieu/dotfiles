@@ -10,7 +10,6 @@ config/fish/fish_history
 config/fish/fishd.*
 config/fish/functions/rvm.fish
 config/fish/functions/ec2.fish
-
 vim/bundle/**
 vim/doc
 !vim/bundle/vundle

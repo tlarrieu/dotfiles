@@ -41,6 +41,9 @@ Bundle 'vim-scripts/CSSMinister'
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
 Bundle 'sjl/gundo.vim'
+" Diff / Merge
+Bundle 'vim-scripts/DirDiff.vim'
+Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
 " Documentation browser
@@ -64,6 +67,8 @@ Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
+" Emmet coding
+Bundle 'mattn/emmet-vim'
 " Good looking
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
@@ -181,6 +186,10 @@ augroup vimrc_autocmd
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
+  autocmd FileType html setlocal foldlevel=1
+  autocmd FileType html setlocal foldmethod=syntax
+  autocmd FileType html setlocal foldminlines=1
+  autocmd FileType html,css,eruby imap <tab> <plug>(emmet-expand-abbr)
   autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
@@ -283,6 +292,7 @@ set splitbelow
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
+let &sidescrolloff=999-&sidescrolloff
 set sidescroll=1
 " }}}
 " {{{ ------------------------------------------------------------------- Indent
@@ -315,6 +325,12 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ --------------------------------------- Emmet
+let g:user_emmet_leader_key='<c-e>'
+" }}}
+" {{{ ------------------------------------- DirDiff
+let g:DirDiffDynamicDiffText = 1
+" }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
@@ -394,6 +410,19 @@ let g:airline_inactive_collapse=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline_mode_map = {
+    \ '__' : '-',
+    \ 'n'  : 'NOR',
+    \ 'i'  : 'INS',
+    \ 'R'  : 'REP',
+    \ 'c'  : 'CHA',
+    \ 'v'  : 'VIS',
+    \ 'V'  : 'L-VIS',
+    \ '' : 'B-VIS',
+    \ 's'  : 'SEL',
+    \ 'S'  : 'L-SEL',
+    \ '' : 'B-SEL',
+    \ }
 " }}}
 " {{{ --------------------------------------- Slime
 let g:slime_target = "tmux"
@@ -454,13 +483,20 @@ vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 map  / <Plug>(easymotion-sn)
+sunmap /
 omap / <Plug>(easymotion-tn)
 map e <Plug>(easymotion-lineforward)
+sunmap e
 map b <Plug>(easymotion-linebackward)
+sunmap b
 map f <Plug>(easymotion-s)
+sunmap f
 map F <Plug>(easymotion-s2)
+sunmap F
 map è <Plug>(easymotion-t)
+sunmap è
 map È <Plug>(easymotion-t2)
+sunmap È
 map <leader>t <Plug>(easymotion-j)
 map <leader>s <Plug>(easymotion-k)
 " }}}
@@ -468,7 +504,7 @@ map <leader>s <Plug>(easymotion-k)
 augroup task
   autocmd!
   autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
-  autocmd FileType task vnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
+  autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
 " {{{ --------------------------------------- Slime
@@ -492,7 +528,7 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 nmap -  :Switch<cr>
 " }}}
 " {{{ ----------------------------------- Command-T
-" map   :<c-u>CommandT<cr>
+" map   :<c-u>CommandT<cr>
 " map <leader>f :<c-u>CommandTFlush<cr>
 " }}}
 " {{{ --------------------------------------- CtrlP
@@ -530,8 +566,8 @@ nmap yU  <Plug>YSurround
 nmap yuu <Plug>Yssurround
 nmap yUu <Plug>YSsurround
 nmap yUU <Plug>YSsurround
-vmap u   <Plug>VSurround
-vmap U   <Plug>VgSurround
+xmap u   <Plug>VSurround
+xmap U   <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- Marks
 noremap ' `
@@ -540,9 +576,13 @@ noremap ` '
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
 noremap <s-s>  <c-w>W
+sunmap <s-s>
 noremap <s-t>  <c-w>w
+sunmap <s-t>
 noremap <s-c>  gT
+sunmap <s-c>
 noremap <s-r>  gt
+sunmap <s-r>
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -560,10 +600,18 @@ imap <c-e> <c-o>$
 nmap ç ^
 vmap ç ^
 " left / right / down (visual line) / up (visual line)
-noremap c h
-noremap r l
-noremap t gj
-noremap s gk
+nnoremap c h
+nnoremap r l
+nnoremap t gj
+nnoremap s gk
+onoremap c h
+onoremap r l
+onoremap t gj
+onoremap s gk
+xnoremap c h
+xnoremap r l
+xnoremap t gj
+xnoremap s gk
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 noremap <return> i<CR><ESC>
@@ -574,12 +622,13 @@ onoremap aé aw
 onoremap aÉ aW
 onoremap ié iw
 onoremap iÉ iW
-vnoremap aé aw
-vnoremap aÉ aW
-vnoremap ié iw
-vnoremap iÉ iW
+xnoremap aé aw
+xnoremap aÉ aW
+xnoremap ié iw
+xnoremap iÉ iW
 " Mapping w to C-w
 noremap  w <c-w>
+sunmap w
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -592,9 +641,13 @@ noremap <c-t> <c-]>
 noremap <c-r> <c-t>
 " Center screen when scrolling search results
 noremap n nzz
+sunmap n
 noremap N Nzz
+sunmap N
 noremap * *zz
+sunmap *
 noremap # #zz
+sunmap #
 " Paste from system buffer
 map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
 map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
@@ -613,18 +666,22 @@ noremap  <Space> :
 vnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 snoremap <c-c> <esc>
-" Change mode
-noremap l c
-noremap L C
-" Exit
-noremap à :q<cr>
-noremap À :qa<cr>
-noremap Q :bd<cr>
-noremap ê :bd<cr>
-" }}}
-" {{{ ------------------------------------ Togglers
 " Empty buffers
 map <leader>b :bufdo bd<cr>
+" Change mode
+nnoremap l c
+nnoremap L C
+onoremap l c
+onoremap L C
+xnoremap l c
+xnoremap L C
+" Exit
+nnoremap à :q<cr>
+nnoremap À :qa<cr>
+nnoremap Q :bd<cr>
+nnoremap ê :bd<cr>
+" }}}
+" {{{ ------------------------------------ Togglers
 " Rename file
 map <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
@@ -632,7 +689,7 @@ nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " todo-lists
 nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
-nmap <silent> <leader>M :tabe ~/mep.tasks<cr>
+nmap <silent> <leader>R :tabe ~/mep.tasks<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
@@ -646,4 +703,3 @@ noremap U :redo<cr>
 map <leader>e :call SplitSwap()<cr>
 " }}}
 " }}}
-smapclear
