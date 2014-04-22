@@ -23,6 +23,7 @@ alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
 alias bspec="bundle exec rspec"
+alias bguard="bundle exec guard"
 
 alias zc="zeus console"
 alias zs="zeus server"
