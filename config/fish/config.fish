@@ -98,7 +98,7 @@ set -g default_user thomaslarrieu
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 # Oh-my-fish plugins
-set fish_plugins rvm rails rake brew bundler ec2 autojump tmux
+set fish_plugins rvm rails rake brew bundler autojump tmux
 # PATH
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.2/bin
