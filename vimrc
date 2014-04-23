@@ -284,7 +284,7 @@ set backspace=indent,eol,start
 set nowrap
 " }}}
 " {{{ ------------------------------------------------------------------- Splits
-hi VertSplit ctermfg=11 ctermbg=0
+hi! link VertSplit SignColumn
 set splitright
 set splitbelow
 " }}}
