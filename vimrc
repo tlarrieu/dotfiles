@@ -308,8 +308,8 @@ set shiftround
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
-set foldnestmax=1
-set foldlevel=10
+set foldnestmax=3
+set foldlevelstart=10
 set fillchars+=fold: 
 set foldminlines=1
 " }}}
