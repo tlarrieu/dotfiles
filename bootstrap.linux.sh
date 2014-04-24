@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 
 [[ "$1" == "-f" ]] && FORCE=true
 
@@ -23,12 +23,13 @@ safelink()
   fi
 }
 
-[[ -d ~/.config ]] || mkdir ~/.config
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
+
 git submodule init
 git submodule update
 
 # .config directories
+[[ -d ~/.config ]] || mkdir ~/.config
 for file in `ls -d $BASEDIR/config/*`; do
   target=$BASEDIR/config/`basename $file`
   link=~/.config/`basename $file`
@@ -54,11 +55,18 @@ fi
  # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
+safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
 
-# .moc
+# RVM and fix for fish
+if [[ -d ~/.rvm ]]; then
+  echo "RVM already installed. Nothing to do!"
+else
+  curl -sSL https://get.rvm.io | bash -s stable
+  curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
+fi
+
+# .moc & mplayer
 safelink $BASEDIR/moc $HOME/.moc
-
-# .mplayer
 safelink $BASEDIR/mplayer $HOME/.mplayer
 
 # .vimperatorrc
@@ -71,8 +79,11 @@ safelink $BASEDIR/gitignore $HOME/.gitignore
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
-# .zsh (utility functions for prezto theme
-safelink $BASEDIR/zsh $HOME/.zsh
+# agignore
+safelink $BASEDIR/agignore $HOME/.aginore
+
+# irbrc
+safelink $BASEDIR/irbrc $HOME/.irbrc
 
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts

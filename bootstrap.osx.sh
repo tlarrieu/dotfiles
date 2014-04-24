@@ -27,7 +27,9 @@ safebrew() {
 }
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
+
 git submodule init
+git submodule update
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
@@ -42,18 +44,20 @@ if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
   ./install.sh
 fi
 
-# vcprompt (a tool to speed up prompting informations from VCS)
-safebrew vcprompt
 # Ponysay
 safebrew ponysay
+
 # Fish
 safebrew fish
+
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
 safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
+
 # RVM and fix for fish
 if [[ -d ~/.rvm ]]; then
+  echo "RVM already installed. Nothing to do!"
 else
   curl -sSL https://get.rvm.io | bash -s stable
   curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
@@ -70,11 +74,15 @@ done
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
+
 # install fix for vim clipboard
 safebrew reattach-to-user-namespace
+
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
+
 # agignore
 safelink $BASEDIR/agignore $HOME/.aginore
+
 # irbrc
 safelink $BASEDIR/irbrc $HOME/.irbrc
