@@ -436,11 +436,6 @@ let g:surround_no_mappings=1
 " {{{ --------------------------------------- RSpec
 let g:RspecKeymap=0
 " }}}
-" {{{ ----------------------------------- Command-T
-
-" let g:CommandTMaxHeight = "15"
-" let g:CommandTMatchWindowReverse = 1
-" }}}
 " {{{ --------------------------------------- CtrlP
 let g:ctrlp_map = ' '
 let g:ctrlp_cmd = 'CtrlP'
@@ -462,7 +457,7 @@ augroup Gundo
   autocmd FileType gundo noremap <buffer> t 2gj
   autocmd FileType gundo noremap <buffer> s 2gk
 augroup END
-noremap gu :GundoToggle<cr>
+noremap <leader>gu :GundoToggle<cr>
 " }}}
 " {{{ -----------------------------------------Dash
 nmap <leader>s <plug>DashSearch
@@ -527,10 +522,6 @@ map <leader>rl :SweetVimRspecRunFocused<cr>
 " {{{ -------------------------------------- Switch
 nmap -  :Switch<cr>
 " }}}
-" {{{ ----------------------------------- Command-T
-" map   :<c-u>CommandT<cr>
-" map <leader>f :<c-u>CommandTFlush<cr>
-" }}}
 " {{{ --------------------------------------- CtrlP
 map <leader>f :<c-u>CtrlPClearCache<cr>
 " }}}
@@ -559,13 +550,13 @@ map <leader>hrl :Hg! resolve -l<cr>
 map <leader>hl :Calcium<cr>
 " }}}
 " {{{ ------------------------------------ Surround
-nmap du  <Plug>Dsurround
-nmap lu  <Plug>Csurround
-nmap yu  <Plug>Ysurround
-nmap yU  <Plug>YSurround
-nmap yuu <Plug>Yssurround
-nmap yUu <Plug>YSsurround
-nmap yUU <Plug>YSsurround
+nmap ds  <Plug>Dsurround
+nmap ls  <Plug>Csurround
+nmap ys  <Plug>Ysurround
+nmap yS  <Plug>YSurround
+nmap yss <Plug>Yssurround
+nmap ySs <Plug>YSsurround
+nmap ySS <Plug>YSsurround
 xmap u   <Plug>VSurround
 xmap U   <Plug>VgSurround
 " }}}
@@ -604,10 +595,6 @@ nnoremap c h
 nnoremap r l
 nnoremap t gj
 nnoremap s gk
-onoremap c h
-onoremap r l
-onoremap t gj
-onoremap s gk
 xnoremap c h
 xnoremap r l
 xnoremap t gj
@@ -698,7 +685,7 @@ map <c-f> <Esc>/\%V
 map <c-g> <esc>:%s/\%V
 " Toggle line wrap
 map <leader>w :set wrap!<cr>
-noremap U :redo<cr>
+nnoremap U :redo<cr>
 " Split swap
 map <leader>e :call SplitSwap()<cr>
 " }}}
