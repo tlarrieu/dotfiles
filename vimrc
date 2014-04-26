@@ -189,7 +189,7 @@ augroup vimrc_autocmd
   autocmd FileType html setlocal foldlevel=1
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  autocmd FileType html,css,eruby imap <tab> <plug>(emmet-expand-abbr)
+  autocmd FileType html,css,eruby imap <buffer> <tab> <plug>(emmet-expand-abbr)
   autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
