@@ -42,7 +42,6 @@ Bundle 'samsonw/vim-task'
 " Undo tree explorer
 Bundle 'sjl/gundo.vim'
 " Diff / Merge
-Bundle 'vim-scripts/DirDiff.vim'
 Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
@@ -327,9 +326,6 @@ set spelllang=en,fr
 " {{{ ------------------------------------------------------------------ Plugins
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key='<c-e>'
-" }}}
-" {{{ ------------------------------------- DirDiff
-let g:DirDiffDynamicDiffText = 1
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
