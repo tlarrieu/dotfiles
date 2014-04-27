@@ -46,9 +46,10 @@ fi
 
 # Ponysay
 safebrew ponysay
-
 # Fish
 safebrew fish
+# install fix for vim clipboard
+safebrew reattach-to-user-namespace
 
 # Oh My Fish!
 [[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
@@ -74,9 +75,6 @@ done
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
-
-# install fix for vim clipboard
-safebrew reattach-to-user-namespace
 
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf

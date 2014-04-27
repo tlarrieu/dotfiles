@@ -1,25 +1,47 @@
 #!/bin/sh
 
 [[ "$1" == "-f" ]] && FORCE=true
+[[ `uname -s` == "Darwin" ]] && OSX=true
 
 safelink()
 {
   target=$1
   link=$2
+  echo $link "->" $target
   if [ $FORCE ]; then
-    rm $link -rf
-    ln -s -P $target $link
+    rm -rf $link
+    if [ $OSX ]; then
+      ln -s -P $target $link
+    else
+      ln -sfF $target $link
+    fi
   else
     if [ -d $target ]; then
-      echo -n "$link already exists, do you want to replace it? "
+      echo -n "$link already exists, do you want to replace it? (y/N/a) "
       read answer
       case $answer in
         "yes"|"y")
-          rm $link -rf
+          rm -rf $link
+          ;;
+        "all"|"a")
+          rm -rf $link
+          FORCE=true
           ;;
       esac
     fi
-    ln -s -P -i $target $link
+    if [ $OSX ]; then
+      ln -s -i $target $link
+    else
+      ln -s -P -i $target $link
+    fi
+  fi
+}
+
+safeinstall() {
+  if [ $OSX ]; then
+    [[ -n $(brew list | grep $1) ]] || brew install $1
+  else
+    [[ -n $(yaourt -Q $1) ]] || yaourt -Ss $1
   fi
 }
 
@@ -38,22 +60,31 @@ done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
-
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
-
 # Bundler
 vim +BundleInstall +qall
-
 # YouCompleteMe
  if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
-  cd ~/.vim/bundle/YouCompleteMe
-  ./install.sh
+
+  echo -n "Do you want to compile YouCompleteMe ? (Y/n)"
+  read answer
+  case $answer in
+    "yes"|"y")
+      cd ~/.vim/bundle/YouCompleteMe
+      ./install.sh
+      ;;
+  esac
+else
+  echo "YouCompleteMe was not found on the system. Nothing to do."
 fi
 
-# Fish
- # Oh My Fish!
-[[ -d ~/.oh-my-fish ]] || curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+# Oh My Fish!
+if [[ -d ~/.oh-my-fish ]]; then
+  echo "Fish already installed. Nothing to do!"
+else
+  curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+fi
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
 safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
 
