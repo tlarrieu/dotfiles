@@ -57,7 +57,7 @@ alias hdprr="hg diff -r \"ancestor(rails4_updated,.)\""
 function hdprc
   hg diff -r "ancestor($argv,.)"
 end
-alias hlb="hg log --graph -b ."
+alias hlb="hg log --graph -b"
 alias hm="hg merge"
 alias hpl="hg pull"
 alias hplb="hg pull -b ."
