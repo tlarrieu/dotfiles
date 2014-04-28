@@ -473,9 +473,8 @@ nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
-map  / <Plug>(easymotion-sn)
-sunmap /
-omap / <Plug>(easymotion-tn)
+map  <leader>/ <Plug>(easymotion-sn)
+omap <leader>/ <Plug>(easymotion-tn)
 map e <Plug>(easymotion-lineforward)
 sunmap e
 map b <Plug>(easymotion-linebackward)
