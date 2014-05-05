@@ -66,7 +66,6 @@ safelink $BASEDIR/vim $HOME/.vim
 vim +BundleInstall +qall
 # YouCompleteMe
  if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
-
   echo -n "Do you want to compile YouCompleteMe ? (Y/n)"
   read answer
   case $answer in
