@@ -37,6 +37,7 @@ Bundle 'Townk/vim-autoclose'
 Bundle 'edsono/vim-matchit'
 Bundle 'tpope/vim-abolish'
 Bundle 'vim-scripts/CSSMinister'
+Bundle 'vim-scripts/YankRing.vim'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -73,6 +74,8 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
 Bundle 'vim-scripts/AnsiEsc.vim'
+" Test
+Bundle 'kien/rainbow_parentheses.vim'
 
 filetype on
 filetype plugin indent on
@@ -538,8 +541,9 @@ map <leader>hd :HGdiff<cr>
 map <leader>hh :Hg! 
 map <leader>hc :Hgcommit<cr>
 map <leader>hs :Hgstatus<cr>
-map <leader>hrr :<c-u>let @+ = expand("%")<cr>:Hg resolve -m <c-r>+<cr>
-map <leader>hrl :Hg! resolve -l<cr>
+map <leader>hr :Hgrevert<cr>:e<cr>
+" map <leader>hrr :<c-u>let @+ = expand("%")<cr>:Hg resolve -m <c-r>+<cr>
+" map <leader>hrl :Hg! resolve -l<cr>
 " }}}
 " {{{ ------------------------------------- Calcium
 map <leader>hl :Calcium<cr>
