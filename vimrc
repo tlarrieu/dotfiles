@@ -176,6 +176,27 @@ function! s:DefinitionOperator(type)
   let @@ = saved_register
 endfunction
 
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=4000
+    echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorMoved * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=200
+    echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction
+
 " }}}
 " {{{ ------------------------------------------------------------- File Related
 augroup vimrc_autocmd
@@ -215,7 +236,6 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
-  autocmd CursorMoved * silent! exe printf('match TabLine /\<%s\>/', expand('<cword>'))
 augroup END
 syntax on
 " }}}
@@ -673,6 +693,8 @@ map <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
+" Toggle highlight current word
+nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " todo-lists
 nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
 nmap <silent> <leader>R :tabe ~/mep.tasks<cr>
