@@ -54,6 +54,7 @@ alias hcl="hg clone"
 alias hd="hg diff"
 alias hdpr="hg diff -r \"ancestor(default,.)\""
 alias hdprr="hg diff -r \"ancestor(rails4_updated,.)\""
+alias hsdpr="hg status --rev \"::. - ::default\""
 function hdprc
   hg diff -r "ancestor($argv,.)"
 end
