@@ -5,9 +5,12 @@ set -g -x TERM xterm-256color
 stty -ixon
 
 alias python2="python2.7"
+alias v="vim"
 alias vi="vim"
 alias vimrc="vi ~/.vimrc"
 alias vir="vi -R"
+alias vip="vi -c AnsiEsc -c 'syn on' -c 'set nomod' -"
+alias r="ranger"
 
 alias ccat="pygmentize -g"
 alias tree="tree -C"
@@ -16,13 +19,15 @@ alias wee="weechat-curses"
 alias a="atool"
 alias atx="atool -x"
 alias g="git"
-alias vip="vi -c AnsiEsc -c 'syn on' -c 'set nomod' -"
 
 alias rc="rails console"
 alias rs="rails server"
 alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
+alias be="bundle exec"
+alias bi="bundle install"
+alias bu="bundle update"
 alias bspec="bundle exec rspec"
 alias bguard="bundle exec guard"
 
