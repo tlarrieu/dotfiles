@@ -19,25 +19,29 @@ Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
 Bundle 'skwp/greplace.vim'
-" Text manipulation
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
+" Snippets
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
+" Text manipulation
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'godlygeek/tabular'
 Bundle 'vim-scripts/tlib'
 Bundle 'vim-scripts/tComment'
 Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'kana/vim-textobj-user'
-Bundle 'vim-scripts/Parameter-Text-Objects'
-Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'Townk/vim-autoclose'
 Bundle 'edsono/vim-matchit'
 Bundle 'tpope/vim-abolish'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/CSSMinister'
 Bundle 'vim-scripts/YankRing.vim'
+" Text objects
+Bundle 'kana/vim-textobj-user'
+Bundle 'vim-scripts/Parameter-Text-Objects'
+Bundle 'b4winckler/vim-angry'
+Bundle 'michaeljsmith/vim-indent-object'
+Bundle 'rhysd/vim-textobj-ruby'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -46,9 +50,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
-" Documentation browser
-Bundle 'rizzatti/funcoo.vim'
-Bundle 'rizzatti/dash.vim'
 " List toggler
 Bundle 'milkypostman/vim-togglelist'
 " Ruby
@@ -56,12 +57,11 @@ Bundle 'tpope/vim-endwise'
 Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'vim-ruby/vim-ruby'
-Bundle 'rhysd/vim-textobj-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
-" Languages support
+" Misc languages support
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
@@ -184,7 +184,7 @@ function! AutoHighlightToggle()
     au! auto_highlight
     augroup! auto_highlight
     setl updatetime=4000
-    echo 'Highlight current word: off'
+    echo 'Highlight current word: OFF'
     return 0
   else
     augroup auto_highlight
@@ -357,11 +357,6 @@ let g:grep_cmd_opts = '--line-numbers --noheading'
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
-" }}}
-" {{{ ---------------------------------------- Dash
-let g:dash_map = {
-      \ 'ruby': ['rails', 'ruby', 'gemsets']
-      \ }
 " }}}
 " {{{ -------------------------------------- Switch
 augroup switch
