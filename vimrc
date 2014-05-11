@@ -35,13 +35,13 @@ Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/CSSMinister'
-Bundle 'vim-scripts/YankRing.vim'
 " Text objects
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'b4winckler/vim-angry'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'rhysd/vim-textobj-ruby'
+Bundle 'wellle/targets.vim'
 " Task manager
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
@@ -347,6 +347,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- Targets
+let g:targets_pairs = '()b {}B []R <>a'
+" }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key='<c-e>'
 " }}}
