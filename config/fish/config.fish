@@ -86,6 +86,8 @@ alias pspec="bundle exec rake parallel:spec"
 alias raklette="bundle exec rake parallel:spec"
 alias be="bundle exec"
 alias bspec="bundle exec rspec"
+alias rdm="bundle exec rake db:migrate"
+alias rpp="bundle exec rake parallel:prepare"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
