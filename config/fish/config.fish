@@ -84,6 +84,8 @@ alias kbg="kill (jobs -p)"
 alias epry="pry -r ./config/environment"
 alias pspec="bundle exec rake parallel:spec"
 alias raklette="bundle exec rake parallel:spec"
+alias be="bundle exec"
+alias bspec="bundle exec rspec"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
