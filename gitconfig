@@ -7,6 +7,8 @@
   ui = auto
   status = auto
   diff = no
+[merge]
+  tool = meld
 [push]
   default = matching
 [core]
