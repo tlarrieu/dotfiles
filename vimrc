@@ -34,7 +34,6 @@ Bundle 'edsono/vim-matchit'
 Bundle 'tpope/vim-abolish'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/CSSMinister'
 " Text objects
 Bundle 'kana/vim-textobj-user'
 Bundle 'vim-scripts/Parameter-Text-Objects'
@@ -74,6 +73,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
 Bundle 'vim-scripts/AnsiEsc.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
 " Test
 Bundle 'kien/rainbow_parentheses.vim'
 
@@ -306,7 +306,7 @@ set backspace=indent,eol,start
 set nowrap
 " }}}
 " {{{ ------------------------------------------------------------------- Splits
-hi! link VertSplit SignColumn
+hi! link VertSplit CursorColumn
 set splitright
 set splitbelow
 " }}}
@@ -326,7 +326,6 @@ set expandtab
 set shiftround
 " }}}
 " {{{ ------------------------------------------------------------------ Folding
-" hi Folded term=bold cterm=bold ctermfg=12 ctermbg=0
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
