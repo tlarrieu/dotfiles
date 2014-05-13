@@ -32,6 +32,7 @@ alias bspec="bundle exec rspec"
 alias bguard="bundle exec guard"
 
 alias zc="zeus console"
+alias zg="zeus generate"
 alias zs="zeus server"
 alias zst="zeus start"
 
