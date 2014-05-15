@@ -246,7 +246,9 @@ colorscheme solarized
 if has('gui_running')
   set guifont=Inconsolata\ For\ Powerline:h17.6
   set guioptions-=l
+  set guioptions-=L
   set guioptions-=r
+  set guioptions-=R
   set guioptions-=b
   set guicursor+=n-v-c-i:ver11-iCursor
   hi! iCursor guifg=white guibg=#667B83
