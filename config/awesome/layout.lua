@@ -1,5 +1,5 @@
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/smockey/.config/awesome/themes/awesome-solarized/light/theme.lua")
+beautiful.init("/home/smockey/.config/awesome/themes/awesome-solarized/dark/theme.lua")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
@@ -19,7 +19,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
   -- Each screen has its own tag table.
-  tags[s] = awful.tag({ "1", "2", "3", "4" }, s, layouts[1])
+  tags[s] = awful.tag({ "1", "2", "3", "4", "5" }, s, layouts[1])
 end
 -- }}}
 
