@@ -8,6 +8,7 @@
 
 -- {{{ Main
 theme = {}
+theme.path = "/home/smockey/.config/awesome/themes/awesome-solarized/light/"
 theme.default_themes_path = "/usr/share/awesome/themes"
 -- theme.wallpaper_cmd = { "awsetbg "..theme.default_themes_path.."/sky/sky-background.png" }
 theme.colors = {}
@@ -72,8 +73,8 @@ theme.menu_width  = "200"
 
 -- {{{ Icons
 -- {{{ Taglist
-theme.taglist_squares_sel   = theme.default_themes_path.."/zenburn/taglist/squarefz.png"
-theme.taglist_squares_unsel = theme.default_themes_path.."/zenburn/taglist/squarez.png"
+theme.taglist_squares_sel   = theme.path.."taglist/squarefz.png"
+theme.taglist_squares_unsel = theme.path.."taglist/squarez.png"
 --theme.taglist_squares_resize = "false"
 -- }}}
 
@@ -83,18 +84,18 @@ theme.menu_submenu_icon      = theme.default_themes_path.."/default/submenu.png"
 -- }}}
 
 -- {{{ Layout
-theme.layout_tile       = theme.default_themes_path.."/zenburn/layouts/tile.png"
-theme.layout_tileleft   = theme.default_themes_path.."/zenburn/layouts/tileleft.png"
-theme.layout_tilebottom = theme.default_themes_path.."/zenburn/layouts/tilebottom.png"
-theme.layout_tiletop    = theme.default_themes_path.."/zenburn/layouts/tiletop.png"
-theme.layout_fairv      = theme.default_themes_path.."/zenburn/layouts/fairv.png"
-theme.layout_fairh      = theme.default_themes_path.."/zenburn/layouts/fairh.png"
-theme.layout_spiral     = theme.default_themes_path.."/zenburn/layouts/spiral.png"
-theme.layout_dwindle    = theme.default_themes_path.."/zenburn/layouts/dwindle.png"
-theme.layout_max        = theme.default_themes_path.."/zenburn/layouts/max.png"
-theme.layout_fullscreen = theme.default_themes_path.."/zenburn/layouts/fullscreen.png"
-theme.layout_magnifier  = theme.default_themes_path.."/zenburn/layouts/magnifier.png"
-theme.layout_floating   = theme.default_themes_path.."/zenburn/layouts/floating.png"
+theme.layout_tile       = theme.path.."layouts/tile.png"
+theme.layout_tileleft   = theme.path.."layouts/tileleft.png"
+theme.layout_tilebottom = theme.path.."layouts/tilebottom.png"
+theme.layout_tiletop    = theme.path.."layouts/tiletop.png"
+theme.layout_fairv      = theme.path.."layouts/fairv.png"
+theme.layout_fairh      = theme.path.."layouts/fairh.png"
+theme.layout_spiral     = theme.path.."layouts/spiral.png"
+theme.layout_dwindle    = theme.path.."layouts/dwindle.png"
+theme.layout_max        = theme.path.."layouts/max.png"
+theme.layout_fullscreen = theme.path.."layouts/fullscreen.png"
+theme.layout_magnifier  = theme.path.."layouts/magnifier.png"
+theme.layout_floating   = theme.path.."layouts/floating.png"
 -- }}}
 
 -- {{{ Titlebar
