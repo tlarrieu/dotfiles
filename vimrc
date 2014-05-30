@@ -53,13 +53,16 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'milkypostman/vim-togglelist'
 " Ruby
 Bundle 'tpope/vim-endwise'
-Bundle 'ecomba/vim-ruby-refactoring'
 Bundle 'duskhacker/sweet-rspec-vim'
 Bundle 'vim-ruby/vim-ruby'
 " VCS
 Bundle 'tpope/vim-fugitive'
 Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
+ " Clojure
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-classpath'
+Bundle 'tpope/vim-fireplace'
 " Misc languages support
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
@@ -69,15 +72,15 @@ Bundle 'scrooloose/syntastic'
 " Emmet coding
 Bundle 'mattn/emmet-vim'
 " Good looking
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
 Bundle 'vim-scripts/AnsiEsc.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
-" Test
-Bundle 'kien/rainbow_parentheses.vim'
 
 filetype on
+syntax on
 filetype plugin indent on
 " }}}
 " {{{ --------------------------------------------------------- Custom functions
@@ -236,12 +239,13 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
+  autocmd FileType clojure RainbowParenthesesLoadRound
+  autocmd FileType clojure RainbowParenthesesToggle
 augroup END
-syntax on
 " }}}
 " {{{ ---------------------------------------------------------- General options
 " Color / background theme
-set background=light
+set background=dark
 colorscheme solarized
 if has('gui_running')
   set guifont=Inconsolata\ For\ Powerline:h17.6
@@ -442,10 +446,6 @@ let g:airline_mode_map = {
     \ '' : 'B-SEL',
     \ }
 " }}}
-" {{{ --------------------------------------- Slime
-let g:slime_target = "tmux"
-let g:slime_no_mapping=1
-" }}}
 " {{{ ------------------------------------ Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
@@ -459,9 +459,6 @@ let g:ctrlp_map = ' '
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
-" }}}
-" {{{ ---------------------------- Ruby Refactoring
-let g:ruby_refactoring_map_keys=0
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
@@ -518,18 +515,6 @@ augroup task
   autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
   autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
-" }}}
-" {{{ --------------------------------------- Slime
-xmap <leader>ll <Plug>SlimeRegionSend
-nmap <leader>ll <Plug>SlimeParagraphSend
-nmap <leader>lv <Plug>SlimeConfig
-" }}}
-" {{{ ---------------------------- Ruby Refactoring
-nmap <leader>rap :RAddParameter<cr>
-nmap <leader>rel :RExtractLet<cr>
-vmap <leader>rlv :RRenameLocalVariable<cr>
-vmap <leader>riv :RRenameInstanceVariable<cr>
-vmap <leader>rem :RExtractMethod<cr>
 " }}}
 " {{{ --------------------------------------- RSpec
 map <leader>rs :SweetVimRspecRunFile<cr>
