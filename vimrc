@@ -61,8 +61,8 @@ Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
  " Clojure
 Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-classpath'
-Bundle 'tpope/vim-fireplace'
+" Bundle 'tpope/vim-classpath'
+" Bundle 'tpope/vim-fireplace'
 " Misc languages support
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
