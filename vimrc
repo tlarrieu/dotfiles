@@ -61,6 +61,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
 " Misc languages support
+Bundle 'wting/rust.vim'
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
@@ -688,7 +689,7 @@ nnoremap ê :bd<cr>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
-map <leader>n :call RenameFile()<cr>
+nmap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
@@ -700,13 +701,15 @@ nmap <silent> <leader>R :tabe ~/mep.tasks<cr>
 " Clear search
 noremap <silent> h :let @/ = ""<cr>
 " Search within visual selection
-map <c-f> <Esc>/\%V
+vmap <c-f> <Esc>/\%V
 " Replace in visual selection
-map <c-g> <esc>:%s/\%V
+vmap <c-g> <esc>:%s/\%V
 " Toggle line wrap
-map <leader>w :set wrap!<cr>
+nmap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
-map <leader>e :call SplitSwap()<cr>
+nmap <leader>e :call SplitSwap()<cr>
+" Display lint errors
+nmap <leader>E :Errors<cr>
 " }}}
 " }}}
