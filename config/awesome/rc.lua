@@ -7,8 +7,6 @@ wibox = require("wibox")
 beautiful = require("beautiful")
 -- Notification library
 naughty = require("naughty")
-package.path = package.path .. ';/home/smockey/git/powerline/powerline/bindings/awesome/?.lua'
-require('powerline')
 
 -- {{{ Variable definitions
 
@@ -17,7 +15,6 @@ terminal = "sakura"
 terminal_exec = terminal .. " -x "
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal_exec .. editor
-newline = "\n" -- This is used in a zsh scripts related to naughty
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,

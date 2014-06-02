@@ -34,6 +34,7 @@ globalkeys = awful.util.table.join(
     end),
   -- Screen switching
   awful.key({ modkey,           }, "e", function () awful.screen.focus_relative(1)    end),
+  awful.key({ modkey,           }, "i", function () awful.screen.focus_relative(-1)   end),
   -- Window screen switching
   awful.key({ modkey,           }, "o", awful.client.movetoscreen                        ),
 
@@ -125,7 +126,7 @@ globalkeys = awful.util.table.join(globalkeys,
   awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")        end),
   awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")                end),
 
-  awful.key({ modkey            }, "i",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
+  awful.key({ modkey            }, "u",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
   awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
   awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
 
