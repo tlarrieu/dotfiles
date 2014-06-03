@@ -11,7 +11,7 @@ safelink()
   if [ $FORCE ]; then
     rm -rf $link
     if [ $OSX ]; then
-      ln -s -P $target $link
+      ln -s -i $target $link
     else
       ln -sfF $target $link
     fi
