@@ -36,7 +36,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 " Text objects
 Bundle 'kana/vim-textobj-user'
-Bundle 'vim-scripts/Parameter-Text-Objects'
 Bundle 'b4winckler/vim-angry'
 Bundle 'michaeljsmith/vim-indent-object'
 Bundle 'rhysd/vim-textobj-ruby'
@@ -45,8 +44,6 @@ Bundle 'wellle/targets.vim'
 Bundle 'samsonw/vim-task'
 " Undo tree explorer
 Bundle 'sjl/gundo.vim'
-" Diff / Merge
-Bundle 'sjl/splice.vim'
 " Better motion
 Bundle 'Lokaltog/vim-easymotion'
 " List toggler
@@ -61,24 +58,19 @@ Bundle 'phleet/vim-mercenary'
 Bundle 'zeekay/vim-lawrencium'
  " Clojure
 Bundle 'guns/vim-clojure-static'
-" Bundle 'tpope/vim-classpath'
-" Bundle 'tpope/vim-fireplace'
 " Misc languages support
-Bundle 'wting/rust.vim'
 Bundle 'othree/html5.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'vim-scripts/fish-syntax'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'scrooloose/syntastic'
-" Emmet coding
-Bundle 'mattn/emmet-vim'
 " Good looking
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'bling/vim-airline'
 Bundle 'kshenoy/vim-signature'
 Bundle 'vim-scripts/AnsiEsc.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'Yggdroot/indentLine'
 
 filetype on
 syntax on
@@ -353,6 +345,12 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ --------------------------------- IndentLines
+let g:indentLine_enabled = 0
+" }}}
+" {{{ --------------------------------------- Angry
+let g:angry_disable_maps = 1
+" }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}B []R <>a'
 " }}}
@@ -463,6 +461,20 @@ let g:ctrlp_switch_buffer = 1
 " }}}
 " }}}
 " {{{ --------------------------------------------------------- Keyboard mapping
+" {{{ ---------------------------------- IndentLine
+nmap <silent> <leader>gg :IndentLinesToggle<cr>
+" }}}
+" {{{ ------------------------------------- Angry
+vmap <silent> ac <Plug>AngryOuterPrefix
+omap <silent> ac <Plug>AngryOuterPrefix
+vmap <silent> ic <Plug>AngryInnerPrefix
+omap <silent> ic <Plug>AngryInnerPrefix
+
+vmap <silent> aC <Plug>AngryOuterSuffix
+omap <silent> aC <Plug>AngryOuterSuffix
+vmap <silent> iC <Plug>AngryInnerSuffix
+omap <silent> iC <Plug>AngryInnerSuffix
+" }}}
 " {{{ ------------------------------------ Greplace
 noremap <leader>S :Gsearch 
 noremap <leader>R :Greplace<cr>
@@ -534,7 +546,8 @@ vmap <leader><leader> :Tabularize /
 " }}}
 " {{{ ------------------------------------ Fugitive
 map <leader>gb :Gblame<cr>
-map <leader>gd :Gdiff<cr>
+map <leader>gd :Gvdiff<cr>
+map <leader>gD :Gdiff<cr>
 map <leader>gw :Gwrite<cr>
 map <leader>gr :Gread<cr>
 map <leader>gc :Gcommit<cr>
