@@ -18,7 +18,6 @@ Bundle 'gmarik/vundle'
 " File Manipulation
 Bundle 'kien/ctrlp.vim'
 Bundle 'rking/ag.vim'
-Bundle 'skwp/greplace.vim'
 " Snippets
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
