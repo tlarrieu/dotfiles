@@ -198,7 +198,7 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
-  autocmd FileType gitcommit,hgcommit startinsert!
+  autocmd FileType hgcommit startinsert!
   autocmd FileType gitconfig set noexpandtab
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
