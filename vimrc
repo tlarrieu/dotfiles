@@ -246,7 +246,7 @@ augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
 " Color / background theme
-set background=dark
+set background=light
 colorscheme solarized
 if has('gui_running')
   set guifont=Inconsolata\ For\ Powerline:h17.6
@@ -499,14 +499,14 @@ map e <Plug>(easymotion-lineforward)
 sunmap e
 map b <Plug>(easymotion-linebackward)
 sunmap b
-map f <Plug>(easymotion-s)
-sunmap f
-map F <Plug>(easymotion-s2)
-sunmap F
-map è <Plug>(easymotion-t)
-sunmap è
-map È <Plug>(easymotion-t2)
-sunmap È
+" map f <Plug>(easymotion-s)
+" sunmap f
+" map F <Plug>(easymotion-s2)
+" sunmap F
+" map è <Plug>(easymotion-t)
+" sunmap è
+" map È <Plug>(easymotion-t2)
+" sunmap È
 map <leader>t <Plug>(easymotion-j)
 map <leader>s <Plug>(easymotion-k)
 " }}}
