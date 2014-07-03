@@ -7,10 +7,10 @@
   ui = auto
   status = auto
   diff = no
-[merge]
-  tool = meld
 [push]
   default = matching
+[diff]
+  tool = vimdiff
 [core]
   editor = vim
   excludesfile = /home/smockey/.gitignore
