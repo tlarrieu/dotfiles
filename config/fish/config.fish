@@ -78,6 +78,8 @@ alias hsl="hg shelve -l"
 alias hu="hg update"
 alias hus="hg unshelve"
 alias rstruct="hg revert -C db/structure.sql"
+alias hout="hg outgoing"
+alias hin="hg incoming"
 
 alias k="kill -9"
 alias kbg="kill (jobs -p)"
