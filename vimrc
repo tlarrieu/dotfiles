@@ -352,13 +352,6 @@ let g:angry_disable_maps = 1
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}B []R <>a'
 " }}}
-" {{{ --------------------------------------- Emmet
-let g:user_emmet_leader_key='<c-e>'
-" }}}
-" {{{ ------------------------------------ Greplace
-set grepprg=ag
-let g:grep_cmd_opts = '--line-numbers --noheading'
-" }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
@@ -452,7 +445,7 @@ let g:surround_no_mappings=1
 let g:RspecKeymap=0
 " }}}
 " {{{ --------------------------------------- CtrlP
-let g:ctrlp_map = ' '
+let g:ctrlp_map = '<leader><leader>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
@@ -462,7 +455,7 @@ let g:ctrlp_switch_buffer = 1
 " {{{ ---------------------------------- IndentLine
 nmap <silent> <leader>gg :IndentLinesToggle<cr>
 " }}}
-" {{{ ------------------------------------- Angry
+" {{{ --------------------------------------- Angry
 vmap <silent> ac <Plug>AngryOuterPrefix
 omap <silent> ac <Plug>AngryOuterPrefix
 vmap <silent> ic <Plug>AngryInnerPrefix
@@ -473,10 +466,6 @@ omap <silent> aC <Plug>AngryOuterSuffix
 vmap <silent> iC <Plug>AngryInnerSuffix
 omap <silent> iC <Plug>AngryInnerSuffix
 " }}}
-" {{{ ------------------------------------ Greplace
-noremap <leader>S :Gsearch 
-noremap <leader>R :Greplace<cr>
-" }}}
 " {{{ --------------------------------------- Gundo
 augroup Gundo
   autocmd!
@@ -484,9 +473,6 @@ augroup Gundo
   autocmd FileType gundo noremap <buffer> s 2gk
 augroup END
 noremap <leader>gu :GundoToggle<cr>
-" }}}
-" {{{ -----------------------------------------Dash
-nmap <leader>s <plug>DashSearch
 " }}}
 " {{{ ------------------------------------------ Ag
 augroup Ag
@@ -537,10 +523,6 @@ nmap -  :Switch<cr>
 " }}}
 " {{{ --------------------------------------- CtrlP
 map <leader>f :<c-u>CtrlPClearCache<cr>
-" }}}
-" {{{ ------------------------------------- Tabular
-map  <leader><leader> :Tabularize /
-vmap <leader><leader> :Tabularize /
 " }}}
 " {{{ ------------------------------------ Fugitive
 map <leader>gb :Gblame<cr>
