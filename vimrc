@@ -198,20 +198,18 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
+  autocmd BufReadPost *.arb set ft=ruby
   autocmd FileType hgcommit startinsert!
-  autocmd FileType gitconfig set noexpandtab
+  autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType vim setlocal foldlevel=0
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
   autocmd FileType html setlocal foldlevel=1
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  autocmd FileType html,css,eruby imap <buffer> <tab> <plug>(emmet-expand-abbr)
-  autocmd BufReadPost *.arb set ft=ruby
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
   autocmd BufReadPost *.yml set ft=yaml
-  autocmd FileType hgcommit,gitcommit setlocal spell
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
   autocmd WinLeave * set nocursorcolumn
@@ -271,6 +269,8 @@ set ffs=unix,dos,mac
 " Backup and swap files
 set backupdir=~/.tmp
 set directory=~/.tmp
+" Activate undofile, that holds undo history
+set undofile
 " Ignore those files
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags
 " Case insensitive matching
@@ -283,7 +283,6 @@ set cursorcolumn
 " mouse
 set mouse=c
 " Command completion style
-set wildmode=list:longest,list:full
 set wildmode=list:full,full
 " Only complete to the GCD part of file name
 set wildmenu
@@ -295,8 +294,6 @@ set noerrorbells
 set nohidden
 " Set title when in console
 set title
-" Activate undofile, that holds undo history
-set undofile
 " Give backspace a reasonable behavior
 set backspace=indent,eol,start
 " Disable line wrap
@@ -563,14 +560,14 @@ noremap ` '
 " }}}
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
-noremap <s-s>  <c-w>W
-sunmap <s-s>
-noremap <s-t>  <c-w>w
-sunmap <s-t>
-noremap <s-c>  gT
-sunmap <s-c>
-noremap <s-r>  gt
-sunmap <s-r>
+noremap <s-s> <c-w>W
+sunmap  <s-s>
+noremap <s-t> <c-w>w
+sunmap  <s-t>
+noremap <s-c> gT
+sunmap  <s-c>
+noremap <s-r> gt
+sunmap  <s-r>
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
