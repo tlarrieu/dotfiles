@@ -81,6 +81,10 @@ alias rstruct="hg revert -C db/structure.sql"
 alias hout="hg outgoing"
 alias hin="hg incoming"
 
+function hrc
+  heroku run console -a $argv
+end
+
 alias k="kill -9"
 alias kbg="kill (jobs -p)"
 
