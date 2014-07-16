@@ -1,0 +1,31 @@
+snippet miss
+def method_missing(meth, *args, &block)
+	if meth.to_s =~ $1
+		$2
+	else
+		super
+	end
+end
+endsnippet
+
+snippet con
+context "${1:context_name}" do
+	${0}
+end
+endsnippet
+
+snippet exp
+expect(${1:subject}).not_to ${0}
+endsnippet
+
+snippet expbn
+expect { ${1:subject} }.not_to ${0} }
+endsnippet
+
+snippet ite
+it { expect(${1}).to ${0} }
+endsnippet
+
+snippet itne
+it { expect(${1}).not_to ${0} }
+endsnippet

@@ -10,66 +10,69 @@ let g:ruby_path = system('rvm current')
 " {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
 filetype off
-set rtp+=~/.vim/bundle/vundle
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " Vundle
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 " File Manipulation
-Bundle 'kien/ctrlp.vim'
-Bundle 'rking/ag.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+" Functionnalities
+Plugin 'tpope/vim-dispatch'
 " Snippets
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 " Text manipulation
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'AndrewRadev/switch.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'tpope/vim-commentary'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'Townk/vim-autoclose'
-Bundle 'edsono/vim-matchit'
-Bundle 'tpope/vim-abolish'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'AndrewRadev/switch.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'Townk/vim-autoclose'
+Plugin 'edsono/vim-matchit'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
 " Text objects
-Bundle 'kana/vim-textobj-user'
-Bundle 'b4winckler/vim-angry'
-Bundle 'michaeljsmith/vim-indent-object'
-Bundle 'rhysd/vim-textobj-ruby'
-Bundle 'wellle/targets.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'b4winckler/vim-angry'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'rhysd/vim-textobj-ruby'
+Plugin 'wellle/targets.vim'
 " Task manager
-Bundle 'samsonw/vim-task'
+Plugin 'samsonw/vim-task'
 " Undo tree explorer
-Bundle 'sjl/gundo.vim'
+Plugin 'sjl/gundo.vim'
 " Better motion
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 " List toggler
-Bundle 'milkypostman/vim-togglelist'
+Plugin 'milkypostman/vim-togglelist'
 " Ruby
-Bundle 'tpope/vim-endwise'
-Bundle 'duskhacker/sweet-rspec-vim'
-Bundle 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-endwise'
+Plugin 'skalnik/vim-vroom'
+Plugin 'vim-ruby/vim-ruby'
 " VCS
-Bundle 'tpope/vim-fugitive'
-Bundle 'phleet/vim-mercenary'
-Bundle 'zeekay/vim-lawrencium'
+Plugin 'tpope/vim-fugitive'
+Plugin 'phleet/vim-mercenary'
+Plugin 'zeekay/vim-lawrencium'
  " Clojure
-Bundle 'guns/vim-clojure-static'
+Plugin 'guns/vim-clojure-static'
 " Misc languages support
-Bundle 'othree/html5.vim'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'vim-scripts/fish-syntax'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'scrooloose/syntastic'
+Plugin 'othree/html5.vim'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'vim-scripts/fish-syntax'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'scrooloose/syntastic'
 " Good looking
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'bling/vim-airline'
-Bundle 'kshenoy/vim-signature'
-Bundle 'vim-scripts/AnsiEsc.vim'
-Bundle 'Yggdroot/indentLine'
+Plugin 'kien/rainbow_parentheses.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline'
+Plugin 'kshenoy/vim-signature'
+Plugin 'vim-scripts/AnsiEsc.vim'
+Plugin 'Yggdroot/indentLine'
+Plugin 'reedes/vim-thematic'
+Plugin 'blueyed/vim-diminactive'
 
+call vundle#end()
 filetype on
 syntax on
 filetype plugin indent on
@@ -136,7 +139,7 @@ function! UpdateTags()
 endfunction
 
 " Those 2 functions should be refactored into a single one
-function! s:AgOperator(type)
+function! s:UsageOperator(type)
   let saved_register = @@
 
   if a:type ==# 'v'
@@ -147,8 +150,7 @@ function! s:AgOperator(type)
     return
   endif
 
-  silent execute "Ag! " . shellescape(@@) . " ."
-  copen
+  silent execute "Ag! " . shellescape(@@) . " . \| grep -v def"
 
   let @@ = saved_register
 endfunction
@@ -165,7 +167,6 @@ function! s:DefinitionOperator(type)
   endif
 
   silent execute "Ag! " . shellescape('(def (self.)?|class )' . @@) . " ."
-  copen
 
   let @@ = saved_register
 endfunction
@@ -201,20 +202,23 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.arb set ft=ruby
   autocmd FileType hgcommit startinsert!
   autocmd FileType hgcommit,gitcommit setlocal spell
-  autocmd FileType vim setlocal foldlevel=0
+  autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
-  autocmd FileType html setlocal foldlevel=1
+  autocmd FileType html,eruby setlocal foldlevel=1
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
   autocmd BufReadPost *.md set ft=markdown
   autocmd BufReadPost *.md,*.markdown setlocal spell
+  autocmd FileType markdown setlocal foldlevel=10
   autocmd BufReadPost *.yml set ft=yaml
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
   autocmd WinLeave * set nocursorcolumn
   autocmd WinEnter * set cursorline
   autocmd WinEnter * set cursorcolumn
+  autocmd BufReadPost * hi! link SignColumn CursorColumn
+  autocmd BufEnter * hi! link SignColumn CursorColumn
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -246,8 +250,6 @@ if has('gui_running')
   set guicursor+=n-v-c-i:ver11-iCursor
   hi! iCursor guifg=white guibg=#667B83
 endif
-" Set proper color for gutter line
-hi! link SignColumn CursorColumn
 " Line numbering (relative and current)
 set rnu
 set nu
@@ -333,18 +335,57 @@ set foldminlines=1
 set ignorecase
 set smartcase
 " some more search related stuff
-set hlsearch  " highlight search
-set incsearch " start search while typing
+" set hlsearch  " highlight search
+" set incsearch " start search while typing
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ---------------------------------- ToggleList
+ let g:toggle_list_copen_command="Copen"
+" }}}
+" {{{ --------------------------------- Diminactive
+let g:diminactive_use_syntax = 1
+let g:diminactive_use_colorcolumn = 1
+" }}}
+" {{{ ------------------------------------ Thematic
+let g:thematic#themes = {
+      \ 'solarized_dark' :{'colorscheme': 'solarized',
+      \                 'background': 'dark',
+      \                 'airline-theme': 'solarized',
+      \                 'ruler': 1,
+      \                },
+      \ 'solarized_lite' :{'colorscheme': 'solarized',
+      \                 'background': 'light',
+      \                 'airline-theme': 'solarized',
+      \                 'ruler': 1,
+      \                },
+      \ }
+
+" }}}
+" {{{ --------------------------------------- Vroom
+let g:vroom_use_dispatch = 1
+let g:vroom_use_zeus = 0
+let g:vroom_use_colors = 1
+let g:vroom_map_keys = 0
+nmap <leader>rs :VroomRunTestFile<cr>
+nmap <leader>rn :VroomRunNearestTest<cr>
+" }}}
 " {{{ --------------------------------- IndentLines
 let g:indentLine_enabled = 0
+nmap <silent> <leader>gg :IndentLinesToggle<cr>
 " }}}
 " {{{ --------------------------------------- Angry
 let g:angry_disable_maps = 1
+vmap <silent> ac <Plug>AngryOuterPrefix
+omap <silent> ac <Plug>AngryOuterPrefix
+vmap <silent> ic <Plug>AngryInnerPrefix
+omap <silent> ic <Plug>AngryInnerPrefix
+vmap <silent> aC <Plug>AngryOuterSuffix
+omap <silent> aC <Plug>AngryOuterSuffix
+vmap <silent> iC <Plug>AngryInnerSuffix
+omap <silent> iC <Plug>AngryInnerSuffix
 " }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}B []R <>a'
@@ -364,10 +405,24 @@ augroup switch
         \ },
         \]
 augroup END
+nmap -  :Switch<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
+
+augroup Ag
+  autocmd!
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-w>
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+augroup END
+
+nmap <leader>a :Ag! ""<left>
+nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
+vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
+nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
+vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
 let g:EasyMotion_do_mapping = 0
@@ -377,11 +432,33 @@ let g:EasyMotion_cursor_highlight = 1
 let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
 let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIECTSRNQBPOVDLJYXKGH;')
 let g:EasyMotion_incsearch = 1
-hi EasyMotionShade     ctermfg=12 guifg=#93A1A1
-hi EasyMotionTarget    ctermfg=5 guifg=#D13A82
-hi EasyMotionIncSearch ctermfg=2 guifg=#80A441
-hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
-hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+hi EasyMotionShade     ctermfg=14 guifg=#93A1A1
+hi EasyMotionTarget    ctermfg=5 cterm=bold guifg=#D13A82 gui=bold
+" hi EasyMotionIncSearch ctermfg=2 cterm=bold guifg=#80A441 gui=bold
+hi EasyMotionIncSearch ctermfg=32 cterm=bold guifg=#80A441 gui=bold
+" hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+" hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+augroup easymotion
+  autocmd!
+  autocmd BufReadPost * hi EasyMotionShade     ctermfg=14 guifg=#93A1A1
+  autocmd BufReadPost * hi EasyMotionTarget    ctermfg=5 cterm=bold guifg=#D13A82 gui=bold
+  autocmd BufReadPost * " hi EasyMotionIncSearch ctermfg=2 cterm=bold guifg=#80A441 gui=bold
+  autocmd BufReadPost * hi EasyMotionIncSearch ctermfg=32 cterm=bold guifg=#80A441 gui=bold
+  " autocmd BufReadPost * hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+  " autocmd BufReadPost * hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
+augroup END
+map e <Plug>(easymotion-lineforward)
+sunmap e
+map b <Plug>(easymotion-linebackward)
+sunmap b
+map <leader>t <Plug>(easymotion-j)
+map <leader>s <Plug>(easymotion-k)
+map f <Plug>(easymotion-f)
+map è <Plug>(easymotion-t)
+map é <Plug>(easymotion-sn)
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+nnoremap ; <Plug>(esymation-bd-n)
 " }}}
 " {{{ ------------------------------------- VimTask
 augroup vimtask
@@ -391,11 +468,19 @@ augroup vimtask
   autocmd FileType task hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
   autocmd FileType task hi taskWorkingItem ctermfg=9 guifg=#FF6C60
   autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
+  autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
+  autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
+" {{{ ----------------------------------- UltiSnips
+let g:UltiSnipsEditSplit="vertical"
+map <c-t> <nop>
+let g:UltiSnipsJumpForwardTrigger="<c-t>"
+noremap <leader>use :UltiSnipsEdit<cr>
+" }}}
 " {{{ ------------------------------- YouCompleteMe
-" I want tab for Snipmate so I deactivate it for YCM
-let g:ycm_key_list_select_completion = []
+" I want tab for UltiSnips so I deactivate it for YCM
+let g:ycm_key_list_select_completion = [' ']
 " }}}
 " {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
@@ -437,31 +522,23 @@ let g:airline_mode_map = {
 " I want to rebind some (one in fact) bindings and since I cant unbind
 " any at this point, I'll go for the brutal way.
 let g:surround_no_mappings=1
-" }}}
-" {{{ --------------------------------------- RSpec
-let g:RspecKeymap=0
+nmap ds  <Plug>Dsurround
+nmap ls  <Plug>Csurround
+nmap ys  <Plug>Ysurround
+nmap yS  <Plug>YSurround
+nmap yss <Plug>Yssurround
+nmap ySs <Plug>YSsurround
+nmap ySS <Plug>YSsurround
+xmap u   <Plug>VSurround
+xmap U   <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
 let g:ctrlp_map = '<leader><leader>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
-" }}}
-" }}}
-" {{{ --------------------------------------------------------- Keyboard mapping
-" {{{ ---------------------------------- IndentLine
-nmap <silent> <leader>gg :IndentLinesToggle<cr>
-" }}}
-" {{{ --------------------------------------- Angry
-vmap <silent> ac <Plug>AngryOuterPrefix
-omap <silent> ac <Plug>AngryOuterPrefix
-vmap <silent> ic <Plug>AngryInnerPrefix
-omap <silent> ic <Plug>AngryInnerPrefix
-
-vmap <silent> aC <Plug>AngryOuterSuffix
-omap <silent> aC <Plug>AngryOuterSuffix
-vmap <silent> iC <Plug>AngryInnerSuffix
-omap <silent> iC <Plug>AngryInnerSuffix
+nmap <leader>é :CtrlPBufTag<cr>
+map ç :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
 augroup Gundo
@@ -470,56 +547,6 @@ augroup Gundo
   autocmd FileType gundo noremap <buffer> s 2gk
 augroup END
 noremap <leader>gu :GundoToggle<cr>
-" }}}
-" {{{ ------------------------------------------ Ag
-augroup Ag
-  autocmd!
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-w>
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
-augroup END
-
-nmap <leader>a :Ag! ""<left>
-nmap <leader>u :set operatorfunc=<SID>AgOperator<cr>g@
-vmap <leader>u :<c-u>call <SID>AgOperator(visualmode())<cr>
-nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
-vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
-" }}}
-" {{{ ---------------------------------- Easymotion
-map  <leader>/ <Plug>(easymotion-sn)
-omap <leader>/ <Plug>(easymotion-tn)
-map e <Plug>(easymotion-lineforward)
-sunmap e
-map b <Plug>(easymotion-linebackward)
-sunmap b
-" map f <Plug>(easymotion-s)
-" sunmap f
-" map F <Plug>(easymotion-s2)
-" sunmap F
-" map è <Plug>(easymotion-t)
-" sunmap è
-" map È <Plug>(easymotion-t2)
-" sunmap È
-map <leader>t <Plug>(easymotion-j)
-map <leader>s <Plug>(easymotion-k)
-" }}}
-" {{{ ------------------------------------ Vim-Task
-augroup task
-  autocmd!
-  autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
-  autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
-augroup END
-" }}}
-" {{{ --------------------------------------- RSpec
-map <leader>rs :SweetVimRspecRunFile<cr>
-map <leader>rr :SweetVimRspecRunPrevious<cr>
-map <leader>rl :SweetVimRspecRunFocused<cr>
-" }}}
-" {{{ -------------------------------------- Switch
-nmap -  :Switch<cr>
-" }}}
-" {{{ --------------------------------------- CtrlP
-map <leader>f :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ ------------------------------------ Fugitive
 map <leader>gb :Gblame<cr>
@@ -537,22 +564,12 @@ map <leader>hh :Hg!
 map <leader>hc :Hgcommit<cr>
 map <leader>hs :Hgstatus<cr>
 map <leader>hr :Hgrevert<cr>:e<cr>
-" map <leader>hrr :<c-u>let @+ = expand("%")<cr>:Hg resolve -m <c-r>+<cr>
-" map <leader>hrl :Hg! resolve -l<cr>
 " }}}
-" {{{ ------------------------------------- Calcium
-map <leader>hl :Calcium<cr>
 " }}}
-" {{{ ------------------------------------ Surround
-nmap ds  <Plug>Dsurround
-nmap ls  <Plug>Csurround
-nmap ys  <Plug>Ysurround
-nmap yS  <Plug>YSurround
-nmap yss <Plug>Yssurround
-nmap ySs <Plug>YSsurround
-nmap ySS <Plug>YSsurround
-xmap u   <Plug>VSurround
-xmap U   <Plug>VgSurround
+" {{{ ------------------------------------------------- Various keyboard mapping
+" {{{ --------------------------------- Exercism.io
+nmap <silent> <leader>xf :Dispatch exercism f<cr>
+nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ --------------------------------------- Marks
 noremap ' `
@@ -560,6 +577,7 @@ noremap ` '
 " }}}
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
+noremap <tab> <c-w>w
 noremap <s-s> <c-w>W
 sunmap  <s-s>
 noremap <s-t> <c-w>w
@@ -580,10 +598,6 @@ map <leader>% :res<cr>:vertical res<cr>$
 " Beginning / end of the line
 cnoremap <c-a> <home>
 cnoremap <c-e> <end>
-imap <c-a> <c-o>^
-imap <c-e> <c-o>$
-nmap ç ^
-vmap ç ^
 " left / right / down (visual line) / up (visual line)
 nnoremap c h
 nnoremap r l
@@ -593,23 +607,12 @@ xnoremap c h
 xnoremap r l
 xnoremap t gj
 xnoremap s gk
+" Quifix list
+nnoremap <c-p> :cp<cr>
+nnoremap <c-n> :cn<cr>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 noremap <return> i<CR><ESC>
-" Switching w for é (much saner spot)
-nnoremap é w
-nnoremap É W
-onoremap aé aw
-onoremap aÉ aW
-onoremap ié iw
-onoremap iÉ iW
-xnoremap aé aw
-xnoremap aÉ aW
-xnoremap ié iw
-xnoremap iÉ iW
-" Mapping w to C-w
-noremap  w <c-w>
-sunmap w
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -617,25 +620,11 @@ vmap » >gv
 vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
-" Ctags
-noremap <c-t> <c-]>
-noremap <c-r> <c-t>
-" Center screen when scrolling search results
-noremap n nzz
-sunmap n
-noremap N Nzz
-sunmap N
-noremap * *zz
-sunmap *
-noremap # #zz
-sunmap #
 " Paste from system buffer
 map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
 map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
-map <leader>y :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
-" Method move
-map <leader>m ]m
-map <leader>M [m
+map <leader>y "+y
+map <leader>f :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
@@ -643,7 +632,7 @@ nnoremap <c-s> :w<cr>
 vnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 " Normal mode
-noremap  <Space> :
+noremap <space> :
 vnoremap <c-c> <esc>
 inoremap <c-c> <esc>
 snoremap <c-c> <esc>
@@ -659,14 +648,17 @@ xnoremap L C
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
-nnoremap Q :bd<cr>
 nnoremap ê :bd<cr>
+" Disable annoying mapping
+map Q <nop>
+map K <nop>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
 nmap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
+nmap <silent> <leader>Q :Copen<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
@@ -683,7 +675,10 @@ vmap <c-g> <esc>:%s/\%V
 nmap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
-nmap <leader>e :call SplitSwap()<cr>
+nmap <leader>e :call SplitSwap()<cr><tab>
+" Vertical split
+noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+
 " Display lint errors
 nmap <leader>E :Errors<cr>
 " }}}
