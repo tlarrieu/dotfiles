@@ -6,6 +6,7 @@
 set shell=/bin/bash
 let $PAGER=''
 let mapleader=","
+set notimeout
 let g:ruby_path = system('rvm current')
 " {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
@@ -18,6 +19,7 @@ Plugin 'gmarik/Vundle.vim'
 " File Manipulation
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
+Plugin 'skwp/greplace.vim'
 " Functionnalities
 Plugin 'tpope/vim-dispatch'
 " Snippets
@@ -50,6 +52,7 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'tpope/vim-endwise'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails'
 " VCS
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
@@ -62,6 +65,10 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'scrooloose/syntastic'
+Plugin 'roalddevries/yaml.vim'
+Plugin 'lmeijvogel/vim-yaml-helper'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'elixir-lang/vim-elixir'
 " Good looking
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'altercation/vim-colors-solarized'
@@ -199,7 +206,7 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
-  autocmd BufReadPost *.arb set ft=ruby
+  autocmd BufReadPost *.arb setf ruby
   autocmd FileType hgcommit startinsert!
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType vim setlocal foldlevel=10
@@ -232,8 +239,10 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
-  autocmd FileType clojure RainbowParenthesesLoadRound
-  autocmd FileType clojure RainbowParenthesesToggle
+  autocmd BufReadPost *.clj RainbowParenthesesLoadRound
+  autocmd BufReadPost *.clj RainbowParenthesesActivate
+  autocmd BufEnter *.clj RainbowParenthesesLoadRound
+  autocmd BufEnter *.clj RainbowParenthesesActivate
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
@@ -293,7 +302,7 @@ set complete=slf
 set visualbell
 set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
-set nohidden
+set hidden
 " Set title when in console
 set title
 " Give backspace a reasonable behavior
@@ -342,6 +351,13 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ---------------------------------------- YAML
+augroup yaml
+  autocmd FileType yaml nmap <buffer> @ :YamlGoToKey 
+  autocmd FileType yaml nmap <buffer> + :YamlGoToParent<cr>
+  autocmd FileType yaml nmap <buffer> - :YamlGetFullPath<cr>
+augroup end
+" }}}
 " {{{ ---------------------------------- ToggleList
  let g:toggle_list_copen_command="Copen"
 " }}}
@@ -364,13 +380,18 @@ let g:thematic#themes = {
       \ }
 
 " }}}
+" {{{ ------------------------------------ Disptach
+nmap <leader>rs :Dispatch<cr>
+" }}}
 " {{{ --------------------------------------- Vroom
 let g:vroom_use_dispatch = 1
 let g:vroom_use_zeus = 0
 let g:vroom_use_colors = 1
 let g:vroom_map_keys = 0
-nmap <leader>rs :VroomRunTestFile<cr>
-nmap <leader>rn :VroomRunNearestTest<cr>
+augroup auvroom
+  autocmd FileType ruby nmap <leader>rs :VroomRunTestFile<cr>
+  autocmd FileType ruby nmap <leader>rn :VroomRunNearestTest<cr>
+augroup end
 " }}}
 " {{{ --------------------------------- IndentLines
 let g:indentLine_enabled = 0
@@ -407,6 +428,12 @@ augroup switch
 augroup END
 nmap -  :Switch<cr>
 " }}}
+" {{{ ------------------------------------ Greplace
+set grepprg=ag
+let g:grep_cmd_opts = '--line-numbers --noheading'
+nmap <leader>S :Gsearch 
+nmap <leader>G :Greplace<cr>
+" }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
@@ -419,9 +446,11 @@ augroup Ag
 augroup END
 
 nmap <leader>a :Ag! ""<left>
-nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
+nmap Yu :set operatorfunc=<SID>UsageOperator<cr>g@
+nmap yu Yuiw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
-nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
+nmap Yd :set operatorfunc=<SID>DefinitionOperator<cr>g@
+nmap yd Ydiw
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
@@ -541,11 +570,8 @@ nmap <leader>é :CtrlPBufTag<cr>
 map ç :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
-augroup Gundo
-  autocmd!
-  autocmd FileType gundo noremap <buffer> t 2gj
-  autocmd FileType gundo noremap <buffer> s 2gk
-augroup END
+let gundo_map_move_older = "t"
+let gundo_map_move_newer = "s"
 noremap <leader>gu :GundoToggle<cr>
 " }}}
 " {{{ ------------------------------------ Fugitive

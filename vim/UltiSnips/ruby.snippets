@@ -15,6 +15,10 @@ end
 endsnippet
 
 snippet exp
+expect(${1:subject}).to ${0}
+endsnippet
+
+snippet expn
 expect(${1:subject}).not_to ${0}
 endsnippet
 
@@ -28,4 +32,10 @@ endsnippet
 
 snippet itne
 it { expect(${1}).not_to ${0} }
+endsnippet
+
+snippet ctx
+context "${1:context}" do
+	${0}
+end
 endsnippet
