@@ -74,7 +74,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
-Plugin 'Yggdroot/indentLine'
 Plugin 'reedes/vim-thematic'
 
 call vundle#end()
@@ -213,9 +212,6 @@ augroup vimrc_autocmd
   autocmd FileType html,eruby setlocal foldlevel=1
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  " autocmd BufReadPost *.md set ft=markdown
-  " autocmd BufReadPost *.md,*.markdown setlocal spell
-  " autocmd FileType markdown setlocal foldlevel=10
   autocmd BufReadPost *.yml set ft=yaml
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
@@ -296,7 +292,7 @@ set wildmode=list:full,full
 " Only complete to the GCD part of file name
 set wildmenu
 set complete=slf
-" Disable any kind of annoying bell
+" Bells
 set visualbell
 set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
@@ -359,10 +355,6 @@ augroup end
 " {{{ ---------------------------------- ToggleList
  let g:toggle_list_copen_command="Copen"
 " }}}
-" {{{ --------------------------------- Diminactive
-let g:diminactive_use_syntax = 1
-let g:diminactive_use_colorcolumn = 1
-" }}}
 " {{{ ------------------------------------ Thematic
 let g:thematic#themes = {
       \ 'solarized_dark' :{'colorscheme': 'solarized',
@@ -391,10 +383,6 @@ augroup auvroom
   autocmd FileType ruby nmap <leader>rs :VroomRunTestFile<cr>
   autocmd FileType ruby nmap <leader>rn :VroomRunNearestTest<cr>
 augroup end
-" }}}
-" {{{ --------------------------------- IndentLines
-let g:indentLine_enabled = 0
-nmap <silent> <leader>gg :IndentLinesToggle<cr>
 " }}}
 " {{{ --------------------------------------- Angry
 let g:angry_disable_maps = 1
@@ -575,21 +563,21 @@ let gundo_map_move_newer = "s"
 noremap <leader>gu :GundoToggle<cr>
 " }}}
 " {{{ ------------------------------------ Fugitive
-map <leader>gb :Gblame<cr>
-map <leader>gd :Gvdiff<cr>
-map <leader>gD :Gdiff<cr>
-map <leader>gw :Gwrite<cr>
-map <leader>gr :Gread<cr>
-map <leader>gc :Gcommit<cr>
-map <leader>gs :Gstatus<cr>
+map gb :Gblame<cr>
+map gd :Gvdiff<cr>
+map gD :Gdiff<cr>
+map gw :Gwrite<cr>
+map gr :Gread<cr>
+map gC :Gcommit<cr>
+map gs :Gstatus<cr>
 " }}}
 " {{{ ---------------------- Mercenary / Lawrencium
-map <leader>hb :HGblame<cr>
-map <leader>hd :HGdiff<cr>
-map <leader>hh :Hg! 
-map <leader>hc :Hgcommit<cr>
-map <leader>hs :Hgstatus<cr>
-map <leader>hr :Hgrevert<cr>:e<cr>
+map hb :HGblame<cr>
+map hd :HGdiff<cr>
+map hh :Hg! 
+map hc :Hgcommit<cr>
+map hs :Hgstatus<cr>
+map hr :Hgrevert<cr>:e<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
@@ -692,7 +680,7 @@ nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
 nmap <silent> <leader>R :tabe ~/mep.tasks<cr>
 " Clear search
-noremap <silent> h :let @/ = ""<cr>
+noremap <silent> <leader>h :let @/ = ""<cr>
 " Search within visual selection
 vmap <c-f> <Esc>/\%V
 " Replace in visual selection
