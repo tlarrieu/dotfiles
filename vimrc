@@ -381,7 +381,8 @@ let g:thematic#themes = {
 
 " }}}
 " {{{ ------------------------------------ Disptach
-nmap <leader>rs :Dispatch<cr>
+nmap <leader>rd :Dispatch<cr>
+nmap <leader>rf :<c-u>Focus  %<left><left>
 " }}}
 " {{{ --------------------------------------- Vroom
 let g:vroom_use_dispatch = 1
@@ -568,6 +569,7 @@ let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
 nmap <leader>é :CtrlPBufTag<cr>
 map ç :<c-u>CtrlPClearCache<cr>
+map <backspace> :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
 let gundo_map_move_older = "t"
