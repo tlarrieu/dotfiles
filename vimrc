@@ -57,6 +57,7 @@ Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
 Plugin 'zeekay/vim-lawrencium'
+Plugin 'mhinz/vim-signify'
  " Clojure
 Plugin 'guns/vim-clojure-static'
 " Misc languages support
@@ -561,6 +562,9 @@ map <backspace> :<c-u>CtrlPClearCache<cr>
 let gundo_map_move_older = "t"
 let gundo_map_move_newer = "s"
 noremap <leader>gu :GundoToggle<cr>
+" }}}
+" {{{ ------------------------------------- Signify
+let g:signify_vcs_list = [ 'hg', 'git' ]
 " }}}
 " {{{ ------------------------------------ Fugitive
 map gb :Gblame<cr>
