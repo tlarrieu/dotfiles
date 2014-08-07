@@ -652,9 +652,6 @@ vnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 " Normal mode
 noremap <space> :
-vnoremap <c-c> <esc>
-inoremap <c-c> <esc>
-snoremap <c-c> <esc>
 " Empty buffers
 map <leader>b :bufdo bd<cr>
 " Change mode
