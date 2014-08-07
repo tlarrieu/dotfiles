@@ -596,6 +596,7 @@ noremap ` '
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
 noremap <tab> <c-w>w
+noremap <s-tab> <c-w>W
 noremap <s-s> <c-w>W
 sunmap  <s-s>
 noremap <s-t> <c-w>w
