@@ -10,7 +10,7 @@ endsnippet
 
 snippet con
 context "${1:context_name}" do
-	${0}
+	${0:${VISUAL}}
 end
 endsnippet
 
@@ -34,8 +34,8 @@ snippet itne
 it { expect(${1}).not_to ${0} }
 endsnippet
 
-snippet ctx
-context "${1:context}" do
-	${0}
+snippet def
+def ${1:method}
+	${0:${VISUAL}}
 end
 endsnippet
