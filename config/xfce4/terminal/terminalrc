@@ -1,5 +1,5 @@
 [Configuration]
-ColorForeground=#839496
+ColorForeground=#657b83
 ColorPalette1=#070736364242
 ColorPalette2=#dcdc32322f2f
 ColorPalette3=#858599990000
@@ -35,10 +35,9 @@ MiscTabPosition=GTK_POS_TOP
 MiscHighlightUrls=TRUE
 FontName=Inconsolata-dz for Powerline Medium 12
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
-ColorBackground=#002b36
-ColorCursor=#93a1a1
-ColorBold=#93a1a1
-ColorBoldUseDefault=FALSE
-ColorPalette=#073642;#dc322f;#859900;#b58900;#268bd2;#d33682;#2aa198;#eee8d5;#002b36;#cb4b16;#586e75;#657b83;#839496;#6c71c4;#93a1a1;#fdf6e3
+ColorBackground=#fdf6e3
+ColorCursor=#586e75
+ColorBold=#586e75
+ColorPalette=#eee8d5;#dc322f;#859900;#b58900;#268bd2;#d33682;#2aa198;#073642;#fdf6e3;#cb4b16;#93a1a1;#839496;#657b83;#6c71c4;#586e75;#002b36
 TabActivityColor=#dc322f
 
