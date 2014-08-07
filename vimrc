@@ -76,7 +76,6 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
 Plugin 'Yggdroot/indentLine'
 Plugin 'reedes/vim-thematic'
-Plugin 'blueyed/vim-diminactive'
 
 call vundle#end()
 filetype on
