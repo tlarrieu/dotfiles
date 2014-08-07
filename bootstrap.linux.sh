@@ -115,6 +115,10 @@ safelink $BASEDIR/agignore $HOME/.agignore
 # irbrc
 safelink $BASEDIR/irbrc $HOME/.irbrc
 
+# pmux
+mkdir $HOME/scripts
+safelink $BASEDIR/pmux $HOME/scripts/pmux
+
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/

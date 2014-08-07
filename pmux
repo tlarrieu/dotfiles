@@ -1,0 +1,27 @@
+#!/bin/sh
+
+SESSION=$(basename $(pwd))
+
+tmux has-session -t $SESSION
+if [ $? -eq 0 ]; then
+    echo "Session $SESSION already exists. Attaching."
+    sleep 1
+    tmux attach -t $SESSION
+    exit 0;
+fi
+
+tmux new-session -d -s $SESSION
+
+tmux set-window-option -t $SESSION -g automatic-rename off
+tmux new-window -t $SESSION:1 -k -n todo "fish -c 'vim ~/todo.tasks'"
+if [ -f config/environment.rb ]; then
+  tmux new-window -t $SESSION:2 -n dev.pry  'pry -r ./config/environment'
+else
+  tmux new-window -t $SESSION:2 -n dev.pry  'pry'
+fi
+tmux new-window -t $SESSION:3 -n dev.vim  "fish -c 'vim'"
+tmux new-window -t $SESSION:4 -n dev.shell
+
+tmux set-window-option -t $SESSION -g automatic-rename on
+tmux select-window -t $SESSION:1
+tmux attach -t $SESSION
