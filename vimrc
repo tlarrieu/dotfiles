@@ -60,10 +60,9 @@ Plugin 'zeekay/vim-lawrencium'
  " Clojure
 Plugin 'guns/vim-clojure-static'
 " Misc languages support
-Plugin 'othree/html5.vim'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-scripts/fish-syntax'
-Plugin 'plasticboy/vim-markdown'
+Plugin 'gabrielelana/vim-markdown'
 Plugin 'scrooloose/syntastic'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
@@ -215,9 +214,9 @@ augroup vimrc_autocmd
   autocmd FileType html,eruby setlocal foldlevel=1
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  autocmd BufReadPost *.md set ft=markdown
-  autocmd BufReadPost *.md,*.markdown setlocal spell
-  autocmd FileType markdown setlocal foldlevel=10
+  " autocmd BufReadPost *.md set ft=markdown
+  " autocmd BufReadPost *.md,*.markdown setlocal spell
+  " autocmd FileType markdown setlocal foldlevel=10
   autocmd BufReadPost *.yml set ft=yaml
   " Only current splits gets cursor line / column highlighted
   autocmd WinLeave * set nocursorline
