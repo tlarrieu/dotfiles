@@ -110,7 +110,7 @@ safelink $BASEDIR/gitignore $HOME/.gitignore
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
 # agignore
-safelink $BASEDIR/agignore $HOME/.aginore
+safelink $BASEDIR/agignore $HOME/.agignore
 
 # irbrc
 safelink $BASEDIR/irbrc $HOME/.irbrc
