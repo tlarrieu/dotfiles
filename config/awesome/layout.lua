@@ -1,5 +1,5 @@
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/smockey/.config/awesome/themes/awesome-solarized/dark/theme.lua")
+beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
