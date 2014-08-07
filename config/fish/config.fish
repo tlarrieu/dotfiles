@@ -20,6 +20,10 @@ alias a="atool"
 alias atx="atool -x"
 alias g="git"
 
+alias y="yaourt"
+alias ys="yaourt -S"
+alias yss="yaourt -Ss"
+
 alias rc="rails console"
 alias rs="rails server"
 alias rrs="rescue rails server"
@@ -120,5 +124,6 @@ set fish_plugins rvm rails rake brew bundler autojump tmux
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.2/bin
 set -x PATH $PATH /usr/local/heroku/bin
+set -x PATH $PATH ~/bin/
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
