@@ -1,6 +1,16 @@
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
+-- Wallpapers
+wallpapers = {
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/cyber_hatsune.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/hatsune_miku3.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-494507.jpg",
+}
+for s = 1, screen.count() do
+  gears.wallpaper.maximized(wallpapers[s], s, true)
+end
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts =
 {

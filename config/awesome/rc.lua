@@ -7,6 +7,8 @@ wibox = require("wibox")
 beautiful = require("beautiful")
 -- Notification library
 naughty = require("naughty")
+-- Wallpaper handling library
+gears = require("gears")
 
 -- {{{ Variable definitions
 
