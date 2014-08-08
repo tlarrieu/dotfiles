@@ -119,6 +119,9 @@ safelink $BASEDIR/irbrc $HOME/.irbrc
 mkdir $HOME/scripts
 safelink $BASEDIR/pmux $HOME/scripts/pmux
 
+# Custom shutdown script
+safelink $BASEDIR/shutdown_dialog.sh $HOME/scripts/shutdown_dialog.sh
+
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/

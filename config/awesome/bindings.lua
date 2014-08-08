@@ -118,7 +118,8 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
   end),
   -- Session control
-  awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
+  -- awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
+  awful.key({ modkey            }, "q",           function () awful.util.spawn("sh /home/tlarrieu/scripts/shutdown_dialog.sh")       end),
   -- XFCE4 properties
   awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")     end),
   -- Media player controls
