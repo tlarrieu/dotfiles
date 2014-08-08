@@ -24,6 +24,7 @@ alias y="yaourt"
 alias ys="yaourt -S"
 alias yss="yaourt -Ss"
 alias ysuy="yaourt -Suy"
+alias yr="yaourt -R"
 
 alias rc="rails console"
 alias rs="rails server"
