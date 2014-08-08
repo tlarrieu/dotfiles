@@ -434,11 +434,11 @@ augroup Ag
 augroup END
 
 nmap <leader>a :Ag! ""<left>
-nmap Yu :set operatorfunc=<SID>UsageOperator<cr>g@
-nmap yu Yuiw
+nnoremap Yu :set operatorfunc=<SID>UsageOperator<cr>g@
+nnoremap yu Yuiw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
-nmap Yd :set operatorfunc=<SID>DefinitionOperator<cr>g@
-nmap yd Ydiw
+nnoremap Yd :set operatorfunc=<SID>DefinitionOperator<cr>g@
+nnoremap yd Ydiw
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
@@ -567,21 +567,21 @@ noremap <leader>gu :GundoToggle<cr>
 let g:signify_vcs_list = [ 'hg', 'git' ]
 " }}}
 " {{{ ------------------------------------ Fugitive
-map gb :Gblame<cr>
-map gd :Gvdiff<cr>
-map gD :Gdiff<cr>
-map gw :Gwrite<cr>
-map gr :Gread<cr>
-map gC :Gcommit<cr>
-map gs :Gstatus<cr>
+nmap gb :Gblame<cr>
+nmap gd :Gvdiff<cr>
+nmap gD :Gdiff<cr>
+nmap gw :Gwrite<cr>
+nmap gr :Gread<cr>
+nmap gC :Gcommit<cr>
+nmap gs :Gstatus<cr>
 " }}}
 " {{{ ---------------------- Mercenary / Lawrencium
-map hb :HGblame<cr>
-map hd :HGdiff<cr>
-map hh :Hg! 
-map hc :Hgcommit<cr>
-map hs :Hgstatus<cr>
-map hr :Hgrevert<cr>:e<cr>
+nmap hb :HGblame<cr>
+nmap hd :HGdiff<cr>
+nmap hh :Hg! 
+nmap hc :Hgcommit<cr>
+nmap hs :Hgstatus<cr>
+nmap hr :Hgrevert<cr>:e<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
@@ -643,7 +643,9 @@ inoremap # X<bs>#
 map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
 map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
 map <leader>y "+y
-map <leader>f :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
+nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
+" Give a more logical behavior to Y
+nnoremap Y y$
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
