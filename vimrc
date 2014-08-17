@@ -434,11 +434,11 @@ augroup Ag
 augroup END
 
 nmap <leader>a :Ag! ""<left>
-nnoremap Yu :set operatorfunc=<SID>UsageOperator<cr>g@
-nnoremap yu Yuiw
+nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
+nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
-nnoremap Yd :set operatorfunc=<SID>DefinitionOperator<cr>g@
-nnoremap yd Ydiw
+nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
+nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
 " {{{ ---------------------------------- Easymotion
