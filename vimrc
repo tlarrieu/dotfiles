@@ -38,7 +38,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'kana/vim-textobj-user'
 Plugin 'b4winckler/vim-angry'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'rhysd/vim-textobj-ruby'
+" Plugin 'rhysd/vim-textobj-ruby'
+Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
 " Task manager
 Plugin 'samsonw/vim-task'
@@ -49,7 +50,7 @@ Plugin 'Lokaltog/vim-easymotion'
 " List toggler
 Plugin 'milkypostman/vim-togglelist'
 " Ruby
-Plugin 'tpope/vim-endwise'
+" Plugin 'tpope/vim-endwise'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
@@ -61,16 +62,14 @@ Plugin 'mhinz/vim-signify'
  " Clojure
 Plugin 'guns/vim-clojure-static'
 " Misc languages support
-Plugin 'kchmck/vim-coffee-script'
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'scrooloose/syntastic'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'elixir-lang/vim-elixir'
+" Plugin 'elixir-lang/vim-elixir'
 " Good looking
-Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
@@ -372,8 +371,8 @@ let g:thematic#themes = {
 
 " }}}
 " {{{ ------------------------------------ Disptach
-nmap <leader>rd :Dispatch<cr>
-nmap <leader>rf :<c-u>Focus  %<left><left>
+nmap <leader>d :Dispatch<cr>
+nmap <leader>f :<c-u>Focus  %<left><left>
 " }}}
 " {{{ --------------------------------------- Vroom
 let g:vroom_use_dispatch = 1
@@ -437,7 +436,6 @@ nmap <leader>a :Ag! ""<left>
 nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
-nmap <leader>d :set operatorfunc=<SID>DefinitionOperator<cr>g@
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
 " }}}
@@ -521,6 +519,10 @@ let g:airline_inactive_collapse=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
+let g:airline#extensions#tabline#fnamemod = ':t:.'
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#fnamecollapse = 1
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline_mode_map = {
     \ '__' : '-',
     \ 'n'  : 'NOR',
@@ -555,7 +557,7 @@ let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
 nmap <leader>é :CtrlPBufTag<cr>
-map ç :<c-u>CtrlPClearCache<cr>
+nmap <leader>b :CtrlPBuffer<cr>
 map <backspace> :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
@@ -655,7 +657,8 @@ inoremap <c-s> <esc>:w<cr>
 " Normal mode
 noremap <space> :
 " Empty buffers
-map <leader>b :bufdo bd<cr>
+" map <leader>b :bufdo bd<cr>
+command! B bufdo bd
 " Change mode
 nnoremap l c
 nnoremap L C
@@ -673,7 +676,8 @@ map K <nop>
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
-nmap <leader>n :call RenameFile()<cr>
+command! RenameFile :call RenameFile()
+command! RF :call RenameFile()
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>Q :Copen<cr>
