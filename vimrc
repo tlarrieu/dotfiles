@@ -205,6 +205,7 @@ augroup vimrc_autocmd
   autocmd FileType ruby set makeprg=ruby\ %
   autocmd BufReadPost *.arb setf ruby
   autocmd FileType hgcommit startinsert!
+  autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
