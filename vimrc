@@ -576,6 +576,7 @@ nmap gw :Gwrite<cr>
 nmap gr :Gread<cr>
 nmap gC :Gcommit<cr>
 nmap gs :Gstatus<cr>
+nmap gp :Gpush<cr>
 " }}}
 " {{{ ---------------------- Mercenary / Lawrencium
 nmap hb :HGblame<cr>
