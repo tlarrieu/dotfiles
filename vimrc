@@ -366,10 +366,6 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ --------------------------------------- Rails
-nmap <leader>av :AV<cr>
-nmap <leader>ar :AR<cr>
-" }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
   autocmd FileType yaml nmap <buffer> @ :YamlGoToKey 
@@ -741,6 +737,10 @@ nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
 " }}}
 " {{{ ------------------------------- Quick Editing
+" Rails
+nmap <leader>av :AV<cr>
+nmap <leader>ar :AR<cr>
+
 nmap <leader>ev :tabe $MYVIMRC<cr>
 nmap <leader>eg :tabe ~/.gitconfig<cr>
 nmap <leader>eh :tabe ~/.hgrc<cr>
