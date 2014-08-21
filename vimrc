@@ -263,7 +263,8 @@ set nu
 " Virtual editing
 set virtualedit=all
 " Blank character
-set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:>,precedes:<
+set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:❯,precedes:❮
+set showbreak=↪
 set list
 " Show matching braces
 set showmatch
@@ -272,9 +273,10 @@ set showcmd
 " Encoding and filetype
 set encoding=utf8
 set ffs=unix,dos,mac
-" Backup and swap files
-set backupdir=~/.tmp
-set directory=~/.tmp
+" Undo, backup and swap files
+set undodir=~/.tmp//
+set backupdir=~/.tmp//
+set directory=~/.tmp//
 " Activate undofile, that holds undo history
 set undofile
 " Ignore those files
@@ -333,6 +335,24 @@ set foldnestmax=3
 set foldlevelstart=10
 set fillchars+=fold: 
 set foldminlines=1
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction
+set foldtext=MyFoldText()
+nnoremap <leader>z zMzv
+nnoremap zO zczO
 " }}}
 " {{{ ---------------------------------------------------------------- Searching
 " case behavior regarding searching
@@ -346,6 +366,10 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ --------------------------------------- Rails
+nmap <leader>av :AV<cr>
+nmap <leader>ar :AR<cr>
+" }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
   autocmd FileType yaml nmap <buffer> @ :YamlGoToKey 
@@ -397,7 +421,7 @@ vmap <silent> iC <Plug>AngryInnerSuffix
 omap <silent> iC <Plug>AngryInnerSuffix
 " }}}
 " {{{ ------------------------------------- Targets
-let g:targets_pairs = '()b {}B []R <>a'
+let g:targets_pairs = '()b {}é []d <>a'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
@@ -433,7 +457,7 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
 augroup END
 
-nmap <leader>a :Ag! ""<left>
+nmap <leader>ag :Ag! ""<left>
 nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
@@ -553,7 +577,8 @@ xmap u   <Plug>VSurround
 xmap U   <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
-let g:ctrlp_map = '<leader><leader>'
+" let g:ctrlp_map = '<leader><leader>'
+let g:ctrlp_map = '<space>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 1
@@ -601,14 +626,10 @@ noremap ` '
 " Navigating between splits
 noremap <tab> <c-w>w
 noremap <s-tab> <c-w>W
-noremap <s-s> <c-w>W
-sunmap  <s-s>
-noremap <s-t> <c-w>w
-sunmap  <s-t>
-noremap <s-c> gT
-sunmap  <s-c>
-noremap <s-r> gt
-sunmap  <s-r>
+noremap S gT
+sunmap  S
+noremap T gt
+sunmap  T
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -619,7 +640,11 @@ map <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
 " Beginning / end of the line
+nnoremap <c-a> ^
+inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
+nnoremap <c-e> $
+inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
 nnoremap c h
@@ -630,12 +655,15 @@ xnoremap c h
 xnoremap r l
 xnoremap t gj
 xnoremap s gk
+nnoremap C ^
+nnoremap R $
 " Quifix list
 nnoremap <c-p> :cp<cr>
 nnoremap <c-n> :cn<cr>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
-noremap <return> i<CR><ESC>
+" Split lines
+noremap <c-j> i<cr><esc>
 " visual shifting (builtin-repeat)
 nmap » >>_
 nmap « <<_
@@ -643,9 +671,12 @@ vmap » >gv
 vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
+" Fuck you, help.
+nnoremap <F1> <c-g>
+inoremap <F1> <c-g>
 " Paste from system buffer
-map <leader>p :set paste<cr>o<esc>"*]p:set nopaste<cr>
-map <leader>P :set paste<cr>O<esc>"*]p:set nopaste<cr>
+map <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
+map <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
 map <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
@@ -657,7 +688,7 @@ nnoremap <c-s> :w<cr>
 vnoremap <c-s> <esc>:w<cr>
 inoremap <c-s> <esc>:w<cr>
 " Normal mode
-noremap <space> :
+noremap <return> :
 " Empty buffers
 " map <leader>b :bufdo bd<cr>
 command! B bufdo bd
@@ -675,6 +706,10 @@ nnoremap ê :bd<cr>
 " Disable annoying mapping
 map Q <nop>
 map K <nop>
+" Reselected pasted lines
+nnoremap <leader>V V`]
+" Select current line charwise
+" nnoremap vv ^v$
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
@@ -686,9 +721,6 @@ nmap <silent> <leader>Q :Copen<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-" todo-lists
-nmap <silent> <leader>T :tabe ~/todo.tasks<cr>
-nmap <silent> <leader>R :tabe ~/mep.tasks<cr>
 " Clear search
 noremap <silent> <leader>h :let @/ = ""<cr>
 " Search within visual selection
@@ -702,8 +734,19 @@ nnoremap U :redo<cr>
 nmap <leader>e :call SplitSwap()<cr><tab>
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-
 " Display lint errors
 nmap <leader>E :Errors<cr>
+" Uppercase current word
+nnoremap <c-g> gUiw
+inoremap <c-g> <esc>gUiwea
+" }}}
+" {{{ ------------------------------- Quick Editing
+nmap <leader>ev :tabe $MYVIMRC<cr>
+nmap <leader>eg :tabe ~/.gitconfig<cr>
+nmap <leader>eh :tabe ~/.hgrc<cr>
+nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
+nmap <leader>em :tabe ~/.tmux.conf<cr>
+nmap <leader>et :tabe ~/todo.tasks<cr>
+nmap <leader>er :tabe ~/mep.tasks<cr>
 " }}}
 " }}}
