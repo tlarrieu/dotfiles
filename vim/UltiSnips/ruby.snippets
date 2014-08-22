@@ -1,0 +1,83 @@
+snippet miss
+def method_missing(meth, *args, &block)
+	if meth.to_s =~ $1
+		$2
+	else
+		super
+	end
+end
+endsnippet
+
+snippet con
+context "${1:context_name}" do
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet shcon
+shared_context "${1:context_name}" do
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet shex
+shared_examples "${1:examples_name}" do
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet exp
+expect(${1:subject}).to ${0}
+endsnippet
+
+snippet expn
+expect(${1:subject}).not_to ${0}
+endsnippet
+
+snippet expbn
+expect { ${1:subject} }.not_to ${0} }
+endsnippet
+
+snippet ite
+it { expect(${1}).to ${0} }
+endsnippet
+
+snippet itne
+it { expect(${1}).not_to ${0} }
+endsnippet
+
+snippet def
+def ${1:method}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet shop
+module ShopmiumShops
+	module Sources
+		class ${1:RepositoryName} < Base
+			def initialize
+				@path = './input/${2:repository_name}/$2.rb'
+			end
+
+			def each
+        CSV.foreach(@path, {col_sep: ',', encoding: 'UTF-8', quote_char: '♡' }) do |row|
+					$0
+        end
+			end
+
+			def type
+				${3:'file'}
+			end
+
+			def canonical?
+				${4:true}
+			end
+
+			def main?
+				${5:true}
+			end
+		end
+	end
+end
+endsnippet

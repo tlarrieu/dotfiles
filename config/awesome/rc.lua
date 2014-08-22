@@ -1,26 +1,28 @@
 -- Standard awesome library
-require("awful")
+awful = require("awful")
+awful.rules = require("awful.rules")
 require("awful.autofocus")
-require("awful.rules")
+wibox = require("wibox")
 -- Theme handling library
-require("beautiful")
+beautiful = require("beautiful")
 -- Notification library
-require("naughty")
+naughty = require("naughty")
+-- Wallpaper handling library
+gears = require("gears")
 
 -- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
-terminal = "st"
+terminal = "termite"
 terminal_exec = terminal .. " -e "
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal_exec .. editor
-newline = "\n" -- This is used in a zsh scripts related to naughty
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod1"
+modkey = "Mod4"
 
 -- }}}
 

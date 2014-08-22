@@ -1,21 +1,26 @@
 [user]
-	name = Thomas Larrieu
-	email = thomas.larrieu@tiolive.com
-[credentila]
-	helper = cache
+  name = Thomas Larrieu
+  email = thomas.larrieu@gmail.com
+[credential]
+  helper = cache
 [color]
-	ui = auto
+  ui = auto
+  status = auto
+  diff = no
 [push]
-	default = matching
+  default = matching
+[diff]
+  tool = vimdiff
 [core]
-	editor = vim
-	excludesfile = /home/smockey/.gitignore
+  editor = vim
+  excludesfile = /home/smockey/.gitignore
+  pager = "vim -c AnsiEsc -c 'syn on' -c 'set nomod' -"
 [alias]
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
+  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
   lgsa = "!f() { git lgs --author=$1; }; f"
-	co = checkout
-	br = branch
-	ci = commit
-	st = status
+  co = checkout
+  br = branch
+  ci = commit
+  st = status
   ft = fetch

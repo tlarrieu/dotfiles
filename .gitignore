@@ -5,3 +5,16 @@
 config/xfce4/panel/*
 config/xfce4/desktop/*
 config/xfce4/helpers.rc
+
+config/fish/fish_history
+config/fish/fishd.*
+config/fish/functions/rvm.fish
+config/fish/functions/ec2.fish
+config/fish/functions/pg_cred.fish
+config/fish/functions/pg_cred_stag.fish
+config/fish/functions/pg_info.fish
+config/fish/functions/pres.fish
+vim/bundle/**
+vim/doc
+vim/spell
+!vim/bundle/vundle

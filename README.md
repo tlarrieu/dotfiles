@@ -18,36 +18,14 @@ I might integrate a backup handler to automatize the process (backup / restore).
 This is not a priority however, and this has great chance not to come
 any time soon.
 
-###About missing links
-I do know I have broken links to other git projects that are included in this one.
-I sincerly apologize for this. The reason behind that is that I'm quiet new to git
-and could not find a way to include them properly. If you find this offensive
-or want to help me achieve cross-references, I'd be glad too ;)
-
-**Anyway, I will link all of theme soon enough so at least, they can get credit
-for their respective work!**
-
-###About branches
-This project currently holds two branches : master and archlinux.
-Basically, master is just an outdated version of archlinux. Or should I say, a
-version for linux distros that are not up to date package-version-wise. (In the newer
-version of some apps, syntax changes have happened in configuration files, so I had
-to adapt some files).
-Since I work almost exclusively on Arch, master might not be perfectly on par with archlinux.
-
-Mac is pretty self-explenatory : this is basically a port of the archlinux branch for OSX.
-I removed a lot of irrelevant stuff and adapted a few things (for vim in particular).
-
-
 Goals
 -----
 
 - Maintain a coherent config backup / bootstrap
 - Provide support for bépo (french dvorak variant, more about it here : http://bepo.fr/wiki/Accueil)
-- Provide uniformized solarized color scheme for various applications (more about this wonderful scheme 
+- Provide uniformized solarized color scheme for various applications (more about this wonderful scheme
 here : http://ethanschoonover.com/solarized)
-- Implement powerline wherever I can (as for now only in vim — with the real python plugin, and 
-in zsh through presto — although this one is "emulated"). More to come, whenever I find some time ;)
+- Implement powerline style wherever I can
 
 ####td;dr
 
@@ -56,27 +34,17 @@ in zsh through presto — although this one is "emulated"). More to come, whenev
 
 Supported applications
 ----------------------
+- tmux
+- vim
+- fish
+- Oh My Fish!
 - awesome
 - ranger
-- vim
-- moc
+- sakura
 - mplayer
-- vimperator (firefox plugin)
-- stylish (firefox plugin) : *stylish.sqlite does not get linked properly by install script.
-You have to manually copy it in your profile directory (~/.mozilla/firefox/\<profile\>/)*
-- luakit
-- zsh / prezto
-- xfce4-terminal (Terminal)
-- zathura
-- Firefox : *userchrome.css does not get
-linked properly by install script. You have to manually copy it
-in your profile directory (~/.mozilla/firefox/\<profile\>/chrome/)*
+- moc
+- git
+- mercurial
+- Firefox : userchrome.css does not get linked properly by install script. You have to manually copy it in your profile directory (~/.mozilla/firefox/<profile>/chrome/)
 
 Some might be added, depending on my personnal needs.
-
-
-Warning
--------
-/!\ You will need powerline (https://github.com/Lokaltog/powerline) for
-the vimrc file to be fully operationnal. (if you don't need it,
-just tweak a bit the file in order to get the old status bar displayed).

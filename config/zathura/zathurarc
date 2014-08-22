@@ -6,10 +6,10 @@ set homepage http://www.google.com/ig
 set auto_save 60
 set single_instance false
 # Use privoxy for adblocking
-set proxy localhost:8118 
+set proxy localhost:8118
 # look n feel
 #set font monospace normal 9
-#set stylesheet file:///home/inxs/.config/jumanji/style.css 
+#set stylesheet file:///home/inxs/.config/jumanji/style.css
 # follow hints
 # script ~/.config/jumanji/scripts/hinting.js
 # downloads
