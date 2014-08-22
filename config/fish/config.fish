@@ -101,6 +101,7 @@ alias be="bundle exec"
 alias bspec="bundle exec rspec"
 alias rdm="bundle exec rake db:migrate"
 alias rpp="bundle exec rake parallel:prepare"
+alias rdtp="bundle exec rake db:test:prepare"
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
