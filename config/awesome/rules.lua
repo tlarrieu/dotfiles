@@ -16,7 +16,7 @@ awful.rules.rules = {
   { rule = { class = "Firefox" }, properties = { opacity = 1.0 } },
   { rule = { class = "Opera" }, properties = { opacity = 1.0 } },
   { rule = { class = "luakit" }, properties = { opacity = 1.0 } },
-  { rule = { class = "Plugin-container" }, properties = { opacity = 1.0, floating = true } },
+  { rule = { class = "Plugin-container" }, properties = { opacity = 1.0, floating = true, ontop = true } },
   { rule = { class = "Operapluginwrapper-native" }, properties = { opacity = 1.0, floating = true } },
 
 
