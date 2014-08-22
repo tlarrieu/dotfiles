@@ -60,12 +60,18 @@ done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
+# Vundle
+if [[ -d ~/.vim/bundle/Vundle.vim ]]; then
+  echo "Vundle already installed, nothing to do."
+else
+  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+fi
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
 # Bundler
 vim +BundleInstall +qall
 # YouCompleteMe
- if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
+if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
   echo -n "Do you want to compile YouCompleteMe ? (Y/n)"
   read answer
   case $answer in
