@@ -13,8 +13,8 @@ gears = require("gears")
 -- {{{ Variable definitions
 
 -- This is used later as the default terminal and editor to run.
-terminal = "sakura"
-terminal_exec = terminal .. " -x "
+terminal = "termite"
+terminal_exec = terminal .. " -e "
 editor = os.getenv("EDITOR") or "editor"
 editor_cmd = terminal_exec .. editor
 -- Default modkey.
