@@ -642,10 +642,8 @@ map <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
 " Beginning / end of the line
-nnoremap <c-a> ^
 inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
-nnoremap <c-e> $
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
