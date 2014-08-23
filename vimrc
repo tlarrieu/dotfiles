@@ -577,7 +577,10 @@ xmap U   <Plug>VgSurround
 let g:ctrlp_map = '<space>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 1
+let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+let g:ctrlp_open_new_file = 't'
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -585,6 +588,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 nmap <leader>é :CtrlPBufTag<cr>
+nmap <leader>É :CtrlPTag<cr>
 nmap <leader>b :CtrlPBuffer<cr>
 map <backspace> :<c-u>CtrlPClearCache<cr>
 " }}}
