@@ -431,7 +431,9 @@ augroup switch
         \ {
         \   'lambda { |\(.*\)| \(.*\) }': '->(\1) { \2 }',
         \   'lambda { \(.*\) }': '-> { \1 }',
-        \ },
+        \   '\(\S\+.\+\).should\(\s\+\)==\s*\(.\+\)': 'expect(\1).to\2eq \3',
+        \   '\(\S\+.\+\).should\(\S\+\)\s*\(.\+\)': 'expect(\1).to\2 \3',
+        \ }
         \]
 augroup END
 nmap -  :Switch<cr>
@@ -613,10 +615,12 @@ nmap gp :Gpush<cr>
 " {{{ ---------------------- Mercenary / Lawrencium
 nmap hb :HGblame<cr>
 nmap hd :HGdiff<cr>
+nmap hD :HGdiff ancestor(default,.)<cr>
 nmap hh :Hg! 
 nmap hc :Hgcommit<cr>
 nmap hs :Hgstatus<cr>
-nmap hr :Hgrevert<cr>:e<cr>
+nmap hS :Dispatch hg status --rev "::. - ::default"<cr>
+nmap hr :Hgrevert!<cr>:e<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
@@ -756,5 +760,8 @@ nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/mep.tasks<cr>
+" }}}
+" {{{ -------------------------------------- Refact
+nmap <leader>' :s/\(\S\+\).should\(\s\+\)==\s*\(.\+\)/expect(\1).to\2eq(\3)/<cr>
 " }}}
 " }}}
