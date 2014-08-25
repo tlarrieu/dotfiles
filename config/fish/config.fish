@@ -87,6 +87,8 @@ alias rstruct="hg revert -C db/structure.sql"
 alias hout="hg outgoing"
 alias hin="hg incoming"
 
+alias pg="psql --username postgres --dbname=pg_development"
+
 function hrc
   heroku run console -a $argv
 end
