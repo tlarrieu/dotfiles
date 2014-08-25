@@ -21,6 +21,9 @@ else
 fi
 tmux new-window -t $SESSION:3 -n dev.vim  "fish -c 'vim'"
 tmux new-window -t $SESSION:4 -n dev.shell
+if [ -f config/environment.rb ]; then
+  tmux new-window -t $SESSION:5 -n dev.psql "psql --username postgres --dbname=pg_development"
+fi
 
 tmux set-window-option -t $SESSION -g automatic-rename on
 tmux select-window -t $SESSION:1
