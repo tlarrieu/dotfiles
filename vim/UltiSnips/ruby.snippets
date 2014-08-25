@@ -8,6 +8,16 @@ def method_missing(meth, *args, &block)
 end
 endsnippet
 
+snippet it
+it("${1:example title}") { $0 }
+endsnippet
+
+snippet itb
+it "${1:example title}" do
+	$0
+end
+endsnippet
+
 snippet con
 context "${1:context_name}" do
 	${0:${VISUAL}}
