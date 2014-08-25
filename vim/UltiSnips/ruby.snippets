@@ -67,12 +67,22 @@ module ShopmiumShops
 	module Sources
 		class ${1:RepositoryName} < Base
 			def initialize
-				@path = './input/${2:repository_name}/$2.rb'
+				@path = './input/${2:repository_name}/$2.csv'
 			end
 
 			def each
         CSV.foreach(@path, {col_sep: ',', encoding: 'UTF-8', quote_char: '♡' }) do |row|
-					$0
+          yield Shop.new({
+            key: $6,
+            store_id: $7,
+            chain: $8,
+            name: $9
+            address: $10,
+            zip: $11
+            city: $12
+            phone: $13
+            country_code: $0
+          })
         end
 			end
 
