@@ -723,6 +723,7 @@ nnoremap <leader>V V`]
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
+nmap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>Q :Copen<cr>
