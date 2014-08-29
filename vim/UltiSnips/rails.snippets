@@ -1,0 +1,9 @@
+snippet pgenum
+module PgEnum
+  class ${1:enum_name}
+    extend PgEnum::Definition
+
+    enum '${2:enum_name}', %w( ${0:list} )
+  end
+end
+endsnippet
