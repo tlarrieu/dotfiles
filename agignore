@@ -7,3 +7,4 @@ public/assets
 *.sql
 *.zip
 data/manual_cache.json
+tags
