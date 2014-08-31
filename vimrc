@@ -441,7 +441,7 @@ nmap -  :Switch<cr>
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
 let g:grep_cmd_opts = '--line-numbers --noheading'
-nmap <leader>S :Gsearch 
+nmap <leader>S :Gsearch ""<left>
 nmap <leader>G :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
@@ -753,6 +753,7 @@ inoremap <c-g> <esc>gUiwea
 " Rails
 nmap <leader>av :AV<cr>
 nmap <leader>ar :AR<cr>
+nmap <leader>es :tabe db/structure.sql<cr>
 
 nmap <leader>ev :tabe $MYVIMRC<cr>
 nmap <leader>eg :tabe ~/.gitconfig<cr>
@@ -760,7 +761,7 @@ nmap <leader>eh :tabe ~/.hgrc<cr>
 nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
-nmap <leader>er :tabe ~/mep.tasks<cr>
+nmap <leader>er :tabe ~/release.tasks<cr>
 " }}}
 " {{{ -------------------------------------- Refact
 nmap <leader>' :s/\(\S\+\).should\(\s\+\)==\s*\(.\+\)/expect(\1).to\2eq(\3)/<cr>
