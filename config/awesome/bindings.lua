@@ -38,7 +38,7 @@ globalkeys = awful.util.table.join(
   -- Window screen switching
   awful.key({ modkey,           }, "o", awful.client.movetoscreen                        ),
 
-  awful.key({ "Control", "Shift"}, "r", awesome.restart                                  )
+  awful.key({ modkey, "Shift"  }, "r", awesome.restart                                  )
 )
 
 --[[ Workspace handling ]]----------------
@@ -115,7 +115,10 @@ globalkeys = awful.util.table.join(globalkeys,
   -- dmenu
   awful.key({ "Control"         }, " ",           function ()
     -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
-    awful.util.spawn("dmenu_run -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
+    -- Solarized dark
+    -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
+    -- Solarized light
+    awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
   end),
   -- Session control
   -- awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
