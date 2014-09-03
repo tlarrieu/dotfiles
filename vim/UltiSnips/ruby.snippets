@@ -9,10 +9,21 @@ end
 endsnippet
 
 snippet it
+it { $0 }
+endsnippet
+
+snippet iT
 it("${1:example title}") { $0 }
 endsnippet
 
+
 snippet itb
+it '${1:example title}' do
+	$0
+end
+endsnippet
+
+snippet itB
 it "${1:example title}" do
 	$0
 end

@@ -45,8 +45,6 @@ Plugin 'wellle/targets.vim'
 Plugin 'samsonw/vim-task'
 " Undo tree explorer
 Plugin 'sjl/gundo.vim'
-" Better motion
-Plugin 'Lokaltog/vim-easymotion'
 " List toggler
 Plugin 'milkypostman/vim-togglelist'
 " Ruby
@@ -359,8 +357,8 @@ nnoremap zO zczO
 set ignorecase
 set smartcase
 " some more search related stuff
-" set hlsearch  " highlight search
-" set incsearch " start search while typing
+set hlsearch  " highlight search
+set incsearch " start search while typing
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
@@ -368,9 +366,9 @@ set spelllang=en,fr
 " {{{ ------------------------------------------------------------------ Plugins
 " {{{ ---------------------------------------- YAML
 augroup yaml
-  autocmd FileType yaml nmap <buffer> @ :YamlGoToKey 
-  autocmd FileType yaml nmap <buffer> + :YamlGoToParent<cr>
-  autocmd FileType yaml nmap <buffer> - :YamlGetFullPath<cr>
+  autocmd FileType yaml nmap <buffer> 6 :YamlGoToKey
+  autocmd FileType yaml nmap <buffer> 7 :YamlGoToParent<cr>
+  autocmd FileType yaml nmap <buffer> 8 :YamlGetFullPath<cr>
 augroup end
 " }}}
 " {{{ ---------------------------------- ToggleList
@@ -417,7 +415,7 @@ vmap <silent> iC <Plug>AngryInnerSuffix
 omap <silent> iC <Plug>AngryInnerSuffix
 " }}}
 " {{{ ------------------------------------- Targets
-let g:targets_pairs = '()b {}é []d <>a'
+let g:targets_pairs = '()b {}é []d <>É'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
@@ -429,14 +427,14 @@ augroup switch
   autocmd FileType ruby let b:switch_custom_definitions =
         \[
         \ {
-        \   'lambda { |\(.*\)| \(.*\) }': '->(\1) { \2 }',
-        \   'lambda { \(.*\) }': '-> { \1 }',
+        \   'lambda { \?|\(.*\)| \(.*\) \?}': '->(\1) { \2 }',
+        \   'lambda { \?\(.*\) \?}': '-> { \1 }',
         \   '\(\S\+.\+\).should\(\s\+\)==\s*\(.\+\)': 'expect(\1).to\2eq \3',
         \   '\(\S\+.\+\).should\(\S\+\)\s*\(.\+\)': 'expect(\1).to\2 \3',
         \ }
         \]
 augroup END
-nmap -  :Switch<cr>
+" nmap -  :Switch<cr>
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
@@ -461,42 +459,6 @@ nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
 vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
-" }}}
-" {{{ ---------------------------------- Easymotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_startofline = 0 " keep cursor colum when JK motion
-let g:EasyMotion_cursor_highlight = 1
-let g:EasyMotion_prompt = get(g:, 'EasyMotion_prompt', 'EasyMotion : ')
-let g:EasyMotion_keys = get(g:, 'EasyMotion_keys', 'auie,ctsrn.qbpovdljyxkghAUIECTSRNQBPOVDLJYXKGH;')
-let g:EasyMotion_incsearch = 1
-hi EasyMotionShade     ctermfg=14 guifg=#93A1A1
-hi EasyMotionTarget    ctermfg=5 cterm=bold guifg=#D13A82 gui=bold
-" hi EasyMotionIncSearch ctermfg=2 cterm=bold guifg=#80A441 gui=bold
-hi EasyMotionIncSearch ctermfg=32 cterm=bold guifg=#80A441 gui=bold
-" hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
-" hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
-augroup easymotion
-  autocmd!
-  autocmd BufReadPost * hi EasyMotionShade     ctermfg=14 guifg=#93A1A1
-  autocmd BufReadPost * hi EasyMotionTarget    ctermfg=5 cterm=bold guifg=#D13A82 gui=bold
-  autocmd BufReadPost * " hi EasyMotionIncSearch ctermfg=2 cterm=bold guifg=#80A441 gui=bold
-  autocmd BufReadPost * hi EasyMotionIncSearch ctermfg=32 cterm=bold guifg=#80A441 gui=bold
-  " autocmd BufReadPost * hi Search              ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
-  " autocmd BufReadPost * hi IncSearch           ctermbg=none ctermfg=2 guibg=#FDF6E4 guifg=#80A441
-augroup END
-map e <Plug>(easymotion-lineforward)
-sunmap e
-map b <Plug>(easymotion-linebackward)
-sunmap b
-map <leader>t <Plug>(easymotion-j)
-map <leader>s <Plug>(easymotion-k)
-map f <Plug>(easymotion-f)
-map è <Plug>(easymotion-t)
-map é <Plug>(easymotion-sn)
-map n <Plug>(easymotion-next)
-map N <Plug>(easymotion-prev)
-nnoremap ; <Plug>(esymation-bd-n)
 " }}}
 " {{{ ------------------------------------- VimTask
 augroup vimtask
@@ -579,7 +541,7 @@ xmap U   <Plug>VgSurround
 let g:ctrlp_map = '<space>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'et'
+let g:ctrlp_switch_buffer = 'Et'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 let g:ctrlp_open_new_file = 't'
@@ -673,10 +635,10 @@ noremap <c-l> J
 " Split lines
 noremap <c-j> i<cr><esc>
 " visual shifting (builtin-repeat)
-nmap » >>_
-nmap « <<_
-vmap » >gv
-vmap « <gv
+" nmap » >>_
+" nmap « <<_
+" vmap » >gv
+" vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
 " Fuck you, help.
@@ -731,9 +693,9 @@ nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
-noremap <silent> <leader>h :let @/ = ""<cr>
+noremap <silent> H :let @/ = ""<cr>
 " Search within visual selection
-vmap <c-f> <Esc>/\%V
+vmap <c-f> <esc>é\%V
 " Replace in visual selection
 vmap <c-g> <esc>:%s/\%V
 " Toggle line wrap
@@ -748,6 +710,31 @@ nmap <leader>E :Errors<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
+" }}}
+" {{{ ---------------------------- Swap number line
+noremap " 1
+noremap 1 "
+noremap « 2
+noremap 2 <<_
+vnoremap 2 <gv
+noremap » 3
+noremap 3 >>_
+vnoremap 3 >gv
+noremap ( 4
+noremap 4 (
+noremap ) 5
+noremap 5 )
+noremap @ 6
+noremap 6 @
+noremap + 7
+noremap 7 +
+noremap - 8
+noremap 8 :Switch<cr>
+noremap / 9
+noremap 9 /
+noremap * 0
+noremap 0 *
+noremap é /
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
