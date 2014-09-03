@@ -68,7 +68,7 @@ alias hdpr="hg mdiff -r \"ancestor(default,.)\""
 alias hdprr="hg mdiff -r \"ancestor(rails4_updated,.)\""
 alias hspr="hg status --rev \"::. - ::default\""
 function hdprc
-  hg diff -r "ancestor($argv,.)"
+  hg mdiff -r "ancestor($argv,.)"
 end
 alias hlb="hg log --graph -b"
 alias hm="hg merge"
