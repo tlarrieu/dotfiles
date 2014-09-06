@@ -1,6 +1,10 @@
-snippet miss
+snippet #! "she bang"
+#!/usr/bin/env ruby
+endsnippet
+
+snippet miss "method missing"
 def method_missing(meth, *args, &block)
-	if meth.to_s =~ $1
+	if meth.to_s =~ /$1/
 		$2
 	else
 		super
@@ -8,107 +12,30 @@ def method_missing(meth, *args, &block)
 end
 endsnippet
 
-snippet it
-it { $0 }
-endsnippet
-
-snippet iT
-it("${1:example title}") { $0 }
-endsnippet
-
-
-snippet itb
-it '${1:example title}' do
-	$0
-end
-endsnippet
-
-snippet itB
-it "${1:example title}" do
-	$0
-end
-endsnippet
-
-snippet con
-context "${1:context_name}" do
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet shcon
-shared_context "${1:context_name}" do
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet shex
-shared_examples "${1:examples_name}" do
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet exp
-expect(${1:subject}).to ${0}
-endsnippet
-
-snippet expn
-expect(${1:subject}).not_to ${0}
-endsnippet
-
-snippet expbn
-expect { ${1:subject} }.not_to ${0} }
-endsnippet
-
-snippet ite
-it { expect(${1}).to ${0} }
-endsnippet
-
-snippet itne
-it { expect(${1}).not_to ${0} }
-endsnippet
-
-snippet def
+snippet def "method definition"
 def ${1:method}
 	${0:${VISUAL}}
 end
 endsnippet
 
-snippet shop
-module ShopmiumShops
-	module Sources
-		class ${1:RepositoryName} < Base
-			def initialize
-				@path = './input/${2:repository_name}/$2.csv'
-			end
+snippet times "times"
+times { |${1:i}| $2 }
+endsnippet
 
-			def each
-        CSV.foreach(@path, {col_sep: ',', encoding: 'UTF-8', quote_char: '♡' }) do |row|
-          yield Shop.new({
-            key: $6,
-            store_id: $7,
-            chain: $8,
-            name: $9
-            address: $10,
-            zip: $11
-            city: $12
-            phone: $13
-            country_code: $0
-          })
-        end
-			end
+snippet reduce "reduce"
+reduce { |${1:i}| $2 }
+endsnippet
 
-			def type
-				${3:'file'}
-			end
+snippet map "map"
+map { |${1:i}| $2 }
+endsnippet
 
-			def canonical?
-				${4:true}
-			end
+snippet -> "lambda"
+->(${1:i}) { ${2:${VISUAL}} }
+endsnippet
 
-			def main?
-				${5:true}
-			end
-		end
-	end
-end
+snippet puts "special puts"
+puts "\n-------------------- [${1:foo}]"
+puts $2
+puts '--------------------'
 endsnippet
