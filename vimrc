@@ -651,6 +651,8 @@ map <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
+noremap è t
+noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
