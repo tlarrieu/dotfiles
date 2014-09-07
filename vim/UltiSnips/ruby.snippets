@@ -2,6 +2,10 @@ snippet #! "she bang"
 #!/usr/bin/env ruby
 endsnippet
 
+snippet inc "include"
+include ${1:Module}
+endsnippet
+
 snippet miss "method missing"
 def method_missing(meth, *args, &block)
 	if meth.to_s =~ /$1/
