@@ -52,6 +52,7 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'tpope/vim-rails'
+Plugin 't9md/vim-ruby-xmpfilter'
 " VCS
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
@@ -364,6 +365,16 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------- xmpfilter
+augroup xmpfilter
+  autocmd FileType ruby nmap <buffer> <leader>m <Plug>(xmpfilter-mark)
+  autocmd FileType ruby xmap <buffer> <leader>m <Plug>(xmpfilter-mark)
+  autocmd FileType ruby imap <buffer> <leader>m <Plug>(xmpfilter-mark)
+
+  autocmd FileType ruby nmap <buffer> <leader>M <Plug>(xmpfilter-run)
+  autocmd FileType ruby xmap <buffer> <leader>M <Plug>(xmpfilter-run)
+  autocmd FileType ruby imap <buffer> <leader>M <Plug>(xmpfilter-run)
+augroup end
 " {{{ ---------------------------------------- YAML
 augroup yaml
   autocmd FileType yaml nmap <buffer> 6 :YamlGoToKey
@@ -480,7 +491,7 @@ noremap <leader>use :UltiSnipsEdit<cr>
 " }}}
 " {{{ ------------------------------- YouCompleteMe
 " I want tab for UltiSnips so I deactivate it for YCM
-let g:ycm_key_list_select_completion = [' ']
+let g:ycm_key_list_select_completion = []
 " }}}
 " {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
