@@ -16,6 +16,12 @@ def method_missing(meth, *args, &block)
 end
 endsnippet
 
+snippet init "constructor definition"
+def initialize${1:*args}
+	${2}
+end
+endsnippet
+
 snippet def "method definition"
 def ${1:method}
 	${0:${VISUAL}}
