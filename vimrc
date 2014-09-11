@@ -378,7 +378,7 @@ augroup end
 " }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
-  autocmd FileType yaml nmap <buffer> 6 :YamlGoToKey
+  autocmd FileType yaml nmap <buffer> 6 :YamlGoToKey 
   autocmd FileType yaml nmap <buffer> 7 :YamlGoToParent<cr>
   autocmd FileType yaml nmap <buffer> 8 :YamlGetFullPath<cr>
 augroup end
