@@ -51,6 +51,7 @@ Plugin 'milkypostman/vim-togglelist'
 " Plugin 'tpope/vim-endwise'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
 Plugin 't9md/vim-ruby-xmpfilter'
 " VCS
