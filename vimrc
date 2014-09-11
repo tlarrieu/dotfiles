@@ -375,6 +375,7 @@ augroup xmpfilter
   autocmd FileType ruby xmap <buffer> <leader>M <Plug>(xmpfilter-run)
   autocmd FileType ruby imap <buffer> <leader>M <Plug>(xmpfilter-run)
 augroup end
+" }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
   autocmd FileType yaml nmap <buffer> 6 :YamlGoToKey
@@ -762,6 +763,9 @@ nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
+" }}}
+" {{{ ---------------------------------------- Zeal
+noremap k :!zeal --query "<cword>"&<cr><cr>
 " }}}
 " {{{ -------------------------------------- Refact
 nmap <leader>' :s/\(\S\+\).should\(\s\+\)==\s*\(.\+\)/expect(\1).to\2eq(\3)/<cr>
