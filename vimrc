@@ -68,6 +68,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
+Plugin 'kchmck/vim-coffee-script'
 " Plugin 'elixir-lang/vim-elixir'
 " Good looking
 Plugin 'altercation/vim-colors-solarized'
