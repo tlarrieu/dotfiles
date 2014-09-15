@@ -3,12 +3,12 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-666999.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-666998.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-329.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-6920.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/Vocaloid-Anime-Hatsune-Miku-Append-tsunekun-664585.jpeg",
 }
 for s = 1, screen.count() do
-  gears.wallpaper.maximized(wallpapers[s], s, true)
+  gears.wallpaper.maximized(wallpapers[s], s, false)
 end
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
