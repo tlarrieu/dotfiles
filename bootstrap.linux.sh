@@ -70,12 +70,17 @@ fi
 safelink $BASEDIR/vim $HOME/.vim
 # Bundler
 vim +BundleInstall +qall
+# Fix for Vim buffer within tmux on OSX
+if [ $OSX ]; then
+  safeinstall reattach-to-user-namespace
+fi
 # YouCompleteMe
 if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
   echo -n "Do you want to compile YouCompleteMe ? (Y/n)"
   read answer
   case $answer in
     "yes"|"y")
+      safeinstall cmake
       cd ~/.vim/bundle/YouCompleteMe
       ./install.sh
       ;;
@@ -84,14 +89,17 @@ else
   echo "YouCompleteMe was not found on the system. Nothing to do."
 fi
 
+# Fish
+safeinstall fish
 # Oh My Fish!
 if [[ -d ~/.oh-my-fish ]]; then
-  echo "Fish already installed. Nothing to do!"
+  echo "Oh-My-Fish already installed. Nothing to do!"
 else
   curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 fi
 safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
 safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
+echo "Fish fully configured, don't forget to set it as your shell"
 
 # RVM and fix for fish
 if [[ -d ~/.rvm ]]; then
