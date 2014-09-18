@@ -48,7 +48,7 @@ Plugin 'sjl/gundo.vim'
 " List toggler
 Plugin 'milkypostman/vim-togglelist'
 " Ruby
-" Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-endwise'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
@@ -59,8 +59,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
 Plugin 'zeekay/vim-lawrencium'
 Plugin 'mhinz/vim-signify'
- " Clojure
-Plugin 'guns/vim-clojure-static'
 " Misc languages support
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'gabrielelana/vim-markdown'
@@ -70,7 +68,7 @@ Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Bundle 'cakebaker/scss-syntax.vim'
-" Plugin 'elixir-lang/vim-elixir'
+Plugin 'elixir-lang/vim-elixir'
 " Good looking
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
@@ -368,6 +366,13 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- endwise
+autocmd FileType elixir
+      \ let b:endwise_addition = 'end' |
+      \ let b:endwise_words = 'do' |
+      \ let b:endwise_pattern = '\<do\ze\s*$' |
+      \ let b:endwise_syngroups = 'elixirKeyword'
+" }}}
 " {{{ ----------------------------------- xmpfilter
 augroup xmpfilter
   autocmd FileType ruby nmap <buffer> <leader>m <Plug>(xmpfilter-mark)
@@ -489,8 +494,8 @@ augroup END
 " }}}
 " {{{ ----------------------------------- UltiSnips
 let g:UltiSnipsEditSplit="vertical"
-map <c-t> <nop>
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
+let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 noremap <leader>use :UltiSnipsEdit<cr>
 " }}}
 " {{{ ------------------------------- YouCompleteMe
@@ -569,7 +574,7 @@ endif
 nmap <leader>é :CtrlPBufTag<cr>
 nmap <leader>É :CtrlPTag<cr>
 nmap <leader>b :CtrlPBuffer<cr>
-map <backspace> :<c-u>CtrlPClearCache<cr>
+nmap <backspace> :<c-u>CtrlPClearCache<cr>
 " }}}
 " {{{ --------------------------------------- Gundo
 let gundo_map_move_older = "t"
@@ -671,9 +676,9 @@ noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Save
-nnoremap <c-s> :w<cr>
-vnoremap <c-s> <esc>:w<cr>
-inoremap <c-s> <esc>:w<cr>
+nnoremap <leader>s :w<cr>
+vnoremap <leader>s <esc>:w<cr>
+inoremap <leader>s <esc>:w<cr>
 " Normal mode
 noremap <return> :
 " Empty buffers
