@@ -30,6 +30,12 @@ snippet itne "it expect not to"
 it { expect(${1}).not_to ${0} }
 endsnippet
 
+snippet letb "let block"
+let(:${1:name}) do
+	$2
+end
+endsnippet
+
 snippet desc "describe"
 describe '${1:subject_name}' do
 	${0:${VISUAL}}
