@@ -65,7 +65,6 @@ alias hci="hg commit"
 alias hcl="hg clone"
 alias hd="hg mdiff"
 alias hdpr="hg mdiff -r \"ancestor(default,.)\""
-alias hdprr="hg mdiff -r \"ancestor(rails4_updated,.)\""
 alias hspr="hg status --rev \"::. - ::default\""
 function hdprc
   hg mdiff -r "ancestor($argv,.)"

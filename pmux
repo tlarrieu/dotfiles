@@ -15,7 +15,7 @@ tmux new-session -d -s $SESSION
 tmux set-window-option -t $SESSION -g automatic-rename off
 tmux new-window -t $SESSION:1 -k -n todo "fish -c 'vim ~/todo.tasks'"
 if [ -f config/environment.rb ]; then
-  tmux new-window -t $SESSION:2 -n dev.pry  'pry -r ./config/environment'
+  tmux new-window -t $SESSION:2 -n dev.pry  'rails console'
 else
   tmux new-window -t $SESSION:2 -n dev.pry  'pry'
 fi
@@ -23,6 +23,9 @@ tmux new-window -t $SESSION:3 -n dev.vim  "fish -c 'vim'"
 tmux new-window -t $SESSION:4 -n dev.shell
 if [ -f config/environment.rb ]; then
   tmux new-window -t $SESSION:5 -n dev.psql "psql --username postgres --dbname=pg_development"
+fi
+if [ -f config/environment.rb ]; then
+  tmux new-window -t $SESSION:6 -n dev.serv  'rails server'
 fi
 
 tmux set-window-option -t $SESSION -g automatic-rename on
