@@ -131,3 +131,6 @@ set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin/
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
+
+# SSH agent
+/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa
