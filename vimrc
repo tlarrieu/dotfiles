@@ -653,7 +653,9 @@ xnoremap r l
 xnoremap t gj
 xnoremap s gk
 nnoremap C ^
+vnoremap C ^
 nnoremap R $
+vnoremap R $
 " Quifix list
 nnoremap <c-p> :cp<cr>
 nnoremap <c-n> :cn<cr>
