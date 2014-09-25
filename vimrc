@@ -663,11 +663,6 @@ nnoremap <c-n> :cn<cr>
 noremap <c-l> J
 " Split lines
 noremap <c-j> i<cr><esc>
-" visual shifting (builtin-repeat)
-" nmap » >>_
-" nmap « <<_
-" vmap » >gv
-" vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
 " Fuck you, help.
