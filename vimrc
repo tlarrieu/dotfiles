@@ -669,9 +669,9 @@ inoremap # X<bs>#
 nnoremap <F1> <c-g>
 inoremap <F1> <c-g>
 " Paste from system buffer
-map <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
-map <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
-map <leader>y "+y
+noremap <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
+noremap <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
+noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
