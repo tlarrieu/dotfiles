@@ -780,4 +780,11 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 " {{{ ---------------------------------------- Zeal
 noremap k :!zeal --query "<cword>"&<cr><cr>
 " }}}
+" {{{ ----------------------------- Repeat f with .
+nnoremap <Plug>NextMatch ;
+nnoremap <silent> f :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>f
+nnoremap <silent> F :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>F
+nnoremap <silent> è :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>è
+nnoremap <silent> È :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>È
+" }}}
 " }}}
