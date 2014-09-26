@@ -209,7 +209,7 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.arb setf ruby
   autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
-  autocmd BufReadPost index noremap <c-s> :Gcommit<cr>
+  autocmd BufReadPost index noremap <buffer> <c-s> :Gcommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
