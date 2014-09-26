@@ -74,6 +74,10 @@ Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
 Plugin 'reedes/vim-thematic'
+" Color picker
+Plugin 'KabbAmine/vCoolor.vim'
+" Color Highlighter
+Plugin 'chrisbra/Colorizer'
 
 call vundle#end()
 filetype on
@@ -365,6 +369,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- vCoolor
+map <leader>c :VCoolor<cr>
+map <leader>C :ColorToggle<cr>
+" }}}
 " {{{ ------------------------------------- endwise
 autocmd FileType elixir
       \ let b:endwise_addition = 'end' |
@@ -645,7 +653,9 @@ xnoremap r l
 xnoremap t gj
 xnoremap s gk
 nnoremap C ^
+vnoremap C ^
 nnoremap R $
+vnoremap R $
 " Quifix list
 nnoremap <c-p> :cp<cr>
 nnoremap <c-n> :cn<cr>
@@ -653,11 +663,6 @@ nnoremap <c-n> :cn<cr>
 noremap <c-l> J
 " Split lines
 noremap <c-j> i<cr><esc>
-" visual shifting (builtin-repeat)
-" nmap » >>_
-" nmap « <<_
-" vmap » >gv
-" vmap « <gv
 " Don't make a # force column zero.
 inoremap # X<bs>#
 " Fuck you, help.
@@ -712,7 +717,7 @@ nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>Q :Copen<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
-nmap <leader>c :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
 noremap <silent> H :let @/ = ""<cr>
 " Search within visual selection
@@ -773,8 +778,5 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
 noremap k :!zeal --query "<cword>"&<cr><cr>
-" }}}
-" {{{ -------------------------------------- Refact
-nmap <leader>' :s/\(\S\+\).should\(\s\+\)==\s*\(.\+\)/expect(\1).to\2eq(\3)/<cr>
 " }}}
 " }}}
