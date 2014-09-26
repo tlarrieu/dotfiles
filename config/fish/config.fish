@@ -92,6 +92,8 @@ function hrc
   heroku run console -a $argv
 end
 
+alias ddump="curl (heroku pgbackups:url -a shopmium) > ~/Downloads/last.dump"
+
 alias k="kill -9"
 alias kbg="kill (jobs -p)"
 
@@ -133,4 +135,4 @@ set -x PATH $PATH ~/bin/
 . $fish_path/oh-my-fish.fish
 
 # SSH agent
-/usr/bin/keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa
+keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa
