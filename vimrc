@@ -608,7 +608,7 @@ nmap hD :HGdiff ancestor(default,.)<cr>
 nmap hh :Hg! 
 nmap hc :Hgcommit<cr>
 nmap hs :Hgstatus<cr>
-nmap hS :Dispatch hg status --rev "::. - ::default"<cr>
+nmap hS :Dispatch hg status --rev "::. - ::default" -n<cr>
 nmap hr :Hgrevert!<cr>:e<cr>
 " }}}
 " }}}
