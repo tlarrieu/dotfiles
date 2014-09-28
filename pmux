@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SESSION=$(basename $(pwd))
+SESSION=$(basename $(pwd) | sed -e "s/\./_/g")
 
 tmux has-session -t $SESSION
 if [ $? -eq 0 ]; then
