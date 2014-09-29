@@ -66,7 +66,7 @@ Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
-Bundle 'cakebaker/scss-syntax.vim'
+Plugin 'tpope/vim-haml'
 Plugin 'elixir-lang/vim-elixir'
 " Good looking
 Plugin 'altercation/vim-colors-solarized'
@@ -209,6 +209,7 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.arb setf ruby
   autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
+  autocmd BufReadPost index noremap <buffer> <c-s> :Gcommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
@@ -669,9 +670,9 @@ inoremap # X<bs>#
 nnoremap <F1> <c-g>
 inoremap <F1> <c-g>
 " Paste from system buffer
-map <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
-map <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
-map <leader>y "+y
+noremap <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
+noremap <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
+noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
@@ -778,5 +779,12 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
 noremap k :!zeal --query "<cword>"&<cr><cr>
+" }}}
+" {{{ ----------------------------- Repeat f with .
+nnoremap <Plug>NextMatch ;
+nnoremap <silent> f :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>f
+nnoremap <silent> F :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>F
+nnoremap <silent> è :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>è
+nnoremap <silent> È :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>È
 " }}}
 " }}}
