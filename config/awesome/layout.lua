@@ -3,7 +3,7 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-329.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-8333.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-6920.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/Vocaloid-Anime-Hatsune-Miku-Append-tsunekun-664585.jpeg",
 }
