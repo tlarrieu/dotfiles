@@ -6,13 +6,13 @@ endsnippet
 
 snippet it "it block"
 it '${1:example title}' do
-	$0
+	$2
 end
 endsnippet
 
 snippet iT "it block with title"
 it "${1:example title}" do
-	$0
+	$2
 end
 endsnippet
 
@@ -21,11 +21,11 @@ its(:${1:attribute}) { is_expected.to ${2} }
 endsnippet
 
 snippet itt "it"
-it { $0 }
+it { $1 }
 endsnippet
 
 snippet itT "it {  }"
-it("${1:example title}") { $0 }
+it("${1:example title}") { $2 }
 endsnippet
 
 snippet ite "it expect to"
@@ -44,40 +44,40 @@ endsnippet
 
 snippet desc "describe"
 describe '${1:subject_name}' do
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 end
 endsnippet
 
 snippet con "context"
 context '${1:context_name}' do
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 end
 endsnippet
 
 snippet shcon "shared context"
 shared_context '${1:context_name}' do
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 end
 endsnippet
 
 snippet shex "shared examples"
 shared_examples '${1:examples_name}' do
-	${0:${VISUAL}}
+	${2:${VISUAL}}
 end
 endsnippet
 
 snippet exp "expect to"
-expect(${1:subject}).to ${0}
+expect(${1:subject}).to ${2}
 endsnippet
 
 snippet expb "expect to (block)"
-expect { ${1:subject} }.to ${0}
+expect { ${1:subject} }.to ${2}
 endsnippet
 
 snippet expn "expect not to"
-expect(${1:subject}).not_to ${0}
+expect(${1:subject}).not_to ${2}
 endsnippet
 
 snippet expbn "expect not to (block)"
-expect { ${1:subject} }.not_to ${0}
+expect { ${1:subject} }.not_to ${2}
 endsnippet
