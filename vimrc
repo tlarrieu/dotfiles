@@ -1,7 +1,7 @@
 " vim:fdm=marker
 " ------------------------------------------------------------------------------
-" Smockey's vimrc
-" Designed for dvorak-bepo keyboard
+" tlarrieu's vimrc
+" Designed for dvorak-bépo keyboard
 " ------------------------------------------------------------------------------
 set shell=/bin/bash
 let $PAGER=''
@@ -26,7 +26,6 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " Text manipulation
-" Plugin 'Valloric/YouCompleteMe'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-commentary'
@@ -38,7 +37,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'kana/vim-textobj-user'
 Plugin 'b4winckler/vim-angry'
 Plugin 'michaeljsmith/vim-indent-object'
-" Plugin 'rhysd/vim-textobj-ruby'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
 " Task manager
@@ -48,7 +46,6 @@ Plugin 'sjl/gundo.vim'
 " List toggler
 Plugin 'milkypostman/vim-togglelist'
 " Ruby
-Plugin 'tpope/vim-endwise'
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
@@ -194,6 +191,7 @@ function! AutoHighlightToggle()
       au!
       au CursorMoved * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
     augroup end
+    let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
     setl updatetime=200
     echo 'Highlight current word: ON'
     return 1
@@ -243,6 +241,14 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.clj RainbowParenthesesActivate
   autocmd BufEnter *.clj RainbowParenthesesLoadRound
   autocmd BufEnter *.clj RainbowParenthesesActivate
+augroup END
+
+augroup NoSimultaneousEdits
+    autocmd!
+    autocmd SwapExists * let v:swapchoice = 'o'
+    autocmd SwapExists * echomsg 'Duplicate edit session (readonly)'
+    autocmd SwapExists * echohl None
+    autocmd SwapExists * sleep 2
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
@@ -517,6 +523,12 @@ let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" Eliminate flicker
+let g:neocomplete#enable_prefetch = 1
+" Do not activate automatically
+let g:neocomplete#disable_auto_complete = 1
+" Instead use a mapping to trigger it
+inoremap <expr><c-x> neocomplete#start_manual_complete()
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -540,10 +552,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
 autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading=1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global=1
-" }}}
-" {{{ ------------------------------- YouCompleteMe
-" I want tab for UltiSnips so I deactivate it for YCM
-let g:ycm_key_list_select_completion = []
 " }}}
 " {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
@@ -692,9 +700,6 @@ nnoremap C ^
 vnoremap C ^
 nnoremap R $
 vnoremap R $
-" Quifix list
-nnoremap <c-p> :cp<cr>
-nnoremap <c-n> :cn<cr>
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Split lines
@@ -719,8 +724,6 @@ noremap È T
 nnoremap <leader>s :w<cr>
 vnoremap <leader>s <esc>:w<cr>
 inoremap <leader>s <esc>:w<cr>
-" Normal mode
-noremap <return> :
 " Empty buffers
 " map <leader>b :bufdo bd<cr>
 command! B bufdo bd
@@ -797,6 +800,7 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 noremap é /
+noremap É :
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
