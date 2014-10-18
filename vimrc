@@ -377,6 +377,33 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------- Signature
+let g:SignatureMap = {
+  \ 'Leader'             :  "m",
+  \ 'PlaceNextMark'      :  "m,",
+  \ 'ToggleMarkAtLine'   :  "m.",
+  \ 'PurgeMarksAtLine'   :  "m-",
+  \ 'PurgeMarks'         :  "m<Space>",
+  \ 'PurgeMarkers'       :  "m<BS>",
+  \ 'GotoNextLineAlpha'  :  "",
+  \ 'GotoPrevLineAlpha'  :  "",
+  \ 'GotoNextSpotAlpha'  :  "",
+  \ 'GotoPrevSpotAlpha'  :  "",
+  \ 'GotoNextLineByPos'  :  "n,",
+  \ 'GotoPrevLineByPos'  :  "N,",
+  \ 'GotoNextSpotByPos'  :  "",
+  \ 'GotoPrevSpotByPos'  :  "",
+  \ 'GotoNextMarker'     :  "",
+  \ 'GotoPrevMarker'     :  "",
+  \ 'GotoNextMarkerAny'  :  "",
+  \ 'GotoPrevMarkerAny'  :  "",
+  \ 'ListLocalMarks'     :  ""
+  \ }
+noremap ' n
+noremap ? N
+noremap n '
+noremap nn ''
+" }}}
 " {{{ ------------------------------------- vCoolor
 map <leader>c :VCoolor<cr>
 map <leader>C :ColorToggle<cr>
@@ -454,7 +481,11 @@ let g:targets_pairs = '()b {}é []d <>É'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
-let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
+" let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
+let g:syntastic_ruby_rubocop_args = '-D'
+let g:syntastic_scss_checkers = ['scss_lint']
 " }}}
 " {{{ -------------------------------------- Switch
 augroup switch
@@ -662,8 +693,8 @@ nmap <silent> <leader>xf :Dispatch exercism f<cr>
 nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ --------------------------------------- Marks
-noremap ' `
-noremap ` '
+" noremap ' `
+" noremap ` '
 " }}}
 " {{{ ------------------------------- Splits / Tabs
 " Navigating between splits
@@ -767,7 +798,7 @@ vmap <c-g> <esc>:%s/\%V
 nmap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
-nmap <leader>e :call SplitSwap()<cr><tab>
+nmap <leader>ee :call SplitSwap()<cr><tab>
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Display lint errors
@@ -799,8 +830,9 @@ noremap / 9
 noremap 9 /
 noremap * 0
 noremap 0 *
+
 noremap é /
-noremap É :
+noremap É ?
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
@@ -818,12 +850,5 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
 noremap k :!zeal --query "<cword>"&<cr><cr>
-" }}}
-" {{{ ----------------------------- Repeat f with .
-nnoremap <Plug>NextMatch ;
-nnoremap <silent> f :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>f
-nnoremap <silent> F :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>F
-nnoremap <silent> è :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>è
-nnoremap <silent> È :<C-u>call repeat#set("\<lt>Plug>NextMatch")<CR>È
 " }}}
 " }}}
