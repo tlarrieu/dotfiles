@@ -112,8 +112,7 @@ alias mob="cd ~/mercurial/shopmium/mobile"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
-alias dand="cd ~/git/dand"
-alias dand.io="cd ~/git/dand.io"
+alias dand="cd ~/git/dand.io"
 
 alias mep="vi ~/mep.tasks"
 
