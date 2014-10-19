@@ -697,6 +697,12 @@ nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " noremap ` '
 " }}}
 " {{{ ------------------------------- Splits / Tabs
+" Vertical split
+noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" New tab
+noremap <leader>T :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" Close all tabs but current
+noremap <leader>t :tabo<cr>
 " Navigating between splits
 noremap <tab> <c-w>w
 noremap <s-tab> <c-w>W
@@ -799,13 +805,13 @@ nmap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
 nmap <leader>ee :call SplitSwap()<cr><tab>
-" Vertical split
-noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Display lint errors
-nmap <leader>E :Errors<cr>
+nmap <leader>r :Errors<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
+" Clear trailing spaces
+nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " }}}
 " {{{ ---------------------------- Swap number line
 noremap " 1
