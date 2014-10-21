@@ -806,7 +806,7 @@ nnoremap U :redo<cr>
 " Split swap
 nmap <leader>ee :call SplitSwap()<cr><tab>
 " Display lint errors
-nmap <leader>r :Errors<cr>
+nmap <leader>rr :Errors<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
