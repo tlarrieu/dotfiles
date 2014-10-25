@@ -481,7 +481,6 @@ let g:targets_pairs = '()b {}é []d <>É'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
-" let g:syntastic_javascript_jsl_conf = "~/.jsl.conf"
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
