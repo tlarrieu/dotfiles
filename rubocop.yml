@@ -1,0 +1,91 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+
+Lint/DefEndAlignment:
+  Enabled: true
+
+Lint/DeprecatedClassMethods:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 110
+
+Metrics/MethodLength:
+  Max: 15
+
+Style/AlignParameters:
+  Enabled: false
+
+Style/Blocks:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/ConstantName:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyLines:
+  Enabled: true
+
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+Style/EmptyLinesAroundBody:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: true
+
+Style/Lambda:
+  Enabled: true
+
+Style/LeadingCommentSpace:
+  Enabled: true
+
+Style/MethodDefParentheses:
+  Enabled: true
+
+Style/NumericLiterals:
+  MinDigits: 15
+
+Style/Proc:
+  Enabled: true
+
+Style/RedundantReturn:
+  Enabled: true
+
+Style/RegexpLiteral:
+  MaxSlashes: 0
+
+Style/SignalException:
+  Enabled: false
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: true
+
+Style/SpaceAfterColon:
+  Enabled: true
+
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Style/SpaceInsideBrackets:
+  Enabled: true
+
+Style/StringLiterals:
+  Enabled: true
+
+Style/SymbolProc:
+  Enabled: true
+
+Style/TrailingComma:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

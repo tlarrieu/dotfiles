@@ -74,21 +74,6 @@ vim +BundleInstall +qall
 if [ $OSX ]; then
   safeinstall reattach-to-user-namespace
 fi
-# YouCompleteMe
-if [[ -d ~/.vim/bundle/YouCompleteMe ]]; then
-  echo -n "Do you want to compile YouCompleteMe ? (Y/n)"
-  read answer
-  case $answer in
-    "yes"|"y")
-      safeinstall cmake
-      cd ~/.vim/bundle/YouCompleteMe
-      ./install.sh
-      ;;
-  esac
-else
-  echo "YouCompleteMe was not found on the system. Nothing to do."
-fi
-
 # Fish
 safeinstall fish
 # Oh My Fish!
@@ -128,6 +113,9 @@ safelink $BASEDIR/agignore $HOME/.agignore
 
 # irbrc
 safelink $BASEDIR/irbrc $HOME/.irbrc
+
+# rubocop
+safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
 # pmux
 mkdir $HOME/scripts
