@@ -656,6 +656,12 @@ nmap <leader>é :CtrlPBufTag<cr>
 nmap <leader>É :CtrlPTag<cr>
 nmap <leader>b :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
+  let g:ctrlp_prompt_mappings = {
+    \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
+    \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
+    \ 'AcceptSelection("h")': ['<c-x>'],
+    \ 'AcceptSelection("t")': ['<nl>'],
+    \ }
 " }}}
 " {{{ --------------------------------------- Gundo
 let gundo_map_move_older = "t"
