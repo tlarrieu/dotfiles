@@ -71,6 +71,9 @@ alias hspr="hg status --rev \"::. - ::default\""
 function hdprc
   hg mdiff -r "ancestor($argv,.)"
 end
+function hsprc
+  hg status --rev "::. - ::$argv"
+end
 alias hlb="hg log --graph -b"
 alias hm="hg merge"
 alias hpl="hg pull"
@@ -105,8 +108,16 @@ alias raklette="bundle exec rake parallel:spec"
 alias be="bundle exec"
 alias bspec="bundle exec rspec"
 alias rdm="bundle exec rake db:migrate"
+alias rds="bundle exec rake db:migrate:status"
 alias rpp="bundle exec rake parallel:prepare"
 alias rdtp="bundle exec rake db:test:prepare"
+alias rdr="rake db:migrate:redo"
+function rdd
+  rake db:migrate:down VERSION=$argv
+end
+function rdu
+  rake db:migrate:up VERSION=$argv
+end
 
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
