@@ -6,6 +6,11 @@ coverage
 public/assets
 *.sql
 *.zip
+*.log
+log/
 data/manual_cache.json
 data/geolocation_cache.json
 tags
+*.png
+*.jpg
+*.gif
