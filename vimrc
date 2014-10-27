@@ -65,6 +65,7 @@ Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
 Plugin 'elixir-lang/vim-elixir'
+Plugin 'chrisbra/csv.vim'
 " Syntax checking
 Plugin 'scrooloose/syntastic'
 " Good looking
