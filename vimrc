@@ -59,13 +59,14 @@ Plugin 'mhinz/vim-signify'
 " Misc languages support
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'gabrielelana/vim-markdown'
-Plugin 'scrooloose/syntastic'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
 Plugin 'elixir-lang/vim-elixir'
+" Syntax checking
+Plugin 'scrooloose/syntastic'
 " Good looking
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
@@ -481,10 +482,12 @@ let g:targets_pairs = '()b {}é []d <>É'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
-let g:syntastic_ruby_checkers = ['rubocop']
+let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_scss_checkers = ['scss_lint']
+noremap <leader>ru :SyntasticCheck rubocop<cr>
+inoremap <leader>ru :SyntasticCheck rubocop<cr>
 " }}}
 " {{{ -------------------------------------- Switch
 augroup switch
@@ -655,6 +658,7 @@ endif
 nmap <leader>é :CtrlPBufTag<cr>
 nmap <leader>É :CtrlPTag<cr>
 nmap <leader>b :CtrlPBuffer<cr>
+nmap <leader><leader> :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
@@ -688,7 +692,13 @@ nmap hD :HGdiff ancestor(default,.)<cr>
 nmap hh :Hg! 
 nmap hc :Hgcommit<cr>
 nmap hs :Hgstatus<cr>
-nmap hS :Dispatch hg status --rev "::. - ::default" -n<cr>
+function! HgBranchStatus()
+  silent tabnew /dev/null
+  normal ggdG
+  0read !hg status --rev "::. - ::default" -n
+  silent :w
+endfunction
+nmap hS :call HgBranchStatus()<cr>
 nmap hr :Hgrevert!<cr>:e<cr>
 " }}}
 " }}}
@@ -767,7 +777,6 @@ nnoremap <leader>s :w<cr>
 vnoremap <leader>s <esc>:w<cr>
 inoremap <leader>s <esc>:w<cr>
 " Empty buffers
-" map <leader>b :bufdo bd<cr>
 command! B bufdo bd
 " Change mode
 nnoremap l c
