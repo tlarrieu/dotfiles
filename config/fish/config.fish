@@ -57,6 +57,8 @@ alias glgs="git lgs"
 alias gpl="git pull"
 alias gps="git push"
 alias gs="git status"
+alias gspr="git diff --name-status master..HEAD"
+alias gdpr="git diff master..HEAD"
 
 alias hcd="cd (hg root)"
 alias hb="hg branch"
