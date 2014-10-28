@@ -6,14 +6,13 @@
 [color]
   ui = auto
   status = auto
-  diff = no
+  diff = auto
 [push]
   default = matching
 [diff]
   tool = vimdiff
 [core]
   editor = vim
-  excludesfile = /home/smockey/.gitignore
 [alias]
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
