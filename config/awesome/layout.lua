@@ -3,9 +3,9 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-8333.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-6920.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/Vocaloid-Anime-Hatsune-Miku-Append-tsunekun-664585.jpeg",
+  "/home/tlarrieu/Pictures/Wallpapers/wallhaven-75072.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/wallhaven-70648.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
 }
 for s = 1, screen.count() do
   gears.wallpaper.maximized(wallpapers[s], s, false)
