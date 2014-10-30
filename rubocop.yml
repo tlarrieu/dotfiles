@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - 'db/**/*'
     - 'config/**/*'
+    - 'Guardfile'
 
 Lint/DefEndAlignment:
   Enabled: true
