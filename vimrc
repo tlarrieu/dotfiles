@@ -22,6 +22,7 @@ Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
 " Functionnalities
 Plugin 'tpope/vim-dispatch'
+Plugin 'ivalkeen/vim-simpledb'
 " Snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -35,7 +36,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 " Text objects
 Plugin 'kana/vim-textobj-user'
-Plugin 'b4winckler/vim-angry'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
@@ -379,6 +379,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------------- SQL
+let g:sql_type_default = 'mysql'
+let g:omni_sql_no_default_maps = 1
+" }}}
 " {{{ ----------------------------------- Signature
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
@@ -467,19 +471,11 @@ augroup auvroom
   autocmd FileType ruby nmap <leader>rn :VroomRunNearestTest<cr>
 augroup end
 " }}}
-" {{{ --------------------------------------- Angry
-let g:angry_disable_maps = 1
-vmap <silent> ac <Plug>AngryOuterPrefix
-omap <silent> ac <Plug>AngryOuterPrefix
-vmap <silent> ic <Plug>AngryInnerPrefix
-omap <silent> ic <Plug>AngryInnerPrefix
-vmap <silent> aC <Plug>AngryOuterSuffix
-omap <silent> aC <Plug>AngryOuterSuffix
-vmap <silent> iC <Plug>AngryInnerSuffix
-omap <silent> iC <Plug>AngryInnerSuffix
-" }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}é []d <>É'
+let g:targets_argTrigger = 'c'
+let g:targets_argOpening = '[({[]'
+let g:targets_argClosing = '[]})]'
 " }}}
 " {{{ ----------------------------------- Syntastic
 let g:syntastic_javascript_checkers = ['jsl']
@@ -562,7 +558,7 @@ let g:neocomplete#enable_prefetch = 1
 " Do not activate automatically
 let g:neocomplete#disable_auto_complete = 1
 " Instead use a mapping to trigger it
-inoremap <expr><c-x> neocomplete#start_manual_complete()
+inoremap <expr><c-n> neocomplete#start_manual_complete()
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
