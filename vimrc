@@ -866,6 +866,6 @@ nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
-noremap k :!zeal --query "<cword>"&<cr><cr>
+nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>
 " }}}
 " }}}
