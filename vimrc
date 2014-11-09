@@ -212,6 +212,8 @@ augroup vimrc_autocmd
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd BufReadPost index noremap <buffer> <c-s> :Gcommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
+  autocmd FileType hgcommit,gitcommit setlocal nonu
+  autocmd FileType hgcommit,gitcommit setlocal nornu
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
@@ -516,6 +518,8 @@ augroup Ag
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <CR> <CR><C-w><C-w>
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+  autocmd BufReadPost quickfix setlocal nonu
+  autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
 nmap <leader>ag :Ag! ""<left>
