@@ -80,6 +80,11 @@ Plugin 'KabbAmine/vCoolor.vim'
 Plugin 'chrisbra/Colorizer'
 
 call vundle#end()
+
+" Force loading of solarized before everything else so we can override
+" a few things without using BufPostRead / BufEnter shenanigans
+runtime! bundle/vim-colors-solarized/colors/solarized.vim
+
 filetype on
 syntax on
 filetype plugin indent on
@@ -226,8 +231,6 @@ augroup vimrc_autocmd
   autocmd WinLeave * set nocursorcolumn
   autocmd WinEnter * set cursorline
   autocmd WinEnter * set cursorcolumn
-  autocmd BufReadPost * hi! link SignColumn CursorColumn
-  autocmd BufEnter * hi! link SignColumn CursorColumn
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -269,6 +272,7 @@ if has('gui_running')
   set guicursor+=n-v-c-i:ver11-iCursor
   hi! iCursor guifg=white guibg=#667B83
 endif
+hi! link SignColumn LineNr
 " Line numbering (relative and current)
 set rnu
 set nu
