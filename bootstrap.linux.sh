@@ -124,6 +124,9 @@ safelink $BASEDIR/pmux $HOME/scripts/pmux
 # Custom shutdown script
 safelink $BASEDIR/shutdown_dialog.sh $HOME/scripts/shutdown_dialog.sh
 
+# asoundrc
+safelink $BASEDIR/asoundrc $HOME/.asoundrc
+
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
