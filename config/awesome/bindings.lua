@@ -133,7 +133,8 @@ globalkeys = awful.util.table.join(globalkeys,
 
   awful.key({ modkey            }, "u",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
   awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
-  awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
+  -- awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
+  awful.key({ modkey            }, "a",           function () awful.util.spawn("pavucontrol") end),
 
   awful.key({ modkey            }, "n",           function () awful.util.spawn(terminal)                     end),
   awful.key({ modkey, "Shift"   }, "n",           function () awful.util.spawn("gksu " .. terminal)          end),
