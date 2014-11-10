@@ -669,7 +669,7 @@ nmap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
     \ 'AcceptSelection("h")': ['<c-x>'],
-    \ 'AcceptSelection("t")': ['<nl>'],
+    \ 'AcceptSelection("t")': ['<nl>', '<c-cr>'],
     \ }
 " }}}
 " {{{ --------------------------------------- Gundo
@@ -856,8 +856,10 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 
-noremap é /
-noremap É ?
+nnoremap é /
+vnoremap é /
+nnoremap É ?
+vnoremap É ?
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
