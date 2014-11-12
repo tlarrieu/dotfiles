@@ -479,6 +479,8 @@ let g:vroom_map_keys = 0
 augroup auvroom
   autocmd FileType ruby nmap <leader><return> :VroomRunTestFile<cr>
   autocmd FileType ruby nmap <return> :VroomRunNearestTest<cr>
+  autocmd FileType ruby nmap <return> :VroomRunTestFile<cr>
+  autocmd FileType ruby nmap <leader><return> :VroomRunNearestTest<cr>
 augroup end
 " }}}
 " {{{ ------------------------------------- Targets
@@ -878,6 +880,7 @@ nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
+nmap <leader>ep :tabe ~/postgres.sql<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
 nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>

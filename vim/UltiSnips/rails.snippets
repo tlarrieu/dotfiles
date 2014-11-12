@@ -6,6 +6,12 @@ snippet fb "FactoryGirl"
 FactoryGirl.build($0)
 endsnippet
 
+snippet trait "trait"
+trait :${1:trait} do
+	$2
+end
+endsnippet
+
 snippet pgenum
 module PgEnum
   class ${1:enum_name}
