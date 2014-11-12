@@ -388,6 +388,10 @@ set spelllang=en,fr
 " {{{ ----------------------------------------- SQL
 let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
+augroup SQL
+  autocmd!
+  autocmd BufEnter /tmp/vim-simpledb-result.txt setf sql
+augroup end
 " }}}
 " {{{ ----------------------------------- Signature
 let g:SignatureMap = {
@@ -473,8 +477,8 @@ let g:vroom_use_zeus = 0
 let g:vroom_use_colors = 1
 let g:vroom_map_keys = 0
 augroup auvroom
-  autocmd FileType ruby nmap <leader>rs :VroomRunTestFile<cr>
-  autocmd FileType ruby nmap <leader>rn :VroomRunNearestTest<cr>
+  autocmd FileType ruby nmap <leader><return> :VroomRunTestFile<cr>
+  autocmd FileType ruby nmap <return> :VroomRunNearestTest<cr>
 augroup end
 " }}}
 " {{{ ------------------------------------- Targets
