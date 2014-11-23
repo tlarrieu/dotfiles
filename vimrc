@@ -22,7 +22,6 @@ Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
 " Functionnalities
 Plugin 'tpope/vim-dispatch'
-Plugin 'ivalkeen/vim-simpledb'
 " Snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -51,6 +50,9 @@ Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
 Plugin 't9md/vim-ruby-xmpfilter'
+" SQL
+Plugin 'ivalkeen/vim-simpledb'
+Plugin 'exu/pgsql.vim'
 " VCS
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
@@ -385,12 +387,16 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ ----------------------------------------- SQL
+" {{{ ------------------------------------ SimpleDB
 let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
 augroup SQL
   autocmd!
-  autocmd BufEnter /tmp/vim-simpledb-result.txt setf sql
+  autocmd BufEnter vim-simpledb-result.txt setf pgsql.sql
+  autocmd BufEnter postgres.sql setf pgsql.sql
+  autocmd FileType sql vnoremap <buffer> <enter> :SimpleDBExecuteSql<cr>
+  autocmd FileType sql nnoremap <buffer> <leader><enter> m':SimpleDBExecuteSql <cr>g`'
+  autocmd FileType sql nnoremap <buffer> <enter> m':'{,'}SimpleDBExecuteSql<cr>g`'
 augroup end
 " }}}
 " {{{ ----------------------------------- Signature
@@ -479,8 +485,6 @@ let g:vroom_map_keys = 0
 augroup auvroom
   autocmd FileType ruby nmap <leader><return> :VroomRunTestFile<cr>
   autocmd FileType ruby nmap <return> :VroomRunNearestTest<cr>
-  autocmd FileType ruby nmap <return> :VroomRunTestFile<cr>
-  autocmd FileType ruby nmap <leader><return> :VroomRunNearestTest<cr>
 augroup end
 " }}}
 " {{{ ------------------------------------- Targets
@@ -565,8 +569,8 @@ let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" let g:neocomplete#sources#syntax#min_keyword_length = 3
+" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Eliminate flicker
 let g:neocomplete#enable_prefetch = 1
 " Do not activate automatically
@@ -881,6 +885,7 @@ nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>ep :tabe ~/postgres.sql<cr>
+nmap <leader>es :tabe ~/sqlite.sql<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
 nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>

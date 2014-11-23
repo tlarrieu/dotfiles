@@ -1,0 +1,44 @@
+snippet s "select"
+select ${1:*}
+$0
+endsnippet
+
+snippet f "from"
+from ${1:table}
+$0
+endsnippet
+
+snippet w "where"
+where ${1:condition}
+$0
+endsnippet
+
+snippet a "and"
+and ${1:condition}
+$0
+endsnippet
+
+snippet j "join"
+join ${1:table} on ${2:a.id} = ${3:b.a_id}
+$0
+endsnippet
+
+snippet lj "join"
+left join ${1:table} on ${2:a.id} = ${3:b.a_id}
+$0
+endsnippet
+
+snippet rj "join"
+right join ${1:table} on ${2:a.id} = ${3:b.a_id}
+$0
+endsnippet
+
+snippet oj "join"
+outer join ${1:table} on ${2:a.id} = ${3:b.a_id}
+$0
+endsnippet
+
+snippet foj "join"
+full outer join ${1:table} on ${2:a.id} = ${3:b.a_id}
+$0
+endsnippet
