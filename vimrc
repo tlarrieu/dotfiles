@@ -26,7 +26,8 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " Text manipulation
-Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
+Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -315,7 +316,8 @@ set mouse=c
 set wildmode=list:full,full
 " Only complete to the GCD part of file name
 set wildmenu
-set complete=slf
+" set complete=slf
+set complete=.,w,b,u,t,i
 " Bells
 set visualbell
 set noerrorbells
@@ -394,9 +396,9 @@ augroup SQL
   autocmd!
   autocmd BufEnter vim-simpledb-result.txt setf pgsql.sql
   autocmd BufEnter postgres.sql setf pgsql.sql
-  autocmd FileType sql vnoremap <buffer> <enter> :SimpleDBExecuteSql<cr>
-  autocmd FileType sql nnoremap <buffer> <leader><enter> m':SimpleDBExecuteSql <cr>g`'
-  autocmd FileType sql nnoremap <buffer> <enter> m':'{,'}SimpleDBExecuteSql<cr>g`'
+  autocmd FileType *sql vnoremap <buffer> <enter> :SimpleDBExecuteSql<cr>
+  autocmd FileType *sql nnoremap <buffer> <leader><enter> m':SimpleDBExecuteSql <cr>g`'
+  autocmd FileType *sql nnoremap <buffer> <enter> m':'{,'}SimpleDBExecuteSql<cr>g`'
 augroup end
 " }}}
 " {{{ ----------------------------------- Signature
@@ -561,35 +563,39 @@ let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 noremap <leader>use :UltiSnipsEdit<cr>
 " }}}
+" {{{ -------------------------------- YouCompletMe
+let g:ycm_key_list_select_completion = ['<c-n>']
+let g:ycm_key_list_previous_completion = ['<c-p>']
+" }}}
 " {{{ --------------------------------- Neocomplete
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-" let g:neocomplete#sources#syntax#min_keyword_length = 3
-" let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" Eliminate flicker
-let g:neocomplete#enable_prefetch = 1
-" Do not activate automatically
-let g:neocomplete#disable_auto_complete = 1
-" Instead use a mapping to trigger it
-inoremap <expr><c-n> neocomplete#start_manual_complete()
+" " Disable AutoComplPop.
+" let g:acp_enableAtStartup = 0
+" " Use neocomplete.
+" let g:neocomplete#enable_at_startup = 1
+" " Use smartcase.
+" let g:neocomplete#enable_smart_case = 1
+" " Set minimum syntax keyword length.
+" " let g:neocomplete#sources#syntax#min_keyword_length = 3
+" " let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" " Eliminate flicker
+" let g:neocomplete#enable_prefetch = 1
+" " Do not activate automatically
+" let g:neocomplete#disable_auto_complete = 1
+" " Instead use a mapping to trigger it
+" inoremap <expr><c-n> neocomplete#start_manual_complete()
 
-" Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+" " Define keyword.
+" if !exists('g:neocomplete#keyword_patterns')
+"     let g:neocomplete#keyword_patterns = {}
+" endif
+" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Recommended key-mappings.
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
-endfunction
+" " Recommended key-mappings.
+" " <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function()
+"   return neocomplete#close_popup() . "\<CR>"
+" endfunction
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
