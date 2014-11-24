@@ -22,9 +22,6 @@ fi
 tmux new-window -t $SESSION:3 -n vim  'vim; fish'
 tmux new-window -t $SESSION:4 -n shell
 if [ -f config/environment.rb ]; then
-  tmux new-window -t $SESSION:5 -n psql 'psql --username postgres --dbname=pg_development'
-fi
-if [ -f config/environment.rb ]; then
   tmux new-window -t $SESSION:6 -n rs  'rails server'
 fi
 
