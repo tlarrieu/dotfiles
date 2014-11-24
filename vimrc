@@ -553,7 +553,9 @@ augroup vimtask
   autocmd FileType task hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
   autocmd FileType task hi taskWorkingItem ctermfg=9 guifg=#FF6C60
   autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
+  autocmd FileType task noremap <silent> <buffer> <return> :call Toggle_task_status()<cr>
   autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
+  autocmd FileType task xnoremap <silent> <buffer> <return> :call Toggle_task_status()<cr>gv
   autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
@@ -894,6 +896,6 @@ nmap <leader>ep :tabe ~/postgres.sql<cr>
 nmap <leader>es :tabe ~/sqlite.sql<cr>
 " }}}
 " {{{ ---------------------------------------- Zeal
-nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>
+" nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>
 " }}}
 " }}}
