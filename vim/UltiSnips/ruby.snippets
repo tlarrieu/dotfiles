@@ -6,6 +6,10 @@ snippet inc "include"
 include ${1:Module}
 endsnippet
 
+snippet # "#{}" i
+#{$1}
+endsnippet
+
 snippet miss "method missing"
 def method_missing(meth, *args, &block)
 	if meth.to_s =~ /$1/

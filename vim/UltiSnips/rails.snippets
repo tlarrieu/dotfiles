@@ -1,3 +1,21 @@
+snippet debug "Rails.logger.debug"
+Rails.logger.debug $1
+endsnippet
+
+snippet info "Rails.logger.info"
+Rails.logger.info $1
+endsnippet
+
+snippet error "Rails.logger.error"
+Rails.logger.error $1
+endsnippet
+
+snippet ct "Change Table"
+change_table :${1:table_name} do |t|
+	$2
+end
+endsnippet
+
 snippet fc "FactoryGirl"
 FactoryGirl.create($0)
 endsnippet
@@ -22,7 +40,7 @@ module PgEnum
 end
 endsnippet
 
-snippet emig
+snippet emig "Enum Migration" s
 def up
 	create_enum(enum_name)
 	execute(query(:up))
