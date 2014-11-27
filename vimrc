@@ -441,13 +441,13 @@ autocmd FileType elixir
 " }}}
 " {{{ ----------------------------------- xmpfilter
 augroup xmpfilter
-  autocmd FileType ruby nmap <buffer> <leader>m <Plug>(xmpfilter-mark)
-  autocmd FileType ruby xmap <buffer> <leader>m <Plug>(xmpfilter-mark)
-  autocmd FileType ruby imap <buffer> <leader>m <Plug>(xmpfilter-mark)
+  " autocmd FileType ruby nmap <buffer> <leader>m <Plug>(xmpfilter-mark)
+  " autocmd FileType ruby xmap <buffer> <leader>m <Plug>(xmpfilter-mark)
+  " autocmd FileType ruby imap <buffer> <leader>m <Plug>(xmpfilter-mark)
 
-  autocmd FileType ruby nmap <buffer> <leader>M <Plug>(xmpfilter-run)
-  autocmd FileType ruby xmap <buffer> <leader>M <Plug>(xmpfilter-run)
-  autocmd FileType ruby imap <buffer> <leader>M <Plug>(xmpfilter-run)
+  " autocmd FileType ruby nmap <buffer> <leader>M <Plug>(xmpfilter-run)
+  " autocmd FileType ruby xmap <buffer> <leader>M <Plug>(xmpfilter-run)
+  " autocmd FileType ruby imap <buffer> <leader>M <Plug>(xmpfilter-run)
 augroup end
 " }}}
 " {{{ ---------------------------------------- YAML
@@ -757,6 +757,8 @@ map <leader>= <c-w>=
 map <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
+nmap <c-t> ]m
+nmap <c-s> [m
 " Beginning / end of the line
 inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
