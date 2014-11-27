@@ -895,7 +895,4 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>ep :tabe ~/postgres.sql<cr>
 nmap <leader>es :tabe ~/sqlite.sql<cr>
 " }}}
-" {{{ ---------------------------------------- Zeal
-" nnoremap <leader>k :!zeal --query "<cword>"&<cr><cr>
-" }}}
 " }}}
