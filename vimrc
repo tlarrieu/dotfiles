@@ -394,8 +394,7 @@ let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
 augroup SQL
   autocmd!
-  autocmd BufEnter vim-simpledb-result.txt setf pgsql.sql
-  autocmd BufEnter postgres.sql setf pgsql.sql
+  autocmd BufRead vim-simpledb-result.txt setf sql
   autocmd FileType *sql vnoremap <buffer> <enter> :SimpleDBExecuteSql<cr>
   autocmd FileType *sql nnoremap <buffer> <leader><enter> m':SimpleDBExecuteSql <cr>g`'
   autocmd FileType *sql nnoremap <buffer> <enter> m':'{,'}SimpleDBExecuteSql<cr>g`'
@@ -502,7 +501,7 @@ let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_scss_checkers = ['scss_lint']
 noremap <leader>ru :SyntasticCheck rubocop<cr>
-inoremap <leader>ru :SyntasticCheck rubocop<cr>
+" inoremap <leader>ru :SyntasticCheck rubocop<cr>
 " }}}
 " {{{ -------------------------------------- Switch
 augroup switch
@@ -521,7 +520,7 @@ augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag
-let g:grep_cmd_opts = '--line-numbers --noheading'
+let g:grep_cmd_opts = '--line-numbers --noheading --ignore tags'
 nmap <leader>S :Gsearch ""<left>
 nmap <leader>G :Greplace<cr>
 " }}}
@@ -800,7 +799,7 @@ noremap È T
 " Save
 nnoremap <leader>s :w<cr>
 vnoremap <leader>s <esc>:w<cr>
-inoremap <leader>s <esc>:w<cr>
+" inoremap <leader>s <esc>:w<cr>
 " Empty buffers
 command! B bufdo bd
 " Change mode
@@ -895,6 +894,6 @@ nmap <leader>em :tabe ~/.tmux.conf<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>ep :tabe ~/postgres.sql<cr>
-nmap <leader>es :tabe ~/sqlite.sql<cr>
+nmap <leader>eq :tabe ~/sqlite.sql<cr>
 " }}}
 " }}}
