@@ -22,7 +22,11 @@ call SignifyMatch("rubyOperator", "rubyLambdaOperator", "\"->\"", "→")
 call SignifyMatch("rubyOperator", "rubyHashRocketOperator", "\"=>\"", "⇒")
 call SignifyMatch("rubyOperator", "rubySpaceShipOperator", "\"<=>\"", "⇔")
 call SignifyMatch("rubyOperator", "rubyDifferentOperator", "\"!=\"", "≠")
+call SignifyMatch("rubyOperator", "rubyGreaterEqualOperator", "\">=\"", "≥")
+call SignifyMatch("rubyOperator", "rubyLesserEqualOperator", "\"<=\"", "≤")
+call SignifyMatch("rubyOperator", "rubyTimesOperator", "\"*\"", "×")
+call SignifyMatch("rubyOperator", "rubyOverOperator", "\"/\"", "÷")
 
 " syntax keyword Operator lambda conceal cchar=λ
 " syntax keyword Operator proc conceal cchar=λ
-" syntax keyword Operator do conceal cchar=※
+" syntax keyword Operator do conceal cchar=∂
