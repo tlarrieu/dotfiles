@@ -75,6 +75,7 @@ def query(direction)
 
 	-- Drop indexes and fkeys
 	#{ indexes.keys.map { |id| "DROP INDEX #{id};" }.join("\n") }
+	#{ unique_indexes.keys.map { |id| "DROP INDEX #{id};" }.join("\n") }
 	#{
 	case direction
 	when :up then "DROP INDEX index_#{table_name}_on_#{enum_name}_id;"
@@ -138,6 +139,7 @@ def query(direction)
 	-- Indexes
 	------------------
 	#{ indexes.map { |id, instruction| "CREATE INDEX #{id} ON #{table_name} USING #{instruction};" }.join("\n") }
+	#{ unique_indexes.map { |id, instruction| "CREATE UNIQUE INDEX #{id} ON #{table_name} USING #{instruction};" }.join("\n") }
 	#{
 	case direction
 	when :up then "CREATE INDEX index_#{table_name}_on_#{enum_name} ON #{table_name} USING btree (#{enum_name});"
@@ -174,6 +176,12 @@ def table_name
 end
 
 def indexes
+	{
+		${1:"index_scans_on_from_offer_id" => "btree (from_offer_id)",}
+	}
+end
+
+def unique_indexes
 	{
 		${1:"index_scans_on_from_offer_id" => "btree (from_offer_id)",}
 	}
