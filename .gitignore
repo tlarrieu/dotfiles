@@ -19,3 +19,5 @@ vim/bundle/**
 vim/doc
 vim/spell
 !vim/bundle/vundle
+config/fish/functions/sync_stag.fish
+config/fish/functions/sync_test.fish
