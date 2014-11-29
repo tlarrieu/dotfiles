@@ -18,21 +18,15 @@ set focuscontent
 noremap b :back<cr>
 noremap B :forward<cr>
 
-" {/} -> [ê]
-" Un accès facile pour la touche de recherche
-noremap ê /
 noremap à d
-noremap . :
-noremap \' t
+noremap o t
+noremap O T
 
-" {W} -> [É]
-" ——————————
-" Le placement de {W} est catastrophique, mais ça se soigne ;-)
 noremap é /
-noremap É W
+noremap É ?
+noremap \' n
+noremap \? N
 
-" [HJKL] -> {CTSR}
-" ————————————————
 " {cr} = « gauche / droite »
 noremap c <Left>
 noremap r <Right>
@@ -48,7 +42,6 @@ noremap gs gk
 noremap gt gj
 
 noremap <BS> <C-u>
-noremap <Space> <C-d>
 noremap <Return> zz
 
 " va a l’onglet suivant/précédent
