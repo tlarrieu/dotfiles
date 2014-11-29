@@ -50,7 +50,6 @@ Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
-Plugin 't9md/vim-ruby-xmpfilter'
 " SQL
 Plugin 'ivalkeen/vim-simpledb'
 Plugin 'exu/pgsql.vim'
@@ -247,10 +246,6 @@ augroup vimrc_autocmd
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
   autocmd FileType man setlocal foldlevel=10
-  autocmd BufReadPost *.clj RainbowParenthesesLoadRound
-  autocmd BufReadPost *.clj RainbowParenthesesActivate
-  autocmd BufEnter *.clj RainbowParenthesesLoadRound
-  autocmd BufEnter *.clj RainbowParenthesesActivate
 augroup END
 
 augroup NoSimultaneousEdits
@@ -428,8 +423,8 @@ noremap n '
 noremap nn ''
 " }}}
 " {{{ ------------------------------------- vCoolor
-map <leader>c :VCoolor<cr>
-map <leader>C :ColorToggle<cr>
+map <leader>C :VCoolor<cr>
+map <leader>c :ColorToggle<cr>
 " }}}
 " {{{ ------------------------------------- endwise
 autocmd FileType elixir
@@ -437,17 +432,6 @@ autocmd FileType elixir
       \ let b:endwise_words = 'do' |
       \ let b:endwise_pattern = '\<do\ze\s*$' |
       \ let b:endwise_syngroups = 'elixirKeyword'
-" }}}
-" {{{ ----------------------------------- xmpfilter
-augroup xmpfilter
-  " autocmd FileType ruby nmap <buffer> <leader>m <Plug>(xmpfilter-mark)
-  " autocmd FileType ruby xmap <buffer> <leader>m <Plug>(xmpfilter-mark)
-  " autocmd FileType ruby imap <buffer> <leader>m <Plug>(xmpfilter-mark)
-
-  " autocmd FileType ruby nmap <buffer> <leader>M <Plug>(xmpfilter-run)
-  " autocmd FileType ruby xmap <buffer> <leader>M <Plug>(xmpfilter-run)
-  " autocmd FileType ruby imap <buffer> <leader>M <Plug>(xmpfilter-run)
-augroup end
 " }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
@@ -457,7 +441,7 @@ augroup yaml
 augroup end
 " }}}
 " {{{ ---------------------------------- ToggleList
- let g:toggle_list_copen_command="Copen"
+ let g:toggle_list_copen_command="copen"
 " }}}
 " {{{ ------------------------------------ Thematic
 let g:thematic#themes = {
@@ -519,14 +503,14 @@ augroup END
 " nmap -  :Switch<cr>
 " }}}
 " {{{ ------------------------------------ Greplace
-set grepprg=ag
-let g:grep_cmd_opts = '--line-numbers --noheading --ignore tags'
-nmap <leader>S :Gsearch ""<left>
-nmap <leader>G :Greplace<cr>
+set grepprg=ag\ --line-numbers\ --noheading
+nmap <leader>S :Gqfopen<cr>
+nmap <leader>g :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
+let g:agprg="ag --column --line-numbers --noheading"
 
 augroup Ag
   autocmd!
@@ -537,25 +521,27 @@ augroup Ag
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
-nmap <leader>ag :Ag! ""<left>
-nmap <leader>u :set operatorfunc=<SID>UsageOperator<cr>g@
+nmap <leader>s :Ag! ""<left>
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
-vmap <leader>u :<c-u>call <SID>UsageOperator(visualmode())<cr>
+vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
-vmap <leader>d :<c-u>call <SID>DefinitionOperator(visualmode())<cr>
+
+au FileType qf call AdjustWindowHeight(3, 20)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 " }}}
 " {{{ ------------------------------------- VimTask
 augroup vimtask
   autocmd!
-  autocmd FileType task hi taskKeyword     ctermfg=9 guifg=#96CBFE
-  autocmd FileType task hi taskWorkingIcon ctermfg=9 guifg=#FF6C60
+  autocmd FileType task hi taskWorkingIcon ctermfg=1 guifg=#FF6C60
+  autocmd FileType task hi taskWorkingItem ctermfg=1 guifg=#FF6C60
   autocmd FileType task hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
-  autocmd FileType task hi taskWorkingItem ctermfg=9 guifg=#FF6C60
   autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
+  autocmd FileType task hi sectionTitle    guifg=#96CBFE guibg=NONE gui=underline ctermfg=4 ctermbg=NONE cterm=underline
+  autocmd FileType task hi taskKeyword     ctermfg=5 guifg=Blue guibg=Yellow
   autocmd FileType task noremap <silent> <buffer> <return> :call Toggle_task_status()<cr>
-  autocmd FileType task noremap <silent> <buffer> zt :call Toggle_task_status()<cr>
   autocmd FileType task xnoremap <silent> <buffer> <return> :call Toggle_task_status()<cr>gv
-  autocmd FileType task xnoremap <silent> <buffer> zt :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
 " {{{ ----------------------------------- UltiSnips
@@ -567,37 +553,6 @@ noremap <leader>use :UltiSnipsEdit<cr>
 " {{{ -------------------------------- YouCompletMe
 let g:ycm_key_list_select_completion = ['<c-n>']
 let g:ycm_key_list_previous_completion = ['<c-p>']
-" }}}
-" {{{ --------------------------------- Neocomplete
-" " Disable AutoComplPop.
-" let g:acp_enableAtStartup = 0
-" " Use neocomplete.
-" let g:neocomplete#enable_at_startup = 1
-" " Use smartcase.
-" let g:neocomplete#enable_smart_case = 1
-" " Set minimum syntax keyword length.
-" " let g:neocomplete#sources#syntax#min_keyword_length = 3
-" " let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" " Eliminate flicker
-" let g:neocomplete#enable_prefetch = 1
-" " Do not activate automatically
-" let g:neocomplete#disable_auto_complete = 1
-" " Instead use a mapping to trigger it
-" inoremap <expr><c-n> neocomplete#start_manual_complete()
-
-" " Define keyword.
-" if !exists('g:neocomplete#keyword_patterns')
-"     let g:neocomplete#keyword_patterns = {}
-" endif
-" let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-" " Recommended key-mappings.
-" " <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function()
-"   return neocomplete#close_popup() . "\<CR>"
-" endfunction
-
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -672,8 +627,6 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
 let g:ctrlp_open_new_file = 't'
 if executable('ag')
-  " Use Ag over Grep
-  set grepprg=ag\ --nogroup\ --nocolor
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
@@ -696,6 +649,7 @@ noremap <leader>gu :GundoToggle<cr>
 " }}}
 " {{{ ------------------------------------- Signify
 let g:signify_vcs_list = [ 'hg', 'git' ]
+let g:signify_update_on_focusgained = 1
 " }}}
 " {{{ ------------------------------------ Fugitive
 nmap gb :Gblame<cr>
@@ -725,6 +679,8 @@ nmap hr :Hgrevert!<cr>:e<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
+" Copy (necessary because of some custom bindings for ag)
+vnoremap yy y
 " {{{ --------------------------------- Exercism.io
 nmap <silent> <leader>xf :Dispatch exercism f<cr>
 nmap <silent> <leader>xs :Dispatch exercism s %<cr>
@@ -743,10 +699,10 @@ noremap <leader>t :tabo<cr>
 " Navigating between splits
 noremap <tab> <c-w>w
 noremap <s-tab> <c-w>W
-noremap S gT
-sunmap  S
-noremap T gt
-sunmap  T
+nnoremap S gT
+xnoremap S gT
+nnoremap T gt
+xnoremap T gt
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -756,8 +712,10 @@ map <leader>= <c-w>=
 map <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
-nmap <c-t> ]m
-nmap <c-s> [m
+nmap <c-n> :cnext<cr>
+nmap <c-p> :cprev<cr>
+nmap <c-t> ]c
+nmap <c-s> [c
 " Beginning / end of the line
 inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
@@ -796,10 +754,9 @@ noremap è t
 noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
-" Save
-nnoremap <leader>s :w<cr>
-vnoremap <leader>s <esc>:w<cr>
-" inoremap <leader>s <esc>:w<cr>
+" Normal mode + save
+noremap <c-c> <esc>:w<cr>
+inoremap <c-c> <esc>:w<cr>
 " Empty buffers
 command! B bufdo bd
 " Change mode
@@ -819,7 +776,7 @@ map K <nop>
 " Reselected pasted lines
 nnoremap <leader>V V`]
 " Select current line charwise
-" nnoremap vv ^v$
+nnoremap vv ^v$
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
