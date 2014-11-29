@@ -119,7 +119,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
     -- Solarized light
     -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
-    awful.util.spawn("dmenu_run -z -l 5 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Inconsolata-12:normal'")
+    awful.util.spawn("dmenu_run -l 5 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Inconsolata-12:normal'")
   end),
   -- Session control
   -- awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
@@ -135,6 +135,7 @@ globalkeys = awful.util.table.join(globalkeys,
   awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
   -- awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
   awful.key({ modkey            }, "a",           function () awful.util.spawn("pavucontrol") end),
+  awful.key({ modkey            }, "x",           function () awful.util.spawn("firefox") end),
 
   awful.key({ modkey            }, "n",           function () awful.util.spawn(terminal)                     end),
   awful.key({ modkey, "Shift"   }, "n",           function () awful.util.spawn("gksu " .. terminal)          end),
