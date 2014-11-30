@@ -284,7 +284,7 @@ set nu
 set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:❯,precedes:❮
-set showbreak=↪
+set showbreak= 
 set list
 " Show matching braces
 set showmatch
@@ -387,6 +387,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------ Markdown
+let g:markdown_enable_mappings = 0
+" }}}
 " {{{ ------------------------------------ SimpleDB
 let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
@@ -773,7 +776,12 @@ nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
 " Disable annoying mapping
 map Q <nop>
-nnoremap K :!zeal --query "<cword>"&<CR><CR>
+
+command! -nargs=1 Silent
+  \ | execute ':silent !'.<q-args>
+  \ | execute ':redraw!'
+nnoremap k :Silent zeal --query "<cword>"&<CR>
+nnoremap K :Silent zeal --query ""&<left><left>
 " Reselected pasted lines
 nnoremap <leader>V V`]
 " Select current line charwise
