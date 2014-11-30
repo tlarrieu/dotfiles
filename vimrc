@@ -50,6 +50,9 @@ Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
+" Haskell
+Plugin 'twinside/vim-syntax-haskell-cabal'
+Plugin 'bitc/vim-hdevtools'
 " SQL
 Plugin 'ivalkeen/vim-simpledb'
 Plugin 'exu/pgsql.vim'
@@ -484,6 +487,7 @@ let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_scss_checkers = ['scss_lint']
+let g:syntastic_haskell_checkers = ['hdevtools']
 noremap <leader>ru :SyntasticCheck rubocop<cr>
 " inoremap <leader>ru :SyntasticCheck rubocop<cr>
 " }}}
@@ -613,8 +617,8 @@ nmap yS  <Plug>YSurround
 nmap yss <Plug>Yssurround
 nmap ySs <Plug>YSsurround
 nmap ySS <Plug>YSsurround
-xmap u   <Plug>VSurround
-xmap U   <Plug>VgSurround
+xmap S   <Plug>VSurround
+xmap gS   <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
 " let g:ctrlp_map = '<leader><leader>'
@@ -699,9 +703,7 @@ noremap <leader>t :tabo<cr>
 noremap <tab> <c-w>w
 noremap <s-tab> <c-w>W
 nnoremap S gT
-xnoremap S gT
 nnoremap T gt
-xnoremap T gt
 " Resize splits
 map <Up>    <c-w>+
 map <Down>  <c-w>-
@@ -771,7 +773,7 @@ nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
 " Disable annoying mapping
 map Q <nop>
-map K <nop>
+nnoremap K :!zeal --query "<cword>"&<CR><CR>
 " Reselected pasted lines
 nnoremap <leader>V V`]
 " Select current line charwise
