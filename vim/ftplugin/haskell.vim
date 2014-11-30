@@ -7,5 +7,7 @@ call signify#SignifyMatch("hsOperator", "hsLesserEqualOperator", "\"<=\"", "≤"
 call signify#SignifyMatch("hsOperator", "hsRightArrowOperator", "\"->\"", "→")
 call signify#SignifyMatch("hsOperator", "hsLeftArrowOperator", "\"<-\"", "←")
 call signify#SignifyMatch("hsOperator", "hsModuleOperator", "\"::\"", "∷")
+call signify#SignifyMatch("hsOperator", "hsAndOperator", "\"&&\"", "∧")
+call signify#SignifyMatch("hsOperator", "hsAndOperator", "\"||\"", "∨")
 
 noremap <buffer> K :!zeal --query haskell:"<cword>"&<cr><cr>

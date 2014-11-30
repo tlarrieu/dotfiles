@@ -6,6 +6,9 @@ call signify#SignifyMatch("rubyOperator", "rubyGreaterEqualOperator", "\">=\"", 
 call signify#SignifyMatch("rubyOperator", "rubyLesserEqualOperator", "\"<=\"", "≤")
 call signify#SignifyMatch("rubyOperator", "rubyTimesOperator", "\"*\"", "×")
 call signify#SignifyMatch("rubyOperator", "rubyOverOperator", "\"/\"", "÷")
+call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"&&\"", "∧")
+call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"||\"", "∨")
+call signify#SignifyMatch("rubyOperator", "rubyModuleOperator", "\"::\"", "∷")
 call signify#SignifyKeyword("rubyKeyword", "rubyLambda", "lambda", "λ")
 call signify#SignifyKeyword("rubyKeyword", "rubyProc", "proc", "π")
 
