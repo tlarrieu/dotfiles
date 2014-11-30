@@ -14,3 +14,6 @@ tags
 *.png
 *.jpg
 *.gif
+
+*.hi
+*.o
