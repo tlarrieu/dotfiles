@@ -19,8 +19,7 @@ noremap b :back<cr>
 noremap B :forward<cr>
 
 noremap à d
-noremap o t
-noremap O T
+noremap O t
 
 noremap é /
 noremap É ?
