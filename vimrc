@@ -26,7 +26,6 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " Text manipulation
-" Plugin 'Shougo/neocomplete.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-commentary'
@@ -45,6 +44,8 @@ Plugin 'samsonw/vim-task'
 Plugin 'sjl/gundo.vim'
 " List toggler
 Plugin 'milkypostman/vim-togglelist'
+" Buffer functionnalities
+Plugin 'duff/vim-bufonly'
 " Ruby
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
@@ -389,6 +390,9 @@ hi! IncSearch ctermbg=7 ctermfg=5
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- BufOnly
+nnoremap <leader>b :BufOnly<cr>
+" }}}
 " {{{ ------------------------------------ Markdown
 let g:markdown_enable_mappings = 0
 " }}}
@@ -476,8 +480,8 @@ let g:vroom_use_zeus = 0
 let g:vroom_use_colors = 1
 let g:vroom_map_keys = 0
 augroup auvroom
-  autocmd FileType ruby nmap <leader><return> :VroomRunTestFile<cr>
-  autocmd FileType ruby nmap <return> :VroomRunNearestTest<cr>
+  autocmd FileType ruby nmap <buffer> <leader><return> :VroomRunTestFile<cr>
+  autocmd FileType ruby nmap <buffer> <return> :VroomRunNearestTest<cr>
 augroup end
 " }}}
 " {{{ ------------------------------------- Targets
@@ -640,7 +644,6 @@ if executable('ag')
 endif
 nmap <leader>é :CtrlPBufTag<cr>
 nmap <leader>É :CtrlPTag<cr>
-nmap <leader>b :CtrlPBuffer<cr>
 nmap <leader><leader> :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
