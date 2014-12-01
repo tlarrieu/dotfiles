@@ -382,6 +382,8 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
+hi! Search ctermbg=7 ctermfg=2
+hi! IncSearch ctermbg=7 ctermfg=5
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
@@ -647,6 +649,7 @@ nmap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'AcceptSelection("h")': ['<c-x>'],
     \ 'AcceptSelection("t")': ['<nl>', '<c-cr>'],
     \ }
+hi! CtrlPMatch ctermfg=5
 " }}}
 " {{{ --------------------------------------- Gundo
 let gundo_map_move_older = "t"
