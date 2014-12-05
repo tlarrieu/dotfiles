@@ -51,6 +51,8 @@ Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
+" HTML
+Plugin 'mattn/emmet-vim'
 " Haskell
 Plugin 'twinside/vim-syntax-haskell-cabal'
 Plugin 'bitc/vim-hdevtools'
@@ -390,6 +392,9 @@ hi! IncSearch ctermbg=7 ctermfg=5
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ --------------------------------------- Emmet
+let g:user_emmet_leader_key=','
+" }}}
 " {{{ ------------------------------------- BufOnly
 nnoremap <leader>b :BufOnly<cr>
 " }}}
@@ -709,8 +714,8 @@ noremap <leader>T :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Close all tabs but current
 noremap <leader>t :tabo<cr>
 " Navigating between splits
-noremap <tab> <c-w>w
-noremap <s-tab> <c-w>W
+nnoremap <tab> <c-w>w
+nnoremap <s-tab> <c-w>W
 nnoremap S gT
 nnoremap T gt
 " Resize splits
@@ -782,12 +787,6 @@ nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
 " Disable annoying mapping
 map Q <nop>
-
-command! -nargs=1 Silent
-  \ | execute ':silent !'.<q-args>
-  \ | execute ':redraw!'
-nnoremap k :Silent zeal --query "<cword>"&<CR>
-nnoremap K :Silent zeal --query ""&<left><left>
 " Reselected pasted lines
 nnoremap <leader>V V`]
 " Select current line charwise
@@ -866,5 +865,13 @@ nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>ep :tabe ~/postgres.sql<cr>
 nmap <leader>eq :tabe ~/sqlite.sql<cr>
+" }}}
+" {{{ ------------------------- Convenience Mapping
+command! -nargs=1 Silent
+  \ | execute ':silent !'.<q-args>
+  \ | execute ':redraw!'
+nnoremap k :Silent zeal --query "<cword>"&<CR>
+nnoremap K :Silent zeal --query ""&<left><left>
+nnoremap gh :!open "http://www.thesaurus.com/browse/<cword>"&<cr><cr>
 " }}}
 " }}}
