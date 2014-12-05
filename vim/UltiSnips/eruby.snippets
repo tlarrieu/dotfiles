@@ -1,6 +1,6 @@
 snippet div "div" i
 <div>
-	$1
+	${1:${VISUAL}}
 </div>
 endsnippet
 
@@ -34,4 +34,12 @@ endsnippet
 
 snippet % "<% %>" i
 <% ${1} %>
+endsnippet
+
+snippet imt "image_tag"
+<%= image_tag $1 %>
+endsnippet
+
+snippet image_tag "image_tag"
+<%= image_tag $1 %>
 endsnippet
