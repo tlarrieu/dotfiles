@@ -501,7 +501,7 @@ let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_scss_checkers = ['scss_lint']
-let g:syntastic_haskell_checkers = ['hdevtools']
+let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 noremap <leader>ru :SyntasticCheck rubocop<cr>
 " inoremap <leader>ru :SyntasticCheck rubocop<cr>
 " }}}
