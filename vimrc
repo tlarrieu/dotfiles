@@ -770,9 +770,11 @@ noremap è t
 noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
+" save
+noremap $ :w<cr>
 " Normal mode + save
-noremap <c-c> <esc>:w<cr>
-inoremap <c-c> <esc>:w<cr>
+noremap <c-c> <esc>
+inoremap <c-c> <esc>
 " Empty buffers
 command! B bufdo bd
 " Change mode
