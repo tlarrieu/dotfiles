@@ -1,7 +1,35 @@
-snippet mod "Module"
-module ${1:Modname} where
+snippet /\bmo?d?/ "Module" r
+module ${1:Modname} (
+	$2
+) where
 endsnippet
 
-snippet qual "Qualified import, name by last module"
+snippet /\bim?p?/ "Import" r
+import ${1:Module}
+endsnippet
+
+snippet /\bqu?a?l?/ "Qualified import, name by last module" r
 import qualified ${1:Module} as ${2:alias}
+endsnippet
+
+snippet \ "Lambda expression"
+\\ ${1:pattern} -> ${2:expression}
+endsnippet
+
+snippet /\(\\\)?/ "Lambda expression" r
+(\\ ${1:pattern} -> ${2:expression})$0
+endsnippet
+
+snippet /\bde?f?/ "Function definition" r
+${1:name} :: ${2:Type} -> ${3:Type}
+endsnippet
+
+snippet /\ble?t?/ "let ... in ..." r
+let ${1:name} = ${2:expression}
+in ${3:expression}
+endsnippet
+
+snippet /\bwh?/ "where x = expression" r
+where
+	${1:name} = ${2:expression}
 endsnippet
