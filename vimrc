@@ -14,18 +14,18 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Vundle
+" -- | Vundle | -----------------------
 Plugin 'gmarik/Vundle.vim'
-" File Manipulation
+" -- | File Manipulation | ------------
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
-" Functionnalities
+" -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
-" Snippets
+" -- | Snippets | ---------------------
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-" Text manipulation
+" -- | Text manipulation | ------------
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/switch.vim'
 Plugin 'tpope/vim-commentary'
@@ -33,38 +33,40 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'edsono/vim-matchit'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
-" Text objects
+" -- | Text objects | -----------------
 Plugin 'kana/vim-textobj-user'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
-" Task manager
+" -- | Task manager | -----------------
 Plugin 'samsonw/vim-task'
-" Undo tree explorer
+" -- | Undo tree explorer | -----------
 Plugin 'sjl/gundo.vim'
-" List toggler
+" -- | List toggler | -----------------
 Plugin 'milkypostman/vim-togglelist'
-" Buffer functionnalities
+" -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
-" Ruby
+" -- | Ruby | -------------------------
 Plugin 'skalnik/vim-vroom'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
-" HTML
+" -- | HTML | -------------------------
 Plugin 'mattn/emmet-vim'
-" Haskell
+" -- | Haskell | ----------------------
 Plugin 'twinside/vim-syntax-haskell-cabal'
 Plugin 'bitc/vim-hdevtools'
-" SQL
+" -- | Go lang | ----------------------
+Plugin 'fatih/vim-go'
+" -- | SQL | --------------------------
 Plugin 'ivalkeen/vim-simpledb'
 Plugin 'exu/pgsql.vim'
-" VCS
+" -- | VCS | --------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
 Plugin 'zeekay/vim-lawrencium'
 Plugin 'mhinz/vim-signify'
-" Misc languages support
+" -- | Misc languages support | -------
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'gabrielelana/vim-markdown'
 Plugin 'roalddevries/yaml.vim'
@@ -74,18 +76,17 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'chrisbra/csv.vim'
-" Syntax checking
+" -- | Syntax checking | --------------
 Plugin 'scrooloose/syntastic'
-" Good looking
+" -- | Good looking | -----------------
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
 Plugin 'reedes/vim-thematic'
-" Color picker
-Plugin 'KabbAmine/vCoolor.vim'
-" Color Highlighter
-Plugin 'chrisbra/Colorizer'
+" -- | Colors | -----------------------
+Plugin 'KabbAmine/vCoolor.vim'              " Picker
+Plugin 'chrisbra/Colorizer'                 " Highlighter
 
 call vundle#end()
 
@@ -392,6 +393,15 @@ hi! IncSearch ctermbg=7 ctermfg=5
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ -------------------------------------- go-vim
+augroup golang
+  au FileType go nmap <Leader>gi <Plug>(go-implements)
+  au FileType go nmap <Leader>gI <Plug>(go-info)
+  au FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
+  au FileType go nmap <leader>gr <Plug>(go-run)
+  au FileType go nmap yd <Plug>(go-def)
+augroup end
+" }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key=','
 " }}}
@@ -524,7 +534,7 @@ augroup END
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
 nmap <leader>S :Gqfopen<cr>
-nmap <leader>g :Greplace<cr>
+nmap <leader>R :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
