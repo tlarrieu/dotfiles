@@ -406,7 +406,7 @@ augroup end
 let g:user_emmet_leader_key=','
 " }}}
 " {{{ ------------------------------------- BufOnly
-nnoremap <leader>b :BufOnly<cr>
+nnoremap <leader>B :BufOnly<cr>
 " }}}
 " {{{ ------------------------------------ Markdown
 let g:markdown_enable_mappings = 0
@@ -681,19 +681,13 @@ let g:signify_update_on_focusgained = 1
 " {{{ ------------------------------------ Fugitive
 nmap gb :Gblame<cr>
 nmap gd :Gvdiff<cr>
-nmap gD :Gdiff<cr>
-nmap gw :Gwrite<cr>
 nmap gr :Gread<cr>
-nmap gC :Gcommit<cr>
 nmap gs :Gstatus<cr>
-nmap gp :Gpush<cr>
 " }}}
 " {{{ ---------------------- Mercenary / Lawrencium
 nmap hb :HGblame<cr>
 nmap hd :HGdiff<cr>
 nmap hD :HGdiff ancestor(default,.)<cr>
-nmap hh :Hg! 
-nmap hc :Hgcommit<cr>
 nmap hs :Hgstatus<cr>
 function! HgBranchStatus()
   silent tabnew /dev/null
@@ -703,6 +697,12 @@ function! HgBranchStatus()
 endfunction
 nmap hS :call HgBranchStatus()<cr>
 nmap hr :Hgrevert!<cr>:e<cr>
+
+nmap <leader>S :call HgBranchStatus()<cr>
+nmap <leader>s :Hgstatus<cr>
+nmap <leader>D :HGdiff ancestor(default,.)<cr>
+nmap <leader>b :HGblame<cr>
+nmap <leader>d :HGdiff<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
@@ -720,9 +720,9 @@ nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " New tab
-noremap <leader>T :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+noremap <leader>t :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Close all tabs but current
-noremap <leader>t :tabo<cr>
+noremap <leader>T :tabo<cr>
 " Navigating between splits
 nnoremap <tab> <c-w>w
 nnoremap <s-tab> <c-w>W
