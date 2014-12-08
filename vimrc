@@ -533,7 +533,7 @@ augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
-nmap <leader>S :Gqfopen<cr>
+nmap <leader>É :Gqfopen<cr>
 nmap <leader>R :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
@@ -549,7 +549,7 @@ augroup Ag
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
-nmap <leader>s :Ag! ""<left>
+nmap <leader>é :Ag! ""<left>
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
@@ -658,8 +658,7 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nmap <leader>é :CtrlPBufTag<cr>
-nmap <leader>É :CtrlPTag<cr>
+nmap <leader>; :CtrlPTag<cr>
 nmap <leader><leader> :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
