@@ -404,6 +404,12 @@ augroup end
 " }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key=','
+let g:user_emmet_install_global = 0
+
+augroup emmet
+  au!
+  au FileType html,css,erb EmmetInstall
+augroup end
 " }}}
 " {{{ ------------------------------------- BufOnly
 nnoremap <leader>B :BufOnly<cr>
@@ -417,9 +423,6 @@ let g:omni_sql_no_default_maps = 1
 augroup SQL
   autocmd!
   autocmd BufRead vim-simpledb-result.txt setf sql
-  autocmd FileType *sql vnoremap <buffer> <enter> :SimpleDBExecuteSql<cr>
-  autocmd FileType *sql nnoremap <buffer> <leader><enter> m':SimpleDBExecuteSql <cr>g`'
-  autocmd FileType *sql nnoremap <buffer> <enter> m':'{,'}SimpleDBExecuteSql<cr>g`'
 augroup end
 " }}}
 " {{{ ----------------------------------- Signature
@@ -486,18 +489,14 @@ let g:thematic#themes = {
 
 " }}}
 " {{{ ------------------------------------ Disptach
-nmap <leader>d :Dispatch<cr>
-nmap <leader>f :<c-u>Focus  %<left><left>
+nmap <leader>f :Dispatch<cr>
+nmap <leader>F :<c-u>Focus  %<left><left>
 " }}}
 " {{{ --------------------------------------- Vroom
 let g:vroom_use_dispatch = 1
 let g:vroom_use_zeus = 0
 let g:vroom_use_colors = 1
 let g:vroom_map_keys = 0
-augroup auvroom
-  autocmd FileType ruby nmap <buffer> <leader><return> :VroomRunTestFile<cr>
-  autocmd FileType ruby nmap <buffer> <return> :VroomRunNearestTest<cr>
-augroup end
 " }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}é []d <>É'
@@ -568,8 +567,6 @@ augroup vimtask
   autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
   autocmd FileType task hi sectionTitle    guifg=#96CBFE guibg=NONE gui=underline ctermfg=4 ctermbg=NONE cterm=underline
   autocmd FileType task hi taskKeyword     ctermfg=5 guifg=Blue guibg=Yellow
-  autocmd FileType task noremap <silent> <buffer> <return> :call Toggle_task_status()<cr>
-  autocmd FileType task xnoremap <silent> <buffer> <return> :call Toggle_task_status()<cr>gv
 augroup END
 " }}}
 " {{{ ----------------------------------- UltiSnips
@@ -658,7 +655,8 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nmap <leader>; :CtrlPTag<cr>
+nmap <leader>  :CtrlPBufTag<cr>
+nmap <leader><space> :CtrlPTag<cr>
 nmap <leader><leader> :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
@@ -678,31 +676,34 @@ noremap <leader>gu :GundoToggle<cr>
 let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
 " }}}
-" {{{ ------------------------------------ Fugitive
-nmap gb :Gblame<cr>
-nmap gd :Gvdiff<cr>
-nmap gr :Gread<cr>
-nmap gs :Gstatus<cr>
-" }}}
-" {{{ ---------------------- Mercenary / Lawrencium
-nmap hb :HGblame<cr>
-nmap hd :HGdiff<cr>
-nmap hD :HGdiff ancestor(default,.)<cr>
-nmap hs :Hgstatus<cr>
-function! HgBranchStatus()
-  silent tabnew /dev/null
-  normal ggdG
-  0read !hg status --rev "::. - ::default" -n
-  silent :w
+" {{{ ----------- Fugitive / Mercenary / Lawrencium
+let g:next_vcs = 'mercurial'
+function! SwitchVCS()
+  if g:next_vcs ==# 'mercurial'
+    nmap <leader>b :HGblame<cr>
+    nmap <leader>d :HGdiff<cr>
+    nmap <leader>D :HGdiff ancestor(default,.)<cr>
+    nmap <leader>s :Hgstatus<cr>
+    function! HgBranchStatus()
+      silent tabnew /dev/null
+      normal ggdG
+      0read !hg status --rev "::. - ::default" -n
+      silent :w
+    endfunction
+    nmap <leader>S :call HgBranchStatus()<cr>
+    nmap hr :Hgrevert!<cr>:e<cr>
+    let g:next_vcs = 'git'
+  else
+    nmap <leader>b :Gblame<cr>
+    nmap <leader>d :Gvdiff<cr>
+    nmap gr :Gread<cr>
+    nmap <leader>s :Gstatus<cr>
+    let g:next_vcs = 'mercurial'
+  endif
 endfunction
-nmap hS :call HgBranchStatus()<cr>
-nmap hr :Hgrevert!<cr>:e<cr>
 
-nmap <leader>S :call HgBranchStatus()<cr>
-nmap <leader>s :Hgstatus<cr>
-nmap <leader>D :HGdiff ancestor(default,.)<cr>
-nmap <leader>b :HGblame<cr>
-nmap <leader>d :HGdiff<cr>
+call SwitchVCS()
+nmap <leader><tab> :call SwitchVCS()<cr>
 " }}}
 " }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
