@@ -404,8 +404,8 @@ augroup end
 " }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key=','
+let g:use_emmet_complete_tag = 1
 let g:user_emmet_install_global = 0
-
 augroup emmet
   au!
   au FileType html,css,erb EmmetInstall
@@ -528,7 +528,6 @@ augroup switch
         \ }
         \]
 augroup END
-" nmap -  :Switch<cr>
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
@@ -677,35 +676,34 @@ let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
 " }}}
 " {{{ ----------- Fugitive / Mercenary / Lawrencium
-let g:next_vcs = 'mercurial'
+function! HgBranchStatus()
+  silent tabnew /dev/null
+  normal ggdG
+  0read !hg status --rev "::. - ::default" -n
+  silent :w
+endfunction
+
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
+    nmap <leader>S :call HgBranchStatus()<cr>
+    nmap <leader>s :Hgstatus<cr>
+    nmap <leader>D :HGdiff ancestor(default,.)<cr>
     nmap <leader>b :HGblame<cr>
     nmap <leader>d :HGdiff<cr>
-    nmap <leader>D :HGdiff ancestor(default,.)<cr>
-    nmap <leader>s :Hgstatus<cr>
-    function! HgBranchStatus()
-      silent tabnew /dev/null
-      normal ggdG
-      0read !hg status --rev "::. - ::default" -n
-      silent :w
-    endfunction
-    nmap <leader>S :call HgBranchStatus()<cr>
     nmap hr :Hgrevert!<cr>:e<cr>
     let g:next_vcs = 'git'
   else
     nmap <leader>b :Gblame<cr>
     nmap <leader>d :Gvdiff<cr>
-    nmap gr :Gread<cr>
+    nmap <leader>r :Gread<cr>
     nmap <leader>s :Gstatus<cr>
     let g:next_vcs = 'mercurial'
   endif
 endfunction
 
+let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nmap <leader><tab> :call SwitchVCS()<cr>
-" }}}
-" }}}
 " {{{ ------------------------------------------------- Various keyboard mapping
 " Copy (necessary because of some custom bindings for ag)
 vnoremap yy y
