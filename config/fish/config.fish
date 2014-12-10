@@ -65,11 +65,11 @@ alias hb="hg branch"
 alias hbs="hg branches"
 alias hci="hg commit"
 alias hcl="hg clone"
-alias hd="hg mdiff"
-alias hdpr="hg mdiff -r \"ancestor(default,.)\""
+alias hd="hg diff"
+alias hdpr="hg diff -r \"ancestor(default,.)\""
 alias hspr="hg status --rev \"::. - ::default\""
 function hdprc
-  hg mdiff -r "ancestor($argv,.)"
+  hg diff -r "ancestor($argv,.)"
 end
 function hsprc
   hg status --rev "::. - ::$argv"
