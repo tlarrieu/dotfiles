@@ -654,9 +654,9 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nmap <leader>  :CtrlPBufTag<cr>
-nmap <leader><space> :CtrlPTag<cr>
-nmap <leader><leader> :CtrlPBuffer<cr>
+nmap <leader><leader> :CtrlPBufTag<cr>
+nmap <leader>; :CtrlPTag<cr>
+nmap   :CtrlPBuffer<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
@@ -884,5 +884,10 @@ command! -nargs=1 Silent
 nnoremap k :Silent zeal --query "<cword>"&<CR>
 nnoremap K :Silent zeal --query ""&<left><left>
 nnoremap gh :!open "http://www.thesaurus.com/browse/<cword>"&<cr><cr>
+" }}}
+" {{{ --------------------------- Utility Functions
+function RegexToList()
+  let @a=""|%s//\=setreg('A', submatch(0), 'l')/g|%d _|pu a|0d _
+endfunction
 " }}}
 " }}}
