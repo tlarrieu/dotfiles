@@ -16,24 +16,24 @@ safelink()
       ln -sfF $target $link
     fi
   else
-    link=true
+    DO_LINK=true
     if [ -d $target -o -f $target ]; then
-      link=false
+      DO_LINK=false
       echo -n "$link already exists, do you want to replace it? (y/N/a) "
       read answer
       case $answer in
         "yes"|"y")
           rm -rf $link
-          link=true
+          DO_LINK=true
           ;;
         "all"|"a")
           rm -rf $link
           FORCE=true
-          link=true
+          DO_LINK=true
           ;;
       esac
     fi
-    if [ $link ]; then
+    if [ $DO_LINK ]; then
       if [ $OSX ]; then
         ln -s -i $target $link
       else

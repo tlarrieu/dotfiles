@@ -1,0 +1,30 @@
+# Homepage
+set homepage http://www.duckduckgo.com/
+
+# Search engines
+searchengine d http://www.duckduckgo.com/?q=%s
+searchengine git http://www.github.com/%s
+
+# Allow multiple instances
+set single_instance false
+
+# Downloads
+set download_dir ~/Downloads
+set download_command termite -c "wget --load-cookies ~/.config/jumanji/cookies '%s' -0 '%s'"
+
+# Activate hinting
+script ~/.config/jumanji/scripts/hints.js
+
+# Custom mapping
+map T nav_tabs next
+map S nav_tabs previous
+map t scroll down
+map s scroll up
+map r scroll right
+map c scroll left
+map b nav_history previous
+map B nav_history next
+map O focus_inputbar :tabopen
+map ' search forward
+map ? search backward
+map <C-r> reload
