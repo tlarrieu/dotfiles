@@ -276,6 +276,7 @@ function set_active(element) {
   element.element.setAttribute('jumanji_highlight', 'hint_active');
   active = element;
 }
+
 function clear() {
   if (elements) {
     for (var i=0; i<elements.length; i++) {
