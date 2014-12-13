@@ -3,7 +3,7 @@ set homepage http://www.duckduckgo.com/
 
 # Search engines
 searchengine d http://www.duckduckgo.com/?q=%s
-searchengine git http://www.github.com/%s
+searchengine g http://www.github.com/search?q=%s
 
 # Allow multiple instances
 set single_instance false
