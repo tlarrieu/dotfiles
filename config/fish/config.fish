@@ -12,6 +12,8 @@ alias vir="vi -R"
 alias vip="vi -c AnsiEsc -c 'syn on' -c 'set nomod' -"
 alias r="ranger"
 
+alias e="exercism"
+
 alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias less="less -r"
