@@ -1,0 +1,1 @@
+map <return> :so %<cr>
