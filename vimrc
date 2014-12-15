@@ -708,7 +708,7 @@ let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nmap <leader><tab> :call SwitchVCS()<cr>
 " {{{ ------------------------------------------------- Various keyboard mapping
-" Copy (necessary because of some custom bindings for ag)
+" Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " {{{ --------------------------------- Exercism.io
 nmap <silent> <leader>xf :Dispatch exercism f<cr>
@@ -861,7 +861,7 @@ noremap / 9
 noremap 9 /
 noremap * 0
 noremap 0 *
-
+" }}}
 " {{{ -------------------------------------- Search
 map é <Plug>(incsearch-stay)
 map É <Plug>(incsearch-forward)
