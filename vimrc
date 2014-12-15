@@ -714,10 +714,6 @@ vnoremap yy y
 nmap <silent> <leader>xf :Dispatch exercism f<cr>
 nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
-" {{{ --------------------------------------- Marks
-" noremap ' `
-" noremap ` '
-" }}}
 " {{{ ------------------------------- Splits / Tabs
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
@@ -868,8 +864,8 @@ map É <Plug>(incsearch-forward)
 
 noremap ' n
 noremap ? N
-noremap n '
-noremap nn ''
+noremap n `
+noremap nn ``
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
