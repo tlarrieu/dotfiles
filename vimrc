@@ -39,6 +39,7 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
+Plugin 'haya14busa/incsearch.vim'
 " -- | Task manager | -----------------
 Plugin 'samsonw/vim-task'
 " -- | Undo tree explorer | -----------
@@ -448,10 +449,6 @@ let g:SignatureMap = {
   \ 'GotoPrevMarkerAny'  :  "",
   \ 'ListLocalMarks'     :  ""
   \ }
-noremap ' n
-noremap ? N
-noremap n '
-noremap nn ''
 " }}}
 " {{{ ------------------------------------- vCoolor
 map <leader>C :VCoolor<cr>
@@ -859,10 +856,13 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 
-nnoremap é /
-vnoremap é /
-nnoremap É ?
-vnoremap É ?
+" {{{ -------------------------------------- Search
+map é <Plug>(incsearch-stay)
+
+noremap ' n
+noremap ? N
+noremap n '
+noremap nn ''
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
