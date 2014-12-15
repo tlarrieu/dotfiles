@@ -333,6 +333,10 @@ set title
 set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
+" Do not redraw screen while running macros
+set lazyredraw
+" Improve redrawing
+set ttyfast
 " }}}
 " {{{ ------------------------------------------------------------------- Splits
 hi! link VertSplit CursorColumn
