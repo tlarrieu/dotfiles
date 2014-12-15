@@ -785,7 +785,8 @@ noremap È T
 noremap $ :w<cr>
 " Normal mode + save
 noremap <c-c> <esc>
-inoremap <c-c> <esc>
+" Leave the cursor in place after leaving insert mode
+inoremap <c-c> <esc>`^
 vnoremap <c-c> <esc>
 xnoremap <c-c> <esc>
 " Empty buffers
