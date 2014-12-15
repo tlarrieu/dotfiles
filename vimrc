@@ -40,6 +40,7 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
 Plugin 'haya14busa/incsearch.vim'
+Plugin 'tommcdo/vim-exchange'
 " -- | Task manager | -----------------
 Plugin 'samsonw/vim-task'
 " -- | Undo tree explorer | -----------
@@ -400,6 +401,13 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------ Exchange
+let g:exchange_no_mappings=1
+nmap lx <Plug>(Exchange)
+vmap X <Plug>(Exchange)
+nmap lxl <Plug>(ExchangeClear)
+nmap lxx <Plug>(ExchangeLine)
+" }}}
 " {{{ -------------------------------------- go-vim
 augroup golang
   au FileType go nmap <Leader>gi <Plug>(go-implements)
