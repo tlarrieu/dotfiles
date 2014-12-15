@@ -415,7 +415,7 @@ let g:use_emmet_complete_tag = 1
 let g:user_emmet_install_global = 0
 augroup emmet
   au!
-  au FileType html,css,erb EmmetInstall
+  au FileType html,css,eruby EmmetInstall
 augroup end
 " }}}
 " {{{ ------------------------------------- BufOnly
@@ -642,7 +642,7 @@ nmap yss <Plug>Yssurround
 nmap ySs <Plug>YSsurround
 nmap ySS <Plug>YSsurround
 xmap S   <Plug>VSurround
-xmap gS   <Plug>VgSurround
+xmap gS  <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
 " let g:ctrlp_map = '<leader><leader>'
