@@ -394,6 +394,7 @@ set hlsearch  " highlight search
 set incsearch " start search while typing
 hi! Search ctermbg=7 ctermfg=2
 hi! IncSearch ctermbg=7 ctermfg=5
+hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
@@ -862,6 +863,7 @@ noremap 0 *
 
 " {{{ -------------------------------------- Search
 map é <Plug>(incsearch-stay)
+map É <Plug>(incsearch-forward)
 
 noremap ' n
 noremap ? N
