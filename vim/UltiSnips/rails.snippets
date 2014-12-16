@@ -1,3 +1,7 @@
+snippet /sc?o?p?e?/ "Scope" r
+scope :${1:name}, -> { where(${2:column}: ${3:value}) }
+endsnippet
+
 snippet debug "Rails.logger.debug"
 Rails.logger.debug $1
 endsnippet
