@@ -24,3 +24,4 @@ config/fish/functions/sync_test.fish
 config/ranger/tagged
 config/jumanji/cookies
 config/jumanji/history
+config/jumanji/adblock
