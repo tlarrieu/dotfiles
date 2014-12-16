@@ -23,6 +23,7 @@ Plugin 'skwp/greplace.vim'
 " -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-vinegar'              " netrw enhancements
+Plugin 'spolu/dwm.vim'
 " -- | Snippets | ---------------------
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -401,6 +402,10 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------------- DWM
+let g:dwm_map_keys=0
+map <silent> <c-k> <Plug>DWMFocus
+" }}}
 " {{{ ------------------------------------ Exchange
 let g:exchange_no_mappings=1
 nmap lx <Plug>(Exchange)
