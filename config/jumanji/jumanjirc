@@ -9,8 +9,8 @@ searchengine g http://www.github.com/search?q=%s
 set single_instance false
 
 # Downloads
-set download_dir ~/Downloads
-set download_command termite -c "wget --load-cookies ~/.config/jumanji/cookies '%s' -0 '%s'"
+set download-dir ~/Downloads
+set download-command "wget %s -O %s"
 
 # Activate hinting
 script ~/.config/jumanji/scripts/hints.js
