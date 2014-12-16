@@ -662,9 +662,9 @@ xmap gS  <Plug>VgSurround
 let g:ctrlp_map = '<space>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'Et'
+let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:20'
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:40'
 let g:ctrlp_open_new_file = 't'
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
@@ -678,7 +678,7 @@ nmap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
     \ 'AcceptSelection("h")': ['<c-x>'],
-    \ 'AcceptSelection("t")': ['<nl>', '<c-cr>'],
+    \ 'AcceptSelection("t")': ['<c-cr>'],
     \ }
 hi! CtrlPMatch ctermfg=5
 " }}}
