@@ -16,6 +16,9 @@ call signify#SignifyMatch("rubyOperator", "rubyProcKeyword", "\"proc\"", "π")
 call signify#SignifyKeyword("rubyKeyword", "rubyLambdaKeyword", "lambda", "λ")
 call signify#SignifyKeyword("rubyKeyword", "rubyProcKeyword", "proc", "π")
 
+setlocal iskeyword+=?
+setlocal iskeyword+=!
+
 nnoremap <buffer> k :!zeal --query ruby:"<cword>"&<cr><cr>
 nnoremap <buffer> K :Silent zeal --query ruby:""&<left><left>
 
