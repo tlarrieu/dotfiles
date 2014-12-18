@@ -848,6 +848,8 @@ nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
 " Clear trailing spaces
 nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+" Fix indent
+nnoremap <silent> <leader>i mmgg=G`m
 " }}}
 " {{{ ---------------------------- Swap number line
 noremap " 1
