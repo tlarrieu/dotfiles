@@ -882,8 +882,6 @@ noremap nn ``
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
-nmap <leader>av :AV<cr>
-nmap <leader>ar :AR<cr>
 nmap <leader>es :tabe db/structure.sql<cr>
 
 nmap <leader>ev :tabe $MYVIMRC<cr>
