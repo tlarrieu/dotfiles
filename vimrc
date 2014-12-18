@@ -527,8 +527,8 @@ let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 augroup lint
-  au FileType ruby noremap <buffer> <leader>ru :SyntasticCheck rubocop<cr>
-  au FileType scss noremap <buffer> <leader>ru :SyntasticCheck scss_lint<cr>
+  au FileType ruby noremap <buffer> <leader>è :SyntasticCheck rubocop<cr>
+  au FileType scss noremap <buffer> <leader>è :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ -------------------------------------- Switch
@@ -827,7 +827,7 @@ command! RF :call RenameFile()
 noremap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
-noremap <silent> <leader>l :Errors<cr>:call ToggleLocationList()<cr>
+noremap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
