@@ -514,6 +514,9 @@ let g:test#strategy = 'dispatch'
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}é []d <>É'
 let g:targets_argTrigger = 'c'
+" By default, we want to delete only the ACTUAL parameter
+" Not the whitespaces around it
+omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
