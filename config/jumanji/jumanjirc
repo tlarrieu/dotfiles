@@ -28,3 +28,4 @@ map O focus_inputbar :tabopen
 map ' search forward
 map ? search backward
 map <C-r> reload
+map . focus_inputbar :
