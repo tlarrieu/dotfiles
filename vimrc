@@ -872,8 +872,8 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ -------------------------------------- Search
-map é <Plug>(incsearch-stay)
-map É <Plug>(incsearch-forward)
+map É <Plug>(incsearch-stay)
+map é <Plug>(incsearch-forward)
 
 noremap ' n
 noremap ? N
