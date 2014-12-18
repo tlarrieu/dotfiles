@@ -19,5 +19,5 @@ call signify#SignifyKeyword("rubyKeyword", "rubyProcKeyword", "proc", "π")
 nnoremap <buffer> k :!zeal --query ruby:"<cword>"&<cr><cr>
 nnoremap <buffer> K :Silent zeal --query ruby:""&<left><left>
 
-nmap <buffer> <leader><return> :VroomRunTestFile<cr>
-nmap <buffer> <return> :VroomRunNearestTest<cr>
+nmap <buffer> <leader><return> :TestFile<cr>
+nmap <buffer> <return> :TestNearest<cr>

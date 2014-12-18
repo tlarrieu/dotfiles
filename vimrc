@@ -51,7 +51,7 @@ Plugin 'milkypostman/vim-togglelist'
 " -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
 " -- | Ruby | -------------------------
-Plugin 'skalnik/vim-vroom'
+Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
@@ -508,11 +508,8 @@ let g:thematic#themes = {
 nmap <leader>f :Dispatch<cr>
 nmap <leader>F :<c-u>Focus  %<left><left>
 " }}}
-" {{{ --------------------------------------- Vroom
-let g:vroom_use_dispatch = 1
-let g:vroom_use_zeus = 0
-let g:vroom_use_colors = 1
-let g:vroom_map_keys = 0
+" {{{ ------------------------------------ vim-test
+let g:test#strategy = 'dispatch'
 " }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}é []d <>É'

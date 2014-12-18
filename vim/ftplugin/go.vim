@@ -12,3 +12,6 @@ call signify#SignifyMatch("goOperator", "goAndOperator", "\"||\"", "∨")
 
 nnoremap <buffer> k :!zeal --query go:"<cword>"&<cr><cr>
 nnoremap <buffer> K :Silent zeal --query go:""&<left><left>
+
+nmap <buffer> <leader><return> :TestFile<cr>
+nmap <buffer> <return> :TestNearest<cr>
