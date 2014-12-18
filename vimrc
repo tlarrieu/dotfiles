@@ -827,7 +827,7 @@ command! RF :call RenameFile()
 noremap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
-noremap <silent> <leader>l :call ToggleLocationList()<cr>
+noremap <silent> <leader>l :Errors<cr>:call ToggleLocationList()<cr>
 " Toggle highlight current word
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
@@ -841,8 +841,6 @@ nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
 nnoremap <leader>ee :call SplitSwap()<cr><tab>
-" Display lint errors
-nnoremap <leader>rr :Errors<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
