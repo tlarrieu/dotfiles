@@ -706,7 +706,7 @@ function! SwitchVCS()
     noremap <leader>D :HGdiff ancestor(default,.)<cr>
     noremap <leader>b :HGblame<cr>
     noremap <leader>d :HGdiff<cr>
-    noremap hr :Hgrevert!<cr>:e<cr>
+    noremap <leader>r :Hgrevert!<cr>:e<cr>
     let g:next_vcs = 'git'
   else
     noremap <leader>b :Gblame<cr>
