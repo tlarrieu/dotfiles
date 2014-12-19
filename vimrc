@@ -51,7 +51,7 @@ Plugin 'milkypostman/vim-togglelist'
 " -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
 " -- | Ruby | -------------------------
-Plugin 'skalnik/vim-vroom'
+Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
 Plugin 'tpope/vim-rails'
@@ -264,7 +264,7 @@ augroup NoSimultaneousEdits
     autocmd SwapExists * let v:swapchoice = 'o'
     autocmd SwapExists * echomsg 'Duplicate edit session (readonly)'
     autocmd SwapExists * echohl None
-    autocmd SwapExists * sleep 2
+    autocmd SwapExists * sleep 1
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
@@ -469,8 +469,8 @@ let g:SignatureMap = {
   \ }
 " }}}
 " {{{ ------------------------------------- vCoolor
-map <leader>C :VCoolor<cr>
-map <leader>c :ColorToggle<cr>
+noremap <leader>C :VCoolor<cr>
+noremap <leader>c :ColorToggle<cr>
 " }}}
 " {{{ ------------------------------------- endwise
 autocmd FileType elixir
@@ -505,18 +505,18 @@ let g:thematic#themes = {
 
 " }}}
 " {{{ ------------------------------------ Disptach
-nmap <leader>f :Dispatch<cr>
-nmap <leader>F :<c-u>Focus  %<left><left>
+nnoremap <leader>f :Dispatch<cr>
+nnoremap <leader>F :<c-u>Focus  %<left><left>
 " }}}
-" {{{ --------------------------------------- Vroom
-let g:vroom_use_dispatch = 1
-let g:vroom_use_zeus = 0
-let g:vroom_use_colors = 1
-let g:vroom_map_keys = 0
+" {{{ ------------------------------------ vim-test
+let g:test#strategy = 'dispatch'
 " }}}
 " {{{ ------------------------------------- Targets
 let g:targets_pairs = '()b {}é []d <>É'
 let g:targets_argTrigger = 'c'
+" By default, we want to delete only the ACTUAL parameter
+" Not the whitespaces around it
+omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
@@ -527,8 +527,8 @@ let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 augroup lint
-  au FileType ruby noremap <buffer> <leader>ru :SyntasticCheck rubocop<cr>
-  au FileType scss noremap <buffer> <leader>ru :SyntasticCheck scss_lint<cr>
+  au FileType ruby noremap <buffer> <leader>è :SyntasticCheck rubocop<cr>
+  au FileType scss noremap <buffer> <leader>è :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ -------------------------------------- Switch
@@ -547,8 +547,8 @@ augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
-nmap <leader>É :Gqfopen<cr>
-nmap <leader>R :Greplace<cr>
+nnoremap <leader>É :Gqfopen<cr>
+nnoremap <leader>R :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
@@ -557,13 +557,14 @@ let g:agprg="ag --column --line-numbers --noheading"
 
 augroup Ag
   autocmd!
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <nl> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <c-cr> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
   autocmd BufReadPost quickfix setlocal nonu
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
-nmap <leader>é :Ag! ""<left>
+nnoremap <leader>é :Ag! ""<left>
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
@@ -670,10 +671,10 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects " .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nmap <leader><leader> :CtrlPBufTag<cr>
-nmap <leader>; :CtrlPTag<cr>
-nmap   :CtrlPBuffer<cr>
-nmap <backspace> :<c-u>CtrlPClearCache<cr>
+nnoremap <leader><leader> :CtrlPBufTag<cr>
+nnoremap <leader>; :CtrlPTag<cr>
+nnoremap   :CtrlPBuffer<cr>
+nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
@@ -701,31 +702,31 @@ endfunction
 
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
-    nmap <leader>S :call HgBranchStatus()<cr>
-    nmap <leader>s :Hgstatus<cr>
-    nmap <leader>D :HGdiff ancestor(default,.)<cr>
-    nmap <leader>b :HGblame<cr>
-    nmap <leader>d :HGdiff<cr>
-    nmap hr :Hgrevert!<cr>:e<cr>
+    noremap <leader>S :call HgBranchStatus()<cr>
+    noremap <leader>s :Hgstatus<cr>
+    noremap <leader>D :HGdiff ancestor(default,.)<cr>
+    noremap <leader>b :HGblame<cr>
+    noremap <leader>d :HGdiff<cr>
+    noremap <leader>r :Hgrevert!<cr>:e<cr>
     let g:next_vcs = 'git'
   else
-    nmap <leader>b :Gblame<cr>
-    nmap <leader>d :Gvdiff<cr>
-    nmap <leader>r :Gread<cr>
-    nmap <leader>s :Gstatus<cr>
+    noremap <leader>b :Gblame<cr>
+    noremap <leader>d :Gvdiff<cr>
+    noremap <leader>r :Gread<cr>
+    noremap <leader>s :Gstatus<cr>
     let g:next_vcs = 'mercurial'
   endif
 endfunction
 
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
-nmap <leader><tab> :call SwitchVCS()<cr>
+nnoremap <leader><tab> :call SwitchVCS()<cr>
 " {{{ ------------------------------------------------- Various keyboard mapping
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " {{{ --------------------------------- Exercism.io
-nmap <silent> <leader>xf :Dispatch exercism f<cr>
-nmap <silent> <leader>xs :Dispatch exercism s %<cr>
+nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
+nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ ------------------------------- Splits / Tabs
 " Vertical split
@@ -745,11 +746,11 @@ map <Down>  <c-w>-
 map <Left>  <c-w><
 map <Right> <c-w>>
 map <leader>= <c-w>=
-map <leader>% :res<cr>:vertical res<cr>$
+noremap <leader>% :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
-nmap <c-n> :cnext<cr>
-nmap <c-p> :cprev<cr>
+noremap <c-n> :cnext<cr>
+noremap <c-p> :cprev<cr>
 nmap <c-t> ]c
 nmap <c-s> [c
 " Beginning / end of the line
@@ -790,6 +791,8 @@ noremap è t
 noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
+noremap . :
+noremap : .
 " save
 noremap $ :w<cr>
 " Normal mode + save
@@ -822,30 +825,30 @@ nnoremap vv ^v$
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
-nmap <leader>n :call RenameFile()<cr>
+noremap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
-nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
-nmap <silent> <leader>l :call ToggleLocationList()<cr>
+noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
+noremap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
-nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
 noremap <silent> H :let @/ = ""<cr>
 " Search within visual selection
-vmap <c-f> <esc>é\%V
+vnoremap <c-f> <esc>é\%V
 " Replace in visual selection
-vmap <c-g> <esc>:%s/\%V
+vnoremap <c-g> <esc>:%s/\%V
 " Toggle line wrap
-nmap <leader>w :set wrap!<cr>
+nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
-nmap <leader>ee :call SplitSwap()<cr><tab>
-" Display lint errors
-nmap <leader>rr :Errors<cr>
+nnoremap <leader>ee :call SplitSwap()<cr><tab>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
 " Clear trailing spaces
 nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+" Fix indent
+nnoremap <silent> <leader>i mmgg=G`m
 " }}}
 " {{{ ---------------------------- Swap number line
 noremap " 1
@@ -872,8 +875,8 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ -------------------------------------- Search
-map é <Plug>(incsearch-stay)
-map É <Plug>(incsearch-forward)
+map É <Plug>(incsearch-stay)
+map é <Plug>(incsearch-forward)
 
 noremap ' n
 noremap ? N
@@ -882,19 +885,17 @@ noremap nn ``
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
-nmap <leader>av :AV<cr>
-nmap <leader>ar :AR<cr>
-nmap <leader>es :tabe db/structure.sql<cr>
+nnoremap <leader>es :tabe db/structure.sql<cr>
 
-nmap <leader>ev :tabe $MYVIMRC<cr>
-nmap <leader>eg :tabe ~/.gitconfig<cr>
-nmap <leader>eh :tabe ~/.hgrc<cr>
-nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
-nmap <leader>em :tabe ~/.tmux.conf<cr>
-nmap <leader>et :tabe ~/todo.tasks<cr>
-nmap <leader>er :tabe ~/release.tasks<cr>
-nmap <leader>ep :tabe ~/postgres.sql<cr>
-nmap <leader>eq :tabe ~/sqlite.sql<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <leader>eg :tabe ~/.gitconfig<cr>
+nnoremap <leader>eh :tabe ~/.hgrc<cr>
+nnoremap <leader>ef :tabe ~/.config/fish/config.fish<cr>
+nnoremap <leader>em :tabe ~/.tmux.conf<cr>
+nnoremap <leader>et :tabe ~/todo.tasks<cr>
+nnoremap <leader>er :tabe ~/release.tasks<cr>
+nnoremap <leader>ep :tabe ~/postgres.sql<cr>
+nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
 " }}}
 " {{{ ------------------------- Convenience Mapping
 command! -nargs=1 Silent
