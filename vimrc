@@ -557,7 +557,8 @@ let g:agprg="ag --column --line-numbers --noheading"
 
 augroup Ag
   autocmd!
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-t> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <nl> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <c-cr> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
   autocmd BufReadPost quickfix setlocal nonu
   autocmd BufReadPost quickfix setlocal nornu
