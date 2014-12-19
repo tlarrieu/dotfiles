@@ -264,7 +264,7 @@ augroup NoSimultaneousEdits
     autocmd SwapExists * let v:swapchoice = 'o'
     autocmd SwapExists * echomsg 'Duplicate edit session (readonly)'
     autocmd SwapExists * echohl None
-    autocmd SwapExists * sleep 2
+    autocmd SwapExists * sleep 1
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
