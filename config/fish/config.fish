@@ -144,7 +144,7 @@ set fish_plugins rvm rails rake brew bundler autojump tmux
 set -x GOPATH ~/go
 # PATH
 set -x PATH $PATH $HOME/scripts
-set -x PATH $PATH /Library/PostgreSQL/9.2/bin
+set -x PATH $PATH /Library/PostgreSQL/9.3/bin
 set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin/
 set -x PATH $PATH ~/.cabal/bin
