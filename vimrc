@@ -260,11 +260,11 @@ augroup vimrc_autocmd
 augroup END
 
 augroup NoSimultaneousEdits
-    autocmd!
-    autocmd SwapExists * let v:swapchoice = 'o'
-    autocmd SwapExists * echomsg 'Duplicate edit session (readonly)'
-    autocmd SwapExists * echohl None
-    autocmd SwapExists * sleep 1
+  autocmd!
+  autocmd SwapExists * let v:swapchoice = 'o'
+  autocmd SwapExists * echomsg 'Duplicate edit session (readonly)'
+  autocmd SwapExists * echohl None
+  autocmd SwapExists * sleep 1
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
@@ -474,10 +474,10 @@ noremap <leader>c :ColorToggle<cr>
 " }}}
 " {{{ ------------------------------------- endwise
 autocmd FileType elixir
-      \ let b:endwise_addition = 'end' |
-      \ let b:endwise_words = 'do' |
-      \ let b:endwise_pattern = '\<do\ze\s*$' |
-      \ let b:endwise_syngroups = 'elixirKeyword'
+  \ let b:endwise_addition = 'end' |
+  \ let b:endwise_words = 'do' |
+  \ let b:endwise_pattern = '\<do\ze\s*$' |
+  \ let b:endwise_syngroups = 'elixirKeyword'
 " }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
@@ -491,18 +491,17 @@ augroup end
 " }}}
 " {{{ ------------------------------------ Thematic
 let g:thematic#themes = {
-      \ 'solarized_dark' :{'colorscheme': 'solarized',
-      \                 'background': 'dark',
-      \                 'airline-theme': 'solarized',
-      \                 'ruler': 1,
-      \                },
-      \ 'solarized_lite' :{'colorscheme': 'solarized',
-      \                 'background': 'light',
-      \                 'airline-theme': 'solarized',
-      \                 'ruler': 1,
-      \                },
-      \ }
-
+  \ 'solarized_dark' :{'colorscheme': 'solarized',
+  \                 'background': 'dark',
+  \                 'airline-theme': 'solarized',
+  \                 'ruler': 1,
+  \                },
+  \ 'solarized_lite' :{'colorscheme': 'solarized',
+  \                 'background': 'light',
+  \                 'airline-theme': 'solarized',
+  \                 'ruler': 1,
+  \                },
+  \ }
 " }}}
 " {{{ ------------------------------------ Disptach
 nnoremap <leader>f :Dispatch<cr>
@@ -535,14 +534,14 @@ augroup end
 augroup switch
   autocmd!
   autocmd FileType ruby let b:switch_custom_definitions =
-        \[
-        \ {
-        \   'lambda { \?|\(.*\)| \(.*\) \?}': '->(\1) { \2 }',
-        \   'lambda { \?\(.*\) \?}': '-> { \1 }',
-        \   '\(\S\+.\+\).should\(\s\+\)==\s*\(.\+\)': 'expect(\1).to\2eq \3',
-        \   '\(\S\+.\+\).should\(\S\+\)\s*\(.\+\)': 'expect(\1).to\2 \3',
-        \ }
-        \]
+    \[
+    \ {
+    \   'lambda { \?|\(.*\)| \(.*\) \?}': '->(\1) { \2 }',
+    \   'lambda { \?\(.*\) \?}': '-> { \1 }',
+    \   '\(\S\+.\+\).should\(\s\+\)==\s*\(.\+\)': 'expect(\1).to\2eq \3',
+    \   '\(\S\+.\+\).should\(\S\+\)\s*\(.\+\)': 'expect(\1).to\2 \3',
+    \ }
+    \]
 augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
@@ -620,18 +619,18 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline_mode_map = {
-    \ '__' : '-',
-    \ 'n'  : 'NOR',
-    \ 'i'  : 'INS',
-    \ 'R'  : 'REP',
-    \ 'c'  : 'CHA',
-    \ 'v'  : 'VIS',
-    \ 'V'  : 'L-VIS',
-    \ '' : 'B-VIS',
-    \ 's'  : 'SEL',
-    \ 'S'  : 'L-SEL',
-    \ '' : 'B-SEL',
-    \ }
+  \ '__' : '-',
+  \ 'n'  : 'NOR',
+  \ 'i'  : 'INS',
+  \ 'R'  : 'REP',
+  \ 'c'  : 'CHA',
+  \ 'v'  : 'VIS',
+  \ 'V'  : 'L-VIS',
+  \ '' : 'B-VIS',
+  \ 's'  : 'SEL',
+  \ 'S'  : 'L-SEL',
+  \ '' : 'B-SEL',
+  \ }
 " }}}
 " {{{ ------------------------------------ Surround
 " I want to rebind some (one in fact) bindings and since I cant unbind
