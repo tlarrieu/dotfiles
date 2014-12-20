@@ -710,8 +710,6 @@ let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nnoremap <leader><tab> :call SwitchVCS()<cr>
 " {{{ ------------------------------------------------- Various keyboard mapping
-" Yank (necessary because of some custom bindings for ag)
-vnoremap yy y
 " {{{ --------------------------------- Exercism.io
 nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
@@ -779,6 +777,9 @@ noremap è t
 noremap È T
 " }}}
 " {{{ ------------------------------ Mode Switching
+" Yank (necessary because of some custom bindings for ag)
+vnoremap yy y
+" Swap command and repeat keys
 noremap . :
 noremap : .
 " save
