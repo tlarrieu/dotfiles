@@ -402,6 +402,9 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ -------------------------------------- vim-go
+let g:go_fmt_command = "goimports"
+" }}}
 " {{{ ----------------------------------------- DWM
 let g:dwm_map_keys=0
 map <silent> <c-k> <Plug>DWMFocus
