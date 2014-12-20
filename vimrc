@@ -574,17 +574,6 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 " }}}
-" {{{ ------------------------------------- VimTask
-augroup vimtask
-  autocmd!
-  autocmd FileType task hi taskWorkingIcon ctermfg=1 guifg=#FF6C60
-  autocmd FileType task hi taskWorkingItem ctermfg=1 guifg=#FF6C60
-  autocmd FileType task hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
-  autocmd FileType task hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
-  autocmd FileType task hi sectionTitle    guifg=#96CBFE guibg=NONE gui=underline ctermfg=4 ctermbg=NONE cterm=underline
-  autocmd FileType task hi taskKeyword     ctermfg=5 guifg=Blue guibg=Yellow
-augroup END
-" }}}
 " {{{ ----------------------------------- UltiSnips
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
