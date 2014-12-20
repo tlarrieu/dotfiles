@@ -648,7 +648,6 @@ xmap S   <Plug>VSurround
 xmap gS  <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
-" let g:ctrlp_map = '<leader><leader>'
 let g:ctrlp_map = '<space>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
@@ -668,7 +667,7 @@ nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
     \ 'AcceptSelection("h")': ['<c-x>'],
-    \ 'AcceptSelection("t")': ['<c-cr>'],
+    \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>'],
     \ }
 hi! CtrlPMatch ctermfg=5
 " }}}
