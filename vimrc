@@ -402,9 +402,6 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ -------------------------------------- vim-go
-let g:go_fmt_command = "goimports"
-" }}}
 " {{{ ----------------------------------------- DWM
 let g:dwm_map_keys=0
 map <silent> <c-k> <Plug>DWMFocus
@@ -415,15 +412,6 @@ nmap lx <Plug>(Exchange)
 vmap X <Plug>(Exchange)
 nmap lxl <Plug>(ExchangeClear)
 nmap lxx <Plug>(ExchangeLine)
-" }}}
-" {{{ -------------------------------------- go-vim
-augroup golang
-  au FileType go nmap <Leader>gi <Plug>(go-implements)
-  au FileType go nmap <Leader>gI <Plug>(go-info)
-  au FileType go nmap <Leader>gd <Plug>(go-doc-vertical)
-  au FileType go nmap <leader>gr <Plug>(go-run)
-  au FileType go nmap yd <Plug>(go-def)
-augroup end
 " }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key=','

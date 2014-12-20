@@ -1,3 +1,4 @@
+
 call signify#SignifyMatch("goOperator", "goGreaterEqualOperator", "\">=\"", "≥")
 call signify#SignifyMatch("goOperator", "goLesserEqualOperator", "\"<=\"", "≤")
 call signify#SignifyMatch("goOperator", "goLambdaOperator", "\"->\"", "→")
@@ -15,3 +16,12 @@ nnoremap <buffer> K :Silent zeal --query go:""&<left><left>
 
 noremap <buffer> <leader><return> :TestFile<cr>
 noremap <buffer> <return> :TestNearest<cr>
+
+nmap <buffer> <Leader>gi <Plug>(go-implements)
+nmap <buffer> <Leader>gI <Plug>(go-info)
+nmap <buffer> <Leader>gd <Plug>(go-doc-vertical)
+nmap <buffer> <leader>gr <Plug>(go-run)
+nmap <buffer> <leader>gt <Plug>(go-test)
+nmap <buffer> yd <Plug>(go-def)
+
+let g:go_fmt_command = "goimports"
