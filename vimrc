@@ -22,8 +22,6 @@ Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
 " -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-vinegar'              " netrw enhancements
-Plugin 'spolu/dwm.vim'
 " -- | Snippets | ---------------------
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -402,10 +400,6 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ ----------------------------------------- DWM
-let g:dwm_map_keys=0
-map <silent> <c-k> <Plug>DWMFocus
-" }}}
 " {{{ ------------------------------------ Exchange
 let g:exchange_no_mappings=1
 nmap lx <Plug>(Exchange)
@@ -820,7 +814,7 @@ vnoremap <c-g> <esc>:%s/\%V
 nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
 " Split swap
-nnoremap <leader>ee :call SplitSwap()<cr><tab>
+nnoremap <c-k> :call SplitSwap()<cr><c-w><c-w>
 " Uppercase current word
 nnoremap <c-g> gUiw
 inoremap <c-g> <esc>gUiwea
