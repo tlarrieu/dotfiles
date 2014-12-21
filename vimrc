@@ -870,6 +870,10 @@ nnoremap <leader>er :tabe ~/release.tasks<cr>
 nnoremap <leader>ep :tabe ~/postgres.sql<cr>
 nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
 " }}}
+" {{{ ------------------------- Ranger File Chooser
+nnoremap <leader>h :<c-u>RangerChooser<CR>
+nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
+" }}}
 " {{{ ------------------------- Convenience Mapping
 command! -nargs=1 Silent
   \ | execute ':silent !'.<q-args>
