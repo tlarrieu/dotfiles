@@ -719,8 +719,10 @@ map <leader>m <c-w>=
 noremap <leader>M :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
+" Quickfix errors
 noremap <c-n> :cnext<cr>
 noremap <c-p> :cprev<cr>
+" Diffs
 nmap <c-t> ]c
 nmap <c-s> [c
 " Beginning / end of the line
@@ -737,8 +739,10 @@ xnoremap c h
 xnoremap r l
 xnoremap t gj
 xnoremap s gk
+" Beginning of line
 nnoremap C ^
 vnoremap C ^
+" End of line
 nnoremap R $
 vnoremap R $
 " Gathering selected lines (or current one if none selected) in one line
@@ -757,6 +761,7 @@ noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
+" Till
 noremap è t
 noremap È T
 " }}}
@@ -824,6 +829,8 @@ nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl
 nnoremap <silent> <leader>i mmgg=G`m
 " }}}
 " {{{ ---------------------------- Swap number line
+" It is more convenient to access numbers directly
+" when in normal mode
 noremap " 1
 noremap 1 "
 noremap « 2
@@ -895,7 +902,7 @@ endfunction
 
 " Same function but do not replace the whole buffer. Instead, paste the
 " lines at the end of it
-" Buggy for now, replaces matches with 0 before pasting at the end
+" ⚠ Buggy for now, replaces matches with 0 before pasting at the end
 function! RegexToList()
   let @a=""
   %s//\=setreg('A', submatch(0), 'l')/g
