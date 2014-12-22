@@ -715,8 +715,8 @@ map <Up>    <c-w>+
 map <Down>  <c-w>-
 map <Left>  <c-w><
 map <Right> <c-w>>
-map <leader>= <c-w>=
-noremap <leader>% :res<cr>:vertical res<cr>$
+map <leader>m <c-w>=
+noremap <leader>M :res<cr>:vertical res<cr>$
 " }}}
 " {{{ ------------------------------------ Movement
 noremap <c-n> :cnext<cr>
