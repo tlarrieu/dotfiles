@@ -1,0 +1,38 @@
+snippet p "Package"
+package ${1:packagename}
+endsnippet
+
+snippet f "Function"
+func ${1:name}($2) ${3:error} {
+$4
+}
+endsnippet
+
+snippet c "Constant"
+const ${1:a} = ${2:b}
+endsnippet
+
+snippet ci "Constant"
+const (
+	${1:A} = iota
+	${2:B}
+)
+endsnippet
+
+snippet co "Constant"
+const (
+	$1
+)
+endsnippet
+
+snippet fori "For loop (i version, asc)"
+for i := ${1:0}; i < ${2:N}; i++ {
+	$3
+}
+endsnippet
+
+snippet forI "For loop (i version, desc)"
+for i := ${1:N}; i >= ${2:0}; i-- {
+	$3
+}
+endsnippet
