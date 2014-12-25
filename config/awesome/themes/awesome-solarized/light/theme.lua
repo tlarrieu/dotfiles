@@ -30,25 +30,23 @@ theme.colors.green   = "#859900"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Terminus 12"
+theme.font      = "Terminus 10"
 
 -- {{{ Colors
 theme.fg_normal  = theme.colors.base02
--- theme.fg_focus   = theme.colors.base03
-theme.fg_focus   = theme.colors.cyan
+theme.fg_focus   = theme.colors.green
 theme.fg_urgent  = theme.colors.base3
 
 theme.bg_normal  = theme.colors.base3
-theme.bg_focus   = theme.colors.base1
 theme.bg_focus   = theme.colors.base3
 theme.bg_urgent  = theme.colors.red
 theme.bg_systray = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
-theme.border_width  = "2"
+theme.border_width  = "1.5"
 theme.border_normal = theme.bg_normal
-theme.border_focus  = theme.colors.cyan
+theme.border_focus  = theme.colors.green
 theme.border_marked = theme.bg_urgent
 -- }}}
 
@@ -66,7 +64,7 @@ theme.mouse_finder_color = theme.colors.cyan
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_height = "22"
+theme.menu_height = "18"
 theme.menu_width  = "200"
 -- }}}
 
@@ -78,7 +76,7 @@ theme.taglist_squares_unsel = theme.path.."taglist/squarez.png"
 -- }}}
 
 -- {{{ Misc
-theme.awesome_icon           = theme.default_themes_path.."/zenburn/awesome-icon.png"
+theme.awesome_icon           = theme.path.."/layouts/awesome-icon.png"
 theme.menu_submenu_icon      = theme.default_themes_path.."/default/submenu.png"
 -- }}}
 
@@ -98,28 +96,28 @@ theme.layout_floating   = theme.path.."layouts/floating.png"
 -- }}}
 
 -- {{{ Titlebar
-theme.titlebar_close_button_focus  = theme.default_themes_path.."/zenburn/titlebar/close_focus.png"
-theme.titlebar_close_button_normal = theme.default_themes_path.."/zenburn/titlebar/close_normal.png"
+theme.titlebar_close_button_focus  = theme.path.."titlebar/close_focus.png"
+theme.titlebar_close_button_normal = theme.path.."titlebar/close_normal.png"
 
-theme.titlebar_ontop_button_focus_active  = theme.default_themes_path.."/zenburn/titlebar/ontop_focus_active.png"
-theme.titlebar_ontop_button_normal_active = theme.default_themes_path.."/zenburn/titlebar/ontop_normal_active.png"
-theme.titlebar_ontop_button_focus_inactive  = theme.default_themes_path.."/zenburn/titlebar/ontop_focus_inactive.png"
-theme.titlebar_ontop_button_normal_inactive = theme.default_themes_path.."/zenburn/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_focus_active  = theme.path.."titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_active = theme.path.."titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_inactive  = theme.path.."titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_inactive = theme.path.."titlebar/ontop_normal_inactive.png"
 
-theme.titlebar_sticky_button_focus_active  = theme.default_themes_path.."/zenburn/titlebar/sticky_focus_active.png"
-theme.titlebar_sticky_button_normal_active = theme.default_themes_path.."/zenburn/titlebar/sticky_normal_active.png"
-theme.titlebar_sticky_button_focus_inactive  = theme.default_themes_path.."/zenburn/titlebar/sticky_focus_inactive.png"
-theme.titlebar_sticky_button_normal_inactive = theme.default_themes_path.."/zenburn/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_focus_active  = theme.path.."titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_active = theme.path.."titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_inactive  = theme.path.."titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_inactive = theme.path.."titlebar/sticky_normal_inactive.png"
 
-theme.titlebar_floating_button_focus_active  = theme.default_themes_path.."/zenburn/titlebar/floating_focus_active.png"
-theme.titlebar_floating_button_normal_active = theme.default_themes_path.."/zenburn/titlebar/floating_normal_active.png"
-theme.titlebar_floating_button_focus_inactive  = theme.default_themes_path.."/zenburn/titlebar/floating_focus_inactive.png"
-theme.titlebar_floating_button_normal_inactive = theme.default_themes_path.."/zenburn/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_focus_active  = theme.path.."titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_active = theme.path.."titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_inactive  = theme.path.."titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_inactive = theme.path.."titlebar/floating_normal_inactive.png"
 
-theme.titlebar_maximized_button_focus_active  = theme.default_themes_path.."/zenburn/titlebar/maximized_focus_active.png"
-theme.titlebar_maximized_button_normal_active = theme.default_themes_path.."/zenburn/titlebar/maximized_normal_active.png"
-theme.titlebar_maximized_button_focus_inactive  = theme.default_themes_path.."/zenburn/titlebar/maximized_focus_inactive.png"
-theme.titlebar_maximized_button_normal_inactive = theme.default_themes_path.."/zenburn/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_focus_active  = theme.path.."titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_active = theme.path.."titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_inactive  = theme.path.."titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_inactive = theme.path.."titlebar/maximized_normal_inactive.png"
 -- }}}
 -- }}}
 

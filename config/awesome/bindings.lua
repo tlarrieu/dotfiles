@@ -119,7 +119,7 @@ globalkeys = awful.util.table.join(globalkeys,
     -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
     -- Solarized light
     -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
-    awful.util.spawn("dmenu_run -l 5 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Inconsolata-12:normal'")
+    awful.util.spawn("dmenu_run -l 5 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Terminus-10:normal'")
   end),
   -- Session control
   -- awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
