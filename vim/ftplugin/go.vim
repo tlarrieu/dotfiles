@@ -14,14 +14,17 @@ call signify#SignifyMatch("goOperator", "goAndOperator", "\"||\"", "∨")
 nnoremap <buffer> k :!zeal --query go:"<cword>"&<cr><cr>
 nnoremap <buffer> K :Silent zeal --query go:""&<left><left>
 
-noremap <buffer> <leader><return> :TestFile<cr>
-noremap <buffer> <return> :TestNearest<cr>
+nmap <buffer> <Leader>gI <Plug>(go-implements)
+nmap <buffer> <Leader>i <Plug>(go-info)
 
-nmap <buffer> <Leader>gi <Plug>(go-implements)
-nmap <buffer> <Leader>gI <Plug>(go-info)
-nmap <buffer> <Leader>gd <Plug>(go-doc-vertical)
-nmap <buffer> <leader>gr <Plug>(go-run)
-nmap <buffer> <leader>gt <Plug>(go-test)
+nmap <buffer> <leader><return> <Plug>(go-run)
+nmap <buffer> <return> <Plug>(go-test)
+
 nmap <buffer> yd <Plug>(go-def)
 
+noremap <buffer> <leader>è :<c-u>GoLint<cr>
+
 let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
