@@ -102,6 +102,7 @@ for s = 1, screen.count() do
   mywibox[s] = awful.wibox({ position = "top", screen = s })
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
+  left_layout:add(mylayoutbox[s])
   left_layout:add(mytaglist[s])
   left_layout:add(mypromptbox[s])
   if s == 1 then left_layout:add(wibox.widget.systray()) end
@@ -109,7 +110,6 @@ for s = 1, screen.count() do
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
   right_layout:add(mytextclock)
-  right_layout:add(mylayoutbox[s])
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()
