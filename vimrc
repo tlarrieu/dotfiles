@@ -22,6 +22,7 @@ Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
 " -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
+Plugin 'beloglazov/vim-online-thesaurus'
 " -- | Snippets | ---------------------
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
@@ -40,6 +41,7 @@ Plugin 'nelstrom/vim-textobj-rubyblock'
 Plugin 'wellle/targets.vim'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'tommcdo/vim-exchange'
+Plugin 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
 Plugin 'samsonw/vim-task'
 " -- | Undo tree explorer | -----------
@@ -400,6 +402,10 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ----------------------------------- Thesaurus
+nnoremap gh :OnlineThesaurusCurrentWord<CR>
+nnoremap gH :Thesaurus<space>
+" }}}
 " {{{ ------------------------------------ Exchange
 let g:exchange_no_mappings=1
 nmap lx <Plug>(Exchange)
@@ -708,6 +714,7 @@ noremap <leader>T :tabo<cr>
 " Navigating between splits
 nnoremap <tab> <c-w>w
 nnoremap <s-tab> <c-w>W
+nnoremap <c-b> <c-i>
 nnoremap S gT
 nnoremap T gt
 " Resize splits
@@ -855,8 +862,8 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ -------------------------------------- Search
-map É <Plug>(incsearch-stay)
-map é <Plug>(incsearch-forward)
+map é <Plug>(incsearch-stay)
+map É <Plug>(incsearch-forward)
 
 noremap ' n
 noremap ? N
@@ -887,7 +894,6 @@ command! -nargs=1 Silent
   \ | execute ':redraw!'
 nnoremap k :Silent zeal --query "<cword>"&<CR>
 nnoremap K :Silent zeal --query ""&<left><left>
-nnoremap gh :!open "http://www.thesaurus.com/browse/<cword>"&<cr><cr>
 " }}}
 " {{{ --------------------------- Utility Functions
 " This function extracts a pattern from the whole buffer and replaces it
