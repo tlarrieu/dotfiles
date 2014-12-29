@@ -51,6 +51,7 @@ Plugin 'milkypostman/vim-togglelist'
 " -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
 Plugin 'ZoomWin'
+Plugin 'roman/golden-ratio'
 " -- | Ruby | -------------------------
 Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
@@ -79,7 +80,6 @@ Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
-Plugin 'elixir-lang/vim-elixir'
 Plugin 'chrisbra/csv.vim'
 " -- | Syntax checking | --------------
 Plugin 'scrooloose/syntastic'
@@ -395,14 +395,17 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-hi! Search ctermbg=7 ctermfg=2
-hi! IncSearch ctermbg=7 ctermfg=5
-hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse
+hi! Search ctermbg=7 ctermfg=2 guifg=#719e07
+hi! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
+hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ -------------------------------- Golden Ratio
+let g:golden_ratio_exclude_nonmodifiable = 1
+" }}}
 " {{{ ----------------------------------- Thesaurus
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
@@ -663,7 +666,7 @@ nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'AcceptSelection("h")': ['<c-x>'],
     \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>'],
     \ }
-hi! CtrlPMatch ctermfg=5
+hi! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
 " {{{ --------------------------------------- Gundo
 let gundo_map_move_older = "t"
