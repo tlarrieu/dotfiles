@@ -50,6 +50,7 @@ Plugin 'sjl/gundo.vim'
 Plugin 'milkypostman/vim-togglelist'
 " -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
+Plugin 'ZoomWin'
 " -- | Ruby | -------------------------
 Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
