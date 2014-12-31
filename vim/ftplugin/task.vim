@@ -1,7 +1,7 @@
-hi taskWorkingIcon ctermfg=1 guifg=#FF6C60
-hi taskWorkingItem ctermfg=1 guifg=#FF6C60
-hi taskDoneIcon    ctermfg=2 gui=italic guifg=#80A441
-hi taskDoneItem    ctermfg=2 gui=italic guifg=#80A441
+hi taskWorkingIcon ctermfg=2 gui=italic guifg=#d33682
+hi taskWorkingItem ctermfg=2 gui=italic guifg=#d33682
+hi taskDoneIcon    ctermfg=1 guifg=#719e07
+hi taskDoneItem    ctermfg=1 guifg=#719e07
 hi sectionTitle    guifg=#96CBFE guibg=NONE gui=underline ctermfg=4 ctermbg=NONE cterm=underline
 hi taskKeyword     ctermfg=5 guifg=Blue guibg=Yellow
 
