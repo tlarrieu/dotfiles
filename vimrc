@@ -713,6 +713,10 @@ nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ ------------------------------- Splits / Tabs
+noremap <c-w><c-c> <c-w>H
+noremap <c-w><c-t> <c-w>J
+noremap <c-w><c-s> <c-w>K
+noremap <c-w><c-r> <c-w>L
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " New tab
