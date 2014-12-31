@@ -292,7 +292,8 @@ set nu
 " Virtual editing
 set virtualedit=all
 " Blank character
-set lcs=tab:\›\ ,trail:·,nbsp:¤,extends:❯,precedes:❮
+set ambiwidth=double
+set lcs=tab:\›\ ,trail:∘,nbsp:¬,extends:»,precedes:«
 set showbreak= 
 set list
 " Show matching braces
