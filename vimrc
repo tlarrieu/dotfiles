@@ -229,6 +229,7 @@ augroup vimrc_autocmd
   autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd BufReadPost index noremap <buffer> <leader>s :Gcommit<cr>
+  autocmd FileType hgstatus noremap <buffer> <leader>s :Hgstatuscommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType hgcommit,gitcommit setlocal nonu
   autocmd FileType hgcommit,gitcommit setlocal nornu
