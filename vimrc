@@ -50,7 +50,6 @@ Plugin 'sjl/gundo.vim'
 Plugin 'milkypostman/vim-togglelist'
 " -- | Buffer functionnalities | ------
 Plugin 'duff/vim-bufonly'
-Plugin 'ZoomWin'
 Plugin 'roman/golden-ratio'
 " -- | Ruby | -------------------------
 Plugin 'janko-m/vim-test'
@@ -229,7 +228,7 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.arb setf ruby
   autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
-  autocmd BufReadPost index noremap <buffer> <c-s> :Gcommit<cr>
+  autocmd BufReadPost index noremap <buffer> <leader>s :Gcommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType hgcommit,gitcommit setlocal nonu
   autocmd FileType hgcommit,gitcommit setlocal nornu
