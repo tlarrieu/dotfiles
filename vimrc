@@ -926,12 +926,11 @@ endfunction
 
 " Same function but do not replace the whole buffer. Instead, paste the
 " lines at the end of it
-" ⚠ Buggy for now, replaces matches with 0 before pasting at the end
 function! RegexToList()
-  let @a=""
-  %s//\=setreg('A', submatch(0), 'l')/g
+  let @2=""
+  g//t 2
   normal G
-  pu a
+  pu 2
 endfunction
 " }}}
 " }}}
