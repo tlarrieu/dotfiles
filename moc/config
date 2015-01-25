@@ -141,7 +141,7 @@ AlsaMixer1    = PCM
 AlsaMixer2    = Master
 
 # ALSA output device.
-# AlsaDevice    = default
+AlsaDevice    = default
 # AlsaDevice    = "hw:DAC,0"
 # AlsaDevice    = "hw:pcm.usb"
 
