@@ -270,6 +270,7 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
+set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
