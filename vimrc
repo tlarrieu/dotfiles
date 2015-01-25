@@ -528,8 +528,9 @@ let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 augroup lint
-  au FileType ruby noremap <buffer> <leader>è :SyntasticCheck rubocop<cr>
-  au FileType scss noremap <buffer> <leader>è :SyntasticCheck scss_lint<cr>
+  au!
+  au FileType ruby noremap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+  au FileType scss noremap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ -------------------------------------- Switch
