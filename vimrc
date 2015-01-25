@@ -549,7 +549,7 @@ augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
-nnoremap <leader>É :Gqfopen<cr>
+nnoremap <leader>A :Gqfopen<cr>
 nnoremap <leader>R :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
@@ -566,7 +566,7 @@ augroup Ag
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
-nnoremap <leader>é :Ag! ""<left>
+nnoremap <leader>a :Ag! ""<left>
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
