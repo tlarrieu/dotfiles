@@ -930,5 +930,12 @@ function! RegexToList()
   normal G
   pu a
 endfunction
+
+function! UTF8()
+  execute ':set fileencoding=utf8'
+  execute ':set fileformat=unix'
+  execute ':w'
+endfunction
+command! UTF8 :call UTF8()
 " }}}
 " }}}
