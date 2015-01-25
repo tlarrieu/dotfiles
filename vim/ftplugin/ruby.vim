@@ -10,17 +10,17 @@ call signify#SignifyMatch("rubyOperator", "rubyEqualOperator", "\"==\"", "≡")
 call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"&&\"", "∧")
 call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"||\"", "∨")
 call signify#SignifyMatch("rubyOperator", "rubyModuleOperator", "\"::\"", "∷")
-call signify#SignifyMatch("rubyOperator", "rubyLambdaKeyword", "\"lambda\"", "λ")
-call signify#SignifyMatch("rubyOperator", "rubyProcKeyword", "\"proc\"", "π")
+" call signify#SignifyMatch("rubyOperator", "rubyLambdaKeyword", "\"\\zslambda\\ze \"", "λ")
+" call signify#SignifyMatch("rubyOperator", "rubyProcKeyword", "\"\\zsproc\\ze \"", "π")
 
-call signify#SignifyKeyword("rubyKeyword", "rubyLambdaKeyword", "lambda", "λ")
-call signify#SignifyKeyword("rubyKeyword", "rubyProcKeyword", "proc", "π")
+" call signify#SignifyKeyword("rubyKeyword", "rubyLambdaKeyword", "lambda", "λ")
+" call signify#SignifyKeyword("rubyKeyword", "rubyProcKeyword", "proc", "π")
 
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
-nnoremap <buffer> k :!zeal --query ruby:"<cword>"&<cr><cr>
-nnoremap <buffer> K :Silent zeal --query ruby:""&<left><left>
+" nnoremap <buffer> k :!zeal --query ruby:"<cword>"&<cr><cr>
+" nnoremap <buffer> K :Silent zeal --query ruby:""&<left><left>
 
 nnoremap <buffer> <leader><return> :TestFile<cr>
 nnoremap <buffer> <return> :TestNearest<cr>

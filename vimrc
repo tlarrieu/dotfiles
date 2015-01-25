@@ -229,7 +229,8 @@ augroup vimrc_autocmd
   autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd BufReadPost index noremap <buffer> <leader>s :Gcommit<cr>
-  autocmd FileType hgstatus noremap <buffer> <leader>s :Hgstatuscommit<cr>
+  autocmd FileType hgstatus nnoremap <buffer> <leader>s :Hgstatuscommit<cr>
+  autocmd FileType hgstatus vnoremap <buffer> <leader>s :Hgstatuscommit<cr>
   autocmd FileType hgcommit,gitcommit setlocal spell
   autocmd FileType hgcommit,gitcommit setlocal nonu
   autocmd FileType hgcommit,gitcommit setlocal nornu
@@ -269,6 +270,7 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
+set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
@@ -480,6 +482,7 @@ autocmd FileType elixir
 " }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
+  au!
   autocmd FileType yaml nnoremap <buffer> 6 :YamlGoToKey<space>
   autocmd FileType yaml nnoremap <buffer> 7 :YamlGoToParent<cr>
   autocmd FileType yaml nnoremap <buffer> 8 :YamlGetFullPath<cr>
@@ -525,8 +528,9 @@ let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 augroup lint
-  au FileType ruby noremap <buffer> <leader>è :SyntasticCheck rubocop<cr>
-  au FileType scss noremap <buffer> <leader>è :SyntasticCheck scss_lint<cr>
+  au!
+  au FileType ruby noremap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+  au FileType scss noremap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ -------------------------------------- Switch
@@ -545,7 +549,7 @@ augroup END
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
-nnoremap <leader>É :Gqfopen<cr>
+nnoremap <leader>A :Gqfopen<cr>
 nnoremap <leader>R :Greplace<cr>
 " }}}
 " {{{ ------------------------------------------ Ag
@@ -562,7 +566,7 @@ augroup Ag
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
-nnoremap <leader>é :Ag! ""<left>
+nnoremap <leader>a :Ag! ""<left>
 nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
@@ -836,10 +840,6 @@ noremap <silent> <leader>l :call ToggleLocationList()<cr>
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
 noremap <silent> H :let @/ = ""<cr>
-" Search within visual selection
-vnoremap <c-f> <esc>é\%V
-" Replace in visual selection
-vnoremap <c-g> <esc>:%s/\%V
 " Toggle line wrap
 nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
@@ -879,9 +879,12 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 " }}}
-" {{{ -------------------------------------- Search
+" {{{ ---------------------------- Search & Replace
 map é <Plug>(incsearch-stay)
 map É <Plug>(incsearch-forward)
+noremap <leader>é :s/
+noremap <leader>É :%s/
+vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 
 noremap ' n
 noremap ? N
@@ -910,8 +913,8 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 command! -nargs=1 Silent
   \ | execute ':silent !'.<q-args>
   \ | execute ':redraw!'
-nnoremap k :Silent zeal --query "<cword>"&<CR>
-nnoremap K :Silent zeal --query ""&<left><left>
+" nnoremap k :Silent zeal --query "<cword>"&<CR>
+" nnoremap K :Silent zeal --query ""&<left><left>
 " }}}
 " {{{ --------------------------- Utility Functions
 " This function extracts a pattern from the whole buffer and replaces it
@@ -932,5 +935,12 @@ function! RegexToList()
   normal G
   pu 2
 endfunction
+
+function! UTF8()
+  execute ':set fileencoding=utf8'
+  execute ':set fileformat=unix'
+  execute ':w'
+endfunction
+command! UTF8 :call UTF8()
 " }}}
 " }}}
