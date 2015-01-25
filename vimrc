@@ -834,10 +834,6 @@ noremap <silent> <leader>l :call ToggleLocationList()<cr>
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Clear search
 noremap <silent> H :let @/ = ""<cr>
-" Search within visual selection
-vnoremap <c-f> <esc>é\%V
-" Replace in visual selection
-vnoremap <c-g> <esc>:%s/\%V
 " Toggle line wrap
 nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
@@ -877,9 +873,12 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 " }}}
-" {{{ -------------------------------------- Search
+" {{{ ---------------------------- Search & Replace
 map é <Plug>(incsearch-stay)
 map É <Plug>(incsearch-forward)
+noremap <leader>é :s/
+noremap <leader>É :%s/
+vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 
 noremap ' n
 noremap ? N
