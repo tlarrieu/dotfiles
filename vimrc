@@ -482,6 +482,7 @@ autocmd FileType elixir
 " }}}
 " {{{ ---------------------------------------- YAML
 augroup yaml
+  au!
   autocmd FileType yaml nnoremap <buffer> 6 :YamlGoToKey<space>
   autocmd FileType yaml nnoremap <buffer> 7 :YamlGoToParent<cr>
   autocmd FileType yaml nnoremap <buffer> 8 :YamlGetFullPath<cr>
