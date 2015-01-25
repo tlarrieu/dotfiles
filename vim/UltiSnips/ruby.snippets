@@ -1,3 +1,7 @@
+snippet deb "debug"
+puts "---------> $1 : #{${2:$1}.inspect}"
+endsnippet
+
 snippet #! "she bang"
 #!/usr/bin/env ruby
 endsnippet
@@ -28,12 +32,6 @@ endsnippet
 
 snippet /^cl?a?/ "class definition" r
 class ${1:Name}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet "de?f?" "method definition" r
-def ${1:method}
 	${0:${VISUAL}}
 end
 endsnippet
