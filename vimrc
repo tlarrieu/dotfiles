@@ -905,8 +905,8 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 command! -nargs=1 Silent
   \ | execute ':silent !'.<q-args>
   \ | execute ':redraw!'
-nnoremap k :Silent zeal --query "<cword>"&<CR>
-nnoremap K :Silent zeal --query ""&<left><left>
+" nnoremap k :Silent zeal --query "<cword>"&<CR>
+" nnoremap K :Silent zeal --query ""&<left><left>
 " }}}
 " {{{ --------------------------- Utility Functions
 " This function extracts a pattern from the whole buffer and replaces it
