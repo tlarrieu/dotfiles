@@ -80,5 +80,5 @@ function fish_prompt
     echo -n $bg_job_glyph
   end
   # Terminate with a nice prompt char
-  echo -e -n -s '⟩ ' $normal
+  echo -e -n -s 'λ ' $normal
 end
