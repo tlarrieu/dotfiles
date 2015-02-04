@@ -294,7 +294,6 @@ set nu
 " Virtual editing
 set virtualedit=all
 " Blank character
-set ambiwidth=double
 set lcs=tab:\›\ ,trail:∘,nbsp:¬,extends:»,precedes:«
 set showbreak= 
 set list
@@ -470,7 +469,7 @@ let g:SignatureMap = {
   \ }
 " }}}
 " {{{ ------------------------------------- vCoolor
-noremap <leader>C :VCoolor<cr>
+noremap <leader>C :<c-u>VCoolor<cr>
 noremap <leader>c :ColorToggle<cr>
 " }}}
 " {{{ ------------------------------------- endwise
@@ -746,6 +745,32 @@ map <Left>  <c-w><
 map <Right> <c-w>>
 map <leader>m <c-w>=
 noremap <leader>M :res<cr>:vertical res<cr>$
+
+" Merge a tab into a split in the previous window
+function! MergeTabs()
+  if tabpagenr() == 1
+    return
+  endif
+  let bufferName = bufname("%")
+  if tabpagenr("$") == tabpagenr()
+    close!
+  else
+    close!
+    tabprev
+  endif
+  execute "vs " . bufferName
+endfunction
+
+" Merge a tab into a split in the previous window
+function! UnmergeWindow()
+  let bufferName = bufname("%")
+  close!
+  if tabpagenr("$") == tabpagenr()
+  execute "tabe " . bufferName
+endfunction
+
+noremap <leader>U :call UnmergeWindow()<cr>
+noremap <leader>uu :call MergeTabs()<cr>
 " }}}
 " {{{ ------------------------------------ Movement
 " Quickfix errors
@@ -800,6 +825,8 @@ vnoremap yy y
 " Swap command and repeat keys
 noremap . :
 noremap : .
+" Necessary hack to make repeat work as expected
+nnoremap <silent> : :<c-u>call repeat#run(v:count)<cr>
 " save
 noremap $ :w<cr>
 " Normal mode + save
@@ -904,15 +931,16 @@ nnoremap <leader>et :tabe ~/todo.tasks<cr>
 nnoremap <leader>er :tabe ~/release.tasks<cr>
 nnoremap <leader>ep :tabe ~/postgres.sql<cr>
 nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
+nnoremap <leader>eo :tabe ~/poi.md<cr>
 " }}}
 " {{{ ------------------------- Ranger File Chooser
 nnoremap <leader>h :<c-u>RangerChooser<CR>
 nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ ------------------------- Convenience Mapping
-command! -nargs=1 Silent
-  \ | execute ':silent !'.<q-args>
-  \ | execute ':redraw!'
+" command! -nargs=1 Silent
+"   \ | execute ':silent !'.<q-args>
+"   \ | execute ':redraw!'
 " nnoremap k :Silent zeal --query "<cword>"&<CR>
 " nnoremap K :Silent zeal --query ""&<left><left>
 " }}}
