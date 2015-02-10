@@ -74,6 +74,7 @@ Plugin 'mhinz/vim-signify'
 " -- | Misc languages support | -------
 Plugin 'vim-scripts/fish-syntax'
 Plugin 'gabrielelana/vim-markdown'
+Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
@@ -275,7 +276,7 @@ set history=500
 set background=light
 colorscheme solarized
 if has('gui_running')
-  set guifont=Inconsolata\ For\ Powerline:h17.6
+  set guifont=Fira\ Mono\ for\ Powerline:h15
   set guioptions-=l
   set guioptions-=L
   set guioptions-=r
@@ -289,8 +290,8 @@ hi! link SignColumn LineNr
 set rnu
 set nu
 " Line length warning (disabled for now)
-" highlight OverLength ctermbg=red ctermfg=black
-" match OverLength /\%81v.\+/
+highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
+match OverLength /\%86v.\+/
 " Virtual editing
 set virtualedit=all
 " Blank character
@@ -722,16 +723,13 @@ nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ ------------------------------- Splits / Tabs
+noremap <c-w>O :tabo<cr><c-w>o
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-" New tab
-noremap <leader>t :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-" Close all tabs but current
-noremap <leader>T :tabo<cr>
 " Navigating between splits
 nnoremap <tab> <c-w>w
 nnoremap <s-tab> <c-w>W
@@ -745,6 +743,12 @@ map <Left>  <c-w><
 map <Right> <c-w>>
 map <leader>m <c-w>=
 noremap <leader>M :res<cr>:vertical res<cr>$
+" New tab
+noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" Close current tab
+noremap <leader>tc :tabclose<cr>
+" Close all tabs but current
+noremap <leader>to :tabo<cr>
 
 " Merge a tab into a split in the previous window
 function! MergeTabs()
