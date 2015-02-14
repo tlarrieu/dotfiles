@@ -66,21 +66,22 @@ Plugin 'fatih/vim-go'
 " -- | SQL | --------------------------
 Plugin 'ivalkeen/vim-simpledb'
 Plugin 'exu/pgsql.vim'
-" -- | VCS | --------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'phleet/vim-mercenary'
-Plugin 'zeekay/vim-lawrencium'
-Plugin 'mhinz/vim-signify'
+" -- | Markdown | ---------------------
+Plugin 'gabrielelana/vim-markdown'
+Plugin 'greyblake/vim-preview'
 " -- | Misc languages support | -------
 Plugin 'vim-scripts/fish-syntax'
-Plugin 'gabrielelana/vim-markdown'
-Plugin 'nelstrom/vim-markdown-preview'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'tpope/vim-haml'
 Plugin 'chrisbra/csv.vim'
+" -- | VCS | --------------------------
+Plugin 'tpope/vim-fugitive'
+Plugin 'phleet/vim-mercenary'
+Plugin 'zeekay/vim-lawrencium'
+Plugin 'mhinz/vim-signify'
 " -- | Syntax checking | --------------
 Plugin 'scrooloose/syntastic'
 " -- | Good looking | -----------------
@@ -942,6 +943,7 @@ nnoremap <leader>h :<c-u>RangerChooser<CR>
 nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ ------------------------- Convenience Mapping
+vnoremap <leader>s :sort<cr>
 " command! -nargs=1 Silent
 "   \ | execute ':silent !'.<q-args>
 "   \ | execute ':redraw!'
