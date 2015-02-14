@@ -66,6 +66,7 @@ done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
+safelink $BASEDIR/markdown.css $HOME/markdown.css
 # Vundle
 if [[ -d ~/.vim/bundle/Vundle.vim ]]; then
   echo "Vundle already installed, nothing to do."
