@@ -228,14 +228,7 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
   autocmd BufReadPost *.arb setf ruby
-  autocmd FileType hgcommit startinsert!
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
-  autocmd BufReadPost index noremap <buffer> <leader>s :Gcommit<cr>
-  autocmd FileType hgstatus nnoremap <buffer> <leader>s :Hgstatuscommit<cr>
-  autocmd FileType hgstatus vnoremap <buffer> <leader>s :Hgstatuscommit<cr>
-  autocmd FileType hgcommit,gitcommit setlocal spell
-  autocmd FileType hgcommit,gitcommit setlocal nonu
-  autocmd FileType hgcommit,gitcommit setlocal nornu
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
