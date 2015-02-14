@@ -232,7 +232,7 @@ augroup vimrc_autocmd
   autocmd FileType vim setlocal foldlevel=10
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldminlines=1
-  autocmd FileType html,eruby setlocal foldlevel=1
+  autocmd FileType html,eruby setlocal foldlevel=10
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
   autocmd BufReadPost *.yml set ft=yaml
@@ -549,7 +549,7 @@ nnoremap <leader>R :Greplace<cr>
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
-let g:agprg="ag --column --line-numbers --noheading"
+let g:agprg = "ag --column --line-numbers --noheading --smart-case"
 
 augroup Ag
   autocmd!
@@ -712,6 +712,9 @@ let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nnoremap <leader><tab> :call SwitchVCS()<cr>
 " {{{ ------------------------------------------------- Various keyboard mapping
+" {{{ --------------------------------------- Rails
+noremap <leader>x :Rextract<space>
+" }}}
 " {{{ --------------------------------- Exercism.io
 nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
@@ -823,7 +826,7 @@ vnoremap yy y
 " Swap command and repeat keys
 noremap . :
 noremap : .
-" Necessary hack to make repeat work as expected
+" Necessary hack to make repeat work as expected (since we swapped . and :)
 nnoremap <silent> : :<c-u>call repeat#run(v:count)<cr>
 " save
 noremap $ :w<cr>
@@ -907,8 +910,8 @@ noremap 0 *
 " {{{ ---------------------------- Search & Replace
 map é <Plug>(incsearch-stay)
 map É <Plug>(incsearch-forward)
-noremap <leader>é :s/
-noremap <leader>É :%s/
+noremap <leader>é :%s/
+noremap <leader>É :s/
 vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 
 noremap ' n
@@ -937,12 +940,6 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ ------------------------- Convenience Mapping
 vnoremap <leader>s :sort<cr>
-" command! -nargs=1 Silent
-"   \ | execute ':silent !'.<q-args>
-"   \ | execute ':redraw!'
-" nnoremap k :Silent zeal --query "<cword>"&<CR>
-" nnoremap K :Silent zeal --query ""&<left><left>
-" }}}
 " {{{ --------------------------- Utility Functions
 " This function extracts a pattern from the whole buffer and replaces it
 " with a line for each match on a single line
