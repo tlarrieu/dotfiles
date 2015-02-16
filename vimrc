@@ -966,5 +966,10 @@ function! UTF8()
   execute ':w'
 endfunction
 command! UTF8 :call UTF8()
+
+function! ToMandrill()
+  :%s/<%= \?\(.\{-}\) \?%>/*|\1|*/g
+endfunction
+command! Mandrill :call ToMandrill()
 " }}}
 " }}}
