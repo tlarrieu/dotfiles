@@ -3,7 +3,7 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- {{{ Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallhaven-70600.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/wallhaven-51670.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/wallhaven-34887.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
 }
