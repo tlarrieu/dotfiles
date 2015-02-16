@@ -28,16 +28,16 @@ alias yss="yaourt -Ss"
 alias ysuy="yaourt -Suy"
 alias yr="yaourt -R"
 
-alias rc="rails console"
-alias rs="rails server"
+alias rc="bin/rails console"
+alias rs="bin/rails server"
 alias rrs="rescue rails server"
 alias rud="rvm use default"
 alias rus="rvm use system"
-alias be="bundle exec"
-alias bi="bundle install"
-alias bu="bundle update"
-alias bspec="bundle exec rspec"
-alias bguard="bundle exec guard"
+alias be="bin/bundle exec"
+alias bi="bin/bundle install"
+alias bu="bin/bundle update"
+alias bspec="bin/bundle exec rspec"
+alias bguard="bin/bundle exec guard"
 
 alias zc="zeus console"
 alias zg="zeus generate"
@@ -107,20 +107,20 @@ alias k="kill -9"
 alias kbg="kill (jobs -p)"
 
 alias epry="pry -r ./config/environment"
-alias pspec="bundle exec rake parallel:spec"
-alias raklette="bundle exec rake parallel:spec"
-alias be="bundle exec"
-alias bspec="bundle exec rspec"
-alias rdm="bundle exec rake db:migrate"
-alias rds="bundle exec rake db:migrate:status"
-alias rpp="bundle exec rake parallel:prepare"
-alias rdtp="bundle exec rake db:test:prepare"
-alias rdr="rake db:migrate:redo"
+alias pspec="bin/bundle exec rake parallel:spec"
+alias raklette="bin/bundle exec rake parallel:spec"
+alias be="bin/bundle exec"
+alias bspec="bin/bundle exec rspec"
+alias rdm="bin/bundle exec rake db:migrate"
+alias rds="bin/bundle exec rake db:migrate:status"
+alias rpp="bin/bundle exec rake parallel:prepare"
+alias rdtp="bin/bundle exec rake db:test:prepare"
+alias rdr="bin/rake db:migrate:redo"
 function rdd
-  rake db:migrate:down VERSION=$argv
+  bin/rake db:migrate:down VERSION=$argv
 end
 function rdu
-  rake db:migrate:up VERSION=$argv
+  bin/rake db:migrate:up VERSION=$argv
 end
 
 alias shops="cd ~/mercurial/shopmium/shops"
