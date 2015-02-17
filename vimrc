@@ -882,8 +882,7 @@ nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl
 nnoremap <silent> <leader>i mmgg=G`m
 " }}}
 " {{{ ---------------------------- Swap number line
-" It is more convenient to access numbers directly
-" when in normal mode
+" It is more convenient to access numbers directly when in normal mode
 noremap " 1
 noremap 1 "
 noremap « 2
@@ -960,6 +959,7 @@ function! RegexToList()
   pu 2
 endfunction
 
+" Enforce UTF8
 function! UTF8()
   execute ':set fileencoding=utf8'
   execute ':set fileformat=unix'
@@ -967,6 +967,7 @@ function! UTF8()
 endfunction
 command! UTF8 :call UTF8()
 
+" Convert Rails interpolated variable to Mandrill format
 function! ToMandrill()
   :%s/<%= \?\(.\{-}\) \?%>/*|\1|*/g
 endfunction
