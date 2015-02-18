@@ -287,6 +287,10 @@ set rnu
 set nu
 " Line length warning (disabled for now)
 highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
+augroup overlength
+  au!
+  autocmd FileType man hi! link OverLength Normal
+augroup END
 match OverLength /\%86v.\+/
 " Virtual editing
 set virtualedit=all
