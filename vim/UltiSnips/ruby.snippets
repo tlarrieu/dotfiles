@@ -6,7 +6,7 @@ endglobal
 
 snippet _skel "Skeleton" b
 #!/usr/bin/env ruby
-	$0
+$0
 endsnippet
 
 snippet _model "Model skeleton" b
@@ -21,7 +21,7 @@ class ${1:`!p snip.rv = camelize(snip.basename)`} < ApplicationController
 end
 endsnippet
 
-snippet _mailer "Mailer skeleton" b
+snippet _transactional_message "Special mailer skeleton" b
 class ${1:`!p snip.rv = camelize(snip.basename)`} < TransactionnalMessage
 $0
 end
