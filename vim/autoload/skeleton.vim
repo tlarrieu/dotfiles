@@ -8,7 +8,7 @@ function! s:try_insert(skel)
   return g:ulti_expand_res
 endfunction
 
-function! snippet#InsertSkeleton() abort
+function! skeleton#insert() abort
   let filename = expand('%')
 
   " Abort on non-empty buffer or extant file
