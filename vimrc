@@ -26,6 +26,8 @@ Plugin 'beloglazov/vim-online-thesaurus'
 " -- | Snippets | ---------------------
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+" -- | Project config | ---------------
+Plugin 'tpope/vim-projectionist'
 " -- | Text manipulation | ------------
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'AndrewRadev/switch.vim'
