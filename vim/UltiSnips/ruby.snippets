@@ -9,19 +9,19 @@ snippet _skel "Skeleton" b
 	$0
 endsnippet
 
-snippet _model "Model" b
+snippet _model "Model skeleton" b
 class ${1:`!p snip.rv = camelize(snip.basename)`} < ActiveRecord::Base
 	$0
 end
 endsnippet
 
-snippet _controller "Model" b
+snippet _controller "Controller skeleton" b
 class ${1:`!p snip.rv = camelize(snip.basename)`} < ApplicationController
 	$0
 end
 endsnippet
 
-snippet _mailer "Model" b
+snippet _mailer "Mailer skeleton" b
 class ${1:`!p snip.rv = camelize(snip.basename)`} < TransactionnalMessage
 $0
 end
