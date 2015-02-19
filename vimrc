@@ -725,6 +725,18 @@ noremap <leader>x :Rextract<space>
 nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
+" {{{ ------------------------------------- Buffers
+" Empty buffers
+command! B bufdo bd
+function! DeleteHiddenBuffers()
+  let tpbl=[]
+  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+    silent execute 'bwipeout' buf
+  endfor
+endfunction
+noremap <leader>. :call DeleteHiddenBuffers()<cr>
+" }}}
 " {{{ ------------------------------- Splits / Tabs
 noremap <c-w>O :tabo<cr><c-w>o
 noremap <c-w><c-c> <c-w>H
@@ -843,8 +855,6 @@ noremap <c-c> <esc>
 inoremap <c-c> <esc>`^
 vnoremap <c-c> <esc>
 xnoremap <c-c> <esc>
-" Empty buffers
-command! B bufdo bd
 " Change mode
 nnoremap l c
 nnoremap L C
