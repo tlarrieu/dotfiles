@@ -1,0 +1,71 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet _skel "Skeleton" b
+#!/usr/bin/env ruby
+$0
+endsnippet
+
+snippet _model "Model skeleton" b
+class `!p snip.rv = camelize(snip.basename)` < ActiveRecord::Base
+	$0
+end
+endsnippet
+
+snippet _controller "Controller skeleton" b
+class `!p snip.rv = camelize(snip.basename)` < ApplicationController
+	$0
+end
+endsnippet
+
+snippet _coupon_message "Special mailer skeleton" b
+class `!p snip.rv = camelize(snip.basename)` < CouponsMessage
+  def template_name
+    '`!p snip.rv = snip.basename.strip('_message')`'
+  end
+
+  def subject
+		$0
+  end
+
+  def variables
+    { coupon: @coupon }
+  end
+end
+endsnippet
+
+snippet _transactional_message "Special mailer skeleton" b
+class `!p snip.rv = camelize(snip.basename)` < TransactionalMessage
+  def initialize(${1:variables})
+    super($1)
+    $0
+  end
+
+  def template_name
+    '`!p snip.rv = snip.basename.strip('_message')`'
+  end
+
+  def subject
+  end
+
+  def rcpt_email
+    @user.email
+  end
+
+  def rcpt_name
+    @user.full_name
+  end
+
+  def metadata
+    { user_id: @user.id }
+  end
+
+  def variables
+    {
+    }
+  end
+end
+endsnippet
+
+

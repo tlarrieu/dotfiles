@@ -2,33 +2,6 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
-# Skeleton snippets
-
-snippet _skel "Skeleton" b
-#!/usr/bin/env ruby
-$0
-endsnippet
-
-snippet _model "Model skeleton" b
-class ${1:`!p snip.rv = camelize(snip.basename)`} < ActiveRecord::Base
-	$0
-end
-endsnippet
-
-snippet _controller "Controller skeleton" b
-class ${1:`!p snip.rv = camelize(snip.basename)`} < ApplicationController
-	$0
-end
-endsnippet
-
-snippet _transactional_message "Special mailer skeleton" b
-class ${1:`!p snip.rv = camelize(snip.basename)`} < TransactionnalMessage
-$0
-end
-endsnippet
-
-# Regular snippets
-
 snippet deb "debug"
 puts "---------> $1 : #{${2:$1}.inspect}"
 endsnippet
