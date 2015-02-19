@@ -1,3 +1,7 @@
+snippet i18n "I18n"
+I18n.t(${1:key}${2:,${3:variable}})
+endsnippet
+
 snippet /^\s*sc?o?p?e?/ "Scope" r
 scope :${1:name}, -> { where(${2:column}: ${3:value}) }
 endsnippet
@@ -31,6 +35,39 @@ endsnippet
 snippet trait "trait"
 trait :${1:trait} do
 	$2
+end
+endsnippet
+
+snippet message "Message"
+class ${1:name}Message < TransactionalMessage
+  def initialize(${3:variables})
+    super($4)
+    $0
+  end
+
+  def template_name
+    '${2:name}'
+  end
+
+  def subject
+  end
+
+  def rcpt_email
+    @user.email
+  end
+
+  def rcpt_name
+    @user.full_name
+  end
+
+  def metadata
+    { user_id: @user.id }
+  end
+
+  def variables
+    {
+    }
+  end
 end
 endsnippet
 

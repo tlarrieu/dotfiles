@@ -747,6 +747,7 @@ map <Right> <c-w>>
 map <leader>m <c-w>=
 noremap <leader>M :res<cr>:vertical res<cr>$
 " New tab
+noremap <leader>tt :tabe<cr>
 noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Close current tab
 noremap <leader>tc :tabclose<cr>
@@ -973,10 +974,16 @@ function! UTF8()
 endfunction
 command! UTF8 :call UTF8()
 
-" Convert Rails interpolated variable to Mandrill format
-function! ToMandrill()
+" Convert Rails interpolated variable to Mailchimp format
+function! ToMailchimp()
   :%s/<%= \?\(.\{-}\) \?%>/*|\1|*/g
 endfunction
-command! Mandrill :call ToMandrill()
+command! Mailchimp :silent call ToMailchimp()
+
+" Convert Rails interpolated variable to Mailchimp format
+function! ToMustach()
+  :%s/<%= \?\(.\{-}\) \?%>/\{\{\1}}/g
+endfunction
+command! Mustach :silent call ToMustach()
 " }}}
 " }}}
