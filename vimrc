@@ -295,7 +295,7 @@ match OverLength /\%86v.\+/
 " Virtual editing
 set virtualedit=all
 " Blank character
-set lcs=tab:\›\ ,trail:∘,nbsp:¬,extends:»,precedes:«
+set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 set showbreak= 
 set list
 " Show matching braces
@@ -799,6 +799,9 @@ noremap <c-p> :cprev<cr>
 " Diffs
 nmap <c-t> ]c
 nmap <c-s> [c
+" Command line / Search
+cmap <c-t> <down>
+cmap <c-s> <up>
 " Beginning / end of the line
 inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
@@ -926,12 +929,13 @@ noremap 0 *
 " {{{ ---------------------------- Search & Replace
 map é <Plug>(incsearch-stay)
 map É <Plug>(incsearch-forward)
+map ' <plug>(incsearch-nohl-n)
+map ? <plug>(incsearch-nohl-N)
+
 noremap <leader>é :%s/
 noremap <leader>É :s/
 vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 
-noremap ' n
-noremap ? N
 noremap n `
 noremap nn ``
 " }}}
@@ -995,5 +999,15 @@ function! ToMustach()
   :%s/<%= \?\(.\{-}\) \?%>/\{\{\1}}/g
 endfunction
 command! Mustach :silent call ToMustach()
+
+function! ClearRegisters()
+  let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
+  let i=0
+  while (i<strlen(regs))
+    exec 'let @'.regs[i].'=""'
+    let i=i+1
+  endwhile
+endfunction
+command! ClearRegisters call ClearRegisters()
 " }}}
 " }}}
