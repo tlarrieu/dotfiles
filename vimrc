@@ -994,7 +994,7 @@ function! ToMailchimp()
 endfunction
 command! Mailchimp :silent call ToMailchimp()
 
-" Convert Rails interpolated variable to Mailchimp format
+" Convert Rails interpolated variable to Handlebar format
 function! ToMustach()
   :%s/<%= \?\(.\{-}\) \?%>/\{\{\1}}/g
 endfunction
@@ -1009,5 +1009,13 @@ function! ClearRegisters()
   endwhile
 endfunction
 command! ClearRegisters call ClearRegisters()
+
+function! Redir(command)
+  redir! >/tmp/vim_redir
+  silent exec a:command
+  redir END
+  r /tmp/vim_redir
+endfunction
+command! -nargs=1 R call Redir(<q-args>)
 " }}}
 " }}}
