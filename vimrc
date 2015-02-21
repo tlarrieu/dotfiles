@@ -963,22 +963,14 @@ vnoremap <leader>s :sort<cr>
 " {{{ --------------------------- Utility Functions
 " This function extracts a pattern from the whole buffer and replaces it
 " with a line for each match on a single line
-function! RegexToListBuffer()
-  let @a=""
-  %s//\=setreg('A', submatch(0), 'l')/g
+function! Extract()
+  let @z=""
+  %s//\=setreg('Z', submatch(0), 'l')/g
   %d _
-  pu a
+  pu z
   0d _
 endfunction
-
-" Same function but do not replace the whole buffer. Instead, paste the
-" lines at the end of it
-function! RegexToList()
-  let @2=""
-  g//t 2
-  normal G
-  pu 2
-endfunction
+command! Extract silent call Extract()
 
 " Enforce UTF8
 function! UTF8()
