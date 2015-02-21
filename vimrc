@@ -783,11 +783,10 @@ function! MergeTabs()
   execute "vs " . bufferName
 endfunction
 
-" Merge a tab into a split in the previous window
+" Unmerge a split into a new tab
 function! UnmergeWindow()
   let bufferName = bufname("%")
   close!
-  if tabpagenr("$") == tabpagenr()
   execute "tabe " . bufferName
 endfunction
 
