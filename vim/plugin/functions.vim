@@ -57,7 +57,7 @@ endfunction
 " {{{ == | Search | ============================================================
 
 " Those 2 functions should be refactored into a single one
-function! s:UsageOperator(type)
+function! UsageOperator(type)
   let saved_register = @@
 
   if a:type ==# 'v'
@@ -73,7 +73,7 @@ function! s:UsageOperator(type)
   let @@ = saved_register
 endfunction
 
-function! s:DefinitionOperator(type)
+function! DefinitionOperator(type)
   let saved_register = @@
 
   if a:type ==# 'v'

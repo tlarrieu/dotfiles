@@ -435,9 +435,9 @@ augroup Ag
 augroup END
 
 nnoremap <leader>a :Ag! ""<left>
-nnoremap yu :set operatorfunc=<SID>UsageOperator<cr>g@iw
-vnoremap yu :<c-u>call <SID>UsageOperator(visualmode())<cr>
-nnoremap yd :set operatorfunc=<SID>DefinitionOperator<cr>g@iw
+nnoremap yu :set operatorfunc=UsageOperator<cr>g@iw
+vnoremap yu :<c-u>call UsageOperator(visualmode())<cr>
+nnoremap yd :set operatorfunc=DefinitionOperator<cr>g@iw
 
 augroup quickfix
   au!
