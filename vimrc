@@ -47,24 +47,21 @@ Plugin 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
 Plugin 'samsonw/vim-task'
 " -- | Undo tree explorer | -----------
-Plugin 'sjl/gundo.vim'
+" Plugin 'sjl/gundo.vim'
 " -- | List toggler | -----------------
 Plugin 'milkypostman/vim-togglelist'
-" -- | Buffer functionnalities | ------
-Plugin 'duff/vim-bufonly'
-Plugin 'roman/golden-ratio'
 " -- | Ruby | -------------------------
 Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
-Plugin 'tpope/vim-rails'
+" Plugin 'tpope/vim-rails'
 " -- | HTML | -------------------------
 Plugin 'mattn/emmet-vim'
 " -- | Haskell | ----------------------
-Plugin 'twinside/vim-syntax-haskell-cabal'
-Plugin 'bitc/vim-hdevtools'
+" Plugin 'twinside/vim-syntax-haskell-cabal'
+" Plugin 'bitc/vim-hdevtools'
 " -- | Go lang | ----------------------
-Plugin 'fatih/vim-go'
+" Plugin 'fatih/vim-go'
 " -- | SQL | --------------------------
 Plugin 'ivalkeen/vim-simpledb'
 Plugin 'exu/pgsql.vim'
@@ -76,9 +73,9 @@ Plugin 'vim-scripts/fish-syntax'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'tpope/vim-haml'
-Plugin 'chrisbra/csv.vim'
+" Plugin 'kchmck/vim-coffee-script'
+" Plugin 'tpope/vim-haml'
+" Plugin 'chrisbra/csv.vim'
 " -- | VCS | --------------------------
 Plugin 'tpope/vim-fugitive'
 Plugin 'phleet/vim-mercenary'
@@ -91,10 +88,10 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
-Plugin 'reedes/vim-thematic'
+" Plugin 'reedes/vim-thematic'
 " -- | Colors | -----------------------
-Plugin 'KabbAmine/vCoolor.vim'              " Picker
-Plugin 'chrisbra/Colorizer'                 " Highlighter
+" Plugin 'KabbAmine/vCoolor.vim'              " Picker
+" Plugin 'chrisbra/Colorizer'                 " Highlighter
 
 call vundle#end()
 
