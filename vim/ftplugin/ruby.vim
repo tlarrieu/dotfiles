@@ -37,3 +37,41 @@ function! Ruby_eval_vsplit() range
 endfunction
 vnoremap <buffer> <silent> <leader><space> :call Ruby_eval_vsplit()<cr>
 nnoremap <buffer> <silent> <leader><space> mzggVG<leader><space>`z
+
+let b:switch_custom_definitions =
+  \[
+  \  ['&&', '||'],
+  \  {
+  \    '\Ctrue':  'false',
+  \    '\Cfalse': 'true',
+  \  },
+  \  {
+  \     'if true or (\(.*\))':          'if false and (\1)',
+  \     'if false and (\(.*\))':        'if \1',
+  \     'if \%(true\|false\)\@!\(.*\)': 'if true or (\1)',
+  \  },
+  \  {
+  \    ':\(\k\+\)\s*=>\s*': '\1: ',
+  \    '\<\(\k\+\): ':      ':\1 => ',
+  \  },
+  \  {
+  \    '"\(\k\+\)"':                '''\1''',
+  \    '''\(\k\+\)''':              ':\1',
+  \    ':\(\k\+\)\@>\%(\s*=>\)\@!': '"\1"\2',
+  \  },
+  \  {
+  \    '"\(.\+\)"':                '''\1''',
+  \    '''\(.\+\)''':              '"\1"',
+  \  },
+  \  {
+  \    'lambda { |\(.*\)| \(.*\) }': '->(\1) { \2 }',
+  \    'lambda {|\(.*\)| \(.*\)}': '->(\1) { \2 }',
+  \    'lambda { \(.*\) }': '-> { \1 }',
+  \    'lambda {\(.*\)}': '-> { \1 }',
+  \  },
+  \  {
+  \    '\(expect.*\.\)\(to\) ':     '\1not_\2 ',
+  \    '\(expect.*\.\)\(not_\)\(to\) ': '\1\3 ',
+  \  },
+  \  ['be_truthy', 'be_falsey']
+  \]
