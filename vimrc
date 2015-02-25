@@ -90,8 +90,8 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
 " Plugin 'reedes/vim-thematic'
 " -- | Colors | -----------------------
-" Plugin 'KabbAmine/vCoolor.vim'              " Picker
-" Plugin 'chrisbra/Colorizer'                 " Highlighter
+Plugin 'KabbAmine/vCoolor.vim'              " Picker
+Plugin 'chrisbra/Colorizer'                 " Highlighter
 
 call vundle#end()
 
