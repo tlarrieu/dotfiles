@@ -177,9 +177,9 @@ elseif $TERM_PROGRAM =~ "iTerm"
   let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
   let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 elseif &term =~ "xterm\\|rxvt"
-  let &t_SI = "\<Esc>]12;cyan\x7" " Insert mode
-  let &t_EI = "\<Esc>]12;blue\x7" " Normal mode
-  silent !echo -ne "\033]12;red\007"
+  let &t_SI = "\<Esc>]12;#2aa198\x7" " Insert mode
+  let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
+  silent !echo -ne "\033]12;\e[94m\007"
   " reset cursor when vim exits
   autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
