@@ -2,6 +2,14 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
+snippet /(.*)\.tapi/ "comment" ri
+`!p snip.rv = match.group(1)`.tap { |o| puts o.inspect }.
+endsnippet
+
+snippet /(.*)\.tap/ "comment" ri
+`!p snip.rv = match.group(1)`.tap { |o| puts o.${1:inspect} }.
+endsnippet
+
 snippet deb "debug"
 puts "---------> $1 : #{${2:$1}.inspect}"
 endsnippet

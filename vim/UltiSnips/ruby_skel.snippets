@@ -68,4 +68,65 @@ class `!p snip.rv = camelize(snip.basename)` < TransactionalMessage
 end
 endsnippet
 
+snippet _shop "Shop" s
+module ShopmiumShops
+	module Sources
+		class `!p snip.rv = camelize(snip.basename)` < Base
 
+			STORE_ID = 0
+			CHAIN = 1
+			NAME = 2
+			ADDRESS = 3
+			ZIP = 4
+			CITY = 5
+			PHONE = 6
+			LAT = 7
+			LNG = 8
+
+			def initialize
+				@path = './input/`!p snip.rv = snip.basename`/`!p snip.rv = snip.basename`.csv'
+			end
+
+			def each
+        CSV.foreach(@path, {col_sep: ',', encoding: 'UTF-8', quote_char: '"' }) do |row|
+          yield Shop.new(
+            key: ${7:key(row)},
+            store_id: ${8:row[STORE_ID]},
+            chain: ${9:row[CHAIN]},
+            name: ${10:row[NAME]},
+            address: ${11:row[ADDRESS]},
+            zip: ${12:row[ZIP]},
+            city: ${13:row[CITY]},
+            phone: ${14:row[PHONE]},
+            x: ${13:row[LAT]},
+            y: ${14:row[LNG]},
+            country_code: ${0:'fr'}
+          )
+        end
+			end
+
+			def type
+				${3:'file'}
+			end
+
+			def canonical?
+				${4:true}
+			end
+
+			def main?
+				${5:true}
+			end
+
+			def border
+				${6::fr}
+			end
+
+			private
+
+				def key(row)
+				end
+		end
+	end
+
+end
+endsnippet
