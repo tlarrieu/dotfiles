@@ -234,7 +234,7 @@ set wildmenu
 " set complete=slf
 set complete=.,w,b,u,t,i
 " Bells
-set visualbell
+set novisualbell
 set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
 set hidden
