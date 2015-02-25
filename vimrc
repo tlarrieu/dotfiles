@@ -322,9 +322,6 @@ augroup emmet
   au FileType html,css,scss,eruby EmmetInstall
 augroup end
 " }}}
-" {{{ ------------------------------------- BufOnly
-nnoremap <leader>B :BufOnly<cr>
-" }}}
 " {{{ ------------------------------------ Markdown
 let g:markdown_enable_mappings = 0
 " }}}
@@ -424,18 +421,8 @@ augroup lint
 augroup end
 " }}}
 " {{{ -------------------------------------- Switch
-augroup switch
-  autocmd!
-  autocmd FileType ruby let b:switch_custom_definitions =
-    \[
-    \ {
-    \   'lambda { \?|\(.*\)| \(.*\) \?}': '->(\1) { \2 }',
-    \   'lambda { \?\(.*\) \?}': '-> { \1 }',
-    \   '\(\S\+.\+\).should\(\s\+\)==\s*\(.\+\)': 'expect(\1).to\2eq \3',
-    \   '\(\S\+.\+\).should\(\S\+\)\s*\(.\+\)': 'expect(\1).to\2 \3',
-    \ }
-    \]
-augroup END
+let b:switch_no_builtins = 1
+let g:switch_mapping = 'h'
 " }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
@@ -451,7 +438,8 @@ augroup Ag
   autocmd!
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <nl> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <c-cr> <C-W><CR><C-W>T
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
   autocmd BufReadPost quickfix setlocal nonu
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
@@ -504,7 +492,8 @@ let g:airline_symbols.paste = 'ρ'
 
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-let g:airline_theme = 'solarized'
+" let g:airline_theme = 'solarized'
+let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
 let g:airline#extensions#tabline#enabled = 1
@@ -709,7 +698,7 @@ noremap : .
 nnoremap <silent> : :<c-u>call repeat#run(v:count)<cr>
 " save
 noremap $ :w<cr>
-" Normal mode + save
+" Normal mode
 noremap <c-c> <esc>
 " Leave the cursor in place after leaving insert mode
 inoremap <c-c> <esc>`^
@@ -777,7 +766,7 @@ noremap 6 @
 noremap + 7
 noremap 7 +
 noremap - 8
-noremap 8 :Switch<cr>
+noremap 8 -
 noremap / 9
 noremap 9 /
 noremap * 0
