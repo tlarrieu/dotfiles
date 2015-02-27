@@ -158,6 +158,8 @@ if has('gui_running')
   set guioptions-=r
   set guioptions-=R
   set guioptions-=b
+  set guioptions-=T
+  set guioptions-=m
 
   " mode aware cursors
   set gcr+=o:hor50-Cursor
