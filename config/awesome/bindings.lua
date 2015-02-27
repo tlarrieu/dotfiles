@@ -139,7 +139,8 @@ globalkeys = awful.util.table.join(globalkeys,
 
   awful.key({ modkey            }, "n",           function () awful.util.spawn(terminal)                     end),
   awful.key({ modkey, "Shift"   }, "n",           function () awful.util.spawn("gksu " .. terminal)          end),
-  awful.key({ modkey            }, "p",           function () awful.util.spawn("escrotum -s -e 'mv $f ~/Pictures/Screenshots/ 2>/dev/null'") end)
+  -- awful.key({ modkey            }, "p",           function () awful.util.spawn("escrotum -s -e 'mv $f ~/Pictures/Screenshots/ 2>/dev/null'") end)
+  awful.key({ modkey            }, "p",           function () awful.util.spawn("shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'") end)
 )
 
 -- Set keys
