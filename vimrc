@@ -73,7 +73,7 @@ Plugin 'vim-scripts/fish-syntax'
 Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
-" Plugin 'kchmck/vim-coffee-script'
+Plugin 'kchmck/vim-coffee-script'
 " Plugin 'tpope/vim-haml'
 " Plugin 'chrisbra/csv.vim'
 " -- | VCS | --------------------------
@@ -789,16 +789,17 @@ noremap nn ``
 " Rails
 nnoremap <leader>es :tabe db/structure.sql<cr>
 
-nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nnoremap <leader>ee :tabe ~/email.md<cr>
+nnoremap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nnoremap <leader>eg :tabe ~/.gitconfig<cr>
 nnoremap <leader>eh :tabe ~/.hgrc<cr>
-nnoremap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nnoremap <leader>em :tabe ~/.tmux.conf<cr>
-nnoremap <leader>et :tabe ~/todo.tasks<cr>
-nnoremap <leader>er :tabe ~/release.tasks<cr>
+nnoremap <leader>eo :tabe ~/poi.md<cr>
 nnoremap <leader>ep :tabe ~/postgres.sql<cr>
 nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
-nnoremap <leader>eo :tabe ~/poi.md<cr>
+nnoremap <leader>er :tabe ~/release.tasks<cr>
+nnoremap <leader>et :tabe ~/todo.tasks<cr>
+nnoremap <leader>ev :tabe $MYVIMRC<cr>
 " }}}
 " {{{ ------------------------- Ranger File Chooser
 nnoremap <leader>h :<c-u>RangerChooser<CR>
@@ -806,4 +807,7 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ ------------------------- Convenience Mapping
 vnoremap <leader>s :sort<cr>
+" }}}
+" {{{ ------------------------------------------------------------ Abbreviations
+cabbrev db bd
 " }}}
