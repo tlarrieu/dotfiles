@@ -181,9 +181,6 @@ elseif $TERM_PROGRAM =~ "iTerm"
 elseif &term =~ "xterm\\|rxvt"
   let &t_SI = "\<Esc>]12;#2aa198\x7" " Insert mode
   let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
-  silent !echo -ne "\033]12;\e[94m\007"
-  " reset cursor when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
 endif
 
 hi! Visual ctermfg=7 ctermbg=14 gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
