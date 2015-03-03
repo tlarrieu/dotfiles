@@ -3,8 +3,8 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- {{{ Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/wallhaven-34887.jpg",
+  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
   "/home/tlarrieu/Pictures/Wallpapers/wallhaven-51670.jpg",
 }
 for s = 1, screen.count() do
@@ -30,7 +30,7 @@ tags = {}
 for s = 1, screen.count() do
   -- Each screen has its own tag table.
   l = layouts[1]
-  if s == 1 then l = layouts[3] end
+  if s == 2 then l = layouts[3] end
 
   names = { "1", "2", "3", "4", "5" }
   tags[s] = awful.tag(names, s, l)

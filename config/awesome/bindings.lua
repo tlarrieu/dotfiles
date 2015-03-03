@@ -33,8 +33,8 @@ globalkeys = awful.util.table.join(
       if client.focus then client.focus:raise() end
     end),
   -- Screen switching
-  awful.key({ modkey,           }, "e", function () awful.screen.focus_relative(1)    end),
-  awful.key({ modkey,           }, "i", function () awful.screen.focus_relative(-1)   end),
+  awful.key({ modkey,           }, "i", function () awful.screen.focus_relative(1)    end),
+  awful.key({ modkey,           }, "e", function () awful.screen.focus_relative(-1)   end),
   -- Window screen switching
   awful.key({ modkey,           }, "o", awful.client.movetoscreen                        ),
 
