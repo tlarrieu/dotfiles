@@ -702,6 +702,7 @@ noremap $ :w<cr>
 noremap <c-c> <esc>
 " Leave the cursor in place after leaving insert mode
 inoremap <c-c> <esc>`^
+inoremap <esc> <esc>`^
 vnoremap <c-c> <esc>
 xnoremap <c-c> <esc>
 " Change mode
@@ -800,6 +801,8 @@ nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
 nnoremap <leader>er :tabe ~/release.tasks<cr>
 nnoremap <leader>et :tabe ~/todo.tasks<cr>
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
+
+nnoremap <leader>$ :so $MYVIMRC<cr>
 " }}}
 " {{{ ------------------------- Ranger File Chooser
 nnoremap <leader>h :<c-u>RangerChooser<CR>
