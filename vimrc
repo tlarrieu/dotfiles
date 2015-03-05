@@ -637,7 +637,7 @@ noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
-" Till
+" Command line
 map è :
 " }}}
 " {{{ ------------------------------ Mode Switching
@@ -712,10 +712,10 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
-noremap é /
-noremap É ?
-noremap ' n
-noremap ? N
+map é <plug>(incsearch-stay)
+map É <plug>(incsearch-forward)
+map ' <Plug>(incsearch-nohl-n)
+map ? <Plug>(incsearch-nohl-N)
 
 noremap <leader>é :%s/
 noremap <leader>É :s/
