@@ -257,7 +257,6 @@ set splitbelow
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
-let &sidescrolloff=999-&sidescrolloff
 set sidescroll=1
 " }}}
 " {{{ ------------------------------------------------------------------- Indent
