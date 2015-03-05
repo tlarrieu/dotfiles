@@ -302,13 +302,6 @@ let g:golden_ratio_exclude_nonmodifiable = 1
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
-" {{{ ------------------------------------ Exchange
-let g:exchange_no_mappings=1
-nmap lx <Plug>(Exchange)
-vmap X <Plug>(Exchange)
-nmap lxl <Plug>(ExchangeClear)
-nmap lxx <Plug>(ExchangeLine)
-" }}}
 " {{{ --------------------------------------- Emmet
 let g:user_emmet_leader_key=','
 let g:use_emmet_complete_tag = 1
@@ -419,10 +412,6 @@ augroup lint
   au FileType scss noremap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
-" {{{ -------------------------------------- Switch
-let b:switch_no_builtins = 1
-let g:switch_mapping = 'h'
-" }}}
 " {{{ ------------------------------------ Greplace
 set grepprg=ag\ --line-numbers\ --noheading
 nnoremap <leader>A :Gqfopen<cr>
@@ -502,6 +491,7 @@ let g:airline#extensions#tabline#fnamemod = ':t:.'
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#tab_nr_type = 1
 let g:airline_mode_map = {
   \ '__' : '-',
   \ 'n'  : 'NOR',
@@ -515,20 +505,6 @@ let g:airline_mode_map = {
   \ 'S'  : 'L-SEL',
   \ '' : 'B-SEL',
   \ }
-" }}}
-" {{{ ------------------------------------ Surround
-" I want to rebind some (one in fact) bindings and since I cant unbind
-" any at this point, I'll go for the brutal way.
-let g:surround_no_mappings=1
-nmap ds  <Plug>Dsurround
-nmap ls  <Plug>Csurround
-nmap ys  <Plug>Ysurround
-nmap yS  <Plug>YSurround
-nmap yss <Plug>Yssurround
-nmap ySs <Plug>YSsurround
-nmap ySS <Plug>YSsurround
-xmap S   <Plug>VSurround
-xmap gS  <Plug>VgSurround
 " }}}
 " {{{ --------------------------------------- CtrlP
 let g:ctrlp_map = '<space>'
@@ -553,11 +529,6 @@ nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>'],
     \ }
 hi! CtrlPMatch ctermfg=5 guifg=#d33682
-" }}}
-" {{{ --------------------------------------- Gundo
-let gundo_map_move_older = "t"
-let gundo_map_move_newer = "s"
-noremap <leader>gu :GundoToggle<cr>
 " }}}
 " {{{ ------------------------------------- Signify
 let g:signify_vcs_list = [ 'hg', 'git' ]
@@ -601,6 +572,7 @@ nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ ------------------------------------- Buffers
+set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
 noremap <leader>. :call DeleteHiddenBuffers()<cr>
@@ -617,13 +589,6 @@ noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 nnoremap <tab> <c-w>w
 nnoremap <s-tab> <c-w>W
 nnoremap <c-b> <c-i>
-nnoremap S gT
-nnoremap T gt
-" Resize splits
-map <Up>    <c-w>+
-map <Down>  <c-w>-
-map <Left>  <c-w><
-map <Right> <c-w>>
 map <leader>m <c-w>=
 noremap <leader>M :res<cr>:vertical res<cr>$
 " New tab
@@ -653,20 +618,10 @@ cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
-nnoremap c h
-nnoremap r l
-nnoremap t gj
-nnoremap s gk
-xnoremap c h
-xnoremap r l
-xnoremap t gj
-xnoremap s gk
-" Beginning of line
-nnoremap C ^
-vnoremap C ^
-" End of line
-nnoremap R $
-vnoremap R $
+map t j
+map s k
+map c h
+map r l
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Split lines
@@ -684,19 +639,11 @@ nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
 " Till
-noremap è t
-noremap È T
+map è :
 " }}}
 " {{{ ------------------------------ Mode Switching
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
-" Swap command and repeat keys
-noremap . :
-noremap : .
-" Necessary hack to make repeat work as expected (since we swapped . and :)
-nnoremap <silent> : :<c-u>call repeat#run(v:count)<cr>
-" save
-noremap $ :w<cr>
 " Normal mode
 noremap <c-c> <esc>
 " Leave the cursor in place after leaving insert mode
@@ -704,13 +651,6 @@ inoremap <c-c> <esc>`^
 inoremap <esc> <esc>`^
 vnoremap <c-c> <esc>
 xnoremap <c-c> <esc>
-" Change mode
-nnoremap l c
-nnoremap L C
-onoremap l c
-onoremap L C
-xnoremap l c
-xnoremap L C
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
@@ -773,10 +713,10 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
-map é <Plug>(incsearch-stay)
-map É <Plug>(incsearch-forward)
-map ' <plug>(incsearch-nohl-n)
-map ? <plug>(incsearch-nohl-N)
+noremap é /
+noremap É ?
+noremap ' n
+noremap ? N
 
 noremap <leader>é :%s/
 noremap <leader>É :s/
