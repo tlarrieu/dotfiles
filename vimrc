@@ -54,6 +54,7 @@ Plugin 'milkypostman/vim-togglelist'
 Plugin 'janko-m/vim-test'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'Keithbsmiley/rspec.vim'
+Plugin 'jbgutierrez/vim-partial'
 " Plugin 'tpope/vim-rails'
 " -- | HTML | -------------------------
 Plugin 'mattn/emmet-vim'
@@ -563,9 +564,6 @@ let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nnoremap <leader><tab> :call SwitchVCS()<cr>
 " {{{ ------------------------------------------------- Various keyboard mapping
-" {{{ --------------------------------------- Rails
-noremap <leader>x :Rextract<space>
-" }}}
 " {{{ --------------------------------- Exercism.io
 nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
@@ -621,6 +619,10 @@ map t j
 map s k
 map c h
 map r l
+map þ j
+map ß k
+map © h
+map ® l
 " Gathering selected lines (or current one if none selected) in one line
 noremap <c-l> J
 " Split lines
