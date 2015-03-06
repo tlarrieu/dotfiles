@@ -595,6 +595,16 @@ noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 noremap <leader>tc :tabclose<cr>
 " Close all tabs but current
 noremap <leader>to :tabo<cr>
+" Direct tab access
+nnoremap g" 1gt
+nnoremap g« 2gt
+nnoremap g» 3gt
+nnoremap g( 4gt
+nnoremap g) 5gt
+nnoremap g@ 6gt
+nnoremap g+ 7gt
+nnoremap g- 8gt
+nnoremap g/ 9gt
 
 noremap <leader>U :call UnmergeWindow()<cr>
 noremap <leader>uu :call MergeTabs()<cr>
@@ -673,8 +683,6 @@ noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
 noremap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-" Clear search
-noremap <silent> H :let @/ = ""<cr>
 " Toggle line wrap
 nnoremap <leader>w :set wrap!<cr>
 nnoremap U :redo<cr>
@@ -686,7 +694,7 @@ inoremap <c-g> <esc>gUiwea
 " Clear trailing spaces
 nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
-nnoremap <silent> <leader>i mmgg=G`m
+nnoremap <silent> <leader>i m'gg=Gg`'
 " }}}
 " {{{ ---------------------------- Swap number line
 " It is more convenient to access numbers directly when in normal mode
@@ -715,7 +723,7 @@ noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
 map é <plug>(incsearch-stay)
-map É <plug>(incsearch-forward)
+noremap <silent> É :let @/ = ""<cr>
 map ' <Plug>(incsearch-nohl-n)
 map ? <Plug>(incsearch-nohl-N)
 
