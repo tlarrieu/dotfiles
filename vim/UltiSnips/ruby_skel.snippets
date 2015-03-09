@@ -7,6 +7,19 @@ snippet _skel "Skeleton" b
 $0
 endsnippet
 
+snippet _enum "Enum skeleton" b
+module PgEnum
+	class `!p snip.rv = camelize(snip.basename)`
+    extend PgEnum::Definition
+
+		enum '`!p snip.rv = snip.basename`',
+			%w(
+				$1
+			)
+	end
+end
+endsnippet
+
 snippet _model "Model skeleton" b
 class `!p snip.rv = camelize(snip.basename)` < ActiveRecord::Base
 	$0
