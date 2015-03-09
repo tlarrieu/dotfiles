@@ -36,6 +36,8 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'edsono/vim-matchit'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
+" -- | Movements | --------------------
+Plugin 'justinmk/vim-sneak'
 " -- | Text objects | -----------------
 Plugin 'kana/vim-textobj-user'
 Plugin 'michaeljsmith/vim-indent-object'
@@ -89,7 +91,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
-" Plugin 'reedes/vim-thematic'
 " -- | Colors | -----------------------
 Plugin 'KabbAmine/vCoolor.vim'              " Picker
 Plugin 'chrisbra/Colorizer'                 " Highlighter
@@ -295,8 +296,19 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ -------------------------------- Golden Ratio
-let g:golden_ratio_exclude_nonmodifiable = 1
+" {{{ --------------------------------------- Sneak
+let g:sneak#prompt = 's›'
+let g:sneak#use_ic_scs = 1
+hi! link SneakPluginTarget IncSearch
+" 2-character Sneak (default)
+nmap r <Plug>Sneak_s
+nmap R <Plug>Sneak_S
+" visual-mode
+xmap r <Plug>Sneak_s
+xmap R <Plug>Sneak_S
+" operator-pending-mode
+omap r <Plug>Sneak_s
+omap R <Plug>Sneak_S
 " }}}
 " {{{ ----------------------------------- Thesaurus
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
@@ -369,20 +381,6 @@ augroup end
 " }}}
 " {{{ ---------------------------------- ToggleList
  let g:toggle_list_copen_command="copen"
-" }}}
-" {{{ ------------------------------------ Thematic
-let g:thematic#themes = {
-  \ 'solarized_dark' :{'colorscheme': 'solarized',
-  \                 'background': 'dark',
-  \                 'airline-theme': 'solarized',
-  \                 'ruler': 1,
-  \                },
-  \ 'solarized_lite' :{'colorscheme': 'solarized',
-  \                 'background': 'light',
-  \                 'airline-theme': 'solarized',
-  \                 'ruler': 1,
-  \                },
-  \ }
 " }}}
 " {{{ ------------------------------------ Disptach
 nnoremap <leader>f :Dispatch<cr>
@@ -614,8 +612,10 @@ noremap <leader>uu :call MergeTabs()<cr>
 noremap <c-n> :cnext<cr>
 noremap <c-p> :cprev<cr>
 " Diffs
-nmap <c-t> ]c
-nmap <c-s> [c
+map t ]c
+map s [c
+map þ ]c
+map ß [c
 " Command line / Search
 cmap <c-t> <down>
 cmap <c-s> <up>
@@ -625,12 +625,10 @@ cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
-map t j
-map s k
+map <c-t> j
+map <c-s> k
 map c h
 map r l
-map þ j
-map ß k
 map © h
 map ® l
 " Gathering selected lines (or current one if none selected) in one line
