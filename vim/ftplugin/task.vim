@@ -7,4 +7,4 @@ hi taskKeyword     ctermfg=5 guifg=Blue guibg=Yellow
 
 noremap <silent> <buffer> <return> :call Toggle_task_status()<cr>
 xnoremap <silent> <buffer> <return> :call Toggle_task_status()<cr>gv
-nmap <silent> <buffer> <leader><return> vii<return><esc>
+nmap <silent> <buffer> <leader><return> vii<return><esc><esc>
