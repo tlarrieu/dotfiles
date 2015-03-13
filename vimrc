@@ -20,6 +20,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
+Plugin 'duggiefresh/vim-easydir'
 " -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
 Plugin 'beloglazov/vim-online-thesaurus'
@@ -77,6 +78,7 @@ Plugin 'roalddevries/yaml.vim'
 Plugin 'lmeijvogel/vim-yaml-helper'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'chrisbra/csv.vim'
 " Plugin 'tpope/vim-haml'
 " Plugin 'chrisbra/csv.vim'
 " -- | VCS | --------------------------
@@ -154,7 +156,7 @@ set history=500
 set background=light
 colorscheme solarized
 if has('gui_running')
-  set guifont=Inconsolata-g\ for\ Powerline:h15
+  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
   set guioptions-=l
   set guioptions-=L
   set guioptions-=r
@@ -612,8 +614,6 @@ noremap <leader>uu :call MergeTabs()<cr>
 noremap <c-n> :cnext<cr>
 noremap <c-p> :cprev<cr>
 " Diffs
-map t ]c
-map s [c
 map þ ]c
 map ß [c
 " Command line / Search
@@ -627,8 +627,6 @@ cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
-map c h
-map r l
 map © h
 map ® l
 " Gathering selected lines (or current one if none selected) in one line
@@ -657,9 +655,9 @@ vnoremap yy y
 noremap <c-c> <esc>
 " Leave the cursor in place after leaving insert mode
 inoremap <c-c> <esc>`^
-inoremap <esc> <esc>`^
 vnoremap <c-c> <esc>
 xnoremap <c-c> <esc>
+inoremap <esc> <esc>`^
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
@@ -756,6 +754,8 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ ------------------------- Convenience Mapping
 vnoremap <leader>s :sort<cr>
+cnoremap %% <C-R>=expand('%')<cr>
+nnoremap gV `[v`]
 " }}}
 " {{{ ------------------------------------------------------------ Abbreviations
 cabbrev db bd
