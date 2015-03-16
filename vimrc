@@ -91,6 +91,7 @@ Plugin 'scrooloose/syntastic'
 " -- | Good looking | -----------------
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
+Plugin 'gcmt/taboo.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
 " -- | Colors | -----------------------
@@ -464,6 +465,15 @@ augroup omnicomp
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global=1
 augroup END
 " }}}
+" {{{ --------------------------------------- Taboo
+nmap <leader>tl :TabooRename<space>
+nmap <leader>tr :TabooReset<cr>
+let g:taboo_tab_format =  "%f%m"
+let g:taboo_renamed_tab_format =  "(%l)%m"
+let g:taboo_modified_tab_flag = "+"
+let g:taboo_unnamed_tab_label = "…"
+let g:taboo_tabline = 0
+" }}}
 " {{{ ------------------------------------- Airline
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -480,10 +490,11 @@ let g:airline_symbols.paste = 'ρ'
 
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
-" let g:airline_theme = 'solarized'
+
 let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
+
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#tab_min_count = 2
@@ -492,6 +503,8 @@ let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#fnamecollapse = 1
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#tab_nr_type = 1
+let g:airline#extensions#tabline#show_close_button = 0
+
 let g:airline_mode_map = {
   \ '__' : '-',
   \ 'n'  : 'NOR',
