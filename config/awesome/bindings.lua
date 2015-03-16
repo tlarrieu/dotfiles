@@ -70,7 +70,7 @@ end
 --[[ Client Keys ]]----------------
 clientkeys = awful.util.table.join(
   -- Fullscreen
-  awful.key({ modkey,           }, "f", function (c) c.fullscreen = not c.fullscreen end),
+  awful.key({ modkey,           }, "Return", function (c) c.fullscreen = not c.fullscreen end),
   -- On Top
   awful.key({ modkey,           }, "h", function (c) c.ontop = not c.ontop           end),
   -- Kill
