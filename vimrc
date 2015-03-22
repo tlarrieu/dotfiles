@@ -665,12 +665,9 @@ map è :
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " Normal mode
-noremap <c-c> <esc>
-" Leave the cursor in place after leaving insert mode
-inoremap <c-c> <esc>`^
-vnoremap <c-c> <esc>
-xnoremap <c-c> <esc>
-inoremap <esc> <esc>`^
+cnoremap <esc> <c-c>
+vnoremap <esc> <c-c>
+inoremap <esc> <c-c>
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
