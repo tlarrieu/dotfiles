@@ -5,7 +5,7 @@ call signify#SignifyMatch("rubyOperator", "rubyHashRocketOperator", "\"=>\"", "�
 call signify#SignifyMatch("rubyOperator", "rubySpaceShipOperator", "\"<=>\"", "⇔")
 call signify#SignifyMatch("rubyOperator", "rubyDifferentOperator", "\"!=\"", "≠")
 call signify#SignifyMatch("rubyOperator", "rubyTimesOperator", "\" \\zs\\*\\ze \"", "×")
-call signify#SignifyMatch("rubyOperator", "rubyOverOperator", "\" \\zs/\\ze \"", "÷")
+" call signify#SignifyMatch("rubyOperator", "rubyOverOperator", "\". \\zs/\\ze .\"", "÷")
 call signify#SignifyMatch("rubyOperator", "rubyEqualOperator", "\"==\"", "≡")
 call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"&&\"", "∧")
 call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"||\"", "∨")
