@@ -772,4 +772,5 @@ nnoremap gV `[v`]
 " }}}
 " {{{ ------------------------------------------------------------ Abbreviations
 cabbrev db bd
+cabbrev tabe 999tabe
 " }}}
