@@ -640,6 +640,8 @@ cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
+map t ]c
+map s [c
 map © h
 map ® l
 " Gathering selected lines (or current one if none selected) in one line
@@ -665,9 +667,8 @@ map è :
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " Normal mode
-cnoremap <esc> <c-c>
-vnoremap <esc> <c-c>
-inoremap <esc> <c-c>
+set noek
+cmap <esc> <c-c>
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
@@ -691,12 +692,9 @@ noremap <silent> <leader>l :call ToggleLocationList()<cr>
 noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Toggle line wrap
 nnoremap <leader>w :set wrap!<cr>
-nnoremap U :redo<cr>
-" Split swap
-nnoremap <c-k> :call SplitSwap()<cr><c-w><c-w>
 " Uppercase current word
 nnoremap <c-g> gUiw
-inoremap <c-g> <esc>gUiwea
+imap <c-g> <c-c>gUiwea
 " Clear trailing spaces
 nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
@@ -768,6 +766,4 @@ cnoremap %% <C-R>=expand('%')<cr>
 nnoremap gV `[v`]
 " }}}
 " {{{ ------------------------------------------------------------ Abbreviations
-cabbrev db bd
-cabbrev tabe 999tabe
 " }}}
