@@ -17,6 +17,7 @@ call signify#SignifyMatch("rubyOperator", "rubyAndOperator", "\"||\"", "∨")
 
 setlocal iskeyword+=?
 setlocal iskeyword+=!
+setlocal foldmethod=syntax
 
 nnoremap <buffer> <leader><return> :TestFile<cr>
 nnoremap <buffer> <return> :TestNearest<cr>
