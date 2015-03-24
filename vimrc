@@ -608,6 +608,8 @@ noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 noremap <leader>tc :tabclose<cr>
 " Close all tabs but current
 noremap <leader>to :tabo<cr>
+" Move current tab
+noremap <leader>tm :tabm<space>
 " Direct tab access
 nnoremap g" 1gt
 nnoremap g« 2gt
