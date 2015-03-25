@@ -2,6 +2,12 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
+snippet d "def"
+def ${1:function_name}${2:(${3:*args})}
+	$0
+end
+endsnippet
+
 snippet /(.*)\.tapi/ "comment" ri
 `!p snip.rv = match.group(1)`.tap { |o| puts o.inspect }.
 endsnippet
