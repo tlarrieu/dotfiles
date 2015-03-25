@@ -5,8 +5,6 @@
 " ------------------------------------------------------------------------------
 set shell=/bin/bash
 let $PAGER=''
-let mapleader=","
-set notimeout
 let g:ruby_path = system('rvm current')
 " {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
@@ -153,6 +151,11 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
+let mapleader=","
+" Timeout
+set ttimeout
+set ttimeoutlen=100
+" History
 set history=500
 " Color / background theme
 set background=light
@@ -359,8 +362,8 @@ let g:SignatureMap = {
   \ 'GotoPrevLineAlpha'  :  "",
   \ 'GotoNextSpotAlpha'  :  "",
   \ 'GotoPrevSpotAlpha'  :  "",
-  \ 'GotoNextLineByPos'  :  "n,",
-  \ 'GotoPrevLineByPos'  :  "N,",
+  \ 'GotoNextLineByPos'  :  "",
+  \ 'GotoPrevLineByPos'  :  "",
   \ 'GotoNextSpotByPos'  :  "",
   \ 'GotoPrevSpotByPos'  :  "",
   \ 'GotoNextMarker'     :  "",
@@ -653,8 +656,6 @@ map t ]c
 map s [c
 map © h
 map ® l
-" Gathering selected lines (or current one if none selected) in one line
-noremap <c-l> J
 " Split lines
 noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
@@ -734,17 +735,15 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
-map é <plug>(incsearch-stay)
-noremap <silent> É :let @/ = ""<cr>
-map ' <Plug>(incsearch-nohl-n)
-map ? <Plug>(incsearch-nohl-N)
+map é <plug>(incsearch-forward)
+map ? <plug>(incsearch-backward)
+map <silent> É :nohlsearch<cr><c-l>
+map n <Plug>(incsearch-nohl-n)
+map N <Plug>(incsearch-nohl-N)
 
 noremap <leader>é :%s/
 noremap <leader>É :s/
 vnoremap <leader>é <esc>:%s/\%V/g<left><left>
-
-noremap n `
-noremap nn ``
 " }}}
 " {{{ ------------------------------- Quick Editing
 " Rails
