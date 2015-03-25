@@ -599,8 +599,7 @@ noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 nnoremap <tab> <c-w>w
 nnoremap <s-tab> <c-w>W
 nnoremap <c-b> <c-i>
-map <leader>m <c-w>=
-noremap <leader>M :res<cr>:vertical res<cr>$
+map <leader>m :call ToggleFullSizeSplit()<cr>
 " New tab
 noremap <leader>tt :tabe<cr>
 noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>

@@ -182,6 +182,35 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+function! ToggleFullSizeSplit()
+  if exists('b:last_width')
+    let widthResult = b:last_width
+    unlet b:last_width
+  else
+    let b:last_width = winwidth(0)
+    let maxWidth = max(map(getline(1,'$'), 'len(v:val)'))
+    let g:blarghmatey#expandWidth#defaultMaxWidth = 200
+    let widthResult = min([ ( maxWidth + 5 ), g:blarghmatey#expandWidth#defaultMaxWidth ])
+  endif
+
+  if exists('b:last_height')
+    let heightResult = b:last_height
+    unlet b:last_height
+  else
+    let b:last_height = winheight(0)
+    let fileLength = line('$') + 2
+    let maxHeight = &lines
+    let heightResult = min([maxHeight, fileLength])
+    if exists('g:blarghmatey#expandHeight#heightLimit')
+      let heightLimit = g:blarghmatey#expandHeight#heightLimit
+      let heightResult = min([heightResult, heightLimit])
+    endif
+  endif
+
+  execute 'vertical resize ' . widthResult
+  execute 'resize ' . heightResult
+endfunction
+
 " }}} ==========================================================================
 
 " {{{ == |  Text Manipulation | ================================================
