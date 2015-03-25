@@ -491,7 +491,7 @@ let g:airline_symbols.paste = 'ρ'
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
-let g:airline_theme = 'zenburn'
+let g:airline_theme = 'lucius'
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
 
