@@ -21,6 +21,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'skwp/greplace.vim'
 Plugin 'duggiefresh/vim-easydir'
+Plugin 'chrisbra/NrrwRgn'
 " -- | Functionnalities | -------------
 Plugin 'tpope/vim-dispatch'
 Plugin 'beloglazov/vim-online-thesaurus'
@@ -200,7 +201,7 @@ augroup overlength
   au!
   autocmd FileType man hi! link OverLength Normal
 augroup END
-match OverLength /\%86v.\+/
+match OverLength /\%81v.\+/
 " Virtual editing
 set virtualedit=all
 " Blank character
@@ -299,6 +300,12 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
+" {{{ ------------------------------------- NrrwRgn
+xmap <Leader>n <Plug>NrrwrgnDo
+nmap <Leader>n <Plug>NrrwrgnDo
+let g:nrrw_rgn_hl = 'IncSearch'
+let g:nrrw_topbot_leftright = 'botright'
+" }}}
 " {{{ --------------------------------------- Sneak
 let g:sneak#prompt = 's›'
 let g:sneak#use_ic_scs = 1
@@ -686,7 +693,6 @@ nnoremap vv ^v$
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
-noremap <leader>n :call RenameFile()<cr>
 " Quickfix / Location togglers
 noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
 noremap <silent> <leader>l :call ToggleLocationList()<cr>
