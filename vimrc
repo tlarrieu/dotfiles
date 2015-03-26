@@ -93,6 +93,7 @@ Plugin 'bling/vim-airline'
 Plugin 'gcmt/taboo.vim'
 Plugin 'kshenoy/vim-signature'
 Plugin 'vim-scripts/AnsiEsc.vim'
+Plugin 'sjl/vitality.vim'
 " -- | Colors | -----------------------
 Plugin 'KabbAmine/vCoolor.vim'              " Picker
 Plugin 'chrisbra/Colorizer'                 " Highlighter
