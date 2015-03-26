@@ -42,12 +42,6 @@ def method_missing(meth, *args, &block)
 end
 endsnippet
 
-snippet init "constructor definition"
-def initialize${1:*args}
-	${2}
-end
-endsnippet
-
 snippet /^cl?a?/ "class definition" r
 class ${1:Name}
 	${0:${VISUAL}}
