@@ -437,9 +437,13 @@ let g:agprg = "ag --column --line-numbers --noheading --smart-case"
 augroup Ag
   autocmd!
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <nl> <C-W><CR><C-W>T
+  autocmd BufReadPost quickfix nnoremap <silent> <buffer>   <C-W><CR><C-W>T
   autocmd BufReadPost quickfix nnoremap <silent> <buffer> <c-cr> <C-W><CR><C-W>T
   autocmd BufReadPost quickfix
         \ nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> <C-x> <C-W><CR><C-w>K
+
   autocmd BufReadPost quickfix setlocal nonu
   autocmd BufReadPost quickfix setlocal nornu
 augroup END
@@ -502,7 +506,7 @@ let g:airline_symbols.paste = 'ρ'
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 
-let g:airline_theme = 'lucius'
+let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
 let g:airline_inactive_collapse=0
 
@@ -550,7 +554,7 @@ nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
     \ 'AcceptSelection("h")': ['<c-x>'],
-    \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>'],
+    \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
     \ }
 hi! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
@@ -642,6 +646,8 @@ noremap <c-p> :cprev<cr>
 " Diffs
 map þ ]c
 map ß [c
+map t ]c
+map s [c
 " Command line / Search
 cmap <c-t> <down>
 cmap <c-s> <up>
@@ -653,8 +659,6 @@ cnoremap <c-e> <end>
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
-map t ]c
-map s [c
 map © h
 map ® l
 " Split lines
