@@ -20,7 +20,7 @@ editor_cmd = terminal_exec .. editor
 
 -- Xcape
 awful.util.spawn_with_shell("killall xcape")
-awful.util.spawn_with_shell("xcape -e 'Control_L=Control_L|x'")
+awful.util.spawn_with_shell("xcape -e 'Control_L=Esc'")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
