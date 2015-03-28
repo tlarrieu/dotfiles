@@ -1,0 +1,5 @@
+set accelerated-compositing=true
+set spell-checking=true
+
+nmap è :
+nmap é /
