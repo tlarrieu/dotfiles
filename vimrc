@@ -655,6 +655,7 @@ inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
+map ç ^
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
