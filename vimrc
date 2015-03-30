@@ -6,7 +6,7 @@
 set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
-" {{{ ------------------------------------------------------------------- Vundle
+" {{{ --------------------------------------------------------------- " vim-plug
 set nocompatible
 
 call plug#begin('~/.vim/plugged')
