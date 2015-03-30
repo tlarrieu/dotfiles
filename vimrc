@@ -12,7 +12,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " -- | File Manipulation | ------------
-Plug 'kien/ctrlp.vim', { 'on' : 'CtrlP' }
+Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
