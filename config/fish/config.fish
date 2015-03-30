@@ -144,9 +144,6 @@ function rdu; bin/rake db:migrate:up VERSION=$argv; end
 
 stty -ixon
 
-# Load oh-my-fish configuration.
-. $fish_path/oh-my-fish.fish
-
 # Postgres
 set PGHOST localhost
 
@@ -154,16 +151,6 @@ set PGHOST localhost
 set -g -x GEDITOR gvim
 set -g -x EDITOR vim
 set -g -x TERM xterm-256color
-# Theme
-theme clearance
-set -g theme_display_user yes
-set -g default_user thomaslarrieu
-
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
-
-# Oh-my-fish plugins
-set fish_plugins rvm rails rake brew bundler autojump tmux theme
 
 # Gopath
 set -x GOPATH ~/go
@@ -174,3 +161,17 @@ set -x PATH $PATH /Library/PostgreSQL/9.3/bin
 set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin/
 set -x PATH $PATH ~/.cabal/bin
+
+# Fish theme
+set -g fish_theme clearance
+set -g theme_display_user yes
+set -g default_user thomaslarrieu
+
+# Oh-my-fish plugins
+set fish_plugins rvm rails rake brew bundler autojump tmux theme
+
+# Path to your oh-my-fish.
+set fish_path $HOME/.oh-my-fish
+
+# Load oh-my-fish configuration.
+. $fish_path/oh-my-fish.fish
