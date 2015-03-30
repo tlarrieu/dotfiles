@@ -7,7 +7,7 @@
 
 set branch_glyph \uE0A0
 set superuser_glyph '⌬ '
-set bg_job_glyph '⌂ '
+set bg_job_glyph '⚑ '
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -33,39 +33,46 @@ function fish_prompt
   set -l green (set_color green)
   set -l normal (set_color normal)
 
-  set -l cwd $blue(pwd | sed "s:^$HOME:~:")
+  set vcs_info ''
+  set vcs_color $normal
+  # Show git branch and status
+  if [ (_git_branch_name) ]
+    set vcs_branch (_git_branch_name)
+
+    if [ (_git_is_dirty) ]
+      set vcs_color $yellow
+    else
+      set vcs_color $green
+    end
+  else
+    # Show hg branch and status
+    if [ (_hg_branch_name) ]
+      set vcs_branch (_hg_branch_name)
+
+      if [ (_hg_is_dirty) ]
+        set vcs_color $yellow
+      else
+        set vcs_color $green
+      end
+    end
+  end
 
   # Output the prompt, left to right
 
   # Add a newline before new prompts
   echo -e ''
 
-
   # Print pwd or full path
-  echo -n -s $cwd $normal
+  echo -n -s $blue(pwd | sed "s:^$HOME:~:") $normal
 
-  # Show git branch and status
-  if [ (_git_branch_name) ]
-    set -l git_branch (_git_branch_name)
-
-    if [ (_git_is_dirty) ]
-      set git_info $yellow $branch_glyph ' ' $git_branch
-    else
-      set git_info $green $branch_glyph ' ' $git_branch $normal
-    end
-    echo -n -s ' · ' $git_info $normal
-  else
-    # Show hg branch and status
-    if [ (_hg_branch_name) ]
-      set -l hg_branch (_hg_branch_name)
-      if [ (_hg_is_dirty) ]
-        set hg_info $yellow $branch_glyph ' ' $hg_branch $normal
-      else
-        set hg_info $green $branch_glyph ' ' $hg_branch $normal
-      end
-      echo -n -s ' · ' $hg_info $normal
-    end
+  if test (echo $vcs_branch)
+    echo -n -s ' · ' $vcs_color $branch_glyph ' ' $vcs_branch $normal
   end
+
+  # Ruby version
+  echo -n -s ' @ ' $RUBY_VERSION
+
+  echo -e -n -s $vcs_color ' ><(((°> ' $normal
 
   echo -e ''
 
@@ -79,8 +86,10 @@ function fish_prompt
   if [ (jobs -l | wc -l) -gt 0 ]
     echo -n $bg_job_glyph
   end
+
   # Terminate with a nice prompt char
-  echo -e -n -s 'λ ' $normal
+  # echo -e -n -s 'λ ' $normal
+  echo -e -n -s '∫ ' $normal
 end
 
 set -x fish_color_command green
