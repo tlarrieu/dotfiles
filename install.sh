@@ -36,10 +36,12 @@ safelink()
       case $answer in
         "yes"|"y")
           DO_LINK=true
+          echo "Overriding"
           ;;
         "all"|"a")
           FORCE=true
           DO_LINK=true
+          echo "Overriding everything"
           ;;
       esac
 
