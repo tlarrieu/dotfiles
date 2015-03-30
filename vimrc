@@ -26,11 +26,7 @@ Plug 'honza/vim-snippets'
 " -- | Project config | ---------------
 Plug 'tpope/vim-projectionist'
 " -- | Text manipulation | ------------
-Plug 'Valloric/YouCompleteMe',
-      \ {
-      \  'dir' : '~/.vim/plugged/YouCompleteMe',
-      \  'do' : './install.sh'
-      \ }
+Plug 'Valloric/YouCompleteMe', { 'do' : './install.sh' }
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
 Plug 'MarcWeber/vim-addon-mw-utils'
