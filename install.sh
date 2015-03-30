@@ -101,8 +101,8 @@ if [[ -d ~/.oh-my-fish ]]; then
 else
   curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
 fi
-safelink $BASEDIR/fish_theme/smockey $HOME/.oh-my-fish/themes/smockey
-safelink $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance2
+rm -rf $HOME/.oh-my-fish/themes/clearance
+cp -r $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance
 echo "Fish fully configured, don't forget to set it as your shell"
 
 # RVM and fix for fish
