@@ -29,7 +29,7 @@ Plug 'tpope/vim-projectionist'
 Plug 'Valloric/YouCompleteMe',
       \ {
       \  'dir' : '~/.vim/plugged/YouCompleteMe',
-      \  'do' : './install'
+      \  'do' : './install.sh'
       \ }
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
