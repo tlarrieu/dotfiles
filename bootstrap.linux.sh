@@ -3,6 +3,16 @@
 [[ "$1" == "-f" ]] && FORCE=true
 [[ `uname -s` == "Darwin" ]] && OSX=true
 
+platformlink() {
+  target=$1
+  link=$2
+  if [ $OSX ]; then
+    ln -s -i $target $link
+  else
+    ln -sfF $target $link
+  fi
+}
+
 safelink()
 {
   target=$1
@@ -10,35 +20,32 @@ safelink()
   echo $link "->" $target
   if [ $FORCE ]; then
     rm -rf $link
-    if [ $OSX ]; then
-      ln -s -i $target $link
-    else
-      ln -sfF $target $link
-    fi
+    platformlink $target $link
   else
     DO_LINK=true
-    if [ -d $target -o -f $target ]; then
+
+    if [ -d $link -o -f $link ]; then
       DO_LINK=false
       echo -n "$link already exists, do you want to replace it? (y/N/a) "
       read answer
+
       case $answer in
         "yes"|"y")
-          rm -rf $link
           DO_LINK=true
           ;;
         "all"|"a")
-          rm -rf $link
           FORCE=true
           DO_LINK=true
           ;;
       esac
-    fi
-    if [ $DO_LINK ]; then
-      if [ $OSX ]; then
-        ln -s -i $target $link
-      else
-        ln -s -P -i $target $link
+
+      if [ $DO_LINK ]; then
+        rm -rf $link
       fi
+    fi
+
+    if [ $DO_LINK ]; then
+      platformlink $target $link
     fi
   fi
 }
@@ -67,20 +74,23 @@ done
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
 safelink $BASEDIR/markdown.css $HOME/markdown.css
-# Vundle
-if [[ -d ~/.vim/bundle/Vundle.vim ]]; then
-  echo "Vundle already installed, nothing to do."
+# vim-plug
+if [[ -f ~/.vim/autoload/plug.vim ]]; then
+  echo "vim-plug already installed, nothing to do."
 else
-  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 #.vim
 safelink $BASEDIR/vim $HOME/.vim
-# Bundler
-vim +BundleInstall +qall
+# vim-plug
+vim +PlugInstall +qall
+
 # Fix for Vim buffer within tmux on OSX
 if [ $OSX ]; then
   safeinstall reattach-to-user-namespace
 fi
+
 # Fish
 safeinstall fish
 # Oh My Fish!

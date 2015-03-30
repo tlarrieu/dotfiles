@@ -8,96 +8,97 @@ let $PAGER=''
 let g:ruby_path = system('rvm current')
 " {{{ ------------------------------------------------------------------- Vundle
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-" -- | Vundle | -----------------------
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+
 " -- | File Manipulation | ------------
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
-Plugin 'skwp/greplace.vim'
-Plugin 'duggiefresh/vim-easydir'
-Plugin 'chrisbra/NrrwRgn'
+Plug 'kien/ctrlp.vim'
+Plug 'rking/ag.vim'
+Plug 'skwp/greplace.vim'
+Plug 'duggiefresh/vim-easydir'
+Plug 'chrisbra/NrrwRgn'
 " -- | Functionnalities | -------------
-Plugin 'tpope/vim-dispatch'
-Plugin 'beloglazov/vim-online-thesaurus'
+Plug 'tpope/vim-dispatch'
+Plug 'beloglazov/vim-online-thesaurus'
 " -- | Snippets | ---------------------
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 " -- | Project config | ---------------
-Plugin 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
 " -- | Text manipulation | ------------
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'edsono/vim-matchit'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe',
+      \ {
+      \  'dir' : '~/.vim/plugged/YouCompleteMe',
+      \  'do' : './install'
+      \ }
+Plug 'AndrewRadev/switch.vim'
+Plug 'tpope/vim-commentary'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'edsono/vim-matchit'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 " -- | Movements | --------------------
-Plugin 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 " -- | Text objects | -----------------
-Plugin 'kana/vim-textobj-user'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'wellle/targets.vim'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-user'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'nelstrom/vim-textobj-rubyblock',
+      \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
+Plug 'wellle/targets.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
-Plugin 'samsonw/vim-task'
+Plug 'samsonw/vim-task'
 " -- | Undo tree explorer | -----------
-" Plugin 'sjl/gundo.vim'
+" Plug 'sjl/gundo.vim'
 " -- | List toggler | -----------------
-Plugin 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist'
 " -- | Ruby | -------------------------
-Plugin 'janko-m/vim-test'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'Keithbsmiley/rspec.vim'
-Plugin 'jbgutierrez/vim-partial'
-" Plugin 'tpope/vim-rails'
+Plug 'janko-m/vim-test'
+Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
+Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
+Plug 'jbgutierrez/vim-partial'
+" Plug 'tpope/vim-rails'
 " -- | HTML | -------------------------
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " -- | Haskell | ----------------------
-" Plugin 'twinside/vim-syntax-haskell-cabal'
-" Plugin 'bitc/vim-hdevtools'
+" Plug 'twinside/vim-syntax-haskell-cabal'
+" Plug 'bitc/vim-hdevtools'
 " -- | Go lang | ----------------------
-" Plugin 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 " -- | SQL | --------------------------
-Plugin 'ivalkeen/vim-simpledb'
-Plugin 'exu/pgsql.vim'
+Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
+Plug 'exu/pgsql.vim', { 'for' : 'sql' }
 " -- | Markdown | ---------------------
-Plugin 'gabrielelana/vim-markdown'
-Plugin 'greyblake/vim-preview'
+Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
+Plug 'greyblake/vim-preview', { 'for' : 'markdown' }
 " -- | Misc languages support | -------
-Plugin 'vim-scripts/fish-syntax'
-Plugin 'roalddevries/yaml.vim'
-Plugin 'lmeijvogel/vim-yaml-helper'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'chrisbra/csv.vim'
-" Plugin 'tpope/vim-haml'
-" Plugin 'chrisbra/csv.vim'
+Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
+Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
+Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
+Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
+Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+" Plug 'tpope/vim-haml'
 " -- | VCS | --------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'phleet/vim-mercenary'
-Plugin 'zeekay/vim-lawrencium'
-Plugin 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'phleet/vim-mercenary'
+Plug 'zeekay/vim-lawrencium'
+Plug 'mhinz/vim-signify'
 " -- | Syntax checking | --------------
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 " -- | Good looking | -----------------
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'gcmt/taboo.vim'
-Plugin 'kshenoy/vim-signature'
-Plugin 'vim-scripts/AnsiEsc.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'gcmt/taboo.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'vim-scripts/AnsiEsc.vim'
 " -- | Colors | -----------------------
-Plugin 'KabbAmine/vCoolor.vim'              " Picker
-Plugin 'chrisbra/Colorizer'                 " Highlighter
+Plug 'KabbAmine/vCoolor.vim'              " Picker
+Plug 'chrisbra/Colorizer'                 " Highlighter
 
-call vundle#end()
+call plug#end()
 
 " Force loading of solarized before everything else so we can override
 " a few things without using BufPostRead / BufEnter shenanigans
