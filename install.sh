@@ -18,7 +18,8 @@ safelink()
   target=$1
   link=$2
 
-  echo "\n" $link "->" $target
+  echo
+  echo $link "->" $target
 
   if [ $FORCE ]; then
     rm -rf $link
@@ -29,7 +30,7 @@ safelink()
     if [ -d $link -o -f $link ]; then
       DO_LINK=false
 
-      echo -n "$link already exists, do you want to replace it? ([y]es/[N]o/[a]ll) "
+      echo -n "File already exists, do you want to replace it? ([y]es/[N]o/[a]ll) "
 
       read answer
       case $answer in
