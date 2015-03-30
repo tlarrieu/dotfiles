@@ -17,7 +17,9 @@ safelink()
 {
   target=$1
   link=$2
-  echo $link "->" $target
+
+  echo "\n" $link "->" $target
+
   if [ $FORCE ]; then
     rm -rf $link
     platformlink $target $link
@@ -26,9 +28,10 @@ safelink()
 
     if [ -d $link -o -f $link ]; then
       DO_LINK=false
-      echo -n "$link already exists, do you want to replace it? (y/N/a) "
-      read answer
 
+      echo -n "$link already exists, do you want to replace it? ([y]es/[N]o/[a]ll) "
+
+      read answer
       case $answer in
         "yes"|"y")
           DO_LINK=true
@@ -39,14 +42,10 @@ safelink()
           ;;
       esac
 
-      if [ $DO_LINK ]; then
-        rm -rf $link
-      fi
+      [ $DO_LINK ] && rm -rf $link
     fi
 
-    if [ $DO_LINK ]; then
-      platformlink $target $link
-    fi
+    [ $DO_LINK ] && platformlink $target $link
   fi
 }
 
