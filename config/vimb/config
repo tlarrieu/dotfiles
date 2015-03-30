@@ -9,3 +9,4 @@ shortcut-default dd
 shortcut-add dd=https://duckduckgo.com?q=$0
 shortcut-add gh=https://github.com/$0
 shortcut-add gr=https://github.com/$0/$1
+shortcut-add ll=http://localhost:$0
