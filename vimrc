@@ -12,9 +12,9 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " -- | File Manipulation | ------------
-Plug 'kien/ctrlp.vim'
+Plug 'kien/ctrlp.vim', { 'on' : 'CtrlP' }
 Plug 'rking/ag.vim'
-Plug 'skwp/greplace.vim'
+Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
 Plug 'chrisbra/NrrwRgn'
 " -- | Functionnalities | -------------
@@ -49,7 +49,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
-Plug 'samsonw/vim-task'
+Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 " -- | Undo tree explorer | -----------
 " Plug 'sjl/gundo.vim'
 " -- | List toggler | -----------------
@@ -63,10 +63,10 @@ Plug 'jbgutierrez/vim-partial'
 " -- | HTML | -------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " -- | Haskell | ----------------------
-" Plug 'twinside/vim-syntax-haskell-cabal'
-" Plug 'bitc/vim-hdevtools'
+Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
 " -- | Go lang | ----------------------
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for' : 'go' }
 " -- | SQL | --------------------------
 Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
 Plug 'exu/pgsql.vim', { 'for' : 'sql' }
@@ -180,11 +180,13 @@ if has('gui_running')
   set gcr+=v-ve:VisualCursor
   set gcr+=a:blinkon0
 
-  hi! NormalCursor  term=reverse cterm=reverse gui=reverse guifg=#93a1a1 guibg=#fdf6e3
+  hi! NormalCursor  term=reverse cterm=reverse
+        \ gui=reverse guifg=#93a1a1 guibg=#fdf6e3
   hi! InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi! VisualCursor  term=reverse gui=reverse guifg=#268bd2
   hi! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
-  hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7 gui=standout guifg=#d33682
+  hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
+        \ gui=standout guifg=#d33682
 elseif $TERM_PROGRAM =~ "iTerm"
   let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
   let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
@@ -193,7 +195,8 @@ elseif &term =~ "xterm\\|rxvt"
   let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
 endif
 
-hi! Visual ctermfg=7 ctermbg=14 gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
+hi! Visual ctermfg=7 ctermbg=14
+      \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
 
 hi! link SignColumn LineNr
 " Line numbering (relative and current)
@@ -504,7 +507,7 @@ let g:airline_symbols.linenr = '⭡'
 let g:airline_symbols.paste = 'ρ'
 
 set laststatus=2 " Always display the statusline in all windows
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set noshowmode " Hide mode text (e.g. -- INSERT -- below the statusline)
 
 let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
@@ -535,7 +538,7 @@ let g:airline_mode_map = {
   \ }
 " }}}
 " {{{ --------------------------------------- CtrlP
-let g:ctrlp_map = '<space>'
+map <space> :CtrlP<cr>
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'ET'
@@ -546,10 +549,10 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nnoremap <leader><leader> :CtrlPBufTag<cr>
-nnoremap <leader>; :CtrlPTag<cr>
-nnoremap   :CtrlPBuffer<cr>
-nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
+map <leader><leader> :CtrlPBufTag<cr>
+map <leader>; :CtrlPTag<cr>
+map   :CtrlPBuffer<cr>
+map <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
@@ -711,7 +714,8 @@ nnoremap <leader>w :set wrap!<cr>
 nnoremap <c-g> gUiw
 imap <c-g> <c-c>gUiwea
 " Clear trailing spaces
-nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <leader>k
+      \ :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
 nnoremap <silent> <leader>i m'gg=Gg`'
 " }}}
