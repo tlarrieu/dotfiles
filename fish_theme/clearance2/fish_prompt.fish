@@ -57,6 +57,12 @@ function fish_prompt
     end
   end
 
+  if test $status -ne 0
+    set error_color (set color red)
+  else
+    set error_color $normal
+  end
+
   # Output the prompt, left to right
 
   # Add a newline before new prompts
@@ -89,7 +95,7 @@ function fish_prompt
 
   # Terminate with a nice prompt char
   # echo -e -n -s 'λ ' $normal
-  echo -e -n -s '∫ ' $normal
+  echo -e -n -s $error_color '∫ ' $normal
 end
 
 set -x fish_color_command green
