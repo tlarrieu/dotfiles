@@ -44,7 +44,7 @@ theme.bg_systray = theme.bg_normal
 -- }}}
 
 -- {{{ Borders
-theme.border_width  = "1.5"
+theme.border_width  = "2"
 theme.border_normal = theme.bg_normal
 theme.border_focus  = theme.colors.green
 theme.border_marked = theme.bg_urgent

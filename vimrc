@@ -6,99 +6,96 @@
 set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
-" {{{ ------------------------------------------------------------------- Vundle
+" {{{ --------------------------------------------------------------- " vim-plug
 set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-" -- | Vundle | -----------------------
-Plugin 'gmarik/Vundle.vim'
+call plug#begin('~/.vim/plugged')
+
 " -- | File Manipulation | ------------
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
-Plugin 'skwp/greplace.vim'
-Plugin 'duggiefresh/vim-easydir'
-Plugin 'chrisbra/NrrwRgn'
+Plug 'kien/ctrlp.vim'
+Plug 'rking/ag.vim'
+Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
+Plug 'duggiefresh/vim-easydir'
+Plug 'chrisbra/NrrwRgn'
 " -- | Functionnalities | -------------
-Plugin 'tpope/vim-dispatch'
-Plugin 'beloglazov/vim-online-thesaurus'
+Plug 'tpope/vim-dispatch'
+Plug 'beloglazov/vim-online-thesaurus'
 " -- | Snippets | ---------------------
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 " -- | Project config | ---------------
-Plugin 'tpope/vim-projectionist'
+Plug 'tpope/vim-projectionist'
 " -- | Text manipulation | ------------
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'edsono/vim-matchit'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
+Plug 'Valloric/YouCompleteMe', { 'do' : './install.sh' }
+Plug 'AndrewRadev/switch.vim'
+Plug 'tpope/vim-commentary'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'edsono/vim-matchit'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
 " -- | Movements | --------------------
-Plugin 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 " -- | Text objects | -----------------
-Plugin 'kana/vim-textobj-user'
-Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'nelstrom/vim-textobj-rubyblock'
-Plugin 'wellle/targets.vim'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'kana/vim-textobj-function'
+Plug 'kana/vim-textobj-user'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'nelstrom/vim-textobj-rubyblock',
+      \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
+Plug 'wellle/targets.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'tommcdo/vim-exchange'
+Plug 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
-Plugin 'samsonw/vim-task'
+Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 " -- | Undo tree explorer | -----------
-" Plugin 'sjl/gundo.vim'
+" Plug 'sjl/gundo.vim'
 " -- | List toggler | -----------------
-Plugin 'milkypostman/vim-togglelist'
+Plug 'milkypostman/vim-togglelist'
 " -- | Ruby | -------------------------
-Plugin 'janko-m/vim-test'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'Keithbsmiley/rspec.vim'
-Plugin 'jbgutierrez/vim-partial'
-" Plugin 'tpope/vim-rails'
+Plug 'janko-m/vim-test'
+Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
+Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
+Plug 'jbgutierrez/vim-partial'
+" Plug 'tpope/vim-rails'
 " -- | HTML | -------------------------
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " -- | Haskell | ----------------------
-" Plugin 'twinside/vim-syntax-haskell-cabal'
-" Plugin 'bitc/vim-hdevtools'
+Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
 " -- | Go lang | ----------------------
-" Plugin 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'for' : 'go' }
 " -- | SQL | --------------------------
-Plugin 'ivalkeen/vim-simpledb'
-Plugin 'exu/pgsql.vim'
+Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
+Plug 'exu/pgsql.vim', { 'for' : 'sql' }
 " -- | Markdown | ---------------------
-Plugin 'gabrielelana/vim-markdown'
-Plugin 'greyblake/vim-preview'
+Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
+Plug 'greyblake/vim-preview', { 'for' : 'markdown' }
 " -- | Misc languages support | -------
-Plugin 'vim-scripts/fish-syntax'
-Plugin 'roalddevries/yaml.vim'
-Plugin 'lmeijvogel/vim-yaml-helper'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'chrisbra/csv.vim'
-" Plugin 'tpope/vim-haml'
-" Plugin 'chrisbra/csv.vim'
+Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
+Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
+Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
+Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
+Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+" Plug 'tpope/vim-haml'
 " -- | VCS | --------------------------
-Plugin 'tpope/vim-fugitive'
-Plugin 'phleet/vim-mercenary'
-Plugin 'zeekay/vim-lawrencium'
-Plugin 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'phleet/vim-mercenary'
+Plug 'zeekay/vim-lawrencium'
+Plug 'mhinz/vim-signify'
 " -- | Syntax checking | --------------
-Plugin 'scrooloose/syntastic'
+Plug 'scrooloose/syntastic'
 " -- | Good looking | -----------------
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'bling/vim-airline'
-Plugin 'gcmt/taboo.vim'
-Plugin 'kshenoy/vim-signature'
-Plugin 'vim-scripts/AnsiEsc.vim'
-Plugin 'sjl/vitality.vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-airline'
+Plug 'gcmt/taboo.vim'
+Plug 'kshenoy/vim-signature'
+Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'sjl/vitality.vim'
 " -- | Colors | -----------------------
-Plugin 'KabbAmine/vCoolor.vim'              " Picker
-Plugin 'chrisbra/Colorizer'                 " Highlighter
+Plug 'KabbAmine/vCoolor.vim'              " Picker
+Plug 'chrisbra/Colorizer'                 " Highlighter
 
-call vundle#end()
+call plug#end()
 
 " Force loading of solarized before everything else so we can override
 " a few things without using BufPostRead / BufEnter shenanigans
@@ -180,11 +177,13 @@ if has('gui_running')
   set gcr+=v-ve:VisualCursor
   set gcr+=a:blinkon0
 
-  hi! NormalCursor  term=reverse cterm=reverse gui=reverse guifg=#93a1a1 guibg=#fdf6e3
+  hi! NormalCursor  term=reverse cterm=reverse
+        \ gui=reverse guifg=#93a1a1 guibg=#fdf6e3
   hi! InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
   hi! VisualCursor  term=reverse gui=reverse guifg=#268bd2
   hi! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
-  hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7 gui=standout guifg=#d33682
+  hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
+        \ gui=standout guifg=#d33682
 elseif $TERM_PROGRAM =~ "iTerm"
   let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
   let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
@@ -193,7 +192,8 @@ elseif &term =~ "xterm\\|rxvt"
   let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
 endif
 
-hi! Visual ctermfg=7 ctermbg=14 gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
+hi! Visual ctermfg=7 ctermbg=14
+      \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
 
 hi! link SignColumn LineNr
 " Line numbering (relative and current)
@@ -504,7 +504,7 @@ let g:airline_symbols.linenr = '⭡'
 let g:airline_symbols.paste = 'ρ'
 
 set laststatus=2 " Always display the statusline in all windows
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set noshowmode " Hide mode text (e.g. -- INSERT -- below the statusline)
 
 let g:airline_theme = 'zenburn'
 let g:airline_powerline_fonts = 1
@@ -535,7 +535,7 @@ let g:airline_mode_map = {
   \ }
 " }}}
 " {{{ --------------------------------------- CtrlP
-let g:ctrlp_map = '<space>'
+map <space> :CtrlP<cr>
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'ET'
@@ -546,10 +546,10 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-nnoremap <leader><leader> :CtrlPBufTag<cr>
-nnoremap <leader>; :CtrlPTag<cr>
-nnoremap   :CtrlPBuffer<cr>
-nnoremap <backspace> :<c-u>CtrlPClearCache<cr>
+map <leader><leader> :CtrlPBufTag<cr>
+map <leader>; :CtrlPTag<cr>
+map   :CtrlPBuffer<cr>
+map <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
     \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
@@ -656,6 +656,7 @@ inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
+map ç ^
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
@@ -710,7 +711,8 @@ nnoremap <leader>w :set wrap!<cr>
 nnoremap <c-g> gUiw
 imap <c-g> <c-c>gUiwea
 " Clear trailing spaces
-nnoremap <silent> <leader>k :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+nnoremap <silent> <leader>k
+      \ :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
 nnoremap <silent> <leader>i m'gg=Gg`'
 " }}}
