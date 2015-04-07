@@ -33,6 +33,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'edsono/vim-matchit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular', { 'for' : 'markdown' }
 " -- | Movements | --------------------
 Plug 'justinmk/vim-sneak'
 " -- | Text objects | -----------------
@@ -339,9 +340,6 @@ augroup emmet
   au!
   au FileType html,css,scss,eruby EmmetInstall
 augroup end
-" }}}
-" {{{ ------------------------------------ Markdown
-let g:markdown_enable_mappings = 0
 " }}}
 " {{{ ------------------------------------ SimpleDB
 let g:sql_type_default = 'mysql'
@@ -769,6 +767,8 @@ nnoremap <leader>et :tabe ~/todo.tasks<cr>
 nnoremap <leader>ev :tabe $MYVIMRC<cr>
 
 nnoremap <leader>$ :so $MYVIMRC<cr>
+
+nnoremap <leader># :e #<cr>
 " }}}
 " {{{ ------------------------- Ranger File Chooser
 nnoremap <leader>h :<c-u>RangerChooser<CR>
