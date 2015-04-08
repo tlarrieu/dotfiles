@@ -140,13 +140,6 @@ function! MergeTabs()
   execute "vs " . bufferName
 endfunction
 
-" Unmerge a split into a new tab
-function! UnmergeWindow()
-  let bufferName = bufname("%")
-  close!
-  execute "tabe " . bufferName
-endfunction
-
 " Mark a split to be swapped
 function! MarkSplitSwap()
   let g:markedWinNum = winnr()

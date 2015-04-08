@@ -41,7 +41,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
       \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
 Plug 'wellle/targets.vim'
-Plug 'haya14busa/incsearch.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'kana/vim-textobj-function'
 " -- | Task manager | -----------------
@@ -89,8 +88,8 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'bling/vim-airline'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
-Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'sjl/vitality.vim'
+Plug 'haya14busa/incsearch.vim'
 " -- | Colors | -----------------------
 Plug 'KabbAmine/vCoolor.vim'              " Picker
 Plug 'chrisbra/Colorizer'                 " Highlighter
@@ -149,7 +148,7 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
-let mapleader=","
+let mapleader="\<space>"
 " Timeout
 set ttimeout
 set ttimeoutlen=100
@@ -210,7 +209,7 @@ match OverLength /\%81v.\+/
 set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
-set showbreak= 
+set showbreak=↪\
 set list
 " Show matching braces
 set showmatch
@@ -461,7 +460,6 @@ augroup END
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
-noremap <leader>use :UltiSnipsEdit<cr>
 " }}}
 " {{{ --------------------------------------- Taboo
 nmap <leader>tl :TabooRename<space>
@@ -518,7 +516,6 @@ let g:airline_mode_map = {
   \ }
 " }}}
 " {{{ --------------------------------------- CtrlP
-map <space> :CtrlP<cr>
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'ET'
@@ -531,7 +528,6 @@ if executable('ag')
 endif
 map <leader><leader> :CtrlPBufTag<cr>
 map <leader>; :CtrlPTag<cr>
-map   :CtrlPBuffer<cr>
 map <backspace> :<c-u>CtrlPClearCache<cr>
   let g:ctrlp_prompt_mappings = {
     \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
@@ -586,17 +582,15 @@ command! B bufdo bd
 noremap <leader>. :call DeleteHiddenBuffers()<cr>
 " }}}
 " {{{ ------------------------------- Splits / Tabs
-noremap <c-w>O :tabo<cr><c-w>o
+noremap <leader>o :tabo<cr>
+noremap <leader>O :tabo<cr><c-w>o
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
+noremap <c-a> <c-w>w
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-" Navigating between splits
-nnoremap <tab> <c-w>w
-nnoremap <s-tab> <c-w>W
-nnoremap <c-b> <c-i>
 map <leader>M <c-w>=
 map <leader>m :res<cr>:vertical res<cr>$
 " New tab
@@ -609,23 +603,20 @@ noremap <leader>to :tabo<cr>
 " Move current tab
 noremap <leader>tm :tabm<space>
 " Direct tab access
-nnoremap g" 1gt
-nnoremap g« 2gt
-nnoremap g» 3gt
-nnoremap g( 4gt
-nnoremap g) 5gt
-nnoremap g@ 6gt
-nnoremap g+ 7gt
-nnoremap g- 8gt
-nnoremap g/ 9gt
+nnoremap <leader>" 1gt
+nnoremap <leader>« 2gt
+nnoremap <leader>» 3gt
+nnoremap <leader>( 4gt
+nnoremap <leader>) 5gt
+nnoremap <leader>@ 6gt
+nnoremap <leader>+ 7gt
+nnoremap <leader>- 8gt
+nnoremap <leader>/ 9gt
 
-noremap <leader>U :call UnmergeWindow()<cr>
-noremap <leader>uu :call MergeTabs()<cr>
+noremap <leader>U <c-w>T
+noremap <leader>u :call MergeTabs()<cr>
 " }}}
 " {{{ ------------------------------------ Movement
-" Quickfix errors
-noremap <c-n> :cnext<cr>
-noremap <c-p> :cprev<cr>
 " Diffs
 map þ ]c
 map ß [c
@@ -641,8 +632,6 @@ map ç ^
 " left / right / down (visual line) / up (visual line)
 map <c-t> j
 map <c-s> k
-map © h
-map ® l
 " Split lines
 noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
@@ -673,9 +662,9 @@ nnoremap ê :bd<cr>
 " Disable annoying mapping
 map Q <nop>
 " Reselected pasted lines
-nnoremap <leader>V V`]
+nnoremap gV `[v`]
 " Select current line charwise
-nnoremap vv ^v$
+nnoremap vv ^v$h
 " }}}
 " {{{ ------------------------------------ Togglers
 " Rename file
@@ -760,7 +749,6 @@ nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " {{{ ------------------------- Convenience Mapping
 vnoremap <leader>s :sort<cr>
 cnoremap %% <C-R>=expand('%')<cr>
-nnoremap gV `[v`]
 " }}}
 " {{{ ------------------------------------------------------------ Abbreviations
 " }}}
