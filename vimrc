@@ -432,7 +432,7 @@ nnoremap <leader>R :Greplace<cr>
 " {{{ ------------------------------------------ Ag
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
-let g:agprg = "ag --column --line-numbers --noheading --smart-case"
+let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
 
 augroup Ag
   autocmd!
@@ -445,7 +445,6 @@ augroup Ag
         \ nnoremap <silent> <buffer> <C-x> <C-W><CR><C-w>K
 
   autocmd BufReadPost quickfix setlocal nonu
-  autocmd BufReadPost quickfix setlocal nornu
 augroup END
 
 nnoremap <leader>a :Ag! ""<left>
