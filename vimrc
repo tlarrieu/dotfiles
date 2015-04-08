@@ -26,7 +26,6 @@ Plug 'honza/vim-snippets'
 " -- | Project config | ---------------
 Plug 'tpope/vim-projectionist'
 " -- | Text manipulation | ------------
-Plug 'Valloric/YouCompleteMe', { 'do' : './install.sh' }
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -100,7 +99,7 @@ call plug#end()
 
 " Force loading of solarized before everything else so we can override
 " a few things without using BufPostRead / BufEnter shenanigans
-runtime! bundle/vim-colors-solarized/colors/solarized.vim
+runtime! ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim
 
 filetype on
 syntax on
@@ -300,6 +299,9 @@ set incsearch " start search while typing
 hi! Search ctermbg=7 ctermfg=2 guifg=#719e07
 hi! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
 hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
+
+command! NONASCII /[^\x00-\x7F]
+command! B bufdo bd
 " }}}
 " {{{ ------------------------------------------------------------ Spellchecking
 set spelllang=en,fr
@@ -461,22 +463,6 @@ let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 noremap <leader>use :UltiSnipsEdit<cr>
-" }}}
-" {{{ -------------------------------- YouCompletMe
-let g:ycm_key_list_select_completion = ['<c-n>']
-let g:ycm_key_list_previous_completion = ['<c-p>']
-" Enable omni completion.
-augroup omnicomp
-  au!
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType ruby,eruby set omnifunc=rubycomplete#Complete
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading=1
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global=1
-augroup END
 " }}}
 " {{{ --------------------------------------- Taboo
 nmap <leader>tl :TabooRename<space>
@@ -644,8 +630,6 @@ noremap <c-p> :cprev<cr>
 " Diffs
 map þ ]c
 map ß [c
-map t ]c
-map s [c
 " Command line / Search
 cmap <c-t> <down>
 cmap <c-s> <up>
