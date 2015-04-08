@@ -588,7 +588,6 @@ noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
-noremap <c-a> <c-w>w
 " Vertical split
 noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 map <leader>M <c-w>=
