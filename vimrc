@@ -89,7 +89,7 @@ Plug 'bling/vim-airline'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/vitality.vim'
-Plug 'haya14busa/incsearch.vim'
+" Plug 'haya14busa/incsearch.vim'
 " -- | Colors | -----------------------
 Plug 'KabbAmine/vCoolor.vim'              " Picker
 Plug 'chrisbra/Colorizer'                 " Highlighter
@@ -711,11 +711,12 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
-map é <plug>(incsearch-forward)
-map ? <plug>(incsearch-backward)
+" map é <plug>(incsearch-forward)
+noremap é /
+" map ? <plug>(incsearch-backward)
 map <silent> É :nohlsearch<cr><c-l>
-map n <Plug>(incsearch-nohl-n)
-map N <Plug>(incsearch-nohl-N)
+" map n <Plug>(incsearch-nohl-n)
+" map N <Plug>(incsearch-nohl-N)
 
 noremap <leader>é :%s/
 noremap <leader>É :s/
