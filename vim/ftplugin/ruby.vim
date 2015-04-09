@@ -36,8 +36,8 @@ function! Ruby_eval_vsplit() range
   execute ":set pvw"
   execute "normal \<C-W>h"
 endfunction
-vnoremap <buffer> <silent> <leader><space> :call Ruby_eval_vsplit()<cr>
-nnoremap <buffer> <silent> <leader><space> mzggVG<leader><space>`z
+" vnoremap <buffer> <silent> <leader><space> :call Ruby_eval_vsplit()<cr>
+" nnoremap <buffer> <silent> <leader><space> mzggVG<leader><space>`z
 
 let b:switch_custom_definitions =
   \[
