@@ -6,7 +6,7 @@
 set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
-" {{{ --------------------------------------------------------------- " vim-plug
+" {{{ ----------------------------------------------------------------- vim-plug
 set nocompatible
 
 call plug#begin('~/.vim/plugged')
@@ -16,7 +16,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
-Plug 'chrisbra/NrrwRgn'
 " -- | Functionnalities | -------------
 Plug 'tpope/vim-dispatch'
 Plug 'beloglazov/vim-online-thesaurus'
@@ -33,8 +32,6 @@ Plug 'edsono/vim-matchit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular', { 'for' : 'markdown' }
-" -- | Movements | --------------------
-Plug 'justinmk/vim-sneak'
 " -- | Text objects | -----------------
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
@@ -89,7 +86,6 @@ Plug 'bling/vim-airline'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/vitality.vim'
-" Plug 'haya14busa/incsearch.vim'
 " -- | Colors | -----------------------
 Plug 'KabbAmine/vCoolor.vim'              " Picker
 Plug 'chrisbra/Colorizer'                 " Highlighter
@@ -149,6 +145,8 @@ augroup END
 " }}}
 " {{{ ---------------------------------------------------------- General options
 let mapleader="\<space>"
+" Avoiding moving cursor when hitting <space> followod by nothing
+map <space> <nop>
 " Timeout
 set ttimeout
 set ttimeoutlen=100
@@ -183,9 +181,6 @@ if has('gui_running')
   hi! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
   hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
         \ gui=standout guifg=#d33682
-elseif $TERM_PROGRAM =~ "iTerm"
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7" " Vertical bar in insert mode
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7" " Block in normal mode
 elseif &term =~ "xterm\\|rxvt"
   let &t_SI = "\<Esc>]12;#2aa198\x7" " Insert mode
   let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
@@ -306,26 +301,6 @@ command! B bufdo bd
 set spelllang=en,fr
 " }}}
 " {{{ ------------------------------------------------------------------ Plugins
-" {{{ ------------------------------------- NrrwRgn
-xmap <Leader>n <Plug>NrrwrgnDo
-nmap <Leader>n <Plug>NrrwrgnDo
-let g:nrrw_rgn_hl = 'IncSearch'
-let g:nrrw_topbot_leftright = 'botright'
-" }}}
-" {{{ --------------------------------------- Sneak
-let g:sneak#prompt = 's›'
-let g:sneak#use_ic_scs = 1
-hi! link SneakPluginTarget IncSearch
-" 2-character Sneak (default)
-nmap r <Plug>Sneak_s
-nmap R <Plug>Sneak_S
-" visual-mode
-xmap r <Plug>Sneak_s
-xmap R <Plug>Sneak_S
-" operator-pending-mode
-omap r <Plug>Sneak_s
-omap R <Plug>Sneak_S
-" }}}
 " {{{ ----------------------------------- Thesaurus
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
@@ -711,12 +686,8 @@ noremap * 0
 noremap 0 *
 " }}}
 " {{{ ---------------------------- Search & Replace
-" map é <plug>(incsearch-forward)
 noremap é /
-" map ? <plug>(incsearch-backward)
 map <silent> É :nohlsearch<cr><c-l>
-" map n <Plug>(incsearch-nohl-n)
-" map N <Plug>(incsearch-nohl-N)
 
 noremap <leader>é :%s/
 noremap <leader>É :s/
