@@ -308,14 +308,9 @@ nnoremap gH :Thesaurus<space>
 " {{{ -- | Emmet | -----------------------------------------
 let g:user_emmet_leader_key=','
 let g:use_emmet_complete_tag = 1
-let g:user_emmet_install_global = 0
 let g:user_emmet_settings = {
-\  'indentation' : '  '
-\}
-augroup emmet
-  au!
-  au FileType html,css,scss,eruby EmmetInstall
-augroup end
+  \   'indentation' : '  '
+  \ }
 " }}}
 " {{{ -- | SimpleDB | --------------------------------------
 let g:sql_type_default = 'mysql'
