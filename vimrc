@@ -204,7 +204,7 @@ match OverLength /\%81v.\+/
 set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
-set showbreak=↪\
+set showbreak=↪\ 
 set list
 " Show matching braces
 set showmatch
@@ -498,13 +498,13 @@ if executable('ag')
 endif
 map <leader><leader> :CtrlPBufTag<cr>
 map <leader>; :CtrlPTag<cr>
-map <backspace> :<c-u>CtrlPClearCache<cr>
-  let g:ctrlp_prompt_mappings = {
-    \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
-    \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
-    \ 'AcceptSelection("h")': ['<c-x>'],
-    \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
-    \ }
+nmap <backspace> :<c-u>CtrlPClearCache<cr>
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
+  \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
+  \ 'AcceptSelection("h")': ['<c-x>'],
+  \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
+  \ }
 hi! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
 " {{{ -- | Signify | ---------------------------------------
@@ -634,6 +634,7 @@ map Q <nop>
 nnoremap gV `[v`]
 " Select current line charwise
 nnoremap vv ^v$h
+smap <backspace> <backspace>i
 " }}}
 " {{{ -- | Togglers | --------------------------------------
 " Rename file
@@ -689,8 +690,16 @@ noremap <leader>É :s/
 vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 " }}}
 " {{{ -- | Quick Editing | ---------------------------------
-" Rails
-nnoremap <leader>es :tabe db/structure.sql<cr>
+function! OpenSchemaFile()
+  if filereadable('db/structure.sql')
+    tabe db/structure.sql
+  else
+    tabe db/schema.rb
+  endif
+endfunction
+
+" nnoremap <leader>es :tabe db/structure.sql<cr>
+nnoremap <leader>es :call OpenSchemaFile()<cr>
 
 nnoremap <leader>ee :tabe ~/email.md<cr>
 nnoremap <leader>ef :tabe ~/.config/fish/config.fish<cr>
