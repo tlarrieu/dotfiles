@@ -6,7 +6,7 @@
 set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
-" {{{ ----------------------------------------------------------------- vim-plug
+" {{{ == | vim-plug | ==========================================================
 set nocompatible
 
 call plug#begin('~/.vim/plugged')
@@ -100,7 +100,7 @@ filetype on
 syntax on
 filetype plugin indent on
 " }}}
-" {{{ ------------------------------------------------------------- File Related
+" {{{ == | File Related | ======================================================
 augroup vimrc_autocmd
   autocmd!
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -143,7 +143,7 @@ augroup NoSimultaneousEdits
   autocmd SwapExists * sleep 1
 augroup END
 " }}}
-" {{{ ---------------------------------------------------------- General options
+" {{{ == | General options | ===================================================
 let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followod by nothing
 map <space> <nop>
@@ -252,18 +252,18 @@ set lazyredraw
 " Improve redrawing
 set ttyfast
 " }}}
-" {{{ ------------------------------------------------------------------- Splits
+" {{{ == | Splits | ============================================================
 hi! link VertSplit CursorColumn
 set splitright
 set splitbelow
 " }}}
-" {{{ ---------------------------------------------------------------- Scrolling
+" {{{ == | Scrolling | =========================================================
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
 set sidescroll=1
 " }}}
-" {{{ ------------------------------------------------------------------- Indent
+" {{{ == | Indent | ============================================================
 set ai "autoindent
 set si "smart indent
 set tabstop=2
@@ -271,7 +271,7 @@ set shiftwidth=2
 set expandtab
 set shiftround
 " }}}
-" {{{ ------------------------------------------------------------------ Folding
+" {{{ == | Folding | ===========================================================
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
@@ -283,7 +283,7 @@ set foldtext=FoldText()
 nnoremap <leader>z zMzv
 nnoremap zO zczO
 " }}}
-" {{{ ---------------------------------------------------------------- Searching
+" {{{ == | Searching | =========================================================
 " case behavior regarding searching
 set ignorecase
 set smartcase
@@ -297,15 +297,15 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 command! NONASCII /[^\x00-\x7F]
 command! B bufdo bd
 " }}}
-" {{{ ------------------------------------------------------------ Spellchecking
+" {{{ == | Spellchecking | =====================================================
 set spelllang=en,fr
 " }}}
-" {{{ ------------------------------------------------------------------ Plugins
-" {{{ ----------------------------------- Thesaurus
+" {{{ == | Plugins | ===========================================================
+" {{{ -- | Thesaurus | -------------------------------------
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
-" {{{ --------------------------------------- Emmet
+" {{{ -- | Emmet | -----------------------------------------
 let g:user_emmet_leader_key=','
 let g:use_emmet_complete_tag = 1
 let g:user_emmet_install_global = 0
@@ -317,7 +317,7 @@ augroup emmet
   au FileType html,css,scss,eruby EmmetInstall
 augroup end
 " }}}
-" {{{ ------------------------------------ SimpleDB
+" {{{ -- | SimpleDB | --------------------------------------
 let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
 augroup SQL
@@ -325,7 +325,7 @@ augroup SQL
   autocmd BufRead vim-simpledb-result.txt setf sql
 augroup end
 " }}}
-" {{{ ----------------------------------- Signature
+" {{{ -- | Signature | -------------------------------------
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
   \ 'PlaceNextMark'      :  "m,",
@@ -348,18 +348,18 @@ let g:SignatureMap = {
   \ 'ListLocalMarks'     :  ""
   \ }
 " }}}
-" {{{ ------------------------------------- vCoolor
+" {{{ -- | vCoolor | ---------------------------------------
 noremap <leader>C :<c-u>VCoolor<cr>
 noremap <leader>c :ColorToggle<cr>
 " }}}
-" {{{ ------------------------------------- endwise
+" {{{ -- | endwise | ---------------------------------------
 autocmd FileType elixir
   \ let b:endwise_addition = 'end' |
   \ let b:endwise_words = 'do' |
   \ let b:endwise_pattern = '\<do\ze\s*$' |
   \ let b:endwise_syngroups = 'elixirKeyword'
 " }}}
-" {{{ ---------------------------------------- YAML
+" {{{ -- | YAML | ------------------------------------------
 augroup yaml
   au!
   autocmd FileType yaml nnoremap <buffer> 6 :YamlGoToKey<space>
@@ -367,17 +367,17 @@ augroup yaml
   autocmd FileType yaml nnoremap <buffer> 8 :YamlGetFullPath<cr>
 augroup end
 " }}}
-" {{{ ---------------------------------- ToggleList
+" {{{ -- | ToggleList | ------------------------------------
  let g:toggle_list_copen_command="copen"
 " }}}
-" {{{ ------------------------------------ Disptach
+" {{{ -- | Disptach | --------------------------------------
 nnoremap <leader>f :Dispatch<cr>
 nnoremap <leader>F :<c-u>Focus  %<left><left>
 " }}}
-" {{{ ------------------------------------ vim-test
+" {{{ -- | vim-test | --------------------------------------
 let g:test#strategy = 'dispatch'
 " }}}
-" {{{ ------------------------------------- Targets
+" {{{ -- | Targets | ---------------------------------------
 let g:targets_pairs = '()b {}é []d <>É'
 let g:targets_argTrigger = 'c'
 " By default, we want to delete only the ACTUAL parameter
@@ -386,7 +386,7 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
-" {{{ ----------------------------------- Syntastic
+" {{{ -- | Syntastic | -------------------------------------
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
@@ -398,12 +398,12 @@ augroup lint
   au FileType scss noremap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
-" {{{ ------------------------------------ Greplace
+" {{{ -- | Greplace | --------------------------------------
 set grepprg=ag\ --line-numbers\ --noheading
 nnoremap <leader>A :Gqfopen<cr>
 nnoremap <leader>R :Greplace<cr>
 " }}}
-" {{{ ------------------------------------------ Ag
+" {{{ -- | Ag | --------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
@@ -431,12 +431,12 @@ augroup quickfix
   au FileType qf call AdjustWindowHeight(3, 20)
 augroup END
 " }}}
-" {{{ ----------------------------------- UltiSnips
+" {{{ -- | UltiSnips | -------------------------------------
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " }}}
-" {{{ --------------------------------------- Taboo
+" {{{ -- | Taboo | -----------------------------------------
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 let g:taboo_tab_format =  "%f%m"
@@ -445,7 +445,7 @@ let g:taboo_modified_tab_flag = "+"
 let g:taboo_unnamed_tab_label = "…"
 let g:taboo_tabline = 0
 " }}}
-" {{{ ------------------------------------- Airline
+" {{{ -- | Airline | ---------------------------------------
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -490,7 +490,7 @@ let g:airline_mode_map = {
   \ '' : 'B-SEL',
   \ }
 " }}}
-" {{{ --------------------------------------- CtrlP
+" {{{ -- | CtrlP | -----------------------------------------
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'ET'
@@ -512,11 +512,11 @@ map <backspace> :<c-u>CtrlPClearCache<cr>
     \ }
 hi! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
-" {{{ ------------------------------------- Signify
+" {{{ -- | Signify | ---------------------------------------
 let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
 " }}}
-" {{{ ----------- Fugitive / Mercenary / Lawrencium
+" {{{ -- | Fugitive / Mercenary / Lawrencium | -------------
 function! HgBranchStatus()
   silent tabnew /dev/null
   normal ggdG
@@ -545,18 +545,18 @@ endfunction
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nnoremap <leader><tab> :call SwitchVCS()<cr>
-" {{{ ------------------------------------------------- Various keyboard mapping
-" {{{ --------------------------------- Exercism.io
+" {{{ == | Various keyboard mapping | ==========================================
+" {{{ -- | Exercism.io | -----------------------------------
 nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
 nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
-" {{{ ------------------------------------- Buffers
+" {{{ -- | Buffers | ---------------------------------------
 set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
 noremap <leader>. :call DeleteHiddenBuffers()<cr>
 " }}}
-" {{{ ------------------------------- Splits / Tabs
+" {{{ -- | Splits / Tabs | ---------------------------------
 noremap <leader>o :tabo<cr>
 noremap <leader>O :tabo<cr><c-w>o
 noremap <c-w><c-c> <c-w>H
@@ -590,7 +590,7 @@ nnoremap <leader>/ 9gt
 noremap <leader>U <c-w>T
 noremap <leader>u :call MergeTabs()<cr>
 " }}}
-" {{{ ------------------------------------ Movement
+" {{{ -- | Movement | --------------------------------------
 " Diffs
 map þ ]c
 map ß [c
@@ -623,7 +623,7 @@ nnoremap Y y$
 " Command line
 map è :
 " }}}
-" {{{ ------------------------------ Mode Switching
+" {{{ -- | Mode Switching | --------------------------------
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " Normal mode
@@ -640,7 +640,7 @@ nnoremap gV `[v`]
 " Select current line charwise
 nnoremap vv ^v$h
 " }}}
-" {{{ ------------------------------------ Togglers
+" {{{ -- | Togglers | --------------------------------------
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
@@ -660,7 +660,7 @@ nnoremap <silent> <leader>k
 " Fix indent
 nnoremap <silent> <leader>i m'gg=Gg`'
 " }}}
-" {{{ ---------------------------- Swap number line
+" {{{ -- | Swap number line | ------------------------------
 " It is more convenient to access numbers directly when in normal mode
 noremap " 1
 noremap 1 "
@@ -685,7 +685,7 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 " }}}
-" {{{ ---------------------------- Search & Replace
+" {{{ -- | Search & Replace | ------------------------------
 noremap é /
 map <silent> É :nohlsearch<cr><c-l>
 
@@ -693,7 +693,7 @@ noremap <leader>é :%s/
 noremap <leader>É :s/
 vnoremap <leader>é <esc>:%s/\%V/g<left><left>
 " }}}
-" {{{ ------------------------------- Quick Editing
+" {{{ -- | Quick Editing | ---------------------------------
 " Rails
 nnoremap <leader>es :tabe db/structure.sql<cr>
 
@@ -713,13 +713,13 @@ nnoremap <leader>$ :so $MYVIMRC<cr>
 
 nnoremap <leader># :e #<cr>
 " }}}
-" {{{ ------------------------- Ranger File Chooser
+" {{{ -- | Ranger File Chooser | ---------------------------
 nnoremap <leader>h :<c-u>RangerChooser<CR>
 nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
-" {{{ ------------------------- Convenience Mapping
+" {{{ -- | Convenience Mapping | ---------------------------
 vnoremap <leader>s :sort<cr>
 cnoremap %% <C-R>=expand('%')<cr>
 " }}}
-" {{{ ------------------------------------------------------------ Abbreviations
+" {{{ == | Abbreviations | =====================================================
 " }}}
