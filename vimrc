@@ -383,7 +383,7 @@ augroup end
 " }}}
 " {{{ -- | Greplace | --------------------------------------
 set grepprg=ag\ --line-numbers\ --noheading
-nmap <leader>A :Gqfopen<cr>
+nmap <leader>A :Gqfopen<cr><c-w>T
 nmap <leader>R :Greplace<cr>
 " }}}
 " {{{ -- | Ag | --------------------------------------------
@@ -679,6 +679,9 @@ map <silent> É :nohlsearch<cr><c-l>
 nmap <leader>é :%s/
 nmap <leader>É :s/
 vmap <leader>é <esc>:%s/\%V/g<left><left>
+
+nmap <leader>n :cnext<cr>
+nmap <leader>N :cprev<cr>
 " }}}
 " {{{ -- | Quick Editing | ---------------------------------
 function! OpenSchemaFile()
