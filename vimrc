@@ -108,9 +108,6 @@ augroup vimrc_autocmd
   autocmd FileType ruby set makeprg=ruby\ %
   autocmd BufReadPost *.arb setf ruby
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
-  autocmd FileType vim setlocal foldlevel=10
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim setlocal foldminlines=1
   autocmd FileType html,eruby setlocal foldlevel=10
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
@@ -293,9 +290,6 @@ set incsearch " start search while typing
 hi! Search ctermbg=7 ctermfg=2 guifg=#719e07
 hi! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
 hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
-
-command! NONASCII /[^\x00-\x7F]
-command! B bufdo bd
 " }}}
 " {{{ ===| Spellchecking |======================================================
 set spelllang=en,fr
@@ -598,9 +592,9 @@ inoremap # X<bs>#
 " Fuck you, help.
 nnoremap <F1> <c-g>
 inoremap <F1> <c-g>
-" Paste from system buffer
-nmap <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
-nmap <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
+" Clever paste from system buffer
+nmap <leader>p m`:set paste<cr>o<c-r>+<backspace><esc>:set nopaste<cr>``
+nmap <leader>P m`:set paste<cr>O<c-r>+<backspace><esc>:set nopaste<cr>``
 noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
@@ -682,6 +676,8 @@ vmap <leader>é <esc>:%s/\%V/g<left><left>
 
 nmap <leader>n :cnext<cr>
 nmap <leader>N :cprev<cr>
+
+command! NONASCII /[^\x00-\x7F]
 " }}}
 " {{{ ---| Quick Editing |----------------------------------
 function! OpenSchemaFile()
