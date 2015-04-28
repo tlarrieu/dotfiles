@@ -36,7 +36,7 @@ alias kbg="kill (jobs -p)"
 # cd
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
-alias mob="cd ~/mercurial/shopmium/mobile"
+alias mob="cd ~/Dev/shopmium-mobile/Shopmium"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
@@ -98,6 +98,27 @@ alias hus="hg unshelve"
 alias rstruct="hg revert -C db/structure.sql"
 alias hout="hg outgoing"
 alias hin="hg incoming"
+function htag
+  set -l last_tag (tail -n 1 (hg root)/.hgtags | cut -c 42-)
+  set -l release (echo $last_tag | cut -c -18)
+  set -l date (date -jnu "+%Y.%m.%d")
+  set -l tag
+
+  if test "release-$date" = $release
+    set -l iteration (echo $last_tag | cut -c 20-)
+
+    if test -n $iteration
+      set -l tag "release-$date-($iteration+1)"
+    else
+      set -l tag "release-$date-2"
+    end
+  else
+    set -l tag "release-$date"
+  end
+
+  echo $tag
+  # hg tag $tag
+end
 
 # Heroku console
 function hrc
