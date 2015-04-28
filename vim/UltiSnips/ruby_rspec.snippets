@@ -5,8 +5,15 @@ endsnippet
 snippet fb "FactoryGirl.build"
 FactoryGirl.build($1)
 endsnippet
+
 snippet letb "let block"
 let(:${1:name}) do
+	$2
+end
+endsnippet
+
+snippet letb! "let block"
+let!(:${1:name}) do
 	$2
 end
 endsnippet
@@ -41,12 +48,6 @@ endsnippet
 
 snippet itne "it expect not to"
 it { expect(${1}).not_to ${0} }
-endsnippet
-
-snippet letb "let block"
-let(:${1:name}) do
-	$2
-end
 endsnippet
 
 snippet desc "describe"

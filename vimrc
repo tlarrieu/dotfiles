@@ -31,7 +31,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'edsono/vim-matchit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular', { 'for' : 'markdown' }
+Plug 'godlygeek/tabular'
 " -- | Text objects | -----------------
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
@@ -280,7 +280,7 @@ set foldlevelstart=10
 set fillchars+=fold: 
 set foldminlines=1
 set foldtext=FoldText()
-nnoremap <leader>z zMzv
+nmap <leader>z zMzv
 nnoremap zO zczO
 " }}}
 " {{{ == | Searching | =========================================================
@@ -301,6 +301,12 @@ command! B bufdo bd
 set spelllang=en,fr
 " }}}
 " {{{ == | Plugins | ===========================================================
+" {{{ -- | Surround | --------------------------------------
+let g:surround_no_insert_mappings = 1
+" }}}
+" {{{ -- | Tabular | ---------------------------------------
+vmap <leader>t :Tabular /
+" }}}
 " {{{ -- | Thesaurus | -------------------------------------
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
@@ -344,30 +350,12 @@ let g:SignatureMap = {
   \ }
 " }}}
 " {{{ -- | vCoolor | ---------------------------------------
-noremap <leader>C :<c-u>VCoolor<cr>
-noremap <leader>c :ColorToggle<cr>
-" }}}
-" {{{ -- | endwise | ---------------------------------------
-autocmd FileType elixir
-  \ let b:endwise_addition = 'end' |
-  \ let b:endwise_words = 'do' |
-  \ let b:endwise_pattern = '\<do\ze\s*$' |
-  \ let b:endwise_syngroups = 'elixirKeyword'
-" }}}
-" {{{ -- | YAML | ------------------------------------------
-augroup yaml
-  au!
-  autocmd FileType yaml nnoremap <buffer> 6 :YamlGoToKey<space>
-  autocmd FileType yaml nnoremap <buffer> 7 :YamlGoToParent<cr>
-  autocmd FileType yaml nnoremap <buffer> 8 :YamlGetFullPath<cr>
-augroup end
-" }}}
-" {{{ -- | ToggleList | ------------------------------------
- let g:toggle_list_copen_command="copen"
+nmap <leader>C :<c-u>VCoolor<cr>
+nmap <leader>c :ColorToggle<cr>
 " }}}
 " {{{ -- | Disptach | --------------------------------------
-nnoremap <leader>f :Dispatch<cr>
-nnoremap <leader>F :<c-u>Focus  %<left><left>
+nmap <leader>f :Dispatch<cr>
+nmap <leader>F :<c-u>Focus  %<left><left>
 " }}}
 " {{{ -- | vim-test | --------------------------------------
 let g:test#strategy = 'dispatch'
@@ -389,14 +377,14 @@ let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 augroup lint
   au!
-  au FileType ruby noremap <buffer> <leader>L :SyntasticCheck rubocop<cr>
-  au FileType scss noremap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
+  au FileType ruby nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+  au FileType scss nmap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ -- | Greplace | --------------------------------------
 set grepprg=ag\ --line-numbers\ --noheading
-nnoremap <leader>A :Gqfopen<cr>
-nnoremap <leader>R :Greplace<cr>
+nmap <leader>A :Gqfopen<cr><c-w>T
+nmap <leader>R :Greplace<cr>
 " }}}
 " {{{ -- | Ag | --------------------------------------------
 let g:ag_apply_qmappings = 0
@@ -416,7 +404,7 @@ augroup Ag
   autocmd BufReadPost quickfix setlocal nonu
 augroup END
 
-nnoremap <leader>a :Ag! ""<left>
+nmap <leader>a :Ag! ""<left>
 nnoremap yu :set operatorfunc=UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=DefinitionOperator<cr>g@iw
@@ -427,6 +415,7 @@ augroup quickfix
 augroup END
 " }}}
 " {{{ -- | UltiSnips | -------------------------------------
+let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
@@ -521,56 +510,57 @@ endfunction
 
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
-    noremap <leader>S :call HgBranchStatus()<cr>
-    noremap <leader>s :Hgstatus<cr>
-    noremap <leader>D :HGdiff ancestor(default,.)<cr>
-    noremap <leader>b :HGblame<cr>
-    noremap <leader>d :HGdiff<cr>
-    noremap <leader>r :Hgrevert!<cr>:e<cr>
+    nmap <leader>S :Hgstatus<cr>
+    nmap <leader>D :HGdiff ancestor(default,.)<cr>
+    nmap <leader>b :HGblame<cr>
+    nmap <leader>d :HGdiff<cr>
+    nmap <leader>r :Hgrevert!<cr>:e<cr>
     let g:next_vcs = 'git'
   else
-    noremap <leader>b :Gblame<cr>
-    noremap <leader>d :Gvdiff<cr>
-    noremap <leader>r :Gread<cr>
-    noremap <leader>s :Gstatus<cr>
+    nmap <leader>b :Gblame<cr>
+    nmap <leader>d :Gvdiff<cr>
+    nmap <leader>r :Gread<cr>
+    nmap <leader>S :Gstatus<cr>
     let g:next_vcs = 'mercurial'
   endif
 endfunction
 
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
-nnoremap <leader><tab> :call SwitchVCS()<cr>
+nmap <leader><tab> :call SwitchVCS()<cr>
 " {{{ == | Various keyboard mapping | ==========================================
 " {{{ -- | Exercism.io | -----------------------------------
-nnoremap <silent> <leader>xf :Dispatch exercism f<cr>
-nnoremap <silent> <leader>xs :Dispatch exercism s %<cr>
+nmap <silent> <leader>xf :Dispatch exercism f<cr>
+nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
 " {{{ -- | Buffers | ---------------------------------------
 set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
-noremap <leader>. :call DeleteHiddenBuffers()<cr>
+nmap <leader>. :call DeleteHiddenBuffers()<cr>
 " }}}
 " {{{ -- | Splits / Tabs | ---------------------------------
-noremap <leader>o :tabo<cr>
-noremap <leader>O :tabo<cr><c-w>o
+nmap <leader>o :tabo<cr>
+nmap <leader>O :tabo<cr><c-w>o
+nmap <leader>, <c-w>w
+nmap <leader>ç <c-w>W
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
 " Vertical split
-noremap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-map <leader>M <c-w>=
-map <leader>m :res<cr>:vertical res<cr>$
+nmap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>M <c-w>=
+nmap <leader>m :res<cr>:vertical res<cr>$
 " New tab
-noremap <leader>tt :tabe<cr>
-noremap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>tt :tabe<cr>
+nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Close current tab
-noremap <leader>tc :tabclose<cr>
+nmap <leader>tc :tabclose<cr>
 " Close all tabs but current
-noremap <leader>to :tabo<cr>
+nmap <leader>to :tabo<cr>
 " Move current tab
-noremap <leader>tm :tabm<space>
+nmap <leader>tm :tabm<space>
 " Direct tab access
 nnoremap <leader>" 1gt
 nnoremap <leader>« 2gt
@@ -582,8 +572,8 @@ nnoremap <leader>+ 7gt
 nnoremap <leader>- 8gt
 nnoremap <leader>/ 9gt
 
-noremap <leader>U <c-w>T
-noremap <leader>u :call MergeTabs()<cr>
+nmap <leader>U <c-w>T
+nmap <leader>u :call MergeTabs()<cr>
 " }}}
 " {{{ -- | Movement | --------------------------------------
 " Diffs
@@ -609,8 +599,8 @@ inoremap # X<bs>#
 nnoremap <F1> <c-g>
 inoremap <F1> <c-g>
 " Paste from system buffer
-noremap <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
-noremap <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
+nmap <leader>p :set paste<cr>o<esc>"+p:set nopaste<cr>
+nmap <leader>P :set paste<cr>O<esc>"+p:set nopaste<cr>
 noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
@@ -628,33 +618,34 @@ cmap <esc> <c-c>
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
+" Save
+nmap <leader>s :w<cr>
 " Disable annoying mapping
 map Q <nop>
 " Reselected pasted lines
 nnoremap gV `[v`]
 " Select current line charwise
 nnoremap vv ^v$h
-smap <backspace> <backspace>i
 " }}}
 " {{{ -- | Togglers | --------------------------------------
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
 " Quickfix / Location togglers
-noremap <silent> <leader>q :call ToggleQuickfixList()<cr>
-noremap <silent> <leader>l :call ToggleLocationList()<cr>
+nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
+nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
-noremap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Toggle line wrap
-nnoremap <leader>w :set wrap!<cr>
+nmap <leader>w :set wrap!<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
-imap <c-g> <c-c>gUiwea
+imap <c-g> <esc>lgUiwea
 " Clear trailing spaces
-nnoremap <silent> <leader>k
+nmap <silent> <leader>k
       \ :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
-nnoremap <silent> <leader>i m'gg=Gg`'
+nmap <silent> <leader>i m'gg=Gg`'
 " }}}
 " {{{ -- | Swap number line | ------------------------------
 " It is more convenient to access numbers directly when in normal mode
@@ -685,9 +676,12 @@ noremap 0 *
 noremap é /
 map <silent> É :nohlsearch<cr><c-l>
 
-noremap <leader>é :%s/
-noremap <leader>É :s/
-vnoremap <leader>é <esc>:%s/\%V/g<left><left>
+nmap <leader>é :%s/
+nmap <leader>É :s/
+vmap <leader>é <esc>:%s/\%V/g<left><left>
+
+nmap <leader>n :cnext<cr>
+nmap <leader>N :cprev<cr>
 " }}}
 " {{{ -- | Quick Editing | ---------------------------------
 function! OpenSchemaFile()
@@ -699,30 +693,30 @@ function! OpenSchemaFile()
 endfunction
 
 " nnoremap <leader>es :tabe db/structure.sql<cr>
-nnoremap <leader>es :call OpenSchemaFile()<cr>
+nmap <leader>es :call OpenSchemaFile()<cr>
 
-nnoremap <leader>ee :tabe ~/email.md<cr>
-nnoremap <leader>ef :tabe ~/.config/fish/config.fish<cr>
-nnoremap <leader>eg :tabe ~/.gitconfig<cr>
-nnoremap <leader>eh :tabe ~/.hgrc<cr>
-nnoremap <leader>em :tabe ~/.tmux.conf<cr>
-nnoremap <leader>eo :tabe ~/poi.md<cr>
-nnoremap <leader>ep :tabe ~/postgres.sql<cr>
-nnoremap <leader>eq :tabe ~/sqlite.sql<cr>
-nnoremap <leader>er :tabe ~/release.tasks<cr>
-nnoremap <leader>et :tabe ~/todo.tasks<cr>
-nnoremap <leader>ev :tabe $MYVIMRC<cr>
+nmap <leader>ee :tabe ~/email.md<cr>
+nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
+nmap <leader>eg :tabe ~/.gitconfig<cr>
+nmap <leader>eh :tabe ~/.hgrc<cr>
+nmap <leader>em :tabe ~/.tmux.conf<cr>
+nmap <leader>eo :tabe ~/poi.md<cr>
+nmap <leader>ep :tabe ~/postgres.sql<cr>
+nmap <leader>eq :tabe ~/sqlite.sql<cr>
+nmap <leader>er :tabe ~/release.tasks<cr>
+nmap <leader>et :tabe ~/todo.tasks<cr>
+nmap <leader>ev :tabe $MYVIMRC<cr>
 
-nnoremap <leader>$ :so $MYVIMRC<cr>
+nmap <leader>$ :so $MYVIMRC<cr>
 
-nnoremap <leader># :e #<cr>
+nmap <leader># :e #<cr>
 " }}}
 " {{{ -- | Ranger File Chooser | ---------------------------
-nnoremap <leader>h :<c-u>RangerChooser<CR>
-nnoremap <leader>H :<c-u>RangerChooserRoot<CR>
+nmap <leader>h :<c-u>RangerChooser<CR>
+nmap <leader>H :<c-u>RangerChooserRoot<CR>
 " }}}
 " {{{ -- | Convenience Mapping | ---------------------------
-vnoremap <leader>s :sort<cr>
+vmap <leader>s :sort<cr>
 cnoremap %% <C-R>=expand('%')<cr>
 " }}}
 " {{{ == | Abbreviations | =====================================================
