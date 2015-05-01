@@ -480,7 +480,7 @@ if executable('ag')
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
 map <leader><leader> :CtrlPBufTag<cr>
-map <leader>; :CtrlPTag<cr>
+map <leader>ç :CtrlPTag<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
 let g:ctrlp_prompt_mappings = {
   \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
@@ -501,6 +501,7 @@ function! HgBranchStatus()
   0read !hg status --rev "::. - ::default" -n
   silent :w
 endfunction
+command! HgBranchStatus call HgBranchStatus()
 
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
@@ -537,7 +538,7 @@ nmap <leader>. :call DeleteHiddenBuffers()<cr>
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
 nmap <leader>, <c-w>w
-nmap <leader>ç <c-w>W
+nmap <leader>; <c-w>W
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
