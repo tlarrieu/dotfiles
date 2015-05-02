@@ -19,6 +19,7 @@ Plug 'duggiefresh/vim-easydir'
 " ---| Functionnalities |--------------
 Plug 'tpope/vim-dispatch'
 Plug 'beloglazov/vim-online-thesaurus'
+Plug 'tpope/vim-vinegar'
 " ---| Snippets |----------------------
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -82,7 +83,6 @@ Plug 'mhinz/vim-signify'
 Plug 'scrooloose/syntastic'
 " ---| Good looking |------------------
 Plug 'altercation/vim-colors-solarized'
-Plug 'bling/vim-airline'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/vitality.vim'
@@ -95,6 +95,7 @@ call plug#end()
 " Force loading of solarized before everything else so we can override
 " a few things without using BufPostRead / BufEnter shenanigans
 runtime! ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim
+runtime! ~/.vim/plugin/whitespace.vim
 
 filetype on
 syntax on
@@ -142,7 +143,7 @@ augroup END
 " }}}
 " {{{ ===| General options |====================================================
 let mapleader="\<space>"
-" Avoiding moving cursor when hitting <space> followod by nothing
+" Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
 " Timeout
 set ttimeout
@@ -179,8 +180,8 @@ if has('gui_running')
   hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
         \ gui=standout guifg=#d33682
 elseif &term =~ "xterm\\|rxvt"
-  let &t_SI = "\<Esc>]12;#2aa198\x7" " Insert mode
-  let &t_EI = "\<Esc>]12;#839496\x7" " Normal mode
+  let &t_SI = "\<Esc>]12;#268bd2\x7" " Insert mode
+  let &t_EI = "\<Esc>]12;#93a1a1\x7" " Normal mode
 endif
 
 hi! Visual ctermfg=7 ctermbg=14
@@ -294,9 +295,201 @@ hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 " {{{ ===| Spellchecking |======================================================
 set spelllang=en,fr
 " }}}
+" {{{ ===| Status / Tab line |==================================================
+set showtabline=2 " Always display tabline
+set laststatus=2  " Always display statusline
+set noshowmode
+
+func! Highlight()
+  hi! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  hi! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  hi! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  hi! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  hi! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+endfunc
+
+func! NoHighlight()
+  hi! WarningMsg   term=bold cterm=bold ctermfg=1 ctermbg=7 guifg=Red
+  hi! StatusLine   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+  hi! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
+  hi! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  hi! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  hi! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+endfunc
+
+function! Paste()
+  if &paste
+    return ' ρ '
+  end
+  return ''
+endfunction
+
+function! RO()
+  if &ro
+    return ' ⭤ '
+  end
+  return ''
+endfunction
+
+function! Modified()
+  if &modified
+    return ' ∘ '
+  end
+  return ''
+endfunction
+
+function! VCSBranch()
+  let branch = ''
+  let branch = lawrencium#statusline() . fugitive#head()
+
+  if empty(branch)
+    return branch
+  end
+
+  return '⭠ ' . branch . ' '
+endfunction
+
+
+" let g:whitespace_symbol = 'Ξ'
+let g:whitespace_symbol = '~'
+let g:whitespace_default_checks = ['indent', 'trailing']
+let g:whitespace_trailing_format = 'trailing[%s]'
+let g:whitespace_mixed_indent_format = 'mixed-indent[%s]'
+let g:whitespace_indent_algo = 1
+let g:whitespace_max_lines = 3000
+
+function! CheckMixedIndent()
+  if g:whitespace_indent_algo == 1
+    " [<tab>]<space><tab>
+    " spaces before or between tabs are not allowed
+    let t_s_t = '(^\t* +\t\s*\S)'
+    " <tab>(<space> x count)
+    " count of spaces at the end of tabs should be less then tabstop value
+    let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
+    return search('\v' . t_s_t . '|' . t_l_s, 'nw')
+  else
+    return search('\v(^\t+ +)|(^ +\t+)', 'nw')
+  endif
+endfunction
+
+function! Whitespace()
+  if &readonly || !&modifiable || line('$') > g:whitespace_max_lines
+    return ''
+  endif
+
+  if !exists('b:whitespace_check')
+    let b:whitespace_check = ''
+    let checks = g:whitespace_default_checks
+    let trailing = 0
+    let mixed = 0
+
+    if index(checks, 'trailing') > -1
+      " Matches " $" but not "\ $" (where $ marks the end of the line)
+      " We do not want to match escaped spaces
+      let trailing = search('[^.\\]\s$', 'nw')
+    endif
+
+    if index(checks, 'indent') > -1
+      let mixed = CheckMixedIndent()
+    endif
+
+    if trailing != 0 || mixed != 0
+      let b:whitespace_check = g:whitespace_symbol
+      if trailing != 0
+        let b:whitespace_check .=
+            \' ' . printf(g:whitespace_trailing_format, trailing)
+      endif
+      if mixed != 0
+        let b:whitespace_check .=
+            \' ' . printf(g:whitespace_mixed_indent_format, mixed)
+      endif
+    endif
+  endif
+  return ' ' . b:whitespace_check
+endfunction
+
+function! WhitespaceReset()
+  unlet b:whitespace_check
+endfunction
+
+func! ShortStatus()
+  setlocal statusline=
+  setlocal statusline+=%{Modified()}
+  setlocal statusline+=%<%.30f
+endfunction
+
+func! Status()
+  if g:status_type == 'normal'
+    setlocal statusline=
+    setlocal statusline+=%{Modified()}
+    setlocal statusline+=%<%.30f
+    setlocal statusline+=%#warningmsg#
+    setlocal statusline+=%{SyntasticStatuslineFlag()}
+    setlocal statusline+=%{Whitespace()}
+    setlocal statusline+=%*\ 
+    setlocal statusline+=%{Paste()}
+    setlocal statusline+=%{RO()}
+    setlocal statusline+=%=
+    setlocal statusline+=\ %h%w
+    setlocal statusline+=%y\ 
+    setlocal statusline+=⭡\ %l,%v
+    setlocal statusline+=\ %P
+  else
+    setlocal statusline=
+    setlocal statusline+=%{Modified()}
+    setlocal statusline+=%<%.30f
+    setlocal statusline+=%#warningmsg#
+    setlocal statusline+=%{SyntasticStatuslineFlag()}
+    setlocal statusline+=%{Whitespace()}
+    setlocal statusline+=%*\ 
+    setlocal statusline+=%{VCSBranch()}
+    setlocal statusline+=%{Paste()}
+    setlocal statusline+=%{RO()}
+    setlocal statusline+=%=
+    setlocal statusline+=\ %h%w
+    setlocal statusline+=%y
+    setlocal statusline+=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]
+    setlocal statusline+=\ 
+    setlocal statusline+=⭡\ %l,%v
+    setlocal statusline+=\ %P
+  end
+endfunction
+
+func! SwitchStatus()
+  if g:status_type == 'normal'
+    let g:status_type = 'full'
+  else
+    let g:status_type = 'normal'
+  end
+  call Status()
+endfunction
+
+let g:status_type = 'normal'
+
+call NoHighlight()
+call Status()
+
+augroup StatusLine
+  au!
+
+  autocmd InsertEnter * call Highlight()
+  autocmd InsertLeave * call NoHighlight()
+
+  autocmd BufEnter * call Status()
+  autocmd WinEnter * call Status()
+  autocmd WinLeave * call ShortStatus()
+
+  autocmd BufWritePost * call WhitespaceReset()
+augroup END
+
+nmap <silent> <leader>h :call SwitchStatus()<cr>
+" }}}
 " {{{ ===| Plugins |============================================================
 " {{{ ---| Surround |---------------------------------------
 let g:surround_no_insert_mappings = 1
+let g:surround_35 = "<%# \r %>"
+let g:surround_37 = "<% \r %>"
+let g:surround_61 = "<%= \r %>"
 " }}}
 " {{{ ---| Tabular |----------------------------------------
 vmap <leader>t :Tabular /
@@ -369,6 +562,9 @@ let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
 let g:syntastic_ruby_rubocop_args = '-D'
 let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 augroup lint
   au!
   au FileType ruby nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
@@ -415,58 +611,13 @@ let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " }}}
 " {{{ ---| Taboo |------------------------------------------
+let g:taboo_tab_format =  " %N %f%m "
+let g:taboo_renamed_tab_format =  " %N (%l)%m "
+let g:taboo_modified_tab_flag = " ∘"
+let g:taboo_unnamed_tab_label = "…"
+
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
-let g:taboo_tab_format =  "%f%m"
-let g:taboo_renamed_tab_format =  "(%l)%m"
-let g:taboo_modified_tab_flag = "+"
-let g:taboo_unnamed_tab_label = "…"
-let g:taboo_tabline = 0
-" }}}
-" {{{ ---| Airline |----------------------------------------
-if !exists('g:airline_symbols')
-  let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = '⭤'
-let g:airline_symbols.linenr = '⭡'
-let g:airline_symbols.paste = 'ρ'
-
-set laststatus=2 " Always display the statusline in all windows
-set noshowmode " Hide mode text (e.g. -- INSERT -- below the statusline)
-
-let g:airline_theme = 'zenburn'
-let g:airline_powerline_fonts = 1
-let g:airline_inactive_collapse=0
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#tab_min_count = 2
-let g:airline#extensions#tabline#fnamemod = ':t:.'
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#fnamecollapse = 1
-let g:airline#extensions#tabline#show_tab_type = 0
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#show_close_button = 0
-
-let g:airline_mode_map = {
-  \ '__' : '-',
-  \ 'n'  : 'NOR',
-  \ 'i'  : 'INS',
-  \ 'R'  : 'REP',
-  \ 'c'  : 'CHA',
-  \ 'v'  : 'VIS',
-  \ 'V'  : 'L-VIS',
-  \ '' : 'B-VIS',
-  \ 's'  : 'SEL',
-  \ 'S'  : 'L-SEL',
-  \ '' : 'B-SEL',
-  \ }
 " }}}
 " {{{ ---| CtrlP |------------------------------------------
 let g:ctrlp_cmd = 'CtrlP'
@@ -594,14 +745,15 @@ inoremap # X<bs>#
 nnoremap <F1> <c-g>
 inoremap <F1> <c-g>
 " Clever paste from system buffer
-nmap <leader>p m`:set paste<cr>o<c-r>+<backspace><esc>:set nopaste<cr>``
-nmap <leader>P m`:set paste<cr>O<c-r>+<backspace><esc>:set nopaste<cr>``
+nmap <leader>p m`:set paste<cr>o<c-r>+<esc>:set nopaste<cr>``
+nmap <leader>P m`:set paste<cr>O<c-r>+<esc>:set nopaste<cr>``
 noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
 " Command line
 map è :
+map È :!
 " }}}
 " {{{ ---| Mode Switching |---------------------------------
 " Yank (necessary because of some custom bindings for ag)
@@ -703,17 +855,15 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>ev :tabe $MYVIMRC<cr>
 
-nmap <leader>$ :so $MYVIMRC<cr>
+nmap <leader>e. :tabe .<cr>
 
 nmap <leader># :e #<cr>
-" }}}
-" {{{ ---| Ranger File Chooser |----------------------------
-nmap <leader>h :<c-u>RangerChooser<CR>
-nmap <leader>H :<c-u>RangerChooserRoot<CR>
+
+nmap <leader>$ :so $MYVIMRC<cr>
 " }}}
 " {{{ ---| Convenience Mapping |----------------------------
 vmap <leader>s :sort<cr>
-cnoremap %% <C-R>=expand('%')<cr>
+cnoremap %% <c-r>=expand('%:p:h')<cr>
 " }}}
 " {{{ ===| Abbreviations |======================================================
 " }}}
