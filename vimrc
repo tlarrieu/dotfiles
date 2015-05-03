@@ -52,7 +52,6 @@ Plug 'janko-m/vim-test'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'
-" Plug 'tpope/vim-rails'
 " ---| HTML |--------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " ---| Haskell |-----------------------
@@ -73,7 +72,6 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-" Plug 'tpope/vim-haml'
 " ---| VCS |---------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'phleet/vim-mercenary'
@@ -310,7 +308,7 @@ endfunc
 
 func! NoHighlight()
   hi! WarningMsg   term=bold cterm=bold ctermfg=1 ctermbg=7 guifg=Red
-  hi! StatusLine   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+  hi! StatusLine   term=bold cterm=bold ctermfg=12 ctermbg=7 guifg=Blue
   hi! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
   hi! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
   hi! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
@@ -437,7 +435,7 @@ func! Status()
   else
     setlocal statusline=
     setlocal statusline+=%{Modified()}
-    setlocal statusline+=%<%.30f
+    setlocal statusline+=%f
     setlocal statusline+=%#warningmsg#
     setlocal statusline+=%{SyntasticStatuslineFlag()}
     setlocal statusline+=%{Whitespace()}
@@ -611,9 +609,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " }}}
 " {{{ ---| Taboo |------------------------------------------
-let g:taboo_tab_format =  " %N %f%m "
-let g:taboo_renamed_tab_format =  " %N (%l)%m "
-let g:taboo_modified_tab_flag = " ∘"
+let g:taboo_tab_format =  " %N %m%f "
+let g:taboo_renamed_tab_format =  " %N %m(%l) "
+let g:taboo_modified_tab_flag = "∘ "
 let g:taboo_unnamed_tab_label = "…"
 
 nmap <leader>tl :TabooRename<space>
@@ -634,10 +632,10 @@ map <leader><leader> :CtrlPBufTag<cr>
 map <leader>ç :CtrlPTag<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
 let g:ctrlp_prompt_mappings = {
-  \ 'PrtSelectMove("j")':   ['<c-t>', '<down>'],
-  \ 'PrtSelectMove("k")':   ['<c-s>', '<up>'],
-  \ 'AcceptSelection("h")': ['<c-x>'],
-  \ 'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
+  \   'PrtSelectMove("j")':   ['<c-t>', '<down>'],
+  \   'PrtSelectMove("k")':   ['<c-s>', '<up>'],
+  \   'AcceptSelection("h")': ['<c-x>'],
+  \   'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
   \ }
 hi! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
