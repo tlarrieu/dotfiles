@@ -11,21 +11,25 @@ set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
-" ---| File Manipulation |-------------
+" {{{ ---| File Manipulation |-------------
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
-" ---| Functionnalities |--------------
+" }}}
+" {{{ ---| Functionnalities |--------------
 Plug 'tpope/vim-dispatch'
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'tpope/vim-vinegar'
-" ---| Snippets |----------------------
+" }}}
+" {{{ ---| Snippets |----------------------
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-" ---| Project config |----------------
+" }}}
+" {{{ ---| Project config |----------------
 Plug 'tpope/vim-projectionist'
-" ---| Text manipulation |-------------
+" }}}
+" {{{ ---| Text manipulation |-------------
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -33,7 +37,8 @@ Plug 'edsono/vim-matchit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
-" ---| Text objects |------------------
+" }}}
+" {{{ ---| Text objects |------------------
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
@@ -41,52 +46,67 @@ Plug 'nelstrom/vim-textobj-rubyblock',
 Plug 'wellle/targets.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'kana/vim-textobj-function'
-" ---| Task manager |------------------
+" }}}
+" {{{ ---| Task manager |------------------
 Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
-" ---| Undo tree explorer |------------
+" }}}
+" {{{ ---| Undo tree explorer |------------
 " Plug 'sjl/gundo.vim'
-" ---| List toggler |------------------
+" }}}
+" {{{ ---| List toggler |------------------
 Plug 'milkypostman/vim-togglelist'
-" ---| Ruby |--------------------------
+" }}}
+" {{{ ---| Ruby |--------------------------
 Plug 'janko-m/vim-test'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'
-" ---| HTML |--------------------------
+" }}}
+" {{{ ---| HTML |--------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
-" ---| Haskell |-----------------------
+" }}}
+" {{{ ---| Haskell |-----------------------
 Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
-" ---| Go lang |-----------------------
+" }}}
+" {{{ ---| Go lang |-----------------------
 Plug 'fatih/vim-go', { 'for' : 'go' }
-" ---| SQL |---------------------------
+" }}}
+" {{{ ---| SQL |---------------------------
 Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
 Plug 'exu/pgsql.vim', { 'for' : 'sql' }
-" ---| Markdown |----------------------
+" }}}
+" {{{ ---| Markdown |----------------------
 Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
 Plug 'greyblake/vim-preview', { 'for' : 'markdown' }
-" ---| Misc languages support |--------
+" }}}
+" {{{ ---| Misc languages support |--------
 Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
 Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-" ---| VCS |---------------------------
+" }}}
+" {{{ ---| VCS |---------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'phleet/vim-mercenary'
 Plug 'zeekay/vim-lawrencium'
 Plug 'mhinz/vim-signify'
-" ---| Syntax checking |---------------
+" }}}
+" {{{ ---| Syntax checking |---------------
 Plug 'scrooloose/syntastic'
-" ---| Good looking |------------------
+" }}}
+" {{{ ---| Good looking |------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/vitality.vim'
-" ---| Colors |------------------------
+" }}}
+" {{{ ---| Colors |------------------------
 Plug 'KabbAmine/vCoolor.vim'              " Picker
 Plug 'chrisbra/Colorizer'                 " Highlighter
+" }}}
 
 call plug#end()
 
