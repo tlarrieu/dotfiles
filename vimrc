@@ -599,28 +599,29 @@ let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
 
-augroup Ag
+augroup quickfix
   autocmd!
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <nl> <C-W><CR><C-W>T
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer>   <C-W><CR><C-W>T
-  autocmd BufReadPost quickfix nnoremap <silent> <buffer> <c-cr> <C-W><CR><C-W>T
+
   autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> <C-v> <C-W><CR><C-W>H<C-W>b<C-W>J<C-W>t
+        \ nnoremap <silent> <buffer>   <c-w><cr><c-w>T
   autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> <C-x> <C-W><CR><C-w>K
+        \ nnoremap <silent> <buffer> t <C-w><CR><C-w>TgT<C-w>p
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> o <CR><C-w>p<C-w>=
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> v <C-w>p<C-w>v<C-w>b<CR><C-w>=
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> s <C-w>p<C-w>s<C-w>b<CR><C-w>=
 
   autocmd BufReadPost quickfix setlocal nonu
+
+  au FileType quickfix call AdjustWindowHeight(5, 20)
 augroup END
 
 nmap <leader>a :Ag! ""<left>
 nnoremap yu :set operatorfunc=UsageOperator<cr>g@iw
 vnoremap yu :<c-u>call UsageOperator(visualmode())<cr>
 nnoremap yd :set operatorfunc=DefinitionOperator<cr>g@iw
-
-augroup quickfix
-  au!
-  au FileType qf call AdjustWindowHeight(3, 20)
-augroup END
 " }}}
 " {{{ ---| UltiSnips |--------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
@@ -714,6 +715,7 @@ noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
 " Vertical split
 nmap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+" Dimensions
 nmap <leader>M <c-w>=
 nmap <leader>m :res<cr>:vertical res<cr>$
 " New tab
@@ -790,7 +792,7 @@ map Q <nop>
 " Reselected pasted lines
 nnoremap gV `[v`]
 " Select current line charwise
-nnoremap vv ^v$h
+" nnoremap vv ^v$h
 " }}}
 " {{{ ---| Togglers |---------------------------------------
 " Rename file
