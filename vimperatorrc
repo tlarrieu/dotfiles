@@ -21,30 +21,11 @@ noremap B :forward<cr>
 noremap à d
 noremap O t
 
-noremap é /
-noremap É ?
-noremap \' n
-noremap \? N
+map é /
+map É ?
 
-" {cr} = « gauche / droite »
-noremap c <Left>
-noremap r <Right>
-" {ts} = « haut / bas »
-noremap t <Down>
-noremap s <Up>
+map è :
 
-
-" Désambiguation de {g}
-" —————————————————————
-" ligne précédante/suivante (à l'intérieur d'une phrase)
-noremap gs gk
-noremap gt gj
-
-noremap <BS> <C-u>
 noremap <Return> zz
 
-" va a l’onglet suivant/précédent
-map <Left> gb
-map <Right> gé
-noremap T gt
-noremap S gT
+noremap <c-é> <c-w>
