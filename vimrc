@@ -300,8 +300,8 @@ set noshowmode
 
 func! Highlight()
   hi! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  hi! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  hi! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  " hi! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  " hi! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
   hi! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
   hi! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
 endfunc
