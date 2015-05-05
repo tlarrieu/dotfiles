@@ -608,9 +608,9 @@ augroup quickfix
 augroup END
 
 nmap <leader>a :Ag! ""<left>
-nnoremap yu :set operatorfunc=UsageOperator<cr>g@iw
-vnoremap yu :<c-u>call UsageOperator(visualmode())<cr>
-nnoremap yd :set operatorfunc=DefinitionOperator<cr>g@iw
+nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
+vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
+nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 " }}}
 " {{{ ---| UltiSnips |--------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
@@ -765,8 +765,6 @@ map è :
 map È :!
 " }}}
 " {{{ ---| Mode Switching |---------------------------------
-" Yank (necessary because of some custom bindings for ag)
-vnoremap yy y
 " Normal mode
 set noesckeys
 cmap <esc> <c-c>
