@@ -703,7 +703,8 @@ noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
 " Vertical split
-nmap <leader>v :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>vv :vnew<cr>
+nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Dimensions
 nmap <leader>M <c-w>=
 nmap <leader>m :res<cr>:vertical res<cr>$
