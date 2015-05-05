@@ -172,40 +172,40 @@ if has('gui_running')
   set guioptions-=m
 
   " mode aware cursors
-  set gcr+=o:hor50-Cursor
-  set gcr-=n:NormalCursor
-  set gcr+=i-ci-sm:InsertCursor
-  set gcr+=r-cr:ReplaceCursor-hor20
-  set gcr+=c:CommandCursor
-  set gcr+=v-ve:VisualCursor
-  set gcr+=a:blinkon0
+  set guicursor+=o:hor50-Cursor
+  set guicursor-=n:NormalCursor
+  set guicursor+=i-ci-sm:InsertCursor
+  set guicursor+=r-cr:ReplaceCursor-hor20
+  set guicursor+=c:CommandCursor
+  set guicursor+=v-ve:VisualCursor
+  set guicursor+=a:blinkon0
 
-  hi! NormalCursor  term=reverse cterm=reverse
+  highlight! NormalCursor  term=reverse cterm=reverse
         \ gui=reverse guifg=#93a1a1 guibg=#fdf6e3
-  hi! InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-  hi! VisualCursor  term=reverse gui=reverse guifg=#268bd2
-  hi! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
-  hi! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
+  highlight! InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
+  highlight! VisualCursor  term=reverse gui=reverse guifg=#268bd2
+  highlight! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
+  highlight! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
         \ gui=standout guifg=#d33682
 elseif &term =~ "xterm\\|rxvt"
   let &t_SI = "\<Esc>]12;#268bd2\x7" " Insert mode
   let &t_EI = "\<Esc>]12;#93a1a1\x7" " Normal mode
 endif
 
-hi! Visual ctermfg=7 ctermbg=14
+highlight! Visual ctermfg=7 ctermbg=14
       \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
 
-hi! link SignColumn LineNr
-hi! CursorLineNr ctermfg=4 ctermbg=7
+highlight! link SignColumn LineNr
+highlight! CursorLineNr ctermfg=4 ctermbg=7
 " Line numbering (relative and current)
-set rnu
-set nu
+set relativenumber
+set number
 " Line length warning
 highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
 augroup overlength
-  au!
+  autocmd!
   autocmd BufReadPost * match OverLength /\%81v.\+/
-  autocmd FileType man hi! link OverLength Normal
+  autocmd FileType man highlight! link OverLength Normal
 augroup END
 " Virtual editing
 set virtualedit=all
@@ -219,7 +219,7 @@ set showmatch
 set showcmd
 " Encoding and filetype
 set encoding=utf8
-set ffs=unix,dos,mac
+set fileformats=unix,dos,mac
 " Undo, backup and swap files
 set undodir=~/.tmp//
 set backupdir=~/.tmp//
@@ -257,7 +257,7 @@ set lazyredraw
 set ttyfast
 " }}}
 " {{{ ===| Splits |=============================================================
-hi! link VertSplit CursorColumn
+highlight! link VertSplit CursorColumn
 set splitright
 set splitbelow
 " }}}
@@ -268,8 +268,8 @@ set sidescrolloff=15
 set sidescroll=1
 " }}}
 " {{{ ===| Indent |=============================================================
-set ai "autoindent
-set si "smart indent
+set autoindent
+set smartindent
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -294,9 +294,10 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-hi! Search ctermbg=7 ctermfg=2 guifg=#719e07
-hi! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
-hi! IncSearchMatch ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
+highlight! Search ctermbg=7 ctermfg=2 guifg=#719e07
+highlight! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
+highlight! IncSearchMatch
+      \ ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 " }}}
 " {{{ ===| Spellchecking |======================================================
 set spelllang=en,fr
@@ -307,20 +308,20 @@ set laststatus=2  " Always display statusline
 set noshowmode
 
 func! Highlight()
-  hi! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  " hi! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  " hi! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  hi! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  hi! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  highlight! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  " highlight! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  " highlight! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
 endfunc
 
 func! NoHighlight()
-  hi! WarningMsg   term=bold cterm=bold ctermfg=1 ctermbg=7 guifg=Red
-  hi! StatusLine   term=bold cterm=bold ctermfg=12 ctermbg=7 guifg=Blue
-  hi! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
-  hi! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  hi! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  hi! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+  highlight! WarningMsg   term=bold cterm=bold ctermfg=1 ctermbg=7 guifg=Red
+  highlight! StatusLine   term=bold cterm=bold ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
+  highlight! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
 endfunc
 
 function! Paste()
@@ -476,7 +477,7 @@ call NoHighlight()
 call Status()
 
 augroup StatusLine
-  au!
+  autocmd!
 
   autocmd InsertEnter * call Highlight()
   autocmd InsertLeave * call NoHighlight()
@@ -572,9 +573,9 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 augroup lint
-  au!
-  au FileType ruby nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
-  au FileType scss nmap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
+  autocmd!
+  autocmd FileType ruby nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+  autocmd FileType scss nmap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
 augroup end
 " }}}
 " {{{ ---| Greplace |---------------------------------------
@@ -601,9 +602,9 @@ augroup quickfix
   autocmd BufReadPost quickfix
         \ nnoremap <silent> <buffer> s <C-w>p<C-w>s<C-w>b<CR><C-w>=
 
-  autocmd BufReadPost quickfix setlocal nonu
+  autocmd BufReadPost quickfix setlocal nonumber
 
-  au FileType quickfix call AdjustWindowHeight(5, 20)
+  autocmd FileType quickfix call AdjustWindowHeight(5, 20)
 augroup END
 
 nmap <leader>a :Ag! ""<left>
@@ -646,7 +647,7 @@ let g:ctrlp_prompt_mappings = {
   \   'AcceptSelection("h")': ['<c-x>'],
   \   'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
   \ }
-hi! CtrlPMatch ctermfg=5 guifg=#d33682
+highlight! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
 " {{{ ---| Signify |----------------------------------------
 let g:signify_vcs_list = [ 'hg', 'git' ]
@@ -767,7 +768,7 @@ map È :!
 " Yank (necessary because of some custom bindings for ag)
 vnoremap yy y
 " Normal mode
-set noek
+set noesckeys
 cmap <esc> <c-c>
 " Exit
 nnoremap à :q<cr>
