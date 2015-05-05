@@ -832,9 +832,9 @@ noremap 0 *
 noremap é /
 map <silent> É :nohlsearch<cr><c-l>
 
-nmap <leader>é :%s/
-nmap <leader>É :s/
-vmap <leader>é <esc>:%s/\%V/g<left><left>
+nmap s :%s/
+nmap S :s/
+vmap s <esc>:%s/\%V/g<left><left>
 
 nmap <leader>n :cnext<cr>
 nmap <leader>N :cprev<cr>
