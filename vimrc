@@ -110,11 +110,6 @@ Plug 'chrisbra/Colorizer'                 " Highlighter
 
 call plug#end()
 
-" Force loading of solarized before everything else so we can override
-" a few things without using BufPostRead / BufEnter shenanigans
-runtime! ~/.vim/plugged/vim-colors-solarized/colors/solarized.vim
-runtime! ~/.vim/plugin/whitespace.vim
-
 filetype on
 syntax on
 filetype plugin indent on
@@ -131,11 +126,6 @@ augroup vimrc_autocmd
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
   autocmd BufReadPost *.yml set ft=yaml
-  " Only current splits gets cursor line / column highlighted
-  autocmd WinLeave * set nocursorline
-  autocmd WinLeave * set nocursorcolumn
-  autocmd WinEnter * set cursorline
-  autocmd WinEnter * set cursorcolumn
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -206,16 +196,17 @@ hi! Visual ctermfg=7 ctermbg=14
       \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
 
 hi! link SignColumn LineNr
+hi! CursorLineNr ctermfg=4 ctermbg=7
 " Line numbering (relative and current)
 set rnu
 set nu
-" Line length warning (disabled for now)
+" Line length warning
 highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
 augroup overlength
   au!
+  autocmd BufReadPost * match OverLength /\%81v.\+/
   autocmd FileType man hi! link OverLength Normal
 augroup END
-match OverLength /\%81v.\+/
 " Virtual editing
 set virtualedit=all
 " Blank character
@@ -241,9 +232,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags
 set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
-" current line / column highlight
-set cursorline
-set cursorcolumn
 " mouse
 set mouse=c
 " Command completion style
