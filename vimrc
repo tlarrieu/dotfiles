@@ -316,25 +316,37 @@ set showtabline=2 " Always display tabline
 set laststatus=2  " Always display statusline
 set noshowmode
 
-hi User1 guifg=#ff0055  guibg=#151515
-hi User2 guifg=#539dbd  guibg=#151515
-hi User3 guifg=#b1d631  guibg=#151515
-
 func! Highlight()
-  highlight! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  " highlight! TabLine     ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  " highlight! TabLineFill ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+  highlight! StatusLine  ctermfg=32 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
   highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
   highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+
+  " Modified file marker (active window)
+  hi! User1 term=bold cterm=bold ctermfg=15 ctermbg=32
+  " Modified file marker (inactive window)
+  hi! User4 term=bold cterm=bold ctermfg=1 ctermbg=7
+  " Filename
+  hi! User2 ctermfg=15 ctermbg=32
+  " VCS Branch
+  hi! User3 ctermfg=15 ctermbg=32
 endfunc
 
 func! NoHighlight()
-  highlight! WarningMsg   term=bold cterm=bold ctermfg=1 ctermbg=7 guifg=Red
-  highlight! StatusLine   term=bold cterm=bold ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
+  highlight! StatusLine   ctermbg=12 ctermfg=7 guifg=Blue
   highlight! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
   highlight! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
   highlight! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
   highlight! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+
+  " Modified file marker (active window)
+  hi! User1 term=bold cterm=bold ctermfg=1 ctermbg=7
+  " Modified file marker (inactive window)
+  hi! link User4 User1
+  " Filename
+  hi! User2 term=bold cterm=bold ctermfg=14 ctermbg=7
+  " VCS Branch
+  hi! User3 ctermfg=14 ctermbg=7
 endfunc
 
 function! Paste()
@@ -353,7 +365,7 @@ endfunction
 
 function! Modified()
   if &modified
-    return ' ∘ '
+    return ' ∙'
   end
   return ''
 endfunction
@@ -366,7 +378,7 @@ function! VCSBranch()
     return branch
   end
 
-  return '⭠ ' . branch . ' '
+  return ' ⭠ ' . branch . ' '
 endfunction
 
 
@@ -425,7 +437,7 @@ function! Whitespace()
       endif
     endif
   endif
-  return ' ' . b:whitespace_check
+  return ' ' . b:whitespace_check . ' '
 endfunction
 
 function! WhitespaceReset()
@@ -433,37 +445,38 @@ function! WhitespaceReset()
   unlet b:whitespace_check
 endfunction
 
+
 func! ShortStatus()
   setlocal statusline=
-  setlocal statusline+=%{Modified()}
   setlocal statusline+=%t
+  setlocal statusline+=%4*%{Modified()}%*
 endfunction
 
 func! Status()
+
   if g:status_type == 'normal'
     setlocal statusline=
-    setlocal statusline+=%t
-    setlocal statusline+=%{Modified()}
+    setlocal statusline+=%2*%t%*
+    setlocal statusline+=%1*%{Modified()}%*\ 
     setlocal statusline+=%#warningmsg#
     setlocal statusline+=%{SyntasticStatuslineFlag()}
     setlocal statusline+=%{Whitespace()}
-    setlocal statusline+=%*\ 
+    setlocal statusline+=%*
     setlocal statusline+=%{Paste()}
     setlocal statusline+=%{RO()}
     setlocal statusline+=%=
     setlocal statusline+=\ %h%w
     setlocal statusline+=%y\ 
-    setlocal statusline+=⭡\ %l,%v
-    setlocal statusline+=\ %P
+    setlocal statusline+=⭡\ %l,%v\ %P
   else
     setlocal statusline=
-    setlocal statusline+=%f
-    setlocal statusline+=%{Modified()}
+    setlocal statusline+=%3*%{VCSBranch()}%*
+    setlocal statusline+=%2*%f%*
+    setlocal statusline+=%1*%{Modified()}%*\ 
     setlocal statusline+=%#warningmsg#
     setlocal statusline+=%{SyntasticStatuslineFlag()}
     setlocal statusline+=%{Whitespace()}
-    setlocal statusline+=%*\ 
-    setlocal statusline+=%{VCSBranch()}
+    setlocal statusline+=%*
     setlocal statusline+=%{Paste()}
     setlocal statusline+=%{RO()}
     setlocal statusline+=%=
@@ -471,8 +484,7 @@ func! Status()
     setlocal statusline+=%y
     setlocal statusline+=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]
     setlocal statusline+=\ 
-    setlocal statusline+=⭡\ %l,%v
-    setlocal statusline+=\ %P
+    setlocal statusline+=⭡\ %l,%v\ %P
   end
 endfunction
 
@@ -635,7 +647,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " {{{ ---| Taboo |------------------------------------------
 let g:taboo_tab_format =  " %N %f%m "
 let g:taboo_renamed_tab_format =  " %N (%l)%m "
-let g:taboo_modified_tab_flag = " ∘"
+let g:taboo_modified_tab_flag = " ∙"
 let g:taboo_unnamed_tab_label = "…"
 
 nmap <leader>tl :TabooRename<space>
