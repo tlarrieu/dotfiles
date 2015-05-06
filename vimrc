@@ -211,11 +211,11 @@ augroup END
 set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
-set showbreak=↪\ 
+" Display blank characters
 set list
 " Show matching braces
 set showmatch
-" Show command
+" Show incomplete key sequence in bottom corner
 set showcmd
 " Encoding and filetype
 set encoding=utf8
@@ -251,6 +251,14 @@ set title
 set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
+" Line wrap at word boundaries
+set linebreak
+" Indent soft-wrapped lines
+set breakindent
+" Define character indicating line wrap
+set showbreak=↪\ 
+" Do not insert spaces after '.', '?' and '!' when joining lines
+set nojoinspaces
 " Do not redraw screen while running macros
 set lazyredraw
 " Improve redrawing
@@ -260,6 +268,7 @@ set ttyfast
 highlight! link VertSplit CursorColumn
 set splitright
 set splitbelow
+set fillchars+=vert:\ 
 " }}}
 " {{{ ===| Scrolling |==========================================================
 set scrolloff=8
@@ -306,6 +315,10 @@ set spelllang=en,fr
 set showtabline=2 " Always display tabline
 set laststatus=2  " Always display statusline
 set noshowmode
+
+hi User1 guifg=#ff0055  guibg=#151515
+hi User2 guifg=#539dbd  guibg=#151515
+hi User3 guifg=#b1d631  guibg=#151515
 
 func! Highlight()
   highlight! StatusLine  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
@@ -416,20 +429,21 @@ function! Whitespace()
 endfunction
 
 function! WhitespaceReset()
+  let b:whitespace_check = ''
   unlet b:whitespace_check
 endfunction
 
 func! ShortStatus()
   setlocal statusline=
   setlocal statusline+=%{Modified()}
-  setlocal statusline+=%<%.30f
+  setlocal statusline+=%t
 endfunction
 
 func! Status()
   if g:status_type == 'normal'
     setlocal statusline=
+    setlocal statusline+=%t
     setlocal statusline+=%{Modified()}
-    setlocal statusline+=%<%.30f
     setlocal statusline+=%#warningmsg#
     setlocal statusline+=%{SyntasticStatuslineFlag()}
     setlocal statusline+=%{Whitespace()}
@@ -443,8 +457,8 @@ func! Status()
     setlocal statusline+=\ %P
   else
     setlocal statusline=
-    setlocal statusline+=%{Modified()}
     setlocal statusline+=%f
+    setlocal statusline+=%{Modified()}
     setlocal statusline+=%#warningmsg#
     setlocal statusline+=%{SyntasticStatuslineFlag()}
     setlocal statusline+=%{Whitespace()}
@@ -619,9 +633,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " }}}
 " {{{ ---| Taboo |------------------------------------------
-let g:taboo_tab_format =  " %N %m%f "
-let g:taboo_renamed_tab_format =  " %N %m(%l) "
-let g:taboo_modified_tab_flag = "∘ "
+let g:taboo_tab_format =  " %N %f%m "
+let g:taboo_renamed_tab_format =  " %N (%l)%m "
+let g:taboo_modified_tab_flag = " ∘"
 let g:taboo_unnamed_tab_label = "…"
 
 nmap <leader>tl :TabooRename<space>
@@ -796,9 +810,9 @@ nmap <leader>w :set wrap!<cr>
 " Uppercase current word
 nnoremap <c-g> gUiw
 imap <c-g> <esc>lgUiwea
-" Clear trailing spaces
+" Clear trailing spaces (but not the escaped ones)
 nmap <silent> <leader>k
-      \ :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+      \ :let _s=@/<Bar>:%s/[^.\\]\zs\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
 nmap <silent> <leader>i m'gg=Gg`'
 " }}}
