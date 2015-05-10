@@ -316,22 +316,22 @@ set showtabline=2 " Always display tabline
 set laststatus=2  " Always display statusline
 set noshowmode
 
-func! Highlight()
+function! Highlight()
   highlight! StatusLine  ctermfg=32 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
   highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
   highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
 
   " Modified file marker (active window)
-  hi! User1 term=bold cterm=bold ctermfg=15 ctermbg=32
+  highlight! User1 term=bold cterm=bold ctermfg=1 ctermbg=32
   " Modified file marker (inactive window)
-  hi! User4 term=bold cterm=bold ctermfg=1 ctermbg=7
+  highlight! User4 term=bold cterm=bold ctermfg=1 ctermbg=7
   " Filename
-  hi! User2 ctermfg=15 ctermbg=32
+  highlight! User2 ctermfg=15 ctermbg=32
   " VCS Branch
-  hi! User3 ctermfg=15 ctermbg=32
+  highlight! User3 ctermfg=15 ctermbg=32
 endfunc
 
-func! NoHighlight()
+function! NoHighlight()
   highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
   highlight! StatusLine   ctermbg=12 ctermfg=7 guifg=Blue
   highlight! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
@@ -340,19 +340,19 @@ func! NoHighlight()
   highlight! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
 
   " Modified file marker (active window)
-  hi! User1 term=bold cterm=bold ctermfg=1 ctermbg=7
+  highlight! User1 term=bold cterm=bold ctermfg=1 ctermbg=7
   " Modified file marker (inactive window)
-  hi! link User4 User1
+  highlight! link User4 User1
   " Filename
-  hi! User2 term=bold cterm=bold ctermfg=14 ctermbg=7
+  highlight! User2 term=bold cterm=bold ctermfg=14 ctermbg=7
   " VCS Branch
-  hi! User3 ctermfg=14 ctermbg=7
+  highlight! User3 ctermfg=14 ctermbg=7
 endfunc
 
 function! Paste()
   if &paste
-    return ' ρ '
-  end
+    return ' ⌘ '
+  endif
   return ''
 endfunction
 
@@ -366,7 +366,7 @@ endfunction
 function! Modified()
   if &modified
     return ' ∙'
-  end
+  endif
   return ''
 endfunction
 
@@ -378,12 +378,18 @@ function! VCSBranch()
     return branch
   end
 
-  return ' ⭠ ' . branch . ' '
+  return ' ⭠ ' . branch . ' '
 endfunction
 
+function! Syntastic()
+  let syntastic = SyntasticStatuslineFlag()
+  if empty(syntastic)
+    return ''
+  endif
+  return ' ' . syntastic
+endfunction
 
-" let g:whitespace_symbol = 'Ξ'
-let g:whitespace_symbol = '~'
+let g:whitespace_symbol = ' ⌫ '
 let g:whitespace_default_checks = ['indent', 'trailing']
 let g:whitespace_trailing_format = 'trailing[%s]'
 let g:whitespace_mixed_indent_format = 'mixed-indent[%s]'
@@ -410,7 +416,6 @@ function! Whitespace()
   endif
 
   if !exists('b:whitespace_check')
-    let b:whitespace_check = ''
     let checks = g:whitespace_default_checks
     let trailing = 0
     let mixed = 0
@@ -425,19 +430,20 @@ function! Whitespace()
       let mixed = CheckMixedIndent()
     endif
 
+    let b:whitespace_check = ''
     if trailing != 0 || mixed != 0
-      let b:whitespace_check = g:whitespace_symbol
       if trailing != 0
         let b:whitespace_check .=
-            \' ' . printf(g:whitespace_trailing_format, trailing)
+            \' ' . printf(g:whitespace_trailing_format, trailing)
       endif
       if mixed != 0
         let b:whitespace_check .=
-            \' ' . printf(g:whitespace_mixed_indent_format, mixed)
+            \' ' . printf(g:whitespace_mixed_indent_format, mixed)
       endif
+      let b:whitespace_check .= g:whitespace_symbol
     endif
   endif
-  return ' ' . b:whitespace_check . ' '
+  return b:whitespace_check
 endfunction
 
 function! WhitespaceReset()
@@ -446,20 +452,19 @@ function! WhitespaceReset()
 endfunction
 
 
-func! ShortStatus()
+function! ShortStatus()
   setlocal statusline=
   setlocal statusline+=%t
   setlocal statusline+=%4*%{Modified()}%*
 endfunction
 
-func! Status()
-
+function! Status()
   if g:status_type == 'normal'
     setlocal statusline=
     setlocal statusline+=%2*%t%*
-    setlocal statusline+=%1*%{Modified()}%*\ 
+    setlocal statusline+=%1*%{Modified()}%*
     setlocal statusline+=%#warningmsg#
-    setlocal statusline+=%{SyntasticStatuslineFlag()}
+    setlocal statusline+=%{Syntastic()}
     setlocal statusline+=%{Whitespace()}
     setlocal statusline+=%*
     setlocal statusline+=%{Paste()}
@@ -472,9 +477,9 @@ func! Status()
     setlocal statusline=
     setlocal statusline+=%3*%{VCSBranch()}%*
     setlocal statusline+=%2*%f%*
-    setlocal statusline+=%1*%{Modified()}%*\ 
+    setlocal statusline+=%1*%{Modified()}%*
     setlocal statusline+=%#warningmsg#
-    setlocal statusline+=%{SyntasticStatuslineFlag()}
+    setlocal statusline+=%{Syntastic()}
     setlocal statusline+=%{Whitespace()}
     setlocal statusline+=%*
     setlocal statusline+=%{Paste()}
@@ -488,7 +493,7 @@ func! Status()
   end
 endfunction
 
-func! SwitchStatus()
+function! SwitchStatus()
   if g:status_type == 'normal'
     let g:status_type = 'full'
   else
