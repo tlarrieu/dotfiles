@@ -667,8 +667,9 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:40'
 let g:ctrlp_open_new_file = 't'
 " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-map <leader><leader> :CtrlPBufTag<cr>
-map <leader>ç :CtrlPTag<cr>
+let g:ctrlp_map = '<c-q>'
+map <c-h> :<c-u>CtrlPBufTag<cr>
+map <leader><leader> :CtrlPTag<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
 let g:ctrlp_prompt_mappings = {
   \   'PrtSelectMove("j")':   ['<c-t>', '<down>'],
@@ -783,8 +784,8 @@ noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
 inoremap # X<bs>#
 " Fuck you, help.
-nnoremap <F1> <c-g>
-inoremap <F1> <c-g>
+nnoremap <F1> <nop>
+inoremap <F1> <nop>
 " Clever paste from system buffer
 nmap <leader>p m`:set paste<cr>o<c-r>+<esc>:set nopaste<cr>``
 nmap <leader>P m`:set paste<cr>O<c-r>+<esc>:set nopaste<cr>``
@@ -794,6 +795,7 @@ nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 nnoremap Y y$
 " Command line
 map è :
+map qè q:
 map È :!
 " }}}
 " {{{ ---| Mode Switching |---------------------------------
@@ -825,7 +827,7 @@ nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Toggle line wrap
 nmap <leader>w :set wrap!<cr>
 " Uppercase current word
-nnoremap <c-g> gUiw
+nmap <c-g> gUiw
 imap <c-g> <esc>lgUiwea
 " Clear trailing spaces (but not the escaped ones)
 nmap <silent> <leader>k
@@ -862,14 +864,15 @@ noremap 0 *
 " }}}
 " {{{ ---| Search & Replace |-------------------------------
 noremap é /
+noremap qé q/
 map <silent> É :nohlsearch<cr><c-l>
 
 nmap s :%s/
 nmap S :s/
 vmap s <esc>:%s/\%V/g<left><left>
 
-nmap <leader>n :cnext<cr>
-nmap <leader>N :cprev<cr>
+nmap <c-n> :cnext<cr>
+nmap <c-p> :cprev<cr>
 
 command! NONASCII /[^\x00-\x7F]
 " }}}
