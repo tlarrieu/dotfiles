@@ -140,37 +140,6 @@ function! MergeTabs()
   execute "vs " . bufferName
 endfunction
 
-" Mark a split to be swapped
-function! MarkSplitSwap()
-  let g:markedWinNum = winnr()
-endfunction
-
-" Split swap
-function! DoSplitSwap()
-  "Mark destination
-  let curNum = winnr()
-  let curBuf = bufnr( "%" )
-  exe g:markedWinNum . "wincmd w"
-  "Switch to source and shuffle dest->source
-  let markedBuf = bufnr( "%" )
-  "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' curBuf
-  "Switch to dest and shuffle source->dest
-  exe curNum . "wincmd w"
-  "Hide and open so that we aren't prompted and keep history
-  exe 'hide buf' markedBuf
-endfunction
-
-" Mark or split, depending on if any split has been marked
-function! SplitSwap()
-  if exists("g:markedWinNum")
-    silent call DoSplitSwap()
-    unlet g:markedWinNum
-  else
-    silent call MarkSplitSwap()
-  end
-endfunction
-
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
