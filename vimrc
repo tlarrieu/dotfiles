@@ -665,10 +665,8 @@ let g:ctrlp_switch_buffer = 'ET'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:40'
 let g:ctrlp_open_new_file = 't'
-if executable('ag')
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
+" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 map <leader><leader> :CtrlPBufTag<cr>
 map <leader>ç :CtrlPTag<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
@@ -736,12 +734,14 @@ noremap <c-w><c-r> <c-w>L
 " Vertical split
 nmap <leader>vv :vnew<cr>
 nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>V :vnew<space>
 " Dimensions
 nmap <leader>M <c-w>=
 nmap <leader>m :res<cr>:vertical res<cr>$
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>T :tabe<space>
 " Close current tab
 nmap <leader>tc :tabclose<cr>
 " Close all tabs but current
@@ -832,6 +832,8 @@ nmap <silent> <leader>k
       \ :let _s=@/<Bar>:%s/[^.\\]\zs\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 " Fix indent
 nmap <silent> <leader>i m'gg=Gg`'
+" Cursorline / Cursorcolumn
+nmap <leader>g :set cuc! \| set cul!<cr>
 " }}}
 " {{{ ---| Swap number line |-------------------------------
 " It is more convenient to access numbers directly when in normal mode
