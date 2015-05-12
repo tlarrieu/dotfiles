@@ -812,6 +812,9 @@ nmap <leader>s :w<cr>
 map Q <nop>
 " Reselected pasted lines
 nnoremap gV `[v`]
+" Command line
+map è :
+map È :!
 " Select current line charwise
 " nnoremap vv ^v$h
 " }}}
@@ -908,6 +911,7 @@ nmap <leader>$ :so $MYVIMRC<cr>
 " {{{ ---| Convenience Mapping |----------------------------
 vmap <leader>s :sort<cr>
 cnoremap %% <c-r>=expand('%:p:h')<cr>
+nnoremap dD "_dd
 " }}}
 " {{{ ===| Abbreviations |======================================================
 " }}}
