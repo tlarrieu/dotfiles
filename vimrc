@@ -87,6 +87,8 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+Plug 'alfredodeza/jacinto.vim'
+Plug 'leshill/vim-json'
 " }}}
 " {{{ ---| VCS |---------------------------
 Plug 'tpope/vim-fugitive'
@@ -521,6 +523,29 @@ augroup StatusLine
 augroup END
 
 nmap <silent> <leader>h :call SwitchStatus()<cr>
+" {{{ ===| Quickfix / Location |================================================
+augroup quickfix
+  autocmd!
+
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer>   <c-w><cr><c-w>T
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> t <C-w><CR><C-w>TgT<C-w>p
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> o <CR><C-w>p<C-w>=
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> v <C-w>p<C-w>v<C-w>b<CR><C-w>=
+  autocmd BufReadPost quickfix
+        \ nnoremap <silent> <buffer> s <C-w>p<C-w>s<C-w>b<CR><C-w>=
+
+  autocmd BufReadPost quickfix setlocal nonumber
+
+  autocmd FileType quickfix call AdjustWindowHeight(5, 20)
+augroup END
+
+nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
+nmap <silent> <leader>l :call ToggleLocationList()<cr>
+" }}}
 " }}}
 " {{{ ===| Plugins |============================================================
 " {{{ ---| Surround |---------------------------------------
@@ -618,25 +643,6 @@ nmap <leader>R :Greplace<cr>
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
-
-augroup quickfix
-  autocmd!
-
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer>   <c-w><cr><c-w>T
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> t <C-w><CR><C-w>TgT<C-w>p
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> o <CR><C-w>p<C-w>=
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> v <C-w>p<C-w>v<C-w>b<CR><C-w>=
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> s <C-w>p<C-w>s<C-w>b<CR><C-w>=
-
-  autocmd BufReadPost quickfix setlocal nonumber
-
-  autocmd FileType quickfix call AdjustWindowHeight(5, 20)
-augroup END
 
 nmap <leader>a :Ag! ""<left>
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
@@ -822,9 +828,6 @@ map È :!
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
-" Quickfix / Location togglers
-nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
-nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Toggle highlight current word
 nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Toggle line wrap
