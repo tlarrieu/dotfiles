@@ -182,6 +182,7 @@ set -x PATH $PATH /Library/PostgreSQL/9.4/bin
 set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin/
 set -x PATH $PATH ~/.cabal/bin
+set -x PATH $PATH ~/Elm-Platform/0.15/bin/
 
 # Fish theme
 set -g fish_theme clearance
