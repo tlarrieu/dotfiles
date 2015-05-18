@@ -1,29 +1,29 @@
-#!/bin/sh
+#!/bin/bash --login
 
 SESSION=$(basename $(pwd) | sed -e "s/\./_/g")
 
 tmux has-session -t $SESSION
 if [ $? -eq 0 ]; then
-    echo "Session $SESSION already exists. Attaching."
-    sleep 1
-    tmux attach -t $SESSION
-    exit 0;
+  echo "Session $SESSION already exists. Attaching."
+  sleep 1
+  tmux attach -t $SESSION
+  exit 0;
 fi
 
+rvm use default
+
+echo "Session $SESSION does not exist. Starting."
 tmux new-session -d -s $SESSION
 
 tmux set-window-option -t $SESSION -g automatic-rename off
 # tmux new-window -t $SESSION:1 -k -n todo 'vim ~/todo.tasks; fish'
 if [ -f config/environment.rb ]; then
-  tmux new-window -t $SESSION:1 -n rc  'rails console'
+  tmux new-window -t $SESSION:1 -n rc  'bin/rails console'
 else
   tmux new-window -t $SESSION:1 -n pry 'pry'
 fi
-tmux new-window -t $SESSION:2 -n vim  'vim; fish'
-tmux new-window -t $SESSION:3 -n shell
-if [ -f config/environment.rb ]; then
-  tmux new-window -t $SESSION:4 -n rs  'rails server'
-fi
+tmux new-window -t $SESSION:2 -n vi  'vim; fish'
+tmux new-window -t $SESSION:3 -n sh
 
 tmux set-window-option -t $SESSION -g automatic-rename on
 tmux select-window -t $SESSION:1
