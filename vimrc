@@ -87,8 +87,9 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-Plug 'alfredodeza/jacinto.vim'
-Plug 'leshill/vim-json'
+Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
+Plug 'leshill/vim-json', { 'for' : 'json' }
+Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 " }}}
 " {{{ ---| VCS |---------------------------
 Plug 'tpope/vim-fugitive'
@@ -801,7 +802,6 @@ nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 nnoremap Y y$
 " Command line
 map è :
-map qè q:
 map È :!
 " }}}
 " {{{ ---| Mode Switching |---------------------------------
@@ -870,7 +870,6 @@ noremap 0 *
 " }}}
 " {{{ ---| Search & Replace |-------------------------------
 noremap é /
-noremap qé q/
 map <silent> É :nohlsearch<cr><c-l>
 
 nmap s :%s/
