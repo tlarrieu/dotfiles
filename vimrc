@@ -74,7 +74,7 @@ Plug 'fatih/vim-go', { 'for' : 'go' }
 " }}}
 " {{{ ---| SQL |---------------------------
 Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
-Plug 'exu/pgsql.vim', { 'for' : 'sql' }
+Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ ---| Markdown |----------------------
 Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
@@ -574,7 +574,11 @@ let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
 augroup SQL
   autocmd!
-  autocmd BufRead vim-simpledb-result.txt setf sql
+  " For syntax coloring purposes
+  autocmd BufEnter vim-simpledb-result.txt setf postgresql
+  " Disable a bunch of visual feedback as this is generated content anyway
+  autocmd BufReadPost vim-simpledb-result.txt match OverLength NULL
+  autocmd BufReadPost vim-simpledb-result.txt setlocal nolist
 augroup end
 " }}}
 " {{{ ---| Signature |--------------------------------------
@@ -739,6 +743,10 @@ noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
 noremap <c-w><c-r> <c-w>L
+" Horizontal Split
+nmap <leader>nn :new<cr>
+nmap <leader>ne :new <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
+nmap <leader>N :new<space>
 " Vertical split
 nmap <leader>vv :vnew<cr>
 nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
