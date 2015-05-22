@@ -2,11 +2,12 @@ syntax match elmNiceOperator ">=" conceal cchar=≥
 syntax match elmNiceOperator "<=" conceal cchar=≤
 syntax match elmNiceOperator "->" conceal cchar=→
 syntax match elmNiceOperator "<-" conceal cchar=←
-syntax match elmNiceOperator "=>" conceal cchar=⇒
-syntax match elmNiceOperator "<=>" conceal cchar=⇔
+syntax match elmNiceOperator "<\~" conceal cchar=↜
+syntax match elmNiceOperator "\~" conceal cchar=∼
 syntax match elmNiceOperator "/=" conceal cchar=≠
 syntax match elmNiceOperator " \zs\*\ze " conceal cchar=×
 syntax match elmNiceOperator " \zs\/\ze " conceal cchar=÷
+syntax match elmNiceOperator " \zs\/\/\ze " conceal cchar=⊘
 syntax match elmNiceOperator "==" conceal cchar=≡
 syntax match elmNiceOperator "&&" conceal cchar=∧
 syntax match elmNiceOperator "||" conceal cchar=∨
