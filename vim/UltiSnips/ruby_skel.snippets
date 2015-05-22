@@ -85,34 +85,37 @@ snippet _shop "Shop" s
 module ShopmiumShops
 	module Sources
 		class `!p snip.rv = camelize(snip.basename)` < Base
+      OPTIONS = { col_sep: ';', encoding: 'UTF-8', quote_char: '"' }
 
 			STORE_ID = 0
-			CHAIN = 1
-			NAME = 2
-			ADDRESS = 3
-			ZIP = 4
-			CITY = 5
-			PHONE = 6
-			LAT = 7
-			LNG = 8
+			NAME = 1
+			ADDRESS = 2
+			ZIP = 3
+			CITY = 4
+			LAT = 5
+			LNG = 6
+			CHAIN = 7
+			HOURS = 8
+			PHONE = 9
 
 			def initialize
 				@path = './input/`!p snip.rv = snip.basename`/`!p snip.rv = snip.basename`.csv'
 			end
 
 			def each
-        CSV.foreach(@path, {col_sep: ',', encoding: 'UTF-8', quote_char: '"' }) do |row|
+        CSV.foreach(@path, OPTIONS) do |row|
           yield Shop.new(
             key: ${7:key(row)},
             store_id: ${8:row[STORE_ID]},
-            chain: ${9:row[CHAIN]},
-            name: ${10:row[NAME]},
-            address: ${11:row[ADDRESS]},
-            zip: ${12:row[ZIP]},
-            city: ${13:row[CITY]},
-            phone: ${14:row[PHONE]},
+            name: ${9:row[NAME]},
+            address: ${10:row[ADDRESS]},
+            zip: ${11:row[ZIP]},
+            city: ${12:row[CITY]},
             x: ${13:row[LAT]},
             y: ${14:row[LNG]},
+            chain: ${15:row[CHAIN]},
+            hours: ${16:row[HOURS]},
+            phone: ${17:row[PHONE]},
             country_code: ${0:'fr'}
           )
         end
