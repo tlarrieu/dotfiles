@@ -633,11 +633,6 @@ let g:syntastic_haskell_checkers = ['hdevtools', 'hlint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
-augroup lint
-  autocmd!
-  autocmd FileType ruby nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
-  autocmd FileType scss nmap <buffer> <leader>L :SyntasticCheck scss_lint<cr>
-augroup end
 " }}}
 " {{{ ---| Greplace |---------------------------------------
 set grepprg=ag\ --line-numbers\ --noheading
