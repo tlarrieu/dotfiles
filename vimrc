@@ -678,8 +678,8 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:40'
 let g:ctrlp_open_new_file = 't'
 " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_map = '<c-q>'
-map <c-h> :<c-u>CtrlPBufTag<cr>
+let g:ctrlp_map = '<c-t>'
+map <c-s> :<c-u>CtrlPBufTag<cr>
 map <leader><leader> :CtrlPTag<cr>
 nmap <backspace> :<c-u>CtrlPClearCache<cr>
 let g:ctrlp_prompt_mappings = {
@@ -791,9 +791,6 @@ cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
 map ç ^
-" left / right / down (visual line) / up (visual line)
-map <c-t> j
-map <c-s> k
 " Split lines
 noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
