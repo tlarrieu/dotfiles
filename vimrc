@@ -577,7 +577,7 @@ augroup SQL
   " For syntax coloring purposes
   autocmd BufEnter vim-simpledb-result.txt setf postgresql
   " Disable a bunch of visual feedback as this is generated content anyway
-  autocmd BufReadPost vim-simpledb-result.txt match OverLength NULL
+  autocmd BufReadPost vim-simpledb-result.txt highlight! link OverLength NULL
   autocmd BufReadPost vim-simpledb-result.txt setlocal nolist
 augroup end
 " }}}
