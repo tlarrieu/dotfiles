@@ -6,31 +6,31 @@
 set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
-" {{{ ===| vim-plug |===========================================================
+" {{{ ==| vim-plug |============================================================
 set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
-" {{{ ---| File Manipulation |-------------
+" {{{ --| File Manipulation |--------------
 Plug 'kien/ctrlp.vim'
 Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
 " }}}
-" {{{ ---| Functionnalities |--------------
+" {{{ --| Functionnalities |---------------
 Plug 'tpope/vim-dispatch'
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'tpope/vim-vinegar'
 Plug 'AndrewRadev/linediff.vim'
 " }}}
-" {{{ ---| Snippets |----------------------
+" {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 " }}}
-" {{{ ---| Project config |----------------
+" {{{ --| Project config |-----------------
 Plug 'tpope/vim-projectionist'
 " }}}
-" {{{ ---| Text manipulation |-------------
+" {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
 Plug 'tpope/vim-commentary'
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -39,7 +39,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular'
 " }}}
-" {{{ ---| Text objects |------------------
+" {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
@@ -48,41 +48,41 @@ Plug 'wellle/targets.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'kana/vim-textobj-function'
 " }}}
-" {{{ ---| Task manager |------------------
+" {{{ --| Task manager |-------------------
 Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 " }}}
-" {{{ ---| Undo tree explorer |------------
+" {{{ --| Undo tree explorer |-------------
 " Plug 'sjl/gundo.vim'
 " }}}
-" {{{ ---| List toggler |------------------
+" {{{ --| List toggler |-------------------
 Plug 'milkypostman/vim-togglelist'
 " }}}
-" {{{ ---| Ruby |--------------------------
+" {{{ --| Ruby |---------------------------
 Plug 'janko-m/vim-test'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'
 Plug 'tpope/vim-rails'
 " }}}
-" {{{ ---| HTML |--------------------------
+" {{{ --| HTML |---------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " }}}
-" {{{ ---| Haskell |-----------------------
+" {{{ --| Haskell |------------------------
 Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
 " }}}
-" {{{ ---| Go lang |-----------------------
+" {{{ --| Go lang |------------------------
 Plug 'fatih/vim-go', { 'for' : 'go' }
 " }}}
-" {{{ ---| SQL |---------------------------
+" {{{ --| SQL |----------------------------
 Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
-" {{{ ---| Markdown |----------------------
+" {{{ --| Markdown |-----------------------
 Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
 Plug 'greyblake/vim-preview', { 'for' : 'markdown' }
 " }}}
-" {{{ ---| Misc languages support |--------
+" {{{ --| Misc languages support |---------
 Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
 Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
@@ -93,22 +93,22 @@ Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'leshill/vim-json', { 'for' : 'json' }
 Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 " }}}
-" {{{ ---| VCS |---------------------------
+" {{{ --| VCS |----------------------------
 Plug 'tpope/vim-fugitive'
 Plug 'phleet/vim-mercenary'
 Plug 'zeekay/vim-lawrencium'
 Plug 'mhinz/vim-signify'
 " }}}
-" {{{ ---| Syntax checking |---------------
+" {{{ --| Syntax checking |----------------
 Plug 'scrooloose/syntastic'
 " }}}
-" {{{ ---| Good looking |------------------
+" {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 Plug 'sjl/vitality.vim'
 " }}}
-" {{{ ---| Colors |------------------------
+" {{{ --| Colors |-------------------------
 Plug 'KabbAmine/vCoolor.vim'              " Picker
 Plug 'chrisbra/Colorizer'                 " Highlighter
 " }}}
@@ -119,7 +119,7 @@ filetype on
 syntax on
 filetype plugin indent on
 " }}}
-" {{{ ===| File Related |=======================================================
+" {{{ ==| File Related |========================================================
 augroup vimrc_autocmd
   autocmd!
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
@@ -154,7 +154,7 @@ augroup NoSimultaneousEdits
   autocmd SwapExists * sleep 1
 augroup END
 " }}}
-" {{{ ===| General options |====================================================
+" {{{ ==| General options |=====================================================
 let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
@@ -269,19 +269,19 @@ set lazyredraw
 " Improve redrawing
 set ttyfast
 " }}}
-" {{{ ===| Splits |=============================================================
+" {{{ ==| Splits |==============================================================
 highlight! link VertSplit CursorColumn
 set splitright
 set splitbelow
 set fillchars+=vert:\ 
 " }}}
-" {{{ ===| Scrolling |==========================================================
+" {{{ ==| Scrolling |===========================================================
 set scrolloff=8
 let &scrolloff=999-&scrolloff
 set sidescrolloff=15
 set sidescroll=1
 " }}}
-" {{{ ===| Indent |=============================================================
+" {{{ ==| Indent |==============================================================
 set autoindent
 set smartindent
 set tabstop=2
@@ -289,7 +289,7 @@ set shiftwidth=2
 set expandtab
 set shiftround
 " }}}
-" {{{ ===| Folding |============================================================
+" {{{ ==| Folding |=============================================================
 set foldcolumn=0
 set foldclose=
 set foldmethod=indent
@@ -301,7 +301,7 @@ set foldtext=FoldText()
 nmap <leader>z zMzv
 nnoremap zO zczO
 " }}}
-" {{{ ===| Searching |==========================================================
+" {{{ ==| Searching |===========================================================
 " case behavior regarding searching
 set ignorecase
 set smartcase
@@ -313,10 +313,10 @@ highlight! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
 highlight! IncSearchMatch
       \ ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
 " }}}
-" {{{ ===| Spellchecking |======================================================
+" {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
 " }}}
-" {{{ ===| Status / Tab line |==================================================
+" {{{ ==| Status / Tab line |===================================================
 set showtabline=2 " Always display tabline
 set laststatus=2  " Always display statusline
 set noshowmode
@@ -526,7 +526,7 @@ augroup StatusLine
 augroup END
 
 nmap <silent> <leader>h :call SwitchStatus()<cr>
-" {{{ ===| Quickfix / Location |================================================
+" {{{ ==| Quickfix / Location |=================================================
 augroup quickfix
   autocmd!
 
@@ -550,28 +550,28 @@ nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " }}}
 " }}}
-" {{{ ===| Plugins |============================================================
-" {{{ ---| Surround |---------------------------------------
+" {{{ ==| Plugins |=============================================================
+" {{{ --| Surround |----------------------------------------
 let g:surround_no_insert_mappings = 1
 let g:surround_35 = "<%# \r %>"
 let g:surround_37 = "<% \r %>"
 let g:surround_61 = "<%= \r %>"
 " }}}
-" {{{ ---| Tabular |----------------------------------------
+" {{{ --| Tabular |-----------------------------------------
 vmap <leader>t :Tabular /
 " }}}
-" {{{ ---| Thesaurus |--------------------------------------
+" {{{ --| Thesaurus |---------------------------------------
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
-" {{{ ---| Emmet |------------------------------------------
+" {{{ --| Emmet |-------------------------------------------
 let g:user_emmet_leader_key=','
 let g:use_emmet_complete_tag = 1
 let g:user_emmet_settings = {
   \   'indentation' : '  '
   \ }
 " }}}
-" {{{ ---| SimpleDB |---------------------------------------
+" {{{ --| SimpleDB |----------------------------------------
 let g:sql_type_default = 'mysql'
 let g:omni_sql_no_default_maps = 1
 augroup SQL
@@ -583,7 +583,7 @@ augroup SQL
   autocmd BufReadPost vim-simpledb-result.txt setlocal nolist
 augroup end
 " }}}
-" {{{ ---| Signature |--------------------------------------
+" {{{ --| Signature |---------------------------------------
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
   \ 'PlaceNextMark'      :  "m,",
@@ -606,18 +606,18 @@ let g:SignatureMap = {
   \ 'ListLocalMarks'     :  ""
   \ }
 " }}}
-" {{{ ---| vCoolor |----------------------------------------
+" {{{ --| vCoolor |-----------------------------------------
 nmap <leader>C :<c-u>VCoolor<cr>
 nmap <leader>c :ColorToggle<cr>
 " }}}
-" {{{ ---| Disptach |---------------------------------------
+" {{{ --| Disptach |----------------------------------------
 nmap <leader>f :Dispatch<cr>
 nmap <leader>F :<c-u>Focus  %<left><left>
 " }}}
-" {{{ ---| vim-test |---------------------------------------
+" {{{ --| vim-test |----------------------------------------
 let g:test#strategy = 'dispatch'
 " }}}
-" {{{ ---| Targets |----------------------------------------
+" {{{ --| Targets |-----------------------------------------
 let g:targets_pairs = '()b {}é []d <>É'
 let g:targets_argTrigger = 'c'
 " By default, we want to delete only the ACTUAL parameter
@@ -626,7 +626,7 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
-" {{{ ---| Syntastic |--------------------------------------
+" {{{ --| Syntastic |---------------------------------------
 let g:syntastic_javascript_checkers = ['jsl']
 let g:syntastic_ruby_checkers = ['mri']
 let g:syntastic_javascript_ruboconf_conf = "~/.rubocop.yml"
@@ -636,12 +636,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_stl_format = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
 " }}}
-" {{{ ---| Greplace |---------------------------------------
+" {{{ --| Greplace |----------------------------------------
 set grepprg=ag\ --line-numbers\ --noheading
 nmap <leader>A :Gqfopen<cr><c-w>T
 nmap <leader>R :Greplace<cr>
 " }}}
-" {{{ ---| Ag |---------------------------------------------
+" {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
@@ -651,13 +651,13 @@ nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 " }}}
-" {{{ ---| UltiSnips |--------------------------------------
+" {{{ --| UltiSnips |---------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<c-t>"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>"
 " }}}
-" {{{ ---| Taboo |------------------------------------------
+" {{{ --| Taboo |-------------------------------------------
 let g:taboo_tab_format =  " %N %f%m "
 let g:taboo_renamed_tab_format =  " %N (%l)%m "
 let g:taboo_modified_tab_flag = " ∙"
@@ -666,7 +666,7 @@ let g:taboo_unnamed_tab_label = "…"
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
-" {{{ ---| CtrlP |------------------------------------------
+" {{{ --| CtrlP |-------------------------------------------
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_switch_buffer = 'ET'
@@ -687,11 +687,11 @@ let g:ctrlp_prompt_mappings = {
   \ }
 highlight! CtrlPMatch ctermfg=5 guifg=#d33682
 " }}}
-" {{{ ---| Signify |----------------------------------------
+" {{{ --| Signify |-----------------------------------------
 let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
 " }}}
-" {{{ ---| Fugitive / Mercenary / Lawrencium |--------------
+" {{{ --| Fugitive / Mercenary / Lawrencium |---------------
 function! HgBranchStatus()
   silent tabnew /dev/null
   normal ggdG
@@ -722,18 +722,18 @@ vmap <leader>d :Linediff<cr>
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nmap <leader><tab> :call SwitchVCS()<cr>
-" {{{ ===| Various keyboard mapping |===========================================
-" {{{ ---| Exercism.io |------------------------------------
+" {{{ ==| Various keyboard mapping |============================================
+" {{{ --| Exercism.io |-------------------------------------
 nmap <silent> <leader>xf :Dispatch exercism f<cr>
 nmap <silent> <leader>xs :Dispatch exercism s %<cr>
 " }}}
-" {{{ ---| Buffers |----------------------------------------
+" {{{ --| Buffers |-----------------------------------------
 set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
 nmap <leader>. :call DeleteHiddenBuffers()<cr>
 " }}}
-" {{{ ---| Splits / Tabs |----------------------------------
+" {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
 nmap <leader>, <c-w>w
@@ -777,7 +777,7 @@ nnoremap <leader>/ 9gt
 nmap <leader>U <c-w>T
 nmap <leader>u :call MergeTabs()<cr>
 " }}}
-" {{{ ---| Movement |---------------------------------------
+" {{{ --| Movement |----------------------------------------
 " Diffs
 map ß [c
 map þ ]c
@@ -813,7 +813,7 @@ nnoremap Y y$
 map è :
 map È :!
 " }}}
-" {{{ ---| Mode Switching |---------------------------------
+" {{{ --| Mode Switching |----------------------------------
 " Normal mode
 set noesckeys
 cmap <esc> <c-c>
@@ -833,7 +833,7 @@ map È :!
 " Select current line charwise
 " nnoremap vv ^v$h
 " }}}
-" {{{ ---| Togglers |---------------------------------------
+" {{{ --| Togglers |----------------------------------------
 " Rename file
 command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
@@ -852,7 +852,7 @@ nmap <silent> <leader>i m'gg=Gg`'
 " Cursorline / Cursorcolumn
 nmap <leader>g :set cuc! \| set cul!<cr>
 " }}}
-" {{{ ---| Swap number line |-------------------------------
+" {{{ --| Swap number line |--------------------------------
 " It is more convenient to access numbers directly when in normal mode
 noremap " 1
 noremap 1 "
@@ -877,7 +877,7 @@ noremap 9 /
 noremap * 0
 noremap 0 *
 " }}}
-" {{{ ---| Search & Replace |-------------------------------
+" {{{ --| Search & Replace |--------------------------------
 noremap é /
 map <silent> É :nohlsearch<cr><c-l>
 
@@ -890,7 +890,7 @@ nmap <c-p> :cprev<cr>
 
 command! NONASCII /[^\x00-\x7F]
 " }}}
-" {{{ ---| Quick Editing |----------------------------------
+" {{{ --| Quick Editing |-----------------------------------
 function! OpenSchemaFile()
   if filereadable('db/structure.sql')
     tabe db/structure.sql
@@ -919,10 +919,10 @@ nmap <leader># :e #<cr>
 
 nmap <leader>$ :so $MYVIMRC<cr>
 " }}}
-" {{{ ---| Convenience Mapping |----------------------------
+" {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
 cnoremap %% <c-r>=expand('%:p:h')<cr>
 nnoremap dD "_dd
 " }}}
-" {{{ ===| Abbreviations |======================================================
+" {{{ ==| Abbreviations |=======================================================
 " }}}
