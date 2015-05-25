@@ -9,6 +9,8 @@ setlocal iskeyword+=!
 nnoremap <buffer> <leader><return> :TestFile<cr>
 nnoremap <buffer> <return> :TestNearest<cr>
 
+nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+
 let b:switch_custom_definitions =
   \[
   \  ['&&', '||'],
