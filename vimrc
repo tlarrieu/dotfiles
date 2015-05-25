@@ -779,8 +779,13 @@ nmap <leader>u :call MergeTabs()<cr>
 " }}}
 " {{{ ---| Movement |---------------------------------------
 " Diffs
-map þ ]c
 map ß [c
+map þ ]c
+nmap <up> [c
+nmap <down> ]c
+" Marks
+noremap ' `
+noremap ` '
 " Command line / Search
 cmap <c-t> <down>
 cmap <c-s> <up>
