@@ -2,6 +2,14 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
+snippet -- "Line comment"
+# --| ${1} |--------------------------------------------------------------------
+endsnippet
+
+snippet == "Thick line comment"
+# ==| ${1} |====================================================================
+endsnippet
+
 snippet d "def"
 def ${1:function_name}${2:(${3:*args})}
 	$0
