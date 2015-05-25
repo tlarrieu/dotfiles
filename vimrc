@@ -21,6 +21,7 @@ Plug 'duggiefresh/vim-easydir'
 Plug 'tpope/vim-dispatch'
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'tpope/vim-vinegar'
+Plug 'AndrewRadev/linediff.vim'
 " }}}
 " {{{ ---| Snippets |----------------------
 Plug 'SirVer/ultisnips'
@@ -61,6 +62,7 @@ Plug 'janko-m/vim-test'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'
+Plug 'tpope/vim-rails'
 " }}}
 " {{{ ---| HTML |--------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
@@ -714,6 +716,8 @@ function! SwitchVCS()
     let g:next_vcs = 'mercurial'
   endif
 endfunction
+
+vmap <leader>d :Linediff<cr>
 
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
