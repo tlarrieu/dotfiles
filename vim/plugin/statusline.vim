@@ -2,6 +2,14 @@ set showtabline=2 " Always display tabline
 set laststatus=2  " Always display statusline
 set noshowmode
 
+let s:whitespace_symbol = ' ⌫ '
+let s:whitespace_default_checks = ['indent', 'trailing']
+let s:whitespace_trailing_format = 'trailing[%s]'
+let s:whitespace_mixed_indent_format = 'mixed-indent[%s]'
+let s:whitespace_indent_algo = 1
+let s:whitespace_max_lines = 3000
+let s:status_type = 'normal'
+
 function! Highlight()
   highlight! StatusLine  ctermfg=32 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
   highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
@@ -75,15 +83,8 @@ function! Syntastic()
   return ' ' . syntastic
 endfunction
 
-let g:whitespace_symbol = ' ⌫ '
-let g:whitespace_default_checks = ['indent', 'trailing']
-let g:whitespace_trailing_format = 'trailing[%s]'
-let g:whitespace_mixed_indent_format = 'mixed-indent[%s]'
-let g:whitespace_indent_algo = 1
-let g:whitespace_max_lines = 3000
-
 function! CheckMixedIndent()
-  if g:whitespace_indent_algo == 1
+  if s:whitespace_indent_algo == 1
     " [<tab>]<space><tab>
     " spaces before or between tabs are not allowed
     let t_s_t = '(^\t* +\t\s*\S)'
@@ -97,12 +98,12 @@ function! CheckMixedIndent()
 endfunction
 
 function! Whitespace()
-  if &readonly || !&modifiable || line('$') > g:whitespace_max_lines
+  if &readonly || !&modifiable || line('$') > s:whitespace_max_lines
     return ''
   endif
 
   if !exists('b:whitespace_check')
-    let checks = g:whitespace_default_checks
+    let checks = s:whitespace_default_checks
     let trailing = 0
     let mixed = 0
 
@@ -120,13 +121,13 @@ function! Whitespace()
     if trailing != 0 || mixed != 0
       if trailing != 0
         let b:whitespace_check .=
-            \' ' . printf(g:whitespace_trailing_format, trailing)
+            \' ' . printf(s:whitespace_trailing_format, trailing)
       endif
       if mixed != 0
         let b:whitespace_check .=
-            \' ' . printf(g:whitespace_mixed_indent_format, mixed)
+            \' ' . printf(s:whitespace_mixed_indent_format, mixed)
       endif
-      let b:whitespace_check .= g:whitespace_symbol
+      let b:whitespace_check .= s:whitespace_symbol
     endif
   endif
   return b:whitespace_check
@@ -137,7 +138,6 @@ function! WhitespaceReset()
   unlet b:whitespace_check
 endfunction
 
-
 function! ShortStatus()
   setlocal statusline=
   setlocal statusline+=%t
@@ -145,7 +145,7 @@ function! ShortStatus()
 endfunction
 
 function! Status()
-  if g:status_type == 'normal'
+  if s:status_type == 'normal'
     setlocal statusline=
     setlocal statusline+=%2*%t%*
     setlocal statusline+=%1*%{Modified()}%*
@@ -180,15 +180,13 @@ function! Status()
 endfunction
 
 function! SwitchStatus()
-  if g:status_type == 'normal'
-    let g:status_type = 'full'
+  if s:status_type == 'normal'
+    let s:status_type = 'full'
   else
-    let g:status_type = 'normal'
+    let s:status_type = 'normal'
   end
   call Status()
 endfunction
-
-let g:status_type = 'normal'
 
 call NoHighlight()
 call Status()
@@ -201,6 +199,7 @@ augroup StatusLine
 
   autocmd BufEnter * call Status()
   autocmd WinEnter * call Status()
+
   autocmd WinLeave * call ShortStatus()
 
   autocmd BufWritePost * call WhitespaceReset()
