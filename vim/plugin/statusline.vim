@@ -135,38 +135,46 @@ function! ShortStatus()
   setlocal statusline+=%4*%{Modified()}%*
 endfunction
 
+function! NormalStatus()
+  setlocal statusline=
+  setlocal statusline+=%2*%t%*
+  setlocal statusline+=%1*%{Modified()}%*
+  setlocal statusline+=%#warningmsg#
+  setlocal statusline+=%{Syntastic()}
+  setlocal statusline+=%{Whitespace()}
+  setlocal statusline+=%*
+  setlocal statusline+=%{Paste()}
+  setlocal statusline+=%{RO()}
+  setlocal statusline+=%=
+  setlocal statusline+=\ %h%w
+  setlocal statusline+=%y\ 
+  setlocal statusline+=⭡\ %l,%v\ %P
+endfunction
+
+function! FullStatus()
+  setlocal statusline=
+  setlocal statusline+=%3*%{VCSBranch()}%*
+  setlocal statusline+=%2*%f%*
+  setlocal statusline+=%1*%{Modified()}%*
+  setlocal statusline+=%#warningmsg#
+  setlocal statusline+=%{Syntastic()}
+  setlocal statusline+=%{Whitespace()}
+  setlocal statusline+=%*
+  setlocal statusline+=%{Paste()}
+  setlocal statusline+=%{RO()}
+  setlocal statusline+=%=
+  setlocal statusline+=\ %h%w
+  setlocal statusline+=%y
+  setlocal statusline+=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]
+  setlocal statusline+=\ 
+  setlocal statusline+=⭡\ %l,%v\ %P
+endfunction
+
 function! Status()
   if s:status_type == 'normal'
-    setlocal statusline=
-    setlocal statusline+=%2*%t%*
-    setlocal statusline+=%1*%{Modified()}%*
-    setlocal statusline+=%#warningmsg#
-    setlocal statusline+=%{Syntastic()}
-    setlocal statusline+=%{Whitespace()}
-    setlocal statusline+=%*
-    setlocal statusline+=%{Paste()}
-    setlocal statusline+=%{RO()}
-    setlocal statusline+=%=
-    setlocal statusline+=\ %h%w
-    setlocal statusline+=%y\ 
-    setlocal statusline+=⭡\ %l,%v\ %P
+    call NormalStatus()
   else
-    setlocal statusline=
-    setlocal statusline+=%3*%{VCSBranch()}%*
-    setlocal statusline+=%2*%f%*
-    setlocal statusline+=%1*%{Modified()}%*
-    setlocal statusline+=%#warningmsg#
-    setlocal statusline+=%{Syntastic()}
-    setlocal statusline+=%{Whitespace()}
-    setlocal statusline+=%*
-    setlocal statusline+=%{Paste()}
-    setlocal statusline+=%{RO()}
-    setlocal statusline+=%=
-    setlocal statusline+=\ %h%w
-    setlocal statusline+=%y
-    setlocal statusline+=[%{strlen(&fenc)?&fenc:'none'},%{&ff}]
-    setlocal statusline+=\ 
-    setlocal statusline+=⭡\ %l,%v\ %P
+    call FullStatus()
   end
 endfunction
 
