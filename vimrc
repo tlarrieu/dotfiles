@@ -526,29 +526,6 @@ augroup StatusLine
 augroup END
 
 nmap <silent> <leader>h :call SwitchStatus()<cr>
-" {{{ ==| Quickfix / Location |=================================================
-augroup quickfix
-  autocmd!
-
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer>   <c-w><cr><c-w>T
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> t <C-w><CR><C-w>TgT<C-w>p
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> o <CR><C-w>p<C-w>=
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> v <C-w>p<C-w>v<C-w>b<CR><C-w>=
-  autocmd BufReadPost quickfix
-        \ nnoremap <silent> <buffer> s <C-w>p<C-w>s<C-w>b<CR><C-w>=
-
-  autocmd BufReadPost quickfix setlocal nonumber
-
-  autocmd FileType quickfix call AdjustWindowHeight(5, 20)
-augroup END
-
-nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
-nmap <silent> <leader>l :call ToggleLocationList()<cr>
-" }}}
 " }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| Surround |----------------------------------------
@@ -722,6 +699,8 @@ vmap <leader>d :Linediff<cr>
 let g:next_vcs = 'mercurial'
 call SwitchVCS()
 nmap <leader><tab> :call SwitchVCS()<cr>
+" }}}
+" }}}
 " {{{ ==| Various keyboard mapping |============================================
 " {{{ --| Exercism.io |-------------------------------------
 nmap <silent> <leader>xf :Dispatch exercism f<cr>
@@ -851,6 +830,9 @@ nmap <silent> <leader>k
 nmap <silent> <leader>i m'gg=Gg`'
 " Cursorline / Cursorcolumn
 nmap <leader>g :set cuc! \| set cul!<cr>
+" Quickfix / Location list
+nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
+nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " }}}
 " {{{ --| Swap number line |--------------------------------
 " It is more convenient to access numbers directly when in normal mode
@@ -923,6 +905,7 @@ nmap <leader>$ :so $MYVIMRC<cr>
 vmap <leader>s :sort<cr>
 cnoremap %% <c-r>=expand('%:p:h')<cr>
 nnoremap dD "_dd
+" }}}
 " }}}
 " {{{ ==| Abbreviations |=======================================================
 " }}}
