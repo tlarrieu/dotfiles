@@ -10,6 +10,11 @@ let s:whitespace_indent_algo = 1
 let s:whitespace_max_lines = 3000
 let s:status_type = 'normal'
 
+let s:paste_glyphe = '⌘'
+let s:readonly_glyphe = '⭤'
+let s:modified_glyphe = '∙'
+let s:branch_glyphe = '⭠'
+
 function! Highlight()
   highlight! StatusLine  ctermfg=32 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
   highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
@@ -51,22 +56,22 @@ function! StatusIf(glyphe, condition)
 endfunction
 
 function! Paste()
-  return StatusIf(' ⌘ ', &paste)
+  return StatusIf(' ' . s:paste_glyphe . ' ', &paste)
 endfunction
 
 function! RO()
-  return StatusIf(' ⭤ ', &ro)
+  return StatusIf(' ' . s:readonly_glyphe . ' ', &ro)
 endfunction
 
 function! Modified()
-  return StatusIf(' ∙', &modified)
+  return StatusIf(' ' . s:modified_glyphe, &modified)
 endfunction
 
 function! VCSBranch()
   let branch = ''
   let branch = lawrencium#statusline() . fugitive#head()
 
-  return StatusIf(' ⭠ ' . branch . ' ', !empty(branch))
+  return StatusIf(' ' . s:branch_glyphe . ' ' . branch . ' ', !empty(branch))
 endfunction
 
 function! Syntastic()
