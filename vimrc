@@ -506,6 +506,8 @@ nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
 nmap <leader>, <c-w>w
 nmap <leader>; <c-w>W
+" Hack to make <c-w><c-c> mapping work
+nmap <c-c> <nop>
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
