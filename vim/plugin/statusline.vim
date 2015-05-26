@@ -43,44 +43,35 @@ function! NoHighlight()
   highlight! User3 ctermfg=14 ctermbg=7
 endfunc
 
-function! Paste()
-  if &paste
-    return ' ⌘ '
-  endif
-  return ''
-endfunction
-
-function! RO()
-  if &ro
-    return ' ⭤ '
+function! StatusIf(glyphe, condition)
+  if a:condition
+    return a:glyphe
   end
   return ''
 endfunction
 
+function! Paste()
+  return StatusIf(' ⌘ ', &paste)
+endfunction
+
+function! RO()
+  return StatusIf(' ⭤ ', &ro)
+endfunction
+
 function! Modified()
-  if &modified
-    return ' ∙'
-  endif
-  return ''
+  return StatusIf(' ∙', &modified)
 endfunction
 
 function! VCSBranch()
   let branch = ''
   let branch = lawrencium#statusline() . fugitive#head()
 
-  if empty(branch)
-    return branch
-  end
-
-  return ' ⭠ ' . branch . ' '
+  return StatusIf(' ⭠ ' . branch . ' ', !empty(branch))
 endfunction
 
 function! Syntastic()
   let syntastic = SyntasticStatuslineFlag()
-  if empty(syntastic)
-    return ''
-  endif
-  return ' ' . syntastic
+  return StatusIf(' ' . syntastic, !empty(syntastic))
 endfunction
 
 function! CheckMixedIndent()
