@@ -194,7 +194,7 @@ if has('gui_running')
         \ gui=standout guifg=#d33682
 elseif &term =~ "xterm\\|rxvt"
   let &t_SI = "\<Esc>]12;#268bd2\x7" " Insert mode
-  let &t_EI = "\<Esc>]12;#93a1a1\x7" " Normal mode
+  let &t_EI = "\<Esc>]12;#d3cebe\x7" " Normal mode
 endif
 
 highlight! Visual ctermfg=7 ctermbg=14
@@ -308,10 +308,8 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-highlight! Search ctermbg=7 ctermfg=2 guifg=#719e07
-highlight! IncSearch ctermbg=7 ctermfg=5 guifg=#d33682
-highlight! IncSearchMatch
-      \ ctermbg=7 ctermfg=5 cterm=reverse guibg=#d33682 guifg=#ffffff
+highlight! Search ctermbg=7 ctermfg=64 guifg=#719e07
+highlight! IncSearch ctermbg=7 ctermfg=166 guifg=#d33682
 " }}}
 " {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
@@ -451,7 +449,7 @@ let g:ctrlp_prompt_mappings = {
   \   'AcceptSelection("h")': ['<c-x>'],
   \   'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
   \ }
-highlight! CtrlPMatch ctermfg=5 guifg=#d33682
+highlight! CtrlPMatch ctermfg=166 guifg=#d33682
 " }}}
 " {{{ --| Signify |-----------------------------------------
 let g:signify_vcs_list = [ 'hg', 'git' ]

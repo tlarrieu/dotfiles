@@ -15,35 +15,36 @@ let s:readonly_glyphe = '⭤'
 let s:modified_glyphe = '∙'
 let s:branch_glyphe = '⭠'
 
-function! Highlight()
-  highlight! StatusLine  ctermfg=32 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
-  highlight! TabLineSel  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
-  highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=32 guibg=#2aa198
+" Not in use anymore, kept for reference
+" function! Highlight()
+"   highlight! StatusLine  ctermfg=125 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
+"   highlight! TabLineSel  cterm=bold ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
+"   highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
 
-  " Modified file marker (active window)
-  highlight! User1 term=bold cterm=bold ctermfg=1 ctermbg=32
-  " Modified file marker (inactive window)
-  highlight! User4 term=bold cterm=bold ctermfg=1 ctermbg=7
-  " Filename
-  highlight! User2 ctermfg=15 ctermbg=32
-  " VCS Branch
-  highlight! User3 ctermfg=15 ctermbg=32
-endfunc
+"   " Modified file marker (active window)
+"   highlight! User1 cterm=bold ctermfg=1 ctermbg=125
+"   " Modified file marker (inactive window)
+"   highlight! User4 cterm=bold ctermfg=1 ctermbg=7
+"   " Filename
+"   highlight! User2 ctermfg=15 ctermbg=125
+"   " VCS Branch
+"   highlight! User3 ctermfg=15 ctermbg=125
+" endfunc
 
 function! NoHighlight()
   highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
   highlight! StatusLine   ctermbg=12 ctermfg=7 guifg=Blue
   highlight! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
-  highlight! TabLine      term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  highlight! TabLineFill  term=NONE cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  highlight! TabLineSel   term=bold cterm=bold ctermfg=32 ctermbg=7 guifg=Blue
+  highlight! TabLine      cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! TabLineFill  cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
+  highlight! TabLineSel   cterm=standout,bold ctermfg=7 ctermbg=166 guifg=Blue
 
   " Modified file marker (active window)
-  highlight! User1 term=bold cterm=bold ctermfg=1 ctermbg=7
+  highlight! User1 cterm=bold ctermfg=1 ctermbg=7
   " Modified file marker (inactive window)
   highlight! link User4 User1
   " Filename
-  highlight! User2 term=bold cterm=bold ctermfg=14 ctermbg=7
+  highlight! User2 cterm=bold ctermfg=14 ctermbg=7
   " VCS Branch
   highlight! User3 ctermfg=14 ctermbg=7
 endfunc
@@ -198,7 +199,7 @@ call Status()
 augroup StatusLine
   autocmd!
 
-  autocmd InsertEnter * call Highlight()
+  " autocmd InsertEnter * call Highlight()
   autocmd InsertLeave * call NoHighlight()
 
   autocmd BufEnter * call Status()
