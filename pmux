@@ -16,11 +16,11 @@ echo "Session $SESSION does not exist. Starting."
 tmux new-session -d -s $SESSION
 
 tmux set-window-option -t $SESSION -g automatic-rename off
-# tmux new-window -t $SESSION:1 -k -n todo 'vim ~/todo.tasks; fish'
+
 if [ -f config/environment.rb ]; then
-  tmux new-window -t $SESSION:1 -n rc  'bin/rails console'
+  tmux new-window -t $SESSION:1 -k -n rc  'bin/rails console'
 else
-  tmux new-window -t $SESSION:1 -n pry 'pry'
+  tmux new-window -t $SESSION:1 -k -n pry 'pry'
 fi
 tmux new-window -t $SESSION:2 -n vi  'vim; fish'
 tmux new-window -t $SESSION:3 -n sh
