@@ -8,7 +8,7 @@ alias v="vim"
 alias vi="vim"
 alias vimrc="vi ~/.vimrc"
 alias vir="vi -R"
-alias vip="vi -c AnsiEsc -c 'syn on' -c 'set nomod' -"
+alias vip="vi -c 'setlocal nomod | setlocal ro' -"
 alias r="ranger"
 
 # Exercism
@@ -41,6 +41,9 @@ alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
 alias dand="cd ~/git/dand.io"
+
+# ls
+alias l="ls"
 
 # SSH agent
 alias kc="keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa"
