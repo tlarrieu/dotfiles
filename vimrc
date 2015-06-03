@@ -51,9 +51,6 @@ Plug 'kana/vim-textobj-function'
 " {{{ --| Task manager |-------------------
 Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 " }}}
-" {{{ --| Undo tree explorer |-------------
-" Plug 'sjl/gundo.vim'
-" }}}
 " {{{ --| List toggler |-------------------
 Plug 'milkypostman/vim-togglelist'
 " }}}
@@ -80,7 +77,6 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Markdown |-----------------------
 Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
-Plug 'greyblake/vim-preview', { 'for' : 'markdown' }
 " }}}
 " {{{ --| Misc languages support |---------
 Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
