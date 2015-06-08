@@ -54,6 +54,7 @@ Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Ruby |---------------------------
+Plug 'kassio/neoterm'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'

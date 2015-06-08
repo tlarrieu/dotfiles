@@ -3,19 +3,11 @@ setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
 
-function! RunTest(line_number)
-  new
-  execute "normal \<c-w>J"
-  execute "normal \<c-w>20_"
-  call termopen('rspec ' . expand('#') . ':' . a:line_number)
-  execute "normal <c-w>p"
-endfunction
-
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
-nnoremap <buffer> <leader><return> :call RunTest(0)<cr>
-nnoremap <buffer> <return> :call RunTest(line('.'))<cr>
+nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
+nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
 
 let g:neomake_ruby_rubocop_maker = {
       \ 'args': ['-D'],
