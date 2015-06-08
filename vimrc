@@ -196,6 +196,8 @@ endif
 highlight! Visual ctermfg=7 ctermbg=14
       \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
 
+highlight! MatchParen term=bold cterm=bold ctermfg=1 ctermbg=NONE
+
 highlight! link SignColumn LineNr
 highlight! CursorLineNr ctermfg=4 ctermbg=7
 " Line numbering (relative and current)
@@ -607,7 +609,7 @@ nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 nmap <leader>w :set wrap!<cr>
 " Uppercase current word
 nmap <c-g> gUiw
-imap <c-g> <esc>lgUiwea
+imap <c-g> <esc>gUiwea
 " Clear trailing spaces (but not the escaped ones)
 nmap <silent> <leader>k
       \ :let _s=@/<Bar>:%s/[^.\\]\zs\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>

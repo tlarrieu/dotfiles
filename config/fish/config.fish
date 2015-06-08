@@ -7,7 +7,7 @@ alias python2="python2.7"
 alias v="nvim"
 alias vimrc="nvim ~/.vimrc"
 alias vir="nvim -R"
-alias vip="nvim -c AnsiEsc -c 'syn on' -c 'set nomod' -"
+alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias r="ranger"
 
 # Exercism
@@ -40,6 +40,9 @@ alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 alias budget="cd ~/git/budget"
 alias dand="cd ~/git/dand.io"
+
+# ls
+alias l="ls"
 
 # SSH agent
 alias kc="keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa"
