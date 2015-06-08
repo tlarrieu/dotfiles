@@ -75,7 +75,8 @@ done
 
 # .vimrc
 safelink $BASEDIR/vimrc $HOME/.vimrc
-safelink $BASEDIR/markdown.css $HOME/markdown.css
+# .nvimrc
+safelink $BASEDIR/nvimrc $HOME/.nvimrc
 # vim-plug
 if [[ -f ~/.vim/autoload/plug.vim ]]; then
   echo "vim-plug already installed, nothing to do."
@@ -83,8 +84,10 @@ else
   curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-#.vim
+# .vim
 safelink $BASEDIR/vim $HOME/.vim
+# .nvim
+safelink $BASEDIR/vim $HOME/.nvim
 # vim-plug
 vim +PlugInstall +qall
 

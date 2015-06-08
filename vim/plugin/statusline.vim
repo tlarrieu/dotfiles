@@ -10,26 +10,25 @@ let s:whitespace_indent_algo = 1
 let s:whitespace_max_lines = 3000
 let s:status_type = 'normal'
 
-let s:paste_glyphe = '⌘'
+let s:paste_glyphe = 'ρ'
 let s:readonly_glyphe = '⭤'
 let s:modified_glyphe = '∙'
 let s:branch_glyphe = '⭠'
 
-" Not in use anymore, kept for reference
-" function! Highlight()
-"   highlight! StatusLine  ctermfg=125 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
-"   highlight! TabLineSel  cterm=bold ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
-"   highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
+function! Highlight()
+  highlight! StatusLine  ctermfg=125 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
+  " highlight! TabLineSel  cterm=bold ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
+  highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
 
-"   " Modified file marker (active window)
-"   highlight! User1 cterm=bold ctermfg=1 ctermbg=125
-"   " Modified file marker (inactive window)
-"   highlight! User4 cterm=bold ctermfg=1 ctermbg=7
-"   " Filename
-"   highlight! User2 ctermfg=15 ctermbg=125
-"   " VCS Branch
-"   highlight! User3 ctermfg=15 ctermbg=125
-" endfunc
+  " Modified file marker (active window)
+  highlight! User1 cterm=bold ctermfg=1 ctermbg=125
+  " Modified file marker (inactive window)
+  highlight! User4 cterm=bold ctermfg=1 ctermbg=7
+  " Filename
+  highlight! User2 ctermfg=15 ctermbg=125
+  " VCS Branch
+  highlight! User3 ctermfg=15 ctermbg=125
+endfunc
 
 function! NoHighlight()
   highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
@@ -75,9 +74,9 @@ function! VCSBranch()
   return StatusIf(' ' . s:branch_glyphe . ' ' . branch . ' ', !empty(branch))
 endfunction
 
-function! Syntastic()
-  let syntastic = SyntasticStatuslineFlag()
-  return StatusIf(' ' . syntastic, !empty(syntastic))
+function! Neomake()
+  let neomake = neomake#statusline#LoclistStatus()
+  return StatusIf(' ' . neomake, !empty(neomake))
 endfunction
 
 function! CheckMixedIndent()
@@ -146,7 +145,7 @@ function! NormalStatus()
   setlocal statusline+=%2*%t%*
   setlocal statusline+=%1*%{Modified()}%*
   setlocal statusline+=%#warningmsg#
-  setlocal statusline+=%{Syntastic()}
+  setlocal statusline+=%{Neomake()}
   setlocal statusline+=%{Whitespace()}
   setlocal statusline+=%*
   setlocal statusline+=%{Paste()}
@@ -163,7 +162,7 @@ function! FullStatus()
   setlocal statusline+=%2*%f%*
   setlocal statusline+=%1*%{Modified()}%*
   setlocal statusline+=%#warningmsg#
-  setlocal statusline+=%{Syntastic()}
+  setlocal statusline+=%{Neomake()}
   setlocal statusline+=%{Whitespace()}
   setlocal statusline+=%*
   setlocal statusline+=%{Paste()}
@@ -199,7 +198,7 @@ call Status()
 augroup StatusLine
   autocmd!
 
-  " autocmd InsertEnter * call Highlight()
+  autocmd InsertEnter * call Highlight()
   autocmd InsertLeave * call NoHighlight()
 
   autocmd BufEnter * call Status()

@@ -4,11 +4,10 @@
 
 # Vim + ranger
 alias python2="python2.7"
-alias v="vim"
-alias vi="vim"
-alias vimrc="vi ~/.vimrc"
-alias vir="vi -R"
-alias vip="vi -c AnsiEsc -c 'syn on' -c 'set nomod' -"
+alias v="nvim"
+alias vimrc="nvim ~/.vimrc"
+alias vir="nvim -R"
+alias vip="nvim -c AnsiEsc -c 'syn on' -c 'set nomod' -"
 alias r="ranger"
 
 # Exercism
@@ -170,7 +169,7 @@ set PGHOST localhost
 
 # EDITOR + TERM
 set -g -x GEDITOR gvim
-set -g -x EDITOR vim
+set -g -x EDITOR nvim
 set -g -x TERM xterm-256color
 
 # Gopath
@@ -184,16 +183,21 @@ set -x PATH $PATH ~/bin/
 set -x PATH $PATH ~/.cabal/bin
 set -x PATH $PATH ~/Elm-Platform/0.15/bin/
 
-# Fish theme
-set -g fish_theme clearance
 set -g theme_display_user yes
-set -g default_user thomaslarrieu
-
-# Oh-my-fish plugins
-set fish_plugins rvm rails rake brew bundler autojump tmux theme
+set -g default_user tlarrieu
 
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
+
+# Oh-my-fish theme
+Theme 'clearance'
+# Oh-my-fish plugins
+Plugin 'rvm'
+Plugin 'rails'
+Plugin 'brew'
+Plugin 'bundler'
+Plugin 'tmux'
+Plugin 'theme'

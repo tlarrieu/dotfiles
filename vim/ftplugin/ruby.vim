@@ -3,13 +3,26 @@ setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
 
+function! RunTest(line_number)
+  new
+  execute "normal \<c-w>J"
+  execute "normal \<c-w>20_"
+  call termopen('rspec ' . expand('#') . ':' . a:line_number)
+  execute "normal <c-w>p"
+endfunction
+
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
-nnoremap <buffer> <leader><return> :TestFile<cr>
-nnoremap <buffer> <return> :TestNearest<cr>
+nnoremap <buffer> <leader><return> :call RunTest(0)<cr>
+nnoremap <buffer> <return> :call RunTest(line('.'))<cr>
 
-nmap <buffer> <leader>L :SyntasticCheck rubocop<cr>
+let g:neomake_ruby_rubocop_maker = {
+      \ 'args': ['-D'],
+      \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+      \ }
+
+let g:neomake_ruby_enabled_makers = ['mri', 'rubocop']
 
 let b:switch_custom_definitions =
   \[
