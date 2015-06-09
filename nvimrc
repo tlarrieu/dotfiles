@@ -12,7 +12,7 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " {{{ --| File Manipulation |--------------
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
 Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
@@ -310,6 +310,51 @@ highlight! IncSearch ctermbg=7 ctermfg=166 guifg=#d33682
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| FZF |---------------------------------------------
+" Standard mode (file list)
+nmap <c-t> :<c-u>FZF<cr>
+
+" Buffer list
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <c-b> :call fzf#run({
+\   'source':  reverse(<sid>buflist()),
+\   'sink':    function('<sid>bufopen'),
+\   'options': '+m --expect=ctrl-t,ctrl-v,ctrl-x',
+\   'down':    len(<sid>buflist()) + 2
+\ })<CR>
+
+" Current buffer narrowing
+function! s:line_handler(l)
+  let keys = split(a:l, ':\t')
+  exec keys[0]
+  normal! ^zz
+endfunction
+
+function! s:buffer_lines()
+  let res = []
+  let bname = bufname('%')
+  call extend(res, map(getbufline(bname,0,"$"), '(v:key + 1) . ":\t" . v:val '))
+  return res
+endfunction
+
+nmap <c-x> :call fzf#run({
+\   'source':  <sid>buffer_lines(),
+\   'sink':    function('<sid>line_handler'),
+\   'options': '--extended --nth=2.. --query=def',
+\   'down':    '30%'
+\})<cr>
+
+" }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
   autocmd!
@@ -414,27 +459,6 @@ let g:taboo_unnamed_tab_label = "…"
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
-" {{{ --| CtrlP |-------------------------------------------
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_switch_buffer = 'ET'
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:20,results:40'
-let g:ctrlp_open_new_file = 't'
-" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_map = '<c-t>'
-map <c-s> :<c-u>CtrlPBufTag<cr>
-map <leader><leader> :CtrlPTag<cr>
-nmap <backspace> :<c-u>CtrlPClearCache<cr>
-let g:ctrlp_prompt_mappings = {
-  \   'PrtSelectMove("j")':   ['<c-t>', '<down>'],
-  \   'PrtSelectMove("k")':   ['<c-s>', '<up>'],
-  \   'AcceptSelection("h")': ['<c-x>'],
-  \   'AcceptSelection("t")': ['<c-cr>', '<nl>', '<c-j>', ' '],
-  \ }
-highlight! CtrlPMatch ctermfg=166 guifg=#d33682
-" }}}
 " {{{ --| Signify |-----------------------------------------
 let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
@@ -450,7 +474,7 @@ command! HgBranchStatus call HgBranchStatus()
 
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
-    nmap <leader>S :Hgstatus<cr>
+    nmap <leader>s :Hgstatus<cr>
     nmap <leader>D :HGdiff ancestor(default,.)<cr>
     nmap <leader>b :HGblame<cr>
     nmap <leader>d :HGdiff<cr>
@@ -460,7 +484,7 @@ function! SwitchVCS()
     nmap <leader>b :Gblame<cr>
     nmap <leader>d :Gvdiff<cr>
     nmap <leader>r :Gread<cr>
-    nmap <leader>S :Gstatus<cr>
+    nmap <leader>s :Gstatus<cr>
     let g:next_vcs = 'mercurial'
   endif
 endfunction
@@ -576,7 +600,7 @@ nnoremap à :q<cr>
 nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
 " Save
-nmap <leader>s :w<cr>
+nmap <c-s> :w<cr>
 " Disable annoying mapping
 map Q <nop>
 " Reselected pasted lines
