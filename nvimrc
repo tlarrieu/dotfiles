@@ -335,7 +335,7 @@ nnoremap <silent> <c-b> :call fzf#run({
 
 " Current buffer narrowing
 function! s:line_handler(l)
-  let keys = split(a:l, ':	')
+  let keys = split(a:l, ' ')
   exec keys[0]
   normal! ^zz
 endfunction
@@ -344,7 +344,10 @@ function! s:def_lines()
   if bufname('%') ==# ''
     return []
   endif
-  let lines = system('grep -n "^\s*def" ' . expand('%:p') . ' | sed -E "s/[[:space:]]*def[[:space:]]/	/"')
+  let grep = 'grep -n "^\s*def"'
+  let awk = "awk '{print $1 $3}'"
+  let column = "column -t -s ':'"
+  let lines = system(grep . ' ' . expand('%:p') . '|' . awk . '|' . column)
   return split(lines, '\n')
 endfunction
 
