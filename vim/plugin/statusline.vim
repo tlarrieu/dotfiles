@@ -74,7 +74,10 @@ function! VCSBranch()
   return StatusIf(' ' . s:branch_glyphe . ' ' . branch . ' ', !empty(branch))
 endfunction
 
-function! Neomake()
+function! Syntax()
+  if !has('nvim')
+    return ''
+  end
   let neomake = neomake#statusline#LoclistStatus()
   return StatusIf(' ' . neomake, !empty(neomake))
 endfunction
@@ -145,7 +148,7 @@ function! NormalStatus()
   setlocal statusline+=%2*%t%*
   setlocal statusline+=%1*%{Modified()}%*
   setlocal statusline+=%#warningmsg#
-  setlocal statusline+=%{Neomake()}
+  setlocal statusline+=%{Syntax()}
   setlocal statusline+=%{Whitespace()}
   setlocal statusline+=%*
   setlocal statusline+=%{Paste()}
@@ -162,7 +165,7 @@ function! FullStatus()
   setlocal statusline+=%2*%f%*
   setlocal statusline+=%1*%{Modified()}%*
   setlocal statusline+=%#warningmsg#
-  setlocal statusline+=%{Neomake()}
+  setlocal statusline+=%{Syntax()}
   setlocal statusline+=%{Whitespace()}
   setlocal statusline+=%*
   setlocal statusline+=%{Paste()}
