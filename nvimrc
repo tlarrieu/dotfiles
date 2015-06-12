@@ -620,7 +620,8 @@ nnoremap à :q<cr>
 nnoremap À :qa<cr>
 nnoremap ê :bd<cr>
 " Save
-nmap <c-s> :w<cr>
+nmap <c-s> :update<cr>
+imap <c-s> <esc>:update<cr>
 " Disable annoying mapping
 map Q <nop>
 " Reselected pasted lines
