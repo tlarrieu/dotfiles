@@ -335,22 +335,23 @@ nnoremap <silent> <c-b> :call fzf#run({
 
 " Current buffer narrowing
 function! s:line_handler(l)
-  let keys = split(a:l, ':\t')
+  let keys = split(a:l, ':	')
   exec keys[0]
   normal! ^zz
 endfunction
 
-function! s:buffer_lines()
-  let res = []
-  let bname = bufname('%')
-  call extend(res, map(getbufline(bname,0,"$"), '(v:key + 1) . ":\t" . v:val '))
-  return res
+function! s:def_lines()
+  if bufname('%') ==# ''
+    return []
+  endif
+  let lines = system('grep -n "^\s*def" ' . expand('%:p') . ' | sed -E "s/[[:space:]]*def[[:space:]]/	/"')
+  return split(lines, '\n')
 endfunction
 
-nmap <c-x> :call fzf#run({
-\   'source':  <sid>buffer_lines(),
+nnoremap <c-l> :call fzf#run({
+\   'source':  <sid>def_lines(),
 \   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=2.. --query=def',
+\   'options': '--extended --nth=2.. +s',
 \   'down':    '30%'
 \})<cr>
 
@@ -553,6 +554,7 @@ nmap <leader>u :call MergeTabs()<cr>
 tmap <esc> <c-\><c-n>
 
 map <leader>ti :tabe term://fish<cr>
+map <leader>vi :vnew term://fish<cr>
 map <leader>tu :terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
@@ -662,7 +664,7 @@ noremap 0 *
 " }}}
 " {{{ --| Search & Replace |--------------------------------
 noremap é /
-map <silent> É :nohlsearch<cr><c-l>
+noremap <silent> É :nohlsearch<cr><c-l>
 
 nmap s :%s/
 nmap S :s/
