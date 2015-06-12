@@ -312,7 +312,7 @@ set spelllang=en,fr
 " {{{ ==| Plugins |=============================================================
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
-nmap <c-t> :<c-u>FZF<cr>
+nmap <c-t> :<c-u>FZF -m<cr>
 
 " Buffer list
 function! s:buflist()
