@@ -355,6 +355,26 @@ nnoremap <c-l> :call fzf#run({
 \   'down':    '30%'
 \})<cr>
 
+" Ag results narrowing
+function! s:ag_handler(lines)
+  if len(a:lines) < 2 | return | endif
+
+  let [key, line] = a:lines[0:1]
+  let [file, line, col] = split(line, ':')[0:2]
+  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
+  execute cmd escape(file, ' %#\')
+  execute line
+  execute 'normal!' col.'|zz'
+endfunction
+
+command! -nargs=1 Bg call fzf#run({
+  \ 'source': 'ag --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
+  \ 'sink*': function('<sid>ag_handler'),
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
+  \ 'down': '50%'
+  \ })
+nnoremap <leader>a :<c-u>Bg<space>
+
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -430,17 +450,12 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
-" {{{ --| Greplace |----------------------------------------
-set grepprg=ag\ --line-numbers\ --noheading
-nmap <leader>A :Gqfopen<cr><c-w>T
-nmap <leader>R :Greplace<cr>
-" }}}
 " {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
 
-nmap <leader>a :Ag! ""<left>
+nmap <leader>A :Ag! ""<left>
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
