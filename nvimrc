@@ -161,39 +161,11 @@ set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
-if has('gui_running')
-  set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h16
-  set guioptions-=l
-  set guioptions-=L
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=b
-  set guioptions-=T
-  set guioptions-=m
-
-  " mode aware cursors
-  set guicursor+=o:hor50-Cursor
-  set guicursor-=n:NormalCursor
-  set guicursor+=i-ci-sm:InsertCursor
-  set guicursor+=r-cr:ReplaceCursor-hor20
-  set guicursor+=c:CommandCursor
-  set guicursor+=v-ve:VisualCursor
-  set guicursor+=a:blinkon0
-
-  highlight! NormalCursor  term=reverse cterm=reverse
-        \ gui=reverse guifg=#93a1a1 guibg=#fdf6e3
-  highlight! InsertCursor  ctermfg=15 guifg=#fdf6e3 ctermbg=37  guibg=#2aa198
-  highlight! VisualCursor  term=reverse gui=reverse guifg=#268bd2
-  highlight! ReplaceCursor ctermfg=15 guifg=#fdf6e3 ctermbg=65  guibg=#d33682
-  highlight! CommandCursor term=standout cterm=reverse ctermfg=5 ctermbg=7
-        \ gui=standout guifg=#d33682
-elseif &term =~ "xterm\\|rxvt"
-  let &t_SI = "\<Esc>]12;#268bd2\x7" " Insert mode
-  let &t_EI = "\<Esc>]12;#d3cebe\x7" " Normal mode
-endif
 
 highlight! Visual ctermfg=7 ctermbg=14
       \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
+
+highlight! MatchParen term=bold cterm=bold ctermfg=1 ctermbg=NONE
 
 highlight! link SignColumn LineNr
 highlight! CursorLineNr ctermfg=4 ctermbg=7
@@ -323,15 +295,19 @@ function! s:buflist()
 endfunction
 
 function! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+  execute get({
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vertical split',
+    \ 'ctrl-t': 'tabnew'
+    \ }, a:e, 'buffer ' . matchstr(a:e, '^[ 0-9]*'))
 endfunction
 
 nnoremap <silent> <c-b> :call fzf#run({
-\   'source':  reverse(<sid>buflist()),
-\   'sink':    function('<sid>bufopen'),
-\   'options': '+m --expect=ctrl-t,ctrl-v,ctrl-x',
-\   'down':    len(<sid>buflist()) + 2
-\ })<CR>
+  \   'source':  reverse(<sid>buflist()),
+  \   'sink':    function('<sid>bufopen'),
+  \   'options': '--expect=ctrl-t,ctrl-v,ctrl-x',
+  \   'down':    len(<sid>buflist()) + 2
+  \ })<cr>
 
 " Current buffer narrowing
 function! s:line_handler(l)
@@ -352,11 +328,11 @@ function! s:def_lines()
 endfunction
 
 nnoremap <c-l> :call fzf#run({
-\   'source':  <sid>def_lines(),
-\   'sink':    function('<sid>line_handler'),
-\   'options': '--extended --nth=2.. +s',
-\   'down':    '30%'
-\})<cr>
+  \   'source':  <sid>def_lines(),
+  \   'sink':    function('<sid>line_handler'),
+  \   'options': '--extended --nth=2.. +s',
+  \   'down':    '30%'
+  \ })<cr>
 
 " Ag results narrowing
 function! s:ag_handler(lines)
@@ -370,14 +346,13 @@ function! s:ag_handler(lines)
   execute 'normal!' col.'|zz'
 endfunction
 
-command! -nargs=1 Bg call fzf#run({
+command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>ag_handler'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
   \ 'down': '50%'
   \ })
-nnoremap <leader>a :<c-u>Bg<space>
-
+nnoremap <leader>a :<c-u>Fg<space>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
