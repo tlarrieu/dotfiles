@@ -312,7 +312,7 @@ set spelllang=en,fr
 " {{{ ==| Plugins |=============================================================
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
-nmap <c-t> :<c-u>FZF -m<cr>
+nmap <silent> <c-t> :<c-u>FZF -m<cr>
 
 " Buffer list
 function! s:buflist()
@@ -335,7 +335,7 @@ nnoremap <silent> <c-b> :call fzf#run({
 
 " Current buffer narrowing
 function! s:line_handler(l)
-  let keys = split(a:l, ' ')
+  let keys = split(a:l)
   exec keys[0]
   normal! ^zz
 endfunction
