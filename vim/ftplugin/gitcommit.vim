@@ -1,4 +1,4 @@
-nmap <buffer> <leader>s :Gcommit<cr>
+nmap <buffer> <c-s> :Gcommit<cr>
 nmap <buffer> <leader>a :Gcommit --amend<cr>
 
 setlocal spell

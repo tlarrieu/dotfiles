@@ -1,2 +1,2 @@
-nnoremap <buffer> <leader>s :Hgstatuscommit<cr>
-vnoremap <buffer> <leader>s :Hgstatuscommit<cr>
+nnoremap <buffer> <c-s> :Hgstatuscommit<cr>
+vnoremap <buffer> <c-s> :Hgstatuscommit<cr>
