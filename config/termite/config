@@ -37,7 +37,7 @@ foreground = #657b83
 foreground_bold = #073642
 # foreground_dim = #888888
 background = #fdf6e3
-cursor = #586e75
+cursor = #d3cebe
 
 # # Dark
 # foreground = #839496
@@ -67,11 +67,11 @@ color14 = #93a1a1
 color15 = #fdf6e3
 
 [hints]
-#font = Monospace 12
-#foreground = #dcdccc
-#background = #3f3f3f
-#padding = 2
-#border = #3f3f3f
-#border_width = 0.5
-#roundness = 2.0
+# font = Inconsolata-g For Powerline 11.2
+# foreground = #dcdccc
+# background = #3f3f3f
+# padding = 2
+# border = #3f3f3f
+# border_width = 0.5
+# roundness = 2.0
 # vim: ft=dosini cms=#%s
