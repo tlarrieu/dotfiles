@@ -37,20 +37,10 @@ require "rules"
 
 -- {{{ Startup -----------------------------------------------------------------
 -- Xcape
-awful.util.spawn_with_shell("killall xcape")
-awful.util.spawn_with_shell("xcape -e 'Control_L=Escape'")
--- Vim tricks (focus last / next split)
-awful.util.spawn_with_shell("xcape -e 'Shift_L=space|n'")
-awful.util.spawn_with_shell("xcape -e 'Shift_R=space|g'")
+awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
 
 -- Xflux
-awful.util.spawn_with_shell("killall xflux")
 awful.util.spawn_with_shell(
   "xflux -l 48.8562213 -g 2.3486073"
 ) -- Paris coordinates
-
--- ssh keychain
-awful.util.spawn_with_shell(
-  "keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa"
-)
 -- }}}

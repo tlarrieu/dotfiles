@@ -122,7 +122,6 @@ globalkeys = awful.util.table.join(globalkeys,
     awful.util.spawn("dmenu_run -l 4 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Terminus-10:normal'")
   end),
   -- Session control
-  -- awful.key({ modkey            }, "q",           function () awful.util.spawn("xfce4-session-logout")       end),
   awful.key({ modkey            }, "q",           function () awful.util.spawn("sh /home/tlarrieu/scripts/shutdown_dialog.sh")       end),
   -- XFCE4 properties
   awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")     end),
@@ -133,9 +132,9 @@ globalkeys = awful.util.table.join(globalkeys,
 
   awful.key({ modkey            }, "u",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
   awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
-  -- awful.key({ modkey            }, "a",           function () awful.util.spawn(terminal_exec .. "alsamixer") end),
   awful.key({ modkey            }, "a",           function () awful.util.spawn("pavucontrol") end),
   awful.key({ modkey            }, "'",           function () awful.util.spawn("vimb") end),
+  awful.key({ modkey            }, "g",           function () awful.util.spawn("thunar") end),
 
   awful.key({ modkey            }, "n",           function () awful.util.spawn(terminal)                     end),
   awful.key({ modkey, "Shift"   }, "n",           function () awful.util.spawn("gksu " .. terminal)          end),
