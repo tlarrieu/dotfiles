@@ -14,13 +14,13 @@ call plug#begin('~/.vim/plugged')
 " {{{ --| File Manipulation |--------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
-Plug 'skwp/greplace.vim', { 'on' : [ 'Greplace', 'Gqfopen' ] }
 Plug 'duggiefresh/vim-easydir'
 " }}}
 " {{{ --| Functionnalities |---------------
-Plug 'beloglazov/vim-online-thesaurus'
-Plug 'tpope/vim-vinegar'
 Plug 'AndrewRadev/linediff.vim'
+Plug 'beloglazov/vim-online-thesaurus'
+Plug 'kassio/neoterm'
+Plug 'tpope/vim-vinegar'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -31,21 +31,30 @@ Plug 'tpope/vim-projectionist'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
-Plug 'tpope/vim-commentary'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'edsono/vim-matchit'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular'
 " }}}
 " {{{ --| Text objects |-------------------
+Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
-      \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
-Plug 'wellle/targets.vim'
+  \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
 Plug 'tommcdo/vim-exchange'
-Plug 'kana/vim-textobj-function'
+Plug 'wellle/targets.vim'
+" {{{ --| VCS |----------------------------
+Plug 'mhinz/vim-signify'
+Plug 'phleet/vim-mercenary'
+Plug 'tpope/vim-fugitive'
+Plug 'zeekay/vim-lawrencium'
+" }}}
+" {{{ --| Syntax checking |----------------
+Plug 'benekastah/neomake'
+" }}}
 " }}}
 " {{{ --| Task manager |-------------------
 Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
@@ -54,18 +63,16 @@ Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Ruby |---------------------------
-Plug 'kassio/neoterm'
-Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
-Plug 'Keithbsmiley/rspec.vim', { 'for' : 'ruby' }
 Plug 'jbgutierrez/vim-partial'
 Plug 'tpope/vim-rails'
+Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
 " {{{ --| HTML |---------------------------
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " }}}
 " {{{ --| Haskell |------------------------
-Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
+Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 " }}}
 " {{{ --| Go lang |------------------------
 Plug 'fatih/vim-go', { 'for' : 'go' }
@@ -78,34 +85,20 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
 " }}}
 " {{{ --| Misc languages support |---------
-Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
-Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
-Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
+Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
+Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
-Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
-Plug 'leshill/vim-json', { 'for' : 'json' }
 Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
-" }}}
-" {{{ --| VCS |----------------------------
-Plug 'tpope/vim-fugitive'
-Plug 'phleet/vim-mercenary'
-Plug 'zeekay/vim-lawrencium'
-Plug 'mhinz/vim-signify'
-" }}}
-" {{{ --| Syntax checking |----------------
-Plug 'benekastah/neomake'
+Plug 'leshill/vim-json', { 'for' : 'json' }
+Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
+Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
+Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
-Plug 'sjl/vitality.vim'
-" }}}
-" {{{ --| Colors |-------------------------
-Plug 'KabbAmine/vCoolor.vim'              " Picker
-Plug 'chrisbra/Colorizer'                 " Highlighter
 " }}}
 
 call plug#end()
