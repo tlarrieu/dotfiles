@@ -8,7 +8,7 @@
   status = auto
   diff = auto
 [push]
-  default = matching
+  default = current
 [diff]
   tool = vimdiff
 [core]
