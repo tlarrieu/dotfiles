@@ -660,8 +660,8 @@ noremap 0 *
 noremap é /
 noremap <silent> É :nohlsearch<cr><c-l>
 
-nmap s :%s/
-nmap S :s/
+nmap s :s/
+nmap S :%s/
 vmap s <esc>:%s/\%V/g<left><left>
 
 nmap <c-n> :cnext<cr>
