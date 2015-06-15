@@ -7,7 +7,6 @@ set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
 " {{{ ==| vim-plug |============================================================
-set nocompatible
 
 call plug#begin('~/.vim/plugged')
 
@@ -172,8 +171,6 @@ augroup overlength
   autocmd BufReadPost * match OverLength /\%81v.\+/
   autocmd FileType man highlight! link OverLength Normal
 augroup END
-" Virtual editing
-set virtualedit=all
 " Blank character
 set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
@@ -617,7 +614,19 @@ nmap <silent> <leader>k
 " Fix indent
 nmap <silent> <leader>i m'gg=Gg`'
 " Cursorline / Cursorcolumn
-nmap <leader>g :set cuc! \| set cul!<cr>
+let g:virtualedit=''
+function! AlignMode()
+  if g:virtualedit
+    let g:virtualedit=0
+    set virtualedit=""
+  else
+    let g:virtualedit=1
+    set virtualedit=all
+  endif
+  set cursorcolumn!
+  set cursorline!
+endfunction
+nmap <leader>g :call AlignMode()<cr>
 " Quickfix / Location list
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
