@@ -10,23 +10,30 @@ dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
 font = Inconsolata-g For Powerline 11.2
-scrollback_lines = 5000
-search_wrap = firefox
+scrollback_lines = 10000
+search_wrap = true
 #icon_name = terminal
 #geometry = 640x480
+
 # "system", "on" or "off"
 cursor_blink = off
+
 # "block", "underline" or "ibeam"
 cursor_shape = block
+
 # $BROWSER is used by default
-browser = open
+browser = google-chrome-stable
+
 # word characters used for word selection
 # (default if unset: all graphic non-punctuation/space characters)
 #word_chars = -A-Za-z0-9,./?%&#:_=+@~
+
 # set size hints for the window
 #size_hints = false
+
 # emit escape sequences for other keys modified by Control
 #modify_other_keys = false
+
 [colors]
 ######
 # Solarized
