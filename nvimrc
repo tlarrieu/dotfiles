@@ -544,7 +544,7 @@ nmap <leader>U <c-w>T
 nmap <leader>u :call MergeTabs()<cr>
 " }}}
 " {{{ --| Terminal |----------------------------------------
-tmap <esc> <c-\><c-n>
+tnoremap <c-s> <c-\><c-n>
 
 map <leader>ti :tabe term://fish<cr>
 map <leader>vi :vnew term://fish<cr>
