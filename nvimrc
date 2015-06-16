@@ -299,6 +299,27 @@ nnoremap <silent> <c-b> :call fzf#run({
   \   'down':    len(<sid>buflist()) + 2
   \ })<cr>
 
+" Register list
+function! s:reglist()
+  redir => registers
+  silent registers
+  redir END
+  " we do not want to include the '--- Registers ---' line
+  return split(registers, '\n')[1:]
+endfunction
+
+function! s:regpaste(r)
+  let register = matchlist(a:r, '"\(.\).*')[1]
+  execute 'normal! `<v`>"' . register . 'p'
+endfunction
+
+vnoremap <silent> <c-r> :call fzf#run({
+  \   'source':  <sid>reglist(),
+  \   'sink':    function('<sid>regpaste'),
+  \   'options': '--extended --nth=2.. +s',
+  \   'down':    len(<sid>reglist()) + 2
+  \ })<cr>
+
 " Current buffer narrowing
 function! s:deflines()
   if !bufexists(expand('%'))
