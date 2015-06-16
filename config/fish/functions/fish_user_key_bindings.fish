@@ -10,10 +10,12 @@ end
 bind \et 'fkill'
 bind þ 'fkill'
 
+bind \eg 'sh ~/scripts/fshow.sh'
+bind † 'sh ~/scripts/fshow.sh'
+
 if bind -M insert > /dev/null 2>&1
   bind -M insert \et 'fkill'
   bind -M insert þ 'fkill'
+  bind -M insert \eg 'sh ~/scripts/fshow.sh'
+  bind -M insert † 'sh ~/scripts/fshow.sh'
 end
-
-bind \eg 'sh ~/scripts/fshow.sh'
-bind † 'sh ~/scripts/fshow.sh'
