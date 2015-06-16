@@ -300,14 +300,8 @@ nnoremap <silent> <c-b> :call fzf#run({
   \ })<cr>
 
 " Current buffer narrowing
-function! s:line_handler(l)
-  let keys = split(a:l)
-  exec keys[0]
-  normal! ^zz
-endfunction
-
-function! s:def_lines()
-  if bufname('%') ==# ''
+function! s:deflines()
+  if !bufexists(expand('%'))
     return []
   endif
   let grep = 'grep -n "^\s*def"'
@@ -317,20 +311,30 @@ function! s:def_lines()
   return split(lines, '\n')
 endfunction
 
+function! s:defjump(l)
+  let keys = split(a:l)
+  exec keys[0]
+  normal! ^zz
+endfunction
+
 nnoremap <c-l> :call fzf#run({
-  \   'source':  <sid>def_lines(),
-  \   'sink':    function('<sid>line_handler'),
+  \   'source':  <sid>deflines(),
+  \   'sink':    function('<sid>defjump'),
   \   'options': '--extended --nth=2.. +s',
   \   'down':    '30%'
   \ })<cr>
 
 " Ag results narrowing
-function! s:ag_handler(lines)
+function! s:agopen(lines)
   if len(a:lines) < 2 | return | endif
 
   let [key, line] = a:lines[0:1]
   let [file, line, col] = split(line, ':')[0:2]
-  let cmd = get({'ctrl-x': 'split', 'ctrl-v': 'vertical split', 'ctrl-t': 'tabe'}, key, 'e')
+  let cmd = get({
+    \ 'ctrl-x': 'split',
+    \ 'ctrl-v': 'vertical split',
+    \ 'ctrl-t': 'tabe'
+    \ }, key, 'e')
   execute cmd escape(file, ' %#\')
   execute line
   execute 'normal!' col.'|zz'
@@ -338,7 +342,7 @@ endfunction
 
 command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
-  \ 'sink*': function('<sid>ag_handler'),
+  \ 'sink*': function('<sid>agopen'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
   \ 'down': '50%'
   \ })
