@@ -8,7 +8,12 @@ function fkill
 end
 
 bind \et 'fkill'
+bind þ 'fkill'
 
 if bind -M insert > /dev/null 2>&1
   bind -M insert \et 'fkill'
+  bind -M insert þ 'fkill'
 end
+
+bind \eg 'sh ~/scripts/fshow.sh'
+bind † 'sh ~/scripts/fshow.sh'
