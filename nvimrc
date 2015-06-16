@@ -609,8 +609,13 @@ nmap <leader>w :set wrap!<cr>
 nmap <c-g> gUiw
 imap <c-g> <esc>lgUiwea
 " Clear trailing spaces (but not the escaped ones)
-nmap <silent> <leader>k
-      \ :let _s=@/<Bar>:%s/[^.\\]\zs\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+function! ClearTrailingSpaces()
+  let _s=@/
+  %s/\v([\\]\s\zs\s+$|[^\\]\s\s+$)//e
+  let @/=_s
+  nohl
+endfunction
+nmap <silent> <leader>k :call ClearTrailingSpaces()<cr>
 " Fix indent
 nmap <silent> <leader>i m'gg=Gg`'
 " Cursorline / Cursorcolumn
