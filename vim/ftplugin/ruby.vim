@@ -53,3 +53,28 @@ let b:switch_custom_definitions =
   \  },
   \  ['be_truthy', 'be_falsey']
   \]
+
+" Methods list
+function! s:deflines()
+  if !bufexists(expand('%'))
+    return []
+  endif
+  let grep = 'grep -n "^\s*def"'
+  let awk = "awk '{print $1 $3}'"
+  let column = "column -t -s ':'"
+  let lines = system(grep . ' ' . expand('%:p') . '|' . awk . '|' . column)
+  return split(lines, '\n')
+endfunction
+
+function! s:defjump(l)
+  let keys = split(a:l)
+  exec keys[0]
+  normal! ^zz
+endfunction
+
+nnoremap <c-l> :call fzf#run({
+  \   'source':  <sid>deflines(),
+  \   'sink':    function('<sid>defjump'),
+  \   'options': '--extended --nth=2.. +s',
+  \   'down':    '30%'
+  \ })<cr>
