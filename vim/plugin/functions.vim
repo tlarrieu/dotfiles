@@ -120,7 +120,8 @@ endfunction
 function! DeleteHiddenBuffers()
   let tpbl=[]
   call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+  let filter = 'bufexists(v:val) && index(tpbl, v:val) == -1 && match(bufname(v:val), "term://") == -1'
+  for buf in filter(range(1, bufnr('$')), filter)
     silent execute 'bwipeout' buf
   endfor
 endfunction
