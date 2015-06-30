@@ -20,6 +20,7 @@ Plug 'AndrewRadev/linediff.vim'
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
+Plug 'aquach/vim-http-client'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -270,6 +271,13 @@ highlight! IncSearch ctermbg=7 ctermfg=166 guifg=#d33682
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| HttpClient |--------------------------------------
+let g:http_client_bind_hotkey = 0
+augroup HTTPClient
+  autocmd!
+  autocmd BufReadPost httpclient map <buffer> <return> :HTTPClientDoRequest<cr>
+augroup END
+" }}}
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
 nmap <silent> <c-t> :<c-u>FZF -m<cr>
@@ -691,6 +699,7 @@ endfunction
 
 nmap <leader>es :call OpenSchemaFile()<cr>
 
+nmap <leader>ea :tabe ~/httpclient<cr>
 nmap <leader>ee :tabe ~/email.md<cr>
 nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>eg :tabe ~/.gitconfig<cr>
