@@ -175,8 +175,6 @@ augroup END
 set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
 set list
-" Show matching braces
-set showmatch
 " Show incomplete key sequence in bottom corner
 set showcmd
 " Encoding and filetype
@@ -285,17 +283,26 @@ function! s:buflist()
 endfunction
 
 function! s:bufopen(e)
-  execute get({
-    \ 'ctrl-x': 'split',
-    \ 'ctrl-v': 'vertical split',
-    \ 'ctrl-t': 'tabnew'
-    \ }, a:e, 'buffer ' . matchstr(a:e, '^[ 0-9]*'))
+  if len(a:e) < 2 | return | endif
+  let key = a:e[0]
+  let lines = a:e[1:]
+
+  let cmd = get({
+    \ 'ctrl-x': 'split|buffer',
+    \ 'ctrl-v': 'vertical split|buffer',
+    \ 'ctrl-t': 'tabnew|buffer',
+    \ 'ctrl-d': 'bdelete!'
+    \ }, key, 'e')
+
+  for buf in map(lines, 'split(v:val, " ")[0]')
+    execute cmd . ' ' . buf
+  endfor
 endfunction
 
 nnoremap <silent> <c-b> :call fzf#run({
   \   'source':  reverse(<sid>buflist()),
-  \   'sink':    function('<sid>bufopen'),
-  \   'options': '--expect=ctrl-t,ctrl-v,ctrl-x',
+  \   'sink*':    function('<sid>bufopen'),
+  \   'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d --multi',
   \   'down':    len(<sid>buflist()) + 2
   \ })<cr>
 
@@ -343,7 +350,7 @@ command! -nargs=1 Fg call fzf#run({
   \ 'down': '50%'
   \ })
 nnoremap <leader>a :<c-u>Fg<space>
-" }}}
+
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
   autocmd!
@@ -404,10 +411,6 @@ let g:SignatureMap = {
   \ 'GotoPrevMarkerAny'  :  "",
   \ 'ListLocalMarks'     :  ""
   \ }
-" }}}
-" {{{ --| vCoolor |-----------------------------------------
-nmap <leader>C :<c-u>VCoolor<cr>
-nmap <leader>c :ColorToggle<cr>
 " }}}
 " {{{ --| Targets |-----------------------------------------
 let g:targets_pairs = '()b {}é []d <>É'
@@ -485,7 +488,7 @@ nmap <leader><tab> :call SwitchVCS()<cr>
 set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
-nmap <leader>. :call DeleteHiddenBuffers()<cr>
+nmap <leader><leader> :call DeleteHiddenBuffers()<cr>
 " }}}
 " {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
@@ -536,9 +539,10 @@ nmap <leader>u :call MergeTabs()<cr>
 " {{{ --| Terminal |----------------------------------------
 tnoremap <c-s> <c-\><c-n>
 
-map <leader>ti :tabe term://fish<cr>
-map <leader>vi :vnew term://fish<cr>
+map <silent> <leader>ti :tabnew<bar>terminal fish<cr>
+map <silent> <leader>vi :vertical new<bar>terminal fish<cr>
 map <leader>tu :terminal<space>
+map <leader>vu :vsplit<bar>terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
 " Diffs
@@ -699,7 +703,7 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>ev :tabe ~/.nvimrc<cr>
 
-nmap <leader>e. :tabe .<cr>
+nmap <leader>. :tabe .<cr>
 
 nmap <leader># :e #<cr>
 
