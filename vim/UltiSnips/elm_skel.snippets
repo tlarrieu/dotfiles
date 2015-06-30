@@ -1,0 +1,9 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet _skel "Skeleton" b
+module `!p snip.rv = camelize(snip.basename)` where
+
+$0
+endsnippet
