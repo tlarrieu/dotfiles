@@ -161,7 +161,7 @@ highlight! Visual ctermfg=7 ctermbg=14
 highlight! MatchParen term=bold cterm=bold ctermfg=1 ctermbg=NONE
 
 highlight! link SignColumn LineNr
-highlight! CursorLineNr ctermfg=4 ctermbg=7
+highlight! CursorLineNr ctermfg=4
 " Line numbering (relative and current)
 set relativenumber
 set number
