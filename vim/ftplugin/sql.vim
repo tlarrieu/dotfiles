@@ -7,33 +7,42 @@ function! s:GetQuery(first, last)
   let lines = getline(a:first, a:last)
   for line in lines
     if line !~ '--.*'
-      let query .= line . "\n"
+      let query .= line . "\\n"
     endif
   endfor
   return query
 endfunction
 
-function! s:PostgresCommand(conprops, query)
-  let sql_text = shellescape('\\timing on \\\ ' . a:query)
-  let sql_text = escape(sql_text, '%')
-  let cmdline = 'echo -e ' . sql_text . '| psql ' . a:conprops
-  return cmdline
-endfunction
-
 function! RunSQL() range
-  let conprops = matchstr(getline(1), '--\s*\zs.*')
-  let adapter = 'psql'
+  let arguments = matchstr(getline(1), '--\s*\zs.*')
   let query = s:GetQuery(a:firstline, a:lastline)
 
-  let cmdline = s:PostgresCommand(conprops, query)
+  let tempfile = tempname()
+
+  let query = shellescape('\\timing on' . query)
+  let query = escape(query, '%')
+  let cmdline =
+        \ 'echo -e ' . query .
+        \ '| psql ' . arguments .
+        \ ' > ' . tempfile
 
   new
-  call termopen(cmdline)
-  execute "normal <c-w>p"
+  call termopen(
+        \ cmdline,
+        \ {
+        \   'name' : 'postgres',
+        \   'on_exit' : function('s:Openfile'),
+        \   'filename' : tempfile
+        \ })
+endfunction
+
+function! <sid>Openfile() dict
+  execute 'new ' . self.filename
+  setf postgresql
 endfunction
 
 command! -range=% RunSQL <line1>,<line2>call RunSQL()
 
-vnoremap <buffer> <return> :RunSQL<cr>
-nnoremap <buffer> <leader><return> m':RunSQL <cr>g`'
-nnoremap <buffer> <return> m':'{,'}RunSQL<cr>g`'
+vnoremap <silent> <buffer> <return> :RunSQL<cr>
+nnoremap <silent> <buffer> <leader><return> m':RunSQL <cr>g`'
+nnoremap <silent> <buffer> <return> m':'{,'}RunSQL<cr>g`'
