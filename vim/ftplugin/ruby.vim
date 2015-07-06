@@ -59,10 +59,13 @@ function! s:deflines()
   if !bufexists(expand('%'))
     return []
   endif
-  let grep = 'grep -n "^\s*def"'
-  let awk = "awk '{print $1 $3}'"
-  let column = "column -t -s ':'"
-  let lines = system(grep . ' ' . expand('%:p') . '|' . awk . '|' . column)
+
+  let cmd = 'grep -n -E "^\s*def" ' . expand('%:p') .
+        \ '|' . "cut -d'(' -f 1" .
+        \ '|' . "sed -r 's/\\s*def\\s*(.*)( \\< .*)?/\\1 : \\2/g'" .
+        \ '|' . "column -t -s ':'"
+
+  let lines = system(cmd)
   return split(lines, '\n')
 endfunction
 
@@ -72,7 +75,7 @@ function! s:defjump(l)
   normal! ^zz
 endfunction
 
-nnoremap <c-l> :call fzf#run({
+nnoremap <silent> <c-l> :call fzf#run({
   \   'source':  <sid>deflines(),
   \   'sink':    function('<sid>defjump'),
   \   'options': '--extended --nth=2.. +s',
