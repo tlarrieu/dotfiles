@@ -1,7 +1,3 @@
-" vnoremap <buffer> <return> :SimpleDBExecuteSql<cr>
-" nnoremap <buffer> <leader><return> m':SimpleDBExecuteSql <cr>g`'
-" nnoremap <buffer> <return> m':'{,'}SimpleDBExecuteSql<cr>g`'
-
 function! s:GetQuery(first, last)
   let query = ''
   let lines = getline(a:first, a:last)
@@ -24,19 +20,22 @@ function! RunSQL() range
   let cmdline =
         \ 'echo -e ' . query .
         \ '| psql ' . arguments .
-        \ ' > ' . tempfile
+        \ ' >& ' . tempfile
 
   new
+
   call termopen(
         \ cmdline,
         \ {
         \   'name' : 'postgres',
         \   'on_exit' : function('s:Openfile'),
-        \   'filename' : tempfile
+        \   'filename' : tempfile,
+        \   'bufnr' : bufnr('%')
         \ })
 endfunction
 
 function! <sid>Openfile() dict
+  execute 'bdelete! ' . self.bufnr
   execute 'new ' . self.filename
   setf postgresql
 endfunction
