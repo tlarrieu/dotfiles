@@ -493,6 +493,7 @@ nmap <leader><tab> :call SwitchVCS()<cr>
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
 " {{{ --| Buffers |-----------------------------------------
+" Reuse previously opened tab / window when trying to open a buffer
 set switchbuf=usetab
 " Empty buffers
 command! B bufdo bd
@@ -501,8 +502,8 @@ nmap <leader><leader> :call DeleteHiddenBuffers()<cr>
 " {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
-nmap <leader>, <c-w>w
-nmap <leader>; <c-w>W
+nmap <leader>, gt
+nmap <leader>c gT
 " Hack to make <c-w><c-c> mapping work
 nmap <c-c> <nop>
 noremap <c-w><c-c> <c-w>H
@@ -520,6 +521,11 @@ nmap <leader>V :vnew<space>
 " Dimensions
 nmap <leader>M <c-w>=
 nmap <leader>m :res<cr>:vertical res<cr>$
+" Moving around
+nmap <up> <c-w><up>
+nmap <down> <c-w><down>
+nmap <left> <c-w><left>
+nmap <right> <c-w><right>
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
@@ -547,8 +553,8 @@ nmap <leader>u :call MergeTabs()<cr>
 " {{{ --| Terminal |----------------------------------------
 tnoremap <c-s> <c-\><c-n>
 
-map <silent> <leader>ti :tabnew<bar>terminal fish<cr>
-map <silent> <leader>vi :vertical new<bar>terminal fish<cr>
+map <silent> <leader>ti :terminal<cr>
+map <silent> <leader>vi :vertical new<bar>terminal<cr>
 map <leader>tu :terminal<space>
 map <leader>vu :vsplit<bar>terminal<space>
 " }}}
@@ -556,8 +562,6 @@ map <leader>vu :vsplit<bar>terminal<space>
 " Diffs
 map ß [c
 map þ ]c
-nmap <up> [c
-nmap <down> ]c
 " Marks
 noremap ' `
 noremap ` '
@@ -589,6 +593,8 @@ map è :
 map È :!
 " }}}
 " {{{ --| Mode Switching |----------------------------------
+" Close current buffer
+map Q :bd!<cr>
 " Normal mode
 set noesckeys
 cmap <esc> <c-c>
@@ -599,8 +605,6 @@ nnoremap ê :bd<cr>
 " Save
 nmap <c-s> :update<cr>
 imap <c-s> <esc>:update<cr>
-" Disable annoying mapping
-map Q <nop>
 " Reselected pasted lines
 nnoremap gV `[v`]
 " Command line
