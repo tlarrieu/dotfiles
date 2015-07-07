@@ -716,7 +716,7 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>ev :tabe ~/.nvimrc<cr>
 
-nmap <leader>. :tabe .<cr>
+nmap <leader>. :e .<cr>
 
 nmap <leader># :e #<cr>
 
