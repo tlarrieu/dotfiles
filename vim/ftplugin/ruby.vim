@@ -9,6 +9,20 @@ setlocal iskeyword+=!
 nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
 nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
 
+function! Migrate(direction)
+  let filename = expand('%:t')
+  let cmd = 'bundle exec rake db:migrate:' . a:direction
+  let options = 'VERSION=' . matchstr(filename, '\v\d+')
+  new
+  call termopen(cmd . ' ' . options)
+endfunction
+
+augroup Migration
+  autocmd!
+  autocmd BufEnter db/migrate/* map <silent> <buffer> <return> :call Migrate('up')<cr>
+  autocmd BufEnter db/migrate/* map <silent> <buffer> <leader><return> :call Migrate('down')<cr>
+augroup END
+
 let g:neomake_ruby_rubocop_maker = {
       \ 'args': ['-D'],
       \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
