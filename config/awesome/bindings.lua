@@ -133,14 +133,16 @@ mtspawn = function(key, cmd)
   return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
 end
 
+dmenu = function()
+  options = " -l 4 -i "
+  colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
+  font = " -fn 'Terminus-10:normal' "
+  return "dmenu_run " .. options .. colors .. font
+end
+
 keyboard = awful.util.table.join(keyboard,
   -- dmenu
-  spawn({"Control"}, " ", function()
-    options = " -l 4 -i "
-    colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
-    font = " -fn 'Terminus-10:normal' "
-    return "dmenu_run " .. options .. colors .. font
-  end),
+  spawn({"Control"}, " ", dmenu()),
 
   -- Session control
   mspawn("q", "sh /home/tlarrieu/scripts/shutdown_dialog.sh"),
@@ -162,7 +164,7 @@ keyboard = awful.util.table.join(keyboard,
   mtspawn("m", "mocp"),
 
   -- mspawn("a", "pavucontrol"),
-  mtspawn("a", "alsamixer --card 2"),
+  mtspawn("a", "alsamixer --card 2 -g"),
   mspawn("g", "thunar"),
   mspawn("'", "google-chrome-stable"),
 
