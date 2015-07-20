@@ -721,6 +721,8 @@ nmap <leader>. :e .<cr>
 nmap <leader># :e #<cr>
 
 nmap <leader>$ :so ~/.nvimrc<cr>
+
+nmap gf :e <cfile><cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
