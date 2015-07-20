@@ -85,7 +85,12 @@ snippet _shop "Shop" s
 module ShopmiumShops
 	module Sources
 		class `!p snip.rv = camelize(snip.basename)` < Base
-      OPTIONS = { col_sep: ';', encoding: 'UTF-8', quote_char: '"' }
+      OPTIONS = {
+				col_sep: ';',
+				encoding: 'UTF-8',
+				quote_char: '"',
+				headers: true
+			}
 
 			STORE_ID = 0
 			NAME = 1
