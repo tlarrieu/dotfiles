@@ -174,6 +174,8 @@ set PGHOST localhost
 set -g -x GEDITOR gvim
 set -g -x EDITOR nvim
 set -g -x TERM xterm-256color
+# Enable cursor change when neovim enters insert mode
+set -g -x NVIM_TUI_ENABLE_CURSOR_SHAPE 1
 
 # Gopath
 set -x GOPATH ~/go
