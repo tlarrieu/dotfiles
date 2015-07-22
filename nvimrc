@@ -264,8 +264,6 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-highlight! Search ctermbg=7 ctermfg=64 guifg=#719e07
-highlight! IncSearch ctermbg=7 ctermfg=166 guifg=#d33682
 " }}}
 " {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
@@ -337,7 +335,7 @@ command! -nargs=1 Fg call fzf#run({
   \ 'down': '50%'
   \ })
 nnoremap <leader>a :<c-u>Fg<space>
-
+" }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
   autocmd!
