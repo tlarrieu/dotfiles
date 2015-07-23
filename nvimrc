@@ -264,8 +264,6 @@ set smartcase
 " some more search related stuff
 set hlsearch  " highlight search
 set incsearch " start search while typing
-highlight! Search ctermbg=7 ctermfg=64 guifg=#719e07
-highlight! IncSearch ctermbg=7 ctermfg=166 guifg=#d33682
 " }}}
 " {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
@@ -280,7 +278,7 @@ augroup END
 " }}}
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
-nmap <silent> <c-t> :<c-u>FZF -m<cr>
+nmap <silent> <c-t> :<c-u>FZF -m -e<cr>
 
 " Buffer list
 function! s:buflist()
@@ -300,7 +298,7 @@ function! s:bufopen(e)
     \ 'ctrl-v': 'vertical split|buffer',
     \ 'ctrl-t': 'tabnew|buffer',
     \ 'ctrl-d': 'bdelete!'
-    \ }, key, 'e')
+    \ }, key, 'buffer')
 
   for buf in map(lines, 'split(v:val, " ")[0]')
     execute cmd . ' ' . buf
@@ -312,27 +310,6 @@ nnoremap <silent> <c-b> :call fzf#run({
   \   'sink*':    function('<sid>bufopen'),
   \   'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d --multi',
   \   'down':    len(<sid>buflist()) + 2
-  \ })<cr>
-
-" Register list
-function! s:reglist()
-  redir => registers
-  silent registers
-  redir END
-  " we do not want to include the '--- Registers ---' line
-  return split(registers, '\n')[1:]
-endfunction
-
-function! s:regpaste(r)
-  let register = matchlist(a:r, '"\(.\).*')[1]
-  execute 'normal! `<v`>"' . register . 'p'
-endfunction
-
-vnoremap <silent> <c-r> :call fzf#run({
-  \   'source':  <sid>reglist(),
-  \   'sink':    function('<sid>regpaste'),
-  \   'options': '--extended --nth=2.. +s',
-  \   'down':    len(<sid>reglist()) + 2
   \ })<cr>
 
 " Ag results narrowing
@@ -354,11 +331,11 @@ endfunction
 command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110',
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e',
   \ 'down': '50%'
   \ })
 nnoremap <leader>a :<c-u>Fg<space>
-
+" }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
   autocmd!

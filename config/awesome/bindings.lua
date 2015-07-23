@@ -1,146 +1,179 @@
---[[ Mouse bindings ]]----------------
-root.buttons(awful.util.table.join(
-  awful.button({        }, 3, function () mymainmenu:toggle() end),
-  awful.button({ modkey }, 4, awful.tag.viewnext                 ),
-  awful.button({ modkey }, 5, awful.tag.viewprev                 )
-))
+--[[ Variables ]]---------------------------------------------------------------
 
---[[ Global keys ]]----------------
-globalkeys = awful.util.table.join(
-  -- Workspace switching
-  awful.key({ modkey,           }, "c", awful.tag.viewprev                              ),
-  awful.key({ modkey,           }, "r", awful.tag.viewnext                              ),
+terminal = "termite"
+modkey = "Mod4"
 
-  -- Layout manipulation
-  awful.key({ modkey, "Control" }, "t", function () awful.client.swap.byidx(  1)     end),
-  awful.key({ modkey, "Control" }, "s", function () awful.client.swap.byidx( -1)     end),
-  awful.key({ modkey,           }, "d", function () awful.tag.incmwfact( 0.05)       end),
-  awful.key({ modkey,           }, "v", function () awful.tag.incmwfact(-0.05)       end),
-  awful.key({ modkey, "Shift"   }, "d", function () awful.client.incwfact( 0.05)     end),
-  awful.key({ modkey, "Shift"   }, "v", function () awful.client.incwfact(-0.05)     end),
-  -- Layout switching
-  awful.key({ modkey,           }, "l", function () awful.layout.inc(layouts, 1)     end),
-  awful.key({ modkey, "Shift"   }, "L", function () awful.layout.inc(layouts, -1)    end),
-  -- Focus switching
-  awful.key({ modkey,           }, "t",
-    function ()
-      awful.client.focus.byidx(1)
-      if client.focus then client.focus:raise() end
-    end),
-  awful.key({ modkey,           }, "s",
-    function ()
-      awful.client.focus.byidx(-1)
-      if client.focus then client.focus:raise() end
-    end),
-  -- Screen switching
-  awful.key({ modkey,           }, "i", function () awful.screen.focus_relative(1)    end),
-  awful.key({ modkey,           }, "e", function () awful.screen.focus_relative(-1)   end),
-  -- Window screen switching
-  awful.key({ modkey,           }, "o", awful.client.movetoscreen                        ),
+--[[ Mouse bindings ]]----------------------------------------------------------
 
-  awful.key({ modkey, "Shift"  }, "r", awesome.restart                                  )
+mouse = awful.util.table.join(
+  awful.button({}, 3, function() mymainmenu:toggle() end),
+  awful.button({ modkey }, 4, awful.tag.viewnext),
+  awful.button({ modkey }, 5, awful.tag.viewprev)
 )
 
---[[ Workspace handling ]]----------------
--- Compute the maximum number of digit we need, limited to 9
-keynumber = 0
-for s = 1, screen.count() do
-  keynumber = math.min(9, math.max(#tags[s], keynumber));
-end
+--[[ Global keys ]]-------------------------------------------------------------
 
-for i = 1, keynumber do
-  globalkeys = awful.util.table.join(globalkeys,
-    awful.key({ modkey }, "F" .. i + 9,
-      function ()
-        local screen = mouse.screen
-        if tags[screen][i] then
-          awful.tag.viewonly(tags[screen][i])
-        end
-      end),
-    awful.key({ modkey }, "F" .. i,
-      function ()
-        if client.focus and tags[client.focus.screen][i] then
-          awful.client.movetotag(tags[client.focus.screen][i])
-        end
-      end
-    )
-  )
-end
+keyboard = awful.util.table.join(
+  -- Workspace switching
+  awful.key({modkey}, "c", awful.tag.viewprev),
+  awful.key({modkey}, "r", awful.tag.viewnext),
 
---[[ Client Keys ]]----------------
+  -- Client moving
+  awful.key({modkey, "Control"}, "t", function()
+    awful.client.swap.byidx(1)
+  end),
+  awful.key({modkey, "Control"}, "s", function()
+    awful.client.swap.byidx(-1)
+  end),
+  -- Client size
+  awful.key({modkey}, "d", function()
+    awful.tag.incmwfact(0.05)
+  end),
+  awful.key({modkey}, "v", function()
+    awful.tag.incmwfact(-0.05)
+  end),
+  awful.key({modkey, "Shift"}, "d", function()
+    awful.client.incwfact(0.05)
+  end),
+  awful.key({modkey, "Shift"}, "v", function()
+    awful.client.incwfact(-0.05)
+  end),
+
+  -- Layout switching
+  awful.key({modkey}, "l", function()
+    awful.layout.inc(layouts, 1)
+  end),
+  awful.key({modkey, "Shift"}, "l", function()
+    awful.layout.inc(layouts, -1)
+  end),
+
+  -- Client focus
+  awful.key({modkey}, "t", function()
+    awful.client.focus.byidx(1)
+    if client.focus then client.focus:raise() end
+  end),
+  awful.key({modkey}, "s", function()
+    awful.client.focus.byidx(-1)
+    if client.focus then client.focus:raise() end
+  end),
+
+  -- Screen focus
+  awful.key({modkey}, "i", function()
+    awful.screen.focus_relative(1)
+  end),
+  awful.key({modkey}, "e", function()
+    awful.screen.focus_relative(-1)
+  end),
+
+  -- Client screen moving
+  awful.key({modkey}, "o", function(c)
+    awful.client.movetoscreen(c,client.focus.screen-1)
+  end),
+  awful.key({modkey, "Shift"}, "o", function(c)
+    awful.client.movetoscreen(c,client.focus.screen+1)
+  end),
+
+  -- Restart awesome
+  awful.key({modkey, "Shift"}, "r", awesome.restart)
+)
+
+--[[ Client Keys ]]-------------------------------------------------------------
+
 clientkeys = awful.util.table.join(
   -- Fullscreen
-  awful.key({ modkey,           }, "Return", function (c) c.fullscreen = not c.fullscreen end),
-  -- On Top
-  awful.key({ modkey,           }, "h", function (c) c.ontop = not c.ontop           end),
-  -- Kill
-  awful.key({ modkey,           }, "w", function (c) c:kill()                        end),
-  awful.key({ modkey, "Control" }, "w", function (c) awful.util.spawn("xkill")       end),
-  -- Moving client arounds
-  awful.key({ modkey, "Control" }, "c",
-    function (c)
-      local id = awful.tag.getidx()
-      if id == 1 then
-        id = keynumber
-      else
-        id = id - 1
-      end
-      local screen = client.focus.screen
-      awful.client.movetotag(tags[screen][id])
-      awful.tag.viewonly(tags[screen][id])
-    end
-
-  ),
-  awful.key({ modkey, "Control" }, "r",
-    function (c)
-      local id = awful.tag.getidx() % keynumber + 1
-      local screen = client.focus.screen
-      awful.client.movetotag(tags[screen][id])
-      awful.tag.viewonly(tags[screen][id])
-    end
-  )
-)
-
---[[ Client mouse manipulation ]]----------------
-clientbuttons = awful.util.table.join(
-  awful.button({                }, 1, function (c) client.focus = c; c:raise() end),
-  awful.button({ modkey         }, 1, awful.mouse.client.move                     ),
-  awful.button({ modkey         }, 3, awful.mouse.client.resize                   ),
-  awful.button({ modkey         }, 4, awful.tag.viewnext                          ),
-  awful.button({ modkey         }, 5, awful.tag.viewprev                          )
-)
-
---[[ Program bindings ]]----------------
-globalkeys = awful.util.table.join(globalkeys,
-  -- dmenu
-  awful.key({ "Control"         }, " ",           function ()
-    -- Solarized theme uses #AARRGGBB, not supported by dmenu, so I had to hardcode values :(
-    -- Solarized dark
-    -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#002b36' -nf '#839496' -sb '#073642' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
-    -- Solarized light
-    -- awful.util.spawn("dmenu_run -z -l 5 -i -p 'Run: ' -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn '-*-terminus-medium-*-*-*-16-*-*-*-*-*-*-*'")
-    awful.util.spawn("dmenu_run -l 4 -i -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' -fn 'Terminus-10:normal'")
+  awful.key({modkey}, "Return", function(c)
+    c.fullscreen = not c.fullscreen
   end),
-  -- Session control
-  awful.key({ modkey            }, "q",           function () awful.util.spawn("sh /home/tlarrieu/scripts/shutdown_dialog.sh")       end),
-  -- XFCE4 properties
-  awful.key({ modkey            }, "b",           function () awful.util.spawn("xfce4-settings-manager")     end),
-  -- Media player controls
-  awful.key({                   }, "F10",         function () awful.util.spawn("mocp --previous")            end),
-  awful.key({                   }, "F11",         function () awful.util.spawn("mocp --toggle-pause")        end),
-  awful.key({                   }, "F12",         function () awful.util.spawn("mocp --next")                end),
 
-  awful.key({ modkey            }, "u",           function () awful.util.spawn(terminal_exec .. "ranger")    end),
-  awful.key({ modkey            }, "m",           function () awful.util.spawn(terminal_exec .. "mocp")      end),
-  awful.key({ modkey            }, "a",           function () awful.util.spawn("pavucontrol") end),
-  awful.key({ modkey            }, "g",           function () awful.util.spawn("thunar") end),
-  awful.key({ modkey            }, "'",           function () awful.util.spawn("google-chrome-stable") end),
+  -- On Top
+  awful.key({modkey}, "h", function(c)
+    c.ontop = not c.ontop
+  end),
 
-  awful.key({ modkey            }, "n",           function () awful.util.spawn(terminal)                     end),
-  awful.key({ modkey, "Shift"   }, "n",           function () awful.util.spawn("gksu " .. terminal)          end),
-  -- awful.key({ modkey            }, "p",           function () awful.util.spawn("escrotum -s -e 'mv $f ~/Pictures/Screenshots/ 2>/dev/null'") end)
-  awful.key({ modkey            }, "p",           function () awful.util.spawn("shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'") end)
+  -- Kill
+  awful.key({modkey}, "w", function(c) c:kill() end),
+
+  -- Moving client arounds
+  awful.key({modkey, "Control"}, "c", function(c)
+    local screen = client.focus.screen
+    local id = awful.tag.getidx()
+    if id == 1 then
+      id = #tags[screen]
+    else
+      id = id - 1
+    end
+    awful.client.movetotag(tags[screen][id])
+    awful.tag.viewonly(tags[screen][id])
+  end),
+  awful.key({ modkey, "Control" }, "r", function(c)
+    local screen = client.focus.screen
+    local id = awful.tag.getidx() % #tags[screen] + 1
+    awful.client.movetotag(tags[screen][id])
+    awful.tag.viewonly(tags[screen][id])
+  end)
 )
 
--- Set keys
-root.keys(globalkeys)
+--[[ Client mouse manipulation ]]-----------------------------------------------
+
+clientbuttons = awful.util.table.join(
+  awful.button({}, 1, function(c) client.focus = c; c:raise() end),
+  awful.button({modkey}, 1, awful.mouse.client.move),
+  awful.button({modkey}, 3, awful.mouse.client.resize),
+  awful.button({modkey}, 4, awful.tag.viewnext),
+  awful.button({modkey}, 5, awful.tag.viewprev)
+)
+
+--[[ Program bindings ]]--------------------------------------------------------
+
+spawn = function(mod, key, cmd)
+  return awful.key(mod, key, function() awful.util.spawn(cmd) end)
+end
+mspawn = function(key, cmd) return spawn({modkey}, key, cmd) end
+mtspawn = function(key, cmd)
+  return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
+end
+
+dmenu = function()
+  options = " -l 4 -i "
+  colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
+  font = " -fn 'Terminus-10:normal' "
+  return "dmenu_run " .. options .. colors .. font
+end
+
+keyboard = awful.util.table.join(keyboard,
+  -- dmenu
+  spawn({"Control"}, " ", dmenu()),
+
+  -- Session control
+  mspawn("q", "sh /home/tlarrieu/scripts/shutdown_dialog.sh"),
+
+  -- xkill
+  awful.key({modkey, "Control"}, "w", function()
+    awful.util.spawn("xkill")
+  end),
+
+  -- XFCE4 properties
+  mspawn("b", "xfce4-settings-manager"),
+
+  -- Media player controls
+  spawn({}, "F10", "mocp --previous"),
+  spawn({}, "F11", "mocp --toggle-pause"),
+  spawn({}, "F12", "mocp --next"),
+
+  mtspawn("u", "ranger"),
+  mtspawn("m", "mocp"),
+
+  -- mspawn("a", "pavucontrol"),
+  mtspawn("a", "alsamixer --card 2 -g"),
+  mspawn("g", "thunar"),
+  mspawn("'", "google-chrome-stable"),
+
+  mspawn("n", terminal),
+  spawn({modkey, "Shift"}, "n", "gksu " .. terminal),
+  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'")
+)
+
+--[[ Final binding ]]-----------------------------------------------------------
+
+root.buttons(mouse)
+root.keys(keyboard)
