@@ -147,8 +147,7 @@ let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
 " Timeout
-set ttimeout
-set ttimeoutlen=100
+set nottimeout
 " History
 set history=500
 " Color / background theme
