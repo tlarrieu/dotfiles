@@ -15,38 +15,21 @@ let s:readonly_glyphe = '⭤'
 let s:modified_glyphe = '∙'
 let s:branch_glyphe = '⭠'
 
-function! Highlight()
-  " highlight! StatusLine  ctermfg=125 guifg=#fdf6e3 ctermbg=15 guibg=#2aa198
-  " highlight! TabLineSel  cterm=bold ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
-  highlight! WarningMsg  ctermfg=15 guifg=#fdf6e3 ctermbg=125 guibg=#2aa198
+highlight! StatusLine   ctermbg=12 ctermfg=7
+highlight! StatusLineNC ctermbg=14 ctermfg=7
+highlight! TabLine      cterm=NONE ctermfg=12 ctermbg=7
+highlight! TabLineFill  cterm=NONE ctermfg=12 ctermbg=7
+highlight! TabLineSel   cterm=standout,bold ctermfg=7 ctermbg=166
 
-  " Modified file marker (active window)
-  " highlight! User1 cterm=bold ctermfg=1 ctermbg=125
-  " Modified file marker (inactive window)
-  " highlight! User4 cterm=bold ctermfg=1 ctermbg=7
-  " Filename
-  " highlight! User2 ctermfg=15 ctermbg=125
-  " VCS Branch
-  " highlight! User3 ctermfg=15 ctermbg=125
-endfunc
-
-function! NoHighlight()
-  highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
-  highlight! StatusLine   ctermbg=12 ctermfg=7 guifg=Blue
-  highlight! StatusLineNC ctermbg=14 ctermfg=7 guifg=Brown
-  highlight! TabLine      cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  highlight! TabLineFill  cterm=NONE ctermfg=12 ctermbg=7 guifg=Blue
-  highlight! TabLineSel   cterm=standout,bold ctermfg=7 ctermbg=166 guifg=Blue
-
-  " Modified file marker (active window)
-  highlight! User1 cterm=bold ctermfg=1 ctermbg=7
-  " Modified file marker (inactive window)
-  highlight! User4 cterm=bold ctermfg=1 ctermbg=7
-  " Filename
-  highlight! User2 cterm=bold ctermfg=14 ctermbg=7
-  " VCS Branch
-  highlight! User3 ctermfg=14 ctermbg=7
-endfunc
+" Modified file marker (active window)
+highlight! User1 cterm=bold ctermfg=1 ctermbg=7
+" Modified file marker (inactive window)
+highlight! User4 cterm=bold ctermfg=1 ctermbg=7
+" Filename
+highlight! User2 cterm=bold ctermfg=14 ctermbg=7
+" VCS Branch
+highlight! User3 ctermfg=14 ctermbg=7
+highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
 
 function! StatusIf(glyphe, condition)
   if a:condition
@@ -195,14 +178,8 @@ function! SwitchStatus()
   call Status()
 endfunction
 
-call NoHighlight()
-call Status()
-
 augroup StatusLine
   autocmd!
-
-  autocmd InsertEnter * call Highlight()
-  autocmd InsertLeave * call NoHighlight()
 
   autocmd BufEnter * call Status()
   autocmd WinEnter * call Status()
@@ -211,3 +188,5 @@ augroup StatusLine
 
   autocmd BufWritePost * call WhitespaceReset()
 augroup END
+
+call Status()
