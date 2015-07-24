@@ -147,8 +147,7 @@ let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
 " Timeout
-set ttimeout
-set ttimeoutlen=100
+set nottimeout
 " History
 set history=500
 " Color / background theme
@@ -161,7 +160,7 @@ highlight! Visual ctermfg=7 ctermbg=14
 highlight! MatchParen term=bold cterm=bold ctermfg=1 ctermbg=NONE
 
 highlight! link SignColumn LineNr
-highlight! CursorLineNr ctermfg=4
+highlight! link CursorLineNr Directory
 " Line numbering (relative and current)
 set relativenumber
 set number
@@ -222,8 +221,6 @@ set showbreak=↪\
 set nojoinspaces
 " Do not redraw screen while running macros
 set lazyredraw
-" Improve redrawing
-set ttyfast
 " }}}
 " {{{ ==| Splits |==============================================================
 highlight! link VertSplit CursorColumn
@@ -697,7 +694,7 @@ nmap <leader>. :e .<cr>
 
 nmap <leader># :e #<cr>
 
-nmap <leader>$ :so ~/.nvimrc<cr>
+nmap <silent> <leader>$ :so ~/.nvimrc<cr>:so ~/.vim/plugin/statusline.vim<cr>
 
 nmap gf :e <cfile><cr>
 " }}}
