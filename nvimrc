@@ -78,7 +78,6 @@ Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 Plug 'fatih/vim-go', { 'for' : 'go' }
 " }}}
 " {{{ --| SQL |----------------------------
-" Plug 'ivalkeen/vim-simpledb', { 'for' : 'sql' }
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Markdown |-----------------------
@@ -252,6 +251,7 @@ set fillchars+=fold: 
 set foldminlines=1
 set foldtext=FoldText()
 nmap <leader>z zMzv
+nnoremap <leader>Z zR
 nnoremap zO zczO
 " }}}
 " {{{ ==| Searching |===========================================================
@@ -601,13 +601,13 @@ imap <c-g> <esc>lgUiwea
 " Clear trailing spaces (but not the escaped ones)
 function! ClearTrailingSpaces()
   let _s=@/
-  %s/\v([\\]\s\zs\s+$|[^\\]\s\s+$)//e
+  %s/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
   let @/=_s
   nohl
 endfunction
-nmap <silent> <leader>k :call ClearTrailingSpaces()<cr>
+nmap <silent> <leader>k m`:call ClearTrailingSpaces()<cr>g``
 " Fix indent
-nmap <silent> <leader>i m'gg=Gg`'
+nmap <silent> <leader>i m`gg=Gg``:call ClearTrailingSpaces()<cr>
 " Cursorline / Cursorcolumn
 let g:virtualedit=''
 function! AlignMode()
@@ -695,8 +695,6 @@ nmap <leader>. :e .<cr>
 nmap <leader># :e #<cr>
 
 nmap <silent> <leader>$ :so ~/.nvimrc<cr>:so ~/.vim/plugin/statusline.vim<cr>
-
-nmap gf :e <cfile><cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
