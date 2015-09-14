@@ -29,7 +29,7 @@ highlight! User4 cterm=bold ctermfg=1 ctermbg=7
 highlight! User2 cterm=bold ctermfg=14 ctermbg=7
 " VCS Branch
 highlight! User3 ctermfg=14 ctermbg=7
-highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
+highlight! WarningMsg ctermfg=1 ctermbg=7
 
 function! StatusIf(glyphe, condition)
   if a:condition

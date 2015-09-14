@@ -1,0 +1,74 @@
+snippet kr "key :required"
+key :required, %i($1)
+endsnippet
+
+snippet p "property"
+property :${1:prop} do
+	key :type, :${2:integer}
+	key :format, :${3:int64}
+	key :description, '${5:description}'
+end
+endsnippet
+
+snippet b "boolean property"
+property :${1:prop} do
+	key :type, :boolean
+	key :description, '${3:description}'
+end
+endsnippet
+
+snippet i "integer property"
+property :${1:prop} do
+	key :type, :integer
+	key :format, :${2:int64}
+	key :description, '${4:description}'
+end
+endsnippet
+
+snippet st "string property"
+property :${1:prop} do
+	key :type, :string
+	key :description, '${4:description}'
+end
+endsnippet
+
+snippet dt "date property"
+property :${1:prop} do
+	key :type, :string
+	key :format, :date
+	key :description, '${3:description}'
+end
+endsnippet
+
+snippet o "object property"
+property :${1:prop} do
+	key :type, :object
+	key :'$ref', :${3:$1}
+end
+endsnippet
+
+snippet a "array property"
+property :${1:prop} do
+	key :type, :array
+	items do
+		key :'$ref', :${3:$1}
+	end
+end
+endsnippet
+
+snippet sch "schema"
+swagger_schema :${1:name} do
+	${2}
+end
+endsnippet
+
+snippet param "parameter"
+parameter do
+	key :name, :${1:name}
+	key :in, :${2:in}
+	key :description, '${3:description}'
+	key :required, ${4:true}
+	key :type, :${5:type}
+	key :format, :${6:format}
+end
+endsnippet

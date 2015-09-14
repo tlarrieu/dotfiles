@@ -6,6 +6,18 @@ snippet gem "gem"
 gem '${1}'
 endsnippet
 
+snippet puts "debug"
+puts "---------> $1 : #{${2:$1}.inspect}"
+endsnippet
+
+snippet p-- "Puts"
+puts "-- [[ ${1} ]] ----------------------------------------------------------------"
+endsnippet
+
+snippet --> "--------->" i
+--------->
+endsnippet
+
 snippet -- "Line comment"
 # -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
@@ -30,10 +42,6 @@ endsnippet
 
 snippet /(.*)\.tap/ "comment" ri
 `!p snip.rv = match.group(1)`.tap { |o| puts o.${1:inspect} }.
-endsnippet
-
-snippet deb "debug"
-puts "---------> $1 : #{${2:$1}.inspect}"
 endsnippet
 
 snippet #! "shebang"
@@ -78,10 +86,4 @@ endsnippet
 
 snippet -> "lambda"
 ->(${1:i}) { ${2:${VISUAL}} }
-endsnippet
-
-snippet puts "special puts"
-puts "\n-------------------- [${1:foo}]"
-puts $2
-puts '--------------------'
 endsnippet

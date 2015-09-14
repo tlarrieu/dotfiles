@@ -37,6 +37,8 @@ Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'godlygeek/tabular'
+Plug 'FooSoft/vim-argwrap'
 " }}}
 " {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-function'
@@ -81,7 +83,7 @@ Plug 'fatih/vim-go', { 'for' : 'go' }
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Markdown |-----------------------
-Plug 'gabrielelana/vim-markdown', { 'for' : 'markdown' }
+Plug 'jtratner/vim-flavored-markdown'
 " }}}
 " {{{ --| Misc languages support |---------
 Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
@@ -112,12 +114,13 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
-  autocmd BufReadPost *.arb setf ruby
+  autocmd BufReadPost *.arb setfiletype ruby
   autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd FileType html,eruby setlocal foldlevel=10
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  autocmd BufReadPost *.yml set ft=yaml
+  autocmd BufReadPost *.yml setfiletype yaml
+  autocmd BufReadPost *.diag setfiletype seqdiag
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
       \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -266,6 +269,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| ArgWrap |-----------------------------------------
+nnoremap <silent> <leader>; :ArgWrap<CR>
+" }}}
 " {{{ --| HttpClient |--------------------------------------
 let g:http_client_bind_hotkey = 0
 augroup HTTPClient
@@ -365,7 +371,7 @@ let g:omni_sql_no_default_maps = 1
 augroup SQL
   autocmd!
   " For syntax coloring purposes
-  autocmd BufEnter vim-simpledb-result.txt setf postgresql
+  autocmd BufEnter vim-simpledb-result.txt setfiletype postgresql
   " Disable a bunch of visual feedback as this is generated content anyway
   autocmd BufReadPost vim-simpledb-result.txt highlight! link OverLength NULL
   autocmd BufReadPost vim-simpledb-result.txt setlocal nolist
@@ -441,6 +447,12 @@ function! HgBranchStatus()
 endfunction
 command! HgBranchStatus call HgBranchStatus()
 
+function! HgHistory()
+  let file = expand('%')
+  execute 'Hg! history -p ' . file
+  setfiletype diff
+endfunction
+
 function! SwitchVCS()
   if g:next_vcs ==# 'mercurial'
     nmap <leader>s :Hgstatus<cr>
@@ -448,6 +460,7 @@ function! SwitchVCS()
     nmap <leader>b :HGblame<cr>
     nmap <leader>d :HGdiff<cr>
     nmap <leader>r :Hgrevert!<cr>:e<cr>
+    nmap <leader>H :call HgHistory()<cr>
     let g:next_vcs = 'git'
   else
     nmap <leader>b :Gblame<cr>
@@ -700,5 +713,6 @@ nmap <silent> <leader>$ :so ~/.nvimrc<cr>:so ~/.vim/plugin/statusline.vim<cr>
 vmap <leader>s :sort<cr>
 cnoremap %% <c-r>=expand('%:p:h')<cr>
 nnoremap dD "_dd
+cmap w!! w !sudo tee % >/dev/null
 " }}}
 " }}}
