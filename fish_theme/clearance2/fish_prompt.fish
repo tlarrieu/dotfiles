@@ -76,7 +76,11 @@ function fish_prompt
   end
 
   # Ruby version
-  echo -n -s ' @ ' $RUBY_VERSION
+  if test $RUBY_VERSION
+    echo -n -s ' @ ' $RUBY_VERSION
+  else
+    echo -n -s ' @ ' (rbenv version | cut -d' ' -f 1)
+  end
 
   echo -e -n -s $vcs_color ' ><(((°> ' $normal
 

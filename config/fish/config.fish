@@ -4,7 +4,6 @@
 
 # Vim + ranger
 alias python2="python2.7"
-alias v="nvim"
 alias vimrc="nvim ~/.vimrc"
 alias vir="nvim -R"
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
@@ -185,9 +184,12 @@ set -x GOPATH ~/go
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.4/bin
 set -x PATH $PATH /usr/local/heroku/bin
-set -x PATH $PATH ~/bin/
+set -x PATH $PATH ~/bin
 set -x PATH $PATH ~/.cabal/bin
-set -x PATH $PATH ~/Elm-Platform/0.15/bin/
+set -x PATH $PATH ~/Elm-Platform/0.15/bin
+
+set -gx RBENV_ROOT /usr/local/var/rbenv
+source (rbenv init -|psub)
 
 set -g theme_display_user yes
 set -g default_user tlarrieu
@@ -195,13 +197,16 @@ set -g default_user tlarrieu
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 
+set -g SSL_CERT_FILE /etc/openssl/cert.pem
+
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
 
 # Oh-my-fish theme
 Theme 'clearance'
+. $fish_path/themes/clearance/fish_prompt.fish
+
 # Oh-my-fish plugins
-Plugin 'rvm'
 Plugin 'rails'
 Plugin 'brew'
 Plugin 'bundler'
