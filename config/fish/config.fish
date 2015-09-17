@@ -127,7 +127,7 @@ function hrc
 end
 
 # pgbackup
-alias ddump="curl (heroku pgbackups:url -a shopmium) > ~/Downloads/last.dump"
+alias ddump="curl (heroku pg:backups public-url -a shopmium) > ~/Downloads/last.dump"
 
 # Zeus
 alias zc="zeus console"
