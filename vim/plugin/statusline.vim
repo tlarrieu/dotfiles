@@ -15,20 +15,20 @@ let s:readonly_glyphe = '⭤'
 let s:modified_glyphe = '∙'
 let s:branch_glyphe = '⭠'
 
-highlight! StatusLine   ctermbg=12 ctermfg=7
-highlight! StatusLineNC ctermbg=14 ctermfg=7
-highlight! TabLine      cterm=NONE ctermfg=12 ctermbg=7
-highlight! TabLineFill  cterm=NONE ctermfg=12 ctermbg=7
-highlight! TabLineSel   cterm=standout,bold ctermfg=7 ctermbg=166
+highlight! link StatusLine Comment
+highlight! link StatusLineNC Comment
+highlight! link TabLine VertSplit
+highlight! link TabLineFill SignColumn
+highlight! link TabLineSel Directory
 
 " Modified file marker (active window)
-highlight! User1 cterm=bold ctermfg=1 ctermbg=7
+" highlight! User1 cterm=standout ctermfg=7 ctermbg=1 gui=standout
 " Modified file marker (inactive window)
-highlight! User4 cterm=bold ctermfg=1 ctermbg=7
+" highlight! User4 cterm=standout ctermfg=7 ctermbg=1 gui=standout
 " Filename
-highlight! User2 cterm=bold ctermfg=14 ctermbg=7
+" highlight! User2 ctermfg=14 ctermbg=7
 " VCS Branch
-highlight! User3 ctermfg=14 ctermbg=7
+" highlight! User3 ctermfg=14 ctermbg=7
 highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
 
 function! StatusIf(glyphe, condition)
