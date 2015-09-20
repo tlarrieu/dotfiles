@@ -1,3 +1,4 @@
+" -- [[ Runner ]] --------------------------------------------------------------
 function! s:GetQuery(first, last)
   let query = ''
   let lines = getline(a:first, a:last)
@@ -15,7 +16,7 @@ function! RunSQL() range
 
   let tempfile = tempname()
 
-  let query = shellescape('\\timing on' . query)
+  let query = shellescape('\\timing on\n ' . query)
   let query = escape(query, '%')
   let cmdline =
         \ 'echo -e ' . query .
@@ -38,10 +39,14 @@ function! <sid>Openfile() dict
   execute 'bdelete! ' . self.bufnr
   execute 'new ' . self.filename
   setf postgresql
+  match OverLength //
 endfunction
 
 command! -range=% RunSQL <line1>,<line2>call RunSQL()
 
-vnoremap <silent> <buffer> <return> :RunSQL<cr>
-nnoremap <silent> <buffer> <leader><return> m':RunSQL <cr>g`'
-nnoremap <silent> <buffer> <return> m':'{,'}RunSQL<cr>g`'
+vmap <silent> <buffer> <return> :RunSQL<cr>
+nmap <silent> <buffer> <leader><return> :RunSQL<cr>
+nmap <silent> <buffer> <return> :'{,'}RunSQL<cr>
+
+" -- [[ Formatter ]] -----------------------------------------------------------
+vmap <silent> <leader>i :!sqlformat - -r -k upper<cr>

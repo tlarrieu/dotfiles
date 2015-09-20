@@ -4,7 +4,6 @@
 
 # Vim + ranger
 alias python2="python2.7"
-alias v="nvim"
 alias vimrc="nvim ~/.vimrc"
 alias vir="nvim -R"
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
@@ -128,7 +127,7 @@ function hrc
 end
 
 # pgbackup
-alias ddump="curl (heroku pgbackups:url -a shopmium) > ~/Downloads/last.dump"
+alias ddump="curl (heroku pg:backups public-url -a shopmium) > ~/Downloads/last.dump"
 
 # Zeus
 alias zc="zeus console"
@@ -149,7 +148,6 @@ alias bspec="bin/bundle exec rspec"
 alias bguard="bin/bundle exec guard"
 
 # Rake / Bundler
-alias pspec="bin/bundle exec rake parallel:spec"
 alias raklette="bin/bundle exec rake parallel:spec"
 alias be="bin/bundle exec"
 alias bspec="bin/bundle exec rspec"
@@ -157,7 +155,8 @@ alias rdm="bin/bundle exec rake db:migrate"
 alias rds="bin/bundle exec rake db:migrate:status"
 alias rpp="bin/bundle exec rake parallel:prepare"
 alias rdtp="bin/bundle exec rake db:test:prepare"
-alias rdr="bin/rake db:migrate:redo"
+alias rdr="bin/rake db:rollback"
+alias rdre="bin/rake db:migrate:redo"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
 
@@ -185,9 +184,14 @@ set -x GOPATH ~/go
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.4/bin
 set -x PATH $PATH /usr/local/heroku/bin
-set -x PATH $PATH ~/bin/
+set -x PATH $PATH ~/bin
 set -x PATH $PATH ~/.cabal/bin
-set -x PATH $PATH ~/Elm-Platform/0.15/bin/
+set -x PATH $PATH ~/Elm-Platform/0.15/bin
+
+if type rbenv > /dev/null
+  set -gx RBENV_ROOT /usr/local/var/rbenv
+  source (rbenv init - | psub)
+end
 
 set -g theme_display_user yes
 set -g default_user tlarrieu
@@ -195,13 +199,16 @@ set -g default_user tlarrieu
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
 
+set -g SSL_CERT_FILE /etc/openssl/cert.pem
+
 # Load oh-my-fish configuration.
 . $fish_path/oh-my-fish.fish
 
 # Oh-my-fish theme
 Theme 'clearance'
+. $fish_path/themes/clearance/fish_prompt.fish
+
 # Oh-my-fish plugins
-Plugin 'rvm'
 Plugin 'rails'
 Plugin 'brew'
 Plugin 'bundler'

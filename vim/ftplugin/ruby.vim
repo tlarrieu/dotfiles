@@ -1,4 +1,4 @@
-setlocal conceallevel=2
+setlocal conceallevel=0
 setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
@@ -76,7 +76,7 @@ function! s:deflines()
 
   let cmd = 'grep -n -E "^\s*def" ' . expand('%:p') .
         \ '|' . "cut -d'(' -f 1" .
-        \ '|' . "sed -r 's/\\s*def\\s*(.*)( \\< .*)?/\\1 : \\2/g'" .
+        \ '|' . "sed -E 's/\\s*def\\s*(.*)( \\< .*)?/\\1 : \\2/g'" .
         \ '|' . "column -t -s ':'"
 
   let lines = system(cmd)

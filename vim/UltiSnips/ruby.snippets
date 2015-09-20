@@ -2,12 +2,56 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
+snippet gem "gem"
+gem '${1}'
+endsnippet
+
+snippet puts "debug"
+puts "---------> $1 : #{${2:$1}.inspect}"
+endsnippet
+
+snippet p-- "Puts"
+puts "-- [[ ${1} ]] ----------------------------------------------------------------"
+endsnippet
+
+snippet m> "color debug" i
+m---------> $1 : #{${2:$1}.inspect}
+endsnippet
+
+snippet m-- "color line debug" i
+m-- [[ ${1} ]] ----------------------------------------------------------------
+endsnippet
+
+snippet red "red debug"
+puts "\e[31m$1\e[0m"
+endsnippet
+
+snippet green "green debug"
+puts "\e[32m$1\e[0m"
+endsnippet
+
+snippet yel "yellow debug"
+puts "\e[33m$1\e[0m"
+endsnippet
+
+snippet blue "yellow debug"
+puts "\e[34m$1\e[0m"
+endsnippet
+
+snippet pink "yellow debug"
+puts "\e[35m$1\e[0m"
+endsnippet
+
+snippet cyan "yellow debug"
+puts "\e[36m$1\e[0m"
+endsnippet
+
 snippet -- "Line comment"
-# --| ${1} |--------------------------------------------------------------------
+# -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
 
 snippet == "Thick line comment"
-# ==| ${1} |====================================================================
+# == [[ ${1} ]] ================================================================
 endsnippet
 
 snippet d "def"
@@ -26,10 +70,6 @@ endsnippet
 
 snippet /(.*)\.tap/ "comment" ri
 `!p snip.rv = match.group(1)`.tap { |o| puts o.${1:inspect} }.
-endsnippet
-
-snippet deb "debug"
-puts "---------> $1 : #{${2:$1}.inspect}"
 endsnippet
 
 snippet #! "shebang"
@@ -60,24 +100,18 @@ class ${1:Name}
 end
 endsnippet
 
-snippet times "times"
+snippet times "times" i
 times { |${1:i}| $2 }
 endsnippet
 
-snippet reduce "reduce"
+snippet reduce "reduce" i
 reduce { |${1:i}| $2 }
 endsnippet
 
-snippet map "map"
+snippet map "map" i
 map { |${1:i}| $2 }
 endsnippet
 
 snippet -> "lambda"
 ->(${1:i}) { ${2:${VISUAL}} }
-endsnippet
-
-snippet puts "special puts"
-puts "\n-------------------- [${1:foo}]"
-puts $2
-puts '--------------------'
 endsnippet
