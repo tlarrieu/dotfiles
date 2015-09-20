@@ -164,13 +164,13 @@ keyboard = awful.util.table.join(keyboard,
   mtspawn("m", "mocp"),
 
   -- mspawn("a", "pavucontrol"),
-  mtspawn("a", "alsamixer --card 2 -g"),
+  mtspawn("a", "alsamixer --card 2"),
   mspawn("g", "thunar"),
   mspawn("'", "google-chrome-stable"),
 
   mspawn("n", terminal),
   spawn({modkey, "Shift"}, "n", "gksu " .. terminal),
-  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$wx$h.png'")
+  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$$h.png'")
 )
 
 --[[ Final binding ]]-----------------------------------------------------------
