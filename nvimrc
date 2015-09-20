@@ -154,11 +154,6 @@ set history=500
 set background=light
 colorscheme solarized
 
-highlight! Visual ctermfg=7 ctermbg=14
-      \ gui=bold guifg=#93a1a1 guibg=#eee8d5 guisp=#268bd2
-
-highlight! MatchParen term=bold cterm=bold ctermfg=1 ctermbg=NONE
-
 highlight! link SignColumn LineNr
 highlight! link CursorLineNr Directory
 " Line numbering (relative and current)
