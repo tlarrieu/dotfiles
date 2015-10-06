@@ -2,6 +2,9 @@
 # Aliases
 # ------------------------------------------------------------------------------
 
+# Zathura
+alias z="zathura"
+
 # Vim + ranger
 alias python2="python2.7"
 alias vimrc="nvim ~/.vimrc"
