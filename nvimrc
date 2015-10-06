@@ -21,6 +21,8 @@ Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
+Plug 'qpkorr/vim-renamer'
+Plug 'vim-scripts/table-mode'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -175,7 +177,6 @@ set list
 " Show incomplete key sequence in bottom corner
 set showcmd
 " Encoding and filetype
-set encoding=utf8
 set fileformats=unix,dos,mac
 " Undo, backup and swap files
 set undodir=~/.tmp//
