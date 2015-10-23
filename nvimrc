@@ -33,7 +33,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'AndrewRadev/switch.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'edsono/vim-matchit'
-Plug 'godlygeek/tabular'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -73,11 +72,11 @@ Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
 " }}}
 " {{{ --| Haskell |------------------------
-Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
-Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
+" Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
+" Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
 " }}}
 " {{{ --| Go lang |------------------------
-Plug 'fatih/vim-go', { 'for' : 'go' }
+" Plug 'fatih/vim-go', { 'for' : 'go' }
 " }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
@@ -90,7 +89,7 @@ Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
-Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
+" Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 Plug 'leshill/vim-json', { 'for' : 'json' }
 Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
@@ -274,6 +273,7 @@ nnoremap <silent> <leader>; :ArgWrap<CR>
 " }}}
 " {{{ --| HttpClient |--------------------------------------
 let g:http_client_bind_hotkey = 0
+let g:http_client_result_vsplit = 0
 augroup HTTPClient
   autocmd!
   autocmd BufReadPost httpclient map <buffer> <return> :HTTPClientDoRequest<cr>
@@ -533,6 +533,18 @@ nnoremap <leader>@ 6gt
 nnoremap <leader>+ 7gt
 nnoremap <leader>- 8gt
 nnoremap <leader>/ 9gt
+
+" Move tabs
+nnoremap <leader>t* :tabmove 0<cr>
+nnoremap <leader>t" :tabmove 1<cr>
+nnoremap <leader>t« :tabmove 2<cr>
+nnoremap <leader>t» :tabmove 3<cr>
+nnoremap <leader>t( :tabmove 4<cr>
+nnoremap <leader>t) :tabmove 5<cr>
+nnoremap <leader>t@ :tabmove 6<cr>
+nnoremap <leader>t+ :tabmove 7<cr>
+nnoremap <leader>t- :tabmove 8<cr>
+nnoremap <leader>t/ :tabmove 9<cr>
 
 nmap <leader>U <c-w>T
 nmap <leader>u :call MergeTabs()<cr>
