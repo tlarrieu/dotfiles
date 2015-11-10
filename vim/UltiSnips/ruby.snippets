@@ -2,6 +2,10 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
+snippet cc "copyright"
+# Copyright (c) 2010 Shopmium
+endsnippet
+
 snippet gem "gem"
 gem '${1}'
 endsnippet
@@ -26,7 +30,7 @@ snippet red "red debug"
 puts "\e[31m$1\e[0m"
 endsnippet
 
-snippet green "green debug"
+snippet gr "green debug"
 puts "\e[32m$1\e[0m"
 endsnippet
 
@@ -46,6 +50,14 @@ snippet cyan "yellow debug"
 puts "\e[36m$1\e[0m"
 endsnippet
 
+snippet beg "begin block"
+begin
+	${VISUAL}
+rescue ${1:Exception} => ${2:e}
+	${3:puts "\e[31m---------> e : #{e.inspect}\e[0m"}
+end
+endsnippet
+
 snippet -- "Line comment"
 # -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
@@ -54,15 +66,21 @@ snippet == "Thick line comment"
 # == [[ ${1} ]] ================================================================
 endsnippet
 
-snippet di "def initialize"
-def initialize${2:(${3:*args})}
-	$0
+snippet def "def"
+def ${1:function_name}${2:(${3:*args})}
+	${0:${VISUAL}}
 end
 endsnippet
 
 snippet d "def"
 def ${1:function_name}${2:(${3:*args})}
-	$0
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet di "def initialize"
+def initialize${1:(${2:*args})}
+	${0:${VISUAL}}
 end
 endsnippet
 

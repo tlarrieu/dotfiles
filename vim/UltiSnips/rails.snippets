@@ -24,20 +24,6 @@ change_table :${1:table_name} do |t|
 end
 endsnippet
 
-snippet fc "FactoryGirl"
-FactoryGirl.create($0)
-endsnippet
-
-snippet fb "FactoryGirl"
-FactoryGirl.build($0)
-endsnippet
-
-snippet trait "trait"
-trait :${1:trait} do
-	$2
-end
-endsnippet
-
 snippet message "Message"
 class ${1:name}Message < TransactionalMessage
   def initialize(${3:variables})

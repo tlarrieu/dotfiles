@@ -37,6 +37,8 @@ alias kbg="kill (jobs -p)"
 # cd
 alias shops="cd ~/mercurial/shopmium/shops"
 alias serv="cd ~/mercurial/shopmium/server"
+alias release="cd ~/mercurial/shopmium/server-release"
+alias etl="cd ~/git/shopmium-etl"
 alias mob="cd ~/Dev/shopmium-mobile/Shopmium"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
@@ -190,6 +192,7 @@ set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin
 set -x PATH $PATH ~/.cabal/bin
 set -x PATH $PATH ~/Elm-Platform/0.15/bin
+set -x PATH $PATH ~/go/bin
 
 if type rbenv > /dev/null
   set -gx RBENV_ROOT /usr/local/var/rbenv
