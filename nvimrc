@@ -23,6 +23,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/table-mode'
+Plug 'skwp/greplace.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -509,6 +510,8 @@ nmap <up> <c-w><up>
 nmap <down> <c-w><down>
 nmap <left> <c-w><left>
 nmap <right> <c-w><right>
+nmap <tab> <c-w>w
+nmap <s-tab> <c-w>W
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
