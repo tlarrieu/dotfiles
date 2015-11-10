@@ -54,6 +54,12 @@ snippet == "Thick line comment"
 # == [[ ${1} ]] ================================================================
 endsnippet
 
+snippet di "def initialize"
+def initialize${2:(${3:*args})}
+	$0
+end
+endsnippet
+
 snippet d "def"
 def ${1:function_name}${2:(${3:*args})}
 	$0
