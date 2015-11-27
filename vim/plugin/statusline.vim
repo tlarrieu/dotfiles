@@ -15,11 +15,11 @@ let s:readonly_glyphe = '⭤'
 let s:modified_glyphe = '∙'
 let s:branch_glyphe = '⭠'
 
-highlight! link StatusLine Comment
-highlight! link StatusLineNC Comment
-highlight! link TabLine VertSplit
+highlight! link StatusLine CursorLineNr
+highlight! link StatusLineNC SignColumn
+highlight! link TabLine SignColumn
 highlight! link TabLineFill SignColumn
-highlight! link TabLineSel Directory
+highlight! link TabLineSel CursorLineNr
 
 " Modified file marker (active window)
 " highlight! User1 cterm=standout ctermfg=7 ctermbg=1 gui=standout
@@ -29,7 +29,7 @@ highlight! link TabLineSel Directory
 " highlight! User2 ctermfg=14 ctermbg=7
 " VCS Branch
 " highlight! User3 ctermfg=14 ctermbg=7
-highlight! WarningMsg   ctermfg=1 ctermbg=7 guifg=Red
+highlight! WarningMsg   ctermfg=1 guifg=Red
 
 function! StatusIf(glyphe, condition)
   if a:condition
@@ -128,8 +128,8 @@ endfunction
 
 function! NormalStatus()
   setlocal statusline=
-  setlocal statusline+=%2*%t%*
-  setlocal statusline+=%1*%{Modified()}%*
+  setlocal statusline+=%t%*
+  setlocal statusline+=%{Modified()}%*
   setlocal statusline+=%#warningmsg#
   setlocal statusline+=%{Syntax()}
   setlocal statusline+=%{Whitespace()}
@@ -144,9 +144,9 @@ endfunction
 
 function! FullStatus()
   setlocal statusline=
-  setlocal statusline+=%3*%{VCSBranch()}%*
-  setlocal statusline+=%2*%f%*
-  setlocal statusline+=%1*%{Modified()}%*
+  setlocal statusline+=%{VCSBranch()}%*
+  setlocal statusline+=%f%*
+  setlocal statusline+=%{Modified()}%*
   setlocal statusline+=%#warningmsg#
   setlocal statusline+=%{Syntax()}
   setlocal statusline+=%{Whitespace()}
