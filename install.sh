@@ -126,6 +126,7 @@ safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
+git config --global core.excludesFile ~/.gitignore
 
 # .tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
