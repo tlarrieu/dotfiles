@@ -22,7 +22,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
-Plug 'vim-scripts/table-mode'
+" Plug 'vim-scripts/table-mode'
 Plug 'skwp/greplace.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
@@ -155,7 +155,7 @@ set nottimeout
 " History
 set history=500
 " Color / background theme
-set background=light
+set background=dark
 colorscheme solarized
 
 highlight! link SignColumn LineNr
@@ -329,12 +329,12 @@ function! s:agopen(lines)
 endfunction
 
 command! -nargs=1 Fg call fzf#run({
-  \ 'source': 'ag --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
+  \ 'source': 'ag -i --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e',
   \ 'down': '50%'
   \ })
-nnoremap <leader>a :<c-u>Fg<space>
+nnoremap <c-e> :<c-u>Fg<space>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -406,12 +406,15 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
+" {{{ --| Greplace |----------------------------------------
+set grepprg=ag\ $*\ --column\ --line-numbers\ --noheading\ --smart-case
+" }}}
 " {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
 
-nmap <leader>A :Ag! ""<left>
+nmap <leader>a :Ag! ""<left>
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
@@ -504,7 +507,9 @@ nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 nmap <leader>V :vnew<space>
 " Dimensions
 nmap <leader>M <c-w>=
-nmap <leader>m :res<cr>:vertical res<cr>$
+nmap <leader>= <c-w>=
+nmap <leader>m :res<cr>:vertical res<cr>
+nmap <leader>% :res<cr>:vertical res<cr>
 " Moving around
 nmap <up> <c-w><up>
 nmap <down> <c-w><down>
@@ -553,6 +558,7 @@ tnoremap <c-s> <c-\><c-n>
 
 map <silent> <leader>ti :terminal<cr>
 map <silent> <leader>vi :vertical new<bar>terminal<cr>
+map <silent> <leader>ni :new<bar>terminal<cr>
 map <leader>tu :terminal<space>
 map <leader>vu :vsplit<bar>terminal<space>
 " }}}
