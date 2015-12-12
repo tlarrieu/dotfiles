@@ -9,10 +9,15 @@
   diff = auto
 [push]
   default = current
+[difftool]
+  prompt = true
+[difftool.nvim]
+  cmd = nvim -d $LOCAL $REMOTE
 [diff]
-  tool = vimdiff
+  tool = nvim
 [core]
-  editor = vim
+  editor = nvim
+  excludesFile = /Users/thomaslarrieu/.gitignore
 [alias]
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
@@ -22,3 +27,4 @@
   ci = commit
   st = status
   ft = fetch
+  wtf = "!cat ~/.gitconfig"
