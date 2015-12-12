@@ -12,6 +12,14 @@ snippet fb "FactoryGirl.build"
 FactoryGirl.build($1)
 endsnippet
 
+snippet l "let"
+let(:${1:name}) { $2 }
+endsnippet
+
+snippet l! "let!"
+let!(:${1:name}) { $2 }
+endsnippet
+
 snippet letb "let block"
 let(:${1:name}) do
 	$2
