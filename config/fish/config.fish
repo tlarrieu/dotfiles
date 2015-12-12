@@ -10,7 +10,6 @@ alias python2="python2.7"
 alias vimrc="nvim ~/.vimrc"
 alias vir="nvim -R"
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
-alias r="ranger"
 
 # Exercism
 alias e="exercism"
@@ -36,7 +35,7 @@ alias kbg="kill (jobs -p)"
 
 # cd
 alias shops="cd ~/mercurial/shopmium/shops"
-alias serv="cd ~/mercurial/shopmium/server"
+alias serv="cd ~/mercurial/shopmium/shopmium-git"
 alias release="cd ~/mercurial/shopmium/server-release"
 alias etl="cd ~/git/shopmium-etl"
 alias mob="cd ~/Dev/shopmium-mobile/Shopmium"
@@ -72,59 +71,10 @@ alias gs="git status"
 alias gspr="git diff --name-status master..HEAD"
 alias gdpr="git difftool master..HEAD"
 
-# Mercurial
-alias hcd="cd (hg root)"
-alias hb="hg branch"
-alias hbs="hg branches"
-alias hci="hg commit"
-alias hcia="hg commit --amend"
-alias hcl="hg clone"
-alias hd="hg diff"
-alias hdpr="hg diff -r \"ancestor(default,.)\""
-alias hspr="hg status --rev \"::. - ::default\""
-function hdprc
-  hg diff -r "ancestor($argv,.)"
-end
-function hsprc
-  hg status --rev "::. - ::$argv"
-end
-alias hlb="hg log --graph -b"
-alias hm="hg merge"
-alias hpl="hg pull"
-alias hplb="hg pull -b ."
-alias hps="hg push"
-alias hr="hg revert -C"
-alias hrlu="hg resolve -l | grep U"
-alias hrm="hg resolve -m"
-alias hs="hg status (hg root)"
-alias hsh="hg shelve"
-alias hsl="hg shelve -l"
-alias hu="hg update"
-alias hus="hg unshelve"
-alias rstruct="hg revert -C db/structure.sql"
-alias hout="hg outgoing"
-alias hin="hg incoming"
-function htag
-  set -l last_tag (tail -n 1 (hg root)/.hgtags | cut -c 42-)
-  set -l release (echo $last_tag | cut -c -18)
-  set -l date (date -jnu "+%Y.%m.%d")
-  set -l tag
-
-  if test "release-$date" = $release
-    set -l iteration (echo $last_tag | cut -c 20-)
-
-    if test -n $iteration
-      set -l tag "release-$date-($iteration+1)"
-    else
-      set -l tag "release-$date-2"
-    end
-  else
-    set -l tag "release-$date"
-  end
-
-  echo $tag
-  # hg tag $tag
-end
+# Git flow
+alias f="git flow feature"
+alias h="git flow hotfix"
+alias r="git flow release"
 
 # Heroku console
 function hrc
@@ -180,7 +130,7 @@ set -g -x EDITOR nvim
 set -g -x TERM xterm-256color
 # Enable cursor change when neovim enters insert mode
 set -g -x NVIM_TUI_ENABLE_CURSOR_SHAPE 1
-set -g -x NVIM_TUI_ENABLE_TRUE_COLOR 1
+# set -g -x NVIM_TUI_ENABLE_TRUE_COLOR 1
 
 # Gopath
 set -x GOPATH ~/go
@@ -193,6 +143,7 @@ set -x PATH $PATH ~/bin
 set -x PATH $PATH ~/.cabal/bin
 set -x PATH $PATH ~/Elm-Platform/0.15/bin
 set -x PATH $PATH ~/go/bin
+set -x PATH $PATH ~/git/pls
 
 if type rbenv > /dev/null
   set -gx RBENV_ROOT /usr/local/var/rbenv

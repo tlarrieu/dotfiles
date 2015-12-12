@@ -17,14 +17,6 @@ function _git_is_dirty
   echo (command git status -s --ignore-submodules=dirty ^/dev/null)
 end
 
-function _hg_branch_name
-  echo (command hg branch ^/dev/null)
-end
-
-function _hg_is_dirty
-  echo (command hg status -m -n ^/dev/null)
-end
-
 function fish_prompt
   set -l cyan (set_color cyan)
   set -l yellow (set_color yellow)
@@ -43,17 +35,6 @@ function fish_prompt
       set vcs_color $yellow
     else
       set vcs_color $green
-    end
-  else
-    # Show hg branch and status
-    if [ (_hg_branch_name) ]
-      set vcs_branch (_hg_branch_name)
-
-      if [ (_hg_is_dirty) ]
-        set vcs_color $yellow
-      else
-        set vcs_color $green
-      end
     end
   end
 

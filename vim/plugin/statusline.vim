@@ -51,8 +51,7 @@ function! Modified()
 endfunction
 
 function! VCSBranch()
-  let branch = ''
-  let branch = lawrencium#statusline() . fugitive#head()
+  let branch = fugitive#head()
 
   return StatusIf(' ' . s:branch_glyphe . ' ' . branch . ' ', !empty(branch))
 endfunction

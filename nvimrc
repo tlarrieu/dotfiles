@@ -52,9 +52,7 @@ Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 " {{{ --| VCS |----------------------------
 Plug 'mhinz/vim-signify'
-Plug 'phleet/vim-mercenary'
 Plug 'tpope/vim-fugitive'
-Plug 'zeekay/vim-lawrencium'
 " }}}
 " {{{ --| Syntax checking |----------------
 Plug 'benekastah/neomake'
@@ -100,6 +98,10 @@ Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
+Plug 'joshdick/onedark.vim'
+Plug 'stulzer/heroku-colorscheme'
+Plug 'MaxSt/FlatColor'
+Plug 'josephwecker/neutron.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
@@ -438,44 +440,16 @@ nmap <leader>tr :TabooReset<cr>
 let g:signify_vcs_list = [ 'hg', 'git' ]
 let g:signify_update_on_focusgained = 1
 " }}}
-" {{{ --| Fugitive / Mercenary / Lawrencium |---------------
-function! HgBranchStatus()
-  silent tabnew /dev/null
-  normal ggdG
-  0read !hg status --rev "::. - ::default" -n
-  silent :w
-endfunction
-command! HgBranchStatus call HgBranchStatus()
+" {{{ --| Fugitive |----------------------------------------
 
-function! HgHistory()
-  let file = expand('%')
-  execute 'Hg! history -p ' . file
-  setfiletype diff
-endfunction
-
-function! SwitchVCS()
-  if g:next_vcs ==# 'mercurial'
-    nmap <leader>s :Hgstatus<cr>
-    nmap <leader>D :HGdiff ancestor(default,.)<cr>
-    nmap <leader>b :HGblame<cr>
-    nmap <leader>d :HGdiff<cr>
-    nmap <leader>r :Hgrevert!<cr>:e<cr>
-    nmap <leader>H :call HgHistory()<cr>
-    let g:next_vcs = 'git'
-  else
-    nmap <leader>b :Gblame<cr>
-    nmap <leader>d :Gvdiff<cr>
-    nmap <leader>r :Gread<cr>
-    nmap <leader>s :Gstatus<cr>
-    let g:next_vcs = 'mercurial'
-  endif
-endfunction
+nmap <leader>b :Gblame<cr>
+nmap <leader>d :Gvdiff<cr>
+nmap <leader>r :Gread<cr>
+nmap <leader>s :Gstatus<cr>
+nmap <leader>f :Gfetch<space>
+nmap <leader>w :Gwrite<cr>
 
 vmap <leader>d :Linediff<cr>
-
-let g:next_vcs = 'mercurial'
-call SwitchVCS()
-nmap <leader><tab> :call SwitchVCS()<cr>
 " }}}
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
@@ -506,9 +480,7 @@ nmap <leader>vv :vnew<cr>
 nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 nmap <leader>V :vnew<space>
 " Dimensions
-nmap <leader>M <c-w>=
 nmap <leader>= <c-w>=
-nmap <leader>m :res<cr>:vertical res<cr>
 nmap <leader>% :res<cr>:vertical res<cr>
 " Moving around
 nmap <up> <c-w><up>
@@ -523,8 +495,6 @@ nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 nmap <leader>T :tabe<space>
 " Close current tab
 nmap <leader>tc :tabclose<cr>
-" Close all tabs but current
-nmap <leader>to :tabo<cr>
 " Move current tab
 nmap <leader>tm :tabm<space>
 " Direct tab access
@@ -558,7 +528,9 @@ tnoremap <c-s> <c-\><c-n>
 
 map <silent> <leader>ti :terminal<cr>
 map <silent> <leader>vi :vertical new<bar>terminal<cr>
+map <silent> <leader>vr :vertical new<bar>terminal rails c<cr>
 map <silent> <leader>ni :new<bar>terminal<cr>
+map <silent> <leader>nr :new<bar>terminal rails c<cr>
 map <leader>tu :terminal<space>
 map <leader>vu :vsplit<bar>terminal<space>
 " }}}
@@ -623,8 +595,6 @@ command! RenameFile :call RenameFile()
 command! RF :call RenameFile()
 " Toggle highlight current word
 nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-" Toggle line wrap
-nmap <leader>w :set wrap!<cr>
 " Uppercase current word
 nmap <c-g> gUiw
 imap <c-g> <esc>lgUiwea
