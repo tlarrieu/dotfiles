@@ -23,6 +23,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
 " Plug 'vim-scripts/table-mode'
+Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'skwp/greplace.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
@@ -70,7 +71,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
 " {{{ --| HTML |---------------------------
-Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css'] }
+Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css', 'handlebars'] }
 " }}}
 " {{{ --| Haskell |------------------------
 " Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
@@ -95,13 +96,11 @@ Plug 'leshill/vim-json', { 'for' : 'json' }
 Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
 Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
+Plug 'mustache/vim-mustache-handlebars'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'joshdick/onedark.vim'
-Plug 'stulzer/heroku-colorscheme'
-Plug 'MaxSt/FlatColor'
-Plug 'josephwecker/neutron.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
@@ -450,6 +449,9 @@ nmap <leader>f :Gfetch<space>
 nmap <leader>w :Gwrite<cr>
 
 vmap <leader>d :Linediff<cr>
+
+vmap <leader>d :Linediff<cr>
+
 " }}}
 " }}}
 " {{{ ==| Various keyboard mapping |============================================

@@ -35,7 +35,7 @@ alias kbg="kill (jobs -p)"
 
 # cd
 alias shops="cd ~/mercurial/shopmium/shops"
-alias serv="cd ~/mercurial/shopmium/shopmium-git"
+alias serv="cd ~/git/shopmium-server"
 alias release="cd ~/mercurial/shopmium/server-release"
 alias etl="cd ~/git/shopmium-etl"
 alias mob="cd ~/Dev/shopmium-mobile/Shopmium"

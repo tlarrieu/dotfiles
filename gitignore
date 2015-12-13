@@ -42,3 +42,7 @@ Thumbs.db
 *.swp*
 *.un~
 .projections.json
+
+# Ember #
+#########
+tmp

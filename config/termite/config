@@ -39,19 +39,19 @@ browser = google-chrome-stable
 # Solarized
 ###
 
-# Light
-foreground = #657b83
-foreground_bold = #073642
-# foreground_dim = #888888
-background = #fdf6e3
-cursor = #d3cebe
-
-# # Dark
-# foreground = #839496
-# foreground_bold = #eee8d5
+# # Light
+# foreground = #657b83
+# foreground_bold = #073642
 # # foreground_dim = #888888
-# background = #002b36
-# cursor = #93a1a1
+# background = #fdf6e3
+# cursor = #d3cebe
+
+# Dark
+foreground = #839496
+foreground_bold = #eee8d5
+# foreground_dim = #888888
+background = #002b36
+cursor = #93a1a1
 
 # Common
 # if unset, will reverse foreground and background
