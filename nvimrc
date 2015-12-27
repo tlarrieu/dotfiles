@@ -22,9 +22,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
-" Plug 'vim-scripts/table-mode'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'skwp/greplace.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -407,15 +405,12 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
-" {{{ --| Greplace |----------------------------------------
-set grepprg=ag\ $*\ --column\ --line-numbers\ --noheading\ --smart-case
-" }}}
 " {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
 
-nmap <leader>a :Ag! ""<left>
+nmap <c-a> :Ag! ""<left>
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
