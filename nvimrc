@@ -312,25 +312,29 @@ nnoremap <silent> <c-b> :call fzf#run({
   \ })<cr>
 
 " Ag results narrowing
-function! s:agopen(lines)
-  if len(a:lines) < 2 | return | endif
+function! s:agopen(e)
+  if len(a:) < 2 | return | endif
 
-  let [key, line] = a:lines[0:1]
-  let [file, line, col] = split(line, ':')[0:2]
+  let key = a:e[0]
   let cmd = get({
     \ 'ctrl-x': 'split',
     \ 'ctrl-v': 'vertical split',
     \ 'ctrl-t': 'tabe'
     \ }, key, 'e')
-  execute cmd escape(file, ' %#\')
-  execute line
-  execute 'normal!' col.'|zz'
+
+  let lines = a:e[1:]
+  for line in map(lines, 'split(v:val, " ")[0]')
+    let [file, line, col] = split(line, ':')[0:2]
+    execute cmd escape(file, ' %#\')
+    execute line
+    execute 'normal!' col.'|zz'
+  endfor
 endfunction
 
 command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag -i --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e',
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e --multi',
   \ 'down': '50%'
   \ })
 nnoremap <c-e> :<c-u>Fg<space>
