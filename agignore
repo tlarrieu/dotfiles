@@ -4,18 +4,23 @@ tmp
 doc
 coverage
 public/assets
-*.sql
-*.zip
-*.log
-log/
-data/manual_cache.json
-data/geolocation_cache.json
 tags
+
 *.png
 *.jpg
 *.gif
 
 *.hi
 *.o
+
+*.min.js
+*.min.css
+
+*.zip
+*.log
+db/data
+
+data/manual_cache.json
+data/geolocation_cache.json
 
 elm-stuff
