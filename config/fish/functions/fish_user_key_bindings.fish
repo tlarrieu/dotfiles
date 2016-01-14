@@ -1,3 +1,5 @@
+fzf_key_bindings
+
 function fkill
   echo '' > /tmp/fzf.kill
   ps ux | sed 1d | fzf -m | awk '{print $2}' > /tmp/fzf.kill
