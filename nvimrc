@@ -50,7 +50,7 @@ Plug 'nelstrom/vim-textobj-rubyblock',
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 " {{{ --| VCS |----------------------------
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 " }}}
 " {{{ --| Syntax checking |----------------
@@ -218,6 +218,8 @@ set showbreak=↪\
 set nojoinspaces
 " Do not redraw screen while running macros
 set lazyredraw
+" Update time
+set updatetime=250
 " }}}
 " {{{ ==| Splits |==============================================================
 highlight! link VertSplit CursorColumn
@@ -277,7 +279,7 @@ augroup END
 " }}}
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
-nmap <silent> <c-t> :<c-u>FZF -m -e<cr>
+nmap <silent> <c-t> :FZF -m -e<cr>
 
 " Buffer list
 function! s:buflist()
@@ -331,6 +333,12 @@ function! s:agopen(e)
   endfor
 endfunction
 
+command! -nargs=1 Fgnc call fzf#run({
+  \ 'source': 'ag -i --nogroup --column "' . escape(<q-args>, '"\') . '"',
+  \ 'sink*': function('<sid>agopen'),
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e --multi',
+  \ 'down': '50%'
+  \ })
 command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag -i --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
@@ -412,9 +420,9 @@ let g:targets_argClosing = '[]})]'
 " {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
-let g:ag_prg = "ag --column --line-numbers --noheading --smart-case"
+let g:ag_prg = "ag --vimgrep"
+set grepformat=%f:%l:%c:%m
 
-nmap <c-a> :Ag! ""<left>
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
@@ -434,10 +442,6 @@ let g:taboo_unnamed_tab_label = "…"
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
-" {{{ --| Signify |-----------------------------------------
-let g:signify_vcs_list = [ 'hg', 'git' ]
-let g:signify_update_on_focusgained = 1
-" }}}
 " {{{ --| Fugitive |----------------------------------------
 
 nmap <leader>b :Gblame<cr>
@@ -448,9 +452,6 @@ nmap <leader>f :Gfetch<space>
 nmap <leader>w :Gwrite<cr>
 
 vmap <leader>d :Linediff<cr>
-
-vmap <leader>d :Linediff<cr>
-
 " }}}
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
@@ -648,7 +649,7 @@ noremap 6 @
 noremap + 7
 noremap 7 +
 noremap - 8
-noremap 8 -
+noremap 8 :GitGutterRevertHunk<cr>
 noremap / 9
 noremap 9 /
 noremap * 0

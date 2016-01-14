@@ -68,7 +68,7 @@ function! UsageOperator(type)
     return
   endif
 
-  silent execute "Ag! " . shellescape(@@) . " . \| grep -v def"
+  silent execute 'Fgnc ' . @@
 
   let @@ = saved_register
 endfunction
@@ -84,7 +84,7 @@ function! DefinitionOperator(type)
     return
   endif
 
-  silent execute "Ag! " . shellescape('(def (self.)?|class )' . @@) . " ."
+  silent execute 'Fgnc (def (self\.)?|class )' . @@
 
   let @@ = saved_register
 endfunction
