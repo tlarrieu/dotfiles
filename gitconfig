@@ -19,9 +19,11 @@
   editor = nvim
   excludesFile = ~/.gitignore
 [alias]
+  lc = log --merges
   lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lgd = log --color --graph --date-order --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
-  lgsa = "!f() { git lgs --author=$1; }; f"
+  lgsa = "!git lgs --author=$1"
   co = checkout
   br = branch
   ci = commit
