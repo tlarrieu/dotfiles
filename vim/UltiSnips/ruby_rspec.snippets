@@ -16,6 +16,19 @@ snippet l "let"
 let(:${1:name}) { $2 }
 endsnippet
 
+snippet lc "let FactoryGirl"
+let(:${1:name}) { FactoryGirl.create(:$1${2:, $3}) }
+endsnippet
+
+snippet itc "it expect change" b
+it do
+	expect { $1 }
+		.to change { $2 }
+		.from($3)
+		.to($4)
+end
+endsnippet
+
 snippet l! "let!"
 let!(:${1:name}) { $2 }
 endsnippet
