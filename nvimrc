@@ -49,9 +49,10 @@ Plug 'nelstrom/vim-textobj-rubyblock',
   \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
-" {{{ --| VCS |----------------------------
+" {{{ --| Git |----------------------------
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
 " }}}
 " {{{ --| Syntax checking |----------------
 Plug 'benekastah/neomake'
@@ -82,7 +83,7 @@ Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css', 'handlebars'
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Markdown |-----------------------
-Plug 'jtratner/vim-flavored-markdown'
+Plug 'tpope/vim-markdown'
 " }}}
 " {{{ --| Misc languages support |---------
 Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
