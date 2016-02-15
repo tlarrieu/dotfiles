@@ -111,6 +111,7 @@ alias rpp="bin/bundle exec rake parallel:prepare"
 alias rdtp="bin/bundle exec rake db:test:prepare"
 alias rdr="bin/rake db:rollback"
 alias rdre="bin/rake db:migrate:redo"
+alias rr="bin/rake routes > routes"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
 
