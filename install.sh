@@ -73,22 +73,15 @@ for file in `ls -d $BASEDIR/config/*`; do
   safelink $target $link
 done
 
-# .vimrc
-safelink $BASEDIR/vimrc $HOME/.vimrc
-# .nvimrc
-safelink $BASEDIR/nvimrc $HOME/.nvimrc
+# .nvim
+safelink $BASEDIR/nvim $HOME/.config/nvim
 # vim-plug
 if [[ -f ~/.vim/autoload/plug.vim ]]; then
   echo "vim-plug already installed, nothing to do."
 else
-  curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-# .vim
-safelink $BASEDIR/vim $HOME/.vim
-# .nvim
-safelink $BASEDIR/vim $HOME/.nvim
-# vim-plug
 vim +PlugInstall +qall
 
 # Fix for Vim buffer within tmux on OSX

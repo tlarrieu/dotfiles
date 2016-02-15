@@ -15,10 +15,10 @@ config/fish/functions/pg_cred.fish
 config/fish/functions/pg_cred_stag.fish
 config/fish/functions/pg_info.fish
 config/fish/functions/pres.fish
-vim/bundle/**
-vim/plugged
-vim/doc
-vim/spell
+nvim/bundle/**
+nvim/plugged/*
+nvim/doc
+nvim/spell
 !vim/bundle/vundle
 config/fish/functions/sync_stag.fish
 config/fish/functions/sync_test.fish
