@@ -1,1 +1,1 @@
-source ~/.vim/after/syntax/ruby.vim
+source ~/.config/nvim/after/syntax/ruby.vim
