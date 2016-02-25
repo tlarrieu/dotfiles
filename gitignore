@@ -26,6 +26,10 @@
 *.sql
 *.sqlite
 
+# Redis #
+######################
+dump.rdb
+
 # OS generated files #
 ######################
 .DS_Store
