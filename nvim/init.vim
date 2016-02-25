@@ -23,6 +23,8 @@ Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'tkhren/vim-fake'
+Plug 'md5.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -157,6 +159,9 @@ set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
+
+" Deactivate parenthesis matching
+let loaded_matchparen = 1
 
 highlight! link SignColumn LineNr
 highlight! link CursorLineNr Directory
@@ -347,6 +352,7 @@ command! -nargs=1 Fg call fzf#run({
   \ 'down': '50%'
   \ })
 nnoremap <c-e> :<c-u>Fg<space>
+" nnoremap <c-a> :<c-u>Ag!<space>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -691,13 +697,13 @@ nmap <leader>ep :tabe ~/postgres.sql<cr>
 nmap <leader>eq :tabe ~/sqlite.sql<cr>
 nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
-nmap <leader>ev :tabe ~/.nvimrc<cr>
+nmap <leader>ev :tabe ~/.config/nvim/init.vim<cr>
 
 nmap <leader>. :e .<cr>
 
 nmap <leader># :e #<cr>
 
-nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>:so ~/.vim/plugin/statusline.vim<cr>
+nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>:so ~/.config/nvim/plugin/statusline.vim<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
