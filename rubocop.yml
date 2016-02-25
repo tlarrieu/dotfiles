@@ -11,16 +11,13 @@ Lint/DeprecatedClassMethods:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 110
+  Max: 80
 
 Metrics/MethodLength:
-  Max: 15
+  Max: 10
 
 Style/AlignParameters:
   Enabled: false
-
-Style/Blocks:
-  Enabled: true
 
 Style/CollectionMethods:
   Enabled: true
@@ -36,9 +33,6 @@ Style/EmptyLines:
 
 Style/EmptyLinesAroundAccessModifier:
   Enabled: true
-
-Style/EmptyLinesAroundBody:
-  Enabled: false
 
 Style/HashSyntax:
   Enabled: true
@@ -61,13 +55,10 @@ Style/Proc:
 Style/RedundantReturn:
   Enabled: true
 
-Style/RegexpLiteral:
-  MaxSlashes: 0
-
 Style/SignalException:
   Enabled: false
 
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: true
 
 Style/SpaceAfterColon:
@@ -85,7 +76,10 @@ Style/StringLiterals:
 Style/SymbolProc:
   Enabled: true
 
-Style/TrailingComma:
+Style/TrailingCommaInArguments:
+  Enabled: true
+
+Style/TrailingCommaInLiteral:
   Enabled: false
 
 Style/ClassAndModuleChildren:
