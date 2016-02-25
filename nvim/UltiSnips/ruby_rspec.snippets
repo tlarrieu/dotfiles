@@ -73,8 +73,12 @@ snippet itT "it {  }"
 it("${1:example title}") { $2 }
 endsnippet
 
-snippet ite "it expect to"
+snippet ite "it expect().to"
 it { expect(${1}).to ${0} }
+endsnippet
+
+snippet iteb "it expect {}.to"
+it { expect { ${1} }.to ${0} }
 endsnippet
 
 snippet itne "it expect not to"
