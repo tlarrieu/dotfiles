@@ -30,3 +30,4 @@
   st = status
   ft = fetch
   wtf = "!cat ~/.gitconfig"
+  sync = fetch --all --prune --tags
