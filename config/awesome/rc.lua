@@ -22,7 +22,7 @@ require "rules"
 --[[ Startup ]]-----------------------------------------------------------------
 
 -- Xcape
-awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
+-- awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
 
 -- Xflux
 awful.util.spawn_with_shell(
