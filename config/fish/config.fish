@@ -28,6 +28,7 @@ alias ys="yaourt -S"
 alias yss="yaourt -Ss"
 alias ysuy="yaourt -Suy"
 alias yr="yaourt -R"
+alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # Kill
 alias k="kill -9"
