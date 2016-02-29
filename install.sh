@@ -76,7 +76,7 @@ done
 # .nvim
 safelink $BASEDIR/nvim $HOME/.config/nvim
 # vim-plug
-if [[ -f ~/.vim/autoload/plug.vim ]]; then
+if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
   echo "vim-plug already installed, nothing to do."
 else
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
