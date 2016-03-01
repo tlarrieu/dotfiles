@@ -14,6 +14,7 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
 Plug 'duggiefresh/vim-easydir'
+Plug 'tlarrieu/vim-sniper'
 " }}}
 " {{{ --| Functionnalities |---------------
 Plug 'AndrewRadev/linediff.vim'
@@ -272,6 +273,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Sniper |------------------------------------------
+vmap <cr> :<c-u>call Snipe('vnew')<cr>
+" }}}
 " {{{ --| ArgWrap |-----------------------------------------
 nnoremap <silent> <leader>; :ArgWrap<CR>
 " }}}
