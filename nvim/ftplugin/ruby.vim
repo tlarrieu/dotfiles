@@ -23,13 +23,6 @@ augroup Migration
   autocmd BufEnter db/migrate/* map <silent> <buffer> <leader><return> :call Migrate('down')<cr>
 augroup END
 
-let g:neomake_ruby_rubocop_maker = {
-      \ 'args': ['-D'],
-      \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
-      \ }
-
-let g:neomake_ruby_enabled_makers = ['mri', 'rubocop']
-
 let b:switch_custom_definitions =
   \[
   \  ['&&', '||'],
