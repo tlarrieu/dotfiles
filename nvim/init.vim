@@ -539,13 +539,13 @@ nmap <leader>u :call MergeTabs()<cr>
 " {{{ --| Terminal |----------------------------------------
 tnoremap <c-s> <c-\><c-n>
 
-map <silent> <leader>ti :terminal<cr>
-map <silent> <leader>vi :vertical new<bar>terminal<cr>
-map <silent> <leader>vr :vertical new<bar>terminal rails c<cr>
-map <silent> <leader>ni :new<bar>terminal<cr>
-map <silent> <leader>nr :new<bar>terminal rails c<cr>
-map <leader>tu :terminal<space>
-map <leader>vu :vsplit<bar>terminal<space>
+nmap <silent> <leader>ti :terminal<cr>
+nmap <silent> <leader>vi :vertical new<bar>terminal<cr>
+nmap <silent> <leader>vr :vertical new<bar>terminal rails c<cr>
+nmap <silent> <leader>ni :new<bar>terminal<cr>
+nmap <silent> <leader>nr :new<bar>terminal rails c<cr>
+nmap <leader>tu :terminal<space>
+nmap <leader>vu :vsplit<bar>terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
 " Diffs
