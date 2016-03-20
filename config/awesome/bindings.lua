@@ -155,11 +155,6 @@ keyboard = awful.util.table.join(keyboard,
   -- XFCE4 properties
   mspawn("b", "xfce4-settings-manager"),
 
-  -- Media player controls
-  spawn({}, "F10", "mocp --previous"),
-  spawn({}, "F11", "mocp --toggle-pause"),
-  spawn({}, "F12", "mocp --next"),
-
   mtspawn("u", "ranger"),
   mtspawn("m", "mocp"),
 
