@@ -24,8 +24,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'tkhren/vim-fake'
-Plug 'md5.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -73,14 +71,13 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
 " {{{ --| HTML |---------------------------
-Plug 'mattn/emmet-vim', { 'for' : [ 'html', 'eruby', 'sass', 'css', 'handlebars'] }
+Plug 'mattn/emmet-vim', {
+      \  'for' : [ 'html', 'eruby', 'sass', 'css', 'handlebars']
+      \}
 " }}}
 " {{{ --| Haskell |------------------------
 " Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
 " Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
-" }}}
-" {{{ --| Go lang |------------------------
-" Plug 'fatih/vim-go', { 'for' : 'go' }
 " }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
@@ -93,7 +90,6 @@ Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
 Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
-" Plug 'lambdatoast/elm.vim', { 'for' : 'elm' }
 Plug 'leshill/vim-json', { 'for' : 'json' }
 Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
@@ -102,7 +98,6 @@ Plug 'mustache/vim-mustache-handlebars'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
-Plug 'joshdick/onedark.vim'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
