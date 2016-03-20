@@ -84,14 +84,6 @@ def initialize${1:(${2:*args})}
 end
 endsnippet
 
-snippet .is "inspect" i
-.inspect
-endsnippet
-
-snippet /(.*)\.tapi/ "comment" ri
-`!p snip.rv = match.group(1)`.tap { |o| puts o.inspect }.
-endsnippet
-
 snippet /(.*)\.tap/ "comment" ri
 `!p snip.rv = match.group(1)`.tap { |o| puts o.${1:inspect} }.
 endsnippet
