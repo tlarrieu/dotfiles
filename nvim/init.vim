@@ -155,12 +155,10 @@ set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
-
-" Deactivate parenthesis matching
-let loaded_matchparen = 1
-
 highlight! link SignColumn LineNr
 highlight! link CursorLineNr Directory
+" Deactivate parenthesis matching
+let loaded_matchparen = 1
 " Line numbering (relative and current)
 set relativenumber
 set number
@@ -206,8 +204,6 @@ set noerrorbells
 set hidden
 " Set title when in console
 set title
-" Give backspace a reasonable behavior
-set backspace=indent,eol,start
 " Disable line wrap
 set nowrap
 " Line wrap at word boundaries
@@ -351,7 +347,6 @@ command! -nargs=1 Fg call fzf#run({
   \ 'down': '50%'
   \ })
 nnoremap <c-e> :<c-u>Fg<space>
-" nnoremap <c-a> :<c-u>Ag!<space>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -482,27 +477,18 @@ noremap <c-w><c-r> <c-w>L
 " Horizontal Split
 nmap <leader>nn :new<cr>
 nmap <leader>ne :new <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-nmap <leader>N :new<space>
 " Vertical split
 nmap <leader>vv :vnew<cr>
 nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-nmap <leader>V :vnew<space>
 " Dimensions
 nmap <leader>= <c-w>=
 nmap <leader>% :res<cr>:vertical res<cr>
 " Moving around
-nmap <up> <c-w><up>
-nmap <down> <c-w><down>
-nmap <left> <c-w><left>
-nmap <right> <c-w><right>
 nmap <tab> <c-w>w
 nmap <s-tab> <c-w>W
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
-nmap <leader>T :tabe<space>
-" Close current tab
-nmap <leader>tc :tabclose<cr>
 " Move current tab
 nmap <leader>tm :tabm<space>
 " Direct tab access
@@ -515,18 +501,6 @@ nnoremap <leader>@ 6gt
 nnoremap <leader>+ 7gt
 nnoremap <leader>- 8gt
 nnoremap <leader>/ 9gt
-
-" Move tabs
-nnoremap <leader>t* :tabmove 0<cr>
-nnoremap <leader>t" :tabmove 1<cr>
-nnoremap <leader>t« :tabmove 2<cr>
-nnoremap <leader>t» :tabmove 3<cr>
-nnoremap <leader>t( :tabmove 4<cr>
-nnoremap <leader>t) :tabmove 5<cr>
-nnoremap <leader>t@ :tabmove 6<cr>
-nnoremap <leader>t+ :tabmove 7<cr>
-nnoremap <leader>t- :tabmove 8<cr>
-nnoremap <leader>t/ :tabmove 9<cr>
 
 nmap <leader>U <c-w>T
 nmap <leader>u :call MergeTabs()<cr>
@@ -698,7 +672,7 @@ nmap <leader>er :tabe ~/release.tasks<cr>
 nmap <leader>et :tabe ~/todo.tasks<cr>
 nmap <leader>ev :tabe ~/.config/nvim/init.vim<cr>
 
-nmap <leader>. :e .<cr>
+nmap <leader>. :Lexplore .<cr>
 
 nmap <leader># :e #<cr>
 
@@ -706,8 +680,8 @@ nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>:so ~/.config/nvim/plugin
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
-cnoremap %% <c-r>=expand('%:p:h')<cr>
-nnoremap dD "_dd
-cmap w!! w !sudo tee % >/dev/null
+" cnoremap %% <c-r>=expand('%:p:h')<cr>
+" nnoremap dD "_dd
+" cmap w!! w !sudo tee % >/dev/null
 " }}}
 " }}}
