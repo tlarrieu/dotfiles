@@ -447,6 +447,7 @@ nmap <leader>tr :TabooReset<cr>
 
 nmap <leader>b :Gblame<cr>
 nmap <leader>d :Gvdiff<cr>
+nmap <leader>D :Gvdiff develop<cr>
 nmap <leader>r :Gread<cr>
 nmap <leader>s :Gstatus<cr>
 nmap <leader>f :Gfetch<space>
