@@ -1,11 +1,11 @@
-" nnoremap <buffer> <cr> zMzv
-
-function! Pandoc()
+function! Grip()
   let filename = expand('%')
-  execute "!pandoc -f markdown_github -t docx " . filename . " -o " . filename . '.docx'
+  vnew
+  call termopen('grip ' . filename)
+  execute "normal! \<c-w>p"
 endfunction
 
-nnoremap <silent> <cr> :call Pandoc()<cr>
+nnoremap <silent> <cr> :call Grip()<cr>
 
 setlocal foldlevel=1
 setlocal foldlevelstart=10
