@@ -71,9 +71,7 @@ Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
 " {{{ --| HTML |---------------------------
-Plug 'mattn/emmet-vim', {
-      \  'for' : [ 'html', 'eruby', 'sass', 'css', 'handlebars']
-      \}
+Plug 'mattn/emmet-vim'
 " }}}
 " {{{ --| Haskell |------------------------
 " Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
@@ -86,6 +84,7 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'tpope/vim-markdown'
 " }}}
 " {{{ --| Misc languages support |---------
+Plug 'rosstimson/scala-vim-support'
 Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
@@ -368,11 +367,14 @@ nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
 " {{{ --| Emmet |-------------------------------------------
-let g:user_emmet_leader_key=','
+let g:user_emmet_leader_key='<c-y>'
 let g:use_emmet_complete_tag = 1
+let g:user_emmet_mode = 'i'
+let g:user_emmet_install_global = 1
 let g:user_emmet_settings = {
   \   'indentation' : '  '
   \ }
+let g:user_emmet_expandabbr_key = '<c-f>'
 " }}}
 " {{{ --| SimpleDB |----------------------------------------
 let g:sql_type_default = 'mysql'
@@ -450,6 +452,7 @@ nmap <leader>d :Gvdiff<cr>
 nmap <leader>D :Gvdiff develop<cr>
 nmap <leader>r :Gread<cr>
 nmap <leader>s :Gstatus<cr>
+nmap <leader>S :GV<cr>
 nmap <leader>f :Gfetch<space>
 nmap <leader>w :Gwrite<cr>
 
@@ -461,7 +464,12 @@ vmap <leader>d :Linediff<cr>
 " Reuse previously opened tab / window when trying to open a buffer
 set switchbuf=usetab
 " Empty buffers
-command! B bufdo bd
+function! ClearBuffers()
+  silent! bufdo bdelete
+  silent! tabdo tabclose
+  edit .
+endfunction
+command! B :call ClearBuffers()
 nmap <leader><leader> :call DeleteHiddenBuffers()<cr>
 " }}}
 " {{{ --| Splits / Tabs |-----------------------------------
