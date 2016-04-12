@@ -76,9 +76,12 @@ alias f="git flow feature"
 alias h="git flow hotfix"
 alias r="git flow release"
 
-# Heroku console
-function hrc
-  heroku run console -a $argv
+function rc
+  if count $argv > /dev/null
+    heroku run console -a $argv
+  else
+    bin/rails console
+  end
 end
 
 # pgbackup
@@ -91,7 +94,6 @@ alias zs="zeus server"
 alias zst="zeus start"
 
 # Rails
-alias rc="bin/rails console"
 alias rs="bin/rails server"
 alias rrs="rescue rails server"
 alias rud="rvm use default"
@@ -115,6 +117,9 @@ alias rdre="bin/rake db:migrate:redo"
 alias rr="bin/rake routes > routes"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
+
+# Stuff
+alias expose=~/git/Expose/expose.sh
 
 # ------------------------------------------------------------------------------
 # Settings
@@ -145,6 +150,8 @@ set -x PATH $PATH ~/.cabal/bin
 set -x PATH $PATH ~/Elm-Platform/0.15/bin
 set -x PATH $PATH ~/go/bin
 set -x PATH $PATH ~/git/pls
+
+set -x ANDROID_HOME ~/android-sdk/
 
 if type rbenv > /dev/null
   set -gx RBENV_ROOT /usr/local/var/rbenv
