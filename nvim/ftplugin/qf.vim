@@ -1,4 +1,6 @@
 setlocal nonumber
+setlocal norelativenumber
+match OverLength //
 
 nnoremap <silent> <buffer>   <c-w><cr><c-w>T
 nnoremap <silent> <buffer> t <c-w><cr><c-w>TgT<c-w>p
