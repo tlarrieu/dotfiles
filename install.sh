@@ -77,12 +77,12 @@ done
 safelink $BASEDIR/nvim $HOME/.config/nvim
 # vim-plug
 if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
-  echo "vim-plug already installed, nothing to do."
+  echo "Vim-Plug already installed, nothing to do."
 else
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
-vim +PlugInstall +qall
+nvim +PlugInstall +qall
 
 # Fix for Vim buffer within tmux on OSX
 if [ $OSX ]; then
@@ -92,7 +92,7 @@ fi
 # Fish
 safeinstall fish
 # Oh My Fish!
-if [[ -d ~/.oh-my-fish ]]; then
+if [[ -d ~/.local/share/omf ]]; then
   echo "Oh-My-Fish already installed. Nothing to do!"
 else
   curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
@@ -102,14 +102,6 @@ OMF_PATH=$HOME/.local/share/omf
 rm -rf $OMF_PATH/themes/clearance
 cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
 echo "Fish fully configured, don't forget to set it as your shell"
-
-# RVM and fix for fish
-if [[ -d ~/.rvm ]]; then
-  echo "RVM already installed. Nothing to do!"
-else
-  curl -sSL https://get.rvm.io | bash -s stable
-  curl --create-dirs -o ~/.config/fish/functions/rvm.fish https://raw.github.com/lunks/fish-nuggets/master/functions/rvm.fish
-fi
 
 # .moc & mplayer
 safelink $BASEDIR/moc $HOME/.moc
