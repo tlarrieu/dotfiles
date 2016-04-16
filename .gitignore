@@ -21,9 +21,11 @@ nvim/plugged/*
 nvim/autoload/plug.vim
 nvim/doc
 nvim/spell
+nvim/.init.vim-rplugin~
 
 config/fish/functions/sync_stag.fish
 config/fish/functions/sync_test.fish
+config/fish/functions/fish_prompt.fish
 
 config/ranger/tagged
 

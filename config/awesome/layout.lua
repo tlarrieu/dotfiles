@@ -3,9 +3,7 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- {{{ Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/Wallpapers/wallhaven-34887.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/hatsune_miku/wallpaper-1355730.jpg",
-  "/home/tlarrieu/Pictures/Wallpapers/wallhaven-51670.jpg",
+  "/home/tlarrieu/Pictures/wallhaven-34064.jpg"
 }
 for s = 1, screen.count() do
   gears.wallpaper.maximized(wallpapers[s], s, false)
@@ -40,9 +38,6 @@ end
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock()
-
--- Create a systray
---mysystray = widget({ type = "systray" })
 mysystray = wibox.widget.systray()
 
 -- Create a wibox for each screen and add it
@@ -123,11 +118,21 @@ for s = 1, screen.count() do
   left_layout:add(mylayoutbox[s])
   left_layout:add(mytaglist[s])
   left_layout:add(mypromptbox[s])
-  if s == 1 then left_layout:add(wibox.widget.systray()) end
 
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
+  local batterywidget = wibox.widget.textbox()
+  right_layout:add(batterywidget)
   right_layout:add(mytextclock)
+
+  pollBattery = function()
+    batterywidget:set_text(batteryInfo("BAT1"))
+  end
+
+  batterywidget_timer = timer({timeout = 15})
+  batterywidget_timer:connect_signal("timeout", pollBattery)
+  batterywidget_timer:start()
+  pollBattery()
 
   -- Now bring it all together (with the tasklist in the middle)
   local layout = wibox.layout.align.horizontal()
@@ -137,4 +142,3 @@ for s = 1, screen.count() do
 
   mywibox[s]:set_widget(layout)
 end
--- }}}

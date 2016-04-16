@@ -80,7 +80,7 @@ function fish_prompt
 
   # Terminate with a nice prompt char
   # echo -e -n -s 'λ ' $normal
-  echo -e -n -s $error_color '∫ ' $normal
+  echo -e -n -s $error_color '⋊> ' $normal
 end
 
 set -x fish_color_command green

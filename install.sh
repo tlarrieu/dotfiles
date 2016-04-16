@@ -95,10 +95,12 @@ safeinstall fish
 if [[ -d ~/.oh-my-fish ]]; then
   echo "Oh-My-Fish already installed. Nothing to do!"
 else
-  curl -L https://github.com/bpinto/oh-my-fish/raw/master/tools/install.sh | sh
+  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
 fi
-rm -rf $HOME/.oh-my-fish/themes/clearance
-cp -r $BASEDIR/fish_theme/clearance2 $HOME/.oh-my-fish/themes/clearance
+
+OMF_PATH=$HOME/.local/share/omf
+rm -rf $OMF_PATH/themes/clearance
+cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
 echo "Fish fully configured, don't forget to set it as your shell"
 
 # RVM and fix for fish

@@ -140,12 +140,28 @@ dmenu = function()
   return "dmenu_run " .. options .. colors .. font
 end
 
+nmcli_dmenu = function()
+  options = " -l 4 -i "
+  colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
+  font = " -fn 'Terminus-10:normal' "
+  return "nmcli_dmenu " .. options .. colors .. font
+end
+
 keyboard = awful.util.table.join(keyboard,
   -- dmenu
   spawn({"Control"}, " ", dmenu()),
+  spawn({}, "F12", nmcli_dmenu()),
 
   -- Session control
   mspawn("q", "sh /home/tlarrieu/scripts/shutdown_dialog.sh"),
+
+  -- luminosity
+  spawn({}, "F7", "xbacklight -10"),
+  spawn({}, "F8", "xbacklight +10"),
+
+  -- sound
+  spawn({}, "F9", "amixer -c 1 set PCM 2db-"),
+  spawn({}, "F10", "amixer -c 1 set PCM 2db+"),
 
   -- xkill
   awful.key({modkey, "Control"}, "w", function()
@@ -159,7 +175,7 @@ keyboard = awful.util.table.join(keyboard,
   mtspawn("m", "mocp"),
 
   -- mspawn("a", "pavucontrol"),
-  mtspawn("a", "alsamixer --card 2"),
+  mtspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
   mspawn("'", "google-chrome-stable"),
 

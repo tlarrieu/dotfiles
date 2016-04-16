@@ -1,4 +1,4 @@
-fzf_key_bindings
+# fzf_key_bindings
 
 function fkill
   echo '' > /tmp/fzf.kill

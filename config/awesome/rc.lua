@@ -12,6 +12,10 @@ naughty = require("naughty")
 -- Wallpaper handling library
 gears = require("gears")
 
+--[[ Plugins ]]-----------------------------------------------------------------
+
+battery = require("plugins/batmon")
+
 --[[ Configuration ]]-----------------------------------------------------------
 
 require "layout"
@@ -25,6 +29,14 @@ require "rules"
 -- awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
 
 -- Xflux
-awful.util.spawn_with_shell(
-  "xflux -l 48.8562213 -g 2.3486073"
-) -- Paris coordinates
+-- awful.util.spawn_with_shell("xflux -l 48.8562213 -g 2.3486073") -- Paris coordinates
+awful.util.spawn_with_shell("xflux -l 35.6732615 -g 139.5699578") -- Tokyo coordinates
+-- Configure keys
+awful.util.spawn_with_shell("setxkbmap -option ctrl:nocaps; xmodmap ~/.Xmodmap")
+
+-- Configure screen
+awful.util.spawn_with_shell("xrandr --output eDP1 --mode 1920x1080")
+
+-- Touchpad
+-- Activate touch to click
+awful.util.spawn_with_shell("xinput set-prop 'ETPS/2 Elantech Touchpad' 'libinput Tapping Enabled' 1")

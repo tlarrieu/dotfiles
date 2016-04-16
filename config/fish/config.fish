@@ -154,12 +154,9 @@ set -x PATH $PATH ~/git/pls
 set -x ANDROID_HOME ~/android-sdk/
 
 if type rbenv > /dev/null
-  set -gx RBENV_ROOT /usr/local/var/rbenv
+  # set -gx RBENV_ROOT /usr/local/var/rbenv
   source (rbenv init - | psub)
 end
-
-set -g theme_display_user yes
-set -g default_user tlarrieu
 
 # Path to your oh-my-fish.
 set fish_path $HOME/.oh-my-fish
@@ -167,15 +164,10 @@ set fish_path $HOME/.oh-my-fish
 set -g SSL_CERT_FILE /etc/openssl/cert.pem
 
 # Load oh-my-fish configuration.
-. $fish_path/oh-my-fish.fish
+set -gx OMF_PATH "/home/tlarrieu/.local/share/omf"
+source $OMF_PATH/init.fish
 
 # Oh-my-fish theme
-Theme 'clearance'
-. $fish_path/themes/clearance/fish_prompt.fish
-
-# Oh-my-fish plugins
-Plugin 'rails'
-Plugin 'brew'
-Plugin 'bundler'
-Plugin 'tmux'
-Plugin 'theme'
+set -g theme_display_user yes
+set -g default_user tlarrieu
+omf theme 'clearance'

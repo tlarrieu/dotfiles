@@ -24,6 +24,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'aquach/vim-http-client'
 Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'shougo/deoplete.nvim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -96,6 +97,7 @@ Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'mustache/vim-mustache-handlebars'
 " }}}
 " {{{ --| Good looking |-------------------
+Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
@@ -263,6 +265,12 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Deoplete |----------------------------------------
+let g:deoplete#disable_auto_complete = 1
+inoremap <silent><expr> <c-n>
+\ pumvisible() ? "\<C-n>" :
+\ deoplete#mappings#manual_complete()
+" }}}
 " {{{ --| Sniper |------------------------------------------
 vmap <cr> :<c-u>call Snipe('vnew')<cr>
 " }}}
@@ -374,7 +382,7 @@ let g:user_emmet_install_global = 1
 let g:user_emmet_settings = {
   \   'indentation' : '  '
   \ }
-let g:user_emmet_expandabbr_key = '<c-f>'
+" let g:user_emmet_expandabbr_key = '<c-f>'
 " }}}
 " {{{ --| SimpleDB |----------------------------------------
 let g:sql_type_default = 'mysql'
