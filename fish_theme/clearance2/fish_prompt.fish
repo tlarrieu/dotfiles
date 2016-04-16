@@ -8,6 +8,7 @@
 set branch_glyph \uE0A0
 set superuser_glyph '⌬ '
 set bg_job_glyph '⚑ '
+set prompt_glyph '⋊> '
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
@@ -79,8 +80,7 @@ function fish_prompt
   end
 
   # Terminate with a nice prompt char
-  # echo -e -n -s 'λ ' $normal
-  echo -e -n -s $error_color '⋊> ' $normal
+  echo -e -n -s $error_color $prompt_glyph $normal
 end
 
 set -x fish_color_command green
