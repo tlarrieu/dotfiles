@@ -96,8 +96,6 @@ alias zst="zeus start"
 # Rails
 alias rs="bin/rails server"
 alias rrs="rescue rails server"
-alias rud="rvm use default"
-alias rus="rvm use system"
 alias be="bin/bundle exec"
 alias bi="bin/bundle install"
 alias bu="bin/bundle update"
