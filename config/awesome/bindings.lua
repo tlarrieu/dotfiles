@@ -147,6 +147,32 @@ nmcli_dmenu = function()
   return "nmcli_dmenu " .. options .. colors .. font
 end
 
+notify_volume = function()
+  local handle = io.popen("amixer -c 1 get Master")
+  local output = handle:read("a*")
+  local volume = tonumber(output:match('Mono: Playback %d+ %[(%d+)%%%].*'))
+  local on = output:match('Mono: Playback %d+ %[%d+%%%].*%[(on|off)%]')
+
+  local status = ""
+  for i = 1, math.floor(volume / 10) do
+    status = status .. "|"
+  end
+  for i = math.floor(volume / 10) + 1, 10 do
+    status = status .. "-"
+  end
+  status = volume.."%".." [" ..status .. "]"
+
+  sound_notification_id = naughty.notify(
+    { title = "Volume"
+    , text = "\n"..status
+    , timeout = 2
+    , position = "top_right"
+    , fg = beautiful.fg_focus
+    , bg = beautiful.bg_focus
+    , replaces_id = sound_notification_id }
+  ).id
+end
+
 keyboard = awful.util.table.join(keyboard,
   -- dmenu
   spawn({"Control"}, " ", dmenu()),
@@ -160,8 +186,14 @@ keyboard = awful.util.table.join(keyboard,
   spawn({}, "F8", "xbacklight +10"),
 
   -- sound
-  spawn({}, "F9", "amixer -c 1 set Master 1db-"),
-  spawn({}, "F10", "amixer -c 1 set Master 1db+"),
+  awful.key({}, "F9", function()
+    awful.util.spawn("amixer -c 1 set Master 1db-")
+    notify_volume()
+  end),
+  awful.key({}, "F10", function()
+    awful.util.spawn("amixer -c 1 set Master 1db+")
+    notify_volume()
+  end),
 
   -- xkill
   awful.key({modkey, "Control"}, "w", function()
