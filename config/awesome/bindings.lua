@@ -160,8 +160,8 @@ keyboard = awful.util.table.join(keyboard,
   spawn({}, "F8", "xbacklight +10"),
 
   -- sound
-  spawn({}, "F9", "amixer -c 1 set PCM 2db-"),
-  spawn({}, "F10", "amixer -c 1 set PCM 2db+"),
+  spawn({}, "F9", "amixer -c 1 set Master 1db-"),
+  spawn({}, "F10", "amixer -c 1 set Master 1db+"),
 
   -- xkill
   awful.key({modkey, "Control"}, "w", function()
