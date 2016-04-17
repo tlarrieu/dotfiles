@@ -177,7 +177,7 @@ keyboard = awful.util.table.join(keyboard,
   -- mspawn("a", "pavucontrol"),
   mtspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
-  mspawn("'", "google-chrome-stable"),
+  mspawn("'", "firefox"),
 
   mspawn("n", terminal),
   spawn({modkey, "Shift"}, "n", "gksu " .. terminal),
