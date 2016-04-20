@@ -1,1 +1,1 @@
-key-bindings.fish
+/home/tlarrieu/.fzf/shell/key-bindings.fish
