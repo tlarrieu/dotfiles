@@ -697,8 +697,7 @@ nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>:so ~/.config/nvim/plugin
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
-" cnoremap %% <c-r>=expand('%:p:h')<cr>
-" nnoremap dD "_dd
-" cmap w!! w !sudo tee % >/dev/null
+
+nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w><cr>
 " }}}
 " }}}

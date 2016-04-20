@@ -8,6 +8,7 @@ setlocal iskeyword+=!
 
 nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
 nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
+nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w> ruby<cr>
 
 function! Migrate(direction)
   let filename = expand('%:t')
