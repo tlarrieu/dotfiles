@@ -35,4 +35,4 @@ awful.util.spawn_with_shell("killall xflux; xflux -l 35.6732615 -g 139.5699578")
 awful.util.spawn_with_shell("setxkbmap -option ctrl:nocaps; xmodmap ~/.Xmodmap")
 
 -- Configure screen
-awful.util.spawn_with_shell("xrandr --output eDP1 --mode 1920x1080")
+awful.util.spawn_with_shell("xrandr --output eDP1 --mode 2048x1152")
