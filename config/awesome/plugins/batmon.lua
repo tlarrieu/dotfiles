@@ -23,6 +23,7 @@ function batteryInfo(adapter)
   local icon = ""
   local percent = ""
   local time = ""
+  local timeleft = nil
 
   if io.open("/sys/class/power_supply/"..adapter.."/present", "r") ~= nil then
     local remaining = readBattery(adapter, "charge_now", "energy_now")
