@@ -8,7 +8,7 @@
 set branch_glyph \uE0A0
 set superuser_glyph '⌬ '
 set bg_job_glyph '⚑ '
-set prompt_glyph '⋊> '
+set prompt_glyph '⋊ '
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
