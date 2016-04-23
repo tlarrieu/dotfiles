@@ -74,10 +74,6 @@ Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " {{{ --| HTML |---------------------------
 Plug 'mattn/emmet-vim'
 " }}}
-" {{{ --| Haskell |------------------------
-" Plug 'bitc/vim-hdevtools', { 'for' : 'haskell' }
-" Plug 'twinside/vim-syntax-haskell-cabal', { 'for' : 'haskell' }
-" }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
@@ -97,6 +93,8 @@ Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'mustache/vim-mustache-handlebars'
 " }}}
 " {{{ --| Good looking |-------------------
+Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
@@ -265,6 +263,17 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Diminactive |-------------------------------------
+let g:diminactive_buftype_blacklist = []
+let g:diminactive_use_colorcolumn = 1
+let g:diminactive_use_syntax = 0
+let g:airline#extensions#hunks#enabled = 0
+" }}}
+" {{{ --| Airline |-----------------------------------------
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#trailing_format = 'tr [%s]'
+let g:airline#extensions#whitespace#mixed_indent_format = 'mi [%s]'
+" }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#disable_auto_complete = 1
 inoremap <silent><expr> <c-n>
@@ -454,7 +463,6 @@ nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
 " {{{ --| Fugitive |----------------------------------------
-
 nmap <leader>b :Gblame<cr>
 nmap <leader>d :Gvdiff<cr>
 nmap <leader>D :Gvdiff develop<cr>
@@ -625,7 +633,7 @@ nmap <leader>g :call AlignMode()<cr>
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
 " Statusline
-nmap <silent> <leader>h :call SwitchStatus()<cr>
+" nmap <silent> <leader>h :call SwitchStatus()<cr>
 " }}}
 " {{{ --| Swap number line |--------------------------------
 " It is more convenient to access numbers directly when in normal mode
