@@ -116,6 +116,9 @@ alias rr="bin/rake routes > routes"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
 
+# emulation
+alias pokemon="gvbam '/home/tlarrieu/roms/gba/Pokemon - Fire Red Version (U) (V1.1).gba'"
+
 # Stuff
 alias expose=~/git/Expose/expose.sh
 
