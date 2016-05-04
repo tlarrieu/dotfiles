@@ -186,11 +186,11 @@ keyboard = awful.util.table.join(keyboard,
   spawn({}, "F8", "xbacklight +10"),
 
   -- sound
-  awful.key({}, "F9", function()
+  awful.key({}, "XF86AudioLowerVolume", function()
     awful.util.spawn("amixer -c 1 set Master 1db-")
     notify_volume()
   end),
-  awful.key({}, "F10", function()
+  awful.key({}, "XF86AudioRaiseVolume", function()
     awful.util.spawn("amixer -c 1 set Master 1db+")
     notify_volume()
   end),
