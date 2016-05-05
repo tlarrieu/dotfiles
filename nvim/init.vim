@@ -21,7 +21,7 @@ Plug 'AndrewRadev/linediff.vim'
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
-Plug 'aquach/vim-http-client'
+Plug 'diepm/vim-rest-console'
 Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'shougo/deoplete.nvim'
@@ -263,6 +263,10 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| VimRestClient |-----------------------------------
+let g:vrc_max_time = 5
+let g:vrc_trigger = '<return>'
+" }}}
 " {{{ --| Diminactive |-------------------------------------
 let g:diminactive_buftype_blacklist = []
 let g:diminactive_use_colorcolumn = 1
@@ -285,14 +289,6 @@ vmap <cr> :<c-u>call Snipe('vnew')<cr>
 " }}}
 " {{{ --| ArgWrap |-----------------------------------------
 nnoremap <silent> <leader>; :ArgWrap<CR>
-" }}}
-" {{{ --| HttpClient |--------------------------------------
-let g:http_client_bind_hotkey = 0
-let g:http_client_result_vsplit = 0
-augroup HTTPClient
-  autocmd!
-  autocmd BufReadPost httpclient map <buffer> <return> :HTTPClientDoRequest<cr>
-augroup END
 " }}}
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
@@ -684,7 +680,7 @@ endfunction
 
 nmap <leader>es :call OpenSchemaFile()<cr>
 
-nmap <leader>ea :tabe ~/httpclient<cr>
+nmap <leader>ea :tabe ~/httpclient.rest<cr>
 nmap <leader>ee :tabe ~/email.md<cr>
 nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
 nmap <leader>eg :tabe ~/.gitconfig<cr>
