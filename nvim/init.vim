@@ -265,7 +265,11 @@ set spelllang=en,fr
 " {{{ ==| Plugins |=============================================================
 " {{{ --| VimRestClient |-----------------------------------
 let g:vrc_max_time = 5
-let g:vrc_trigger = '<return>'
+let g:vrc_set_default_mapping = 0
+augroup VimRestClient
+  autocmd!
+  autocmd FileType rest nmap <buffer> <return> :call VrcQuery()<cr>
+augroup END
 " }}}
 " {{{ --| Diminactive |-------------------------------------
 let g:diminactive_buftype_blacklist = []
