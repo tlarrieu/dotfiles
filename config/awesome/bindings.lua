@@ -206,8 +206,7 @@ keyboard = awful.util.table.join(keyboard,
   mtspawn("u", "ranger"),
   mtspawn("m", "mocp"),
 
-  -- mspawn("a", "pavucontrol"),
-  mtspawn("a", "pavucontrol"),
+  mspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
   mspawn("'", "firefox"),
 
