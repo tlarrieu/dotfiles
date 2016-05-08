@@ -104,6 +104,10 @@ snippet # "#{}" i
 #{$1}
 endsnippet
 
+snippet @ "instance_variable" i
+@${1} = $1
+endsnippet
+
 snippet miss "method missing"
 def method_missing(meth, *args, &block)
 	if meth.to_s =~ /$1/
@@ -116,6 +120,12 @@ endsnippet
 
 snippet /^cl?a?/ "class definition" r
 class ${1:Name}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet /^mo?d?/ "module definition" r
+module ${1:Name}
 	${0:${VISUAL}}
 end
 endsnippet
