@@ -30,7 +30,7 @@ for s = 1, screen.count() do
   l = layouts[1]
   if s == 2 then l = layouts[3] end
 
-  names = { "1", "2", "3", "4", "5" }
+  names = { "一", "二", "三", "四", "五" }
   tags[s] = awful.tag(names, s, l)
 end
 -- }}}

@@ -3,6 +3,8 @@
 terminal = "termite"
 modkey = "Mod4"
 
+kanjis = { "一", "二", "三", "四", "五" }
+
 --[[ Mouse bindings ]]----------------------------------------------------------
 
 mouse = awful.util.table.join(
@@ -13,10 +15,30 @@ mouse = awful.util.table.join(
 
 --[[ Global keys ]]-------------------------------------------------------------
 
+desktop_notification = function()
+  local desktop_kanji = kanjis[awful.tag.getidx()]
+
+  desktop_notification_id = naughty.notify(
+    { text = " "..desktop_kanji.."画面 "
+    , timeout = 1
+    , position = "bottom_right"
+    , font = "Inconsolata-g for Powerline 36"
+    , fg = beautiful.fg_focus
+    , bg = beautiful.bg_focus
+    , replaces_id = desktop_notification_id }
+  ).id
+end
+
 keyboard = awful.util.table.join(
   -- Workspace switching
-  awful.key({modkey}, "c", awful.tag.viewprev),
-  awful.key({modkey}, "r", awful.tag.viewnext),
+  awful.key({modkey}, "c", function()
+    awful.tag.viewprev()
+    desktop_notification()
+  end),
+  awful.key({modkey}, "r", function()
+    awful.tag.viewnext()
+    desktop_notification()
+  end),
 
   -- Client moving
   awful.key({modkey, "Control"}, "t", function()
@@ -104,12 +126,14 @@ clientkeys = awful.util.table.join(
     end
     awful.client.movetotag(tags[screen][id])
     awful.tag.viewonly(tags[screen][id])
+    desktop_notification()
   end),
   awful.key({ modkey, "Control" }, "r", function(c)
     local screen = client.focus.screen
     local id = awful.tag.getidx() % #tags[screen] + 1
     awful.client.movetotag(tags[screen][id])
     awful.tag.viewonly(tags[screen][id])
+    desktop_notification()
   end)
 )
 
