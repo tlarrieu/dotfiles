@@ -140,6 +140,9 @@ safelink $BASEDIR/fshow.sh $HOME/scripts/fshow.sh
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 
+# Xmodmap
+safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
+
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
