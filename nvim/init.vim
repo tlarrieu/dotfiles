@@ -574,6 +574,8 @@ nnoremap Y y$
 " Command line
 map è :
 map È :!
+vnoremap y ygv<esc>
+vnoremap Y Ygv<esc>
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
