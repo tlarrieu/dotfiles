@@ -42,15 +42,15 @@ snippet yel "yellow debug"
 puts "\e[33m$1\e[0m"
 endsnippet
 
-snippet blue "yellow debug"
+snippet blue "blue debug"
 puts "\e[34m$1\e[0m"
 endsnippet
 
-snippet pink "yellow debug"
+snippet pink "pink debug"
 puts "\e[35m$1\e[0m"
 endsnippet
 
-snippet cyan "yellow debug"
+snippet cyan "cyan debug"
 puts "\e[36m$1\e[0m"
 endsnippet
 
@@ -142,6 +142,6 @@ snippet map "map" i
 map { |${1:i}| $2 }
 endsnippet
 
-snippet -> "lambda"
-->(${1:i}) { ${2:${VISUAL}} }
+snippet - "lambda (->)"
+->${1:(${2:i})} { ${3:${VISUAL}} }
 endsnippet
