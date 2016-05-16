@@ -22,7 +22,6 @@ Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
-Plug 'qpkorr/vim-renamer'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'shougo/deoplete.nvim'
 " }}}
@@ -35,12 +34,11 @@ Plug 'tpope/vim-projectionist'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
-Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'edsono/vim-matchit'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular'
+Plug 'godlygeek/tabular', { 'on' : 'Tabular' }
 Plug 'FooSoft/vim-argwrap'
 " }}}
 " {{{ --| Text objects |-------------------
@@ -48,7 +46,7 @@ Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
-  \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake' ] }
+  \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake', 'crystal' ] }
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 " {{{ --| Git |----------------------------
@@ -81,7 +79,6 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'tpope/vim-markdown'
 " }}}
 " {{{ --| Misc languages support |---------
-Plug 'rosstimson/scala-vim-support'
 Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
@@ -386,7 +383,7 @@ let g:user_emmet_install_global = 1
 let g:user_emmet_settings = {
   \   'indentation' : '  '
   \ }
-" let g:user_emmet_expandabbr_key = '<c-f>'
+let g:user_emmet_expandabbr_key = '<c-l>'
 " }}}
 " {{{ --| SimpleDB |----------------------------------------
 let g:sql_type_default = 'mysql'
