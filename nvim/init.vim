@@ -575,11 +575,12 @@ noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
 nnoremap Y y$
+" Visual yank
+vnoremap y ygv<esc>
+vnoremap Y Ygv<esc>
 " Command line
 map è :
 map È :!
-vnoremap y ygv<esc>
-vnoremap Y Ygv<esc>
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
