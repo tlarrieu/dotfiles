@@ -91,6 +91,7 @@ Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
 Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
 Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'rhysd/vim-crystal'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'bling/vim-airline'
@@ -263,6 +264,9 @@ set incsearch " start search while typing
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Crystal |-----------------------------------------
+let g:crystal_auto_format = 1
+" }}}
 " {{{ --| VimRestClient |-----------------------------------
 let g:vrc_max_time = 5
 let g:vrc_set_default_mapping = 0

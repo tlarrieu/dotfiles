@@ -1,0 +1,75 @@
+snippet req "require"
+require "$1"
+endsnippet
+
+snippet inc "include"
+include ${1:Module}
+endsnippet
+
+snippet /^cl?a?/ "class definition" r
+class ${1:Name}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet /^mo?d?/ "module definition" r
+module ${1:Name}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet di "def initialize"
+def initialize${1:(${2:*args})}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet d "def"
+def ${1:function_name}${2:(${3:*args})}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet - "lambda (->)"
+->${1:(${2:i})} { ${3:${VISUAL}} }
+endsnippet
+
+snippet m> "color debug" i
+m---------> $1 : #{${2:$1}.inspect}
+endsnippet
+
+snippet m-- "color line debug" i
+m-- [[ ${1} ]] ----------------------------------------------------------------
+endsnippet
+
+snippet red "red debug"
+puts "\e[31m$1\e[0m"
+endsnippet
+
+snippet gr "green debug"
+puts "\e[32m$1\e[0m"
+endsnippet
+
+snippet yel "yellow debug"
+puts "\e[33m$1\e[0m"
+endsnippet
+
+snippet blue "blue debug"
+puts "\e[34m$1\e[0m"
+endsnippet
+
+snippet pink "pink debug"
+puts "\e[35m$1\e[0m"
+endsnippet
+
+snippet cyan "cyan debug"
+puts "\e[36m$1\e[0m"
+endsnippet
+
+snippet -- "Line comment"
+# -- [[ ${1} ]] ----------------------------------------------------------------
+endsnippet
+
+snippet == "Thick line comment"
+# == [[ ${1} ]] ================================================================
+endsnippet
