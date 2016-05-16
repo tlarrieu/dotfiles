@@ -150,8 +150,6 @@ let mapleader="\<space>"
 map <space> <nop>
 " Timeout
 set nottimeout
-" History
-set history=500
 " Color / background theme
 set background=light
 colorscheme solarized
@@ -170,7 +168,7 @@ augroup overlength
   autocmd FileType man highlight! link OverLength Normal
 augroup END
 " Blank character
-set lcs=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
+set listchars=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
 set list
 " Show incomplete key sequence in bottom corner
@@ -190,12 +188,9 @@ set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " mouse
-set mouse=c
+set mouse=
 " Command completion style
 set wildmode=list:full,full
-" Only complete to the GCD part of file name
-set wildmenu
-" set complete=slf
 set complete=.,w,b,u,t,i
 " Bells
 set novisualbell
@@ -232,7 +227,6 @@ set sidescrolloff=15
 set sidescroll=1
 " }}}
 " {{{ ==| Indent |==============================================================
-set autoindent
 set smartindent
 set tabstop=2
 set shiftwidth=2
@@ -256,9 +250,6 @@ nnoremap zO zczO
 " case behavior regarding searching
 set ignorecase
 set smartcase
-" some more search related stuff
-set hlsearch  " highlight search
-set incsearch " start search while typing
 " }}}
 " {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
