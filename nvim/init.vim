@@ -384,18 +384,6 @@ let g:user_emmet_settings = {
   \ }
 let g:user_emmet_expandabbr_key = '<c-l>'
 " }}}
-" {{{ --| SimpleDB |----------------------------------------
-let g:sql_type_default = 'mysql'
-let g:omni_sql_no_default_maps = 1
-augroup SQL
-  autocmd!
-  " For syntax coloring purposes
-  autocmd BufEnter vim-simpledb-result.txt setfiletype postgresql
-  " Disable a bunch of visual feedback as this is generated content anyway
-  autocmd BufReadPost vim-simpledb-result.txt highlight! link OverLength NULL
-  autocmd BufReadPost vim-simpledb-result.txt setlocal nolist
-augroup end
-" }}}
 " {{{ --| Signature |---------------------------------------
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
