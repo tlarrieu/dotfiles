@@ -9,11 +9,9 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Inconsolata-g For Powerline 13
+font = Inconsolata-g For Powerline 14
 scrollback_lines = 10000
 search_wrap = true
-#icon_name = terminal
-#geometry = 640x480
 
 # "system", "on" or "off"
 cursor_blink = off
