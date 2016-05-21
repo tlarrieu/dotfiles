@@ -1,5 +1,4 @@
 set showtabline=2 " Always display tabline
-set laststatus=2  " Always display statusline
 set noshowmode
 
 " let s:whitespace_symbol = ' ⌫ '
