@@ -101,9 +101,6 @@ Plug 'kshenoy/vim-signature'
 
 call plug#end()
 
-filetype on
-syntax on
-filetype plugin indent on
 " }}}
 " {{{ ==| File Related |========================================================
 augroup vimrc_autocmd
