@@ -157,9 +157,6 @@ if type rbenv > /dev/null
   source (rbenv init - | psub)
 end
 
-# Path to your oh-my-fish.
-set fish_path $HOME/.oh-my-fish
-
 set -g SSL_CERT_FILE /etc/openssl/cert.pem
 
 # Load oh-my-fish configuration.
