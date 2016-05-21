@@ -142,6 +142,8 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ==| General options |=====================================================
+" Pipe shaped cursor in insert mode
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
