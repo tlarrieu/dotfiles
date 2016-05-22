@@ -320,7 +320,7 @@ command! GitFiles call fzf#run({
       \ 'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-r --ansi --multi --prompt "git?> "',
       \ 'down': 10
       \})
-nnoremap <silent> <c-x> :GitFiles<cr>
+nnoremap <silent> <c-y> :GitFiles<cr>
 
 " Buffer list
 function! s:buflist()
