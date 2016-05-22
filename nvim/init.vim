@@ -274,7 +274,9 @@ let g:airline#extensions#whitespace#trailing_format = 'tr [%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mi [%s]'
 " }}}
 " {{{ --| Deoplete |----------------------------------------
-let g:deoplete#disable_auto_complete = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#disable_auto_complete = 0
+let g:deoplete#auto_complete_start_length = 6
 inoremap <silent><expr> <c-n>
 \ pumvisible() ? "\<C-n>" :
 \ deoplete#mappings#manual_complete()
