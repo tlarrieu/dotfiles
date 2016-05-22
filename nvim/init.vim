@@ -291,6 +291,37 @@ nnoremap <silent> <leader>; :ArgWrap<CR>
 " Standard mode (file list)
 nmap <silent> <c-t> :FZF -m -e<cr>
 
+" Git ls-files
+function! s:git_status_sink(e)
+  if len(a:e) < 2 | return | endif
+  let key = a:e[0]
+  let lines = a:e[1:]
+
+  if key == 'ctrl-r'
+    let files = map(lines, 'split(v:val, " ")[1]')
+    execute 'call jobstart("git checkout -- ' . join(files, ' ') . '")'
+    return
+  endif
+
+  let cmd = get({
+    \ 'ctrl-x': 'new',
+    \ 'ctrl-v': 'vnew',
+    \ 'ctrl-t': 'tabnew',
+    \ }, key, 'e')
+
+  for buf in map(lines, 'split(v:val, " ")[1]')
+    execute cmd . ' ' . buf
+  endfor
+endfunction
+
+command! GitFiles call fzf#run({
+      \ 'source': 'git -c color.status=always status --short',
+      \ 'sink*': function('<sid>git_status_sink'),
+      \ 'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-r --ansi --multi --prompt "git?> "',
+      \ 'down': 10
+      \})
+nnoremap <silent> <c-x> :GitFiles<cr>
+
 " Buffer list
 function! s:buflist()
   redir => ls
