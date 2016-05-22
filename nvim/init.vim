@@ -266,12 +266,12 @@ augroup END
 let g:diminactive_buftype_blacklist = []
 let g:diminactive_use_colorcolumn = 1
 let g:diminactive_use_syntax = 0
-let g:airline#extensions#hunks#enabled = 0
 " }}}
 " {{{ --| Airline |-----------------------------------------
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#trailing_format = 'tr [%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mi [%s]'
+let g:airline#extensions#hunks#enabled = 0
 " }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
