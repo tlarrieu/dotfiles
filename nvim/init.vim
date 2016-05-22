@@ -586,6 +586,9 @@ vnoremap Y Ygv<esc>
 " Command line
 map è :
 map È :!
+" Find character
+noremap , ;
+noremap ; ,
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
