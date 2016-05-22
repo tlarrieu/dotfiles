@@ -305,7 +305,7 @@ function! s:git_status_sink(e)
     \ 'ctrl-t': 'tabnew',
     \ }, key, 'e')
 
-  for buf in map(lines, 'split(v:val, " ")[1]')
+  for buf in map(lines, 'split(v:val, " ")[-1]')
     execute cmd . ' ' . buf
   endfor
 endfunction
