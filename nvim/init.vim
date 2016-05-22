@@ -370,20 +370,20 @@ function! s:agopen(e)
     let [file, line, col] = split(line, ':')[0:2]
     execute cmd escape(file, ' %#\')
     execute line
-    execute 'normal!' col.'|zz'
+    execute 'normal!' . col . '|zz'
   endfor
 endfunction
 
 command! -nargs=1 Fgnc call fzf#run({
   \ 'source': 'ag -i --nogroup --column "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e --multi',
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --color hl:68,hl+:110 -e --multi',
   \ 'down': '50%'
   \ })
 command! -nargs=1 Fg call fzf#run({
   \ 'source': 'ag -i --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --no-multi --color hl:68,hl+:110 -e --multi',
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --color hl:68,hl+:110 -e --multi',
   \ 'down': '50%'
   \ })
 nnoremap <c-e> :<c-u>Fg<space>
