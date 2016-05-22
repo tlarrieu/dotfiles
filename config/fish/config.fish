@@ -2,6 +2,9 @@
 # Aliases
 # ------------------------------------------------------------------------------
 
+# mplayer
+alias mp="mplayer"
+
 # Zathura
 alias z="zathura"
 
