@@ -284,6 +284,8 @@ vmap <cr> :<c-u>call Snipe('vnew')<cr>
 nnoremap <silent> <leader>; :ArgWrap<CR>
 " }}}
 " {{{ --| FZF |---------------------------------------------
+let $FZF_DEFAULT_OPTS = '--color fg:240,hl:33,fg+:241,bg+:7,hl+:33'
+
 " Standard mode (file list)
 nmap <silent> <c-t> :FZF -m -e<cr>
 
