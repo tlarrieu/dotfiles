@@ -473,6 +473,7 @@ nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
 " {{{ --| Fugitive |----------------------------------------
+nmap <leader>a :Gcommit --amend<cr>
 nmap <leader>b :Gblame<cr>
 nmap <leader>C :Gcommit<cr>
 nmap <leader>d :Gvdiff<cr>
