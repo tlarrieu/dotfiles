@@ -129,6 +129,8 @@ alias expose=~/git/Expose/expose.sh
 
 stty -ixon
 
+set -x FZF_DEFAULT_OPTS '--color fg:240,bg:15,hl:33,fg+:241,bg+:7,hl+:33'
+
 # Postgres
 set PGHOST localhost
 
@@ -136,9 +138,6 @@ set PGHOST localhost
 set -g -x GEDITOR gvim
 set -g -x EDITOR nvim
 set -g -x TERM xterm-256color
-# Enable cursor change when neovim enters insert mode
-set -g -x NVIM_TUI_ENABLE_CURSOR_SHAPE 1
-# set -g -x NVIM_TUI_ENABLE_TRUE_COLOR 1
 
 # Gopath
 set -x GOPATH ~/go
@@ -148,10 +147,6 @@ set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH /Library/PostgreSQL/9.4/bin
 set -x PATH $PATH /usr/local/heroku/bin
 set -x PATH $PATH ~/bin
-set -x PATH $PATH ~/.cabal/bin
-set -x PATH $PATH ~/Elm-Platform/0.15/bin
-set -x PATH $PATH ~/go/bin
-set -x PATH $PATH ~/git/pls
 
 set -x ANDROID_HOME ~/android-sdk/
 
