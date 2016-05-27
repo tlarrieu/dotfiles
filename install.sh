@@ -103,6 +103,9 @@ rm -rf $OMF_PATH/themes/clearance
 cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
 echo "Fish fully configured, don't forget to set it as your shell"
 
+# Bash
+safelink $BASEDIR/bashrc $HOME/.bashrc
+
 # .moc & mplayer
 safelink $BASEDIR/moc $HOME/.moc
 safelink $BASEDIR/mplayer $HOME/.mplayer
