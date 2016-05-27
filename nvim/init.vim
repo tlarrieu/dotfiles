@@ -24,6 +24,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'shougo/deoplete.nvim'
+Plug 'sunaku/vim-dasht'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -250,6 +251,11 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Dasht |-------------------------------------------
+nnoremap <leader>K :Dasht<space>
+nnoremap <silent> K :call Dasht(expand('<cword>'))<cr>
+vnoremap <silent> K y:<c-u>call Dasht(getreg(0))<cr>
+" }}}
 " {{{ --| VimRestClient |-----------------------------------
 let g:vrc_max_time = 5
 let g:vrc_set_default_mapping = 0
