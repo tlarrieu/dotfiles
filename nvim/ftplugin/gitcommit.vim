@@ -4,7 +4,7 @@ augroup GIT
   autocmd BufEnter COMMIT_EDITMSG inoremap <buffer> <c-s> <esc>:x<cr>
 
   autocmd BufEnter index nnoremap <buffer> <c-s> :Gcommit<cr>
-  autocmd BufEnter index inoremap <buffer> <c-s> :Gcommit --amend<cr>
+  autocmd BufEnter index nnoremap <buffer> <c-a> :Gcommit --amend<cr>
 augroup END
 
 setlocal spell
