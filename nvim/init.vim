@@ -466,8 +466,8 @@ nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 " {{{ --| UltiSnips |---------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsJumpForwardTrigger="<c-t>"
-let g:UltiSnipsJumpBackwardTrigger="<c-s>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " }}}
 " {{{ --| Taboo |-------------------------------------------
 let g:taboo_tab_format =  " %N %f%m "
