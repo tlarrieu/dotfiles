@@ -481,7 +481,7 @@ nmap <leader>tr :TabooReset<cr>
 " {{{ --| Fugitive |----------------------------------------
 nmap <leader>a :Gcommit --amend<cr>
 nmap <leader>b :Gblame<cr>
-nmap <leader>C :Gcommit<cr>
+nmap <leader>c :Gcommit<cr>
 nmap <leader>d :Gvdiff<cr>
 nmap <leader>D :Gvdiff develop<cr>
 nmap <leader>r :Gread<cr>
@@ -509,8 +509,6 @@ nmap <leader><leader> :call DeleteHiddenBuffers()<cr>
 " {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
-nmap <leader>, gt
-nmap <leader>c gT
 " Hack to make <c-w><c-c> mapping work
 nmap <c-c> <nop>
 noremap <c-w><c-c> <c-w>H
