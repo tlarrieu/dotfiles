@@ -70,6 +70,10 @@ Plug 'jbgutierrez/vim-partial'
 Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
+" {{{ --| Elixir |-------------------------
+Plug 'elixir-lang/vim-elixir'
+Plug 'mattreduce/vim-mix'
+" }}}
 " {{{ --| HTML |---------------------------
 Plug 'mattn/emmet-vim'
 " }}}
