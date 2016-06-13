@@ -7,9 +7,7 @@ set shell=/bin/bash
 let $PAGER=''
 let g:ruby_path = system('rvm current')
 " {{{ ==| vim-plug |============================================================
-
 call plug#begin()
-
 " {{{ --| File Manipulation |--------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'rking/ag.vim'
@@ -98,13 +96,11 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'bling/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'blueyed/vim-diminactive'
-Plug 'altercation/vim-colors-solarized'
+Plug 'romainl/flattened'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
-
 call plug#end()
-
 " }}}
 " {{{ ==| File Related |========================================================
 augroup vimrc_autocmd
@@ -145,14 +141,16 @@ augroup END
 " {{{ ==| General options |=====================================================
 " Pipe shaped cursor in insert mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+" " True colors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" Leader
 let mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
 " Timeout
 set nottimeout
 " Color / background theme
-set background=light
-colorscheme solarized
+colorscheme flattened_light
 highlight! link SignColumn LineNr
 highlight! link CursorLineNr Directory
 " Deactivate parenthesis matching
@@ -278,6 +276,7 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#whitespace#trailing_format = 'tr [%s]'
 let g:airline#extensions#whitespace#mixed_indent_format = 'mi [%s]'
 let g:airline#extensions#hunks#enabled = 0
+let g:airline_theme='solarized'
 " }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
@@ -658,8 +657,6 @@ nmap <leader>g :call AlignMode()<cr>
 " Quickfix / Location list
 nmap <silent> <leader>q :call ToggleQuickfixList()<cr>
 nmap <silent> <leader>l :call ToggleLocationList()<cr>
-" Statusline
-" nmap <silent> <leader>h :call SwitchStatus()<cr>
 " }}}
 " {{{ --| Swap number line |--------------------------------
 " It is more convenient to access numbers directly when in normal mode
