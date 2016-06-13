@@ -93,8 +93,7 @@ Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
 Plug 'mustache/vim-mustache-handlebars'
 " }}}
 " {{{ --| Good looking |-------------------
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'romainl/flattened'
 Plug 'gcmt/taboo.vim'
@@ -149,6 +148,10 @@ let mapleader="\<space>"
 map <space> <nop>
 " Timeout
 set nottimeout
+" Always display tabline
+set showtabline=2
+" Do not display mode
+set noshowmode
 " Color / background theme
 colorscheme flattened_light
 highlight! link SignColumn LineNr
@@ -160,11 +163,7 @@ set relativenumber
 set number
 " Line length warning
 highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
-augroup overlength
-  autocmd!
-  autocmd BufReadPost * match OverLength /\%81v.\+/
-  autocmd FileType man highlight! link OverLength Normal
-augroup END
+match OverLength /\%81v.\+/
 " Blank character
 set listchars=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
@@ -270,13 +269,6 @@ augroup END
 let g:diminactive_buftype_blacklist = []
 let g:diminactive_use_colorcolumn = 1
 let g:diminactive_use_syntax = 0
-" }}}
-" {{{ --| Airline |-----------------------------------------
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#whitespace#trailing_format = 'tr [%s]'
-let g:airline#extensions#whitespace#mixed_indent_format = 'mi [%s]'
-let g:airline#extensions#hunks#enabled = 0
-let g:airline_theme='solarized'
 " }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
@@ -724,7 +716,7 @@ nmap <leader>. :Lexplore .<cr>
 
 nmap <leader># :e #<cr>
 
-nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>:so ~/.config/nvim/plugin/statusline.vim<cr>
+nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
