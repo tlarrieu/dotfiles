@@ -58,6 +58,7 @@ alias dand="cd ~/git/dand.io"
 
 # ls
 alias l="ls"
+alias ls="ls --color"
 
 # SSH agent
 alias kc="keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa"
