@@ -154,8 +154,6 @@ set showtabline=2
 set noshowmode
 " Color / background theme
 colorscheme flattened_light
-highlight! link SignColumn LineNr
-highlight! link CursorLineNr Directory
 " Deactivate parenthesis matching
 let loaded_matchparen = 1
 " Line numbering (relative and current)
@@ -392,6 +390,14 @@ augroup Neomake
   autocmd!
   autocmd BufWritePost * Neomake
 augroup END
+let g:neomake_warning_sign = {
+  \ 'text': '×',
+  \ 'texthl': 'DiffChange',
+  \ }
+let g:neomake_error_sign = {
+  \ 'text': '✖',
+  \ 'texthl': 'DiffDelete',
+  \ }
 " }}}
 " {{{ --| Surround |----------------------------------------
 let g:surround_no_insert_mappings = 1

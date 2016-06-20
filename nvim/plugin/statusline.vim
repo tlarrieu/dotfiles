@@ -34,7 +34,7 @@ let g:lightline = {
 
 augroup LightLine
   autocmd!
-  autocmd BufWritePost * call lightline#update()
+  autocmd User NeomakeMakerFinished call lightline#update()
 augroup END
 
 function! LightLineModified()
@@ -87,9 +87,6 @@ function! StatusIf(glyphe, condition)
 endfunction
 
 function! LightLineSyntax()
-  if !has('nvim')
-    return ''
-  end
   let neomake = neomake#statusline#LoclistStatus()
   return StatusIf(' ' . neomake, !empty(neomake))
 endfunction
