@@ -1,7 +1,3 @@
-let s:whitespace_trailing_format = 'trailing [%s]'
-let s:whitespace_mixed_indent_format = ' indent [%s]'
-let s:whitespace_max_lines = 10000
-
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
@@ -92,31 +88,28 @@ function! LightLineSyntax()
 endfunction
 
 function! LightLineWhitespace()
-  if &readonly || !&modifiable || line('$') > s:whitespace_max_lines
+  if &readonly || !&modifiable || line('$') > 10000
     return ''
   endif
 
-  let trailing = 0
-  let mixed = 0
+  let b:whitespaces = ''
 
   " Matches " $" but not "\ $" (where $ marks the end of the line)
   " We do not want to match escaped spaces
   let trailing = search('[^.\\]\s$', 'nw')
+  if trailing != 0
+    let b:whitespaces .= printf('tr(%s)', trailing)
+  endif
 
   let mixed = CheckMixedIndent()
-
-  let b:whitespace_check = ''
-  if trailing != 0 || mixed != 0
+  if mixed != 0
     if trailing != 0
-      let b:whitespace_check .=
-            \' ' . printf(s:whitespace_trailing_format, trailing)
+      let b:whitespaces .= ' '
     endif
-    if mixed != 0
-      let b:whitespace_check .=
-            \' ' . printf(s:whitespace_mixed_indent_format, mixed)
-    endif
+    let b:whitespaces .= printf('indt(%s)', mixed)
   endif
-  return b:whitespace_check
+
+  return b:whitespaces
 endfunction
 
 function! CheckMixedIndent()
