@@ -107,12 +107,9 @@ augroup vimrc_autocmd
   autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
   autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
   autocmd FileType ruby set makeprg=ruby\ %
-  autocmd BufReadPost *.arb setfiletype ruby
-  autocmd BufReadPost COMMIT_EDITMSG startinsert!
   autocmd FileType html,eruby setlocal foldlevel=10
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
-  autocmd BufReadPost *.yml setfiletype yaml
   autocmd BufReadPost *.diag setfiletype seqdiag
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
@@ -126,7 +123,6 @@ augroup vimrc_autocmd
   " leaving insert mode. Foldmethod is local to the window.
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
-  autocmd FileType man setlocal foldlevel=10
 augroup END
 
 augroup NoSimultaneousEdits
