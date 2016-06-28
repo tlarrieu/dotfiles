@@ -1,6 +1,6 @@
 --[[ Variables ]]---------------------------------------------------------------
 
-terminal = "termite"
+terminal = "roxterm --hide-menubar"
 modkey = "Mod4"
 
 kanjis = { "一", "二", "三", "四", "五" }
