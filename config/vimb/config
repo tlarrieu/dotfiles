@@ -1,5 +1,8 @@
 set accelerated-compositing=true
 set spell-checking=true
+set fontsize=17
+set home-page=www.duckduckgo.com
+set hintkeys=et,cisuran.'
 
 nmap è :
 nmap é /
