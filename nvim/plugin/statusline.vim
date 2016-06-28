@@ -8,6 +8,10 @@ let g:lightline = {
       \     ['fileformat', 'fileencoding', 'filetype']
       \   ]
       \ },
+      \ 'tabline': {
+      \   'left': [['tabs']],
+      \   'right': [[]]
+      \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
       \   'filename': 'LightLineFilename',
