@@ -523,6 +523,8 @@ nmap <leader>% :res<cr>:vertical res<cr>
 " Moving around
 nmap <tab> <c-w>w
 nmap <s-tab> <c-w>W
+nmap <a-e> gt
+nmap <a-i> gT
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
