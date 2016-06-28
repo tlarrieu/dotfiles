@@ -23,6 +23,7 @@ Plug 'diepm/vim-rest-console'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'shougo/deoplete.nvim'
 Plug 'sunaku/vim-dasht'
+Plug 'Olical/vim-enmasse'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
