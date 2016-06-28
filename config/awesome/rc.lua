@@ -33,4 +33,4 @@ awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
 awful.util.spawn_with_shell("setxkbmap -option ctrl:nocaps; xmodmap ~/.Xmodmap")
 
 -- Touchegg
-awful.util.spawn_with_shell("killall touchegg; touchegg")
+-- awful.util.spawn_with_shell("killall touchegg; touchegg")
