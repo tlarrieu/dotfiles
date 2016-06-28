@@ -493,8 +493,6 @@ vmap <leader>d :Linediff<cr>
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
 " {{{ --| Buffers |-----------------------------------------
-" Reuse previously opened tab / window when trying to open a buffer
-set switchbuf=usetab
 " Empty buffers
 function! ClearBuffers()
   silent! bufdo bdelete
