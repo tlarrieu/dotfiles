@@ -1,3 +1,23 @@
+# -- Embedded latex --------------------
+snippet $ "inline math"
+$$1$
+endsnippet
+
+snippet $$ "block math"
+$$
+$1
+$$
+endsnippet
+
+snippet ^
+^{$1}
+endsnippet
+
+snippet _
+_{$1}
+endsnippet
+# -- // Embedded latex // --------------
+
 snippet email "comment"
 Hi everyone,
 ${1}
@@ -9,7 +29,7 @@ endsnippet
 
 snippet ` "fence"
 \`\`\` ${1:lang}
-$0
+$1
 \`\`\`
 endsnippet
 
