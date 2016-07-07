@@ -2,6 +2,20 @@ snippet i18n "I18n"
 I18n.t(${1:key}${2:,${3:variable}})
 endsnippet
 
+snippet test "Description" b
+test '${1:should do something}' do
+	${0}
+end
+endsnippet
+
+snippet as "assert" b
+assert ${1:assertion}
+endsnippet
+
+snippet asn "assert_not" b
+assert_not ${1:assertion}
+endsnippet
+
 snippet /^\s*sc?o?p?e?/ "Scope" r
 scope :${1:name}, -> { where(${2:column}: ${3:value}) }
 endsnippet
