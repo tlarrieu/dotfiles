@@ -493,14 +493,7 @@ vmap <leader>d :Linediff<cr>
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
 " {{{ --| Buffers |-----------------------------------------
-" Empty buffers
-function! ClearBuffers()
-  silent! bufdo bdelete
-  silent! tabdo tabclose
-  edit .
-endfunction
-command! B :call ClearBuffers()
-nmap <leader><leader> :call DeleteHiddenBuffers()<cr>
+nmap <silent> <leader><leader> :call DeleteHiddenBuffers()<cr>
 " }}}
 " {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
@@ -604,11 +597,10 @@ cmap <esc> <c-c>
 " Exit
 nnoremap à :q<cr>
 nnoremap À :qa<cr>
-nnoremap ê :bd<cr>
 " Save
 nmap <c-s> :update<cr>
 imap <c-s> <esc>:update<cr>
-" Reselected pasted lines
+" Reselect pasted lines
 nnoremap gV `[v`]
 " Command line
 map è :
@@ -668,6 +660,7 @@ noremap 4 (
 noremap ) 5
 noremap 5 )
 noremap @ 6
+noremap <leader>, @q
 noremap 6 @
 noremap + 7
 noremap 7 :GitGutterStageHunk<cr>

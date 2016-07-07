@@ -116,6 +116,12 @@ endfunction
 " }}} ==========================================================================
 
 " {{{ == | Buffer Handling | ===================================================
+function! ClearBuffers()
+  silent! bufdo bdelete
+  silent! tabdo tabclose
+  edit .
+endfunction
+command! B :call ClearBuffers()
 
 function! DeleteHiddenBuffers()
   let tpbl=[]
