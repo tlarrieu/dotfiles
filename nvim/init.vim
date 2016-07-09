@@ -137,7 +137,7 @@ augroup END
 " {{{ ==| General options |=====================================================
 " Pipe shaped cursor in insert mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" " True colors
+" True colors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Leader
 let mapleader="\<space>"
@@ -205,6 +205,8 @@ set nojoinspaces
 set lazyredraw
 " Update time
 set updatetime=250
+" Change netrw list style
+let g:netrw_liststyle=1
 " }}}
 " {{{ ==| Splits |==============================================================
 highlight! link VertSplit CursorColumn
