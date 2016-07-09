@@ -1,5 +1,7 @@
 setlocal nonumber
 setlocal norelativenumber
+setlocal nobuflisted
+
 match OverLength //
 
 " Preview
