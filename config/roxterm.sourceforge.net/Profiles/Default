@@ -8,3 +8,4 @@ always_show_tabs=0
 cursor_blink_mode=2
 scrollbar_pos=0
 colour_scheme=solarized-light
+scroll_on_keystroke=1
