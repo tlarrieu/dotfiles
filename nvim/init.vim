@@ -542,12 +542,13 @@ nmap <leader>u :call MergeTabs()<cr>
 " {{{ --| Terminal |----------------------------------------
 tnoremap <c-s> <c-\><c-n>
 
-nmap <silent> <leader>ti :terminal<cr>
+nmap <silent> <leader>ti :tabnew<bar>terminal<cr>
+nmap <silent> <leader>tr :tabnew<bar>terminal rails c<cr>
 nmap <silent> <leader>vi :vertical new<bar>terminal<cr>
 nmap <silent> <leader>vr :vertical new<bar>terminal rails c<cr>
 nmap <silent> <leader>ni :new<bar>terminal<cr>
 nmap <silent> <leader>nr :new<bar>terminal rails c<cr>
-nmap <leader>tu :terminal<space>
+nmap <leader>tu :tabnew<bar>terminal<space>
 nmap <leader>vu :vsplit<bar>terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
