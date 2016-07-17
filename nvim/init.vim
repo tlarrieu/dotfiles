@@ -425,9 +425,9 @@ let g:user_emmet_expandabbr_key = '<c-l>'
 " {{{ --| Signature |---------------------------------------
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
-  \ 'PlaceNextMark'      :  "m,",
-  \ 'ToggleMarkAtLine'   :  "m.",
-  \ 'PurgeMarksAtLine'   :  "m-",
+  \ 'PlaceNextMark'      :  "",
+  \ 'ToggleMarkAtLine'   :  "",
+  \ 'PurgeMarksAtLine'   :  "",
   \ 'PurgeMarks'         :  "m<Space>",
   \ 'PurgeMarkers'       :  "m<BS>",
   \ 'GotoNextLineAlpha'  :  "",
