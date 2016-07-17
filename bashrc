@@ -8,6 +8,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 
 # FZF
 export FZF_DEFAULT_OPTS='--color fg:240,bg:15,hl:33,fg+:241,bg+:7,hl+:33'
+export FZF_DEFAULT_COMMAND="ag -g '' --hidden --ignore .git"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Yaourt
