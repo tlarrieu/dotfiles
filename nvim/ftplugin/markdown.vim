@@ -25,6 +25,7 @@ endfunction
 
 function! Pandoc()
   lexpr ''
+  lclose
 
   let path = expand('%:h')
   let filename = expand('%')
