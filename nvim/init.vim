@@ -283,6 +283,7 @@ nnoremap <silent> <leader>; :ArgWrap<CR>
 " }}}
 " {{{ --| FZF |---------------------------------------------
 let $FZF_DEFAULT_OPTS = '--color fg:240,hl:33,fg+:241,bg+:7,hl+:33'
+let $FZF_DEFAULT_COMMAND = "ag -g '' --hidden --ignore .git"
 
 " Standard mode (file list)
 nmap <silent> <c-t> :FZF -m -e<cr>
