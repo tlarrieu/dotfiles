@@ -456,6 +456,7 @@ let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
 " }}}
 " {{{ --| Taboo |-------------------------------------------
 let g:taboo_tab_format =  "%N %f%m"
