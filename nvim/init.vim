@@ -73,9 +73,6 @@ Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattreduce/vim-mix'
 " }}}
-" {{{ --| HTML |---------------------------
-Plug 'mattn/emmet-vim'
-" }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
@@ -411,16 +408,6 @@ vmap <leader>t :Tabular /
 " {{{ --| Thesaurus |---------------------------------------
 nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
-" }}}
-" {{{ --| Emmet |-------------------------------------------
-let g:user_emmet_leader_key='<c-y>'
-let g:use_emmet_complete_tag = 1
-let g:user_emmet_mode = 'i'
-let g:user_emmet_install_global = 1
-let g:user_emmet_settings = {
-  \   'indentation' : '  '
-  \ }
-let g:user_emmet_expandabbr_key = '<c-l>'
 " }}}
 " {{{ --| Signature |---------------------------------------
 let g:SignatureMap = {
