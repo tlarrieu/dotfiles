@@ -76,19 +76,9 @@ Plug 'mattreduce/vim-mix'
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
-" {{{ --| Markdown |-----------------------
-Plug 'tpope/vim-markdown'
-" }}}
 " {{{ --| Misc languages support |---------
-Plug 'alfredodeza/jacinto.vim', { 'for' : 'json' }
 Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
-Plug 'jelera/vim-javascript-syntax', { 'for' : 'javascript' }
-Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
-Plug 'leshill/vim-json', { 'for' : 'json' }
-Plug 'lmeijvogel/vim-yaml-helper', { 'for' : 'yaml' }
-Plug 'roalddevries/yaml.vim', { 'for' : 'yaml' }
-Plug 'vim-scripts/fish-syntax', { 'for' : 'fish' }
-Plug 'mustache/vim-mustache-handlebars'
+Plug 'sheerun/vim-polyglot'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'itchyny/lightline.vim'
