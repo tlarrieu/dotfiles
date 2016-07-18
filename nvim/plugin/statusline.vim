@@ -41,6 +41,8 @@ let g:lightline = {
 
 augroup LightLine
   autocmd!
+  autocmd CursorMoved * call lightline#update()
+  autocmd CursorMovedI * call lightline#update()
   autocmd User NeomakeMakerFinished call lightline#update()
 augroup END
 
