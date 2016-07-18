@@ -246,6 +246,9 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| GitGutter |---------------------------------------
+let g:gitgutter_sign_column_always = 1
+" }}}
 " {{{ --| Dasht |-------------------------------------------
 nnoremap <leader>K :Dasht<space>
 nnoremap <silent> K :call Dasht(expand('<cword>'))<cr>
