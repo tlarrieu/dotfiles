@@ -3,7 +3,7 @@ beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/th
 
 -- {{{ Wallpapers
 wallpapers = {
-  "/home/tlarrieu/Pictures/wallhaven-240577.jpg"
+  "/home/tlarrieu/Pictures/wallpapers/wallhaven-107352.jpg"
 }
 for s = 1, screen.count() do
   gears.wallpaper.maximized(wallpapers[s], s, false)
