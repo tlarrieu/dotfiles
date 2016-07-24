@@ -2,24 +2,108 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
-snippet cc "copyright"
-# Copyright (c) 2010 Shopmium
+# == Definitions ===============================================================
+
+snippet #! "shebang"
+#!/usr/bin/env ruby
 endsnippet
 
-snippet pry "binding.pry" b
-require 'pry'; binding.pry
+snippet req "require" b
+require '$1'
+endsnippet
+
+snippet inc "include"
+include ${1:Module}
 endsnippet
 
 snippet gem "gem"
 gem '${1}'
 endsnippet
 
-snippet puts "debug"
-puts "---------> $1 : #{${2:$1}.inspect}"
+snippet /^cl?a?/ "class definition" r
+class ${1:Name}
+	${0:${VISUAL}}
+end
 endsnippet
 
-snippet p-- "Puts"
-puts "-- [[ ${1} ]] ----------------------------------------------------------------"
+snippet /^mo?d?/ "module definition" r
+module ${1:Name}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet miss "method missing"
+def method_missing(meth, *args, &block)
+	if meth.to_s =~ /$1/
+		$2
+	else
+		super
+	end
+end
+endsnippet
+
+snippet @ "instance_variable" i
+@${1} = $1
+endsnippet
+
+snippet def "def"
+def ${1:function_name}${2:(${3:*args})}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet d "def"
+def ${1:function_name}
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet di "def initialize"
+def initialize${1:(${2:*args})}
+	${0:${VISUAL}}
+end
+endsnippet
+
+# == Methods ==================================================================
+
+snippet - "lambda (->)"
+->${1:(${2:i})} { ${3:${VISUAL}} }
+endsnippet
+
+snippet times "times" i
+times { |${1:i}| $2 }
+endsnippet
+
+snippet reduce "reduce" i
+reduce { |${1:i}| $2 }
+endsnippet
+
+snippet map "map" i
+map { |${1:i}| $2 }
+endsnippet
+
+snippet tap "tap" i
+tap { |o| o.${1:inspect} }
+endsnippet
+
+# == Comments ==================================================================
+
+snippet -- "Line comment"
+# -- [[ ${1} ]] ----------------------------------------------------------------
+endsnippet
+
+snippet == "Thick line comment"
+# == [[ ${1} ]] ================================================================
+endsnippet
+
+snippet # "#{}" i
+#{$1}
+endsnippet
+
+# == Debugging =================================================================
+
+snippet pry "binding.pry" b
+require 'pry'; binding.pry
 endsnippet
 
 snippet m> "color debug" i
@@ -52,96 +136,4 @@ endsnippet
 
 snippet cyan "cyan debug"
 puts "\e[36m$1\e[0m"
-endsnippet
-
-snippet beg "begin block"
-begin
-	${VISUAL}
-rescue ${1:Exception} => ${2:e}
-	${3:puts "\e[31m---------> e : #{e.inspect}\e[0m"}
-end
-endsnippet
-
-snippet -- "Line comment"
-# -- [[ ${1} ]] ----------------------------------------------------------------
-endsnippet
-
-snippet == "Thick line comment"
-# == [[ ${1} ]] ================================================================
-endsnippet
-
-snippet def "def"
-def ${1:function_name}${2:(${3:*args})}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet d "def"
-def ${1:function_name}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet di "def initialize"
-def initialize${1:(${2:*args})}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet /(.*)\.tap/ "comment" ri
-`!p snip.rv = match.group(1)`.tap { |o| puts o.${1:inspect} }.
-endsnippet
-
-snippet #! "shebang"
-#!/usr/bin/env ruby
-endsnippet
-
-snippet inc "include"
-include ${1:Module}
-endsnippet
-
-snippet # "#{}" i
-#{$1}
-endsnippet
-
-snippet @ "instance_variable" i
-@${1} = $1
-endsnippet
-
-snippet miss "method missing"
-def method_missing(meth, *args, &block)
-	if meth.to_s =~ /$1/
-		$2
-	else
-		super
-	end
-end
-endsnippet
-
-snippet /^cl?a?/ "class definition" r
-class ${1:Name}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet /^mo?d?/ "module definition" r
-module ${1:Name}
-	${0:${VISUAL}}
-end
-endsnippet
-
-snippet times "times" i
-times { |${1:i}| $2 }
-endsnippet
-
-snippet reduce "reduce" i
-reduce { |${1:i}| $2 }
-endsnippet
-
-snippet map "map" i
-map { |${1:i}| $2 }
-endsnippet
-
-snippet - "lambda (->)"
-->${1:(${2:i})} { ${3:${VISUAL}} }
 endsnippet
