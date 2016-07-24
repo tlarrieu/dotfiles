@@ -23,11 +23,9 @@ Plug 'diepm/vim-rest-console'
 Plug 'vim-scripts/AnsiEsc.vim'
 Plug 'shougo/deoplete.nvim'
 Plug 'sunaku/vim-dasht'
-Plug 'Olical/vim-enmasse'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 " }}}
 " {{{ --| Project config |-----------------
 Plug 'tpope/vim-projectionist'
@@ -67,10 +65,8 @@ Plug 'milkypostman/vim-togglelist'
 " {{{ --| Ruby |---------------------------
 Plug 'jbgutierrez/vim-partial'
 Plug 'tpope/vim-rails'
-Plug 'vim-ruby/vim-ruby', { 'for' : 'ruby' }
 " }}}
 " {{{ --| Elixir |-------------------------
-Plug 'elixir-lang/vim-elixir'
 Plug 'mattreduce/vim-mix'
 " }}}
 " {{{ --| SQL |----------------------------
