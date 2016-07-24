@@ -1,89 +1,4 @@
-snippet trait "trait"
-trait :${1:trait} do
-	$2
-end
-endsnippet
-
-snippet fc "FactoryGirl.create"
-FactoryGirl.create($1)
-endsnippet
-
-snippet fb "FactoryGirl.build"
-FactoryGirl.build($1)
-endsnippet
-
-snippet l "let"
-let(:${1:name}) { $2 }
-endsnippet
-
-snippet lc "let FactoryGirl"
-let(:${1:name}) { FactoryGirl.create(:$1${2:, $3}) }
-endsnippet
-
-snippet itc "it expect change" b
-it do
-	expect { $1 }
-		.to change { $2 }
-		.from($3)
-		.to($4)
-end
-endsnippet
-
-snippet l! "let!"
-let!(:${1:name}) { $2 }
-endsnippet
-
-snippet letb "let block"
-let(:${1:name}) do
-	$2
-end
-endsnippet
-
-snippet letb! "let block"
-let!(:${1:name}) do
-	$2
-end
-endsnippet
-
-snippet it "it block"
-it '${1:example title}' do
-	$2
-end
-endsnippet
-
-snippet iT "it block with title"
-it "${1:example title}" do
-	$2
-end
-endsnippet
-
-snippet its "its"
-its(:${1:attribute}) { is_expected.to ${2} }
-endsnippet
-
-snippet iie "it is_expected"
-it { is_expected.to $1 }
-endsnippet
-
-snippet itt "it"
-it { $1 }
-endsnippet
-
-snippet itT "it {  }"
-it("${1:example title}") { $2 }
-endsnippet
-
-snippet ite "it expect().to"
-it { expect(${1}).to ${0} }
-endsnippet
-
-snippet iteb "it expect {}.to"
-it { expect { ${1} }.to ${0} }
-endsnippet
-
-snippet itne "it expect not to"
-it { expect(${1}).not_to ${0} }
-endsnippet
+# -- describe / context --------------------------------------------------------
 
 snippet desc "describe"
 describe '${1:subject_name}' do
@@ -97,34 +12,81 @@ context '${1:context_name}' do
 end
 endsnippet
 
-snippet shcon "shared context"
-shared_context '${1:context_name}' do
-	${2:${VISUAL}}
+# -- Let -----------------------------------------------------------------------
+
+snippet l "let"
+let(:${1:name}) { $2 }
+endsnippet
+
+snippet l! "let!"
+let!(:${1:name}) { $2 }
+endsnippet
+
+snippet lc "let FactoryGirl"
+let(:${1:name}) { FactoryGirl.create(:${2:factory}) }
+endsnippet
+
+snippet L "let block"
+let(:${1:name}) do
+	$2
 end
 endsnippet
 
-snippet shex "shared examples"
-shared_examples '${1:examples_name}' do
-	${2:${VISUAL}}
+snippet L! "let block"
+let!(:${1:name}) do
+	$2
 end
 endsnippet
 
-snippet exp "expect to"
-expect(${1:subject}).to ${2}
+# -- It ------------------------------------------------------------------------
+
+snippet it "it"
+it('${2:example title}') { $2 }
 endsnippet
 
-snippet expb "expect to (block)"
-expect { ${1:subject} }.to ${2}
+snippet ib "it block"
+it '${1:example title}'do
+	$2
+end
 endsnippet
 
-snippet expn "expect not to"
-expect(${1:subject}).not_to ${2}
-endsnippet
-
-snippet expbn "expect not to (block)"
-expect { ${1:subject} }.not_to ${2}
+snippet its "its"
+its(:${1:attribute}) { is_expected.to ${2} }
 endsnippet
 
 snippet ie "include_examples"
 include_examples '$1'
+endsnippet
+
+# -- Expect -------------------------------------------------------------------
+
+snippet e "expect to"
+expect(${1:subject}).${2:to} ${3}
+endsnippet
+
+snippet eb "expect to (block)"
+expect { ${1:subject} }.${2:to} ${3}
+endsnippet
+
+snippet ec "expect change"
+expect { $1 }
+	.to change { $2 }
+	.from($3)
+	.to($4)
+endsnippet
+
+# -- FactoryGirl ---------------------------------------------------------------
+
+snippet fc "FactoryGirl.create"
+FactoryGirl.create($1)
+endsnippet
+
+snippet fb "FactoryGirl.build"
+FactoryGirl.build($1)
+endsnippet
+
+snippet trait "trait"
+trait :${1:trait} do
+	$2
+end
 endsnippet

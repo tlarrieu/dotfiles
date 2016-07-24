@@ -10,14 +10,14 @@ property :${1:prop} do
 end
 endsnippet
 
-snippet b "boolean property"
+snippet bool "boolean property"
 property :${1:prop} do
 	key :type, :boolean
 	key :description, '${3:description}'
 end
 endsnippet
 
-snippet i "integer property"
+snippet int "integer property"
 property :${1:prop} do
 	key :type, :integer
 	key :format, :${2:int64}
@@ -40,14 +40,14 @@ property :${1:prop} do
 end
 endsnippet
 
-snippet o "object property"
+snippet ob "object property"
 property :${1:prop} do
 	key :type, :object
 	key :'$ref', :${3:$1}
 end
 endsnippet
 
-snippet a "array property"
+snippet ar "array property"
 property :${1:prop} do
 	key :type, :array
 	items do
