@@ -429,10 +429,6 @@ let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
 let g:ag_prg = "ag --vimgrep"
 set grepformat=%f:%l:%c:%m
-
-nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
-vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
-nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 " }}}
 " {{{ --| UltiSnips |---------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
@@ -649,6 +645,10 @@ noremap 0 *
 " {{{ --| Search & Replace |--------------------------------
 noremap é /
 noremap <silent> É :nohlsearch<cr><c-l>
+
+nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
+vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
+nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 
 nmap s :s/
 nmap S :%s/
