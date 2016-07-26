@@ -43,7 +43,7 @@ function batteryInfo(adapter)
       percent = "%"
       timeleft = tonumber(remaining) / tonumber(rate)
 
-      if tonumber(battery) < 15 then
+      if tonumber(battery) < 10 then
         local color = ""
 
         if tonumber(battery) <= 5 then
