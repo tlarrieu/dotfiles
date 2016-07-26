@@ -357,14 +357,8 @@ function! s:agopen(e)
   endfor
 endfunction
 
-command! -nargs=1 Fgnc call fzf#run({
-  \ 'source': 'ag -i --nogroup --column "' . escape(<q-args>, '"\') . '"',
-  \ 'sink*': function('<sid>agopen'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --color hl:68,hl+:110 -e --multi',
-  \ 'down': '50%'
-  \ })
 command! -nargs=1 Fg call fzf#run({
-  \ 'source': 'ag -i --nogroup --column --color "' . escape(<q-args>, '"\') . '"',
+  \ 'source': 'ag -i --nogroup --column "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>agopen'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x --color hl:68,hl+:110 -e --multi',
   \ 'down': '50%'

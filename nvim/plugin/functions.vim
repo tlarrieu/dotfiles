@@ -8,8 +8,7 @@ function! RenameFile()
   endif
 endfunction
 
-" {{{ == | Tags | " ============================================================
-
+" {{{ == | Tags | ==============================================================
 function! DelTagOfFile(file)
   let fullpath = a:file
   let cwd = getcwd()
@@ -31,11 +30,9 @@ function! UpdateTags()
     let resp = system(cmd)
   endif
 endfunction
-
 " }}} ==========================================================================
 
 " {{{ == | Folding | ===========================================================
-
 function! FoldText()
   let line = getline(v:foldstart)
 
@@ -51,11 +48,9 @@ function! FoldText()
   let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
   return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
-
 " }}} ==========================================================================
 
 " {{{ == | Search | ============================================================
-
 " Those 2 functions should be refactored into a single one
 function! UsageOperator(type)
   let saved_register = @@
@@ -68,7 +63,7 @@ function! UsageOperator(type)
     return
   endif
 
-  silent execute 'Fgnc ' . @@
+  silent execute 'Fg ' . @@
 
   let @@ = saved_register
 endfunction
@@ -84,7 +79,7 @@ function! DefinitionOperator(type)
     return
   endif
 
-  silent execute 'Fgnc (def (self\.)?|class )' . @@
+  silent execute 'Fg (def (self\.)?|class )' . @@
 
   let @@ = saved_register
 endfunction
@@ -112,7 +107,6 @@ function! AutoHighlightToggle()
     return 1
   endif
 endfunction
-
 " }}} ==========================================================================
 
 " {{{ == | Buffer Handling | ===================================================
@@ -150,11 +144,9 @@ endfunction
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-
 " }}} ==========================================================================
 
 " {{{ == |  Text Manipulation | ================================================
-
 " This function extracts a pattern from the whole buffer and replaces it
 " with a line for each match on a single line
 function! Extract()
@@ -223,5 +215,4 @@ function! UnMinify()
     %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
     normal ggVG=
 endfunction
-
 " }}} ==========================================================================
