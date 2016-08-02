@@ -1,7 +1,9 @@
+# == I18n ======================================================================
 snippet i18n "I18n"
 I18n.t(${1:key}${2:,${3:variable}})
 endsnippet
 
+# == MiniTest ==================================================================
 snippet test "Description" b
 test '${1:should do something}' do
 	${0}
@@ -16,10 +18,16 @@ snippet asn "assert_not" b
 assert_not ${1:assertion}
 endsnippet
 
-snippet /^\s*sc?o?p?e?/ "Scope" r
+# == ActiveRecord ==============================================================
+snippet sc "Scope"
 scope :${1:name}, -> { where(${2:column}: ${3:value}) }
 endsnippet
 
+snippet val "validate"
+validates(:${1:column}, ${2:validation})
+endsnippet
+
+# == Logger ====================================================================
 snippet debug "Rails.logger.debug"
 Rails.logger.debug $1
 endsnippet
@@ -32,45 +40,14 @@ snippet error "Rails.logger.error"
 Rails.logger.error $1
 endsnippet
 
+# == Migrations ================================================================
 snippet ct "Change Table"
 change_table :${1:table_name} do |t|
 	$2
 end
 endsnippet
 
-snippet message "Message"
-class ${1:name}Message < TransactionalMessage
-  def initialize(${3:variables})
-    super($4)
-    $0
-  end
-
-  def template_name
-    '${2:name}'
-  end
-
-  def subject
-  end
-
-  def rcpt_email
-    @user.email
-  end
-
-  def rcpt_name
-    @user.full_name
-  end
-
-  def metadata
-    { user_id: @user.id }
-  end
-
-  def variables
-    {
-    }
-  end
-end
-endsnippet
-
+# == Misc ======================================================================
 snippet pgenum
 module PgEnum
   class ${1:enum_name}
@@ -78,181 +55,5 @@ module PgEnum
 
     enum '${2:enum_name}', %w( ${0:list} )
   end
-end
-endsnippet
-
-snippet emig "Enum Migration" s
-def up
-	create_enum(enum_name)
-	execute(query(:up))
-end
-
-def down
-	execute(query(:down))
-	drop_enum(enum_name)
-end
-
-private
-
-def enum
-	PgEnum::ScanType
-end
-
-def enum_name
-	enum.name
-end
-
-def fkey_name
-	enum_name + '_id'
-end
-
-def query(direction)
-	<<-SQL
-	------------------
-	-- Setup
-	------------------
-
-	#{before(direction)}
-
-	-- Drop indexes and fkeys
-	#{ indexes.keys.map { |id| "DROP INDEX #{id};" }.join("\n") }
-	#{ unique_indexes.keys.map { |id| "DROP INDEX #{id};" }.join("\n") }
-	#{
-	case direction
-	when :up then "DROP INDEX index_#{table_name}_on_#{enum_name}_id;"
-	when :down then "DROP INDEX index_#{table_name}_on_#{enum_name};"
-	end
-	}
-
-	ALTER TABLE #{table_name} DROP CONSTRAINT #{table_name}_pkey;
-	#{ fkeys.keys.map { |fk| "ALTER TABLE #{table_name} DROP CONSTRAINT #{fk};" }.join("\n") }
-	#{
-	case direction
-	when :up then "ALTER TABLE #{table_name} DROP CONSTRAINT #{table_name}_#{enum_name}_id_fkey;"
-	end
-	}
-
-	-- Dupe table to a temporary one
-	DROP TABLE IF EXISTS #{table_name}_tmp;
-	ALTER TABLE #{table_name} RENAME TO #{table_name}_tmp;
-
-	-- Isolate id sequence
-	ALTER SEQUENCE #{table_name}_id_seq OWNED BY NONE;
-
-	------------------
-	-- Create table
-	------------------
-	CREATE TABLE #{table_name} AS
-	SELECT
-		#{ columns.map { |c| "tmp.#{c}," }.join("\n") }
-		#{ column_values(direction) }
-	FROM #{table_name}_tmp tmp;
-
-	------------------
-	-- Constraints
-	------------------
-	-- Primary key
-	ALTER TABLE #{table_name} ADD PRIMARY KEY (id);
-	ALTER TABLE #{table_name} ALTER id SET DEFAULT nextval('#{table_name}_id_seq'::regclass);
-	-- Re-affect id sequence
-	ALTER SEQUENCE #{table_name}_id_seq owned by #{table_name}.id;
-
-	-- Foreign keys
-	#{ fkeys.map { |fk, instruction| "ALTER TABLE #{table_name} ADD CONSTRAINT #{fk} #{instruction};" }.join("\n") }
-	#{
-	case direction
-	when :down then "ALTER TABLE #{table_name} ADD CONSTRAINT #{table_name}_#{enum_name}_id_fkey FOREIGN KEY (#{enum_name}_id) REFERENCES #{enum_name}s(id);"
-	end
-	}
-
-	-- 'NOT NULL'ness
-	#{ not_null.map { |nn| "ALTER TABLE #{table_name} ALTER COLUMN #{nn} SET NOT NULL;" }.join("\n") }
-	#{
-	case direction
-	when :up then "ALTER TABLE #{table_name} ALTER COLUMN #{enum_name} SET NOT NULL;"
-	when :down then "ALTER TABLE #{table_name} ALTER COLUMN #{enum_name}_id SET NOT NULL;"
-	end
-	}
-
-	#{after(direction)}
-
-	------------------
-	-- Indexes
-	------------------
-	#{ indexes.map { |id, instruction| "CREATE INDEX #{id} ON #{table_name} USING #{instruction};" }.join("\n") }
-	#{ unique_indexes.map { |id, instruction| "CREATE UNIQUE INDEX #{id} ON #{table_name} USING #{instruction};" }.join("\n") }
-	#{
-	case direction
-	when :up then "CREATE INDEX index_#{table_name}_on_#{enum_name} ON #{table_name} USING btree (#{enum_name});"
-	when :down then "CREATE INDEX index_#{table_name}_on_#{enum_name}_id ON #{table_name} USING btree (#{enum_name}_id);"
-	end
-	}
-	------------------
-	-- Cleanup
-	------------------
-	DROP TABLE #{table_name}_tmp;
-	ANALYZE #{table_name};
-	SQL
-end
-
-def column_values(direction)
-	case direction
-	when :up
-	"(
-		CASE
-		#{enum.values.map.with_index { |e, i| "WHEN tmp.#{enum_name}_id=#{i+1} THEN '#{e}'::#{enum_name}" }.join("\n")}
-		END
-	) AS #{enum_name}"
-	when :down
-	"(
-		CASE
-		#{enum.values.map.with_index { |e, i| "WHEN tmp.#{enum_name}='#{e}' THEN #{i+1}" }.join("\n")}
-		END
-	) AS #{enum_name}_id"
-	end
-end
-
-def table_name
-	'scans'
-end
-
-def indexes
-	{
-		${1:"index_scans_on_from_offer_id" => "btree (from_offer_id)",}
-	}
-end
-
-def unique_indexes
-	{
-		${1:"index_scans_on_from_offer_id" => "btree (from_offer_id)",}
-	}
-end
-
-def fkeys
-	{
-		${2:"scans_from_offer_id_fkey" => "FOREIGN KEY (from_offer_id) REFERENCES offers(id)",}
-	}
-end
-
-def columns
-	%w( ${3:id} )
-end
-
-def not_null
-	%w( ${4:id} )
-end
-
-def before(direction)
-	${5:case direction
-	when :up then ""
-	when :down then ""
-	end}
-end
-
-def after(direction)
-	${6:case direction
-	when :up then ""
-	when :down then ""
-	end}
 end
 endsnippet

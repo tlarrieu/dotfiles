@@ -3,7 +3,6 @@ from ultisnips_helpers import *
 endglobal
 
 # == Definitions ===============================================================
-
 snippet #! "shebang"
 #!/usr/bin/env ruby
 endsnippet
@@ -65,7 +64,6 @@ end
 endsnippet
 
 # == Methods ==================================================================
-
 snippet - "lambda (->)"
 ->${1:(${2:i})} { ${3:${VISUAL}} }
 endsnippet
@@ -87,7 +85,6 @@ tap { |o| o.${1:inspect} }
 endsnippet
 
 # == Comments ==================================================================
-
 snippet -- "Line comment"
 # -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
@@ -101,7 +98,6 @@ snippet # "#{}" i
 endsnippet
 
 # == Debugging =================================================================
-
 snippet pry "binding.pry" b
 require 'pry'; binding.pry
 endsnippet
