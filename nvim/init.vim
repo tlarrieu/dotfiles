@@ -21,7 +21,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'shougo/deoplete.nvim'
+Plug 'valloric/youcompleteme', { 'do': 'python install.py' }
 Plug 'sunaku/vim-dasht'
 " }}}
 " {{{ --| Snippets |-----------------------
@@ -232,6 +232,10 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| YCM |---------------------------------------------
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
+" }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_sign_column_always = 1
 " }}}
@@ -252,14 +256,6 @@ augroup END
 let g:diminactive_buftype_blacklist = []
 let g:diminactive_use_colorcolumn = 1
 let g:diminactive_use_syntax = 0
-" }}}
-" {{{ --| Deoplete |----------------------------------------
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#disable_auto_complete = 0
-let g:deoplete#auto_complete_start_length = 6
-inoremap <silent><expr> <c-n>
-\ pumvisible() ? "\<C-n>" :
-\ deoplete#mappings#manual_complete()
 " }}}
 " {{{ --| Sniper |------------------------------------------
 vmap <cr> :<c-u>call Snipe('vnew')<cr>
