@@ -63,7 +63,6 @@ Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
 Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Ruby |---------------------------
-Plug 'jbgutierrez/vim-partial'
 Plug 'tpope/vim-rails'
 " }}}
 " {{{ --| Elixir |-------------------------
@@ -235,6 +234,9 @@ set spelllang=en,fr
 " {{{ --| YCM |---------------------------------------------
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
+" }}}
+" {{{ --| Rails |-------------------------------------------
+vmap <leader>x :Rextract<space>
 " }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_sign_column_always = 1
