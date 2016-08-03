@@ -239,7 +239,10 @@ let g:ycm_key_list_previous_completion = []
 vmap <leader>x :Rextract<space>
 " }}}
 " {{{ --| GitGutter |---------------------------------------
+let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_column_always = 1
+map ß :GitGutterPrevHunk<cr>
+map þ :GitGutterNextHunk<cr>
 " }}}
 " {{{ --| Dasht |-------------------------------------------
 nnoremap <leader>K :Dasht<space>
@@ -518,9 +521,6 @@ nmap <leader>tu :tabnew<bar>terminal<space>
 nmap <leader>vu :vsplit<bar>terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
-" Diffs
-map ß [c
-map þ ]c
 " Marks
 noremap ' `
 noremap ` '
