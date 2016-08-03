@@ -231,6 +231,9 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Neoterm |-----------------------------------------
+nmap <leader><tab> :call neoterm#toggle()<cr>
+" }}}
 " {{{ --| YCM |---------------------------------------------
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
