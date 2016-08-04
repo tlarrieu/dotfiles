@@ -455,13 +455,14 @@ nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
 " {{{ --| Signature |---------------------------------------
+highlight! link SignatureMarkText SignColumn
 let g:SignatureMap = {
   \ 'Leader'             :  "m",
   \ 'PlaceNextMark'      :  "",
   \ 'ToggleMarkAtLine'   :  "",
   \ 'PurgeMarksAtLine'   :  "",
-  \ 'PurgeMarks'         :  "m<Space>",
-  \ 'PurgeMarkers'       :  "m<BS>",
+  \ 'PurgeMarks'         :  "",
+  \ 'PurgeMarkers'       :  "",
   \ 'GotoNextLineAlpha'  :  "",
   \ 'GotoPrevLineAlpha'  :  "",
   \ 'GotoNextSpotAlpha'  :  "",
