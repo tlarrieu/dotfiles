@@ -325,7 +325,7 @@ function! s:bufopen(e)
   let cmd = get({
     \ 'ctrl-x': 'split|buffer',
     \ 'ctrl-v': 'vertical split|buffer',
-    \ 'ctrl-t': 'tabnew|buffer',
+    \ 'ctrl-t': 'tab split|buffer',
     \ 'ctrl-d': 'bdelete!'
     \ }, key, 'buffer')
 
