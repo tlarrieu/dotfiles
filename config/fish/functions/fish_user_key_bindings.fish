@@ -9,8 +9,23 @@ end
 
 function fzf-gitbranch
   set -q FZF_CTRL_B_COMMAND; or set -l FZF_CTRL_B_COMMAND "git branch -a"
-  eval "git branch -a | fzf --extended --nth=2.. -d ' ' -m > $TMPDIR/fzf.result"
+  eval "$FZF_CTRL_B_COMMAND | fzf --extended --nth=2.. -d ' ' -m > $TMPDIR/fzf.result"
   and commandline -i (cat $TMPDIR/fzf.result | cut -c3- | sed 's#remotes/origin/##')
+  commandline -f repaint
+  rm -f $TMPDIR/fzf.result
+end
+
+function fzf-gitsha
+  set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "\
+  git log\
+    --graph\
+    --color=always\
+    --format='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\
+  "
+  eval "$FZF_GIT_LOG_COMMAND |\
+    fzf --ansi --no-sort --reverse --tiebreak=index -e\
+    > $TMPDIR/fzf.result"
+  and commandline -i (cat $TMPDIR/fzf.result | grep -o '[a-f0-9]\{7\}' | head -1)
   commandline -f repaint
   rm -f $TMPDIR/fzf.result
 end
@@ -18,8 +33,8 @@ end
 bind \et 'fkill'
 bind þ 'fkill'
 
-bind \ea 'sh ~/scripts/fshow.sh'
-bind æ 'sh ~/scripts/fshow.sh'
+bind \ea 'fzf-gitsha'
+bind æ 'fzf-gitsha'
 
 bind \cb 'fzf-gitbranch'
 
