@@ -564,13 +564,13 @@ noremap ; ,
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
-map Q :bd!<cr>
+map Q :bdelete!<cr>
 " Normal mode
 set noesckeys
 cmap <esc> <c-c>
 " Exit
-nnoremap à :q<cr>
-nnoremap À :qa<cr>
+nnoremap à :quit<cr>
+nnoremap À :confirm quitall<cr>
 " Save
 nmap <c-s> :update<cr>
 imap <c-s> <esc>:update<cr>
@@ -673,24 +673,24 @@ endfunction
 
 nmap <leader>es :call OpenSchemaFile()<cr>
 
-nmap <leader>ea :tabe ~/httpclient.rest<cr>
-nmap <leader>ee :tabe ~/email.md<cr>
-nmap <leader>ef :tabe ~/.config/fish/config.fish<cr>
-nmap <leader>eg :tabe ~/.gitconfig<cr>
-nmap <leader>eh :tabe ~/.hgrc<cr>
-nmap <leader>em :tabe ~/.tmux.conf<cr>
-nmap <leader>eo :tabe ~/poi.md<cr>
-nmap <leader>ep :tabe ~/postgres.sql<cr>
-nmap <leader>eq :tabe ~/sqlite.sql<cr>
-nmap <leader>er :tabe ~/release.tasks<cr>
-nmap <leader>et :tabe ~/todo.tasks<cr>
-nmap <leader>ev :tabe ~/.config/nvim/init.vim<cr>
+nmap <leader>ea :tabedit ~/httpclient.rest<cr>
+nmap <leader>ee :tabedit ~/email.md<cr>
+nmap <leader>ef :tabedit ~/.config/fish/config.fish<cr>
+nmap <leader>eg :tabedit ~/.gitconfig<cr>
+nmap <leader>eh :tabedit ~/.hgrc<cr>
+nmap <leader>em :tabedit ~/.tmux.conf<cr>
+nmap <leader>eo :tabedit ~/poi.md<cr>
+nmap <leader>ep :tabedit ~/postgres.sql<cr>
+nmap <leader>eq :tabedit ~/sqlite.sql<cr>
+nmap <leader>er :tabedit ~/release.tasks<cr>
+nmap <leader>et :tabedit ~/todo.tasks<cr>
+nmap <leader>ev :tabedit ~/.config/nvim/init.vim<cr>
 
 nmap <leader>. :Lexplore .<cr>
 
 nmap <leader># :e #<cr>
 
-nmap <silent> <leader>$ :so ~/.config/nvim/init.vim<cr>
+nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
