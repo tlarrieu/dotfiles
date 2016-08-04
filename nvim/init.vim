@@ -446,6 +446,8 @@ let g:taboo_tab_format =  "%N %f%m"
 let g:taboo_renamed_tab_format =  "%N (%l)%m"
 let g:taboo_modified_tab_flag = " ∙"
 let g:taboo_unnamed_tab_label = "…"
+" deactivate tabline generation (we want to let lightline do it)
+let g:taboo_tabline = 0
 
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
