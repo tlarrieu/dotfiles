@@ -16,6 +16,7 @@ alias python2="python2.7"
 alias vimrc="nvim ~/.vimrc"
 alias vir="nvim -R"
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
+alias v="nvim"
 
 # Exercism
 alias e="exercism"
