@@ -62,30 +62,30 @@ let b:switch_custom_definitions =
   \  ['be_truthy', 'be_falsey']
   \]
 
-" Methods list
-function! s:deflines()
-  if !bufexists(expand('%'))
-    return []
-  endif
+" " Methods list
+" function! s:deflines()
+"   if !bufexists(expand('%'))
+"     return []
+"   endif
 
-  let cmd = 'grep -n -E "^\s*def" ' . expand('%:p') .
-        \ '|' . "cut -d'(' -f 1" .
-        \ '|' . "sed -E 's/\\s*def\\s*(.*)( \\< .*)?/\\1 : \\2/g'" .
-        \ '|' . "column -t -s ':'"
+"   let cmd = 'grep -n -E "^\s*def" ' . expand('%:p') .
+"         \ '|' . "cut -d'(' -f 1" .
+"         \ '|' . "sed -E 's/\\s*def\\s*(.*)( \\< .*)?/\\1 : \\2/g'" .
+"         \ '|' . "column -t -s ':'"
 
-  let lines = system(cmd)
-  return split(lines, '\n')
-endfunction
+"   let lines = system(cmd)
+"   return split(lines, '\n')
+" endfunction
 
-function! s:defjump(l)
-  let keys = split(a:l)
-  exec keys[0]
-  normal! ^zz
-endfunction
+" function! s:defjump(l)
+"   let keys = split(a:l)
+"   exec keys[0]
+"   normal! ^zz
+" endfunction
 
-nnoremap <silent> <c-l> :call fzf#run({
-  \   'source':  <sid>deflines(),
-  \   'sink':    function('<sid>defjump'),
-  \   'options': '--extended --nth=2.. +s',
-  \   'down':    '30%'
-  \ })<cr>
+" nnoremap <silent> <c-l> :call fzf#run({
+"   \   'source':  <sid>deflines(),
+"   \   'sink':    function('<sid>defjump'),
+"   \   'options': '--extended --nth=2.. +s',
+"   \   'down':    '30%'
+"   \ })<cr>
