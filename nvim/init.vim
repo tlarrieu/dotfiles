@@ -368,6 +368,64 @@ command! -nargs=1 Fg call fzf#run({
   \ 'down': '50%'
   \ })
 nnoremap <c-e> :<c-u>Fg<space>
+
+" Tags navigation
+function! s:tags_sink(e)
+  if len(a:e) < 2 | return | endif
+
+  let key = a:e[0]
+  let taglines = a:e[1:]
+
+  let cmd = get({
+    \ 'ctrl-x': 'new',
+    \ 'ctrl-v': 'vnew',
+    \ 'ctrl-t': 'tabnew',
+    \ }, key, 'e')
+
+  let [magic, &magic] = [&magic, 0]
+  for tagline in taglines
+    let parts = split(l:tagline, '\t\zs')
+    let filename = parts[1][:-2]
+    let pattern = matchstr(parts[2], '^.*\ze;"\t')
+
+    execute 'silent ' . cmd . ' ' . l:filename
+    execute pattern
+  endfor
+  let &magic = magic
+endfunction
+
+function! s:fzf_tags(kind)
+  let tagfiles = tagfiles()
+
+  if empty(tagfiles)
+    echohl WarningMsg
+    echom 'No tagfile found. Please run ctags first.'
+    echohl None
+    return
+  endif
+
+  let grepcmd = ' | grep -P '
+  if a:kind == 'function'
+    let grepcmd .= '"\t[fF]($|\t)"'
+  else
+    if a:kind == 'class'
+      let grepcmd .= '"\t[cm]($|\t)"'
+    else
+      let grepcmd = ''
+    endif
+  endif
+
+  call fzf#run({
+  \ 'source': 'cat '.join(map(tagfiles, 'fnamemodify(v:val, ":S")')) .
+  \           '| grep -v ^! ' . grepcmd,
+  \ 'options': '+m -d "\t" --with-nth 1,2,4.. -n 1 --tiebreak=index ' .
+  \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi',
+  \ 'down': '50%',
+  \ 'sink*': function('s:tags_sink')})
+endfunction
+
+nnoremap <silent> <c-l> :call <sid>fzf_tags('function')<cr>
+nnoremap <silent> <c-c> :call <sid>fzf_tags('class')<cr>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -475,7 +533,6 @@ nmap <silent> <leader><leader> :call DeleteHiddenBuffers()<cr>
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
 " Hack to make <c-w><c-c> mapping work
-nmap <c-c> <nop>
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
 noremap <c-w><c-s> <c-w>K
