@@ -529,6 +529,7 @@ nmap <leader>vu :vsplit<bar>terminal<space>
 " Marks
 noremap ' `
 noremap ` '
+noremap <silent> <leader>m :delmarks!<cr>
 " Command line / Search
 cmap <c-t> <down>
 cmap <c-s> <up>
