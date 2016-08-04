@@ -698,7 +698,7 @@ noremap 6 @
 noremap + 7
 noremap 7 :GitGutterStageHunk<cr>
 noremap - 8
-noremap 8 :GitGutterRevertHunk<cr>
+noremap 8 :GitGutterUndoHunk<cr>
 noremap / 9
 noremap 9 /
 noremap * 0
