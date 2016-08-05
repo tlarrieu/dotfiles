@@ -405,21 +405,26 @@ function! s:fzf_tags(kind)
   endif
 
   let grepcmd = ' | grep -P '
+  let prompt = ''
   if a:kind == 'function'
     let grepcmd .= '"\t[fF]($|\t)"'
+    let prompt = 'func'
   else
     if a:kind == 'class'
       let grepcmd .= '"\t[cm]($|\t)"'
+      let prompt = 'class'
     else
       let grepcmd = ''
+      let prompt = 'tags'
     endif
   endif
 
   call fzf#run({
   \ 'source': 'cat '.join(map(tagfiles, 'fnamemodify(v:val, ":S")')) .
   \           '| grep -v ^! ' . grepcmd,
-  \ 'options': '+m -d "\t" --with-nth 1,2,4.. -n 1 --tiebreak=index ' .
-  \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi',
+  \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1 --tiebreak=index ' .
+  \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi ' .
+  \            '--prompt "' . prompt . '?> " -0 --exact',
   \ 'down': '50%',
   \ 'sink*': function('s:tags_sink')})
 endfunction
