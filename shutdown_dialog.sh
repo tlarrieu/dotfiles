@@ -1,6 +1,19 @@
 #!/bin/sh
 
-ACTION=`zenity --width=90 --height=247 --list --radiolist --text="Select logout action" --title="Logout" --column "Choice" --column "Action" FALSE Logout TRUE Shutdown FALSE Reboot FALSE LockScreen FALSE Suspend`
+ACTION=`zenity\
+  --width=90\
+  --height=247\
+  --list\
+  --radiolist\
+  --text="Select logout action"\
+  --title="Logout"\
+  --column "Choice"\
+  --column "Action"\
+  FALSE Logout\
+  FALSE Shutdown\
+  FALSE Reboot\
+  FALSE LockScreen\
+  TRUE Suspend`
 
 if [ -n "${ACTION}" ];then
   case $ACTION in
@@ -8,10 +21,12 @@ if [ -n "${ACTION}" ];then
     echo "awesome.quit()" | awesome-client
     ;;
   Shutdown)
-    zenity --question --text "Are you sure you want to halt?" && systemctl poweroff
+    zenity --question --text "Are you sure you want to halt?" &&\
+      systemctl poweroff
     ;;
   Reboot)
-    zenity --question --text "Are you sure you want to reboot?" && systemctl reboot
+    zenity --question --text "Are you sure you want to reboot?" &&\
+      systemctl reboot
     ;;
   Suspend)
     systemctl suspend
@@ -21,4 +36,3 @@ if [ -n "${ACTION}" ];then
     ;;
   esac
 fi
-
