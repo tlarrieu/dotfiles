@@ -73,10 +73,10 @@ function! s:search_sink(e)
 
   let lines = a:e[1:]
   for line in map(lines, 'split(v:val, " ")[0]')
-    let [file, line, col] = split(line, ':')[0:2]
+    let [file, line, column] = split(line, ':')[0:2]
     execute cmd escape(file, ' %#\')
-    execute line
-    execute 'normal!' . col . '|zz'
+    call cursor(line, column)
+    normal zz
   endfor
 endfunction
 
