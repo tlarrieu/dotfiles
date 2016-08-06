@@ -495,8 +495,6 @@ nnoremap gV `[v`]
 " Command line
 map è :
 map È :!
-" Select current line charwise
-" nnoremap vv ^v$h
 " }}}
 " {{{ --| Togglers |----------------------------------------
 " Rename file
