@@ -6,8 +6,14 @@ setlocal concealcursor+=i
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
-nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
-nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
+nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
+
+augroup Test
+  autocmd!
+  autocmd BufEnter *_spec.rb,*_test.rb nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
+  autocmd BufEnter *_spec.rb,*_test.rb nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
+augroup END
+
 nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w> ruby<cr>
 
 function! Migrate(direction)
