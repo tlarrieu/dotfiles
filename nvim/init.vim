@@ -232,7 +232,7 @@ set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| Neoterm |-----------------------------------------
-nmap <leader><tab> :call neoterm#toggle()<cr>
+nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " }}}
 " {{{ --| YCM |---------------------------------------------
 let g:ycm_key_list_select_completion = []
@@ -244,8 +244,8 @@ vmap <leader>x :Rextract<space>
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_map_keys = 0
 let g:gitgutter_sign_column_always = 1
-map ß :GitGutterPrevHunk<cr>
-map þ :GitGutterNextHunk<cr>
+nmap <expr> ß &diff ? '[c' : '<Plug>GitGutterPrevHunk'
+nmap <expr> þ &diff ? ']c' : '<Plug>GitGutterNextHunk'
 " }}}
 " {{{ --| Dasht |-------------------------------------------
 nnoremap <leader>K :Dasht<space>
@@ -384,9 +384,6 @@ vmap <leader>d :Linediff<cr>
 " }}}
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
-" {{{ --| Buffers |-----------------------------------------
-nmap <silent> <leader><leader> :call DeleteHiddenBuffers()<cr>
-" }}}
 " {{{ --| Splits / Tabs |-----------------------------------
 nmap <leader>o :tabo<cr>
 nmap <leader>O :tabo<cr><c-w>o
@@ -514,7 +511,7 @@ function! ClearTrailingSpaces()
 endfunction
 nmap <silent> <leader>k m`:call ClearTrailingSpaces()<cr>g``
 " Fix indent
-nmap <silent> <leader>i m`gg=Gg``:call ClearTrailingSpaces()<cr>
+nmap <silent> <leader>i m`gg=G:call ClearTrailingSpaces()<cr>g``
 " Cursorline / Cursorcolumn
 let g:virtualedit=''
 function! AlignMode()
@@ -610,5 +607,6 @@ nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<cr>
 vmap <leader>s :sort<cr>
 
 nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w><cr>
+noremap <silent> <leader><leader> @q
 " }}}
 " }}}
