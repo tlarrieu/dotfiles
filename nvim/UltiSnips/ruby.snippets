@@ -63,6 +63,19 @@ def initialize${1:(${2:*args})}
 end
 endsnippet
 
+# == Accessors ================================================================
+snippet r "attr_reader"
+attr_reader :$1
+endsnippet
+
+snippet w "attr_writer"
+attr_writer :$1
+endsnippet
+
+snippet rw "attr_accessor"
+attr_accessor :$1
+endsnippet
+
 # == Methods ==================================================================
 snippet - "lambda (->)"
 ->${1:(${2:i})} { ${3:${VISUAL}} }
@@ -81,7 +94,7 @@ map { |${1:i}| $2 }
 endsnippet
 
 snippet tap "tap" i
-tap { |o| o.${1:inspect} }
+tap { |o| puts o.${1:inspect} }
 endsnippet
 
 # == Comments ==================================================================
