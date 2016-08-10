@@ -232,7 +232,7 @@ keyboard = awful.util.table.join(keyboard,
 
   mspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
-  mspawn("'", "vimb"),
+  mspawn("'", "qutebrowser"),
   spawn({modkey, "Control"}, "'", "google-chrome-stable"),
 
   mspawn("n", terminal),
