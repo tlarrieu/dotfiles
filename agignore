@@ -26,3 +26,5 @@ data/geolocation_cache.json
 app/assets/javascripts/swagger/swagger-ui.js
 
 elm-stuff
+
+_build
