@@ -39,6 +39,9 @@ awful.rules.rules = {
   {rule = {class = "MPlayer"}, properties = {
     opacity = 1.0, floating = true, ontop = true
   }},
+  {rule = {class = "mpv"}, properties = {
+    opacity = 1.0, floating = true, ontop = true
+  }},
   {rule = {class = "Vlc"}, properties = {
     opacity = 1.0, floating = true, ontop = true
   }},
