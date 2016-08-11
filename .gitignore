@@ -33,4 +33,7 @@ config/jumanji/cookies
 config/jumanji/history
 config/jumanji/adblock
 
+config/qutebrowser/bookmarks/*
+config/qutebrowser/quickmarks
+
 config/vimb
