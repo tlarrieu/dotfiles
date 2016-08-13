@@ -125,6 +125,7 @@ function! DeleteHiddenBuffers()
     silent execute 'bwipeout' buf
   endfor
 endfunction
+command! BD :call DeleteHiddenBuffers()
 
 " Merge a tab into a split in the previous window
 function! MergeTabs()
