@@ -53,7 +53,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 " }}}
 " {{{ --| Syntax checking |----------------
-Plug 'benekastah/neomake'
+Plug 'neomake/neomake'
 " }}}
 " }}}
 " {{{ --| Task manager |-------------------
