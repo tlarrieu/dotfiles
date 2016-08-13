@@ -4,8 +4,6 @@
 " Designed for dvorak-bépo keyboard
 " ------------------------------------------------------------------------------
 set shell=/bin/bash
-let $PAGER=''
-let g:ruby_path = system('rvm current')
 " {{{ ==| vim-plug |============================================================
 call plug#begin()
 " {{{ --| File Manipulation |--------------
