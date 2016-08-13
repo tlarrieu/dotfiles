@@ -1,0 +1,15 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet d "def"
+def ${1:name} do
+	${0:${VISUAL}}
+end
+endsnippet
+
+snippet mod "module"
+defmodule ${1:`!p snip.rv = camelize(snip.basename)`} do
+	${0:${VISUAL}}
+end
+endsnippet
