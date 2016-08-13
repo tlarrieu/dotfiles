@@ -11,6 +11,10 @@ snippet req "require" b
 require '$1'
 endsnippet
 
+snippet reqr "require_relative" b
+require_relative '$1'
+endsnippet
+
 snippet inc "include"
 include ${1:Module}
 endsnippet
@@ -20,7 +24,7 @@ gem '${1}'
 endsnippet
 
 snippet cl "class definition"
-class ${1:Name}
+class ${1:`!p snip.rv = camelize(snip.basename)`}
 	${0:${VISUAL}}
 end
 endsnippet
