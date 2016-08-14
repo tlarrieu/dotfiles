@@ -137,9 +137,6 @@ safelink $BASEDIR/pmux $HOME/scripts/pmux
 # Custom shutdown script
 safelink $BASEDIR/shutdown_dialog.sh $HOME/scripts/shutdown_dialog.sh
 
-# Git explorer through FZF
-safelink $BASEDIR/fshow.sh $HOME/scripts/fshow.sh
-
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 

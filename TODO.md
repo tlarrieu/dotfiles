@@ -1,1 +1,0 @@
-Accelerate the mercurial prompt
