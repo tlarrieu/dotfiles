@@ -19,7 +19,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
 Plug 'vim-scripts/AnsiEsc.vim'
-Plug 'valloric/youcompleteme', { 'do': 'python install.py' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sunaku/vim-dasht'
 " }}}
 " {{{ --| Snippets |-----------------------
@@ -232,9 +232,15 @@ set spelllang=en,fr
 " {{{ --| Neoterm |-----------------------------------------
 nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " }}}
-" {{{ --| YCM |---------------------------------------------
-let g:ycm_key_list_select_completion = []
-let g:ycm_key_list_previous_completion = []
+" {{{ --| Deoplete |----------------------------------------
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+inoremap <expr> <bs> deoplete#smart_close_popup()."\<C-h>"
+inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
+function! s:deoplete_cr() abort
+  return deoplete#close_popup() . "\<cr>"
+endfunction
 " }}}
 " {{{ --| Rails |-------------------------------------------
 vmap <leader>x :Rextract<space>
