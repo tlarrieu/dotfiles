@@ -160,7 +160,7 @@ set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " mouse
-set mouse=
+set mouse=a
 " Command completion style
 set wildmode=list:full,full
 set complete=.,w,b,u,t,i
