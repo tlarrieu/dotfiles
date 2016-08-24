@@ -1,0 +1,10 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet uuid "UUID" i
+```!p
+import uuid
+snip.rv = str(uuid.uuid4())
+```
+endsnippet

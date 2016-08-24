@@ -3,6 +3,10 @@ key :required, %i($1)
 endsnippet
 
 snippet p "property"
+property(:${1:prop}) { key :type, :${2:type} }
+endsnippet
+
+snippet pp "property"
 property :${1:prop} do
 	key :type, :${2:integer}
 	key :format, :${3:int64}
@@ -42,7 +46,6 @@ endsnippet
 
 snippet ob "object property"
 property :${1:prop} do
-	key :type, :object
 	key :'$ref', :${3:$1}
 end
 endsnippet
@@ -54,6 +57,10 @@ property :${1:prop} do
 		key :'$ref', :${3:$1}
 	end
 end
+endsnippet
+
+snippet ref "Reference"
+key :'$ref', :${1:ref}
 endsnippet
 
 snippet sch "schema"

@@ -1,3 +1,9 @@
+snippet rspec "RSpec.describe" b
+RSpec.describe ${1:class}, type: :${2:type} do
+	$3
+end
+endsnippet
+
 # -- describe / context --------------------------------------------------------
 
 snippet desc "describe"
@@ -40,12 +46,12 @@ endsnippet
 
 # -- It ------------------------------------------------------------------------
 
-snippet it "it"
+snippet itt "it"
 it('${1:example title}') { $2 }
 endsnippet
 
-snippet ib "it block"
-it '${1:example title}'do
+snippet it "it block"
+it '${1:example title}' do
 	$2
 end
 endsnippet

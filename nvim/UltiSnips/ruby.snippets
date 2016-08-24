@@ -85,20 +85,32 @@ snippet - "lambda (->)"
 ->${1:(${2:i})} { ${3:${VISUAL}} }
 endsnippet
 
-snippet times "times" i
-times { |${1:i}| $2 }
+snippet .times "times" i
+.times { |${1:i}| $2 }
 endsnippet
 
-snippet reduce "reduce" i
-reduce { |${1:i}| $2 }
+snippet .red "reduce" i
+.reduce { |${1:i}| $2 }
 endsnippet
 
-snippet map "map" i
-map { |${1:i}| $2 }
+snippet .map "map" i
+.map { |${1:i}| $2 }
 endsnippet
 
-snippet tap "tap" i
-tap { |o| puts o.${1:inspect} }
+snippet .sel "select" i
+.select { |${1:i}| $2 }
+endsnippet
+
+snippet .tap "tap" i
+.tap { |o| puts o.${1:inspect} }
+endsnippet
+
+snippet .i "inspect" i
+.inspect
+endsnippet
+
+snippet . "foo.bar = bar" i
+.${1:method} = $1
 endsnippet
 
 # == Comments ==================================================================
