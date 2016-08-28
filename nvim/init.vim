@@ -76,7 +76,8 @@ Plug 'sheerun/vim-polyglot'
 " {{{ --| Good looking |-------------------
 Plug 'itchyny/lightline.vim'
 Plug 'blueyed/vim-diminactive'
-Plug 'romainl/flattened'
+Plug 'altercation/vim-colors-solarized'
+" Plug 'romainl/flattened'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
@@ -130,7 +131,7 @@ set showtabline=2
 " Do not display mode
 set noshowmode
 " Color / background theme
-colorscheme flattened_light
+colorscheme solarized
 " Deactivate parenthesis matching
 let loaded_matchparen = 1
 " Line numbering (relative and current)
@@ -276,7 +277,7 @@ vmap <cr> :<c-u>call Snipe('vnew')<cr>
 nnoremap <silent> <leader>; :ArgWrap<CR>
 " }}}
 " {{{ --| FZF |---------------------------------------------
-let $FZF_DEFAULT_OPTS = '--color fg:240,hl:33,fg+:241,bg+:7,hl+:33'
+" let $FZF_DEFAULT_OPTS = '--color fg:240,hl:33,fg+:241,bg+:7,hl+:33'
 let $FZF_DEFAULT_COMMAND = "ag -g '' --hidden --ignore .git"
 
 " Standard mode (file list)
