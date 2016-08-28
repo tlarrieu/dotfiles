@@ -1,5 +1,7 @@
 function man
-  set PAGER /bin/sh -c "unset PAGER;col -b -x | \
-    nvim -c 'set ft=man nomodified nolist nomodifiable' -"
-  command man $argv | eval $PAGER
+  /bin/sh -c "
+    man $argv 1>/dev/null &&
+    man $argv |
+    nvim -p -c 'set ft=man nomodified nolist nomodifiable' -
+    "
 end
