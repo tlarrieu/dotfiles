@@ -16,6 +16,12 @@ augroup Test
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <return>
         \ :call neoterm#test#run('current')<cr>
+  autocmd BufEnter Gemfile
+        \ nnoremap <silent> <buffer> <return>
+        \ :T bundle<cr>
+  autocmd BufEnter main.rb
+        \ nnoremap <silent> <buffer> <return>
+        \ :T ./main.rb<cr>
 augroup END
 
 nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w> ruby<cr>
