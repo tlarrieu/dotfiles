@@ -1,5 +1,4 @@
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [['mode', 'paste'], ['fugitive'], ['filename']],
       \   'right': [
@@ -109,12 +108,13 @@ function! LightLineWhitespace()
 
   " Matches " $" but not "\ $" (where $ marks the end of the line)
   " We do not want to match escaped spaces
-  let trailing = search('[^.\\]\s$', 'nw')
+  let trailing = search('\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)', 'nw')
   if trailing != 0
     let b:whitespaces .= printf('tr(%s)', trailing)
   endif
 
-  let mixed = CheckMixedIndent()
+  " Spaces before or after tabs are forbidden
+  let mixed = search('\v(^\t+ +| +\t+)', 'nw')
   if mixed != 0
     if trailing != 0
       let b:whitespaces .= ' '
@@ -123,14 +123,4 @@ function! LightLineWhitespace()
   endif
 
   return b:whitespaces
-endfunction
-
-function! CheckMixedIndent()
-  " [<tab>]<space><tab>
-  " spaces before or between tabs are not allowed
-  let t_s_t = '(^\t* +\t\s*\S)'
-  " <tab>(<space> x count)
-  " count of spaces at the end of tabs should be less then tabstop value
-  let t_l_s = '(^\t+ {' . &ts . ',}' . '\S)'
-  return search('\v' . t_s_t . '|' . t_l_s, 'nw')
 endfunction
