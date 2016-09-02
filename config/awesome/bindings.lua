@@ -229,7 +229,7 @@ keyboard = awful.util.table.join(keyboard,
 
   mtspawn("u", "ranger"),
   mtspawn("m", "mocp"),
-  spawn({modkey, "Shift"}, "m", "spotify"),
+  spawn({modkey, "Control"}, "m", "spotify"),
 
   mspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
