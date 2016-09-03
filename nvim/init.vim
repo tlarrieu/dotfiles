@@ -235,6 +235,7 @@ nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+let g:deoplete#auto_complete_start_length = 5
 call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 inoremap <expr> <bs> deoplete#smart_close_popup()."\<C-h>"
 inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
