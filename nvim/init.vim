@@ -408,6 +408,10 @@ nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Dimensions
 nmap <leader>= <c-w>=
 nmap <leader>% :res<cr>:vertical res<cr>
+nnoremap <c-right> <c-w>>
+nnoremap <c-left> <c-w><
+nnoremap <c-up> <c-w>-
+nnoremap <c-down> <c-w>+
 " Moving around
 nmap <tab> <c-w>w
 nmap <s-tab> <c-w>W
