@@ -230,6 +230,7 @@ keyboard = awful.util.table.join(keyboard,
   mtspawn("u", "ranger"),
   mtspawn("m", "mocp"),
   spawn({modkey, "Control"}, "m", "spotify"),
+  spawn({modkey, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
 
   mspawn("a", "pavucontrol"),
   mspawn("g", "thunar"),
