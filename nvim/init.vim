@@ -77,7 +77,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'itchyny/lightline.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
-" Plug 'romainl/flattened'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
@@ -95,9 +94,9 @@ augroup vimrc_autocmd
   autocmd BufReadPost *.diag setfiletype seqdiag
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
-      \ if line("'\"") > 0 && line("'\"") <= line("$") |
-      \   exe "normal g`\"" |
-      \ endif"`""'")
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g`\"" |
+        \ endif"`""'")
   autocmd BufWritePost * call UpdateTags()
   " Don't add the comment prefix when I hit enter or o/O on a comment line.
   autocmd FileType * setlocal formatoptions-=o formatoptions-=r
@@ -121,7 +120,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " True colors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Leader
-let mapleader="\<space>"
+let g:mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
 " Timeout
@@ -133,7 +132,7 @@ set noshowmode
 " Color / background theme
 colorscheme solarized
 " Deactivate parenthesis matching
-let loaded_matchparen = 1
+let g:loaded_matchparen = 1
 " Line numbering (relative and current)
 set relativenumber
 set number
@@ -301,6 +300,10 @@ let g:neomake_error_sign = {
   \ 'text': '✖',
   \ 'texthl': 'DiffDelete',
   \ }
+let g:neomake_vint_maker = {
+  \ 'exe': 'vint',
+  \ 'args': ['%:p'],
+  \ }
 " }}}
 " {{{ --| Surround |----------------------------------------
 let g:surround_no_insert_mappings = 1
@@ -318,25 +321,25 @@ nnoremap gH :Thesaurus<space>
 " {{{ --| Signature |---------------------------------------
 highlight! link SignatureMarkText SignColumn
 let g:SignatureMap = {
-  \ 'Leader'             :  "m",
-  \ 'PlaceNextMark'      :  "",
-  \ 'ToggleMarkAtLine'   :  "",
-  \ 'PurgeMarksAtLine'   :  "",
-  \ 'PurgeMarks'         :  "",
-  \ 'PurgeMarkers'       :  "",
-  \ 'GotoNextLineAlpha'  :  "",
-  \ 'GotoPrevLineAlpha'  :  "",
-  \ 'GotoNextSpotAlpha'  :  "",
-  \ 'GotoPrevSpotAlpha'  :  "",
-  \ 'GotoNextLineByPos'  :  "",
-  \ 'GotoPrevLineByPos'  :  "",
-  \ 'GotoNextSpotByPos'  :  "",
-  \ 'GotoPrevSpotByPos'  :  "",
-  \ 'GotoNextMarker'     :  "",
-  \ 'GotoPrevMarker'     :  "",
-  \ 'GotoNextMarkerAny'  :  "",
-  \ 'GotoPrevMarkerAny'  :  "",
-  \ 'ListLocalMarks'     :  ""
+  \ 'Leader'            : 'm',
+  \ 'PlaceNextMark'     : '',
+  \ 'ToggleMarkAtLine'  : '',
+  \ 'PurgeMarksAtLine'  : '',
+  \ 'PurgeMarks'        : '',
+  \ 'PurgeMarkers'      : '',
+  \ 'GotoNextLineAlpha' : '',
+  \ 'GotoPrevLineAlpha' : '',
+  \ 'GotoNextSpotAlpha' : '',
+  \ 'GotoPrevSpotAlpha' : '',
+  \ 'GotoNextLineByPos' : '',
+  \ 'GotoPrevLineByPos' : '',
+  \ 'GotoNextSpotByPos' : '',
+  \ 'GotoPrevSpotByPos' : '',
+  \ 'GotoNextMarker'    : '',
+  \ 'GotoPrevMarker'    : '',
+  \ 'GotoNextMarkerAny' : '',
+  \ 'GotoPrevMarkerAny' : '',
+  \ 'ListLocalMarks'    : ''
   \ }
 " }}}
 " {{{ --| Targets |-----------------------------------------
@@ -351,24 +354,23 @@ let g:targets_argClosing = '[]})]'
 " {{{ --| Ag |----------------------------------------------
 let g:ag_apply_qmappings = 0
 let g:ag_apply_lmappings = 0
-let g:ag_prg = "ag --vimgrep"
+let g:ag_prg = 'ag --vimgrep'
 set grepformat=%f:%l:%c:%m
 " }}}
 " {{{ --| UltiSnips |---------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-let g:UltiSnipsSnippetsDir="~/.config/nvim/UltiSnips"
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsJumpForwardTrigger='<tab>'
+let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
+let g:UltiSnipsSnippetsDir='~/.config/nvim/UltiSnips'
 " }}}
 " {{{ --| Taboo |-------------------------------------------
-let g:taboo_tab_format =  "%N %f%m"
-let g:taboo_renamed_tab_format =  "%N (%l)%m"
-let g:taboo_modified_tab_flag = " ∙"
-let g:taboo_unnamed_tab_label = "…"
+let g:taboo_tab_format = '%N %f%m'
+let g:taboo_renamed_tab_format = '%N (%l)%m'
+let g:taboo_modified_tab_flag = ' ∙'
+let g:taboo_unnamed_tab_label = '…'
 " deactivate tabline generation (we want to let lightline do it)
 let g:taboo_tabline = 0
-
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
@@ -383,7 +385,8 @@ nmap <leader>s :Gstatus<cr>
 nmap <leader>S :GV<cr>
 nmap <leader>f :Gfetch<space>
 nmap <leader>w :Gwrite<cr>
-
+" }}}
+" {{{ --| Linediff |----------------------------------------
 vmap <leader>d :Linediff<cr>
 " }}}
 " }}}
@@ -508,14 +511,14 @@ nmap <c-g> gUiw
 imap <c-g> <esc>lgUiwea
 " Clear trailing spaces (but not the escaped ones)
 function! ClearTrailingSpaces()
-  let _s=@/
+  let l:_s=@/
   %s/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
-  let @/=_s
+  let @/=l:_s
   nohl
 endfunction
 nmap <silent> <leader>k m`:call ClearTrailingSpaces()<cr>g``
 " Fix indent
-nmap <silent> <leader>i m`gg=G:call ClearTrailingSpaces()<cr>g``
+nmap <silent> ga m`gg=G:call ClearTrailingSpaces()<cr>g``
 " Cursorline / Cursorcolumn
 let g:virtualedit=''
 function! AlignMode()
