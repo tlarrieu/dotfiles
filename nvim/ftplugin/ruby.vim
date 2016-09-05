@@ -81,3 +81,10 @@ let b:switch_custom_definitions =
   \  },
   \  ['be_truthy', 'be_falsey']
   \]
+
+let b:fzf_tags_config = {
+  \   'function': { 'identifiers': ['f', 'F'], 'prompt': 'meth' },
+  \   'class': { 'identifiers': ['c', 'm'], 'prompt': 'class' }
+  \ }
+nnoremap <silent> <c-c> :FZFtags class<cr>
+nnoremap <silent> <c-l> :FZFtags function<cr>

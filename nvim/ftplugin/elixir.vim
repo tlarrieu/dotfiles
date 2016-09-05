@@ -5,3 +5,10 @@ augroup Test
   autocmd BufEnter *_test.exs nnoremap <buffer> <leader><return> :call neoterm#test#run('file')<cr>
   autocmd BufEnter *_test.exs nnoremap <buffer> <return> :call neoterm#test#run('current')<cr>
 augroup END
+
+let b:fzf_tags_config = {
+  \   'module': { 'identifiers': ['m', 'r'], 'prompt': 'mod' },
+  \   'function': { 'identifiers': ['f', 'o'], 'prompt': 'op' }
+  \ }
+nnoremap <silent> <c-c> :FZFtags module<cr>
+nnoremap <silent> <c-l> :FZFtags function<cr>

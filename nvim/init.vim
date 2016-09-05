@@ -283,9 +283,9 @@ let $FZF_DEFAULT_COMMAND = "ag -g '' --hidden --ignore .git"
 nmap <silent> <c-t> :FZF -m -e<cr>
 " Custom modes (home made funcctions)
 nnoremap <silent> <c-b> :FZFbuf<cr>
-nnoremap <silent> <c-c> :FZFtags class<cr>
 nnoremap <c-e> :FZFsearch<space>
-nnoremap <silent> <c-l> :FZFtags function<cr>
+nnoremap <silent> <c-c> :FZFtags tag<cr>
+nnoremap <silent> <c-l> :FZFtags tag<cr>
 nnoremap <silent> <c-y> :FZFGitFiles<cr>
 " }}}
 " {{{ --| Neomake |-----------------------------------------
