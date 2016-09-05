@@ -27,11 +27,11 @@ augroup END
 nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w> ruby<cr>
 
 function! Migrate(direction)
-  let filename = expand('%:t')
-  let cmd = 'bundle exec rake db:migrate:' . a:direction
-  let options = 'VERSION=' . matchstr(filename, '\v\d+')
+  let l:filename = expand('%:t')
+  let l:cmd = 'bundle exec rake db:migrate:' . a:direction
+  let l:options = 'VERSION=' . matchstr(l:filename, '\v\d+')
   new
-  call termopen(cmd . ' ' . options)
+  call termopen(l:cmd . ' ' . l:options)
 endfunction
 
 augroup Migration
