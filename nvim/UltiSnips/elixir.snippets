@@ -8,6 +8,12 @@ def ${1:name} do
 end
 endsnippet
 
+snippet dp "defp"
+defp ${1:name} do
+	${0:${VISUAL}}
+end
+endsnippet
+
 snippet mod "module"
 defmodule ${1:`!p snip.rv = camelize(snip.basename)`} do
 	${0:${VISUAL}}
