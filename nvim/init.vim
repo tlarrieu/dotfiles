@@ -613,7 +613,8 @@ nmap <leader>. :Lexplore .<cr>
 
 nmap <leader># :e #<cr>
 
-nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<cr>
+" Source init.vim and reload ftplugins
+nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<bar>let &filetype=&filetype<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
