@@ -104,6 +104,35 @@ function! s:tags_sink(input)
   let &magic = l:magic
 endfunction
 
+let s:fzf_tags_config = {
+  \   'class': { 'identifiers': ['c', 'm'], 'prompt': 'class' },
+  \   'function': { 'identifiers': ['f', 'F'], 'prompt': 'func' }
+  \ }
+
+function! s:fzf_tags_cmd(kind)
+  let l:fzf_tags_config = {}
+  if exists('b:fzf_tags_config')
+    let l:fzf_tags_config = b:fzf_tags_config
+  else
+    let l:fzf_tags_config = s:fzf_tags_config
+  end
+
+  let l:cfg = get(
+    \   l:fzf_tags_config,
+    \   a:kind,
+    \   { 'prompt': 'tags', 'identifiers': [] }
+    \ )
+
+  if empty(l:cfg['identifiers'])
+    return [l:cfg['prompt'], '']
+  endif
+
+  let l:identifiers = join(l:cfg['identifiers'])
+  let l:grepcmd = ' | grep -P "\t[' . l:identifiers . ']($|\t)"'
+
+  return [l:cfg['prompt'], l:grepcmd]
+endfunction
+
 function! s:fzf_tags(kind)
   let l:tagfiles = tagfiles()
 
@@ -114,20 +143,7 @@ function! s:fzf_tags(kind)
     return
   endif
 
-  let l:grepcmd = ' | grep -P '
-  let l:prompt = ''
-  if a:kind ==# 'function'
-    let l:grepcmd .= '"\t[fF]($|\t)"'
-    let l:prompt = 'func'
-  else
-    if a:kind ==# 'class'
-      let l:grepcmd .= '"\t[cm]($|\t)"'
-      let l:prompt = 'class'
-    else
-      let l:grepcmd = ''
-      let l:prompt = 'tags'
-    endif
-  endif
+  let [l:prompt, l:grepcmd] = s:fzf_tags_cmd(a:kind)
 
   call fzf#run({
     \ 'source': 'cat '.join(map(l:tagfiles, 'fnamemodify(v:val, ":S")')) .
