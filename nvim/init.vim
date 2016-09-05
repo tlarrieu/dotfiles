@@ -131,14 +131,9 @@ set showtabline=2
 set noshowmode
 " Color / background theme
 colorscheme solarized
-" Deactivate parenthesis matching
-let g:loaded_matchparen = 1
 " Line numbering (relative and current)
 set relativenumber
 set number
-" Line length warning
-highlight OverLength ctermbg=red ctermfg=black guibg=red guifg=black
-match OverLength /\%81v.\+/
 " Blank character
 set listchars=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
@@ -189,7 +184,6 @@ set updatetime=250
 let g:netrw_liststyle=1
 " }}}
 " {{{ ==| Splits |==============================================================
-highlight! link VertSplit CursorColumn
 set splitright
 set splitbelow
 set fillchars+=vert:\ 
@@ -320,7 +314,6 @@ nnoremap gh :OnlineThesaurusCurrentWord<CR>
 nnoremap gH :Thesaurus<space>
 " }}}
 " {{{ --| Signature |---------------------------------------
-highlight! link SignatureMarkText SignColumn
 let g:SignatureMap = {
   \ 'Leader'            : 'm',
   \ 'PlaceNextMark'     : '',
