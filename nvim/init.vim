@@ -601,6 +601,7 @@ nmap <leader>eq :tabedit ~/sqlite.sql<cr>
 nmap <leader>er :tabedit ~/release.tasks<cr>
 nmap <leader>et :tabedit ~/todo.tasks<cr>
 nmap <leader>ev :tabedit ~/.config/nvim/init.vim<cr>
+nmap <leader>eu :UltiSnipsEdit
 
 nmap <leader>. :Lexplore .<cr>
 
