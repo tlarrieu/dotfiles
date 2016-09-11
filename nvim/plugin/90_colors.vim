@@ -17,7 +17,7 @@ function! s:setupcolors()
     let l:fzf_color = 'fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
   end
 
-  let $FZF_DEFAULT_OPTS = '--color ' . l:fzf_color
+  let $FZF_DEFAULT_OPTS = '--reverse --color ' . l:fzf_color
 
   call lightline#init()
   call lightline#update()
