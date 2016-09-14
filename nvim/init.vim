@@ -85,9 +85,6 @@ call plug#end()
 " {{{ ==| File Related |========================================================
 augroup vimrc_autocmd
   autocmd!
-  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-  autocmd FileType ruby set makeprg=ruby\ %
   autocmd FileType html,eruby setlocal foldlevel=10
   autocmd FileType html setlocal foldmethod=syntax
   autocmd FileType html setlocal foldminlines=1
@@ -229,8 +226,9 @@ nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_start_length = 5
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+let g:deoplete#auto_complete_start_length = 3
+let g:deoplete#tag#cache_limit_size = 600000
+call deoplete#custom#set('_', 'matchers', ['matcher_length', 'matcher_full_fuzzy'])
 inoremap <expr> <bs> deoplete#smart_close_popup()."\<C-h>"
 inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
 function! s:deoplete_cr() abort
