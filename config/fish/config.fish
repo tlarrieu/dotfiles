@@ -1,6 +1,11 @@
 stty -ixon
 
-set -x FZF_DEFAULT_OPTS '--color fg:240,bg:15,hl:33,fg+:241,bg+:7,hl+:33'
+# dark
+# set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
+
+# light
+set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
+
 set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
 
 # Postgres
@@ -18,14 +23,10 @@ set -x GOPATH ~/go
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH ~/bin
 
-set -x ANDROID_HOME ~/android-sdk/
-
 if type rbenv > /dev/null
   # set -gx RBENV_ROOT /usr/local/var/rbenv
   source (rbenv init - | psub)
 end
-
-set -g SSL_CERT_FILE /etc/openssl/cert.pem
 
 # Load oh-my-fish configuration.
 set -gx OMF_PATH "/home/tlarrieu/.local/share/omf"
