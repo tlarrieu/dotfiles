@@ -2,16 +2,25 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
-snippet d "def"
+# -- Definitions ---------------------------------------------------------------
+snippet def "def"
 def ${1:name} do
 	${0:${VISUAL}}
 end
 endsnippet
 
-snippet dp "defp"
+snippet d "def oneliner"
+def ${1:name}, do: ${0:${VISUAL}}
+endsnippet
+
+snippet defp "defp"
 defp ${1:name} do
 	${0:${VISUAL}}
 end
+endsnippet
+
+snippet dp "defp oneliner"
+defp ${1:name}, do: ${0:${VISUAL}}
 endsnippet
 
 snippet mod "module"
@@ -20,6 +29,24 @@ defmodule ${1:`!p snip.rv = camelize(snip.basename)`} do
 end
 endsnippet
 
-snippet - "function"
+snippet - "function" i
 fn($1) -> $2 end
+endsnippet
+
+# -- Conditionals --------------------------------------------------------------
+snippet if "if"
+if ${1:condition} do
+	${2}
+end
+endsnippet
+
+# -- Tests ---------------------------------------------------------------------
+snippet test "test"
+test "${1:label}" do
+	$2
+end
+endsnippet
+
+snippet pend "pending"
+@tag :pending
 endsnippet
