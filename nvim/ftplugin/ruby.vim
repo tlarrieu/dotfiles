@@ -6,6 +6,8 @@ setlocal concealcursor+=i
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
+let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
+
 nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
 
 augroup Test

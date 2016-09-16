@@ -64,7 +64,7 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'tpope/vim-rails'
 " }}}
 " {{{ --| Elixir |-------------------------
-Plug 'mattreduce/vim-mix'
+Plug 'slashmili/alchemist.vim'
 " }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
@@ -226,10 +226,7 @@ nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_start_length = 3
 let g:deoplete#tag#cache_limit_size = 600000
-call deoplete#custom#set('_', 'matchers', ['matcher_length', 'matcher_full_fuzzy'])
-inoremap <expr> <bs> deoplete#smart_close_popup()."\<C-h>"
 inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
 function! s:deoplete_cr() abort
   return deoplete#close_popup() . "\<cr>"
@@ -471,6 +468,8 @@ nnoremap Y y$
 " Visual yank
 vnoremap y ygv<esc>
 vnoremap Y Ygv<esc>
+" select the whole line
+nnoremap vv ^v$h
 " Command line
 map è :
 map È :!
@@ -485,7 +484,7 @@ map Q :bdelete!<cr>
 set noesckeys
 cmap <esc> <c-c>
 " Exit
-nnoremap à :quit<cr>
+nnoremap à :confirm quit<cr>
 nnoremap À :confirm quitall<cr>
 " Save
 nmap <c-s> :update<cr>
@@ -611,7 +610,6 @@ nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<bar>let &filetype=&filet
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
 
-nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w><cr>
 noremap <silent> <leader><leader> @q
 " }}}
 " }}}
