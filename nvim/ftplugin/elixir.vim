@@ -4,6 +4,7 @@ setlocal concealcursor=cni
 nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
 abbreviate <buffer> p <bar>>
 inoremap <buffer> . .<esc>bvUf.a
+inoremap <buffer> ( (<esc>i<esc>bvuf(a
 
 nnoremap <silent> K :ExDoc<cr>
 let g:alchemist_tag_stack_map = ''
