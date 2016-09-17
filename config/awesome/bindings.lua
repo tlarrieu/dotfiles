@@ -157,13 +157,6 @@ mtspawn = function(key, cmd)
   return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
 end
 
-dmenu = function()
-  options = " -l 4 -i "
-  colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
-  font = " -fn 'Terminus-10:normal' "
-  return "dmenu_run " .. options .. colors .. font
-end
-
 nmcli_dmenu = function()
   options = " -l 4 -i "
   colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
@@ -198,8 +191,14 @@ notify_volume = function()
 end
 
 keyboard = awful.util.table.join(keyboard,
-  -- dmenu
-  spawn({"Control"}, " ", dmenu()),
+  -- launcher
+  spawn({"Control"}, " ", "rofi -show run"),
+  mspawn("Tab", "rofi -show window"),
+  spawn(
+    {modkey, "Control"},
+    "Tab",
+    "sh /home/tlarrieu/scripts/rofi-monitors.sh"
+    ),
   spawn({}, "F12", nmcli_dmenu()),
 
   -- Session control

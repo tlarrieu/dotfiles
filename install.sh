@@ -137,6 +137,9 @@ safelink $BASEDIR/pmux $HOME/scripts/pmux
 # Custom shutdown script
 safelink $BASEDIR/shutdown_dialog.sh $HOME/scripts/shutdown_dialog.sh
 
+# Rofi monitors
+safelink $BASEDIR/rofi-monitors.sh $HOME/scripts/rofi-monitors.sh
+
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 
