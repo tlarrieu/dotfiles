@@ -201,8 +201,8 @@ keyboard = awful.util.table.join(keyboard,
     ),
   spawn({}, "F12", nmcli_dmenu()),
 
-  -- Session control
-  mspawn("q", "sh /home/tlarrieu/scripts/shutdown_dialog.sh"),
+  -- Power management
+  mspawn("q", "sh /home/tlarrieu/scripts/rofi-power.sh"),
 
   -- luminosity
   spawn({}, "F7", "xbacklight -10"),

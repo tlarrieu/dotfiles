@@ -134,11 +134,11 @@ safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 mkdir $HOME/scripts
 safelink $BASEDIR/pmux $HOME/scripts/pmux
 
-# Custom shutdown script
-safelink $BASEDIR/shutdown_dialog.sh $HOME/scripts/shutdown_dialog.sh
-
 # Rofi monitors
 safelink $BASEDIR/rofi-monitors.sh $HOME/scripts/rofi-monitors.sh
+
+# Rofi power management
+safelink $BASEDIR/rofi-power.sh $HOME/scripts/rofi-power.sh
 
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
