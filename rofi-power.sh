@@ -6,7 +6,7 @@
 # 2016 Oliver Kraitschy - http://okraits.de
 
 LAUNCHER='rofi -width 30 -dmenu -i -p power:'
-OPTIONS="Logout\nLock screen\nReboot\nPower-off\nSuspend\nHibernate"
+OPTIONS="Logout\nLock\nReboot\nPower-off\nSuspend\nHibernate"
 
 # Show exit wm option if exit command is provided as an argument
 if [ ${#1} -gt 0 ]; then
@@ -14,8 +14,7 @@ if [ ${#1} -gt 0 ]; then
 fi
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
-if [ ${#option} -gt 0 ]
-then
+if [ ${#option} -gt 0 ]; then
     case $option in
       Exit)
         eval $1
@@ -24,7 +23,8 @@ then
         echo "awesome.quit()" | awesome-client
         ;;
       Lock)
-        slock
+        i3lock  -f -t -n \
+          -i /home/tlarrieu/Pictures/wallpapers/wallhaven-244583.png
         ;;
       Reboot)
         systemctl reboot
