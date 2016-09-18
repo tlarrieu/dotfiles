@@ -6,7 +6,7 @@
 # 2016 Oliver Kraitschy - http://okraits.de
 
 LAUNCHER='rofi -width 30 -dmenu -i -p power:'
-OPTIONS="Logout\nLock\nReboot\nPower-off\nSuspend\nHibernate"
+OPTIONS="Logout\nLock\nReboot\nShutdown\nSuspend\nHibernate"
 
 # Show exit wm option if exit command is provided as an argument
 if [ ${#1} -gt 0 ]; then
@@ -29,7 +29,7 @@ if [ ${#option} -gt 0 ]; then
       Reboot)
         systemctl reboot
         ;;
-      Power-off)
+      Shutdown)
         systemctl poweroff
         ;;
       Suspend)
