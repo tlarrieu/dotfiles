@@ -17,9 +17,5 @@ client.connect_signal("manage", function (c, startup)
   end
 end)
 
-function bcolor(color)
-  return function (c) c.border_color = color end
-end
-
-client.connect_signal("focus"  , bcolor(beautiful.border_focus))
-client.connect_signal("unfocus", bcolor(beautiful.border_normal))
+client.connect_signal("focus", function(c) c.opacity = 1 end)
+client.connect_signal("unfocus", function(c) c.opacity = 0.75 end)
