@@ -26,11 +26,13 @@ require "rules"
 --[[ Startup ]]-----------------------------------------------------------------
 
 -- Redshift
-awful.util.spawn_with_shell("killall redshift; redshift")
+awful.util.spawn_with_shell("run_once redshift")
 
 -- Configure keys
-awful.util.spawn_with_shell("killall xcape; xcape -e 'Control_L=Escape'")
-awful.util.spawn_with_shell("setxkbmap -option ctrl:nocaps; xmodmap ~/.Xmodmap")
+awful.util.spawn_with_shell("run_once xmodmap ~/.Xmodmap")
+awful.util.spawn_with_shell("run_once xcape -e 'Control_L=Escape'")
+awful.util.spawn_with_shell("run_once setxkbmap -option ctrl:nocaps")
+awful.util.spawn_with_shell("run_once xcompmgr")
 
 -- Touchegg
--- awful.util.spawn_with_shell("killall touchegg; touchegg")
+-- awful.util.spawn_with_shell("run_once touchegg")
