@@ -5,8 +5,8 @@
 
 # 2016 Oliver Kraitschy - http://okraits.de
 
-LAUNCHER='rofi -width 30 -dmenu -i -p power:'
-OPTIONS="Logout\nLock\nReboot\nShutdown\nSuspend\nHibernate"
+LAUNCHER='rofi -hide-scrollbar -width 30 -dmenu -i -p power:'
+OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend\nHibernate"
 
 # Show exit wm option if exit command is provided as an argument
 if [ ${#1} -gt 0 ]; then
@@ -26,7 +26,7 @@ if [ ${#option} -gt 0 ]; then
         i3lock  -f -t -n \
           -i /home/tlarrieu/Pictures/wallpapers/wallhaven-244583.png
         ;;
-      Reboot)
+      Restart)
         systemctl reboot
         ;;
       Shutdown)

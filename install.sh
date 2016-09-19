@@ -130,18 +130,13 @@ safelink $BASEDIR/irbrc $HOME/.irbrc
 # rubocop
 safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
-# pmux
+# scripts
 mkdir $HOME/scripts
-safelink $BASEDIR/pmux $HOME/scripts/pmux
-
-# Rofi monitors
-safelink $BASEDIR/rofi-monitors.sh $HOME/scripts/rofi-monitors.sh
-
-# Rofi power management
-safelink $BASEDIR/rofi-power.sh $HOME/scripts/rofi-power.sh
-
-# run_once
-safelink $BASEDIR/run_once $HOME/scripts/run_once
+for file in `ls -d $BASEDIR/scripts/*`; do
+  target=$BASEDIR/scripts/`basename $file`
+  link=~/scripts/`basename $file`
+  safelink $target $link
+done
 
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
