@@ -140,6 +140,9 @@ safelink $BASEDIR/rofi-monitors.sh $HOME/scripts/rofi-monitors.sh
 # Rofi power management
 safelink $BASEDIR/rofi-power.sh $HOME/scripts/rofi-power.sh
 
+# run_once
+safelink $BASEDIR/run_once $HOME/scripts/run_once
+
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 
