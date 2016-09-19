@@ -141,6 +141,9 @@ done
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 
+# xprofile
+safelink $BASEDIR/xprofile $HOME/.xprofile
+
 # Xmodmap
 safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
