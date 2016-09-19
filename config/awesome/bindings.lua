@@ -192,8 +192,8 @@ end
 
 keyboard = awful.util.table.join(keyboard,
   -- launcher
-  spawn({"Control"}, " ", "rofi -show run"),
-  mspawn("Tab", "rofi -show window"),
+  spawn({"Control"}, " ", "rofi -show run -hide-scrollbar"),
+  mspawn("Tab", "rofi -show window -hide-scrollbar"),
   spawn(
     {modkey, "Control"},
     "Tab",
