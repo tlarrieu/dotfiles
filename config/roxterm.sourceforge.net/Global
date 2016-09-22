@@ -1,5 +1,4 @@
 [roxterm options]
-colour_scheme=solarized-light
 hide_menubar=1
 warn_close=3
 only_warn_running=1

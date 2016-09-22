@@ -12,6 +12,9 @@ Plug 'rking/ag.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'tlarrieu/vim-sniper'
 " }}}
+" {{{ --| Encryption |---------------------
+Plug 'jamessan/vim-gnupg'
+" }}}
 " {{{ --| Functionnalities |---------------
 Plug 'AndrewRadev/linediff.vim'
 Plug 'beloglazov/vim-online-thesaurus'
@@ -127,6 +130,7 @@ set showtabline=2
 " Do not display mode
 set noshowmode
 " Color / background theme
+set background=dark
 colorscheme solarized
 " Line numbering (relative and current)
 set relativenumber
