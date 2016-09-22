@@ -197,12 +197,12 @@ keyboard = awful.util.table.join(keyboard,
   spawn(
     {modkey, "Control"},
     "Tab",
-    "sh /home/tlarrieu/scripts/rofi-monitors.sh"
+    "sh /home/tlarrieu/scripts/rofi-monitors"
     ),
   spawn({}, "F12", nmcli_dmenu()),
 
   -- Power management
-  mspawn("q", "sh /home/tlarrieu/scripts/rofi-power.sh"),
+  mspawn("q", "sh /home/tlarrieu/scripts/rofi-power"),
 
   -- luminosity
   spawn({}, "F7", "xbacklight -10"),
