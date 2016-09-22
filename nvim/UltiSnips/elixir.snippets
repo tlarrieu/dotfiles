@@ -40,6 +40,12 @@ if ${1:condition} do
 end
 endsnippet
 
+snippet cond "cond"
+cond do
+	$1
+end
+endsnippet
+
 # -- Tests ---------------------------------------------------------------------
 snippet test "test"
 test "${1:label}" do
@@ -53,4 +59,17 @@ endsnippet
 
 snippet pend "pending"
 @tag :pending
+endsnippet
+
+# -- Misc. ---------------------------------------------------------------------
+snippet todo "todo"
+# TODO: $0
+endsnippet
+
+snippet xxx "xxx"
+# XXX: $0
+endsnippet
+
+snippet ins "IO.inspect"
+IO.inspect $0
 endsnippet
