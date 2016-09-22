@@ -107,9 +107,9 @@ clientkeys = awful.util.table.join(
     c.fullscreen = not c.fullscreen
   end),
 
-  -- On Top
+  -- Minimize
   awful.key({modkey}, "h", function(c)
-    c.ontop = not c.ontop
+    c.minimized = not c.minimize
   end),
 
   -- Kill
