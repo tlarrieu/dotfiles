@@ -9,9 +9,10 @@ selection=$(
   | cut -c4- \
   | sed 's/\s+/ /g'
 )
+selection=($selection)
 
-ssid=$(echo $selection | cut -d' ' -f1)
-security=$(echo $selection | cut -d' ' -f2)
+ssid=${selection[0]}
+security=${selection[1]}
 
 case $ssid in
   '') exit 0 ;;
