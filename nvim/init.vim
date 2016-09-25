@@ -231,6 +231,8 @@ nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#tag#cache_limit_size = 600000
+let g:deoplete#auto_complete_start_length = 1
+call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
 inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
 function! s:deoplete_cr() abort
   return deoplete#close_popup() . "\<cr>"
