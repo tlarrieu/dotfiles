@@ -1,10 +1,13 @@
 setlocal conceallevel=2
 setlocal concealcursor=cni
+setlocal iskeyword+=:
+setlocal iskeyword+=?
+setlocal iskeyword+=!
 
 nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
 abbreviate <buffer> p <bar>>
-inoremap <buffer> . .<esc>bvUf.a
-inoremap <buffer> ( (<esc>i<esc>bvuf(a
+inoremap <buffer> . .<esc>hviwo<esc>vUf.a
+inoremap <buffer> .( .(<c-\><c-o>F.<esc>bvuf(a
 
 nnoremap <silent> K :ExDoc<cr>
 let g:alchemist_tag_stack_map = ''
