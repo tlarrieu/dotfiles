@@ -94,3 +94,8 @@ alias rdre="bin/rake db:migrate:redo"
 alias rr="bin/rake routes > routes"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
+
+# Exercism
+alias e="exercism"
+alias ef="exercism fetch"
+alias es="exercism submit"
