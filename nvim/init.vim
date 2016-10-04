@@ -130,7 +130,7 @@ set showtabline=2
 " Do not display mode
 set noshowmode
 " Color / background theme
-set background=dark
+set background=light
 colorscheme solarized
 " Line numbering (relative and current)
 set relativenumber

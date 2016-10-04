@@ -1,10 +1,10 @@
 stty -ixon
 
 # dark
-set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
+# set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
 
 # light
-# set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
+set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
 
 set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
 
