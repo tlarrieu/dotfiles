@@ -157,13 +157,6 @@ mtspawn = function(key, cmd)
   return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
 end
 
-nmcli_dmenu = function()
-  options = " -l 4 -i "
-  colors = " -nb '#fdf6e3' -nf '#657b83' -sb '#eee8d5' -sf '#859900' "
-  font = " -fn 'Terminus-10:normal' "
-  return "nmcli_dmenu " .. options .. colors .. font
-end
-
 notify_volume = function()
   local handle = io.popen("amixer -c 1 get Master")
   local output = handle:read("a*")
@@ -199,7 +192,7 @@ keyboard = awful.util.table.join(keyboard,
     "Tab",
     "sh /home/tlarrieu/scripts/rofi-monitors"
     ),
-  spawn({}, "F12", nmcli_dmenu()),
+  spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
 
   -- Power management
   mspawn("q", "sh /home/tlarrieu/scripts/rofi-power"),
