@@ -113,6 +113,9 @@ safelink $BASEDIR/mplayer $HOME/.mplayer
 # .vimperatorrc
 safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
+# weechat
+safelink $BASEDIR/weechat $HOME/.weechat
+
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore

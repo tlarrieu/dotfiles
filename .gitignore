@@ -3,6 +3,9 @@
 *.pyc
 *.netrwhist
 
+log
+logs
+
 config/xfce4/panel/*
 config/xfce4/desktop/*
 config/xfce4/helpers.rc
