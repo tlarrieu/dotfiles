@@ -46,6 +46,12 @@ cond do
 end
 endsnippet
 
+snippet case "case"
+case $1 do
+	$2
+end
+endsnippet
+
 # -- Tests ---------------------------------------------------------------------
 snippet test "test"
 test "${1:label}" do
@@ -59,6 +65,10 @@ endsnippet
 
 snippet pend "pending"
 @tag :pending
+endsnippet
+
+snippet sk "skip"
+@tag :skip
 endsnippet
 
 # -- Misc. ---------------------------------------------------------------------
