@@ -28,6 +28,6 @@ endfunction
 augroup SETUP_COLORS
   autocmd!
   autocmd OptionSet background call s:setupcolors()
+  autocmd VimEnter * call s:setupcolors()
+  autocmd SourceCmd $MYVIMRC call s:setupcolors()
 augroup END
-
-call s:setupcolors()
