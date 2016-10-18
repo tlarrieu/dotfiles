@@ -212,16 +212,16 @@ keyboard = awful.util.table.join(keyboard,
   end),
 
   -- xkill
-  awful.key({modkey, "Control"}, "w", function()
-    awful.util.spawn("xkill")
-  end),
+  spawn({modkey, "Control"}, "w", "xkill"),
 
   -- XFCE4 properties
   mspawn("b", "xfce4-settings-manager"),
 
   mtspawn("u", "ranger"),
   mtspawn("m", "mocp"),
-  spawn({modkey, "Control"}, "m", "spotify"),
+  awful.key({modkey, "Control"}, "m", function()
+    run_or_raise("spotify", { class = "Spotify" })
+  end),
   spawn({modkey, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
 
   mspawn("a", "pavucontrol"),

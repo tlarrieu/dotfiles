@@ -1,4 +1,4 @@
---[[ Awesome modules ]]---------------------------------------------------------
+-- [[ Awesome modules ]] -------------------------------------------------------
 
 -- Standard awesome library
 awful = require("awful")
@@ -12,11 +12,12 @@ naughty = require("naughty")
 -- Wallpaper handling library
 gears = require("gears")
 
---[[ Plugins ]]-----------------------------------------------------------------
+-- [[ Plugins ]] ---------------------------------------------------------------
 
-battery = require("plugins/batmon")
+require("plugins/batmon")
+require("plugins/run_or_raise")
 
---[[ Configuration ]]-----------------------------------------------------------
+-- [[ Configuration ]] ---------------------------------------------------------
 
 require "layout"
 require "bindings"
