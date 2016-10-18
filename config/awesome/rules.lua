@@ -26,6 +26,7 @@ awful.rules.rules = {
         "Vlc",
         "mednafen",
         "mpv",
+        "Pavucontrol",
       }
     },
     properties = { floating = true, ontop = true }
