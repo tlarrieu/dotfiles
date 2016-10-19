@@ -6,7 +6,7 @@ awful.rules.rules = {
       keys = clientkeys,
       buttons = clientbuttons
     }
-  }, -- Default rules for all applications
+  },
 
   {
     rule = { class = "Plugin-container" },
@@ -15,7 +15,17 @@ awful.rules.rules = {
       ontop = true,
       border = 0
     }
-  }, -- Flash player
+  },
+
+  {
+    rule_any = {
+      class = { "Spotify" },
+      name = { "hangups" },
+    },
+    properties = {
+      skip_taskbar = true
+    }
+  },
 
   {
     rule_any = {
