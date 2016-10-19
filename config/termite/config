@@ -20,7 +20,7 @@ cursor_blink = off
 cursor_shape = block
 
 # $BROWSER is used by default
-browser = google-chrome-stable
+browser = qutebrowser
 
 # word characters used for word selection
 # (default if unset: all graphic non-punctuation/space characters)
