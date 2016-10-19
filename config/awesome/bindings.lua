@@ -1,11 +1,11 @@
---[[ Variables ]]---------------------------------------------------------------
+-- [[ Variables ]] -------------------------------------------------------------
 
 terminal = "termite"
 modkey = "Mod4"
 
 kanjis = { "一", "二", "三", "四", "五" }
 
---[[ Mouse bindings ]]----------------------------------------------------------
+-- [[ Mouse bindings ]] --------------------------------------------------------
 
 mouse = awful.util.table.join(
   awful.button({}, 3, function() mymainmenu:toggle() end),
@@ -13,7 +13,7 @@ mouse = awful.util.table.join(
   awful.button({ modkey }, 5, awful.tag.viewprev)
 )
 
---[[ Global keys ]]-------------------------------------------------------------
+-- [[ Global keys ]] -----------------------------------------------------------
 
 desktop_notification = function()
   local desktop_kanji = kanjis[awful.tag.getidx()]
@@ -31,6 +31,7 @@ end
 
 keyboard = awful.util.table.join(
   -- Workspace switching
+
   awful.key({modkey}, "c", function()
     awful.tag.viewprev()
     desktop_notification()
@@ -41,6 +42,7 @@ keyboard = awful.util.table.join(
   end),
 
   -- Client moving
+
   awful.key({modkey, "Control"}, "t", function()
     awful.client.swap.byidx(1)
   end),
@@ -62,6 +64,7 @@ keyboard = awful.util.table.join(
   end),
 
   -- Layout switching
+
   awful.key({modkey}, "l", function()
     awful.layout.inc(layouts, 1)
   end),
@@ -70,6 +73,7 @@ keyboard = awful.util.table.join(
   end),
 
   -- Client focus
+
   awful.key({modkey}, "t", function()
     awful.client.focus.byidx(1)
     if client.focus then client.focus:raise() end
@@ -80,6 +84,7 @@ keyboard = awful.util.table.join(
   end),
 
   -- Screen focus
+
   awful.key({modkey}, "i", function()
     awful.screen.focus_relative(1)
   end),
@@ -88,6 +93,7 @@ keyboard = awful.util.table.join(
   end),
 
   -- Client screen moving
+
   awful.key({modkey}, "o", function(c)
     awful.client.movetoscreen(c,client.focus.screen-1)
   end),
@@ -96,10 +102,11 @@ keyboard = awful.util.table.join(
   end),
 
   -- Restart awesome
+
   awful.key({modkey, "Shift"}, "r", awesome.restart)
 )
 
---[[ Client Keys ]]-------------------------------------------------------------
+-- [[ Client Keys ]] -----------------------------------------------------------
 
 clientkeys = awful.util.table.join(
   -- Fullscreen
@@ -137,7 +144,7 @@ clientkeys = awful.util.table.join(
   end)
 )
 
---[[ Client mouse manipulation ]]-----------------------------------------------
+-- [[ Client mouse manipulation ]] ---------------------------------------------
 
 clientbuttons = awful.util.table.join(
   awful.button({}, 1, function(c) client.focus = c; c:raise() end),
@@ -147,7 +154,7 @@ clientbuttons = awful.util.table.join(
   awful.button({modkey}, 5, awful.tag.viewprev)
 )
 
---[[ Program bindings ]]--------------------------------------------------------
+-- [[ Program bindings ]] ------------------------------------------------------
 
 spawn = function(mod, key, cmd)
   return awful.key(mod, key, function() awful.util.spawn(cmd) end)
@@ -185,6 +192,7 @@ end
 
 keyboard = awful.util.table.join(keyboard,
   -- launcher
+
   spawn({"Control"}, " ", "rofi -show run -hide-scrollbar"),
   mspawn("Tab", "rofi -show window -hide-scrollbar"),
   spawn(
@@ -195,46 +203,69 @@ keyboard = awful.util.table.join(keyboard,
   spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
 
   -- Power management
+
   mspawn("q", "sh /home/tlarrieu/scripts/rofi-power"),
 
   -- luminosity
+
   spawn({}, "F7", "xbacklight -10"),
   spawn({}, "F8", "xbacklight +10"),
 
   -- sound
+
   awful.key({}, "XF86AudioLowerVolume", function()
     awful.util.spawn("amixer -c 1 set Master 1db-")
     notify_volume()
   end),
+
   awful.key({}, "XF86AudioRaiseVolume", function()
     awful.util.spawn("amixer -c 1 set Master 1db+")
     notify_volume()
   end),
 
-  -- xkill
-  spawn({modkey, "Control"}, "w", "xkill"),
+  mspawn("a", "pavucontrol"),
 
-  -- XFCE4 properties
-  mspawn("b", "xfce4-settings-manager"),
+  -- music
 
-  mtspawn("u", "ranger"),
-  mtspawn("m", "mocp"),
-  awful.key({modkey, "Control"}, "m", function()
+  spawn({modkey, "Control"}, "m", "mocp"),
+
+  awful.key({modkey}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })
   end),
+
+  -- XFCE4 properties
+
+  mspawn("b", "xfce4-settings-manager"),
+
+  awful.key({modkey}, ".", function()
+    run_or_raise(terminal .. " -e hangups", { name = "hangups" })
+  end),
+
+  -- browsers
+
+  mspawn("'", "qutebrowser"),
+  mtspawn("u", "ranger"),
+  mspawn("g", "thunar"),
+
+  -- games
+
   spawn({modkey, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
 
-  mspawn("a", "pavucontrol"),
-  mspawn("g", "thunar"),
-  mspawn("'", "qutebrowser"),
-  spawn({modkey, "Control"}, "'", "google-chrome-stable"),
+  -- terminal
 
   mspawn("n", terminal),
   spawn({modkey, "Shift"}, "n", "gksu " .. terminal),
-  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$$h.png'")
+
+  -- screenshots
+
+  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$$h.png'"),
+
+  -- xkill
+
+  spawn({modkey, "Control"}, "w", "xkill")
 )
 
---[[ Final binding ]]-----------------------------------------------------------
+-- [[ Final binding ]] ---------------------------------------------------------
 
 root.buttons(mouse)
 root.keys(keyboard)
