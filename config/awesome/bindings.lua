@@ -258,7 +258,9 @@ keyboard = awful.util.table.join(keyboard,
 
   -- screenshots
 
-  mspawn("p", "shutter -s -o '~/Pictures/Screenshots/%Y-%m-%d-%T_$$h.png'"),
+  awful.key({modkey}, "p", function()
+    awful.util.spawn_with_shell("sh /home/tlarrieu/scripts/scrot.sh")
+  end),
 
   -- xkill
 
