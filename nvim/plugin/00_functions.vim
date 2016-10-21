@@ -63,7 +63,7 @@ function! UsageOperator(type)
     return
   endif
 
-  silent execute 'Fg ' . @@
+  silent execute 'FZFsearch ' . @@
 
   let @@ = saved_register
 endfunction
@@ -79,7 +79,7 @@ function! DefinitionOperator(type)
     return
   endif
 
-  silent execute 'Fg (def (self\.)?|class )' . @@
+  silent execute 'FZFsearch (def (self\.)?|class )' . @@
 
   let @@ = saved_register
 endfunction
