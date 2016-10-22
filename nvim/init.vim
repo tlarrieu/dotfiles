@@ -232,7 +232,7 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#tag#cache_limit_size = 600000
 let g:deoplete#auto_complete_start_length = 1
-call deoplete#custom#set('_', 'matchers', ['matcher_full_fuzzy'])
+call deoplete#custom#set('_', 'matchers', ['matcher_fuzzy'])
 inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
 function! s:deoplete_cr() abort
   return deoplete#close_popup() . "\<cr>"
@@ -410,8 +410,8 @@ nnoremap <c-down> <c-w>+
 " Moving around
 nmap <tab> <c-w>w
 nmap <s-tab> <c-w>W
-nmap <a-e> gt
-nmap <a-i> gT
+nmap <c-n> gt
+nmap <c-p> gT
 " New tab
 nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
@@ -576,8 +576,8 @@ nmap s :s/
 nmap S :%s/
 vmap s <esc>:%s/\%V/g<left><left>
 
-nmap <c-n> :cnext<cr>
-nmap <c-p> :cprev<cr>
+nmap <A-n> :cnext<cr>
+nmap <A-p> :cprev<cr>
 
 command! NONASCII /[^\x00-\x7F]
 " }}}
