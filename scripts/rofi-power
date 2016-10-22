@@ -1,30 +1,20 @@
 #!/bin/bash
 
-# rofi-power
-# Use rofi to call systemctl for shutdown, reboot, etc
-
-# 2016 Oliver Kraitschy - http://okraits.de
-
 LAUNCHER='rofi -hide-scrollbar -width 30 -dmenu -i -p power:'
 OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
 
-# Show exit wm option if exit command is provided as an argument
-if [ ${#1} -gt 0 ]; then
-  OPTIONS="Exit window manager\n$OPTIONS"
-fi
+function lock {
+  i3lock  -f -t -n -i /home/tlarrieu/Pictures/wallpapers/wallhaven-349415.png &
+}
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
-    Exit)
-      eval $1
-      ;;
     Logout)
       echo "awesome.quit()" | awesome-client
       ;;
     Lock)
-      i3lock  -f -t -n \
-        -i /home/tlarrieu/Pictures/wallpapers/wallhaven-244583.png
+      lock
       ;;
     Restart)
       systemctl reboot
@@ -33,6 +23,7 @@ if [ ${#option} -gt 0 ]; then
       systemctl poweroff
       ;;
     Suspend)
+      lock
       systemctl suspend
       ;;
     *)
