@@ -4,7 +4,7 @@ awful.rules.rules = {
     properties = {
       focus = true,
       keys = clientkeys,
-      buttons = clientbuttons
+      buttons = clientbuttons,
     }
   },
 
@@ -13,36 +13,40 @@ awful.rules.rules = {
     properties = {
       floating = true,
       ontop = true,
-      border = 0
-    }
-  },
-
-  {
-    rule_any = {
-      class = { "Spotify" },
-      name = { "hangups" },
-    },
-    properties = {
-      skip_taskbar = true
+      border = 0,
     }
   },
 
   {
     rule_any = {
       class = {
-        "Gvba",
+        "Spotify",
+        "hangups",
+      },
+    },
+    properties = { skip_taskbar = true },
+  },
+
+  {
+    rule_any = {
+      class = {
         "MPlayer",
         "Vlc",
-        "mednafen",
         "mpv",
         "Pavucontrol",
       }
     },
-    properties = { floating = true, fullscreen = true },
+    properties = { fullscreen = true },
   },
 
   {
-    rule = { class = "Minecraft" },
+    rule_any = {
+      class = {
+        "Minecraft",
+        "Gvba",
+        "mednafen",
+      },
+    },
     properties = { floating = true },
   },
 }
