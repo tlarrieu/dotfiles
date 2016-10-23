@@ -15,31 +15,11 @@ mouse = awful.util.table.join(
 
 -- [[ Global keys ]] -----------------------------------------------------------
 
-desktop_notification = function()
-  local desktop_kanji = kanjis[awful.tag.getidx()]
-
-  desktop_notification_id = naughty.notify(
-    { text = " "..desktop_kanji.."画面 "
-    , timeout = 1
-    , position = "bottom_right"
-    , font = "Inconsolata-g for Powerline 36"
-    , fg = beautiful.fg_focus
-    , bg = beautiful.bg_focus
-    , replaces_id = desktop_notification_id }
-  ).id
-end
-
 keyboard = awful.util.table.join(
   -- Workspace switching
 
-  awful.key({modkey}, "c", function()
-    awful.tag.viewprev()
-    desktop_notification()
-  end),
-  awful.key({modkey}, "r", function()
-    awful.tag.viewnext()
-    desktop_notification()
-  end),
+  awful.key({modkey}, "c", awful.tag.viewprev),
+  awful.key({modkey}, "r", awful.tag.viewnext),
 
   -- Client moving
 
@@ -238,7 +218,7 @@ keyboard = awful.util.table.join(keyboard,
   mspawn("b", "xfce4-settings-manager"),
 
   awful.key({modkey}, ".", function()
-    run_or_raise(terminal .. " -e hangups", { name = "hangups" })
+    run_or_raise(terminal .. " --class=hangups -e hangups", { class = "hangups" })
   end),
 
   -- browsers
