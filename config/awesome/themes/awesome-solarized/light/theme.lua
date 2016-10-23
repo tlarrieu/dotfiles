@@ -118,4 +118,9 @@ theme.titlebar_maximized_button_normal_inactive = theme.path.."titlebar/maximize
 -- }}}
 -- }}}
 
+theme.ac                                        = theme.path .. "/icons/ac.png"
+theme.bat                                       = theme.path .. "/icons/bat.png"
+theme.bat_low                                   = theme.path .. "/icons/bat_low.png"
+theme.bat_no                                    = theme.path .. "/icons/bat_no.png"
+
 return theme

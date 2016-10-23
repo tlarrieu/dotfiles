@@ -12,7 +12,7 @@ require("plugins/run_or_raise")
 
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
-tagnames = { "www", "dev", "misc", "sync", "async" }
+local tagnames = { "www", "dev", "misc", "sync", "async" }
 wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-285281.jpg"
 layouts = {
   awful.layout.suit.tile,
@@ -23,6 +23,12 @@ layouts = {
   awful.layout.suit.fair,
   awful.layout.suit.fair.horizontal
 }
+
+tags = {}
+
+for s = 1, screen.count() do
+  tags[s] = awful.tag(tagnames, s, awful.layout.suit.fair)
+end
 
 require "bindings"
 require "layout"
