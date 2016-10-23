@@ -26,12 +26,8 @@ layouts = {
 -- Define a tag table which hold all screen tags.
 tags = {}
 for s = 1, screen.count() do
-  -- Each screen has its own tag table.
-  l = layouts[1]
-  if s == 2 then l = layouts[3] end
-
-  names = { "一", "二", "三", "四", "五" }
-  tags[s] = awful.tag(names, s, l)
+  names = { "www", "dev", "misc", "sync", "async" }
+  tags[s] = awful.tag(names, s, layouts[6])
 end
 -- }}}
 
