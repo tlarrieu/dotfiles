@@ -1,21 +1,82 @@
 -- [[ Variables ]] -------------------------------------------------------------
 
-terminal = "termite"
-modkey = "Mod4"
+local terminal = "termite"
+local modkey = "Mod4"
 
-kanjis = { "一", "二", "三", "四", "五" }
+-- [[ Panel ]] -----------------------------------------------------------------
 
--- [[ Mouse bindings ]] --------------------------------------------------------
-
-mouse = awful.util.table.join(
-  awful.button({}, 3, function() mymainmenu:toggle() end),
-  awful.button({ modkey }, 4, awful.tag.viewnext),
-  awful.button({ modkey }, 5, awful.tag.viewprev)
+tagbuttons = awful.util.table.join(
+  awful.button({}, 1, awful.tag.viewonly)
 )
 
--- [[ Global keys ]] -----------------------------------------------------------
+taskbuttons = awful.util.table.join(
+  awful.button({}, 1,
+    function (c)
+      if not c:isvisible() then
+        awful.tag.viewonly(c:tags()[1])
+      end
+      client.focus = c
+      c:raise()
+    end
+  )
+)
 
-keyboard = awful.util.table.join(
+layoutbuttons = awful.util.table.join(
+  awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+  awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+  awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+  awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
+)
+
+-- [[ Client ]] ----------------------------------------------------------------
+
+clientkeys = awful.util.table.join(
+  -- Fullscreen
+  awful.key({modkey}, "Return", function(c)
+    c.fullscreen = not c.fullscreen
+  end),
+
+  -- Minimize
+  awful.key({modkey}, "h", function(c)
+    c.minimized = not c.minimize
+  end),
+
+  -- Kill
+  awful.key({modkey}, "w", function(c) c:kill() end),
+
+  -- Moving client arounds
+  awful.key({modkey, "Control"}, "c", function(c)
+    local screen = client.focus.screen
+    local id = awful.tag.getidx()
+    if id == 1 then
+      id = #tags[screen]
+    else
+      id = id - 1
+    end
+    awful.client.movetotag(tags[screen][id])
+    awful.tag.viewonly(tags[screen][id])
+    desktop_notification()
+  end),
+  awful.key({ modkey, "Control" }, "r", function(c)
+    local screen = client.focus.screen
+    local id = awful.tag.getidx() % #tags[screen] + 1
+    awful.client.movetotag(tags[screen][id])
+    awful.tag.viewonly(tags[screen][id])
+    desktop_notification()
+  end)
+)
+
+clientbuttons = awful.util.table.join(
+  awful.button({}, 1, function(c) client.focus = c; c:raise() end),
+  awful.button({modkey}, 1, awful.mouse.client.move),
+  awful.button({modkey}, 3, awful.mouse.client.resize),
+  awful.button({modkey}, 4, awful.tag.viewnext),
+  awful.button({modkey}, 5, awful.tag.viewprev)
+)
+
+-- [[ Window Manager ]] --------------------------------------------------------
+
+local keyboard = awful.util.table.join(
   -- Workspace switching
 
   awful.key({modkey}, "c", awful.tag.viewprev),
@@ -86,91 +147,19 @@ keyboard = awful.util.table.join(
   awful.key({modkey, "Shift"}, "r", awesome.restart)
 )
 
--- [[ Client Keys ]] -----------------------------------------------------------
+-- [[ Applications ]] ----------------------------------------------------------
 
-clientkeys = awful.util.table.join(
-  -- Fullscreen
-  awful.key({modkey}, "Return", function(c)
-    c.fullscreen = not c.fullscreen
-  end),
-
-  -- Minimize
-  awful.key({modkey}, "h", function(c)
-    c.minimized = not c.minimize
-  end),
-
-  -- Kill
-  awful.key({modkey}, "w", function(c) c:kill() end),
-
-  -- Moving client arounds
-  awful.key({modkey, "Control"}, "c", function(c)
-    local screen = client.focus.screen
-    local id = awful.tag.getidx()
-    if id == 1 then
-      id = #tags[screen]
-    else
-      id = id - 1
-    end
-    awful.client.movetotag(tags[screen][id])
-    awful.tag.viewonly(tags[screen][id])
-    desktop_notification()
-  end),
-  awful.key({ modkey, "Control" }, "r", function(c)
-    local screen = client.focus.screen
-    local id = awful.tag.getidx() % #tags[screen] + 1
-    awful.client.movetotag(tags[screen][id])
-    awful.tag.viewonly(tags[screen][id])
-    desktop_notification()
-  end)
-)
-
--- [[ Client mouse manipulation ]] ---------------------------------------------
-
-clientbuttons = awful.util.table.join(
-  awful.button({}, 1, function(c) client.focus = c; c:raise() end),
-  awful.button({modkey}, 1, awful.mouse.client.move),
-  awful.button({modkey}, 3, awful.mouse.client.resize),
-  awful.button({modkey}, 4, awful.tag.viewnext),
-  awful.button({modkey}, 5, awful.tag.viewprev)
-)
-
--- [[ Program bindings ]] ------------------------------------------------------
-
-spawn = function(mod, key, cmd)
+local spawn = function(mod, key, cmd)
   return awful.key(mod, key, function() awful.util.spawn(cmd) end)
 end
-mspawn = function(key, cmd) return spawn({modkey}, key, cmd) end
-mtspawn = function(key, cmd)
+local mspawn = function(key, cmd) return spawn({modkey}, key, cmd) end
+local mtspawn = function(key, cmd)
   return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
 end
 
-notify_volume = function()
-  local handle = io.popen("amixer -c 1 get Master")
-  local output = handle:read("a*")
-  local volume = tonumber(output:match('Mono: Playback %d+ %[(%d+)%%%].*'))
-  local on = output:match('Mono: Playback %d+ %[%d+%%%].*%[(on|off)%]')
+keyboard = awful.util.table.join(
+  keyboard,
 
-  local status = ""
-  for i = 1, math.floor(volume / 10) do
-    status = status .. "|"
-  end
-  for i = math.floor(volume / 10) + 1, 10 do
-    status = status .. "-"
-  end
-  status = volume.."%".." [" ..status .. "]"
-
-  sound_notification_id = naughty.notify(
-    { title = "Volume"
-    , text = "\n"..status
-    , timeout = 2
-    , position = "top_right"
-    , fg = beautiful.fg_focus
-    , bg = beautiful.bg_focus
-    , replaces_id = sound_notification_id }
-  ).id
-end
-
-keyboard = awful.util.table.join(keyboard,
   -- launcher
 
   spawn({"Control"}, " ", "rofi -show run -hide-scrollbar"),
@@ -192,16 +181,6 @@ keyboard = awful.util.table.join(keyboard,
   spawn({}, "F8", "xbacklight +10"),
 
   -- sound
-
-  awful.key({}, "XF86AudioLowerVolume", function()
-    awful.util.spawn("amixer -c 1 set Master 1db-")
-    notify_volume()
-  end),
-
-  awful.key({}, "XF86AudioRaiseVolume", function()
-    awful.util.spawn("amixer -c 1 set Master 1db+")
-    notify_volume()
-  end),
 
   mspawn("a", "pavucontrol"),
 
@@ -249,5 +228,4 @@ keyboard = awful.util.table.join(keyboard,
 
 -- [[ Final binding ]] ---------------------------------------------------------
 
-root.buttons(mouse)
 root.keys(keyboard)

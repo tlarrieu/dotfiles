@@ -1,3 +1,5 @@
+awful.rules = require("awful.rules")
+
 awful.rules.rules = {
   {
     rule = {},
