@@ -30,7 +30,6 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "Gpick",
         "Gvba",
         "MPlayer",
         "Vlc",
@@ -39,7 +38,7 @@ awful.rules.rules = {
         "Pavucontrol",
       }
     },
-    properties = { floating = true, ontop = true }
+    properties = { floating = true, fullscreen = true },
   },
 
   {
