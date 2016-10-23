@@ -1,11 +1,3 @@
----------------------------------
---  "Solarized" awesome theme  --
---     By Gwenhael Le Moine    --
----------------------------------
-
--- Alternative icon sets and widget icons:
---  * http://awesome.naquadah.org/wiki/Nice_Icons
-
 -- {{{ Main
 theme = {}
 theme.path = "/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/"
@@ -30,7 +22,7 @@ theme.colors.green   = "#859900"
 -- }}}
 
 -- {{{ Styles
-theme.font      = "Terminus 10"
+theme.font      = "Inconsolata-g For Powerline 11"
 
 -- {{{ Colors
 theme.fg_normal  = theme.colors.base02
