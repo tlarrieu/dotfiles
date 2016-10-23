@@ -33,23 +33,23 @@ batupd = lain.widgets.bat({
     if bat_now.status == "Charging" then
       baticon:set_image(beautiful.ac)
       if bat_now.perc >= 98 then
-        batbar:set_color(green)
+        batbar:set_color(beautiful.colors.green)
       elseif bat_now.perc > 50 then
-        batbar:set_color(black)
+        batbar:set_color(beautiful.colors.base03)
       elseif bat_now.perc > 15 then
-        batbar:set_color(orange)
+        batbar:set_color(beautiful.colors.yellow)
       else
-        batbar:set_color(red)
+        batbar:set_color(beautiful.colors.red)
       end
     else
-      if bat_now.perc > 98 then
-        batbar:set_color(green)
+      if bat_now.perc > 50 then
+        batbar:set_color(beautiful.colors.green)
         baticon:set_image(beautiful.bat)
       elseif bat_now.perc > 15 then
-        batbar:set_color(orange)
+        batbar:set_color(beautiful.colors.yellow)
         baticon:set_image(beautiful.bat_low)
       else
-        batbar:set_color(red)
+        batbar:set_color(beautiful.colors.red)
         baticon:set_image(beautiful.bat_no)
       end
     end
