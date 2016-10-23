@@ -1,5 +1,5 @@
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/home/tlarrieu/.config/awesome/themes/awesome-solarized/light/theme.lua")
+beautiful.init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
 -- {{{ Wallpapers
 wallpapers = {
@@ -101,7 +101,6 @@ for s = 1, screen.count() do
     )
   )
   -- Create a taglist widget
-  --mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
   mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
   -- Create a tasklist widget
