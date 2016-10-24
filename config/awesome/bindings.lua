@@ -173,7 +173,7 @@ keyboard = awful.util.table.join(
 
   -- Power management
 
-  mspawn("q", "sh /home/tlarrieu/scripts/rofi-power"),
+  mspawn("Escape", "sh /home/tlarrieu/scripts/rofi-power"),
 
   -- luminosity
 

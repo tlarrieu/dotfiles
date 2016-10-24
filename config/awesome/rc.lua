@@ -12,7 +12,7 @@ require("plugins/run_or_raise")
 
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
-local tagnames = { "www", "dev", "misc", "sync", "async" }
+local tagnames = { "www", "dev", "term", "misc", "chat", "other" }
 wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-285281.jpg"
 layouts = {
   awful.layout.suit.tile,
