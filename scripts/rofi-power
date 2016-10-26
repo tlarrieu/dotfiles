@@ -1,7 +1,8 @@
 #!/bin/bash
 
 LAUNCHER='rofi -hide-scrollbar -width 30 -dmenu -i -p power:'
-OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
+# OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
+OPTIONS="Lock\nRestart\nShutdown\nSuspend"
 
 function lock {
   i3lock  -f -t -n -i /home/tlarrieu/Pictures/wallpapers/wallhaven-349415.png &
@@ -10,9 +11,9 @@ function lock {
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
-    Logout)
-      echo "awesome.quit()" | awesome-client
-      ;;
+    # Logout)
+    #   echo "awesome.quit()" | awesome-client
+    #   ;;
     Lock)
       lock
       ;;
