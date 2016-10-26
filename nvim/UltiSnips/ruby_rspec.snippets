@@ -20,11 +20,23 @@ endsnippet
 
 # -- Let -----------------------------------------------------------------------
 
+snippet sub "comment"
+subject(:${1:name}) { $2 }
+endsnippet
+
 snippet l "let"
 let(:${1:name}) { $2 }
 endsnippet
 
+snippet let "let"
+let(:${1:name}) { $2 }
+endsnippet
+
 snippet l! "let!"
+let!(:${1:name}) { $2 }
+endsnippet
+
+snippet let! "let!"
 let!(:${1:name}) { $2 }
 endsnippet
 
