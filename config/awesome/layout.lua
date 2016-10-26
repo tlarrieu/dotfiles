@@ -3,7 +3,7 @@ local gears = require("gears")
 local beautiful = require("beautiful")
 local lain = require("lain")
 
-local layoutbox = awful.widget.layoutbox(s)
+local layoutbox = awful.widget.layoutbox()
 layoutbox:buttons(layoutbuttons)
 
 local clockwidget = awful.widget.textclock(
@@ -74,24 +74,32 @@ lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = batcallback })
 for s = 1, screen.count() do
   gears.wallpaper.maximized(wallpaper, s, false)
 
-  local taglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, tagbuttons)
-  local tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, taskbuttons)
+  local taglist = awful.widget.taglist(
+    s,
+    awful.widget.taglist.filter.all,
+    tagbuttons
+  )
+  -- local tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, taskbuttons)
 
-  local left_layout = wibox.layout.fixed.horizontal()
-  left_layout:add(layoutbox)
-  left_layout:add(taglist)
+  local left = wibox.layout.fixed.horizontal()
+  left:add(layoutbox)
+  left:add(taglist)
 
-  local right_layout = wibox.layout.fixed.horizontal()
-  right_layout:add(clockwidget)
-  right_layout:add(baticon)
-  right_layout:add(battextwidget)
-  right_layout:add(batwidget)
+  local middle = wibox.layout.fixed.horizontal()
+  middle:add(clockwidget)
+
+  local right = wibox.layout.fixed.horizontal()
+  right:add(baticon)
+  right:add(battextwidget)
+  right:add(batwidget)
+  -- Hack to make the clock widget look like it is centered
+  right = wibox.layout.margin(right, 170, 0, 0, 0)
 
   local layout = wibox.layout.align.horizontal()
-  layout:set_left(left_layout)
-  layout:set_middle(tasklist)
-  layout:set_right(right_layout)
+  layout:set_left(left)
+  layout:set_middle(middle)
+  layout:set_right(right)
 
-  local toppanel = awful.wibox({ position = "top", screen = s })
-  toppanel:set_widget(layout)
+  local panel = awful.wibox({ position = "top", screen = s })
+  panel:set_widget(layout)
 end
