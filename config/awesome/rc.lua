@@ -12,7 +12,15 @@ require("plugins/run_or_raise")
 
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
-local tagnames = { "www", "dev", "term", "misc", "chat", "other" }
+local tagsconfig = {
+  { name = "www",   layout = awful.layout.suit.max },
+  { name = "dev",   layout = awful.layout.suit.fair },
+  { name = "term",  layout = awful.layout.suit.fair },
+  { name = "misc",  layout = awful.layout.suit.fair },
+  { name = "chat",  layout = awful.layout.suit.fair },
+  { name = "other", layout = awful.layout.suit.max },
+}
+
 wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-285281.jpg"
 layouts = {
   awful.layout.suit.tile,
@@ -21,13 +29,21 @@ layouts = {
   awful.layout.suit.tile.top,
   awful.layout.suit.magnifier,
   awful.layout.suit.fair,
-  awful.layout.suit.fair.horizontal
+  awful.layout.suit.fair.horizontal,
+  awful.layout.suit.max,
 }
 
 tags = {}
 
+local tagnames = {}
+local taglayouts = {}
+for i, config in ipairs(tagsconfig) do
+  tagnames[i] = config.name
+  taglayouts[i] = config.layout
+end
+
 for s = 1, screen.count() do
-  tags[s] = awful.tag(tagnames, s, awful.layout.suit.fair)
+  tags[s] = awful.tag(tagnames, s, taglayouts)
 end
 
 require "bindings"

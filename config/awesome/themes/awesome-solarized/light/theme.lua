@@ -26,7 +26,7 @@ theme.colors.green   = "#859900"
 theme.font      = "Inconsolata-g For Powerline 11"
 
 -- [[ colors ]] ----------------------------------------------------------------
-theme.fg_normal         = theme.colors.base1
+theme.fg_normal         = theme.colors.base02
 theme.fg_focus          = theme.colors.green
 theme.fg_urgent         = theme.colors.base3
 

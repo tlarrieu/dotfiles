@@ -7,7 +7,7 @@ local layoutbox = awful.widget.layoutbox()
 layoutbox:buttons(layoutbuttons)
 
 local clockwidget = awful.widget.textclock(
-  lain.util.markup(beautiful.colors.base1, " %Y.%m.%d %H:%M")
+  lain.util.markup(beautiful.fg_normal, " %Y.%m.%d %H:%M")
 )
 
 local battextwidget = wibox.widget.textbox()
