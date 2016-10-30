@@ -1,9 +1,10 @@
-function! s:highligts()
+highlight! OverLength ctermbg=red ctermfg=black guibg=red guifg=black
+match OverLength /\%81v.\+/
+
+function! s:highlights()
   highlight! link VertSplit CursorColumn
   highlight! link SignatureMarkText SignColumn
   highlight! link MatchParen Title
-  highlight! OverLength ctermbg=red ctermfg=black guibg=red guifg=black
-  match OverLength /\%81v.\+/
 endfunction
 
 function! s:setupcolors()
@@ -22,7 +23,7 @@ function! s:setupcolors()
   call lightline#init()
   call lightline#update()
 
-  call s:highligts()
+  call s:highlights()
 endfunction
 
 augroup SETUP_COLORS
