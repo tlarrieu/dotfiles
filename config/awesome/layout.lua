@@ -32,35 +32,33 @@ local batcallback = function()
   local legend = nil
   local icon = nil
 
+  -- legend
   if bat_now.time == "00:00" then
     legend = "100%"
   else
     legend = bat_now.time
   end
 
+  -- color
+  if bat_now.perc >= 98 then
+    color = beautiful.colors.green
+  elseif bat_now.perc > 50 then
+    color = beautiful.colors.yellow
+  elseif bat_now.perc > 15 then
+    color = beautiful.colors.orange
+  else
+    color = beautiful.colors.red
+  end
+
+  -- icon
   if bat_now.status == "Charging" then
     icon = beautiful.ac
-
-    if bat_now.perc >= 98 then
-      color = beautiful.colors.green
-    elseif bat_now.perc > 50 then
-      color = beautiful.fg_normal
-    elseif bat_now.perc > 15 then
-      color = beautiful.colors.yellow
-    else
-      color = beautiful.colors.red
-    end
+  elseif bat_now.perc > 50 then
+    icon = beautiful.bat
+  elseif bat_now.perc > 15 then
+    icon = beautiful.bat_low
   else
-    if bat_now.perc > 50 then
-      color = beautiful.colors.green
-      icon = beautiful.bat
-    elseif bat_now.perc > 15 then
-      color = beautiful.colors.yellow
-      icon = beautiful.bat_low
-    else
-      color = beautiful.colors.red
-      icon = beautiful.bat_no
-    end
+    icon = beautiful.bat_no
   end
 
   baticon:set_image(icon)
@@ -93,7 +91,7 @@ for s = 1, screen.count() do
   right:add(battextwidget)
   right:add(batwidget)
   -- Hack to make the clock widget look like it is centered
-  right = wibox.layout.margin(right, 170, 0, 0, 0)
+  right = wibox.layout.margin(right, 150, 0, 0, 0)
 
   local layout = wibox.layout.align.horizontal()
   layout:set_left(left)
