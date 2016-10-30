@@ -186,7 +186,12 @@ keyboard = awful.util.table.join(
 
   -- music
 
-  spawn({modkey, "Control"}, "m", "mocp"),
+  awful.key({modkey, "Control"}, "m", function()
+    run_or_raise(
+      terminal .. " -e 'padsp mocp' -t mocp --class=mocp",
+      { class = "mocp" }
+    )
+  end),
 
   awful.key({modkey}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })
