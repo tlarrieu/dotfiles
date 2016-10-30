@@ -1,5 +1,5 @@
 redshift &
-compton -r 0 -o 0 --inactive-dim 0.4 --no-fading-openclose &
+compton &
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
