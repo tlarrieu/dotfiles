@@ -20,6 +20,11 @@ awful.rules.rules = {
   },
 
   {
+    rule = { class = "Conky" },
+    properties = { focus = false },
+  },
+
+  {
     rule_any = {
       class = {
         "Spotify",
@@ -36,6 +41,7 @@ awful.rules.rules = {
         "Vlc",
         "mpv",
         "Pavucontrol",
+        "hangups",
         "mocp",
       },
     },
