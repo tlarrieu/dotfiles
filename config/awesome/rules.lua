@@ -36,7 +36,8 @@ awful.rules.rules = {
         "Vlc",
         "mpv",
         "Pavucontrol",
-      }
+        "mocp",
+      },
     },
     properties = { fullscreen = true },
   },
