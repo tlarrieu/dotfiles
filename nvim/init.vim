@@ -49,7 +49,7 @@ Plug 'nelstrom/vim-textobj-rubyblock',
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 " {{{ --| Git |----------------------------
-Plug 'tlarrieu/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 " }}}
