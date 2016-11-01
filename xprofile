@@ -1,7 +1,6 @@
 redshift &
 compton &
-conky -c ~/.config/conky/left.conf &
-conky -c ~/.config/conky/right.conf &
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
+(sleep 0.5 && (conky -c ~/.config/conky/left.conf &) && (conky -c ~/.config/conky/right.conf &))&
