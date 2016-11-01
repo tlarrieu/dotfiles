@@ -7,7 +7,7 @@ rofi.separator-style: none
 rofi.hide-scrollbar: true
 rofi.padding: 8
 rofi.dpi: 128
-rofi.width: 32
+rofi.width: 34
 rofi.lines: 8
 
 ! ------------------------------------------------------------------------------
