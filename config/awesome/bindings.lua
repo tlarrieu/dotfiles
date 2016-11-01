@@ -186,14 +186,14 @@ keyboard = awful.util.table.join(
 
   -- music
 
-  awful.key({modkey, "Control"}, "m", function()
+  awful.key({modkey}, "m", function()
     run_or_raise(
       terminal .. " -e 'padsp mocp' -t mocp --class=mocp",
       { class = "mocp" }
     )
   end),
 
-  awful.key({modkey}, "m", function()
+  awful.key({modkey, "Control"}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })
   end),
 
@@ -208,7 +208,7 @@ keyboard = awful.util.table.join(
   -- browsers
 
   mspawn("'", "qutebrowser"),
-  mtspawn("u", "ranger"),
+  mspawn("u", terminal .. " -e 'ranger' -t ranger --class=Ranger"),
   mspawn("g", "thunar"),
 
   -- games
