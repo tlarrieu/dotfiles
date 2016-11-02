@@ -1,7 +1,7 @@
 -- [[ Variables ]] -------------------------------------------------------------
 
 local terminal = "termite"
-local modkey = "Mod4"
+local mod = "Mod4"
 
 -- [[ Panel ]] -----------------------------------------------------------------
 
@@ -32,20 +32,20 @@ layoutbuttons = awful.util.table.join(
 
 clientkeys = awful.util.table.join(
   -- Fullscreen
-  awful.key({modkey}, "Return", function(c)
+  awful.key({mod}, "Return", function(c)
     c.fullscreen = not c.fullscreen
   end),
 
   -- Minimize
-  awful.key({modkey}, "h", function(c)
+  awful.key({mod}, "h", function(c)
     c.minimized = not c.minimize
   end),
 
   -- Kill
-  awful.key({modkey}, "w", function(c) c:kill() end),
+  awful.key({mod}, "w", function(c) c:kill() end),
 
   -- Moving client arounds
-  awful.key({modkey, "Control"}, "c", function(c)
+  awful.key({mod, "Control"}, "c", function(c)
     local screen = client.focus.screen
     local id = awful.tag.getidx()
     if id == 1 then
@@ -55,96 +55,107 @@ clientkeys = awful.util.table.join(
     end
     awful.client.movetotag(tags[screen][id])
     awful.tag.viewonly(tags[screen][id])
-    desktop_notification()
   end),
-  awful.key({ modkey, "Control" }, "r", function(c)
+  awful.key({ mod, "Control" }, "r", function(c)
     local screen = client.focus.screen
     local id = awful.tag.getidx() % #tags[screen] + 1
     awful.client.movetotag(tags[screen][id])
     awful.tag.viewonly(tags[screen][id])
-    desktop_notification()
   end)
 )
 
 clientbuttons = awful.util.table.join(
   awful.button({}, 1, function(c) client.focus = c; c:raise() end),
-  awful.button({modkey}, 1, awful.mouse.client.move),
-  awful.button({modkey}, 3, awful.mouse.client.resize),
-  awful.button({modkey}, 4, awful.tag.viewnext),
-  awful.button({modkey}, 5, awful.tag.viewprev)
+  awful.button({mod}, 1, awful.mouse.client.move),
+  awful.button({mod}, 3, awful.mouse.client.resize),
+  awful.button({mod}, 4, awful.tag.viewnext),
+  awful.button({mod}, 5, awful.tag.viewprev)
 )
 
 -- [[ Window Manager ]] --------------------------------------------------------
 
-local keyboard = awful.util.table.join(
-  -- Workspace switching
+local viewtag = function(screen, id)
+  awful.tag.viewonly(tags[screen][id])
+end
 
-  awful.key({modkey}, "c", awful.tag.viewprev),
-  awful.key({modkey}, "r", awful.tag.viewnext),
+local keyboard = awful.util.table.join(
+  -- Tags switching
+
+  awful.key({mod}, "c", awful.tag.viewprev),
+  awful.key({mod}, "r", awful.tag.viewnext),
+
+  -- Tags direct access
+
+  awful.key({mod}, "\"", function() viewtag(1, 1) end),
+  awful.key({mod}, "guillemotleft", function() viewtag(1, 2) end),
+  awful.key({mod}, "guillemotright", function() viewtag(1, 3) end),
+  awful.key({mod}, "(", function() viewtag(1, 4) end),
+  awful.key({mod}, ")", function() viewtag(1, 5) end),
+  awful.key({mod}, "@", function() viewtag(1, 6) end),
 
   -- Client moving
 
-  awful.key({modkey, "Control"}, "t", function()
+  awful.key({mod, "Control"}, "t", function()
     awful.client.swap.byidx(1)
   end),
-  awful.key({modkey, "Control"}, "s", function()
+  awful.key({mod, "Control"}, "s", function()
     awful.client.swap.byidx(-1)
   end),
   -- Client size
-  awful.key({modkey}, "d", function()
+  awful.key({mod}, "d", function()
     awful.tag.incmwfact(0.05)
   end),
-  awful.key({modkey}, "v", function()
+  awful.key({mod}, "v", function()
     awful.tag.incmwfact(-0.05)
   end),
-  awful.key({modkey, "Shift"}, "d", function()
+  awful.key({mod, "Shift"}, "d", function()
     awful.client.incwfact(0.05)
   end),
-  awful.key({modkey, "Shift"}, "v", function()
+  awful.key({mod, "Shift"}, "v", function()
     awful.client.incwfact(-0.05)
   end),
 
   -- Layout switching
 
-  awful.key({modkey}, "l", function()
+  awful.key({mod}, "l", function()
     awful.layout.inc(layouts, 1)
   end),
-  awful.key({modkey, "Shift"}, "l", function()
+  awful.key({mod, "Shift"}, "l", function()
     awful.layout.inc(layouts, -1)
   end),
 
   -- Client focus
 
-  awful.key({modkey}, "t", function()
+  awful.key({mod}, "t", function()
     awful.client.focus.byidx(1)
     if client.focus then client.focus:raise() end
   end),
-  awful.key({modkey}, "s", function()
+  awful.key({mod}, "s", function()
     awful.client.focus.byidx(-1)
     if client.focus then client.focus:raise() end
   end),
 
   -- Screen focus
 
-  awful.key({modkey}, "i", function()
+  awful.key({mod}, "i", function()
     awful.screen.focus_relative(1)
   end),
-  awful.key({modkey}, "e", function()
+  awful.key({mod}, "e", function()
     awful.screen.focus_relative(-1)
   end),
 
   -- Client screen moving
 
-  awful.key({modkey}, "o", function(c)
-    awful.client.movetoscreen(c,client.focus.screen-1)
+  awful.key({mod}, "o", function(c)
+    awful.client.movetoscreen(c, client.focus.screen - 1)
   end),
-  awful.key({modkey, "Shift"}, "o", function(c)
-    awful.client.movetoscreen(c,client.focus.screen+1)
+  awful.key({mod, "Shift"}, "o", function(c)
+    awful.client.movetoscreen(c, client.focus.screen + 1)
   end),
 
   -- Restart awesome
 
-  awful.key({modkey, "Shift"}, "r", awesome.restart)
+  awful.key({mod, "Shift"}, "r", awesome.restart)
 )
 
 -- [[ Applications ]] ----------------------------------------------------------
@@ -152,7 +163,7 @@ local keyboard = awful.util.table.join(
 local spawn = function(mod, key, cmd)
   return awful.key(mod, key, function() awful.util.spawn(cmd) end)
 end
-local mspawn = function(key, cmd) return spawn({modkey}, key, cmd) end
+local mspawn = function(key, cmd) return spawn({mod}, key, cmd) end
 local mtspawn = function(key, cmd)
   return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
 end
@@ -165,7 +176,7 @@ keyboard = awful.util.table.join(
   spawn({"Control"}, " ", "rofi -show run"),
   mspawn("Tab", "rofi -show window"),
   spawn(
-    {modkey, "Control"},
+    {mod, "Control"},
     "Tab",
     "sh /home/tlarrieu/scripts/rofi-monitors"
     ),
@@ -186,14 +197,14 @@ keyboard = awful.util.table.join(
 
   -- music
 
-  awful.key({modkey}, "m", function()
+  awful.key({mod}, "m", function()
     run_or_raise(
       terminal .. " -e 'padsp mocp' -t mocp --class=mocp",
       { class = "mocp" }
     )
   end),
 
-  awful.key({modkey, "Control"}, "m", function()
+  awful.key({mod, "Control"}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })
   end),
 
@@ -201,7 +212,7 @@ keyboard = awful.util.table.join(
 
   mspawn("b", "xfce4-settings-manager"),
 
-  awful.key({modkey}, ".", function()
+  awful.key({mod}, ".", function()
     run_or_raise(terminal .. " --class=hangups -e hangups", { class = "hangups" })
   end),
 
@@ -213,22 +224,22 @@ keyboard = awful.util.table.join(
 
   -- games
 
-  spawn({modkey, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
+  spawn({mod, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
 
   -- terminal
 
   mspawn("n", terminal),
-  spawn({modkey, "Shift"}, "n", "gksu " .. terminal),
+  spawn({mod, "Shift"}, "n", "gksu " .. terminal),
 
   -- screenshots
 
-  awful.key({modkey}, "p", function()
+  awful.key({mod}, "p", function()
     awful.util.spawn_with_shell("sh /home/tlarrieu/scripts/scrot.sh")
   end),
 
   -- xkill
 
-  spawn({modkey, "Control"}, "w", "xkill")
+  spawn({mod, "Control"}, "w", "xkill")
 )
 
 -- [[ Final binding ]] ---------------------------------------------------------
