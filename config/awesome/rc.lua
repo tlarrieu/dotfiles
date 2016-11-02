@@ -17,7 +17,7 @@ local tagsconfig = {
   { name = "dev",   layout = awful.layout.suit.fair },
   { name = "term",  layout = awful.layout.suit.fair },
   { name = "misc",  layout = awful.layout.suit.fair },
-  { name = "chat",  layout = awful.layout.suit.fair },
+  { name = "chat",  layout = awful.layout.suit.magnifier },
   { name = "other", layout = awful.layout.suit.max },
 }
 
