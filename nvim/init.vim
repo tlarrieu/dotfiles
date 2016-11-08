@@ -8,7 +8,7 @@ set shell=/bin/bash
 call plug#begin()
 " {{{ --| File Manipulation |--------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'rking/ag.vim'
+Plug 'rking/ag.vim', { 'on': ['Ag', 'AgBuffer'] }
 Plug 'duggiefresh/vim-easydir'
 Plug 'tlarrieu/vim-sniper'
 " }}}
@@ -16,14 +16,15 @@ Plug 'tlarrieu/vim-sniper'
 Plug 'jamessan/vim-gnupg'
 " }}}
 " {{{ --| Functionnalities |---------------
-Plug 'AndrewRadev/linediff.vim'
+Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
-Plug 'vim-scripts/AnsiEsc.vim'
+Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sunaku/vim-dasht'
+Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
+Plug 'renamer.vim', { 'on': 'Renamer' }
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -33,7 +34,7 @@ Plug 'tpope/vim-projectionist'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
-Plug 'edsono/vim-matchit'
+Plug 'matchit.zip'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -45,7 +46,7 @@ Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'nelstrom/vim-textobj-rubyblock',
-  \ { 'for' : [ 'ruby', 'eruby', 'rspec', 'rake', 'elixir' ] }
+  \ { 'for' : ['ruby', 'eruby', 'rspec', 'rake', 'elixir'] }
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 " {{{ --| Git |----------------------------
@@ -58,7 +59,7 @@ Plug 'neomake/neomake'
 " }}}
 " }}}
 " {{{ --| Task manager |-------------------
-Plug 'samsonw/vim-task', { 'for' : [ 'task', 'tasks' ] }
+Plug 'samsonw/vim-task', { 'for' : ['task', 'tasks'] }
 " }}}
 " {{{ --| List toggler |-------------------
 Plug 'milkypostman/vim-togglelist'
@@ -67,7 +68,7 @@ Plug 'milkypostman/vim-togglelist'
 Plug 'tpope/vim-rails'
 " }}}
 " {{{ --| Elixir |-------------------------
-Plug 'slashmili/alchemist.vim'
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 " }}}
 " {{{ --| SQL |----------------------------
 Plug 'krisajenkins/vim-postgresql-syntax'
@@ -380,6 +381,7 @@ nmap <leader>s :Gstatus<cr>
 nmap <leader>S :GV<cr>
 nmap <leader>f :Gfetch<space>
 nmap <leader>w :Gwrite<cr>
+nmap <leader>R :tabonly<cr><c-w>o:Gstatus<cr>
 " }}}
 " {{{ --| Linediff |----------------------------------------
 vmap <leader>d :Linediff<cr>
