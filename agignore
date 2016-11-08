@@ -1,3 +1,7 @@
+.keep
+
+.gradle
+
 log
 vendor
 tmp
@@ -5,6 +9,8 @@ doc
 coverage
 public/assets
 tags
+build
+_build
 
 *.png
 *.jpg
@@ -20,11 +26,4 @@ tags
 *.log
 db/data
 
-data/manual_cache.json
-data/geolocation_cache.json
-
 app/assets/javascripts/swagger/swagger-ui.js
-
-elm-stuff
-
-_build
