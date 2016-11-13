@@ -42,7 +42,7 @@ clientkeys = awful.util.table.join(
   end),
 
   -- Kill
-  awful.key({mod}, "w", function(c) c:kill() end),
+  awful.key({mod}, "eacute", function(c) c:kill() end),
 
   -- Moving client arounds
   awful.key({mod, "Control"}, "c", function(c)
@@ -180,7 +180,7 @@ keyboard = awful.util.table.join(
     "Tab",
     "sh /home/tlarrieu/scripts/rofi-monitors"
     ),
-  spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
+  mspawn("F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
 
   -- Power management
 
@@ -208,28 +208,15 @@ keyboard = awful.util.table.join(
     run_or_raise("spotify", { class = "Spotify" })
   end),
 
-  -- XFCE4 properties
-
-  mspawn("b", "xfce4-settings-manager"),
-
-  awful.key({mod}, ".", function()
-    run_or_raise(terminal .. " --class=hangups -e hangups", { class = "hangups" })
-  end),
-
   -- browsers
 
-  mspawn("'", "qutebrowser"),
+  mspawn("n", "qutebrowser"),
   mspawn("u", terminal .. " -e 'ranger' -t ranger --class=Ranger"),
   mspawn("g", "thunar"),
 
-  -- games
-
-  spawn({mod, "Control"}, "h", "/home/tlarrieu/bin/hearthstone"),
-
   -- terminal
 
-  mspawn("n", terminal),
-  spawn({mod, "Shift"}, "n", "gksu " .. terminal),
+  mspawn("'", terminal),
 
   -- screenshots
 
@@ -239,7 +226,17 @@ keyboard = awful.util.table.join(
 
   -- xkill
 
-  spawn({mod, "Control"}, "w", "xkill")
+  spawn({mod, "Control"}, "w", "xkill"),
+
+  -- htop
+
+  mspawn(",", terminal .. " -e htop"),
+
+  -- hangups
+
+  awful.key({mod}, ".", function()
+    run_or_raise(terminal .. " --class=hangups -e hangups", { class = "hangups" })
+  end)
 )
 
 -- [[ Final binding ]] ---------------------------------------------------------

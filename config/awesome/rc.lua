@@ -21,7 +21,7 @@ local tagsconfig = {
   { name = "other", layout = awful.layout.suit.max },
 }
 
-wallpaper = "/home/tlarrieu/Pictures/wallpapers/LUNIK_3.png"
+wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-148255.png"
 layouts = {
   awful.layout.suit.tile,
   awful.layout.suit.tile.left,
