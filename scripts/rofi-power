@@ -5,7 +5,7 @@ LAUNCHER='rofi -hide-scrollbar -width 30 -dmenu -i -p power:'
 OPTIONS="Lock\nRestart\nShutdown\nSuspend"
 
 function lock {
-  i3lock  -f -n -i /home/tlarrieu/Pictures/wallpapers/LUNIK_3.png &
+  i3lock  -f -n -i /home/tlarrieu/Pictures/wallpapers/wallhaven-442014.png &
 }
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
