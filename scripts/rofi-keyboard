@@ -1,23 +1,15 @@
 #!/bin/bash
 
 LAUNCHER='rofi -hide-scrollbar -width 20 -dmenu -i -p layout:'
-OPTIONS="Azerty\nBépo\nQwerty\nDvorak\nColemak\nWorkman"
+OPTIONS="Bépo\nDvorak\nColemak\nWorkman\nQwerty\nAzerty"
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
 
 if [ ${#option} -gt 0 ]; then
   case $option in
-    Azerty)
-      layout=fr
-      variant=""
-      ;;
     Bépo)
       layout=fr
       variant=bepo
-      ;;
-    Qwerty)
-      layout=us
-      variant=""
       ;;
     Dvorak)
       layout=us
@@ -30,6 +22,14 @@ if [ ${#option} -gt 0 ]; then
     Workman)
       layout=us
       variant=workman
+      ;;
+    Qwerty)
+      layout=us
+      variant=""
+      ;;
+    Azerty)
+      layout=fr
+      variant=""
       ;;
   esac
 
