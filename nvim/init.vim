@@ -3,7 +3,7 @@
 " tlarrieu's nvimrc
 " Designed for dvorak-bépo keyboard
 " ------------------------------------------------------------------------------
-set shell=/bin/bash
+set shell=/bin/sh
 " {{{ ==| vim-plug |============================================================
 call plug#begin()
 " {{{ --| File Manipulation |--------------
@@ -25,6 +25,7 @@ Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
 Plug 'renamer.vim', { 'on': 'Renamer' }
+Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
