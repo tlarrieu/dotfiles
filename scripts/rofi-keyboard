@@ -1,0 +1,43 @@
+#!/bin/bash
+
+LAUNCHER='rofi -hide-scrollbar -width 20 -dmenu -i -p layout:'
+OPTIONS="Azerty\nBépo\nQwerty\nDvorak\nColemak\nWorkman"
+
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+
+if [ ${#option} -gt 0 ]; then
+  case $option in
+    Azerty)
+      layout=fr
+      variant=""
+      ;;
+    Bépo)
+      layout=fr
+      variant=bepo
+      ;;
+    Qwerty)
+      layout=us
+      variant=""
+      ;;
+    Dvorak)
+      layout=us
+      variant=dvorak
+      ;;
+    Colemak)
+      layout=us
+      variant=colemak
+      ;;
+    Workman)
+      layout=us
+      variant=workman
+      ;;
+  esac
+
+  if [[ $(setxkbmap -model pc105 -layout "$layout" -variant "$variant") ]]; then
+    notify-send Failure "Could not load (layout = $layout, variant = $variant)"
+  else
+    notify-send Success "Keyboard set to (layout = $layout, variant = $variant)"
+  fi
+
+  xmodmap ~/.Xmodmap
+fi
