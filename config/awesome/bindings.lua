@@ -179,8 +179,8 @@ keyboard = awful.util.table.join(
     {mod, "Control"},
     "Tab",
     "sh /home/tlarrieu/scripts/rofi-monitors"
-    ),
-  mspawn("F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
+  ),
+  spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
 
   -- Power management
 
