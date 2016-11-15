@@ -82,7 +82,9 @@ local keyboard = awful.util.table.join(
   -- Tags switching
 
   awful.key({mod}, "c", awful.tag.viewprev),
+  awful.key({mod}, "Left", awful.tag.viewprev),
   awful.key({mod}, "r", awful.tag.viewnext),
+  awful.key({mod}, "Right", awful.tag.viewnext),
 
   -- Tags direct access
 
@@ -95,34 +97,18 @@ local keyboard = awful.util.table.join(
 
   -- Client moving
 
-  awful.key({mod, "Control"}, "t", function()
-    awful.client.swap.byidx(1)
-  end),
-  awful.key({mod, "Control"}, "s", function()
-    awful.client.swap.byidx(-1)
-  end),
+  awful.key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
+  awful.key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
   -- Client size
-  awful.key({mod}, "d", function()
-    awful.tag.incmwfact(0.05)
-  end),
-  awful.key({mod}, "v", function()
-    awful.tag.incmwfact(-0.05)
-  end),
-  awful.key({mod, "Shift"}, "d", function()
-    awful.client.incwfact(0.05)
-  end),
-  awful.key({mod, "Shift"}, "v", function()
-    awful.client.incwfact(-0.05)
-  end),
+  awful.key({mod}, "d", function() awful.tag.incmwfact(0.05) end),
+  awful.key({mod}, "v", function() awful.tag.incmwfact(-0.05) end),
+  awful.key({mod, "Shift"}, "d", function() awful.client.incwfact(0.05) end),
+  awful.key({mod, "Shift"}, "v", function() awful.client.incwfact(-0.05) end),
 
   -- Layout switching
 
-  awful.key({mod}, "l", function()
-    awful.layout.inc(layouts, 1)
-  end),
-  awful.key({mod, "Shift"}, "l", function()
-    awful.layout.inc(layouts, -1)
-  end),
+  awful.key({mod}, "l", function() awful.layout.inc(layouts, 1) end),
+  awful.key({mod, "Shift"}, "l", function() awful.layout.inc(layouts, -1) end),
 
   -- Client focus
 
@@ -130,19 +116,23 @@ local keyboard = awful.util.table.join(
     awful.client.focus.byidx(1)
     if client.focus then client.focus:raise() end
   end),
+  awful.key({mod}, "Down", function()
+    awful.client.focus.byidx(1)
+    if client.focus then client.focus:raise() end
+  end),
   awful.key({mod}, "s", function()
+    awful.client.focus.byidx(-1)
+    if client.focus then client.focus:raise() end
+  end),
+  awful.key({mod}, "Up", function()
     awful.client.focus.byidx(-1)
     if client.focus then client.focus:raise() end
   end),
 
   -- Screen focus
 
-  awful.key({mod}, "i", function()
-    awful.screen.focus_relative(1)
-  end),
-  awful.key({mod}, "e", function()
-    awful.screen.focus_relative(-1)
-  end),
+  awful.key({mod}, "i", function() awful.screen.focus_relative(1) end),
+  awful.key({mod}, "e", function() awful.screen.focus_relative(-1) end),
 
   -- Client screen moving
 
