@@ -1,33 +1,33 @@
 [user]
-  name = Thomas Larrieu
-  email = thomas.larrieu@gmail.com
+	name = Thomas Larrieu
+	email = thomas.larrieu@gmail.com
 [credential]
-  helper = cache
+	helper = cache
 [color]
-  ui = auto
-  status = auto
-  diff = auto
+	ui = auto
+	status = auto
+	diff = auto
 [push]
-  default = current
+	default = current
 [difftool]
-  prompt = true
+	prompt = true
 [difftool.nvim]
-  cmd = nvim -d $LOCAL $REMOTE
+	cmd = nvim -d $LOCAL $REMOTE
 [diff]
-  tool = nvim
+	tool = nvim
 [core]
-  editor = nvim
-  excludesFile = /home/tlarrieu/.gitignore
+	editor = nvim
+	excludesFile = /home/tlarrieu/.gitignore
 [alias]
-  lc = log --merges
-  lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lgd = log --color --graph --date-order --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
-  lgsa = "!git lgs --author=$1"
-  co = checkout
-  br = branch
-  ci = commit
-  st = status
-  ft = fetch
-  wtf = "!cat ~/.gitconfig"
-  sync = fetch --all --prune --tags
+	lc = log --merges
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgd = log --color --graph --date-order --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --stat
+	lgsa = "!git lgs --author=$1"
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	ft = fetch
+	wtf = "!cat ~/.gitconfig"
+	sync = fetch --all --prune --tags
