@@ -6,7 +6,7 @@ alias v="nvim"
 alias python2="python2.7"
 
 # aria2c
-alias dl="aria2c"
+alias dl="aria2c --dir=/home/tlarrieu/Downloads"
 
 # youtube-dl
 alias yt="youtube-dl"
