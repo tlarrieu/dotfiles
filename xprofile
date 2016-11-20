@@ -3,4 +3,4 @@ compton &
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
-lemonbuddy top &
+polybar top &
