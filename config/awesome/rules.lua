@@ -11,6 +11,13 @@ awful.rules.rules = {
   },
 
   {
+    rule = { class = "Lemonbuddy" },
+    properties = {
+      ontop = false
+    }
+  },
+
+  {
     rule = { class = "Plugin-container" },
     properties = {
       floating = true,
