@@ -11,7 +11,7 @@ awful.rules.rules = {
   },
 
   {
-    rule = { class = "Lemonbuddy" },
+    rule = { class = "Polybar" },
     properties = {
       ontop = false
     }
