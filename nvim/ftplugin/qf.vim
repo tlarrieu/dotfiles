@@ -4,6 +4,8 @@ setlocal nobuflisted
 
 match OverLength //
 
+nnoremap <leader><cr> :Qfreplace tabedit<cr>
+
 " Preview
 nnoremap <silent> <buffer> o <cr><c-w>p
 
