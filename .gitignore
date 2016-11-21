@@ -38,5 +38,6 @@ config/jumanji/adblock
 
 config/qutebrowser/bookmarks/*
 config/qutebrowser/quickmarks
+config/qutebrowser/qsettings
 
 config/vimb
