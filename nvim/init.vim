@@ -185,6 +185,8 @@ set lazyredraw
 set updatetime=250
 " Change netrw list style
 let g:netrw_liststyle=1
+" inccommand
+set inccommand=split
 " }}}
 " {{{ ==| Splits |==============================================================
 set splitright
