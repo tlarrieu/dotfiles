@@ -2,6 +2,9 @@
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias v="nvim"
 
+# xclip
+alias xclip="xclip -selection clipboard"
+
 # python
 alias python2="python2.7"
 
