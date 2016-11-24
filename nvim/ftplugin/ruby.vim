@@ -20,7 +20,7 @@ augroup Test
         \ :call neoterm#test#run('current')<cr>
   autocmd BufEnter Gemfile
         \ nnoremap <silent> <buffer> <return>
-        \ :T bundle<cr>
+        \ :new<bar>call termopen('bundle')<cr>
   autocmd BufEnter main.rb
         \ nnoremap <silent> <buffer> <return>
         \ :T ./main.rb<cr>
@@ -38,10 +38,10 @@ endfunction
 
 augroup Migration
   autocmd!
-  autocmd BufReadPost db/migrate/*
+  autocmd BufEnter db/migrate/*
         \ map <silent> <buffer> <return>
         \ :call Migrate('up')<cr>
-  autocmd BufReadPost db/migrate/*
+  autocmd BufEnter db/migrate/*
         \ map <silent> <buffer> <leader><return>
         \ :call Migrate('down')<cr>
 augroup END
