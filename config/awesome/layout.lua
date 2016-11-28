@@ -114,14 +114,14 @@ for s = 1, screen.count() do
   local left = wibox.layout.fixed.horizontal()
   left:add(layoutbox)
   left:add(taglist)
-  left:add(wibox.layout.margin(cpuwidget, 5, 0, 0, 0))
-  left:add(wibox.layout.margin(memwidget, 10, 0, 0, 0))
 
   local middle = wibox.layout.fixed.horizontal()
   -- Hack to make the clock widget look like it is centered
-  middle:add(wibox.layout.margin(clockwidget, 0, 320, 0, 0))
+  middle:add(wibox.layout.margin(clockwidget, 0, 15, 0, 0))
 
   local right = wibox.layout.fixed.horizontal()
+  right:add(wibox.layout.margin(cpuwidget, 0, 10, 0, 0))
+  right:add(wibox.layout.margin(memwidget, 0, 10, 0, 0))
   right:add(battextwidget)
   right:add(batwidget)
 
