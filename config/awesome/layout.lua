@@ -6,6 +6,40 @@ local lain = require("lain")
 local layoutbox = awful.widget.layoutbox()
 layoutbox:buttons(layoutbuttons)
 
+local cpuwidget = wibox.widget.textbox()
+lain.widgets.cpu({ timeout = 2, settings = function()
+  local color = nil
+
+  if cpu_now.usage > 80 then
+    color = beautiful.colors.red
+  elseif cpu_now.usage > 70 then
+    color = beautiful.colors.orange
+  elseif cpu_now.usage > 50 then
+    color = beautiful.colors.yellow
+  else
+    color = beautiful.colors.green
+  end
+
+  cpuwidget:set_markup(lain.util.markup(color, "cpu: " .. cpu_now.usage .. "%"))
+end})
+
+local memwidget = wibox.widget.textbox()
+lain.widgets.mem({ timeout = 2, settings = function()
+  local color = nil
+
+  if mem_now.perc > 80 then
+    color = beautiful.colors.red
+  elseif mem_now.perc > 70 then
+    color = beautiful.colors.orange
+  elseif mem_now.perc > 50 then
+    color = beautiful.colors.yellow
+  else
+    color = beautiful.colors.green
+  end
+
+  memwidget:set_markup(lain.util.markup(color, "ram: " .. mem_now.perc .. "%"))
+end})
+
 local clockwidget = awful.widget.textclock(
   lain.util.markup(beautiful.fg_normal, " %Y.%m.%d %H:%M")
 )
@@ -80,15 +114,16 @@ for s = 1, screen.count() do
   local left = wibox.layout.fixed.horizontal()
   left:add(layoutbox)
   left:add(taglist)
+  left:add(wibox.layout.margin(cpuwidget, 5, 0, 0, 0))
+  left:add(wibox.layout.margin(memwidget, 10, 0, 0, 0))
 
   local middle = wibox.layout.fixed.horizontal()
-  middle:add(clockwidget)
+  -- Hack to make the clock widget look like it is centered
+  middle:add(wibox.layout.margin(clockwidget, 0, 320, 0, 0))
 
   local right = wibox.layout.fixed.horizontal()
   right:add(battextwidget)
   right:add(batwidget)
-  -- Hack to make the clock widget look like it is centered
-  right = wibox.layout.margin(right, 150, 0, 0, 0)
 
   local layout = wibox.layout.align.horizontal()
   layout:set_left(left)
