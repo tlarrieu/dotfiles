@@ -16,13 +16,13 @@ offset-y = 0
 
 background = #fdf6e3
 foreground = #073642
-linecolor = #555
+underline-color = #555
 
 border-bottom = 2
 border-bottom-color = #fdf6e3
 
 spacing = 1
-lineheight = 2
+underline-size = 2
 padding-left = 2
 padding-right = 2
 module-margin-left = 2
@@ -30,10 +30,10 @@ module-margin-right = 2
 
 font-0 = Inconsolata-g For Powerline:pixelsize=14;0
 font-1 = Inconsolata-g For Powerline:pixelsize=10;0
-; font-1 = unifont:size=6:heavy;-2
-font-2 = siji:pixelsize=10;0
+; font-2 = Inconsolata-g For Powerline:pixelsize=10;0
+font-2 = monspace:pixelsize=10;0
 
-modules-left = mpd volume memory cpu
+modules-left = workspaces memory cpu
 modules-center = date
 modules-right = wlan battery temperature
 
@@ -41,6 +41,28 @@ tray-position = left
 tray-padding = 4
 ; tray-transparent = true
 ; tray-background = #0063ff
+
+[module/workspaces]
+type = internal/xworkspaces
+pin-workspaces = false
+enable-click = false
+enable-scroll = false
+
+label-active =  %name% 
+; label-active-foreground = #ffffff
+; label-active-background = #3f3f3f
+label-active-underline = #859900
+
+label-occupied =  %name% 
+; label-occupied-underline = #555555
+
+label-urgent =  %name% 
+; label-urgent-foreground = #000000
+; label-urgent-background = #bd2c40
+; label-urgent-underline = #9b0a20
+
+label-empty =  %name% 
+label-empty-foreground = #55
 
 [module/filesystem]
 type = internal/fs
