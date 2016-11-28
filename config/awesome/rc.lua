@@ -47,7 +47,6 @@ for s = 1, screen.count() do
 end
 
 require "bindings"
--- require "layout"
-require "layout-lemonbuddy"
+require "layout"
 require "signals"
 require "rules"

@@ -11,13 +11,6 @@ awful.rules.rules = {
   },
 
   {
-    rule = { class = "Polybar" },
-    properties = {
-      ontop = false
-    }
-  },
-
-  {
     rule = { class = "Plugin-container" },
     properties = {
       floating = true,
