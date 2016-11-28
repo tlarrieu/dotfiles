@@ -34,16 +34,6 @@ awful.rules.rules = {
   {
     rule_any = {
       class = {
-        "Spotify",
-        "hangups",
-      },
-    },
-    properties = { skip_taskbar = true },
-  },
-
-  {
-    rule_any = {
-      class = {
         "MPlayer",
         "Vlc",
         "mpv",
