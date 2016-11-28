@@ -106,10 +106,4 @@ theme.titlebar_maximized_button_normal_active   = theme.path.."titlebar/maximize
 theme.titlebar_maximized_button_focus_inactive  = theme.path.."titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.path.."titlebar/maximized_normal_inactive.png"
 
--- [[ battery widget ]] --------------------------------------------------------
-theme.ac      = theme.path .. "/icons/ac.png"
-theme.bat     = theme.path .. "/icons/bat.png"
-theme.bat_low = theme.path .. "/icons/bat_low.png"
-theme.bat_no  = theme.path .. "/icons/bat_no.png"
-
 return theme

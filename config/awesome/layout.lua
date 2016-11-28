@@ -12,7 +12,6 @@ local clockwidget = awful.widget.textclock(
 
 local battextwidget = wibox.widget.textbox()
 battextwidget:set_font("Inconsolata-g For Powerline 10")
-local baticon = wibox.widget.imagebox(beautiful.bat)
 local batbar = awful.widget.progressbar()
 batbar:set_width(45)
 batbar:set_ticks(false)
@@ -52,17 +51,16 @@ local batcallback = function()
 
   -- icon
   if bat_now.status == "Charging" then
-    icon = beautiful.ac
-  elseif bat_now.perc > 50 then
-    icon = beautiful.bat
-  elseif bat_now.perc > 15 then
-    icon = beautiful.bat_low
+    if bat_now.perc == 100 then
+      icon = ""
+    else
+      icon = "↑ "
+    end
   else
-    icon = beautiful.bat_no
+    icon = "↓ "
   end
 
-  baticon:set_image(icon)
-  battextwidget:set_markup(lain.util.markup(color, legend))
+  battextwidget:set_markup(lain.util.markup(color, icon .. legend))
   batbar:set_color(color)
   batbar:set_value(bat_now.perc / 100)
 end
@@ -87,7 +85,6 @@ for s = 1, screen.count() do
   middle:add(clockwidget)
 
   local right = wibox.layout.fixed.horizontal()
-  right:add(baticon)
   right:add(battextwidget)
   right:add(batwidget)
   -- Hack to make the clock widget look like it is centered
