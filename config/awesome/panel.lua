@@ -84,14 +84,14 @@ local batcallback = function()
   end
 
   -- icon
-  if bat_now.status == "Charging" then
-    if bat_now.perc == 100 then
-      icon = ""
-    else
-      icon = "↑ "
-    end
+  if bat_now.perc == 100 then
+    icon = "⚡ "
   else
-    icon = "↓ "
+    if bat_now.status == "Charging" then
+      icon = "↑ "
+    else
+      icon = "↓ "
+    end
   end
 
   battextwidget:set_markup(lain.util.markup(color, icon .. legend))
