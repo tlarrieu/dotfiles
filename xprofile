@@ -1,3 +1,6 @@
+mpd
+mpc repeat on
+mpc crossfade 2
 redshift &
 compton &
 setxkbmap -option ctrl:nocaps

@@ -172,7 +172,6 @@ keyboard = awful.util.table.join(
   ),
   spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
   mspawn("F2", "sh /home/tlarrieu/scripts/rofi-keyboard"),
-  spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
 
   -- Power management
 
@@ -189,12 +188,9 @@ keyboard = awful.util.table.join(
 
   -- music
 
-  awful.key({mod}, "m", function()
-    run_or_raise(
-      terminal .. " -e 'padsp mocp' -t mocp --class=mocp",
-      { class = "mocp" }
-    )
-  end),
+  mspawn("m", "sh /home/tlarrieu/scripts/mpc-library"),
+  mspawn("b", "sh /home/tlarrieu/scripts/mpc-playlist"),
+  mspawn(" ", "mpc toggle"),
 
   awful.key({mod, "Control"}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })

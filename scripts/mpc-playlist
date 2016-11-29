@@ -1,0 +1,27 @@
+#!/bin/sh
+
+_rofi() {
+  rofi \
+    -i \
+    -dmenu \
+    -a $1 \
+    -selected-row $1 \
+    -lines 20 \
+    -width 50 \
+    -p "playlist> "
+}
+
+mpc_playlist() {
+  local current=$(( $(mpc status -f "%position%" | head -n 1) - 1 ))
+
+  local format="[[[%artist%] - [%title%]]|[%file%]"
+  local selection=$(
+    mpc playlist -f "%position%) $format" | \
+    _rofi $current | \
+    sed -n 's/^\([0-9]\+\)).*/\1/p'
+  ) || return 1
+
+  [ -n "$selection" ] && mpc -q play $selection
+}
+
+mpc_playlist

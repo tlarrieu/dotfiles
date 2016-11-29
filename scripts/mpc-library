@@ -1,0 +1,29 @@
+#!/bin/sh
+
+_rofi() {
+  rofi \
+    -i \
+    -dmenu \
+    -lines 35 \
+    -width 50 \
+    -p "library> "
+}
+
+mpc_add() {
+  mpc clear -q
+  mpc add -q "$1"
+  mpc play
+}
+
+mpc_library() {
+  local prefix=$HOME/Music/
+  local selection=$(
+    find $prefix* -type d | \
+    sed "s#$prefix##" | \
+    _rofi
+  ) || return 1
+
+  [ -n "$selection" ] && mpc_add "$selection"
+}
+
+mpc_library
