@@ -150,6 +150,9 @@ safelink $BASEDIR/xprofile $HOME/.xprofile
 # Xmodmap
 safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
+# dircolors
+safelink $BASEDIR/dir_colors $HOME/.dir_colors
+
 # fonts
 [[ -d $HOME/.fonts ]] || mkdir $HOME/.fonts
 cp $BASEDIR/Inconsolata\ for\ Powerline.otf $HOME/.fonts/
