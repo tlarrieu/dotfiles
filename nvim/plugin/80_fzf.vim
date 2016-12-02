@@ -148,9 +148,9 @@ function! s:fzf_tags(kind)
   call fzf#run({
     \ 'source': 'cat '.join(map(l:tagfiles, 'fnamemodify(v:val, ":S")')) .
     \           '| grep -v ^! ' . l:grepcmd,
-    \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1 --tiebreak=index ' .
+    \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1 --tiebreak=length ' .
     \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi ' .
-    \            '--prompt "' . l:prompt . '?> " -0 --exact',
+    \            '--prompt "' . l:prompt . '?> " --exact',
     \ 'down': '50%',
     \ 'sink*': function('s:tags_sink')})
 endfunction
