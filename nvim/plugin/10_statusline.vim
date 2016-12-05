@@ -4,15 +4,13 @@ let g:lightline = {
       \   'right': [
       \     ['syntax', 'whitespace', 'lineinfo'],
       \     ['percent'],
-      \     ['fileformat', 'fileencoding', 'filetype']
+      \     ['file'],
       \   ]
       \ },
       \ 'component_function': {
       \   'fugitive': 'LightLineFugitive',
       \   'filename': 'LightLineFilename',
-      \   'fileformat': 'LightLineFileformat',
-      \   'filetype': 'LightLineFiletype',
-      \   'fileencoding': 'LightLineFileencoding',
+      \   'file': 'LightLineFile',
       \   'mode': 'LightLineMode'
       \ },
       \ 'component_expand': {
@@ -34,8 +32,8 @@ let g:lightline = {
       \ 'tab_component_function': {
       \   'filename': 'TabooTabTitle'
       \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
 augroup LightLine
@@ -46,25 +44,25 @@ augroup LightLine
 augroup END
 
 function! LightLineModified()
-  return &ft =~ 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
 endfunction
 
 function! LightLineReadonly()
-  return &ft !~? 'help' && &readonly ? '' : ''
+  return &filetype !~? 'help' && &readonly ? '' : ''
 endfunction
 
 function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' != expand('%:p:.') ? expand('%:p:.') : '[No Name]') .
-        \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  return ('' !=# LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' !=# expand('%:p:.') ? expand('%:p:.') : '[No Name]') .
+        \ ('' !=# LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
 function! LightLineFugitive()
   try
     if exists('*fugitive#head')
-      let mark = ''
-      let branch = fugitive#head()
-      return branch !=# '' ? mark.' '.branch : ''
+      let l:mark = ''
+      let l:branch = fugitive#head()
+      return l:branch !=# '' ? l:mark . ' ' . l:branch : ''
     endif
   catch
   endtry
@@ -72,15 +70,27 @@ function! LightLineFugitive()
 endfunction
 
 function! LightLineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+  return &fileformat
 endfunction
 
 function! LightLineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  return &filetype !=# '' ? &filetype : 'no ft'
 endfunction
 
 function! LightLineFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+  return &fileencoding !=# '' ? &fileencoding : &encoding
+endfunction
+
+function! LightLineFile()
+  if winwidth(0) < 70
+    return ''
+  endif
+
+  return LightLineFileformat() .
+        \ '(' .
+        \ LightLineFileencoding() .
+        \ ') → ' .
+        \ LightLineFiletype()
 endfunction
 
 function! LightLineMode()
@@ -95,8 +105,8 @@ function! StatusIf(glyphe, condition)
 endfunction
 
 function! LightLineSyntax()
-  let neomake = neomake#statusline#LoclistStatus()
-  return StatusIf(' ' . neomake, !empty(neomake))
+  let l:neomake = neomake#statusline#LoclistStatus()
+  return StatusIf(' ' . l:neomake, !empty(l:neomake))
 endfunction
 
 function! LightLineWhitespace()
@@ -108,18 +118,18 @@ function! LightLineWhitespace()
 
   " Matches " $" but not "\ $" (where $ marks the end of the line)
   " We do not want to match escaped spaces
-  let trailing = search('\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)', 'nw')
-  if trailing != 0
-    let b:whitespaces .= printf('tr(%s)', trailing)
+  let l:trailing = search('\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)', 'nw')
+  if l:trailing != 0
+    let b:whitespaces .= printf('tr(%s)', l:trailing)
   endif
 
   " Spaces before or after tabs are forbidden
-  let mixed = search('\v(^\t+ +| +\t+)', 'nw')
-  if mixed != 0
-    if trailing != 0
+  let l:mixed = search('\v(^\t+ +| +\t+)', 'nw')
+  if l:mixed != 0
+    if l:trailing != 0
       let b:whitespaces .= ' '
     endif
-    let b:whitespaces .= printf('indt(%s)', mixed)
+    let b:whitespaces .= printf('indt(%s)', l:mixed)
   endif
 
   return b:whitespaces
