@@ -64,7 +64,6 @@ function! <sid>Openfile() dict
   execute 'bdelete! ' . self.bufnr
   execute 'new ' . self.filename
   setf postgresql
-  match OverLength //
 endfunction
 
 command! -range=% RunSQL <line1>,<line2>call RunSQL()

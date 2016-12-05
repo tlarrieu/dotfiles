@@ -2,8 +2,6 @@ setlocal nonumber
 setlocal norelativenumber
 setlocal nobuflisted
 
-match OverLength //
-
 nnoremap <leader><cr> :Qfreplace tabedit<cr>
 
 " Preview
