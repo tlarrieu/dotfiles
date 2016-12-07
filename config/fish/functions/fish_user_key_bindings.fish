@@ -10,7 +10,12 @@ end
 function fzf-gitbranch
   set -q FZF_CTRL_B_COMMAND; or set -l FZF_CTRL_B_COMMAND "git branch -a"
   eval "$FZF_CTRL_B_COMMAND | fzf --extended --nth=2.. -d ' ' -m -e > $TMPDIR/fzf.result"
-  and commandline -i (cat $TMPDIR/fzf.result | cut -c3- | sed 's#remotes/origin/##')
+  and commandline -i (
+    cat $TMPDIR/fzf.result | \
+    cut -c3- | \
+    sed 's#remotes/origin/##' | \
+    tr '\n' ' '
+  )
   commandline -f repaint
   rm -f $TMPDIR/fzf.result
 end
