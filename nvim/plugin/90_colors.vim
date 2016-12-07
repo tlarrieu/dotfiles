@@ -1,19 +1,29 @@
-highlight! OverLength ctermbg=red ctermfg=black guibg=red guifg=black
-
 augroup OverLength
   autocmd!
-  autocmd BufReadPost,BufEnter,FileType * call s:overlength()
+  autocmd BufReadPost,BufEnter,FileType,TermOpen * call s:overlength()
 augroup END
 
-let s:no_over_length = ['qf', 'man', 'netrw', 'csv', 'log', 'postgresql']
+augroup SETUP_COLORS
+  autocmd!
+  autocmd OptionSet background call s:setupcolors()
+  autocmd VimEnter * call s:setupcolors()
+  autocmd SourceCmd $MYVIMRC call s:setupcolors()
+augroup END
 
-function s:overlength()
-  if index(s:no_over_length, &filetype) != -1
-    execute 'match OverLength //'
-    return
+function! s:overlength()
+  let l:exclude = {
+    \ 'filetype': ['qf', 'man', 'netrw', 'csv', 'log', 'postgresql'],
+    \ 'buftype': ['terminal']
+    \ }
+
+  let l:ft_exclude = index(l:exclude['filetype'], &filetype) != -1
+  let l:bt_exclude = index(l:exclude['buftype'], &buftype) != -1
+
+  if l:ft_exclude || l:bt_exclude
+    execute 'match Folded //'
+  else
+    execute 'match Folded /\%81v.\+/'
   endif
-
-  execute 'match OverLength /\%81v.\+/'
 endfunction
 
 function! s:highlights()
@@ -40,10 +50,3 @@ function! s:setupcolors()
 
   call s:highlights()
 endfunction
-
-augroup SETUP_COLORS
-  autocmd!
-  autocmd OptionSet background call s:setupcolors()
-  autocmd VimEnter * call s:setupcolors()
-  autocmd SourceCmd $MYVIMRC call s:setupcolors()
-augroup END
