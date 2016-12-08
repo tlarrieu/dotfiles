@@ -12,7 +12,15 @@ augroup END
 
 function! s:overlength()
   let l:exclude = {
-    \ 'filetype': ['qf', 'man', 'netrw', 'csv', 'log', 'postgresql'],
+    \ 'filetype': [
+    \   'qf',
+    \   'man',
+    \   'netrw',
+    \   'csv',
+    \   'log',
+    \   'postgresql',
+    \   'fugitiveblame',
+    \ ],
     \ 'buftype': ['terminal']
     \ }
 
