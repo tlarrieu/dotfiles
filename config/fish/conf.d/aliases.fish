@@ -17,6 +17,9 @@ alias yt="youtube-dl"
 # mplayer
 alias mp="mplayer"
 
+# Feh
+alias feh="feh -dF"
+
 # Zathura
 alias z="zathura"
 
@@ -32,7 +35,7 @@ alias atx="atool -x"
 # Yaourt
 alias y="yaourt"
 alias ys="yaourt -S"
-function yss; yaourt -Ss --color $argv | less; end
+function yss; yaourt -Ss $argv | vip +'set nofoldenable'; end
 alias ysuy="yaourt -Suy"
 alias yr="yaourt -Rs"
 alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
