@@ -46,4 +46,9 @@ awful.rules.rules = {
     },
     properties = { floating = true },
   },
+
+  {
+    rule_any = { class = { "Slack", "hangups", "Whatsie" } },
+    properties = { tag = tags[1][5], switchtotag = true },
+  },
 }

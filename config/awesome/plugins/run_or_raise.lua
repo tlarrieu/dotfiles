@@ -27,8 +27,16 @@ function run_or_raise(cmd, properties)
     if 0 < findex and findex < n then
       c = matched_clients[findex+1]
     end
-    local curtag = awful.tag.selected()
-    awful.client.movetotag(curtag, c)
+    local ctags = c:tags()
+    if #ctags == 0 then
+      -- ctags is empty, show client on current tag
+      local curtag = awful.tag.selected()
+      awful.client.movetotag(curtag, c)
+    else
+      -- Otherwise, pop to first tag client is visible on
+      awful.tag.viewonly(ctags[1])
+    end
+    -- And then focus the client
     client.focus = c
     c:raise()
     return
