@@ -3,6 +3,14 @@
 local terminal = "termite"
 local mod = "Mod4"
 
+local spawn = function(mod, key, cmd)
+  return awful.key(mod, key, function() awful.util.spawn(cmd) end)
+end
+local mspawn = function(key, cmd) return spawn({mod}, key, cmd) end
+local mtspawn = function(key, cmd)
+  return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
+end
+
 -- [[ Panel ]] -----------------------------------------------------------------
 
 tagbuttons = awful.util.table.join(
@@ -107,8 +115,7 @@ local keyboard = awful.util.table.join(
 
   -- Layout switching
 
-  awful.key({mod}, "l", function() awful.layout.inc(layouts, 1) end),
-  awful.key({mod, "Shift"}, "l", function() awful.layout.inc(layouts, -1) end),
+  mspawn("l", "sh /home/tlarrieu/scripts/rofi-layouts"),
 
   -- Client focus
 
@@ -149,14 +156,6 @@ local keyboard = awful.util.table.join(
 )
 
 -- [[ Applications ]] ----------------------------------------------------------
-
-local spawn = function(mod, key, cmd)
-  return awful.key(mod, key, function() awful.util.spawn(cmd) end)
-end
-local mspawn = function(key, cmd) return spawn({mod}, key, cmd) end
-local mtspawn = function(key, cmd)
-  return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
-end
 
 keyboard = awful.util.table.join(
   keyboard,

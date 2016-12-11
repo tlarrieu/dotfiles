@@ -1,0 +1,12 @@
+#!/bin/sh
+
+LAUNCHER='rofi -hide-scrollbar -width 15 -dmenu -i -p layout:'
+OPTIONS="magnifier\nfair\nfair.horizontal\nmax"
+
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+if [ ${#option} -gt 0 ]; then
+  echo "
+  awful = require('awful')
+  awful.layout.set(awful.layout.suit.$option)
+  " | awesome-client
+fi
