@@ -38,6 +38,7 @@ function! s:highlights()
   highlight! link VertSplit CursorColumn
   highlight! link SignatureMarkText SignColumn
   highlight! link MatchParen Title
+  highlight! link HighlightedyankRegion SignColumn
 endfunction
 
 function! s:setupcolors()

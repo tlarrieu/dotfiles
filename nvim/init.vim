@@ -50,6 +50,7 @@ Plug 'nelstrom/vim-textobj-rubyblock',
   \ { 'for' : ['ruby', 'eruby', 'rspec', 'rake', 'elixir'] }
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
+Plug 'machakann/vim-highlightedyank'
 " {{{ --| Git |----------------------------
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -228,6 +229,9 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| HighlightedYank |---------------------------------
+let g:highlightedyank_highlight_duration = 350
+" }}}
 " {{{ --| Neoterm |-----------------------------------------
 nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
 " }}}
