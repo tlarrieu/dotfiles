@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -hide-scrollbar -width 30 -dmenu -i -p power:'
+LAUNCHER='rofi -dmenu -i -p power:'
 # OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
 OPTIONS="Lock\nRestart\nShutdown\nSuspend"
 
