@@ -15,7 +15,7 @@ rofi.padding: 250
 rofi.color-normal: #00ffffff,#002b36,#00ffffff,#859900,#eee8d5
 rofi.color-urgent: #00ffffff,#dc322f,#00ffffff,#dc322f,#fdf6e3
 rofi.color-active: #00ffffff,#268bd2,#00ffffff,#268bd2,#fdf6e3
-rofi.color-window: #B0fdf6e3,#002b36
+rofi.color-window: #E0fdf6e3,#E02b36
 
 ! ------------------------------------------------------------------------------
 ! Runner
