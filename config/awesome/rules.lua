@@ -49,6 +49,11 @@ awful.rules.rules = {
 
   {
     rule_any = { class = { "Slack", "hangups", "Whatsie" } },
-    properties = { tag = tags[1][5], switchtotag = true },
+    properties = { tag = tags[1][5] },
+  },
+
+  {
+    rule = { class = "hangups" },
+    properties = { switchtotag = true },
   },
 }
