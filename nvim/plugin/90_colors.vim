@@ -20,6 +20,7 @@ function! s:overlength()
     \   'log',
     \   'postgresql',
     \   'fugitiveblame',
+    \   '',
     \ ],
     \ 'buftype': ['terminal']
     \ }
