@@ -9,15 +9,15 @@ end
 
 function fzf-gitbranch
   set -q FZF_CTRL_B_COMMAND; or set -l FZF_CTRL_B_COMMAND "git branch -a"
-  eval "$FZF_CTRL_B_COMMAND | fzf --extended --nth=2.. -d ' ' -m -e > $TMPDIR/fzf.result"
+  eval "$FZF_CTRL_B_COMMAND | fzf --extended --nth=2.. -d ' ' -m -e > /tmp/fzf.result"
   and commandline -i (
-    cat $TMPDIR/fzf.result | \
+    cat /tmp/fzf.result | \
     cut -c3- | \
     sed 's#remotes/origin/##' | \
     tr '\n' ' '
   )
   commandline -f repaint
-  rm -f $TMPDIR/fzf.result
+  rm -f /tmp/fzf.result
 end
 
 function fzf-gitsha
@@ -29,10 +29,10 @@ function fzf-gitsha
   "
   eval "$FZF_GIT_LOG_COMMAND |\
     fzf --ansi --no-sort --reverse --tiebreak=index -e\
-    > $TMPDIR/fzf.result"
-  and commandline -i (cat $TMPDIR/fzf.result | grep -o '[a-f0-9]\{7\}' | head -1)
+    > /tmp/fzf.result"
+  and commandline -i (cat /tmp/fzf.result | grep -o '[a-f0-9]\{7\}' | head -1)
   commandline -f repaint
-  rm -f $TMPDIR/fzf.result
+  rm -f /tmp/fzf.result
 end
 
 bind \et 'fkill'
