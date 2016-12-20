@@ -10,7 +10,7 @@ function! s:GetQuery(first, last)
   return query
 endfunction
 
-function! RunSQL() range
+function! s:RunSQL() range
   let arguments = matchstr(getline(1), '--\s*\zs.*')
   let query = s:GetQuery(a:firstline, a:lastline)
 
@@ -29,13 +29,13 @@ function! RunSQL() range
         \ cmdline,
         \ {
         \   'name' : 'postgres',
-        \   'on_exit' : function('s:Openfile'),
+        \   'on_exit' : 'OpenSQLResult',
         \   'filename' : tempfile,
         \   'bufnr' : bufnr('%')
         \ })
 endfunction
 
-function! Identify(entity)
+function! s:Identify(entity)
   let arguments = matchstr(getline(1), '--\s*\zs.*')
   let query = '\d ' . a:entity
 
@@ -54,23 +54,18 @@ function! Identify(entity)
         \ cmdline,
         \ {
         \   'name' : 'postgres',
-        \   'on_exit' : function('s:Openfile'),
+        \   'on_exit' : 'OpenSQLResult',
         \   'filename' : tempfile,
         \   'bufnr' : bufnr('%')
         \ })
 endfunction
 
-function! <sid>Openfile() dict
-  execute 'bdelete! ' . self.bufnr
-  execute 'new ' . self.filename
-  setf postgresql
-endfunction
+command! -range=% RunSQL <line1>,<line2>call s:RunSQL()
+" command! Identify call Identify()
 
-command! -range=% RunSQL <line1>,<line2>call RunSQL()
-command! Identify call Identify()
-
-nmap <silent> <buffer> <return> :'{,'}RunSQL<cr>
-nmap <silent> <buffer> <leader><return> :call Identify('<c-r><c-w>')<cr>
+nmap <silent> <buffer> <return> vip:RunSQL<cr>
+vmap <silent> <buffer> <return> :'<,'>RunSQL<cr>
+nmap <silent> <buffer> <leader><return> :call <sid>Identify('<c-r><c-w>')<cr>
 
 " -- [[ Formatter ]] -----------------------------------------------------------
 vmap <silent> <leader>i :!sqlformat - -r -k upper<cr>

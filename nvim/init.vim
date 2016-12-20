@@ -274,7 +274,7 @@ let g:diminactive_use_colorcolumn = 1
 let g:diminactive_use_syntax = 0
 " }}}
 " {{{ --| Sniper |------------------------------------------
-vmap <cr> :<c-u>call Snipe('vnew')<cr>
+vmap <leader><cr> :<c-u>call Snipe('vnew')<cr>
 " }}}
 " {{{ --| ArgWrap |-----------------------------------------
 nnoremap <silent> <leader>; :ArgWrap<CR>
