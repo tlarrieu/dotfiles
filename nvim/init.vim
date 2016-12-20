@@ -504,6 +504,7 @@ nnoremap À :confirm quitall<cr>
 " Save
 nmap <c-s> :update<cr>
 imap <c-s> <esc>:update<cr>
+vmap <c-s> <esc>:update<cr>
 " Reselect pasted lines
 nnoremap gV `[v`]
 " Command line
