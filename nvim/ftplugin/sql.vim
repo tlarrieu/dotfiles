@@ -1,70 +1,48 @@
 " -- [[ Runner ]] --------------------------------------------------------------
-function! s:GetQuery(first, last)
-  let query = ''
-  let lines = getline(a:first, a:last)
-  for line in lines
-    if line !~ '--.*'
-      let query .= line . "\\n"
-    endif
-  endfor
-  return query
-endfunction
+function! s:RunSQL(query)
+  let l:arguments = matchstr(getline(1), '--\s*\zs.*')
 
-function! s:RunSQL() range
-  let arguments = matchstr(getline(1), '--\s*\zs.*')
-  let query = s:GetQuery(a:firstline, a:lastline)
+  let l:tempfile = tempname()
 
-  let tempfile = tempname()
-
-  let query = shellescape('\\timing on\n ' . query)
-  let query = escape(query, '%')
-  let cmdline =
-        \ 'echo -e ' . query .
-        \ '| psql ' . arguments .
-        \ ' >& ' . tempfile
+  let l:query = shellescape('\\timing on\n ' . a:query)
+  let l:query = escape(l:query, '%')
+  let l:cmdline =
+    \ 'echo -e ' . l:query .
+    \ '| psql ' . l:arguments .
+    \ ' >& ' . l:tempfile
 
   new
 
   call termopen(
-        \ cmdline,
-        \ {
-        \   'name' : 'postgres',
-        \   'on_exit' : 'OpenSQLResult',
-        \   'filename' : tempfile,
-        \   'bufnr' : bufnr('%')
-        \ })
+    \ l:cmdline,
+    \ {
+    \   'name' : 'postgres',
+    \   'on_exit' : 'OpenSQLResult',
+    \   'filename' : l:tempfile,
+    \   'bufnr' : bufnr('%')
+    \ })
+endfunction
+
+function! s:Excute() range
+  let l:query = ''
+  let l:lines = getline(a:firstline, a:lastline)
+  for l:line in l:lines
+    if l:line !~# '--.*'
+      let l:query .= l:line . "\\n"
+    endif
+  endfor
+
+  call s:RunSQL(l:query)
 endfunction
 
 function! s:Identify(entity)
-  let arguments = matchstr(getline(1), '--\s*\zs.*')
-  let query = '\d ' . a:entity
-
-  let tempfile = tempname()
-
-  let query = shellescape('\\timing on\n ' . query)
-  let query = escape(query, '%')
-  let cmdline =
-        \ 'echo -e ' . query .
-        \ '| psql ' . arguments .
-        \ ' >& ' . tempfile
-
-  new
-
-  call termopen(
-        \ cmdline,
-        \ {
-        \   'name' : 'postgres',
-        \   'on_exit' : 'OpenSQLResult',
-        \   'filename' : tempfile,
-        \   'bufnr' : bufnr('%')
-        \ })
+  call s:RunSQL('\d ' . a:entity)
 endfunction
 
-command! -range=% RunSQL <line1>,<line2>call s:RunSQL()
-" command! Identify call Identify()
+command! -range=% ExecuteSQL <line1>,<line2>call s:Excute()
 
-nmap <silent> <buffer> <return> vip:RunSQL<cr>
-vmap <silent> <buffer> <return> :'<,'>RunSQL<cr>
+nmap <silent> <buffer> <return> vip:ExecuteSQL<cr>
+vmap <silent> <buffer> <return> :'<,'>ExecuteSQL<cr>
 nmap <silent> <buffer> <leader><return> :call <sid>Identify('<c-r><c-w>')<cr>
 
 " -- [[ Formatter ]] -----------------------------------------------------------
