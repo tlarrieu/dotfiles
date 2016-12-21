@@ -1,5 +1,5 @@
 function! OpenSQLResult() dict
-  execute 'bdelete! ' . self.bufnr
-  execute 'new ' . self.filename
+  execute 'bdelete! ' . l:self.bufnr
+  execute 'new ' . l:self.filename
   setf postgresql
 endfunction
