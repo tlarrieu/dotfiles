@@ -21,10 +21,9 @@ set -x GOPATH ~/go
 
 # PATH
 set -x PATH $PATH $HOME/scripts
-set -x PATH $PATH ~/bin
+set -x PATH $PATH $HOME/bin
 
 if type rbenv > /dev/null
-  # set -gx RBENV_ROOT /usr/local/var/rbenv
   source (rbenv init - | psub)
 end
 
