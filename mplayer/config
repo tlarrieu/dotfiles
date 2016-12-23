@@ -1,4 +1,0 @@
-# Write your default config options here!
-# ao=alsa:device=hw=DAC.0
-# ao=alsa:device=plug=dmixer
-
