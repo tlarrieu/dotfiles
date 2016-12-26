@@ -78,7 +78,7 @@ function! s:search_sink(input)
 endfunction
 
 command! -nargs=1 FZFsearch call fzf#run({
-  \ 'source': 'ag -i --nogroup --column "' . escape(<q-args>, '"\') . '"',
+  \ 'source': 'ag -S --nogroup --column "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>search_sink'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x -e --multi',
   \ 'down': '50%'
