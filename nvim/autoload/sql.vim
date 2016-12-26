@@ -43,3 +43,15 @@ function! sql#run(query) abort
     \   'bufnr' : bufnr('%')
     \ })
 endfunction
+
+function! sql#upper(sql) abort
+  let l:syntax_id = synID(line('.'), col('.') - 1, 0)
+  let l:syntax_element = synIDattr(synIDtrans(l:syntax_id), 'name')
+
+  " Do not uppercase word if within a comment or string
+  if l:syntax_element =~# 'Comment\|String'
+    return a:sql
+  endif
+
+  return toupper(a:sql)
+endfunction
