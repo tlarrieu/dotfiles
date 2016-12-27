@@ -2,7 +2,7 @@ setlocal nonumber
 setlocal norelativenumber
 setlocal nobuflisted
 
-nnoremap <leader><cr> :Qfreplace tabedit<cr>
+nnoremap <silent> <buffer> <leader><cr> :Qfreplace tabedit<cr>
 
 " Preview
 nnoremap <silent> <buffer> o <cr><c-w>p
