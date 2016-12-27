@@ -1,3 +1,5 @@
+# vim: ft=dosini cms=#%s
+
 [options]
 resize_grip = false
 scroll_on_output = false
@@ -9,7 +11,7 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Inconsolata-g For Powerline 14
+font = InconsolataForPowerline Nerd Font 16
 scrollback_lines = 10000
 search_wrap = true
 
@@ -70,13 +72,3 @@ color12 = #839496
 color13 = #6c71c4
 color14 = #93a1a1
 color15 = #fdf6e3
-
-[hints]
-# font = Inconsolata-g For Powerline 11.2
-# foreground = #dcdccc
-# background = #3f3f3f
-# padding = 2
-# border = #3f3f3f
-# border_width = 0.5
-# roundness = 2.0
-# vim: ft=dosini cms=#%s

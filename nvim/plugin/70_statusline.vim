@@ -4,13 +4,15 @@ let g:lightline = {
       \   'right': [
       \     ['syntax', 'whitespace', 'lineinfo'],
       \     ['percent'],
-      \     ['file'],
+      \     ['filetype', 'fileencoding', 'fileformat'],
       \   ]
       \ },
       \ 'component_function': {
-      \   'fugitive': 'LightLineFugitive',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'fileformat': 'LightLineFileformat',
       \   'filename': 'LightLineFilename',
-      \   'file': 'LightLineFile',
+      \   'filetype': 'LightLineFiletype',
+      \   'fugitive': 'LightLineFugitive',
       \   'mode': 'LightLineMode'
       \ },
       \ 'component_expand': {
@@ -32,8 +34,8 @@ let g:lightline = {
       \ 'tab_component_function': {
       \   'filename': 'TabooTabTitle'
       \ },
-      \ 'separator': { 'left': '', 'right': '' },
-      \ 'subseparator': { 'left': '', 'right': '' }
+      \ 'separator': { 'left': '', 'right': '' },
+      \ 'subseparator': { 'left': '', 'right': '' }
       \ }
 
 augroup LightLine
@@ -60,7 +62,7 @@ endfunction
 function! LightLineFugitive()
   try
     if exists('*fugitive#head')
-      let l:mark = ''
+      let l:mark = ''
       let l:branch = fugitive#head()
       return l:branch !=# '' ? l:mark . ' ' . l:branch : ''
     endif
