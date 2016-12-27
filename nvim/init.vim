@@ -230,7 +230,7 @@ set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| HighlightedYank |---------------------------------
-let g:highlightedyank_highlight_duration = 350
+let g:highlightedyank_highlight_duration = 180
 " }}}
 " {{{ --| Neoterm |-----------------------------------------
 nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
@@ -519,11 +519,11 @@ command! RF :call RenameFile()
 nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Uppercase current word
 nmap <c-g> gUiw
-imap <c-g> <esc>lgUiwea
+imap <c-g> <esc>gUiwea
 " Clear trailing spaces (but not the escaped ones)
 function! ClearTrailingSpaces()
   let l:_s=@/
-  %s/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
+  %substitute/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
   let @/=l:_s
   nohl
 endfunction
@@ -531,15 +531,12 @@ nmap <silent> <leader>k m`:call ClearTrailingSpaces()<cr>g``
 " Fix indent
 nmap <silent> ga m`gg=G:call ClearTrailingSpaces()<cr>g``
 " Cursorline / Cursorcolumn
-let g:virtualedit=''
 function! AlignMode()
-  if g:virtualedit
-    let g:virtualedit=0
+  if &virtualedit ==# 'all'
     set virtualedit=""
   else
-    let g:virtualedit=1
     set virtualedit=all
-  endif
+  end
   set cursorcolumn!
   set cursorline!
 endfunction
