@@ -41,6 +41,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular', { 'on' : 'Tabular' }
 Plug 'FooSoft/vim-argwrap'
+Plug 'jiangmiao/auto-pairs'
 " }}}
 " {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-function'
