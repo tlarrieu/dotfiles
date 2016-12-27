@@ -1,4 +1,4 @@
-snippet rspec "RSpec.describe" b
+snippet rs "RSpec.describe" b
 RSpec.describe ${1:class}, type: :${2:type} do
 	$3
 end
@@ -15,6 +15,14 @@ endsnippet
 snippet con "context"
 context '${1:context_name}' do
 	${2:${VISUAL}}
+end
+endsnippet
+
+# -- Before --------------------------------------------------------------------
+
+snippet bef "before"
+before do
+	$1
 end
 endsnippet
 

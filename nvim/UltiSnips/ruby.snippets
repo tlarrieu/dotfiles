@@ -104,7 +104,9 @@ snippet .sel "select" i
 endsnippet
 
 snippet .tap "tap" i
-.tap { |o| puts o.${1:inspect} }
+.tap do |o|
+	$1
+end
 endsnippet
 
 snippet .i "inspect" i
@@ -126,6 +128,10 @@ endsnippet
 
 snippet # "#{}" i
 #{$1}
+endsnippet
+
+snippet todo "TODO"
+# TODO: $1
 endsnippet
 
 # == Debugging =================================================================
