@@ -3,6 +3,7 @@ mpc repeat on
 mpc crossfade 2
 redshift &
 compton &
+unclutter -root -idle 2 &
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
