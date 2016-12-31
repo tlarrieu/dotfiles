@@ -1,7 +1,8 @@
 -- [[ Awesome modules ]] -------------------------------------------------------
 
-awful = require("awful")
+local awful = require("awful")
 require("awful.autofocus")
+local gears = require("gears")
 
 -- [[ Plugins ]] ---------------------------------------------------------------
 
@@ -12,37 +13,52 @@ require("plugins/run_or_raise")
 
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
-local tagsconfig = {
-  { name = "www",   layout = awful.layout.suit.max },
-  { name = "dev",   layout = awful.layout.suit.fair },
-  { name = "term",  layout = awful.layout.suit.fair },
-  { name = "misc",  layout = awful.layout.suit.fair },
-  { name = "chat",  layout = awful.layout.suit.magnifier },
-  { name = "other", layout = awful.layout.suit.max },
+local wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-373664.png"
+
+local tags = {
+  {
+    name = "www",
+    config = { layout = awful.layout.suit.max }
+  },
+  {
+    name = "dev",
+    config = { layout = awful.layout.suit.fair }
+  },
+  {
+    name = "term",
+    config = { layout = awful.layout.suit.fair }
+  },
+  {
+    name = "misc",
+    config = { layout = awful.layout.suit.fair }
+  },
+  {
+    name = "chat",
+    config = {
+      layout = awful.layout.suit.magnifier,
+      master_width_factor = 0.85,
+    }
+  },
+  {
+    name = "other",
+    config = { layout = awful.layout.suit.max }
+  },
 }
 
-wallpaper = "/home/tlarrieu/Pictures/wallpapers/wallhaven-373664.png"
-layouts = {
-  awful.layout.suit.magnifier,
-  awful.layout.suit.fair,
-  awful.layout.suit.fair.horizontal,
-  awful.layout.suit.max,
-}
+awful.screen.connect_for_each_screen(function(screen)
+  gears.wallpaper.maximized(wallpaper, screen, false)
 
-tags = {}
+  for _, tag in ipairs(tags) do
+    awful.tag.add(
+      tag.name,
+      awful.util.table.join({ screen = screen }, tag.config)
+    )
+  end
 
-local tagnames = {}
-local taglayouts = {}
-for i, config in ipairs(tagsconfig) do
-  tagnames[i] = config.name
-  taglayouts[i] = config.layout
-end
+  awful.tag.find_by_name(screen, "www"):view_only()
+end)
 
-for s = 1, screen.count() do
-  tags[s] = awful.tag(tagnames, s, taglayouts)
-end
-
-require "bindings"
-require "panel"
-require "signals"
-require "rules"
+require("bindings")
+require("panel")
+require("signals")
+require("rules")

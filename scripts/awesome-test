@@ -3,5 +3,5 @@
 Xephyr -ac -br -noreset -screen 1600x900 :1.0 &
 ZEPHYR_PID=$!
 sleep 1
-DISPLAY=:1.0 awesome -c rc.lua
+DISPLAY=:1.0 awesome
 kill $ZEPHYR_PID

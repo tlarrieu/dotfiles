@@ -1,14 +1,11 @@
+local awful = require("awful")
 local wibox = require("wibox")
-local gears = require("gears")
 local beautiful = require("beautiful")
 local lain = require("lain")
 
-local layoutbox = awful.widget.layoutbox()
-layoutbox:buttons(layoutbuttons)
-
 local cpuwidget = wibox.widget.textbox()
 lain.widgets.cpu({ timeout = 2, settings = function()
-  local color = nil
+  local color
 
   if cpu_now.usage > 80 then
     color = beautiful.colors.red
@@ -25,7 +22,7 @@ end})
 
 local memwidget = wibox.widget.textbox()
 lain.widgets.mem({ timeout = 2, settings = function()
-  local color = nil
+  local color
 
   if mem_now.perc > 80 then
     color = beautiful.colors.red
@@ -40,22 +37,22 @@ lain.widgets.mem({ timeout = 2, settings = function()
   memwidget:set_markup(lain.util.markup(color, "ram: " .. mem_now.perc .. "%"))
 end})
 
-local clockwidget = awful.widget.textclock(
+local clockwidget = wibox.widget.textclock(
   lain.util.markup(beautiful.fg_normal, " %Y.%m.%d %H:%M")
 )
 
 local battextwidget = wibox.widget.textbox()
 battextwidget:set_font("Inconsolata-g For Powerline 10")
-local batbar = awful.widget.progressbar()
-batbar:set_width(45)
+local batbar = wibox.widget.progressbar()
+batbar.forced_width = 45
 batbar:set_ticks(false)
 batbar:set_ticks_size(5)
 batbar:set_background_color(beautiful.bg_normal)
-local batmargin = wibox.layout.margin(batbar, 2, 7)
+local batmargin = wibox.container.margin(batbar, 2, 7)
 batmargin:set_top(8)
 batmargin:set_left(7)
 batmargin:set_bottom(8)
-local batwidget = wibox.widget.background(batmargin)
+local batwidget = wibox.container.background(batmargin)
 batwidget:set_bgimage(beautiful.widget_bg)
 
 local batcallback = function()
@@ -101,35 +98,42 @@ end
 
 lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = batcallback })
 
-for s = 1, screen.count() do
-  gears.wallpaper.maximized(wallpaper, s, false)
-
+awful.screen.connect_for_each_screen(function(screen)
   local taglist = awful.widget.taglist(
-    s,
+    screen,
     awful.widget.taglist.filter.all,
-    tagbuttons
+    awful.util.table.join(
+      awful.button({}, 1, function(tag) tag:view_only() end)
+    )
   )
-  -- local tasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, taskbuttons)
 
-  local left = wibox.layout.fixed.horizontal()
-  left:add(layoutbox)
-  left:add(taglist)
+  local left = wibox.widget {
+    wibox.container.margin(taglist, 5, 0, 0, 0),
+    layout = wibox.layout.fixed.horizontal
+  }
 
-  local middle = wibox.layout.fixed.horizontal()
-  -- Hack to make the clock widget look like it is centered
-  middle:add(wibox.layout.margin(clockwidget, 0, 15, 0, 0))
+  local middle = wibox.widget {
+    clockwidget,
+    layout = wibox.layout.fixed.horizontal,
+  }
 
-  local right = wibox.layout.fixed.horizontal()
-  right:add(wibox.layout.margin(cpuwidget, 0, 10, 0, 0))
-  right:add(wibox.layout.margin(memwidget, 0, 10, 0, 0))
-  right:add(battextwidget)
-  right:add(batwidget)
+  local right = wibox.widget {
+    wibox.container.margin(cpuwidget, 0, 10, 0, 0),
+    wibox.container.margin(memwidget, 0, 10, 0, 0),
+    battextwidget,
+    batwidget,
+    layout = wibox.layout.fixed.horizontal
+  }
 
-  local layout = wibox.layout.align.horizontal()
-  layout:set_left(left)
-  layout:set_middle(middle)
-  layout:set_right(right)
-
-  local panel = awful.wibox({ position = "top", screen = s })
-  panel:set_widget(layout)
-end
+  awful.wibar({
+    position = "top",
+    screen = screen,
+    widget = wibox.widget {
+      left,
+      middle,
+      right,
+      layout = wibox.layout.align.horizontal,
+      expand = "none"
+    },
+  })
+end)

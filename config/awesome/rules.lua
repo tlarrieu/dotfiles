@@ -1,12 +1,16 @@
-awful.rules = require("awful.rules")
+local awful = require("awful")
+require("awful.rules")
 
 awful.rules.rules = {
   {
     rule = {},
     properties = {
-      focus = true,
+      focus = awful.client.focus.filter,
       keys = clientkeys,
       buttons = clientbuttons,
+      placement = awful.placement.no_overlap +
+        awful.placement.no_offscreen +
+        awful.placement.centered
     }
   },
 
@@ -17,11 +21,6 @@ awful.rules.rules = {
       ontop = true,
       border = 0,
     }
-  },
-
-  {
-    rule = { class = "Conky" },
-    properties = { focus = false },
   },
 
   {
@@ -49,7 +48,7 @@ awful.rules.rules = {
 
   {
     rule_any = { class = { "Slack", "hangups", "Whatsie" } },
-    properties = { tag = tags[1][5] },
+    properties = { tag = "chat" },
   },
 
   {

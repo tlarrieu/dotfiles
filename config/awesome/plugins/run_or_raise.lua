@@ -1,3 +1,16 @@
+local awful = require("awful")
+
+-- Returns true if all pairs in table1 are present in table2
+local function match (table1, table2)
+  for k, v in pairs(table1) do
+    if table2[k] ~= v and not table2[k]:find(v) then
+      return false
+    end
+  end
+
+  return true
+end
+
 --- Spawns cmd if no client can be found matching properties
 -- If such a client can be found, move it to current tag, and give it focus
 -- @param cmd the command to execute
@@ -10,7 +23,7 @@ function run_or_raise(cmd, properties)
   local matched_clients = {}
   local n = 0
 
-  for i, c in pairs(clients) do
+  for _, c in pairs(clients) do
     -- make an array of matched clients
     if match(properties, c) then
       n = n + 1
@@ -30,11 +43,10 @@ function run_or_raise(cmd, properties)
     local ctags = c:tags()
     if #ctags == 0 then
       -- ctags is empty, show client on current tag
-      local curtag = awful.tag.selected()
-      awful.client.movetotag(curtag, c)
+      c:move_to_tag(awful.screen.focused().selected_tag())
     else
       -- Otherwise, pop to first tag client is visible on
-      awful.tag.viewonly(ctags[1])
+      ctags[1]:view_only()
     end
     -- And then focus the client
     client.focus = c
@@ -43,15 +55,4 @@ function run_or_raise(cmd, properties)
   end
 
   awful.util.spawn(cmd)
-end
-
--- Returns true if all pairs in table1 are present in table2
-function match (table1, table2)
-  for k, v in pairs(table1) do
-    if table2[k] ~= v and not table2[k]:find(v) then
-      return false
-    end
-  end
-
-  return true
 end

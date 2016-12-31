@@ -1,140 +1,97 @@
 -- [[ Variables ]] -------------------------------------------------------------
+local awful = require("awful")
 
 local terminal = "termite"
 local mod = "Mod4"
 
-local spawn = function(mod, key, cmd)
-  return awful.key(mod, key, function() awful.util.spawn(cmd) end)
+local spawn = function(modifiers, key, cmd)
+  return awful.key(modifiers, key, function() awful.spawn(cmd) end)
 end
 local mspawn = function(key, cmd) return spawn({mod}, key, cmd) end
-local mtspawn = function(key, cmd)
-  return mspawn(key, terminal .. " -e " .. "'" .. cmd .. "'")
+
+local client_focus = function(direction)
+  awful.client.focus.byidx(direction)
+  if client.focus then client.focus:raise() end
 end
-
--- [[ Panel ]] -----------------------------------------------------------------
-
-tagbuttons = awful.util.table.join(
-  awful.button({}, 1, awful.tag.viewonly)
-)
-
-taskbuttons = awful.util.table.join(
-  awful.button({}, 1,
-    function (c)
-      if not c:isvisible() then
-        awful.tag.viewonly(c:tags()[1])
-      end
-      client.focus = c
-      c:raise()
-    end
-  )
-)
-
-layoutbuttons = awful.util.table.join(
-  awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-  awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-  awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-  awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
-)
 
 -- [[ Client ]] ----------------------------------------------------------------
 
 clientkeys = awful.util.table.join(
   -- Fullscreen
-  awful.key({mod}, "Return", function(c)
-    c.fullscreen = not c.fullscreen
-  end),
-
-  -- Minimize
-  awful.key({mod}, "h", function(c)
-    c.minimized = not c.minimize
-  end),
+  awful.key({mod}, "Return", function(c) c.fullscreen = not c.fullscreen end),
 
   -- Kill
   awful.key({mod}, "eacute", function(c) c:kill() end),
 
   -- Moving client arounds
   awful.key({mod, "Control"}, "c", function(c)
-    local screen = client.focus.screen
+    local tags = c.screen.tags
     local id = awful.tag.getidx()
     if id == 1 then
-      id = #tags[screen]
+      id = #tags
     else
       id = id - 1
     end
-    awful.client.movetotag(tags[screen][id])
-    awful.tag.viewonly(tags[screen][id])
+    awful.client.movetotag(tags[id])
+    tags[id]:view_only()
   end),
   awful.key({ mod, "Control" }, "r", function(c)
-    local screen = client.focus.screen
-    local id = awful.tag.getidx() % #tags[screen] + 1
-    awful.client.movetotag(tags[screen][id])
-    awful.tag.viewonly(tags[screen][id])
+    local tags = c.screen.tags
+    local id = awful.tag.getidx() % #tags + 1
+    awful.client.movetotag(tags[id])
+    tags[id]:view_only()
   end)
 )
 
 clientbuttons = awful.util.table.join(
   awful.button({}, 1, function(c) client.focus = c; c:raise() end),
   awful.button({mod}, 1, awful.mouse.client.move),
-  awful.button({mod}, 3, awful.mouse.client.resize),
-  awful.button({mod}, 4, awful.tag.viewnext),
-  awful.button({mod}, 5, awful.tag.viewprev)
+  awful.button({mod}, 3, awful.mouse.client.resize)
 )
 
 -- [[ Window Manager ]] --------------------------------------------------------
 
-local viewtag = function(screen, id)
-  awful.tag.viewonly(tags[screen][id])
-end
+local viewtag = function(id) awful.screen.focused().tags[id]:view_only() end
 
 local keyboard = awful.util.table.join(
+  -- Layout switching
+
+  mspawn("l", "sh /home/tlarrieu/scripts/rofi-layouts"),
+
   -- Tags switching
 
-  awful.key({mod}, "c", awful.tag.viewprev),
-  awful.key({mod}, "Left", awful.tag.viewprev),
-  awful.key({mod}, "r", awful.tag.viewnext),
+  awful.key({mod}, "c",     awful.tag.viewprev),
+  awful.key({mod}, "Left",  awful.tag.viewprev),
+  awful.key({mod}, "r",     awful.tag.viewnext),
   awful.key({mod}, "Right", awful.tag.viewnext),
 
   -- Tags direct access
 
-  awful.key({mod}, "\"", function() viewtag(1, 1) end),
-  awful.key({mod}, "guillemotleft", function() viewtag(1, 2) end),
-  awful.key({mod}, "guillemotright", function() viewtag(1, 3) end),
-  awful.key({mod}, "(", function() viewtag(1, 4) end),
-  awful.key({mod}, ")", function() viewtag(1, 5) end),
-  awful.key({mod}, "@", function() viewtag(1, 6) end),
+  awful.key({mod}, "\"",             function() viewtag(1) end),
+  awful.key({mod}, "guillemotleft",  function() viewtag(2) end),
+  awful.key({mod}, "guillemotright", function() viewtag(3) end),
+  awful.key({mod}, "(",              function() viewtag(4) end),
+  awful.key({mod}, ")",              function() viewtag(5) end),
+  awful.key({mod}, "@",              function() viewtag(6) end),
 
   -- Client moving
 
   awful.key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
   awful.key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
+
   -- Client size
-  awful.key({mod}, "d", function() awful.tag.incmwfact(0.05) end),
-  awful.key({mod}, "v", function() awful.tag.incmwfact(-0.05) end),
+
+  awful.key({mod}, "d",          function() awful.tag.incmwfact(0.05) end),
+  awful.key({mod}, "v",          function() awful.tag.incmwfact(-0.05) end),
   awful.key({mod, "Shift"}, "d", function() awful.client.incwfact(0.05) end),
   awful.key({mod, "Shift"}, "v", function() awful.client.incwfact(-0.05) end),
 
-  -- Layout switching
-
-  mspawn("l", "sh /home/tlarrieu/scripts/rofi-layouts"),
-
   -- Client focus
 
-  awful.key({mod}, "t", function()
-    awful.client.focus.byidx(1)
-    if client.focus then client.focus:raise() end
-  end),
-  awful.key({mod}, "Down", function()
-    awful.client.focus.byidx(1)
-    if client.focus then client.focus:raise() end
-  end),
-  awful.key({mod}, "s", function()
-    awful.client.focus.byidx(-1)
-    if client.focus then client.focus:raise() end
-  end),
-  awful.key({mod}, "Up", function()
-    awful.client.focus.byidx(-1)
-    if client.focus then client.focus:raise() end
-  end),
+  awful.key({mod}, "t",    function() client_focus(1) end),
+  awful.key({mod}, "Down", function() client_focus(1) end),
+  awful.key({mod}, "s",    function() client_focus(-1) end),
+  awful.key({mod}, "Up",   function() client_focus(-1) end),
 
   -- Screen focus
 
@@ -144,10 +101,10 @@ local keyboard = awful.util.table.join(
   -- Client screen moving
 
   awful.key({mod}, "o", function(c)
-    awful.client.movetoscreen(c, client.focus.screen - 1)
+    c:move_to_screen(client.focus.screen - 1)
   end),
   awful.key({mod, "Shift"}, "o", function(c)
-    awful.client.movetoscreen(c, client.focus.screen + 1)
+    c:move_to_screen(client.focus.screen + 1)
   end),
 
   -- Restart awesome
@@ -162,15 +119,11 @@ keyboard = awful.util.table.join(
 
   -- launcher
 
-  spawn({"Control"}, " ", "rofi -show run"),
-  mspawn("Tab", "rofi -show window"),
-  spawn(
-    {mod, "Control"},
-    "Tab",
-    "sh /home/tlarrieu/scripts/rofi-monitors"
-  ),
-  spawn({}, "F12", "sh /home/tlarrieu/scripts/rofi-wifi"),
-  mspawn("F2", "sh /home/tlarrieu/scripts/rofi-keyboard"),
+  spawn({"Control"}, " ",        "rofi -show run"),
+  mspawn("Tab",                  "rofi -show window"),
+  spawn({mod, "Control"}, "Tab", "sh /home/tlarrieu/scripts/rofi-monitors"),
+  spawn({}, "F12",               "sh /home/tlarrieu/scripts/rofi-wifi"),
+  mspawn("F2",                   "sh /home/tlarrieu/scripts/rofi-keyboard"),
 
   -- Power management
 
