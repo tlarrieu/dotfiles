@@ -1,6 +1,7 @@
 setlocal nonumber
 setlocal norelativenumber
 setlocal nobuflisted
+setlocal cursorline
 
 nnoremap <silent> <buffer> <leader><cr> :Qfreplace tabedit<cr>
 

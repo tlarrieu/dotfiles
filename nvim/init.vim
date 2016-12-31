@@ -231,6 +231,10 @@ set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| HighlightedYank |---------------------------------
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutJump = ''
+" }}}
+" {{{ --| HighlightedYank |---------------------------------
 let g:highlightedyank_highlight_duration = 180
 " }}}
 " {{{ --| Neoterm |-----------------------------------------
