@@ -1,9 +1,11 @@
 local awful = require("awful")
-local wibox = require("wibox")
 local beautiful = require("beautiful")
+local gears = require("gears")
+local wibox = require("wibox")
+
 local lain = require("lain")
 
-local cpuwidget = wibox.widget.textbox()
+local cpu = wibox.widget.textbox()
 lain.widgets.cpu({ timeout = 2, settings = function()
   local color
 
@@ -17,10 +19,10 @@ lain.widgets.cpu({ timeout = 2, settings = function()
     color = beautiful.colors.green
   end
 
-  cpuwidget:set_markup(lain.util.markup(color, "cpu: " .. cpu_now.usage .. "%"))
+  cpu:set_markup(lain.util.markup(color, "cpu: " .. cpu_now.usage .. "%"))
 end})
 
-local memwidget = wibox.widget.textbox()
+local ram = wibox.widget.textbox()
 lain.widgets.mem({ timeout = 2, settings = function()
   local color
 
@@ -34,28 +36,32 @@ lain.widgets.mem({ timeout = 2, settings = function()
     color = beautiful.colors.green
   end
 
-  memwidget:set_markup(lain.util.markup(color, "ram: " .. mem_now.perc .. "%"))
+  ram:set_markup(lain.util.markup(color, "ram: " .. mem_now.perc .. "%"))
 end})
 
-local clockwidget = wibox.widget.textclock(
-  lain.util.markup(beautiful.fg_normal, " %Y.%m.%d %H:%M")
-)
+local clock = wibox.widget({
+  widget = wibox.widget.textclock,
+  format = "%Y.%m.%d %H:%M",
+})
 
-local battextwidget = wibox.widget.textbox()
-battextwidget:set_font("Inconsolata-g For Powerline 10")
-local batbar = wibox.widget.progressbar()
-batbar.forced_width = 45
-batbar:set_ticks(false)
-batbar:set_ticks_size(5)
-batbar:set_background_color(beautiful.bg_normal)
-local batmargin = wibox.container.margin(batbar, 2, 7)
-batmargin:set_top(8)
-batmargin:set_left(7)
-batmargin:set_bottom(8)
-local batwidget = wibox.container.background(batmargin)
-batwidget:set_bgimage(beautiful.widget_bg)
+local batterytext = wibox.widget({
+  widget = wibox.widget.textbox,
+})
+local batterybar = wibox.widget({
+  widget = wibox.widget.progressbar,
+  background_color = beautiful.colors.base2,
+  bar_shape = gears.shape.rounded_rect,
+  forced_width = 45,
+  shape = gears.shape.rounded_rect,
+  ticks = false,
+})
+local battery = wibox.widget({
+  batterytext,
+  wibox.container.margin(batterybar, 5, 0, 8, 8),
+  layout = wibox.layout.fixed.horizontal
+})
 
-local batcallback = function()
+lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = function()
   if bat_now.status == "N/A" then return end
 
   local color = nil
@@ -91,49 +97,48 @@ local batcallback = function()
     end
   end
 
-  battextwidget:set_markup(lain.util.markup(color, icon .. legend))
-  batbar:set_color(color)
-  batbar:set_value(bat_now.perc / 100)
-end
-
-lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = batcallback })
+  batterytext:set_markup(lain.util.markup(color, icon .. legend))
+  batterybar:set_color(color)
+  batterybar:set_value(bat_now.perc / 100)
+end})
 
 awful.screen.connect_for_each_screen(function(screen)
   local taglist = awful.widget.taglist(
     screen,
     awful.widget.taglist.filter.all,
-    awful.util.table.join(
-      awful.button({}, 1, function(tag) tag:view_only() end)
-    )
+    { awful.button({}, 1, function(tag) tag:view_only() end) },
+    { spacing = 1 }
   )
 
-  local left = wibox.widget {
-    wibox.container.margin(taglist, 5, 0, 0, 0),
+  local left = wibox.widget({
+    taglist,
     layout = wibox.layout.fixed.horizontal
-  }
+  })
 
-  local middle = wibox.widget {
-    clockwidget,
+  local middle = wibox.widget({
+    clock,
     layout = wibox.layout.fixed.horizontal,
-  }
+  })
 
-  local right = wibox.widget {
-    wibox.container.margin(cpuwidget, 0, 10, 0, 0),
-    wibox.container.margin(memwidget, 0, 10, 0, 0),
-    battextwidget,
-    batwidget,
+  local right = wibox.widget({
+    wibox.container.margin(cpu, 0, 10, 0, 0),
+    wibox.container.margin(ram, 0, 10, 0, 0),
+    battery,
     layout = wibox.layout.fixed.horizontal
-  }
+  })
+  right = wibox.container.margin(right, 5, 5, 0, 0)
 
+  local barwidget = wibox.widget({
+    left,
+    middle,
+    right,
+    layout = wibox.layout.align.horizontal,
+    expand = "none"
+  })
   awful.wibar({
     position = "top",
+    height = 30,
     screen = screen,
-    widget = wibox.widget {
-      left,
-      middle,
-      right,
-      layout = wibox.layout.align.horizontal,
-      expand = "none"
-    },
+    widget = wibox.container.margin(barwidget, 2, 2, 2, 2)
   })
 end)
