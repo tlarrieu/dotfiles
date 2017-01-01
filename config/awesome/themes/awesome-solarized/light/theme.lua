@@ -1,5 +1,5 @@
 -- [[ main ]] ------------------------------------------------------------------
-theme = {}
+local theme = {}
 theme.path = os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/"
 theme.default_themes_path = "/usr/share/awesome/themes"
 
