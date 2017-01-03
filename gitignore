@@ -56,3 +56,5 @@ tags
 # Javascript #
 ##############
 node_modules
+
+heroku-logs
