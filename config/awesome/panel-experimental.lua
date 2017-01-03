@@ -22,28 +22,41 @@ local function colorize(widget, value)
   widget:set_colors({ color })
 end
 
-local function arcprogress()
-  return wibox.container({
+local function arcprogress(label)
+  local text = wibox.widget({
+    valign = "center",
+    align = "center",
+    widget = wibox.widget.textbox,
+  })
+  local arcchart = wibox.container({
+    text,
     widget = wibox.container.arcchart,
     min_value = 0,
     max_value = 100,
     bg = beautiful.colors.base2,
     thickness = 3,
   })
+  arcchart:connect_signal("widget::redraw_needed", function(widget)
+    if widget:get_colors() == nil then return end
+
+    text:set_markup(lain.util.markup(widget:get_colors()[1], label))
+  end)
+
+  return arcchart
 end
 
 -- [[ CPU ]] -------------------------------------------------------------------
-local cpu = arcprogress()
+local cpu = arcprogress("C")
 lain.widgets.cpu({
   timeout = 2,
   settings = function() colorize(cpu, cpu_now.usage) end
 })
 
--- [[ RAM ]] -------------------------------------------------------------------
-local ram = arcprogress()
+-- [[ MEM ]] -------------------------------------------------------------------
+local mem = arcprogress("M")
 lain.widgets.mem({
   timeout = 2,
-  settings = function() colorize(ram, mem_now.perc) end
+  settings = function() colorize(mem, mem_now.perc) end
 })
 
 -- [[ Clock ]] -----------------------------------------------------------------
@@ -127,7 +140,7 @@ local function init_screen(screen)
 
   local right = wibox.widget({
     wibox.container.margin(cpu, 0, 5, 0, 0),
-    wibox.container.margin(ram, 0, 10, 0, 0),
+    wibox.container.margin(mem, 0, 10, 0, 0),
     battery,
     layout = wibox.layout.fixed.horizontal
   })
