@@ -127,6 +127,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
+set textwidth=80
 " Timeout
 set nottimeout
 " Always display tabline
@@ -230,6 +231,12 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| VimRenamer |--------------------------------------
+augroup VimRenamer
+  autocmd!
+  autocmd BufFilePost VimRenamer nmap <buffer> <c-s> :Ren<cr>
+augroup END
+" }}}
 " {{{ --| HighlightedYank |---------------------------------
 let g:AutoPairsShortcutToggle = ''
 let g:AutoPairsShortcutJump = ''
@@ -538,12 +545,12 @@ nmap <silent> ga m`gg=G:call ClearTrailingSpaces()<cr>g``
 " Cursorline / Cursorcolumn
 function! AlignMode()
   if &virtualedit ==# 'all'
-    set virtualedit=""
+    setlocal virtualedit=""
   else
-    set virtualedit=all
+    setlocal virtualedit=all
   end
-  set cursorcolumn!
-  set cursorline!
+  setlocal cursorcolumn!
+  setlocal cursorline!
 endfunction
 nmap <leader>g :call AlignMode()<cr>
 " Quickfix / Location list

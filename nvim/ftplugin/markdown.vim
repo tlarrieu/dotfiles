@@ -1,7 +1,9 @@
+setlocal formatoptions+=t
+
 function! RenderMarkdown()
-  let filename = expand('%')
+  let l:filename = expand('%')
   vnew
-  call termopen('markfly ' . filename . ' 2> /dev/null')
+  call termopen('markfly ' . l:filename . ' 2> /dev/null')
   execute "normal! \<c-w>p"
 endfunction
 
@@ -27,9 +29,8 @@ function! Pandoc()
   lexpr ''
   lclose
 
-  let path = expand('%:h')
-  let filename = expand('%')
-  let pdf_name = expand('%:r') . '.pdf'
+  let l:filename = expand('%')
+  let l:pdf_name = expand('%:r') . '.pdf'
 
   let s:callbacks = {
   \   'on_stdout': function('s:PandocSuccess'),
@@ -38,7 +39,7 @@ function! Pandoc()
   \ }
 
   call jobstart(
-    \['pandoc', '--latex-engine=xelatex', '-s', filename, '-o', pdf_name],
+    \['pandoc', '--latex-engine=xelatex', '-s', l:filename, '-o', l:pdf_name],
     \extend({'shell': 'shell 2'}, s:callbacks)
   \)
 endfunction
@@ -50,6 +51,6 @@ nnoremap <silent> <buffer> <leader><cr> :call Pandoc()<cr>
 setlocal foldlevel=1
 setlocal foldlevelstart=10
 
-execute "UltiSnipsAddFiletypes markdown.tex"
+execute 'UltiSnipsAddFiletypes markdown.tex'
 
 let b:deoplete_sources = ['tag', 'buffer', 'file']
