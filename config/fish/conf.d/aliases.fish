@@ -1,6 +1,10 @@
-# Vim
+# NVIM
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias v="nvim"
+alias ren="nvim +Renamer"
+
+# Qutebrowser
+alias q="qutebrowser --backend webengine"
 
 # xclip
 alias xclip="xclip -selection clipboard"
@@ -41,7 +45,7 @@ alias yr="yaourt -Rs"
 alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
-alias shops="cd ~/mercurial/shopmium/shops"
+alias shops="cd ~/git/shopmium/shops"
 alias serv="cd ~/git/shopmium/server"
 alias etl="cd ~/git/shopmium/etl"
 alias dot="cd ~/git/dotfiles"
