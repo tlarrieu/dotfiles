@@ -6,6 +6,12 @@ snippet == "Thick line comment"
 -- ==| ${1} |===================================================================
 endsnippet
 
+snippet copy "copy"
+copy (
+	${VISUAL}
+) to stdout delimiter ';' csv header
+endsnippet
+
 snippet with "with"
 with ${1:sub} as (
 	${VISUAL}
