@@ -89,6 +89,9 @@ if [ $OSX ]; then
   safeinstall reattach-to-user-namespace
 fi
 
+# Gnuplot
+safelink $BASEDIR/gnuplot $HOME/gnuplot
+
 # Fish
 safeinstall fish
 # Oh My Fish!

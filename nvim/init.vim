@@ -619,6 +619,7 @@ nmap <leader>eh :tabedit ~/.hgrc<cr>
 nmap <leader>em :tabedit ~/.tmux.conf<cr>
 nmap <leader>eo :tabedit ~/poi.md<cr>
 nmap <leader>ep :tabedit ~/postgres.sql<cr>
+nmap <leader>eP :tabedit ~/gnuplot/pghisto.gp<cr>
 nmap <leader>eq :tabedit ~/sqlite.sql<cr>
 nmap <leader>er :tabedit ~/release.tasks<cr>
 nmap <leader>et :tabedit ~/todo.tasks<cr>

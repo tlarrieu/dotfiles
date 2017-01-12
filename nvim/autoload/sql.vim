@@ -7,25 +7,41 @@ function! sql#execute() range abort
     endif
   endfor
 
-  call sql#run(l:query)
+  if getline(a:firstline, a:firstline)[0] ==# '-- plot'
+    call sql#run(l:query, 1)
+  else
+    call sql#run(l:query, 0)
+  end
 endfunction
 
 function! sql#identify(entity) abort
-  call sql#run('\d ' . a:entity)
+  let l:query = '\d ' . a:entity . "\\n"
+  let l:query .= '\dT+ ' . a:entity
+  call sql#run(l:query, 0)
 endfunction
 
 function! s:result() dict abort
   execute 'bdelete! ' . l:self.bufnr
   execute 'new ' . l:self.filename
   setf postgresql
+
+  if l:self.plot
+    call gnuplot#plot(l:self.filename)
+  endif
 endfunction
 
-function! sql#run(query) abort
+function! sql#run(query, plot) abort
   let l:arguments = matchstr(getline(1), '--\s*\zs.*')
 
   let l:tempfile = tempname()
 
-  let l:query = shellescape('\\timing on\n ' . a:query)
+  if a:plot
+    let l:query = "copy (" . a:query . ") to stdout delimiter ';' csv header"
+  else
+    let l:query = '\\timing on\n ' . a:query
+  endif
+
+  let l:query = shellescape(l:query)
   let l:query = escape(l:query, '%')
   let l:cmdline =
     \ 'echo -e ' . l:query .
@@ -40,7 +56,8 @@ function! sql#run(query) abort
     \   'name' : 'postgres',
     \   'on_exit' : function('<sid>result'),
     \   'filename' : l:tempfile,
-    \   'bufnr' : bufnr('%')
+    \   'bufnr' : bufnr('%'),
+    \   'plot' : a:plot
     \ })
 endfunction
 
