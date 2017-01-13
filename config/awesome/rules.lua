@@ -2,6 +2,7 @@ local awful = require("awful")
 require("awful.rules")
 
 awful.rules.rules = {
+  -- [[ Common rules ]] --------------------------------------------------------
   {
     rule = {},
     properties = {
@@ -14,6 +15,7 @@ awful.rules.rules = {
     }
   },
 
+  -- [[ Flash player ]] --------------------------------------------------------
   {
     rule = { class = "Plugin-container" },
     properties = {
@@ -23,11 +25,10 @@ awful.rules.rules = {
     }
   },
 
+  -- [[ Multimedia ]] ----------------------------------------------------------
   {
     rule_any = {
       class = {
-        "MPlayer",
-        "Vlc",
         "mpv",
         "Pavucontrol",
       },
@@ -35,6 +36,13 @@ awful.rules.rules = {
     properties = { fullscreen = true },
   },
 
+  -- [[ Gnuplot ]] -------------------------------------------------------------
+  {
+    rule = { class = "Gnuplot" },
+    properties = { fullscreen = true }
+  },
+
+  -- [[ Games ]] ---------------------------------------------------------------
   {
     rule_any = {
       class = {
@@ -46,6 +54,7 @@ awful.rules.rules = {
     properties = { floating = true },
   },
 
+  -- [[ Chat ]] ----------------------------------------------------------------
   {
     rule_any = { class = { "Slack", "hangups", "Whatsie" } },
     properties = { tag = "chat" },
