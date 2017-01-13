@@ -1,5 +1,4 @@
 augroup TEX
   autocmd!
-  autocmd BufWritePost *.tex T rake
-  autocmd BufWritePost *.tex Tclose
+  autocmd InsertCharPre *.tex,*.latex if search('\v(%^|[.!?]\_s)\_s*%#', 'bcnw') != 0 | let v:char = toupper(v:char) | endif
 augroup END
