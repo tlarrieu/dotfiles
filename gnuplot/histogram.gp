@@ -13,13 +13,11 @@ load 'dark2.pal'
 
 # Output
 set terminal wxt \
-  linewidth .5 \
   font "Inconsolata-g for Powerline" \
   fontscale 1.2 \
   persist
 
 # set terminal pngcairo \
-#   linewidth .5 \
 #   size 2000,800 \
 #   font "Inconsolata-g for Powerline" \
 #   fontscale .8
@@ -29,6 +27,7 @@ set terminal wxt \
 set xdata time
 set timefmt "%Y-%m-%d"
 set format x "%Y-%m-%d"
+set mouse mouseformat 3
 
 # Grid configuration
 set style line 100 linetype 1 linecolor rgb "gray" linewidth 2
@@ -39,11 +38,6 @@ set grid mxtics xtics ls 100, ls 101
 
 # Boxes configuration
 set style fill solid .5
-
-# Tics configuration
-set xtics rotate by 45
-set xtics right
-set xtics offset 0,-.5
 
 # Plot
 plot \

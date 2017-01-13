@@ -7,17 +7,32 @@ function! sql#execute() range abort
     endif
   endfor
 
-  if getline(a:firstline, a:firstline)[0] ==# '-- plot'
-    call sql#run(l:query, 1)
-  else
-    call sql#run(l:query, 0)
-  end
+  let l:plotcomment = getline(a:firstline, a:firstline)[0]
+  if l:plotcomment !~# '-- plot.*'
+    call sql#run(l:query, 'noplot')
+    return
+  endif
+
+  if l:plotcomment =~# '-- plot bars'
+    echom 'bars'
+    call sql#run(l:query, 'bars')
+    return
+  endif
+
+  if l:plotcomment =~# '-- plot lines'
+    echom 'lines'
+    call sql#run(l:query, 'lines')
+    return
+  endif
+
+  echom 'default'
+  call sql#run(l:query, 'bars')
 endfunction
 
 function! sql#identify(entity) abort
   let l:query = '\d ' . a:entity . "\\n"
   let l:query .= '\dT+ ' . a:entity
-  call sql#run(l:query, 0)
+  call sql#run(l:query, 'noplot')
 endfunction
 
 function! s:result() dict abort
@@ -25,8 +40,8 @@ function! s:result() dict abort
   execute 'new ' . l:self.filename
   setf postgresql
 
-  if l:self.plot
-    call gnuplot#plot(l:self.filename)
+  if l:self.plot !=# 'noplot'
+    call gnuplot#plot(l:self.filename, l:self.plot)
   endif
 endfunction
 
@@ -35,10 +50,10 @@ function! sql#run(query, plot) abort
 
   let l:tempfile = tempname()
 
-  if a:plot
-    let l:query = "copy (" . a:query . ") to stdout delimiter ';' csv header"
-  else
+  if a:plot ==# 'noplot'
     let l:query = '\\timing on\n ' . a:query
+  else
+    let l:query = "copy (" . a:query . ") to stdout delimiter ';' csv header"
   endif
 
   let l:query = shellescape(l:query)
