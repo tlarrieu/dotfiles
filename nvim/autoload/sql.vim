@@ -1,66 +1,36 @@
 function! sql#execute() range abort
-  let l:query = ''
   let l:lines = getline(a:firstline, a:lastline)
-  for l:line in l:lines
-    if l:line !~# '--.*'
-      let l:query .= l:line . "\\n"
-    endif
-  endfor
-
-  let l:plotcomment = getline(a:firstline, a:firstline)[0]
-  if l:plotcomment !~# '-- plot.*'
-    call sql#run(l:query, 'noplot')
-    return
-  endif
-
-  if l:plotcomment =~# '-- plot bars'
-    echom 'bars'
-    call sql#run(l:query, 'bars')
-    return
-  endif
-
-  if l:plotcomment =~# '-- plot lines'
-    echom 'lines'
-    call sql#run(l:query, 'lines')
-    return
-  endif
-
-  echom 'default'
-  call sql#run(l:query, 'bars')
+  let l:query = join(l:lines, "\\n")
+  call sql#run(l:query)
 endfunction
 
 function! sql#identify(entity) abort
   let l:query = '\d ' . a:entity . "\\n"
   let l:query .= '\dT+ ' . a:entity
-  call sql#run(l:query, 'noplot')
+  call sql#run(l:query)
 endfunction
 
-function! s:result() dict abort
-  execute 'bdelete! ' . l:self.bufnr
-  execute 'new ' . l:self.filename
-  setf postgresql
-
-  if l:self.plot !=# 'noplot'
-    call gnuplot#plot(l:self.filename, l:self.plot)
-  endif
-endfunction
-
-function! sql#run(query, plot) abort
-  let l:arguments = matchstr(getline(1), '--\s*\zs.*')
+function! sql#run(query) abort
+  let l:connection_string = matchstr(getline(1), '--\s*\zs.*')
 
   let l:tempfile = tempname()
 
-  if a:plot ==# 'noplot'
-    let l:query = '\\timing on\n ' . a:query
+  " Use first line to infer plot type (if any)
+  let l:plot = s:parse_config(split(a:query, '\\n')[0])
+
+  if l:plot.draw
+    let l:query = 'copy (' . a:query . ") to stdout delimiter ';' csv header"
+    let l:filetype = 'csv'
   else
-    let l:query = "copy (" . a:query . ") to stdout delimiter ';' csv header"
+    let l:query = '\\timing on\n ' . a:query
+    let l:filetype = 'postgresql'
   endif
 
   let l:query = shellescape(l:query)
   let l:query = escape(l:query, '%')
   let l:cmdline =
     \ 'echo -e ' . l:query .
-    \ '| psql ' . l:arguments .
+    \ '| psql ' . l:connection_string .
     \ ' >& ' . l:tempfile
 
   new
@@ -69,11 +39,23 @@ function! sql#run(query, plot) abort
     \ l:cmdline,
     \ {
     \   'name' : 'postgres',
-    \   'on_exit' : function('<sid>result'),
+    \   'on_exit' : function('<sid>callback'),
     \   'filename' : l:tempfile,
     \   'bufnr' : bufnr('%'),
-    \   'plot' : a:plot
+    \   'plot' : l:plot,
+    \   'filetype' : l:filetype
     \ })
+endfunction
+
+function! s:callback() dict abort
+  execute 'bdelete! ' . l:self.bufnr
+  execute 'new ' . l:self.filename
+
+  execute 'setfiletype ' . l:self.filetype
+
+  if l:self.plot.draw
+    call gnuplot#plot(l:self.filename, l:self.plot.kind)
+  endif
 endfunction
 
 function! sql#upper(sql) abort
@@ -86,4 +68,22 @@ function! sql#upper(sql) abort
   endif
 
   return toupper(a:sql)
+endfunction
+
+" -- Helper functions ----------------------------------------------------------
+
+function! s:parse_config(comment) abort
+  let l:args = matchlist(a:comment, '-- plot \?\(.*\)')
+
+  if empty(l:args)
+    return { 'draw' : 0 }
+  endif
+
+  let l:kind = l:args[1]
+
+  if empty(l:kind)
+    let l:kind = 'bars'
+  end
+
+  return { 'draw' : 1, 'kind' : l:kind }
 endfunction
