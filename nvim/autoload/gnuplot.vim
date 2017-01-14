@@ -6,5 +6,5 @@ function! gnuplot#plot(filename, kind) abort
     return
   end
 
-  call system("gnuplot -e \"filename='" . a:filename . "'\" -c ~/gnuplot/" . a:kind . '.gp')
+  call jobstart("gnuplot -e \"filename='" . a:filename . "'\" -c ~/gnuplot/" . a:kind . '.gp')
 endfunction
