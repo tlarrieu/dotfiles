@@ -77,7 +77,7 @@ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Misc languages support |---------
-Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
+" Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'sheerun/vim-polyglot'
 " }}}
 " {{{ --| Good looking |-------------------
@@ -619,7 +619,6 @@ nmap <leader>eh :tabedit ~/.hgrc<cr>
 nmap <leader>em :tabedit ~/.tmux.conf<cr>
 nmap <leader>eo :tabedit ~/poi.md<cr>
 nmap <leader>ep :tabedit ~/postgres.sql<cr>
-nmap <leader>eP :tabedit ~/gnuplot/histogram.gp<cr>
 nmap <leader>eq :tabedit ~/sqlite.sql<cr>
 nmap <leader>er :tabedit ~/release.tasks<cr>
 nmap <leader>et :tabedit ~/todo.tasks<cr>
