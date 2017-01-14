@@ -1,2 +1,4 @@
-nmap <silent> <buffer> <return> :call gnuplot#plot(expand('%'), 'bars')<cr>
-nmap <silent> <buffer> <leader><return> :call gnuplot#plot(expand('%'), 'lines')<cr>
+call gnuplot#setup()
+
+nmap <silent> <buffer> <return> :Plot bars<cr>
+nmap <silent> <buffer> <leader><return> :Plot lines<cr>
