@@ -24,6 +24,7 @@ nvim/plugged/*
 nvim/autoload/plug.vim
 nvim/doc
 nvim/spell
+nvim/spell/*
 nvim/.init.vim-rplugin~
 
 config/fish/functions/sync_stag.fish
