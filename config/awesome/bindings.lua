@@ -140,6 +140,9 @@ keyboard = awful.util.table.join(
   mspawn("b", "sh /home/tlarrieu/scripts/mpc-playlist"),
   mspawn(" ", "mpc toggle"),
 
+  spawn({}, "F9", "playerctl play-pause"),
+  spawn({}, "F10", "playerctl next"),
+
   awful.key({mod, "Control"}, "m", function()
     run_or_raise("spotify", { class = "Spotify" })
   end),
