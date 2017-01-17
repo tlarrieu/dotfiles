@@ -45,13 +45,9 @@ alias yr="yaourt -Rs"
 alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
-alias shops="cd ~/git/shopmium/shops"
-alias serv="cd ~/git/shopmium/server"
-alias etl="cd ~/git/shopmium/etl"
+alias jt="cd ~/git/jobteaser/jobteaser"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
-alias budget="cd ~/git/budget"
-alias dand="cd ~/git/dand.io"
 
 # ls
 alias l="ls"
@@ -98,15 +94,19 @@ alias ddump="curl (heroku pg:backups public-url -a shopmium) > ~/Downloads/last.
 alias rs="bin/rails server"
 alias raklette="bin/bundle exec rake parallel:spec"
 alias be="bin/bundle exec"
-alias rdm="bin/bundle exec rake db:migrate"
-alias rds="bin/bundle exec rake db:migrate:status | tail"
-alias rpp="bin/bundle exec rake parallel:prepare"
+alias rdm="bundle exec rake db:migrate"
+alias rds="bundle exec rake db:migrate:status | tail"
+alias rpp="bundle exec rake parallel:prepare"
 alias rdtp="bin/bundle exec rake db:test:prepare"
 alias rdr="bin/rake db:rollback"
 alias rdre="bin/rake db:migrate:redo"
 alias rr="bin/rake routes > routes"
 function rdd; bin/rake db:migrate:down VERSION=$argv; end
 function rdu; bin/rake db:migrate:up VERSION=$argv; end
+
+# Docker
+alias dc="sudo docker-compose"
+alias d="sudo docker"
 
 # Exercism
 alias e="exercism"
