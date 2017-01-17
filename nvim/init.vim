@@ -622,8 +622,9 @@ nmap <leader>ep :tabedit ~/postgres.sql<cr>
 nmap <leader>eq :tabedit ~/sqlite.sql<cr>
 nmap <leader>er :tabedit ~/release.tasks<cr>
 nmap <leader>et :tabedit ~/todo.tasks<cr>
-nmap <leader>ev :tabedit ~/.config/nvim/init.vim<cr>
 nmap <leader>eu :UltiSnipsEdit
+nmap <leader>ev :tabedit ~/.config/nvim/init.vim<cr>
+nmap <leader>ew :tabedit ~/watchlist.md<cr>
 
 nmap <leader>. :Lexplore .<cr>
 
