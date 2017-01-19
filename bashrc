@@ -14,6 +14,8 @@ export FZF_DEFAULT_COMMAND="ag -g '' --hidden --ignore .git"
 # Yaourt
 export YAOURT_COLORS="nb=1:pkg=1:ver=1;32:lver=1;45:installed=1;42:grp=1;34:od=1;41;5:votes=1;44:dsc=0:other=1;35"
 
+eval $(ssh-agent) > /dev/null
+
 # ------------------------------------------------------------------------------
 # Aliases
 # ------------------------------------------------------------------------------
@@ -112,3 +114,7 @@ alias rdtp="bin/bundle exec rake db:test:prepare"
 alias rdr="bin/rake db:migrate:redo"
 alias rdd="rake db:migrate:down VERSION=$*"
 alias rdu="rake db:migrate:up VERSION=$*"
+
+# Docker
+alias dc="sudo docker-compose"
+alias d="sudo docker"

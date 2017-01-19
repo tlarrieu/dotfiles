@@ -2,9 +2,14 @@
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias v="nvim"
 alias ren="nvim +Renamer"
+alias s="nvim ~/postgres.sql"
 
 # Qutebrowser
 alias q="qutebrowser --backend webengine"
+
+# Toggl
+alias t="toggl"
+alias tstop="toggl stop current"
 
 # xclip
 alias xclip="xclip -selection clipboard"
