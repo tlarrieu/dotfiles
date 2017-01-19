@@ -1,3 +1,27 @@
 snippet #! "shebang"
 #!/bin/sh
 endsnippet
+
+snippet red "red debug"
+echo "$(tput setaf 1)$1$(tput sgr0)"
+endsnippet
+
+snippet gr "green debug"
+echo "$(tput setaf 2)$1$(tput sgr0)"
+endsnippet
+
+snippet yel "yellow debug"
+echo "$(tput setaf 3)$1$(tput sgr0)"
+endsnippet
+
+snippet blue "blue debug"
+echo "$(tput setaf 4)$1$(tput sgr0)"
+endsnippet
+
+snippet pink "pink debug"
+echo "$(tput setaf 5)$1$(tput sgr0)"
+endsnippet
+
+snippet cyan "cyan debug"
+echo "$(tput setaf 6)$1$(tput sgr0)"
+endsnippet
