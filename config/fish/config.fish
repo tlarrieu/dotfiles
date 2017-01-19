@@ -23,6 +23,7 @@ set -x GOPATH ~/go
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH $HOME/bin
 
+# rbenv
 if type rbenv > /dev/null
   source (rbenv init - | psub)
 end
@@ -35,3 +36,6 @@ source $OMF_PATH/init.fish
 set -g theme_display_user yes
 set -g default_user tlarrieu
 omf theme 'clearance'
+
+fundle plugin 'tuvistavie/fish-ssh-agent'
+fundle init
