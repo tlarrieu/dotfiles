@@ -31,6 +31,8 @@ config/fish/functions/sync_stag.fish
 config/fish/functions/sync_test.fish
 config/fish/functions/fish_prompt.fish
 
+config/fish/fundle
+
 config/ranger/tagged
 
 config/jumanji/cookies
