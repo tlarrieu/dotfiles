@@ -19,6 +19,7 @@ config/fish/functions/pg_cred.fish
 config/fish/functions/pg_cred_stag.fish
 config/fish/functions/pg_info.fish
 config/fish/functions/pres.fish
+config/fish/conf.d/local.fish
 
 nvim/plugged/*
 nvim/autoload/plug.vim
