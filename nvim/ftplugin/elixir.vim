@@ -4,7 +4,7 @@ setlocal iskeyword+=:
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
-nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
+nnoremap <buffer> <return> :TestLast<cr>
 abbreviate <buffer> p <bar>>
 inoremap <buffer> . .<esc>hviwo<esc>vUf.a
 inoremap <buffer> .( .(<c-\><c-o>F.<esc>bvuf(a
@@ -16,10 +16,10 @@ augroup Test
   autocmd!
   autocmd BufEnter *_test.exs
         \ nnoremap <buffer> <leader><return>
-        \ :call neoterm#test#run('file')<cr>
+        \ :TestFile<cr>
   autocmd BufEnter *_test.exs
         \ nnoremap <buffer> <return>
-        \ :call neoterm#test#run('current')<cr>
+        \ :TestNearest<cr>
 augroup END
 
 let b:fzf_tags_config = {

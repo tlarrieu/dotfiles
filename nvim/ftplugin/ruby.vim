@@ -8,16 +8,16 @@ setlocal iskeyword+=!
 
 let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
 
-nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
+nnoremap <buffer> <return> :TestLast<cr>
 
 augroup Test
   autocmd!
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <leader><return>
-        \ :call neoterm#test#run('file')<cr>
+        \ :TestFile<cr>
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <return>
-        \ :call neoterm#test#run('current')<cr>
+        \ :TestNearest<cr>
   autocmd BufEnter Gemfile
         \ nnoremap <silent> <buffer> <return>
         \ :new<bar>call termopen('bundle')<cr>

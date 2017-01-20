@@ -26,6 +26,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
 Plug 'renamer.vim', { 'on': 'Renamer' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
+Plug 'janko-m/vim-test'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -231,6 +232,9 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| vim-test |----------------------------------------
+let g:test#strategy = 'neoterm'
+" }}}
 " {{{ --| VimRenamer |--------------------------------------
 augroup VimRenamer
   autocmd!

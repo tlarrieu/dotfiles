@@ -1,11 +1,11 @@
-nnoremap <buffer> <return> :call neoterm#test#rerun()<cr>
+nnoremap <buffer> <return> :TestLast<cr>
 
 augroup Test
   autocmd!
   autocmd BufEnter *_spec.js
         \ nnoremap <silent> <buffer> <leader><return>
-        \ :call neoterm#test#run('file')<cr>
+        \ :TestFile<cr>
   autocmd BufEnter *_spec.js
         \ nnoremap <silent> <buffer> <return>
-        \ :call neoterm#test#run('current')<cr>
+        \ :TestLast<cr>
 augroup END
