@@ -76,6 +76,10 @@ it '${1:example title}' do
 end
 endsnippet
 
+snippet ite "it is expected to"
+it { is_expected.${1:to} $2 }
+endsnippet
+
 snippet its "its"
 its(:${1:attribute}) { is_expected.to ${2} }
 endsnippet
