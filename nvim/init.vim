@@ -473,9 +473,6 @@ nmap <leader>vu :vsplit<bar>terminal<space>
 noremap ' `
 noremap ` '
 noremap <silent> <leader>m :delmarks!<cr>
-" Command line / Search
-cmap <c-t> <down>
-cmap <c-s> <up>
 " Beginning / end of the line
 inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
@@ -507,6 +504,9 @@ map È :!
 " Find character
 noremap , ;
 noremap ; ,
+" block
+map <m-t> }
+map <m-s> {
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
