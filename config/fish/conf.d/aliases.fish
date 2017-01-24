@@ -84,30 +84,22 @@ alias f="git flow feature"
 alias h="git flow hotfix"
 alias r="git flow release"
 
+# Rails / Rake / Bundler
 function rc
   if count $argv > /dev/null
     heroku run console -a $argv
   else
-    bin/rails console
+    bundle exec rails console
   end
 end
-
-# pgbackup
-alias ddump="curl (heroku pg:backups public-url -a shopmium) > ~/Downloads/last.dump"
-
-# Rails / Rake / Bundler
-alias rs="bin/rails server"
-alias raklette="bin/bundle exec rake parallel:spec"
-alias be="bin/bundle exec"
+alias rs="bundle exec rails server"
+alias raklette="bundle exec rake parallel:spec"
+alias be="bundle exec"
 alias rdm="bundle exec rake db:migrate"
 alias rds="bundle exec rake db:migrate:status | tail"
 alias rpp="bundle exec rake parallel:prepare"
-alias rdtp="bin/bundle exec rake db:test:prepare"
-alias rdr="bin/rake db:rollback"
-alias rdre="bin/rake db:migrate:redo"
-alias rr="bin/rake routes > routes"
-function rdd; bin/rake db:migrate:down VERSION=$argv; end
-function rdu; bin/rake db:migrate:up VERSION=$argv; end
+function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
+function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
 # Docker
 alias dc="sudo docker-compose"
