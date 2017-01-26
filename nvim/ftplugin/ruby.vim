@@ -6,6 +6,8 @@ setlocal concealcursor+=i
 setlocal iskeyword+=?
 setlocal iskeyword+=!
 
+iabbrev <buffer> pry binding.pry
+
 let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
 
 nnoremap <buffer> <return> :TestLast<cr>
