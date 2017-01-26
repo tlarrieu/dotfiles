@@ -43,6 +43,7 @@ alias atx="atool -x"
 
 # Yaourt
 alias y="yaourt"
+alias yqs="yaourt -Qs"
 alias ys="yaourt -S"
 function yss; yaourt -Ss $argv | vip +'set nofoldenable'; end
 alias ysuy="yaourt -Suy"
