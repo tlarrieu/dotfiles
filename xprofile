@@ -1,6 +1,7 @@
 mpd
 mpc repeat on
 mpc crossfade 2
+udiskie &
 redshift &
 compton &
 unclutter -root -idle 2 &
