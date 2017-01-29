@@ -5,7 +5,7 @@ LAUNCHER='rofi -dmenu -i -p power:'
 OPTIONS="Lock\nRestart\nShutdown\nSuspend"
 
 function lock {
-  i3lock  -f -n -i /home/tlarrieu/Pictures/lock &
+  i3lock  -f -n -i $HOME/Pictures/lock &
 }
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`

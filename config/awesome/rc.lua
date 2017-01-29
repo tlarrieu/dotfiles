@@ -13,7 +13,7 @@ require("plugins/run_or_raise")
 
 require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
 
-local wallpaper = "/home/tlarrieu/Pictures/wallpaper"
+local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 
 local tags = {
   {

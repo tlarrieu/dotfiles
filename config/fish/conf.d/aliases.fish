@@ -18,7 +18,7 @@ alias xclip="xclip -selection clipboard"
 alias python2="python2.7"
 
 # aria2c
-alias dl="aria2c --dir=/home/tlarrieu/Downloads"
+alias dl="aria2c --dir=$HOME/Downloads"
 
 # youtube-dl
 alias yt="youtube-dl"

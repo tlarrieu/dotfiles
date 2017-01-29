@@ -14,6 +14,10 @@ local client_focus = function(direction)
   if client.focus then client.focus:raise() end
 end
 
+local script = function(path)
+  return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
+end
+
 -- [[ Client ]] ----------------------------------------------------------------
 
 clientkeys = awful.util.table.join(
@@ -56,7 +60,7 @@ local viewtag = function(id) awful.screen.focused().tags[id]:view_only() end
 local keyboard = awful.util.table.join(
   -- Layout switching
 
-  mspawn("l", "sh /home/tlarrieu/scripts/rofi-layouts"),
+  mspawn("l", script('rofi-layouts')),
 
   -- Tags switching
 
@@ -117,13 +121,13 @@ keyboard = awful.util.table.join(
 
   spawn({"Control"}, " ",        "rofi -show run"),
   mspawn("Tab",                  "rofi -show window"),
-  spawn({mod, "Control"}, "Tab", "sh /home/tlarrieu/scripts/rofi-monitors"),
-  spawn({}, "F12",               "sh /home/tlarrieu/scripts/rofi-wifi"),
-  mspawn("F2",                   "sh /home/tlarrieu/scripts/rofi-keyboard"),
+  spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
+  spawn({}, "F12",               script("rofi-wifi")),
+  mspawn("F2",                   script("rofi-keyboard")),
 
   -- Power management
 
-  mspawn("Escape", "sh /home/tlarrieu/scripts/rofi-power"),
+  mspawn("Escape", script("rofi-power")),
 
   -- luminosity
 
@@ -136,8 +140,8 @@ keyboard = awful.util.table.join(
 
   -- music
 
-  mspawn("m", "sh /home/tlarrieu/scripts/mpc-library"),
-  mspawn("b", "sh /home/tlarrieu/scripts/mpc-playlist"),
+  mspawn("m", script("mpc-library")),
+  mspawn("b", script("mpc-playlist")),
   mspawn(" ", "mpc toggle"),
 
   spawn({}, "F9", "playerctl play-pause"),
@@ -160,7 +164,7 @@ keyboard = awful.util.table.join(
   -- screenshots
 
   awful.key({mod}, "p", function()
-    awful.util.spawn_with_shell("sh /home/tlarrieu/scripts/scrot.sh")
+    awful.util.spawn_with_shell(script("scrot.sh"))
   end),
 
   -- xkill
