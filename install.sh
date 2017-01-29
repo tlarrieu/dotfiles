@@ -6,7 +6,9 @@ platformlink() {
   target=$1
   link=$2
 
-  ln -sfF $target $link
+  echo $link "->" $target
+
+  ln -sfFT $target $link
 }
 
 safelink()
@@ -14,42 +16,43 @@ safelink()
   target=$1
   link=$2
 
-  echo
-  echo $link "->" $target
-
   if [ $FORCE ]; then
-    rm -rf $link
-    platformlink $target $link
-  else
     DO_LINK=true
-
+  else
     if [ -d $link -o -f $link ]; then
       DO_LINK=false
 
-      echo -n "File already exists, do you want to replace it? ([y]es/[N]o/[a]ll) "
+      echo -n "$(tput setaf 3)'$link' already exists, do you want to replace it? ([y]es/[n]o/[a]ll) $(tput sgr0)"
 
       read answer
       case $answer in
         "yes"|"y")
           DO_LINK=true
-          echo "Overriding"
           ;;
         "all"|"a")
           FORCE=true
           DO_LINK=true
-          echo "Overriding everything"
+          ;;
+        *)
+          DO_LINK=false
           ;;
       esac
-
-      [ $DO_LINK ] && rm -rf $link
+    else
+      DO_LINK=true
     fi
-
-    [ $DO_LINK ] && platformlink $target $link
   fi
+
+  $DO_LINK && platformlink $target $link
 }
 
 safeinstall() {
-  [[ -n $(yaourt -Q $1) ]] || yaourt -Ss $1
+  package=$1
+
+  if [[ $(expr $package : ".*-git") -eq 0 ]]; then
+    sudo pacman -S --needed $package
+  else
+    sudo yaourt -S --needed $package
+  fi
 }
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
@@ -57,6 +60,7 @@ BASEDIR=$(cd "$(dirname "$0")"; pwd)
 git submodule init
 git submodule update
 
+# -- [[ Linking ]] -------------------------------------------------------------
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
 for file in `ls -d $BASEDIR/config/*`; do
@@ -67,41 +71,15 @@ done
 
 # .nvim
 safelink $BASEDIR/nvim $HOME/.config/nvim
-# vim-plug
-if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
-  echo "Vim-Plug already installed, nothing to do."
-else
-  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-nvim +PlugInstall +qall
 
 # Gnuplot
 safelink $BASEDIR/gnuplot $HOME/gnuplot
 
-# Fish
-safeinstall fish
-# Oh My Fish!
-if [[ -d ~/.local/share/omf ]]; then
-  echo "Oh-My-Fish already installed. Nothing to do!"
-else
-  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-fi
-
-OMF_PATH=$HOME/.local/share/omf
-rm -rf $OMF_PATH/themes/clearance
-cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
-echo "Fish fully configured, don't forget to set it as your shell"
-
 # Bash
 safelink $BASEDIR/bashrc $HOME/.bashrc
 
-# .moc & mplayer
+# .moc
 safelink $BASEDIR/moc $HOME/.moc
-safelink $BASEDIR/mplayer $HOME/.mplayer
-
-# .vimperatorrc
-safelink $BASEDIR/vimperatorrc $HOME/.vimperatorrc
 
 # weechat
 safelink $BASEDIR/weechat $HOME/.weechat
@@ -124,7 +102,7 @@ safelink $BASEDIR/irbrc $HOME/.irbrc
 safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
 # scripts
-mkdir $HOME/scripts
+mkdir -p $HOME/scripts
 for file in `ls -d $BASEDIR/scripts/*`; do
   target=$BASEDIR/scripts/`basename $file`
   link=~/scripts/`basename $file`
@@ -142,3 +120,51 @@ safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
+
+# -- [[ Package / plugins installation ]] --------------------------------------
+# Core pacakages (maybe we should make a meta package or something)
+safeinstall yaourt
+safeinstall awesome-git
+safeinstall qutebrowser-git
+safeinstall neovim
+safeinstall ranger
+safeinstall w3m
+
+safeinstall rofi
+safeinstall scrot
+safeinstall feh
+
+safeinstall zathura
+safeinstall zathura-djvu
+safeinstall zathura-pdf-mupdf
+safeinstall zathura-ps
+
+safeinstall mpc
+safeinstall mpd
+safeinstall mpv
+
+safeinstall fish
+safeinstall fundle
+safeinstall termite
+
+# Oh My Fish!
+if [[ -d ~/.local/share/omf ]]; then
+  echo "$(tput setaf 2)Oh-My-Fish already installed. Nothing to do!$(tput sgr0)"
+else
+  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
+fi
+fundle install
+
+OMF_PATH=$HOME/.local/share/omf
+rm -rf $OMF_PATH/themes/clearance
+cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
+echo "$(tput setaf 2)Fish fully configured, don't forget to set it as your shell$(tput sgr0)"
+
+# vim-plug
+if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
+  echo "$(tput setaf 2)vim-plug already installed, nothing to do.$(tput sgr0)"
+else
+  curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  nvim +PlugInstall +qall
+fi
