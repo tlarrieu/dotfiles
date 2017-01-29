@@ -1,16 +1,12 @@
 #!/bin/sh
 
 [[ "$1" == "-f" ]] && FORCE=true
-[[ `uname -s` == "Darwin" ]] && OSX=true
 
 platformlink() {
   target=$1
   link=$2
-  if [ $OSX ]; then
-    ln -s -i $target $link
-  else
-    ln -sfF $target $link
-  fi
+
+  ln -sfF $target $link
 }
 
 safelink()
@@ -53,11 +49,7 @@ safelink()
 }
 
 safeinstall() {
-  if [ $OSX ]; then
-    [[ -n $(brew list | grep $1) ]] || brew install $1
-  else
-    [[ -n $(yaourt -Q $1) ]] || yaourt -Ss $1
-  fi
+  [[ -n $(yaourt -Q $1) ]] || yaourt -Ss $1
 }
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
@@ -83,11 +75,6 @@ else
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
 nvim +PlugInstall +qall
-
-# Fix for Vim buffer within tmux on OSX
-if [ $OSX ]; then
-  safeinstall reattach-to-user-namespace
-fi
 
 # Gnuplot
 safelink $BASEDIR/gnuplot $HOME/gnuplot
