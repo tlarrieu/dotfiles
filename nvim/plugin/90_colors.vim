@@ -43,13 +43,12 @@ function! s:highlights()
 endfunction
 
 function! s:setupcolors()
+  let g:lightline.colorscheme = 'solarized'
   if &background ==# 'dark'
     " Use a custom solarized theme dedicated to dark
-    let g:lightline.colorscheme = 'solarized_dark'
     let l:fzf_color = 'fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
   else
     " Use a custom solarized theme dedicated to light
-    let g:lightline.colorscheme = 'solarized_light'
     let l:fzf_color = 'fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
   end
 
