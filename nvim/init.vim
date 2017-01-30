@@ -8,7 +8,7 @@ set shell=/bin/sh
 call plug#begin()
 " {{{ --| File Manipulation |--------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'rking/ag.vim', { 'on': ['Ag', 'AgBuffer'] }
+Plug 'mileszs/ack.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'tlarrieu/vim-sniper'
 " }}}
@@ -370,10 +370,10 @@ omap ic Ic
 let g:targets_argOpening = '[({[]'
 let g:targets_argClosing = '[]})]'
 " }}}
-" {{{ --| Ag |----------------------------------------------
-let g:ag_apply_qmappings = 0
-let g:ag_apply_lmappings = 0
-let g:ag_prg = 'ag --vimgrep'
+" {{{ --| Ack |---------------------------------------------
+let g:ack_apply_qmappings = 0
+let g:ack_apply_lmappings = 0
+let g:ackprg = 'ag --vimgrep'
 set grepformat=%f:%l:%c:%m
 " }}}
 " {{{ --| UltiSnips |---------------------------------------

@@ -1,2 +1,2 @@
-cabbr ag Ag!
+cabbr ag Ack!
 cabbr gv GV
