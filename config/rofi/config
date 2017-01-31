@@ -3,7 +3,7 @@
 ! ------------------------------------------------------------------------------
 ! Overall look
 ! ------------------------------------------------------------------------------
-rofi.font: Inconsolata-g for Powerline 15
+rofi.font: InconsolataForPowerline Nerd Font 18
 rofi.separator-style: none
 rofi.hide-scrollbar: true
 rofi.fullscreen: true

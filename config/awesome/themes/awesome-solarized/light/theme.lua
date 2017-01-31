@@ -23,7 +23,7 @@ theme.colors.cyan    = "#2aa198"
 theme.colors.green   = "#859900"
 
 -- [[ styles ]] ----------------------------------------------------------------
-theme.font      = "Inconsolata-g For Powerline 11"
+theme.font      = "InconsolataForPowerline Nerd Font 13"
 
 -- [[ colors ]] ----------------------------------------------------------------
 theme.fg_normal         = theme.colors.base02

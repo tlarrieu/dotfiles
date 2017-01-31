@@ -1,6 +1,6 @@
 set terminal wxt \
-  font "Inconsolata-g for Powerline" \
-  fontscale 1.2 \
+  font "InconsolataForPowerline Nerd Font" \
+  fontscale 1.5 \
   persist
 
 # vim: filetype=gnuplot
