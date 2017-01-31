@@ -65,22 +65,51 @@ function! s:search_sink(input)
   if len(a:) < 2 | return | endif
 
   let l:key = a:input[0]
-  let l:cmd = s:getcmd(l:key)
-
   let l:entries = a:input[1:]
-  for l:entry in l:entries
-    let l:entry = split(l:entry)[0]
-    let [l:file, l:line, l:column] = split(l:entry, ':')[0:2]
-    execute l:cmd escape(l:file, ' %#\')
-    call cursor(l:line, l:column)
-    normal zz
-  endfor
+
+  if l:key ==# 'ctrl-d'
+    let l:qfentries = []
+
+    for l:entry in l:entries
+      let [l:file, l:line, l:column, l:text] = s:parse_search_entry(l:entry)
+      let l:qfentries += [{
+        \ 'filename' : l:file,
+        \ 'lnum' : l:line,
+        \ 'col' : l:column,
+        \ 'vcol' : 1,
+        \ 'text' : l:text
+        \ }]
+    endfor
+
+    call setqflist(l:qfentries, 'r', 'Ag search')
+    copen
+  else
+    let l:cmd = s:getcmd(l:key)
+    for l:entry in l:entries
+      let [l:file, l:line, l:column, l:text] = s:parse_search_entry(l:entry)
+      execute l:cmd escape(l:file, ' %#\')
+      call cursor(l:line, l:column)
+      normal zz
+    endfor
+  end
+endfunction
+
+function! s:parse_search_entry(entry)
+  let tokens = split(a:entry, ':')
+
+  let l:file = l:tokens[0]
+  let l:line = l:tokens[1]
+  let l:column = l:tokens[2]
+  " build text back (since it might have been split on ':', we have to join)
+  let l:text = join(tokens[3:], ':')
+
+  return [l:file, l:line, l:column, l:text]
 endfunction
 
 command! -nargs=1 FZFsearch call fzf#run({
   \ 'source': 'ag -S --nogroup --column "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>search_sink'),
-  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x -e --multi',
+  \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d -e --multi',
   \ 'down': '50%'
   \ })
 " }}}
