@@ -190,7 +190,7 @@ set updatetime=250
 " Change netrw list style
 let g:netrw_liststyle=1
 " inccommand
-set inccommand=split
+set inccommand=nosplit
 " }}}
 " {{{ ==| Splits |==============================================================
 set splitright
@@ -597,7 +597,8 @@ nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 
 nmap s :s/
 nmap S :%s/
-vmap s <esc>:%s/\%V/g<left><left>
+" vmap s <esc>:%s/\%V/g<left><left>
+vmap s <esc>:%s/\%V
 
 nmap <A-n> :cnext<cr>
 nmap <A-p> :cprev<cr>
