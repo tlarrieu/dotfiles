@@ -1,16 +1,19 @@
 let g:lightline = {
       \ 'active': {
-      \   'left': [['mode', 'paste'], ['fugitive'], ['filename']],
+      \   'left': [['mode', 'paste'], ['fugitive'], ['buffer']],
       \   'right': [
       \     ['syntax', 'whitespace', 'lineinfo'],
       \     ['percent'],
       \     ['filetype', 'fileencoding', 'fileformat'],
       \   ]
       \ },
+      \ 'inactive': {
+      \   'left': [['buffer']],
+      \ },
       \ 'component_function': {
       \   'fileencoding': 'LightLineFileencoding',
       \   'fileformat': 'LightLineFileformat',
-      \   'filename': 'LightLineFilename',
+      \   'buffer': 'LightLineBuffer',
       \   'filetype': 'LightLineFiletype',
       \   'fugitive': 'LightLineFugitive',
       \   'mode': 'LightLineMode'
@@ -28,11 +31,11 @@ let g:lightline = {
       \   'right': [[]]
       \ },
       \ 'tab': {
-      \   'active': ['filename'],
-      \   'inactive': ['filename'],
+      \   'active': ['buffer'],
+      \   'inactive': ['buffer'],
       \ },
       \ 'tab_component_function': {
-      \   'filename': 'TabooTabTitle'
+      \   'buffer': 'TabooTabTitle'
       \ },
       \ 'separator': { 'left': '', 'right': '' },
       \ 'subseparator': { 'left': '', 'right': '' }
@@ -46,7 +49,19 @@ augroup LightLine
 augroup END
 
 function! LightLineModified()
-  return &filetype =~? 'help' ? '' : &modified ? '+' : &modifiable ? '' : '-'
+  if &buftype ==# 'help' || &buftype ==# 'quickfix'
+    return ''
+  endif
+
+  if &modified
+    return '+'
+  endif
+
+  if !&modifiable
+    return '-'
+  end
+
+  return ''
 endfunction
 
 function! LightLineReadonly()
@@ -54,9 +69,25 @@ function! LightLineReadonly()
 endfunction
 
 function! LightLineFilename()
-  return ('' !=# LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-        \ ('' !=# expand('%:p:.') ? expand('%:p:.') : '[No Name]') .
-        \ ('' !=# LightLineModified() ? ' ' . LightLineModified() : '')
+  let l:filename = expand('%:p:.')
+  if l:filename !=# ''
+    return l:filename
+  endif
+
+  if exists('w:quickfix_title')
+    if w:quickfix_title ==# ''
+      return 'quickfix'
+    endif
+    return w:quickfix_title
+  endif
+
+  return ''
+endfunction
+
+function! LightLineBuffer()
+  return s:maybe(LightLineReadonly(), '') .
+    \ s:maybe(LightLineFilename(), '[No Name]') .
+    \ s:maybe(LightLineModified(), '')
 endfunction
 
 function! LightLineFugitive()
@@ -83,20 +114,8 @@ function! LightLineFileencoding()
   return &fileencoding !=# '' ? &fileencoding : &encoding
 endfunction
 
-function! LightLineFile()
-  if winwidth(0) < 70
-    return ''
-  endif
-
-  return LightLineFileformat() .
-        \ '(' .
-        \ LightLineFileencoding() .
-        \ ') → ' .
-        \ LightLineFiletype()
-endfunction
-
 function! LightLineMode()
-  return winwidth(0) > 60 ? lightline#mode() : ''
+  return lightline#mode()
 endfunction
 
 function! StatusIf(glyphe, condition)
@@ -135,4 +154,12 @@ function! LightLineWhitespace()
   endif
 
   return b:whitespaces
+endfunction
+
+function! s:maybe(label, replacement)
+  if a:label ==# ''
+    return a:replacement
+  end
+
+  return a:label . ' '
 endfunction
