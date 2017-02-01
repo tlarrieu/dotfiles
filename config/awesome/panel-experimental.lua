@@ -125,7 +125,7 @@ local function init_screen(screen)
     screen,
     awful.widget.taglist.filter.all,
     { awful.button({}, 1, function(tag) tag:view_only() end) },
-    { spacing = 1 }
+    { spacing = 6, font = "InconsolataForPowerline Nerd Font 24" }
   )
 
   local left = wibox.widget({
