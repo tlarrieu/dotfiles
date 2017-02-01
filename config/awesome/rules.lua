@@ -57,7 +57,7 @@ awful.rules.rules = {
   -- [[ Chat ]] ----------------------------------------------------------------
   {
     rule_any = { class = { "Slack", "hangups", "Whatsie" } },
-    properties = { tag = "chat" },
+    properties = { tag = "" },
   },
 
   {

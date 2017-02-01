@@ -17,30 +17,30 @@ local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 
 local tags = {
   {
-    name = "www",
+    name = "",
     config = { layout = awful.layout.suit.max }
   },
   {
-    name = "dev",
+    name = "",
     config = { layout = awful.layout.suit.fair }
   },
   {
-    name = "term",
+    name = "",
     config = { layout = awful.layout.suit.fair }
   },
   {
-    name = "misc",
+    name = "",
     config = { layout = awful.layout.suit.fair }
   },
   {
-    name = "chat",
+    name = "",
     config = {
       layout = awful.layout.suit.magnifier,
       master_width_factor = 0.85,
     }
   },
   {
-    name = "other",
+    name = "",
     config = { layout = awful.layout.suit.max }
   },
 }
@@ -55,7 +55,7 @@ awful.screen.connect_for_each_screen(function(screen)
     )
   end
 
-  awful.tag.find_by_name(screen, "www"):view_only()
+  awful.tag.find_by_name(screen, ""):view_only()
 end)
 
 require("bindings")
