@@ -81,7 +81,7 @@ function! s:search_sink(input)
         \ }]
     endfor
 
-    call setqflist(l:qfentries, 'r', 'Ag search')
+    call setqflist(l:qfentries, 'r', 'Ag subset')
     copen
   else
     let l:cmd = s:getcmd(l:key)
@@ -89,19 +89,19 @@ function! s:search_sink(input)
       let [l:file, l:line, l:column, l:text] = s:parse_search_entry(l:entry)
       execute l:cmd escape(l:file, ' %#\')
       call cursor(l:line, l:column)
-      normal zz
+      normal! zz
     endfor
   end
 endfunction
 
 function! s:parse_search_entry(entry)
-  let tokens = split(a:entry, ':')
+  let l:tokens = split(a:entry, ':')
 
   let l:file = l:tokens[0]
   let l:line = l:tokens[1]
   let l:column = l:tokens[2]
   " build text back (since it might have been split on ':', we have to join)
-  let l:text = join(tokens[3:], ':')
+  let l:text = join(l:tokens[3:], ':')
 
   return [l:file, l:line, l:column, l:text]
 endfunction
@@ -175,7 +175,7 @@ function! s:fzf_tags(kind)
   let [l:prompt, l:grepcmd] = s:fzf_tags_cmd(a:kind)
 
   call fzf#run({
-    \ 'source': 'cat '.join(map(l:tagfiles, 'fnamemodify(v:val, ":S")')) .
+    \ 'source': 'cat '.join(map(l:tagfiles, "fnamemodify(v:val, ':S')")) .
     \           '| grep -v ^! ' . l:grepcmd,
     \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1 --tiebreak=length ' .
     \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi ' .
