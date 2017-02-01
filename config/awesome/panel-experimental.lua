@@ -123,10 +123,13 @@ lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = battery_update })
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local function init_screen(screen)
+  tagbuttons = awful.util.table.join(
+    awful.button({}, 1, function(tag) tag:view_only() end)
+  )
   local taglist = awful.widget.taglist(
     screen,
     awful.widget.taglist.filter.all,
-    { awful.button({}, 1, function(tag) tag:view_only() end) },
+    tagbuttons,
     { spacing = 6, font = "InconsolataForPowerline Nerd Font 24" }
   )
 
