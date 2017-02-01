@@ -1,3 +1,6 @@
+# reset terminal
+alias cls="echo -e \\033c"
+
 # NVIM
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias v="nvim"
@@ -52,6 +55,7 @@ alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~
 
 # cd
 alias jt="cd ~/git/jobteaser/jobteaser"
+alias cockpit="cd ~/git/jobteaser/cockpit"
 alias dot="cd ~/git/dotfiles"
 alias blog="cd ~/git/blog"
 
@@ -69,6 +73,7 @@ alias gb="git branch"
 alias gd="git difftool"
 alias gcl="git clone"
 alias gci="git commit"
+# Make "master" the default branch
 alias gco="git checkout"
 alias gf="git diff --name-only develop.."
 alias gl="git log"
@@ -110,3 +115,5 @@ alias d="sudo docker"
 alias e="exercism"
 alias ef="exercism fetch"
 alias es="exercism submit"
+
+alias dsql="sudo docker exec -it jobteaser_sql-master_1 mysql -ujobteaser -pmijAwrethEE87 -Danon"

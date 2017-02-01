@@ -115,6 +115,22 @@ snippet fb "FactoryGirl.build"
 FactoryGirl.build($1)
 endsnippet
 
+snippet fd "FactoryGirl.define"
+FactoryGirl.define do
+	$1
+end
+endsnippet
+
+snippet f "factory"
+factory ${1:name} do
+end
+endsnippet
+
+snippet t "trait"
+trait ${1:name} do
+end
+endsnippet
+
 snippet trait "trait"
 trait :${1:trait} do
 	$2
