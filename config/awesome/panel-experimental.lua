@@ -39,7 +39,9 @@ local function arcprogress(label)
   arcchart:connect_signal("widget::redraw_needed", function(widget)
     if widget:get_colors() == nil then return end
 
-    text:set_markup(lain.util.markup(widget:get_colors()[1], label))
+    local markup = lain.util.markup(widget:get_colors()[1], label)
+
+    text:set_markup(lain.util.markup.small(markup))
   end)
 
   return arcchart
@@ -107,9 +109,9 @@ local function battery_update()
     icon = "⚡ "
   else
     if bat_now.status == "Charging" then
-      icon = "↑ "
+      icon = " "
     else
-      icon = "↓ "
+      icon = " "
     end
   end
 
