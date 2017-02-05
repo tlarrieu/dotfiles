@@ -1,3 +1,7 @@
+snippet l "let"
+let l:${1:name}
+endsnippet
+
 snippet f "function!"
 function! ${1:name}
 	$2
@@ -10,6 +14,6 @@ endsnippet
 
 snippet if "if"
 if ${1:condition}
-	$2
+	${2:${VISUAL}}
 endif
 endsnippet
