@@ -19,6 +19,7 @@ function! s:overlength()
     \   'csv',
     \   'log',
     \   'postgresql',
+    \   'mysql',
     \   'fugitiveblame',
     \   '',
     \ ],
