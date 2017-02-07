@@ -60,3 +60,5 @@ node_modules
 heroku-logs
 
 .subset
+
+*.session
