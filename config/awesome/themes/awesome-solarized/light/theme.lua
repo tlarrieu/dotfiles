@@ -62,7 +62,6 @@ theme.menu_width  = "200"
 -- taglist
 theme.taglist_squares_sel   = theme.path.."taglist/square_sel.png"
 theme.taglist_squares_unsel = theme.path.."taglist/square_unsel.png"
-theme.taglist_bg_focus      = "png:" .. theme.path .. "taglist/bg_focus.png"
 
 -- misc
 theme.awesome_icon      = theme.path.."/layouts/awesome-icon.png"

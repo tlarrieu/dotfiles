@@ -123,7 +123,7 @@ lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = battery_update })
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local function init_screen(screen)
-  tagbuttons = awful.util.table.join(
+  local tagbuttons = awful.util.table.join(
     awful.button({}, 1, function(tag) tag:view_only() end)
   )
   local taglist = awful.widget.taglist(
@@ -144,9 +144,9 @@ local function init_screen(screen)
   })
 
   local right = wibox.widget({
-    wibox.container.margin(cpu, 0, 5, 0, 0),
-    wibox.container.margin(mem, 0, 10, 0, 0),
-    battery,
+    wibox.container.margin(cpu, 0, 5, 2, 2),
+    wibox.container.margin(mem, 0, 10, 2, 2),
+    wibox.container.margin(battery, 1, 0, 1, 1),
     layout = wibox.layout.fixed.horizontal
   })
   right = wibox.container.margin(right, 5, 5, 0, 0)
