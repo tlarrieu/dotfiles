@@ -1,6 +1,9 @@
 # reset terminal
 alias cls="echo -e \\033c"
 
+# nginx
+alias nginx="sudo nginx"
+
 # NVIM
 alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
 alias v="nvim"
@@ -62,8 +65,9 @@ alias blog="cd ~/git/blog"
 # ls
 alias l="ls"
 
-# SSH agent
+# SSH
 alias kc="keychain --eval --agents ssh -Q --quiet ~/.ssh/id_rsa"
+alias ssh-wtf="cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
 
 # Git
 alias g="git"
