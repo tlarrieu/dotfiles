@@ -40,7 +40,6 @@ function! sql#run(query) abort
     \ )
 
   let l:query = shellescape(l:query)
-  let l:query = escape(l:query, '%')
 
   let l:cmdline = 'echo -e ' . l:query . ' | ' . l:adapter . ' ' . l:connection_string
 
@@ -97,7 +96,7 @@ function! s:callback() dict abort
   execute 'setfiletype ' . l:self.filetype
 
   if l:self.plot.draw
-    call gnuplot#plot(l:self.filename, l:self.plot.kind)
+    call gnuplot#plot(l:self.filename, l:self.plot.kind, l:self.plot.terminal)
   endif
 endfunction
 
@@ -124,17 +123,18 @@ function! s:parse_magic_comment() abort
 endfunction
 
 function! s:parse_config(comment) abort
-  let l:args = matchlist(a:comment, '-- plot \?\(.*\)')
+  let l:tokens = matchlist(a:comment, '-- plot \?\(.*\)')
 
-  if empty(l:args)
+  if empty(l:tokens)
     return { 'draw' : 0 }
   endif
 
-  let l:kind = l:args[1]
+  let l:config = { 'draw' : 1 }
 
-  if empty(l:kind)
-    let l:kind = 'bars'
-  endif
+  let l:options = split(l:tokens[1], ' ')
 
-  return { 'draw' : 1, 'kind' : l:kind }
+  let l:config['kind'] = len(l:options) >= 1 ? l:options[0] : 'bars'
+  let l:config['terminal'] = len(l:options) >= 2 ? l:options[1] : 'wxt'
+
+  return l:config
 endfunction
