@@ -1,14 +1,14 @@
 if (!exists("filename")) filename = '~/pgresult.dat'
 
 # setup
-set datafile separator ';'
+set datafile separator '\t'
 set loadpath '~/gnuplot'
 
 load 'dark2.pal'
 load 'layout.gp'
 load 'timeformat.gp'
-load 'wxt.gp'
-# load 'pngcairo.gp'
+if (!exists("terminal")) terminal = 'wxt'
+load terminal . '.gp'
 
 # Plot
 plot \
