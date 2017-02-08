@@ -10,11 +10,17 @@ Lint/DefEndAlignment:
 Lint/DeprecatedClassMethods:
   Enabled: false
 
+Lint/SpaceBeforeFirstArg:
+  Enabled: true
+
 Metrics/LineLength:
   Max: 80
 
 Metrics/MethodLength:
   Max: 10
+
+Style/DotPosition:
+  EnforcedStyle: trailing
 
 Style/AlignParameters:
   Enabled: false
@@ -58,9 +64,6 @@ Style/RedundantReturn:
 Style/SignalException:
   Enabled: false
 
-Style/SpaceBeforeFirstArg:
-  Enabled: true
-
 Style/SpaceAfterColon:
   Enabled: true
 
@@ -75,12 +78,6 @@ Style/StringLiterals:
 
 Style/SymbolProc:
   Enabled: true
-
-Style/TrailingCommaInArguments:
-  Enabled: true
-
-Style/TrailingCommaInLiteral:
-  Enabled: false
 
 Style/ClassAndModuleChildren:
   Enabled: false
