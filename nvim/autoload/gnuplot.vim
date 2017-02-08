@@ -10,6 +10,12 @@ function! gnuplot#setup() abort
 endfunction
 
 function! gnuplot#plot(filename, kind, ...) abort
+  if !executable('gnuplot')
+    echohl Error
+    echomsg '"gnuplot" is not installed'
+    return
+  endif
+
   let l:terminal = (a:0 >= 1) ? a:1 : 'wxt'
 
   if index(s:kinds(), a:kind) == -1
