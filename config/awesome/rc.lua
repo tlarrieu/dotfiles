@@ -58,6 +58,6 @@ awful.screen.connect_for_each_screen(function(screen)
 end)
 
 require("bindings")
-require("panel-experimental")
+require("panel")
 require("signals")
 require("rules")
