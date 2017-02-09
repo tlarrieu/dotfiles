@@ -1,6 +1,7 @@
 #!/bin/sh
 
 [[ "$1" == "-f" ]] && FORCE=true
+SKIP=false
 
 platformlink() {
   target=$1
@@ -11,6 +12,8 @@ platformlink() {
 
 safelink()
 {
+  $SKIP && return
+
   target=$1
   link=$2
 
@@ -20,7 +23,7 @@ safelink()
     if [ -d $link -o -f $link ]; then
       DO_LINK=false
 
-      echo -n "$(tput setaf 3)'$link' already exists, do you want to replace it? ([y]es/[n]o/[a]ll) $(tput sgr0)"
+      echo -n "$(tput setaf 3)'$link' already exists, do you want to replace it? ([y]es/[N]o/[a]ll/[s]kip) $(tput sgr0)"
 
       read answer
       case $answer in
@@ -30,6 +33,10 @@ safelink()
         "all"|"a")
           FORCE=true
           DO_LINK=true
+          ;;
+        "skip"|"s")
+          SKIP=true
+          return
           ;;
         *)
           DO_LINK=false
@@ -59,7 +66,7 @@ git submodule init
 git submodule update
 
 # -- [[ Linking ]] -------------------------------------------------------------
-echo "$(tput setaf 4)Linking configuration files...$(tput sgr0)"
+echo "Linking configuration files..."
 # .config directories
 [[ -d ~/.config ]] || mkdir ~/.config
 for file in `ls -d $BASEDIR/config/*`; do
@@ -119,42 +126,53 @@ safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
-echo "$(tput setaf 2)All files have been linked.$(tput sgr0)"
+if [ ! $SKIP ]; then
+  echo "$(tput setaf 2)Done.$(tput sgr0)"
+fi
 
 # -- [[ Package / plugins installation ]] --------------------------------------
 # Core pacakages (maybe we should make a meta package or something)
 echo
-echo "$(tput setaf 4)Checking packages...$(tput sgr0)"
-safeinstall yaourt
-safeinstall awesome-git
-safeinstall qutebrowser-git
-safeinstall neovim
-safeinstall ranger
-safeinstall w3m
+echo -n "Do you want to check packages? ([y]es/[N]o) "
 
-safeinstall rofi
-safeinstall scrot
-safeinstall feh
+read answer
+case $answer in
+  "yes"|"y")
+    safeinstall yaourt
+    safeinstall awesome-git
+    safeinstall qutebrowser-git
+    safeinstall neovim
+    safeinstall ranger
+    safeinstall w3m
 
-safeinstall zathura
-safeinstall zathura-djvu
-safeinstall zathura-pdf-mupdf
-safeinstall zathura-ps
+    safeinstall rofi
+    safeinstall scrot
+    safeinstall feh
 
-safeinstall mpc
-safeinstall mpd
-safeinstall mpv
+    safeinstall zathura
+    safeinstall zathura-djvu
+    safeinstall zathura-pdf-mupdf
+    safeinstall zathura-ps
 
-safeinstall fish
-safeinstall fundle-git
-safeinstall termite
+    safeinstall mpc
+    safeinstall mpd
+    safeinstall mpv
 
-safeinstall nerd-fonts-complete
-echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
+    safeinstall fish
+    safeinstall fundle-git
+    safeinstall termite
+
+    safeinstall nerd-fonts-complete
+    echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
+    ;;
+  *)
+    echo "$(tput setaf 3)Packages update skipped$(tput sgr0)"
+    ;;
+esac
 
 echo
 
-echo "$(tput setaf 4)Configuring fish...$(tput sgr0)"
+echo "Configuring fish..."
 # Oh My Fish!
 if [[ -d ~/.local/share/omf ]]; then
   echo "$(tput setaf 2)Oh-My-Fish already installed. Nothing to do!$(tput sgr0)"
@@ -166,14 +184,14 @@ fish -c 'fundle install' > /dev/null
 OMF_PATH=$HOME/.local/share/omf
 rm -rf $OMF_PATH/themes/clearance
 cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
-echo "$(tput setaf 2)Fish is fully configured, don't forget to set it as your shell$(tput sgr0)"
+echo "$(tput setaf 2)Fish is fully configured. Don't forget to set it as your shell$(tput sgr0)"
 
 echo
 
-echo "$(tput setaf 4)Configuring neovim...$(tput sgr0)"
+echo "Configuring neovim..."
 # vim-plug
 if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
-  echo "$(tput setaf 2)vim-plug already installed, nothing to do.$(tput sgr0)"
+  echo "$(tput setaf 2)vim-plug already installed. Nothing to do!$(tput sgr0)"
 else
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
