@@ -6,7 +6,6 @@ local gears = require("gears")
 
 -- [[ Plugins ]] ---------------------------------------------------------------
 
-require("plugins/batmon")
 require("plugins/run_or_raise")
 
 -- [[ Configuration ]] ---------------------------------------------------------
@@ -59,7 +58,6 @@ awful.screen.connect_for_each_screen(function(screen)
 end)
 
 require("bindings")
--- require("panel")
 require("panel-experimental")
 require("signals")
 require("rules")

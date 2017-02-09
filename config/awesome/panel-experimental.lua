@@ -5,7 +5,7 @@ local wibox = require("wibox")
 
 local lain = require("lain")
 
-local function colorize(widget, value)
+local colorize = function(widget, value)
   local color
 
   if value > 80 then
@@ -22,7 +22,7 @@ local function colorize(widget, value)
   widget:set_colors({ color })
 end
 
-local function arcprogress(label)
+local arcprogress = function(label)
   local text = wibox.widget({
     valign = "center",
     align = "center",
@@ -51,14 +51,14 @@ end
 local cpu = arcprogress("C")
 lain.widgets.cpu({
   timeout = 2,
-  settings = function() colorize(cpu, cpu_now.usage) end
+  settings = function(cpu_now) colorize(cpu, cpu_now.usage) end
 })
 
 -- [[ MEM ]] -------------------------------------------------------------------
 local mem = arcprogress("M")
 lain.widgets.mem({
   timeout = 2,
-  settings = function() colorize(mem, mem_now.perc) end
+  settings = function(mem_now) colorize(mem, mem_now.perc) end
 })
 
 -- [[ Clock ]] -----------------------------------------------------------------
@@ -81,7 +81,7 @@ local battery = wibox.widget({
   wibox.container.margin(batterybar, 5, 0, 8, 8),
   layout = wibox.layout.fixed.horizontal
 })
-local function battery_update()
+local battery_update = function(bat_now)
   if bat_now.status == "N/A" then return end
 
   local color, legend, icon
@@ -119,10 +119,24 @@ local function battery_update()
   batterybar:set_color(color)
   batterybar:set_value(bat_now.perc / 100)
 end
-lain.widgets.bat({ battery = "BAT1", timeout = 15, settings = battery_update })
+lain.widgets.bat({
+  battery = "BAT1",
+  timeout = 15,
+  settings = battery_update,
+  notifications = {
+    low = {
+      fg = beautiful.colors.yellow,
+      bg = beautiful.colors.base2
+    },
+    critical = {
+      fg = beautiful.colors.red,
+      bg = beautiful.colors.base2
+    }
+  }
+})
 
 -- [[ Screen initialization ]] -------------------------------------------------
-local function init_screen(screen)
+local init_screen = function(screen)
   local tagbuttons = awful.util.table.join(
     awful.button({}, 1, function(tag) tag:view_only() end)
   )
