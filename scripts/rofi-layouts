@@ -1,7 +1,14 @@
 #!/bin/sh
 
 LAUNCHER='rofi -dmenu -i -p layout:'
-OPTIONS="magnifier\nfair\nfair.horizontal\nmax"
+OPTIONS="magnifier
+  \nfair
+  \nfair.horizontal
+  \nmax
+  \ntile.right
+  \ntile.left
+  \ntile.top
+  \ntile.bottom"
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
