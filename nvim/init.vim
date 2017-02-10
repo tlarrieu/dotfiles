@@ -275,10 +275,10 @@ nnoremap <leader>K :Dasht<space>
 nnoremap <silent> K :call Dasht(expand('<cword>'))<cr>
 vnoremap <silent> K y:<c-u>call Dasht(getreg(0))<cr>
 " }}}
-" {{{ --| VimRestClient |-----------------------------------
+" {{{ --| VimRestConsole |----------------------------------
 let g:vrc_max_time = 5
 let g:vrc_set_default_mapping = 0
-augroup VimRestClient
+augroup VimRestConsole
   autocmd!
   autocmd FileType rest nmap <buffer> <return> :call VrcQuery()<cr>
 augroup END
