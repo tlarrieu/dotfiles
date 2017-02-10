@@ -40,6 +40,10 @@ Style/EmptyLines:
 Style/EmptyLinesAroundAccessModifier:
   Enabled: true
 
+Style/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: empty_lines_except_namespace
+
 Style/HashSyntax:
   Enabled: true
 
