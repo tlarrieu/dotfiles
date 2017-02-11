@@ -173,17 +173,7 @@ esac
 echo
 
 echo "Configuring fish..."
-# Oh My Fish!
-if [[ -d ~/.local/share/omf ]]; then
-  echo "$(tput setaf 2)Oh-My-Fish already installed. Nothing to do!$(tput sgr0)"
-else
-  curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
-fi
 fish -c 'fundle install' > /dev/null
-
-OMF_PATH=$HOME/.local/share/omf
-rm -rf $OMF_PATH/themes/clearance
-cp -r $BASEDIR/fish_theme/clearance2 $OMF_PATH/themes/clearance
 echo "$(tput setaf 2)Fish is fully configured. Don't forget to set it as your shell$(tput sgr0)"
 
 echo

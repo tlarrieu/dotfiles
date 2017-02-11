@@ -28,14 +28,12 @@ if type rbenv > /dev/null
   source (rbenv init - | psub)
 end
 
-# Load oh-my-fish configuration.
-set -gx OMF_PATH "/home/tlarrieu/.local/share/omf"
-source $OMF_PATH/init.fish
-
-# Oh-my-fish theme
-set -g theme_display_user yes
+# # Oh-my-fish theme
 set -g default_user tlarrieu
-omf theme 'clearance'
+set -g theme_color_scheme terminal-light
+set -g theme_display_date no
+set -g theme_nerd_fonts yes
 
 fundle plugin 'tuvistavie/fish-ssh-agent'
+fundle plugin 'oh-my-fish/theme-bobthefish'
 fundle init
