@@ -37,3 +37,5 @@ set -g theme_nerd_fonts yes
 fundle plugin 'tuvistavie/fish-ssh-agent'
 fundle plugin 'oh-my-fish/theme-bobthefish'
 fundle init
+
+function fish_greeting; end
