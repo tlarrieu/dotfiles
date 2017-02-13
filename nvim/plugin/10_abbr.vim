@@ -1,2 +1,4 @@
-cabbr ag Ack!
-cabbr gv GV
+cabbrev ag Ack!
+cabbrev gv GV
+cabbrev chmod !chmod
+cabbrev rm !rm
