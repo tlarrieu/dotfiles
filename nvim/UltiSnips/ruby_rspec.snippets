@@ -1,4 +1,4 @@
-snippet rs "RSpec.describe" b
+snippet "^rs" "RSpec.describe" rb
 RSpec.describe ${1:class}, type: :${2:type} do
 	$3
 end
@@ -12,7 +12,7 @@ describe '${1:subject_name}' do
 end
 endsnippet
 
-snippet con "context"
+snippet cont "context"
 context '${1:context_name}' do
 	${2:${VISUAL}}
 end
