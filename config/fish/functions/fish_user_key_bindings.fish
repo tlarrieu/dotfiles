@@ -15,7 +15,8 @@ function fish_user_key_bindings
       cat /tmp/fzf.result | \
       cut -c3- | \
       sed 's#remotes/origin/##' | \
-      tr '\n' ' '
+      tr '\n' ' ' | \
+      sed 's# +##'
     )
     commandline -f repaint
     rm -f /tmp/fzf.result
