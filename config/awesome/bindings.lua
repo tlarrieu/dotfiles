@@ -160,6 +160,7 @@ keyboard = awful.util.table.join(
   -- terminal
 
   mspawn("'", terminal),
+  mspawn(".", terminal .. " -e nmtui"),
 
   -- screenshots
 
@@ -173,13 +174,7 @@ keyboard = awful.util.table.join(
 
   -- htop
 
-  mspawn(",", terminal .. " -e htop"),
-
-  -- hangups
-
-  awful.key({mod}, ".", function()
-    run_or_raise(terminal .. " --class=hangups -e hangups", { class = "hangups" })
-  end)
+  mspawn(",", terminal .. " -e htop")
 )
 
 -- [[ Final binding ]] ---------------------------------------------------------
