@@ -119,8 +119,18 @@ local battery_update = function(bat_now)
   batterybar:set_color(color)
   batterybar:set_value(bat_now.perc / 100)
 end
+
+local pipe = io.popen('ls /sys/class/power_supply | grep BAT')
+local batname
+-- Pick the first entry in /sys/class/power_supply/BAT* as our battery name
+for i in string.gmatch(pipe:read('*a'), "%S+") do
+  batname = i
+  break
+end
+pipe:close()
+
 lain.widgets.bat({
-  battery = "BAT1",
+  battery = batname,
   timeout = 15,
   settings = battery_update,
   notifications = {
