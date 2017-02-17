@@ -143,6 +143,8 @@ colorscheme solarized
 " Line numbering (relative and current)
 set relativenumber
 set number
+" textwidth
+set textwidth=80
 " Blank character
 set listchars=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters

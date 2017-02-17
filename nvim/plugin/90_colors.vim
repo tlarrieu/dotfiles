@@ -1,6 +1,7 @@
 augroup OverLength
   autocmd!
   autocmd BufReadPost,BufEnter,FileType,TermOpen * call s:overlength()
+  autocmd OptionSet textwidth call s:overlength()
 augroup END
 
 augroup SETUP_COLORS
@@ -32,7 +33,7 @@ function! s:overlength()
   if l:ft_exclude || l:bt_exclude
     execute 'match Folded //'
   else
-    execute 'match Folded /\%81v.\+/'
+    execute 'match Folded /\%' . (&textwidth + 1) . 'v.\+/'
   endif
 endfunction
 
