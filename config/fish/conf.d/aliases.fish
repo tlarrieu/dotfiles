@@ -74,7 +74,13 @@ alias gd="git difftool"
 alias gcl="git clone"
 alias gci="git commit"
 alias gco="git checkout"
-alias gf="git diff --name-only develop.."
+function gf
+  if count $argv > /dev/null
+    git diff --name-only $argv..
+  else
+    git diff --name-only develop..
+  end
+end
 alias gl="git log"
 alias glg="git lg"
 alias glgs="git lgs"
