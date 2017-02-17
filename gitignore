@@ -44,6 +44,8 @@ Thumbs.db
 *.swp*
 *.un~
 .projections.json
+*.session
+.nvimrc
 
 # Ember #
 #########
@@ -60,5 +62,3 @@ node_modules
 heroku-logs
 
 .subset
-
-*.session

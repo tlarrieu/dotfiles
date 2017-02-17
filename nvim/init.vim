@@ -128,6 +128,9 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 let g:mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
 map <space> <nop>
+" Project specific settings
+set exrc
+set secure
 " Timeout
 set nottimeout
 " Always display tabline
