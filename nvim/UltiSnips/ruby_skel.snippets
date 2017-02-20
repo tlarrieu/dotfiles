@@ -7,6 +7,20 @@ snippet _skel "Skeleton" b
 $0
 endsnippet
 
+snippet _class "Class skeleton"
+class `!p snip.rv = camelize(snip.basename)`
+	$1
+end
+endsnippet
+
+snippet _spec "Spec skeleton"
+require 'spec_helper'
+
+RSpec.describe ${1:`!p snip.rv = camelize(snip.basename[0:-5])`}, type: $2 do
+	$3
+end
+endsnippet
+
 snippet _enum "Enum skeleton" b
 module PgEnum
 	class `!p snip.rv = camelize(snip.basename)`
