@@ -54,10 +54,11 @@ alias yr="yaourt -Rs"
 alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
-alias blog="cd ~/git/blog"
-alias cockpit="cd ~/git/jobteaser/cockpit"
 alias dot="cd ~/git/dotfiles"
+alias ap="cd ~/git/jobteaser/appointments"
 alias jt="cd ~/git/jobteaser/jobteaser"
+alias jc="cd ~/git/jobteaser/jsonical"
+alias ct="cd ~/git/jobteaser/cockpit"
 
 # ls
 alias l="ls"
