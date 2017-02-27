@@ -18,6 +18,21 @@ context '${1:context_name}' do
 end
 endsnippet
 
+# -- Shared examples -----------------------------------------------------------
+
+snippet sh "shared_examples"
+shared_examples '${1:name}' do
+	$2
+end
+endsnippet
+
+snippet sc "shared context"
+shared_context '${1:name}' do
+	$2
+end
+endsnippet
+
+
 # -- Before --------------------------------------------------------------------
 
 snippet bef "before"
@@ -48,8 +63,12 @@ snippet let! "let!"
 let!(:${1:name}) { $2 }
 endsnippet
 
-snippet lc "let FactoryGirl"
+snippet lc "let FactoryGirl.create"
 let(:${1:name}) { FactoryGirl.create(:${2:$1}) }
+endsnippet
+
+snippet lb "let FactoryGirl.build"
+let(:${1:name}) { FactoryGirl.build(:${2:$1}) }
 endsnippet
 
 snippet L "let block"
@@ -86,6 +105,10 @@ endsnippet
 
 snippet ie "include_examples"
 include_examples '$1'
+endsnippet
+
+snippet ic "include_context"
+include_context '$1'
 endsnippet
 
 # -- Expect -------------------------------------------------------------------
