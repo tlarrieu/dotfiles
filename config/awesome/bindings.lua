@@ -119,7 +119,7 @@ keyboard = awful.util.table.join(
 
   -- launcher
 
-  spawn({"Control"}, " ",        "rofi -show run"),
+  mspawn(" ",                    "rofi -show run"),
   mspawn("Tab",                  "rofi -show window"),
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
@@ -127,7 +127,7 @@ keyboard = awful.util.table.join(
 
   -- Power management
 
-  mspawn("Escape", script("rofi-power")),
+  mspawn("q", script("rofi-power")),
 
   -- luminosity
 
