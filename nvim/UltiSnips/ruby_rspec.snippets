@@ -64,11 +64,11 @@ let!(:${1:name}) { $2 }
 endsnippet
 
 snippet lc "let FactoryGirl.create"
-let(:${1:name}) { FactoryGirl.create(:${2:$1}$3) }
+let(:${1:name}) { create(:${2:$1}$3) }
 endsnippet
 
 snippet lb "let FactoryGirl.build"
-let(:${1:name}) { FactoryGirl.build(:${2:$1}$3) }
+let(:${1:name}) { build(:${2:$1}$3) }
 endsnippet
 
 snippet L "let block"
@@ -131,11 +131,11 @@ endsnippet
 # -- FactoryGirl ---------------------------------------------------------------
 
 snippet fc "FactoryGirl.create"
-FactoryGirl.create(:${1:factory})
+create(:${1:factory})
 endsnippet
 
 snippet fb "FactoryGirl.build"
-FactoryGirl.build($1)
+build($1)
 endsnippet
 
 snippet fd "FactoryGirl.define"
