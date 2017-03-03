@@ -142,7 +142,7 @@ keyboard = awful.util.table.join(
 
   mspawn("m", script("mpc-library")),
   mspawn("b", script("mpc-playlist")),
-  mspawn(" ", "mpc toggle"),
+  spawn({ "Control" }, " ", "mpc toggle"),
 
   spawn({}, "F9", "playerctl play-pause"),
   spawn({}, "F10", "playerctl next"),
