@@ -42,7 +42,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular', { 'on' : 'Tabular' }
 Plug 'FooSoft/vim-argwrap'
-Plug 'jiangmiao/auto-pairs'
 " }}}
 " {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-function'
@@ -166,7 +165,7 @@ set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " mouse
-set mouse=a
+set mouse=
 " Command completion style
 set wildmode=list:full,full
 set complete=.,w,b,u,t,i
