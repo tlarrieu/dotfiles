@@ -10,9 +10,6 @@ Lint/DefEndAlignment:
 Lint/DeprecatedClassMethods:
   Enabled: false
 
-Lint/SpaceBeforeFirstArg:
-  Enabled: true
-
 Metrics/LineLength:
   Max: 80
 
@@ -73,6 +70,9 @@ Style/SpaceAfterColon:
 
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
+
+Style/SpaceBeforeFirstArg:
+  Enabled: true
 
 Style/SpaceInsideBrackets:
   Enabled: true
