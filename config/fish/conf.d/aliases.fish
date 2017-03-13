@@ -92,7 +92,7 @@ alias gs="git status -s -b"
 # Rails / Rake / Bundler
 function rc
   if count $argv > /dev/null
-    heroku run console -a $argv
+    heroku run rails console -a $argv
   else
     bundle exec rails console
   end
@@ -104,6 +104,10 @@ alias rds="bundle exec rake db:migrate:status | tail"
 alias rpp="bundle exec rake parallel:prepare"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
+
+# Heroku
+alias h="heroku"
+alias hps="heroku ps"
 
 # Docker
 alias dc="sudo docker-compose"
