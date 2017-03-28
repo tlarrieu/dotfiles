@@ -99,7 +99,7 @@ function rc
 end
 alias rs="bundle exec rails server"
 alias be="bundle exec"
-alias rdm="bundle exec rake db:migrate"
+alias rdm="bundle exec rake db:migrate db:test:prepare"
 alias rds="bundle exec rake db:migrate:status | tail"
 alias rpp="bundle exec rake parallel:prepare"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
@@ -111,6 +111,8 @@ alias hps="heroku ps"
 
 # Docker
 alias dc="sudo docker-compose"
+alias dcu="sudo docker-compose up -d"
+alias dcd="sudo docker-compose down"
 alias d="sudo docker"
 
 # Exercism
