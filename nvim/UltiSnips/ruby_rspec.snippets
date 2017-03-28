@@ -67,6 +67,10 @@ snippet lc "let FactoryGirl.create"
 let(:${1:name}) { create(:${2:$1}$3) }
 endsnippet
 
+snippet lc! "let! FactoryGirl.create"
+let!(:${1:name}) { create(:${2:$1}$3) }
+endsnippet
+
 snippet llc "let FactoryGirl.create"
 let(:${1:name}) { create_list(:${2:$1}$3, ${4:1}) }
 endsnippet
