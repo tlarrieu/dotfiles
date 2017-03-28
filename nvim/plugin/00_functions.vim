@@ -20,14 +20,13 @@ function! DelTagOfFile(file)
 endfunction
 
 function! UpdateTags()
-  let f = expand("%:p")
+  let f = expand("%")
   let cwd = getcwd()
   let tagfilename = cwd . "/tags"
 
   if filereadable(tagfilename)
-    let cmd = 'ctags -a -f ' . tagfilename . ' "' . f . '"'
     call DelTagOfFile(f)
-    let resp = system(cmd)
+    let resp = system('ctags -a -f ' . tagfilename . ' "' . f . '"')
   endif
 endfunction
 " }}} ==========================================================================
