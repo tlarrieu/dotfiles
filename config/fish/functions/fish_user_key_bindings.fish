@@ -25,9 +25,11 @@ function fish_user_key_bindings
   function fzf-gitsha
     set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "\
     git log\
+      (git rev-list -g --all)\
       --graph\
-      --color=always\
-      --format='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\
+      --decorate\
+      --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\
+      --abbrev-commit\
     "
     eval "$FZF_GIT_LOG_COMMAND |\
       fzf --ansi --no-sort --reverse --tiebreak=index -e\
