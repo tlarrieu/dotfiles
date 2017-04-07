@@ -23,14 +23,7 @@ function fish_user_key_bindings
   end
 
   function fzf-gitsha
-    set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "\
-    git log\
-      (git rev-list -g --all)\
-      --graph\
-      --decorate\
-      --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'\
-      --abbrev-commit\
-    "
+    set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "git lga"
     eval "$FZF_GIT_LOG_COMMAND |\
       fzf --ansi --no-sort --reverse --tiebreak=index -e\
       > /tmp/fzf.result"
