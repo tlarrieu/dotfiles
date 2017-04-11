@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+function search {
+  path=$1
+  ag 'TODO|XXX' $path\
+    --ignore=app/assets/frontend/src/common_assets/javascripts/limitless
+}
+
+function gitdiff {
+  git diff $1 --name-only --diff-filter=d
+}
+
+function prefix {
+  awk '{print "→  " $0}'
+}
+
+case $1 in
+  .)  todo=$(gitdiff | search | prefix);;
+  ..) todo=$(gitdiff master.. | search | prefix);;
+  *)  todo=$(search | prefix)
+esac
+
+ponysay -W i "$todo"
