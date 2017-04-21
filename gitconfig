@@ -26,7 +26,8 @@
 	co = checkout
 	br = branch
 	ci = commit
-	st = status
+	s = status
+	st = stash
 	ft = fetch
 	wtf = "!cat ~/.gitconfig"
 	sync = fetch --all --prune --tags
