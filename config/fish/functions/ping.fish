@@ -1,5 +1,5 @@
 function ping
-  if count $argv > 0
+  if test -n "$argv"
     command ping $argv
   else
     # Most of the time, I just want to check for internet connection
