@@ -296,7 +296,7 @@ let g:diminactive_use_syntax = 0
 vmap <leader><cr> :<c-u>call Snipe('vnew')<cr>
 " }}}
 " {{{ --| ArgWrap |-----------------------------------------
-nnoremap <silent> <leader>; :ArgWrap<CR>
+nnoremap <silent> <leader>, :ArgWrap<CR>
 " }}}
 " {{{ --| FZF |---------------------------------------------
 let $FZF_DEFAULT_COMMAND = "ag -g '' --hidden --ignore .git"
@@ -579,7 +579,6 @@ noremap 4 (
 noremap ) 5
 noremap 5 )
 noremap @ 6
-noremap <leader>, @q
 noremap 6 @
 noremap + 7
 noremap 7 :GitGutterStageHunk<cr>
