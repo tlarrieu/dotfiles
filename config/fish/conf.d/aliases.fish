@@ -97,6 +97,7 @@ function rc
     bundle exec rails console
   end
 end
+alias r="rails"
 alias rs="bundle exec rails server"
 alias be="bundle exec"
 alias rdm="bundle exec rake db:migrate db:test:prepare"
