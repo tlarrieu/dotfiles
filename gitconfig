@@ -19,15 +19,17 @@
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
 [alias]
-	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b'
+	br = branch
+	ci = commit
+	co = checkout
+	d = diff
+	ft = fetch
 	lc = log --merges
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	lga = log --all  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	co = checkout
-	br = branch
-	ci = commit
 	s = status
+	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b'
+	sl = stash list -p
 	st = stash
-	ft = fetch
-	wtf = "!cat ~/.gitconfig"
 	sync = fetch --all --prune --tags
+	wtf = "!cat ~/.gitconfig"
