@@ -119,6 +119,12 @@ augroup NoSimultaneousEdits
 augroup END
 " }}}
 " {{{ ==| General options |=====================================================
+augroup dimensions
+  autocmd!
+  " autoreflow splits upon changing nvim size (most often happens when tiling
+  " windows)
+  autocmd VimResized * tabdo normal =
+augroup END
 " Pipe shaped cursor in insert mode
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " True colors
