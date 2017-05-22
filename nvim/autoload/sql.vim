@@ -49,7 +49,7 @@ function! sql#run(query) abort
     \ l:cmdline . '>& ' . l:tempfile,
     \ {
     \   'name' : l:filetype,
-    \   'on_exit' : function('<sid>callback'),
+    \   'on_exit' : function('s:callback'),
     \   'filename' : l:tempfile,
     \   'bufnr' : bufnr('%'),
     \   'plot' : l:plot,
@@ -89,7 +89,7 @@ function! s:mysql(query, type, connection_string) abort
   return [a:query, l:filetype, l:connection_string]
 endfunction
 
-function! s:callback() dict abort
+function! s:callback(job_id, data, event) dict abort
   execute 'bdelete! ' . l:self.bufnr
   execute 'new ' . l:self.filename
 

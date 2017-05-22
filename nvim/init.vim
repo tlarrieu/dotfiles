@@ -521,7 +521,6 @@ map <m-s> {
 " Close current buffer
 map Q :bdelete!<cr>
 " Normal mode
-set noesckeys
 cmap <esc> <c-c>
 " Exit
 nnoremap à :confirm quit<cr>

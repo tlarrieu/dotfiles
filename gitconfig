@@ -19,10 +19,12 @@
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
 [alias]
+	bd = "!git branch --no-contains master --format='%(refname:short)' --merged master | xargs --no-run-if-empty git branch -d"
 	br = branch
 	ci = commit
 	co = checkout
 	d = diff
+	ds = diff --staged
 	ft = fetch
 	lc = log --merges
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
