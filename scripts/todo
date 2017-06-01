@@ -15,8 +15,8 @@ function prefix {
 }
 
 case $1 in
-  .)  todo=$(gitdiff | search | prefix);;
-  ..) todo=$(gitdiff master.. | search | prefix);;
+  .)  todo=$(ag 'TODO|XXX' $(git diff HEAD --name-only --diff-filter=d) --ignore=app/assets/frontend/src/common_assets/javascripts/limitless | awk '{print "→ " $0}');;
+  ..) todo=$(ag 'TODO|XXX' $(git diff master.. --name-only --diff-filter=d) --ignore=app/assets/frontend/src/common_assets/javascripts/limitless | awk '{print "→ " $0}');;
   *)  todo=$(search | prefix)
 esac
 
