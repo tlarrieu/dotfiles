@@ -1,3 +1,31 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
 snippet log "log"
 console.log($1);
+endsnippet
+
+snippet imp "import"
+import $1 from '.$0/$1'
+endsnippet
+
+snippet comp "comp"
+import React from 'react'
+
+const $1 = () => (
+	$0
+)
+
+export default $1
+endsnippet
+
+snippet _component "Skeleton" b
+import React from 'react'
+
+const ${1:`!p snip.rv = snip.basename`} = () => (
+	$0
+)
+
+export default $1
 endsnippet
