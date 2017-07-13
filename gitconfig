@@ -23,6 +23,7 @@
 	br = branch
 	ci = commit
 	co = checkout
+	cp = cherry-pick
 	d = diff
 	ds = diff --staged
 	ft = fetch
