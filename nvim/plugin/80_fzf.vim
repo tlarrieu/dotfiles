@@ -14,16 +14,33 @@ function! s:git_files_sink(input)
   let l:cmd = s:getcmd(l:key)
 
   let l:entries = a:input[1:]
+  let l:qfentries = []
+
   for l:entry in l:entries
     let l:filename = split(l:entry)[-1]
-    execute 'silent ' . l:cmd . ' ' . l:filename
+    if l:key ==# 'ctrl-d'
+      let l:qfentries += [{
+        \ 'filename' : l:filename,
+        \ 'lnum' : 1,
+        \ 'col' : 1,
+        \ 'vcol' : 1,
+        \ 'text' : l:entry
+        \ }]
+    else
+      execute 'silent ' . l:cmd . ' ' . l:filename
+    endif
   endfor
+
+  if !empty(l:qfentries)
+    call setqflist(l:qfentries, 'r', 'git')
+    copen
+  endif
 endfunction
 
 command! FZFGitFiles call fzf#run({
   \ 'source': 'git -c color.status=always status --short',
   \ 'sink*': function('<sid>git_files_sink'),
-  \ 'options': '--expect=ctrl-t,ctrl-v,ctrl-x --ansi --multi --prompt "git?> "',
+  \ 'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d --ansi --multi --prompt "git?> "',
   \ 'down': 10
   \})
 " }}}
