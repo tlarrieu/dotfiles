@@ -28,8 +28,9 @@
 	ds = diff --staged
 	ft = fetch
 	lc = log --merges
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lga = log --all  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	llga = log --all  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = "!git llg master..@ --ancestry-path"
 	s = status
 	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b'
 	sl = stash list -p
