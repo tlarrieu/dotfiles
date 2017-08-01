@@ -13,8 +13,6 @@
 	prompt = true
 [difftool.nvim]
 	cmd = nvim -d $LOCAL $REMOTE
-[diff]
-	tool = nvim
 [core]
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
@@ -24,8 +22,7 @@
 	ci = commit
 	co = checkout
 	cp = cherry-pick
-	d = diff
-	ds = diff --staged
+	d = diff --word-diff
 	ft = fetch
 	lc = log --merges
 	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
