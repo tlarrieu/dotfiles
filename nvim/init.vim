@@ -21,9 +21,7 @@ Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
-Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sunaku/vim-dasht', { 'on': 'Dasht' }
 Plug 'renamer.vim', { 'on': 'Renamer' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
@@ -141,8 +139,6 @@ map <space> <nop>
 " Project specific settings
 set exrc
 set secure
-" Timeout
-set nottimeout
 " Always display tabline
 set showtabline=2
 " Do not display mode
@@ -159,8 +155,6 @@ set textwidth=80
 set listchars=tab:\›\ ,trail:·,nbsp:¬,extends:»,precedes:«
 " Display blank characters
 set list
-" Show incomplete key sequence in bottom corner
-set showcmd
 " Encoding and filetype
 set fileformats=unix,dos,mac
 " Undo, backup and swap files
@@ -180,9 +174,6 @@ set mouse=
 " Command completion style
 set wildmode=list:full,full
 set complete=.,w,b,u,t,i
-" Bells
-set novisualbell
-set noerrorbells
 " Allow a modified buffer to be sent to background without saving it
 set hidden
 " Set title when in console
@@ -205,6 +196,7 @@ set updatetime=250
 let g:netrw_liststyle=1
 " inccommand
 set inccommand=nosplit
+set signcolumn=yes
 " }}}
 " {{{ ==| Splits |==============================================================
 set splitright
@@ -281,14 +273,8 @@ vmap <leader>x :Rextract<space>
 " }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_map_keys = 0
-let g:gitgutter_sign_column_always = 1
 nmap <expr> ß &diff ? '[c' : '<Plug>GitGutterPrevHunk'
 nmap <expr> þ &diff ? ']c' : '<Plug>GitGutterNextHunk'
-" }}}
-" {{{ --| Dasht |-------------------------------------------
-nnoremap <leader>K :Dasht<space>
-nnoremap <silent> K :call Dasht(expand('<cword>'))<cr>
-vnoremap <silent> K y:<c-u>call Dasht(getreg(0))<cr>
 " }}}
 " {{{ --| VimRestConsole |----------------------------------
 let g:vrc_max_time = 5
