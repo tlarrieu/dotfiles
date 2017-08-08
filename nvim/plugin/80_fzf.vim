@@ -6,6 +6,11 @@ function! s:getcmd(key)
     \ }, a:key, 'edit')
 endfunction
 
+function! s:open(filename, cmd, ...)
+  let l:cmd = (expand('%') ==# '' && a:0 > 0) ? a:1 : a:cmd
+  execute 'silent ' . l:cmd . ' ' . a:filename
+endfunction
+
 " {{{ ==| Git files |===========================================================
 function! s:git_files_sink(input)
   if len(a:input) < 2 | return | endif
@@ -27,7 +32,7 @@ function! s:git_files_sink(input)
         \ 'text' : l:entry
         \ }]
     else
-      execute 'silent ' . l:cmd . ' ' . l:filename
+      call s:open(l:filename, l:cmd, 'edit')
     endif
   endfor
 
@@ -63,10 +68,16 @@ function! s:buf_sink(input)
     \ 'ctrl-d': 'bdelete!'
     \ }, l:key, 'buffer')
 
+  if l:cmd ==# 'bdelete!'
+    let l:default_cmd = 'bdelete!'
+  else
+    let l:default_cmd = 'buffer'
+  endif
+
   let l:entries = a:input[1:]
   for l:entry in l:entries
     let l:buf = split(l:entry)[0]
-    execute l:cmd . ' ' . l:buf
+    call s:open(l:buf, l:cmd, l:default_cmd)
   endfor
 endfunction
 
@@ -104,7 +115,7 @@ function! s:search_sink(input)
     let l:cmd = s:getcmd(l:key)
     for l:entry in l:entries
       let [l:file, l:line, l:column, l:text] = s:parse_search_entry(l:entry)
-      execute l:cmd escape(l:file, ' %#\')
+      call s:open(escape(l:file, ' %#\'), l:cmd, 'edit')
       call cursor(l:line, l:column)
       normal! zz
     endfor
@@ -144,7 +155,7 @@ function! s:tags_sink(input)
     let l:filename = l:parts[1][:-2]
     let l:pattern = matchstr(l:parts[2], '^.*\ze;"\t')
 
-    execute 'silent ' . l:cmd . ' ' . l:filename
+    call s:open(l:filename, l:cmd, 'edit')
     execute l:pattern
   endfor
   let &magic = l:magic
