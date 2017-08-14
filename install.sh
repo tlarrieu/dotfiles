@@ -3,13 +3,6 @@
 [[ "$1" == "-f" ]] && FORCE=true
 SKIP=false
 
-platformlink() {
-  target=$1
-  link=$2
-
-  ln -sfFT $target $link
-}
-
 safelink()
 {
   $SKIP && return
@@ -47,7 +40,7 @@ safelink()
     fi
   fi
 
-  $DO_LINK && platformlink $target $link
+  $DO_LINK && ln -sfFT $target $link
 }
 
 safeinstall() {
