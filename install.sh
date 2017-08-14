@@ -130,6 +130,9 @@ safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
 
+# linopen
+safelink $BASEDIR/linopenrc $HOME/.linopenrc
+
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
