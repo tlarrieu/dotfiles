@@ -11,16 +11,16 @@ rofi.padding: 250
 ! Colors
 ! ------------------------------------------------------------------------------
 ! solarized light
-! rofi.color-active: #00ffffff,#268bd2,#00ffffff,#268bd2,#fdf6e3
-! rofi.color-normal: #00ffffff,#002b36,#00ffffff,#859900,#eee8d5
-! rofi.color-urgent: #00ffffff,#dc322f,#00ffffff,#dc322f,#fdf6e3
-! rofi.color-window: #E0fdf6e3,#E02b36
+rofi.color-active: #00ffffff,#268bd2,#00ffffff,#268bd2,#fdf6e3
+rofi.color-normal: #00ffffff,#002b36,#00ffffff,#859900,#eee8d5
+rofi.color-urgent: #00ffffff,#dc322f,#00ffffff,#dc322f,#fdf6e3
+rofi.color-window: #E0fdf6e3,#E02b36
 
-! gruvbox
-rofi.color-active: #00ffffff, #32302f, #00ffffff, #fabd2f, #32302f
-rofi.color-normal: #00ffffff, #ebdbb2, #00ffffff, #665c54, #fbf1c7
-rofi.color-urgent: #00ffffff, #32302f, #00ffffff, #32302f, #32302f
-rofi.color-window: #e032302f, #e0a89984
+! ! gruvbox
+! rofi.color-active: #00ffffff, #32302f, #00ffffff, #fabd2f, #32302f
+! rofi.color-normal: #00ffffff, #ebdbb2, #00ffffff, #665c54, #fbf1c7
+! rofi.color-urgent: #00ffffff, #32302f, #00ffffff, #32302f, #32302f
+! rofi.color-window: #e032302f, #e0a89984
 
 ! ------------------------------------------------------------------------------
 ! Runner

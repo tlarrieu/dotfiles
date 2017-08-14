@@ -39,35 +39,35 @@ Xft.lcdfilter: lcddefault
 *.color7:  #eee8d5
 *.color15: #fdf6e3
 
-! -- Gruvbox
-*.background:  #282828
-*.border:      #282828
-*.foreground:  #ebdbb2
-*.cursorColor: #ebdbb2
-! black
-*.color0:      #282828
-*.color8:      #3c3836
-! red
-*.color1:      #fb4934
-*.color9:      #9d0006
-! green
-*.color2:      #b8bb26
-*.color10:     #79740e
-! yellow
-*.color3:      #fabd2f
-*.color11:     #b57614
-! blue
-*.color4:      #83a598
-*.color12:     #076678
-! magenta
-*.color5:      #d3869b
-*.color13:     #8f3f71
-! cyan
-*.color6:      #8ec07c
-*.color14:     #427b58
-! white
-*.color7:      #fdf4c1
-*.color15:     #ebdbb2
+! ! -- Gruvbox
+! *.background:  #282828
+! *.border:      #282828
+! *.foreground:  #ebdbb2
+! *.cursorColor: #ebdbb2
+! ! black
+! *.color0:      #282828
+! *.color8:      #3c3836
+! ! red
+! *.color1:      #fb4934
+! *.color9:      #9d0006
+! ! green
+! *.color2:      #b8bb26
+! *.color10:     #79740e
+! ! yellow
+! *.color3:      #fabd2f
+! *.color11:     #b57614
+! ! blue
+! *.color4:      #83a598
+! *.color12:     #076678
+! ! magenta
+! *.color5:      #d3869b
+! *.color13:     #8f3f71
+! ! cyan
+! *.color6:      #8ec07c
+! *.color14:     #427b58
+! ! white
+! *.color7:      #fdf4c1
+! *.color15:     #ebdbb2
 
 *font: xft:InconsolataForPowerline Nerd Font:size=16
 
