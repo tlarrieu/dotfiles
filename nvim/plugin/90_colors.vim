@@ -1,3 +1,9 @@
+" set background = light
+" colorscheme solarized
+
+set background=dark
+colorscheme gruvbox
+
 augroup OverLength
   autocmd!
   autocmd BufReadPost,BufEnter,FileType,TermOpen * call s:overlength()
@@ -7,7 +13,6 @@ augroup END
 augroup SETUP_COLORS
   autocmd!
   autocmd OptionSet background call s:setupcolors()
-  autocmd VimEnter * call s:setupcolors()
   autocmd SourceCmd $MYVIMRC call s:setupcolors()
 augroup END
 
@@ -37,27 +42,23 @@ function! s:overlength()
   endif
 endfunction
 
-function! s:highlights()
-  highlight! link VertSplit CursorColumn
-  highlight! link SignatureMarkText SignColumn
-  highlight! link MatchParen Title
-  highlight! link HighlightedyankRegion SignColumn
-endfunction
-
 function! s:setupcolors()
-  let g:lightline.colorscheme = 'solarized'
-  if &background ==# 'dark'
-    " Use a custom solarized theme dedicated to dark
-    let l:fzf_color = 'fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
-  else
-    " Use a custom solarized theme dedicated to light
-    let l:fzf_color = 'fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
-  end
+  highlight! link MatchParen Title
 
-  let $FZF_DEFAULT_OPTS = '--reverse --color ' . l:fzf_color
+  highlight! link SignColumn Normal
+  highlight! link SignatureMarkText SignColumn
+  highlight! link HighlightedyankRegion SignColumn
 
-  call lightline#init()
-  call lightline#update()
+  highlight! link StatusLine Normal
+  highlight! link StatusLineNC Folded
 
-  call s:highlights()
+  highlight! Folded cterm=bold
+
+  highlight! link TabLine Folded
+  highlight! link TabLineFill Folded
+  highlight! link TabLineSel Normal
+
+  highlight! link VertSplit Normal
 endfunction
+
+call s:setupcolors()

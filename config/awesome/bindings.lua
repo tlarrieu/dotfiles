@@ -1,7 +1,7 @@
 -- [[ Variables ]] -------------------------------------------------------------
 local awful = require("awful")
 
-local terminal = "termite"
+local terminal = "urxvt"
 local mod = "Mod4"
 
 local spawn = function(modifiers, key, cmd)
@@ -154,7 +154,7 @@ keyboard = awful.util.table.join(
   -- browsers
 
   mspawn("n", "qutebrowser --backend webengine"),
-  mspawn("u", terminal .. " -e 'ranger' -t ranger --class=Ranger"),
+  mspawn("u", terminal .. " -e ranger"),
   mspawn("g", "thunar"),
 
   -- terminal

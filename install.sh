@@ -75,7 +75,7 @@ for file in `ls -d $BASEDIR/config/*`; do
   safelink $target $link
 done
 
-# .nvim
+# nvim
 safelink $BASEDIR/nvim $HOME/.config/nvim
 
 # Gnuplot
@@ -84,7 +84,7 @@ safelink $BASEDIR/gnuplot $HOME/gnuplot
 # Bash
 safelink $BASEDIR/bashrc $HOME/.bashrc
 
-# .moc
+# moc
 safelink $BASEDIR/moc $HOME/.moc
 
 # weechat
@@ -95,7 +95,7 @@ safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
 git config --global core.excludesFile ~/.gitignore
 
-# .tmux.conf
+# tmux.conf
 safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
 # agignore
@@ -121,11 +121,15 @@ safelink $BASEDIR/asoundrc $HOME/.asoundrc
 # xprofile
 safelink $BASEDIR/xprofile $HOME/.xprofile
 
+# xresources
+safelink $BASEDIR/xresources $HOME/.Xresources
+
 # Xmodmap
 safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
+
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
@@ -145,6 +149,8 @@ case $answer in
     safeinstall ranger
     safeinstall w3m
 
+    safeinstall linopen
+
     safeinstall rofi
     safeinstall scrot
     safeinstall feh
@@ -160,7 +166,11 @@ case $answer in
 
     safeinstall fish
     safeinstall fundle-git
-    safeinstall termite
+
+    safeinstall rxvt-unicode-pixbuf
+    safeinstall urxvt-resize-font-git
+    safeinstall urxvt-clipboard
+    safeinstall urxvt-config-reload-git
 
     safeinstall nerd-fonts-complete
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"

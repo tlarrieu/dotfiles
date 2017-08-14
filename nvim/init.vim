@@ -12,9 +12,6 @@ Plug 'mileszs/ack.vim'
 Plug 'duggiefresh/vim-easydir'
 Plug 'tlarrieu/vim-sniper'
 " }}}
-" {{{ --| Encryption |---------------------
-Plug 'jamessan/vim-gnupg'
-" }}}
 " {{{ --| Functionnalities |---------------
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'beloglazov/vim-online-thesaurus'
@@ -75,13 +72,12 @@ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Misc languages support |---------
-" Plug 'chrisbra/csv.vim', { 'for' : 'csv' }
 Plug 'sheerun/vim-polyglot'
 " }}}
 " {{{ --| Good looking |-------------------
-Plug 'itchyny/lightline.vim'
 Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
@@ -143,9 +139,6 @@ set secure
 set showtabline=2
 " Do not display mode
 set noshowmode
-" Color / background theme
-set background=light
-colorscheme solarized
 " Line numbering (relative and current)
 set relativenumber
 set number
@@ -248,10 +241,6 @@ augroup VimRenamer
 augroup END
 " }}}
 " {{{ --| HighlightedYank |---------------------------------
-let g:AutoPairsShortcutToggle = ''
-let g:AutoPairsShortcutJump = ''
-" }}}
-" {{{ --| HighlightedYank |---------------------------------
 let g:highlightedyank_highlight_duration = 180
 " }}}
 " {{{ --| Neoterm |-----------------------------------------
@@ -296,8 +285,6 @@ vmap <leader><cr> :<c-u>call Snipe('vnew')<cr>
 nnoremap <silent> <leader>, :ArgWrap<CR>
 " }}}
 " {{{ --| FZF |---------------------------------------------
-let $FZF_DEFAULT_COMMAND = "ag -g '' --hidden --ignore .git"
-
 " Standard mode (file list)
 nmap <silent> <c-t> :FZF -m -e<cr>
 " Custom modes (home made funcctions)
@@ -306,6 +293,20 @@ nnoremap <c-e> :FZFsearch<space>
 nnoremap <silent> <c-c> :FZFtags tag<cr>
 nnoremap <silent> <c-l> :FZFtags tag<cr>
 nnoremap <silent> <c-y> :FZFGitFiles<cr>
+let g:fzf_colors = {
+  \   'fg':      ['fg', 'Normal'],
+  \   'bg':      ['bg', 'Normal'],
+  \   'hl':      ['fg', 'Comment'],
+  \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \   'hl+':     ['fg', 'Statement'],
+  \   'info':    ['fg', 'PreProc'],
+  \   'prompt':  ['fg', 'Conditional'],
+  \   'pointer': ['fg', 'Exception'],
+  \   'marker':  ['fg', 'Keyword'],
+  \   'spinner': ['fg', 'Label'],
+  \   'header':  ['fg', 'Comment']
+  \ }
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 augroup Neomake
@@ -384,12 +385,10 @@ let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
 let g:UltiSnipsSnippetsDir='~/.config/nvim/UltiSnips'
 " }}}
 " {{{ --| Taboo |-------------------------------------------
-let g:taboo_tab_format = '%N %f%m'
-let g:taboo_renamed_tab_format = '%N (%l)%m'
+let g:taboo_tab_format = ' %N %f%m '
+let g:taboo_renamed_tab_format = ' %N (%l)%m '
 let g:taboo_modified_tab_flag = ' ∙'
 let g:taboo_unnamed_tab_label = '…'
-" deactivate tabline generation (we want to let lightline do it)
-let g:taboo_tabline = 0
 nmap <leader>tl :TabooRename<space>
 nmap <leader>tr :TabooReset<cr>
 " }}}
@@ -478,7 +477,7 @@ inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
 inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
-map ç ^
+nmap ç ^
 " Split lines
 noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
@@ -487,8 +486,8 @@ inoremap # X<bs>#
 nnoremap <F1> <nop>
 inoremap <F1> <nop>
 " Clever paste from system buffer
-nmap <leader>p m`:set paste<cr>o<c-r>+<esc>:set nopaste<cr>``
-nmap <leader>P m`:set paste<cr>O<c-r>+<esc>:set nopaste<cr>``
+nnoremap <leader>p m`:set paste<cr>o<c-r>+<esc>:set nopaste<cr>``
+nnoremap <leader>P m`:set paste<cr>O<c-r>+<esc>:set nopaste<cr>``
 noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
@@ -499,32 +498,29 @@ vnoremap Y Ygv<esc>
 " select the whole line
 nnoremap vv ^v$h
 " Command line
-map è :
-map È :!
+nnoremap è :
+nnoremap È :!
 " Find character
-noremap , ;
-noremap ; ,
+nnoremap , ;
+nnoremap ; ,
 " block
-map <m-t> }
-map <m-s> {
+nmap <m-t> }
+nmap <m-s> {
 " }}}
 " {{{ --| Mode Switching |----------------------------------
 " Close current buffer
-map Q :bdelete!<cr>
+nnoremap Q :bdelete!<cr>
 " Normal mode
-cmap <esc> <c-c>
+cnoremap <esc> <c-c>
 " Exit
 nnoremap à :confirm quit<cr>
 nnoremap À :confirm quitall<cr>
 " Save
-nmap <c-s> :update<cr>
-imap <c-s> <esc>:update<cr>
-vmap <c-s> <esc>:update<cr>
+nnoremap <c-s> :update<cr>
+inoremap <c-s> <esc>:update<cr>
+vnoremap <c-s> <esc>:update<cr>
 " Reselect pasted lines
 nnoremap gV `[v`]
-" Command line
-map è :
-map È :!
 " }}}
 " {{{ --| Togglers |----------------------------------------
 " Rename file

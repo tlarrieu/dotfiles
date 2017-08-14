@@ -28,8 +28,6 @@ augroup Test
         \ :T ./main.rb<cr>
 augroup END
 
-nnoremap <silent> K :new<bar>terminal dasht <c-r><c-w> ruby<cr>
-
 function! Migrate(direction)
   let l:filename = expand('%:t')
   let l:cmd = 'bundle exec rake db:migrate:' . a:direction

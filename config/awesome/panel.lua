@@ -2,6 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
+local dpi = require('beautiful.xresources').apply_dpi
 
 local lain = require("lain")
 
@@ -9,13 +10,13 @@ local colorize = function(widget, value)
   local color
 
   if value > 80 then
-    color = beautiful.colors.red
+    color = beautiful.colors.red.dark
   elseif value > 70 then
-    color = beautiful.colors.orange
+    color = beautiful.colors.red.light
   elseif value > 40 then
-    color = beautiful.colors.yellow
+    color = beautiful.colors.yellow.dark
   else
-    color = beautiful.colors.green
+    color = beautiful.colors.green.dark
   end
 
   widget:set_values({ value })
@@ -33,8 +34,8 @@ local arcprogress = function(label)
     widget = wibox.container.arcchart,
     min_value = 0,
     max_value = 100,
-    bg = beautiful.colors.base2,
-    thickness = 3,
+    bg = beautiful.colors.white.dark,
+    thickness = dpi(3),
   })
   arcchart:connect_signal("widget::redraw_needed", function(widget)
     if widget:get_colors() == nil then return end
@@ -71,14 +72,14 @@ local clock = wibox.widget({
 local batterytext = wibox.widget.textbox()
 local batterybar = wibox.widget({
   widget = wibox.widget.progressbar,
-  background_color = beautiful.colors.base2,
+  background_color = beautiful.colors.white.dark,
   bar_shape = gears.shape.rounded_rect,
-  forced_width = 90,
+  forced_width = dpi(90),
   shape = gears.shape.rounded_rect,
 })
 local battery = wibox.widget({
   batterytext,
-  wibox.container.margin(batterybar, 5, 0, 8, 8),
+  wibox.container.margin(batterybar, dpi(5), dpi(0), dpi(8), dpi(8)),
   layout = wibox.layout.fixed.horizontal
 })
 local battery_update = function(bat_now)
@@ -95,13 +96,13 @@ local battery_update = function(bat_now)
 
   -- color
   if bat_now.perc >= 98 then
-    color = beautiful.colors.green
+    color = beautiful.colors.green.dark
   elseif bat_now.perc > 50 then
-    color = beautiful.colors.yellow
+    color = beautiful.colors.yellow.dark
   elseif bat_now.perc > 15 then
-    color = beautiful.colors.orange
+    color = beautiful.colors.red.light
   else
-    color = beautiful.colors.red
+    color = beautiful.colors.red.dark
   end
 
   -- icon
@@ -135,12 +136,12 @@ lain.widgets.bat({
   settings = battery_update,
   notifications = {
     low = {
-      fg = beautiful.colors.yellow,
-      bg = beautiful.colors.base2
+      fg = beautiful.colors.yellow.dark,
+      bg = beautiful.colors.white.dark
     },
     critical = {
-      fg = beautiful.colors.red,
-      bg = beautiful.colors.base2
+      fg = beautiful.colors.red.dark,
+      bg = beautiful.colors.white.dark
     }
   }
 })
@@ -154,11 +155,11 @@ local init_screen = function(screen)
     screen,
     awful.widget.taglist.filter.all,
     tagbuttons,
-    { spacing = 6, font = "InconsolataForPowerline Nerd Font 24" }
+    { spacing = dpi(6), font = "InconsolataForPowerline Nerd Font 24" }
   )
 
   local left = wibox.widget({
-    taglist,
+    wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
   })
 
@@ -168,12 +169,12 @@ local init_screen = function(screen)
   })
 
   local right = wibox.widget({
-    wibox.container.margin(cpu, 0, 5, 2, 2),
-    wibox.container.margin(mem, 0, 10, 2, 2),
-    wibox.container.margin(battery, 1, 0, 1, 1),
+    wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
+    wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
+    wibox.container.margin(battery, dpi(1), dpi(0), dpi(1), dpi(1)),
     layout = wibox.layout.fixed.horizontal
   })
-  right = wibox.container.margin(right, 5, 5, 0, 0)
+  right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
 
   local barwidget = wibox.widget({
     left,
@@ -184,9 +185,9 @@ local init_screen = function(screen)
   })
   awful.wibar({
     position = "top",
-    height = 30,
+    height = dpi(30),
     screen = screen,
-    widget = wibox.container.margin(barwidget, 2, 2, 2, 2)
+    widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
   })
 end
 awful.screen.connect_for_each_screen(init_screen)

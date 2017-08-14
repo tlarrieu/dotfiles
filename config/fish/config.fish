@@ -1,12 +1,8 @@
 stty -ixon
 
-# dark
-# set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:7,hl:33,hl+:33,bg:8,bg+:8'
-
-# light
-set -x FZF_DEFAULT_OPTS '--reverse --color fg:242,fg+:8,hl:33,hl+:33,bg:15,bg+:15'
-
+# FZF
 set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
+set -x FZF_DEFAULT_OPTS '--reverse'
 
 # Postgres
 set PGHOST localhost
@@ -14,7 +10,6 @@ set PGHOST localhost
 # EDITOR + TERM
 set -g -x GEDITOR gvim
 set -g -x EDITOR nvim
-set -g -x TERM xterm-256color
 
 # Gopath
 set -x GOPATH ~/go

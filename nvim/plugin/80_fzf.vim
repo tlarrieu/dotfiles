@@ -207,7 +207,7 @@ function! s:fzf_tags(kind)
     \           '| grep -v ^! ' . l:grepcmd,
     \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1,2,4 --tiebreak=length ' .
     \            '--expect=ctrl-t,ctrl-v,ctrl-x --multi --ansi ' .
-    \            '--prompt "' . l:prompt . '?> " --exact',
+    \            '--prompt "' . l:prompt . '?> "',
     \ 'down': '50%',
     \ 'sink*': function('s:tags_sink')})
 endfunction

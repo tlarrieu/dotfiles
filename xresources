@@ -1,0 +1,93 @@
+Xft.dpi: 110
+*.dpi: 110
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+! -- solarized light
+! (base3)
+*.background:  #fdf6e3
+*.border:      #fdf6e3
+! (base00)
+*.foreground:  #657b83
+*.cursorColor: #657b83
+! black dark/light (base02 / base03)
+*.color0:  #073642
+*.color8:  #002b36
+! red dark/light (red / orange)
+*.color1:  #dc322f
+*.color9:  #cb4b16
+! green dark/light (green / base01)
+*.color2:  #859900
+*.color10: #586e75
+! yellow dark/light (yellow / base00)
+*.color3:  #b58900
+*.color11: #657b83
+! blue dark/light (blue / base0)
+*.color4:  #268bd2
+*.color12: #839496
+! magenta dark/light (magenta / violet)
+*.color5:  #d33682
+*.color13: #6c71c4
+! cyan dark/light (cyan / base1)
+*.color6:  #2aa198
+*.color14: #93a1a1
+! white dark/light (base2 / base3)
+*.color7:  #eee8d5
+*.color15: #fdf6e3
+
+! -- Gruvbox
+*.background:  #282828
+*.border:      #282828
+*.foreground:  #ebdbb2
+*.cursorColor: #ebdbb2
+! black
+*.color0:      #282828
+*.color8:      #3c3836
+! red
+*.color1:      #fb4934
+*.color9:      #9d0006
+! green
+*.color2:      #b8bb26
+*.color10:     #79740e
+! yellow
+*.color3:      #fabd2f
+*.color11:     #b57614
+! blue
+*.color4:      #83a598
+*.color12:     #076678
+! magenta
+*.color5:      #d3869b
+*.color13:     #8f3f71
+! cyan
+*.color6:      #8ec07c
+*.color14:     #427b58
+! white
+*.color7:      #fdf4c1
+*.color15:     #ebdbb2
+
+*font: xft:InconsolataForPowerline Nerd Font:size=16
+
+XTerm.borderWidth: 0
+URxvt.borderWidth: 0
+URxvt.internalBorder: 0
+URxvt.externalBorder: 0
+
+URxvt.colorMode: on
+URxvt.cursorBlink: false
+URxvt.cursorUnderline: false
+
+URxvt.scrollBar: false
+URxvt.buffered: true
+
+URxvt.keysym.Control-Left: \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+URxvt.perl-ext-common: resize-font,clipboard,config-reload
+URxvt.iso14755: false
+URxvt.iso14755_52: false
+
+! vim: ft=xdefaults

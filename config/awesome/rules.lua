@@ -15,6 +15,19 @@ awful.rules.rules = {
     }
   },
 
+  -- [[ URxvt ]] ---------------------------------------------------------------
+  {
+    rule_any = {
+      class = {
+        "URxvt",
+        "XTerm",
+      }
+    },
+    properties = {
+      size_hints_honor = false
+    }
+  },
+
   -- [[ Flash player ]] --------------------------------------------------------
   {
     rule = { class = "Plugin-container" },
