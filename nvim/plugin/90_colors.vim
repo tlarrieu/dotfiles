@@ -1,8 +1,8 @@
-" set background = light
-" colorscheme solarized
+set background=light
+colorscheme solarized
 
-set background=dark
-colorscheme gruvbox
+" set background=dark
+" colorscheme gruvbox
 
 augroup OverLength
   autocmd!
@@ -49,9 +49,6 @@ function! s:setupcolors()
   highlight! link SignatureMarkText SignColumn
   highlight! link HighlightedyankRegion SignColumn
 
-  highlight! link StatusLine Normal
-  highlight! link StatusLineNC Folded
-
   highlight! Folded cterm=bold
 
   highlight! link TabLine Folded
@@ -59,6 +56,8 @@ function! s:setupcolors()
   highlight! link TabLineSel Normal
 
   highlight! link VertSplit Normal
+
+  highlight! link User1 Normal
 endfunction
 
 call s:setupcolors()
