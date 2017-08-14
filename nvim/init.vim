@@ -498,8 +498,8 @@ vnoremap Y Ygv<esc>
 " select the whole line
 nnoremap vv ^v$h
 " Command line
-nnoremap è :
-nnoremap È :!
+noremap è :
+noremap È :!
 " Find character
 nnoremap , ;
 nnoremap ; ,
