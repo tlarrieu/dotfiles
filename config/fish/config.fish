@@ -7,12 +7,8 @@ set -x FZF_DEFAULT_OPTS '--reverse'
 # Postgres
 set PGHOST localhost
 
-# EDITOR + TERM
-set -g -x GEDITOR gvim
+# EDITOR
 set -g -x EDITOR nvim
-
-# Gopath
-set -x GOPATH ~/go
 
 # PATH
 set -x PATH $PATH $HOME/scripts

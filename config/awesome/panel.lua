@@ -11,8 +11,6 @@ local colorize = function(widget, value)
 
   if value > 80 then
     color = beautiful.colors.red.dark
-  elseif value > 70 then
-    color = beautiful.colors.red.light
   elseif value > 40 then
     color = beautiful.colors.yellow.dark
   else
@@ -97,10 +95,8 @@ local battery_update = function(bat_now)
   -- color
   if bat_now.perc >= 98 then
     color = beautiful.colors.green.dark
-  elseif bat_now.perc > 50 then
-    color = beautiful.colors.yellow.dark
   elseif bat_now.perc > 15 then
-    color = beautiful.colors.red.light
+    color = beautiful.colors.yellow.dark
   else
     color = beautiful.colors.red.dark
   end

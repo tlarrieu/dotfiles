@@ -1,20 +1,10 @@
+package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
+
 local theme = {}
 
 -- [[ palette ]] ---------------------------------------------------------------
-local scheme = require('beautiful.xresources').get_current_theme()
 
-theme.colors = {
-  foreground = scheme.foreground,
-  background = scheme.background,
-  black   = { dark = scheme.color0, light = scheme.color8 },
-  red     = { dark = scheme.color1, light = scheme.color9 },
-  green   = { dark = scheme.color2, light = scheme.color10 },
-  yellow  = { dark = scheme.color3, light = scheme.color11 },
-  blue    = { dark = scheme.color4, light = scheme.color12 },
-  magenta = { dark = scheme.color5, light = scheme.color13 },
-  cyan    = { dark = scheme.color6, light = scheme.color14 },
-  white   = { dark = scheme.color7, light = scheme.color15 },
-}
+theme.colors = require('xrdb').load()
 
 -- [[ styles ]] ----------------------------------------------------------------
 theme.font      = "InconsolataForPowerline Nerd Font 13"

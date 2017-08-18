@@ -136,7 +136,7 @@ map <space> <nop>
 set exrc
 set secure
 " Always display tabline
-set showtabline=2
+set showtabline=1
 " Do not display mode
 set noshowmode
 " Line numbering (relative and current)

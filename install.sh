@@ -119,6 +119,12 @@ safelink $BASEDIR/xresources $HOME/.Xresources
 
 # Xmodmap
 safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
+mkdir -p $HOME/.Xresources.d
+for file in `ls -d $BASEDIR/xresources.d/*`; do
+  target=$BASEDIR/xresources.d/`basename $file`
+  link=~/.Xresources.d/`basename $file`
+  safelink $target $link
+done
 
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors

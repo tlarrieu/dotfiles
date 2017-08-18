@@ -153,7 +153,8 @@ keyboard = awful.util.table.join(
 
   -- browsers
 
-  mspawn("n", "qutebrowser --backend webengine"),
+  mspawn("n", "luakit"),
+  spawn({mod, "Control"}, "n", "qutebrowser --backend webengine"),
   mspawn("u", terminal .. " -e ranger"),
   mspawn("g", "thunar"),
 
