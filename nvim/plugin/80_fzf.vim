@@ -11,6 +11,10 @@ function! s:open(filename, cmd, ...)
   execute 'silent ' . l:cmd . ' ' . a:filename
 endfunction
 
+function! s:FZFRun(list)
+  call fzf#run(fzf#wrap(a:list))
+endfunction
+
 " {{{ ==| Git files |===========================================================
 function! s:git_files_sink(input)
   if len(a:input) < 2 | return | endif
@@ -42,7 +46,7 @@ function! s:git_files_sink(input)
   endif
 endfunction
 
-command! FZFGitFiles call fzf#run({
+command! FZFGitFiles call s:FZFRun({
   \ 'source': 'git -c color.status=always status --short',
   \ 'sink*': function('<sid>git_files_sink'),
   \ 'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d --ansi --multi --prompt "git?> "',
@@ -81,7 +85,7 @@ function! s:buf_sink(input)
   endfor
 endfunction
 
-command! FZFbuf call fzf#run({
+command! FZFbuf call s:FZFRun({
   \   'source':  reverse(<sid>buflist()),
   \   'sink*':    function('<sid>buf_sink'),
   \   'options': '--expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d --multi',
@@ -134,7 +138,7 @@ function! s:parse_search_entry(entry)
   return [l:file, l:line, l:column, l:text]
 endfunction
 
-command! -nargs=1 FZFsearch call fzf#run({
+command! -nargs=1 FZFsearch call s:FZFRun({
   \ 'source': 'ag -S --nogroup --column "' . escape(<q-args>, '"\') . '"',
   \ 'sink*': function('<sid>search_sink'),
   \ 'options': '--ansi --expect=ctrl-t,ctrl-v,ctrl-x,ctrl-d -e --multi',
@@ -202,7 +206,7 @@ function! s:fzf_tags(kind)
 
   let [l:prompt, l:grepcmd] = s:fzf_tags_cmd(a:kind)
 
-  call fzf#run({
+  call s:FZFRun({
     \ 'source': 'cat '.join(map(l:tagfiles, "fnamemodify(v:val, ':S')")) .
     \           '| grep -v ^! ' . l:grepcmd,
     \ 'options': '-d "\t" --with-nth 1,2,4.. --nth 1,2,4 --tiebreak=length ' .
