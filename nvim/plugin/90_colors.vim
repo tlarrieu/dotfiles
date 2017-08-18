@@ -58,6 +58,8 @@ function! s:setupcolors()
   highlight! link VertSplit Normal
 
   highlight! link User1 Normal
+
+  highlight! link QuickFixLine DiffChange
 endfunction
 
 call s:setupcolors()
