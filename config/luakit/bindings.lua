@@ -1,6 +1,12 @@
 local modes = require("modes")
 
-modes.remove_binds("normal", { "y" })
+modes.remove_binds(
+  "normal",
+  {
+    "y",
+    "<Control-w>",
+  }
+)
 
 modes.add_binds("completion", {
   {
