@@ -18,4 +18,9 @@ just intend to test my configuration.
 
 - Maintain a coherent config backup / bootstrap
 - Provide support for bépo (french dvorak variant, more about it [here](http://bepo.fr/wiki/Accueil))
-- Provide uniformized [solarized](http://ethanschoonover.com/solarized) color scheme for various applications
+- Provide uniformized color scheme for various applications
+
+## TODO
+
+- [ ] properly apply xrdb on the fly for URxvt (mostly functional but colors are dimmed reloading)
+- [ ] find a way to automatically apply theme in vim upon changing xrdb theme (we have to manually — althrough through a helper function — apply it)
