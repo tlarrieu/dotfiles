@@ -16,7 +16,7 @@ local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 
 local tags = {
   {
-    name = "",
+    name = "",
     config = { layout = awful.layout.suit.max }
   },
   {
@@ -42,7 +42,7 @@ local tags = {
     }
   },
   {
-    name = "",
+    name = "",
     config = { layout = awful.layout.suit.max }
   },
 }
@@ -57,7 +57,7 @@ awful.screen.connect_for_each_screen(function(screen)
     )
   end
 
-  awful.tag.find_by_name(screen, ""):view_only()
+  awful.tag.find_by_name(screen, ""):view_only()
 end)
 
 require("bindings")
