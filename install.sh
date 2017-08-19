@@ -171,7 +171,7 @@ case $answer in
     safeinstall fish
     safeinstall fundle-git
 
-    safeinstall rxvt-unicode-pixbuf
+    safeinstall rxvt-unicode
     safeinstall urxvt-resize-font-git
     safeinstall urxvt-clipboard
     safeinstall urxvt-config-reload-git
