@@ -56,8 +56,9 @@ function _git_prompt
 
   set -l new ''
   set -l show_untracked (command git config --bool bash.showUntrackedFiles ^/dev/null)
-  if [ "$theme_display_git_untracked" != 'no' -a "$show_untracked" != 'false' ]
-    [ (command git ls-files --other --exclude-standard --directory --no-empty-directory ^/dev/null) ]
+  if [ "$show_untracked" != 'false' ]
+    set -l untracked (command git ls-files --other --exclude-standard --directory --no-empty-directory ^/dev/null)
+    [ "$untracked" ]
       and set new "…"
   end
 
