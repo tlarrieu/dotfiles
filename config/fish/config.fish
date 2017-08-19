@@ -14,11 +14,6 @@ set -g -x EDITOR nvim
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH $HOME/bin
 
-# rbenv
-if type rbenv > /dev/null
-  source (rbenv init - | psub)
-end
-
 # # Oh-my-fish theme
 set -g default_user tlarrieu
 set -g theme_color_scheme terminal-light
@@ -27,6 +22,7 @@ set -g theme_nerd_fonts yes
 
 fundle plugin 'tuvistavie/fish-ssh-agent'
 fundle plugin 'oh-my-fish/theme-bobthefish'
+fundle plugin 'fisherman/rbenv'
 fundle init
 
 function fish_greeting; end
