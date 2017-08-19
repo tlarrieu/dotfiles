@@ -90,4 +90,10 @@ rofi.run-command: {cmd}
 rofi.kb-clear-line: Control+c
 rofi.kb-remove-word-back: Control+w
 
+! ------------------------------------------------------------------------------
+! -- vim
+! ------------------------------------------------------------------------------
+vim.theme: VIM_THEME
+vim.background: VIM_BACKGROUND
+
 ! vim: ft=xdefaults

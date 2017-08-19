@@ -1,9 +1,3 @@
-" set background=light
-" colorscheme solarized
-
-set background=dark
-colorscheme gruvbox
-
 augroup OverLength
   autocmd!
   autocmd BufReadPost,BufEnter,FileType,TermOpen * call s:overlength()
@@ -13,7 +7,7 @@ augroup END
 augroup SETUP_COLORS
   autocmd!
   autocmd OptionSet background call s:setupcolors()
-  autocmd SourceCmd $MYVIMRC call s:setupcolors()
+  autocmd SourceCmd $MYVIMRC call s:setup()
 augroup END
 
 function! s:overlength()
@@ -62,4 +56,27 @@ function! s:setupcolors()
   highlight! link QuickFixLine DiffChange
 endfunction
 
-call s:setupcolors()
+function! s:setuptheme()
+  let l:query = system('xrdb -query')
+
+  let l:res = matchlist(l:query, 'vim.theme:\s*\(.\{-}\)\n')
+  if(len(l:res) > 1)
+    execute 'colorscheme ' . l:res[1]
+  else
+    colorscheme default
+  end
+
+  let l:res = matchlist(l:query, 'vim.background:\s*\(.\{-}\)\n')
+  if(len(l:res) > 1)
+    execute 'set background=' . l:res[1]
+  else
+    set background=dark
+  end
+endfunction
+
+function! s:setup()
+  call s:setuptheme()
+  call s:setupcolors()
+endfunction
+
+call s:setup()

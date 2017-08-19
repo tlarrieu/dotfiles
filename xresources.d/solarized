@@ -27,4 +27,7 @@
 #define BACKGROUND #fdf6e3
 #define FOREGROUND #657b83
 
+#define VIM_THEME solarized
+#define VIM_BACKGROUND light
+
 ! vim: ft=xdefaults

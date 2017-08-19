@@ -27,4 +27,7 @@
 #define BACKGROUND #282828
 #define FOREGROUND #ebdbb2
 
+#define VIM_THEME gruvbox
+#define VIM_BACKGROUND dark
+
 ! vim: ft=xdefaults
