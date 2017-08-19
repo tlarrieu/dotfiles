@@ -116,15 +116,17 @@ safelink $BASEDIR/xprofile $HOME/.xprofile
 
 # xresources
 safelink $BASEDIR/xresources $HOME/.Xresources
-
-# Xmodmap
-safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 mkdir -p $HOME/.Xresources.d
 for file in `ls -d $BASEDIR/xresources.d/*`; do
   target=$BASEDIR/xresources.d/`basename $file`
   link=~/.Xresources.d/`basename $file`
   safelink $target $link
 done
+[ -f ~/.Xresources.d/current_theme ] || \
+  cp ~/.Xresources.d/current_theme.sample ~/.Xresources.d/current_theme
+
+# Xmodmap
+safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
