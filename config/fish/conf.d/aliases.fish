@@ -85,7 +85,7 @@ function gf
 end
 alias gl="git log"
 alias glg="git lg"
-alias glgs="git lgs"
+alias gllg="git llg"
 alias gpl="git pull"
 alias gps="git push"
 alias gs="git status -s -b"
