@@ -1,8 +1,10 @@
+#include "/home/tlarrieu/.Xresources.d/local"
+
 ! ------------------------------------------------------------------------------
 ! -- Xft
 ! ------------------------------------------------------------------------------
-Xft.dpi: 110
-*.dpi: 110
+Xft.dpi: DPI
+*.dpi: DPI
 Xft.antialias: true
 Xft.hinting: true
 Xft.rgba: rgb
@@ -13,7 +15,6 @@ Xft.lcdfilter: lcddefault
 ! ------------------------------------------------------------------------------
 ! -- Global theme
 ! ------------------------------------------------------------------------------
-#include "/home/tlarrieu/.Xresources.d/current_theme"
 
 *.background:  BACKGROUND
 *.border:      BACKGROUND
@@ -36,7 +37,7 @@ Xft.lcdfilter: lcddefault
 *.color14: COLOR14
 *.color15: COLOR15
 
-*.font: xft:InconsolataForPowerline Nerd Font:size=16
+*.font: xft:InconsolataForPowerline Nerd Font:size=16:dpi=DPI
 
 ! ------------------------------------------------------------------------------
 ! -- XTerm
@@ -70,6 +71,7 @@ URxvt.iso14755_52: false
 
 ! Overall look
 rofi.font: InconsolataForPowerline Nerd Font 20
+rofi.dpi: DPI
 rofi.separator-style: none
 rofi.hide-scrollbar: true
 rofi.fullscreen: true

@@ -8,3 +8,5 @@ unclutter -root -idle 2 &
 setxkbmap -option ctrl:nocaps
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
+
+xinput set-prop "DLL0704:01 06CB:76AE Touchpad" "libinput Tapping Enabled" 1

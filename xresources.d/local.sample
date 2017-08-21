@@ -1,3 +1,5 @@
 #include "/home/tlarrieu/.Xresources.d/solarized"
 
+#define DPI 96
+
 ! vim: ft=xdefaults

@@ -122,8 +122,8 @@ for file in `ls -d $BASEDIR/xresources.d/*`; do
   link=~/.Xresources.d/`basename $file`
   safelink $target $link
 done
-[ -f ~/.Xresources.d/current_theme ] || \
-  cp ~/.Xresources.d/current_theme.sample ~/.Xresources.d/current_theme
+[ -f ~/.Xresources.d/local ] || \
+  cp ~/.Xresources.d/local.sample ~/.Xresources.d/local
 
 # Xmodmap
 safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
