@@ -47,9 +47,9 @@ safeinstall() {
   package=$1
 
   if type yaourt > /dev/null; then
-    sudo yaourt -Sq --needed $package
+    yaourt -S --needed $package
   else
-    sudo pacman -Sq --needed $package
+    sudo pacman -S --needed $package
   fi
 }
 
