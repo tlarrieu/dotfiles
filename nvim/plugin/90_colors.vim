@@ -49,7 +49,11 @@ function! s:setupcolors()
   highlight! link TabLineFill Normal
   highlight! TabLineSel ctermfg=5 ctermbg=none cterm=none
 
-  highlight! link VertSplit Normal
+  highlight! link VertSplit SignColumn
+  highlight! link StatusLine Normal
+  highlight! link StatusLineNC Normal
+  highlight! StatusLine cterm=none
+  highlight! StatusLineNC cterm=none
 
   highlight! link User1 Normal
 
