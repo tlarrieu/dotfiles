@@ -591,7 +591,6 @@ nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 
 nmap s :s/
 nmap S :%s/
-" vmap s <esc>:%s/\%V/g<left><left>
 vmap s <esc>:%s/\%V
 
 nmap <A-n> :cnext<cr>
@@ -600,30 +599,35 @@ nmap <A-p> :cprev<cr>
 command! NONASCII /[^\x00-\x7F]
 " }}}
 " {{{ --| Quick Editing |-----------------------------------
+function! MaybeTabedit(filename)
+  let l:cmd = (expand('%') ==# '') ? 'edit' : 'tabedit'
+  execute 'silent ' . l:cmd . ' ' . a:filename
+endfunction
+
 function! OpenSchemaFile()
   if filereadable('db/structure.sql')
-    tabe db/structure.sql
+    call MaybeTabedit('db/structure.sql')
   else
-    tabe db/schema.rb
+    call MaybeTabedit('db/schema.rb')
   endif
 endfunction
 
 nmap <leader>es :call OpenSchemaFile()<cr>
 
-nmap <leader>ea :tabedit ~/httpclient.rest<cr>
-nmap <leader>ee :tabedit ~/email.md<cr>
-nmap <leader>ef :tabedit ~/.config/fish/config.fish<cr>
-nmap <leader>eg :tabedit ~/.gitconfig<cr>
-nmap <leader>eh :tabedit ~/.hgrc<cr>
-nmap <leader>em :tabedit ~/.tmux.conf<cr>
-nmap <leader>eo :tabedit ~/poi.md<cr>
-nmap <leader>ep :tabedit ~/postgres.sql<cr>
-nmap <leader>eq :tabedit ~/sqlite.sql<cr>
-nmap <leader>er :tabedit ~/release.tasks<cr>
-nmap <leader>et :tabedit ~/todo.tasks<cr>
+nmap <leader>ea :call MaybeTabedit('~/httpclient.rest')<cr>
+nmap <leader>ee :call MaybeTabedit('~/email.md')<cr>
+nmap <leader>ef :call MaybeTabedit('~/.config/fish/config.fish')<cr>
+nmap <leader>eg :call MaybeTabedit('~/.gitconfig')<cr>
+nmap <leader>eh :call MaybeTabedit('~/.hgrc')<cr>
+nmap <leader>em :call MaybeTabedit('~/.tmux.conf')<cr>
+nmap <leader>eo :call MaybeTabedit('~/poi.md')<cr>
+nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
+nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
+nmap <leader>er :call MaybeTabedit('~/release.tasks')<cr>
+nmap <leader>et :call MaybeTabedit('~/todo.tasks')<cr>
 nmap <leader>eu :UltiSnipsEdit
-nmap <leader>ev :tabedit ~/.config/nvim/init.vim<cr>
-nmap <leader>ew :tabedit ~/watchlist.md<cr>
+nmap <leader>ev :call MaybeTabedit('~/.config/nvim/init.vim')<cr>
+nmap <leader>ew :call MaybeTabedit('~/watchlist.md')<cr>
 
 nmap <leader>. :Lexplore .<cr>
 
