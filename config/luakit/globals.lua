@@ -30,6 +30,7 @@ globals.search_engines = {
   wiki        = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
   gh          = "https://github.com/search?q=%s",
   r           = "https://reddit.com/r/%s",
+  rg          = "https://rubygems.org/search?query=%s",
 }
 
 -- Set google as fallback search engine
