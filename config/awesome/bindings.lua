@@ -166,7 +166,7 @@ keyboard = awful.util.table.join(
   -- screenshots
 
   awful.key({mod}, "p", function()
-    awful.util.spawn_with_shell(script("scrot.sh"))
+    awful.util.spawn_with_shell(script("screenshot.sh"))
   end),
 
   -- xkill

@@ -156,7 +156,7 @@ case $answer in
     safeinstall linopen
 
     safeinstall rofi
-    safeinstall scrot
+    safeinstall maim
     safeinstall feh
 
     safeinstall zathura
