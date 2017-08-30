@@ -205,3 +205,12 @@ end
 ActiveRecord::Base.logger = logger
 res
 endsnippet
+
+# == Misc ======================================================================
+snippet orn "IAM::ORN"
+IAM::ORN.build(
+	namespace: '$1',
+	owner: $2,
+	resource: { type: '$3', id: '$4' }
+)
+endsnippet
