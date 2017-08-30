@@ -26,6 +26,7 @@ function fish_user_key_bindings
     set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "git llga"
     eval "$FZF_GIT_LOG_COMMAND |\
       fzf --ansi --no-sort --reverse --tiebreak=index -e\
+      --preview '~/scripts/fzf-git.sh {}'\
       > /tmp/fzf.result"
     and commandline -i (cat /tmp/fzf.result | grep -o '[a-f0-9]\{7\}' | head -1)
     commandline -f repaint
