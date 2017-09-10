@@ -147,7 +147,7 @@ read answer
 case $answer in
   "yes"|"y")
     safeinstall yaourt
-    safeinstall awesome-git
+    safeinstall awesome
     safeinstall qutebrowser-git
     safeinstall neovim
     safeinstall ranger
