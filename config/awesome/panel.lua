@@ -32,7 +32,7 @@ local arcprogress = function(label)
     widget = wibox.container.arcchart,
     min_value = 0,
     max_value = 100,
-    bg = beautiful.colors.white.dark,
+    bg = "#FF000000",
     thickness = dpi(3),
   })
   arcchart:connect_signal("widget::redraw_needed", function(widget)
@@ -70,7 +70,7 @@ local clock = wibox.widget({
 local batterytext = wibox.widget.textbox()
 local batterybar = wibox.widget({
   widget = wibox.widget.progressbar,
-  background_color = beautiful.colors.white.dark,
+  background_color = "#FF000000",
   bar_shape = gears.shape.rounded_rect,
   forced_width = dpi(90),
   shape = gears.shape.rounded_rect,
