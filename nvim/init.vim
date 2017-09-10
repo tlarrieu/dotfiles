@@ -77,6 +77,7 @@ Plug 'sheerun/vim-polyglot'
 " {{{ --| Good looking |-------------------
 Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
+Plug 'alnjxn/base16-OceanicNext'
 Plug 'morhetz/gruvbox'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
