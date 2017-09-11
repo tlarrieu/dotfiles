@@ -122,6 +122,7 @@ local introspector_chrome = require "introspector_chrome"
 -- Add command completion
 local completion = require "completion"
 
+require("editor").editor_cmd = "urxvt -e nvim {file} +{line} +'set ft=qutebrowser'"
 -- Press Control-E while in insert mode to edit the contents of the currently
 -- focused <textarea> or <input> element, using `xdg-open`
 local open_editor = require "open_editor"
