@@ -34,7 +34,7 @@ theme.menu_selected_fg          = theme.colors.background
 theme.menu_selected_bg          = theme.colors.green.dark
 theme.menu_title_bg             = theme.colors.background
 theme.menu_primary_title_fg     = theme.colors.blue.dark
-theme.menu_secondary_title_fg   = theme.colors.black.light
+theme.menu_secondary_title_fg   = theme.menu_primary_title_fg
 
 theme.menu_disabled_fg = theme.colors.black.light
 theme.menu_disabled_bg = theme.menu_bg
