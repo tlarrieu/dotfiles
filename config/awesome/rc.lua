@@ -31,7 +31,7 @@ local tags = {
     }
   },
   {
-    name = "",
+    name = "",
     config = { layout = awful.layout.suit.fair }
   },
   {
