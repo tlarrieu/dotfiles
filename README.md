@@ -22,5 +22,5 @@ just intend to test my configuration.
 
 ## TODO
 
-- [ ] properly apply xrdb on the fly for URxvt (mostly functional but colors are dimmed reloading)
+- [x] properly apply xrdb on the fly for URxvt (mostly functional but colors are dimmed reloading)
 - [ ] find a way to automatically apply theme in vim upon changing xrdb theme (we have to manually — althrough through a helper function — apply it)
