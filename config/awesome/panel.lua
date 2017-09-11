@@ -132,12 +132,12 @@ lain.widgets.bat({
   settings = battery_update,
   notifications = {
     low = {
-      fg = beautiful.colors.yellow.dark,
-      bg = beautiful.colors.white.dark
+      fg = beautiful.colors.red.dark,
+      bg = beautiful.colors.background
     },
     critical = {
-      fg = beautiful.colors.red.dark,
-      bg = beautiful.colors.white.dark
+      fg = beautiful.colors.foreground,
+      bg = beautiful.colors.red.dark
     }
   }
 })
