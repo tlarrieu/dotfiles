@@ -153,6 +153,8 @@ case $answer in
     safeinstall ranger
     safeinstall w3m
 
+    safeinstall i3lock-custom
+
     safeinstall linopen
 
     safeinstall rofi
