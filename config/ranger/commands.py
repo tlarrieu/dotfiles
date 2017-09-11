@@ -64,3 +64,15 @@ class extract(Command):
 
         obj.signal_bind('after', refresh)
         self.fm.loader.add(obj)
+
+class wall(Command):
+    def execute(self):
+        """ make selected file the current wallpaper """
+        cf = self.fm.thisfile
+
+        if not cf:
+            self.fm.notify("Error: no file selected as wallpaper!", bad=True)
+            return
+
+        os.system('ln -sf %s ~/Pictures/wallpaper' % cf.path)
+        self.fm.notify("%s set as wallpaper" % cf.path, bad=False)
