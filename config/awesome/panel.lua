@@ -151,7 +151,7 @@ local init_screen = function(screen)
     screen,
     awful.widget.taglist.filter.all,
     tagbuttons,
-    { spacing = dpi(6), font = "InconsolataForPowerline Nerd Font 24" }
+    { spacing = dpi(6), font = "InconsolataForPowerline Nerd Font 26" }
   )
 
   local left = wibox.widget({
@@ -181,7 +181,7 @@ local init_screen = function(screen)
   })
   awful.wibar({
     position = "top",
-    height = dpi(30),
+    height = dpi(32),
     screen = screen,
     widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
   })
