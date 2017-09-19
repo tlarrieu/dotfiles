@@ -10,16 +10,16 @@ iabbrev <buffer> pry binding.pry
 
 let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
 
-nnoremap <buffer> <return> :TestLast<cr>
+nnoremap <buffer> <return> :TestLast \| call neoterm#open()<cr>
 
 augroup Test
   autocmd!
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <leader><return>
-        \ :TestFile<cr>
+        \ :TestFile \| call neoterm#open()<cr>
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <return>
-        \ :TestNearest<cr>
+        \ :TestNearest \| call neoterm#open()<cr>
   autocmd BufEnter Gemfile
         \ nnoremap <silent> <buffer> <return>
         \ :new<bar>call termopen('bundle')<cr>

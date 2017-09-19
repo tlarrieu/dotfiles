@@ -14,7 +14,7 @@ function lock {
     -video_size $RES \
     -i $DISPLAY \
     -i $LOCK \
-    -filter_complex "boxblur=8,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" \
+    -filter_complex "boxblur=12,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" \
     -vframes 1 $TMPBG \
     -loglevel quiet
 
