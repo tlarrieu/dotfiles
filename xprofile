@@ -5,7 +5,7 @@ udiskie &
 redshift &
 compton &
 unclutter -root -idle 2 &
-setxkbmap -option ctrl:nocaps
+setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
 
