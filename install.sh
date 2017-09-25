@@ -47,9 +47,9 @@ safeinstall() {
   package=$1
 
   if type yaourt > /dev/null; then
-    yaourt -S --needed $package
+    yaourt -S --needed --noconfirm $package
   else
-    sudo pacman -S --needed $package
+    sudo pacman -S --needed --noconfirm $package
   fi
 }
 
@@ -147,15 +147,25 @@ read answer
 case $answer in
   "yes"|"y")
     safeinstall yaourt
-    safeinstall awesome
-    safeinstall qutebrowser-git
+
     safeinstall neovim
+
     safeinstall ranger
     safeinstall w3m
+
+    safeinstall compton
+    safeinstall awesome
+
+    safeinstall qutebrowser
+    safeinstall luakit-git
+
+    safeinstall fzf
+    safeinstall the_silver_searcher
 
     safeinstall i3lock-custom
 
     safeinstall linopen
+    safeinstall xcape
 
     safeinstall rofi
     safeinstall maim
