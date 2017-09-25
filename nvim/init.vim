@@ -19,7 +19,7 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'renamer.vim', { 'on': 'Renamer' }
+Plug 'vimscripts/renamer.vim', { 'on': 'Renamer' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
 " }}}
@@ -31,7 +31,7 @@ Plug 'tpope/vim-projectionist'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
-Plug 'matchit.zip'
+Plug 'vimscripts/matchit.zip'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
