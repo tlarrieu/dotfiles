@@ -161,6 +161,7 @@ case $answer in
 
     safeinstall fzf
     safeinstall the_silver_searcher
+    safeinstall atool
 
     safeinstall i3lock-custom
 
