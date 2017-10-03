@@ -35,9 +35,9 @@ text:nvim->interm
 # 4. Regexp
 # Match some protocols by default
 ?'^magnet:':aria2c->interm
-?'^http:\/\/':qutebrowser
-?'^https:\/\/':qutebrowser
-?'^www.':qutebrowser
+?'^http:\/\/':luakit
+?'^https:\/\/':luakit
+?'^www.':luakit
 ?'^dvd:\/\/':mpv
 ?'^cdda:\/\/':mpv->interm
 
