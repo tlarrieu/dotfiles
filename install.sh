@@ -159,6 +159,9 @@ case $answer in
     safeinstall qutebrowser
     safeinstall luakit-git
 
+    safeinstall net-tools
+    safeinstall dnsutils
+
     safeinstall fzf
     safeinstall the_silver_searcher
     safeinstall atool
