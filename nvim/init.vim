@@ -270,7 +270,6 @@ nmap <expr> ß &diff ? '[c' : '<Plug>GitGutterPrevHunk'
 nmap <expr> þ &diff ? ']c' : '<Plug>GitGutterNextHunk'
 " }}}
 " {{{ --| VimRestConsole |----------------------------------
-let g:vrc_max_time = 5
 let g:vrc_set_default_mapping = 0
 augroup VimRestConsole
   autocmd!
