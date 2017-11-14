@@ -33,4 +33,5 @@
 	sl = stash list -p
 	st = stash
 	sync = fetch --all --prune --tags
+	wip = commit -m "WIP"
 	wtf = "!cat ~/.gitconfig"
