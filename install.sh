@@ -192,6 +192,8 @@ case $answer in
     safeinstall urxvt-clipboard
     safeinstall urxvt-config-reload-git
 
+    sudo cpan AnyEvent Linux::FD common::sense
+
     safeinstall nerd-fonts-complete
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
