@@ -23,11 +23,13 @@
 	co = checkout
 	cp = cherry-pick
 	d = diff --word-diff
+	ds = diff --word-diff --staged
+	deps = "!git checkout -b update-dependencies && git add Gemfile.lock && git commit -m 'Update dependencies'"
 	ft = fetch
 	lc = log --merges
+	lg = "!git llg master..@ --ancestry-path"
 	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	llga = log --all  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	lg = "!git llg master..@ --ancestry-path"
 	s = status
 	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b'
 	sl = stash list -p
