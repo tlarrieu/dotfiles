@@ -27,7 +27,7 @@
 	ds = diff --word-diff --staged
 	ft = fetch
 	lc = log --merges
-	lg = "!git llg master..@ --ancestry-path"
+	lg = "!git llg master..@"
 	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	llga = log --all  --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	patch = diff --word-diff=none
