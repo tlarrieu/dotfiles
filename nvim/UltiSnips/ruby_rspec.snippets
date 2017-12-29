@@ -1,6 +1,36 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
 snippet "^rs" "RSpec.describe" rb
 RSpec.describe ${1:class}, type: :${2:type} do
 	$3
+end
+endsnippet
+
+snippet api "controller"
+RSpec.describe API::V1::${1:`!p snip.rv = camelize(snip.basename).replace('Spec', '')`}, type: :request do
+	setup :activate_authlogic
+
+	let(:headers) { { Accept: 'Accept: application/json;version=1' } }
+	let(:account) { create(:company_admin) }
+
+	before { allow(AccountSession).to receive(:find) { double(account: account) } }
+
+	describe 'GET /' do
+		def api_call
+			get('/api/${2:foo}', headers: headers)
+		end
+
+		subject { -> { api_call } }
+
+		it { is_expected.to be_authenticated }
+
+		it 'works' do
+			api_call
+			expect(response).to have_http_status(:ok)
+		end
+	end
 end
 endsnippet
 
@@ -117,6 +147,13 @@ endsnippet
 
 snippet ic "include_context"
 include_context '$1'
+endsnippet
+
+snippet wo "it works"
+it 'works' do
+	get($1)
+	expect(response).to have_http_status(:ok)
+end
 endsnippet
 
 # -- Expect -------------------------------------------------------------------
