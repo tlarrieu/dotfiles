@@ -2,7 +2,7 @@
 alias cls="echo -e \\033c"
 
 # systemctl
-alias ctl="sudo systemctl"
+alias ctl="systemctl"
 
 # nginx
 alias nginx="sudo nginx"
