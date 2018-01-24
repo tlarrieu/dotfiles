@@ -509,6 +509,8 @@ noremap È :!
 " Find character
 nnoremap , ;
 nnoremap ; ,
+vnoremap , ;
+vnoremap ; ,
 " block
 nmap <m-t> }
 nmap <m-s> {
