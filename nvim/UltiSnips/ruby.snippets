@@ -31,6 +31,17 @@ class ${1:`!p snip.rv = camelize(snip.basename)`}
 end
 endsnippet
 
+snippet service "service definition"
+class ${1:`!p snip.rv = camelize(snip.basename)`}
+
+	include Service
+
+	def call($0)
+	end
+
+end
+endsnippet
+
 snippet mod "module definition"
 module ${1:Name}
 	${0:${VISUAL}}
