@@ -4,7 +4,7 @@ function heading {
   echo -e "-- [[ $1 ]] --------------------------------------------------------------------------------------------------------------------\n"
 }
 
-SHA=$(echo $1 | grep -o '[a-f0-9]\{7\}')
+SHA=$(echo $1 | grep -o '[a-f0-9]\{7\}' | head -1)
 
 if [ -z "$SHA" ]; then
   echo "Nothing to preview"
@@ -22,6 +22,6 @@ heading 'git lg'
 git lg -n 20 --right-only $COMMON..$SHA
 
 echo -e "\n\n"
-heading "git show $SHA"
+heading "git show"
 
-git sh $SHA -p
+git sh --color -p --name-only $SHA
