@@ -90,6 +90,11 @@ function! s:mysql(query, type, connection_string) abort
 endfunction
 
 function! s:callback(job_id, data, event) dict abort
+  " Do nothing if the buffer has been closed before the query returned a result
+  if bufnr(l:self.bufnr) == -1
+    return
+  endif
+
   execute 'bdelete! ' . l:self.bufnr
   execute 'new ' . l:self.filename
 
