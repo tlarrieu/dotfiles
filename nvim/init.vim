@@ -55,6 +55,9 @@ Plug 'junegunn/gv.vim'
 " {{{ --| Syntax checking |----------------
 Plug 'neomake/neomake'
 " }}}
+" {{{ --| Formatting |---------------------
+Plug 'sbdchd/neoformat'
+" }}}
 " }}}
 " {{{ --| Task manager |-------------------
 Plug 'samsonw/vim-task', { 'for' : ['task', 'tasks'] }
