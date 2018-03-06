@@ -4,7 +4,35 @@ AllCops:
     - 'config/**/*'
     - 'Guardfile'
 
-Lint/DefEndAlignment:
+Layout/DefEndAlignment:
+  Enabled: true
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/EmptyLines:
+  Enabled: true
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: true
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+  EnforcedStyle: empty_lines_except_namespace
+
+Layout/LeadingCommentSpace:
+  Enabled: true
+
+Layout/SpaceAfterColon:
+  Enabled: true
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Layout/SpaceBeforeFirstArg:
   Enabled: true
 
 Lint/DeprecatedClassMethods:
@@ -16,38 +44,19 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 10
 
-Style/DotPosition:
-  EnforcedStyle: trailing
-
-Style/AlignParameters:
-  Enabled: false
-
 Style/CollectionMethods:
   Enabled: true
 
-Style/ConstantName:
+Naming/ConstantName:
   Enabled: true
 
 Style/Documentation:
   Enabled: false
 
-Style/EmptyLines:
-  Enabled: true
-
-Style/EmptyLinesAroundAccessModifier:
-  Enabled: true
-
-Style/EmptyLinesAroundClassBody:
-  Enabled: true
-  EnforcedStyle: empty_lines_except_namespace
-
 Style/HashSyntax:
   Enabled: true
 
 Style/Lambda:
-  Enabled: true
-
-Style/LeadingCommentSpace:
   Enabled: true
 
 Style/MethodDefParentheses:
@@ -64,18 +73,6 @@ Style/RedundantReturn:
 
 Style/SignalException:
   Enabled: false
-
-Style/SpaceAfterColon:
-  Enabled: true
-
-Style/SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: no_space
-
-Style/SpaceBeforeFirstArg:
-  Enabled: true
-
-Style/SpaceInsideBrackets:
-  Enabled: true
 
 Style/StringLiterals:
   Enabled: true
