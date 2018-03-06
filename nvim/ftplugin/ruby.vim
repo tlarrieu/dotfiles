@@ -23,6 +23,9 @@ augroup Test
   autocmd BufEnter Gemfile
         \ nnoremap <silent> <buffer> <return>
         \ :new<bar>call termopen('bundle')<cr>
+  autocmd BufEnter *.gemspec
+        \ nnoremap <silent> <buffer> <return>
+        \ :new<bar>call termopen('bundle')<cr>
   autocmd BufEnter main.rb
         \ nnoremap <silent> <buffer> <return>
         \ :T ./main.rb<cr>
