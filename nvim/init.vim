@@ -315,10 +315,7 @@ let g:fzf_colors = {
   \ }
 " }}}
 " {{{ --| Neomake |-----------------------------------------
-augroup Neomake
-  autocmd!
-  autocmd BufWritePost * Neomake
-augroup END
+call neomake#configure#automake({'BufWritePost': {'delay': 0}})
 let g:neomake_warning_sign = {
   \ 'text': '×',
   \ 'texthl': 'DiffChange',
@@ -524,9 +521,9 @@ cnoremap <esc> <c-c>
 nnoremap à :confirm quit<cr>
 nnoremap À :confirm quitall<cr>
 " Save
-nnoremap <c-s> :update<cr>
-inoremap <c-s> <esc>:update<cr>
-vnoremap <c-s> <esc>:update<cr>
+nnoremap <c-s> :w<cr>
+inoremap <c-s> <esc>:w<cr>
+vnoremap <c-s> <esc>:w<cr>
 " Reselect pasted lines
 nnoremap gV `[v`]
 " }}}
