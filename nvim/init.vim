@@ -78,7 +78,6 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'sheerun/vim-polyglot'
 " }}}
 " {{{ --| Good looking |-------------------
-Plug 'blueyed/vim-diminactive'
 Plug 'altercation/vim-colors-solarized'
 Plug 'raphamorim/lucario'
 Plug 'alnjxn/base16-OceanicNext'
@@ -281,11 +280,6 @@ augroup VimRestConsole
   autocmd!
   autocmd FileType rest nmap <buffer> <return> :call VrcQuery()<cr>
 augroup END
-" }}}
-" {{{ --| Diminactive |-------------------------------------
-let g:diminactive_buftype_blacklist = []
-let g:diminactive_use_colorcolumn = 1
-let g:diminactive_use_syntax = 0
 " }}}
 " {{{ --| Sniper |------------------------------------------
 vmap <leader><cr> :<c-u>call Snipe('vnew')<cr>

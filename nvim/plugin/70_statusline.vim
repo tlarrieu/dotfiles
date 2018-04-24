@@ -53,16 +53,16 @@ function! StatuslineWhitespace()
 endfunction
 
 set statusline=
-set statusline+=%1*
+set statusline+=%*
 set statusline+=%(\ %{StatuslineReadonly()}%)
 set statusline+=%<\                             " cut at start
 set statusline+=%f\                             " path
 set statusline+=%(%{StatuslineModified()}\ %)
 set statusline+=%(%{StatuslinePaste()}\ %)
-set statusline+=%1*%=\ %*                             " align right
+set statusline+=%*%=\ %*                        " align right
 set statusline+=%#warningmsg#
 set statusline+=%(%{StatuslineWhitespace()}\ %)
-set statusline+=%1*
+set statusline+=%*
 set statusline+=%(%y\ %)                        " file type
 set statusline+=(%l,%c)\                        " line and column
 set statusline+=%P\                             " percentage of file

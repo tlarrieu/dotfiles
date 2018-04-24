@@ -39,7 +39,7 @@ endfunction
 function! s:setupcolors()
   highlight! link MatchParen Title
 
-  highlight! link SignColumn Normal
+  highlight! link SignColumn CursorColumn
   highlight! link SignatureMarkText Folded
   highlight! link HighlightedyankRegion Folded
 
@@ -49,13 +49,17 @@ function! s:setupcolors()
   highlight! link TabLineFill Normal
   highlight! TabLineSel ctermfg=5 ctermbg=none cterm=none
 
-  highlight! link VertSplit SignColumn
-  highlight! link StatusLine Normal
-  highlight! link StatusLineNC Normal
-  highlight! StatusLine cterm=none
-  highlight! StatusLineNC cterm=none
+  highlight! link VertSplit CursorColumn
 
-  highlight! link User1 Normal
+  highlight! link NormalNC CursorColumn
+
+  highlight! link StatusLine Normal
+  highlight! link StatusLineNC NormalNC
+
+  highlight! link GitGutterAdd DiffAdd
+  highlight! link GitGutterChange DiffChange
+  highlight! link GitGutterDelete DiffDelete
+  highlight! link GitGutterChangeDelete DiffDelete
 
   highlight! link QuickFixLine DiffChange
 endfunction
