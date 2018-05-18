@@ -5,3 +5,19 @@ endsnippet
 snippet log "log"
 console.log($1)
 endsnippet
+
+snippet vue "template"
+<template>
+</template>
+
+<script>
+import Vue from "vue"
+export default Vue.component("$1", {
+	props: {
+	},
+})
+</script>
+
+<style scoped>
+</style>
+endsnippet
