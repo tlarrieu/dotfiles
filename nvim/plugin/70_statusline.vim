@@ -54,8 +54,7 @@ endfunction
 
 set statusline=
 set statusline+=%*
-set statusline+=%(\ %{StatuslineReadonly()}%)
-set statusline+=%<\                             " cut at start
+set statusline+=%(\%{StatuslineReadonly()}%)
 set statusline+=%f\                             " path
 set statusline+=%(%{StatuslineModified()}\ %)
 set statusline+=%(%{StatuslinePaste()}\ %)
