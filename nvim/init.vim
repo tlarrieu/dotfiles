@@ -253,7 +253,8 @@ augroup END
 let g:highlightedyank_highlight_duration = 180
 " }}}
 " {{{ --| Neoterm |-----------------------------------------
-nmap <silent> <leader><tab> :call neoterm#toggle()<cr>
+let g:neoterm_default_mod = 'botright'
+nmap <silent> <leader><tab> :Ttoggle<cr>
 " }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
