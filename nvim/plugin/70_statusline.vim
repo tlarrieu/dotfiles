@@ -18,10 +18,6 @@ function! StatuslineReadonly()
   return &filetype !~? 'help' && &readonly ? '' : ''
 endfunction
 
-function! StatuslineFlags()
-  return StatuslineModified() . StatuslineReadonly()
-endfunction
-
 function! StatuslinePaste()
   return &paste ? '' : ''
 endfunction
@@ -54,8 +50,8 @@ endfunction
 
 set statusline=
 set statusline+=%*
-set statusline+=%(\%{StatuslineReadonly()}%)
 set statusline+=%f\                             " path
+set statusline+=%(\%{StatuslineReadonly()}\ %)
 set statusline+=%(%{StatuslineModified()}\ %)
 set statusline+=%(%{StatuslinePaste()}\ %)
 set statusline+=%*%=\ %*                        " align right
