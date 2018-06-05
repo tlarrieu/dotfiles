@@ -1,13 +1,12 @@
 #!/usr/bin/env sh
 
 function search {
-  path=$1
-  ag 'TODO|XXX' $path\
+  ag 'TODO|XXX' \
     --ignore=app/assets/frontend/src/common_assets/javascripts/limitless
 }
 
-function gitdiff {
-  git diff $1 --name-only --diff-filter=d
+function gitsearch {
+  git diff $1 -G 'TODO|XXX' --name-only --diff-filter=d
 }
 
 function prefix {
@@ -15,9 +14,9 @@ function prefix {
 }
 
 case $1 in
-  .)  todo=$(ag 'TODO|XXX' $(git diff HEAD --name-only --diff-filter=d) --ignore=app/assets/frontend/src/common_assets/javascripts/limitless | awk '{print "→ " $0}');;
-  ..) todo=$(ag 'TODO|XXX' $(git diff master.. --name-only --diff-filter=d) --ignore=app/assets/frontend/src/common_assets/javascripts/limitless | awk '{print "→ " $0}');;
-  *)  todo=$(search | prefix)
+  .)  todo=$(gitsearch HEAD | prefix);;
+  ..) todo=$(gitsearch develop.. | prefix);;
+  *)  todo=$(search | prefix);;
 esac
 
 ponysay -W i "$todo"
