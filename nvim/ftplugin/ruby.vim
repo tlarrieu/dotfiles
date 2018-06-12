@@ -47,6 +47,9 @@ augroup Migration
   autocmd BufEnter db/migrate/*
         \ map <silent> <buffer> <leader><return>
         \ :call Migrate('down')<cr>
+  autocmd BufEnter db/seeds.rb
+        \ map <silent> <buffer> <return>
+        \ :T rails db:seed<cr>
 augroup END
 
 let b:switch_custom_definitions =
