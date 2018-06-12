@@ -313,18 +313,28 @@ let g:fzf_colors = {
   \ }
 " }}}
 " {{{ --| Neomake |-----------------------------------------
-call neomake#configure#automake({'BufWritePost': {'delay': 0}})
-let g:neomake_warning_sign = {
-  \ 'text': '×',
-  \ 'texthl': 'DiffChange',
-  \ }
-let g:neomake_error_sign = {
-  \ 'text': '✖',
-  \ 'texthl': 'DiffDelete',
-  \ }
+call neomake#configure#automake('w')
+
 let g:neomake_vint_maker = {
   \ 'exe': 'vint',
   \ 'args': ['%:p'],
+  \ }
+
+let g:neomake_error_sign = {
+  \ 'text': '✖',
+  \ 'texthl': 'ErrorMsg'
+  \ }
+let g:neomake_warning_sign = {
+  \ 'text': '×',
+  \ 'texthl': 'WarningMsg',
+  \ }
+let g:neomake_message_sign = {
+  \ 'text': '!',
+  \ 'texthl': 'NeomakeMessageSign',
+  \ }
+let g:neomake_info_sign = {
+  \ 'text': '!',
+  \ 'texthl': 'NeomakeInfoSign'
   \ }
 " }}}
 " {{{ --| Surround |----------------------------------------
