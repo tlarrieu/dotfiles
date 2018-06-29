@@ -4,6 +4,7 @@
 
 log
 tmp
+.tmp
 doc
 coverage
 public/assets
