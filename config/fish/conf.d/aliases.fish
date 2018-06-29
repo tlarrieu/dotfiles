@@ -16,10 +16,6 @@ alias s="nvim ~/postgres.sql"
 # Qutebrowser
 alias q="qutebrowser --backend webengine"
 
-# Toggl
-alias t="toggl"
-alias tstop="toggl stop current"
-
 # xsel
 alias xsel="xsel --clipboard"
 
@@ -60,6 +56,7 @@ alias ap="cd ~/git/jobteaser/appointments"
 alias jt="cd ~/git/jobteaser/jobteaser"
 alias jc="cd ~/git/jobteaser/jsonical"
 alias ct="cd ~/git/jobteaser/cockpit"
+alias iam="cd ~/git/jobteaser/iam"
 
 # ls
 alias l="ls"
@@ -113,10 +110,13 @@ alias h="heroku"
 alias hps="heroku ps"
 
 # Docker
-alias dc="sudo docker-compose"
-alias dcu="sudo docker-compose up -d"
-alias dcd="sudo docker-compose down"
-alias d="sudo docker"
+alias dc="docker-compose"
+alias dcu="docker-compose up -d"
+alias dcd="docker-compose down"
+alias d="docker"
+
+# Kubernetes
+alias k="kubectl"
 
 # Exercism
 alias e="exercism"
