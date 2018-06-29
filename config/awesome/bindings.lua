@@ -131,8 +131,8 @@ keyboard = awful.util.table.join(
 
   -- luminosity
 
-  spawn({}, "F7", "xbacklight -10"),
-  spawn({}, "F8", "xbacklight +10"),
+  spawn({}, "F7", "ligth -U 10"),
+  spawn({}, "F8", "light -A 10"),
 
   -- sound
 
