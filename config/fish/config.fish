@@ -23,6 +23,8 @@ set -g -x BROWSER luakit
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH $HOME/bin
 
+set -x PATH $HOME/.yarn/bin $PATH
+
 set fish_greeting ""
 
 fundle plugin 'tuvistavie/fish-ssh-agent'
