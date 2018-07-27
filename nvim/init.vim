@@ -76,6 +76,7 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 " }}}
 " {{{ --| Misc languages support |---------
 Plug 'sheerun/vim-polyglot'
+Plug 'lmeijvogel/vim-yaml-helper'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
