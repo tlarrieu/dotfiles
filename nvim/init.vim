@@ -134,10 +134,6 @@ augroup dimensions
   " windows)
   autocmd VimResized * call Autosize()
 augroup END
-" Pipe shaped cursor in insert mode
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-" True colors
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 " Leader
 let g:mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
