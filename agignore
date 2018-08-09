@@ -27,3 +27,4 @@ _build
 db/data
 
 app/assets/javascripts/swagger/swagger-ui.js
+app/assets/javascripts/bundle
