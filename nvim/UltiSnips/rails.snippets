@@ -41,10 +41,20 @@ Rails.logger.error $1
 endsnippet
 
 # == Migrations ================================================================
-snippet ct "Change Table"
-change_table :${1:table_name} do |t|
+snippet ct "create_table"
+create_table(:${1:table_name}) do |t|
 	$2
 end
+endsnippet
+
+snippet cc "change_table"
+change_table(:${1:table_name}) do |t|
+	$2
+end
+endsnippet
+
+snippet dt "drop_table"
+drop_table(:${1:table_name})
 endsnippet
 
 # == Misc ======================================================================
