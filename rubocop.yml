@@ -1,8 +1,6 @@
 AllCops:
   Exclude:
     - 'db/**/*'
-    - 'config/**/*'
-    - 'Guardfile'
 
 Layout/DefEndAlignment:
   Enabled: true
