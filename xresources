@@ -37,7 +37,7 @@ Xft.lcdfilter: lcddefault
 *.color14: COLOR14
 *.color15: COLOR15
 
-*.font: xft:InconsolataForPowerline Nerd Font:size=16:dpi=DPI
+*.font: xft:FONT:size=16:dpi=DPI
 
 ! ------------------------------------------------------------------------------
 ! -- XTerm
@@ -68,7 +68,7 @@ URxvt.keysym.Control-Right: \033[1;5C
 ! ------------------------------------------------------------------------------
 
 ! Overall look
-rofi.font: InconsolataForPowerline Nerd Font 20
+rofi.font: FONT 20
 rofi.dpi: DPI
 rofi.separator-style: none
 rofi.hide-scrollbar: true
