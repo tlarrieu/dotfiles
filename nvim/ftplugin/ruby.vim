@@ -33,6 +33,9 @@ augroup Test
   autocmd BufEnter *.gemspec
         \ nnoremap <silent> <buffer> <return>
         \ :new<bar>call termopen('bundle')<cr>
+  autocmd BufEnter config/routes.rb
+        \ nnoremap <silent> <buffer> <return>
+        \ :new<bar>call termopen('rails routes')<cr>
 augroup END
 
 function! Migrate(direction)
