@@ -14,12 +14,26 @@ snippet imp "import"
 import $1 from '.$0/$1'
 endsnippet
 
-snippet comp "comp"
+snippet func "functionnal component"
 import React from 'react'
 
 const $1 = () => (
-	$0
+	${0:<div></div>}
 )
+
+export default $1
+endsnippet
+
+snippet comp "component"
+import React, { Component } from 'react'
+
+class ${1:`!p snip.rv = camelize(snip.basename)`} extends Component {
+	render() {
+		return (
+			${0:<div></div>}
+		)
+	}
+}
 
 export default $1
 endsnippet
