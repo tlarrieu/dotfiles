@@ -322,15 +322,15 @@ let g:neomake_error_sign = {
   \ 'texthl': 'ErrorMsg'
   \ }
 let g:neomake_warning_sign = {
-  \ 'text': '×',
+  \ 'text': '',
   \ 'texthl': 'WarningMsg',
   \ }
 let g:neomake_message_sign = {
-  \ 'text': '!',
+  \ 'text': '',
   \ 'texthl': 'NeomakeMessageSign',
   \ }
 let g:neomake_info_sign = {
-  \ 'text': '!',
+  \ 'text': '',
   \ 'texthl': 'NeomakeInfoSign'
   \ }
 " }}}
