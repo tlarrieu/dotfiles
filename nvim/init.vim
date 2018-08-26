@@ -41,7 +41,7 @@ Plug 'FooSoft/vim-argwrap'
 " {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-function'
 Plug 'kana/vim-textobj-user'
-Plug 'michaeljsmith/vim-indent-object'
+Plug 'austintaylor/vim-indentobject'
 Plug 'nelstrom/vim-textobj-rubyblock',
   \ { 'for' : ['ruby', 'eruby', 'rspec', 'rake', 'elixir'] }
 Plug 'tommcdo/vim-exchange'

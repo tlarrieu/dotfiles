@@ -11,13 +11,13 @@ console.log($1)
 endsnippet
 
 snippet imp "import"
-import $1 from '.$0/$1'
+import $1 from '${0:.}/$1'
 endsnippet
 
 snippet func "functionnal component"
 import React from 'react'
 
-const $1 = () => (
+const ${1:`!p snip.rv = camelize(snip.basename)`} = () => (
 	${0:<div></div>}
 )
 
