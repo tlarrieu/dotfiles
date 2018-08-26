@@ -328,7 +328,7 @@ let g:neomake_vint_maker = {
   \ }
 
 let g:neomake_error_sign = {
-  \ 'text': '✖',
+  \ 'text': '',
   \ 'texthl': 'ErrorMsg'
   \ }
 let g:neomake_warning_sign = {
