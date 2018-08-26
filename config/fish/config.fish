@@ -28,4 +28,6 @@ set -x PATH $HOME/.yarn/bin $PATH
 set fish_greeting ""
 
 fundle plugin 'tuvistavie/fish-ssh-agent'
+fundle plugin 'oh-my-fish/plugin-foreign-env'
+fundle plugin 'derekstavis/plugin-nvm'
 fundle init
