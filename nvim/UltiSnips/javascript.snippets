@@ -14,10 +14,21 @@ snippet imp "import"
 import $1 from '${0:.}/$1'
 endsnippet
 
+snippet pt "PropTypes"
+import PropTypes from 'prop-types'
+${1:component}.propTypes = {
+	$2
+}
+endsnippet
+
+snippet icl "import classNames"
+import classNames from 'classnames'
+endsnippet
+
 snippet func "functionnal component"
 import React from 'react'
 
-const ${1:`!p snip.rv = camelize(snip.basename)`} = () => (
+const ${1:`!p snip.rv = snip.basename`} = () => (
 	${0:<div></div>}
 )
 
@@ -27,7 +38,7 @@ endsnippet
 snippet comp "component"
 import React, { Component } from 'react'
 
-class ${1:`!p snip.rv = camelize(snip.basename)`} extends Component {
+class ${1:`!p snip.rv = snip.basename`} extends Component {
 	render() {
 		return (
 			${0:<div></div>}
