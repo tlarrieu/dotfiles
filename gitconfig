@@ -37,4 +37,4 @@
 	st = stash
 	sync = fetch --all --prune --tags
 	wip = commit -m "WIP"
-	wtf = "!cat ~/.gitconfig"
+	wtf = "!git config -l | grep -v alias.wtf | grep 'alias.' | sed 's/alias.//' | sed 's/=/ø/' | column -s 'ø' -t | sed 's/^\\(.\\)/   \\1/'"
