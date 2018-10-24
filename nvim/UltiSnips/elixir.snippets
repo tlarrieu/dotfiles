@@ -33,6 +33,16 @@ snippet - "function" i
 fn($1) -> $2 end
 endsnippet
 
+snippet struct "defstruct"
+defstruct $1
+endsnippet
+
+snippet doc "@doc"
+@doc """
+$1
+"""
+endsnippet
+
 # -- Conditionals --------------------------------------------------------------
 snippet if "if"
 if ${1:condition} do
