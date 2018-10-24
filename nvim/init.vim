@@ -244,7 +244,7 @@ let g:user_emmet_leader_key = '<c-b>'
 let g:user_emmet_mode = 'iv'
 let g:user_emmet_settings = { 'javascript.jsx': { 'extends': 'jsx' } }
 augroup Emmet
-  autocmd FileType html,css,javascript,jsx EmmetInstall
+  autocmd FileType html,css,javascript,jsx,eelixir EmmetInstall
 augroup END
 " }}}
 " {{{ --| vim-test |----------------------------------------
