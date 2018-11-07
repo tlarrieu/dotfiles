@@ -2,14 +2,16 @@ AllCops:
   Exclude:
     - 'db/**/*'
 
+# -- [[ Layout ]] --------------------------------------------------------------
+
+Layout/AlignParameters:
+  Enabled: false
+
 Layout/DefEndAlignment:
   Enabled: true
 
 Layout/DotPosition:
   EnforcedStyle: trailing
-
-Layout/AlignParameters:
-  Enabled: false
 
 Layout/EmptyLines:
   Enabled: true
@@ -24,6 +26,12 @@ Layout/EmptyLinesAroundClassBody:
 Layout/LeadingCommentSpace:
   Enabled: true
 
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
 Layout/SpaceAfterColon:
   Enabled: true
 
@@ -33,8 +41,12 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Layout/SpaceBeforeFirstArg:
   Enabled: true
 
+# -- [[ Lint ]] ----------------------------------------------------------------
+
 Lint/DeprecatedClassMethods:
   Enabled: false
+
+# -- [[ Metrics ]] -------------------------------------------------------------
 
 Metrics/LineLength:
   Max: 80
@@ -42,13 +54,23 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 10
 
-Style/CollectionMethods:
-  Enabled: true
+# -- [[ Naming ]] --------------------------------------------------------------
 
 Naming/ConstantName:
   Enabled: true
 
+# -- [[ Style ]] ---------------------------------------------------------------
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/CollectionMethods:
+  Enabled: true
+
 Style/Documentation:
+  Enabled: false
+
+Style/FormatString:
   Enabled: false
 
 Style/HashSyntax:
@@ -72,11 +94,11 @@ Style/RedundantReturn:
 Style/SignalException:
   Enabled: false
 
+Style/SpecialGlobalVars:
+  Enabled: false
+
 Style/StringLiterals:
   Enabled: true
 
 Style/SymbolProc:
   Enabled: true
-
-Style/ClassAndModuleChildren:
-  Enabled: false
