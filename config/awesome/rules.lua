@@ -11,8 +11,9 @@ awful.rules.rules = {
       buttons = clientbuttons,
       placement = awful.placement.no_overlap +
         awful.placement.no_offscreen +
-        awful.placement.centered
-    }
+        awful.placement.centered,
+      screen = awful.screen.focused,
+    },
   },
 
   -- [[ URxvt ]] ---------------------------------------------------------------
@@ -25,7 +26,7 @@ awful.rules.rules = {
     },
     properties = {
       size_hints_honor = false
-    }
+    },
   },
 
   -- [[ Flash player ]] --------------------------------------------------------
@@ -35,7 +36,7 @@ awful.rules.rules = {
       floating = true,
       ontop = true,
       border = 0,
-    }
+    },
   },
 
   -- [[ Multimedia ]] ----------------------------------------------------------
@@ -52,7 +53,7 @@ awful.rules.rules = {
   -- [[ Gnuplot ]] -------------------------------------------------------------
   {
     rule = { class = "Gnuplot" },
-    properties = { fullscreen = true }
+    properties = { fullscreen = true },
   },
 
   -- [[ Games ]] ---------------------------------------------------------------
