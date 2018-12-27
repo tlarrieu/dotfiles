@@ -148,7 +148,9 @@ case $answer in
   "yes"|"y")
     safeinstall yaourt
 
+    safeinstall python
     safeinstall neovim
+    pip install neovim
 
     safeinstall ranger
     safeinstall w3m
@@ -215,8 +217,20 @@ echo "Configuring neovim..."
 if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
   echo "$(tput setaf 2)vim-plug already installed. Nothing to do!$(tput sgr0)"
 else
+  echo "$(tput setaf 3)Installing vim-plug...$(tput sgr0)"
   curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  echo "$(tput setaf 2)Done.$(tput sgr0)"
+  echo "$(tput setaf 3)Installing plugins...$(tput sgr0)"
   nvim +PlugInstall +qall
+  echo "$(tput setaf 2)Done.$(tput sgr0)"
+fi
+# Remote plugins
+if [[ -f ~/.local/share/nvim/rplugin.vim ]]; then
+  echo "$(tput setaf 2)Remote plugins up to date. Nothing to do!$(tput sgr0)"
+else
+  echo "$(tput setaf 3)Updating remote plugins...$(tput sgr0)"
+  nvim +UpdateRemotePlugins +qall
+  echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
 echo "$(tput setaf 2)Neovim is fully configured.$(tput sgr0)"
