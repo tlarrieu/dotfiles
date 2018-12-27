@@ -188,6 +188,7 @@ case $answer in
     safeinstall mpc
     safeinstall mpd
     safeinstall mpv
+    safeinstall youtube-dl
 
     safeinstall fish
     safeinstall fundle-git
