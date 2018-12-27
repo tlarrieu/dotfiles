@@ -154,9 +154,12 @@ case $answer in
 
     safeinstall ranger
     safeinstall w3m
+    safeinstall udiskie
 
     safeinstall compton
     safeinstall awesome
+    safeinstall unclutter
+    safeinstall redshift
 
     safeinstall qutebrowser
     safeinstall luakit-git
