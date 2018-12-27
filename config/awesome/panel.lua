@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 local dpi = require('beautiful.xresources').apply_dpi
+local xrdb = require('xrdb').load()
 
 local lain = require("lain")
 
@@ -151,7 +152,7 @@ local init_screen = function(screen)
     screen,
     awful.widget.taglist.filter.all,
     tagbuttons,
-    { spacing = dpi(6), font = "InconsolataForPowerline Nerd Font 26" }
+    { spacing = dpi(6) }
   )
 
   local left = wibox.widget({

@@ -5,11 +5,12 @@ package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
 --------------------------
 
 local theme = {}
+local xrdb = require('xrdb').load()
 
-theme.colors = require('xrdb').load()
+theme.colors = xrdb.colors
 
 -- Default settings
-theme.font = "InconsolataForPowerline Nerd Font 26px"
+theme.font = xrdb.font.name .. " " .. 26
 theme.fg   = theme.colors.foreground
 theme.bg   = theme.colors.background
 

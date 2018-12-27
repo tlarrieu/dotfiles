@@ -13,17 +13,26 @@ _M.load = function()
   scheme.background = string.match(query, "*.background:[^#]*(#[%a%d]+)")
   scheme.foreground = string.match(query, "*.foreground:[^#]*(#[%a%d]+)")
 
+  local name, size, dpi = string.match(
+    query,
+    "*.font:%s*xft:([ %a]+):size=(%d+):dpi=(%d+)"
+  )
+  local font = { name = name, size = size, dpi = dpi }
+
   return {
-    foreground = scheme.foreground,
-    background = scheme.background,
-    black   = { dark = scheme.color0, light = scheme.color8 },
-    red     = { dark = scheme.color1, light = scheme.color9 },
-    green   = { dark = scheme.color2, light = scheme.color10 },
-    yellow  = { dark = scheme.color3, light = scheme.color11 },
-    blue    = { dark = scheme.color4, light = scheme.color12 },
-    magenta = { dark = scheme.color5, light = scheme.color13 },
-    cyan    = { dark = scheme.color6, light = scheme.color14 },
-    white   = { dark = scheme.color7, light = scheme.color15 },
+    colors = {
+      foreground = scheme.foreground,
+      background = scheme.background,
+      black   = { dark = scheme.color0, light = scheme.color8 },
+      red     = { dark = scheme.color1, light = scheme.color9 },
+      green   = { dark = scheme.color2, light = scheme.color10 },
+      yellow  = { dark = scheme.color3, light = scheme.color11 },
+      blue    = { dark = scheme.color4, light = scheme.color12 },
+      magenta = { dark = scheme.color5, light = scheme.color13 },
+      cyan    = { dark = scheme.color6, light = scheme.color14 },
+      white   = { dark = scheme.color7, light = scheme.color15 },
+    },
+    font = font
   }
 end
 
