@@ -1,41 +1,49 @@
-snippet /\bmo?d?/ "Module" r
+snippet /^mo?d?/ "Module" r
 module ${1:Modname} (
 	$2
 ) where
 endsnippet
 
-snippet /\bim?p?/ "Import" r
+snippet /^im?p?/ "Import" r
 import ${1:Module}
 endsnippet
 
-snippet /\bqu?a?l?/ "Qualified import, name by last module" r
+snippet /^qu?a?l?/ "Qualified import, name by last module" r
 import qualified ${1:Module} as ${2:alias}
 endsnippet
 
+snippet /^deb/ "import Debug.Trace" r
+import Debug.Trace
+endsnippet
+
 snippet \ "Lambda expression"
-\\ ${1:pattern} -> ${2:expression}
+\\ ${1:x} -> ${2:expression}
 endsnippet
 
 snippet /\(\\\)?/ "Lambda expression" r
-(\\ ${1:pattern} -> ${2:expression})$0
+(\\ ${1:x} -> ${2:expression})$0
 endsnippet
 
-snippet /\bde?f?/ "Function definition" r
+snippet /^def/ "Function definition" r
 ${1:name} :: ${2:Type} -> ${3:$2}
 $1${4} = $0
 endsnippet
 
-snippet main "main"
+snippet /^main/ "main" r
 main :: IO()
 main = $0
 endsnippet
 
-snippet /\ble?t?/ "let ... in ..." r
+snippet let "let ... in ..."
 let ${1:name} = ${2:expression}
-in ${3:expression}
+	in ${3:${VISUAL}}
 endsnippet
 
-snippet /\bwh?/ "where x = expression" r
+snippet where "where x = expression"
 where
 	${1:name} = ${2:expression}
+endsnippet
+
+snippet match "regexp"
+[(_:matchResult)] = ${1:string} =~ "${2:pattern}" :: [[String]]
 endsnippet

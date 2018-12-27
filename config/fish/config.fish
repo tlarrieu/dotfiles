@@ -25,6 +25,7 @@ set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.ghcup/bin
 
 set -x PATH $HOME/.yarn/bin $PATH
+set -x PATH $HOME/.ghcup/bin $PATH
 
 set fish_greeting ""
 

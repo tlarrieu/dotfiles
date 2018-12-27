@@ -10,7 +10,7 @@ local xrdb = require('xrdb').load()
 theme.colors = xrdb.colors
 
 -- Default settings
-theme.font = xrdb.font.name .. " " .. 26
+theme.font = xrdb.font.name .. " " .. xrdb.font.size
 theme.fg   = theme.colors.foreground
 theme.bg   = theme.colors.background
 
