@@ -21,7 +21,13 @@ snippet /\(\\\)?/ "Lambda expression" r
 endsnippet
 
 snippet /\bde?f?/ "Function definition" r
-${1:name} :: ${2:Type} -> ${3:Type}
+${1:name} :: ${2:Type} -> ${3:$2}
+$1${4} = $0
+endsnippet
+
+snippet main "main"
+main :: IO()
+main = $0
 endsnippet
 
 snippet /\ble?t?/ "let ... in ..." r

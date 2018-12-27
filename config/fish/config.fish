@@ -22,6 +22,7 @@ set -g -x BROWSER luakit
 # PATH
 set -x PATH $PATH $HOME/scripts
 set -x PATH $PATH $HOME/bin
+set -x PATH $PATH $HOME/.ghcup/bin
 
 set -x PATH $HOME/.yarn/bin $PATH
 
