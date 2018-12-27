@@ -68,80 +68,87 @@ local clock = wibox.widget({
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
-local batterytext = wibox.widget.textbox()
-local batterybar = wibox.widget({
-  widget = wibox.widget.progressbar,
-  background_color = "#FF000000",
-  bar_shape = gears.shape.rounded_rect,
-  forced_width = dpi(90),
-  shape = gears.shape.rounded_rect,
-})
-local battery = wibox.widget({
-  batterytext,
-  wibox.container.margin(batterybar, dpi(5), dpi(0), dpi(8), dpi(8)),
-  layout = wibox.layout.fixed.horizontal
-})
-local battery_update = function(bat_now)
-  if bat_now.status == "N/A" then return end
-
-  local color, legend, icon
-
-  -- legend
-  if bat_now.time == "00:00" then
-    legend = "100%"
-  else
-    legend = bat_now.time
-  end
-
-  -- color
-  if bat_now.perc >= 98 then
-    color = beautiful.colors.green.dark
-  elseif bat_now.perc > 15 then
-    color = beautiful.colors.yellow.dark
-  else
-    color = beautiful.colors.red.dark
-  end
-
-  -- icon
-  if bat_now.perc == 100 then
-    icon = "⚡ "
-  else
-    if bat_now.status == "Charging" then
-      icon = " "
-    else
-      icon = " "
-    end
-  end
-
-  batterytext:set_markup(lain.util.markup(color, icon .. legend))
-  batterybar:set_color(color)
-  batterybar:set_value(bat_now.perc / 100)
-end
+local battery
 
 local pipe = io.popen('ls /sys/class/power_supply | grep BAT')
-local batname
+local batteryname
 -- Pick the first entry in /sys/class/power_supply/BAT* as our battery name
 for i in string.gmatch(pipe:read('*a'), "%S+") do
-  batname = i
+  batteryname = i
   break
 end
 pipe:close()
 
-lain.widgets.bat({
-  battery = batname,
-  timeout = 15,
-  settings = battery_update,
-  notifications = {
-    low = {
-      fg = beautiful.colors.red.dark,
-      bg = beautiful.colors.background
-    },
-    critical = {
-      fg = beautiful.colors.foreground,
-      bg = beautiful.colors.red.dark
+local batterytext = wibox.widget.textbox()
+
+if batteryname then
+  local batterybar = wibox.widget({
+    widget = wibox.widget.progressbar,
+    background_color = "#FF000000",
+    bar_shape = gears.shape.rounded_rect,
+    forced_width = dpi(90),
+    shape = gears.shape.rounded_rect,
+  })
+
+  battery = wibox.widget({
+    batterytext,
+    wibox.container.margin(batterybar, dpi(5), dpi(0), dpi(8), dpi(8)),
+    layout = wibox.layout.fixed.horizontal
+  })
+
+  local battery_update = function(bat_now)
+    if bat_now.status == "N/A" then return end
+
+    local color, legend, icon
+
+    -- legend
+    if bat_now.time == "00:00" then
+      legend = "100%"
+    else
+      legend = bat_now.time
+    end
+
+    -- color
+    if bat_now.perc >= 98 then
+      color = beautiful.colors.green.dark
+    elseif bat_now.perc > 15 then
+      color = beautiful.colors.yellow.dark
+    else
+      color = beautiful.colors.red.dark
+    end
+
+    -- icon
+    if bat_now.perc == 100 then
+      icon = "⚡ "
+    else
+      if bat_now.status == "Charging" then
+        icon = " "
+      else
+        icon = " "
+      end
+    end
+
+    batterytext:set_markup(lain.util.markup(color, icon .. legend))
+    batterybar:set_color(color)
+    batterybar:set_value(bat_now.perc / 100)
+  end
+
+  lain.widgets.bat({
+    battery = batteryname,
+    timeout = 15,
+    settings = battery_update,
+    notifications = {
+      low = {
+        fg = beautiful.colors.red.dark,
+        bg = beautiful.colors.background
+      },
+      critical = {
+        fg = beautiful.colors.foreground,
+        bg = beautiful.colors.red.dark
+      }
     }
-  }
-})
+  })
+end
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
