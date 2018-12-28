@@ -10,7 +10,8 @@ require("plugins/run_or_raise")
 
 -- [[ Configuration ]] ---------------------------------------------------------
 
-require("beautiful").init(os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/theme.lua")
+local themedir = os.getenv("HOME") .. "/.config/awesome/themes"
+require("beautiful").init(themedir .. "/awesome-solarized/light/theme.lua")
 
 local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 
@@ -48,7 +49,7 @@ local tags = {
 }
 
 awful.screen.connect_for_each_screen(function(screen)
-  gears.wallpaper.maximized(wallpaper, screen, false)
+  -- gears.wallpaper.maximized(wallpaper, screen, false)
 
   for _, tag in ipairs(tags) do
     awful.tag.add(
