@@ -415,13 +415,12 @@ nmap <leader>a :Gcommit --amend<cr>
 nmap <leader>b :Gblame<cr>
 nmap <leader>c :Gcommit<cr>
 nmap <leader>d :Gvdiff<cr>
-nmap <leader>D :Gvdiff develop<cr>
+nmap <leader>D :Gvdiff master<cr>
 nmap <leader>r :Gread<cr>
 nmap <leader>s :Gstatus<cr>
 nmap <leader>S :GV<cr>
-nmap <leader>f :Gfetch<space>
+vmap <leader>S :'<,'>GV<cr>
 nmap <leader>w :Gwrite<cr>
-nmap <leader>R :tabonly<cr><c-w>o:Gstatus<cr>
 " }}}
 " {{{ --| Linediff |----------------------------------------
 vmap <leader>d :Linediff<cr>
