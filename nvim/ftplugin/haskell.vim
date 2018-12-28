@@ -1,1 +1,1 @@
-nnoremap <buffer> <cr> :execute "T ghc " . expand('%') . " && ./" . expand('%:r')<cr>
+nnoremap <buffer> <cr> :execute "T ghc main.hs && ./main"<cr>

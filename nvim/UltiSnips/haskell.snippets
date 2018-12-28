@@ -24,7 +24,7 @@ snippet /\(\\\)?/ "Lambda expression" r
 (\\ ${1:x} -> ${2:expression})$0
 endsnippet
 
-snippet /^def/ "Function definition" r
+snippet /^de?f?/ "Function definition" r
 ${1:name} :: ${2:Type} -> ${3:$2}
 $1${4} = $0
 endsnippet
@@ -46,4 +46,9 @@ endsnippet
 
 snippet match "regexp"
 [(_:matchResult)] = ${1:string} =~ "${2:pattern}" :: [[String]]
+endsnippet
+
+snippet /withF?i?l?e?/ "withFile" r
+withFile "${1:filename}" ${2:ReadMode} $ \handle -> do
+  list <- fmap lines $ hGetContents handle
 endsnippet
