@@ -2,7 +2,7 @@
 
 LAUNCHER='rofi -dmenu -i -p power:'
 # OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
-OPTIONS="Lock\nRestart\nShutdown\nSuspend"
+OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
 function lock {
   # i3lock  -f -n -i $HOME/Pictures/lock &
@@ -22,7 +22,7 @@ function lock {
   rm $TMPBG
 }
 
-option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
     # Logout)
