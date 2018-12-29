@@ -31,6 +31,8 @@
 	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	llga = "!git llg --all"
 	patch = diff --word-diff=none
+	r = rebase
+	rc = rebase --continue
 	s = status
 	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b %n'
 	sl = stash list -p

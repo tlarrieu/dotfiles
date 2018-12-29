@@ -75,18 +75,13 @@ alias gds="git ds"
 alias gcl="git clone"
 alias gci="git commit"
 alias gco="git checkout"
-function gf
-  if count $argv > /dev/null
-    git diff --name-only $argv..
-  else
-    git diff --name-only develop..
-  end
-end
 alias gl="git log"
 alias glg="git lg"
 alias gllg="git llg"
 alias gpl="git pull"
 alias gps="git push"
+alias gr="git rebase"
+alias grc="git rebase --continue"
 alias gs="git status -s -b"
 
 # Rails / Rake / Bundler
