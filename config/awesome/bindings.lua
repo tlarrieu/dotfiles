@@ -105,7 +105,6 @@ local keyboard = awful.util.table.join(
   -- Client screen moving
 
   awful.key({mod}, "o",          function(c) awful.client.movetoscreen(c) end),
-  -- awful.key({mod, "Shift"}, "o", function(c) awful.client.movetoscreen(c, -1) end),
 
   -- Restart awesome
 
