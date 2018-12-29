@@ -22,6 +22,12 @@ local mpv = function(uri, w)
   luakit.spawn("mpv " .. uri .. " --ytdl-format=95/22/43")
 end
 
+local mpc = function(uri, w)
+  assert(type(uri) == "string")
+  w:notify("Starting mpc: " .. uri)
+  luakit.spawn("/bin/sh -c 'mpc add $(youtube-dl -g " .. uri .. ") && mpc play'")
+end
+
 modes.add_binds("normal", {
   -- Mode switching
   { "é", "Search for string on current page.", function (w) w:start_search("/") end },
@@ -141,6 +147,18 @@ modes.add_binds("normal", {
     "<Control-E>",
     "Open current URL in mpv",
     function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20"), w) end
+  },
+  {
+    "<Control-,>",
+    "Highlight and open URL in mpc",
+    function (w)
+      w:set_mode("follow", {
+        prompt = "mpc",
+        selector = "uri",
+        evaluator = "uri",
+        func = function(uri) mpc(uri, w) end
+      })
+    end
   },
 })
 
