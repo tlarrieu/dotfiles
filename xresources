@@ -3,6 +3,7 @@
 ! ------------------------------------------------------------------------------
 ! -- Xft
 ! ------------------------------------------------------------------------------
+
 Xft.dpi: DPI
 *.dpi: DPI
 Xft.antialias: true
@@ -42,11 +43,26 @@ Xft.lcdfilter: lcddefault
 ! ------------------------------------------------------------------------------
 ! -- XTerm
 ! ------------------------------------------------------------------------------
-XTerm.borderWidth: 0
+
+xterm.font: xft:FONT:size=18:dpi=DPI
+xterm.borderWidth: 0
+xterm.VT100.Translations: #override \
+    Ctrl <Key> minus: smaller-vt-font() \n\
+    Ctrl <Key> plus: larger-vt-font() \n\
+    Ctrl <Key> 0: set-vt-font(d) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD)
+! Only select text
+xterm.highlightSelection: true
+! Remove trailing spaces
+xterm.trimSelection: true
+xterm.saveLines: 10000
+xterm.scrollTtyOutput: false
 
 ! ------------------------------------------------------------------------------
 ! -- URxvt
 ! ------------------------------------------------------------------------------
+
 URxvt.borderWidth: 0
 URxvt.internalBorder: 0
 URxvt.externalBorder: 0
@@ -93,6 +109,7 @@ rofi.kb-remove-word-back: Control+w
 ! ------------------------------------------------------------------------------
 ! -- vim
 ! ------------------------------------------------------------------------------
+
 vim.theme: VIM_THEME
 vim.background: VIM_BACKGROUND
 
