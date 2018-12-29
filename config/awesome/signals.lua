@@ -10,10 +10,6 @@ client.connect_signal("manage", function (c, startup)
   end)
 end)
 
-awesome.connect_signal("startup", function()
-  os.execute('pkill -HUP urxvt')
-end)
-
 awesome.connect_signal("exit", function(restart)
   if restart then os.execute('xrdb ~/.Xresources') end
 end)
