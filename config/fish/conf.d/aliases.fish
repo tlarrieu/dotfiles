@@ -24,6 +24,7 @@ alias dl="aria2c --dir=$HOME/Downloads"
 
 # youtube-dl
 alias yt="youtube-dl"
+function yta; mpc add (youtube-dl -g $argv); mpc play ; end
 
 # Feh
 alias feh="feh -dF"
