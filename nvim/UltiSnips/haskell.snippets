@@ -50,5 +50,5 @@ endsnippet
 
 snippet /withF?i?l?e?/ "withFile" r
 withFile "${1:filename}" ${2:ReadMode} $ \handle -> do
-  list <- fmap lines $ hGetContents handle
+  list <- lines <$> hGetContents handle
 endsnippet
