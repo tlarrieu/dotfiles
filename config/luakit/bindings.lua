@@ -25,7 +25,7 @@ end
 local mpc = function(uri, w)
   assert(type(uri) == "string")
   w:notify("Starting mpc: " .. uri)
-  luakit.spawn("/bin/sh -c 'mpc add $(youtube-dl -g " .. uri .. ") && mpc play'")
+  luakit.spawn('/bin/sh /home/tlarrieu/scripts/mpc-load "' .. uri .. '"')
 end
 
 modes.add_binds("normal", {
