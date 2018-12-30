@@ -2,7 +2,7 @@
 
 notify-send -t 4000 "Starting loading to mpc..."
 
-youtube-dl -g "$1" -f140 | mpc add &&
+youtube-dl -g "$1" -f'best' | mpc add &&
   mpc play &&
   notify-send -t 4000 "Finished loading YT to mpc" ||
   notify-send -t 4000 "Failed loading YT to mpc"
