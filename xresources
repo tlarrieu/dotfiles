@@ -41,45 +41,6 @@ Xft.lcdfilter: lcddefault
 *.font: xft:FONT:size=16:dpi=DPI
 
 ! ------------------------------------------------------------------------------
-! -- XTerm
-! ------------------------------------------------------------------------------
-
-xterm.font: xft:FONT:size=18:dpi=DPI
-xterm.borderWidth: 0
-xterm.VT100.Translations: #override \
-    Ctrl <Key> minus: smaller-vt-font() \n\
-    Ctrl <Key> plus: larger-vt-font() \n\
-    Ctrl <Key> 0: set-vt-font(d) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD)
-! Only select text
-xterm.highlightSelection: true
-! Remove trailing spaces
-xterm.trimSelection: true
-xterm.saveLines: 10000
-xterm.scrollTtyOutput: false
-
-! ------------------------------------------------------------------------------
-! -- URxvt
-! ------------------------------------------------------------------------------
-
-URxvt.borderWidth: 0
-URxvt.internalBorder: 0
-URxvt.externalBorder: 0
-
-URxvt.colorMode: on
-URxvt.cursorBlink: false
-URxvt.cursorUnderline: false
-
-URxvt.scrollBar: false
-URxvt.buffered: true
-
-URxvt.perl-ext-common: default,resize-font,clipboard,config-reload
-
-URxvt.keysym.Control-Left: \033[1;5D
-URxvt.keysym.Control-Right: \033[1;5C
-
-! ------------------------------------------------------------------------------
 ! -- rofi
 ! ------------------------------------------------------------------------------
 

@@ -161,7 +161,6 @@ case $answer in
     safeinstall unclutter
     safeinstall redshift
 
-    safeinstall qutebrowser
     safeinstall luakit-git
 
     safeinstall net-tools
@@ -193,12 +192,7 @@ case $answer in
     safeinstall fish
     safeinstall fundle-git
 
-    safeinstall rxvt-unicode
-    safeinstall urxvt-resize-font-git
-    safeinstall urxvt-clipboard
-    safeinstall urxvt-config-reload-git
-
-    sudo cpan AnyEvent Linux::FD common::sense
+    safeinstall termite
 
     safeinstall nerd-fonts-complete
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"

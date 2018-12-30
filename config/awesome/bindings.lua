@@ -1,7 +1,7 @@
 -- [[ Variables ]] -------------------------------------------------------------
 local awful = require("awful")
 
-local terminal = "xterm"
+local terminal = "termite"
 local mod = "Mod4"
 
 local spawn = function(modifiers, key, cmd)

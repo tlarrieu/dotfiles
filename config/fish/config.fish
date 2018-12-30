@@ -27,6 +27,9 @@ set -x PATH $PATH $HOME/.ghcup/bin
 set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/.ghcup/bin $PATH
 
+# TERM
+set -gx TERM xterm-256color
+
 set fish_greeting ""
 
 fundle plugin 'tuvistavie/fish-ssh-agent'
