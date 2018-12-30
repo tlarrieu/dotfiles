@@ -1,6 +1,6 @@
 function _git_branch_name
   set -l branch (command git symbolic-ref HEAD ^/dev/null)
-    and string replace 'refs/heads/' " " $branch
+    and string replace 'refs/heads/' " " $branch
     and return
 
   set -l tag (command git describe --tags --exact-match ^/dev/null)
@@ -20,13 +20,13 @@ function _git_ahead
     switch "$line"
       case '>*'
         if [ $behind -eq 1 ]
-          echo '±'
+          echo " "
           return
         end
         set ahead 1
       case '<*'
         if [ $ahead -eq 1 ]
-          echo "±"
+          echo " "
           return
         end
         set behind 1
@@ -34,9 +34,9 @@ function _git_ahead
   end
 
   if [ $ahead -eq 1 ]
-    echo "↑"
+    echo " "
   else if [ $behind -eq 1 ]
-    echo "↓"
+    echo " "
   end
 end
 
@@ -45,12 +45,13 @@ function _git_prompt
   [ (command git rev-parse --git-dir 2> /dev/null) ]
     or return
 
-  set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n "*")
-  set -l staged \
-    (command git diff --cached --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n "~")
   set -l stashed \
-    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n '$')
+    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
+
+  set -l dirty \
+    (command git diff --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n " ")
+  set -l staged \
+    (command git diff --cached --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n " ")
   set -l ahead \
     (_git_ahead)
 
@@ -59,10 +60,10 @@ function _git_prompt
   if [ "$show_untracked" != 'false' ]
     set -l untracked (command git ls-files --other --exclude-standard --directory --no-empty-directory ^/dev/null)
     [ "$untracked" ]
-      and set new "…"
+      and set new " "
   end
 
-  set -l flags "$dirty$staged$stashed$ahead$new"
+  set -l flags "$stashed$dirty$staged$ahead$new"
   [ "$flags" ]
     and set flags " $flags"
 
@@ -72,7 +73,7 @@ function _git_prompt
     set_color green
   end
 
-  echo -ns ' ' (_git_branch_name) $flags
+  echo -ns (_git_branch_name) $flags
 
   set_color normal
 end
@@ -87,10 +88,10 @@ function fish_prompt
 
   # Show background job if any
   [ (jobs | wc -l) -gt 0 ]
-    and echo -ns " "
+    and echo -ns " "
 
   # Print pwd or full path
-  echo -n -s $cwd $normal
+  echo -n -s $cwd $normal " "
 
   # Show git branch and status
   _git_prompt
@@ -101,7 +102,7 @@ function fish_prompt
     set_color red
   end
 
-  echo -ns '  '
+  echo -ns ' '
 
   set_color normal
 end
