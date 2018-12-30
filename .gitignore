@@ -6,19 +6,8 @@
 log
 logs
 
-config/xfce4/panel/*
-config/xfce4/desktop/*
-config/xfce4/helpers.rc
-
 config/fish/fish_history
 config/fish/fishd.*
-config/fish/functions/rvm.fish
-config/fish/functions/ec2.fish
-config/fish/functions/fbserv.fish
-config/fish/functions/pg_cred.fish
-config/fish/functions/pg_cred_stag.fish
-config/fish/functions/pg_info.fish
-config/fish/functions/pres.fish
 config/fish/conf.d/local.fish
 
 nvim/plugged/*
@@ -26,22 +15,11 @@ nvim/autoload/plug.vim
 nvim/doc
 nvim/spell
 nvim/spell/*
-nvim/.init.vim-rplugin~
-
-config/fish/functions/sync_stag.fish
-config/fish/functions/sync_test.fish
-config/fish/functions/fish_prompt.fish
 
 config/fish/fundle
 
 config/ranger/tagged
 
-config/jumanji/cookies
-config/jumanji/history
-config/jumanji/adblock
-
 config/qutebrowser/bookmarks/*
 config/qutebrowser/quickmarks
 config/qutebrowser/qsettings
-
-config/vimb
