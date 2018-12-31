@@ -10,12 +10,12 @@ _rofi() {
 }
 
 mpc_playlist() {
-  local current=$(( $(mpc status -f "%position%" | head -n 1) - 1 ))
+  local preselected=$(mpc status -f "pos: %position%" | grep pos | awk ' { print $2 } ')
 
   local format="[[[%artist%] - [%title%]]|[%file%]"
   local selection=$(
     mpc playlist -f "%position%) $format" | \
-    _rofi $current | \
+    _rofi $preselected | \
     sed -n 's/^\([0-9]\+\)).*/\1/p'
   ) || return 1
 
