@@ -161,7 +161,7 @@ case $answer in
     safeinstall unclutter
     safeinstall redshift
 
-    safeinstall luakit-git
+    safeinstall luakit
 
     safeinstall net-tools
     safeinstall dnsutils
