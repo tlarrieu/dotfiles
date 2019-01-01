@@ -1,6 +1,6 @@
 function _git_branch_name
   set -l branch (command git symbolic-ref HEAD ^/dev/null)
-    and string replace 'refs/heads/' " " $branch
+    and string replace 'refs/heads/' " " $branch " "
     and return
 
   set -l tag (command git describe --tags --exact-match ^/dev/null)
@@ -64,8 +64,6 @@ function _git_prompt
   end
 
   set -l flags "$stashed$dirty$staged$ahead$new"
-  [ "$flags" ]
-    and set flags " $flags"
 
   if [ "$dirty" ]
     set_color yellow
@@ -102,7 +100,7 @@ function fish_prompt
     set_color red
   end
 
-  echo -ns ' '
+  echo -ns '❯ '
 
   set_color normal
 end
