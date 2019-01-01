@@ -193,8 +193,10 @@ case $answer in
     safeinstall fundle-git
 
     safeinstall termite
+    safeinstall kitty
 
     safeinstall nerd-fonts-complete
+    safeinstall otf-fira-code
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
