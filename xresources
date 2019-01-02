@@ -46,19 +46,21 @@ Xft.lcdfilter: lcddefault
 
 ! Overall look
 rofi.font: FONT 20
-rofi.dpi: DPI
-rofi.separator-style: none
-rofi.hide-scrollbar: true
-rofi.fullscreen: true
-rofi.padding: 250
+rofi.dpi: 0
+! rofi.lines: 4
+! rofi.separator-style: none
+! rofi.hide-scrollbar: true
+! rofi.fullscreen: true
+! rofi.padding: 250
 
-rofi.color-active: #00ffffff,  COLOR4,         #00ffffff,  COLOR4,    BACKGROUND
-rofi.color-normal: #00ffffff,  FOREGROUND,     #00ffffff,  COLOR2,    BACKGROUND
-rofi.color-urgent: #00ffffff,  COLOR1,         #00ffffff,  COLOR1,    BACKGROUND
-rofi.color-window: BACKGROUND, BACKGROUND
+! rofi.color-active: #00ffffff,  COLOR4,         #00ffffff,  COLOR4,    BACKGROUND
+! rofi.color-normal: #00ffffff,  FOREGROUND,     #00ffffff,  COLOR2,    BACKGROUND
+! rofi.color-urgent: #00ffffff,  COLOR1,         #00ffffff,  COLOR1,    BACKGROUND
+! rofi.color-window: BACKGROUND, BACKGROUND
+rofi.theme: ~/.config/rofi/theme.rasi
 
 ! Runner
-rofi.terminal: urxvt
+rofi.terminal: kitty
 rofi.ssh-command: {terminal} -e {ssh-client} {host}
 rofi.run-shell-command: {terminal} -e {cmd}
 rofi.run-command: {cmd}

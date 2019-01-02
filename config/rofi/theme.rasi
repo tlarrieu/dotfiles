@@ -1,0 +1,122 @@
+*{
+  active-foreground: @blue;
+  bg: rgba (253, 246, 227, 100%);
+  blue: rgba (38, 139, 210, 100%);
+  fg: rgba (88, 104, 117, 100%);
+  red: rgba (220, 50, 47, 100%);
+  selected-active-background: @fg;
+  selected-active-foreground: @bg;
+  selected-urgent-background: @red;
+  selected-urgent-foreground: @bg;
+  urgent-foreground: @red;
+}
+
+#window {
+  background-color: rgba (20, 20, 20, 65%);
+  padding: 41.8% 20%;
+  width: 100 % ;
+  height: 100 % ;
+}
+
+#mainbox {
+  background-color: transparent;
+  border-radius: 10px;
+  children: [content];
+  orientation: horizontal;
+  padding: -10px;
+  spacing: 0;
+}
+
+#content {
+  background-color: @bg;
+  children: [inputbar,listview];
+  orientation: vertical;
+  padding: 0.8em;
+  text-color: @fg;
+}
+
+#listview {
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  spacing: 0;
+  text-color: @fg;
+}
+
+#element {
+  border-radius: 5px;
+  margin: 2px 0;
+  padding: 5px 10px 5px 10px;
+}
+
+#element.normal.normal {
+  background-color: @bg;
+  text-color: @fg;
+}
+
+#element.normal.urgent {
+  background-color: transparent;
+  text-color: @urgent-foreground;
+}
+
+#element.normal.active {
+  background-color: transparent;
+  text-color: @active-foreground;
+}
+
+#element.selected.normal {
+  background-color: @fg;
+  text-color: @bg;
+}
+
+#element.selected.urgent {
+  background-color: @selected-urgent-background;
+  text-color: @selected-urgent-foreground;
+}
+
+#element.selected.active {
+  background-color: @selected-active-background;
+  text-color: @selected-active-foreground;
+}
+
+#element.alternate.normal {
+  background-color: @bg;
+  text-color: @fg;
+}
+
+#element.alternate.urgent {
+  background-color: transparent;
+  text-color: @urgent-foreground;
+}
+
+#element.alternate.active {
+  background-color: transparent;
+  text-color: @active-foreground;
+}
+
+#inputbar {
+  background-color: transparent;
+  padding: 0 0 15px 0;
+  spacing: 10px;
+  text-color: @fg;
+}
+
+#case-indicator {
+  background-color: transparent;
+  spacing: 0;
+  text-color: @fg;
+}
+
+#entry {
+  background-color: transparent;
+  spacing: 0;
+  text-color: @fg;
+}
+
+#prompt {
+  background-color: transparent;
+  spacing: 0;
+  text-color: @fg;
+}
+
+/* vim:ft=css
