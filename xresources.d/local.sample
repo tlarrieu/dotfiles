@@ -1,6 +1,6 @@
 #include "/home/tlarrieu/.Xresources.d/solarized"
 
 #define DPI 96
-#define FONT InconsolataForPowerline Nerd Font
+#define FONT Inconsolata Nerd Font
 
 ! vim: ft=xdefaults
