@@ -52,9 +52,9 @@ rofi.hide-scrollbar: true
 rofi.fullscreen: true
 rofi.padding: 250
 
-rofi.color-active: #00ffffff,  COLOR4,         #00ffffff,  COLOR4,     BACKGROUND
-rofi.color-normal: #00ffffff,  FOREGROUND,     #00ffffff,  COLOR2,     BACKGROUND
-rofi.color-urgent: #00ffffff,  COLOR1,         #00ffffff,  COLOR1,     BACKGROUND
+rofi.color-active: #00ffffff,  COLOR4,         #00ffffff,  COLOR4,    BACKGROUND
+rofi.color-normal: #00ffffff,  FOREGROUND,     #00ffffff,  COLOR2,    BACKGROUND
+rofi.color-urgent: #00ffffff,  COLOR1,         #00ffffff,  COLOR1,    BACKGROUND
 rofi.color-window: BACKGROUND, BACKGROUND
 
 ! Runner

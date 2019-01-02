@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -i -p power:'
+LAUNCHER='rofi -dmenu -i -p power'
 # OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
 OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
