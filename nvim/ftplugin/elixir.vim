@@ -6,8 +6,6 @@ setlocal iskeyword+=!
 
 nnoremap <buffer> <return> :TestLast<cr>
 abbreviate <buffer> p <bar>>
-inoremap <buffer> . .<esc>hviwo<esc>vUf.a
-inoremap <buffer> .( .(<c-\><c-o>F.<esc>bvuf(a
 
 nnoremap <silent> K :ExDoc<cr>
 let g:alchemist_tag_stack_map = ''
