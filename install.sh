@@ -195,7 +195,7 @@ case $answer in
     safeinstall termite
     safeinstall kitty
 
-    safeinstall nerd-fonts-complete
+    safeinstall nerd-fonts-inconsolata
     safeinstall otf-fira-code
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
