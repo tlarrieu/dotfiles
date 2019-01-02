@@ -10,7 +10,11 @@ _rofi() {
 }
 
 mpc_playlist() {
-  local preselected=$(mpc status -f "pos: %position%" | grep pos | awk ' { print $2 } ')
+  local preselected=$(\
+    mpc status -f "pos: %position%" |\
+    grep pos |\
+    awk ' $0 ~ /^pos:/ { print $2 - 1 } '\
+  )
 
   local format="[[[%artist%] - [%title%]]|[%file%]"
   local selection=$(
