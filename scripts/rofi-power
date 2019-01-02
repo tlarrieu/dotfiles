@@ -10,6 +10,8 @@ function lock {
   LOCK=$HOME/scripts/lock.png
   RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
 
+  mpc pause
+
   ffmpeg -y -f x11grab \
     -video_size $RES \
     -i $DISPLAY \
