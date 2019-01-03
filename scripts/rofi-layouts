@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -i -p layout'
+LAUNCHER='rofi -dmenu -i -p '
 OPTIONS="magnifier
   \nfair
   \nfair.horizontal
