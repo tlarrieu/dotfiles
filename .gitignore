@@ -16,6 +16,10 @@ nvim/doc
 nvim/spell
 nvim/spell/*
 
+vifm/vifm-help.txt
+vifm/vifminfo
+vifm/scripts/README
+
 config/fish/fundle
 
 config/ranger/tagged

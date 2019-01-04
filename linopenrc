@@ -44,7 +44,7 @@ text:nvim->interm
 # Directory rule for directories
 # ideally you want to use file manager
 # here if you are a GUI user.
-directory:ranger->interm
+directory:vifm->interm
 
 # Default rule just echoes back whatever
 # was feed. If you are using DE you could
