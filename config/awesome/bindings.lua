@@ -123,6 +123,7 @@ keyboard = awful.util.table.join(
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
   mspawn("F2",                   script("rofi-keyboard")),
+  mspawn("f",                    script("rofi-nerdfont")),
 
   -- Power management
 
