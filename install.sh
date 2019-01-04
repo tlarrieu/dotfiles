@@ -160,7 +160,7 @@ case $answer in
     safeinstall w3m
     safeinstall udiskie
 
-    safeinstall compton
+    safeinstall compton-tryone-git
     safeinstall awesome
     safeinstall unclutter
     safeinstall redshift

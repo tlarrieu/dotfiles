@@ -27,7 +27,7 @@ awful.rules.rules = {
     },
     properties = {
       size_hints_honor = false,
-      opacity = 0.9,
+      opacity = 0.85,
     },
   },
 
