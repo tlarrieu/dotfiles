@@ -195,7 +195,6 @@ case $answer in
     safeinstall youtube-dl
 
     safeinstall fish
-    safeinstall fundle-git
 
     safeinstall termite
     safeinstall kitty
@@ -208,12 +207,6 @@ case $answer in
     echo "$(tput setaf 3)Packages update skipped$(tput sgr0)"
     ;;
 esac
-
-echo
-
-echo "Configuring fish..."
-fish -c 'fundle install' > /dev/null
-echo "$(tput setaf 2)Fish is fully configured. Don't forget to set it as your shell$(tput sgr0)"
 
 echo
 
