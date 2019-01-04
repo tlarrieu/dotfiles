@@ -46,8 +46,8 @@ safelink()
 safeinstall() {
   package=$1
 
-  if type yaourt > /dev/null; then
-    yaourt -S --needed --noconfirm $package
+  if type yay > /dev/null; then
+    yay -S --needed --noconfirm $package
   else
     sudo pacman -S --needed --noconfirm $package
   fi
@@ -149,7 +149,7 @@ echo -n "Do you want to check packages? ([y]es/[N]o) "
 read answer
 case $answer in
   "yes"|"y")
-    safeinstall yaourt
+    safeinstall yay
 
     safeinstall python
     safeinstall neovim

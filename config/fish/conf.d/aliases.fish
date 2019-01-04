@@ -41,14 +41,14 @@ alias tree="tree -C"
 alias less="less -r"
 alias atx="atool -x"
 
-# Yaourt
-alias y="yaourt"
-alias yqs="yaourt -Qs"
-alias ys="yaourt -S"
-function yss; yaourt -Ss $argv | vip +'set nofoldenable'; end
-alias ysuy="yaourt -Suy"
-alias yr="yaourt -Rs"
-alias yrc="yaourt -Rsc"
+# YAY
+alias y="yay"
+alias yqs="yay -Qs"
+alias ys="yay -S"
+function yss; yay -Ss $argv | vip +'set nofoldenable'; end
+alias ysuy="yay -Suy"
+alias yr="yay -Rs"
+alias yrc="yay -Rsc"
 alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
