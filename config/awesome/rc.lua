@@ -11,7 +11,7 @@ require("plugins/run_or_raise")
 -- [[ Configuration ]] ---------------------------------------------------------
 
 local themedir = os.getenv("HOME") .. "/.config/awesome/themes"
-require("beautiful").init(themedir .. "/awesome-solarized/light/theme.lua")
+require("beautiful").init(themedir .. "/xresources/theme.lua")
 
 local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 

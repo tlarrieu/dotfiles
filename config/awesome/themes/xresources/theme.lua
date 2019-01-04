@@ -30,7 +30,7 @@ theme.titlebar_bg_focus  = theme.bg_focus
 theme.titlebar_bg_normal = theme.bg_normal
 
 -- [[ icons ]] -----------------------------------------------------------------
-local theme_path = os.getenv("HOME") .. "/.config/awesome/themes/awesome-solarized/light/"
+local theme_path = os.getenv("HOME") .. "/.config/awesome/themes/xresources/"
 -- taglist
 theme.taglist_squares_sel   = theme_path.."taglist/square_sel.png"
 theme.taglist_squares_unsel = theme_path.."taglist/square_unsel.png"
