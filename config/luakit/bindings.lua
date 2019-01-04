@@ -19,7 +19,7 @@ modes.add_binds("completion", {
 local mpv = function(uri, w)
   assert(type(uri) == "string")
   w:notify("Starting mpv: " .. uri)
-  luakit.spawn("mpv " .. uri .. " --ytdl-format=95/22/43")
+  luakit.spawn("mpv " .. uri .. " --ytdl-format=best")
 end
 
 local mpc = function(uri, w)
