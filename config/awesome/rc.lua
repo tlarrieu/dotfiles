@@ -2,7 +2,6 @@
 
 local awful = require("awful")
 require("awful.autofocus")
-local gears = require("gears")
 
 -- [[ Plugins ]] ---------------------------------------------------------------
 
@@ -12,8 +11,6 @@ require("plugins/run_or_raise")
 
 local themedir = os.getenv("HOME") .. "/.config/awesome/themes"
 require("beautiful").init(themedir .. "/xresources/theme.lua")
-
-local wallpaper = os.getenv("HOME") .. "/Pictures/wallpaper"
 
 local tags = {
   {
@@ -49,8 +46,6 @@ local tags = {
 }
 
 awful.screen.connect_for_each_screen(function(screen)
-  -- gears.wallpaper.maximized(wallpaper, screen, false)
-
   for _, tag in ipairs(tags) do
     awful.tag.add(
       tag.name,
