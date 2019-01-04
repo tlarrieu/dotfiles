@@ -178,6 +178,7 @@ case $answer in
     safeinstall rofi
     safeinstall maim
     safeinstall feh
+    safeinstall sxiv
 
     safeinstall zathura
     safeinstall zathura-djvu

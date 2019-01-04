@@ -27,7 +27,7 @@ interm=nvim
 # video/mp4:mpv
 
 # 3. Mime category
-image:feh
+image:sxiv
 video:mpv
 audio:mpd
 text:nvim->interm
