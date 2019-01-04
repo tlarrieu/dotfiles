@@ -22,10 +22,12 @@ awful.rules.rules = {
       class = {
         "URxvt",
         "XTerm",
+        "kitty",
       }
     },
     properties = {
-      size_hints_honor = false
+      size_hints_honor = false,
+      opacity = 0.9,
     },
   },
 

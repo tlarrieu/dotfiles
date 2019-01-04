@@ -8,6 +8,7 @@ local theme = {}
 -- [[ palette ]] ---------------------------------------------------------------
 
 theme.colors = xrdb.colors
+theme.useless_gap = dpi(10)
 
 -- [[ styles ]] ----------------------------------------------------------------
 theme.font = xrdb.font.name .. " " .. 12
