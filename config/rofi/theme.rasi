@@ -4,26 +4,26 @@
   blue: rgba (38, 139, 210, 100%);
   fg: rgba (88, 104, 117, 100%);
   red: rgba (220, 50, 47, 100%);
-  selected-active-background: @fg;
+  selected-active-background: @blue;
   selected-active-foreground: @bg;
   selected-urgent-background: @red;
   selected-urgent-foreground: @bg;
   urgent-foreground: @red;
 }
 
+/* Transparency is getting blurred by compton. The 5% opacity is only here to
+ * tint the blur */
 #window {
-  background-color: rgba (20, 20, 20, 65%);
+  background-color: rgba (0, 0, 0, 5%);
+  height: 100 % ;
   padding: 41.8% 20%;
   width: 100 % ;
-  height: 100 % ;
 }
 
 #mainbox {
   background-color: transparent;
-  border-radius: 10px;
   children: [content];
   orientation: horizontal;
-  padding: -10px;
   spacing: 0;
 }
 
@@ -31,7 +31,6 @@
   background-color: @bg;
   children: [inputbar,listview];
   orientation: vertical;
-  padding: 0.8em;
   text-color: @fg;
 }
 
@@ -44,7 +43,6 @@
 }
 
 #element {
-  border-radius: 5px;
   margin: 2px 0;
   padding: 5px 10px 5px 10px;
 }
@@ -96,7 +94,7 @@
 
 #inputbar {
   background-color: transparent;
-  padding: 0 0 15px 0;
+  padding: 0.8em 0.8em 0.5em 0.8em;
   spacing: 10px;
   text-color: @fg;
 }
