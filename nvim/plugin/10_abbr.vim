@@ -1,6 +1,6 @@
 cabbrev ag Ack!
 cabbrev ack Ack!
-cabbrev chmod !chmod
+cabbrev chmod silent !chmod %<left><left>
 cabbrev rm !rm
 cabbrev mkdir !mkdir
 
