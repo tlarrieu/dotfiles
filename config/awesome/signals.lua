@@ -1,15 +1,5 @@
 local awful = require("awful")
 
-client.connect_signal("manage", function(c)
-  -- sloppy focus
-  c:connect_signal("mouse::enter", function(c)
-    local magnifier = c.screen.layout == awful.layout.suit.magnifier
-    if not magnifier and awful.client.focus.filter(c) then
-      client.focus = c
-    end
-  end)
-end)
-
 client.connect_signal("property::position", function(c)
   if awful.rules.match(c, { class = "kitty" }) then
     c.opacity = c.fullscreen and 1 or 0.85
