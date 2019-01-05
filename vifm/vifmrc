@@ -25,3 +25,5 @@ nnoremap cc cw<c-u>
 
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
+
+mark w ~/Pictures/wallpapers

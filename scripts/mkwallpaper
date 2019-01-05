@@ -1,0 +1,41 @@
+#!/bin/sh
+
+origin=$1
+target=$2
+shift 2
+
+args=()
+while [[ $# -gt 0 ]]; do
+  key="$1"
+  case $key in
+    -f) fuzzyness="$2"; shift 2 ;;
+    -n) nth="$2"; shift 2 ;;
+    *) args+=("$1"); shift ;;
+  esac
+done
+
+set -- "${args[@]}"
+
+fuzzyness=${fuzzyness:-15} # 15% fuzzyness by default
+nth=${nth:-1} # default to first most common color
+newbackground="#ece6d3"
+
+actualbackground=$(
+  magick convert $origin -format '%c' -depth 16 "histogram:info:-" \
+    | awk '{ print $1 $NF }' \
+    | sort -n -r \
+    | head -n $nth \
+    | tail -n 1 \
+    | awk -F ':' '{print $2}'
+)
+
+magick convert \
+  -trim \
+  -resize "2654x1500>" \
+  -fill $newbackground \
+  -opaque $actualbackground \
+  -fuzz $fuzzyness% \
+  -extent "2844x1600" \
+  -background $newbackground \
+  -gravity center \
+  $origin $target

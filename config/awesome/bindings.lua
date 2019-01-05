@@ -155,13 +155,14 @@ keyboard = awful.util.table.join(
 
   mspawn("n", "luakit"),
   spawn({mod, "Control"}, "n", "qutebrowser --backend webengine"),
-  mspawn("u", terminal .. " -e ranger"),
-  mspawn("g", "thunar"),
+  mspawn("u", terminal .. " vifm"),
+  mspawn("g", script("wallpaper")),
+
 
   -- terminal
 
   mspawn("'", terminal),
-  mspawn(".", terminal .. " -e nmtui"),
+  mspawn(".", terminal .. " nmtui"),
 
   -- screenshots
 
