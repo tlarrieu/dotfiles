@@ -1,61 +1,6 @@
--- [[ Awesome modules ]] -------------------------------------------------------
-
-local awful = require("awful")
-require("awful.autofocus")
-
--- [[ Plugins ]] ---------------------------------------------------------------
-
-require("plugins/run_or_raise")
-
--- [[ Configuration ]] ---------------------------------------------------------
-
 local themedir = os.getenv("HOME") .. "/.config/awesome/themes"
+require("awful.autofocus")
 require("beautiful").init(themedir .. "/xresources/theme.lua")
-
-local tags = {
-  {
-    name = "",
-    config = { layout = awful.layout.suit.max }
-  },
-  {
-    name = "",
-    config = { layout = awful.layout.suit.fair }
-  },
-  {
-    name = "",
-    config = {
-      layout = awful.layout.suit.tile.right,
-      master_width_factor = 0.75,
-    }
-  },
-  {
-    name = "",
-    config = { layout = awful.layout.suit.fair }
-  },
-  {
-    name = "",
-    config = {
-      layout = awful.layout.suit.magnifier,
-      master_width_factor = 0.85,
-    }
-  },
-  {
-    name = "",
-    config = { layout = awful.layout.suit.max }
-  },
-}
-
-awful.screen.connect_for_each_screen(function(screen)
-  for _, tag in ipairs(tags) do
-    awful.tag.add(
-      tag.name,
-      awful.util.table.join({ screen = screen }, tag.config)
-    )
-  end
-
-  awful.tag.find_by_name(screen, ""):view_only()
-end)
-
 require("bindings")
 require("panel")
 require("signals")
