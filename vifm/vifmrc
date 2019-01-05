@@ -1,19 +1,27 @@
 colorscheme solarized
 only
 
+set shell=/bin/sh
+set vicmd=nvim
+
 set incsearch
 set ignorecase
 set smartcase
 set nohlsearch
-set shell=/bin/sh
 
 fileviewer * xdg-open
 
+noremap e :edit<cr>
 noremap é /
 noremap è :
 noremap à ZZ
+noremap À ZZ
 noremap <silent> É :nohlsearch<cr><c-l>
 noremap <c-t> =
+
+nnoremap i cw<c-a>
+nnoremap a cw
+nnoremap cc cw<c-u>
 
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
