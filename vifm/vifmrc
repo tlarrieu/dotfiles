@@ -13,6 +13,7 @@ noremap é /
 noremap è :
 noremap à ZZ
 noremap <silent> É :nohlsearch<cr><c-l>
+noremap <c-t> =
 
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
