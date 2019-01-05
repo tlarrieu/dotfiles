@@ -1,7 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -i -p 拉'
-# OPTIONS="Logout\nLock\nRestart\nShutdown\nSuspend"
+LAUNCHER='rofi -dmenu -lines 4 -i -p 拉'
 OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
 function lock {
@@ -27,9 +26,6 @@ function lock {
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
-    # Logout)
-    #   echo "awesome.quit()" | awesome-client
-    #   ;;
     Lock)
       lock
       ;;

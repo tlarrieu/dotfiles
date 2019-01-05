@@ -118,8 +118,8 @@ keyboard = awful.util.table.join(
 
   -- launcher
 
-  mspawn(" ",                    "rofi -show run"),
-  mspawn("Tab",                  "rofi -show window"),
+  mspawn(" ",                    "rofi -show run -lines 6"),
+  mspawn("Tab",                  "rofi -show window -lines 6"),
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
   mspawn("F2",                   script("rofi-keyboard")),
