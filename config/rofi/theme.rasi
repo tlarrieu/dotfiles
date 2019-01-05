@@ -1,14 +1,11 @@
 *{
-  active-foreground: @blue;
-  bg: rgba (253, 246, 227, 100%);
-  blue: rgba (38, 139, 210, 100%);
-  fg: rgba (88, 104, 117, 100%);
-  red: rgba (220, 50, 47, 100%);
-  selected-active-background: @blue;
-  selected-active-foreground: @bg;
-  selected-urgent-background: @red;
-  selected-urgent-foreground: @bg;
-  urgent-foreground: @red;
+
+  bg: #eee8d5;
+  bg-alt: #fdf6e3;
+  fg: #586e75;
+
+  blue: #268bd2;
+  red: #dc322f;
 }
 
 #window {
@@ -26,71 +23,77 @@
   children: [inputbar,listview];
   orientation: vertical;
   text-color: @fg;
+  padding: 0;
+  margin: 0;
 }
 
 #listview {
   background-color: transparent;
   border: 0;
-  padding: 0;
+  padding: 0.3em 0.4em;
   spacing: 0;
   text-color: @fg;
 }
 
 #element {
   margin: 0;
-  padding: 0.2em 0.5em 0.2em 0.5em;
+  padding: 0.3em 0.5em;
 }
 
+/* -- Normal -- */
+
 #element.normal.normal {
-  background-color: @bg;
+  background-color: transparent;
   text-color: @fg;
 }
 
 #element.normal.urgent {
   background-color: transparent;
-  text-color: @urgent-foreground;
+  text-color: @red;
 }
 
 #element.normal.active {
   background-color: transparent;
-  text-color: @active-foreground;
+  text-color: @blue;
 }
 
-#element.selected.normal {
-  background-color: @fg;
-  text-color: @bg;
-}
-
-#element.selected.urgent {
-  background-color: @selected-urgent-background;
-  text-color: @selected-urgent-foreground;
-}
-
-#element.selected.active {
-  background-color: @selected-active-background;
-  text-color: @selected-active-foreground;
-}
+/* -- Alternate -- */
 
 #element.alternate.normal {
-  background-color: @bg;
+  background-color: transparent;
   text-color: @fg;
 }
 
 #element.alternate.urgent {
   background-color: transparent;
-  text-color: @urgent-foreground;
+  text-color: @red;
 }
 
 #element.alternate.active {
   background-color: transparent;
-  text-color: @active-foreground;
+  text-color: @blue;
+}
+
+/* -- selected -- */
+
+#element.selected.normal {
+  background-color: @bg-alt;
+  text-color: @fg;
+}
+
+#element.selected.urgent {
+  background-color: @bg-alt;
+  text-color: @red;
+}
+
+#element.selected.active {
+  background-color: @bg-alt;
+  text-color: @blue;
 }
 
 #inputbar {
   background-color: transparent;
-  padding: 0.4em 0.8em 0.2em 0.8em;
-  spacing: 1em;
-  text-color: @fg;
+  spacing: 0;
 }
 
 #case-indicator {
@@ -103,12 +106,15 @@
   background-color: transparent;
   spacing: 0;
   text-color: @fg;
+  padding: 0.3em 0.6em;
+  margin: 0;
 }
 
 #prompt {
-  background-color: transparent;
+  background-color: @blue;
   spacing: 0;
-  text-color: @fg;
+  text-color: @bg-alt;
+  padding: 0.3em 1em;
 }
 
 /* vim:ft=css
