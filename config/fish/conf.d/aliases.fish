@@ -58,6 +58,7 @@ alias jt="cd ~/git/jobteaser/jobteaser"
 alias jc="cd ~/git/jobteaser/jsonical"
 alias ct="cd ~/git/jobteaser/cockpit"
 alias iam="cd ~/git/jobteaser/iam"
+alias sand="cd ~/sandbox"
 
 # ls
 alias l="ls"
