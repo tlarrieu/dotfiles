@@ -10,6 +10,12 @@ client.connect_signal("manage", function(c)
   end)
 end)
 
+client.connect_signal("property::position", function(c)
+  if awful.rules.match(c, { class = "kitty" }) then
+    c.opacity = c.fullscreen and 1 or 0.85
+  end
+end)
+
 local tags = {
   {
     name = "",

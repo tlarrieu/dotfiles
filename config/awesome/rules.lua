@@ -16,15 +16,9 @@ awful.rules.rules = {
     },
   },
 
-  -- [[ URxvt ]] ---------------------------------------------------------------
+  -- [[ Kitty ]] ---------------------------------------------------------------
   {
-    rule_any = {
-      class = {
-        "URxvt",
-        "XTerm",
-        "kitty",
-      }
-    },
+    rule = { class = "kitty" },
     properties = {
       size_hints_honor = false,
       opacity = 0.85,
