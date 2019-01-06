@@ -153,7 +153,7 @@ case $answer in
 
     safeinstall python
     safeinstall neovim
-    pip install neovim
+    sudo pip install neovim
 
     safeinstall ranger
     safeinstall vifm
