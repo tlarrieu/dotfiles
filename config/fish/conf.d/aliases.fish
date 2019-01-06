@@ -8,9 +8,9 @@ alias ctl="systemctl"
 alias nginx="sudo nginx"
 
 # NVIM
-alias vip="nvim -c 'setlocal nomod | setlocal ro' -"
-alias v="nvim"
-alias ren="nvim +Renamer"
+alias ep="nvim -c 'setlocal nomod | setlocal ro' -"
+alias e="nvim"
+alias es="sudo nvim"
 alias s="nvim ~/postgres.sql"
 
 # Qutebrowser
@@ -43,13 +43,14 @@ alias wee="weechat"
 alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias less="less -r"
-alias atx="atool -x"
+alias atx="aunpack"
+alias atp="apack"
 
 # YAY
 alias y="yay"
 alias yqs="yay -Qs"
 alias ys="yay -S"
-function yss; yay -Ss $argv | vip +'set nofoldenable'; end
+function yss; yay -Ss $argv | ep; end
 alias ysuy="yay -Suy"
 alias yr="yay -Rs"
 alias yrc="yay -Rsc"
@@ -63,9 +64,6 @@ alias jc="cd ~/git/jobteaser/jsonical"
 alias ct="cd ~/git/jobteaser/cockpit"
 alias iam="cd ~/git/jobteaser/iam"
 alias sand="cd ~/sandbox"
-
-# ls
-alias l="ls"
 
 # SSH
 alias ssh-wtf="cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
