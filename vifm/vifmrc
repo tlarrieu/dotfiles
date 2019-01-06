@@ -26,4 +26,10 @@ nnoremap cc cw<c-u>
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
 
+mark S ~/scripts
+mark d ~/Documents
+mark h ~
+mark m ~/Music
+mark s ~/sandbox
+mark v ~/Videos
 mark w ~/Pictures/wallpapers
