@@ -24,15 +24,16 @@ local globals = {
 -- it to avoid collisions with lua's string.format characters.
 -- See: http://www.lua.org/manual/5.1/manual.html#pdf-string.format
 globals.search_engines = {
-  duckduckgo  = "https://duckduckgo.com/?q=%s",
-  wi          = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
-  g           = "https://github.com/%s",
-  gh          = "https://github.com/search?q=%s",
-  r           = "https://reddit.com/r/%s",
-  rg          = "https://rubygems.org/search?query=%s",
-  yt          = "https://www.youtube.com/results?search_query=%s",
-  h           = "https://www.haskell.org/hoogle?hoogle=%s",
-  w           = "https://alpha.wallhaven.cc/search?q=%s&categories=111&purity=100&sorting=relevance&order=desc&page=1&atleast=1920x1080"
+  duckduckgo = "https://duckduckgo.com/?q=%s",
+  g          = "https://github.com/%s",
+  gh         = "https://github.com/search?q=%s",
+  h          = "https://www.haskell.org/hoogle?hoogle=%s",
+  r          = "https://reddit.com/r/%s",
+  rg         = "https://rubygems.org/search?query=%s",
+  v          = "https://vimawesome.com/?q=%s",
+  w          = "https://alpha.wallhaven.cc/search?q=%s&categories=111&purity=100&sorting=relevance&order=desc&page=1&atleast=1920x1080",
+  wi         = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
+  yt         = "https://www.youtube.com/results?search_query=%s",
 }
 
 -- Set google as fallback search engine
