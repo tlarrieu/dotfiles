@@ -8,7 +8,7 @@ local globals = {
   max_srch_history    = 100,
   default_window_size = "800x600",
   vertical_tab_width  = 200,
-  default_zoom_level  = 180,
+  default_zoom_level  = 100,
 
   -- Disables loading of hostnames from /etc/hosts (for large host files)
   -- load_etc_hosts      = false,
@@ -25,14 +25,13 @@ local globals = {
 -- See: http://www.lua.org/manual/5.1/manual.html#pdf-string.format
 globals.search_engines = {
   duckduckgo  = "https://duckduckgo.com/?q=%s",
-  google      = "https://google.com/search?q=%s",
-  imdb        = "http://www.imdb.com/find?s=all&q=%s",
-  wiki        = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
+  wi          = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
   gh          = "https://github.com/search?q=%s",
   r           = "https://reddit.com/r/%s",
   rg          = "https://rubygems.org/search?query=%s",
   yt          = "https://www.youtube.com/results?search_query=%s",
   h           = "https://www.haskell.org/hoogle?hoogle=%s",
+  w           = "https://alpha.wallhaven.cc/search?q=%s&categories=111&purity=100&sorting=relevance&order=desc&page=1&atleast=1920x1080"
 }
 
 -- Set google as fallback search engine
