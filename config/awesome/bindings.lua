@@ -147,10 +147,6 @@ keyboard = awful.util.table.join(
   spawn({}, "F9", "playerctl play-pause"),
   spawn({}, "F10", "playerctl next"),
 
-  awful.key({mod, "Control"}, "m", function()
-    run_or_raise("spotify", { class = "Spotify" })
-  end),
-
   -- browsers
 
   mspawn("n", "luakit"),
