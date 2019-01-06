@@ -119,9 +119,4 @@ alias d="docker"
 # Kubernetes
 alias k="kubectl"
 
-# Exercism
-alias e="exercism"
-alias ef="exercism fetch"
-alias es="exercism submit"
-
 alias dsql="sudo docker exec -it jobteaser_sql-master_1 mysql -ujobteaser -pmijAwrethEE87 -Danon"
