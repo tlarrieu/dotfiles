@@ -10,7 +10,6 @@ call plug#begin()
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'mileszs/ack.vim'
 Plug 'duggiefresh/vim-easydir'
-Plug 'tlarrieu/vim-sniper'
 " }}}
 " {{{ --| Functionnalities |---------------
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
@@ -288,9 +287,6 @@ augroup VimRestConsole
   autocmd!
   autocmd FileType rest nmap <buffer> <return> :call VrcQuery()<cr>
 augroup END
-" }}}
-" {{{ --| Sniper |------------------------------------------
-vmap <leader><cr> :<c-u>call Snipe('vnew')<cr>
 " }}}
 " {{{ --| ArgWrap |-----------------------------------------
 nnoremap <silent> <leader>, :ArgWrap<CR>
