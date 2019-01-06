@@ -1,3 +1,3 @@
 #!/bin/sh
 
- find ~/Pictures/wallpapers | sxiv -t -o - 2>/dev/null | feh --bg-scale -f -
+feh --bg-scale $(find ~/Pictures/wallpapers | sxiv -t -o - 2>/dev/null)
