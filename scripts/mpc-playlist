@@ -6,7 +6,7 @@ _rofi() {
     -dmenu \
     -a $1 \
     -selected-row $1 \
-    -p "playlist:"
+    -p "playlist"
 }
 
 mpc_playlist() {

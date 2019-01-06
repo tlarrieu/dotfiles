@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _rofi() {
-  rofi -i -dmenu -p "library:"
+  rofi -i -dmenu -p "library"
 }
 
 mpc_add() {
