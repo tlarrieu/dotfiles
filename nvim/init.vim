@@ -612,8 +612,8 @@ nmap s :s/
 nmap S :%s/
 vmap s <esc>:%s/\%V
 
-nmap <A-n> :cnext<cr>
-nmap <A-p> :cprev<cr>
+nmap <A-n> :lnext<cr>
+nmap <A-p> :lprev<cr>
 
 command! NONASCII /[^\x00-\x7F]
 " }}}
