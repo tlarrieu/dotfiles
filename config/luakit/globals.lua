@@ -26,6 +26,7 @@ local globals = {
 globals.search_engines = {
   duckduckgo  = "https://duckduckgo.com/?q=%s",
   wi          = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
+  g           = "https://github.com/%s",
   gh          = "https://github.com/search?q=%s",
   r           = "https://reddit.com/r/%s",
   rg          = "https://rubygems.org/search?query=%s",
