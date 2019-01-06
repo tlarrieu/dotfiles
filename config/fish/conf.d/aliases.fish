@@ -22,6 +22,10 @@ alias xsel="xsel --clipboard"
 # aria2c
 alias dl="aria2c --dir=$HOME/Downloads"
 
+# curl
+alias c="curl"
+alias co="curl -O"
+
 # youtube-dl
 alias yt="youtube-dl"
 function yta; mpc add (youtube-dl -g $argv); mpc play ; end
