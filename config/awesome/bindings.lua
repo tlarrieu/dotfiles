@@ -4,10 +4,13 @@ local awful = require("awful")
 local terminal = "kitty"
 local mod = "Mod4"
 
-local spawn = function(modifiers, key, cmd)
-  return awful.key(modifiers, key, function() awful.spawn(cmd) end)
+local key = awful.key
+local mkey = function(k, f) return key({mod}, k, f) end
+
+local spawn = function(mods, k, cmd)
+  return key(mods, k, function() awful.spawn(cmd) end)
 end
-local mspawn = function(key, cmd) return spawn({mod}, key, cmd) end
+local mspawn = function(k, cmd) return spawn({mod}, k, cmd) end
 
 local client_focus = function(direction)
   awful.client.focus.byidx(direction)
@@ -21,36 +24,27 @@ end
 -- [[ Client ]] ----------------------------------------------------------------
 
 clientkeys = awful.util.table.join(
-  -- Fullscreen
-  awful.key({mod}, "Return", function(c) c.fullscreen = not c.fullscreen end),
+  mkey("Return", function(c) c.fullscreen = not c.fullscreen end),
+  mkey("eacute", function(c) c:kill() end),
 
-  -- Kill
-  awful.key({mod}, "eacute", function(c) c:kill() end),
-
-  -- Moving client arounds
-  awful.key({mod, "Control"}, "c", function(c)
+  key({mod, "Control"}, "c", function(c)
     local tags = c.screen.tags
     local id = awful.tag.getidx()
-    if id == 1 then
-      id = #tags
-    else
-      id = id - 1
-    end
-    awful.client.movetotag(tags[id])
+    id = id == 1 and #tags or id - 1
+    c:move_to_tag(tags[id])
     tags[id]:view_only()
   end),
-  awful.key({ mod, "Control" }, "r", function(c)
+
+  key({ mod, "Control" }, "r", function(c)
     local tags = c.screen.tags
     local id = awful.tag.getidx() % #tags + 1
-    awful.client.movetotag(tags[id])
+    c:move_to_tag(tags[id])
     tags[id]:view_only()
   end)
 )
 
 clientbuttons = awful.util.table.join(
-  awful.button({}, 1, function(c) client.focus = c; c:raise() end),
-  awful.button({mod}, 1, awful.mouse.client.move),
-  awful.button({mod}, 3, awful.mouse.client.resize)
+  awful.button({}, 1, function(c) client.focus = c; c:raise() end)
 )
 
 -- [[ Window Manager ]] --------------------------------------------------------
@@ -58,65 +52,45 @@ clientbuttons = awful.util.table.join(
 local viewtag = function(id) awful.screen.focused().tags[id]:view_only() end
 
 local keyboard = awful.util.table.join(
-  -- Layout switching
-
   mspawn("l", script('rofi-layouts')),
 
-  -- Tags switching
+  mkey("c",     awful.tag.viewprev),
+  mkey("Left",  awful.tag.viewprev),
+  mkey("r",     awful.tag.viewnext),
+  mkey("Right", awful.tag.viewnext),
 
-  awful.key({mod}, "c",     awful.tag.viewprev),
-  awful.key({mod}, "Left",  awful.tag.viewprev),
-  awful.key({mod}, "r",     awful.tag.viewnext),
-  awful.key({mod}, "Right", awful.tag.viewnext),
+  mkey("\"",             function() viewtag(1) end),
+  mkey("guillemotleft",  function() viewtag(2) end),
+  mkey("guillemotright", function() viewtag(3) end),
+  mkey("(",              function() viewtag(4) end),
+  mkey(")",              function() viewtag(5) end),
+  mkey("@",              function() viewtag(6) end),
 
-  -- Tags direct access
+  key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
+  key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
 
-  awful.key({mod}, "\"",             function() viewtag(1) end),
-  awful.key({mod}, "guillemotleft",  function() viewtag(2) end),
-  awful.key({mod}, "guillemotright", function() viewtag(3) end),
-  awful.key({mod}, "(",              function() viewtag(4) end),
-  awful.key({mod}, ")",              function() viewtag(5) end),
-  awful.key({mod}, "@",              function() viewtag(6) end),
+  mkey("d",          function() awful.tag.incmwfact(0.05) end),
+  mkey("v",          function() awful.tag.incmwfact(-0.05) end),
+  key({mod, "Shift"}, "d", function() awful.client.incwfact(0.05) end),
+  key({mod, "Shift"}, "v", function() awful.client.incwfact(-0.05) end),
 
-  -- Client moving
+  mkey("t",    function() client_focus(1) end),
+  mkey("Down", function() client_focus(1) end),
+  mkey("s",    function() client_focus(-1) end),
+  mkey("Up",   function() client_focus(-1) end),
 
-  awful.key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
-  awful.key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
+  mkey("i", function() awful.screen.focus_relative(1) end),
+  mkey("e", function() awful.screen.focus_relative(-1) end),
 
-  -- Client size
+  mkey("o", awful.client.movetoscreen),
 
-  awful.key({mod}, "d",          function() awful.tag.incmwfact(0.05) end),
-  awful.key({mod}, "v",          function() awful.tag.incmwfact(-0.05) end),
-  awful.key({mod, "Shift"}, "d", function() awful.client.incwfact(0.05) end),
-  awful.key({mod, "Shift"}, "v", function() awful.client.incwfact(-0.05) end),
-
-  -- Client focus
-
-  awful.key({mod}, "t",    function() client_focus(1) end),
-  awful.key({mod}, "Down", function() client_focus(1) end),
-  awful.key({mod}, "s",    function() client_focus(-1) end),
-  awful.key({mod}, "Up",   function() client_focus(-1) end),
-
-  -- Screen focus
-
-  awful.key({mod}, "i", function() awful.screen.focus_relative(1) end),
-  awful.key({mod}, "e", function() awful.screen.focus_relative(-1) end),
-
-  -- Client screen moving
-
-  awful.key({mod}, "o",          function(c) awful.client.movetoscreen(c) end),
-
-  -- Restart awesome
-
-  awful.key({mod, "Shift"}, "r", awesome.restart)
+  key({mod, "Shift"}, "r", awesome.restart)
 )
 
 -- [[ Applications ]] ----------------------------------------------------------
 
 keyboard = awful.util.table.join(
   keyboard,
-
-  -- launcher
 
   mspawn(" ",                    "rofi -show run -lines 6"),
   mspawn("Tab",                  "rofi -show window -lines 6"),
@@ -125,54 +99,21 @@ keyboard = awful.util.table.join(
   mspawn("F2",                   script("rofi-keyboard")),
   mspawn("f",                    script("rofi-nerdfont")),
 
-  -- Power management
-
   mspawn("q", script("rofi-power")),
-
-  -- luminosity
-
-  spawn({}, "F7", "ligth -U 10"),
-  spawn({}, "F8", "light -A 10"),
-
-  -- sound
-
   mspawn("a", "pavucontrol"),
-
-  -- music
 
   mspawn("m", script("mpc-library")),
   mspawn("b", script("mpc-playlist")),
   spawn({ "Control" }, " ", "mpc toggle"),
 
-  spawn({}, "F9", "playerctl play-pause"),
-  spawn({}, "F10", "playerctl next"),
-
-  -- browsers
-
-  mspawn("n", "luakit"),
-  spawn({mod, "Control"}, "n", "qutebrowser --backend webengine"),
+  mspawn(".", "luakit"),
   mspawn("u", terminal .. " vifm"),
   mspawn("g", script("wallpaper")),
 
-
-  -- terminal
-
   mspawn("'", terminal),
-  mspawn(".", terminal .. " nmtui"),
+  mspawn("n", terminal .. " nmtui"),
 
-  -- screenshots
-
-  awful.key({mod}, "p", function()
-    awful.util.spawn_with_shell(script("screenshot.sh"))
-  end),
-
-  -- xkill
-
-  spawn({mod, "Control"}, "w", "xkill"),
-
-  -- htop
-
-  mspawn(",", terminal .. " -e htop")
+  mspawn("p", script("screenshot.sh"))
 )
 
 -- [[ Final binding ]] ---------------------------------------------------------
