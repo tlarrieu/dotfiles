@@ -11,13 +11,14 @@ alias nginx="sudo nginx"
 alias ep="nvim -c 'setlocal nomod | setlocal ro' -"
 alias e="nvim"
 alias es="sudo nvim"
-alias s="nvim ~/postgres.sql"
 
 # Qutebrowser
 alias q="qutebrowser --backend webengine"
 
 # xsel
 alias xsel="xsel --clipboard"
+alias xso="xsel --clipboard -o"
+alias xsi="xsel --clipboard -i"
 
 # aria2c
 alias dl="aria2c --dir=$HOME/Downloads"
