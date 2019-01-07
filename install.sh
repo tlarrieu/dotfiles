@@ -55,9 +55,6 @@ safeinstall() {
 
 BASEDIR=$(cd "$(dirname "$0")"; pwd)
 
-git submodule init
-git submodule update
-
 # -- [[ Linking ]] -------------------------------------------------------------
 echo "Linking configuration files..."
 # .config directories
@@ -80,9 +77,6 @@ safelink $BASEDIR/gnuplot $HOME/gnuplot
 # Bash
 safelink $BASEDIR/bashrc $HOME/.bashrc
 
-# moc
-safelink $BASEDIR/moc $HOME/.moc
-
 # weechat
 safelink $BASEDIR/weechat $HOME/.weechat
 
@@ -90,9 +84,6 @@ safelink $BASEDIR/weechat $HOME/.weechat
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
 git config --global core.excludesFile ~/.gitignore
-
-# tmux.conf
-safelink $BASEDIR/tmux.conf $HOME/.tmux.conf
 
 # agignore
 safelink $BASEDIR/agignore $HOME/.agignore
@@ -155,9 +146,7 @@ case $answer in
     safeinstall neovim
     sudo pip install neovim
 
-    safeinstall ranger
     safeinstall vifm
-    safeinstall w3m
     safeinstall udiskie
 
     safeinstall compton-tryone-git
@@ -195,8 +184,6 @@ case $answer in
     safeinstall youtube-dl
 
     safeinstall fish
-
-    safeinstall termite
     safeinstall kitty
 
     safeinstall nerd-fonts-inconsolata
@@ -209,8 +196,8 @@ case $answer in
 esac
 
 echo
-
 echo "Configuring neovim..."
+
 # vim-plug
 if [[ -f ~/.config/nvim/autoload/plug.vim ]]; then
   echo "$(tput setaf 2)vim-plug already installed. Nothing to do!$(tput sgr0)"
@@ -223,6 +210,7 @@ else
   nvim +PlugInstall +qall
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
+
 # Remote plugins
 if [[ -f ~/.local/share/nvim/rplugin.vim ]]; then
   echo "$(tput setaf 2)Remote plugins up to date. Nothing to do!$(tput sgr0)"
