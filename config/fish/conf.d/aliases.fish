@@ -28,8 +28,9 @@ alias c="curl"
 alias co="curl -O"
 
 # youtube-dl
-alias yt="youtube-dl"
-function yta; mpc add (youtube-dl -g $argv); mpc play ; end
+alias yv="youtube-dl -fbest"
+alias ym="youtube-dl -fbestaudio"
+function ya; mpc add (youtube-dl -g $argv); mpc play ; end
 
 # Feh
 alias feh="feh -dF"
