@@ -44,7 +44,7 @@ alias wee="weechat"
 # Various CLI utils
 alias ccat="pygmentize -g"
 alias tree="tree -C"
-alias less="less -r"
+alias less="less -R"
 alias atx="aunpack"
 alias atp="apack"
 
@@ -52,7 +52,7 @@ alias atp="apack"
 alias y="yay"
 alias yqs="yay -Qs"
 alias ys="yay -S"
-function yss; yay -Ss $argv | ep; end
+alias yss="yay -Ss --color=always"
 alias ysuy="yay -Suy"
 alias yr="yay -Rs"
 alias yrc="yay -Rsc"
@@ -118,5 +118,3 @@ alias d="docker"
 
 # Kubernetes
 alias k="kubectl"
-
-alias dsql="sudo docker exec -it jobteaser_sql-master_1 mysql -ujobteaser -pmijAwrethEE87 -Danon"
