@@ -1,7 +1,9 @@
 snippet /^mo?d?/ "Module" r
-module ${1:Modname} (
+module ${1:`!p snip.rv = snip.basename`} (
 	$2
 ) where
+
+${0:${VISUAL}}
 endsnippet
 
 snippet /^im?p?/ "Import" r
@@ -30,7 +32,7 @@ $1${4} = $0
 endsnippet
 
 snippet /^main/ "main" r
-main :: IO()
+main :: IO ()
 main = ${1:return ()}
 endsnippet
 

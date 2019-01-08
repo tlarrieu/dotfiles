@@ -1,4 +1,4 @@
-nnoremap <buffer> <cr> :execute "T ghc main.hs && time ./main"<cr>
+nnoremap <buffer> <cr> :execute "T ghc Main.hs && time ./Main"<cr>
 vnoremap <leader>f :Neoformat hindent<cr>
 nnoremap <leader>f :Neoformat hindent<cr>
 
