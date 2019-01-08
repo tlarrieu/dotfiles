@@ -1,1 +1,1 @@
-nnoremap <silent> <buffer> <return> :T %<cr>
+nnoremap <silent> <buffer> <return> :T sh  %<cr>

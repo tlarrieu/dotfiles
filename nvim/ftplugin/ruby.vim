@@ -14,7 +14,7 @@ function! ConfigureExecute()
   if(search("#!", 'n') == 0)
     nnoremap <silent> <buffer> <return> :TestLast \| Topen<cr>
   else
-    nnoremap <silent> <buffer> <return> :T ruby main.rb<cr>
+    nnoremap <silent> <buffer> <return> :T ruby  %<cr>
   endif
 endfunction
 
