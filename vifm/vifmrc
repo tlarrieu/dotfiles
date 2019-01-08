@@ -23,6 +23,8 @@ nnoremap i cw<c-a>
 nnoremap a cw
 nnoremap cc cw<c-u>
 
+noremap s :shell<cr>
+
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
 
