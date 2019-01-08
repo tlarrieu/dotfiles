@@ -22,6 +22,16 @@ function fish_user_key_bindings
     rm -f /tmp/fzf.result
   end
 
+  function fzf-gitfiles
+    set -q FZF_CTRL_X_COMMAND
+    or  set -l FZF_CTRL_X_COMMAND "git -c color.status=always status --short"
+    set -l fzf_command "fzf --extended --ansi --nth=2.. -d ' ' -m -e"
+    eval "$FZF_CTRL_X_COMMAND | $fzf_command > /tmp/fzf.result"
+    and commandline -i (cat /tmp/fzf.result | awk '{ print $2 }' | paste -d' ' -s -)
+    commandline -f repaint
+    rm -f /tmp/fzf.result
+  end
+
   function fzf-gitsha
     set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "git llga"
     eval "$FZF_GIT_LOG_COMMAND |\
@@ -38,8 +48,8 @@ function fish_user_key_bindings
 
   bind \ea 'fzf-gitsha'
   bind æ 'fzf-gitsha'
-
   bind \cb 'fzf-gitbranch'
+  bind \cx 'fzf-gitfiles'
 
   if bind -M insert > /dev/null 2>&1
     bind -M insert \et 'fkill'
@@ -47,5 +57,6 @@ function fish_user_key_bindings
     bind -M insert \ea 'sh ~/scripts/fshow.sh'
     bind -M insert æ 'sh ~/scripts/fshow.sh'
     bind -M insert \cb 'fzf-gitbranch'
+    bind -M insert \ex 'fzf-gitfiles'
   end
 end
