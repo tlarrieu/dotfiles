@@ -22,6 +22,7 @@ noremap <c-t> =
 nnoremap i cw<c-a>
 nnoremap a cw
 nnoremap cc cw<c-u>
+vnoremap c :rename<cr>
 
 noremap s :shell<cr>
 
