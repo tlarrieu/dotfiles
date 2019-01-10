@@ -1,9 +1,19 @@
 local awful = require("awful")
+local beautiful = require("beautiful")
 
 client.connect_signal("property::position", function(c)
   if awful.rules.match(c, { class = "kitty" }) then
     c.opacity = c.fullscreen and 1 or 0.85
   end
+end)
+
+client.connect_signal("focus", function(c)
+  -- find a way to only flash client instead of keeping the border color
+  c.border_color = beautiful.border_focus
+end)
+
+client.connect_signal("unfocus", function(c)
+  c.border_color = beautiful.border_normal
 end)
 
 local tags = {

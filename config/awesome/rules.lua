@@ -1,5 +1,6 @@
 local awful = require("awful")
 require("awful.rules")
+local beautiful = require("beautiful")
 
 awful.rules.rules = {
   -- [[ Common rules ]] --------------------------------------------------------
@@ -8,6 +9,8 @@ awful.rules.rules = {
     properties = {
       focus = awful.client.focus.filter,
       keys = clientkeys,
+      border_width = beautiful.border_width,
+      border_color = beautiful.border_normal,
       buttons = clientbuttons,
       placement = awful.placement.no_overlap +
         awful.placement.no_offscreen +
