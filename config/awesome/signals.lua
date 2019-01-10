@@ -21,7 +21,7 @@ local tags = {
     }
   },
   {
-    name = "",
+    name = "",
     config = {
       layout = awful.layout.suit.tile.right,
       master_width_factor = 0.75,
@@ -30,7 +30,7 @@ local tags = {
   {
     name = "",
     config = {
-      layout = awful.layout.suit.fair,
+      layout = awful.layout.suit.fair.horizontal,
     }
   },
   {
@@ -41,7 +41,7 @@ local tags = {
     }
   },
   {
-    name = "",
+    name = "",
     config = {
       layout = awful.layout.suit.max,
     }
