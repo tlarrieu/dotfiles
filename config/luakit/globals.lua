@@ -1,4 +1,7 @@
+package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
+
 -- Global variables for luakit
+local xrdb = require('xrdb')
 
 local globals = {
   homepage            = "http://luakit.org/",
@@ -8,7 +11,7 @@ local globals = {
   max_srch_history    = 100,
   default_window_size = "800x600",
   vertical_tab_width  = 200,
-  default_zoom_level  = 100,
+  default_zoom_level  = xrdb.apply_dpi(120, xrdb.load().font.dpi),
 
   -- Disables loading of hostnames from /etc/hosts (for large host files)
   -- load_etc_hosts      = false,

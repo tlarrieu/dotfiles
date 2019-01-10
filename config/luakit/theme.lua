@@ -5,12 +5,14 @@ package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
 --------------------------
 
 local theme = {}
-local xrdb = require('xrdb').load()
+local xrdb = require('xrdb')
+local xtheme = xrdb.load()
 
-theme.colors = xrdb.colors
+theme.colors = xtheme.colors
 
 -- Default settings
-theme.font = xrdb.font.name .. " " .. xrdb.font.size
+local fontsize = xrdb.apply_dpi(xtheme.font.size, xtheme.font.dpi)
+theme.font = xtheme.font.name .. " " .. fontsize
 theme.fg   = theme.colors.foreground
 theme.bg   = theme.colors.background
 

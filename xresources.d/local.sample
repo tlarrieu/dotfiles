@@ -2,5 +2,6 @@
 
 #define DPI 96
 #define FONT Inconsolata Nerd Font
+#define FONTSIZE 18
 
 ! vim: ft=xdefaults

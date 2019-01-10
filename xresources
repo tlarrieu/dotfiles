@@ -38,15 +38,15 @@ Xft.lcdfilter: lcddefault
 *.color14: COLOR14
 *.color15: COLOR15
 
-*.font: xft:FONT:size=16:dpi=DPI
+*.font: xft:FONT:size=FONTSIZE:dpi=DPI
 
 ! ------------------------------------------------------------------------------
 ! -- rofi
 ! ------------------------------------------------------------------------------
 
 ! Overall look
-rofi.font: FONT 20
-rofi.dpi: 0
+rofi.font: FONT FONTSIZE
+rofi.dpi: DPI
 rofi.theme: ~/.config/rofi/theme.rasi
 
 ! Runner
