@@ -109,7 +109,6 @@ keyboard = awful.util.table.join(
   mspawn(".", "luakit"),
   mspawn("u", terminal .. " vifm"),
   mspawn("g", script("wallpaper")),
-  -- mspawn("h", script("gtgf")),
   mspawn("h", terminal .. " " .. script("gtgf")),
 
   mspawn("'", terminal),
