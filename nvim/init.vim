@@ -655,5 +655,6 @@ nmap <silent> <leader>$ :source ~/.config/nvim/init.vim<bar>let &filetype=&filet
 vmap <leader>s :sort<cr>
 
 noremap <silent> <leader><leader> @q
+vnoremap <silent> <leader><leader> :normal 6q<cr>
 " }}}
 " }}}
