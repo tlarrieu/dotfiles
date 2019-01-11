@@ -44,16 +44,16 @@ local tags = {
     }
   },
   {
-    name = "",
+    name = "",
     config = {
       layout = awful.layout.suit.magnifier,
       master_width_factor = 0.85,
     }
   },
   {
-    name = "",
+    name = "",
     config = {
-      layout = awful.layout.suit.max,
+      layout = awful.layout.suit.fair,
     }
   },
 }
