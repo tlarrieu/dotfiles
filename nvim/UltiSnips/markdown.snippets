@@ -1,12 +1,3 @@
-snippet email "comment"
-Hi everyone,
-${1}
-
-${2:### Technical
-}
-**Have a good day!**
-endsnippet
-
 snippet ` "fence"
 \`\`\` ${1:lang}
 ${2:${VISUAL}}
@@ -24,4 +15,12 @@ response:
 
 \`\`\` json
 \`\`\`
+endsnippet
+
+snippet ! "image"
+![$1]($2)
+endsnippet
+
+snippet [ "link"
+[$1](${2:${VISUAL}})
 endsnippet
