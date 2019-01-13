@@ -1,0 +1,27 @@
+#!/bin/sh
+
+if [[ -L "$0" ]]; then
+  script=$(readlink "$0")
+else
+  script="$0"
+fi
+
+scriptdir="$(cd "$(dirname "$script")" ; pwd -P)"
+
+case $1 in
+  g|generate)
+    pandoc "$2" -H $scriptdir/mdprev.sty -o /tmp/preview.pdf
+    ;;
+  p|preview)
+    $script generate "$2"
+    xdotool search --name "/tmp/preview.pdf" > /dev/null \
+      || zathura /tmp/preview.pdf &
+    ;;
+  w|watch)
+    $script preview "$2"
+    ls "$2" | entr $script generate "$2"
+    ;;
+  *)
+    echo "Unknow command $1"
+    exit 1
+esac

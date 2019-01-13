@@ -178,6 +178,10 @@ case $answer in
     safeinstall zathura-pdf-mupdf
     safeinstall zathura-ps
 
+    safeinstall entr
+    safeinstall pandoc
+    safeinstall xdotools
+
     safeinstall mpc
     safeinstall mpd
     safeinstall mpv
