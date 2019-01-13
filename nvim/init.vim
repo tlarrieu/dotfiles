@@ -80,11 +80,6 @@ Plug 'lmeijvogel/vim-yaml-helper'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
-Plug 'raphamorim/lucario'
-Plug 'alnjxn/base16-OceanicNext'
-Plug 'dracula/vim'
-Plug 'xero/sourcerer.vim'
-Plug 'morhetz/gruvbox'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
 " }}}
