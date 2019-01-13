@@ -19,11 +19,3 @@ nvim/spell/*
 vifm/vifm-help.txt
 vifm/vifminfo
 vifm/scripts/README
-
-config/fish/fundle
-
-config/ranger/tagged
-
-config/qutebrowser/bookmarks/*
-config/qutebrowser/quickmarks
-config/qutebrowser/qsettings
