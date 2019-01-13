@@ -18,7 +18,6 @@ Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'vim-scripts/renamer.vim', { 'on': 'Renamer' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
 " }}}
