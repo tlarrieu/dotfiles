@@ -149,7 +149,6 @@ case $answer in
     safeinstall vifm
     safeinstall udiskie
 
-    safeinstall compton-tryone-git
     safeinstall awesome
     safeinstall unclutter
     safeinstall redshift
