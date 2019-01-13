@@ -58,25 +58,18 @@ Plug 'neomake/neomake'
 " {{{ --| Formatting |---------------------
 Plug 'sbdchd/neoformat'
 " }}}
-" }}}
 " {{{ --| Task manager |-------------------
 Plug 'samsonw/vim-task', { 'for' : ['task', 'tasks'] }
 " }}}
 " {{{ --| List toggler |-------------------
 Plug 'milkypostman/vim-togglelist'
 " }}}
-" {{{ --| Ruby |---------------------------
+" {{{ --| Languages suport |---------------
 Plug 'tpope/vim-rails'
-" }}}
-" {{{ --| Elixir |-------------------------
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-" }}}
-" {{{ --| SQL |----------------------------
-Plug 'krisajenkins/vim-postgresql-syntax'
-" }}}
-" {{{ --| Misc languages support |---------
 Plug 'sheerun/vim-polyglot'
 Plug 'lmeijvogel/vim-yaml-helper'
+Plug 'krisajenkins/vim-postgresql-syntax'
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
