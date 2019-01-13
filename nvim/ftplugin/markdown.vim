@@ -2,6 +2,7 @@ setlocal textwidth=80
 setlocal formatoptions+=t
 setlocal foldlevel=1
 setlocal foldlevelstart=10
+setlocal spell
 
 execute 'UltiSnipsAddFiletypes markdown.tex'
 
