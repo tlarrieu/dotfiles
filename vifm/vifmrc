@@ -36,3 +36,42 @@ mark m ~/Music
 mark s ~/sandbox
 mark v ~/Videos
 mark w ~/Pictures/wallpapers
+
+" file types
+set classify=''
+set classify+=' :dir:'
+set classify+=' :link:'
+set classify+=' :reg:'
+set classify+=' :exe:'
+set classify+=' ::../::'
+" various file names
+set classify+=' ::*.pdf::'
+set classify+=' ::*.epub,,*.fb2,,*.djvu::'
+set classify+=' ::*.rb::'
+set classify+=' ::*.py::'
+set classify+=' ::*.sh::'
+set classify+=' ::*.[hc]::'
+set classify+=' ::*.[hc]pp::'
+set classify+=' ::*.md::'
+set classify+=' ::*.htm,,*.html,,**.[sx]html,,*.xml::'
+set classify+=' ::*.sql::'
+set classify+=' ::*.bin::'
+" archives
+set classify+=' ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz::'
+set classify+=' ::*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz::'
+set classify+=' ::*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz::'
+set classify+=' ::*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
+" images
+set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,::'
+set classify+=' ::*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf::'
+set classify+=' ::*.xwd::'
+" audio
+set classify+=' ::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a::'
+set classify+=' ::*.mid,,*.midi,,*.mp3,,*.mpc,,*.oga,,*.ogg,,*.ogx,,*.ra::'
+set classify+=' ::*.ram,,*.rm,,*.spx,,*.wav,,*.wma,,*.ac3::'
+" media
+set classify+=' ::*.avi,,*.ts,,*.axv,,*.divx,,*.m2v,,*.m4p,,*.m4v,,.mka::'
+set classify+=' ::*.mkv,,*.mov,,*.mp4,,*.flv,,*.mp4v,,*.mpeg,,*.mpg,,*.nuv::'
+set classify+=' ::*.ogv,,*.pbm,,*.pgm,,*.qt,,*.vob,,*.wmv,,*.xvid::'
+" office files
+set classify+=' ::*.doc,,*.docx::, ::*.xls,,*.xls[mx]::, ::*.pptx,,*.ppt::'
