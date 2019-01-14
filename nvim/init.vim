@@ -20,6 +20,7 @@ Plug 'diepm/vim-rest-console'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
+Plug 'dkarter/bullets.vim'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
