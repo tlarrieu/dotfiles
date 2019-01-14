@@ -59,6 +59,8 @@ set classify+=' ::*.md::'
 set classify+=' ::*.htm,,*.html,,**.[sx]html,,*.xml::'
 set classify+=' ::*.sql::'
 set classify+=' ::*.bin::'
+" fonts
+set classify+=' ::*.ttf,,*.otf::'
 " archives
 set classify+=' ::*.7z,,*.ace,,*.arj,,*.bz2,,*.cpio,,*.deb,,*.dz,,*.gz::'
 set classify+=' ::*.jar,,*.lzh,,*.lzma,,*.rar,,*.rpm,,*.rz,,*.tar,,*.taz::'
