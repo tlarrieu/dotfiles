@@ -9,6 +9,8 @@ set ignorecase
 set smartcase
 set nohlsearch
 
+set grepprg='ag --line-numbers %i %a %s'
+
 fileviewer * xdg-open
 
 noremap e :edit<cr>
