@@ -22,10 +22,7 @@ awful.rules.rules = {
   -- [[ Kitty ]] ---------------------------------------------------------------
   {
     rule = { class = "kitty" },
-    properties = {
-      size_hints_honor = false,
-      opacity = 0.85,
-    },
+    properties = { size_hints_honor = false },
   },
 
   -- [[ Flash player ]] --------------------------------------------------------
