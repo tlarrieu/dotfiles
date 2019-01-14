@@ -52,8 +52,3 @@ set -x PATH $HOME/.ghcup/bin $PATH
 
 # TERM
 set -gx TERM xterm-256color
-
-# fundle plugin 'tuvistavie/fish-ssh-agent'
-# fundle plugin 'oh-my-fish/plugin-foreign-env'
-# fundle plugin 'derekstavis/plugin-nvm'
-# fundle init
