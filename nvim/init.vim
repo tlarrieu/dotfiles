@@ -74,7 +74,6 @@ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
 Plug 'kshenoy/vim-signature'
-Plug 'junegunn/goyo.vim'
 " }}}
 " {{{ --| Other |--------------------------
 Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
@@ -225,42 +224,6 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
-" {{{ --| Goyo |--------------------------------------------
-nnoremap <silent> <leader><BS> :Goyo<cr>
-
-let g:goyo_linenr = 1
-let g:goyo_width = 85
-
-augroup Goyo
-  autocmd!
-  autocmd BufReadPost *.md execute 'Goyo'
-augroup END
-
-function! s:goyo_enter()
-  source ~/.config/nvim/init.vim
-
-  let b:quitting = 0
-  let b:quitting_bang = 0
-  autocmd QuitPre <buffer> let b:quitting = 1
-  cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-endfunction
-
-function! s:goyo_leave()
-  source ~/.config/nvim/init.vim
-
-  " Quit Vim if this is the only remaining buffer
-  if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
-    if b:quitting_bang
-      qa!
-    else
-      qa
-    endif
-  endif
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-" }}}
 " {{{ --| Emmet |-------------------------------------------
 let g:user_emmet_install_global = 0
 let g:user_emmet_leader_key = '<c-b>'
