@@ -8,6 +8,7 @@ set incsearch
 set ignorecase
 set smartcase
 set nohlsearch
+set trash
 
 set grepprg='ag --line-numbers %i %a %s'
 
