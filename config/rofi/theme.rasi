@@ -4,11 +4,13 @@
   bg-alt: #fdf6e3;
   fg: #586e75;
 
-  blue: #268bd2;
   red: #dc322f;
+  magenta: #d33682;
 }
 
 #window {
+  border: 0.05em;
+  border-color: @magenta;
 }
 
 #mainbox {
@@ -54,7 +56,7 @@
 
 #element.normal.active {
   background-color: transparent;
-  text-color: @blue;
+  text-color: @magenta;
 }
 
 /* -- Alternate -- */
@@ -71,7 +73,7 @@
 
 #element.alternate.active {
   background-color: transparent;
-  text-color: @blue;
+  text-color: @magenta;
 }
 
 /* -- selected -- */
@@ -88,7 +90,7 @@
 
 #element.selected.active {
   background-color: @bg-alt;
-  text-color: @blue;
+  text-color: @magenta;
 }
 
 #inputbar {
@@ -111,7 +113,7 @@
 }
 
 #prompt {
-  background-color: @blue;
+  background-color: @magenta;
   spacing: 0;
   text-color: @bg-alt;
   padding: 0.3em 1em;
