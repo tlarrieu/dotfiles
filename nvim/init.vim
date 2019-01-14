@@ -65,9 +65,19 @@ Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Languages suport |---------------
 Plug 'tpope/vim-rails'
-Plug 'sheerun/vim-polyglot'
+Plug 'gabrielelana/vim-markdown'
+Plug 'neovimhaskell/haskell-vim'
+Plug 'vifm/vifm.vim'
+Plug 'dag/vim-fish'
+Plug 'vim-scripts/gnuplot-syntax-highlighting'
+Plug 'othree/html5.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'LaTeX-Box-Team/LaTeX-Box'
+Plug 'wgwoods/vim-systemd-syntax'
 Plug 'lmeijvogel/vim-yaml-helper'
 Plug 'krisajenkins/vim-postgresql-syntax'
+Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 " }}}
 " {{{ --| Good looking |-------------------
