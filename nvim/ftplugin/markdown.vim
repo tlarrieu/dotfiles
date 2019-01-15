@@ -4,8 +4,6 @@ setlocal foldlevel=1
 setlocal foldlevelstart=10
 setlocal spell
 
-execute 'UltiSnipsAddFiletypes markdown.tex'
-
 let b:deoplete_sources = ['tag', 'buffer', 'file']
 
 augroup MARKDOWN

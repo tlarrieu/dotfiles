@@ -235,6 +235,9 @@ set smartcase
 set spelllang=en,fr
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Markdwon |----------------------------------------
+let g:markdown_enable_mappings = 0
+" }}}
 " {{{ --| Emmet |-------------------------------------------
 let g:user_emmet_install_global = 0
 let g:user_emmet_leader_key = '<c-b>'
