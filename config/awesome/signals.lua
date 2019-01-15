@@ -20,7 +20,7 @@ local tags = {
   {
     name = "",
     config = {
-      layout = awful.layout.suit.max,
+      layout = awful.layout.suit.fair,
       selected = true,
     },
   },
@@ -46,8 +46,7 @@ local tags = {
   {
     name = "",
     config = {
-      layout = awful.layout.suit.magnifier,
-      master_width_factor = 0.85,
+      layout = awful.layout.suit.fair,
     }
   },
   {
