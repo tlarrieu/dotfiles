@@ -78,6 +78,7 @@ Plug 'LaTeX-Box-Team/LaTeX-Box'
 Plug 'wgwoods/vim-systemd-syntax'
 Plug 'lmeijvogel/vim-yaml-helper'
 Plug 'krisajenkins/vim-postgresql-syntax'
+Plug 'tbastos/vim-lua'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 " }}}
