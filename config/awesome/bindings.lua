@@ -1,4 +1,6 @@
 -- [[ Variables ]] -------------------------------------------------------------
+local puts = require("gears.debug").dump_return
+
 local awful = require("awful")
 
 local terminal = "kitty"
@@ -40,6 +42,16 @@ clientkeys = awful.util.table.join(
     local id = awful.tag.getidx() % #tags + 1
     c:move_to_tag(tags[id])
     tags[id]:view_only()
+  end),
+
+  key({ mod, "Control" }, "o", function(client)
+    local tags = client.screen.tags
+    local id = awful.tag.getidx()
+    local tag = tags[id]
+
+    for _, c in ipairs(tag:clients()) do
+      if client ~= c then c:kill() end
+    end
   end)
 )
 
