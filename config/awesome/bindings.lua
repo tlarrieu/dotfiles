@@ -109,6 +109,7 @@ keyboard = awful.util.table.join(
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
   mspawn("F2",                   script("rofi-keyboard")),
+  mspawn("k",                    script("rofi-emojis")),
   mspawn("f",                    script("rofi-nerdfont")),
 
   mspawn("q", script("rofi-power")),
