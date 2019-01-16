@@ -1,101 +1,97 @@
 # reset terminal
-alias cls="echo -e \\033c"
+abbr cls="echo -ne \\033c"
 
 # systemctl
-alias ctl="systemctl"
+abbr ctl="systemctl"
 
 # NVIM
-alias ep="nvim -c 'setlocal nomod | setlocal ro' -"
-alias e="nvim"
-alias es="sudo nvim"
+abbr ep="nvim -c 'setlocal nomod | setlocal ro' -"
+abbr e="nvim"
+abbr es="sudo nvim"
 
 # xsel
-alias xsel="xsel --clipboard"
-alias xso="xsel --clipboard -o"
-alias xsi="xsel --clipboard -i"
+abbr xsel="xsel --clipboard"
+abbr xso="xsel --clipboard -o"
+abbr xsi="xsel --clipboard -i"
 
 # aria2c
-alias dl="aria2c --dir=$HOME/Downloads"
+abbr dl="aria2c --dir=$HOME/Downloads"
 
 # curl
-alias c="curl"
-alias co="curl -O"
+abbr c="curl"
+abbr co="curl -O"
 
 # youtube-dl
-alias yv="youtube-dl -fbest"
-alias yvv="youtube-dl -fbest (xsel -o)"
-alias ym="youtube-dl -fbestaudio"
-alias ymm="youtube-dl -fbestaudio (xsel -o)"
-function ya; mpc add (youtube-dl -g $argv); mpc play ; end
+abbr yv="youtube-dl -fbest"
+abbr yvv="youtube-dl -fbest (xsel -o)"
+abbr ym="youtube-dl -fbestaudio"
+abbr ymm="youtube-dl -fbestaudio (xsel -o)"
 
 # Zathura
-alias z="zathura"
+abbr z="zathura"
 
 # Various CLI utils
-alias tree="tree -C"
-alias less="less -R"
+abbr tree="tree -C"
+abbr less="less -R"
 
 # atool
-alias atx="aunpack"
-alias atp="apack"
+abbr atx="aunpack"
+abbr atp="apack"
 
 # YAY
-alias y="yay"
-alias yqs="yay -Qs"
-alias ys="yay -S"
-alias yss="yay -Ss --color=always"
-alias ysuy="yay -Suy"
-alias yr="yay -Rs"
-alias yrc="yay -Rsc"
-alias list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
+abbr y="yay"
+abbr yqs="yay -Qs"
+abbr ys="yay -S"
+abbr yss="yay -Ss --color=always"
+abbr ysuy="yay -Suy"
+abbr yr="yay -Rs"
+abbr yrc="yay -Rsc"
+abbr list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
-alias dot="cd ~/git/dotfiles"
-alias ap="cd ~/git/jobteaser/appointments"
-alias jt="cd ~/git/jobteaser/jobteaser"
-alias jc="cd ~/git/jobteaser/jsonical"
-alias ct="cd ~/git/jobteaser/cockpit"
-alias iam="cd ~/git/jobteaser/iam"
-alias sand="cd ~/sandbox"
+abbr dot="cd ~/git/dotfiles"
+abbr jt="cd ~/git/jobteaser/jobteaser"
+abbr ct="cd ~/git/jobteaser/cockpit"
+abbr sand="cd ~/sandbox"
 
 # SSH
-alias ssh-wtf="cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
+abbr ssh-wtf="cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
 
 # Git
-alias g="git"
-alias gcd="cd (git rev-parse --show-toplevel)"
-alias ga="git add"
-alias gb="git branch"
-alias gd="git d"
-alias gds="git ds"
-alias gcl="git clone"
-alias gci="git commit"
-alias gco="git checkout"
-alias gl="git log"
-alias glg="git lg"
-alias gllg="git llg"
-alias gpl="git pull"
-alias gps="git push"
-alias gr="git rebase"
-alias grc="git rebase --continue"
-alias gs="git status -s -b"
+abbr g="git"
+abbr gcd="cd (git rev-parse --show-toplevel)"
+abbr ga="git add"
+abbr gb="git branch"
+abbr gd="git d"
+abbr gds="git ds"
+abbr gcl="git clone"
+abbr gci="git commit"
+abbr gco="git checkout"
+abbr gl="git log"
+abbr glg="git lg"
+abbr gllg="git llg"
+abbr gpl="git pull"
+abbr gps="git push"
+abbr gr="git rebase"
+abbr grc="git rebase --continue"
+abbr gs="git status -s -b"
 
 # Rails / Rake / Bundler
-alias r="rails"
-alias rc="rails console"
-alias rs="bundle exec rails server"
-alias be="bundle exec"
-alias rdm="bundle exec rake db:migrate db:test:prepare"
-alias rds="bundle exec rake db:migrate:status | tail"
-alias rpp="bundle exec rake parallel:prepare"
+abbr r="rails"
+abbr rc="rails console"
+abbr rs="bundle exec rails server"
+abbr be="bundle exec"
+abbr rdm="bundle exec rake db:migrate db:test:prepare"
+abbr rds="bundle exec rake db:migrate:status | tail"
+abbr rpp="bundle exec rake parallel:prepare"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
 # Docker
-alias dc="docker-compose"
-alias dcu="docker-compose up -d"
-alias dcd="docker-compose down"
-alias d="docker"
+abbr dc="docker-compose"
+abbr dcu="docker-compose up -d"
+abbr dcd="docker-compose down"
+abbr d="docker"
 
 # Kubernetes
-alias k="kubectl"
+abbr k="kubectl"
