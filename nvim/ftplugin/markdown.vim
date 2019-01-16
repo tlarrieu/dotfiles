@@ -12,3 +12,5 @@ augroup MARKDOWN
 augroup END
 
 nnoremap <silent> <buffer> <cr> :T mdprev w '%'<cr>
+
+call bullet#config()

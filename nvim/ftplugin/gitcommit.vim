@@ -19,3 +19,5 @@ augroup END
 setlocal spell
 setlocal nonumber
 setlocal norelativenumber
+
+call bullet#config()
