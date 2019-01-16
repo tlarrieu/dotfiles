@@ -4,16 +4,10 @@ alias cls="echo -e \\033c"
 # systemctl
 alias ctl="systemctl"
 
-# nginx
-alias nginx="sudo nginx"
-
 # NVIM
 alias ep="nvim -c 'setlocal nomod | setlocal ro' -"
 alias e="nvim"
 alias es="sudo nvim"
-
-# Qutebrowser
-alias q="qutebrowser --backend webengine"
 
 # xsel
 alias xsel="xsel --clipboard"
@@ -34,19 +28,14 @@ alias ym="youtube-dl -fbestaudio"
 alias ymm="youtube-dl -fbestaudio (xsel -o)"
 function ya; mpc add (youtube-dl -g $argv); mpc play ; end
 
-# Feh
-alias feh="feh -dF"
-
 # Zathura
 alias z="zathura"
 
-# weechat
-alias wee="weechat"
-
 # Various CLI utils
-alias ccat="pygmentize -g"
 alias tree="tree -C"
 alias less="less -R"
+
+# atool
 alias atx="aunpack"
 alias atp="apack"
 
@@ -92,14 +81,8 @@ alias grc="git rebase --continue"
 alias gs="git status -s -b"
 
 # Rails / Rake / Bundler
-function rc
-  if count $argv > /dev/null
-    heroku run rails console -a $argv
-  else
-    bundle exec rails console
-  end
-end
 alias r="rails"
+alias rc="rails console"
 alias rs="bundle exec rails server"
 alias be="bundle exec"
 alias rdm="bundle exec rake db:migrate db:test:prepare"
@@ -107,10 +90,6 @@ alias rds="bundle exec rake db:migrate:status | tail"
 alias rpp="bundle exec rake parallel:prepare"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
-
-# Heroku
-alias h="heroku"
-alias hps="heroku ps"
 
 # Docker
 alias dc="docker-compose"
