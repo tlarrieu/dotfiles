@@ -8,6 +8,15 @@ abbr ctl="systemctl"
 alias ep="nvim -R -"
 abbr e="nvim"
 abbr se="sudo nvim"
+function scr
+  set -l file "$HOME/git/dotfiles/scripts/$argv"
+
+  test -e $file
+  and nvim $file
+  or echo -e 'i#!/bin/sh\n' | nvim -c 'setf sh' -s - -- $file
+
+  chmod 700 $file ^ /dev/null
+end
 
 # xsel
 abbr xsel="xsel --clipboard"
@@ -46,7 +55,7 @@ abbr yss="yay -Ss --color=always"
 abbr ysuy="yay -Suy"
 abbr yr="yay -Rs"
 abbr yrc="yay -Rsc"
-abbr list-packages="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
+alias lspkg="awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
 abbr dot="cd ~/git/dotfiles"
