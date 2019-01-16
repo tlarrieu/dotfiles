@@ -1,5 +1,5 @@
 # reset terminal
-abbr cls="echo -ne \\033c"
+abbr cls=" echo -ne \\033c"
 
 # systemctl
 abbr ctl="systemctl"
