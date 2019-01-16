@@ -5,9 +5,9 @@ abbr cls=" echo -ne \\033c"
 abbr ctl="systemctl"
 
 # NVIM
-abbr ep="nvim -c 'setlocal nomod | setlocal ro' -"
+alias ep="nvim -R -"
 abbr e="nvim"
-abbr es="sudo nvim"
+abbr se="sudo nvim"
 
 # xsel
 abbr xsel="xsel --clipboard"
