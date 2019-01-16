@@ -18,6 +18,17 @@ function scr
   chmod 700 $file ^ /dev/null
 end
 
+function app
+  set -l file "$HOME/git/dotfiles/apps/$argv"
+
+  test -e $file
+  and nvim $file
+  or echo -ne 'i#!/bin/sh\n\nchromium --app="https://"i' \
+    | nvim -c 'setf sh' -s - -- $file
+
+  chmod 700 $file ^ /dev/null
+end
+
 # xsel
 abbr xsel="xsel --clipboard"
 abbr xso="xsel --clipboard -o"

@@ -102,6 +102,9 @@ for file in `ls -d $BASEDIR/scripts/*`; do
   safelink $target $link
 done
 
+# apps
+safelink $BASEDIR/apps $HOME/apps
+
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 

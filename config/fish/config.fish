@@ -43,6 +43,7 @@ set -g -x BROWSER luakit
 
 # PATH
 set -x PATH $PATH $HOME/scripts
+set -x PATH $PATH $HOME/apps
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $HOME/.ghcup/bin
