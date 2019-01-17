@@ -43,9 +43,9 @@ abbr co="curl -O"
 
 # youtube-dl
 abbr yv="youtube-dl -fbest"
-abbr yvv="youtube-dl -fbest (xsel -o)"
+abbr yvv="youtube-dl -fbest (xsel --clipboard -o)"
 abbr ym="youtube-dl -fbestaudio"
-abbr ymm="youtube-dl -fbestaudio (xsel -o)"
+abbr ymm="youtube-dl -fbestaudio (xsel --clipboard -o)"
 
 # Zathura
 abbr z="zathura"
