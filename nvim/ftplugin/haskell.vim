@@ -7,3 +7,6 @@ setlocal formatprg=hindent
 setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
+
+" Disable \ handling, making % work properly
+setlocal cpoptions+=M
