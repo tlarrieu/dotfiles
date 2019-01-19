@@ -1,0 +1,6 @@
+#!/bin/sh
+
+notify-send -t 2000 'MPV' "Loading $1 ..."
+
+mpv $1 --ytdl-format=best ||
+  notify-send -t 2000 'MPV' 'Failed loading video'
