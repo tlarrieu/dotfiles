@@ -1,6 +1,6 @@
 #!/bin/sh
 
-notify-send -t 2000 'MPV' "Loading $1 ..."
+notify-send -t 2000 'mpv' 'Loading video to mpv...'
 
-mpv $1 --ytdl-format=best ||
-  notify-send -t 2000 'MPV' 'Failed loading video'
+mpv $1 --ytdl-format=best \
+  || notify-send -t 2000 -i dialog-warning 'mpv' 'Failed loading video to mpv'
