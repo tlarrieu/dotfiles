@@ -115,3 +115,6 @@ abbr d "docker"
 
 # Kubernetes
 abbr k "kubectl"
+
+# stack (haskell)
+abbr s "stack"
