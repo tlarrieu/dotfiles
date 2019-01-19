@@ -10,12 +10,14 @@ local theme = {}
 theme.colors = xrdb.colors
 theme.useless_gap = dpi(10)
 
+local accent = theme.colors.magenta.dark
+
 -- [[ styles ]] ----------------------------------------------------------------
 theme.font = xrdb.font.name .. " " .. 12
 
 -- [[ colors ]] ----------------------------------------------------------------
 theme.fg_normal = theme.colors.foreground
-theme.fg_focus = theme.colors.magenta.dark
+theme.fg_focus = accent
 theme.fg_urgent = theme.colors.white.light
 
 theme.tasklist_fg_focus = theme.colors.black.light
@@ -27,7 +29,7 @@ theme.bg_systray = theme.bg_normal
 
 theme.border_width = dpi(1.5)
 theme.border_normal = theme.colors.background
-theme.border_focus = theme.colors.magenta.dark
+theme.border_focus = accent
 theme.border_urgent = theme.colors.red.dark
 
 -- [[ titlebars ]] -------------------------------------------------------------

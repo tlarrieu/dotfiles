@@ -1,16 +1,17 @@
-*{
-
+* {
   bg: #eee8d5;
   bg-alt: #fdf6e3;
   fg: #586e75;
 
   red: #dc322f;
   magenta: #d33682;
+  accent: @magenta;
+  urgent: @red;
 }
 
 #window {
   border: 0.05em;
-  border-color: @magenta;
+  border-color: @accent;
 }
 
 #mainbox {
@@ -51,12 +52,12 @@
 
 #element.normal.urgent {
   background-color: transparent;
-  text-color: @red;
+  text-color: @urgent;
 }
 
 #element.normal.active {
   background-color: transparent;
-  text-color: @magenta;
+  text-color: @accent;
 }
 
 /* -- Alternate -- */
@@ -68,12 +69,12 @@
 
 #element.alternate.urgent {
   background-color: transparent;
-  text-color: @red;
+  text-color: @urgent;
 }
 
 #element.alternate.active {
   background-color: transparent;
-  text-color: @magenta;
+  text-color: @accent;
 }
 
 /* -- selected -- */
@@ -85,12 +86,12 @@
 
 #element.selected.urgent {
   background-color: @bg-alt;
-  text-color: @red;
+  text-color: @urgent;
 }
 
 #element.selected.active {
   background-color: @bg-alt;
-  text-color: @magenta;
+  text-color: @accent;
 }
 
 #inputbar {
@@ -113,7 +114,7 @@
 }
 
 #prompt {
-  background-color: @magenta;
+  background-color: @accent;
   spacing: 0;
   text-color: @bg-alt;
   padding: 0.3em 1em;
