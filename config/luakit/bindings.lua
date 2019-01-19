@@ -1,4 +1,5 @@
 local modes = require("modes")
+local luakit = require("luakit")
 
 modes.remove_binds(
   "normal",
@@ -16,16 +17,18 @@ modes.add_binds("completion", {
   },
 })
 
-local mpv = function(uri, w)
+local mpv = function(uri)
   assert(type(uri) == "string")
-  w:notify("Starting mpv: " .. uri)
-  luakit.spawn("mpv " .. uri .. " --ytdl-format=best")
+  luakit.spawn(
+    "/bin/sh " .. os.getenv('HOME') .. "/scripts/mpv-load '" .. uri .. "'"
+  )
 end
 
-local mpc = function(uri, w)
+local mpc = function(uri)
   assert(type(uri) == "string")
-  w:notify("Starting mpc: " .. uri)
-  luakit.spawn('/bin/sh /home/tlarrieu/scripts/mpc-load "' .. uri .. '"')
+  luakit.spawn(
+    "/bin/sh " .. os.getenv('HOME') .. "/scripts/mpc-load '" .. uri .. "'"
+  )
 end
 
 modes.add_binds("normal", {
