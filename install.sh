@@ -16,7 +16,9 @@ safelink()
     if [ -d $link -o -f $link ]; then
       DO_LINK=false
 
-      echo -n "$(tput setaf 3)'$link' already exists, do you want to replace it? ([y]es/[N]o/[a]ll/[s]kip) $(tput sgr0)"
+      echo "$(tput setaf 3)'$link' already exists, do you want to replace" \
+        "it?$(tput sgr0) ([y]es/[N]o/[a]ll/[s]kip)"
+      echo -n "=> "
 
       read answer
       case $answer in
