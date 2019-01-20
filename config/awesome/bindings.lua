@@ -1,6 +1,4 @@
 -- [[ Variables ]] -------------------------------------------------------------
-local puts = require("gears.debug").dump_return
-
 local awful = require("awful")
 
 local terminal = "kitty"
