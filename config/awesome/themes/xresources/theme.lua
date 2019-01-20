@@ -8,7 +8,7 @@ local theme = {}
 -- [[ palette ]] ---------------------------------------------------------------
 
 theme.colors = xrdb.colors
-theme.useless_gap = dpi(10)
+theme.useless_gap = dpi(8)
 
 local accent = theme.colors.magenta.dark
 
