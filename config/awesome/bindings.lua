@@ -104,7 +104,7 @@ local keyboard = awful.util.table.join(
 keyboard = awful.util.table.join(
   keyboard,
 
-  mspawn(" ",                    "rofi -show run -lines 6"),
+  mspawn(" ",                    "fish -c 'rofi -show run -lines 6'"),
   mspawn("Tab",                  "rofi -show window -lines 6"),
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
