@@ -192,8 +192,12 @@ case $answer in
     safeinstall fish
     safeinstall kitty
 
+    # desktop font
     safeinstall nerd-fonts-inconsolata
+    # coding font
     safeinstall otf-fira-code
+    # presentation font
+    safeinstall ephifonts
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
