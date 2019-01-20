@@ -1,9 +1,5 @@
 package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
 
---------------------------
--- Default luakit theme --
---------------------------
-
 local theme = {}
 local xrdb = require('xrdb')
 local xtheme = xrdb.load()
