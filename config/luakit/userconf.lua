@@ -3,13 +3,13 @@ package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
 require "bindings"
 
 local xrdb = require('xrdb')
-local s = require("settings")
+local set = require("settings")
 
-s.window.home_page = os.getenv("HOME") .. "/.config/luakit/startpage.html"
-s.webview.zoom_level = xrdb.apply_dpi(120, xrdb.load().font.dpi)
-s.webview.enable_webgl = true
+set.window.home_page = os.getenv("HOME") .. "/.config/luakit/startpage.html"
+set.webview.zoom_level = xrdb.apply_dpi(120, xrdb.load().font.dpi)
+set.webview.enable_webgl = true
 
-s.window.search_engines = {
+set.window.search_engines = {
   default = "https://duckduckgo.com/?q=%s",
   g = "https://github.com/%s",
   gh = "https://github.com/search?q=%s",
@@ -21,3 +21,43 @@ s.window.search_engines = {
   wi = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
   yt = "https://www.youtube.com/results?search_query=%s",
 }
+
+local sel = require("select")
+sel.label_maker = function ()
+  local chars = charset("auie,ctsrn")
+  return trim(sort(reverse(chars)))
+end
+
+local follow = require("follow")
+follow.pattern_maker = follow.pattern_styles.match_label
+follow.stylesheet = [===[
+#luakit_select_overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2147483647; /* Maximum allowable on WebKit */
+}
+
+#luakit_select_overlay .hint_overlay {
+  display: block;
+  position: absolute;
+  background-color: #ffff99;
+  border: 1px dotted #000;
+  opacity: 0.2;
+}
+
+#luakit_select_overlay .hint_label {
+  display: block;
+  position: absolute;
+  background-color: #d33682;
+  color: #fdf6e3;
+  padding: 2px;
+  font-size: 12px;
+  font-family: Fire Code, monospace, courier, sans-serif;
+  opacity: 0.6;
+}
+
+#luakit_select_overlay .hint_selected {
+  background-color: #00ff00 !important;
+}
+]===]
