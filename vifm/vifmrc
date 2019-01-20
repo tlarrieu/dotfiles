@@ -37,12 +37,13 @@ noremap s :shell<cr>
 command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
 
-mark S ~/scripts
 mark d ~/Documents
 mark D ~/Downloads
 mark h ~
 mark m ~/Music
+mark p ~/Pictures
 mark s ~/sandbox
+mark S ~/scripts
 mark v ~/Videos
 mark w ~/Pictures/wallpapers
 
