@@ -4,7 +4,7 @@ package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
 local xrdb = require('xrdb')
 
 local globals = {
-  homepage            = "http://luakit.org/",
+  homepage            = os.getenv("HOME") .. "/.config/luakit/startpage.html",
   scroll_step         = 40,
   zoom_step           = 0.1,
   max_cmd_history     = 100,
