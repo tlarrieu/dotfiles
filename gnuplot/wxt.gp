@@ -1,5 +1,5 @@
 set terminal wxt \
-  font "InconsolataForPowerline Nerd Font" \
+  font "Fira Code" \
   fontscale 1.5 \
   persist
 

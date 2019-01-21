@@ -1,7 +1,7 @@
 #include "/home/tlarrieu/.Xresources.d/solarized"
 
 #define DPI 96
-#define FONT Inconsolata Nerd Font
+#define FONT Fira Code Retina
 #define FONTSIZE 18
 
 ! vim: ft=xdefaults

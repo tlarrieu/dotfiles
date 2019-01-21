@@ -1,6 +1,6 @@
 set terminal pngcairo \
   size 2000,800 \
-  font "InconsolataForPowerline Nerd Font" \
+  font "Fira Code" \
   fontscale 1
 set output '~/gnuplot.png'
 

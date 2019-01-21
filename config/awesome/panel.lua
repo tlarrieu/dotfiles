@@ -3,9 +3,10 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local wibox = require("wibox")
 local dpi = require('beautiful.xresources').apply_dpi
-local xrdb = require('xrdb').load()
 
 local lain = require("lain")
+
+local font = "Inconsolata Nerd Font" .. " " .. dpi(14)
 
 local colorize = function(widget, value)
   local color
@@ -27,6 +28,7 @@ local arcprogress = function(label)
     valign = "center",
     align = "center",
     widget = wibox.widget.textbox,
+    font = font
   })
   local arcchart = wibox.container({
     text,
@@ -159,7 +161,7 @@ local init_screen = function(screen)
     screen,
     awful.widget.taglist.filter.all,
     tagbuttons,
-    { spacing = dpi(6) }
+    { spacing = dpi(6), font = font }
   )
 
   local left = wibox.widget({

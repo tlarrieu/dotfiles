@@ -13,7 +13,7 @@ theme.useless_gap = dpi(8)
 local accent = theme.colors.magenta.dark
 
 -- [[ styles ]] ----------------------------------------------------------------
-theme.font = xrdb.font.name .. " " .. 12
+theme.font = "Fira Code" .. " " .. dpi(12.5)
 
 -- [[ colors ]] ----------------------------------------------------------------
 theme.fg_normal = theme.colors.foreground
