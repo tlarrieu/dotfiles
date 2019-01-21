@@ -49,7 +49,7 @@ mark w ~/Pictures/wallpapers
 
 " file types
 set classify=''
-set classify+=' :dir:'
+set classify+=' :dir:'
 set classify+=' :link:'
 set classify+=' :reg:'
 set classify+=' :exe:'
