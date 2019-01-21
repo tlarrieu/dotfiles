@@ -118,3 +118,6 @@ abbr k "kubectl"
 
 # stack (haskell)
 abbr s "stack"
+
+# fonts
+abbr font "fc-list | grep -i"
