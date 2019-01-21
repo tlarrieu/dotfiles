@@ -16,8 +16,8 @@ fileviewer * xdg-open
 
 nnoremap D :delete!<cr>
 
-nnoremap yd :!echo %d | xsel --clipboard<cr>
-nnoremap yf :!echo %c:p | xsel --clipboard<cr>
+nnoremap yd :!echo %d | xsel --clipboard &<cr>
+nnoremap yf :!echo %c:p | xsel --clipboard &<cr>
 
 noremap e :edit<cr>
 noremap é /
