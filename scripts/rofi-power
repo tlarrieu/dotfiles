@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -lines 4 -i -p 拉'
+LAUNCHER='rofi -dmenu -lines 4 -i -p ⏼'
 OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
 function lock {
