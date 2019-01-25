@@ -209,6 +209,7 @@ case $answer in
     safeinstall youtube-dl
 
     safeinstall openssh
+    safeinstall htop
     safeinstall fish
     safeinstall kitty
 
