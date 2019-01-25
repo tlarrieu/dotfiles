@@ -164,6 +164,9 @@ case $answer in
     safeinstall unclutter
     safeinstall redshift
 
+    safeinstall lxappearance
+    safeinstall gtk-theme-numix-solarized
+
     safeinstall manjaro-pulse
     safeinstall pavucontrol
 
