@@ -1,7 +1,8 @@
 #!/bin/sh
+notify-send "Bringing Wi-Fi configuration up..."
 nmcli radio wifi on
 
-adapter=$(nmcli device status | head -n 2 | tail -n 1 | cut -d' ' -f1)
+adapter=$(nmcli device status | grep wifi | cut -d' ' -f1)
 selection=$(
   nmcli -p -f in-use,ssid,security,bars,signal device wifi list ifname $adapter \
   | tail -n +7 \
@@ -30,13 +31,13 @@ fi
 if [ $security == '--' ]; then
   nmcli device wifi connect $ssid
 else
-  password=$(zenity --entry --text="passphrase?")
+  password=$(zenity --password --text="passphrase?")
   nmcli device wifi connect $ssid password $password 2> /dev/null
 fi
 
 new_ssid=$(nmcli -t -f GENERAL.CONNECTION dev show | cut -d':' -f2 | head -n 1)
 
-if [ $new_ssid == $ssid ]; then
+if [[ $new_ssid == $ssid ]]; then
   notify-send Success "Connection to $ssid successful!"
   exit 0
 else
