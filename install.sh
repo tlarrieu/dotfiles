@@ -160,6 +160,7 @@ case $answer in
     safeinstall lightdm
     safeinstall lightdm-gtk-greeter
     safeinstall awesome
+    safeinstall xsel
     safeinstall unclutter
     safeinstall redshift
 
