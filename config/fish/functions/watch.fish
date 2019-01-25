@@ -1,3 +1,3 @@
 function watch
-  command watch -x fish -c "$argv"
+  command watch --color --exec fish -c "$argv"
 end
