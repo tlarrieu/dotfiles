@@ -190,6 +190,8 @@ case $answer in
     safeinstall pandoc
     safeinstall xdotools
 
+    safeinstall imagemagick
+
     safeinstall mpc
     safeinstall mpd
     safeinstall mpv
