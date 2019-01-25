@@ -242,6 +242,9 @@ case $answer in
     mkdir ~/.local/share/mpd
     systemctl enable mpd --user
     echo "$(tput setaf 2)Done.$(tput sgr0)"
+    echo "$(tput setaf 2)Activating NTP server$(tput sgr0)"
+    sudo timedatectl set-ntp true
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
     echo "$(tput setaf 2)Services successfully configured !$(tput sgr0)"
     ;;
   *)
