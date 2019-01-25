@@ -164,6 +164,9 @@ case $answer in
     safeinstall unclutter
     safeinstall redshift
 
+    safeinstall manjaro-pulse
+    safeinstall pavucontrol
+
     safeinstall networkmanager
 
     safeinstall luakit
@@ -216,6 +219,29 @@ case $answer in
     ;;
   *)
     echo "$(tput setaf 3)Packages update skipped$(tput sgr0)"
+    ;;
+esac
+
+echo
+echo -n "Do you want to configure services? ([y]es/[N]o) "
+
+read answer
+case $answer in
+  "yes"|"y")
+    echo "$(tput setaf 3)Enabling lightdm...$(tput sgr0)"
+    sudo systemctl enable lightdm
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
+    echo "$(tput setaf 3)Enabling NetworkManager$(tput sgr0)"
+    sudo systemctl enable NetworkManager
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
+    echo "$(tput setaf 3)Enabling mpd (for current user)$(tput sgr0)"
+    mkdir ~/.local/share/mpd
+    systemctl enable mpd --user
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
+    echo "$(tput setaf 2)Services successfully configured !$(tput sgr0)"
+    ;;
+  *)
+    echo "$(tput setaf 3)Services configuration skipped$(tput sgr0)"
     ;;
 esac
 
