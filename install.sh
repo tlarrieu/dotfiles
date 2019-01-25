@@ -199,6 +199,7 @@ case $answer in
     safeinstall mpv
     safeinstall youtube-dl
 
+    safeinstall openssh
     safeinstall fish
     safeinstall kitty
 
