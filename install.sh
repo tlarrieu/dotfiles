@@ -159,6 +159,7 @@ case $answer in
     safeinstall redshift
 
     safeinstall luakit
+    safeinstall chromium
 
     safeinstall net-tools
     safeinstall dnsutils
