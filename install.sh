@@ -164,6 +164,8 @@ case $answer in
     safeinstall unclutter
     safeinstall redshift
 
+    safeinstall networkmanager
+
     safeinstall luakit
     safeinstall chromium
 
