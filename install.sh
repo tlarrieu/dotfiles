@@ -154,6 +154,9 @@ case $answer in
     safeinstall vifm
     safeinstall udiskie
 
+    safeinstall xorg-server
+    safeinstall xorg-xrdb
+    safeinstall lightdm
     safeinstall awesome
     safeinstall unclutter
     safeinstall redshift
