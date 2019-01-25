@@ -123,12 +123,12 @@ if batteryname then
 
     -- icon
     if bat_now.perc == 100 then
-      icon = "⚡ "
+      icon = " "
     else
       if bat_now.status == "Charging" then
-        icon = " "
+        icon = " "
       else
-        icon = " "
+        icon = " "
       end
     end
 
