@@ -4,6 +4,9 @@ abbr cls " echo -ne \\033c"
 # systemctl
 abbr ctl "systemctl"
 
+# nmcli
+abbr nmcli "nmcli --color yes"
+
 # NVIM
 alias ep "nvim -R -"
 abbr e "nvim"
