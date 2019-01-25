@@ -158,6 +158,7 @@ case $answer in
     safeinstall xorg-server
     safeinstall xorg-xrdb
     safeinstall lightdm
+    safeinstall lightdm-gtk-greeter
     safeinstall awesome
     safeinstall unclutter
     safeinstall redshift
