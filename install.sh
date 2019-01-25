@@ -132,6 +132,14 @@ safelink $BASEDIR/dir_colors $HOME/.dir_colors
 # linopen
 safelink $BASEDIR/linopenrc $HOME/.linopenrc
 
+# X11
+for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
+  target=$BASEDIR/xorg.conf.d/`basename $file`
+  link=/etc/X11/xorg.conf.d/`basename $file`
+  # TODO: use safelink instead of a "raw" ln call
+  sudo ln -sfFT $target $link
+done
+
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
