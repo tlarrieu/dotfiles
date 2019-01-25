@@ -1,6 +1,5 @@
 #!/bin/sh
 
-[[ "$1" == "-f" ]] && FORCE=true
 SKIP=false
 
 safelink()
