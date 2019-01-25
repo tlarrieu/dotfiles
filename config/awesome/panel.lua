@@ -6,7 +6,8 @@ local dpi = require('beautiful.xresources').apply_dpi
 
 local lain = require("lain")
 
-local font = "Inconsolata Nerd Font" .. " " .. dpi(14)
+local font = "Inconsolata Nerd Font" .. " " .. dpi(8)
+local clockfont = "Fira Code" .. " " .. dpi(7)
 
 local colorize = function(widget, value)
   local color
@@ -67,6 +68,7 @@ lain.widgets.mem({
 local clock = wibox.widget({
   widget = wibox.widget.textclock,
   format = "%Y.%m.%d %H:%M",
+  font = clockfont,
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
@@ -95,7 +97,7 @@ if batteryname then
   battery = wibox.widget({
     batterytext,
     wibox.container.margin(batterybar, dpi(5), dpi(0), dpi(8), dpi(8)),
-    layout = wibox.layout.fixed.horizontal
+    layout = wibox.layout.fixed.horizontal,
   })
 
   local battery_update = function(bat_now)
@@ -131,6 +133,7 @@ if batteryname then
     end
 
     batterytext:set_markup(lain.util.markup(color, icon .. legend))
+    batterytext:set_font(font)
     batterybar:set_color(color)
     batterybar:set_value(bat_now.perc / 100)
   end
