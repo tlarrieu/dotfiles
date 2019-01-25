@@ -148,6 +148,7 @@ case $answer in
     safeinstall yay
 
     safeinstall python
+    safeinstall python-pip
     safeinstall neovim
     sudo pip install neovim
 
