@@ -164,8 +164,11 @@ case $answer in
 
     safeinstall xorg-server
     safeinstall xorg-xrdb
+    safeinstall xorg-server-xephyr
+
     safeinstall lightdm
     safeinstall lightdm-gtk-greeter
+
     safeinstall awesome
     safeinstall xsel
     safeinstall unclutter
