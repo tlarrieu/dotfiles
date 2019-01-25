@@ -215,6 +215,8 @@ case $answer in
     safeinstall mpv
     safeinstall youtube-dl
 
+    safeinstall mlocate
+
     safeinstall openssh
     safeinstall htop
     safeinstall fish
