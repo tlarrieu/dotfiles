@@ -2,5 +2,5 @@
 
 notify-send -t 2000 'mpv' 'Loading video to mpv...'
 
-mpv $1 --ytdl-format=best \
+mpv $1 \
   || notify-send -t 2000 -i dialog-warning 'mpv' 'Failed loading video to mpv'
