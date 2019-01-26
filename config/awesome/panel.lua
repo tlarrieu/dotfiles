@@ -137,9 +137,9 @@ if batteryname then
     end
 
     -- icon
-    local iconset = bat_now.status == "Charging"
-      and batteryicons.charging
-      or batteryicons.discharging
+    local iconset = bat_now.status == "Discharging"
+      and batteryicons.discharging
+      or batteryicons.charging
 
     for _, config in ipairs(iconset) do
       if bat_now.perc <= config.level then
