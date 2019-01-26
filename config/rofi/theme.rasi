@@ -109,7 +109,7 @@
   background-color: transparent;
   spacing: 0;
   text-color: @fg;
-  padding: 0.3em 0.6em;
+  padding: 0.4em 0.6em;
   margin: 0;
 }
 
@@ -117,7 +117,7 @@
   background-color: @accent;
   spacing: 0;
   text-color: @bg-alt;
-  padding: 0.3em 1em;
+  padding: 0.4em 1em;
 }
 
 /* vim:ft=css
