@@ -1,10 +1,10 @@
 function bullet#config()
   let g:bullets_set_mappings = 0
-  inoremap <cr> <esc>:InsertNewBullet<cr>
-  inoremap <C-cr> <cr>
-  nnoremap o :InsertNewBullet<cr>
-  vnoremap gn :RenumberSelection<cr>
-  nnoremap <leader>x :ToggleCheckbox<cr>
-  onoremap it :SelectBulletText<cr>
-  onoremap at :SelectBullet<cr>
+  inoremap <buffer> <cr> <esc>:InsertNewBullet<cr>
+  inoremap <buffer> <C-cr> <cr>
+  nnoremap <buffer> o :InsertNewBullet<cr>
+  vnoremap <buffer> gn :RenumberSelection<cr>
+  nnoremap <buffer> <leader>x :ToggleCheckbox<cr>
+  onoremap <buffer> it :SelectBulletText<cr>
+  onoremap <buffer> at :SelectBullet<cr>
 endfunction
