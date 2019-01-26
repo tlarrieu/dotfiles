@@ -232,6 +232,8 @@ case $answer in
     safeinstall otf-fira-code
     # presentation font
     safeinstall ephifonts
+    # tty font
+    safeinstall terminus-fonts
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
