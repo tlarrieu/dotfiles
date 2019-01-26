@@ -503,8 +503,8 @@ inoremap # X<bs>#
 nnoremap <F1> <nop>
 inoremap <F1> <nop>
 " Clever paste from system buffer
-nnoremap <leader>p m`:set paste<cr>o<c-r>+<esc>:set nopaste<cr>``
-nnoremap <leader>P m`:set paste<cr>O<c-r>+<esc>:set nopaste<cr>``
+noremap <leader>p "+p
+noremap <leader>P "+P
 noremap <leader>y "+y
 nnoremap yf :<c-u>let @+ = expand("%")<cr>:echo 'File name yanked.'<cr>
 " Give a more logical behavior to Y
