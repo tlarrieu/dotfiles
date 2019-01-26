@@ -38,14 +38,14 @@ command thumb sxiv . -t
 filetype * {use xdg-open} xdg-open
 
 mark a ~/apps
+mark b ~/sandbox
 mark d ~/Documents
-mark D ~/Downloads
+mark o ~/Downloads
 mark h ~
 mark m ~/Music
-mark M ~/management
+mark e ~/management
 mark p ~/Pictures
-mark s ~/sandbox
-mark S ~/scripts
+mark s ~/scripts
 mark v ~/Videos
 mark w ~/Pictures/wallpapers
 
