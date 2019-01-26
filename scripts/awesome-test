@@ -1,7 +1,7 @@
 #!/bin/sh
 
 dimensions=$(xrandr | awk -F ' |,' '/current/ { print $9 * 0.8 "x" $11 * 0.8 }')
-Xephyr -ac -br -noreset -screen $dimensions :1.0 &
+Xephyr -ac -br -noreset -screen $dimensions :1.0 2>/dev/null &
 ZEPHYR_PID=$!
 sleep 1
 DISPLAY=:1.0 xrdb -merge ~/.Xresources
