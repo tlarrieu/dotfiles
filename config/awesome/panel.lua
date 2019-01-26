@@ -83,22 +83,41 @@ for i in string.gmatch(pipe:read('*a'), "%S+") do
 end
 pipe:close()
 
-local batterytext = wibox.widget.textbox()
+local batterytext = wibox.widget({
+  widget = wibox.widget.textbox,
+  font = font
+})
 
 if batteryname then
-  local batterybar = wibox.widget({
-    widget = wibox.widget.progressbar,
-    background_color = "#FF000000",
-    bar_shape = gears.shape.rounded_rect,
-    forced_width = dpi(90),
-    shape = gears.shape.rounded_rect,
-  })
-
   battery = wibox.widget({
     batterytext,
-    wibox.container.margin(batterybar, dpi(5), dpi(0), dpi(8), dpi(8)),
     layout = wibox.layout.fixed.horizontal,
   })
+
+  local batteryicons = {
+    charging = {
+      { level = 10, icon = "" },
+      { level = 20, icon = "" },
+      { level = 30, icon = "" },
+      { level = 40, icon = "" },
+      { level = 60, icon = "" },
+      { level = 80, icon = "" },
+      { level = 90, icon = "" },
+      { level = 100, icon = "" },
+    },
+    discharging = {
+      { level = 10, icon = "" },
+      { level = 20, icon = "" },
+      { level = 30, icon = "" },
+      { level = 40, icon = "" },
+      { level = 50, icon = "" },
+      { level = 60, icon = "" },
+      { level = 70, icon = "" },
+      { level = 80, icon = "" },
+      { level = 90, icon = "" },
+      { level = 100, icon = "" },
+    },
+  }
 
   local battery_update = function(bat_now)
     if bat_now.status == "N/A" then return end
@@ -106,11 +125,7 @@ if batteryname then
     local color, legend, icon
 
     -- legend
-    if bat_now.time == "00:00" then
-      legend = "100%"
-    else
-      legend = bat_now.time
-    end
+    legend = bat_now.time == "00:00" and "100%" or bat_now.time
 
     -- color
     if bat_now.perc >= 98 then
@@ -122,20 +137,19 @@ if batteryname then
     end
 
     -- icon
-    if bat_now.perc == 100 then
-      icon = " "
-    else
-      if bat_now.status == "Charging" then
-        icon = " "
-      else
-        icon = " "
+    local iconset = bat_now.status == "Charging"
+      and batteryicons.charging
+      or batteryicons.discharging
+
+    for _, config in ipairs(iconset) do
+      if bat_now.perc <= config.level then
+        icon = config.icon
+        break
       end
     end
 
-    batterytext:set_markup(lain.util.markup(color, icon .. legend))
-    batterytext:set_font(font)
-    batterybar:set_color(color)
-    batterybar:set_value(bat_now.perc / 100)
+    local markup = lain.util.markup(color, icon .. " " .. legend)
+    batterytext:set_markup(markup)
   end
 
   lain.widgets.bat({
@@ -180,7 +194,7 @@ local init_screen = function(screen)
   local right = wibox.widget({
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
     wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(battery, dpi(1), dpi(0), dpi(1), dpi(1)),
+    wibox.container.margin(battery, dpi(0), dpi(2), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
   })
   right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
