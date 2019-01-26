@@ -4,10 +4,9 @@ LAUNCHER='rofi -dmenu -lines 4 -i -p ⏼'
 OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
 function lock {
-  # i3lock  -f -n -i $HOME/Pictures/lock &
   TMPBG=/tmp/screen.png
   LOCK=$HOME/scripts/lock.png
-  RES=$(xrandr | grep 'current' | sed -E 's/.*current\s([0-9]+)\sx\s([0-9]+).*/\1x\2/')
+  RES=$(xrandr | awk -F ' |,' '/current/ { print $9 "x" $11 }')
 
   mpc pause
 
@@ -16,7 +15,7 @@ function lock {
     -i $DISPLAY \
     -i $LOCK \
     -filter_complex "boxblur=12,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" \
-    -vframes 1 $TMPBG \
+    -frames:v 1 $TMPBG \
     -loglevel quiet
 
   i3lock -i $TMPBG -r 242 -o 0.1
