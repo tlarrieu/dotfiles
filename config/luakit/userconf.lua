@@ -9,6 +9,8 @@ set.window.home_page = os.getenv("HOME") .. "/.config/luakit/startpage.html"
 set.webview.zoom_level = xrdb.apply_dpi(120, xrdb.load().font.dpi)
 set.webview.enable_webgl = true
 
+require("editor").editor_cmd = "kitty nvim {file} +{line} +'set ft=qutebrowser'"
+
 set.window.search_engines = {
   default = "https://duckduckgo.com/?q=%s",
   g = "https://github.com/%s",
