@@ -210,7 +210,7 @@ case $answer in
 
     safeinstall entr
     safeinstall pandoc
-    safeinstall xdotools
+    safeinstall xdotool
 
     safeinstall imagemagick
 
@@ -233,7 +233,7 @@ case $answer in
     # presentation font
     safeinstall ephifonts
     # tty font
-    safeinstall terminus-fonts
+    safeinstall terminus-font
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
