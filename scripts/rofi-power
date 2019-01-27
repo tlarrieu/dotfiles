@@ -16,8 +16,7 @@ if [ ${#option} -gt 0 ]; then
       systemctl poweroff
       ;;
     Suspend)
-      lock
-      systemctl suspend
+      betterlockscreen -s blur -t "Password?"
       ;;
     *)
       ;;
