@@ -277,7 +277,7 @@ case $answer in
     sudo systemctl enable NetworkManager
     echo "$(tput setaf 2)Done.$(tput sgr0)"
     echo "$(tput setaf 3)Enabling mpd (for current user)$(tput sgr0)"
-    mkdir ~/.local/share/mpd
+    mkdir ~/.local/share/mpd 2> /dev/null
     systemctl enable mpd --user
     echo "$(tput setaf 2)Done.$(tput sgr0)"
     echo "$(tput setaf 2)Activating NTP server$(tput sgr0)"
