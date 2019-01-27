@@ -170,6 +170,8 @@ case $answer in
     safeinstall lightdm
     safeinstall lightdm-gtk-greeter
 
+    safeinstall betterlockscreen
+
     safeinstall awesome
     safeinstall xsel
     safeinstall unclutter
@@ -192,8 +194,6 @@ case $answer in
     safeinstall fzf
     safeinstall the_silver_searcher
     safeinstall atool
-
-    safeinstall i3lock-custom
 
     safeinstall linopen
     safeinstall xcape

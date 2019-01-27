@@ -3,30 +3,11 @@
 LAUNCHER='rofi -dmenu -lines 4 -i -p ⏼'
 OPTIONS=" Lock\n Restart\n Shutdown\n Suspend"
 
-function lock {
-  TMPBG=/tmp/screen.png
-  LOCK=$HOME/scripts/lock.png
-  RES=$(xrandr | awk -F ' |,' '/current/ { print $9 "x" $11 }')
-
-  mpc pause
-
-  ffmpeg -y -f x11grab \
-    -video_size $RES \
-    -i $DISPLAY \
-    -i $LOCK \
-    -filter_complex "boxblur=12,overlay=(main_w-overlay_w)/2:(main_h-overlay_h)/2" \
-    -frames:v 1 $TMPBG \
-    -loglevel quiet
-
-  i3lock -i $TMPBG -r 242 -o 0.1
-  rm $TMPBG
-}
-
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
     Lock)
-      lock
+      betterlockscreen -l blur -t "Password?"
       ;;
     Restart)
       systemctl reboot
