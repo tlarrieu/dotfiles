@@ -63,7 +63,7 @@ abbr atp "apack"
 
 # YAY
 abbr y "yay"
-abbr yqs "yay -Qs"
+abbr yqs "yay -Qs --color always"
 abbr ys "yay -S"
 abbr yss "yay -Ss --color always"
 abbr ysuy "yay -Suy"
