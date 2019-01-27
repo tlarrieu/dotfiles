@@ -140,29 +140,6 @@ for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   sudo ln -sfFT $target $link
 done
 
-echo
-echo -n "Do you want to configure lightdm? ([y]es/[N]o) "
-
-read answer
-case $answer in
-  "yes"|"y")
-    # lightdm
-    echo "$(tput setaf 3)Setting webkit2 greeter for lightdm$(tput sgr0)"
-    sudo sed -si \
-      's/#\?greeter-session=.*/greeter-session=lightdm-webkit2-greeter/' \
-      /etc/lightdm/lightdm.conf
-    echo "$(tput setaf 2)Done.$(tput sgr0)"
-    echo "$(tput setaf 3)Setting theme for webkit2 greeter (litarvan)$(tput sgr0)"
-    sudo sed -si \
-      's/\(webkit_theme *=\).*/\1 litarvan/' \
-      /etc/lightdm/lightdm-webkit2-greeter.conf
-    echo "$(tput setaf 2)Done.$(tput sgr0)"
-    ;;
-  *)
-    echo "$(tput setaf 3)lightdm configuration skipped$(tput sgr0)"
-    ;;
-esac
-
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
@@ -289,6 +266,31 @@ case $answer in
     echo "$(tput setaf 3)Services configuration skipped$(tput sgr0)"
     ;;
 esac
+
+# LightDM
+echo
+echo -n "Do you want to configure lightdm? ([y]es/[N]o) "
+
+read answer
+case $answer in
+  "yes"|"y")
+    # lightdm
+    echo "$(tput setaf 3)Setting webkit2 greeter for lightdm$(tput sgr0)"
+    sudo sed -si \
+      's/#\?greeter-session=.*/greeter-session=lightdm-webkit2-greeter/' \
+      /etc/lightdm/lightdm.conf
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
+    echo "$(tput setaf 3)Setting theme for webkit2 greeter (litarvan)$(tput sgr0)"
+    sudo sed -si \
+      's/\(webkit_theme *=\).*/\1 litarvan/' \
+      /etc/lightdm/lightdm-webkit2-greeter.conf
+    echo "$(tput setaf 2)Done.$(tput sgr0)"
+    ;;
+  *)
+    echo "$(tput setaf 3)lightdm configuration skipped$(tput sgr0)"
+    ;;
+esac
+
 
 echo
 echo "Configuring neovim..."
