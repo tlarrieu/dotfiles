@@ -109,6 +109,9 @@ safelink $BASEDIR/apps $HOME/apps
 # asoundrc
 safelink $BASEDIR/asoundrc $HOME/.asoundrc
 
+# ncpamixer
+safelink $BASEDIR/ncpamixer.conf $HOME/.ncpamixer.conf
+
 # xprofile
 safelink $BASEDIR/xprofile $HOME/.xprofile
 
@@ -179,7 +182,7 @@ case $answer in
     safeinstall gtk-theme-numix-solarized
 
     safeinstall manjaro-pulse
-    safeinstall pavucontrol
+    safeinstall ncpamixer
 
     safeinstall networkmanager
 
