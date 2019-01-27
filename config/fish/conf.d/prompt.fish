@@ -45,6 +45,9 @@ function _git_prompt
   [ (command git rev-parse --git-dir 2> /dev/null) ]
     or return
 
+  [ (command git rev-parse --is-inside-git-dir 2> /dev/null) = "true" ]
+    and return
+
   set -l stashed \
     (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
 
