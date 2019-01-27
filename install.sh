@@ -106,9 +106,6 @@ done
 # apps
 safelink $BASEDIR/apps $HOME/apps
 
-# asoundrc
-safelink $BASEDIR/asoundrc $HOME/.asoundrc
-
 # ncpamixer
 safelink $BASEDIR/ncpamixer.conf $HOME/.ncpamixer.conf
 
