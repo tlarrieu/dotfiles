@@ -32,6 +32,10 @@ theme.border_normal = theme.colors.background
 theme.border_focus = accent
 theme.border_urgent = theme.colors.red.dark
 
+-- [[ notifications ]] ---------------------------------------------------------
+theme.notification_bg = theme.colors.background
+theme.notification_border_color = theme.colors.foreground
+
 -- [[ icons ]] -----------------------------------------------------------------
 local theme_path = os.getenv("HOME") .. "/.config/awesome/themes/xresources/"
 -- taglist
