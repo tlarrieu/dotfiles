@@ -23,5 +23,6 @@ Xephyr -ac -br -noreset -screen $scaledres :1.0 2> /dev/null &
 ZEPHYR_PID=$!
 sleep 0.5
 DISPLAY=:1.0 xrdb -merge ~/.Xresources
+DISPLAY=:1.0 ~/.fehbg
 DISPLAY=:1.0 awesome
 kill $ZEPHYR_PID 2> /dev/null
