@@ -43,7 +43,7 @@ mark d ~/Documents
 mark o ~/Downloads
 mark h ~
 mark m ~/Music
-mark e ~/management
+mark e ~/Documents/management
 mark p ~/Pictures
 mark s ~/scripts
 mark v ~/Videos
