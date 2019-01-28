@@ -39,6 +39,7 @@ filetype * {use xdg-open} xdg-open
 
 mark a ~/apps
 mark b ~/sandbox
+mark c ~/git/dotfiles
 mark d ~/Documents
 mark o ~/Downloads
 mark h ~
