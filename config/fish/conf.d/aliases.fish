@@ -72,10 +72,17 @@ abbr yrc "yay -Rsc"
 alias lspkg "awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
-abbr dot "cd ~/git/dotfiles"
-abbr jt "cd ~/git/jobteaser/jobteaser"
-abbr ct "cd ~/git/jobteaser/cockpit"
-abbr sand "cd ~/sandbox"
+abbr ,a "cd ~/apps"
+abbr ,b "cd ~/sandbox"
+abbr ,c "cd ~/git/dotfiles"
+abbr ,d "cd ~/Documents"
+abbr ,o "cd ~/Downloads"
+abbr ,m "cd ~/Music"
+abbr ,e "cd ~/Documents/management"
+abbr ,p "cd ~/Pictures"
+abbr ,s "cd ~/scripts"
+abbr ,v "cd ~/Videos"
+abbr ,w "cd ~/Pictures/wallpapers"
 
 # SSH
 abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
