@@ -1,9 +1,27 @@
 #!/bin/sh
 
-dimensions=$(xrandr | awk -F ' |,' '/current/ { print $9 * 0.8 "x" $11 * 0.8 }')
-Xephyr -ac -br -noreset -screen $dimensions :1.0 2>/dev/null &
+# Get window position
+posX=$(xwininfo -id $(xdotool getactivewindow) \
+  | grep "Absolute upper-left X" \
+  | awk '{print $NF}')
+posY=$(xwininfo -id $(xdotool getactivewindow) \
+  | grep "Absolute upper-left Y" \
+  | awk '{print $NF}')
+
+# Find resolution of current screen
+configs=$(xrandr | grep -w connected | awk -F'[ +]' '{print $3":"$4":"$5}')
+for config in $configs; do
+  screenX=$(echo $config | awk -F':' '{print $2}')
+  screenY=$(echo $config | awk -F':' '{print $3}')
+  if [ "$posX" -gt "$screenX" ] && [ "$posY" -gt "$screenY" ]; then
+    res=$(echo $config | awk -F':' '{print $1}')
+    scaledres=$(echo $res | awk -F'x' '{print $1 * 0.8 "x" $2 * 0.8}')
+  fi
+done
+
+Xephyr -ac -br -noreset -screen $scaledres :1.0 2> /dev/null &
 ZEPHYR_PID=$!
-sleep 1
+sleep 0.5
 DISPLAY=:1.0 xrdb -merge ~/.Xresources
 DISPLAY=:1.0 awesome
-kill $ZEPHYR_PID
+kill $ZEPHYR_PID 2> /dev/null
