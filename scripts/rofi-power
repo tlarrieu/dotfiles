@@ -7,6 +7,7 @@ option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`
 if [ ${#option} -gt 0 ]; then
   case $option in
     Lock)
+      mpc pause
       betterlockscreen -l blur -t "Password?"
       ;;
     Restart)
@@ -16,6 +17,7 @@ if [ ${#option} -gt 0 ]; then
       systemctl poweroff
       ;;
     Suspend)
+      mpc pause
       betterlockscreen -s blur -t "Password?"
       ;;
     *)
