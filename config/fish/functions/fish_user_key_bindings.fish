@@ -43,20 +43,20 @@ function fish_user_key_bindings
     rm -f /tmp/fzf.result
   end
 
-  bind \et 'fkill'
-  bind þ 'fkill'
+  function enforce-git
+    [ (command git rev-parse --git-dir 2> /dev/null) ]
+      and return 0
 
-  bind \ea 'fzf-gitsha'
-  bind æ 'fzf-gitsha'
-  bind \cb 'fzf-gitbranch'
-  bind \cx 'fzf-gitfiles'
+    tput setaf 1
+    echo "Not a git repository"
+    tput sgr0
 
-  if bind -M insert > /dev/null 2>&1
-    bind -M insert \et 'fkill'
-    bind -M insert þ 'fkill'
-    bind -M insert \ea 'sh ~/scripts/fshow.sh'
-    bind -M insert æ 'sh ~/scripts/fshow.sh'
-    bind -M insert \cb 'fzf-gitbranch'
-    bind -M insert \ex 'fzf-gitfiles'
+    commandline -f repaint
+    return 1
   end
+
+  bind þ 'fkill'
+  bind æ 'enforce-git; and fzf-gitsha'
+  bind \cb 'enforce-git; and fzf-gitbranch'
+  bind \cx 'enforce-git; and fzf-gitfiles'
 end
