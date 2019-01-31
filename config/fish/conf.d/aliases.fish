@@ -42,6 +42,7 @@ abbr dl "aria2c --dir=$HOME/Downloads"
 # curl
 abbr c "curl"
 abbr co "curl -O"
+abbr coo "curl -O (xsel --clipboard -o)"
 
 # youtube-dl
 abbr yv "youtube-dl -fbest"
