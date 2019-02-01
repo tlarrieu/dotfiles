@@ -634,7 +634,7 @@ endfunction
 nmap <leader>es :call OpenSchemaFile()<cr>
 
 nmap <leader>ea :call MaybeTabedit('~/httpclient.rest')<cr>
-nmap <leader>ee :call MaybeTabedit('~/email.md')<cr>
+nmap <leader>ee :call MaybeTabedit('~/.scratch.md')<cr>
 nmap <leader>ef :call MaybeTabedit('~/.config/fish/config.fish')<cr>
 nmap <leader>eg :call MaybeTabedit('~/.gitconfig')<cr>
 nmap <leader>eh :call MaybeTabedit('~/.hgrc')<cr>
