@@ -27,7 +27,12 @@ function fish_user_key_bindings
     or  set -l FZF_CTRL_X_COMMAND "git -c color.status=always status --short"
     set -l fzf_command "fzf --extended --ansi --nth=2.. -d ' ' -m -e"
     eval "$FZF_CTRL_X_COMMAND | $fzf_command > /tmp/fzf.result"
-    and commandline -i (cat /tmp/fzf.result | awk '{ print $2 }' | paste -d' ' -s -)
+    and commandline -i (
+      cat /tmp/fzf.result \
+        | awk '{for(i=2;i<=NF;i++)print $i}' \
+        | sed -E "s/.*/'\0'/g" \
+        | paste -d' ' -s -
+    )
     commandline -f repaint
     rm -f /tmp/fzf.result
   end
