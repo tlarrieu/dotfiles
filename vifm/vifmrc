@@ -27,8 +27,9 @@ noremap À ZZ
 noremap <silent> É :nohlsearch<cr><c-l>
 noremap <c-t> =
 
-nnoremap i cw<c-a>
-nnoremap a cw
+nnoremap i cW<c-a>
+nnoremap a cW
+nnoremap A cw
 nnoremap cc cW<c-u>
 nnoremap C cw<c-u>
 vnoremap c :rename<cr>
