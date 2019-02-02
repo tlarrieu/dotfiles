@@ -42,13 +42,12 @@ abbr dl "aria2c --dir=$HOME/Downloads"
 # curl
 abbr c "curl"
 abbr co "curl -O"
-abbr coo "curl -O (xsel --clipboard -o)"
+abbr cc "curl (xsel --clipboard -o)"
+abbr cco "curl -O (xsel --clipboard -o)"
 
 # youtube-dl
-abbr yv "youtube-dl -fbest"
-abbr yvv "youtube-dl -fbest (xsel --clipboard -o)"
-abbr ym "youtube-dl -fbestaudio"
-abbr ymm "youtube-dl -fbestaudio (xsel --clipboard -o)"
+abbr yv "youtube-dl -fbest (xsel --clipboard -o)"
+abbr ym "youtube-dl -fbestaudio (xsel --clipboard -o)"
 
 # Zathura
 abbr z "zathura"
