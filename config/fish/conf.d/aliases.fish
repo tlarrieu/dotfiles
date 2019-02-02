@@ -1,6 +1,9 @@
 # reset terminal
 abbr cls " echo -ne \\033c"
 
+# xdg-open
+abbr . "open"
+
 # systemctl
 abbr ctl "systemctl"
 
