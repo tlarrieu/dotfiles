@@ -29,7 +29,7 @@ interm=nvim
 # 3. Mime category
 image:sxiv
 video:mpv
-audio:mpd
+audio:mpv
 text:nvim->interm
 
 # 4. Regexp
