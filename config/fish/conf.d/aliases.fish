@@ -90,6 +90,7 @@ abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/H
 abbr g "git"
 abbr gcd "cd (git rev-parse --show-toplevel)"
 abbr ga "git add"
+abbr ga. "git add ."
 abbr gb "git branch"
 abbr gd "git d"
 abbr gds "git ds"
