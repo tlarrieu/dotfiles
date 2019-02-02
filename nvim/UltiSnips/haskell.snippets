@@ -1,3 +1,7 @@
+snippet { "Language extension"
+{-# LANGUAGE $1 #-}
+endsnippet
+
 snippet /^mo?d?/ "Module" r
 module ${1:`!p snip.rv = snip.basename`} (
 	$2
@@ -16,6 +20,10 @@ endsnippet
 
 snippet /^deb/ "import Debug.Trace" r
 import Debug.Trace
+endsnippet
+
+snippet /^t/ "type" r
+type ${1:name} = ${2:expression}
 endsnippet
 
 snippet \ "Lambda expression"
