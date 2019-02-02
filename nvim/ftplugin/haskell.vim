@@ -8,7 +8,7 @@ if filereadable("stack.yaml")
 else
   nnoremap <buffer>
     \ <cr>
-    \_:execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
+    \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
 endif
 
 vnoremap <leader>f :Neoformat hindent<cr>
