@@ -1,10 +1,10 @@
 if filereadable("stack.yaml")
   nnoremap <buffer>
+    \ <leader><cr>
+    \ :execute "T echo -ne '\\033c'; stack build && time stack test"<cr>
+  nnoremap <buffer>
     \ <cr>
     \ :execute "T echo -ne '\\033c'; stack build && time stack run"<cr>
-  nnoremap <buffer>
-    \ <leader><cr>
-    \ :execute "T echo -ne '\\033c'; stack repl"<cr>
 else
   nnoremap <buffer>
     \ <cr>
