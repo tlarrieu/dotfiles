@@ -132,6 +132,9 @@ safelink $BASEDIR/dir_colors $HOME/.dir_colors
 # linopen
 safelink $BASEDIR/linopenrc $HOME/.linopenrc
 
+# less
+safelink $BASEDIR/lesskey $HOME/.lesskey
+
 # X11
 for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   target=$BASEDIR/xorg.conf.d/`basename $file`
