@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://app2.bankin.com"
