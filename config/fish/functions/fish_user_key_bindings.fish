@@ -29,7 +29,8 @@ function fish_user_key_bindings
     eval "$FZF_CTRL_X_COMMAND | $fzf_command > /tmp/fzf.result"
     and commandline -i (
       cat /tmp/fzf.result \
-        | awk '{for(i=2;i<=NF;i++)print $i}' \
+        | awk '{$1=""} {print}' \
+        | cut -d' ' -f2- \
         | sed -E "s/.*/'\0'/g" \
         | paste -d' ' -s -
     )
