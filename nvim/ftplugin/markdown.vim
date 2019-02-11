@@ -1,4 +1,4 @@
-setlocal textwidth=80
+setlocal textwidth=130
 setlocal formatoptions+=t
 setlocal foldlevel=1
 setlocal foldlevelstart=10
