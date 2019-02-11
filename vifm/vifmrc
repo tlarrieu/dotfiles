@@ -27,26 +27,26 @@ noremap À ZZ
 noremap <silent> É :nohlsearch<cr><c-l>
 noremap <c-t> =
 
-nnoremap " 1
-nnoremap 1 "
-nnoremap « 2
-nnoremap 2 «
-nnoremap » 3
-nnoremap 3 »
-nnoremap ( 4
-nnoremap 4 (
-nnoremap ) 5
-nnoremap 5 )
-nnoremap @ 6
-nnoremap 6 @
-nnoremap + 7
-nnoremap 7 +
-nnoremap - 8
-nnoremap 8 -
-nnoremap / 9
-nnoremap 9 /
-nnoremap * 0
-nnoremap 0 *
+noremap " 1
+noremap 1 "
+noremap « 2
+noremap 2 «
+noremap » 3
+noremap 3 »
+noremap ( 4
+noremap 4 (
+noremap ) 5
+noremap 5 )
+noremap @ 6
+noremap 6 @
+noremap + 7
+noremap 7 +
+noremap - 8
+noremap 8 -
+noremap / 9
+noremap 9 /
+noremap * 0
+noremap 0 *
 
 nnoremap i cW<c-a>
 nnoremap a cW
