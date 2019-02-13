@@ -168,6 +168,7 @@ case $answer in
     safeinstall xorg-server
     safeinstall xorg-xrdb
     safeinstall xorg-server-xephyr
+    safeinstall xorg-xwininfo
     safeinstall xorg-xrandr
 
     safeinstall lightdm
