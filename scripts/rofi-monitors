@@ -80,3 +80,6 @@ SEL=$( gen_entries | rofi -dmenu -i -p "" -a 0 -no-custom  | awk '{print $1}'
 
 # Call xrandr
 $( ${COMMANDS[$SEL]} )
+
+# Force background “reloading”
+~/.fehbg
