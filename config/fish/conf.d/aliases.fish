@@ -129,6 +129,7 @@ abbr d "docker"
 
 # Kubernetes
 abbr k "kubectl"
+function ksh; kubectl exec -it $argv /bin/bash; end
 
 # stack (haskell)
 abbr s "stack"
