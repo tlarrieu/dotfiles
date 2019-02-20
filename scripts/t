@@ -12,8 +12,15 @@ list=$TRELLO_LIST
 title=$1
 desc=$2
 
-curl $endpoint \
-  -H 'content-type: application/x-www-form-urlencoded; charset=UTF-8' \
-  -H 'accept: application/json, text/javascript, */*; q=0.01' \
-  --data "key=$key&token=$token&name=$title&desc=$desc&pos=top&due=&idList=$list" \
-  --compressed
+res=$(
+  curl -s $endpoint \
+    -H 'content-type: application/x-www-form-urlencoded; charset=UTF-8' \
+    -H 'accept: application/json, text/javascript, */*; q=0.01' \
+    --data "key=$key&token=$token&name=$title&desc=$desc&pos=top&due=&idList=$list" \
+    --compressed
+)
+
+[ $? != 0 ] && echo "$(tput setaf 1)Error.$(tput sgr0)" && exit 1
+
+echo -n "$(tput setaf 2)Card created: $(tput sgr0)"
+echo "$res" | jq '.url'
