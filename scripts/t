@@ -1,0 +1,19 @@
+#!/bin/sh
+
+envfile="$HOME/.trello.env"
+[ -f "$envfile" ] && source "$envfile"
+
+endpoint='https://api.trello.com/1/cards/'
+
+key=$TRELLO_KEY
+token=$TRELLO_TOKEN
+list=$TRELLO_LIST
+
+title=$1
+desc=$2
+
+curl $endpoint \
+  -H 'content-type: application/x-www-form-urlencoded; charset=UTF-8' \
+  -H 'accept: application/json, text/javascript, */*; q=0.01' \
+  --data "key=$key&token=$token&name=$title&desc=$desc&pos=top&due=&idList=$list" \
+  --compressed
