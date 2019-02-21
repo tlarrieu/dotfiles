@@ -35,6 +35,8 @@ modes.add_binds("normal", {
   -- Mode switching
   { "é", "Search for string on current page.", function (w) w:start_search("/") end },
   { "è", "Enter `command` mode.", function (w) w:set_mode("command") end, {} },
+  { "\"", "Set zoom to 100%", function (w) w:zoom_set(1) end },
+  { "«", "Set zoom to 200%", function (w) w:zoom_set(2) end },
 
   -- Tab control
   { "<Control-p>", "Go to previous tab.", function (w) w:prev_tab() end },

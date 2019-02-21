@@ -1,6 +1,9 @@
 local themedir = os.getenv("HOME") .. "/.config/awesome/themes"
+local theme = 'xresources/theme.lua'
+
+require("beautiful").init(themedir .. "/" .. theme)
+require("screendpi")
 require("awful.autofocus")
-require("beautiful").init(themedir .. "/xresources/theme.lua")
 require("bindings")
 require("panel")
 require("signals")

@@ -1,7 +1,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local dpi = require('beautiful.xresources').apply_dpi
+local apply_dpi = require('beautiful.xresources').apply_dpi
 
 local lain = require("lain")
 
@@ -36,7 +36,7 @@ local arcprogress = function(label)
     min_value = 0,
     max_value = 100,
     bg = "#FF000000",
-    thickness = dpi(3),
+    thickness = apply_dpi(3),
   })
   arcchart:connect_signal("widget::redraw_needed", function(widget)
     if widget:get_colors() == nil then return end
@@ -170,6 +170,8 @@ end
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
+  local dpi = function(n) return apply_dpi(n, screen) end
+
   local tagbuttons = awful.util.table.join(
     awful.button({}, 1, function(tag) tag:view_only() end)
   )
