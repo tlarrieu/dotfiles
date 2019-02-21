@@ -22,5 +22,8 @@ res=$(
 
 [ $? != 0 ] && echo "$(tput setaf 1)Error.$(tput sgr0)" && exit 1
 
-echo -n "$(tput setaf 2)Card created: $(tput sgr0)"
-echo "$res" | jq '.url'
+success=$(echo "$res" | jq '.url' 2> /dev/null)
+
+[ $? != 0 ] && echo "$(tput setaf 1)Error: $res$(tput sgr0)" && exit 1
+
+echo -n "$(tput setaf 2)Card created: $success$(tput sgr0)"
