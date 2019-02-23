@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://dynalist.io/d/-9eviTfQ8s-hp-vSjxB4Leox"
