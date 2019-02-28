@@ -40,7 +40,7 @@ local tags = {
   {
     name = "",
     config = {
-      layout = awful.layout.suit.fair.horizontal,
+      layout = awful.layout.suit.fair,
     }
   },
   {
