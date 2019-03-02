@@ -118,6 +118,7 @@ keyboard = awful.util.table.join(
   spawn({ "Control" }, " ", "mpc toggle"),
 
   mspawn(".", "luakit"),
+  spawn({mod, "Shift"}, ".", "chromium"),
   mspawn("u", terminal .. " vifm"),
   mspawn("g", script("wallpaper")),
   mspawn("h", terminal .. " " .. script("gtgf")),
