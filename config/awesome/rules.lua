@@ -52,6 +52,11 @@ awful.rules.rules = {
     properties = { fullscreen = true },
   },
 
+  {
+    rule = { class = "Slay the Spire" },
+    properties = { fullscreen = true },
+  },
+
   -- [[ Games ]] ---------------------------------------------------------------
   {
     rule_any = {
