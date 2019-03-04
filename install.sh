@@ -182,7 +182,7 @@ case $answer in
     safeinstall redshift
 
     safeinstall lxappearance
-    safeinstall gtk-theme-numix-solarized
+    safeinstall aur/gtk-theme-numix-solarized
 
     safeinstall manjaro-pulse
     safeinstall ncpamixer
