@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://www.smartrecruiters.com/app/people/"
