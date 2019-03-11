@@ -103,6 +103,7 @@ keyboard = awful.util.table.join(
   keyboard,
 
   mspawn(" ",                    "fish -c 'rofi -show run -lines 6'"),
+  spawn({ "Control" }, " ",      script("gtd-inbox")),
   mspawn("Tab",                  "rofi -show window -lines 6"),
   spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
   spawn({}, "F12",               script("rofi-wifi")),
@@ -115,7 +116,7 @@ keyboard = awful.util.table.join(
 
   mspawn("m", script("mpc-library")),
   mspawn("b", script("mpc-playlist")),
-  spawn({ "Control" }, " ", "mpc toggle"),
+  mspawn("$", "mpc toggle"),
 
   mspawn(".", "luakit"),
   spawn({mod, "Shift"}, ".", "chromium"),

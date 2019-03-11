@@ -1,0 +1,45 @@
+#!/bin/sh
+
+envfile="$HOME/.dynalist.env"
+[ -f "$envfile" ] && source "$envfile"
+
+endpoint='https://dynalist.io/api/v1/inbox/add'
+
+token=$DYNALIST_TOKEN
+
+input=$(
+  rofi -dmenu \
+    -p "" \
+    -theme-str '#content { children: [inputbar]; }'
+)
+
+if [[ -z "$input" ]]; then
+  echo "Nothing to send"
+else
+  content=$(echo $input | awk -F'|' '{print $1}')
+  note=$(echo $input | awk -F'|' '{print $2}')
+
+  payload='{
+    "token": "'$token'",
+    "file_id": "'$gtd'",
+    "index": -1,
+    "content": "'$content'",
+    "note": "'$note'"
+  }'
+
+  res=$(
+    curl $endpoint \
+      --silent \
+      --compressed \
+      --header 'content-type: application/json' \
+      --data "$payload"
+  )
+
+  [ $? != 0 ] && notify-send Error "The request was not sent." && exit 1
+
+  success=$(echo "$res" | jq '._code == "Ok"' 2> /dev/null)
+
+  [ $? != 0 ] && notify-send Error "The request is invalid." && exit 1
+
+  notify-send Success "Message sent to inbox"
+fi
