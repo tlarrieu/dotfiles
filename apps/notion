@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://www.notion.so"
+chromium --app="https://www.notion.so/"
