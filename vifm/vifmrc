@@ -68,6 +68,7 @@ mark o ~/Downloads
 mark h ~
 mark m ~/Music
 mark e ~/Documents/management
+mark i ~/Documents/management/individual
 mark p ~/Pictures
 mark s ~/scripts
 mark v ~/Videos
