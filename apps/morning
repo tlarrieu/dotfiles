@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://www.notion.so/tlarrieu/Morning-91ae543e7efd461a89eb3b240230b6fd"

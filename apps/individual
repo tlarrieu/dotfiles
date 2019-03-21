@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://www.notion.so/tlarrieu/Individual-ea190b962a914cf49da1438c028e785a"
