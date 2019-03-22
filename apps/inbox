@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://www.notion.so/tlarrieu/Inbox-a0d55491ec274b758a0f31a58fecce47"
