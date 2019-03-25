@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium --app="https://www.notion.so/tlarrieu/Planner-95d08ff06d014df583202d4e5db3a986"
