@@ -13,9 +13,7 @@ input=$(
     -theme-str '#content { children: [inputbar]; }'
 )
 
-if [[ -z "$input" ]]; then
-  echo "Nothing to send"
-else
+if [[ -n "$input" ]]; then
   content=$(echo $input | awk -F'|' '{print $1}')
   note=$(echo $input | awk -F'|' '{print $2}')
 
