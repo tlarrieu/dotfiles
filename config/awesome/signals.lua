@@ -46,7 +46,8 @@ local tags = {
   {
     name = "",
     config = {
-      layout = awful.layout.suit.fair,
+      layout = awful.layout.suit.tile.left,
+      master_width_factor = 0.75,
     }
   },
   {
