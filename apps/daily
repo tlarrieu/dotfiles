@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://www.notion.so/tlarrieu/Daily-manager-324fe5ac916d4fb49d2fe8387600ed72"
+notion "tlarrieu/Daily-manager-324fe5ac916d4fb49d2fe8387600ed72"

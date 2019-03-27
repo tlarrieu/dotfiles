@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://www.notion.so/tlarrieu/GTD-c08ca096fe1648518939d4875eb04215"
+notion "tlarrieu/GTD-c08ca096fe1648518939d4875eb04215"

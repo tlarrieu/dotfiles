@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ $(date +%H) -le 12 ]; then
-  chromium --app="https://www.notion.so/tlarrieu/Morning-91ae543e7efd461a89eb3b240230b6fd"
+  notion "/tlarrieu/Morning-91ae543e7efd461a89eb3b240230b6fd"
 else
-  chromium --app="https://www.notion.so/tlarrieu/Evening-d06e31abdb7149528f3122151a13e6c2"
+  notion "tlarrieu/Evening-d06e31abdb7149528f3122151a13e6c2"
 fi
