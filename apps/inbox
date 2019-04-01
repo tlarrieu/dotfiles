@@ -1,3 +1,10 @@
 #!/bin/sh
 
-notion "tlarrieu/Inbox-1ce3e7a84e984939a257241c0ca58cf7"
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_PERSONAL:-"Default"}
+
+chromium \
+  --app='https://dynalist.io/d/F7h3olwf25z5R272xPtiFCvv' \
+  --profile-directory="$profile"
