@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://drive.google.com"
+chromium --app="https://drive.google.com" --profile-directory="Default"
