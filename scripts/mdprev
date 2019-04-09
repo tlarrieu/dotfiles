@@ -15,7 +15,7 @@ case $1 in
   p|preview)
     $script generate "$2"
     xdotool search --name "/tmp/preview.pdf" > /dev/null \
-      || zathura /tmp/preview.pdf &
+      || zathura /tmp/preview.pdf 2> /dev/null &
     ;;
   w|watch)
     $script preview "$2"
