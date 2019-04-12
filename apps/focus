@@ -1,3 +1,12 @@
 #!/bin/sh
 
-notion "tlarrieu/Focus-77e34d79a4674cba89ab4f3c07d8d5cd"
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && source "$envfile"
+
+context=${CONTEXT:-"home"}
+
+if [ "$context" == "home" ]; then
+  notion "tlarrieu/c1dbc701f8f546189e9a43a17d90eeff"
+else
+  notion "tlarrieu/77e34d79a4674cba89ab4f3c07d8d5cd"
+fi
