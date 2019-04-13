@@ -32,6 +32,7 @@ function fish_user_key_bindings
         | awk '{$1=""} {print}' \
         | cut -d' ' -f2- \
         | sed -E "s/.*/'\0'/g" \
+        | sed -E 's/"//g' \
         | paste -d' ' -s -
     )
     commandline -f repaint
