@@ -6,7 +6,7 @@ envfile="$HOME/.context.env"
 context=${CONTEXT:-"home"}
 
 if [ "$context" == "home" ]; then
-  notion "tlarrieu/c1dbc701f8f546189e9a43a17d90eeff"
+  notion "tlarrieu/40a05b9746904e04911db5346ee92a5d"
 else
-  notion "tlarrieu/77e34d79a4674cba89ab4f3c07d8d5cd"
+  notion "tlarrieu/2fd3c97e4ef64dcfb391ed2b348ef9f0"
 fi
