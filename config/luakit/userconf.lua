@@ -6,7 +6,7 @@ local xrdb = require('xrdb')
 local set = require("settings")
 
 set.window.home_page = os.getenv("HOME") .. "/.config/luakit/startpage.html"
-set.webview.zoom_level = xrdb.apply_dpi(160, xrdb.load().font.dpi)
+set.webview.zoom_level = xrdb.apply_dpi(130, xrdb.load().font.dpi)
 set.webview.enable_webgl = true
 
 require("editor").editor_cmd = "kitty nvim {file} +{line} +'set ft=qutebrowser'"
@@ -17,6 +17,7 @@ set.window.search_engines = {
   g = "https://github.com/%s",
   gh = "https://github.com/search?q=%s",
   h = "https://www.haskell.org/hoogle?hoogle=%s",
+  m = "https://scryfall.com/search?q=%s",
   r = "https://reddit.com/r/%s",
   rg = "https://rubygems.org/search?query=%s",
   v = "https://vimawesome.com/?q=%s",
