@@ -1,7 +1,16 @@
 #!/bin/sh
 
-if [ $(date +%H) -le 12 ]; then
-  notion "tlarrieu/Morning-91ae543e7efd461a89eb3b240230b6fd"
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && source "$envfile"
+
+context=${CONTEXT:-"home"}
+
+if [ "$context" == "home" ]; then
+  notion "tlarrieu/6a6882169a7249adbf321f897035c6e0"
 else
-  notion "tlarrieu/Evening-d06e31abdb7149528f3122151a13e6c2"
+  if [ $(date +%H) -le 12 ]; then
+    notion "tlarrieu/91ae543e7efd461a89eb3b240230b6fd"
+  else
+    notion "tlarrieu/d06e31abdb7149528f3122151a13e6c2"
+  fi
 fi
