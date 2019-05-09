@@ -3,6 +3,15 @@ setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
 
+abbreviate <buffer> é <<bar>
+
+augroup Test
+  autocmd!
+  autocmd BufEnter *.elm
+    \ nnoremap <silent> <buffer> <leader><return>
+    \ :T elm-test<cr>:Topen<cr>
+augroup END
+
 " Import list
 function! s:importlines()
   if !bufexists(expand('%'))
@@ -20,7 +29,7 @@ function! s:importjump(i)
   normal! ^zz
 endfunction
 
-nnoremap <silent> <c-e> :call fzf#run({
+nnoremap <silent> <c-c> :call fzf#run({
   \   'source':  <sid>importlines(),
   \   'sink':    function('<sid>importjump'),
   \   'options': '--extended --nth=2.. +s',

@@ -1,3 +1,5 @@
+abbreviate <buffer> é <bar>>
+
 if filereadable("stack.yaml")
   nnoremap <buffer>
     \ <leader><cr>
