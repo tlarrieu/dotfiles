@@ -47,6 +47,9 @@ set -x PATH $PATH $HOME/apps
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $HOME/.ghcup/bin
+set -x PATH $PATH $HOME/node_modules/elm/bin
+set -x PATH $PATH $HOME/node_modules/elm-test/bin
+set -x PATH $PATH $HOME/node_modules/elm-format/bin
 
 set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/.ghcup/bin $PATH
