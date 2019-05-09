@@ -81,6 +81,7 @@ Plug 'krisajenkins/vim-postgresql-syntax'
 Plug 'tbastos/vim-lua'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
