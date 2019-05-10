@@ -1,12 +1,5 @@
-syntax match goNiceOperator ">=" conceal cchar=≥
-syntax match goNiceOperator "<=" conceal cchar=≤
-syntax match goNiceOperator "->" conceal cchar=→
-syntax match goNiceOperator "=>" conceal cchar=⇒
-syntax match goNiceOperator "<=>" conceal cchar=⇔
-syntax match goNiceOperator "!=" conceal cchar=≠
 syntax match goNiceOperator " \zs\*\ze " conceal cchar=×
 syntax match goNiceOperator " \zs\/\ze " conceal cchar=÷
-syntax match goNiceOperator "==" conceal cchar=≡
 syntax match goNiceOperator "&&" conceal cchar=∧
 syntax match goNiceOperator "||" conceal cchar=∨
 

@@ -1,12 +1,5 @@
-syntax match rubyNiceOperator ">=" conceal cchar=≥
-syntax match rubyNiceOperator "<=" conceal cchar=≤
-syntax match rubyNiceOperator "->" conceal cchar=→
-syntax match rubyNiceOperator "=>" conceal cchar=⇒
-syntax match rubyNiceOperator "<=>" conceal cchar=⇔
-syntax match rubyNiceOperator "!=" conceal cchar=≠
 syntax match rubyNiceOperator " \zs\*\ze " conceal cchar=×
 syntax match rubyNiceOperator " \zs\/\ze " conceal cchar=÷
-syntax match rubyNiceOperator "==" conceal cchar=≡
 syntax match rubyNiceOperator "&&" conceal cchar=∧
 syntax match rubyNiceOperator "||" conceal cchar=∨
 
