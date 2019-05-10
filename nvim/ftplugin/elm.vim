@@ -3,7 +3,8 @@ setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
 
-abbreviate <buffer> é <<bar>
+abbreviate <buffer> è <<bar>
+abbreviate <buffer> é <bar>>
 
 augroup Test
   autocmd!
