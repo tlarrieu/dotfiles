@@ -3,10 +3,13 @@ abbreviate <buffer> é <bar>>
 if filereadable("stack.yaml")
   nnoremap <buffer>
     \ <leader><cr>
-    \ :execute "T echo -ne '\\033c'; stack build && time stack test"<cr>
+    \ :T stack test<cr>
+    \ :Topen<cr>
   nnoremap <buffer>
     \ <cr>
-    \ :execute "T echo -ne '\\033c'; stack build && time stack run"<cr>
+    \ :T stack build<cr>
+    \ :T stack run<cr>
+    \ :Topen<cr>
 else
   nnoremap <buffer>
     \ <cr>
