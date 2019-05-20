@@ -8,7 +8,6 @@ client.connect_signal("property::position", function(c)
 end)
 
 client.connect_signal("focus", function(c)
-  -- find a way to only flash client instead of keeping the border color
   c.border_color = beautiful.border_focus
 end)
 
