@@ -172,13 +172,10 @@ end
 local init_screen = function(screen)
   local dpi = function(n) return apply_dpi(n, screen) end
 
-  local tagbuttons = awful.util.table.join(
-    awful.button({}, 1, function(tag) tag:view_only() end)
-  )
   local taglist = awful.widget.taglist(
     screen,
     awful.widget.taglist.filter.all,
-    tagbuttons,
+    {},
     { spacing = dpi(6), font = font }
   )
 
