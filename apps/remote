@@ -1,3 +1,10 @@
 #!/bin/sh
 
-chromium --app="https://docs.google.com/spreadsheets/d/1KTWOzi-143QLYGZvd-U3FiVMg74E4i8V7smqZKng7JE/edit"
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_WORK:-"Default"}
+
+chromium \
+  --app="https://docs.google.com/spreadsheets/d/1KTWOzi-143QLYGZvd-U3FiVMg74E4i8V7smqZKng7JE/edit" \
+  --profile-directory="$profile"
