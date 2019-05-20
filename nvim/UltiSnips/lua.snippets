@@ -21,3 +21,7 @@ endsnippet
 snippet log "gears.debug"
 require('gears.debug').dump($1)
 endsnippet
+
+snippet notif "naughty.notify"
+require("naughty").notify({ text = ${1:"$2"} })
+endsnippet
