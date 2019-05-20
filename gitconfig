@@ -24,12 +24,12 @@
 	cp = cherry-pick
 	d = diff --word-diff
 	deps = "!git checkout -b update-dependencies && git add Gemfile.lock && git commit -m 'Update dependencies'"
-	ds = diff --word-diff --staged
+	ds = d --staged
 	ft = fetch
 	lc = log --merges
-	lg = "!git llg master..@"
+	lg = llg master..@
 	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	llga = "!git llg --all"
+	llga = llg --all
 	patch = diff --word-diff=none
 	r = rebase
 	rc = rebase --continue
