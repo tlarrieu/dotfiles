@@ -42,7 +42,11 @@ clientkeys = awful.util.table.join(
     tags[id]:view_only()
   end),
 
-  mkey("o", function(client) client:move_to_screen() end),
+  mkey("o", function(client)
+    local last_screen = client.screen
+    client:move_to_screen()
+    awful.screen.focus(last_screen)
+  end),
 
   key({ mod, "Control" }, "o", function(client)
     local tags = client.screen.tags
