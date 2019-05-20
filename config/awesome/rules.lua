@@ -53,11 +53,6 @@ awful.rules.rules = {
     properties = { fullscreen = true },
   },
 
-  {
-    rule = { class = "Slay the Spire" },
-    properties = { fullscreen = true },
-  },
-
   -- [[ Games ]] ---------------------------------------------------------------
   {
     rule_any = {
@@ -70,14 +65,8 @@ awful.rules.rules = {
     properties = { floating = true },
   },
 
-  -- [[ Chat ]] ----------------------------------------------------------------
   {
-    rule_any = { class = { "Slack", "hangups", "Whatsie" } },
-    properties = { tag = "" },
-  },
-
-  {
-    rule = { class = "hangups" },
-    properties = { switchtotag = true },
+    rule = { class = "Slay the Spire" },
+    properties = { fullscreen = true },
   },
 }
