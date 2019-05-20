@@ -7,10 +7,10 @@ local mod = "Mod4"
 local key = awful.key
 local mkey = function(k, f) return key({mod}, k, f) end
 
-local spawn = function(mods, k, cmd)
-  return key(mods, k, function() awful.spawn(cmd) end)
+local spawn = function(mods, k, cmd, props)
+  return key(mods, k, function() awful.spawn(cmd, props) end)
 end
-local mspawn = function(k, cmd) return spawn({mod}, k, cmd) end
+local mspawn = function(k, cmd, props) return spawn({mod}, k, cmd, props) end
 
 local client_focus = function(direction)
   awful.client.focus.byidx(direction)
@@ -21,6 +21,23 @@ local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
 end
 
+local create_tag_if_needed = function()
+  local current_tag = awful.screen.focused().selected_tag
+  local alltags = awful.screen.focused().tags
+  local lasttag = alltags[#alltags]
+
+  if current_tag == lasttag and #current_tag:clients() > 1 then
+    local config = {
+      layout = awful.layout.suit.fair,
+      master_width_factor = 0.75,
+      screen = awful.screen.focused(),
+      volatile = true
+    }
+
+    return awful.tag.add("", config)
+  end
+end
+
 -- [[ Client ]] ----------------------------------------------------------------
 
 clientkeys = awful.util.table.join(
@@ -28,18 +45,15 @@ clientkeys = awful.util.table.join(
   mkey("eacute", function(c) c:kill() end),
 
   key({mod, "Control"}, "c", function(c)
-    local tags = c.screen.tags
-    local id = awful.tag.getidx()
-    id = id == 1 and #tags or id - 1
-    c:move_to_tag(tags[id])
-    tags[id]:view_only()
+    awful.tag.viewprev()
+    c:move_to_tag(c.screen.selected_tag)
   end),
 
   key({ mod, "Control" }, "r", function(c)
-    local tags = c.screen.tags
-    local id = awful.tag.getidx() % #tags + 1
-    c:move_to_tag(tags[id])
-    tags[id]:view_only()
+    create_tag_if_needed()
+
+    awful.tag.viewnext()
+    c:move_to_tag(c.screen.selected_tag)
   end),
 
   mkey("o", function(client)
