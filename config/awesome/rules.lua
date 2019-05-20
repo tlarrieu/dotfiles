@@ -41,6 +41,7 @@ awful.rules.rules = {
       class = {
         "mpv",
         "Pavucontrol",
+        "ncpamixer",
       },
     },
     properties = { fullscreen = true },

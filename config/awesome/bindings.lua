@@ -112,7 +112,7 @@ keyboard = awful.util.table.join(
   mspawn("f",                    script("rofi-nerdfont")),
 
   mspawn("q", script("rofi-power")),
-  mspawn("a", terminal .. " ncpamixer"),
+  mspawn("a", terminal .. " --class ncpamixer ncpamixer"),
 
   mspawn("m", script("mpc-library")),
   mspawn("b", script("mpc-playlist")),
