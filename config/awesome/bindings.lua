@@ -42,6 +42,8 @@ clientkeys = awful.util.table.join(
     tags[id]:view_only()
   end),
 
+  mkey("o", function(client) client:move_to_screen() end),
+
   key({ mod, "Control" }, "o", function(client)
     local tags = client.screen.tags
     local id = awful.tag.getidx()
@@ -91,8 +93,6 @@ local keyboard = awful.util.table.join(
 
   mkey("i", function() awful.screen.focus_relative(1) end),
   mkey("e", function() awful.screen.focus_relative(-1) end),
-
-  mkey("o", awful.client.movetoscreen),
 
   key({mod, "Shift"}, "r", awesome.restart)
 )
