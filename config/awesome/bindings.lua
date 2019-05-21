@@ -1,5 +1,6 @@
 -- [[ Variables ]] -------------------------------------------------------------
 local awful = require("awful")
+local helpers = require("helpers")
 
 local terminal = "kitty"
 local mod = "Mod4"
@@ -21,23 +22,6 @@ local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
 end
 
-local create_tag_if_needed = function()
-  local current_tag = awful.screen.focused().selected_tag
-  local alltags = awful.screen.focused().tags
-  local lasttag = alltags[#alltags]
-
-  if current_tag == lasttag and #current_tag:clients() > 1 then
-    local config = {
-      layout = awful.layout.suit.fair,
-      master_width_factor = 0.75,
-      screen = awful.screen.focused(),
-      volatile = true
-    }
-
-    return awful.tag.add("", config)
-  end
-end
-
 -- [[ Client ]] ----------------------------------------------------------------
 
 clientkeys = awful.util.table.join(
@@ -50,7 +34,7 @@ clientkeys = awful.util.table.join(
   end),
 
   key({ mod, "Control" }, "r", function(c)
-    create_tag_if_needed()
+    helpers.create_tag_if_needed()
 
     awful.tag.viewnext()
     c:move_to_tag(c.screen.selected_tag)
