@@ -1,6 +1,7 @@
 local awful = require("awful")
 require("awful.rules")
 local beautiful = require("beautiful")
+local helpers = require("helpers")
 
 awful.rules.rules = {
   -- [[ Common rules ]] --------------------------------------------------------
@@ -15,7 +16,8 @@ awful.rules.rules = {
       placement = awful.placement.no_overlap +
         awful.placement.no_offscreen +
         awful.placement.centered,
-      screen = awful.screen.focused,
+      screen = awful.screen.preferred,
+      callback = helpers.create_tag_and_attach_to
     },
   },
 

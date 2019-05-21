@@ -9,19 +9,6 @@ client.connect_signal("unfocus", function(client)
   client.border_color = beautiful.border_normal
 end)
 
-awful.screen.connect_for_each_screen(function(screen)
-  local root_tag = {
-    name = "",
-    config = {
-      screen = screen,
-      selected = true,
-      layout = awful.layout.suit.fair,
-      master_width_factor = 0.75
-    },
-  }
-  awful.tag.add(root_tag.name, root_tag.config)
-end)
-
 -- [[ Dynamic tag names ]] -----------------------------------------------------
 
 local client_signals = {

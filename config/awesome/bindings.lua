@@ -40,10 +40,15 @@ clientkeys = awful.util.table.join(
     c:move_to_tag(c.screen.selected_tag)
   end),
 
+  -- We have to fix something around here:
+  -- We the current tag is dropped (because volatile), the focus goes to the
+  -- next client on the origin screen if a tag is still available (with a client
+  -- inside)
+  -- -> this is a side effect of awesome trying to fallback to a client (on the
+  -- same screen) when deleting a tag
   mkey("o", function(client)
-    local last_screen = client.screen
     client:move_to_screen()
-    awful.screen.focus(last_screen)
+    helpers.create_tag_and_attach_to(client)
   end),
 
   key({ mod, "Control" }, "o", function(client)

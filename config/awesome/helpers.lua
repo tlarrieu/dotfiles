@@ -23,4 +23,13 @@ _M.create_tag_if_needed = function()
   end
 end
 
+_M.create_tag_and_attach_to = function(client)
+  local screen = client.screen
+  if #screen.tags == 0 then
+    local tag = _M.create_tag(screen)
+    awful.tag.viewtoggle(tag)
+    client:tags({tag})
+  end
+end
+
 return _M
