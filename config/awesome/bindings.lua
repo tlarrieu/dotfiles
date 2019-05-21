@@ -40,15 +40,28 @@ clientkeys = awful.util.table.join(
     c:move_to_tag(c.screen.selected_tag)
   end),
 
-  -- We have to fix something around here:
-  -- We the current tag is dropped (because volatile), the focus goes to the
-  -- next client on the origin screen if a tag is still available (with a client
-  -- inside)
-  -- -> this is a side effect of awesome trying to fallback to a client (on the
-  -- same screen) when deleting a tag
   mkey("o", function(client)
     client:move_to_screen()
     helpers.create_tag_and_attach_to(client)
+
+    -- This is a **dirty** trick to counteract Awesome's fallback mechanism when
+    -- closing a volatile tag (the focus goes to the next client of the next tag
+    -- of the source screen, instead of following the client on the next screen)
+    -- Since the screen is focused (but not the client) after the
+    -- client:move_to_screen, we can wait a few milliseconds (otherwise the
+    -- trick does not work) and trigger an awful.tag.viewprev(), followed by a
+    -- awful.tag.viewnext() (so it is as we never changed tag by calling it)
+    -- which will give the focus to the client we just moved to the other
+    -- screen.
+    require("gears").timer {
+      timeout   = 0.2,
+      single_shot = true,
+      autostart = true,
+      callback  = function()
+        awful.tag.viewprev()
+        awful.tag.viewnext()
+      end
+    }
   end),
 
   key({ mod, "Control" }, "o", function(client)
