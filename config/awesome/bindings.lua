@@ -63,11 +63,7 @@ clientkeys = awful.util.table.join(
   end),
 
   key({ mod, "Control" }, "o", function(client)
-    local tags = client.screen.tags
-    local id = awful.tag.getidx()
-    local tag = tags[id]
-
-    for _, c in ipairs(tag:clients()) do
+    for _, c in ipairs(client.first_tag:clients()) do
       if client ~= c then c:kill() end
     end
   end)
