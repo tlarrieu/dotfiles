@@ -13,23 +13,12 @@ _M.create_tag = function(screen)
   return awful.tag.add("", config)
 end
 
-_M.create_tag_if_needed = function()
-  local current_tag = awful.screen.focused().selected_tag
-  local alltags = awful.screen.focused().tags
-  local lasttag = alltags[#alltags]
-
-  if current_tag == lasttag and #current_tag:clients() > 1 then
-    _M.create_tag()
-  end
-end
-
 _M.create_tag_and_attach_to = function(client)
   local screen = client.screen
-  if #screen.tags == 0 then
-    local tag = _M.create_tag(screen)
-    awful.tag.viewtoggle(tag)
-    client:tags({tag})
-  end
+
+  local tag = _M.create_tag(screen)
+  client:tags({ tag })
+  tag:view_only()
 end
 
 return _M

@@ -34,11 +34,11 @@ clientkeys = awful.util.table.join(
   end),
 
   key({ mod, "Control" }, "r", function(c)
-    helpers.create_tag_if_needed()
-
     awful.tag.viewnext()
     c:move_to_tag(c.screen.selected_tag)
   end),
+
+  mkey("n", helpers.create_tag_and_attach_to),
 
   mkey("o", function(client)
     client:move_to_screen()
@@ -141,7 +141,7 @@ keyboard = awful.util.table.join(
   mspawn("h", terminal .. " " .. script("gtgf")),
 
   mspawn("'", terminal),
-  mspawn("n", terminal .. " nmtui"),
+  -- mspawn("n", terminal .. " nmtui"),
 
   mspawn("p", script("screenshot.sh"))
 )
