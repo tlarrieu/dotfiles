@@ -1,6 +1,7 @@
 -- [[ Variables ]] -------------------------------------------------------------
 local awful = require("awful")
 local helpers = require("helpers")
+local gears = require("gears")
 
 local terminal = "kitty"
 local mod = "Mod4"
@@ -24,7 +25,7 @@ end
 
 -- [[ Client ]] ----------------------------------------------------------------
 
-clientkeys = awful.util.table.join(
+clientkeys = gears.table.join(
   mkey("Return", function(c) c.fullscreen = not c.fullscreen end),
   mkey("eacute", function(c) c:kill() end),
 
@@ -53,7 +54,7 @@ clientkeys = awful.util.table.join(
     -- awful.tag.viewnext() (so it is as we never changed tag by calling it)
     -- which will give the focus to the client we just moved to the other
     -- screen.
-    require("gears").timer {
+    gears.timer {
       timeout   = 0.2,
       single_shot = true,
       autostart = true,
@@ -71,7 +72,7 @@ clientkeys = awful.util.table.join(
   end)
 )
 
-clientbuttons = awful.util.table.join(
+clientbuttons = gears.table.join(
   awful.button({}, 1, function(c) client.focus = c; c:raise() end)
 )
 
@@ -79,7 +80,7 @@ clientbuttons = awful.util.table.join(
 
 local viewtag = function(id) awful.screen.focused().tags[id]:view_only() end
 
-local keyboard = awful.util.table.join(
+local keyboard = gears.table.join(
   mspawn("l", script('rofi-layouts')),
 
   mkey("c",     awful.tag.viewprev),
@@ -115,7 +116,7 @@ local keyboard = awful.util.table.join(
 
 -- [[ Applications ]] ----------------------------------------------------------
 
-keyboard = awful.util.table.join(
+keyboard = gears.table.join(
   keyboard,
 
   mspawn(" ",                    "fish -c 'rofi -show run -lines 6'"),
