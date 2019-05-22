@@ -2,6 +2,7 @@ local awful = require("awful")
 require("awful.rules")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
+local bindings = require("bindings")
 
 awful.rules.rules = {
   -- [[ Common rules ]] --------------------------------------------------------
@@ -9,14 +10,18 @@ awful.rules.rules = {
     rule = {},
     properties = {
       focus = awful.client.focus.filter,
-      keys = clientkeys,
+      screen = awful.screen.preferred,
+
+      keys = bindings.keyboard.clients,
+      buttons = bindings.mouse.clients,
+
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,
-      buttons = clientbuttons,
+
       placement = awful.placement.no_overlap +
         awful.placement.no_offscreen +
         awful.placement.centered,
-      screen = awful.screen.preferred,
+
       callback = helpers.create_tag_and_attach_to
     },
   },
