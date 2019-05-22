@@ -21,6 +21,7 @@ local client_signals = {
 local tag_signals = { "tagged", "untagged" }
 
 local rules = {
+  { name = "Agenda" , icon = "" },
   { name = "Amazon", icon = "" },
   { name = "Bankin", icon = "" },
   { name = "Banque", icon = "" },
@@ -30,8 +31,10 @@ local rules = {
   { name = "Google Maps", icon = "﫴" },
   { name = "Google Drive" , icon = "" },
   { name = "Google Hangouts" , icon = "" },
+  { name = "Messagerie JobTeaser", icon = "" },
   { name = "NVIM" , icon = "" },
   { name = "Slack" , icon = "" },
+  { name = "Twitter", icon = "" },
   { name = "WhatsApp" , icon = "" },
   { name = "ncpamixer" , icon = "奔" },
 
