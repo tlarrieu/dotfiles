@@ -32,26 +32,35 @@ local tag_signals = { "tagged", "untagged" }
 
 local rules = {
   { name = "Agenda" , icon = "" },
-  { name = "Amazon", icon = "" },
-  { name = "Bankin", icon = "" },
-  { name = "Banque", icon = "" },
-  { name = "Dynalist", icon = "" },
-  { name = "Gmail", icon = "" },
   { name = "Google Agenda" , icon = "" },
   { name = "Google Maps", icon = "﫴" },
   { name = "Google Drive" , icon = "" },
   { name = "Google Hangouts" , icon = "" },
+  { name = "Gmail", icon = "" },
   { name = "Messagerie JobTeaser", icon = "" },
+
+  { name = "Cleemy", icon = "" },
+  { name = "Figgo", icon = "" },
+  { name = "Lucca", icon = "" },
+  { name = "Pagga", icon = "" },
+
+  { name = "Amazon", icon = "" },
+  { name = "Bankin", icon = "" },
+  { name = "Banque", icon = "" },
+  { name = "Dynalist", icon = "" },
   { name = "NVIM" , icon = "" },
   { name = "Slack" , icon = "" },
   { name = "Spendesk", icon = "" },
+  { name = "Tasks", icon = "" },
   { name = "Twitter", icon = "" },
   { name = "WhatsApp" , icon = "" },
+  { name = "mpv", icon = "" },
   { name = "ncpamixer" , icon = "奔" },
 
   { class = "Chromium", icon = "" },
   { class = "Luakit", icon = "" },
   { class = "kitty", icon = "" },
+  { class = "Steam", icon = "" },
 }
 
 local handle = function(tag, client)
