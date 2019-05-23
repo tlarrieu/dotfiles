@@ -9,6 +9,16 @@ client.connect_signal("unfocus", function(client)
   client.border_color = beautiful.border_normal
 end)
 
+client.connect_signal("request::activate", function(client, context)
+  if context == "mouse_click" or context == "ewmh" then return end
+
+  local geo = client:geometry()
+  mouse.coords {
+    x = geo.x + geo.width / 2,
+    y = geo.y + geo.height / 2
+  }
+end)
+
 -- [[ Dynamic tag names ]] -----------------------------------------------------
 
 local client_signals = {

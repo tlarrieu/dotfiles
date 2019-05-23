@@ -152,7 +152,9 @@ _M.keyboard = {
 
 _M.mouse = {
   clients = gears.table.join(
-    awful.button({}, 1, function(c) client.focus = c; c:raise() end)
+    awful.button({}, 1, function(client)
+      client:emit_signal("request::activate", "mouse_click", { raise = true })
+    end)
   )
 }
 

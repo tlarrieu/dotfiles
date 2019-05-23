@@ -1,6 +1,7 @@
 files["config/awesome/**/*.lua"].globals = {
   "awesome",
   "client",
+  "mouse",
   "root",
 }
 
