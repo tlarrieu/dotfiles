@@ -44,6 +44,7 @@ local rules = {
   { name = "Messagerie JobTeaser", icon = "" },
   { name = "NVIM" , icon = "" },
   { name = "Slack" , icon = "" },
+  { name = "Spendesk", icon = "" },
   { name = "Twitter", icon = "" },
   { name = "WhatsApp" , icon = "" },
   { name = "ncpamixer" , icon = "奔" },
