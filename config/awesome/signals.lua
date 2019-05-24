@@ -52,6 +52,7 @@ local rules = {
   { name = "Slack" , icon = "" },
   { name = "Spendesk", icon = "" },
   { name = "Tasks", icon = "" },
+  { name = "Trello", icon = "" },
   { name = "Twitter", icon = "" },
   { name = "WhatsApp" , icon = "" },
   { name = "mpv", icon = "" },
