@@ -48,6 +48,7 @@ local rules = {
   { name = "Bankin", icon = "" },
   { name = "Banque", icon = "" },
   { name = "Dynalist", icon = "" },
+  { name = "GitHub", icon = "" },
   { name = "NVIM" , icon = "" },
   { name = "Slack" , icon = "" },
   { name = "Spendesk", icon = "" },
