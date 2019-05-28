@@ -73,7 +73,12 @@ awful.rules.rules = {
   },
 
   {
-    rule = { class = "Slay the Spire" },
+    rule_any = {
+      class = {
+        "Slay the Spire",
+        "Pathway"
+      }
+    },
     properties = { fullscreen = true },
   },
 }
