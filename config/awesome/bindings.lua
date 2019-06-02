@@ -135,14 +135,13 @@ _M.keyboard = {
     mspawn("b", script("mpc-playlist")),
     mspawn("$", "mpc toggle"),
 
-    mspawn(".", "luakit"),
-    spawn({mod, "Shift"}, ".", "chromium --profile-directory=Default"),
+    mspawn("'", "luakit"),
+    spawn({mod, "Shift"}, "'", "chromium --profile-directory=Default"),
     mspawn("u", terminal .. " vifm"),
     mspawn("g", script("wallpaper")),
     mspawn("h", terminal .. " " .. script("gtgf")),
 
-    mspawn("'", terminal),
-    -- mspawn("n", terminal .. " nmtui"),
+    mspawn(".", terminal),
 
     mspawn("p", script("screenshot.sh"))
   )
