@@ -63,7 +63,8 @@ local rules = {
 
 local handle = function(tag, client)
   if client then
-    for _, rule in ipairs(rules) do
+    for i = 1, #rules do
+      local rule = rules[i]
       local match = true
       local has_rule = false
 
