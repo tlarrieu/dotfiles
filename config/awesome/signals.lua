@@ -33,21 +33,22 @@ local tag_signals = { "tagged", "untagged" }
 
 local rules = {
   { class = "Chromium", instance = "calendar.google.com" , icon = "" },
-  { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "drive.google.com" , icon = "" },
   { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
+  { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
-  { class = "Chromium", instance = "www.spendesk.com", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
+  { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
   { class = "Chromium", instance = "bankin", icon = "" },
   { class = "Chromium", instance = "dynalist.io", icon = "" },
+  { class = "Chromium", instance = "web.whatsapp.com" , icon = "" },
+  { class = "Chromium", instance = "www.exercism.io", icon = "" },
   { class = "Chromium", instance = "www.github.com", icon = "" },
   { class = "Chromium", instance = "www.trello.com", icon = "" },
-  { class = "Chromium", instance = "web.whatsapp.com" , icon = "" },
 
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "mpv", icon = "" },
