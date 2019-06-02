@@ -50,15 +50,25 @@ local rules = {
   { class = "Chromium", instance = "www.github.com", icon = "" },
   { class = "Chromium", instance = "www.trello.com", icon = "" },
 
+  { class = "Chromium", instance = "01b4f52e1ce94237918c8a15e147a7da", icon = "" },
+  { class = "Chromium", instance = "21211c4211c84ee8a9db873220e457b2", icon = "" },
+  { class = "Chromium", instance = "324fe5ac916d4fb49d2fe8387600ed72", icon = "" },
+  { class = "Chromium", instance = "40a05b9746904e04911db5346ee92a5d", icon = "" },
+  { class = "Chromium", instance = "6a6882169a7249adbf321f897035c6e0", icon = "" },
+  { class = "Chromium", instance = "77277bcb054647d9b9603c2d1b92f463", icon = "" },
+  { class = "Chromium", instance = "802f37c764ef42b4bfae2fc2c3db0dc2", icon = "" },
+  { class = "Chromium", instance = "91ae543e7efd461a89eb3b240230b6fd", icon = "" },
+  { class = "Chromium", instance = "d06e31abdb7149528f3122151a13e6c2", icon = "" },
+
   { class = "kitty", name = "NVIM" , icon = "" },
-  { class = "kitty", name = "mpv", icon = "" },
-  { class = "kitty", name = "Tasks", icon = "" },
   { class = "kitty", name = "ncpamixer" , icon = "奔" },
+  { class = "kitty", name = "vifm", icon = "" },
 
   { class = "Chromium", icon = "" },
   { class = "Luakit", icon = "" },
-  { class = "kitty", icon = "" },
   { class = "Steam", icon = "" },
+  { class = "kitty", icon = "" },
+  { class = "mpv", icon = "" },
 }
 
 local handle = function(tag, client)
