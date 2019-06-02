@@ -13,29 +13,8 @@ class `!p snip.rv = camelize(snip.basename)`
 end
 endsnippet
 
-snippet _spec "Spec skeleton"
-require 'spec_helper'
-
-RSpec.describe ${1:`!p snip.rv = camelize(snip.basename[0:-5])`}, type: $2 do
-	$3
-end
-endsnippet
-
-snippet _enum "Enum skeleton" b
-module PgEnum
-	class `!p snip.rv = camelize(snip.basename)`
-    extend PgEnum::Definition
-
-		enum '`!p snip.rv = snip.basename`',
-			%w(
-				$1
-			)
-	end
-end
-endsnippet
-
 snippet _model "Model skeleton" b
-class `!p snip.rv = camelize(snip.basename)` < ActiveRecord::Base
+class `!p snip.rv = camelize(snip.basename)` < ${1:ApplicationRecord}
 	$0
 end
 endsnippet
@@ -43,5 +22,13 @@ endsnippet
 snippet _controller "Controller skeleton" b
 class `!p snip.rv = camelize(snip.basename)` < ${1:ApplicationController}
 	$0
+end
+endsnippet
+
+snippet _spec "Spec skeleton"
+require 'spec_helper'
+
+RSpec.describe ${1:`!p snip.rv = camelize(snip.basename[0:-5])`}, type: $2 do
+	$3
 end
 endsnippet
