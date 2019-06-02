@@ -24,6 +24,7 @@ end)
 local client_signals = {
   "property::name",
   "property::class",
+  "property::instance",
   "unmanage",
   "manage",
   "focus"
@@ -31,33 +32,27 @@ local client_signals = {
 local tag_signals = { "tagged", "untagged" }
 
 local rules = {
-  { name = "Agenda" , icon = "" },
-  { name = "Google Agenda" , icon = "" },
-  { name = "Google Maps", icon = "﫴" },
-  { name = "Google Drive" , icon = "" },
-  { name = "Google Hangouts" , icon = "" },
-  { name = "Gmail", icon = "" },
-  { name = "Messagerie JobTeaser", icon = "" },
+  { class = "Chromium", instance = "calendar.google.com" , icon = "" },
+  { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
+  { class = "Chromium", instance = "drive.google.com" , icon = "" },
+  { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
+  { class = "Chromium", instance = "www.gmail.com", icon = "" },
 
-  { name = "Cleemy", icon = "" },
-  { name = "Figgo", icon = "" },
-  { name = "Lucca", icon = "" },
-  { name = "Pagga", icon = "" },
+  { class = "Chromium", instance = "ilucca.net", icon = "" },
+  { class = "Chromium", instance = "www.spendesk.com", icon = "" },
+  { class = "Chromium", instance = "slack" , icon = "" },
 
-  { name = "Amazon", icon = "" },
-  { name = "Bankin", icon = "" },
-  { name = "Banque", icon = "" },
-  { name = "Dynalist", icon = "" },
-  { name = "GitHub", icon = "" },
-  { name = "NVIM" , icon = "" },
-  { name = "Slack" , icon = "" },
-  { name = "Spendesk", icon = "" },
-  { name = "Tasks", icon = "" },
-  { name = "Trello", icon = "" },
-  { name = "Twitter", icon = "" },
-  { name = "WhatsApp" , icon = "" },
-  { name = "mpv", icon = "" },
-  { name = "ncpamixer" , icon = "奔" },
+  { class = "Chromium", instance = "amazon", icon = "" },
+  { class = "Chromium", instance = "bankin", icon = "" },
+  { class = "Chromium", instance = "dynalist.io", icon = "" },
+  { class = "Chromium", instance = "www.github.com", icon = "" },
+  { class = "Chromium", instance = "www.trello.com", icon = "" },
+  { class = "Chromium", instance = "web.whatsapp.com" , icon = "" },
+
+  { class = "kitty", name = "NVIM" , icon = "" },
+  { class = "kitty", name = "mpv", icon = "" },
+  { class = "kitty", name = "Tasks", icon = "" },
+  { class = "kitty", name = "ncpamixer" , icon = "奔" },
 
   { class = "Chromium", icon = "" },
   { class = "Luakit", icon = "" },
@@ -68,17 +63,17 @@ local rules = {
 local handle = function(tag, client)
   if client then
     for _, rule in ipairs(rules) do
-      local match = false
+      local match = true
+      local has_rule = false
 
-      if rule.name and rule.class then
-        match = client.name:find(rule.name) and client.class == rule.class
-      elseif rule.name then
-        match = client.name:find(rule.name)
-      elseif rule.class then
-        match = client.class == rule.class
+      for _, key in ipairs({ "name", "instance", "class" }) do
+        if rule[key] then
+          has_rule = true
+          match = match and client[key]:find(rule[key])
+        end
       end
 
-      if match then
+      if has_rule and match then
         tag.name = rule.icon
         return
       end
