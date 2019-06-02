@@ -72,7 +72,7 @@ local rules = {
   { class = "mpv", icon = "" },
 }
 
-local handle = function(tag, client)
+local updateIcon = function(tag, client)
   if client then
     for i = 1, #rules do
       local rule = rules[i]
@@ -96,19 +96,28 @@ local handle = function(tag, client)
   tag.name = ""
 end
 
+local handle = function(object)
+  local tag, client
+
+  if type(object) == 'client' then
+    tag = object.first_tag
+    client = object
+  elseif type(object) == 'tag' then
+    tag = object
+    client = object:clients()[1]
+  else
+    return
+  end
+
+  updateIcon(tag, client)
+end
+
 for _, signal in ipairs(client_signals) do
-  client.connect_signal(
-    signal,
-    function(client) handle(client.first_tag, client) end
-  )
+  client.connect_signal(signal, handle)
 end
 
 awful.screen.connect_for_each_screen(function(screen)
   for _, signal in ipairs(tag_signals) do
-    awful.tag.attached_connect_signal(
-      screen,
-      signal,
-      function(tag) handle(tag, tag:clients()[1]) end
-    )
+    awful.tag.attached_connect_signal(screen, signal, handle)
   end
 end)
