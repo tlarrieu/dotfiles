@@ -12,7 +12,8 @@ end)
 
 client.connect_signal("request::activate", function(client, context)
   local skip = context == "mouse_click" or
-    context == "ewmh"
+    context == "ewmh" or
+    context == "autofocus.check_focus"
 
   if skip then return end
 
