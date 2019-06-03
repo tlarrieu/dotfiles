@@ -53,6 +53,7 @@ local rules = {
 
   { class = "Chromium", instance = "01b4f52e1ce94237918c8a15e147a7da", icon = "" },
   { class = "Chromium", instance = "21211c4211c84ee8a9db873220e457b2", icon = "" },
+  { class = "Chromium", instance = "2fd3c97e4ef64dcfb391ed2b348ef9f0", icon = "" },
   { class = "Chromium", instance = "324fe5ac916d4fb49d2fe8387600ed72", icon = "" },
   { class = "Chromium", instance = "40a05b9746904e04911db5346ee92a5d", icon = "" },
   { class = "Chromium", instance = "6a6882169a7249adbf321f897035c6e0", icon = "" },
