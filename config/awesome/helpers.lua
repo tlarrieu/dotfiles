@@ -21,4 +21,13 @@ _M.create_tag_and_attach_to = function(client)
   tag:view_only()
 end
 
+_M.center_mouse_in_client = function(client)
+  local geo = client:geometry()
+
+  mouse.coords {
+    x = geo.x + geo.width / 2,
+    y = geo.y + geo.height / 2
+  }
+end
+
 return _M

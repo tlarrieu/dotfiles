@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local helpers = require("helpers")
 
 client.connect_signal("focus", function(client)
   client.border_color = beautiful.border_focus
@@ -10,13 +11,12 @@ client.connect_signal("unfocus", function(client)
 end)
 
 client.connect_signal("request::activate", function(client, context)
-  if context == "mouse_click" or context == "ewmh" then return end
+  local skip = context == "mouse_click" or
+    context == "ewmh"
 
-  local geo = client:geometry()
-  mouse.coords {
-    x = geo.x + geo.width / 2,
-    y = geo.y + geo.height / 2
-  }
+  if skip then return end
+
+  helpers.center_mouse_in_client(client)
 end)
 
 -- [[ Dynamic tag names ]] -----------------------------------------------------
