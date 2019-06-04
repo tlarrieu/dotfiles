@@ -61,6 +61,7 @@ local rules = {
   { class = "Chromium", instance = "802f37c764ef42b4bfae2fc2c3db0dc2", icon = "" },
   { class = "Chromium", instance = "91ae543e7efd461a89eb3b240230b6fd", icon = "" },
   { class = "Chromium", instance = "d06e31abdb7149528f3122151a13e6c2", icon = "" },
+  { class = "Chromium", instance = "ea190b962a914cf49da1438c028e785a", icon = "" },
 
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "ncpamixer" , icon = "奔" },
