@@ -56,3 +56,5 @@ set -x PATH $HOME/.ghcup/bin $PATH
 
 # TERM
 set -gx TERM xterm-256color
+
+eval (ssh-agent -c) > /dev/null
