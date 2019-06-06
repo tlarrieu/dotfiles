@@ -73,7 +73,9 @@ local clock = wibox.widget({
 -- [[ Battery ]] ---------------------------------------------------------------
 local battery
 
-local pipe = io.popen('ls /sys/class/power_supply | grep BAT | head -n 1')
+local pipe = io.popen(
+  'ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'
+)
 local batteryname = pipe:read('*a')
 pipe:close()
 
