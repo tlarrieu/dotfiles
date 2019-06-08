@@ -1,3 +1,10 @@
 #!/bin/sh
 
-chromium --app="https://www.smartrecruiters.com/app/people/"
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_WORK:-"Default"}
+
+chromium \
+  --app="https://www.smartrecruiters.com/app/people/" \
+  --profile-directory="$profile"
