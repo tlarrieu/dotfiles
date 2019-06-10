@@ -1,3 +1,8 @@
 #!/bin/sh
 
-chromium --app="https://www.deliveroo.fr"
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_PERSONAL:-"Default"}
+
+chromium --app="https://www.deliveroo.fr" --profile-directory="$profile"
