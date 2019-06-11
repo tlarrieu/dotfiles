@@ -127,7 +127,7 @@ function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 abbr dc "sudo docker-compose"
 abbr dcu "sudo docker-compose up -d"
 abbr dcd "sudo docker-compose down"
-abbr d "docker"
+abbr d "sudo docker"
 
 # Kubernetes
 abbr k "kubectl"
