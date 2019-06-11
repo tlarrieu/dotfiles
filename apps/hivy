@@ -1,3 +1,8 @@
 #!/bin/sh
 
-chromium --app="https://jobteaser.hivyapp.com/"
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_WORK:-"Default"}
+
+chromium --app="https://jobteaser.hivyapp.com/" --profile-directory="$profile"
