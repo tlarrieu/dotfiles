@@ -11,4 +11,4 @@ require("rules")
 
 root.keys(require("bindings").keyboard.root)
 
-require("awful").spawn(os.getenv("HOME") .. "/startup.sh")
+require("awful").spawn.with_shell(os.getenv("HOME") .. "/startup.sh")
