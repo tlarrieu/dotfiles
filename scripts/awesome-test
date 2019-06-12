@@ -9,7 +9,10 @@ posY=$(xwininfo -id $(xdotool getactivewindow) \
   | awk '{print $NF}')
 
 # Find resolution of current screen
-configs=$(xrandr | grep -w connected | awk -F'[ +]' '{print $3":"$4":"$5}')
+configs=$(xrandr \
+  | grep -w connected \
+  | sed 's/primary //' \
+  | awk -F'[ +]' '{print $3":"$4":"$5}')
 for config in $configs; do
   screenX=$(echo $config | awk -F':' '{print $2}')
   screenY=$(echo $config | awk -F':' '{print $3}')
