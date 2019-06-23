@@ -11,4 +11,12 @@ require("rules")
 
 root.keys(require("bindings").keyboard.root)
 
-require("awful").spawn.with_shell(os.getenv("HOME") .. "/startup.sh")
+local path = "/tmp/awesome_started"
+local f = io.open(path, "r")
+
+if not f then
+  require("awful").spawn.with_shell(os.getenv("HOME") .. "/startup.sh")
+  io.open(path, "w"):close()
+else
+  f:close()
+end
