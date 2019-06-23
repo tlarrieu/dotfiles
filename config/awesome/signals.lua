@@ -75,7 +75,7 @@ local rules = {
   { class = "mpv", icon = "" },
 }
 
-local updateIcon = function(tag, client)
+local update_icon = function(tag, client)
   if client then
     for i = 1, #rules do
       local rule = rules[i]
@@ -112,7 +112,7 @@ local handle = function(object)
     return
   end
 
-  updateIcon(tag, client)
+  update_icon(tag, client)
 end
 
 for _, signal in ipairs(client_signals) do
