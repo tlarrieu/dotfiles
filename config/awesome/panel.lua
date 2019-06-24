@@ -169,12 +169,11 @@ end
 local init_screen = function(screen)
   local dpi = function(n) return apply_dpi(n, screen) end
 
-  local taglist = awful.widget.taglist(
-    screen,
-    awful.widget.taglist.filter.all,
-    {},
-    { spacing = dpi(6), font = font }
-  )
+  local taglist = awful.widget.taglist({
+    screen = screen,
+    filter = awful.widget.taglist.filter.all,
+    style = { spacing = dpi(6), font = font },
+  })
 
   local left = wibox.widget({
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
