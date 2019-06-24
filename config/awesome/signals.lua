@@ -38,6 +38,9 @@ local rules = {
   { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
+  { class = "Chromium", name = "YouTube", icon = "" },
+  { class = "Luakit", name = "YouTube", icon = "" },
+
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
