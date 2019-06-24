@@ -171,7 +171,7 @@ local init_screen = function(screen)
 
   local taglist = awful.widget.taglist({
     screen = screen,
-    filter = awful.widget.taglist.filter.all,
+    filter = function(tag) return #tag.screen.tags > 1 end,
     style = { spacing = dpi(6), font = font },
   })
 
