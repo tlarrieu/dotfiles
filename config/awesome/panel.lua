@@ -177,19 +177,19 @@ local init_screen = function(screen)
   )
 
   local left = wibox.widget({
-    wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
+    wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
+    wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
+    wibox.container.margin(battery, dpi(0), dpi(2), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
   })
 
   local middle = wibox.widget({
-    clock,
+    wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal,
   })
 
   local right = wibox.widget({
-    wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
-    wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(battery, dpi(0), dpi(2), dpi(2), dpi(2)),
+    clock,
     layout = wibox.layout.fixed.horizontal
   })
   right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
@@ -201,6 +201,7 @@ local init_screen = function(screen)
     layout = wibox.layout.align.horizontal,
     expand = "none"
   })
+
   awful.wibar({
     position = "top",
     height = dpi(32),
