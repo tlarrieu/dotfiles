@@ -1,0 +1,19 @@
+#!/bin/sh
+
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+case "$1" in
+  pro)
+    profile=$CHROMIUM_WORK
+    ;;
+  perso)
+    profile=$CHROMIUM_PERSONAL
+    ;;
+  *)
+    profile="Default"
+esac
+
+chromium \
+  --app="https://www.heroku.com" \
+  --profile-directory="$profile"
