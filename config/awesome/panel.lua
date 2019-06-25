@@ -176,9 +176,9 @@ local init_screen = function(screen)
   })
 
   local left = wibox.widget({
+    wibox.container.margin(battery, dpi(10), dpi(2), dpi(2), dpi(2)),
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
     wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(battery, dpi(0), dpi(2), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
   })
 
