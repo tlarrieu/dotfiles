@@ -123,6 +123,10 @@ abbr rpp "bundle exec rake parallel:prepare"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
+# Various languages
+abbr py "python"
+abbr rb "ruby"
+
 # Docker
 abbr dc "sudo docker-compose"
 abbr dcu "sudo docker-compose up -d"
