@@ -1,0 +1,10 @@
+#!/bin/sh
+
+port=$(
+  rofi -dmenu \
+    -p "" \
+    -theme-str '#content { children: [inputbar]; }'
+)
+port=${port:-"3000"}
+
+chromium --app="http://localhost:$port" --profile-directory="Default"
