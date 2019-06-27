@@ -121,7 +121,7 @@ _M.keyboard = {
 
     mspawn(" ",                    "fish -c 'rofi -show run -lines 6'"),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
-    mspawn("Tab",                  "rofi -show window -lines 6"),
+    mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
     spawn({}, "F12",               script("rofi-wifi")),
     mspawn("F2",                   script("rofi-keyboard")),
