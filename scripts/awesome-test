@@ -22,7 +22,7 @@ for config in $configs; do
   fi
 done
 
-Xephyr -ac -br -noreset -screen $scaledres :1.0 2> /dev/null &
+Xephyr -ac -br -noreset -resizeable -screen $scaledres :1.0 2> /dev/null &
 ZEPHYR_PID=$!
 sleep 0.5
 DISPLAY=:1.0 xrdb -merge ~/.Xresources
