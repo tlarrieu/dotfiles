@@ -22,7 +22,14 @@ awful.rules.rules = {
         awful.placement.no_offscreen +
         awful.placement.centered,
 
-      callback = helpers.create_tag_and_attach_to
+    },
+  },
+
+  {
+    rule = {},
+    except_any = { floating = true },
+    properties = {
+      callback = helpers.create_tag_and_attach_to,
     },
   },
 
