@@ -1,0 +1,9 @@
+#!/bin/sh
+
+apps/inbox &
+apps/triage &
+
+sleep 1
+
+wmctrl -a Inbox
+wmctrl -R Tasks
