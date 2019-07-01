@@ -15,8 +15,12 @@ end
 
 _M.create_tag_and_attach_to = function(client)
   local screen = client.screen
+  local tag
 
-  local tag = _M.create_tag(screen)
+  if client.floating then tag = screen.selected_tag end
+
+  tag = tag or _M.create_tag(screen)
+
   client:tags({ tag })
   tag:view_only()
 end
