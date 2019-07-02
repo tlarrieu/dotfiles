@@ -180,6 +180,7 @@ case $answer in
     safeinstall xsel
     safeinstall unclutter
     safeinstall redshift
+    safeinstall wmctrl
 
     safeinstall lxappearance
     safeinstall aur/gtk-theme-numix-solarized
