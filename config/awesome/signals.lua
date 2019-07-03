@@ -41,7 +41,6 @@ local rules = {
   { class = "Chromium", name = "YouTube", icon = "" },
   { class = "Luakit", name = "YouTube", icon = "" },
 
-
   { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
@@ -72,6 +71,8 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "ncpamixer" , icon = "奔" },
   { class = "kitty", name = "vifm", icon = "" },
+
+  { class = "Chromium", name = "Candidates", icon = "" },
 
   { class = "Chromium", icon = "" },
   { class = "Luakit", icon = "" },
