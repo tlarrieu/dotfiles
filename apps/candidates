@@ -1,0 +1,4 @@
+#!/bin/sh
+
+view="2c796f8c33ea4ee2bafcfe60ea1b0bac"
+notion "jobteaser/4fd0bab193b044b3bb14e3b49ab195ed?v=$view"
