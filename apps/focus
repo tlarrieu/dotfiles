@@ -6,7 +6,9 @@ envfile="$HOME/.context.env"
 context=${CONTEXT:-"home"}
 
 if [ "$context" == "home" ]; then
-  notion "tlarrieu/40a05b9746904e04911db5346ee92a5d"
+  view="7aafff1636c448c181a98f5c834487a9"
 else
-  notion "tlarrieu/2fd3c97e4ef64dcfb391ed2b348ef9f0"
+  view="028e8f58a4d443a1a75141ec9ab7d489"
 fi
+
+notion "tlarrieu/098cc238c6324106959eecc4324be158?v=$view"

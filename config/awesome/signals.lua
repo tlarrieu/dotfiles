@@ -60,7 +60,7 @@ local rules = {
   { class = "Chromium", instance = "21211c4211c84ee8a9db873220e457b2", icon = "" },
   { class = "Chromium", instance = "2fd3c97e4ef64dcfb391ed2b348ef9f0", icon = "" },
   { class = "Chromium", instance = "324fe5ac916d4fb49d2fe8387600ed72", icon = "" },
-  { class = "Chromium", instance = "40a05b9746904e04911db5346ee92a5d", icon = "" },
+  { class = "Chromium", instance = "098cc238c6324106959eecc4324be158", icon = "" },
   { class = "Chromium", instance = "6a6882169a7249adbf321f897035c6e0", icon = "" },
   { class = "Chromium", instance = "77277bcb054647d9b9603c2d1b92f463", icon = "" },
   { class = "Chromium", instance = "802f37c764ef42b4bfae2fc2c3db0dc2", icon = "" },
