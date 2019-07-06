@@ -142,3 +142,6 @@ abbr s "stack"
 
 # fonts
 abbr font "fc-list | grep -i"
+
+# exercism
+abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}')"
