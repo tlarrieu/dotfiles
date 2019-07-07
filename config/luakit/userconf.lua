@@ -20,6 +20,7 @@ set.window.search_engines = {
   m = "https://scryfall.com/search?q=%s",
   r = "https://reddit.com/r/%s",
   rg = "https://rubygems.org/search?query=%s",
+  t = "https://www.1337x.to/search/%s/1/",
   v = "https://vimawesome.com/?q=%s",
   w = "https://alpha.wallhaven.cc/search?q=%s&categories=111&purity=100&sorting=relevance&order=desc&page=1&atleast=1920x1080",
   wi = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
