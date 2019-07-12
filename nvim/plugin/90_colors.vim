@@ -15,6 +15,7 @@ function! s:overlength()
     \ 'filetype': [
     \   'qf',
     \   'man',
+    \   'help',
     \   'netrw',
     \   'csv',
     \   'log',
