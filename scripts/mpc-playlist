@@ -10,17 +10,18 @@ _rofi() {
 }
 
 mpc_playlist() {
-  local preselected=$(\
-    mpc status -f "pos: %position%" |\
-    grep pos |\
-    awk ' $0 ~ /^pos:/ { print $2 - 1 } '\
+  local preselected=$( \
+    mpc status -f "pos: %position%" | \
+      grep pos | \
+      awk ' $0 ~ /^pos:/ { print $2 - 1 } '
   )
 
   local format="[[[%artist%] - [%title%]]|[%file%]"
   local selection=$(
-    mpc playlist -f "%position%) $format" | \
-    _rofi $preselected | \
-    sed -n 's/^\([0-9]\+\)).*/\1/p'
+    mpc playlist -f "$format" | \
+      awk -F'/' '{print NR ") " $NF}' | \
+      _rofi $preselected | \
+      sed -n 's/^\([0-9]\+\)).*/\1/p'
   ) || return 1
 
   [ -n "$selection" ] && mpc -q play $selection
