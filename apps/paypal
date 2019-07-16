@@ -1,0 +1,10 @@
+#!/bin/sh
+
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+profile=${CHROMIUM_PERSONAL:-"Default"}
+
+chromium \
+  --app="https://www.paypal.com" \
+  --profile-directory="$profile"

@@ -49,6 +49,7 @@ local rules = {
   { class = "Chromium", instance = "bankin", icon = "" },
   { class = "Chromium", instance = "dynalist.io", icon = "" },
   { class = "Chromium", instance = "heroku", icon = "" },
+  { class = "Chromium", instance = "paypal", icon = "" },
   { class = "Chromium", instance = "trainline", icon = "" },
   { class = "Chromium", instance = "web.whatsapp.com" , icon = "" },
   { class = "Chromium", instance = "www.deliveroo.fr", icon = "﫱" },
