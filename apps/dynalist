@@ -1,3 +1,7 @@
 #!/bin/sh
 
-chromium --app="https://dynalist.io/d/F7h3olwf25z5R272xPtiFCvv"
+if [[ "$1" -eq "" ]]; then
+  chromium --app="https://dynalist.io/"
+else
+  chromium --app="https://dynalist.io/d/$1"
+fi

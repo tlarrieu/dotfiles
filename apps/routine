@@ -6,11 +6,14 @@ envfile="$HOME/.context.env"
 context=${CONTEXT:-"home"}
 
 if [ "$context" == "home" ]; then
-  notion "tlarrieu/6a6882169a7249adbf321f897035c6e0"
+  # notion "tlarrieu/6a6882169a7249adbf321f897035c6e0"
+  dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=E1Dj2K81QBbkXdI8fTADFJhw"
 else
   if [ $(date +%H) -le 12 ]; then
-    notion "tlarrieu/91ae543e7efd461a89eb3b240230b6fd"
+    # notion "tlarrieu/91ae543e7efd461a89eb3b240230b6fd"
+    dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=D_i5Zuv27YUJZaFn07erCyDq"
   else
-    notion "tlarrieu/d06e31abdb7149528f3122151a13e6c2"
+    # notion "tlarrieu/d06e31abdb7149528f3122151a13e6c2"
+    dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=MHio82HOONH1FH1Ytm84Uoms"
   fi
 fi

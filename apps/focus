@@ -1,14 +1,15 @@
 #!/bin/sh
 
-envfile="$HOME/.context.env"
-[ -f "$envfile" ] && source "$envfile"
+# envfile="$HOME/.context.env"
+# [ -f "$envfile" ] && source "$envfile"
 
-context=${CONTEXT:-"home"}
+# context=${CONTEXT:-"home"}
 
-if [ "$context" == "home" ]; then
-  view="7aafff1636c448c181a98f5c834487a9"
-else
-  view="028e8f58a4d443a1a75141ec9ab7d489"
-fi
+# if [ "$context" == "home" ]; then
+#   view="7aafff1636c448c181a98f5c834487a9"
+# else
+#   view="028e8f58a4d443a1a75141ec9ab7d489"
+# fi
 
-notion "tlarrieu/098cc238c6324106959eecc4324be158?v=$view"
+# notion "tlarrieu/098cc238c6324106959eecc4324be158?v=$view"
+dynalist "YVPmxJmRi7tNFeDgbfk6WJ23#z=k3CGqnmVHuBfSUDli3G6wILE"

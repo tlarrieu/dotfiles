@@ -1,10 +1,12 @@
 #!/bin/sh
 
-envfile="$HOME/.chromium.env"
-[ -f "$envfile" ] && source "$envfile"
+# envfile="$HOME/.chromium.env"
+# [ -f "$envfile" ] && source "$envfile"
 
-profile=${CHROMIUM_PERSONAL:-"Default"}
+# profile=${CHROMIUM_PERSONAL:-"Default"}
 
-chromium \
-  --app='https://dynalist.io/d/F7h3olwf25z5R272xPtiFCvv' \
-  --profile-directory="$profile"
+# chromium \
+#   --app='https://dynalist.io/d/F7h3olwf25z5R272xPtiFCvv' \
+#   --profile-directory="$profile"
+
+dynalist "YVPmxJmRi7tNFeDgbfk6WJ23#z=_eUmKp1aTG9I52rhX6DIoeVI"
