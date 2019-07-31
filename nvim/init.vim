@@ -192,7 +192,7 @@ set lazyredraw
 " Update time
 set updatetime=250
 " Change netrw list style
-let g:netrw_liststyle=1
+let g:netrw_liststyle=3
 " inccommand
 set inccommand=nosplit
 set signcolumn=yes
@@ -651,7 +651,7 @@ nmap <leader>eu :UltiSnipsEdit
 nmap <leader>ev :call MaybeTabedit('~/.config/nvim/init.vim')<cr>
 nmap <leader>ew :call MaybeTabedit('~/watchlist.md')<cr>
 
-nmap <leader>. :Lexplore .<cr>
+nmap <leader>. :Texplore .<cr>
 
 nmap <leader># :e #<cr>
 
