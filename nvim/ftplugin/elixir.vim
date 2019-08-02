@@ -18,7 +18,6 @@ augroup Test
   autocmd BufEnter *_test.exs
         \ nnoremap <buffer> <return>
         \ :TestNearest<cr>
-  autocmd BufWrite *.exs,*.ex silent! undojoin | Neoformat! elixir
 augroup END
 let b:neomake_elixir_lint_maker = {}
 
@@ -28,3 +27,6 @@ let b:fzf_tags_config = {
   \ }
 nnoremap <silent> <c-c> :FZFtags module<cr>
 nnoremap <silent> <c-l> :FZFtags function<cr>
+
+vnoremap <leader>f :Neoformat "mix format"<cr>
+nnoremap <leader>f :Neoformat "mix format"<cr>
