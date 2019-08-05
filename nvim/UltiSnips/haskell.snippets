@@ -22,20 +22,24 @@ snippet /^deb/ "import Debug.Trace" r
 import Debug.Trace
 endsnippet
 
-snippet u "undefined"
+snippet /^un?d?e?f?/ "undefined" r
 undefined
 endsnippet
 
-snippet /^t/ "type" r
+snippet type "type"
+type ${1:name} = ${2:expression}
+endsnippet
+
+snippet data "type"
 type ${1:name} = ${2:expression}
 endsnippet
 
 snippet \ "Lambda expression"
-\\ ${1:x} -> ${2:expression}
+\\${1:x} -> ${2:expression}
 endsnippet
 
 snippet /\(\\\)?/ "Lambda expression" r
-(\\ ${1:x} -> ${2:expression})$0
+(\\${1:x} -> ${2:expression})$0
 endsnippet
 
 snippet /^de?f?/ "Function definition" r
@@ -53,9 +57,8 @@ let ${1:name} = ${2:expression}
 	in ${3:${VISUAL}}
 endsnippet
 
-snippet where "where x = expression"
-where
-	${1:name} = ${2:expression}
+snippet wh "where x = expression"
+where $0
 endsnippet
 
 snippet match "regexp"
