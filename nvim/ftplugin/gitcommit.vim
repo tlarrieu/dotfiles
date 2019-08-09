@@ -1,7 +1,10 @@
 augroup GIT
   autocmd!
 
-  autocmd BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0]) | startinsert!
+  autocmd BufEnter COMMIT_EDITMSG
+    \ call setpos('.', [0, 1, 1, 0])
+    \ | exec "normal $"
+    \ | startinsert!
   autocmd BufEnter COMMIT_EDITMSG nnoremap <buffer> <cr> :x<cr>
   autocmd BufEnter COMMIT_EDITMSG nnoremap <buffer> <c-s> :x<cr>
   autocmd BufEnter COMMIT_EDITMSG inoremap <buffer> <c-s> <esc>:x<cr>
