@@ -31,7 +31,7 @@ type ${1:name} = ${2:expression}
 endsnippet
 
 snippet data "type"
-type ${1:name} = ${2:expression}
+data ${1:name} = ${2:expression}
 endsnippet
 
 snippet \ "Lambda expression"
@@ -58,7 +58,8 @@ let ${1:name} = ${2:expression}
 endsnippet
 
 snippet wh "where x = expression"
-where $0
+where
+	$0
 endsnippet
 
 snippet match "regexp"
