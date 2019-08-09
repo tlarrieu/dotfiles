@@ -1,18 +1,15 @@
 abbreviate <buffer> é <bar>>
 
 if filereadable("stack.yaml")
-  nnoremap <buffer>
-    \ <leader><cr>
+  nnoremap <buffer> <leader><cr>
     \ :T stack test<cr>
     \ :Topen<cr>
-  nnoremap <buffer>
-    \ <cr>
+  nnoremap <buffer> <cr>
     \ :T stack build<cr>
     \ :T stack run<cr>
     \ :Topen<cr>
 else
-  nnoremap <buffer>
-    \ <cr>
+  nnoremap <buffer> <cr>
     \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
 endif
 
