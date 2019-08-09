@@ -11,6 +11,8 @@ public/assets
 tags
 build
 _build
+deps
+node_modules
 
 *.png
 *.jpg
