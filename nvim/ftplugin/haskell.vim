@@ -28,12 +28,7 @@ nnoremap <buffer> <leader>e.
   \ }
 vnoremap <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <buffer> <leader>f :Neoformat hindent<cr>
-nnoremap <buffer> <leader>i
-  \ :silent call SelectImports()<cr>
-  \ :<c-u>silent call Snipe('new')<cr>
-  \ :silent autocmd BufWritePre <buffer> :Neoformat hindent<cr>
-  \ :silent autocmd BufWritePost <buffer> :x<cr>
-  \ Go
+nnoremap <buffer> <leader>i :silent call EditImports()<cr>
 
 setlocal formatprg=hindent
 
@@ -43,15 +38,3 @@ setlocal concealcursor+=i
 
 " Disable '\' handling, making % work properly
 setlocal cpoptions+=M
-
-function! SelectImports()
-  let pos = getcurpos()
-
-  keepjumps normal! gg
-  call search('import', 's')
-  normal! V
-  call search('import', 'b')
-  normal! V
-
-  keepjumps call setpos('.', pos)
-endfunction
