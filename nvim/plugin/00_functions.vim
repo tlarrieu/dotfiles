@@ -1,3 +1,4 @@
+" {{{ ==| File name |===========================================================
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
@@ -7,8 +8,9 @@ function! RenameFile()
     redraw!
   endif
 endfunction
+" }}} ==========================================================================
 
-" {{{ == | Tags | ==============================================================
+" {{{ ==| Tags |================================================================
 function! DelTagOfFile(file)
   let fullpath = a:file
   let cwd = getcwd()
@@ -31,7 +33,7 @@ function! UpdateTags()
 endfunction
 " }}} ==========================================================================
 
-" {{{ == | Folding | ===========================================================
+" {{{ ==| Folding |=============================================================
 function! FoldText()
   let line = getline(v:foldstart)
 
@@ -49,7 +51,7 @@ function! FoldText()
 endfunction
 " }}} ==========================================================================
 
-" {{{ == | Search | ============================================================
+" {{{ ==| Search |==============================================================
 " Those 2 functions should be refactored into a single one
 function! UsageOperator(type)
   let saved_register = @@
@@ -108,7 +110,7 @@ function! AutoHighlightToggle()
 endfunction
 " }}} ==========================================================================
 
-" {{{ == | Buffer Handling | ===================================================
+" {{{ ==| Buffer Handling |=====================================================
 function! ClearBuffers()
   silent! bufdo bdelete
   silent! tabdo tabclose
@@ -146,27 +148,7 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 " }}} ==========================================================================
 
-" {{{ == |  Text Manipulation | ================================================
-" This function extracts a pattern from the whole buffer and replaces it
-" with a line for each match on a single line
-function! Extract()
-  let @z=""
-  %s//\=setreg('Z', submatch(0), 'l')/g
-  %d _
-  pu z
-  0d _
-endfunction
-command! Extract silent call Extract()
-
-function! DeleteBloc(start, end)
-  let tmp=@z
-  let @z=''
-  exec ':g/'.a:start.'\_.\{-}'.a:end.'.*\n$/normal! v/'.a:end.'$"Zd'
-  let @"=@z
-  let @z=tmp
-endfunction
-command! -nargs=+ DelBloc call call(function('DeleteBloc'), split(<q-args>, '\s\(\S\+\s*$\)\@='))
-
+" {{{ ==| Text Manipulation |===================================================
 " Enforce UTF8
 function! UTF8()
   execute ':set fileencoding=utf8'
@@ -174,18 +156,6 @@ function! UTF8()
   execute ':w'
 endfunction
 command! UTF8 :call UTF8()
-
-" Convert Rails interpolated variable to Mailchimp format
-function! ToMailchimp()
-  :%s/<%= \?\(.\{-}\) \?%>/*|\1|*/g
-endfunction
-command! Mailchimp :silent call ToMailchimp()
-
-" Convert Rails interpolated variable to Handlebar format
-function! ToMustach()
-  :%s/<%= \?\(.\{-}\) \?%>/\{\{\1}}/g
-endfunction
-command! Mustach :silent call ToMustach()
 
 function! ClearRegisters()
   let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
@@ -204,15 +174,4 @@ function! Redir(command)
   r /tmp/vim_redir
 endfunction
 command! -nargs=1 R call Redir(<q-args>)
-
-" Simple re-format for minified Javascript
-command! UnMinify call UnMinify()
-function! UnMinify()
-    %s/{\ze[^\r\n]/{\r/g
-    %s/){/) {/g
-    %s/};\?\ze[^\r\n]/\0\r/g
-    %s/;\ze[^\r\n]/;\r/g
-    %s/[^\s]\zs[=&|]\+\ze[^\s]/ \0 /g
-    normal ggVG=
-endfunction
 " }}} ==========================================================================
