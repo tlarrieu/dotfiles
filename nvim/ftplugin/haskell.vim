@@ -3,6 +3,7 @@ iabbrev <buffer> è <<bar>
 iabbrev <buffer> ?? undefined
 iabbrev <buffer> wh where
 
+iabbrev <buffer> imp import
 iabbrev <buffer> ca import Control.Applicative
 iabbrev <buffer> cm import Control.Monad
 iabbrev <buffer> deb import Debug.Trace
@@ -22,14 +23,12 @@ endif
 
 vnoremap <leader>f :Neoformat hindent<cr>
 nnoremap <leader>f :Neoformat hindent<cr>
-inoremap <silent> <buffer> <c-s> <cmd>call HaskellSave()<cr>
-noremap <silent> <buffer> <c-s> <cmd>call HaskellSave()<cr>
 nnoremap <leader>i
-  \ :split<cr>
-  \ :setf haskell.import<cr>
-  \ gg:silent call search('import')<cr>
-  \ :nohlsearch<cr><c-l>
-  \ }O
+  \ :silent call SelectImports()<cr>
+  \ :<c-u>silent call Snipe('new')<cr>
+  \ :silent autocmd BufWritePre <buffer> :Neoformat hindent<cr>
+  \ :silent autocmd BufWritePost <buffer> :x<cr>
+  \ Go
 
 setlocal formatprg=hindent
 
