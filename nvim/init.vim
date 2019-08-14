@@ -110,6 +110,7 @@ augroup vimrc_autocmd
   autocmd FileType * setlocal formatoptions-=o formatoptions-=r
   " Don't screw up folds when inserting text that might affect them, until
   " leaving insert mode. Foldmethod is local to the window.
+  autocmd Bufenter * let w:last_fdm=&foldmethod
   autocmd InsertEnter * let w:last_fdm=&foldmethod | setlocal foldmethod=manual
   autocmd InsertLeave * let &l:foldmethod=w:last_fdm
 augroup END
