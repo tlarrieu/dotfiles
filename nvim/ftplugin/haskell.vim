@@ -21,9 +21,9 @@ else
     \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
 endif
 
-vnoremap <leader>f :Neoformat hindent<cr>
-nnoremap <leader>f :Neoformat hindent<cr>
-nnoremap <leader>i
+vnoremap <buffer> <leader>f :Neoformat hindent<cr>
+nnoremap <buffer> <leader>f :Neoformat hindent<cr>
+nnoremap <buffer> <leader>i
   \ :silent call SelectImports()<cr>
   \ :<c-u>silent call Snipe('new')<cr>
   \ :silent autocmd BufWritePre <buffer> :Neoformat hindent<cr>
