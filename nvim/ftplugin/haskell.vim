@@ -21,6 +21,11 @@ else
     \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
 endif
 
+nnoremap <buffer> <leader>e.
+  \ :call MaybeTabedit('package.yaml')<cr>
+  \ gg
+  \ :call search('dependencies')<cr>
+  \ }
 vnoremap <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <buffer> <leader>i
