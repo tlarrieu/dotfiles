@@ -478,13 +478,8 @@ nmap <leader>u :call MergeTabs()<cr>
 tnoremap <c-s> <c-\><c-n>
 
 nmap <silent> <leader>ti :tabnew<bar>terminal<cr>
-nmap <silent> <leader>tr :tabnew<bar>terminal rails c<cr>
 nmap <silent> <leader>vi :vertical new<bar>terminal<cr>
-nmap <silent> <leader>vr :vertical new<bar>terminal rails c<cr>
 nmap <silent> <leader>ni :new<bar>terminal<cr>
-nmap <silent> <leader>nr :new<bar>terminal rails c<cr>
-nmap <leader>tu :tabnew<bar>terminal<space>
-nmap <leader>vu :vsplit<bar>terminal<space>
 " }}}
 " {{{ --| Movement |----------------------------------------
 " Marks
@@ -637,18 +632,10 @@ nmap <leader>es :call OpenSchemaFile()<cr>
 
 nmap <leader>ea :call MaybeTabedit('~/httpclient.rest')<cr>
 nmap <leader>ee :call MaybeTabedit('~/.scratch.md')<cr>
-nmap <leader>ef :call MaybeTabedit('~/.config/fish/config.fish')<cr>
-nmap <leader>eg :call MaybeTabedit('~/.gitconfig')<cr>
-nmap <leader>eh :call MaybeTabedit('~/.hgrc')<cr>
-nmap <leader>em :call MaybeTabedit('~/.tmux.conf')<cr>
-nmap <leader>eo :call MaybeTabedit('~/poi.md')<cr>
 nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
 nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
-nmap <leader>er :call MaybeTabedit('~/release.tasks')<cr>
-nmap <leader>et :call MaybeTabedit('~/todo.tasks')<cr>
-nmap <leader>eu :UltiSnipsEdit
+nmap <leader>eu :UltiSnipsEdit<space>
 nmap <leader>ev :call MaybeTabedit('~/.config/nvim/init.vim')<cr>
-nmap <leader>ew :call MaybeTabedit('~/watchlist.md')<cr>
 
 nmap <leader>. :Texplore .<cr>
 
