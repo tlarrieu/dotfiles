@@ -22,6 +22,14 @@ endif
 
 vnoremap <leader>f :Neoformat hindent<cr>
 nnoremap <leader>f :Neoformat hindent<cr>
+inoremap <silent> <buffer> <c-s> <cmd>call HaskellSave()<cr>
+noremap <silent> <buffer> <c-s> <cmd>call HaskellSave()<cr>
+nnoremap <leader>i
+  \ :split<cr>
+  \ :setf haskell.import<cr>
+  \ gg:silent call search('import')<cr>
+  \ :nohlsearch<cr><c-l>
+  \ }O
 
 setlocal formatprg=hindent
 
