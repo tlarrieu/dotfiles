@@ -3,6 +3,10 @@ iabbrev <buffer> è <<bar>
 iabbrev <buffer> ?? undefined
 iabbrev <buffer> wh where
 
+iabbrev <buffer> ca import Control.Applicative
+iabbrev <buffer> cm import Control.Monad
+iabbrev <buffer> deb import Debug.Trace
+
 if filereadable("stack.yaml")
   nnoremap <buffer> <leader><cr>
     \ :T stack test<cr>
