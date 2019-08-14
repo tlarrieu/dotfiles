@@ -1,4 +1,7 @@
-abbreviate <buffer> é <bar>>
+iabbrev <buffer> é <bar>>
+iabbrev <buffer> è <<bar>
+iabbrev <buffer> ?? undefined
+iabbrev <buffer> wh where
 
 if filereadable("stack.yaml")
   nnoremap <buffer> <leader><cr>
