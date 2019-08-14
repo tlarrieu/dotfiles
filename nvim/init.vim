@@ -273,10 +273,6 @@ let g:deoplete#enable_smart_case = 1
 let g:deoplete#tag#cache_limit_size = 600000
 let g:deoplete#auto_complete_start_length = 1
 call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
-inoremap <silent> <cr> <C-r>=<SID>deoplete_cr()<cr>
-function! s:deoplete_cr() abort
-  return deoplete#close_popup() . "\<cr>"
-endfunction
 " }}}
 " {{{ --| Rails |-------------------------------------------
 vmap <leader>x :Rextract<space>
