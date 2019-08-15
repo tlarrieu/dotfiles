@@ -1,4 +1,4 @@
-function! EditImports()
+function! EditImports(mode)
   let pos = getcurpos()
 
   keepjumps normal! gg
@@ -19,11 +19,29 @@ function! EditImports()
 
   autocmd BufWritePre <buffer> Neoformat hindent
   autocmd BufWritePost <buffer> :x
+
   iabbrev <buffer> i import
+  iabbrev <buffer> q qualified
+  iabbrev <buffer> iq import qualified
 
-  if l:found > 0
-    normal! Go
-  endif
+  iabbrev <buffer> ca Control.Applicative
+  iabbrev <buffer> cm Control.Monad
 
-  startinsert!
+  iabbrev <buffer> da Data.Array
+  iabbrev <buffer> dc Data.Char
+  iabbrev <buffer> deb Debug.Trace
+  iabbrev <buffer> dl Data.List
+  iabbrev <buffer> dm Data.Map
+  iabbrev <buffer> dv Data.Vector
+  iabbrev <buffer> mb Data.Maybe
+  iabbrev <buffer> tp Text.Printf
+
+  if a:mode == 'insert'
+    if l:found > 0
+      normal! Go
+    endif
+
+    execute "normal! iimport\<space>"
+    startinsert!
+  end
 endfunction

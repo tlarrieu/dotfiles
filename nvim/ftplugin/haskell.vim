@@ -3,11 +3,6 @@ iabbrev <buffer> è <<bar>
 iabbrev <buffer> ?? undefined
 iabbrev <buffer> wh where
 
-iabbrev <buffer> imp import
-iabbrev <buffer> ca import Control.Applicative
-iabbrev <buffer> cm import Control.Monad
-iabbrev <buffer> deb import Debug.Trace
-
 if filereadable("stack.yaml")
   nnoremap <buffer> <leader><cr>
     \ :T stack test<cr>
@@ -28,7 +23,8 @@ nnoremap <buffer> <leader>e.
   \ }
 vnoremap <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <buffer> <leader>f :Neoformat hindent<cr>
-nnoremap <buffer> <leader>i :silent call EditImports()<cr>
+nnoremap <buffer> <leader>i :silent call EditImports('insert')<cr>
+nnoremap <buffer> <leader>ei :silent call EditImports('normal')<cr>
 
 setlocal formatprg=hindent
 
