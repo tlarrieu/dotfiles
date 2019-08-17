@@ -1,8 +1,10 @@
-function! GHCi()
+function! GHCi(func)
   let filename = expand('%')
-  tabnew
+  exec a:func
   call termopen("stack exec ghci " . filename)
-  TabooRename GHCi
+  if a:func == 'tabnew'
+    TabooRename GHCi
+  end
   startinsert!
 endfunction
 

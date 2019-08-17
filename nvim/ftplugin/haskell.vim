@@ -25,7 +25,9 @@ vnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <silent> <buffer> <leader>i :silent call EditImports('insert')<cr>
 nnoremap <silent> <buffer> <leader>ei :silent call EditImports('normal')<cr>
-nnoremap <silent> <buffer> <leader>tu :call GHCi()<cr>
+nnoremap <silent> <buffer> <leader>tu :call GHCi('tabnew')<cr>
+nnoremap <silent> <buffer> <leader>vu :call GHCi('vnew')<cr>
+nnoremap <silent> <buffer> <leader>nu :call GHCi('new')<cr>
 
 setlocal formatprg=hindent
 
