@@ -7,6 +7,9 @@ abbr . "open"
 # systemctl
 abbr ctl "systemctl"
 
+# bluetoothctl
+abbr bctl "bluetoothctl"
+
 # nmcli
 abbr nmcli "nmcli --color yes"
 
