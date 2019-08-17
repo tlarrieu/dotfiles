@@ -59,9 +59,6 @@ Plug 'neomake/neomake'
 " {{{ --| Formatting |---------------------
 Plug 'sbdchd/neoformat'
 " }}}
-" {{{ --| Task manager |-------------------
-Plug 'samsonw/vim-task', { 'for' : ['task', 'tasks'] }
-" }}}
 " {{{ --| List toggler |-------------------
 Plug 'milkypostman/vim-togglelist'
 " }}}
