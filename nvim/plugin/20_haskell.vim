@@ -1,3 +1,11 @@
+function! GHCi()
+  let filename = expand('%')
+  tabnew
+  call termopen("stack exec ghci " . filename)
+  TabooRename GHCi
+  startinsert!
+endfunction
+
 function! EditImports(mode)
   let pos = getcurpos()
 

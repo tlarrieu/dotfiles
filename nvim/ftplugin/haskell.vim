@@ -21,10 +21,11 @@ nnoremap <buffer> <leader>e.
   \ gg
   \ :call search('dependencies')<cr>
   \ }
-vnoremap <buffer> <leader>f :Neoformat hindent<cr>
-nnoremap <buffer> <leader>f :Neoformat hindent<cr>
-nnoremap <buffer> <leader>i :silent call EditImports('insert')<cr>
-nnoremap <buffer> <leader>ei :silent call EditImports('normal')<cr>
+vnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
+nnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
+nnoremap <silent> <buffer> <leader>i :silent call EditImports('insert')<cr>
+nnoremap <silent> <buffer> <leader>ei :silent call EditImports('normal')<cr>
+nnoremap <silent> <buffer> <leader>tu :call GHCi()<cr>
 
 setlocal formatprg=hindent
 
