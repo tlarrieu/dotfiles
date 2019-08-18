@@ -1,4 +1,4 @@
-function! GHCi(func)
+function! haskell#ghci(func)
   let filename = expand('%')
   exec a:func
   call termopen("stack exec ghci " . filename)
@@ -8,7 +8,7 @@ function! GHCi(func)
   startinsert!
 endfunction
 
-function! EditImports(mode)
+function! haskell#editImports(mode)
   let pos = getcurpos()
 
   keepjumps normal! gg
