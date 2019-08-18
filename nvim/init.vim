@@ -235,6 +235,22 @@ set smartcase
 " {{{ ==| Spellchecking |=======================================================
 set spelllang=en,fr
 " }}}
+" {{{ ==| Statusline |==========================================================
+set statusline=
+set statusline+=%*
+set statusline+=%f\                             " path
+set statusline+=%(\%{statusline#Readonly()}\ %)
+set statusline+=%(%{statusline#Modified()}\ %)
+set statusline+=%(%{statusline#Paste()}\ %)
+set statusline+=%*%=\ %*                        " align right
+set statusline+=%#warningmsg#
+set statusline+=%(%{statusline#Whitespace()}\ %)
+set statusline+=%*
+set statusline+=%(%y\ %)                        " file type
+set statusline+=(%l,%c)\                        " line and column
+set statusline+=%P\                             " percentage of file
+set statusline+=%*
+" }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| Markdwon |----------------------------------------
 let g:markdown_enable_mappings = 0

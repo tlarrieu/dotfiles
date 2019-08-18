@@ -1,4 +1,4 @@
-function! StatuslineModified()
+function! statusline#Modified()
   if &buftype ==# 'help' || &buftype ==# 'quickfix'
     return ''
   endif
@@ -14,15 +14,15 @@ function! StatuslineModified()
   return ''
 endfunction
 
-function! StatuslineReadonly()
+function! statusline#Readonly()
   return &filetype !~? 'help' && &readonly ? '' : ''
 endfunction
 
-function! StatuslinePaste()
+function! statusline#Paste()
   return &paste ? '' : ''
 endfunction
 
-function! StatuslineWhitespace()
+function! statusline#Whitespace()
   if &readonly || !&modifiable || line('$') > 10000
     return ''
   endif
@@ -47,18 +47,3 @@ function! StatuslineWhitespace()
 
   return b:whitespaces
 endfunction
-
-set statusline=
-set statusline+=%*
-set statusline+=%f\                             " path
-set statusline+=%(\%{StatuslineReadonly()}\ %)
-set statusline+=%(%{StatuslineModified()}\ %)
-set statusline+=%(%{StatuslinePaste()}\ %)
-set statusline+=%*%=\ %*                        " align right
-set statusline+=%#warningmsg#
-set statusline+=%(%{StatuslineWhitespace()}\ %)
-set statusline+=%*
-set statusline+=%(%y\ %)                        " file type
-set statusline+=(%l,%c)\                        " line and column
-set statusline+=%P\                             " percentage of file
-set statusline+=%*
