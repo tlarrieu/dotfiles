@@ -143,6 +143,10 @@ for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   sudo ln -sfFT $target $link
 done
 
+# GHCi
+
+safelink $BASEDIR/ghci $HOME/.ghci
+
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
 fi
