@@ -42,6 +42,7 @@ function! haskell#editImports(mode)
   iabbrev <buffer> deb Debug.Trace
   iabbrev <buffer> dl Data.List
   iabbrev <buffer> dm Data.Map
+  iabbrev <buffer> ds Data.Set
   iabbrev <buffer> dv Data.Vector
   iabbrev <buffer> mb Data.Maybe
   iabbrev <buffer> tp Text.Printf
