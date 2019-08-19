@@ -127,6 +127,7 @@ _M.keyboard = {
     mspawn("F2",                   script("rofi-keyboard")),
     mspawn("k",                    script("rofi-emojis")),
     mspawn("f",                    script("rofi-nerdfont")),
+    mspawn("à",                    script("rofi-bluetooth")),
 
     mspawn("q", script("rofi-power")),
     mspawn("a", terminal .. " --class ncpamixer ncpamixer"),

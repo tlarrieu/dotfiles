@@ -1,0 +1,26 @@
+#!/bin/sh
+
+function notify {
+  output=$($1)
+
+  case $? in
+    0) notify-send Success "Success: $2";;
+    *) notify-send Error "Error: $output"
+  esac
+}
+
+selection=$(bluetoothctl devices | rofi -i -dmenu -p "" | awk '{ print $2 }')
+
+if [[ -z "$selection" ]]; then exit 0; fi
+
+notify-send Info "Connecting to $selection ..."
+
+bluetoothctl power on
+bluetoothctl disconnect
+
+output=$(bluetoothctl connect $selection)
+
+case $? in
+  0) notify-send Success "Connection to $selection successful";;
+  *) notify-send Error "Error: $output"
+esac
