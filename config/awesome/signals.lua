@@ -70,7 +70,6 @@ local rules = {
   { class = "Chromium", instance = "ea190b962a914cf49da1438c028e785a", icon = "" },
 
   { class = "kitty", name = "NVIM" , icon = "" },
-  { class = "kitty", name = "ncpamixer" , icon = "奔" },
   { class = "kitty", name = "vifm", icon = "" },
 
   { class = "Chromium", name = "Candidates", icon = "" },
@@ -82,6 +81,7 @@ local rules = {
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
+  { class = "ncpamixer", icon = "奔" },
 }
 
 local update_icon = function(tag, client)
