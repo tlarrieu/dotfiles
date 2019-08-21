@@ -23,10 +23,17 @@ nnoremap <buffer> <leader>e.
   \ }
 vnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
 nnoremap <silent> <buffer> <leader>f :Neoformat hindent<cr>
+
 nnoremap <silent> <buffer> <leader>i
   \ :silent call haskell#editImports('insert')<cr>
 nnoremap <silent> <buffer> <leader>ei
   \ :silent call haskell#editImports('normal')<cr>
+
+nnoremap <silent> <buffer> <leader>è
+  \ :silent call haskell#editPragmas('insert')<cr>
+nnoremap <silent> <buffer> <leader>eè
+  \ :silent call haskell#editPragmas('normal')<cr>
+
 nnoremap <silent> <buffer> <leader>tu
   \ :call haskell#ghci('tabnew')<cr>
 nnoremap <silent> <buffer> <leader>vu
