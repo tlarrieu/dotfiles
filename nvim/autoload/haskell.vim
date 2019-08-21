@@ -20,7 +20,9 @@ function! haskell#editImports(mode)
     call search('import', 'b')
     normal! V
   else
-    keepjumps execute "normal! gg}O\<cr>\<esc>VV"
+    keepjumps execute "normal! gg"
+    call search('module')
+    keepjumps execute "normal! }O\<cr>\<esc>VV"
   endif
 
   keepjumps call setpos('.', l:pos)
