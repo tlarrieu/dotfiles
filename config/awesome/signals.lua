@@ -79,6 +79,7 @@ local rules = {
   { class = "Luakit", icon = "" },
   { class = "Steam", icon = "" },
   { class = "Wine", icon = "" },
+  { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
 }
