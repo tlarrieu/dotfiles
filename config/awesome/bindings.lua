@@ -24,6 +24,10 @@ local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
 end
 
+local fish = function(command)
+  return "fish -c '" .. command .. "'"
+end
+
 local view_tag = function(id) awful.screen.focused().tags[id]:view_only() end
 
 local focus_client = function(direction)
@@ -119,7 +123,7 @@ _M.keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    mspawn(" ",                    "fish -c 'rofi -show run -lines 6'"),
+    mspawn(" ",                    fish("rofi -show run -lines 6")),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
@@ -143,6 +147,10 @@ _M.keyboard = {
     mspawn("h", terminal .. " " .. script("gtgf")),
 
     mspawn(".", terminal),
+    mspawn(
+      "è",
+      fish(terminal .. " -d " .. os.getenv("HOME") .. "/git/dotfiles nvim")
+    ),
 
     mspawn("p", script("screenshot.sh"))
   )
