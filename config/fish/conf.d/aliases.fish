@@ -148,8 +148,8 @@ abbr s "stack"
 abbr font "fc-list | grep -i"
 
 # exercism
-abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}')"
-abbr hp "stack test;
+abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
+  stack test;
   git init;
   echo '.stack-work' > .gitignore;
   hindent src/*;
