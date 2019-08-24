@@ -44,9 +44,12 @@ function! haskell#editImports(mode)
   iabbrev <buffer> i import
   iabbrev <buffer> q qualified
   iabbrev <buffer> iq import qualified
+  iabbrev <buffer> h hiding
 
   iabbrev <buffer> ca Control.Applicative
   iabbrev <buffer> cm Control.Monad
+
+  iabbrev <buffer> pr Prelude
 
   iabbrev <buffer> da Data.Array
   iabbrev <buffer> dc Data.Char
