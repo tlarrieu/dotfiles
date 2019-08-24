@@ -188,8 +188,8 @@ function! s:fzf_tags_cmd(kind)
     return [l:cfg['prompt'], '']
   endif
 
-  let l:identifiers = join(l:cfg['identifiers'])
-  let l:grepcmd = ' | grep -P "\t[' . l:identifiers . ']($|\t)"'
+  let l:identifiers = join(l:cfg['identifiers'], '|')
+  let l:grepcmd = ' | grep -P "\t(' . l:identifiers . ')($|\t)"'
 
   return [l:cfg['prompt'], l:grepcmd]
 endfunction

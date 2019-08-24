@@ -18,7 +18,7 @@ function! DelTagOfFile(file)
   let f = substitute(fullpath, cwd . "/", "", "")
   let f = escape(f, './')
   let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
-  let resp = system(cmd)
+  call system(cmd)
 endfunction
 
 function! UpdateTags()
@@ -28,7 +28,11 @@ function! UpdateTags()
 
   if filereadable(tagfilename)
     call DelTagOfFile(f)
-    let resp = system('ctags -a -f ' . tagfilename . ' "' . f . '"')
+    if (&ft == 'haskell')
+      call system('hasktags --ctags -x -a -f ' . tagfilename . ' "' . f . '"')
+    else
+      call system('ctags -a -f ' . tagfilename . ' "' . f . '"')
+    end
   endif
 endfunction
 " }}} ==========================================================================

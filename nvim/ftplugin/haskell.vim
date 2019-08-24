@@ -49,3 +49,13 @@ setlocal concealcursor+=i
 
 " Disable '\' handling, making % work properly
 setlocal cpoptions+=M
+
+let b:fzf_tags_config = {
+  \   'func': { 'identifiers': ['c_a', 'ft'], 'prompt': 'func' },
+  \   'type': {
+  \       'identifiers': ['c', 'cons', 'd', 'nt', 't'],
+  \       'prompt': 'type'
+  \     }
+  \ }
+nnoremap <silent> <c-c> :FZFtags type<cr>
+nnoremap <silent> <c-l> :FZFtags func<cr>
