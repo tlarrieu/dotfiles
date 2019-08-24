@@ -10,22 +10,6 @@ module ${1:`!p snip.rv = snip.basename`} (
 ${0:${VISUAL}}
 endsnippet
 
-snippet /^im?p?/ "Import" r
-import ${1:Module}
-endsnippet
-
-snippet /^qu?a?l?/ "Qualified import, name by last module" r
-import qualified ${1:Module} as ${2:alias}
-endsnippet
-
-snippet /^deb/ "import Debug.Trace" r
-import Debug.Trace
-endsnippet
-
-snippet /un?d?e?f?/ "undefined" r
-undefined
-endsnippet
-
 snippet type "type"
 type ${1:name} = ${2:expression}
 endsnippet
@@ -57,11 +41,6 @@ let ${1:name} = ${2:expression}
 	in ${3:${VISUAL}}
 endsnippet
 
-snippet wh "where x = expression"
-where
-	$0
-endsnippet
-
 snippet match "regexp"
 [(_:matchResult)] = ${1:string} =~ "${2:pattern}" :: [[String]]
 endsnippet
@@ -69,4 +48,8 @@ endsnippet
 snippet /withF?i?l?e?/ "withFile" r
 withFile "${1:filename}" ${2:ReadMode} $ \handle -> do
   list <- lines <$> hGetContents handle
+endsnippet
+
+snippet trace "traceShowId"
+traceShowId $0
 endsnippet
