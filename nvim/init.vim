@@ -490,9 +490,9 @@ nmap <leader>u :call MergeTabs()<cr>
 " {{{ --| Terminal |----------------------------------------
 tnoremap <c-s> <c-\><c-n>
 
-nmap <silent> <leader>ti :tabnew<bar>terminal<cr>
-nmap <silent> <leader>vi :vertical new<bar>terminal<cr>
-nmap <silent> <leader>ni :new<bar>terminal<cr>
+nmap <silent> <leader>ti :tabnew<bar>terminal<cr>:startinsert!<cr>
+nmap <silent> <leader>vi :vertical new<bar>terminal<cr>:startinsert<cr>
+nmap <silent> <leader>ni :new<bar>terminal<cr>:startinsert<cr>
 " }}}
 " {{{ --| Movement |----------------------------------------
 " Marks
