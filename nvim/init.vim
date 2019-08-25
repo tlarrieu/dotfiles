@@ -64,7 +64,6 @@ Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Languages suport |---------------
 Plug 'tpope/vim-rails'
-Plug 'gabrielelana/vim-markdown'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'vifm/vifm.vim'
 Plug 'dag/vim-fish'
@@ -254,9 +253,6 @@ set statusline+=%*
 " {{{ ==| Plugins |=============================================================
 " {{{ --| Bullets |-----------------------------------------
 let g:bullets_set_mappings = 0
-" }}}
-" {{{ --| Markdown |----------------------------------------
-let g:markdown_enable_mappings = 0
 " }}}
 " {{{ --| Emmet |-------------------------------------------
 let g:user_emmet_install_global = 0
