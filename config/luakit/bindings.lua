@@ -26,6 +26,7 @@ end
 
 local mpv = script("mpv-load")
 local mpc = script("mpc-load")
+local aria2c = script("aria2c-load")
 
 modes.add_binds("normal", {
   -- Mode switching
@@ -132,6 +133,18 @@ modes.add_binds("normal", {
     end
   },
 
+  {
+    "<Control-.>",
+    "Highlight and open URL in aria2c",
+    function (w)
+      w:set_mode("follow", {
+        prompt = "aria2c",
+        selector = "uri",
+        evaluator = "uri",
+        func = aria2c
+      })
+    end
+  },
   {
     "<Control-e>",
     "Highlight and open URL in mpv",
