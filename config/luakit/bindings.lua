@@ -17,19 +17,15 @@ modes.add_binds("completion", {
   },
 })
 
-local mpv = function(uri)
-  assert(type(uri) == "string")
-  luakit.spawn(
-    "/bin/sh " .. os.getenv('HOME') .. "/scripts/mpv-load '" .. uri .. "'"
-  )
+local script = function(name)
+  return function(uri)
+    local command = "/bin/sh %s/scripts/%s '%s'"
+    luakit.spawn(string.format(command, os.getenv('HOME'), name, uri))
+  end
 end
 
-local mpc = function(uri)
-  assert(type(uri) == "string")
-  luakit.spawn(
-    "/bin/sh " .. os.getenv('HOME') .. "/scripts/mpc-load '" .. uri .. "'"
-  )
-end
+local mpv = script("mpv-load")
+local mpc = script("mpc-load")
 
 modes.add_binds("normal", {
   -- Mode switching
@@ -144,14 +140,14 @@ modes.add_binds("normal", {
         prompt = "mpv",
         selector = "uri",
         evaluator = "uri",
-        func = function(uri) mpv(uri, w) end
+        func = mpv
       })
     end
   },
   {
     "<Control-E>",
     "Open current URL in mpv",
-    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20"), w) end
+    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20")) end
   },
   {
     "<Control-,>",
@@ -161,7 +157,7 @@ modes.add_binds("normal", {
         prompt = "mpc",
         selector = "uri",
         evaluator = "uri",
-        func = function(uri) mpc(uri, w) end
+        func = mpc
       })
     end
   },
