@@ -3,6 +3,7 @@ setlocal formatoptions+=t
 setlocal foldlevel=1
 setlocal foldlevelstart=10
 setlocal spell
+setlocal conceallevel=2
 
 let b:deoplete_sources = ['tag', 'buffer', 'file']
 
