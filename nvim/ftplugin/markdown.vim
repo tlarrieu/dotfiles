@@ -14,3 +14,7 @@ augroup END
 nnoremap <silent> <buffer> <cr> :T mdprev w '%'<cr>
 
 call bullet#config()
+
+let b:switch_custom_definitions =
+  \ [ ['', '']
+  \ ]
