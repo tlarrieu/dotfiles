@@ -113,8 +113,12 @@ abbr gpl "git pull"
 abbr gpr "git pull --rebase"
 abbr gps "git push"
 abbr gr "git rebase"
+abbr gri "git rebase -i"
 abbr grc "git rebase --continue"
 abbr gs "git status -s -b"
+abbr gst "git stash"
+abbr gstk "git stash --keep-index"
+abbr gstp "git stash pop"
 
 # Rails / Rake / Bundler
 abbr r "rails"
