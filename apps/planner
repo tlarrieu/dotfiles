@@ -1,16 +1,3 @@
 #!/bin/sh
 
-# envfile="$HOME/.context.env"
-# [ -f "$envfile" ] && source "$envfile"
-
-# context=${CONTEXT:-"home"}
-
-# if [ "$context" == "home" ]; then
-#   view="f8e1f68da8aa4f978b11f921613ed7da"
-# else
-#   view="6dcd13f34a0e4c68a11dcc20e0c95d2e"
-# fi
-
-# notion "tlarrieu/21211c4211c84ee8a9db873220e457b2?v=$view"
-
 dynalist "YVPmxJmRi7tNFeDgbfk6WJ23#z=GvgDbUBNZAByiwzUiCUaEDC0"
