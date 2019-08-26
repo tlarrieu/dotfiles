@@ -135,6 +135,9 @@ safelink $BASEDIR/linopenrc $HOME/.linopenrc
 # less
 safelink $BASEDIR/lesskey $HOME/.lesskey
 
+# GHCi
+safelink $BASEDIR/ghci $HOME/.ghci
+
 # X11
 for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   target=$BASEDIR/xorg.conf.d/`basename $file`
@@ -142,10 +145,6 @@ for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   # TODO: use safelink instead of a "raw" ln call
   sudo ln -sfFT $target $link
 done
-
-# GHCi
-
-safelink $BASEDIR/ghci $HOME/.ghci
 
 if [ ! $SKIP ]; then
   echo "$(tput setaf 2)Done.$(tput sgr0)"
