@@ -235,12 +235,16 @@ case $answer in
     safeinstall fish
     safeinstall kitty
 
+    safeinstall bluez
+    safeinstall bluez-utils
+    safeinstall pulseaudio-bluetooth
+
     # desktop font
     safeinstall nerd-fonts-inconsolata
     # coding font
     safeinstall otf-fira-code
     # presentation font
-    safeinstall ephifonts
+    # safeinstall ephifonts
     # tty font
     safeinstall terminus-font
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
