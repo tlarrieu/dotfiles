@@ -1,0 +1,41 @@
+# vim: ft=taskrc
+
+# [Created by task 2.5.1 8/26/2019 10:55:36]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+include /usr/share/doc/task/rc/solarized-light-256.theme
+
+data.location=~/.task
+
+default.project=inbox
+
+row.padding=10
+column.padding=4
+
+urgency.annotations.coefficient=0
+urgency.project.coefficient=0
+urgency.tags.coefficient=0
+
+urgency.uda.project.inbox.coefficient=0
+urgency.uda.project.focus.coefficient=15
+urgency.uda.project.next-month.coefficient=-10
+urgency.uda.project.next-week.coefficient=-1
+urgency.uda.project.next-year.coefficient=-50
+urgency.uda.project.someday/maybe.coefficient=-100
+
+urgency.uda.tag.@home.coefficient=-1
+urgency.uda.tag.@work.coefficient=5
+
+# uda.gtd.type=string
+# uda.gtd.label=GTD Folder
+# uda.gtd.values=inbox,focus,next-week,next-month,next-year,someday/maybe
+# uda.gtd.default=inbox

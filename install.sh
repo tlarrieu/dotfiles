@@ -138,6 +138,9 @@ safelink $BASEDIR/lesskey $HOME/.lesskey
 # GHCi
 safelink $BASEDIR/ghci $HOME/.ghci
 
+# Taskwarrior
+safelink $BASEDIR/taskrc $HOME/.taskrc
+
 # X11
 for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   target=$BASEDIR/xorg.conf.d/`basename $file`

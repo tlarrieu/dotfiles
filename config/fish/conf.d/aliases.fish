@@ -159,3 +159,6 @@ abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
   hindent src/*;
   git add .;
   git commit -m 'First commit'"
+
+# Taskwarrior
+abbr t "task"
