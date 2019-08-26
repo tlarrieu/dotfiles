@@ -11,6 +11,12 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'mileszs/ack.vim'
 Plug 'duggiefresh/vim-easydir'
 " }}}
+" {{{ --| Project manipulation |-----------
+Plug 'tpope/vim-projectionist'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+" }}}
 " {{{ --| Functionnalities |---------------
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'beloglazov/vim-online-thesaurus'
@@ -20,15 +26,14 @@ Plug 'diepm/vim-rest-console'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
-Plug 'dkarter/bullets.vim'
 Plug 'tlarrieu/vim-sniper'
+Plug 'neomake/neomake'
+Plug 'sbdchd/neoformat'
+Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
 Plug 'mattn/emmet-vim'
-" }}}
-" {{{ --| Project config |-----------------
-Plug 'tpope/vim-projectionist'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
@@ -38,6 +43,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'godlygeek/tabular', { 'on' : 'Tabular' }
 Plug 'FooSoft/vim-argwrap'
+Plug 'dkarter/bullets.vim'
 " }}}
 " {{{ --| Text objects |-------------------
 Plug 'kana/vim-textobj-function'
@@ -48,19 +54,6 @@ Plug 'nelstrom/vim-textobj-rubyblock',
 Plug 'tommcdo/vim-exchange'
 Plug 'wellle/targets.vim'
 Plug 'machakann/vim-highlightedyank'
-" {{{ --| Git |----------------------------
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
-" }}}
-" {{{ --| Syntax checking |----------------
-Plug 'neomake/neomake'
-" }}}
-" {{{ --| Formatting |---------------------
-Plug 'sbdchd/neoformat'
-" }}}
-" {{{ --| List toggler |-------------------
-Plug 'milkypostman/vim-togglelist'
 " }}}
 " {{{ --| Languages suport |---------------
 Plug 'tpope/vim-rails'
