@@ -149,7 +149,13 @@ _M.keyboard = {
     mspawn(".", terminal),
     mspawn(
       "è",
-      fish(terminal .. " -d " .. os.getenv("HOME") .. "/git/dotfiles nvim")
+      fish(
+        string.format(
+          "%s -d %s/git/dotfiles nvim nvim/init.vim",
+          terminal,
+          os.getenv("HOME")
+        )
+      )
     ),
 
     mspawn("p", script("screenshot.sh"))
