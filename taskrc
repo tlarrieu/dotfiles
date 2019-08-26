@@ -13,6 +13,7 @@
 # Use the command 'task show' to see all defaults and overrides
 
 include /usr/share/doc/task/rc/solarized-light-256.theme
+include ~/.task/taskd
 
 data.location=~/.task
 
