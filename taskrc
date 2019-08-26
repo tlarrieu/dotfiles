@@ -1,42 +1,75 @@
 # vim: ft=taskrc
 
-# [Created by task 2.5.1 8/26/2019 10:55:36]
-# Taskwarrior program configuration file.
-# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
-# 'man task-sync' or 'man taskrc'
-
-# Here is an example of entries that use the default, override and blank values
-#   variable=foo   -- By specifying a value, this overrides the default
-#   variable=      -- By specifying no value, this means no default
-#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
-
-# Use the command 'task show' to see all defaults and overrides
-
-include /usr/share/doc/task/rc/solarized-light-256.theme
-include ~/.task/taskd
-
+# -- General config ------------------------------------------------------------
 data.location=~/.task
 
-default.project=inbox
+include ~/.task/taskd
+
+context.home=-@work
+
+# -- Look & feel ---------------------------------------------------------------
+include /usr/share/doc/task/rc/solarized-light-256.theme
 
 row.padding=10
 column.padding=4
 
+color.tagged=
+color.active=green
+color.tag.inbox=color14 bold
+color.uda.working=yellow
+color.uda.working.none=red
+color.tag.someday=cyan
+
+# -- Urgency -------------------------------------------------------------------
 urgency.annotations.coefficient=0
 urgency.project.coefficient=0
 urgency.tags.coefficient=0
 
-urgency.uda.project.inbox.coefficient=0
-urgency.uda.project.focus.coefficient=15
-urgency.uda.project.next-month.coefficient=-10
-urgency.uda.project.next-week.coefficient=-1
-urgency.uda.project.next-year.coefficient=-50
-urgency.uda.project.someday/maybe.coefficient=-100
+urgency.uda.tag.inbox.coefficient=0
+urgency.uda.tag.someday.coefficient=-100
 
 urgency.uda.tag.@home.coefficient=-1
 urgency.uda.tag.@work.coefficient=5
 
-# uda.gtd.type=string
-# uda.gtd.label=GTD Folder
-# uda.gtd.values=inbox,focus,next-week,next-month,next-year,someday/maybe
-# uda.gtd.default=inbox
+# -- User Defined Attributes ---------------------------------------------------
+uda.working.type=date
+uda.working.label=Working
+
+# -- Reports -------------------------------------------------------------------
+report.all.columns=id,status.short,uuid.short,start.active,entry.age,end.age,depends.indicator,priority,project.parent,tags,recur.indicator,wait.remaining,scheduled.remaining,due,working,until.remaining,description
+report.all.labels=ID,St,UUID,A,Age,Done,D,P,Project,Tags,R,Wait,Sch,Due,Working,Until,Description
+report.all.filter=status.not:deleted status.not:completed
+report.all.sort=status-,working
+
+report.in.columns=id,tags,description,project,working,due.relative,urgency
+report.in.labels=ID,Tags,Description,Project,Working,Due,Urg.
+report.in.description=Inbox
+report.in.filter=status:pending +inbox
+
+report.next.columns=id,tags,description,project,working,due.relative,urgency
+report.next.labels=ID,Tags,Description,Project,Working,Due,Urg.
+report.next.description=Today's tasks
+report.next.filter=(status:pending or status:active) working.before:tomorrow
+report.next.sort=start,working,description
+
+report.week.columns=id,tags,description,project,working,due.relative,urgency
+report.week.labels=ID,Tags,Description,Project,Working,Due,Urg.
+report.week.filter=(status:pending or status:active) working.before:eow
+report.week.description=This week's tasks
+report.week.sort=start,working,description
+
+report.planner.columns=id,tags,description,project,working,due.relative,urgency
+report.planner.labels=ID,Tags,Description,Project,Working,Due,Urg.
+report.planner.description=Planner
+report.planner.filter=status:pending (working: or working.after:eow) -inbox
+report.planner.sort=urgency-,working,description
+
+report.someday.columns=id,tags,description,project,working,due.relative,urgency
+report.someday.labels=ID,Tags,Description,Project,Working,Due,Urg.
+report.someday.description=Someday/Maybe
+report.someday.filter=status:waiting
+
+report.finished.columns=id,tags,description,project
+report.finished.labels=ID,Tags,Description,Project
+report.finished.description=Done
+report.finished.filter=status:completed
