@@ -6,6 +6,7 @@ data.location=~/.task
 include ~/.task/taskd
 
 context.home=-@work
+context.work=-@home
 
 # -- Look & feel ---------------------------------------------------------------
 include /usr/share/doc/task/rc/solarized-light-256.theme
