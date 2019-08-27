@@ -2,6 +2,7 @@
 
 # -- General config ------------------------------------------------------------
 data.location=~/.task
+search.case.sensitive=no
 
 include ~/.task/taskd
 
@@ -12,7 +13,7 @@ context.work=-@home
 include /usr/share/doc/task/rc/solarized-light-256.theme
 
 row.padding=10
-column.padding=4
+column.padding=3
 
 color.tagged=
 color.active=green
