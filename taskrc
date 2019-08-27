@@ -26,6 +26,10 @@ urgency.project.coefficient=0
 urgency.scheduled.coefficient=0
 urgency.tags.coefficient=0
 
+urgency.uda.priority.L.coefficient=-1
+urgency.uda.priority.M.coefficient=5
+urgency.uda.priority.S.coefficient=15
+
 urgency.uda.tag.inbox.coefficient=0
 urgency.uda.tag.someday.coefficient=-100
 
@@ -36,30 +40,30 @@ urgency.uda.tag.@work.coefficient=5
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
 report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
 report.all.filter=status.not:deleted status.not:completed
-report.all.sort=status-,tags,scheduled
+report.all.sort=status-,tags,scheduled,urgency-
 
 report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.in.description=Inbox
 report.in.filter=status:pending +inbox
 
-report.next.columns=id,tags,description,project,scheduled,due.relative,urgency
-report.next.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
+report.next.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
+report.next.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
 report.next.description=Today's tasks
 report.next.filter=status:pending scheduled.before:tomorrow
-report.next.sort=start,scheduled,description
+report.next.sort=start,urgency-,description
 
-report.week.columns=id,tags,description,project,scheduled,due.relative,urgency
-report.week.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
+report.week.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
+report.week.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
 report.week.filter=status:pending scheduled.before:eow
 report.week.description=This week's tasks
-report.week.sort=start,scheduled,description
+report.week.sort=start,scheduled,urgency-,description
 
-report.planner.columns=id,tags,description,project,scheduled,due.relative,urgency
-report.planner.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
+report.planner.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
+report.planner.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
 report.planner.filter=status:pending (scheduled: or scheduled.after:eow) -inbox
-report.planner.sort=urgency-,scheduled,description
+report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.someday.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
