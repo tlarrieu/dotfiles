@@ -102,6 +102,7 @@ report.finished.filter=status:completed
 
 report.fzf.columns=uuid.short,status.short,depends.indicator,priority,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description.count
 report.fzf.labels=UUID,S,D,P,Tags,R,Wait,Scheduled,Due,Until,Description
+report.fzf.description=Report to be crunched through FZF
 report.fzf.filter=status.not:deleted status.not:completed project.not:routine
 report.fzf.sort=scheduled,urgency-
 
