@@ -44,7 +44,6 @@ urgency.uda.tag.@home.coefficient=-1
 urgency.uda.tag.@work.coefficient=5
 
 # -- Aliases -------------------------------------------------------------------
-
 alias.burndown=burndown.daily
 
 # -- Reports -------------------------------------------------------------------
