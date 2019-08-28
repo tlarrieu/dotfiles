@@ -162,3 +162,6 @@ abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
 
 # Taskwarrior
 abbr t "task"
+abbr ta "task add +inbox"
+abbr td "task done"
+abbr tD "task rm"
