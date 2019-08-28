@@ -113,3 +113,8 @@ report.routine.columns=id,description
 report.routine.labels=ID,Description
 report.routine.description=Routine
 report.routine.filter=status:pending proj:routine
+
+report.debug.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
+report.debug.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
+report.debug.filter=status.not:deleted status.not:completed
+report.debug.sort=status,scheduled,urgency-,tags
