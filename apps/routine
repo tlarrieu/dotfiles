@@ -6,11 +6,11 @@ envfile="$HOME/.context.env"
 context=${CONTEXT:-"home"}
 
 if [ "$context" == "home" ]; then
-  dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=E1Dj2K81QBbkXdI8fTADFJhw"
+  task proj:routine +@home routine
 else
   if [ $(date +%H) -le 12 ]; then
-    dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=D_i5Zuv27YUJZaFn07erCyDq"
+    task proj:routine.morning +@work routine
   else
-    dynalist "T4LXOQurhn_O8rXnORg0xMb4#z=MHio82HOONH1FH1Ytm84Uoms"
+    task proj:routine.afternoon +@work routine
   fi
 fi

@@ -47,7 +47,7 @@ alias.burndown=burndown.daily
 # -- Reports -------------------------------------------------------------------
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
 report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
-report.all.filter=status.not:deleted status.not:completed
+report.all.filter=status.not:deleted status.not:completed project.not:routine
 report.all.sort=status-,tags,scheduled,urgency-
 
 report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -76,7 +76,7 @@ report.week.sort=start,scheduled,urgency-,description
 report.planner.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
 report.planner.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
-report.planner.filter=status:pending (scheduled: or scheduled.after:eow) -inbox -daily
+report.planner.filter=status:pending (scheduled: or scheduled.after:eow) -inbox -daily project.not:routine
 report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -96,5 +96,10 @@ report.finished.filter=status:completed
 
 report.fzf.columns=uuid.short,status.short,depends.indicator,priority,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description.count
 report.fzf.labels=UUID,S,D,P,Tags,R,Wait,Scheduled,Due,Until,Description
-report.fzf.filter=status.not:deleted status.not:completed
+report.fzf.filter=status.not:deleted status.not:completed project.not:routine
 report.fzf.sort=scheduled,urgency-
+
+report.routine.columns=id,description
+report.routine.labels=ID,Description
+report.routine.description=Routine
+report.routine.filter=status:pending proj:routine
