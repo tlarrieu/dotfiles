@@ -47,8 +47,8 @@ alias.burndown=burndown.daily
 # -- Reports -------------------------------------------------------------------
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
 report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
-report.all.filter=status.not:deleted status.not:completed project.not:routine
-report.all.sort=status-,tags,scheduled,urgency-
+report.all.filter=status.not:deleted status.not:completed project.not:routine -someday
+report.all.sort=scheduled,urgency-,status-,tags
 
 report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
