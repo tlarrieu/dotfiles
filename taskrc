@@ -54,7 +54,7 @@ report.in.filter=status:pending +inbox
 report.next.columns=id,tags,priority,description,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=status:pending scheduled.before:tomorrow
+report.next.filter=(status:pending scheduled.before:tomorrow) or +ACTIVE
 report.next.sort=start,urgency-,description
 
 report.tomorrow.columns=id,tags,priority,description,project,due.relative,urgency
