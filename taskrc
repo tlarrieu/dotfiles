@@ -20,6 +20,9 @@ color.active=green
 color.scheduled=yellow
 color.tag.inbox=color14 bold
 color.tag.someday=cyan
+color.uda.priority.H=
+color.uda.priority.M=
+color.uda.priority.L=
 
 # -- Urgency -------------------------------------------------------------------
 urgency.annotations.coefficient=0
