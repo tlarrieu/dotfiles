@@ -40,6 +40,10 @@ urgency.uda.tag.someday.coefficient=-100
 urgency.uda.tag.@home.coefficient=-1
 urgency.uda.tag.@work.coefficient=5
 
+# -- Aliases -------------------------------------------------------------------
+
+alias.burndown=burndown.daily
+
 # -- Reports -------------------------------------------------------------------
 report.all.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
 report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
