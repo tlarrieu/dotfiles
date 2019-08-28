@@ -50,6 +50,12 @@ report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,D
 report.all.filter=status.not:deleted status.not:completed project.not:routine -someday
 report.all.sort=scheduled,urgency-,status-,tags
 
+report.waiting.columns=id,start.active,entry.age,depends.indicator,priority,project,tags,wait,wait.remaining,scheduled,due,until,description
+report.waiting.description=Waiting (hidden) tasks
+report.waiting.filter=+WAITING -someday
+report.waiting.labels=ID,A,Age,D,P,Project,Tags,Wait,Remaining,Sched,Due,Until,Description
+report.waiting.sort=due+,wait+,entry+
+
 report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.in.description=Inbox
