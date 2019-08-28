@@ -48,17 +48,17 @@ report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.in.description=Inbox
 report.in.filter=status:pending +inbox
 
-report.next.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
-report.next.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
+report.next.columns=id,tags,priority,description,project,due.relative,urgency
+report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
 report.next.filter=status:pending scheduled.before:tomorrow
 report.next.sort=start,urgency-,description
 
-report.tomorrow.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
-report.tomorrow.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
+report.tomorrow.columns=id,tags,priority,description,project,due.relative,urgency
+report.tomorrow.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.tomorrow.filter=status:pending scheduled.before:1d
 report.tomorrow.description=Tomorrow's tasks
-report.tomorrow.sort=start,scheduled,urgency-,description
+report.tomorrow.sort=start,urgency-,description
 
 report.week.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
 report.week.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
@@ -69,7 +69,7 @@ report.week.sort=start,scheduled,urgency-,description
 report.planner.columns=id,tags,priority,description,project,scheduled,due.relative,urgency
 report.planner.labels=ID,Tags,P,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
-report.planner.filter=status:pending (scheduled: or scheduled.after:eow) -inbox
+report.planner.filter=status:pending (scheduled: or scheduled.after:eow) -inbox -daily
 report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -80,7 +80,7 @@ report.someday.filter=+someday
 report.daily.columns=id,description
 report.daily.labels=ID,Description
 report.daily.description=Daily manager
-report.daily.filter=+daily
+report.daily.filter=status:pending +daily
 
 report.finished.columns=id,tags,description,project
 report.finished.labels=ID,Tags,Description,Project
