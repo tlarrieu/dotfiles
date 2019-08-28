@@ -112,7 +112,7 @@ report.fzf.sort=scheduled,urgency-
 report.routine.columns=id,description
 report.routine.labels=ID,Description
 report.routine.description=Routine
-report.routine.filter=status:pending proj:routine
+report.routine.filter=status:pending proj:routine ((now >= today + 12h and proj.not:routine.morning) or (now < today + 12h and proj.not:routine.afternoon))
 
 report.debug.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
 report.debug.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
