@@ -17,6 +17,9 @@ column.padding=3
 
 color.tagged=
 color.active=green
+color.recurring=blue
+color.due=
+color.overdue=red
 color.scheduled=yellow
 color.tag.inbox=color14 bold
 color.tag.someday=cyan
