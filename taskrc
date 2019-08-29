@@ -49,44 +49,51 @@ urgency.uda.tag.@work.coefficient=5
 alias.burndown=burndown.daily
 
 # -- Reports -------------------------------------------------------------------
-report.all.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
-report.all.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
-report.all.filter=status.not:deleted status.not:completed project.not:routine -someday
-report.all.sort=scheduled,urgency-,status-,tags
+# -- Routines ---------------------------------------------
 
-report.waiting.columns=id,start.active,entry.age,depends.indicator,priority,project,tags,wait,wait.remaining,scheduled,due,until,description
-report.waiting.description=Waiting (hidden) tasks
-report.waiting.filter=+WAITING -someday
-report.waiting.labels=ID,A,Age,D,P,Project,Tags,Wait,Remaining,Sched,Due,Until,Description
-report.waiting.sort=due+,wait+,entry+
+report.routine.columns=id,description
+report.routine.labels=ID,Description
+report.routine.description=Routine
+report.routine.filter=+PENDING proj:routine ((now >= today + 12h and proj.not:routine.morning) or (now < today + 12h and proj.not:routine.afternoon))
+
+# -- Inboxes -----------------------------------------------
 
 report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.in.description=Inbox
-report.in.filter=status:pending +inbox
+report.in.filter=+PENDING +inbox
+
+report.daily.columns=id,description
+report.daily.labels=ID,Description
+report.daily.description=Daily manager
+report.daily.filter=+PENDING +daily
+
+# -- Next up ----------------------------------------------
 
 report.next.columns=id,tags,priority,description,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=(status:pending scheduled.before:tomorrow) or +ACTIVE
+report.next.filter=(+PENDING scheduled.before:tomorrow) or +ACTIVE
 report.next.sort=start,urgency-,description
 
 report.tomorrow.columns=id,tags,priority,status.short,description,project,due.relative,urgency
 report.tomorrow.labels=ID,Tags,P,S,Description,Project,Due,Urg.
-report.tomorrow.filter=(status:pending or status:waiting) scheduled.before:1d
+report.tomorrow.filter=(+PENDING or +WAITING) scheduled.before:1d
 report.tomorrow.description=Tomorrow's tasks
 report.tomorrow.sort=start,urgency-,description
 
 report.week.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
 report.week.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
-report.week.filter=(status:pending or status:waiting) scheduled.before:eow
+report.week.filter=(+PENDING or +WAITING) scheduled.before:eow
 report.week.description=This week's tasks
 report.week.sort=start,scheduled,urgency-,description
+
+# -- Review -----------------------------------------------
 
 report.planner.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
 report.planner.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
-report.planner.filter=(status:pending or status:waiting) (scheduled: or scheduled.after:eow) -someday -inbox -daily project.not:routine
+report.planner.filter=(+PENDING or +WAITING) (scheduled: or scheduled.after:eow) -someday -inbox -daily project.not:routine
 report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -94,28 +101,20 @@ report.someday.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.someday.description=Someday/Maybe
 report.someday.filter=+someday
 
-report.daily.columns=id,description
-report.daily.labels=ID,Description
-report.daily.description=Daily manager
-report.daily.filter=status:pending +daily
-
 report.finished.columns=uuid.short,tags,description,project
 report.finished.labels=UUID,Tags,Description,Project
 report.finished.description=Done
-report.finished.filter=status:completed project.not:routine
+report.finished.filter=+COMPLETED project.not:routine
 
-report.fzf.columns=uuid.short,status.short,depends.indicator,priority,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description.count
-report.fzf.labels=UUID,S,D,P,Tags,R,Wait,Scheduled,Due,Until,Description
-report.fzf.description=Report to be crunched through FZF
-report.fzf.filter=status.not:deleted status.not:completed project.not:routine
+# -- Utils ------------------------------------------------
+
+report.fzf.columns=uuid.short,status.short,priority,tags,recur.indicator,wait.remaining,scheduled,due,description.count
+report.fzf.labels=UUID,S,P,Tags,R,Wait,Scheduled,Due,Description
+report.fzf.description=FZF Report
+report.fzf.filter=-DELETED -COMPLETED project.not:routine
 report.fzf.sort=scheduled,urgency-
 
-report.routine.columns=id,description
-report.routine.labels=ID,Description
-report.routine.description=Routine
-report.routine.filter=status:pending proj:routine ((now >= today + 12h and proj.not:routine.morning) or (now < today + 12h and proj.not:routine.afternoon))
-
-report.debug.columns=id,status.short,uuid.short,start.active,entry.age,depends.indicator,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,until.remaining,description
-report.debug.labels=ID,St,UUID,A,Age,D,P,Project,Tags,R,Wait,Scheduled,Due,Until,Description
-report.debug.filter=status.not:deleted status.not:completed
-report.debug.sort=status,scheduled,urgency-,tags
+report.all.columns=id,status.short,uuid.short,start.active,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,description
+report.all.labels=ID,St,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description
+report.all.filter=-DELETED -COMPLETED
+report.all.sort=scheduled,urgency-,status-,tags
