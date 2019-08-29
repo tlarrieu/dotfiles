@@ -69,7 +69,6 @@ function fish_user_key_bindings
         rc.defaultwidth:240 \
         rc.detection:off \
         rc.verbose:nothing | \
-      tail -n +4 | \
       fzf --ansi --multi --exact --prompt 'task?> ' \
       > /tmp/fzf.tw.result"
     and commandline -i (
