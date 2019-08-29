@@ -12,9 +12,11 @@ context.work=-@home
 # -- Look & feel ---------------------------------------------------------------
 include /usr/share/doc/task/rc/solarized-light-256.theme
 
-row.padding=10
+defaultwidth=120
+row.padding=3
 column.padding=3
 
+_forcecolor=yes
 color.tagged=
 color.active=green
 color.recurring=blue
