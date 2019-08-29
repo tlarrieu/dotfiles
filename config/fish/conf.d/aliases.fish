@@ -162,11 +162,14 @@ abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
 
 # Taskwarrior
 abbr t "task"
+abbr tA "task annotate"
+abbr tD "task rm"
+abbr tS "task stop"
 abbr ta "task add +inbox"
 abbr tb "task burndown"
 abbr td "task done"
-abbr tD "task rm"
 abbr te "task edit"
+abbr to "task routine"
 abbr ts "task start -inbox sched:today"
-abbr tS "task stop"
-abbr rt "routine"
+abbr tw "task mod wait:"
+abbr ty "task sync"
