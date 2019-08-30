@@ -94,7 +94,7 @@ report.week.sort=start,scheduled,urgency-,description
 report.planner.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
 report.planner.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
-report.planner.filter=(+PENDING or +WAITING) (scheduled: or scheduled.after:eow) -someday -inbox -daily project.not:routine
+report.planner.filter=(+PENDING or +WAITING) -someday -daily project.not:routine
 report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -119,3 +119,4 @@ report.all.columns=id,status.short,uuid.short,start.active,priority,project,tags
 report.all.labels=ID,St,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description
 report.all.filter=-DELETED -COMPLETED
 report.all.sort=scheduled,urgency-,status-,tags
+
