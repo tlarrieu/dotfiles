@@ -52,9 +52,31 @@ modes.add_binds("normal", {
     end
   },
 
+  -- URL opening
+  {
+    "o",
+    "Open one or more URLs.",
+    function (w) w:enter_cmd(":open ") end
+  },
+  {
+    ",",
+    "Open one or more URLs in a new tab.",
+    function (w) w:enter_cmd(":tabopen ") end
+  },
+  {
+    "O",
+    "Open one or more URLs based on current location.",
+    function (w) w:enter_cmd(":open " .. (w.view.uri or "")) end
+  },
+  {
+    ";",
+    "Open one or more URLs based on current location in a new tab.",
+    function (w) w:enter_cmd(":tabopen " .. (w.view.uri or "")) end
+  },
+
   -- Link following
   {
-    "^E$",
+    "^e$",
     [[Start `follow` mode. Hint all clickable elements (as defined by the
       `follow.selectors.clickable` selector) and open links in the current tab.]],
     function (w)
@@ -67,7 +89,7 @@ modes.add_binds("normal", {
     end
   },
   {
-    "^e$",
+    "^t$",
     [[Start follow mode. Hint all links (as defined by the
       `follow.selectors.uri` selector) and open links in a new tab.]],
     function (w)
@@ -76,7 +98,7 @@ modes.add_binds("normal", {
         , selector = "uri"
         , evaluator = "uri"
         , func = function (uri)
-            w:new_tab(uri, { switch = true, private = w.view.private })
+            w:new_tab(uri, { switch = false, private = w.view.private })
           end
         }
       )
