@@ -9,7 +9,7 @@ local awful = require("awful")
 local helpers = require("helpers")
 local gears = require("gears")
 
-local terminal = "kitty"
+local terminal = "kitty --single-instance"
 local mod = "Mod4"
 
 local key = awful.key
@@ -140,13 +140,13 @@ _M.keyboard = {
     mspawn("b", script("mpc-playlist")),
     mspawn("$", "mpc toggle"),
 
-    mspawn("'", "luakit"),
-    spawn({mod, "Shift"}, "'", "chromium --profile-directory=Default"),
+    mspawn(".", "luakit"),
+    mspawn(",", "chromium --profile-directory=Default"),
     mspawn("u", terminal .. " vifm"),
     mspawn("g", script("wallpaper")),
     mspawn("h", terminal .. " " .. script("gtgf")),
 
-    mspawn(".", terminal),
+    mspawn("'", terminal),
     mspawn(
       "è",
       fish(
