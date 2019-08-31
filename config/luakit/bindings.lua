@@ -58,11 +58,12 @@ modes.add_binds("normal", {
     [[Start `follow` mode. Hint all clickable elements (as defined by the
       `follow.selectors.clickable` selector) and open links in the current tab.]],
     function (w)
-      w:set_mode("follow", {
-        selector = "clickable",
-        evaluator = "click",
-        func = function (s) w:emit_form_root_active_signal(s) end,
-      })
+      w:set_mode("follow",
+        { selector = "uri"
+        , evaluator = "click"
+        , func = function (s) w:emit_form_root_active_signal(s) end
+        }
+      )
     end
   },
   {
@@ -70,16 +71,60 @@ modes.add_binds("normal", {
     [[Start follow mode. Hint all links (as defined by the
       `follow.selectors.uri` selector) and open links in a new tab.]],
     function (w)
-      w:set_mode("follow", {
-        prompt = "new tab",
-        selector = "uri",
-        evaluator = "uri",
-        func = function (uri)
-          assert(type(uri) == "string")
-          w:new_tab(uri, { switch = true, private = w.view.private })
-        end
-      })
+      w:set_mode("follow",
+        { prompt = "new tab"
+        , selector = "uri"
+        , evaluator = "uri"
+        , func = function (uri)
+            w:new_tab(uri, { switch = true, private = w.view.private })
+          end
+        }
+      )
     end
+  },
+  {
+    "<Control-.>",
+    "Highlight and open URL in aria2c",
+    function (w)
+      w:set_mode("follow",
+        { prompt = "aria2c"
+        , selector = "uri"
+        , evaluator = "uri"
+        , func = aria2c
+        }
+      )
+    end
+  },
+  {
+    "<Control-e>",
+    "Highlight and open URL in mpv",
+    function (w)
+      w:set_mode("follow",
+        { prompt = "mpv"
+        , selector = "uri"
+        , evaluator = "uri"
+        , func = mpv
+        }
+      )
+    end
+  },
+  {
+    "<Control-,>",
+    "Highlight and open URL in mpc",
+    function (w)
+      w:set_mode("follow",
+        { prompt = "mpc"
+        , selector = "uri"
+        , evaluator = "uri"
+        , func = mpc
+        }
+      )
+    end
+  },
+  {
+    "<Control-E>",
+    "Open current URL in mpv",
+    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20")) end
   },
 
   -- Yanking / Pasting
@@ -130,48 +175,6 @@ modes.add_binds("normal", {
     function (w)
       local uri = luakit.selection.clipboard
       w:new_tab(uri, { switch = true, private = w.view.private })
-    end
-  },
-
-  {
-    "<Control-.>",
-    "Highlight and open URL in aria2c",
-    function (w)
-      w:set_mode("follow", {
-        prompt = "aria2c",
-        selector = "uri",
-        evaluator = "uri",
-        func = aria2c
-      })
-    end
-  },
-  {
-    "<Control-e>",
-    "Highlight and open URL in mpv",
-    function (w)
-      w:set_mode("follow", {
-        prompt = "mpv",
-        selector = "uri",
-        evaluator = "uri",
-        func = mpv
-      })
-    end
-  },
-  {
-    "<Control-E>",
-    "Open current URL in mpv",
-    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20")) end
-  },
-  {
-    "<Control-,>",
-    "Highlight and open URL in mpc",
-    function (w)
-      w:set_mode("follow", {
-        prompt = "mpc",
-        selector = "uri",
-        evaluator = "uri",
-        func = mpc
-      })
     end
   },
 })
