@@ -59,10 +59,11 @@ report.routine.filter=+PENDING proj:routine ((now >= today + 17h + 30min and pro
 
 # -- Inboxes -----------------------------------------------
 
-report.in.columns=id,tags,description,project,scheduled,due.relative,urgency
-report.in.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
+report.in.columns=id,tags,priority,description,project,due.relative,urgency
+report.in.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.in.description=Inbox
 report.in.filter=+PENDING +inbox
+report.in.sort=priority-
 
 report.daily.columns=id,description
 report.daily.labels=ID,Description
