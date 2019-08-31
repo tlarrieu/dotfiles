@@ -119,4 +119,3 @@ report.all.columns=id,status.short,uuid.short,start.active,priority,project,tags
 report.all.labels=ID,St,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description
 report.all.filter=-DELETED -COMPLETED
 report.all.sort=scheduled,urgency-,status-,tags
-
