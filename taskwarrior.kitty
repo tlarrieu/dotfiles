@@ -1,0 +1,4 @@
+enabled_layouts fat:bias=70
+launch task watch
+launch fish
+focus

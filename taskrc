@@ -55,7 +55,7 @@ alias.watch=exec fish -C "command watch --color --no-title task-watch"
 report.routine.columns=id,description
 report.routine.labels=ID,Description
 report.routine.description=Routine
-report.routine.filter=+PENDING proj:routine ((now >= today + 17h + 30min and proj.not:routine.morning) or (now < today + 12h and proj.not:routine.afternoon))
+report.routine.filter=+PENDING proj:routine ((now >= today + 17h + 30min and proj.not:routine.morning) or (now < today + 17h + 30min and proj.not:routine.afternoon))
 
 # -- Inboxes -----------------------------------------------
 
