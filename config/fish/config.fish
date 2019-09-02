@@ -55,6 +55,11 @@ set -x PATH $PATH $HOME/node_modules/elm-format/bin
 set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/.ghcup/bin $PATH
 
+# Tab completions
+if test -e /usr/share/doc/task/scripts/fish/task.fish
+  source /usr/share/doc/task/scripts/fish/task.fish
+end
+
 # TERM
 set -gx TERM xterm-256color
 
