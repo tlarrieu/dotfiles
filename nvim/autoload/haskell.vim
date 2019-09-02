@@ -52,6 +52,7 @@ function! haskell#editImports(mode)
   iabbrev <buffer> pr Prelude
 
   iabbrev <buffer> da Data.Array
+  iabbrev <buffer> dA Data.Aeson
   iabbrev <buffer> dc Data.Char
   iabbrev <buffer> deb Debug.Trace
   iabbrev <buffer> dl Data.List
@@ -59,6 +60,7 @@ function! haskell#editImports(mode)
   iabbrev <buffer> ds Data.Set
   iabbrev <buffer> dt Data.Time
   iabbrev <buffer> dv Data.Vector
+  iabbrev <buffer> gg GHC.Generics
   iabbrev <buffer> mb Data.Maybe
   iabbrev <buffer> tp Text.Printf
 endfunction
@@ -97,4 +99,5 @@ function! haskell#editPragmas(mode)
   iabbrev <buffer> { {-# #-}<left><left><left><left>
   iabbrev <buffer> lang LANGUAGE
   iabbrev <buffer> nfp NamedFieldPuns
+  iabbrev <buffer> gen DeriveGeneric
 endfunction
