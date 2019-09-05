@@ -75,7 +75,7 @@ report.daily.filter=+PENDING +daily
 report.next.columns=id,tags,priority,description,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=(+PENDING scheduled.before:tomorrow) or +ACTIVE
+report.next.filter=(+PENDING scheduled.before:now) or +ACTIVE
 report.next.sort=start,urgency-,description
 
 report.tomorrow.columns=id,tags,priority,status.short,description,project,due.relative,urgency
