@@ -287,8 +287,8 @@ vmap <leader>x :Rextract<space>
 " }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_map_keys = 0
-nmap <expr> ß &diff ? '[c' : '<Plug>GitGutterPrevHunk'
-nmap <expr> þ &diff ? ']c' : '<Plug>GitGutterNextHunk'
+nmap <expr> ß &diff ? '[c' : '<Plug>(GitGutterPrevHunk)'
+nmap <expr> þ &diff ? ']c' : '<Plug>(GitGutterNextHunk)'
 " }}}
 " {{{ --| VimRestConsole |----------------------------------
 let g:vrc_set_default_mapping = 0
