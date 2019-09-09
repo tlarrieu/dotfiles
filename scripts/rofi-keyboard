@@ -33,7 +33,7 @@ if [ ${#option} -gt 0 ]; then
       ;;
   esac
 
-  if [[ $(setxkbmap -model pc105 -layout "$layout" -variant "$variant") ]]; then
+  if [[ $(setxkbmap -option ctrl:nocaps -model pc105 -layout "$layout" -variant "$variant") ]]; then
     notify-send Failure "Could not load (layout = $layout, variant = $variant)"
   else
     notify-send Success "Keyboard set to (layout = $layout, variant = $variant)"
