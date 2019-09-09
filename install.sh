@@ -208,6 +208,7 @@ case $answer in
 
     safeinstall linopen
     safeinstall xcape
+    safeinstall xorg-xmodmap
 
     safeinstall rofi
     safeinstall maim
