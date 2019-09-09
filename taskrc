@@ -80,7 +80,7 @@ report.next.sort=start,urgency-,description
 
 report.tomorrow.columns=id,tags,priority,status.short,description,project,due.relative,urgency
 report.tomorrow.labels=ID,Tags,P,S,Description,Project,Due,Urg.
-report.tomorrow.filter=(+PENDING or +WAITING) scheduled.before:1d
+report.tomorrow.filter=(+PENDING or +WAITING) scheduled.before:tomorrow+23h
 report.tomorrow.description=Tomorrow's tasks
 report.tomorrow.sort=start,urgency-,description
 
