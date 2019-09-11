@@ -5,12 +5,10 @@ envfile="$HOME/.context.env"
 
 context=${CONTEXT:-"home"}
 
-if [ "$context" == "home" ]; then
-  task proj:routine +@home routine
-else
+if [ "$context" == "work" ]; then
   if [ $(date +%H) -le 12 ]; then
-    task proj:routine.morning +@work routine
+    cat ~/.routines/morning.md
   else
-    task proj:routine.afternoon +@work routine
+    cat ~/.routines/afternoon.md
   fi
 fi

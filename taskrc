@@ -50,13 +50,6 @@ alias.burndown=burndown.daily
 alias.watch=exec fish -C "command watch --color --no-title task-watch"
 
 # -- Reports -------------------------------------------------------------------
-# -- Routines ---------------------------------------------
-
-report.routine.columns=id,description
-report.routine.labels=ID,Description
-report.routine.description=Routine
-report.routine.filter=+PENDING proj:routine ((now >= today + 17h + 30min and proj.not:routine.morning) or (now < today + 17h + 30min and proj.not:routine.afternoon))
-
 # -- Inboxes -----------------------------------------------
 
 report.in.columns=id,tags,priority,description,project,due.relative,urgency
@@ -101,7 +94,7 @@ report.week.sort=start,scheduled,urgency-,description
 report.planner.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
 report.planner.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
 report.planner.description=Planner
-report.planner.filter=(+PENDING or +WAITING) -someday -daily project.not:routine
+report.planner.filter=(+PENDING or +WAITING) -someday -daily
 report.planner.sort=scheduled,urgency-,description
 
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
@@ -112,14 +105,14 @@ report.someday.filter=+someday
 report.finished.columns=uuid.short,tags,description,project
 report.finished.labels=UUID,Tags,Description,Project
 report.finished.description=Done
-report.finished.filter=+COMPLETED project.not:routine
+report.finished.filter=+COMPLETED
 
 # -- Utils ------------------------------------------------
 
 report.fzf.columns=uuid.short,status.short,priority,tags,recur.indicator,wait.remaining,scheduled,due,description.count
 report.fzf.labels=UUID,S,P,Tags,R,Wait,Scheduled,Due,Description
 report.fzf.description=FZF Report
-report.fzf.filter=-DELETED -COMPLETED project.not:routine
+report.fzf.filter=-DELETED -COMPLETED
 report.fzf.sort=scheduled,urgency-
 
 report.all.columns=id,status.short,uuid.short,start.active,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,description
