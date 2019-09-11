@@ -9,6 +9,8 @@ include ~/.task/taskd
 context.home=-@work
 context.work=-@home
 
+uda.priority.default=M
+
 # -- Look & feel ---------------------------------------------------------------
 include /usr/share/doc/task/rc/solarized-light-256.theme
 
@@ -37,7 +39,7 @@ urgency.tags.coefficient=0
 
 urgency.uda.priority.L.coefficient=-1
 urgency.uda.priority.M.coefficient=5
-urgency.uda.priority.S.coefficient=15
+urgency.uda.priority.H.coefficient=15
 
 urgency.uda.tag.inbox.coefficient=0
 urgency.uda.tag.someday.coefficient=-100
