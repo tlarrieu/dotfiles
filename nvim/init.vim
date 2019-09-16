@@ -279,7 +279,7 @@ nmap <silent> <leader><tab> :Ttoggle<cr>
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#tag#cache_limit_size = 600000
-let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#auto_complete_start_length = 3
 call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 " }}}
 " {{{ --| Rails |-------------------------------------------
