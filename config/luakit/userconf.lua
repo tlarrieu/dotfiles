@@ -24,7 +24,8 @@ set.window.search_engines = {
   v = "https://vimawesome.com/?q=%s",
   wp = "https://wallhaven.cc/search?q=%s&atleast=1920x1080",
   w = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
-  yt = "https://www.youtube.com/results?search_query=%s",
+  yt = "https://www.youtube.com/results?q=%s",
+  ym = "https://music.youtube.com/search?q=%s",
 }
 
 local sel = require("select")
