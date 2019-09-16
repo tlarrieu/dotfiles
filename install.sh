@@ -246,6 +246,7 @@ case $answer in
     safeinstall pulseaudio-bluetooth
 
     safeinstall task-git
+    safeinstall taskopen
 
     # desktop font
     safeinstall nerd-fonts-inconsolata
