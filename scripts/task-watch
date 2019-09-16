@@ -1,11 +1,9 @@
 #!/bin/sh
 
-function taskprobe {
-  if [ $(task _get tw.syncneeded) == 1 ]; then
-    echo -e "\n   \e[33mSync needed\e[39m"
-  fi
-}
-
+task rc.verbose:headers active
 task rc.verbose:headers
 task rc.verbose:headers in
-taskprobe
+
+if [ $(task _get tw.syncneeded) == 1 ]; then
+  echo -e "\n   \e[33mSync needed\e[39m"
+fi

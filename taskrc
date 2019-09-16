@@ -54,7 +54,7 @@ alias.watch=exec fish -C "command watch --color --no-title task-watch"
 # -- Reports -------------------------------------------------------------------
 # -- Inboxes -----------------------------------------------
 
-report.in.columns=id,tags,priority,description,project,due.relative,urgency
+report.in.columns=id,tags,priority,description.count,project,due.relative,urgency
 report.in.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.in.description=Inbox
 report.in.filter=+PENDING +inbox
@@ -67,10 +67,16 @@ report.daily.filter=+PENDING +daily
 
 # -- Next up ----------------------------------------------
 
-report.next.columns=id,tags,priority,description,project,due.relative,urgency
+report.active.columns=id,tags,priority,description,project,due.relative,urgency
+report.active.labels=ID,Tags,P,Description,Project,Due,Urg.
+report.active.description=Today's tasks
+report.active.filter=+ACTIVE
+report.active.sort=start,urgency-,description
+
+report.next.columns=id,tags,priority,description.count,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=(+PENDING scheduled.before:now) or +ACTIVE
+report.next.filter=(+PENDING scheduled.before:now -ACTIVE)
 report.next.sort=start,urgency-,description
 
 report.today.columns=id,tags,priority,status.short,description,project,due.relative,urgency

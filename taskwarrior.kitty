@@ -1,4 +1,4 @@
-enabled_layouts fat:bias=70
+enabled_layouts tall:bias=70
 launch task watch
 launch fish
 focus
