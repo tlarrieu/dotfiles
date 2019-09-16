@@ -1,12 +1,5 @@
 #!/bin/sh
 
-envfile="$HOME/.dynalist.env"
-[ -f "$envfile" ] && source "$envfile"
-
-endpoint='https://dynalist.io/api/v1/inbox/add'
-
-token=$DYNALIST_TOKEN
-
 input=$(
   rofi -dmenu \
     -p "" \
