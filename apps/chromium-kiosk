@@ -1,0 +1,19 @@
+#!/bin/sh
+
+envfile="$HOME/.chromium.env"
+[ -f "$envfile" ] && source "$envfile"
+
+case "$1" in
+  pro)
+    profile=$CHROMIUM_WORK
+    shift
+    ;;
+  perso)
+    profile=$CHROMIUM_PERSONAL
+    shift
+    ;;
+  *)
+    profile="Default"
+esac
+
+chromium --app="$1" --profile-directory="$profile"

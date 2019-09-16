@@ -1,12 +1,3 @@
 #!/bin/sh
 
-envfile="$HOME/.chromium.env"
-[ -f "$envfile" ] && source "$envfile"
-
-chromium --app=""
-
-profile=${CHROMIUM_WORK:-"Default"}
-
-chromium \
-  --app="https://www.spendesk.com" \
-  --profile-directory="$profile"
+chromium-kiosk pro "https://www.spendesk.com"

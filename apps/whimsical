@@ -1,18 +1,3 @@
 #!/bin/sh
 
-envfile="$HOME/.chromium.env"
-[ -f "$envfile" ] && source "$envfile"
-
-echo "$1" | grep jobteaser > /dev/null
-
-if [[ $? -eq 0 ]]; then
-  profile=$CHROMIUM_WORK
-else
-  profile=$CHROMIUM_PERSONAL
-fi
-
-profile=${profile:-"Default"}
-
-chromium \
-  --app="https://whimsical.co" \
-  --profile-directory="$profile"
+chromium-kiosk $1 "https://whimsical.co"

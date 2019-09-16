@@ -1,17 +1,3 @@
 #!/bin/sh
 
-envfile="$HOME/.chromium.env"
-[ -f "$envfile" ] && source "$envfile"
-
-profile=${CHROMIUM_PERSONAL:-"Default"}
-url=""
-
-if [[ "$1" -eq "" ]]; then
-  url="https://dynalist.io/"
-else
-  url="https://dynalist.io/d/$1"
-fi
-
-chromium \
-  --app="$url" \
-  --profile-directory="$profile"
+chromium-kiosk perso "https://dynalist.io/$1"
