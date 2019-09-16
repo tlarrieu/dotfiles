@@ -131,6 +131,11 @@ modes.add_binds("normal", {
     end
   },
   {
+    "<Control-E>",
+    "Open current URL in mpv",
+    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20")) end
+  },
+  {
     "<Control-,>",
     "Highlight and open URL in mpc",
     function (w)
@@ -144,9 +149,9 @@ modes.add_binds("normal", {
     end
   },
   {
-    "<Control-E>",
-    "Open current URL in mpv",
-    function (w) mpv(string.gsub(w.view.uri or "", " ", "%%20")) end
+    "<Control-;>",
+    "Highlight and open URL in mpc",
+    function (w) mpc(string.gsub(w.view.uri or "", " ", "%%20")) end
   },
 
   -- Yanking / Pasting
