@@ -13,6 +13,13 @@ fi
 
 profile=${profile:-"Default"}
 
-chromium \
-  --app="https://www.notion.so/$1" \
-  --profile-directory="$profile"
+if [[ "$1" == "https"* ]]; then
+  chromium \
+    --app="$1" \
+    --profile-directory="$profile"
+else
+  chromium \
+    --app="https://www.notion.so/$1" \
+    --profile-directory="$profile"
+fi
+
