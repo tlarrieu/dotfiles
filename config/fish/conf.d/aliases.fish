@@ -173,3 +173,13 @@ abbr tt "task rm"
 abbr tu "task undo"
 abbr tw "task mod wait:"
 abbr ty "task sync"
+
+abbr p "prev"
+
+function prev
+  task rc._forcecolor:no rc.verbose:none export $argv | \
+    jq '
+      map({ "key": .description, "value": [.annotations[]?.description] })
+      | from_entries
+    '
+end
