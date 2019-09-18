@@ -70,7 +70,7 @@ report.daily.filter=+PENDING +daily
 report.active.columns=id,tags,priority,description,project,due.relative,urgency
 report.active.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.active.description=Today's tasks
-report.active.filter=+ACTIVE
+report.active.filter=+ACTIVE -WAITING
 report.active.sort=start,urgency-,description
 
 report.next.columns=id,tags,priority,description.count,project,due.relative,urgency
