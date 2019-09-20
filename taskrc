@@ -108,7 +108,7 @@ report.planner.sort=scheduled,urgency-,description
 report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
 report.someday.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
 report.someday.description=Someday/Maybe
-report.someday.filter=+someday
+report.someday.filter=+someday (+WAITING or +PENDING)
 
 report.finished.columns=uuid.short,tags,description,project
 report.finished.labels=UUID,Tags,Description,Project
