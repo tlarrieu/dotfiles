@@ -183,3 +183,6 @@ function prev
       | from_entries
     '
 end
+
+# Routines
+abbr rt "routine"
