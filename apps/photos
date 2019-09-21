@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk $1 "https://photos.google.com"
