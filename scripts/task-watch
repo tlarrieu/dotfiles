@@ -7,3 +7,7 @@ task rc.verbose:headers in
 if [ $(task _get tw.syncneeded) == 1 ]; then
   echo -e "\n   \e[33mSync needed\e[39m"
 fi
+
+echo
+echo "  Blocking → `task rc.verbose:none +BLOCKING count`"
+echo "  Blocked  → `task rc.verbose:none +BLOCKED count`"

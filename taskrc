@@ -18,21 +18,26 @@ defaultwidth=120
 row.padding=3
 column.padding=3
 
+rule.precedence.color=deleted,completed,active,keyword.,project.,overdue,scheduled,due.today,due,blocking,blocked,recurring,tag.,tagged,uda.
+
 _forcecolor=yes
-color.tagged=
 color.active=green
-color.recurring=blue
+color.blocked=on color0
+color.blocking=red
 color.due=
-color.overdue=red
+color.overdue=on red
+color.recurring=blue
 color.scheduled=yellow
 color.tag.inbox=color14 bold
 color.tag.someday=cyan
+color.tagged=
 color.uda.priority.H=
-color.uda.priority.M=
 color.uda.priority.L=
+color.uda.priority.M=
 
 # -- Urgency -------------------------------------------------------------------
 urgency.annotations.coefficient=0
+urgency.blocking.coefficient=2
 urgency.project.coefficient=0
 urgency.scheduled.coefficient=0
 urgency.tags.coefficient=0
@@ -58,7 +63,7 @@ alias.reset=mod sched: +inbox -someday
 report.in.columns=id,tags,priority,description.count,project,due.relative,urgency
 report.in.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.in.description=Inbox
-report.in.filter=+PENDING +inbox
+report.in.filter=+PENDING +inbox -BLOCKED
 report.in.sort=priority-
 
 report.daily.columns=id,description
@@ -77,7 +82,7 @@ report.active.sort=start,urgency-,description
 report.next.columns=id,tags,priority,description.count,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=(+PENDING scheduled.before:now -ACTIVE)
+report.next.filter=+PENDING scheduled.before:now -ACTIVE -BLOCKED
 report.next.sort=start,urgency-,description
 
 report.today.columns=id,tags,priority,status.short,description,project,due.relative,urgency
@@ -129,7 +134,7 @@ report.fzf.description=FZF Report
 report.fzf.filter=-DELETED -COMPLETED
 report.fzf.sort=scheduled,urgency-
 
-report.all.columns=id,status.short,uuid.short,start.active,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,description
-report.all.labels=ID,St,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description
+report.all.columns=id,status.short,depends,uuid.short,start.active,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,description,urgency
+report.all.labels=ID,St,Dep,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description,Urg
 report.all.filter=-DELETED -COMPLETED
 report.all.sort=scheduled,urgency-,status-,tags
