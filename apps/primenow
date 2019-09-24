@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://primenow.amazon.fr"
+chromium-kiosk perso "https://primenow.amazon.fr"

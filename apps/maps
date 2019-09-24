@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium --app="https://maps.google.com"
+chromium-kiosk perso "https://maps.google.com"
