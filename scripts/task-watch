@@ -19,8 +19,7 @@ display Next "$(task rc.verbose:headers 2> /dev/null)"
 display Inbox "$(task rc.verbose:headers in 2> /dev/null)"
 
 echo
-echo "   Blocking → `task rc.verbose:none +BLOCKING count`"
-echo "   Blocked  → `task rc.verbose:none +BLOCKED count`"
+echo "   Blocking/Blocked → `task rc.verbose:none +BLOCKING count`/`task rc.verbose:none +BLOCKED count`"
 
 if [ $(task _get tw.syncneeded) == 1 ]; then
   echo -e "\n   \e[33mSync needed\e[39m"
