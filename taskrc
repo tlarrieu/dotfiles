@@ -18,7 +18,7 @@ defaultwidth=120
 row.padding=3
 column.padding=3
 
-rule.precedence.color=deleted,completed,active,keyword.,project.,overdue,scheduled,due.today,due,blocking,blocked,recurring,tag.,tagged,uda.
+rule.precedence.color=blocking,blocked,deleted,completed,active,keyword.,project.,overdue,scheduled,due.today,due,recurring,tag.,tagged,uda.
 
 _forcecolor=yes
 color.active=green
