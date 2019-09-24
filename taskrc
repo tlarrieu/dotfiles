@@ -54,7 +54,7 @@ urgency.uda.tag.@work.coefficient=5
 
 # -- Aliases -------------------------------------------------------------------
 alias.burndown=burndown.daily
-alias.watch=exec fish -C "command watch --color --no-title task-watch"
+alias.watch=exec bash -ilc "cwatch task-watch"
 alias.reset=mod sched: +inbox -someday
 
 # -- Reports -------------------------------------------------------------------

@@ -1,13 +1,27 @@
 #!/bin/sh
 
-task rc.verbose:headers active
-task rc.verbose:headers
-task rc.verbose:headers in
+function display {
+  label="$1"
+  out="$2"
 
-if [ $(task _get tw.syncneeded) == 1 ]; then
-  echo -e "\n   \e[33mSync needed\e[39m"
-fi
+  echo
+
+  if [ -z "$out" ]; then
+    echo "   $label: ø"
+  else
+    echo "   $label:"
+    echo "$out"
+  fi
+}
+
+display Active "$(task rc.verbose:headers active 2> /dev/null)"
+display Next "$(task rc.verbose:headers 2> /dev/null)"
+display Inbox "$(task rc.verbose:headers in 2> /dev/null)"
 
 echo
 echo "   Blocking → `task rc.verbose:none +BLOCKING count`"
 echo "   Blocked  → `task rc.verbose:none +BLOCKED count`"
+
+if [ $(task _get tw.syncneeded) == 1 ]; then
+  echo -e "\n   \e[33mSync needed\e[39m"
+fi
