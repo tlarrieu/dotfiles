@@ -9,5 +9,5 @@ if [ $(task _get tw.syncneeded) == 1 ]; then
 fi
 
 echo
-echo "  Blocking → `task rc.verbose:none +BLOCKING count`"
-echo "  Blocked  → `task rc.verbose:none +BLOCKED count`"
+echo "   Blocking → `task rc.verbose:none +BLOCKING count`"
+echo "   Blocked  → `task rc.verbose:none +BLOCKED count`"
