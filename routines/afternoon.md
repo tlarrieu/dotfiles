@@ -5,4 +5,5 @@
    Notion board
    Freelancing platforms
  Curate inbox
+ Check waiting tasks
  Prepare daily manager
