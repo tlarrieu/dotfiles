@@ -124,7 +124,7 @@ report.finished.filter=+COMPLETED
 report.review.columns=uuid.short,tags,description,project
 report.review.labels=UUID,Tags,Description,Project
 report.review.description=Done this week
-report.review.filter=+COMPLETED end.after:now-7d
+report.review.filter=+COMPLETED end.after:now-7d -daily
 
 # -- Utils ------------------------------------------------
 
