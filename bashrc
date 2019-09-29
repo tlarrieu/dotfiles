@@ -11,6 +11,7 @@ export PATH="$HOME/scripts:$PATH"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 eval $(ssh-agent) > /dev/null
+trap 'kill -9 $SSH_AGENT_PID' EXIT
 
 export NVM_DIR="$HOME/.nvm"
 # Load nvm
