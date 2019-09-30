@@ -1,3 +1,5 @@
 #!/bin/sh
 
-notion 'tlarrieu/320fb7576e5b47c0967a0ab74ef005de'
+page='32f05da8c51b4da3a9dfaedbc67e506a'
+view='b938a5d983384aabbe3dcbf173d863ce'
+notion "tlarrieu/$page?v=$view"
