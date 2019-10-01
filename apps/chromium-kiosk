@@ -1,5 +1,8 @@
 #!/bin/sh
 
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && source "$envfile"
+
 envfile="$HOME/.chromium.env"
 [ -f "$envfile" ] && source "$envfile"
 
@@ -13,7 +16,16 @@ case "$1" in
     shift
     ;;
   *)
-    profile="Default"
+    case "$CONTEXT" in
+      work)
+        profile=$CHROMIUM_WORK
+        ;;
+      home)
+        profile=$CHROMIUM_PERSONAL
+        ;;
+      *)
+        profile="Default"
+    esac
 esac
 
 chromium --app="$1" --profile-directory="$profile"
