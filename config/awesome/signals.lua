@@ -74,6 +74,8 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
+  { class = "zoom", icon = "" },
+
   { class = "Chromium", name = "Candidates", icon = "" },
 
   { class = "Chromium", icon = "" },
