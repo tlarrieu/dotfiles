@@ -85,6 +85,12 @@ report.next.description=Today's tasks
 report.next.filter=+PENDING scheduled.before:now -ACTIVE -BLOCKED
 report.next.sort=start,urgency-,description
 
+report.hiring.columns=id,tags,priority,description.count,project,scheduled,due.relative,wait.relative,urgency
+report.hiring.labels=ID,Tags,P,Description,Project,Sched.,Due,Wait,Urg.
+report.hiring.description=Hiring tasks
+report.hiring.filter=project:hiring +PENDING (scheduled: or scheduled.before:now) -ACTIVE
+report.hiring.sort=urgency-,scheduled,due
+
 report.today.columns=id,tags,priority,status.short,description,project,due.relative,urgency
 report.today.labels=ID,Tags,P,S,Description,Project,Due,Urg.
 report.today.filter=(+PENDING or +WAITING) scheduled.before:tomorrow
