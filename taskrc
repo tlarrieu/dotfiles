@@ -84,7 +84,7 @@ report.active.sort=start,urgency-,description
 report.next.columns=id,tags,priority,description.count,project,due.relative,urgency
 report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
-report.next.filter=+PENDING scheduled.before:now -ACTIVE -BLOCKED
+report.next.filter=+PENDING scheduled.before:now -ACTIVE -BLOCKED project.not:hiring
 report.next.sort=start,urgency-,description
 
 report.hiring.columns=id,tags,priority,description.count,project,scheduled,due.relative,wait.relative,urgency
