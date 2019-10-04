@@ -1,3 +1,3 @@
 #!/bin/sh
 
-dynalist "d/YVPmxJmRi7tNFeDgbfk6WJ23#z=FFFanC1lvcujfD0GlK2aB7TM"
+cat ~/.routines/weekly.md
