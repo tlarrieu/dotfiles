@@ -17,7 +17,6 @@
 # Planning
 
   Update and plan reading
-  Prepare 1:1s
   Review the next two weeks
   Plan next week
 
