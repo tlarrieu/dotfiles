@@ -141,7 +141,7 @@ _M.keyboard = {
     mspawn("$", "mpc toggle"),
 
     mspawn(".", "luakit"),
-    mspawn(",", "chromium --profile-directory=Default"),
+    mspawn(",", fish("chromium-with-context")),
     mspawn("u", terminal .. " vifm"),
     mspawn("g", script("wallpaper")),
     mspawn("h", terminal .. " " .. script("gtgf")),
