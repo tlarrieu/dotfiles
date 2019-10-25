@@ -52,8 +52,8 @@ abbr cc "curl (xsel --clipboard -o)"
 abbr cco "curl -O (xsel --clipboard -o)"
 
 # youtube-dl
-abbr yv "youtube-dl -fbest (xsel --clipboard -o)"
-abbr ym "youtube-dl -fbestaudio (xsel --clipboard -o)"
+abbr yv "youtube-dl -fbest --no-playlist (xsel --clipboard -o)"
+abbr ym "youtube-dl -fbestaudio --no-playlist (xsel --clipboard -o)"
 
 # Zathura
 abbr z "zathura"
