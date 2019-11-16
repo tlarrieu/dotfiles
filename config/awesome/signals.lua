@@ -74,12 +74,14 @@ local rules = {
   { class = "Chromium", instance = "d06e31abdb7149528f3122151a13e6c2", icon = "" },
   { class = "Chromium", instance = "ea190b962a914cf49da1438c028e785a", icon = "" },
 
+  { class = "Chromium", name = "Candidates", icon = "" },
+
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
   { class = "zoom", icon = "" },
 
-  { class = "Chromium", name = "Candidates", icon = "" },
+  { name = "Document Scanner", icon = "ﮩ" },
 
   { class = "Chromium", icon = "" },
   { class = "Cockatrice", icon = "﬷" },
