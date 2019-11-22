@@ -19,4 +19,4 @@
   Update and plan reading
   Review the next two weeks
   Plan next week
-
+  Update Hiring Plan
