@@ -35,6 +35,7 @@ text:nvim->interm
 # 4. Regexp
 # Match some protocols by default
 ?'^magnet:':aria2c->interm
+?'^https:\/\/www\.youtube\.com':mpv
 ?'^https:\/\/.*notion.so':notion
 ?'^https:\/\/.*\.google.com':chromium-kiosk
 ?'^https:\/\/dynalist.io':chromium-kiosk
