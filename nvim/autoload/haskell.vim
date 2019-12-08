@@ -46,23 +46,26 @@ function! haskell#editImports(mode)
   iabbrev <buffer> iq import qualified
   iabbrev <buffer> h hiding
 
+  iabbrev <buffer> pr Prelude
+
   iabbrev <buffer> ca Control.Applicative
   iabbrev <buffer> cm Control.Monad
 
-  iabbrev <buffer> pr Prelude
-
-  iabbrev <buffer> da Data.Array
-  iabbrev <buffer> dA Data.Aeson
-  iabbrev <buffer> dc Data.Char
   iabbrev <buffer> deb Debug.Trace
-  iabbrev <buffer> dl Data.List
-  iabbrev <buffer> dm Data.Map
-  iabbrev <buffer> ds Data.Set
-  iabbrev <buffer> dt Data.Time
-  iabbrev <buffer> dv Data.Vector
+
   iabbrev <buffer> gg GHC.Generics
-  iabbrev <buffer> mb Data.Maybe
   iabbrev <buffer> tp Text.Printf
+
+  iabbrev <buffer> d   Data
+  iabbrev <buffer> da  Data.Array
+  iabbrev <buffer> dc  Data.Char
+  iabbrev <buffer> dl  Data.List
+  iabbrev <buffer> dls Data.List.Split
+  iabbrev <buffer> dm  Data.Map
+  iabbrev <buffer> ds  Data.Set
+  iabbrev <buffer> dt  Data.Tuple
+  iabbrev <buffer> dv  Data.Vector
+  iabbrev <buffer> mb  Data.Maybe
 endfunction
 
 function! haskell#editPragmas(mode)
