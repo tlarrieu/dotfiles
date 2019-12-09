@@ -38,9 +38,11 @@ text:nvim->interm
 ?'^https:\/\/www\.youtube\.com':mpv
 ?'^https:\/\/.*notion.so':notion
 ?'^https:\/\/.*\.google.com':chromium-kiosk
+?'^https:\/\/google.zoom.us':chromium-kiosk
 ?'^https:\/\/dynalist.io':chromium-kiosk
 ?'^http:\/\/':luakit
 ?'^https:\/\/':luakit
+?'^zoommtg:\/\/':zoom
 ?'^www.':luakit
 ?'^dvd:\/\/':mpv
 ?'^cdda:\/\/':mpv->interm
