@@ -18,6 +18,7 @@ function! haskell#editImports(mode)
   if l:found > 0
     normal! V
     call search('import', 'b')
+    keepjumps normal! }k
     normal! V
   else
     keepjumps execute "normal! gg"
