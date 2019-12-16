@@ -20,6 +20,10 @@ function display {
 display Active "$(task rc.verbose:headers active 2> /dev/null)"
 
 if [ "$CONTEXT" == "work" ]; then
+  display Daily "$(task rc.verbose:headers daily 2> /dev/null)"
+fi
+
+if [ "$CONTEXT" == "work" ]; then
   display Hiring "$(task rc.verbose:headers hiring 2> /dev/null)"
 fi
 
