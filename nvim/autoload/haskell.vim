@@ -13,7 +13,7 @@ function! haskell#editImports(mode)
 
   keepjumps normal! gg
 
-  let found = search('import', 's')
+  let found = search('import', 'cs')
 
   if l:found > 0
     normal! V
@@ -22,7 +22,7 @@ function! haskell#editImports(mode)
     normal! V
   else
     keepjumps execute "normal! gg"
-    call search('module')
+    call search('module', 'c')
     keepjumps execute "normal! }O\<cr>\<esc>VV"
   endif
 
