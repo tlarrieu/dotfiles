@@ -8,7 +8,6 @@ if filereadable("stack.yaml")
     \ :T stack test<cr>
     \ :Topen<cr>
   nnoremap <buffer> <cr>
-    \ :T stack build<cr>
     \ :T stack run<cr>
     \ :Topen<cr>
 else
