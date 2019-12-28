@@ -104,4 +104,5 @@ function! haskell#editPragmas(mode)
   iabbrev <buffer> lang LANGUAGE
   iabbrev <buffer> nfp NamedFieldPuns
   iabbrev <buffer> gen DeriveGeneric
+  iabbrev <buffer> ts TupleSections
 endfunction
