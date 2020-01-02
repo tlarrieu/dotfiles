@@ -53,3 +53,20 @@ endsnippet
 snippet trace "traceShowId"
 traceShowId $0
 endsnippet
+
+snippet desc "describe"
+describe "$1" $ do
+	$0
+endsnippet
+
+snippet it "it"
+it "$1" $ $0
+endsnippet
+
+snippet should "`shouldBe`"
+\`shouldBe\`
+endsnippet
+
+snippet foc "focus"
+focus $ $0
+endsnippet
