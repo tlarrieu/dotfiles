@@ -23,10 +23,6 @@ if [ "$CONTEXT" == "work" ]; then
   display Daily "$(task rc.verbose:headers daily 2> /dev/null)"
 fi
 
-if [ "$CONTEXT" == "work" ]; then
-  display Hiring "$(task rc.verbose:headers hiring 2> /dev/null)"
-fi
-
 display Next "$(task rc.verbose:headers 2> /dev/null)"
 display Inbox "$(task rc.verbose:headers in 2> /dev/null)"
 
