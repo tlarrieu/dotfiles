@@ -17,6 +17,13 @@ function display {
   fi
 }
 
+priorityfile="$HOME/.priorities"
+if [ -f "$priorityfile" ]; then
+  echo -e "\n   \e[31mHot topics\n"
+  sed -e "s/^/   => /" "$priorityfile"
+  echo -ne "\e[39m"
+fi
+
 display Active "$(task rc.verbose:headers active 2> /dev/null)"
 
 if [ "$CONTEXT" == "work" ]; then
