@@ -6,6 +6,7 @@ local apply_dpi = require('beautiful.xresources').apply_dpi
 local lain = require("lain")
 
 local font = "Inconsolata Nerd Font 12"
+local tagsfont = "Inconsolata Regular Nerd Font 20"
 local clockfont = "Fira Code 10"
 
 local colorize = function(widget, value)
@@ -172,7 +173,7 @@ local init_screen = function(screen)
   local taglist = awful.widget.taglist({
     screen = screen,
     filter = function(tag) return #tag.screen.tags > 1 end,
-    style = { spacing = dpi(6), font = font },
+    style = { spacing = dpi(6), font = tagsfont },
   })
 
   local left = wibox.widget({
