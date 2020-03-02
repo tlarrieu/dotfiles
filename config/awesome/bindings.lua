@@ -163,7 +163,14 @@ _M.mouse = {
   clients = gears.table.join(
     awful.button({}, 1, function(client)
       client:emit_signal("request::activate", "mouse_click", { raise = true })
-    end)
+    end),
+    awful.button({mod}, 4, function(client) awful.tag.viewnext() end),
+    awful.button({mod}, 5, function(client) awful.tag.viewprev() end)
+  ),
+
+  root = gears.table.join(
+    awful.button({mod}, 4, awful.tag.viewnext),
+    awful.button({mod}, 5, awful.tag.viewprev)
   )
 }
 

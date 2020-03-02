@@ -9,7 +9,10 @@ require("panel")
 require("signals")
 require("rules")
 
-root.keys(require("bindings").keyboard.root)
+local bindings = require("bindings")
+
+root.keys(bindings.keyboard.root)
+root.buttons(bindings.mouse.root)
 
 local path = "/tmp/awesome_started"
 local f = io.open(path, "r")
