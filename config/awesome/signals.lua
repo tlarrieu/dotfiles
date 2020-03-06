@@ -62,6 +62,7 @@ local rules = {
   { class = "Chromium", instance = "app.productplan.com", icon = "" },
   { class = "Chromium", instance = "monday.com", icon = "" },
   { class = "Chromium", instance = "jobteaser.atlassian.net", icon = "" },
+  { class = "Chromium", instance = "circleci.com", icon = "" },
 
   { class = "Chromium", instance = "01b4f52e1ce94237918c8a15e147a7da", icon = "" },
   { class = "Chromium", instance = "098cc238c6324106959eecc4324be158", icon = "" },
