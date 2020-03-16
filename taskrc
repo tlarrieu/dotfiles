@@ -130,8 +130,8 @@ report.review.filter=+COMPLETED end.after:now-7d -daily
 
 # -- Utils ------------------------------------------------
 
-report.fzf.columns=uuid.short,status.short,priority,tags,recur.indicator,wait.remaining,scheduled,due,description.count
-report.fzf.labels=UUID,S,P,Tags,R,Wait,Scheduled,Due,Description
+report.fzf.columns=uuid.short,description.count
+report.fzf.labels=UUID,Description
 report.fzf.description=FZF Report
 report.fzf.filter=-DELETED -COMPLETED
 report.fzf.sort=scheduled,urgency-
