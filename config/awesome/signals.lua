@@ -98,7 +98,7 @@ local rules = {
   { class = "Steam", icon = "" },
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
-  { class = "discord", icon = "ﭮ" },
+  { class = "discord", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
   { class = "ncpamixer", icon = "奔" },
