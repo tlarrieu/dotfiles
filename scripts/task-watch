@@ -32,6 +32,7 @@ fi
 
 display Next "$(task rc.verbose:headers 2> /dev/null)"
 display Inbox "$(task rc.verbose:headers in 2> /dev/null)"
+display New "$(task rc.verbose:headers new 2> /dev/null)"
 
 echo
 echo "   Blocking/Blocked → `task rc.verbose:none +BLOCKING count`/`task rc.verbose:none +BLOCKED count`"

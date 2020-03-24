@@ -68,6 +68,12 @@ report.in.description=Inbox
 report.in.filter=+PENDING +inbox -BLOCKED
 report.in.sort=priority-
 
+report.new.columns=id,tags,priority,description.count,project,due.relative,urgency
+report.new.labels=ID,Tags,P,Description,Project,Due,Urg.
+report.new.description=Inbox
+report.new.filter=+PENDING entry.after:now-10min
+report.new.sort=modified
+
 report.daily.columns=id,description
 report.daily.labels=ID,Description
 report.daily.description=Daily manager
