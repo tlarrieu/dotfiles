@@ -1,4 +1,3 @@
 #!/bin/sh
 
-view="3519f245b6d3486cbd28c1a1114f22da"
-notion "jobteaser/5fa94d00c8d84aa4ac13e89480c01051?v=$view"
+confluence "spaces/OB/overview"
