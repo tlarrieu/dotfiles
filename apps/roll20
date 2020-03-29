@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk perso "https://roll20.net/welcome"
