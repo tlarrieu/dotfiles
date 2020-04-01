@@ -39,6 +39,7 @@ text:nvim->interm
 ?'^https:\/\/.*notion.so':notion
 ?'^https:\/\/.*\.google.com':chromium-kiosk
 ?'^https:\/\/google.zoom.us':chromium-kiosk
+?'^https:\/\/zoom.us':chromium-kiosk
 ?'^https:\/\/dynalist.io':chromium-kiosk
 ?'^https:\/\/trello.com':chromium-kiosk
 ?'^http:\/\/':luakit
