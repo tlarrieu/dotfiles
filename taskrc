@@ -62,15 +62,15 @@ alias.blocked=all +BLOCKED
 # -- Reports -------------------------------------------------------------------
 # -- Inboxes -----------------------------------------------
 
-report.in.columns=id,tags,priority,description.count,project,due.relative,urgency
-report.in.labels=ID,Tags,P,Description,Project,Due,Urg.
+report.in.columns=id,priority,description.count,project,due.relative,urgency
+report.in.labels=ID,P,Description,Project,Due,Urg.
 report.in.description=Inbox
 report.in.filter=+PENDING +inbox -BLOCKED
 report.in.sort=priority-
 
-report.new.columns=id,tags,priority,description.count,project,due.relative,urgency
-report.new.labels=ID,Tags,P,Description,Project,Due,Urg.
-report.new.description=Inbox
+report.new.columns=id,priority,description.count,project,due.relative,urgency
+report.new.labels=ID,P,Description,Project,Due,Urg.
+report.new.description=NEW
 report.new.filter=+PENDING entry.after:now-10min
 report.new.sort=modified
 
@@ -81,56 +81,56 @@ report.daily.filter=+PENDING +daily
 
 # -- Next up ----------------------------------------------
 
-report.active.columns=id,tags,priority,description,project,due.relative,urgency
-report.active.labels=ID,Tags,P,Description,Project,Due,Urg.
+report.active.columns=id,priority,description,project,due.relative,urgency
+report.active.labels=ID,P,Description,Project,Due,Urg.
 report.active.description=Today's tasks
 report.active.filter=+ACTIVE -WAITING
 report.active.sort=start,urgency-,description
 
-report.next.columns=id,tags,priority,description.count,project,due.relative,urgency
-report.next.labels=ID,Tags,P,Description,Project,Due,Urg.
+report.next.columns=id,priority,description.count,project,due.relative,urgency
+report.next.labels=ID,P,Description,Project,Due,Urg.
 report.next.description=Today's tasks
 report.next.filter=+PENDING scheduled.before:now -ACTIVE -BLOCKED
 report.next.sort=start,urgency-,description
 
-report.today.columns=id,tags,priority,status.short,description,project,due.relative,urgency
-report.today.labels=ID,Tags,P,S,Description,Project,Due,Urg.
+report.today.columns=id,priority,status.short,description,project,due.relative,urgency,tags
+report.today.labels=ID,P,S,Description,Project,Due,Urg.,Tags
 report.today.filter=(+PENDING or +WAITING) scheduled.before:tomorrow
 report.today.description=Tomorrow's tasks
 report.today.sort=start,urgency-,description
 
-report.tomorrow.columns=id,tags,priority,status.short,description,project,due.relative,urgency
-report.tomorrow.labels=ID,Tags,P,S,Description,Project,Due,Urg.
+report.tomorrow.columns=id,priority,status.short,description,project,due.relative,urgency,tags
+report.tomorrow.labels=ID,P,S,Description,Project,Due,Urg.,Tags
 report.tomorrow.filter=(+PENDING or +WAITING) scheduled.before:tomorrow+23h
 report.tomorrow.description=Tomorrow's tasks
 report.tomorrow.sort=start,urgency-,description
 
-report.week.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
-report.week.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
+report.week.columns=id,priority,status.short,description,project,scheduled,due.relative,urgency,tags
+report.week.labels=ID,P,S,Description,Project,Scheduled,Due,Urg.,Tags
 report.week.filter=(+PENDING or +WAITING) scheduled.before:eow
 report.week.description=This week's tasks
 report.week.sort=start,scheduled,urgency-,description
 
 # -- Review -----------------------------------------------
 
-report.planner.columns=id,tags,priority,status.short,description,project,scheduled,due.relative,urgency
-report.planner.labels=ID,Tags,P,S,Description,Project,Scheduled,Due,Urg.
+report.planner.columns=id,priority,status.short,description,project,scheduled,due.relative,urgency,tags
+report.planner.labels=ID,P,S,Description,Project,Scheduled,Due,Urg.,Tags
 report.planner.description=Planner
 report.planner.filter=(+PENDING or +WAITING) -someday -daily
 report.planner.sort=scheduled,urgency-,description
 
-report.someday.columns=id,tags,description,project,scheduled,due.relative,urgency
-report.someday.labels=ID,Tags,Description,Project,Scheduled,Due,Urg.
+report.someday.columns=id,description,project,scheduled,due.relative,urgency,tags
+report.someday.labels=ID,Description,Project,Scheduled,Due,Urg.,Tags
 report.someday.description=Someday/Maybe
 report.someday.filter=+someday (+WAITING or +PENDING)
 
-report.finished.columns=uuid.short,tags,description,project
-report.finished.labels=UUID,Tags,Description,Project
+report.finished.columns=uuid.short,description,project,tags
+report.finished.labels=UUID,Description,Project,Tags
 report.finished.description=Done
 report.finished.filter=+COMPLETED
 
-report.review.columns=uuid.short,tags,description,project
-report.review.labels=UUID,Tags,Description,Project
+report.review.columns=uuid.short,description,project,tags
+report.review.labels=UUID,Description,Project,Tags
 report.review.description=Done this week
 report.review.filter=+COMPLETED end.after:now-7d -daily
 
@@ -142,7 +142,7 @@ report.fzf.description=FZF Report
 report.fzf.filter=-DELETED -COMPLETED
 report.fzf.sort=scheduled,urgency-
 
-report.all.columns=id,status.short,depends,uuid.short,start.active,priority,project,tags,recur.indicator,wait.remaining,scheduled,due,description,urgency
-report.all.labels=ID,St,Dep,UUID,A,P,Project,Tags,R,Wait,Scheduled,Due,Description,Urg
+report.all.columns=id,status.short,depends,uuid.short,start.active,priority,project,recur.indicator,wait.remaining,scheduled,due,description,urgency,tags
+report.all.labels=ID,St,Dep,UUID,A,P,Project,R,Wait,Scheduled,Due,Description,Urg,Tags
 report.all.filter=-DELETED -COMPLETED
 report.all.sort=scheduled,urgency-,status-,tags
