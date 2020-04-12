@@ -63,6 +63,11 @@ function! s:setupcolors()
   highlight! link GitGutterChangeDelete DiffDelete
 
   highlight! link QuickFixLine DiffChange
+
+  highlight! link NeomakeVirtualtextError ErrorMsg
+  highlight! link NeomakeVirtualtextWarning WarningMsg
+  highlight! link NeomakeVirtualtextInfo WarningMsg
+  highlight! link NeomakeVirtualtextMessage WarningMsg
 endfunction
 
 function! s:setuptheme()
