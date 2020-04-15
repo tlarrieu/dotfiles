@@ -68,11 +68,11 @@ report.in.description=Inbox
 report.in.filter=+PENDING +inbox -BLOCKED
 report.in.sort=priority-
 
-report.new.columns=id,priority,description.count,project,due.relative,urgency
-report.new.labels=ID,P,Description,Project,Due,Urg.
-report.new.description=NEW
-report.new.filter=+PENDING entry.after:now-10min
-report.new.sort=modified
+report.recent.columns=id,priority,description.count,tags,project,due.relative,urgency
+report.recent.labels=ID,P,Description,Tags,Project,Due,Urg.
+report.recent.description=Recent
+report.recent.filter=+PENDING modified.after:now-10min
+report.recent.sort=modified
 
 report.daily.columns=id,description
 report.daily.labels=ID,Description
