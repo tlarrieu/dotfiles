@@ -91,6 +91,9 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
+  { class = "Thunar", icon = "" },
+  { class = "Gimp", icon = "" },
+
   { class = "zoom", icon = "" },
 
   { name = "Document Scanner", icon = "ﮩ" },
