@@ -17,7 +17,7 @@ function display {
   fi
 }
 
-priorityfile="$HOME/.priorities"
+priorityfile="$HOME/.priorities.$CONTEXT"
 if [ -f "$priorityfile" ]; then
   echo -e "\n   \e[31mHot topics\n"
   sed -e '/^./ s/^/   => /' "$priorityfile"
