@@ -44,13 +44,7 @@ awful.rules.rules = {
 
   -- [[ Multimedia ]] ----------------------------------------------------------
   {
-    rule_any = {
-      class = {
-        "mpv",
-        "Pavucontrol",
-        "ncpamixer",
-      },
-    },
+    rule = { class = "mpv" },
     properties = { fullscreen = true },
   },
 
