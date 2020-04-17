@@ -32,16 +32,6 @@ awful.rules.rules = {
     properties = { size_hints_honor = false },
   },
 
-  -- [[ Flash player ]] --------------------------------------------------------
-  {
-    rule = { class = "Plugin-container" },
-    properties = {
-      floating = true,
-      ontop = true,
-      border = 0,
-    },
-  },
-
   -- [[ Multimedia ]] ----------------------------------------------------------
   {
     rule = { class = "mpv" },
