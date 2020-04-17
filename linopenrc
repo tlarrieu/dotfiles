@@ -42,6 +42,7 @@ text:nvim->interm
 ?'^https:\/\/zoom.us':chromium-kiosk
 ?'^https:\/\/dynalist.io':chromium-kiosk
 ?'^https:\/\/trello.com':chromium-kiosk
+?'^https:\/\/.*atlassian.net':chromium-kiosk
 ?'^http:\/\/':luakit
 ?'^https:\/\/':luakit
 ?'^zoommtg:\/\/':zoom
