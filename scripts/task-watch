@@ -26,10 +26,6 @@ fi
 
 display Active "$(task rc.verbose:headers active 2> /dev/null)"
 
-if [ "$CONTEXT" == "work" ]; then
-  display Daily "$(task rc.verbose:headers daily 2> /dev/null)"
-fi
-
 display Next "$(task rc.verbose:headers 2> /dev/null)"
 display Inbox "$(task rc.verbose:headers in 2> /dev/null)"
 display Recents "$(task rc.verbose:headers recent 2> /dev/null)"
