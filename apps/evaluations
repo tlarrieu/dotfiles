@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk pro "https://docs.google.com/spreadsheets/d/1sCGQbDXlvM1D7W_D0FYRXckUfWGj_kC-d1q_vWiK0VQ/edit"
