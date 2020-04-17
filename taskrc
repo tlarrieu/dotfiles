@@ -67,7 +67,7 @@ report.in.columns=id,priority,description.count,project,due.relative,urgency
 report.in.labels=ID,P,Description,Project,Due,Urg.
 report.in.description=Inbox
 report.in.filter=+PENDING +inbox -BLOCKED
-report.in.sort=priority-
+report.in.sort=urgency-
 
 report.recent.columns=id,priority,description.count,tags,project,due.relative,urgency
 report.recent.labels=ID,P,Description,Tags,Project,Due,Urg.
