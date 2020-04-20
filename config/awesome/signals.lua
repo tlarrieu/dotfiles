@@ -66,6 +66,7 @@ local rules = {
   { class = "Chromium", instance = "circleci.com", icon = "" },
   { class = "Chromium", instance = "miro.com", icon = "﵁" },
   { class = "Chromium", instance = "pragli.com", icon = "" },
+  { class = "Chromium", instance = "metroretro.io", icon = "滛" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
   { class = "Chromium", instance = "1BLpUgFZ7HXxhe9sbIL9KdwTvQkLwSPTjyQwzwY6f", icon = "ﲅ" },
