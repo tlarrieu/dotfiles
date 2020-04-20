@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk pro "https://jobteaser.atlassian.net/secure/BrowseProjects.jspa"
+chromium-kiosk pro "https://jobteaser.atlassian.net/browse/JTC"
