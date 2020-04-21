@@ -1,4 +1,3 @@
 #!/bin/sh
 
-# chromium-kiosk pro "https://jobteaser.atlassian.net/wiki/spaces/ES/pages/702611469/EM+Staff+Meeting"
 chromium-kiosk pro "https://trello.com/b/GTVBxpHT/em-staff-meeting"
