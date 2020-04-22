@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# Required before anything else:
+#
+# pacman -S v4l2loopback-dkms
+# sudo modprobe v4l2loopback exclusive_caps=1
+# v4l2-ctl -D -d /dev/video0
+
+# Attempt at color keying (not working as expected right now)
+# ffmpeg \
+#   -i /home/tlarrieu/Pictures/wallpapers/abstract_animal.jpg \
+#   -i http://192.168.1.24:8080/video \
+#   -pix_fmt yuv420p \
+#   -filter_complex '[1:v]colorkey=0x24325C:0.3:0.2[ckout];[0:v][ckout]overlay[out]' \
+#   -map '[out]' \
+#   -f v4l2 \
+#   /dev/video0
+
+ffmpeg \
+  -i http://192.168.1.24:8080/video \
+  -pix_fmt yuv420p \
+  -f v4l2 \
+  /dev/video0
