@@ -1,11 +1,35 @@
 #!/bin/sh
 
-input=$(
-  rofi -dmenu \
-    -p "" \
-    -theme-str '#content { children: [inputbar]; }'
-)
+LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
+LAUNCHER2='rofi -dmenu -lines 6 -i -p '
+OPTIONS="Inbox\nWork\nHome\nConnect\nContinuous Improvement\nCourses"
+
+input=$(eval $LAUNCHER)
 
 if [[ -n "$input" ]]; then
-  task add "$input" +inbox
+  option=`echo -e $OPTIONS | $LAUNCHER2`
+  if [ ${#option} -gt 0 ]; then
+    case $option in
+      Inbox)
+        task add "$input" +inbox
+        ;;
+      Work)
+        task add "$input" +inbox +@work
+        ;;
+      Home)
+        task add "$input" +inbox +@home
+        ;;
+      Connect)
+        task add "$input" +inbox +@work project:connect
+        ;;
+      "Continuous Improvement")
+        task add "$input" project:improvements
+        ;;
+      Courses)
+        task add "$input" project:shopping
+        ;;
+      *)
+        ;;
+    esac
+  fi
 fi

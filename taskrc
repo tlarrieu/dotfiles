@@ -69,6 +69,18 @@ report.in.description=Inbox
 report.in.filter=+PENDING +inbox -BLOCKED
 report.in.sort=urgency-
 
+report.improvements.columns=id,description.count
+report.improvements.labels=ID,Description
+report.improvements.description=Continuous Improvements
+report.improvements.filter=+PENDING pro:improvements -BLOCKED
+report.improvements.sort=urgency-
+
+report.shopping.columns=id,description.count
+report.shopping.labels=ID,Description
+report.shopping.description=Shopping
+report.shopping.filter=+PENDING pro:shopping -BLOCKED
+report.shopping.sort=urgency-
+
 report.recent.columns=id,priority,description.count,tags,project,due.relative,urgency
 report.recent.labels=ID,P,Description,Tags,Project,Due,Urg.
 report.recent.description=Recent
