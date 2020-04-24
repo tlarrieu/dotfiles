@@ -16,8 +16,23 @@
 #   -f v4l2 \
 #   /dev/video0
 
+if [ ! -e /dev/video0 ]; then
+  notify-send -t 2000 'Webcam' 'missing node, I need your root password'
+  sudo -A modprobe v4l2loopback exclusive_caps=1
+fi
+
+notify-send -t 2000 'Webcam' 'Starting webcam script...'
+
 ffmpeg \
   -i http://192.168.1.24:8080/video \
   -pix_fmt yuv420p \
   -f v4l2 \
   /dev/video0
+
+status=$?
+
+if [ $status -eq 1 ]; then
+  notify-send -t 2000 'Webcam' 'Something went wrong. Is your phone streaming video?'
+else
+  notify-send -t 2000 'Webcam' 'Webcam off'
+fi

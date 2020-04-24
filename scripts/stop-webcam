@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# That might be a bit brutal!
+pkill ffmpeg

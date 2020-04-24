@@ -61,6 +61,8 @@ if test -e /usr/share/doc/task/scripts/fish/task.fish
   source /usr/share/doc/task/scripts/fish/task.fish
 end
 
+set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
+
 # TERM
 set -gx TERM xterm-256color
 

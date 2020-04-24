@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+rofi -dmenu -password -p "" -theme-str "#content { children: [inputbar]; }"
