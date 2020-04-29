@@ -81,6 +81,12 @@ report.shopping.description=Shopping
 report.shopping.filter=+PENDING pro:shopping -BLOCKED
 report.shopping.sort=urgency-
 
+report.roll20.columns=id,description.count
+report.roll20.labels=ID,Description
+report.roll20.description=Roll20
+report.roll20.filter=+PENDING pro:roll20 -BLOCKED
+report.roll20.sort=urgency-
+
 report.recent.columns=id,priority,description.count,tags,project,due.relative,urgency
 report.recent.labels=ID,P,Description,Tags,Project,Due,Urg.
 report.recent.description=Recent
