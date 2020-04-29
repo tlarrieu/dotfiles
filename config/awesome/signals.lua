@@ -100,6 +100,9 @@ local rules = {
 
   { name = "Document Scanner", icon = "ﮩ" },
 
+  -- As the name does not imply, this if wonderdraft!
+  { class = "Godot", icon = "" },
+
   { class = "Chromium", icon = "" },
   { class = "Cockatrice", icon = "﬷" },
   { class = "Luakit", icon = "" },
