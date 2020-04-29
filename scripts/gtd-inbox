@@ -11,28 +11,37 @@ if [[ -n "$input" ]]; then
   if [ ${#option} -gt 0 ]; then
     case $option in
       Inbox)
-        task add "$input" +inbox
+        args="'$input' +inbox"
         ;;
       Work)
-        task add "$input" +inbox +@work
+        args="'$input' +inbox +@work"
         ;;
       Home)
-        task add "$input" +inbox +@home
+        args="'$input' +inbox +@home"
         ;;
       Connect)
-        task add "$input" +inbox +@work project:connect
+        args="'$input' +inbox +@work project:connect"
         ;;
       "Continuous Improvement")
-        task add "$input" project:improvements
+        args="'$input' project:improvements"
         ;;
       Courses)
-        task add "$input" project:shopping
+        args="'$input' project:shopping"
         ;;
       Roll20)
-        task add "$input" project:roll20 +@home
+        args="'$input' project:roll20 +@home"
         ;;
       *)
+        args=''
         ;;
     esac
+
+    if [ -n "$args" ]; then
+      uuid=$(task add $args | perl -pe 's|Created task (.*)\.|\1|')
+      url=$(echo $input | perl -pe 's|^.*(https?://.*?)(( .*)?)$|\1|')
+      if [ -n $url ]; then
+        task annotate $uuid $url
+      fi
+    fi
   fi
 fi
