@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk pro "https://jobteaser.atlassian.net/jira/software/projects/JTC/boards/107/backlog"
