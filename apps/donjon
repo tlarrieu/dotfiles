@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk perso "https://donjon.bin.sh"
