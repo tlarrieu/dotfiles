@@ -14,6 +14,7 @@ require("editor").editor_cmd = "kitty nvim {file} +{line} +'set ft=luakit'"
 set.window.search_engines = {
   default = "https://duckduckgo.com/?q=%s",
   a = "https://wiki.archlinux.org/index.php/%s",
+  dt = "https://www.dndtools.net/spells/?name=%s&_filter=Filter",
   g = "https://github.com/%s",
   gh = "https://github.com/search?q=%s",
   h = "https://www.haskell.org/hoogle?hoogle=%s",
