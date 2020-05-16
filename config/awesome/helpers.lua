@@ -17,7 +17,9 @@ _M.create_tag_and_attach_to = function(client)
   local screen = client.screen
   local tag
 
-  if client.floating then tag = screen.selected_tag end
+  if client.floating and not client.fullscreen then
+    tag = screen.selected_tag
+  end
 
   tag = tag or _M.create_tag(screen)
 
