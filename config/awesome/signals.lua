@@ -73,22 +73,6 @@ local rules = {
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
   { class = "Chromium", instance = "1BLpUgFZ7HXxhe9sbIL9KdwTvQkLwSPTjyQwzwY6f", icon = "" },
 
-  { class = "Chromium", instance = "01b4f52e1ce94237918c8a15e147a7da", icon = "" },
-  { class = "Chromium", instance = "098cc238c6324106959eecc4324be158", icon = "" },
-  { class = "Chromium", instance = "21211c4211c84ee8a9db873220e457b2", icon = "" },
-  { class = "Chromium", instance = "2fd3c97e4ef64dcfb391ed2b348ef9f0", icon = "" },
-  { class = "Chromium", instance = "324fe5ac916d4fb49d2fe8387600ed72", icon = "" },
-  { class = "Chromium", instance = "32f05da8c51b4da3a9dfaedbc67e506a", icon = "" },
-  { class = "Chromium", instance = "6a6882169a7249adbf321f897035c6e0", icon = "" },
-  { class = "Chromium", instance = "769fc36a98484f2cbbf3581e59a4fda8", icon = "" },
-  { class = "Chromium", instance = "77277bcb054647d9b9603c2d1b92f463", icon = "" },
-  { class = "Chromium", instance = "802f37c764ef42b4bfae2fc2c3db0dc2", icon = "" },
-  { class = "Chromium", instance = "91ae543e7efd461a89eb3b240230b6fd", icon = "" },
-  { class = "Chromium", instance = "a1ca222c067f4bdd8530443f2c79825e", icon = "" },
-  { class = "Chromium", instance = "aaece7f17b3746a69bea185a31f56474", icon = "" },
-  { class = "Chromium", instance = "d06e31abdb7149528f3122151a13e6c2", icon = "" },
-  { class = "Chromium", instance = "ea190b962a914cf49da1438c028e785a", icon = "" },
-
   { class = "Chromium", name = "Candidates", icon = "" },
 
   { class = "kitty", name = "NVIM" , icon = "" },
