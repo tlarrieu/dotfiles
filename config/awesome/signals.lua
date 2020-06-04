@@ -71,6 +71,7 @@ local rules = {
   { class = "Chromium", instance = "pinterest.com", icon = "" },
   { class = "Chromium", instance = "citymapper.com", icon = "" },
   { class = "Chromium", instance = "hub.docker.com", icon = "" },
+  { class = "Chromium", instance = "appsignal.com", icon = "勞" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
   { class = "Chromium", instance = "1BLpUgFZ7HXxhe9sbIL9KdwTvQkLwSPTjyQwzwY6f", icon = "" },
