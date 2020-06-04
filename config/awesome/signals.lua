@@ -35,6 +35,7 @@ local tag_signals = { "tagged", "untagged" }
 local rules = {
   { class = "Chromium", instance = "calendar.google.com" , icon = "" },
   { class = "Chromium", instance = "drive.google.com" , icon = "" },
+  { class = "Chromium", instance = "docs.google.com" , icon = "" },
   { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
   { class = "Chromium", instance = "meet.google.com" , icon = "" },
   { class = "Chromium", instance = "keep.google.com" , icon = "ﯚ" },
