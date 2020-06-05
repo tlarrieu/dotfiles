@@ -14,7 +14,7 @@ uda.priority.default=M
 # -- Look & feel ---------------------------------------------------------------
 include /usr/share/doc/task/rc/solarized-light-256.theme
 
-defaultwidth=120
+defaultwidth=100
 row.padding=3
 column.padding=3
 
