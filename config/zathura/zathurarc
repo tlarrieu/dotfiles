@@ -13,7 +13,7 @@ set recolor-darkcolor "#073642"
 
 set recolor true
 
-set scroll-step 500
+# set scroll-step 500
 set selection-clipboard clipboard
 
 map f follow
