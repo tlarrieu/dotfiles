@@ -72,7 +72,7 @@ Plug 'tbastos/vim-lua'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'GothenburgBitFactory/taskwarrior', { 'dir': '~/.task/nvim', 'do': 'mv scripts/vim/* ~/.task/nvim' }
+Plug 'GothenburgBitFactory/taskwarrior'
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
