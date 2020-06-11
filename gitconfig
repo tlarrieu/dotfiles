@@ -16,6 +16,8 @@
 [core]
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
+[pull]
+	ff = only
 [alias]
 	bd = "!git branch --no-contains master --format='%(refname:short)' --merged master | xargs --no-run-if-empty git branch -d"
 	br = branch
