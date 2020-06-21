@@ -143,6 +143,7 @@ _M.keyboard = {
     mspawn(".", "luakit"),
     mspawn(",", fish("chromium-with-context")),
     mspawn("u", terminal .. " vifm"),
+    spawn({mod, "Shift"}, "u", "thunar"),
     mspawn("g", script("wallpaper")),
     mspawn("h", terminal .. " " .. script("gtgf")),
 
