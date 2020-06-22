@@ -44,7 +44,7 @@ if [[ -n "$input" ]]; then
 
     if [ -n "$args" ]; then
       uuid=$(task add $args | perl -pe 's|Created task (.*)\.|\1|')
-      url=$(echo $input | perl -pe 's|^.*(https?://.*?)(( .*)?)$|\1|')
+      url=$(echo $input | egrep -o 'https?://[^ ]+')
       if [ -n $url ]; then
         task annotate $uuid $url
       fi
