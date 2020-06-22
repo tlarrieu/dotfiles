@@ -81,6 +81,12 @@ report.shopping.description=Shopping
 report.shopping.filter=+PENDING pro:shopping -BLOCKED
 report.shopping.sort=urgency-
 
+report.CSE.columns=id,description.count
+report.CSE.labels=ID,Description
+report.CSE.description=CSE
+report.CSE.filter=+PENDING pro:CSE -BLOCKED
+report.CSE.sort=urgency-
+
 report.roll20.columns=id,description.count
 report.roll20.labels=ID,Description
 report.roll20.description=Roll20
