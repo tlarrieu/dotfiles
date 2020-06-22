@@ -46,7 +46,7 @@ abbr xo "xsel --clipboard -o"
 abbr xi "xsel --clipboard -i"
 
 # aria2c
-abbr dl "aria2c (xsel --clipboard -o) --dir=$HOME/Downloads"
+abbr dl "aria2c (xsel --clipboard -o) --dir=."
 
 # curl
 abbr c "curl"
