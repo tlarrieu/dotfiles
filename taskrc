@@ -40,6 +40,7 @@ urgency.annotations.coefficient=0
 urgency.blocking.coefficient=4
 urgency.project.coefficient=0
 urgency.user.project.connect.coefficient=3
+urgency.user.project.CSE.coefficient=8
 urgency.scheduled.coefficient=0
 urgency.tags.coefficient=0
 
