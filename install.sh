@@ -195,7 +195,7 @@ case $answer in
     safeinstall aur/gtk-theme-numix-solarized
 
     safeinstall manjaro-pulse
-    safeinstall ncpamixer
+    safeinstall pulsemixer
 
     safeinstall networkmanager
 

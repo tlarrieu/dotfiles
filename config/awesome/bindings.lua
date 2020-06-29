@@ -136,7 +136,7 @@ _M.keyboard = {
     mspawn("à",                    script("rofi-bluetooth")),
 
     mspawn("q", script("rofi-power")),
-    mspawn("a", terminal .. " --class ncpamixer ncpamixer"),
+    mspawn("a", terminal .. " --class mixer pulsemixer"),
 
     mspawn("m", script("mpc-library")),
     mspawn("b", script("mpc-playlist")),

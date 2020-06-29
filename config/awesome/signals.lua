@@ -104,7 +104,7 @@ local rules = {
   { class = "discord", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
-  { class = "ncpamixer", icon = "奔" },
+  { class = "mixer", icon = "奔" },
 }
 
 local update_icon = function(tag, client)
