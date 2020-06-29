@@ -28,6 +28,8 @@ local fish = function(command)
   return "fish -c '" .. command .. "'"
 end
 
+local increment = 0.01
+
 local view_tag = function(id) awful.screen.focused().tags[id]:view_only() end
 
 local focus_client = function(direction)
@@ -106,10 +108,10 @@ _M.keyboard = {
     key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
     key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
 
-    mkey("d",          function() awful.tag.incmwfact(0.05) end),
-    mkey("v",          function() awful.tag.incmwfact(-0.05) end),
-    key({mod, "Shift"}, "d", function() awful.client.incwfact(0.05) end),
-    key({mod, "Shift"}, "v", function() awful.client.incwfact(-0.05) end),
+    mkey("d",          function() awful.tag.incmwfact(increment) end),
+    mkey("v",          function() awful.tag.incmwfact(-increment) end),
+    key({mod, "Shift"}, "d", function() awful.client.incwfact(increment) end),
+    key({mod, "Shift"}, "v", function() awful.client.incwfact(-increment) end),
 
     mkey("t",    function() focus_client(1) end),
     mkey("Down", function() focus_client(1) end),
