@@ -13,6 +13,8 @@ config/fish/conf.d/local.fish
 config/fish/fundle
 config/fish/local.fish
 
+config/mpv/watch_later
+
 nvim/plugged/*
 nvim/autoload/plug.vim
 nvim/doc
