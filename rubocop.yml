@@ -5,7 +5,7 @@ AllCops:
 
 # -- [[ Layout ]] --------------------------------------------------------------
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/DefEndAlignment:
