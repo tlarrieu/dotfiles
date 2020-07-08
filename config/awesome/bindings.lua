@@ -167,6 +167,10 @@ _M.mouse = {
     awful.button({}, 1, function(client)
       client:emit_signal("request::activate", "mouse_click", { raise = true })
     end),
+    awful.button({mod}, 1, function (client)
+        client:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(client)
+    end),
     awful.button({mod}, 4, function(_) awful.tag.viewnext() end),
     awful.button({mod}, 5, function(_) awful.tag.viewprev() end)
   ),
