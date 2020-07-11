@@ -35,12 +35,17 @@ local tag_signals = { "tagged", "untagged" }
 local rules = {
   { class = "Chromium", instance = "calendar.google.com" , icon = "" },
   { class = "Chromium", instance = "drive.google.com" , icon = "" },
+  { class = "Chromium", instance = "docs.google.com.*spreadsheets" , icon = "離" },
   { class = "Chromium", instance = "docs.google.com" , icon = "" },
+  { class = "Chromium", instance = "photos.google.com" , icon = "" },
   { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
   { class = "Chromium", instance = "meet.google.com" , icon = "" },
   { class = "Chromium", instance = "keep.google.com" , icon = "ﯚ" },
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
+  { class = "Chromium", name = "Google Sheets", icon = "離" },
+  { class = "Chromium", name = "Google Docs", icon = "" },
+  { class = "Chromium", name = "Google Photos", icon = "" },
   { class = "Chromium", name = "YouTube", icon = "" },
   { class = "Luakit", name = "YouTube", icon = "" },
 
