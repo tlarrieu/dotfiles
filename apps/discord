@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk perso "https://discord.com/channels/@me"
