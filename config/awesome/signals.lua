@@ -87,6 +87,8 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
+  { class = "taskwarrior", icon = "" },
+
   { class = "Thunar", icon = "" },
   { class = "Gimp", icon = "" },
   { class = "Flowblade", icon = "﨣" },
