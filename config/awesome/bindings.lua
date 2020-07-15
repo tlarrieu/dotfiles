@@ -144,6 +144,7 @@ _M.keyboard = {
 
     mspawn(" ",                    fish("rofi -show run -lines 6")),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
+    spawn({ mod, "Shift" }, "c",   termstart("", { directory = dotfiles })),
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
     spawn({}, "F12",               script("rofi-wifi")),
