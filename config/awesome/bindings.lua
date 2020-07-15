@@ -168,10 +168,6 @@ _M.keyboard = {
     mspawn("h", termstart(script("gtgf"))),
 
     mspawn("'", terminal),
-    mspawn("è", termstart(
-      "nvim nvim/init.vim",
-      { directory = os.getenv("HOME") .. "/git/dotfiles" }
-    )),
 
     mspawn("p", script("screenshot.sh"))
   )
