@@ -10,10 +10,6 @@ snippet todo "TODO"
 -- TODO: $1
 endsnippet
 
-snippet l "local"
-local $1 = $2
-endsnippet
-
 snippet req "require"
 require("$1")
 endsnippet
@@ -24,4 +20,19 @@ endsnippet
 
 snippet notif "naughty.notify"
 require("naughty").notify({ text = ${1:"$2"} })
+endsnippet
+
+snippet l "local"
+local $1 = $2
+endsnippet
+
+snippet d "function"
+local $1 = function($2)
+	$3
+end
+endsnippet
+
+snippet for "for loop"
+for $1 in $2 do
+end
 endsnippet
