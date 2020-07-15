@@ -10,6 +10,7 @@ local helpers = require("helpers")
 local gears = require("gears")
 
 local terminal = "kitty --single-instance"
+local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local mod = "Mod4"
 
 local key = awful.key
@@ -26,6 +27,22 @@ end
 
 local fish = function(command)
   return "fish -c '" .. command .. "'"
+end
+
+local termstart = function(cmd, opts)
+  local options = ""
+  if opts then
+    for name, value in pairs(opts) do
+      options = string.format("%s --%s %s", options, name, value)
+    end
+  end
+
+  return fish(string.format(
+    "%s %s %s",
+    terminal,
+    options,
+    cmd
+  ))
 end
 
 local increment = 0.01
@@ -136,7 +153,7 @@ _M.keyboard = {
     mspawn("à",                    script("rofi-bluetooth")),
 
     mspawn("q", script("rofi-power")),
-    mspawn("a", terminal .. " --class mixer pulsemixer"),
+    mspawn("a", termstart("pulsemixer", { class = "mixer" })),
 
     mspawn("m", script("mpc-library")),
     mspawn("b", script("mpc-playlist")),
@@ -144,16 +161,15 @@ _M.keyboard = {
 
     mspawn(".", "luakit"),
     mspawn(",", fish("chromium-with-context")),
-    mspawn("u", terminal .. " vifm"),
+    mspawn("u", termstart("vifm")),
     spawn({mod, "Shift"}, "u", "thunar"),
     mspawn("g", script("wallpaper")),
-    mspawn("h", terminal .. " " .. script("gtgf")),
+    mspawn("h", termstart(script("gtgf"))),
 
     mspawn("'", terminal),
-    mspawn("è", string.format(
-      "%s -d %s/git/dotfiles nvim nvim/init.vim",
-      terminal,
-      os.getenv("HOME")
+    mspawn("è", termstart(
+      "nvim nvim/init.vim",
+      { directory = os.getenv("HOME") .. "/git/dotfiles" }
     )),
 
     mspawn("p", script("screenshot.sh"))
