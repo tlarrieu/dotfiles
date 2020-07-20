@@ -218,6 +218,8 @@ case $answer in
     safeinstall feh
     safeinstall sxiv
 
+    safeinstall pass
+
     safeinstall zathura
     safeinstall zathura-djvu
     safeinstall zathura-pdf-mupdf
