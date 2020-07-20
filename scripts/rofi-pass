@@ -1,0 +1,10 @@
+#!/bin/bash
+
+LAUNCHER='rofi -dmenu -lines 5 -i -p '
+
+option=$(pass git ls-files | grep -v '.gpg-id' | sed -e 's/.gpg$//' | $LAUNCHER)
+
+if [ ${#option} -gt 0 ]; then
+  pass show "$option" --clip
+  notify-send "Password copied" "The clipboard will be cleared in 45 sec"
+fi
