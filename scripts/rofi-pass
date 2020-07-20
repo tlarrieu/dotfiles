@@ -2,7 +2,13 @@
 
 LAUNCHER='rofi -dmenu -lines 5 -i -p '
 
-option=$(pass git ls-files | grep -v '.gpg-id' | sed -e 's/.gpg$//' | $LAUNCHER)
+option=$(\
+  pass git ls-files \
+  | grep -v '.gpg-id' \
+  | grep -v '.gitignore' \
+  | sed -e 's/.gpg$//' \
+  | $LAUNCHER \
+)
 
 if [ ${#option} -gt 0 ]; then
   pass show "$option" --clip
