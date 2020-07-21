@@ -21,7 +21,13 @@ awful.rules.rules = {
       placement = awful.placement.no_overlap +
         awful.placement.no_offscreen +
         awful.placement.centered,
+    },
+  },
 
+  {
+    rule = {},
+    except_any = { class = { "gtgf", "kitty-light" } },
+    properties = {
       callback = helpers.create_tag_and_attach_to,
     },
   },
