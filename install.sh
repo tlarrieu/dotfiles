@@ -181,7 +181,7 @@ case $answer in
     safeinstall xorg-xrandr
 
     safeinstall lightdm
-    safeinstall lightdm-webkit-theme-litarvan
+    safeinstall lightdm-webkit-theme-aether
 
     safeinstall betterlockscreen
 
@@ -304,9 +304,9 @@ case $answer in
       's/#\?greeter-session=.*/greeter-session=lightdm-webkit2-greeter/' \
       /etc/lightdm/lightdm.conf
     echo "$(tput setaf 2)Done.$(tput sgr0)"
-    echo "$(tput setaf 3)Setting theme for webkit2 greeter (litarvan)$(tput sgr0)"
-    sudo sed -si \
-      's/\(webkit_theme *=\).*/\1 litarvan/' \
+    echo "$(tput setaf 3)Setting theme for webkit2 greeter (aether)$(tput sgr0)"
+    sudo sed -i \
+      's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = lightdm-webkit-theme-aether #\1/g' \
       /etc/lightdm/lightdm-webkit2-greeter.conf
     echo "$(tput setaf 2)Done.$(tput sgr0)"
     ;;
