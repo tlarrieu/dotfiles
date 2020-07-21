@@ -113,6 +113,8 @@ local rules = {
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
   { class = "mixer", icon = "奔" },
+  { class = "Gpick", icon = "" },
+  { class = "Xephyr", icon = "" },
 }
 
 local update_icon = function(tag, client)
