@@ -11,6 +11,19 @@ option=$(\
 )
 
 if [ ${#option} -gt 0 ]; then
+  notify-send \
+    "Decrypting password..." \
+    "Pass is trying to decrypt the password <b>${option}</b>"
+
   pass show "$option" --clip
-  notify-send "Password copied" "The clipboard will be cleared in 45 sec"
+
+  if [ $? = 0 ]; then
+    notify-send \
+      "Password copied" \
+      "The clipboard will be cleared in <b>45 sec</b>"
+  else
+    notify-send \
+      "Error" \
+      "Something went wrong while trying to decrypt your password.\nTry running pass manually to see what's wrong"
+  fi
 fi
