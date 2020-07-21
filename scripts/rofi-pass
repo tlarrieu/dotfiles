@@ -4,8 +4,7 @@ LAUNCHER='rofi -dmenu -lines 5 -i -p '
 
 option=$(\
   pass git ls-files \
-  | grep -v '.gpg-id' \
-  | grep -v '.gitignore' \
+  | grep '.gpg$' \
   | sed -e 's/.gpg$//' \
   | $LAUNCHER \
 )
