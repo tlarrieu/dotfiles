@@ -79,6 +79,7 @@ local rules = {
   { class = "Chromium", instance = "hub.docker.com", icon = "" },
   { class = "Chromium", instance = "appsignal.com", icon = "勞" },
   { class = "Chromium", instance = "linkedin.com", icon = "" },
+  { class = "Chromium", instance = "discord.com", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
   { class = "Chromium", instance = "1BLpUgFZ7HXxhe9sbIL9KdwTvQkLwSPTjyQwzwY6f", icon = "" },
@@ -109,7 +110,6 @@ local rules = {
   { class = "Steam", icon = "" },
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
-  { class = "discord", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
   { class = "mixer", icon = "奔" },
