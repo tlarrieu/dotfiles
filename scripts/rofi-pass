@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -lines 5 -i -p '
+LAUNCHER='rofi -dmenu -lines 5 -i -p  -no-history'
 
 option=$(\
   pass git ls-files \
