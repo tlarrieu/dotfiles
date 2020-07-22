@@ -273,7 +273,7 @@ let g:highlightedyank_highlight_duration = 180
 let g:neoterm_default_mod = 'botright'
 let g:neoterm_autoscroll = 1
 let g:neoterm_size = 12
-let g:neoterm_automap_keys = ''
+let g:neoterm_automap_keys = '<leader>vttttt'
 nmap <silent> <leader><tab> :Ttoggle<cr>
 " }}}
 " {{{ --| Deoplete |----------------------------------------
