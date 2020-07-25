@@ -73,6 +73,7 @@ mark p ~/Pictures
 mark s ~/scripts
 mark v ~/Videos
 mark w ~/Pictures/wallpapers
+mark M /run/media/tlarrieu
 
 " file types
 set classify=''
