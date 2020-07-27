@@ -94,6 +94,8 @@ local rules = {
 
   { class = "Thunar", icon = "" },
   { class = "Gimp", icon = "" },
+  { class = "Viewnior", icon = "" },
+  { class = "Sxiv", icon = "" },
   { class = "Flowblade", icon = "﨣" },
 
   { class = "zoom", icon = "" },
