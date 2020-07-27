@@ -1,0 +1,3 @@
+#!/bin/sh
+
+chromium-kiosk $1 "https://docs.google.com"
