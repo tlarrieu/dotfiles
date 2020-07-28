@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk perso "https://app.diagrams.net/"
+chromium-kiosk $1 "https://app.diagrams.net/"
