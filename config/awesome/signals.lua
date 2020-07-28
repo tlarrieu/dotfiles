@@ -108,6 +108,7 @@ local rules = {
   -- As the name does not imply, this if wonderdraft!
   { class = "Godot", icon = "" },
   { class = "Chromium", instance = "app.legendkeeper.com", icon = "" },
+  { class = "Chromium", instance = "watabou.itch.io", icon = "" },
   { class = "Chromium", instance = "rolladvantage.com", icon = "" },
 
   { class = "Chromium", icon = "" },
