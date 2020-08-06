@@ -2,10 +2,10 @@
 notify-send "Bringing Wi-Fi configuration up..."
 nmcli radio wifi on
 
-adapter=$(nmcli device status | grep wifi | cut -d' ' -f1)
+adapter=$(nmcli device status | grep wifi | cut -d' ' -f1 | head -n1)
 selection=$(
   nmcli -p -f in-use,ssid,security,bars,signal device wifi list ifname $adapter \
-  | tail -n +7 \
+  | tail -n +6 \
   | rofi -hide-scrollbar -i -dmenu -p "" \
   | cut -c4- \
   | sed 's/\s+/ /g'
