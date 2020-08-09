@@ -67,6 +67,7 @@ function! haskell#editImports(mode)
   iabbrev <buffer> dt  Data.Tuple
   iabbrev <buffer> dv  Data.Vector
   iabbrev <buffer> mb  Data.Maybe
+  iabbrev <buffer> parsec Text.ParserCombinators.Parsec
 endfunction
 
 function! haskell#editPragmas(mode)
