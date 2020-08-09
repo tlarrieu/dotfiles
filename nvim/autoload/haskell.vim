@@ -51,6 +51,7 @@ function! haskell#editImports(mode)
 
   iabbrev <buffer> ca Control.Applicative
   iabbrev <buffer> cm Control.Monad
+  iabbrev <buffer> df Data.Functor
 
   iabbrev <buffer> deb Debug.Trace
 
