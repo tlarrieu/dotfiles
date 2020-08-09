@@ -16,6 +16,10 @@ abbr jctl "journalctl"
 # nmcli
 abbr nmcli "nmcli --color yes"
 
+# Pass
+
+abbr p "pass"
+
 # NVIM
 alias ep "nvim -R -"
 abbr e "nvim"
@@ -180,16 +184,6 @@ abbr tw "task mod wait:"
 abbr ty "task sync"
 abbr start "task start"
 abbr stop "task stop"
-
-abbr p "prev"
-
-function prev
-  task rc._forcecolor:no rc.verbose:none export $argv | \
-    jq '
-      map({ "key": .description, "value": [.annotations[]?.description] })
-      | from_entries
-    '
-end
 
 # Routines
 abbr rt "routine"
