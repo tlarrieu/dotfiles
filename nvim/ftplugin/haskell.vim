@@ -3,13 +3,21 @@ iabbrev <buffer> è <<bar>
 iabbrev <buffer> ?? undefined
 iabbrev <buffer> wh where
 
+if !exists("g:hs_stack_run_args")
+  let g:hs_stack_run_args = ""
+endif
+
+function! haskell#run()
+  call execute("T stack run " . g:hs_stack_run_args, "Topen")
+endfunction
+
+function! haskell#test()
+  call execute("T stack test", "Topen")
+endfunction
+
 if filereadable("stack.yaml")
-  nnoremap <buffer> <leader><cr>
-    \ :T stack test<cr>
-    \ :Topen<cr>
-  nnoremap <buffer> <cr>
-    \ :T stack run<cr>
-    \ :Topen<cr>
+  nnoremap <buffer> <leader><cr> :call haskell#test()<cr>
+  nnoremap <buffer> <cr> :call haskell#run()<cr>
 else
   nnoremap <buffer> <cr>
     \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
