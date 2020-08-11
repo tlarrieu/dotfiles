@@ -94,6 +94,8 @@ local rules = {
   { class = "kitty", name = "vifm", icon = "" },
 
   { class = "taskwarrior", icon = "" },
+  { class = "help", icon = "" },
+  { class = "gtgf", icon = "" },
 
   { class = "Thunar", icon = "" },
   { class = "Gimp", icon = "" },

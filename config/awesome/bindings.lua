@@ -168,6 +168,7 @@ _M.keyboard = {
     spawn({mod, "Shift"}, "u", "thunar"),
     mspawn("g", script("wallpaper")),
     mspawn("h", termstart(script("gtgf"), { class = "gtgf" })),
+    spawn({}, "F1", termstart("bhoogle", { class = "help" })),
 
     mspawn("'", terminal),
     spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),

@@ -143,6 +143,11 @@ function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 abbr py "python"
 abbr rb "ruby"
 
+# Hoogle
+
+abbr h "hoogle"
+abbr b "bhoogle"
+
 # Docker
 abbr dc "sudo docker-compose"
 abbr dcu "sudo docker-compose up -d"
