@@ -644,16 +644,17 @@ nmap <leader>ee :call MaybeTabedit('~/.scratch.md')<cr>
 nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
 nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
 nmap <leader>eu :UltiSnipsEdit<space>
-nmap <leader>ev :call MaybeTabedit('~/.config/nvim/init.vim')<cr>
+nmap <leader>ev :call MaybeTabedit('.nvimrc')<cr>
 
 nmap <leader>. :Texplore .<cr>
 
 nmap <leader># :e #<cr>
 
-" Source init.vim and reload ftplugins
+" Source local .nvimrc
 nmap <silent>
-  \ <leader>$
-  \ :source ~/.config/nvim/init.vim<bar>let &filetype=&filetype<cr>
+      \ <leader>$
+      \ :source .nvimrc<bar>let &filetype=&filetype<cr>
+      \ :echom 'local .nvimrc sourced'<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
