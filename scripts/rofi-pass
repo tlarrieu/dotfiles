@@ -11,14 +11,24 @@ option=$(\
 
 if [ ${#option} -gt 0 ]; then
   notify-send \
-    "Decrypting password..." \
-    "Pass is trying to decrypt the password <b>${option}</b>"
+    "Decrypting …" \
+    "Pass is trying to decrypt <b>${option}</b>"
 
-  pass show "$option" --clip
+  case "$1" in
+    "login")
+      pass show "$option" -c2
+      ;;
+    "password")
+      pass show "$option" -c1
+      ;;
+    "")
+      pass show "$option" -c1
+      ;;
+  esac
 
   if [ $? = 0 ]; then
     notify-send \
-      "Password copied" \
+      "Copied!" \
       "The clipboard will be cleared in <b>45 sec</b>"
   else
     notify-send \
