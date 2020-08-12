@@ -116,6 +116,7 @@ local rules = {
   { class = "Chromium", icon = "" },
   { class = "Cockatrice", icon = "﬷" },
   { class = "Luakit", icon = "" },
+  { class = "nyxt", icon = "" },
   { class = "Steam", icon = "" },
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },

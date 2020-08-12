@@ -200,6 +200,7 @@ case $answer in
     safeinstall networkmanager
 
     safeinstall luakit
+    safeinstall nyxt-browser-git
     safeinstall chromium
 
     safeinstall net-tools

@@ -162,7 +162,7 @@ _M.keyboard = {
     mspawn("b", script("mpc-playlist")),
     mspawn("$", "mpc toggle"),
 
-    mspawn(".", "luakit"),
+    mspawn(".", "bash -c 'GDK_SCALE=2 GDK_DPI_SCALE=1 nyxt -S'"),
     mspawn(",", fish("chromium-with-context")),
     mspawn("u", termstart("vifm")),
     spawn({mod, "Shift"}, "u", "thunar"),
