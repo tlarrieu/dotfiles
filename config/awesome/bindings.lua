@@ -153,9 +153,7 @@ _M.keyboard = {
     mspawn("k",                    script("rofi-emojis")),
     mspawn("f",                    script("rofi-nerdfont")),
     mspawn("à",                    script("rofi-bluetooth")),
-
-    mspawn("Escape",                script("rofi-pass password")),
-    spawn({mod, "Shift"}, "Escape", script("rofi-pass login")),
+    mspawn("Escape",               script("rofi-pass")),
 
     mspawn("q", script("rofi-power")),
     mspawn("a", termstart("pulsemixer", { class = "mixer" })),

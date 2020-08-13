@@ -23,17 +23,35 @@
 
 #content {
   background-color: @bg;
-  children: [inputbar,listview];
+  children: [inputbar,message,listview];
   orientation: vertical;
   text-color: @fg;
   padding: 0;
+  spacing: 0;
   margin: 0;
 }
 
 #listview {
   background-color: transparent;
   border: 0;
+  padding: 0 0.4em 0.4em 0.4em;
+  spacing: 0;
+  text-color: @fg;
+}
+
+#message {
+  background-color: transparent;
+  border: 0;
   padding: 0.3em 0.4em;
+  spacing: 0;
+  text-color: @fg;
+}
+
+#textbox {
+  background-color: transparent;
+  border: 0;
+  padding: 0 0.4em;
+  margin: 0;
   spacing: 0;
   text-color: @fg;
 }

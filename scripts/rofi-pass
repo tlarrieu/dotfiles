@@ -1,31 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -lines 5 -i -p  -no-history'
-
-option=$(\
-  pass git ls-files \
-  | grep '.gpg$' \
-  | sed -e 's/.gpg$//' \
-  | $LAUNCHER \
-)
-
-if [ ${#option} -gt 0 ]; then
-  notify-send \
-    "Decrypting …" \
-    "Pass is trying to decrypt <b>${option}</b>"
-
-  case "$1" in
-    "login")
-      pass show "$option" -c2
-      ;;
-    "password")
-      pass show "$option" -c1
-      ;;
-    "")
-      pass show "$option" -c1
-      ;;
-  esac
-
+function copy_status {
   if [ $? = 0 ]; then
     notify-send \
       "Copied!" \
@@ -33,6 +8,80 @@ if [ ${#option} -gt 0 ]; then
   else
     notify-send \
       "Error" \
-      "Something went wrong while trying to decrypt your password.\nTry running pass manually to see what's wrong"
+      "Something went wrong.\nTry running pass manually."
   fi
+}
+
+function edit_status {
+  if [ $? = 0 ]; then
+    notify-send \
+      "Success!" \
+      "The entry has been modified"
+  else
+    notify-send \
+      "Failure!" \
+      "The entry has <b>not</b> been modified"
+  fi
+}
+
+HELP="
+<b>Return</b>: <i>Copy password</i>
+<b>Shift+Return</b>: <i>Copy login</i>
+<b>Control+Return</b>: <i>Edit entry</i>
+<b>Alt+Return</b>: <i>Generate new entry (can't override existing)</i>
+"
+
+option=$(\
+  pass git ls-files \
+  | grep '.gpg$' \
+  | sed -e 's/.gpg$//' \
+  | rofi \
+      -dmenu \
+      -lines 5 \
+      -i \
+      -p  \
+      -no-history \
+      -kb-custom-1 "Return" \
+      -kb-custom-2 "Shift+Return" \
+      -kb-custom-3 "Control+Return" \
+      -kb-custom-4 "Alt+Return" \
+      -kb-accept-entry "" \
+      -kb-accept-custom "" \
+      -kb-accept-alt "" \
+      -mesg "$HELP" \
+)
+
+rofi_signal=$?
+
+if [ ${#option} -gt 0 ]; then
+  notify-send \
+    "Decrypting …" \
+    "Pass is trying to decrypt <b>${option}</b>"
+
+  # The exit code for -kb-custom-X is X+9
+  case $rofi_signal in
+    10)
+      pass show "$option" -c1
+      copy_status
+      ;;
+    11)
+      pass show "$option" -c2
+      copy_status
+      ;;
+    12)
+      kitty -- fish -c "pass edit '$option'"
+      edit_status
+      ;;
+    13)
+      pass git ls-files | grep "$option"
+      if [ $? = 0 ]; then
+        notify-send \
+          "Failure!" \
+          "There's already an entry for <b>$option</b>. Run the command again int the terminal if you mean to override it."
+      else
+        pass generate -c "$option"
+        copy_status
+      fi
+      ;;
+  esac
 fi
