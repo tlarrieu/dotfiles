@@ -24,7 +24,11 @@
        (make-search-engine "v" "https://vimawesome.com/?q=~a")
        (make-search-engine "wp" "https://wallhaven.cc/search?q=~a&atleast=1920x1080")
        (make-search-engine "w" "https://en.wikipedia.org/wiki/Special:Search?search=~a")
-       (make-search-engine "ym" "https://music.youtube.com/search?q=~a")))))
+       (make-search-engine "ym" "https://music.youtube.com/search?q=~a")))
+   (startup-function
+     (make-startup-function
+       :buffer-fn
+       (lambda () (make-buffer :url "/home/tlarrieu/.config/luakit/startpage.html"))))))
 
 (define-configuration buffer
   ((default-modes (append '(vi-normal-mode) %slot-default))
