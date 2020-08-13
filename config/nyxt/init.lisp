@@ -27,13 +27,26 @@
        (make-search-engine "ym" "https://music.youtube.com/search?q=~a")))))
 
 (define-configuration buffer
-  ((override-map
+  ((default-modes (append '(vi-normal-mode) %slot-default))
+   (override-map
      (let
        ((custom-map (make-keymap "Custom bindings")))
        (define-key
          custom-map
          "C-," 'execute-command
          "C-l" 'set-url
+         "C-t" 'set-url-new-buffer
+
+         "C-p" 'switch-buffer-previous
+         "C-n" 'switch-buffer-next
+
+         "C-e" 'nyxt/web-mode::follow-hint
+
+         "C-c C-l" 'copy-url
+         "C-c C-e" 'nyxt/web-mode::copy-hint-url
+
+         "C-d" 'nyxt/web-mode::scroll-page-down
+         "C-u" 'nyxt/web-mode::scroll-page-up
 
          "C-é" 'delete-current-buffer
          "C-o" 'delete-other-buffers
@@ -41,29 +54,11 @@
          "C-b" 'switch-buffer)
          custom-map))))
 
-; (define-configuration buffer
-;   ((keymap-scheme-name scheme:vi-normal)
-;    (override-map
-;      (let
-;        ((custom-map (make-keymap "Custom bindings")))
-;        (define-key
-;          custom-map
-;          "è" 'execute-command
-;          "," 'set-url-new-buffer
-
-;          "c o" 'delete-other-buffers
-;          "d" 'delete-current-buffer
-;          "r" 'reload-current-buffer
-
-;          "C-b" 'switch-buffer
-;          "tab" 'switch-buffer-next
-;          "C-tab" 'switch-buffer-previous
-
-;          ; "C-o" 'history-backwards
-;          ; "C-i" 'history-forwards
-
-;          "y y" 'copy-url
-;          ; "y e" 'copy-hint-url
-
-;          "g b" 'show-bookmarks)
-;          custom-map))))
+(define-configuration minibuffer
+  ((override-map
+     (let
+       ((custom-map (make-keymap "Custom bindings")))
+       (define-key
+         custom-map
+         "C-m" 'nyxt/minibuffer-mode::minibuffer-toggle-mark)
+         custom-map))))
