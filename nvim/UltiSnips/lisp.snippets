@@ -1,0 +1,26 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet if "if-statement"
+(if ${1:expression}
+	${2:if-true}
+	${3:if-false})
+endsnippet
+
+snippet d "defun"
+(defun ${1:funcname} (${2:args})
+	${3:body})
+endsnippet
+
+snippet v "defvar"
+(defvar *${1:varname}*
+	${3:expression})
+	${0:${VISUAL}}
+endsnippet
+
+snippet let "let expression"
+(let
+	((${1:expr}))
+	${0:${VISUAL:body}})
+endsnippet
