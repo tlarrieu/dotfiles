@@ -192,8 +192,14 @@
        ((custom-map (make-keymap "Custom bindings")))
        (define-key
          custom-map
+         "C-o" 'nyxt/web-mode::history-backwards
+         "C-i" 'nyxt/web-mode::history-forwards
+
+         "C-a" 'nyxt/web-mode::autofill
+
          "C-d" 'nyxt/web-mode::scroll-page-down
          "C-u" 'nyxt/web-mode::scroll-page-up
+
          "C-p" 'switch-buffer-previous
          "C-n" 'switch-buffer-next
          "C-b" 'switch-buffer)
