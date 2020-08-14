@@ -102,6 +102,7 @@ local rules = {
   { class = "Viewnior", icon = "" },
   { class = "Sxiv", icon = "" },
   { class = "Flowblade", icon = "﨣" },
+  { class = "Baobab", icon = "" },
 
   { class = "zoom", icon = "" },
 
