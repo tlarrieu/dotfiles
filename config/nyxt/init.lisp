@@ -45,7 +45,7 @@
          "C-p" 'switch-buffer-previous
          "C-n" 'switch-buffer-next
 
-         "C-e" 'nyxt/web-mode::follow-hint
+         "C-e" 'nyxt/web-mode::follow-hint-new-buffer
 
          "C-c C-l" 'copy-url
          "C-c C-e" 'nyxt/web-mode::copy-hint-url
