@@ -1,3 +1,6 @@
+(defvar *homepage*
+  (concatenate 'string (uiop:getenv "HOME") "/.config/luakit/startpage.html"))
+
 (define-configuration browser
   ((session-restore-prompt :never-ask)
    (autofills
@@ -26,9 +29,7 @@
        (make-search-engine "w" "https://en.wikipedia.org/wiki/Special:Search?search=~a")
        (make-search-engine "ym" "https://music.youtube.com/search?q=~a")))
    (startup-function
-     (make-startup-function
-       :buffer-fn
-       (lambda () (make-buffer :url "/home/tlarrieu/.config/luakit/startpage.html"))))))
+     (make-startup-function :buffer-fn (lambda () (make-buffer :url *homepage*))))))
 
 (define-configuration buffer
   ((default-modes (append '(vi-normal-mode) %slot-default))
