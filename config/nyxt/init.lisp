@@ -53,6 +53,7 @@
          "C-o" 'load-file
          "C-j" 'download-list
          "C-space" 'execute-command
+         "C-," 'execute-command
          "C-n" 'make-window
          "C-shift-W" 'delete-current-window
          "C-W" 'delete-current-window
@@ -211,5 +212,6 @@
        ((custom-map (make-keymap "Custom bindings")))
        (define-key
          custom-map
+         "C-w" 'nyxt/minibuffer-mode::delete-backwards-word
          "C-m" 'nyxt/minibuffer-mode::minibuffer-toggle-mark)
          custom-map))))
