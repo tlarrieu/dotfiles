@@ -16,3 +16,5 @@ endfunction
 
 nnoremap <buffer> <cr> :call lisp#run(expand('%'))<cr>
 nnoremap <buffer> <leader><cr> :call lisp#test()<cr>
+
+highlight! MatchParen cterm=underline,bold ctermfg=1 ctermbg=7
