@@ -2,10 +2,32 @@ global !p
 from ultisnips_helpers import *
 endglobal
 
-snippet if "if-statement"
+snippet if "if-statement" i
 (if ${1:expression}
 	${2:if-true}
 	${3:if-false})
+endsnippet
+
+snippet case "case-statement" i
+(case ${1:expression}
+	(${2:key} ${3:consequent})$0)
+endsnippet
+
+snippet cond "cond-statement" i
+(cond
+	(${1:predicate} ${2:consequent})$0)
+endsnippet
+
+snippet p "predicate/consequent"
+(${1:predicate} ${2:consequent})$0
+endsnippet
+
+snippet other "otherwise"
+(otherwise ${1:consequent})$0
+endsnippet
+
+snippet ( "paren" i
+(${1:${VISUAL}})$0
 endsnippet
 
 snippet d "defun"
@@ -13,14 +35,29 @@ snippet d "defun"
 	${3:body})
 endsnippet
 
-snippet v "defvar"
+snippet "va?r?" "defvar" r
 (defvar *${1:varname}*
-	${3:expression})
-	${0:${VISUAL}}
+	${0:${VISUAL:expression}})
 endsnippet
 
 snippet let "let expression"
 (let
-	((${1:expr}))
+	(${1:expression})
 	${0:${VISUAL:body}})
+endsnippet
+
+snippet fn "lambda expression" i
+(lambda (${1:args}) ${2:expression})
+endsnippet
+
+snippet map "map" i
+(map ${1:'list} ${2:expression} ${0:${VISUAL:xs}})
+endsnippet
+
+snippet mapcar "mapcar" i
+(mapcar ${1:s-expression} ${2:xs} ${3:ys})
+endsnippet
+
+snippet "redu?c?e?" "map" ri
+(reduce ${1:expression} ${0:${VISUAL:xs}})
 endsnippet
