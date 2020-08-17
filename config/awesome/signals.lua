@@ -61,7 +61,7 @@ local rules = {
   { class = "Chromium", instance = "heroku", icon = "" },
   { class = "Chromium", instance = "paypal", icon = "" },
   { class = "Chromium", instance = "trainline", icon = "" },
-  { class = "Chromium", instance = "web.whatsapp.com" , icon = "" },
+  { class = "Chromium", instance = "web.whatsapp.com" , icon = "甆" },
   { class = "Chromium", instance = "woven.com", icon = "" },
   { class = "Chromium", instance = "www.deliveroo.fr", icon = "﫱" },
   { class = "Chromium", instance = "www.twitter.com", icon = "" },
@@ -114,7 +114,7 @@ local rules = {
   { class = "Chromium", instance = "watabou.itch.io", icon = "" },
   { class = "Chromium", instance = "rolladvantage.com", icon = "" },
 
-  { class = "Chromium", icon = "" },
+  { class = "Chromium", icon = "" },
   { class = "Cockatrice", icon = "﬷" },
   { class = "Luakit", icon = "" },
   { class = "nyxt", icon = "" },
