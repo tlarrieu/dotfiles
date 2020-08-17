@@ -1,5 +1,13 @@
+let g:neoterm_shell = 'rlwrap sbcl'
+
+vnoremap <buffer> <cr> :TREPLSendSelection<cr>
+nnoremap <buffer> <cr> :call lisp#run(expand('%'))<cr>
+nnoremap <buffer> <leader><cr> :call lisp#test()<cr>
+
+highlight! MatchParen cterm=bold ctermfg=1 ctermbg=7
+
 function! lisp#run(filename)
-  call execute('T sbcl --load "' . a:filename . '" --quit', "Topen")
+  call execute('T (load "' . a:filename . '")', "Topen")
 endfunction
 
 function! lisp#test()
@@ -13,8 +21,3 @@ function! lisp#test()
     call lisp#run(filename . '.lisp')
   endif
 endfunction
-
-nnoremap <buffer> <cr> :call lisp#run(expand('%'))<cr>
-nnoremap <buffer> <leader><cr> :call lisp#test()<cr>
-
-highlight! MatchParen cterm=bold ctermfg=1 ctermbg=7
