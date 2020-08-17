@@ -40,6 +40,8 @@ endfunction
 function! s:setupcolors()
   highlight! MatchParen cterm=bold ctermfg=1 ctermbg=7
 
+  highlight! Visual cterm=none ctermbg=7 ctermfg=none
+
   highlight! link SignColumn CursorColumn
   highlight! link SignatureMarkText Folded
   highlight! link HighlightedyankRegion Folded
