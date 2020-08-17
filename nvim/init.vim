@@ -476,17 +476,7 @@ nmap <leader>tt :tabe<cr>
 nmap <leader>te :tabe <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Move current tab
 nmap <leader>tm :tabm<space>
-" Direct tab access
-nnoremap <leader>" 1gt
-nnoremap <leader>« 2gt
-nnoremap <leader>» 3gt
-nnoremap <leader>( 4gt
-nnoremap <leader>) 5gt
-nnoremap <leader>@ 6gt
-nnoremap <leader>+ 7gt
-nnoremap <leader>- 8gt
-nnoremap <leader>/ 9gt
-
+" Tab merge and “unmerge”
 nmap <leader>U <c-w>T
 nmap <leader>u :call MergeTabs()<cr>
 " }}}
@@ -515,6 +505,9 @@ inoremap # X<bs>#
 " Fuck you, help.
 nnoremap <F1> <nop>
 inoremap <F1> <nop>
+" Also, please open in a new tab
+cnoreabbrev <expr> h
+  \ getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : 'h'
 " Clever paste from system buffer
 noremap <leader>p "+p
 noremap <leader>P "+P
@@ -615,15 +608,15 @@ noremap 0 *
 " }}}
 " {{{ --| Search & Replace |--------------------------------
 noremap é /
-noremap <silent> É :nohlsearch<cr><c-l>
+" Hide search matches upon hitting <esc> in normal mode
+nnoremap <silent> <esc> <esc>:nohlsearch<cr><c-l>
 
 nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 
-nmap s :s/
-nmap S :%s/
-vmap s <esc>:%s/\%V
+nnoremap É :%s/
+vnoremap É <esc>:%s/\%V
 
 nmap <A-n> :lnext<cr>
 nmap <A-p> :lprev<cr>
