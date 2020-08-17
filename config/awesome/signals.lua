@@ -52,7 +52,7 @@ local rules = {
   { class = "Luakit", name = "YouTube", icon = "" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
-  { class = "Chromium", instance = "slack" , icon = "" },
+  { class = "Chromium", instance = "slack" , icon = "" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
