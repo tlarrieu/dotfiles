@@ -72,7 +72,7 @@ Plug 'tbastos/vim-lua'
 Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'GothenburgBitFactory/taskwarrior'
+Plug 'qbit/taskwarrior-vim'
 Plug 'paredit.vim', { 'for': ['lisp', 'clojure', 'racket'] }
 " }}}
 " {{{ --| Good looking |-------------------
