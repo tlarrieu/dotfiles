@@ -144,7 +144,10 @@ _M.keyboard = {
 
     mspawn(" ",                    fish("rofi -show run -lines 6")),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
-    spawn({ mod, "Shift" }, "c",   termstart("", { directory = dotfiles })),
+    spawn({ mod, "Shift" }, "c",   termstart(
+      "nvim nvim/init.vim",
+      { directory = dotfiles }
+    )),
     spawn({ mod, "Shift" }, "e",   termstart("nvim")),
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
