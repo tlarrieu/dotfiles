@@ -5,6 +5,7 @@ data.location=~/.task
 search.case.sensitive=no
 
 include ~/.task/taskd
+include ~/.task.context
 
 context.home=-@work
 context.work=-@home

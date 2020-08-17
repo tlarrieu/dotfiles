@@ -1,4 +1,4 @@
 function cont
   echo "CONTEXT=\"$argv\"" > ~/.context.env
-  task context $argv
+  echo "context=$argv" > ~/.task.context
 end
