@@ -142,6 +142,8 @@
          "C-x C-f" 'open-file
 
          ;; overridden mapping
+         "g b" 'show-bookmarks
+         "g d" 'download-list
          "r" 'reload-current-buffer
          "R" 'reload-buffer
          "y y" 'copy-url
