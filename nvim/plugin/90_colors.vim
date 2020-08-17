@@ -38,7 +38,7 @@ function! s:overlength()
 endfunction
 
 function! s:setupcolors()
-  highlight! link MatchParen Title
+  highlight! MatchParen cterm=bold ctermfg=1 ctermbg=7
 
   highlight! link SignColumn CursorColumn
   highlight! link SignatureMarkText Folded
