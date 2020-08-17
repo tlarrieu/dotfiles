@@ -73,6 +73,7 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'GothenburgBitFactory/taskwarrior'
+Plug 'paredit.vim', { 'for': ['lisp', 'clojure', 'racket'] }
 " }}}
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
@@ -245,6 +246,12 @@ set statusline+=%P\                             " percentage of file
 set statusline+=%*
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Paredit |-----------------------------------------
+" we are not interested in the leader mapping
+let g:paredit_leader="ç"
+let g:paredit_mode=1
+let g:paredit_shortmaps=0
+" }}}
 " {{{ --| Bullets |-----------------------------------------
 let g:bullets_set_mappings = 0
 " }}}
