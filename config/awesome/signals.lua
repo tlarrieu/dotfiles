@@ -87,6 +87,7 @@ local rules = {
 
   { class = "Chromium", name = "Candidates", icon = "" },
 
+  { class = "kitty", name = "git/dotfiles", icon = "" },
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
