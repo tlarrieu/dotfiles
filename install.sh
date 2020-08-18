@@ -45,7 +45,7 @@ safelink()
 }
 
 safeinstall() {
-  package=$1
+  package=${@}
 
   if type yay > /dev/null; then
     yay -S --color always --needed --noconfirm $package
@@ -166,97 +166,72 @@ case $answer in
   "yes"|"y")
     safeinstall yay
 
-    safeinstall python
-    safeinstall python-pip
-    safeinstall neovim
+    nvim="python python-pip neovim "
+
+    terminal="kitty fish"
+
+    admin="htop net-tools dnsutils"
+
+    utils="xdotool entr xsel"
+
+    search="the_silver_searcher mlocate"
+
+    files="vifm linopen udiskie thunar atool"
+
+    essential="git fzf rofi pass"
+
+    taskwarrior="task-git taskopen"
+
+    xorg_utils="xorg-xrdb xorg-server-xephyr xorg-xwininfo xorg-xrandr"
+
+    display_manager="lightdm lightdm-webkit-theme-aether"
+
+    window_manager="awesome
+      betterlockscreen
+      wmctrl
+      maim
+      unclutter
+      redshift
+      lxappearance-gtk3
+      aur/gtk-theme-numix-solarized"
+
+    multimedia="
+      manjaro-pulse pulsemixer
+      mpc mpd mpv
+      youtube-dl
+      sxiv feh
+      imagemagick
+      "
+
+    internet="networkmanager nyxt-browser chromium openssh"
+
+    keyboard="xcape xorg-xmodmap"
+
+    writing="zathura zathura-djvu zathura-pdf-mupdf zathura-ps pandoc"
+
+    bluetooth="bluez bluez-utils pulseaudio-bluetooth"
+
+    fonts="ttf-fira-code nerd-fonts-inconsolata terminus-font"
+
+    safeinstall $nvim \
+      $terminal \
+      $admin \
+      $utils \
+      $search \
+      $files \
+      $essential \
+      $taskwarrior \
+      $xorg_utils \
+      $display_manager \
+      $window_manager \
+      $multimedia \
+      $internet \
+      $keyboard \
+      $writing \
+      $bluetooth \
+      $fonts
+
     sudo pip install neovim
-
-    safeinstall vifm
-    safeinstall udiskie
-
-    safeinstall xorg-server
-    safeinstall xorg-xrdb
-    safeinstall xorg-server-xephyr
-    safeinstall xorg-xwininfo
-    safeinstall xorg-xrandr
-
-    safeinstall lightdm
-    safeinstall lightdm-webkit-theme-aether
-
-    safeinstall betterlockscreen
-
-    safeinstall awesome
-    safeinstall xsel
-    safeinstall unclutter
-    safeinstall redshift
-    safeinstall wmctrl
-
-    safeinstall lxappearance-gtk3
-    safeinstall aur/gtk-theme-numix-solarized
-
-    safeinstall manjaro-pulse
-    safeinstall pulsemixer
-
-    safeinstall networkmanager
-
-    # safeinstall luakit
-    safeinstall nyxt-browser
-    safeinstall chromium
-
-    safeinstall net-tools
-    safeinstall dnsutils
-
-    safeinstall fzf
-    safeinstall the_silver_searcher
-    safeinstall atool
-
-    safeinstall linopen
-    safeinstall xcape
-    safeinstall xorg-xmodmap
-
-    safeinstall rofi
-    safeinstall maim
-    safeinstall feh
-    safeinstall sxiv
-
-    safeinstall pass
-
-    safeinstall zathura
-    safeinstall zathura-djvu
-    safeinstall zathura-pdf-mupdf
-    safeinstall zathura-ps
-
-    safeinstall entr
-    safeinstall pandoc
-    safeinstall xdotool
-
-    safeinstall imagemagick
-
-    safeinstall mpc
-    safeinstall mpd
-    safeinstall mpv
-    safeinstall youtube-dl
-
-    safeinstall mlocate
-
-    safeinstall openssh
-    safeinstall htop
-    safeinstall fish
-    safeinstall kitty
-
-    safeinstall bluez
-    safeinstall bluez-utils
-    safeinstall pulseaudio-bluetooth
-
-    safeinstall task-git
-    safeinstall taskopen
-
-    # desktop font
-    safeinstall nerd-fonts-inconsolata
-    # coding font
-    safeinstall ttf-fira-code
-    # tty font
-    safeinstall terminus-font
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
