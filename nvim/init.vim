@@ -52,7 +52,7 @@ Plug 'austintaylor/vim-indentobject'
 Plug 'nelstrom/vim-textobj-rubyblock',
   \ { 'for' : ['ruby', 'eruby', 'rspec', 'rake', 'elixir'] }
 Plug 'tommcdo/vim-exchange'
-Plug 'wellle/targets.vim'
+Plug 'b4winckler/vim-angry'
 Plug 'machakann/vim-highlightedyank'
 " }}}
 " {{{ --| Languages suport |---------------
@@ -391,14 +391,17 @@ let g:SignatureMap = {
   \ 'ListLocalMarks'    : ''
   \ }
 " }}}
-" {{{ --| Targets |-----------------------------------------
-let g:targets_pairs = '()b {}é []d <>É'
-let g:targets_argTrigger = 'c'
-" By default, we want to delete only the ACTUAL parameter
-" Not the whitespaces around it
-omap ic Ic
-let g:targets_argOpening = '[({[]'
-let g:targets_argClosing = '[]})]'
+" {{{ --| Angry |-------------------------------------------
+let g:angry_disable_maps = 1
+vmap <silent> ac <Plug>AngryOuterPrefix
+omap <silent> ac <Plug>AngryOuterPrefix
+vmap <silent> ic <Plug>AngryInnerPrefix
+omap <silent> ic <Plug>AngryInnerPrefix
+
+vmap <silent> aC <Plug>AngryOuterSuffix
+omap <silent> aC <Plug>AngryOuterSuffix
+vmap <silent> iC <Plug>AngryInnerSuffix
+omap <silent> iC <Plug>AngryInnerSuffix
 " }}}
 " {{{ --| Ack |---------------------------------------------
 let g:ack_apply_qmappings = 0
