@@ -34,15 +34,15 @@
 #listview {
   background-color: transparent;
   border: 0;
-  padding: 0 0.4em 0.4em 0.4em;
+  padding: 0.4em;
   spacing: 0;
   text-color: @fg;
 }
 
 #message {
   background-color: transparent;
-  border: 0;
-  padding: 0.3em 0.4em;
+  border: -0.4em 0;
+  padding: 0 0.4em;
   spacing: 0;
   text-color: @fg;
 }
@@ -115,6 +115,7 @@
 #inputbar {
   background-color: transparent;
   spacing: 0;
+  children: [prompt, entry];
 }
 
 #case-indicator {
