@@ -38,7 +38,7 @@ function! s:overlength()
 endfunction
 
 function! s:setupcolors()
-  highlight! MatchParen cterm=bold ctermfg=1 ctermbg=7
+  highlight! MatchParen cterm=bold ctermbg=7 ctermfg=none
 
   highlight! Visual cterm=none ctermbg=7 ctermfg=none
 
