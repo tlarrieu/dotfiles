@@ -173,7 +173,7 @@ case $answer in
 
     terminal="kitty fish"
 
-    admin="htop net-tools dnsutils"
+    admin="htop net-tools dnsutils ncdu"
 
     utils="xdotool entr xsel"
 
