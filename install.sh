@@ -66,6 +66,9 @@ for file in `ls -d $BASEDIR/config/*`; do
   safelink $target $link
 done
 
+# gtk2
+safelink $BASEDIR/gtkrc-2.0 $HOME/.gtkrc-2.0
+
 # nvim
 safelink $BASEDIR/nvim $HOME/.config/nvim
 
@@ -191,9 +194,11 @@ case $answer in
       wmctrl
       maim
       unclutter
-      redshift
-      lxappearance-gtk3
-      aur/gtk-theme-numix-solarized"
+      redshift"
+
+    gtk="lxappearance-gtk3
+      xcursor-breeze
+      gtk-theme-numix-solarized"
 
     multimedia="
       manjaro-pulse pulsemixer
@@ -224,6 +229,7 @@ case $answer in
       $xorg_utils \
       $display_manager \
       $window_manager \
+      $gtk \
       $multimedia \
       $internet \
       $keyboard \
