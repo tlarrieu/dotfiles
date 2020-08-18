@@ -40,7 +40,7 @@ set PGHOST localhost
 
 # EDITOR
 set -g -x EDITOR nvim
-set -g -x BROWSER luakit
+set -g -x BROWSER nyxt
 
 # PATH
 set -x PATH $PATH $HOME/scripts

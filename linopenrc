@@ -45,10 +45,10 @@ text:nvim->interm
 ?'^https:\/\/.*atlassian.net':chromium-kiosk
 ?'^https:\/\/.*\.slack.com':chromium-kiosk
 ?'^https:\/\/github.com':chromium-kiosk
-?'^http:\/\/':luakit
-?'^https:\/\/':luakit
+?'^http:\/\/':nyxt
+?'^https:\/\/':nyxt
 ?'^zoommtg:\/\/':zoom
-?'^www.':luakit
+?'^www.':nyxt
 ?'^dvd:\/\/':mpv
 ?'^cdda:\/\/':mpv->interm
 
