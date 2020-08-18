@@ -46,6 +46,11 @@ snippet let "let expression"
 	${0:${VISUAL:body}})
 endsnippet
 
+snippet mult "multiple-value-bind"
+(multiple-value-bind (${1:values}) (${2:expression})
+	${0:${VISUAL:body}})
+endsnippet
+
 snippet fn "lambda expression" i
 (lambda (${1:args}) ${2:expression})
 endsnippet
