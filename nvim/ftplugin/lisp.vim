@@ -26,9 +26,17 @@ function! lisp#unwrapSExpression()
   normal vabp%
 endfunction
 
+function! lisp#editSurroundingSExpression()
+  call lisp#closestSExpression()
+  normal dab
+  call lisp#closestSExpression()
+  normal vibp%
+endfunction
+
 " Using vim-surround to wrap in parenthesis
 nmap <buffer> <leader>i :call lisp#wrapSExpression()<cr>a
-nmap <buffer> <leader>I :call lisp#unwrapSExpression()<cr>
+nmap <buffer> dae :call lisp#unwrapSExpression()<cr>
+nmap <buffer> cae :call lisp#editSurroundingSExpression()<cr>i
 
 function! lisp#run(filename)
   call execute('T (load "' . a:filename . '")', "Topen")
