@@ -1,0 +1,7 @@
+#!/bin/sh
+
+notify-send \
+  -u critical \
+  -t 3000 \
+  "Not the right program!" \
+  "Use <b>ncdu</b> instead"
