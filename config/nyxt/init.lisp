@@ -1,6 +1,3 @@
-; (defvar *homepage*
-;   (concatenate 'string (uiop:getenv "HOME") "/.config/luakit/startpage.html"))
-
 (define-mode base-mode ()
   ((keymap-scheme
      :accessor
@@ -186,16 +183,11 @@
        (make-search-engine "w" "https://en.wikipedia.org/wiki/Special:Search?search=~a")
        (make-search-engine "ym" "https://music.youtube.com/search?q=~a")))
    (startup-function
-     (make-startup-function
-       :buffer-fn
-       (lambda ()
-         (if
-           (boundp '*homepage*)
-           (make-buffer :url *homepage*)
-           (make-buffer)))))))
+     (make-startup-function :buffer-fn #'make-buffer))))
 
 (define-configuration buffer
   ((default-modes (append '(vi-normal-mode) %slot-default))
+   (default-new-buffer-url "")
    (override-map
      (let
        ((custom-map (make-keymap "Custom bindings")))
