@@ -48,9 +48,9 @@ safeinstall() {
   package=$1
 
   if type yay > /dev/null; then
-    yay -S --needed --noconfirm $package
+    yay -S --color always --needed --noconfirm $package
   else
-    sudo pacman -S --needed --noconfirm $package
+    sudo pacman -S --color always --needed --noconfirm $package
   fi
 }
 
@@ -191,7 +191,7 @@ case $answer in
     safeinstall redshift
     safeinstall wmctrl
 
-    safeinstall lxappearance
+    safeinstall lxappearance-gtk3
     safeinstall aur/gtk-theme-numix-solarized
 
     safeinstall manjaro-pulse
@@ -199,8 +199,8 @@ case $answer in
 
     safeinstall networkmanager
 
-    safeinstall luakit
-    safeinstall nyxt-browser-git
+    # safeinstall luakit
+    safeinstall nyxt-browser
     safeinstall chromium
 
     safeinstall net-tools
@@ -254,9 +254,7 @@ case $answer in
     # desktop font
     safeinstall nerd-fonts-inconsolata
     # coding font
-    safeinstall otf-fira-code
-    # presentation font
-    # safeinstall ephifonts
+    safeinstall ttf-fira-code
     # tty font
     safeinstall terminus-font
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
