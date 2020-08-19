@@ -5,7 +5,7 @@ highlight! link lispFunc Keyword
 highlight! link lispDecl Define
 
 vnoremap <buffer> <cr> :TREPLSendSelection<cr>
-nnoremap <buffer> <cr> :call lisp#run(expand('%'))<cr>
+nnoremap <buffer> <cr> m`vip:TREPLSendSelection<cr>``
 nnoremap <buffer> <leader><cr> :call lisp#test()<cr>
 
 nmap <buffer> <leader>i :call lisp#wrapSExpression()<cr>a
@@ -17,6 +17,11 @@ nnoremap <buffer> <silent> 4 :<C-U>call lisp#findOpening('(',')',0)<CR>
 nnoremap <buffer> <silent> 5 :<C-U>call lisp#findClosing('(',')',0)<CR>
 vnoremap <buffer> <silent> 4 <Esc>:<C-U>call lisp#findOpening('(',')',1)<CR>
 vnoremap <buffer> <silent> 5 <Esc>:<C-U>call lisp#findClosing('(',')',1)<CR>
+
+augroup Lisp
+  autocmd!
+  autocmd BufWritePost *.lisp call lisp#loadInREPL(expand('%'))
+augroup END
 
 function! lisp#wrapSExpression()
   call lisp#beginningOfSExpression()
@@ -43,7 +48,7 @@ function! lisp#editSurroundingSExpression()
   normal vibp%
 endfunction
 
-function! lisp#run(filename)
+function! lisp#loadInREPL(filename)
   call execute('T (load "' . a:filename . '")', "Topen")
 endfunction
 
@@ -53,9 +58,9 @@ function! lisp#test()
   echom filename
 
   if (match(filename, '-test$') == -1)
-    call lisp#run(filename . '-test.lisp')
+    call lisp#loadInREPL(filename . '-test.lisp')
   else
-    call lisp#run(filename . '.lisp')
+    call lisp#loadInREPL(filename . '.lisp')
   endif
 endfunction
 
