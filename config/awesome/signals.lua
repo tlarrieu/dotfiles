@@ -85,6 +85,7 @@ local rules = {
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
 
+  { class = "kitty", name = "htop", icon = "" },
   { class = "kitty", name = "exercism", icon = "" },
   { class = "kitty", name = "git/dotfiles", icon = "" },
   { class = "kitty", name = "NVIM" , icon = "" },
