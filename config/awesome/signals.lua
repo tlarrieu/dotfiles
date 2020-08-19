@@ -33,7 +33,7 @@ local client_signals = {
 local tag_signals = { "tagged", "untagged" }
 
 local rules = {
-  { class = "Chromium", instance = "calendar.google.com" , icon = "" },
+  { class = "Chromium", instance = "calendar.google.com" , icon = "" },
   { class = "Chromium", instance = "drive.google.com" , icon = "" },
   { class = "Chromium", instance = "docs.google.com.*spreadsheets" , icon = "" },
   { class = "Chromium", instance = "docs.google.com.*slides" , icon = "" },
@@ -48,10 +48,10 @@ local rules = {
   { class = "Chromium", name = "Google Docs", icon = "" },
   { class = "Chromium", name = "Google Photos", icon = "" },
   { class = "Chromium", name = "Google Slides" , icon = "" },
-  { class = "Chromium", name = "YouTube", icon = "" },
-  { class = "Luakit", name = "YouTube", icon = "" },
+  { class = "Chromium", name = "YouTube", icon = "輸" },
+  { class = "Luakit", name = "YouTube", icon = "輸" },
 
-  { class = "Chromium", instance = "ilucca.net", icon = "" },
+  { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
@@ -74,18 +74,16 @@ local rules = {
   { class = "Chromium", instance = "miro.com", icon = "﵁" },
   { class = "Chromium", instance = "pragli.com", icon = "" },
   { class = "Chromium", instance = "metroretro.io", icon = "滛" },
-  { class = "Chromium", instance = "pinterest.com", icon = "" },
+  { class = "Chromium", instance = "pinterest.com", icon = "" },
   { class = "Chromium", instance = "citymapper.com", icon = "" },
   { class = "Chromium", instance = "hub.docker.com", icon = "" },
-  { class = "Chromium", instance = "appsignal.com", icon = "勞" },
+  { class = "Chromium", instance = "appsignal.com", icon = "" },
   { class = "Chromium", instance = "linkedin.com", icon = "" },
   { class = "Chromium", instance = "discord.com", icon = "" },
   { class = "Chromium", instance = "wallhaven.cc", icon = "ﳼ" },
   { class = "Chromium", instance = "app.diagrams.net", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
-
-  { class = "Chromium", name = "Candidates", icon = "" },
 
   { class = "kitty", name = "exercism", icon = "" },
   { class = "kitty", name = "git/dotfiles", icon = "" },
@@ -100,8 +98,7 @@ local rules = {
   { class = "Gimp", icon = "" },
   { class = "Viewnior", icon = "" },
   { class = "Sxiv", icon = "" },
-  { class = "Flowblade", icon = "﨣" },
-  { class = "Baobab", icon = "" },
+  { class = "Flowblade", icon = "" },
 
   { class = "zoom", icon = "" },
 
@@ -109,9 +106,9 @@ local rules = {
 
   -- As the name does not imply, this if wonderdraft!
   { class = "Godot", icon = "" },
-  { class = "Chromium", instance = "app.legendkeeper.com", icon = "" },
-  { class = "Chromium", instance = "watabou.itch.io", icon = "" },
-  { class = "Chromium", instance = "rolladvantage.com", icon = "" },
+  { class = "Chromium", instance = "app.legendkeeper.com", icon = "" },
+  { class = "Chromium", instance = "watabou.itch.io", icon = "" },
+  { class = "Chromium", instance = "rolladvantage.com", icon = "" },
 
   { class = "Chromium", icon = "" },
   { class = "Cockatrice", icon = "" },
@@ -121,7 +118,7 @@ local rules = {
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
-  { class = "mpv", icon = "" },
+  { class = "mpv", icon = "" },
   { class = "mixer", icon = "奔" },
   { class = "Gpick", icon = "" },
   { class = "Xephyr", icon = "" },
