@@ -168,6 +168,7 @@
      (list
        (make-search-engine "default" "https://duckduckgo.com/?q=~a")
        (make-search-engine "yt" "https://www.youtube.com/results?q=~a")
+       (make-search-engine "th" "https://www.thesaurus.com/browse/~a?s=t")
        (make-search-engine "vim" "https://vimawesome.com/?q=~a")
        (make-search-engine "g" "https://github.com/~a")
        (make-search-engine "gh" "https://github.com/search?q=~a")
