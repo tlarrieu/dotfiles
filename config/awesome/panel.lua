@@ -121,8 +121,12 @@ if batteryname then
 
     local color, legend, icon
 
+    local arrow = bat_now.status == "Discharging"
+      and ""
+      or ""
+
     -- legend
-    legend = bat_now.time == "00:00" and "100%" or bat_now.time
+    legend = bat_now.time == "00:00" and "100%" or (arrow .. " " .. bat_now.time)
 
     -- color
     if bat_now.perc >= 98 then
@@ -133,10 +137,7 @@ if batteryname then
       color = beautiful.colors.red.dark
     end
 
-    -- icon
-    local iconset = bat_now.status == "Discharging"
-      and batteryicons.discharging
-      or batteryicons.charging
+    local iconset = batteryicons.discharging
 
     for _, config in ipairs(iconset) do
       if bat_now.perc <= config.level then
@@ -177,7 +178,7 @@ local init_screen = function(screen)
   })
 
   local left = wibox.widget({
-    wibox.container.margin(battery, dpi(10), dpi(2), dpi(2), dpi(2)),
+    wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
     wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
