@@ -81,17 +81,17 @@ function! lisp#beginningOfSExpression()
   endif
 endfunction
 
-function! lisp#findOpening( open, close, select )
-  let open  = escape( a:open , '[]' )
-  let close = escape( a:close, '[]' )
-  call searchpair( open, '', close, 'bW', s:skip_sc )
+function! lisp#findOpening(open, close, select)
+  let open  = escape(a:open, '[]')
+  let close = escape(a:close, '[]')
+  call searchpair(open, '', close, 'bW', s:skip_sc)
   if a:select
-    call searchpair( open, '', close, 'W', s:skip_sc )
+    call searchpair(open, '', close, 'W', s:skip_sc)
     let save_ve = &ve
-    set ve=all 
+    set ve=all
     normal! lvh
     let &ve = save_ve
-    call searchpair( open, '', close, 'bW', s:skip_sc )
+    call searchpair(open, '', close, 'bW', s:skip_sc)
     if &selection == 'inclusive'
       " Trim last character from the selection, it will be included anyway
       normal! oho
@@ -99,22 +99,22 @@ function! lisp#findOpening( open, close, select )
   endif
 endfunction
 
-function! lisp#findClosing( open, close, select )
-  let open  = escape( a:open , '[]' )
-  let close = escape( a:close, '[]' )
+function! lisp#findClosing(open, close, select)
+  let open  = escape(a:open, '[]')
+  let close = escape(a:close, '[]')
   if a:select
-    let line = getline( '.' )
+    let line = getline('.')
     if line[col('.')-1] != a:open
       normal! h
     endif
-    call searchpair( open, '', close, 'W', s:skip_sc )
-    call searchpair( open, '', close, 'bW', s:skip_sc )
+    call searchpair(open, '', close, 'W', s:skip_sc)
+    call searchpair(open, '', close, 'bW', s:skip_sc)
     normal! v
-    call searchpair( open, '', close, 'W', s:skip_sc )
+    call searchpair(open, '', close, 'W', s:skip_sc)
     if &selection != 'inclusive'
       normal! l
     endif
   else
-    call searchpair( open, '', close, 'W', s:skip_sc )
+    call searchpair(open, '', close, 'W', s:skip_sc)
   endif
 endfunction
