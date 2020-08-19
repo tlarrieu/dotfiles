@@ -18,10 +18,18 @@ nnoremap <buffer> <silent> 5 :<C-U>call lisp#findClosing('(',')',0)<CR>
 vnoremap <buffer> <silent> 4 <Esc>:<C-U>call lisp#findOpening('(',')',1)<CR>
 vnoremap <buffer> <silent> 5 <Esc>:<C-U>call lisp#findClosing('(',')',1)<CR>
 
+command! -nargs=1 Package call lisp#package(<q-args>)
+cnoreabbrev <buffer> <expr> p
+  \ getcmdtype() == ":" && getcmdline() == 'p' ? 'Package' : 'p'
+
 augroup Lisp
   autocmd!
   autocmd BufWritePost *.lisp call lisp#loadInREPL(expand('%'))
 augroup END
+
+function! lisp#package(package)
+  call execute('T (in-package #:' . a:package . ')', "Topen")
+endfunction
 
 function! lisp#wrapSExpression()
   call lisp#beginningOfSExpression()
