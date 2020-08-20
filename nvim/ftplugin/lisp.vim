@@ -18,6 +18,8 @@ nnoremap <buffer> <silent> 5 :<C-U>call lisp#findClosing('(',')',0)<CR>
 vnoremap <buffer> <silent> 4 <Esc>:<C-U>call lisp#findOpening('(',')',1)<CR>
 vnoremap <buffer> <silent> 5 <Esc>:<C-U>call lisp#findClosing('(',')',1)<CR>
 
+setlocal textwidth=100
+
 " Specific to nyxt configuration
 " This should not clash with anything but in case of indentation screw-ups,
 " we should be smarter about that
