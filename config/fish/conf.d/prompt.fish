@@ -4,11 +4,11 @@ function _git_branch_name
     and return
 
   set -l tag (command git describe --tags --exact-match ^/dev/null)
-    and echo " $tag"
+    and echo " $tag "
     and return
 
   set -l ref (command git show-ref --head -s --abbrev | head -n1 ^/dev/null)
-    and echo "➦ $ref"
+    and echo "➦ $ref "
     and return
 end
 
