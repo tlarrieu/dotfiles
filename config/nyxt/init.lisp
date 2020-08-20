@@ -166,7 +166,7 @@
    (external-editor-program "/usr/bin/nvim")
    (search-engines
      (list
-       (make-search-engine "default" "https://duckduckgo.com/?q=~a")
+       (make-search-engine "default" "https://duckduckgo.com/?ia=web&q=~a")
        (make-search-engine "yt" "https://www.youtube.com/results?q=~a")
        (make-search-engine "th" "https://www.thesaurus.com/browse/~a?s=t")
        (make-search-engine "vim" "https://vimawesome.com/?q=~a")
