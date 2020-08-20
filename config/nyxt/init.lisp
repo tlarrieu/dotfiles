@@ -215,4 +215,4 @@
          custom-map
          "C-w" 'nyxt/minibuffer-mode::delete-backwards-word
          "C-m" 'nyxt/minibuffer-mode::minibuffer-toggle-mark)
-         custom-map))))
+       custom-map))))
