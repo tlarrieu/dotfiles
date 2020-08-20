@@ -27,9 +27,13 @@ command! -nargs=1 Package call lisp#package(<q-args>)
 cnoreabbrev <buffer> <expr> p
   \ getcmdtype() == ":" && getcmdline() == 'p' ? 'Package' : 'p'
 
+let g:lisp_no_recompile = [
+  \ 'config/nyxt/init.lisp'
+  \ ]
+
 augroup Lisp
   autocmd!
-  autocmd BufWritePost *.lisp call lisp#loadInREPL(expand('%'))
+  autocmd BufWritePost *.lisp call lisp#recompile(expand('%'))
 augroup END
 
 function! lisp#package(package)
@@ -59,6 +63,16 @@ function! lisp#editSurroundingSExpression()
   normal dab
   call lisp#beginningOfSExpression()
   normal vibp%
+endfunction
+
+function! lisp#recompile(filename)
+  for item in g:lisp_no_recompile
+    if item == a:filename
+      return
+    end
+  endfor
+
+  call lisp#loadInREPL(a:filename)
 endfunction
 
 function! lisp#loadInREPL(filename)
