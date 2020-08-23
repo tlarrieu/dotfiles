@@ -18,21 +18,37 @@ snippet cond "cond-statement" i
 	(${1:predicate} ${2:consequent})$0)
 endsnippet
 
-snippet p "predicate/consequent"
-(${1:predicate} ${2:consequent})$0
-endsnippet
-
-snippet other "otherwise"
-(otherwise ${1:consequent})$0
-endsnippet
-
 snippet d "defun"
 (defun ${1:funcname} (${2:args})
 	${3:body})
 endsnippet
 
-snippet "va?r?" "defvar" r
+snippet m "defmacro"
+(defmacro ${1:macroname} (${2:args})
+	\`${3:body})
+endsnippet
+
+snippet v "defvar"
 (defvar *${1:varname}*
+	${0:${VISUAL:expression}})
+endsnippet
+
+snippet p "defvar"
+(defparameter +${1:paramname}+
+	${0:${VISUAL:expression}})
+endsnippet
+
+snippet c "class"
+(defclass ${1:Name} ($2)
+	($0))
+endsnippet
+
+snippet sl "class slot" w
+(${1:attr} :initarg :${2:$1} :${3:accessor} ${4:$1})$0
+endsnippet
+
+snippet const "defvar"
+(defconstant ${1:CONSTNAME}
 	${0:${VISUAL:expression}})
 endsnippet
 
