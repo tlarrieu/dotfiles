@@ -1,4 +1,5 @@
 let g:neoterm_shell = 'rlwrap sbcl'
+let g:angry_separator = ' '
 
 highlight! lispParen ctermfg=14
 highlight! link lispFunc Keyword
