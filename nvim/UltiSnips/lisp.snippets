@@ -63,18 +63,18 @@ snippet mult "multiple-value-bind"
 	${0:${VISUAL:body}})
 endsnippet
 
-snippet fn "lambda expression" i
+snippet fn "lambda expression" w
 (lambda (${1:args}) ${2:expression})
 endsnippet
 
-snippet map "map" i
+snippet map "map" w
 (map ${1:'list} ${2:expression} ${0:${VISUAL:xs}})
 endsnippet
 
-snippet mapcar "mapcar" i
+snippet mapcar "mapcar" w
 (mapcar ${1:s-expression} ${2:xs} ${3:ys})
 endsnippet
 
-snippet "redu?c?e?" "map" ri
+snippet "redu?c?e?" "map" rw
 (reduce ${1:expression} ${0:${VISUAL:xs}})
 endsnippet
