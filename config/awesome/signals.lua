@@ -82,6 +82,7 @@ local rules = {
   { class = "Chromium", instance = "discord.com", icon = "" },
   { class = "Chromium", instance = "wallhaven.cc", icon = "ﳼ" },
   { class = "Chromium", instance = "app.diagrams.net", icon = "" },
+  { class = "Chromium", instance = "whimsical.co", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
 
