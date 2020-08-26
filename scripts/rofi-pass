@@ -73,9 +73,34 @@ if [ ${#option} -gt 0 ]; then
     13)
       pass git ls-files | grep "$option"
       if [ $? = 0 ]; then
-        notify-send \
-          "Failure!" \
-          "There's already an entry for <b>$option</b>. Run the command again int the terminal if you mean to override it."
+        answer=$(\
+          echo -e "✔ Yes\n✖ No" \
+          | rofi \
+              -dmenu \
+              -lines 5 \
+              -i \
+              -p  \
+              -no-history \
+              -mesg " You are about to change password for <b>$option</b>.
+  Is that OK?" \
+        )
+        if [ ${#answer} -gt 0 ]; then
+          case $answer in
+            "✔ Yes")
+              pass generate -i -c "$option"
+              copy_status
+              ;;
+            *)
+              notify-send \
+                "Aborted!" \
+                "Nothing was changed!"
+            ;;
+          esac
+        else
+          notify-send \
+            "Aborted!" \
+            "Nothing was changed!"
+        fi
       else
         pass generate -c "$option"
         copy_status
