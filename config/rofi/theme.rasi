@@ -41,8 +41,8 @@
 
 #message {
   background-color: transparent;
-  border: -0.4em 0;
-  padding: 0 0.4em;
+  border: 0 0;
+  padding: 0.4em;
   spacing: 0;
   text-color: @fg;
 }

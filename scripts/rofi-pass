@@ -24,12 +24,10 @@ function edit_status {
   fi
 }
 
-HELP="
-<b>Return</b>: <i>Copy password</i>
+HELP="<b>Return</b>: <i>Copy password</i>
 <b>Shift+Return</b>: <i>Copy login</i>
 <b>Control+Return</b>: <i>Edit entry</i>
-<b>Alt+Return</b>: <i>Generate new entry (can't override existing)</i>
-"
+<b>Alt+Return</b>: <i>Generate new entry (can't override existing)</i>"
 
 option=$(\
   pass git ls-files \
