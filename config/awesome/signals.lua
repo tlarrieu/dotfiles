@@ -64,6 +64,7 @@ local rules = {
   { class = "Chromium", instance = "web.whatsapp.com" , icon = "甆" },
   { class = "Chromium", instance = "woven.com", icon = "" },
   { class = "Chromium", instance = "www.deliveroo.fr", icon = "﫱" },
+  { class = "Chromium", instance = "ubereats.com", icon = "" },
   { class = "Chromium", instance = "www.twitter.com", icon = "暑" },
   { class = "Chromium", instance = "www.exercism.io", icon = "" },
   { class = "Chromium", instance = "www.github.com", icon = "" },
