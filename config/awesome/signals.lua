@@ -113,6 +113,7 @@ local rules = {
   { class = "Chromium", instance = "rolladvantage.com", icon = "" },
 
   { class = "Chromium", icon = "" },
+  { class = "firefox", icon = "" },
   { class = "Cockatrice", icon = "" },
   { class = "Luakit", icon = "" },
   { class = "nyxt", icon = "" },
