@@ -26,7 +26,14 @@ awful.rules.rules = {
 
   {
     rule = {},
-    except_any = { class = { "gtgf", "kitty-light", "Thunar" } },
+    except_any = {
+      class = {
+        "Gpick",
+        "Thunar",
+        "gtgf",
+        "kitty-light",
+      }
+    },
     properties = {
       callback = helpers.create_tag_and_attach_to,
     },
