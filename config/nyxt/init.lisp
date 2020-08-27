@@ -178,7 +178,7 @@
        (make-search-engine "h" "https://www.haskell.org/hoogle?hoogle=~a")
        (make-search-engine "r" "https://reddit.com/r/~a")
        (make-search-engine "rg" "https://rubygems.org/search?query=~a")
-       (make-search-engine "t" "https://www.xn--thepratebay-fcb.com/proxy/go.php?url=s/?q=~a")
+       (make-search-engine "t" "https://www.xn--thepratebay-fcb.com/s/?q=~a")
        (make-search-engine "v" "https://vimawesome.com/?q=~a")
        (make-search-engine "wp" "https://wallhaven.cc/search?q=~a&atleast=1920x1080")
        (make-search-engine "w" "https://en.wikipedia.org/wiki/Special:Search?search=~a")
