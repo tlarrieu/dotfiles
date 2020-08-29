@@ -16,18 +16,18 @@ interm=nvim
 # which linopen chooses the program as well.
 
 # 1. File extension
-# .png:sxiv
+# .png:viewnior
 # .mp4:mpv
 # .txt:vim
 .pdf:zathura
 .torrent:aria2c->interm
 
 # 2. Mime type
-# image/png:sxiv
+# image/png:viewnior
 # video/mp4:mpv
 
 # 3. Mime category
-image:sxiv
+image:viewnior
 video:mpv
 audio:mpv
 text:nvim->interm
