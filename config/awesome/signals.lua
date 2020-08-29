@@ -121,6 +121,8 @@ local rules = {
   { class = "Luakit", icon = "" },
   { class = "nyxt", icon = "" },
   { class = "Steam", icon = "" },
+  -- PlayOnLinux
+  { class = "Mainwindow.py", icon = "" },
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
