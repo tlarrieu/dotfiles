@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk perso "https://www.exercism.io"
+browser-kiosk perso "https://www.exercism.io"

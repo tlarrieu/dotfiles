@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk pro "https://docs.google.com/document/d/1TMx90ZPPZEqVcLcymLP36eNTtp7SJSE8HU09R1MnrPA/edit"
+browser-kiosk pro "https://docs.google.com/document/d/1TMx90ZPPZEqVcLcymLP36eNTtp7SJSE8HU09R1MnrPA/edit"

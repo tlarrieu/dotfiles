@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk pro "https://circleci.com/gh/jobteaser/connect"
+browser-kiosk pro "https://circleci.com/gh/jobteaser/connect"

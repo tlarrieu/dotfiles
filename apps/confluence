@@ -3,7 +3,7 @@
 profile="pro"
 
 if [[ "$1" == "https"* ]]; then
-  chromium-kiosk $profile "$1"
+  browser-kiosk $profile "$1"
 else
-  chromium-kiosk $profile "https://jobteaser.atlassian.net/wiki/$1"
+  browser-kiosk $profile "https://jobteaser.atlassian.net/wiki/$1"
 fi

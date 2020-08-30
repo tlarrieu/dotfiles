@@ -39,7 +39,7 @@ function app
 
   test -e $file
   and nvim $file
-  or echo -ne 'i#!/bin/sh\n\nchromium-kiosk $1 "https://"i' \
+  or echo -ne 'i#!/bin/sh\n\nbrowser-kiosk $1 "https://"i' \
     | nvim -c 'setf sh' -s - -- $file
 
   chmod 700 $file ^ /dev/null

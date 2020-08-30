@@ -2,7 +2,7 @@
 
 port=$(
   rofi -dmenu \
-    -p "" \
+    -p "port?" \
     -theme-str '#content { children: [inputbar]; }'
 )
 port=${port:-"3000"}

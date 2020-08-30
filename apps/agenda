@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk $1 "https://calendar.google.com"
+browser-kiosk $1 "https://calendar.google.com"

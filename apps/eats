@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk perso "https://ubereats.com"
+browser-kiosk perso "https://ubereats.com"

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-chromium-kiosk perso "https://web.whatsapp.com"
+browser-kiosk perso "https://web.whatsapp.com"
