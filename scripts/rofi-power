@@ -21,7 +21,7 @@ if [ ${#option} -gt 0 ]; then
       betterlockscreen -s blur -t "Password?"
       ;;
     Logout)
-      echo "awesome.quit()" | awesome-client
+      awesome-client "awesome.quit()"
       ;;
     *)
       ;;
