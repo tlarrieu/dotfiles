@@ -99,6 +99,11 @@ abbr ,s "cd ~/scripts"
 abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
 
+# ls
+abbr l "ls"
+abbr la "ls -CA"
+abbr ll "ls -lAh"
+
 # SSH
 abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
 
