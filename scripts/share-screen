@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Set appropriate layout
+echo "
+awful = require('awful')
+awful.layout.set(awful.layout.suit.tile.left)
+" | awesome-client
+
+# Start Xephyr session
+Xephyr -ac -noreset -resizeable :1.0 2> /dev/null &
+ZEPHYR_PID=$!
+sleep 0.2
+
+# Run awesome
+export DISPLAY=:1.0
+xrdb -merge ~/.Xresources
+~/.fehbg
+awesome
+
+# Make sure to kill Xephyr upon quitting awesome
+kill $ZEPHYR_PID 2> /dev/null
