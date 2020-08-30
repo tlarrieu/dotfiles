@@ -1,0 +1,12 @@
+#!/bin/sh
+
+url=$(xsel --clipboard -o)
+
+notify-send "Download started" "Your download will be available in $(pwd)"
+youtube-dl --no-playlist $url
+
+if [ $? = 0 ]; then
+  notify-send "Finished downloading" "You can find it in $(pwd)"
+else
+  notify-send "Something went wrong with your download"
+fi

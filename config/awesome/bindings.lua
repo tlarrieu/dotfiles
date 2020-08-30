@@ -11,6 +11,7 @@ local gears = require("gears")
 
 local terminal = "kitty --single-instance"
 local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
+local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
 local key = awful.key
@@ -172,6 +173,9 @@ _M.keyboard = {
     mspawn("g", script("wallpaper")),
     mspawn("h", termstart(script("gtgf"), { class = "gtgf" })),
     spawn({}, "F1", termstart("bhoogle", { class = "help" })),
+
+    spawn({ mod, "Shift" }, "b",   termstart("", { directory = sandbox })),
+    mspawn("percent", termstart(script("ytdl"), { directory = sandbox })),
 
     mspawn("'", terminal),
     spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),
