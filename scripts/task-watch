@@ -23,10 +23,12 @@ function maybeDisplay {
 
   if [ -n "$out" ]; then
     echo
-    echo "   $label:"
-    echo "$out"
+    echo -e "   $label:"
+    echo -e "$out"
   fi
 }
+
+export -f maybeDisplay
 
 priorityfile="$HOME/.priorities.$CONTEXT"
 if [ -f "$priorityfile" ]; then
@@ -50,4 +52,11 @@ echo "   Blocking/Blocked → `task rc.verbose:none +BLOCKING count`/`task rc.ve
 
 if [ $(task _get tw.syncneeded) == 1 ]; then
   echo -e "\n   \e[33mSync needed\e[39m"
+fi
+
+scratchpad="$HOME/.scratchpad"
+if [ $(cat $scratchpad | wc -l) -gt 0 ]; then
+  echo -e "\n   \e[34mNotes:\n"
+  sed -e '/^./ s/^/   /' "$scratchpad"
+  echo -ne "\e[39m"
 fi
