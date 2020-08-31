@@ -176,6 +176,7 @@ _M.keyboard = {
 
     spawn({ mod, "Shift" }, "b",   termstart("", { directory = sandbox })),
     mspawn("percent", termstart(script("ytdl"), { directory = sandbox })),
+    mspawn("equal", fish("open (xsel --clipboard -o)")),
 
     mspawn("'", terminal),
     spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),
