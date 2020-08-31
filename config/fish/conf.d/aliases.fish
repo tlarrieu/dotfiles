@@ -17,7 +17,6 @@ abbr jctl "journalctl"
 abbr nmcli "nmcli --color yes"
 
 # Pass
-
 abbr p "pass"
 
 # NVIM
@@ -149,7 +148,6 @@ abbr py "python"
 abbr rb "ruby"
 
 # Hoogle
-
 abbr h "hoogle"
 abbr b "bhoogle"
 
