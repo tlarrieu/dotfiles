@@ -29,3 +29,20 @@ endsnippet
 snippet -- "Line comment"
 # -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
+
+snippet if "if statement"
+if [ ${1:statement} ]; then
+	${2:body}
+fi
+endsnippet
+
+snippet case "case statement"
+case ${1:$${2:variable}} in
+	${3:value})
+		${4:body}
+		;;
+	${5:*)
+		${6:body}
+		;;}
+esac
+endsnippet
