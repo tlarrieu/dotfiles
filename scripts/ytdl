@@ -3,7 +3,12 @@
 url=$(xsel --clipboard -o)
 
 notify-send "Download started" "Your download will be available in $(pwd)"
-youtube-dl --no-playlist $url
+
+youtube-dl $url
+if [ $? != 0 ]; then
+  notify-send "Error" "Could not download in playlist mode, retrying in single mode"
+  youtube-dl --no-playlist $url
+fi
 
 if [ $? = 0 ]; then
   notify-send "Finished downloading" "You can find it in $(pwd)"
