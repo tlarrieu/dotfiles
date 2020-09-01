@@ -99,7 +99,7 @@ abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
 abbr - "cd -"
 
-abbr ,l "open (ls -ltc | head -n 2 | tail -n 1 | cut -d ' ' -f10-)"
+abbr ,l "open (ls -1tc | head -n 1)"
 
 # ls
 abbr l "ls"
