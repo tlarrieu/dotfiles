@@ -503,9 +503,6 @@ inoremap # X<bs>#
 " Fuck you, help.
 nnoremap <F1> <nop>
 inoremap <F1> <nop>
-" Also, please open in a new tab
-cnoreabbrev <expr> h
-  \ getcmdtype() == ":" && getcmdline() == 'h' ? 'tab help' : 'h'
 " Clever paste from system buffer
 noremap <leader>p "+p
 noremap <leader>P "+P
