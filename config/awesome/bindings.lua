@@ -150,7 +150,7 @@ _M.keyboard = {
       { directory = dotfiles }
     )),
     spawn({ mod, "Shift" }, "e",   termstart(
-      "nvim ~/.scratchpad",
+      "nvim ~/.scratchpad.md",
       { class = "scratchpad" }
     )),
     mspawn("Tab",                  script("rofi-window")),

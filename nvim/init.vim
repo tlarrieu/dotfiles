@@ -637,7 +637,7 @@ endfunction
 nmap <leader>es :call OpenSchemaFile()<cr>
 
 nmap <leader>ea :call MaybeTabedit('~/httpclient.rest')<cr>
-nmap <leader>ee :call MaybeTabedit('~/.scratchpad')<cr>
+nmap <leader>ee :call MaybeTabedit('~/.scratchpad.md')<cr>
 nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
 nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
 nmap <leader>eu :UltiSnipsEdit<space>

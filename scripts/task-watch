@@ -54,7 +54,7 @@ if [ $(task _get tw.syncneeded) == 1 ]; then
   echo -e "\n   \e[33mSync needed\e[39m"
 fi
 
-scratchpad="$HOME/.scratchpad"
+scratchpad="$HOME/.scratchpad.md"
 if [ $(cat $scratchpad | wc -l) -gt 0 ]; then
   echo -e "\n   \e[34mNotes:\n"
   sed -e '/^./ s/^/   /' "$scratchpad"
