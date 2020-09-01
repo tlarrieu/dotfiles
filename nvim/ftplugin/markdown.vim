@@ -5,6 +5,8 @@ setlocal foldlevelstart=10
 setlocal spell
 setlocal conceallevel=2
 
+abbr <buffer> [] 
+
 let b:deoplete_sources = ['tag', 'buffer', 'file']
 
 augroup MARKDOWN
