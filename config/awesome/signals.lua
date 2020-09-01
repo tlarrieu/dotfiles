@@ -97,6 +97,7 @@ local rules = {
   { class = "kitty", name = "tryhackme", icon = "" },
 
   { class = "scratchpad", icon = "" },
+  { class = "poi", icon = "" },
 
   { class = "taskwarrior", icon = "" },
   { class = "help", icon = "" },

@@ -153,6 +153,10 @@ _M.keyboard = {
       "nvim ~/.scratchpad.md",
       { class = "scratchpad" }
     )),
+    spawn({ mod, "Shift" }, "i",   termstart(
+      "nvim ~/poi.md",
+      { class = "poi" }
+    )),
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
     spawn({}, "F12",               script("rofi-wifi")),

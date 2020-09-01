@@ -34,6 +34,7 @@ awful.rules.rules = {
         "kitty-light",
         "Xephyr",
         "scratchpad",
+        "poi",
       }
     },
     properties = {
