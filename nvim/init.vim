@@ -431,6 +431,7 @@ nmap <leader>b :Gblame<cr>
 nmap <leader>c :Gcommit --quiet<cr>
 nmap <leader>d :Gvdiff<cr>
 nmap <leader>D :Gvdiff master<cr>
+nmap <leader>ed :tab Git diff --staged<cr>
 nmap <leader>r :Gread<cr>
 nmap <leader>s :Gstatus<cr>
 nmap <leader>S :GV<cr>
