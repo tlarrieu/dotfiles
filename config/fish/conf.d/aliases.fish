@@ -148,6 +148,7 @@ function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
 # Various languages
 abbr py "python"
+abbr py2 "python2"
 abbr rb "ruby"
 
 # Hoogle
