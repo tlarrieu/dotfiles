@@ -36,19 +36,10 @@ text:nvim->interm
 # Match some protocols by default
 ?'^magnet:':aria2c->interm
 ?'^https:\/\/www\.youtube\.com':mpv
-?'^https:\/\/.*notion.so':notion
-?'^https:\/\/.*\.google.com':browser-kiosk
-?'^https:\/\/google.zoom.us':browser-kiosk
-?'^https:\/\/zoom.us':browser-kiosk
-?'^https:\/\/dynalist.io':browser-kiosk
-?'^https:\/\/trello.com':browser-kiosk
-?'^https:\/\/.*atlassian.net':browser-kiosk
-?'^https:\/\/.*\.slack.com':browser-kiosk
-?'^https:\/\/github.com':browser-kiosk
-?'^http:\/\/':nyxt
-?'^https:\/\/':nyxt
+?'^http:\/\/':browser-kiosk
+?'^https:\/\/':browser-kiosk
+?'^www.':browser-kiosk
 ?'^zoommtg:\/\/':zoom
-?'^www.':nyxt
 ?'^dvd:\/\/':mpv
 ?'^cdda:\/\/':mpv->interm
 
