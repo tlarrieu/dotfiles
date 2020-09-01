@@ -97,6 +97,7 @@ abbr ,p "cd ~/Pictures"
 abbr ,s "cd ~/scripts"
 abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
+abbr - "cd -"
 
 # ls
 abbr l "ls"
@@ -195,3 +196,10 @@ abbr stop "task stop"
 
 # Routines
 abbr rt "routine"
+
+# nmap
+abbr nmap "sudo nmap"
+
+# searchsploits
+
+abbr spl "searchsploit"

@@ -94,6 +94,8 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 
+  { class = "kitty", name = "tryhackme", icon = "" },
+
   { class = "scratchpad", icon = "" },
 
   { class = "taskwarrior", icon = "" },
