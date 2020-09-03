@@ -115,6 +115,12 @@ endfunction
 " }}} ==========================================================================
 
 " {{{ ==| Buffer Handling |=====================================================
+function! DeleteFile()
+  call delete(expand('%'))
+  bdelete!
+endfunction
+command DeleteFile :call DeleteFile()
+
 function! ClearBuffers()
   silent! bufdo bdelete
   silent! tabdo tabclose

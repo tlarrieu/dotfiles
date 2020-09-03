@@ -1,10 +1,15 @@
-cabbrev ag Ack!
-cabbrev ack Ack!
-cabbrev chmod silent !chmod %<left><left>
-cabbrev rm !rm
-cabbrev mkdir !mkdir
-cabbrev gv GV
-cabbrev xsel r!xsel --clipboard -o
+cnoreabbrev <expr> ag
+  \ getcmdtype() == ":" && getcmdline() == 'ag' ? 'Ack!' : 'ag'
+cnoreabbrev <expr> ack
+  \ getcmdtype() == ":" && getcmdline() == 'ack' ? 'Ack!' : 'ack'
+cnoreabbrev <expr> chmod
+  \ getcmdtype() == ":" && getcmdline() == 'chmod' ? 'silent !chmod %<left><left>' : 'chmod'
+cnoreabbrev <expr> rm
+  \ getcmdtype() == ":" && getcmdline() == 'rm' ? 'DeleteFile' : 'rm'
+cnoreabbrev <expr> mkdir
+  \ getcmdtype() == ":" && getcmdline() == 'mkdir' ? '!mkdir' : 'mkdir'
+cnoreabbrev <expr> gv
+  \ getcmdtype() == ":" && getcmdline() == 'gv' ? 'GV' : 'gv'
 
 " Always open help in a new tab
 cnoreabbrev <expr> h
