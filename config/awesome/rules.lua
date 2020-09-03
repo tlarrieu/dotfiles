@@ -42,6 +42,16 @@ awful.rules.rules = {
     },
   },
 
+  -- [[ Scratchpad ]] ----------------------------------------------------------
+  {
+    rule_any = { class = { "scratchpad", "poi" } },
+    properties = {
+      floating = true,
+      width = 1920,
+      height = 1080
+    },
+  },
+
   -- [[ Kitty ]] ---------------------------------------------------------------
   {
     rule = { class = "kitty" },
