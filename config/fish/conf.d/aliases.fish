@@ -163,6 +163,7 @@ abbr d "sudo docker"
 
 # Kubernetes
 abbr k "kubectl"
+abbr krew "kubectl-krew"
 function ksh; kubectl exec -it $argv /bin/bash; end
 
 # stack (haskell)

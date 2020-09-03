@@ -56,6 +56,7 @@ set -x PATH $PATH $HOME/node_modules/elm-format/bin
 set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/.ghcup/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
+set -x PATH $PATH $HOME/.krew/bin
 
 # Tab completions
 if test -e /usr/share/doc/task/scripts/fish/task.fish
