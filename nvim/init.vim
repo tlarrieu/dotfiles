@@ -30,6 +30,7 @@ Plug 'tlarrieu/vim-sniper'
 Plug 'neomake/neomake'
 Plug 'sbdchd/neoformat'
 Plug 'milkypostman/vim-togglelist'
+Plug 'vimwiki/vimwiki'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
@@ -246,6 +247,17 @@ set statusline+=%P\                             " percentage of file
 set statusline+=%*
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| vimwiki |-----------------------------------------
+let g:vimwiki_global_vars = {}
+let g:vimwiki_hl_headers = 0
+let g:vimwiki_key_mappings = { 'all_maps': 0, }
+
+let g:vimwiki_list = [{
+  \ 'path': '~/.vimwiki/',
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md'
+  \ }]
+" }}}
 " {{{ --| Bullets |-----------------------------------------
 let g:bullets_set_mappings = 0
 " }}}

@@ -99,7 +99,7 @@ local rules = {
   { class = "Chromium", instance = "tryhackme.com", icon = "" },
 
   { class = "scratchpad", icon = "" },
-  { class = "poi", icon = "" },
+  { class = "wiki", icon = "" },
 
   { class = "taskwarrior", icon = "" },
   { class = "help", icon = "" },

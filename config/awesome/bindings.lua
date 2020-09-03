@@ -104,12 +104,12 @@ local scratchpad = function(mods, k)
   )
 end
 
-local poi = function(mods, k)
-  local props = { class = "poi" }
+local wiki = function(mods, k)
+  local props = { class = "wiki" }
   return spawn_or_raise(
     mods,
     k,
-    termstart("nvim ~/.poi.md", props),
+    termstart("nvim ~/.vimwiki/index.md", props),
     props
   )
 end
@@ -217,7 +217,7 @@ _M.keyboard = {
 
     config({ mod, "Shift" }, "c"),
     scratchpad({ mod, "Shift" }, "e"),
-    poi({ mod, "Shift" }, "i"),
+    wiki({ mod, "Shift" }, "i"),
 
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
