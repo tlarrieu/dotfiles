@@ -44,7 +44,7 @@ awful.rules.rules = {
 
   -- [[ Scratchpad ]] ----------------------------------------------------------
   {
-    rule_any = { class = { "scratchpad", "wiki" } },
+    rule_any = { class = { "scratchpad", "wiki", "man" } },
     properties = {
       floating = true,
       width = 1920,

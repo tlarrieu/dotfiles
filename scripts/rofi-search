@@ -21,7 +21,8 @@ searchengines = {
   'v' => 'https://vimawesome.com/?q=%s',
   'wp' => 'https://wallhaven.cc/search?q=%s&atleast=1920x1080',
   'w' => 'https://en.wikipedia.org/wiki/Special:Search?search=%s',
-  'ym' => 'https://music.youtube.com/search?q=%s'
+  'ym' => 'https://music.youtube.com/search?q=%s',
+  'man' => 'man %s'
 }
 
 words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
@@ -30,7 +31,9 @@ words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
 if words.any?
   engine = searchengines[words[0]]
 
-  if engine
+  if words[0] == 'man'
+    `kitty --class man fish -c '#{engine % words[1..-1].join(' ')}'`
+  elsif engine
     `browser-kiosk '#{engine % words[1..-1].join(' ')}'`
   else
     `browser-kiosk '#{defaultengine % words[0..-1].join(' ')}'`
