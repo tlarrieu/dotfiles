@@ -140,44 +140,48 @@ local rules = {
   { class = "Xephyr", icon = "" },
 }
 
-local update_icon = function(tag, client)
-  if client then
-    for i = 1, #rules do
-      local rule = rules[i]
-      local match = true
-      local has_rule = false
+local update_icon = function(tag)
+  local icons = {}
 
-      for _, key in ipairs({ "name", "instance", "class" }) do
-        if rule[key] then
-          has_rule = true
-          match = match and client[key]:find(rule[key])
+  if #tag:clients() >= 1 then
+    for _, client in ipairs(tag:clients()) do
+      for i = 1, #rules do
+        local rule = rules[i]
+        local match = true
+        local has_rule = false
+
+        for _, key in ipairs({ "name", "instance", "class" }) do
+          if rule[key] then
+            has_rule = true
+            match = match and client[key]:find(rule[key])
+          end
+        end
+
+        if has_rule and match then
+          table.insert(icons, rule.icon)
+          break
         end
       end
-
-      if has_rule and match then
-        tag.name = rule.icon
-        return
-      end
     end
+  else
+    icons = { "" }
   end
 
-  tag.name = ""
+  tag.name = table.concat(icons, " ")
 end
 
 local handle = function(object)
-  local tag, client
+  local tag
 
   if type(object) == 'client' then
     tag = object.first_tag
-    client = object
   elseif type(object) == 'tag' then
     tag = object
-    client = object:clients()[1]
   else
     return
   end
 
-  update_icon(tag, client)
+  update_icon(tag)
 end
 
 for _, signal in ipairs(client_signals) do
