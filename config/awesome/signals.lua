@@ -133,6 +133,7 @@ local rules = {
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
   { class = "mpv", icon = "" },
+  { class = "vlc", icon = "嗢" },
   { class = "Vlc", icon = "嗢" },
   { class = "mixer", icon = "奔" },
   { class = "Gpick", icon = "" },
