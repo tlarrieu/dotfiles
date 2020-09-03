@@ -91,6 +91,7 @@ local rules = {
   { class = "kitty", name = "htop", icon = "" },
   { class = "kitty", name = "exercism", icon = "" },
   { class = "kitty", name = "git/dotfiles", icon = "" },
+  { class = "config", icon = "" },
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
 

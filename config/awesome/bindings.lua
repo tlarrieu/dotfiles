@@ -30,6 +30,45 @@ local fish = function(command)
   return "fish -c '" .. command .. "'"
 end
 
+local find_client = function(props)
+  for _, client in ipairs(client.get()) do
+    if awful.rules.match(client, props) then
+      return client
+    end
+  end
+end
+
+local spawn_or_do_something = function(mods, k, cmd, props, something)
+  return key(mods, k,
+    function()
+      local client = find_client(props)
+
+      if client then
+        something(client)
+        client:emit_signal(
+          "request::activate",
+          "client.focus.bydirection",
+          {raise=true}
+        )
+      else
+        awful.spawn(cmd, props)
+      end
+    end
+  )
+end
+
+local spawn_or_raise = function(mods, k, cmd, props)
+  return spawn_or_do_something(mods, k, cmd, props, function(client)
+    client:tags({ awful.screen.focused().selected_tag })
+  end)
+end
+
+local spawn_or_jump = function(mods, k, cmd, props)
+  return spawn_or_do_something(mods, k, cmd, props, function(client)
+    client:tags()[1]:view_only()
+  end)
+end
+
 local termstart = function(cmd, opts)
   local options = ""
   if opts then
@@ -53,6 +92,36 @@ local view_tag = function(id) awful.screen.focused().tags[id]:view_only() end
 local focus_client = function(direction)
   awful.client.focus.byidx(direction)
   if client.focus then client.focus:raise() end
+end
+
+local scratchpad = function(mods, k)
+  local props = { class = "scratchpad" }
+  return spawn_or_raise(
+    mods,
+    k,
+    termstart("nvim ~/.scratchpad.md", props),
+    props
+  )
+end
+
+local poi = function(mods, k)
+  local props = { class = "poi" }
+  return spawn_or_raise(
+    mods,
+    k,
+    termstart("nvim ~/.poi.md", props),
+    props
+  )
+end
+
+local config = function(mods, k)
+  local props = { class = "config" }
+  return spawn_or_jump(
+    mods,
+    k,
+    termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
+    props
+  )
 end
 
 -- [[ Keyboard ]] ==============================================================
@@ -145,18 +214,11 @@ _M.keyboard = {
 
     mspawn(" ",                    fish("rofi -show run -lines 6")),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
-    spawn({ mod, "Shift" }, "c",   termstart(
-      "nvim nvim/init.vim",
-      { directory = dotfiles }
-    )),
-    spawn({ mod, "Shift" }, "e",   termstart(
-      "nvim ~/.scratchpad.md",
-      { class = "scratchpad" }
-    )),
-    spawn({ mod, "Shift" }, "i",   termstart(
-      "nvim ~/poi.md",
-      { class = "poi" }
-    )),
+
+    config({ mod, "Shift" }, "c"),
+    scratchpad({ mod, "Shift" }, "e"),
+    poi({ mod, "Shift" }, "i"),
+
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
     spawn({}, "F12",               script("rofi-wifi")),
