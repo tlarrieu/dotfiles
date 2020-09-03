@@ -208,7 +208,7 @@ case $answer in
       imagemagick
       "
 
-    internet="networkmanager nyxt-browser chromium openssh"
+    internet="networkmanager chromium openssh"
 
     keyboard="xcape xorg-xmodmap"
 

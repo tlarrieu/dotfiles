@@ -227,6 +227,7 @@ _M.keyboard = {
     mspawn("f",                    script("rofi-nerdfont")),
     mspawn("à",                    script("rofi-bluetooth")),
     mspawn("Escape",               script("rofi-pass")),
+    mspawn(".",                    fish("rofi-search")),
 
     mspawn("q", script("rofi-power")),
     mspawn("a", termstart("pulsemixer", { class = "mixer" })),
@@ -235,7 +236,6 @@ _M.keyboard = {
     mspawn("b", script("mpc-playlist")),
     mspawn("$", "mpc toggle"),
 
-    mspawn(".", "bash -c 'GDK_SCALE=2 GDK_DPI_SCALE=0.5 nyxt -S'"),
     mspawn(",", fish("browser-with-context")),
     mspawn("u", termstart("vifm")),
     spawn({mod, "Shift"}, "u", "thunar"),

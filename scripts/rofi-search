@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+defaultengine = 'https://duckduckgo.com/?ia=web&q=%s'
+
+searchengines = {
+  'default' => defaultengine,
+  'yt' => 'https://www.youtube.com/results?q=%s',
+  'th' => 'https://www.thesaurus.com/browse/%s?s=t',
+  'vim' => 'https://vimawesome.com/?q=%s',
+  'g' => 'https://github.com/%s',
+  'gh' => 'https://github.com/search?q=%s',
+  'm' => 'https://scryfall.com/search?q=%s',
+  'a' => 'https://wiki.archlinux.org/index.php/%s',
+  'dt' => 'https://www.dndtools.net/spells/?name=%s&_filter=Filter',
+  'h' => 'https://www.haskell.org/hoogle?hoogle=%s',
+  'r' => 'https://reddit.com/r/%s',
+  'rg' => 'https://rubygems.org/search?query=%s',
+  't' => 'https://www.xn--thepratebay-fcb.com/s/?q=%s',
+  'v' => 'https://vimawesome.com/?q=%s',
+  'wp' => 'https://wallhaven.cc/search?q=%s&atleast=1920x1080',
+  'w' => 'https://en.wikipedia.org/wiki/Special:Search?search=%s',
+  'ym' => 'https://music.youtube.com/search?q=%s'
+}
+
+words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
+  split
+
+if words.any?
+  engine = searchengines[words[0]]
+
+  if engine
+    `browser-kiosk '#{engine % words[1..-1].join(' ')}'`
+  else
+    `browser-kiosk '#{defaultengine % words[0..-1].join(' ')}'`
+  end
+end
