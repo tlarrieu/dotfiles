@@ -253,9 +253,15 @@ let g:vimwiki_hl_headers = 0
 let g:vimwiki_key_mappings = { 'all_maps': 0, }
 
 let g:vimwiki_list = [{
-  \ 'path': '~/.vimwiki/',
+  \ 'path': '~/.vimwiki/home',
   \ 'syntax': 'markdown',
   \ 'ext': '.md'
+  \ },
+  \ {
+  \ 'path': '~/.vimwiki/work',
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md',
+  \ 'nested_syntaxes': { 'sql': 'sql' }
   \ }]
 " }}}
 " {{{ --| Bullets |-----------------------------------------
