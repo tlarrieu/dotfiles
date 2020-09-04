@@ -5,8 +5,6 @@ setlocal foldlevelstart=10
 setlocal spell
 setlocal conceallevel=2
 
-abbr <buffer> [] 
-
 let b:deoplete_sources = ['tag', 'buffer', 'file']
 
 augroup MARKDOWN
@@ -17,7 +15,3 @@ augroup END
 nnoremap <silent> <buffer> <cr> :T mdprev w '%'<cr>
 
 call bullet#config()
-
-let b:switch_custom_definitions =
-  \ [ ['', '']
-  \ ]
