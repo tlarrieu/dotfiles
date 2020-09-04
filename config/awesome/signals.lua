@@ -49,10 +49,9 @@ local rules = {
   { class = "Chromium", name = "Google Photos", icon = "" },
   { class = "Chromium", name = "Google Slides" , icon = "" },
   { class = "Chromium", name = "YouTube", icon = "輸" },
-  { class = "Luakit", name = "YouTube", icon = "輸" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
-  { class = "Chromium", instance = "slack" , icon = "" },
+  { class = "Chromium", instance = "slack" , icon = "" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
@@ -81,10 +80,13 @@ local rules = {
   { class = "Chromium", instance = "appsignal.com", icon = "" },
   { class = "Chromium", instance = "linkedin.com", icon = "" },
   { class = "Chromium", instance = "discord.com", icon = "" },
-  { class = "Chromium", instance = "wallhaven.cc", icon = "ﳼ" },
+  { class = "Chromium", instance = "wallhaven.cc", icon = "" },
   { class = "Chromium", instance = "app.diagrams.net", icon = "" },
   { class = "Chromium", instance = "whimsical.co", icon = "" },
-  { class = "Chromium", instance = "www.reddit.com", icon = "" },
+  { class = "Chromium", instance = "reddit.com", icon = "" },
+  { class = "Chromium", instance = "rubygems", icon = "" },
+  { class = "Chromium", instance = "pratebay", icon = "" },
+  { class = "Chromium", instance = "hoogle", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
 
@@ -114,6 +116,8 @@ local rules = {
   { class = "Flowblade", icon = "" },
 
   { class = "zoom", icon = "" },
+
+  { name = "yay", icon = "" },
 
   { name = "Document Scanner", icon = "ﮩ" },
 
