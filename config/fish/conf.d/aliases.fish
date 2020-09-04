@@ -11,7 +11,7 @@ abbr ctl "systemctl"
 abbr bctl "bluetoothctl"
 
 # journalctl
-abbr jctl "journalctl"
+abbr jctl "journalctl -xe"
 
 # nmcli
 abbr nmcli "nmcli --color yes"
