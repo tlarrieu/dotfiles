@@ -1,3 +1,7 @@
+function! sql#configure()
+  command! -range=% ExecuteSQL <line1>,<line2>call sql#execute()
+endfunction
+
 function! sql#execute() range abort
   let l:lines = getline(a:firstline, a:lastline)
   let l:query = join(l:lines, "\\n")
