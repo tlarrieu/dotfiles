@@ -142,7 +142,7 @@ local rules = {
 }
 
 local update_icon = function(tag)
-  local icons = {}
+  local iconset = {}
 
   if #tag:clients() >= 1 then
     for _, client in ipairs(tag:clients()) do
@@ -159,13 +159,18 @@ local update_icon = function(tag)
         end
 
         if has_rule and match then
-          table.insert(icons, rule.icon)
+          iconset[rule.icon] = true
           break
         end
       end
     end
   else
-    icons = { "" }
+    iconset[""] = true
+  end
+
+  local icons = {}
+  for k,_ in pairs(iconset) do
+    icons[#icons+1] = k
   end
 
   tag.name = table.concat(icons, " ")
