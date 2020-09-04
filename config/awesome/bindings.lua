@@ -111,12 +111,7 @@ end
 
 local wiki = function(mods, k)
   local props = { class = "wiki" }
-  return spawn_or_raise(
-    mods,
-    k,
-    termstart("nvim ~/.vimwiki/index.md -c \"cd /home/tlarrieu/.vimwiki\"", props),
-    props
-  )
+  return spawn_or_raise(mods, k, fish("vimwiki"), props)
 end
 
 local config = function(mods, k)
