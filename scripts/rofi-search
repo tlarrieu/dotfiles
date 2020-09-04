@@ -5,37 +5,76 @@
 require 'cgi'
 require 'shellwords'
 
-defaultengine = 'https://duckduckgo.com/?ia=web&q=%s'
+class SearchEngine
 
-searchengines = {
-  'default' => defaultengine,
-  'yt' => 'https://www.youtube.com/results?q=%s',
-  'th' => 'https://www.thesaurus.com/browse/%s?s=t',
-  'vim' => 'https://vimawesome.com/?q=%s',
-  'g' => 'https://github.com/%s',
-  'gh' => 'https://github.com/search?q=%s',
-  'm' => 'https://scryfall.com/search?q=%s',
-  'a' => 'https://wiki.archlinux.org/index.php/%s',
-  'dt' => 'https://www.dndtools.net/spells/?name=%s&_filter=Filter',
-  'h' => 'https://www.haskell.org/hoogle?hoogle=%s',
-  'r' => 'https://reddit.com/r/%s',
-  'rg' => 'https://rubygems.org/search?query=%s',
-  't' => 'https://www.xn--thepratebay-fcb.com/s/?q=%s',
-  'v' => 'https://vimawesome.com/?q=%s',
-  'wp' => 'https://wallhaven.cc/search?q=%s&atleast=1920x1080',
-  'w' => 'https://en.wikipedia.org/wiki/Special:Search?search=%s',
-  'ym' => 'https://music.youtube.com/search?q=%s',
-  'man' => 'man %s'
-}
-
-def escape(array, target)
-  str = array.join(' ')
-  case target
-  when 'shell' then Shellwords.escape(str)
-  when 'browser' then CGI.escape(str)
-  else CGI.escape(str)
+  def initialize(target, prefixes: [])
+    @target = target
+    @prefix = prefixes.map { |s| "#{s} " }.join
   end
+
+  private
+
+  def combine(str)
+    @target % escape("#{@prefix}#{str}")
+  end
+
 end
+
+class Man < SearchEngine
+
+  def initialize
+    super('man %s')
+  end
+
+  def run(str)
+    `kitty --class man fish -c '#{combine(str)}'`
+  end
+
+  def escape(str)
+    Shellwords.escape(str)
+  end
+
+end
+
+class Browser < SearchEngine
+
+  def run(str)
+    `browser-kiosk perso '#{combine(str)}'`
+  end
+
+  def escape(str)
+    CGI.escape(str)
+  end
+
+end
+
+defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
+
+# rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
+searchengines = {
+  'yt'  => Browser.new('https://www.youtube.com/results?q=%s'),
+  'aw'  => Browser.new(
+             'https://duckduckgo.com/?ia=web&q=%s',
+             prefixes: ['site:https://awesomewm.org/doc']
+           ),
+  'th'  => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
+  'vim' => Browser.new('https://vimawesome.com/?q=%s'),
+  'g'   => Browser.new('https://github.com/%s'),
+  'gh'  => Browser.new('https://github.com/search?q=%s'),
+  'm'   => Browser.new('https://scryfall.com/search?q=%s'),
+  'a'   => Browser.new('https://wiki.archlinux.org/index.php/%s'),
+  'dt'  => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter'),
+  'h'   => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
+  'r'   => Browser.new('https://reddit.com/r/%s'),
+  'rg'  => Browser.new('https://rubygems.org/search?query=%s'),
+  't'   => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s'),
+  'v'   => Browser.new('https://vimawesome.com/?q=%s'),
+  'wp'  => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080'),
+  'w'   => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
+  'ym'  => Browser.new('https://music.youtube.com/search?q=%s'),
+  'man' => Man.new
+}
+# rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 
 words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
   split
@@ -43,11 +82,9 @@ words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
 if words.any?
   engine = searchengines[words[0]]
 
-  if words[0] == 'man'
-    `kitty --class man fish -c '#{engine % escape(words[1..-1], 'shell')}'`
-  elsif engine
-    `browser-kiosk perso '#{engine % escape(words[1..-1], 'browser')}'`
-  else
-    `browser-kiosk perso '#{defaultengine % escape(words[0..-1], 'browser')}'`
-  end
+  words.shift if engine
+
+  (engine || defaultengine).run(words[0..-1].join(' '))
 end
+
+# vim: textwidth=100
