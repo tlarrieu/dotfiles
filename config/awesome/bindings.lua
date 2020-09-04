@@ -1,3 +1,8 @@
+--| HELP |----------------------------------------------------------------------
+-- To get “weird” keys name, use xev -event keyboard
+-- (it comes in the xorg-xev package)
+--------------------------------------------------------------------------------
+
 local _M = {
   keyboard = {},
   mouse = {}
