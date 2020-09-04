@@ -100,6 +100,7 @@ local rules = {
 
   { class = "scratchpad", icon = "" },
   { class = "wiki", icon = "" },
+  { class = "download", icon = "" },
 
   { class = "taskwarrior", icon = "" },
   { class = "help", icon = "" },

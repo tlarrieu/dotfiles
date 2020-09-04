@@ -244,7 +244,10 @@ _M.keyboard = {
     spawn({}, "F1", termstart("bhoogle", { class = "help" })),
 
     spawn({ mod, "Shift" }, "b",   termstart("", { directory = sandbox })),
-    mspawn("percent", termstart(script("ytdl"), { directory = sandbox })),
+    mspawn("percent", termstart(
+      script("ytdl"),
+      { directory = sandbox, class = "download" }
+    )),
     mspawn("equal", fish("open (xsel --clipboard -o)")),
 
     mspawn("'", terminal),
