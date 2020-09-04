@@ -109,7 +109,7 @@ local wiki = function(mods, k)
   return spawn_or_raise(
     mods,
     k,
-    termstart("nvim ~/.vimwiki/index.md", props),
+    termstart("nvim ~/.vimwiki/index.md -c \"cd /home/tlarrieu/.vimwiki\"", props),
     props
   )
 end
