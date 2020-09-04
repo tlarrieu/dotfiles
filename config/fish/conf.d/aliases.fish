@@ -44,6 +44,9 @@ function app
   chmod 700 $file ^ /dev/null
 end
 
+# vifm
+abbr v vifm
+
 # xsel
 abbr xo "xsel --clipboard -o"
 abbr xi "xsel --clipboard -i"
