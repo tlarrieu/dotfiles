@@ -2,6 +2,9 @@
 
 # frozen_string_literal: true
 
+require 'cgi'
+require 'shellwords'
+
 defaultengine = 'https://duckduckgo.com/?ia=web&q=%s'
 
 searchengines = {
@@ -25,6 +28,15 @@ searchengines = {
   'man' => 'man %s'
 }
 
+def escape(array, target)
+  str = array.join(' ')
+  case target
+  when 'shell' then Shellwords.escape(str)
+  when 'browser' then CGI.escape(str)
+  else CGI.escape(str)
+  end
+end
+
 words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
   split
 
@@ -32,10 +44,10 @@ if words.any?
   engine = searchengines[words[0]]
 
   if words[0] == 'man'
-    `kitty --class man fish -c '#{engine % words[1..-1].join(' ')}'`
+    `kitty --class man fish -c '#{engine % escape(words[1..-1], 'shell')}'`
   elsif engine
-    `browser-kiosk '#{engine % words[1..-1].join(' ')}'`
+    `browser-kiosk perso '#{engine % escape(words[1..-1], 'browser')}'`
   else
-    `browser-kiosk '#{defaultengine % words[0..-1].join(' ')}'`
+    `browser-kiosk perso '#{defaultengine % escape(words[0..-1], 'browser')}'`
   end
 end
