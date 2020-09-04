@@ -124,6 +124,11 @@ local config = function(mods, k)
   )
 end
 
+local quake = function(mods, k)
+  local props = { class = "quake" }
+  return spawn_or_raise(mods, k, termstart("", props), props)
+end
+
 -- [[ Keyboard ]] ==============================================================
 
 _M.keyboard = {
@@ -218,6 +223,7 @@ _M.keyboard = {
     config({ mod, "Shift" }, "c"),
     scratchpad({ mod, "Shift" }, "e"),
     wiki({ mod, "Shift" }, "i"),
+    quake({ mod }, "$"),
 
     mspawn("Tab",                  script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
@@ -234,7 +240,7 @@ _M.keyboard = {
 
     mspawn("m", script("mpc-library")),
     mspawn("b", script("mpc-playlist")),
-    mspawn("$", "mpc toggle"),
+    mspawn("BackSpace", "mpc toggle"),
 
     mspawn(",", fish("browser-with-context")),
     mspawn("u", termstart("vifm")),
