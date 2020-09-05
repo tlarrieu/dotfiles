@@ -15,3 +15,9 @@ augroup END
 nnoremap <silent> <buffer> <cr> :T mdprev w '%'<cr>
 
 call bullet#config()
+
+let b:sql_comment = '```'
+call sql#configure()
+
+nmap <silent> <buffer> <leader>$ vip:ExecuteSQL<cr>
+vmap <silent> <buffer> <leader>$ :'<,'>ExecuteSQL<cr>

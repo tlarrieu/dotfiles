@@ -1,16 +1,47 @@
+" ------------------------------------------------------------------------------
+" This can be configured through buffer variable
+" Here is the list of supported variables:
+" - b:sql_comment
+"     a string that will be taken to process the query line by
+"     line. Every time it is encountered, every character following it
+"     (including it) on the line will be ignored
+" - b:sql_adapter
+"     can be one of 'mysql' or 'psql'
+" - b:sql_connection_string
+"     the entire line of parameters to be fed into the adapter
+"
+" Unless b:sql_adapter AND b:sql_connection_string are provided, this plugin
+" will try to find a “magic” comment on the first line of the file, looking
+" like:
+" -- $adapter $connection_string
+" to parse it and retrieve the adapter and the connection string
+" eg.
+" -- psql -hlocalhost -p5432 -ddbname -Upostgres
+" -- mysql --host localhost --port 1234 --database dbname --user mysql
+" ------------------------------------------------------------------------------
+
 function! sql#configure()
   command! -range=% ExecuteSQL <line1>,<line2>call sql#execute()
+
+  if !exists('b:sql_comment')
+    let b:sql_comment = '--'
+  endif
 endfunction
 
 function! sql#execute() range abort
   let l:lines = getline(a:firstline, a:lastline)
+  let l:index = 0
+  for line in l:lines
+    let l:lines[l:index] = s:clean(line)
+    let l:index += 1
+  endfor
   let l:query = join(l:lines, "\\n")
 
   call sql#run(l:query)
 endfunction
 
 function! sql#identify(entity) abort
-  let [l:adapter, l:_] = s:parse_magic_comment()
+  let [l:adapter, l:_] = s:get_connection_info()
 
   if l:adapter ==# 'psql'
     let l:query = '\d ' . a:entity . "\\n"
@@ -26,7 +57,7 @@ function! sql#identify(entity) abort
 endfunction
 
 function! sql#run(query) abort
-  let [l:adapter, l:connection_string] = s:parse_magic_comment()
+  let [l:adapter, l:connection_string] = s:get_connection_info()
 
   let l:tempfile = tempname()
 
@@ -35,6 +66,7 @@ function! sql#run(query) abort
 
   let l:type = l:plot.draw ? 'csv' : 'sql'
 
+  " This is the faulty line
   let l:Funcref = function('s:' . l:adapter)
 
   let [l:query, l:filetype, l:connection_string] = l:Funcref(
@@ -122,6 +154,18 @@ function! sql#upper(sql) abort
 endfunction
 
 " -- Helper functions ----------------------------------------------------------
+
+function! s:clean(query) abort
+  return substitute(a:query, b:sql_comment . ".*", "", "")
+endfunction
+
+function! s:get_connection_info() abort
+  if exists('b:sql_adapter') && exists('b:sql_connection_string')
+    return [b:sql_adapter, b:sql_connection_string]
+  else
+    return s:parse_magic_comment()
+  endif
+endfunction
 
 function! s:parse_magic_comment() abort
   let l:magic_comment = matchstr(getline(1), '--\s*\zs.*')
