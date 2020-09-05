@@ -14,6 +14,8 @@ local awful = require("awful")
 local helpers = require("helpers")
 local gears = require("gears")
 
+local spawner = require("spawner")
+
 local terminal = "kitty --single-instance"
 local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
@@ -35,43 +37,20 @@ local fish = function(command)
   return "fish -c '" .. command .. "'"
 end
 
-local find_client = function(props)
-  for _, client in ipairs(client.get()) do
-    if awful.rules.match(client, props) then
-      return client
-    end
-  end
-end
-
-local spawn_or_do_something = function(mods, k, cmd, props, something)
-  return key(mods, k,
-    function()
-      local client = find_client(props)
-
-      if client then
-        something(client)
-        client:emit_signal(
-          "request::activate",
-          "client.focus.bydirection",
-          {raise=true}
-        )
-      else
-        awful.spawn(cmd, props)
-      end
-    end
+local spawn_or_raise = function(mods, k, cmd, props)
+  return key(
+    mods,
+    k,
+    function() spawner.spawn_or_move_client(cmd, props) end
   )
 end
 
-local spawn_or_raise = function(mods, k, cmd, props)
-  return spawn_or_do_something(mods, k, cmd, props, function(client)
-    client:tags({ awful.screen.focused().selected_tag })
-  end)
-end
-
 local spawn_or_jump = function(mods, k, cmd, props)
-  return spawn_or_do_something(mods, k, cmd, props, function(client)
-    client:tags()[1]:view_only()
-  end)
+  return key(
+    mods,
+    k,
+    function() spawner.spawn_or_jump(cmd, props) end
+  )
 end
 
 local termstart = function(cmd, opts)
