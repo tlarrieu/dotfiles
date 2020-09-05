@@ -28,22 +28,6 @@ local fish = function(command)
   return "fish -c '" .. command .. "'"
 end
 
-local spawn_or_raise = function(mods, k, cmd, props)
-  return spawner.key(
-    mods,
-    k,
-    function() spawner.spawn_or_move_client(cmd, props) end
-  )
-end
-
-local spawn_or_jump = function(mods, k, cmd, props)
-  return spawner.key(
-    mods,
-    k,
-    function() spawner.spawn_or_jump(cmd, props) end
-  )
-end
-
 local termstart = function(cmd, opts)
   local options = ""
   if opts then
@@ -66,36 +50,6 @@ local view_tag = function(id) awful.screen.focused().tags[id]:view_only() end
 local focus_client = function(direction)
   awful.client.focus.byidx(direction)
   if client.focus then client.focus:raise() end
-end
-
-local scratchpad = function(mods, k)
-  local props = { class = "scratchpad" }
-  return spawn_or_raise(
-    mods,
-    k,
-    termstart("nvim ~/.scratchpad.md", props),
-    props
-  )
-end
-
-local wiki = function(mods, k)
-  local props = { class = "wiki" }
-  return spawn_or_raise(mods, k, fish("vimwiki"), props)
-end
-
-local config = function(mods, k)
-  local props = { class = "config" }
-  return spawn_or_jump(
-    mods,
-    k,
-    termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
-    props
-  )
-end
-
-local quake = function(mods, k)
-  local props = { class = "quake" }
-  return spawn_or_raise(mods, k, termstart("", props), props)
 end
 
 -- [[ Keyboard ]] ==============================================================
@@ -189,10 +143,26 @@ _M.keyboard = {
     spawner.key({ mod }, " ",              fish("rofi -show run -lines 6")),
     spawner.key({ "Control" }, " ",        script("gtd-inbox")),
 
-    config({ mod, "Shift" }, "c"),
-    scratchpad({ mod, "Shift" }, "e"),
-    wiki({ mod, "Shift" }, "i"),
-    quake({ mod }, "$"),
+    spawner.key({ mod, "Shift" }, "c", {
+      app = termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
+      props = { class = "config" },
+      callback = spawner.callbacks.jump_to_client
+    }),
+    spawner.key({ mod, "Shift" }, "e", {
+      app = termstart("nvim ~/.scratchpad.md", { class = "scratchpad" }),
+      props = { class = "scratchpad" },
+      callback = spawner.callbacks.move_client
+    }),
+    spawner.key({ mod, "Shift" }, "i", {
+      app = fish("vimwiki"),
+      props = { class = "wiki" },
+      callback = spawner.callbacks.move_client
+    }),
+    spawner.key({ mod }, "$", {
+      app = termstart("", { class = "quake" }),
+      props = { class = "quake" },
+      callback = spawner.callbacks.move_client
+    }),
 
     spawner.key({ mod }, "Tab",            script("rofi-window")),
     spawner.key({mod, "Control"}, "Tab",   script("rofi-monitors")),

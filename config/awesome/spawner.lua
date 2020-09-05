@@ -48,7 +48,7 @@ _M.key = function(mods, key, target)
     return awful.key(
       mods,
       key,
-      function() _M.spawn(target.app, target.props, target.callbacks) end
+      function() _M.spawn(target.app, target.props, target.callback) end
     )
   elseif type(target) == 'string' then
     return awful.key(
