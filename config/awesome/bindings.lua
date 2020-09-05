@@ -159,37 +159,37 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawn({ mod }, "l", script('rofi-layouts')),
+    spawn({ mod }, "l",            script('rofi-layouts')),
 
-    mkey("c",     awful.tag.viewprev),
-    mkey("Left",  awful.tag.viewprev),
-    mkey("r",     awful.tag.viewnext),
-    mkey("Right", awful.tag.viewnext),
+    mkey("c",                      awful.tag.viewprev),
+    mkey("Left",                   awful.tag.viewprev),
+    mkey("r",                      awful.tag.viewnext),
+    mkey("Right",                  awful.tag.viewnext),
 
-    mkey("\"",             function() view_tag(1) end),
-    mkey("guillemotleft",  function() view_tag(2) end),
-    mkey("guillemotright", function() view_tag(3) end),
-    mkey("(",              function() view_tag(4) end),
-    mkey(")",              function() view_tag(5) end),
-    mkey("@",              function() view_tag(6) end),
+    mkey("\"",                     function() view_tag(1) end),
+    mkey("guillemotleft",          function() view_tag(2) end),
+    mkey("guillemotright",         function() view_tag(3) end),
+    mkey("(",                      function() view_tag(4) end),
+    mkey(")",                      function() view_tag(5) end),
+    mkey("@",                      function() view_tag(6) end),
 
-    key({mod, "Control"}, "t", function() awful.client.swap.byidx(1) end),
-    key({mod, "Control"}, "s", function() awful.client.swap.byidx(-1) end),
+    key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
+    key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
 
-    mkey("d",          function() awful.tag.incmwfact(increment) end),
-    mkey("v",          function() awful.tag.incmwfact(-increment) end),
-    key({mod, "Shift"}, "d", function() awful.client.incwfact(increment) end),
-    key({mod, "Shift"}, "v", function() awful.client.incwfact(-increment) end),
+    mkey("d",                      function() awful.tag.incmwfact(increment) end),
+    mkey("v",                      function() awful.tag.incmwfact(-increment) end),
+    key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
+    key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
 
-    mkey("t",    function() focus_client(1) end),
-    mkey("Down", function() focus_client(1) end),
-    mkey("s",    function() focus_client(-1) end),
-    mkey("Up",   function() focus_client(-1) end),
+    mkey("t",                      function() focus_client(1) end),
+    mkey("Down",                   function() focus_client(1) end),
+    mkey("s",                      function() focus_client(-1) end),
+    mkey("Up",                     function() focus_client(-1) end),
 
-    mkey("i", function() awful.screen.focus_relative(1) end),
-    mkey("e", function() awful.screen.focus_relative(-1) end),
+    mkey("i",                      function() awful.screen.focus_relative(1) end),
+    mkey("e",                      function() awful.screen.focus_relative(-1) end),
 
-    key({mod, "Shift"}, "r", awesome.restart),
+    key({mod, "Shift"}, "r",       awesome.restart),
 
     -- [[ Applications ]] ------------------------------------------------------
 
@@ -261,3 +261,5 @@ _M.mouse = {
 }
 
 return _M
+
+-- vim: textwidth=100
