@@ -1,31 +1,6 @@
 #!/bin/sh
 
-envfile="$HOME/.context.env"
-[ -f "$envfile" ] && source "$envfile"
-
-envfile="$HOME/.browser.env"
-[ -f "$envfile" ] && source "$envfile"
-
-case "$1" in
-  pro)
-    profile=$BROWSER_WORK
-    shift
-    ;;
-  perso)
-    profile=$BROWSER_PERSONAL
-    shift
-    ;;
-  *)
-    case "$CONTEXT" in
-      work)
-        profile=$BROWSER_WORK
-        ;;
-      home)
-        profile=$BROWSER_PERSONAL
-        ;;
-      *)
-        profile="Default"
-    esac
-esac
+config="$HOME/.browser-config"
+[ -f "$config" ] && source "$config"
 
 chromium --profile-directory="$profile" "$1"

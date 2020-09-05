@@ -81,6 +81,9 @@ safelink $BASEDIR/gnuplot $HOME/gnuplot
 # Bash
 safelink $BASEDIR/bashrc $HOME/.bashrc
 
+# browser-profile
+safelink $BASEDIR/browser-config $HOME/.browser-config
+
 # weechat
 safelink $BASEDIR/weechat $HOME/.weechat
 
