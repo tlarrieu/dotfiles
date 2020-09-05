@@ -85,7 +85,7 @@ set classify+=' ::../::'
 " various file names
 set classify+=' ::*.pdf::'
 set classify+=' ::*.epub,,*.fb2,,*.djvu::'
-set classify+=' ::*.rb::'
+set classify+=' ::*.rb::'
 set classify+=' ::*.py::'
 set classify+=' ::*.sh::'
 set classify+=' ::*.[hc]::'
@@ -94,6 +94,9 @@ set classify+=' ::*.md::'
 set classify+=' ::*.htm,,*.html,,**.[sx]html,,*.xml::'
 set classify+=' ::*.sql::'
 set classify+=' ::*.bin::'
+set classify+=' ::*.lua::'
+set classify+=' ::*.hs::'
+set classify+='離 ::*.csv::'
 " fonts
 set classify+=' ::*.ttf,,*.otf::'
 " archives
