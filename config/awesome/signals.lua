@@ -130,7 +130,7 @@ local rules = {
 
   { class = "Chromium", icon = "" },
   { class = "firefox", icon = "" },
-  { class = "Cockatrice", icon = "" },
+  { class = "Cockatrice", icon = "﬷" },
   { class = "Luakit", icon = "" },
   { class = "nyxt", icon = "" },
   { class = "Steam", icon = "" },
