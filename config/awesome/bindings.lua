@@ -24,7 +24,7 @@ local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
 end
 
-local fish = function(command)
+local shell = function(command)
   return "fish -c '" .. command .. "'"
 end
 
@@ -36,7 +36,7 @@ local termstart = function(cmd, opts)
     end
   end
 
-  return fish(string.format(
+  return shell(string.format(
     "kitty --single-instance %s %s",
     options,
     cmd
@@ -140,7 +140,7 @@ _M.keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod }, " ",              fish("rofi -show run -lines 6")),
+    spawner.key({ mod }, " ",              shell("rofi -show run -lines 6")),
     spawner.key({ "Control" }, " ",        script("gtd-inbox")),
 
     spawner.key({ mod, "Shift" }, "c", {
@@ -154,7 +154,7 @@ _M.keyboard = {
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod, "Shift" }, "i", {
-      app = fish("vimwiki"),
+      app = shell("vimwiki"),
       props = { class = "wiki" },
       callback = spawner.callbacks.move_client
     }),
@@ -172,7 +172,7 @@ _M.keyboard = {
     spawner.key({ mod }, "f",              script("rofi-nerdfont")),
     spawner.key({ mod }, "à",              script("rofi-bluetooth")),
     spawner.key({ mod }, "Escape",         script("rofi-pass")),
-    spawner.key({ mod }, ".",              fish("rofi-search")),
+    spawner.key({ mod }, ".",              shell("rofi-search")),
 
     spawner.key({ mod }, "q",              script("rofi-power")),
     spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
@@ -181,7 +181,7 @@ _M.keyboard = {
     spawner.key({ mod }, "b",              script("mpc-playlist")),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
-    spawner.key({ mod }, ",",              fish("browser-with-context")),
+    spawner.key({ mod }, ",",              shell("browser-with-context")),
     spawner.key({ mod }, "u",              termstart("vifm")),
     spawner.key({ mod, "Shift"}, "u",      "thunar"),
     spawner.key({ mod }, "g",              script("wallpaper")),
@@ -193,7 +193,7 @@ _M.keyboard = {
       script("ytdl"),
       { directory = sandbox, class = "download" }
     )),
-    spawner.key({ mod }, "equal",          fish("open (xsel --clipboard -o)")),
+    spawner.key({ mod }, "equal",          shell("open (xsel --clipboard -o)")),
 
     spawner.key({ mod }, "'",              termstart("")),
     spawner.key({ mod, "Shift" }, "'",     termstart("", { class = "kitty-light" })),
