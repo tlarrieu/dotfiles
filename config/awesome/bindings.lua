@@ -202,20 +202,20 @@ _M.keyboard = {
 
 _M.mouse = {
   clients = gears.table.join(
-    awful.button({}, 1, function(client)
+    spawner.button({}, 1, function(client)
       client:emit_signal("request::activate", "mouse_click", { raise = true })
     end),
-    awful.button({mod}, 1, function (client)
+    spawner.button({mod}, 1, function (client)
         client:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.move(client)
     end),
-    awful.button({mod}, 4, function(_) awful.tag.viewnext() end),
-    awful.button({mod}, 5, function(_) awful.tag.viewprev() end)
+    spawner.button({mod}, 4, function(_) awful.tag.viewnext() end),
+    spawner.button({mod}, 5, function(_) awful.tag.viewprev() end)
   ),
 
   root = gears.table.join(
-    awful.button({mod}, 4, awful.tag.viewnext),
-    awful.button({mod}, 5, awful.tag.viewprev)
+    spawner.button({mod}, 4, awful.tag.viewnext),
+    spawner.button({mod}, 5, awful.tag.viewprev)
   )
 }
 

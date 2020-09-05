@@ -65,4 +65,6 @@ _M.key = function(mods, key, target)
   end
 end
 
+_M.button = awful.button
+
 return _M
