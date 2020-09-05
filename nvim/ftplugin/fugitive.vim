@@ -1,1 +1,1 @@
-noremap <leader><cr> :Gpush<bar>Gstatus<cr>
+noremap <buffer> <leader><cr> :Gpush<bar>Gstatus<cr>
