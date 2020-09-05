@@ -16,7 +16,6 @@ local gears = require("gears")
 
 local spawner = require("spawner")
 
-local terminal = "kitty --single-instance"
 local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
@@ -61,8 +60,7 @@ local termstart = function(cmd, opts)
   end
 
   return fish(string.format(
-    "%s %s %s",
-    terminal,
+    "kitty --single-instance %s %s",
     options,
     cmd
   ))
@@ -234,7 +232,7 @@ _M.keyboard = {
     )),
     spawn({ mod }, "equal",        fish("open (xsel --clipboard -o)")),
 
-    spawn({ mod }, "'",            terminal),
+    spawn({ mod }, "'",            termstart("")),
     spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),
 
     spawn({ mod }, "p",            script("screenshot.sh"))
