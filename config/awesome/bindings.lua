@@ -20,10 +20,6 @@ local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
-local spawn = function(mods, k, cmd, props)
-  return awful.key(mods, k, function() spawner.spawn(cmd, props) end)
-end
-
 local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
 end
@@ -33,7 +29,7 @@ local fish = function(command)
 end
 
 local spawn_or_raise = function(mods, k, cmd, props)
-  return awful.key(
+  return spawner.key(
     mods,
     k,
     function() spawner.spawn_or_move_client(cmd, props) end
@@ -41,7 +37,7 @@ local spawn_or_raise = function(mods, k, cmd, props)
 end
 
 local spawn_or_jump = function(mods, k, cmd, props)
-  return awful.key(
+  return spawner.key(
     mods,
     k,
     function() spawner.spawn_or_jump(cmd, props) end
@@ -106,22 +102,22 @@ end
 
 _M.keyboard = {
   clients = gears.table.join(
-    awful.key({ mod }, "Return", function(c) c.fullscreen = not c.fullscreen end),
-    awful.key({ mod }, "eacute", function(c) c:kill() end),
+    spawner.key({ mod }, "Return", function(c) c.fullscreen = not c.fullscreen end),
+    spawner.key({ mod }, "eacute", function(c) c:kill() end),
 
-    awful.key({mod, "Control"}, "c", function(c)
+    spawner.key({mod, "Control"}, "c", function(c)
       awful.tag.viewprev()
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    awful.key({ mod, "Control" }, "r", function(c)
+    spawner.key({ mod, "Control" }, "r", function(c)
       awful.tag.viewnext()
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    awful.key({ mod }, "n", helpers.create_tag_and_attach_to),
+    spawner.key({ mod }, "n", helpers.create_tag_and_attach_to),
 
-    awful.key({ mod }, "o", function(client)
+    spawner.key({ mod }, "o", function(client)
       client:move_to_screen()
       helpers.create_tag_and_attach_to(client)
 
@@ -146,7 +142,7 @@ _M.keyboard = {
       }
     end),
 
-    awful.key({ mod, "Control" }, "o", function(client)
+    spawner.key({ mod, "Control" }, "o", function(client)
       for _, c in ipairs(client.first_tag:clients()) do
         if client ~= c then c:kill() end
       end
@@ -156,83 +152,83 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawn({ mod }, "l",                  script('rofi-layouts')),
+    spawner.key({ mod }, "l",              script('rofi-layouts')),
 
-    awful.key({ mod }, "c",              awful.tag.viewprev),
-    awful.key({ mod }, "Left",           awful.tag.viewprev),
-    awful.key({ mod }, "r",              awful.tag.viewnext),
-    awful.key({ mod }, "Right",          awful.tag.viewnext),
+    spawner.key({ mod }, "c",              awful.tag.viewprev),
+    spawner.key({ mod }, "Left",           awful.tag.viewprev),
+    spawner.key({ mod }, "r",              awful.tag.viewnext),
+    spawner.key({ mod }, "Right",          awful.tag.viewnext),
 
-    awful.key({ mod }, "\"",             function() view_tag(1) end),
-    awful.key({ mod }, "guillemotleft",  function() view_tag(2) end),
-    awful.key({ mod }, "guillemotright", function() view_tag(3) end),
-    awful.key({ mod }, "(",              function() view_tag(4) end),
-    awful.key({ mod }, ")",              function() view_tag(5) end),
-    awful.key({ mod }, "@",              function() view_tag(6) end),
+    spawner.key({ mod }, "\"",             function() view_tag(1) end),
+    spawner.key({ mod }, "guillemotleft",  function() view_tag(2) end),
+    spawner.key({ mod }, "guillemotright", function() view_tag(3) end),
+    spawner.key({ mod }, "(",              function() view_tag(4) end),
+    spawner.key({ mod }, ")",              function() view_tag(5) end),
+    spawner.key({ mod }, "@",              function() view_tag(6) end),
 
-    awful.key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
-    awful.key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
+    spawner.key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
+    spawner.key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
 
-    awful.key({ mod }, "d",              function() awful.tag.incmwfact(increment) end),
-    awful.key({ mod }, "v",              function() awful.tag.incmwfact(-increment) end),
-    awful.key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
-    awful.key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
+    spawner.key({ mod }, "d",              function() awful.tag.incmwfact(increment) end),
+    spawner.key({ mod }, "v",              function() awful.tag.incmwfact(-increment) end),
+    spawner.key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
+    spawner.key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
 
-    awful.key({ mod }, "t",              function() focus_client(1) end),
-    awful.key({ mod }, "Down",           function() focus_client(1) end),
-    awful.key({ mod }, "s",              function() focus_client(-1) end),
-    awful.key({ mod }, "Up",             function() focus_client(-1) end),
+    spawner.key({ mod }, "t",              function() focus_client(1) end),
+    spawner.key({ mod }, "Down",           function() focus_client(1) end),
+    spawner.key({ mod }, "s",              function() focus_client(-1) end),
+    spawner.key({ mod }, "Up",             function() focus_client(-1) end),
 
-    awful.key({ mod }, "i",              function() awful.screen.focus_relative(1) end),
-    awful.key({ mod }, "e",              function() awful.screen.focus_relative(-1) end),
+    spawner.key({ mod }, "i",              function() awful.screen.focus_relative(1) end),
+    spawner.key({ mod }, "e",              function() awful.screen.focus_relative(-1) end),
 
-    awful.key({mod, "Shift"}, "r",       awesome.restart),
+    spawner.key({mod, "Shift"}, "r",       awesome.restart),
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawn({ mod }, " ",                  fish("rofi -show run -lines 6")),
-    spawn({ "Control" }, " ",            script("gtd-inbox")),
+    spawner.key({ mod }, " ",              fish("rofi -show run -lines 6")),
+    spawner.key({ "Control" }, " ",        script("gtd-inbox")),
 
     config({ mod, "Shift" }, "c"),
     scratchpad({ mod, "Shift" }, "e"),
     wiki({ mod, "Shift" }, "i"),
     quake({ mod }, "$"),
 
-    spawn({ mod }, "Tab",                script("rofi-window")),
-    spawn({mod, "Control"}, "Tab",       script("rofi-monitors")),
-    spawn({}, "F12",                     script("rofi-wifi")),
-    spawn({ mod }, "F2",                 script("rofi-keyboard")),
-    spawn({ mod }, "k",                  script("rofi-emojis")),
-    spawn({ mod }, "f",                  script("rofi-nerdfont")),
-    spawn({ mod }, "à",                  script("rofi-bluetooth")),
-    spawn({ mod }, "Escape",             script("rofi-pass")),
-    spawn({ mod }, ".",                  fish("rofi-search")),
+    spawner.key({ mod }, "Tab",            script("rofi-window")),
+    spawner.key({mod, "Control"}, "Tab",   script("rofi-monitors")),
+    spawner.key({}, "F12",                 script("rofi-wifi")),
+    spawner.key({ mod }, "F2",             script("rofi-keyboard")),
+    spawner.key({ mod }, "k",              script("rofi-emojis")),
+    spawner.key({ mod }, "f",              script("rofi-nerdfont")),
+    spawner.key({ mod }, "à",              script("rofi-bluetooth")),
+    spawner.key({ mod }, "Escape",         script("rofi-pass")),
+    spawner.key({ mod }, ".",              fish("rofi-search")),
 
-    spawn({ mod }, "q",                  script("rofi-power")),
-    spawn({ mod }, "a",                  termstart("pulsemixer", { class = "mixer" })),
+    spawner.key({ mod }, "q",              script("rofi-power")),
+    spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
 
-    spawn({ mod }, "m",                  script("mpc-library")),
-    spawn({ mod }, "b",                  script("mpc-playlist")),
-    spawn({ mod }, "BackSpace",          "mpc toggle"),
+    spawner.key({ mod }, "m",              script("mpc-library")),
+    spawner.key({ mod }, "b",              script("mpc-playlist")),
+    spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
-    spawn({ mod }, ",",                  fish("browser-with-context")),
-    spawn({ mod }, "u",                  termstart("vifm")),
-    spawn({ mod, "Shift"}, "u",          "thunar"),
-    spawn({ mod }, "g",                  script("wallpaper")),
-    spawn({ mod }, "h",                  termstart(script("gtgf"), { class = "gtgf" })),
-    spawn({}, "F1",                      termstart("bhoogle", { class = "help" })),
+    spawner.key({ mod }, ",",              fish("browser-with-context")),
+    spawner.key({ mod }, "u",              termstart("vifm")),
+    spawner.key({ mod, "Shift"}, "u",      "thunar"),
+    spawner.key({ mod }, "g",              script("wallpaper")),
+    spawner.key({ mod }, "h",              termstart(script("gtgf"), { class = "gtgf" })),
+    spawner.key({}, "F1",                  termstart("bhoogle", { class = "help" })),
 
-    spawn({ mod, "Shift" }, "b",         termstart("", { directory = sandbox })),
-    spawn({ mod }, "percent",            termstart(
+    spawner.key({ mod, "Shift" }, "b",     termstart("", { directory = sandbox })),
+    spawner.key({ mod }, "percent",        termstart(
       script("ytdl"),
       { directory = sandbox, class = "download" }
     )),
-    spawn({ mod }, "equal",              fish("open (xsel --clipboard -o)")),
+    spawner.key({ mod }, "equal",          fish("open (xsel --clipboard -o)")),
 
-    spawn({ mod }, "'",                  termstart("")),
-    spawn({ mod, "Shift" }, "'",         termstart("", { class = "kitty-light" })),
+    spawner.key({ mod }, "'",              termstart("")),
+    spawner.key({ mod, "Shift" }, "'",     termstart("", { class = "kitty-light" })),
 
-    spawn({ mod }, "p",                  script("screenshot.sh"))
+    spawner.key({ mod }, "p",              script("screenshot.sh"))
   )
 }
 

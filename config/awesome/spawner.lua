@@ -37,6 +37,34 @@ _M.spawn = function(cmd, props, callback)
   awful.spawn(cmd, props)
 end
 
+_M.key = function(mods, key, target)
+  if type(target) == 'function' then
+    return awful.key(
+      mods,
+      key,
+      target
+    )
+  elseif type(target) == 'table' then
+    return awful.key(
+      mods,
+      key,
+      function() _M.spawn(target.app, target.props, target.callbacks) end
+    )
+  elseif type(target) == 'string' then
+    return awful.key(
+      mods,
+      key,
+      function() _M.spawn(target) end
+    )
+  else
+    error(
+      "type of '"
+      .. target
+      .. "' is not supported. Must be one of function, table or string"
+    )
+  end
+end
+
 _M.spawn_or_jump = function(cmd, props)
   _M.spawn(cmd, props, _M.callbacks.jump_to_client)
 end
