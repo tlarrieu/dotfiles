@@ -52,27 +52,28 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
-  'yt'  => Browser.new('https://www.youtube.com/results?q=%s'),
-  'aw'  => Browser.new(
-             'https://duckduckgo.com/?ia=web&q=%s',
-             prefixes: ['site:https://awesomewm.org/doc']
-           ),
-  'th'  => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
-  'vim' => Browser.new('https://vimawesome.com/?q=%s'),
-  'g'   => Browser.new('https://github.com/%s'),
-  'gh'  => Browser.new('https://github.com/search?q=%s'),
-  'm'   => Browser.new('https://scryfall.com/search?q=%s'),
-  'a'   => Browser.new('https://wiki.archlinux.org/index.php/%s'),
-  'dt'  => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter'),
-  'h'   => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
-  'r'   => Browser.new('https://reddit.com/r/%s'),
-  'rg'  => Browser.new('https://rubygems.org/search?query=%s'),
-  't'   => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s'),
-  'v'   => Browser.new('https://vimawesome.com/?q=%s'),
-  'wp'  => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080'),
-  'w'   => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
-  'ym'  => Browser.new('https://music.youtube.com/search?q=%s'),
-  'man' => Man.new
+  'yt'   => Browser.new('https://www.youtube.com/results?q=%s'),
+  'aw'   => Browser.new(
+              'https://duckduckgo.com/?ia=web&q=%s',
+              prefixes: ['site:https://awesomewm.org/doc']
+            ),
+  'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
+  'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
+  'vim'  => Browser.new('https://vimawesome.com/?q=%s'),
+  'g'    => Browser.new('https://github.com/%s'),
+  'gh'   => Browser.new('https://github.com/search?q=%s'),
+  'm'    => Browser.new('https://scryfall.com/search?q=%s'),
+  'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
+  'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter'),
+  'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
+  'r'    => Browser.new('https://reddit.com/r/%s'),
+  'rg'   => Browser.new('https://rubygems.org/search?query=%s'),
+  't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s'),
+  'v'    => Browser.new('https://vimawesome.com/?q=%s'),
+  'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080'),
+  'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
+  'ym'   => Browser.new('https://music.youtube.com/search?q=%s'),
+  'man'  => Man.new
 }
 # rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 
