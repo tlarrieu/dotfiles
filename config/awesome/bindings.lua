@@ -20,10 +20,8 @@ local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
-local key = awful.key
-
 local spawn = function(mods, k, cmd, props)
-  return key(mods, k, function() spawner.spawn(cmd, props) end)
+  return awful.key(mods, k, function() spawner.spawn(cmd, props) end)
 end
 
 local script = function(path)
@@ -35,7 +33,7 @@ local fish = function(command)
 end
 
 local spawn_or_raise = function(mods, k, cmd, props)
-  return key(
+  return awful.key(
     mods,
     k,
     function() spawner.spawn_or_move_client(cmd, props) end
@@ -43,7 +41,7 @@ local spawn_or_raise = function(mods, k, cmd, props)
 end
 
 local spawn_or_jump = function(mods, k, cmd, props)
-  return key(
+  return awful.key(
     mods,
     k,
     function() spawner.spawn_or_jump(cmd, props) end
@@ -108,22 +106,22 @@ end
 
 _M.keyboard = {
   clients = gears.table.join(
-    key({ mod }, "Return", function(c) c.fullscreen = not c.fullscreen end),
-    key({ mod }, "eacute", function(c) c:kill() end),
+    awful.key({ mod }, "Return", function(c) c.fullscreen = not c.fullscreen end),
+    awful.key({ mod }, "eacute", function(c) c:kill() end),
 
-    key({mod, "Control"}, "c", function(c)
+    awful.key({mod, "Control"}, "c", function(c)
       awful.tag.viewprev()
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    key({ mod, "Control" }, "r", function(c)
+    awful.key({ mod, "Control" }, "r", function(c)
       awful.tag.viewnext()
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    key({ mod }, "n", helpers.create_tag_and_attach_to),
+    awful.key({ mod }, "n", helpers.create_tag_and_attach_to),
 
-    key({ mod }, "o", function(client)
+    awful.key({ mod }, "o", function(client)
       client:move_to_screen()
       helpers.create_tag_and_attach_to(client)
 
@@ -148,7 +146,7 @@ _M.keyboard = {
       }
     end),
 
-    key({ mod, "Control" }, "o", function(client)
+    awful.key({ mod, "Control" }, "o", function(client)
       for _, c in ipairs(client.first_tag:clients()) do
         if client ~= c then c:kill() end
       end
@@ -158,83 +156,83 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawn({ mod }, "l",            script('rofi-layouts')),
+    spawn({ mod }, "l",                  script('rofi-layouts')),
 
-    key({ mod }, "c",              awful.tag.viewprev),
-    key({ mod }, "Left",           awful.tag.viewprev),
-    key({ mod }, "r",              awful.tag.viewnext),
-    key({ mod }, "Right",          awful.tag.viewnext),
+    awful.key({ mod }, "c",              awful.tag.viewprev),
+    awful.key({ mod }, "Left",           awful.tag.viewprev),
+    awful.key({ mod }, "r",              awful.tag.viewnext),
+    awful.key({ mod }, "Right",          awful.tag.viewnext),
 
-    key({ mod }, "\"",             function() view_tag(1) end),
-    key({ mod }, "guillemotleft",  function() view_tag(2) end),
-    key({ mod }, "guillemotright", function() view_tag(3) end),
-    key({ mod }, "(",              function() view_tag(4) end),
-    key({ mod }, ")",              function() view_tag(5) end),
-    key({ mod }, "@",              function() view_tag(6) end),
+    awful.key({ mod }, "\"",             function() view_tag(1) end),
+    awful.key({ mod }, "guillemotleft",  function() view_tag(2) end),
+    awful.key({ mod }, "guillemotright", function() view_tag(3) end),
+    awful.key({ mod }, "(",              function() view_tag(4) end),
+    awful.key({ mod }, ")",              function() view_tag(5) end),
+    awful.key({ mod }, "@",              function() view_tag(6) end),
 
-    key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
-    key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
+    awful.key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
+    awful.key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
 
-    key({ mod }, "d",              function() awful.tag.incmwfact(increment) end),
-    key({ mod }, "v",              function() awful.tag.incmwfact(-increment) end),
-    key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
-    key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
+    awful.key({ mod }, "d",              function() awful.tag.incmwfact(increment) end),
+    awful.key({ mod }, "v",              function() awful.tag.incmwfact(-increment) end),
+    awful.key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
+    awful.key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
 
-    key({ mod }, "t",              function() focus_client(1) end),
-    key({ mod }, "Down",           function() focus_client(1) end),
-    key({ mod }, "s",              function() focus_client(-1) end),
-    key({ mod }, "Up",             function() focus_client(-1) end),
+    awful.key({ mod }, "t",              function() focus_client(1) end),
+    awful.key({ mod }, "Down",           function() focus_client(1) end),
+    awful.key({ mod }, "s",              function() focus_client(-1) end),
+    awful.key({ mod }, "Up",             function() focus_client(-1) end),
 
-    key({ mod }, "i",              function() awful.screen.focus_relative(1) end),
-    key({ mod }, "e",              function() awful.screen.focus_relative(-1) end),
+    awful.key({ mod }, "i",              function() awful.screen.focus_relative(1) end),
+    awful.key({ mod }, "e",              function() awful.screen.focus_relative(-1) end),
 
-    key({mod, "Shift"}, "r",       awesome.restart),
+    awful.key({mod, "Shift"}, "r",       awesome.restart),
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawn({ mod }, " ",            fish("rofi -show run -lines 6")),
-    spawn({ "Control" }, " ",      script("gtd-inbox")),
+    spawn({ mod }, " ",                  fish("rofi -show run -lines 6")),
+    spawn({ "Control" }, " ",            script("gtd-inbox")),
 
     config({ mod, "Shift" }, "c"),
     scratchpad({ mod, "Shift" }, "e"),
     wiki({ mod, "Shift" }, "i"),
     quake({ mod }, "$"),
 
-    spawn({ mod }, "Tab",          script("rofi-window")),
-    spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
-    spawn({}, "F12",               script("rofi-wifi")),
-    spawn({ mod }, "F2",           script("rofi-keyboard")),
-    spawn({ mod }, "k",            script("rofi-emojis")),
-    spawn({ mod }, "f",            script("rofi-nerdfont")),
-    spawn({ mod }, "à",            script("rofi-bluetooth")),
-    spawn({ mod }, "Escape",       script("rofi-pass")),
-    spawn({ mod }, ".",            fish("rofi-search")),
+    spawn({ mod }, "Tab",                script("rofi-window")),
+    spawn({mod, "Control"}, "Tab",       script("rofi-monitors")),
+    spawn({}, "F12",                     script("rofi-wifi")),
+    spawn({ mod }, "F2",                 script("rofi-keyboard")),
+    spawn({ mod }, "k",                  script("rofi-emojis")),
+    spawn({ mod }, "f",                  script("rofi-nerdfont")),
+    spawn({ mod }, "à",                  script("rofi-bluetooth")),
+    spawn({ mod }, "Escape",             script("rofi-pass")),
+    spawn({ mod }, ".",                  fish("rofi-search")),
 
-    spawn({ mod }, "q",            script("rofi-power")),
-    spawn({ mod }, "a",            termstart("pulsemixer", { class = "mixer" })),
+    spawn({ mod }, "q",                  script("rofi-power")),
+    spawn({ mod }, "a",                  termstart("pulsemixer", { class = "mixer" })),
 
-    spawn({ mod }, "m",            script("mpc-library")),
-    spawn({ mod }, "b",            script("mpc-playlist")),
-    spawn({ mod }, "BackSpace",    "mpc toggle"),
+    spawn({ mod }, "m",                  script("mpc-library")),
+    spawn({ mod }, "b",                  script("mpc-playlist")),
+    spawn({ mod }, "BackSpace",          "mpc toggle"),
 
-    spawn({ mod }, ",",            fish("browser-with-context")),
-    spawn({ mod }, "u",            termstart("vifm")),
-    spawn({ mod, "Shift"}, "u",    "thunar"),
-    spawn({ mod }, "g",            script("wallpaper")),
-    spawn({ mod }, "h",            termstart(script("gtgf"), { class = "gtgf" })),
-    spawn({}, "F1",                termstart("bhoogle", { class = "help" })),
+    spawn({ mod }, ",",                  fish("browser-with-context")),
+    spawn({ mod }, "u",                  termstart("vifm")),
+    spawn({ mod, "Shift"}, "u",          "thunar"),
+    spawn({ mod }, "g",                  script("wallpaper")),
+    spawn({ mod }, "h",                  termstart(script("gtgf"), { class = "gtgf" })),
+    spawn({}, "F1",                      termstart("bhoogle", { class = "help" })),
 
-    spawn({ mod, "Shift" }, "b",   termstart("", { directory = sandbox })),
-    spawn({ mod }, "percent",      termstart(
+    spawn({ mod, "Shift" }, "b",         termstart("", { directory = sandbox })),
+    spawn({ mod }, "percent",            termstart(
       script("ytdl"),
       { directory = sandbox, class = "download" }
     )),
-    spawn({ mod }, "equal",        fish("open (xsel --clipboard -o)")),
+    spawn({ mod }, "equal",              fish("open (xsel --clipboard -o)")),
 
-    spawn({ mod }, "'",            termstart("")),
-    spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),
+    spawn({ mod }, "'",                  termstart("")),
+    spawn({ mod, "Shift" }, "'",         termstart("", { class = "kitty-light" })),
 
-    spawn({ mod }, "p",            script("screenshot.sh"))
+    spawn({ mod }, "p",                  script("screenshot.sh"))
   )
 }
 
