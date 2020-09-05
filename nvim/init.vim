@@ -83,6 +83,7 @@ Plug 'kshenoy/vim-signature'
 " }}}
 " {{{ --| Other |--------------------------
 Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
+Plug 'ap/vim-css-color'
 " }}}
 call plug#end()
 " }}}
