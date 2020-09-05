@@ -80,12 +80,12 @@ local pipe = io.popen(
 local batteryname = pipe:read('*a')
 pipe:close()
 
-local batterytext = wibox.widget({
-  widget = wibox.widget.textbox,
-  font = font
-})
-
 if batteryname then
+  local batterytext = wibox.widget({
+    widget = wibox.widget.textbox,
+    font = font
+  })
+
   battery = wibox.widget({
     batterytext,
     layout = wibox.layout.fixed.horizontal,
