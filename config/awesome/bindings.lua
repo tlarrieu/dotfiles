@@ -21,7 +21,6 @@ local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
 local key = awful.key
-local mkey = function(k, f) return key({mod}, k, f) end
 
 local spawn = function(mods, k, cmd, props)
   return key(mods, k, function() spawner.spawn(cmd, props) end)
@@ -109,8 +108,8 @@ end
 
 _M.keyboard = {
   clients = gears.table.join(
-    mkey("Return", function(c) c.fullscreen = not c.fullscreen end),
-    mkey("eacute", function(c) c:kill() end),
+    key({ mod }, "Return", function(c) c.fullscreen = not c.fullscreen end),
+    key({ mod }, "eacute", function(c) c:kill() end),
 
     key({mod, "Control"}, "c", function(c)
       awful.tag.viewprev()
@@ -122,9 +121,9 @@ _M.keyboard = {
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    mkey("n", helpers.create_tag_and_attach_to),
+    key({ mod }, "n", helpers.create_tag_and_attach_to),
 
-    mkey("o", function(client)
+    key({ mod }, "o", function(client)
       client:move_to_screen()
       helpers.create_tag_and_attach_to(client)
 
@@ -161,33 +160,33 @@ _M.keyboard = {
 
     spawn({ mod }, "l",            script('rofi-layouts')),
 
-    mkey("c",                      awful.tag.viewprev),
-    mkey("Left",                   awful.tag.viewprev),
-    mkey("r",                      awful.tag.viewnext),
-    mkey("Right",                  awful.tag.viewnext),
+    key({ mod }, "c",              awful.tag.viewprev),
+    key({ mod }, "Left",           awful.tag.viewprev),
+    key({ mod }, "r",              awful.tag.viewnext),
+    key({ mod }, "Right",          awful.tag.viewnext),
 
-    mkey("\"",                     function() view_tag(1) end),
-    mkey("guillemotleft",          function() view_tag(2) end),
-    mkey("guillemotright",         function() view_tag(3) end),
-    mkey("(",                      function() view_tag(4) end),
-    mkey(")",                      function() view_tag(5) end),
-    mkey("@",                      function() view_tag(6) end),
+    key({ mod }, "\"",             function() view_tag(1) end),
+    key({ mod }, "guillemotleft",  function() view_tag(2) end),
+    key({ mod }, "guillemotright", function() view_tag(3) end),
+    key({ mod }, "(",              function() view_tag(4) end),
+    key({ mod }, ")",              function() view_tag(5) end),
+    key({ mod }, "@",              function() view_tag(6) end),
 
     key({mod, "Control"}, "t",     function() awful.client.swap.byidx(1) end),
     key({mod, "Control"}, "s",     function() awful.client.swap.byidx(-1) end),
 
-    mkey("d",                      function() awful.tag.incmwfact(increment) end),
-    mkey("v",                      function() awful.tag.incmwfact(-increment) end),
+    key({ mod }, "d",              function() awful.tag.incmwfact(increment) end),
+    key({ mod }, "v",              function() awful.tag.incmwfact(-increment) end),
     key({mod, "Shift"}, "d",       function() awful.client.incwfact(increment) end),
     key({mod, "Shift"}, "v",       function() awful.client.incwfact(-increment) end),
 
-    mkey("t",                      function() focus_client(1) end),
-    mkey("Down",                   function() focus_client(1) end),
-    mkey("s",                      function() focus_client(-1) end),
-    mkey("Up",                     function() focus_client(-1) end),
+    key({ mod }, "t",              function() focus_client(1) end),
+    key({ mod }, "Down",           function() focus_client(1) end),
+    key({ mod }, "s",              function() focus_client(-1) end),
+    key({ mod }, "Up",             function() focus_client(-1) end),
 
-    mkey("i",                      function() awful.screen.focus_relative(1) end),
-    mkey("e",                      function() awful.screen.focus_relative(-1) end),
+    key({ mod }, "i",              function() awful.screen.focus_relative(1) end),
+    key({ mod }, "e",              function() awful.screen.focus_relative(-1) end),
 
     key({mod, "Shift"}, "r",       awesome.restart),
 
