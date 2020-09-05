@@ -20,10 +20,6 @@ local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
-local script = function(path)
-  return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
-end
-
 local shell = function(command)
   return "fish -c '" .. command .. "'"
 end
@@ -106,7 +102,7 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawner.key({ mod }, "l",              script('rofi-layouts')),
+    spawner.key({ mod }, "l",              shell('rofi-layouts')),
 
     spawner.key({ mod }, "c",              awful.tag.viewprev),
     spawner.key({ mod }, "Left",           awful.tag.viewprev),
@@ -141,7 +137,7 @@ _M.keyboard = {
     -- [[ Applications ]] ------------------------------------------------------
 
     spawner.key({ mod }, " ",              shell("rofi -show run -lines 6")),
-    spawner.key({ "Control" }, " ",        script("gtd-inbox")),
+    spawner.key({ "Control" }, " ",        shell("gtd-inbox")),
 
     spawner.key({ mod, "Shift" }, "c", {
       app = termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
@@ -164,33 +160,33 @@ _M.keyboard = {
       callback = spawner.callbacks.move_client
     }),
 
-    spawner.key({ mod }, "Tab",            script("rofi-window")),
-    spawner.key({mod, "Control"}, "Tab",   script("rofi-monitors")),
-    spawner.key({}, "F12",                 script("rofi-wifi")),
-    spawner.key({ mod }, "F2",             script("rofi-keyboard")),
-    spawner.key({ mod }, "k",              script("rofi-emojis")),
-    spawner.key({ mod }, "f",              script("rofi-nerdfont")),
-    spawner.key({ mod }, "à",              script("rofi-bluetooth")),
-    spawner.key({ mod }, "Escape",         script("rofi-pass")),
+    spawner.key({ mod }, "Tab",            shell("rofi-window")),
+    spawner.key({mod, "Control"}, "Tab",   shell("rofi-monitors")),
+    spawner.key({}, "F12",                 shell("rofi-wifi")),
+    spawner.key({ mod }, "F2",             shell("rofi-keyboard")),
+    spawner.key({ mod }, "k",              shell("rofi-emojis")),
+    spawner.key({ mod }, "f",              shell("rofi-nerdfont")),
+    spawner.key({ mod }, "à",              shell("rofi-bluetooth")),
+    spawner.key({ mod }, "Escape",         shell("rofi-pass")),
     spawner.key({ mod }, ".",              shell("rofi-search")),
 
-    spawner.key({ mod }, "q",              script("rofi-power")),
+    spawner.key({ mod }, "q",              shell("rofi-power")),
     spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
 
-    spawner.key({ mod }, "m",              script("mpc-library")),
-    spawner.key({ mod }, "b",              script("mpc-playlist")),
+    spawner.key({ mod }, "m",              shell("mpc-library")),
+    spawner.key({ mod }, "b",              shell("mpc-playlist")),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
     spawner.key({ mod }, ",",              shell("browser-with-context")),
     spawner.key({ mod }, "u",              termstart("vifm")),
     spawner.key({ mod, "Shift"}, "u",      "thunar"),
-    spawner.key({ mod }, "g",              script("wallpaper")),
-    spawner.key({ mod }, "h",              termstart(script("gtgf"), { class = "gtgf" })),
+    spawner.key({ mod }, "g",              shell("wallpaper")),
+    spawner.key({ mod }, "h",              termstart(shell("gtgf"), { class = "gtgf" })),
     spawner.key({}, "F1",                  termstart("bhoogle", { class = "help" })),
 
     spawner.key({ mod, "Shift" }, "b",     termstart("", { directory = sandbox })),
     spawner.key({ mod }, "percent",        termstart(
-      script("ytdl"),
+      shell("ytdl"),
       { directory = sandbox, class = "download" }
     )),
     spawner.key({ mod }, "equal",          shell("open (xsel --clipboard -o)")),
@@ -198,7 +194,7 @@ _M.keyboard = {
     spawner.key({ mod }, "'",              termstart("")),
     spawner.key({ mod, "Shift" }, "'",     termstart("", { class = "kitty-light" })),
 
-    spawner.key({ mod }, "p",              script("screenshot.sh"))
+    spawner.key({ mod }, "p",              shell("screenshot.sh"))
   )
 }
 
