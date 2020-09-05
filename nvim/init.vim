@@ -663,14 +663,6 @@ nmap <leader>eu :UltiSnipsEdit<space>
 nmap <leader>ev :call MaybeTabedit('.nvimrc')<cr>
 
 nmap <leader>. :Texplore .<cr>
-
-nmap <leader># :e #<cr>
-
-" Source local .nvimrc
-nmap <silent>
-      \ <leader>$
-      \ :source .nvimrc<bar>let &filetype=&filetype<cr>
-      \ :echom 'local .nvimrc sourced'<cr>
 " }}}
 " {{{ --| Convenience Mapping |-----------------------------
 vmap <leader>s :sort<cr>
