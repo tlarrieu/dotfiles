@@ -25,9 +25,8 @@ local key = awful.key
 local mkey = function(k, f) return key({mod}, k, f) end
 
 local spawn = function(mods, k, cmd, props)
-  return key(mods, k, function() awful.spawn(cmd, props) end)
+  return key(mods, k, function() spawner.spawn(cmd, props) end)
 end
-local mspawn = function(k, cmd, props) return spawn({mod}, k, cmd, props) end
 
 local script = function(path)
   return "sh " .. os.getenv("HOME") .. "/scripts/" .. path
@@ -162,7 +161,7 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    mspawn("l", script('rofi-layouts')),
+    spawn({ mod }, "l", script('rofi-layouts')),
 
     mkey("c",     awful.tag.viewprev),
     mkey("Left",  awful.tag.viewprev),
@@ -196,7 +195,7 @@ _M.keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    mspawn(" ",                    fish("rofi -show run -lines 6")),
+    spawn({ mod }, " ",            fish("rofi -show run -lines 6")),
     spawn({ "Control" }, " ",      script("gtd-inbox")),
 
     config({ mod, "Shift" }, "c"),
@@ -204,41 +203,41 @@ _M.keyboard = {
     wiki({ mod, "Shift" }, "i"),
     quake({ mod }, "$"),
 
-    mspawn("Tab",                  script("rofi-window")),
+    spawn({ mod }, "Tab",          script("rofi-window")),
     spawn({mod, "Control"}, "Tab", script("rofi-monitors")),
     spawn({}, "F12",               script("rofi-wifi")),
-    mspawn("F2",                   script("rofi-keyboard")),
-    mspawn("k",                    script("rofi-emojis")),
-    mspawn("f",                    script("rofi-nerdfont")),
-    mspawn("à",                    script("rofi-bluetooth")),
-    mspawn("Escape",               script("rofi-pass")),
-    mspawn(".",                    fish("rofi-search")),
+    spawn({ mod }, "F2",           script("rofi-keyboard")),
+    spawn({ mod }, "k",            script("rofi-emojis")),
+    spawn({ mod }, "f",            script("rofi-nerdfont")),
+    spawn({ mod }, "à",            script("rofi-bluetooth")),
+    spawn({ mod }, "Escape",       script("rofi-pass")),
+    spawn({ mod }, ".",            fish("rofi-search")),
 
-    mspawn("q", script("rofi-power")),
-    mspawn("a", termstart("pulsemixer", { class = "mixer" })),
+    spawn({ mod }, "q",            script("rofi-power")),
+    spawn({ mod }, "a",            termstart("pulsemixer", { class = "mixer" })),
 
-    mspawn("m", script("mpc-library")),
-    mspawn("b", script("mpc-playlist")),
-    mspawn("BackSpace", "mpc toggle"),
+    spawn({ mod }, "m",            script("mpc-library")),
+    spawn({ mod }, "b",            script("mpc-playlist")),
+    spawn({ mod }, "BackSpace",    "mpc toggle"),
 
-    mspawn(",", fish("browser-with-context")),
-    mspawn("u", termstart("vifm")),
-    spawn({mod, "Shift"}, "u", "thunar"),
-    mspawn("g", script("wallpaper")),
-    mspawn("h", termstart(script("gtgf"), { class = "gtgf" })),
-    spawn({}, "F1", termstart("bhoogle", { class = "help" })),
+    spawn({ mod }, ",",            fish("browser-with-context")),
+    spawn({ mod }, "u",            termstart("vifm")),
+    spawn({ mod, "Shift"}, "u",    "thunar"),
+    spawn({ mod }, "g",            script("wallpaper")),
+    spawn({ mod }, "h",            termstart(script("gtgf"), { class = "gtgf" })),
+    spawn({}, "F1",                termstart("bhoogle", { class = "help" })),
 
     spawn({ mod, "Shift" }, "b",   termstart("", { directory = sandbox })),
-    mspawn("percent", termstart(
+    spawn({ mod }, "percent",      termstart(
       script("ytdl"),
       { directory = sandbox, class = "download" }
     )),
-    mspawn("equal", fish("open (xsel --clipboard -o)")),
+    spawn({ mod }, "equal",        fish("open (xsel --clipboard -o)")),
 
-    mspawn("'", terminal),
+    spawn({ mod }, "'",            terminal),
     spawn({ mod, "Shift" }, "'",   termstart("", { class = "kitty-light" })),
 
-    mspawn("p", script("screenshot.sh"))
+    spawn({ mod }, "p",            script("screenshot.sh"))
   )
 }
 
