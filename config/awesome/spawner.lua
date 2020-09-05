@@ -65,12 +65,4 @@ _M.key = function(mods, key, target)
   end
 end
 
-_M.spawn_or_jump = function(cmd, props)
-  _M.spawn(cmd, props, _M.callbacks.jump_to_client)
-end
-
-_M.spawn_or_move_client = function(cmd, props)
-  _M.spawn(cmd, props, _M.callbacks.move_client)
-end
-
 return _M
