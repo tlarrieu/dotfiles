@@ -95,7 +95,10 @@ awful.rules.rules = {
   {
     rule = { class = "Cockatrice" },
     except_any = { modal = true },
-    properties = { fullscreen = false, floating = false },
+    properties = {
+      fullscreen = false,
+      floating = false,
+      maximized = false
+    },
   },
-
 }
