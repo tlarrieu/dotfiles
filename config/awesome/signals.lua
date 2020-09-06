@@ -150,28 +150,31 @@ local rules = {
 local update_icon = function(tag)
   local iconset = {}
 
-  if #tag:clients() >= 1 then
-    for _, client in ipairs(tag:clients()) do
-      for i = 1, #rules do
-        local rule = rules[i]
-        local match = true
-        local has_rule = false
+  for _, client in ipairs(tag:clients()) do
+    local matched = false
 
-        for _, key in ipairs({ "name", "instance", "class" }) do
-          if rule[key] then
-            has_rule = true
-            match = match and client[key]:find(rule[key])
-          end
-        end
+    for i = 1, #rules do
+      local rule = rules[i]
+      local match = true
+      local has_rule = false
 
-        if has_rule and match then
-          iconset[rule.icon] = true
-          break
+      for _, key in ipairs({ "name", "instance", "class" }) do
+        if rule[key] then
+          has_rule = true
+          match = match and client[key]:find(rule[key])
         end
       end
+
+      if has_rule and match then
+        matched = true
+        iconset[rule.icon] = true
+        break
+      end
     end
-  else
-    iconset[""] = true
+
+    if not matched then
+      iconset[""] = true
+    end
   end
 
   local icons = {}
