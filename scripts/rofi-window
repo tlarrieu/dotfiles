@@ -4,13 +4,13 @@ output=$(
   rofi \
     -show window \
     -lines 6 \
-    -window-command "xprop WM_CLASS WM_NAME -id {window}"
+    -window-command "xprop WM_CLASS WM_NAME WM_STATE _NET_WM_WINDOW_TYPE -id {window}"
 )
 
 # window-command has been triggered
 if [ ! -z "$output" ]; then
   echo "$output" \
-    | rofi -dmenu -i -lines 2 \
+    | rofi -dmenu -i -lines 6 \
     | awk -F' = ' '{ print $2 }' \
     | tr -d '\n' \
     | xsel -i --clipboard
