@@ -92,18 +92,19 @@ local rules = {
 
   { class = "kitty", name = "htop", icon = "" },
   { class = "kitty", name = "exercism", icon = "" },
-  { class = "kitty", name = "git/dotfiles", icon = "" },
-  { class = "config", icon = "" },
+  { class = "kitty", name = "git/dotfiles", icon = "" },
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
+  { class = "kitty", name = "vpn", icon = "嬨" },
 
-  { class = "kitty", name = "tryhackme", icon = "嬨" },
   { class = "Chromium", instance = "tryhackme.com", icon = "" },
 
+  { class = "config", icon = "" },
   { class = "scratchpad", icon = "" },
   { class = "wiki", icon = "" },
   { class = "download", icon = "" },
   { class = "quake", icon = "" },
+  { class = "man", icon = "" },
 
   { class = "taskwarrior", icon = "" },
   { class = "help", icon = "" },
