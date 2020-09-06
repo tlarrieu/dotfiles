@@ -261,8 +261,7 @@ let g:vimwiki_list = [{
   \ {
   \ 'path': '~/.vimwiki/work',
   \ 'syntax': 'markdown',
-  \ 'ext': '.md',
-  \ 'nested_syntaxes': { 'sql': 'sql' }
+  \ 'ext': '.md'
   \ }]
 " }}}
 " {{{ --| Bullets |-----------------------------------------
