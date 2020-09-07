@@ -147,6 +147,7 @@ local rules = {
   { class = "mixer", icon = "奔" },
   { class = "Gpick", icon = "" },
   { class = "Xephyr", icon = "" },
+  { class = "Seahorse", icon = "" },
 }
 
 local update_icon = function(tag)
