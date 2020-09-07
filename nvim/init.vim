@@ -259,6 +259,11 @@ let g:vimwiki_list = [{
   \ 'ext': '.md'
   \ },
   \ {
+  \ 'path': '~/.vimwiki/home/d&d-campaign',
+  \ 'syntax': 'markdown',
+  \ 'ext': '.md'
+  \ },
+  \ {
   \ 'path': '~/.vimwiki/work',
   \ 'syntax': 'markdown',
   \ 'ext': '.md'
