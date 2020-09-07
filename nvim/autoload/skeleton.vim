@@ -5,6 +5,8 @@ function! s:try_insert(skel)
     silent! undo
   endif
 
+  normal gg
+
   return g:ulti_expand_res
 endfunction
 
