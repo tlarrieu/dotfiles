@@ -160,7 +160,7 @@ _M.keyboard = {
       callback = spawner.callbacks.move_client
     }),
     -- Open last downloaded video
-    spawner.key({ mod, "Shift" }, "o",     shell("cd ~/sandbox; mpv (ls -1tc | head -n 1)")),
+    spawner.key({ mod, "Shift" }, "o",     shell("cd ~/sandbox; vlc (ls -1tc | head -n 1)")),
 
     spawner.key({ mod }, "Tab",            shell("rofi-window")),
     spawner.key({mod, "Control"}, "Tab",   shell("rofi-monitors")),
