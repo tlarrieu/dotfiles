@@ -5,8 +5,8 @@ vmap <buffer> <cr> <Plug>VimwikiNormalizeLinkVisualCR
 nmap <buffer> <leader><cr> <Plug>VimwikiVSplitLink
 nmap <buffer> <backspace> <Plug>VimwikiGoBackLink
 
-" nmap <buffer> ??? <Plug>VimwikiNextLink
-" nmap <buffer> ??? <Plug>VimwikiPrevLink
+nmap <buffer> Þ <Plug>VimwikiNextLink
+nmap <buffer> ẞ <Plug>VimwikiPrevLink
 
 cnoreabbrev <expr> toc
   \ getcmdtype() == ":" && getcmdline() == 'toc' ? 'VimwikiTOC' : 'toc'
