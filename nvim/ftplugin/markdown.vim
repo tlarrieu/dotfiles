@@ -22,3 +22,7 @@ call sql#configure()
 
 nmap <silent> <buffer> <leader>$ vip:ExecuteSQL<cr>
 vmap <silent> <buffer> <leader>$ :'<,'>ExecuteSQL<cr>
+
+vmap <buffer> <leader>b S*gvS*eee
+vmap <buffer> <leader>i S*ee
+vmap <buffer> <leader>s S~gvS~eee
