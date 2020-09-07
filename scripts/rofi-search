@@ -59,7 +59,7 @@ searchengines = {
             ),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
-  'trad' => Browser.new('https://www.larousse.fr/dictionnaires/francais-anglais/%s'),
+  'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
   'vim'  => Browser.new('https://vimawesome.com/?q=%s'),
   'g'    => Browser.new('https://github.com/%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
