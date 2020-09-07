@@ -10,5 +10,7 @@ nmap <Leader>i <Plug>VimwikiIndex
 nmap <buffer> Þ <Plug>VimwikiNextLink
 nmap <buffer> ẞ <Plug>VimwikiPrevLink
 
+nmap <buffer> gl <Plug>VimwikiToggleListItem
+
 cnoreabbrev <expr> toc
   \ getcmdtype() == ":" && getcmdline() == 'toc' ? 'VimwikiTOC' : 'toc'
