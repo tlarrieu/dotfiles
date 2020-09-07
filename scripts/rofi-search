@@ -57,6 +57,7 @@ searchengines = {
               'https://duckduckgo.com/?ia=web&q=%s',
               prefixes: ['site:https://awesomewm.org/doc']
             ),
+  'am'   => Browser.new('https://www.amazon.fr/s?k=%s'),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
   'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
