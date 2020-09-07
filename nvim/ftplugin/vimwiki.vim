@@ -5,6 +5,8 @@ vmap <buffer> <cr> <Plug>VimwikiNormalizeLinkVisualCR
 nmap <buffer> <leader><cr> <Plug>VimwikiVSplitLink
 nmap <buffer> <backspace> <Plug>VimwikiGoBackLink
 
+nmap <Leader>i <Plug>VimwikiIndex
+
 nmap <buffer> Þ <Plug>VimwikiNextLink
 nmap <buffer> ẞ <Plug>VimwikiPrevLink
 
