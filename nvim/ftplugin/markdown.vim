@@ -6,7 +6,7 @@ setlocal spell
 setlocal conceallevel=2
 
 let b:deoplete_sources = ['tag', 'buffer', 'file']
-let b:switch_custom_definitions = [[ '- [ ]', '- [x]' ]]
+let b:switch_custom_definitions = [[ '- [ ]', '- [X]' ]]
 
 augroup MARKDOWN
   autocmd!
