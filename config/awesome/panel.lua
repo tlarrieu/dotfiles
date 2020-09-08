@@ -180,7 +180,9 @@ local init_screen = function(screen)
 
   local taglist = awful.widget.taglist({
     screen = screen,
-    filter = function(tag) return #tag.screen.tags > 1 end,
+    filter = function(tag)
+      return #tag:clients() > 1 or #tag.screen.tags > 1
+    end,
     style = { spacing = dpi(6), font = tagsfont },
   })
 
