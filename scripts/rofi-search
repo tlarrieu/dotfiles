@@ -53,6 +53,7 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
   'yt'   => Browser.new('https://www.youtube.com/results?q=%s'),
+  'map'  => Browser.new('https://www.google.com/maps/search/%s/'),
   'aw'   => Browser.new(
               'https://duckduckgo.com/?ia=web&q=%s',
               prefixes: ['site:https://awesomewm.org/doc']
