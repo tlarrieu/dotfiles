@@ -206,6 +206,10 @@ for _, signal in ipairs(client_signals) do
   client.connect_signal(signal, handle)
 end
 
+client.connect_signal("property::minimized", function(client)
+  client.minimized = false
+end)
+
 awful.screen.connect_for_each_screen(function(screen)
   for _, signal in ipairs(tag_signals) do
     awful.tag.attached_connect_signal(screen, signal, handle)
