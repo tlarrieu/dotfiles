@@ -48,6 +48,14 @@ class Browser < SearchEngine
 
 end
 
+class BrowserRaw < Browser
+
+  def escape(str)
+    str
+  end
+
+end
+
 defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
@@ -63,7 +71,7 @@ searchengines = {
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
   'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
   'vim'  => Browser.new('https://vimawesome.com/?q=%s'),
-  'g'    => Browser.new('https://github.com/%s'),
+  'g'    => BrowserRaw.new('https://github.com/%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
   'm'    => Browser.new('https://scryfall.com/search?q=%s'),
   'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
