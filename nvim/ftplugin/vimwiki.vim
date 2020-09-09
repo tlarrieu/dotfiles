@@ -2,7 +2,7 @@
 " We thus have to enable those we actually need
 nmap <buffer> <cr> <Plug>VimwikiFollowLink
 vmap <buffer> <cr> <Plug>VimwikiNormalizeLinkVisualCR
-nmap <buffer> <leader><cr> <Plug>VimwikiVSplitLink
+nmap <buffer> <leader><cr> <Plug>VimwikiTabnewLink
 nmap <buffer> <backspace> <Plug>VimwikiGoBackLink
 
 nmap <Leader>i <Plug>VimwikiIndex
