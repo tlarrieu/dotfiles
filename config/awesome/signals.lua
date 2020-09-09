@@ -207,6 +207,10 @@ for _, signal in ipairs(client_signals) do
 end
 
 client.connect_signal("property::minimized", function(client)
+  if client.name == "meet.google.com is sharing a window." then
+    return
+  end
+
   client.minimized = false
 end)
 

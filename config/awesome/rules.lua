@@ -42,6 +42,14 @@ awful.rules.rules = {
     },
   },
 
+  -- [[ Meet ]] ----------------------------------------------------------------
+  {
+    rule = { name = "meet.google.com is sharing a window." },
+    properties = {
+      hidden = true,
+    },
+  },
+
   -- [[ Scratchpad ]] ----------------------------------------------------------
   {
     rule_any = { class = { "scratchpad", "wiki", "man", "quake" } },
