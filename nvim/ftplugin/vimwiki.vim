@@ -14,3 +14,14 @@ nmap <buffer> gl <Plug>VimwikiToggleListItem
 
 cnoreabbrev <expr> toc
   \ getcmdtype() == ":" && getcmdline() == 'toc' ? 'VimwikiTOC' : 'toc'
+
+augroup VIMWIKI
+  autocmd!
+  autocmd BufWritePre <buffer> call UpdateTOC()
+augroup END
+
+function! UpdateTOC()
+  if search("# Contents", "n") > 0
+    execute "VimwikiTOC"
+  endif
+endfunction
