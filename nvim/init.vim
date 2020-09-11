@@ -247,6 +247,10 @@ set statusline+=(%l,%c)\                        " line and column
 set statusline+=%P\                             " percentage of file
 set statusline+=%*
 " }}}
+" {{{ ==| Shortmess |===========================================================
+set shortmess+=W
+set shortmess+=I
+" }}}
 " {{{ ==| Plugins |=============================================================
 " {{{ --| vimwiki |-----------------------------------------
 let g:vimwiki_global_vars = {}
