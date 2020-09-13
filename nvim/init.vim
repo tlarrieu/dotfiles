@@ -638,6 +638,8 @@ nmap <silent> <leader>é :set operatorfunc=UsageOperator<cr>g@iw
 vmap <silent> <leader>é :<c-u>call UsageOperator(visualmode())<cr>
 nmap <silent> <leader>É :set operatorfunc=DefinitionOperator<cr>g@iw
 
+nnoremap gé :%s/<c-r><c-w>/
+
 nnoremap É :%s/
 vnoremap É <esc>:%s/\%V
 
