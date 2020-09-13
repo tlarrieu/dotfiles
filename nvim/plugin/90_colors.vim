@@ -42,6 +42,9 @@ function! s:setupcolors()
 
   highlight! Visual cterm=none ctermbg=7 ctermfg=none
 
+  highlight! Search cterm=bold ctermbg=7 ctermfg=none
+  highlight! IncSearch cterm=bold,underline ctermbg=7 ctermfg=5
+
   highlight! link SignColumn CursorColumn
   highlight! link SignatureMarkText Folded
   highlight! link HighlightedyankRegion Folded

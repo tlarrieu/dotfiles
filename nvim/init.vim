@@ -336,7 +336,7 @@ nnoremap <silent> <leader>, :ArgWrap<CR>
 " {{{ --| FZF |---------------------------------------------
 " Standard mode (file list)
 nmap <silent> <c-t> :FZF -m -e<cr>
-" Custom modes (home made funcctions)
+" Custom modes (home made functions)
 nnoremap <silent> <c-b> :FZFbuf<cr>
 nnoremap <c-e> :FZFsearch<space>
 nnoremap <silent> <c-c> :FZFtags tag<cr>
