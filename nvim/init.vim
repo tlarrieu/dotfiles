@@ -669,7 +669,8 @@ nmap <leader>ee :call MaybeTabedit('~/.scratchpad.md')<cr>
 nmap <leader>ei :call MaybeTabedit('~/poi.md')<cr>
 nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
 nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
-nmap <leader>eu :UltiSnipsEdit<space>
+nmap <leader>eu :UltiSnipsEdit<cr>
+nmap <leader>eU :UltiSnipsEdit<space>
 nmap <leader>ev :call MaybeTabedit('.nvimrc')<cr>
 
 nmap <leader>. :Texplore .<cr>
