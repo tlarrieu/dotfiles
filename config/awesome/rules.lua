@@ -56,7 +56,7 @@ awful.rules.rules = {
     properties = {
       floating = true,
       width = 1920,
-      height = 1080
+      height = 1080,
     },
   },
 
@@ -94,7 +94,7 @@ awful.rules.rules = {
     rule_any = {
       class = {
         "Slay the Spire",
-        "Pathway"
+        "Pathway",
       }
     },
     properties = { fullscreen = true },
@@ -106,7 +106,7 @@ awful.rules.rules = {
     properties = {
       fullscreen = false,
       floating = false,
-      maximized = false
+      maximized = false,
     },
   },
 }
