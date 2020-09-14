@@ -98,6 +98,13 @@ local rules = {
   { class = "kitty", name = "vifm", icon = "" },
   { class = "kitty", name = "vpn", icon = "嬨" },
 
+  { class = "Alacritty", name = "htop", icon = "" },
+  { class = "Alacritty", name = "exercism", icon = "" },
+  { class = "Alacritty", name = "git/dotfiles", icon = "" },
+  { class = "Alacritty", name = "NVIM" , icon = "" },
+  { class = "Alacritty", name = "vifm", icon = "" },
+  { class = "Alacritty", name = "vpn", icon = "嬨" },
+
   { class = "Chromium", instance = "tryhackme.com", icon = "" },
 
   { class = "config", icon = "" },
@@ -141,6 +148,7 @@ local rules = {
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
+  { class = "Alacritty", icon = "" },
   { class = "mpv", icon = "" },
   { class = "vlc", icon = "嗢" },
   { class = "Vlc", icon = "嗢" },
