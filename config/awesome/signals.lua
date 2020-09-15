@@ -110,7 +110,7 @@ local rules = {
   { class = "config", icon = "" },
   { class = "scratchpad", icon = "" },
   { class = "wiki", icon = "" },
-  { class = "download", icon = "" },
+  { class = "download", icon = "" },
   { class = "quake", icon = "" },
   { class = "man", icon = "" },
 
