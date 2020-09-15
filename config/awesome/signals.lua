@@ -33,6 +33,11 @@ local client_signals = {
 local tag_signals = { "tagged", "untagged" }
 
 local rules = {
+  { class = "Chromium", name = "Google Sheets", icon = "" },
+  { class = "Chromium", name = "Google Docs", icon = "" },
+  { class = "Chromium", name = "Google Photos", icon = "" },
+  { class = "Chromium", name = "Google Slides" , icon = "" },
+  { class = "Chromium", name = "YouTube", icon = "輸" },
   { class = "Chromium", instance = "calendar.google.com" , icon = "" },
   { class = "Chromium", instance = "drive.google.com" , icon = "" },
   { class = "Chromium", instance = "docs.google.com.*spreadsheets" , icon = "" },
@@ -44,14 +49,9 @@ local rules = {
   { class = "Chromium", instance = "keep.google.com" , icon = "ﯚ" },
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
-  { class = "Chromium", name = "Google Sheets", icon = "" },
-  { class = "Chromium", name = "Google Docs", icon = "" },
-  { class = "Chromium", name = "Google Photos", icon = "" },
-  { class = "Chromium", name = "Google Slides" , icon = "" },
-  { class = "Chromium", name = "YouTube", icon = "輸" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
-  { class = "Chromium", instance = "slack" , icon = "" },
+  { class = "Chromium", instance = "slack" , icon = "聆" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
@@ -124,7 +124,7 @@ local rules = {
   { class = "Sxiv", icon = "" },
   { class = "Flowblade", icon = "" },
 
-  { class = "zoom", icon = "" },
+  { class = "zoom", icon = "" },
 
   { name = "yay", icon = "" },
 
