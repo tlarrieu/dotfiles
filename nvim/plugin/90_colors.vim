@@ -8,7 +8,17 @@ augroup SETUP_COLORS
   autocmd!
   autocmd OptionSet background call s:setupcolors()
   autocmd SourceCmd $MYVIMRC call s:setup()
+  autocmd Syntax * call s:setupcolors()
+  autocmd DiffUpdated * call s:togglesyntax()
 augroup END
+
+function! s:togglesyntax()
+  if &diff
+    syn off
+  else
+    syn on
+  endif
+endfunction
 
 function! s:overlength()
   let l:exclude = {
@@ -62,10 +72,15 @@ function! s:setupcolors()
   highlight! link StatusLine Normal
   highlight! link StatusLineNC NormalNC
 
-  highlight! link GitGutterAdd DiffAdd
-  highlight! link GitGutterChange DiffChange
-  highlight! link GitGutterDelete DiffDelete
-  highlight! link GitGutterChangeDelete DiffDelete
+  highlight! GitGutterAdd ctermfg=2 ctermbg=7
+  highlight! GitGutterChange ctermfg=3 ctermbg=7
+  highlight! GitGutterDelete ctermfg=1 ctermbg=7
+  highlight! GitGutterText ctermfg=4 ctermbg=7
+
+  highlight! DiffAdd ctermfg=2 ctermbg=none
+  highlight! DiffChange ctermfg=3 ctermbg=none
+  highlight! DiffDelete ctermfg=1 ctermbg=none
+  highlight! DiffText ctermfg=4 ctermbg=none
 
   highlight! link QuickFixLine DiffChange
 
