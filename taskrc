@@ -49,11 +49,10 @@ urgency.uda.priority.L.coefficient=-1
 urgency.uda.priority.M.coefficient=5
 urgency.uda.priority.H.coefficient=15
 
-urgency.uda.tag.inbox.coefficient=0
-urgency.uda.tag.someday.coefficient=-100
-
-urgency.uda.tag.@home.coefficient=-1
-urgency.uda.tag.@work.coefficient=5
+urgency.user.tag.inbox.coefficient=0
+urgency.user.tag.someday.coefficient=-100
+urgency.user.tag.@home.coefficient=-1
+urgency.user.tag.@work.coefficient=5
 
 # -- Aliases -------------------------------------------------------------------
 alias.burndown=burndown.daily
