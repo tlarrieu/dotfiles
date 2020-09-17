@@ -66,6 +66,17 @@ awful.rules.rules = {
     properties = { size_hints_honor = false },
   },
 
+  -- [[ RoomArranger ]] --------------------------------------------------------
+  {
+    rule = { class = "RoomArranger" },
+    except_any = { modal = true },
+    properties = {
+      fullscreen = false,
+      floating = false,
+      maximized = true,
+    },
+  },
+
   -- [[ Multimedia ]] ----------------------------------------------------------
   {
     rule = { class = "mpv" },
