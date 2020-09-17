@@ -104,10 +104,10 @@ abbr - "cd -"
 
 abbr ,l "open (ls -1tc | head -n 1)"
 
-# ls
-abbr l "ls"
-abbr la "ls -CA"
-abbr ll "ls -lAh"
+# ls(d)
+abbr l "lsd"
+abbr la "lsd -A"
+abbr ll "lsd -lAh"
 
 # SSH
 abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"

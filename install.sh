@@ -182,7 +182,7 @@ case $answer in
 
     search="the_silver_searcher mlocate"
 
-    files="vifm linopen udiskie thunar atool"
+    files="vifm linopen udiskie thunar atool lsd"
 
     essential="git fzf rofi pass"
 
