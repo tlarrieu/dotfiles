@@ -50,7 +50,7 @@ local rules = {
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
 
-  { class = "Chromium", instance = "ilucca.net", icon = "" },
+  { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "聆" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
