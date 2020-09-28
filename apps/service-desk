@@ -1,0 +1,5 @@
+#!/bin/sh
+
+profile="pro"
+
+browser-kiosk $profile "https://jobteaser.atlassian.net/servicedesk/customer/portals"
