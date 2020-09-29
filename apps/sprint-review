@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://drive.google.com/drive/folders/1afxi4fhFVDUu9-nVQEf3O-qJa615z0sy"
