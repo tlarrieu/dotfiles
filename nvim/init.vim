@@ -324,6 +324,7 @@ nmap <expr> þ &diff ? ']c' : '<Plug>(GitGutterNextHunk)'
 " {{{ --| VimRestConsole |----------------------------------
 let g:vrc_set_default_mapping = 0
 let g:vrc_split_request_body = 1
+let g:vrc_show_command = 1
 let g:vrc_curl_opts = { '-L': '', '-i': '', '-s' : '' }
 augroup VimRestConsole
   autocmd!
