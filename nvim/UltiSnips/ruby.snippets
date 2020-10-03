@@ -107,6 +107,12 @@ snippet - "lambda (->)"
 ->${1:(${2:i})} { ${3:${VISUAL}} }
 endsnippet
 
+snippet fn "lambda"
+lambda do ${1:|${2:i}|}
+	${3:${VISUAL}}
+end
+endsnippet
+
 snippet .times "times" i
 .times { |${1:i}| $2 }
 endsnippet
@@ -172,7 +178,7 @@ snippet "-- "line debug" i
 endsnippet
 
 snippet p "puts"
-puts "$1"
+puts("$1")
 endsnippet
 
 snippet red "red debug"
