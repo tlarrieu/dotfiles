@@ -1,1 +1,1 @@
-nnoremap <cr> :call jobstart('xrdb ~/.Xresources')<cr>
+nnoremap <buffer> <cr> :call jobstart('xrdb ~/.Xresources')<cr>
