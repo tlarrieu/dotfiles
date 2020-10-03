@@ -78,7 +78,7 @@ searchengines = {
   'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
   'r'    => Browser.new('https://reddit.com/r/%s'),
-  'rg'   => Browser.new('https://rubygems.org/search?query=%s'),
+  'gem'  => Browser.new('https://rubygems.org/search?query=%s'),
   't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s'),
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080'),
