@@ -12,3 +12,5 @@ xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
 
 xinput set-prop "DLL0704:01 06CB:76AE Touchpad" "libinput Tapping Enabled" 1
+
+export QT_STYLE_OVERRIDE=kvantum
