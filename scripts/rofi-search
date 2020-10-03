@@ -94,7 +94,11 @@ words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
 if words.any?
   engine = searchengines[words[0]]
 
-  words.shift if engine
+  if engine
+    words.shift
+  elsif words[0].match('http.?://.*')
+    engine = Browser.new(words.join)
+  end
 
   (engine || defaultengine).run(words[0..-1].join(' '))
 end
