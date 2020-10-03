@@ -1,0 +1,211 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'json'
+require 'date'
+require 'dotenv'
+
+Dotenv.load('~/.context.env')
+
+context =
+  if ENV['CONTEXT'] == 'home'
+    '-@work'
+  else
+    '-@home'
+  end
+
+raw_tasks = `task \
+    rc._forcecolor:yes \
+    rc.row.padding:0 \
+    rc.defaultwidth:240 \
+    rc.detection:off \
+    rc.verbose:nothing \
+  -DELETED -COMPLETED #{context} export`
+
+tasklist = JSON.parse(raw_tasks)
+
+tasks = Hash.new { |h, k| h[k] = [] }
+
+inbox = ->(task) { task['tags']&.include?('inbox') }
+someday = ->(task) { task['tags']&.include?('someday') }
+started = ->(task) { task['start'] }
+today = lambda do |task|
+  return unless task['scheduled']
+
+  DateTime.iso8601(task['scheduled']).to_time <= Time.now.utc
+end
+later = lambda do |task|
+  return unless task['scheduled']
+
+  DateTime.iso8601(task['scheduled']).to_time > Time.now.utc &&
+    !someday.call(task)
+end
+shopping = ->(task) { task['project'] == 'shopping' }
+improvements = ->(task) { task['project'] == 'improvements' }
+recent = lambda do |task|
+  DateTime.iso8601(task['entry']).to_time + 120 >= Time.now.utc
+end
+
+String.class_eval do
+  def fit_in(length, elipse)
+    if size > length
+      self[0..length - 1 - elipse.size] + elipse
+    else
+      ljust(length)
+    end
+  end
+
+  def colorize(color)
+    return self unless color
+
+    "<span foreground='#{color}'>#{self}</span>"
+  end
+end
+
+NilClass.class_eval do
+  def fit_in(length, elipse)
+    to_s.fit_in(length, elipse)
+  end
+end
+
+output = lambda do |label, key, color|
+  return if tasks[key].empty?
+
+  format = lambda do |task|
+    annot = ' *' if task['annotations']&.any?
+    str = '%<id>s %<prio>s %<desc>s %<proj>s %<tags>s' % {
+      label: label,
+      id: task['uuid'].split('-')[0],
+      prio: task['priority'].fit_in(1, ''),
+      desc: "#{label} #{task['description']}#{annot}".
+        fit_in(112, '…').
+        gsub('&', '&amp;'),
+      proj: task['project'].fit_in(12, '…'),
+      tags: task['tags']&.join(', ')
+    }
+    str.colorize(color)
+  end
+  sort = ->(task) { -task['urgency'].to_i }
+  <<~STR
+    #{tasks[key].sort_by(&sort).map(&format).join("\n")}
+  STR
+end
+
+tasklist.each do |entry|
+  category =
+    case entry
+    when started then 'started'
+    when inbox then 'inbox'
+    when today then 'today'
+    when shopping then 'shopping'
+    when improvements then 'improvements'
+    when later then 'later'
+    when someday then 'someday'
+    else 'other'
+    end
+
+  tasks['recent'] << entry if recent.call(entry)
+  tasks[category] << entry
+end
+
+help = <<~STR.strip
+  <b>Return</b>         <i>Done</i>
+  <b>Control+Return</b> <i>Edit</i>
+  <b>Control+d</b>      <i>Delete</i>
+  <b>Control+s</b>      <i>Schedule</i>
+  <b>Control+t</b>      <i>Start/Stop</i>
+  <b>Tab</b>            <i>Mark</i>
+STR
+
+rofi = <<~STR.strip
+  rofi \
+    -dmenu \
+    -i \
+    -p  \
+    -mesg '#{help}' \
+    -no-history \
+    -lines 22 \
+    -multi-select \
+    -markup-rows \
+    -format p \
+    -kb-custom-1 "Return" \
+    -kb-custom-2 "Control+Return" \
+    -kb-custom-3 "Control+d" \
+    -kb-custom-4 "Control+s" \
+    -kb-custom-5 "Control+t" \
+    -kb-accept-entry "" \
+    -kb-remove-char-forward "Delete" \
+    -kb-accept-custom "" \
+    -kb-accept-alt "Tab" \
+    -kb-row-tab ""
+STR
+
+results = `echo -n "#{[
+  output.call('', 'started', '#859900'),
+  output.call('', 'today', '#b58900'),
+  output.call('', 'inbox', '#93a1a1'),
+  output.call('', 'shopping', '#93a1a1'),
+  output.call('', 'improvements', '#268bd2'),
+  output.call('', 'recent', '#d33682'),
+  output.call('', 'later', '#93a1a1'),
+  output.call('', 'someday', '#2aa198'),
+  output.call('', 'other', '#dc322f')
+].join}" | #{rofi}`
+
+exit 0 unless results.length.positive?
+
+uuids =
+  results.
+    split("\n").
+    select { |line| line.match(/^[a-z0-9]/) }.
+    map { |line| line.split(' ')[0] }
+
+def confirm(message)
+  rofi = <<~STR.strip
+    rofi \
+      -dmenu \
+      -lines 2 \
+      -i \
+      -p  \
+      -no-history \
+      -mesg " #{message}"
+  STR
+
+  `echo -e "✔ Yes\n✖ No" | #{rofi}`.strip == '✔ Yes'
+end
+
+case $?.exitstatus
+when 10 # 'Return'
+  msg = "You are about to mark #{uuids.size} element(s) as done. Is that OK?"
+  if uuids.size == 1 || confirm(msg)
+    uuids.each { |uuid| `task rc.confirmation:0 done #{uuid}` }
+  end
+when 11 # 'Control+Return'
+  `kitty --class scratchpad task edit #{uuids.join(' ')}`
+when 12 # 'Control+d'
+  msg = "You are about to delete #{uuids.size} element(s). Is that OK?"
+  if uuids.size == 1 || confirm(msg)
+    uuids.each { |uuid| `task rc.confirmation:0 delete #{uuid}` }
+  end
+when 13 # 'Control+s'
+  sched = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`
+  if sched.length >= 0
+    msg = "You are about to schedule #{uuids.size} element(s). Is that OK?"
+    if uuids.size == 1 || confirm(msg)
+      cmd = "task rc.confirmation:0 %s mod -inbox -someday sched:#{sched}"
+      uuids.each { |uuid| `#{cmd % uuid}` }
+    end
+  end
+when 14 # 'Control+t'
+  uuids.each do |uuid|
+    needle = tasks['started'].find { |task| task['uuid'].split('-')[0] == uuid }
+    if needle
+      `task rc.confirmation:0 stop #{uuid}`
+    else
+      `task rc.confirmation:0 start #{uuid}`
+    end
+  end
+end
+
+Process.spawn($0)

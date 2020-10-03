@@ -136,8 +136,9 @@ _M.keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod }, " ",              shell("rofi -show run -lines 6")),
-    spawner.key({ "Control" }, " ",        shell("gtd-inbox")),
+    spawner.key({ mod }, " ",                shell("rofi -show run -lines 6")),
+    spawner.key({ "Control" }, " ",          shell("gtd-inbox")),
+    spawner.key({ "Control", "Shift" }, " ", shell("rofi-tasks")),
 
     spawner.key({ mod, "Shift" }, "c", {
       app = termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
