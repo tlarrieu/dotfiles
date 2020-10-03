@@ -1,8 +1,8 @@
 #!/bin/sh
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
-LAUNCHER2='rofi -dmenu -lines 9 -i -p '
-OPTIONS="Inbox\nHome\nWork\nConnect\nCSE\nManagement\nContinuous Improvement\nCourses\nRoll20"
+LAUNCHER2='rofi -dmenu -lines 8 -i -p '
+OPTIONS="Inbox\nHome\nWork\nConnect\nCSE\nManagement\nContinuous Improvement\nCourses"
 
 input=$(eval $LAUNCHER)
 
@@ -31,11 +31,8 @@ if [[ -n "$input" ]]; then
       Courses)
         args="project:shopping"
         ;;
-      Roll20)
-        args="project:roll20 +@home"
-        ;;
       CSE)
-        args="project:CSE +@work"
+        args="+inbox project:CSE +@work"
         ;;
       *)
         args=''
