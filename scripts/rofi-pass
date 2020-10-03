@@ -77,7 +77,7 @@ if [ ${#option} -gt 0 ]; then
           echo -e "✔ Yes\n✖ No" \
           | rofi \
               -dmenu \
-              -lines 5 \
+              -lines 2 \
               -i \
               -p  \
               -no-history \
