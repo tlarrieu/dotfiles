@@ -103,7 +103,18 @@ function fish_prompt
     set_color red
   end
 
-  echo -ns '❯ '
+  set -l count 0
+  if test "$DESKTOP_SESSION" = "awesome"
+    set count (math $SHLVL - 2)
+  else
+    set count $SHLVL
+  end
+
+  for x in (seq $count)
+    echo -ns "❯"
+  end
+
+  echo -ns " "
 
   set_color normal
 end
