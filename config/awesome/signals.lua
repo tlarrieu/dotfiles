@@ -51,7 +51,7 @@ local rules = {
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
-  { class = "Chromium", instance = "slack" , icon = "聆" },
+  { class = "Chromium", instance = "slack" , icon = "" },
   { class = "Chromium", instance = "www.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
@@ -194,7 +194,7 @@ local update_icon = function(tag)
     icons[#icons+1] = k
   end
 
-  tag.name = table.concat(icons, " ")
+  tag.name = table.concat(icons, " ")
 end
 
 local handle = function(object)
