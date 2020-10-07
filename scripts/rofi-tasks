@@ -15,6 +15,12 @@ context =
     '-@home'
   end
 
+def parse_time(str)
+  return unless str
+
+  DateTime.iso8601(str).to_time.getlocal
+end
+
 raw_tasks = `task \
     rc._forcecolor:yes \
     rc.row.padding:0 \
@@ -33,18 +39,17 @@ started = ->(task) { task['start'] }
 today = lambda do |task|
   return unless task['scheduled']
 
-  DateTime.iso8601(task['scheduled']).to_time <= Time.now.utc
+  parse_time(task['scheduled']) <= Time.now
 end
 later = lambda do |task|
   return unless task['scheduled']
 
-  DateTime.iso8601(task['scheduled']).to_time > Time.now.utc &&
-    !someday.call(task)
+  parse_time(task['scheduled']) > Time.now && !someday.call(task)
 end
 shopping = ->(task) { task['project'] == 'shopping' }
 improvements = ->(task) { task['project'] == 'improvements' }
 recent = lambda do |task|
-  DateTime.iso8601(task['entry']).to_time + 120 >= Time.now.utc
+  parse_time(task['entry']) + 120 >= Time.now
 end
 
 String.class_eval do
@@ -63,7 +68,7 @@ String.class_eval do
   end
 end
 
-NilClass.class_eval do
+Object.class_eval do
   def fit_in(length, elipse)
     to_s.fit_in(length, elipse)
   end
@@ -74,12 +79,13 @@ output = lambda do |label, key, color|
 
   format = lambda do |task|
     annot = ' *' if task['annotations']&.any?
-    str = '%<id>s %<prio>s %<desc>s %<proj>s %<tags>s' % {
+    str = '%<id>s %<prio>s %<sched>s %<desc>s %<proj>s %<tags>s' % {
       label: label,
       id: task['uuid'].split('-')[0],
       prio: task['priority'].fit_in(1, ''),
+      sched: parse_time(task['scheduled']).fit_in(10, ''),
       desc: "#{label} #{task['description']}#{annot}".
-        fit_in(112, '…').
+        fit_in(102, '…').
         gsub('&', '&amp;'),
       proj: task['project'].fit_in(12, '…'),
       tags: task['tags']&.join(', ')
