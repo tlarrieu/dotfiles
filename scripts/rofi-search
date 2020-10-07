@@ -3,7 +3,6 @@
 # frozen_string_literal: true
 
 require 'cgi'
-require 'shellwords'
 
 class SearchEngine
 
@@ -31,7 +30,7 @@ class Man < SearchEngine
   end
 
   def escape(str)
-    Shellwords.escape(str)
+    str
   end
 
 end
