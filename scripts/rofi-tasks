@@ -78,7 +78,7 @@ output = lambda do |label, key, color|
   return if tasks[key].empty?
 
   format = lambda do |task|
-    annot = ' *' if task['annotations']&.any?
+    annot = "  [#{task['annotations'].size}]" if task['annotations']&.any?
     str = '%<id>s %<prio>s %<sched>s %<desc>s %<proj>s %<tags>s' % {
       label: label,
       id: task['uuid'].split('-')[0],
