@@ -121,6 +121,7 @@ help = <<~STR.strip
   <b>Control+d</b>      <i>Delete</i>
   <b>Control+s</b>      <i>Schedule</i>
   <b>Control+t</b>      <i>Start/Stop</i>
+  <b>Control+i</b>      <i>Set priority</i>
   <b>Tab</b>            <i>Mark</i>
 STR
 
@@ -140,6 +141,7 @@ rofi = <<~STR.strip
     -kb-custom-3 "Control+d" \
     -kb-custom-4 "Control+s" \
     -kb-custom-5 "Control+t" \
+    -kb-custom-6 "Control+i" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -207,6 +209,26 @@ when 14 # 'Control+t'
     else
       `task rc.confirmation:0 start #{uuid}`
     end
+  end
+when 15 # 'Control+i'
+  rofi = <<~STR.strip
+    rofi \
+      -dmenu \
+      -lines 3 \
+      -i \
+      -p  \
+      -no-history
+  STR
+
+  priority = {
+    'High' => 'H',
+    'Medium' => 'M',
+    'Low' => 'L'
+  }[`echo -e "Medium\nHigh\nLow" | #{rofi}`.strip]
+
+  if priority
+    uuids.
+      each { |uuid| `task rc.confirmation:0 #{uuid} mod priority:#{priority}` }
   end
 end
 
