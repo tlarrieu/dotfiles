@@ -122,6 +122,7 @@ help = <<~STR.strip
   <b>Control+s</b>      <i>Schedule</i>
   <b>Control+t</b>      <i>Start/Stop</i>
   <b>Control+i</b>      <i>Set priority</i>
+  <b>Control+o</b>      <i>Open</i>
   <b>Tab</b>            <i>Mark</i>
 STR
 
@@ -142,6 +143,7 @@ rofi = <<~STR.strip
     -kb-custom-4 "Control+s" \
     -kb-custom-5 "Control+t" \
     -kb-custom-6 "Control+i" \
+    -kb-custom-7 "Control+o" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -230,6 +232,10 @@ when 15 # 'Control+i'
     uuids.
       each { |uuid| `task rc.confirmation:0 #{uuid} mod priority:#{priority}` }
   end
+when 16 # 'Control+o'
+  `yes | taskopen -b #{uuids.join(' ')}`
+
+  exit 0
 end
 
 Process.spawn($0)
