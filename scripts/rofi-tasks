@@ -48,9 +48,7 @@ later = lambda do |task|
 end
 shopping = ->(task) { task['project'] == 'shopping' }
 improvements = ->(task) { task['project'] == 'improvements' }
-recent = lambda do |task|
-  parse_time(task['entry']) + 120 >= Time.now
-end
+recent = ->(task) { parse_time(task['entry']) + 120 >= Time.now }
 
 String.class_eval do
   def fit_in(length, elipse)
