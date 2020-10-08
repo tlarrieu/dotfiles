@@ -178,43 +178,43 @@ snippet "-- "line debug" i
 endsnippet
 
 snippet p "puts"
-puts("$1")
+puts($1)
 endsnippet
 
 snippet red "red debug"
-print "\e[31m"
-puts "$1"
-print "\e[0m"
+print("\e[31m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet gr "green debug"
-print "\e[32m"
-puts "$1"
-print "\e[0m"
+print("\e[32m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet yel "yellow debug"
-print "\e[33m"
-puts "$1"
-print "\e[0m"
+print("\e[33m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet blue "blue debug"
-print "\e[34m"
-puts "$1"
-print "\e[0m"
+print("\e[34m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet pink "pink debug"
-print "\e[35m"
-puts "$1"
-print "\e[0m"
+print("\e[35m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet cyan "cyan debug"
-print "\e[36m"
-puts "$1"
-print "\e[0m"
+print("\e[36m")
+${VISUAL}$0
+print("\e[0m")
 endsnippet
 
 snippet arlog "A::R logger"
