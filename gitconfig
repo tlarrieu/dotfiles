@@ -50,3 +50,5 @@
 		sed 's/=/ø/' | \
 		column -s 'ø' -t | \
 		sed 's/^\\(.\\)/  \\1/'"
+
+# vim: ft=gitconfig
