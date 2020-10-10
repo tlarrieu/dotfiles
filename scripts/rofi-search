@@ -38,7 +38,11 @@ end
 class Browser < SearchEngine
 
   def run(str)
-    `browser-kiosk '#{combine(str)}'`
+    if str.strip.empty?
+      `browser-with-context`
+    else
+      `browser-kiosk '#{combine(str)}'`
+    end
   end
 
   def escape(str)
@@ -87,8 +91,8 @@ searchengines = {
 }
 # rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 
-words = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
-  split
+query = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`
+words = query.split
 
 if words.any?
   engine = searchengines[words[0]]
@@ -100,6 +104,8 @@ if words.any?
   end
 
   (engine || defaultengine).run(words[0..-1].join(' '))
+elsif query == "\n"
+  defaultengine.run('')
 end
 
 # vim: textwidth=100
