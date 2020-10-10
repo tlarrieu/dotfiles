@@ -110,6 +110,7 @@ abbr la "lsd -A"
 abbr ll "lsd -lAh"
 
 # SSH
+abbr sa "ssh-add"
 abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
 
 # Git
