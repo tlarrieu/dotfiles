@@ -38,7 +38,7 @@ end
 class Browser < SearchEngine
 
   def run(str)
-    `browser-kiosk perso '#{combine(str)}'`
+    `browser-kiosk '#{combine(str)}'`
   end
 
   def escape(str)
