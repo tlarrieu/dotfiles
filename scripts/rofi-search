@@ -38,11 +38,7 @@ end
 class Browser < SearchEngine
 
   def run(str)
-    if str.strip.empty?
-      `browser-with-context`
-    else
-      `browser-kiosk '#{combine(str)}'`
-    end
+    `browser-kiosk '#{combine(str)}'`
   end
 
   def escape(str)
@@ -105,7 +101,7 @@ if words.any?
 
   (engine || defaultengine).run(words[0..-1].join(' '))
 elsif query == "\n"
-  defaultengine.run('')
+  `browser-with-context`
 end
 
 # vim: textwidth=100
