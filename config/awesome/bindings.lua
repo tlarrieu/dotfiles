@@ -138,7 +138,7 @@ _M.keyboard = {
 
     spawner.key({ mod }, " ",                shell("rofi -show run -lines 6")),
     spawner.key({ "Control" }, " ",          shell("gtd-inbox")),
-    spawner.key({ "Control", "Shift" }, " ", shell("rofi-tasks")),
+    spawner.key({ mod }, ".",                shell("rofi-tasks")),
 
     spawner.key({ mod, "Shift" }, "c", {
       app = termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
@@ -171,7 +171,7 @@ _M.keyboard = {
     spawner.key({ mod }, "f",              shell("rofi-nerdfont")),
     spawner.key({ mod }, "à",              shell("rofi-bluetooth")),
     spawner.key({ mod }, "Escape",         shell("rofi-pass")),
-    spawner.key({ mod }, ".",              shell("rofi-search")),
+    spawner.key({ mod }, ",",              shell("rofi-search")),
 
     spawner.key({ mod }, "q",              shell("rofi-power")),
     spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
@@ -180,7 +180,6 @@ _M.keyboard = {
     spawner.key({ mod }, "b",              shell("mpc-playlist")),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
-    spawner.key({ mod }, ",",              shell("browser-with-context")),
     spawner.key({ mod }, "u",              termstart("vifm")),
     spawner.key({ mod, "Shift"}, "u",      "thunar"),
     spawner.key({ mod }, "g",              shell("wallpaper")),
