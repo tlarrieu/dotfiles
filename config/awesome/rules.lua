@@ -35,6 +35,9 @@ awful.rules.rules = {
         "Xephyr",
         "scratchpad",
         "wiki",
+      },
+      instance = {
+        "meet.google.com"
       }
     },
     properties = {
@@ -47,6 +50,16 @@ awful.rules.rules = {
     rule = { name = "meet.google.com is sharing a window." },
     properties = {
       hidden = true,
+    },
+  },
+
+  {
+    rule = { instance = "meet.google.com" },
+    properties = {
+      callback = function(client)
+        awful.layout.set(awful.layout.suit.tile.left)
+        awful.client.swap.byidx(-1)
+      end
     },
   },
 

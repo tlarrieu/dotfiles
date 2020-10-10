@@ -5,7 +5,7 @@ local _M = {}
 _M.create_tag = function(screen)
   local config = {
     layout = awful.layout.suit.fair,
-    master_width_factor = 0.75,
+    master_width_factor = 0.72,
     screen = screen or awful.screen.focused(),
     volatile = true
   }
