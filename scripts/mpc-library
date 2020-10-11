@@ -1,24 +1,60 @@
 #!/bin/sh
 
-_rofi() {
-  rofi -i -dmenu -p "library"
-}
-
 mpc_add() {
   mpc clear -q
-  mpc add -q "$1"
+  xargs -I '{}' mpc add -q '{}' <<< "$1"
   mpc play
 }
 
-mpc_library() {
-  local prefix=$HOME/Music/
-  local selection=$(
-    find $prefix* -type d | \
-    sed "s#$prefix##" | \
-    _rofi
-  ) || return 1
+library=$HOME/Music/
 
-  [ -n "$selection" ] && mpc_add "$selection"
-}
+cd $library
 
-mpc_library
+path=$1
+
+folder="#268bd2"
+file="#d33682"
+
+selection=$(\
+  find "$path"* -maxdepth 0 -printf "<span foreground='%y'>%f</span>\n" \
+  | sed -e "s/<span foreground='d'>/<span foreground='$folder'>/" \
+  | sed -e "s/<span foreground='f'>/<span foreground='$file'>/" \
+  | sed -e "s/&/&amp;/g" \
+  | rofi \
+    -dmenu \
+    -markup-rows \
+    -format p \
+    -i \
+    -p "library" \
+    -multi-select \
+    -no-history \
+    -kb-custom-1 "Control+o" \
+    -kb-custom-2 "Control+i" \
+    -kb-custom-3 "Control+t" \
+    -kb-accept-alt "Tab" \
+    -kb-row-tab ""
+)
+rofi_signal=$?
+
+list=$(sed -e "s#^#$path#" <<< $selection)
+
+case $rofi_signal in
+  10)
+    target="$(readlink -f "$path/..")/"
+    # We do not want to navigate “before” the library in the file tree
+    if [ $(wc -c <<< "$target") -ge $(wc -c <<< $library) ]; then
+      $0 "$(sed -e "s#$library##" <<< "$target")"
+    else
+      $0
+    fi
+    ;;
+  11)
+    [ -n "$selection" ] && $0 "$(head -n 1 <<< $list)/"
+    ;;
+  12)
+    mpc_add "$1"
+    ;;
+  *)
+    [ -n "$selection" ] && mpc_add "$list"
+    ;;
+esac
