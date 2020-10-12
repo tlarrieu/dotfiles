@@ -71,7 +71,9 @@ awful.rules.rules = {
         "wiki",
         "man",
         "quake",
-        "Seahorse"
+        "Seahorse",
+        "v4l2ucp",
+        "webcam-props",
       }
     },
     properties = {
