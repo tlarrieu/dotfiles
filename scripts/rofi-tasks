@@ -124,15 +124,12 @@ tasklist.each do |entry|
 end
 
 help = <<~STR.strip
-  <b>Return</b>         <i>Done</i>
-  <b>Control+Return</b> <i>Edit</i>
-  <b>Control+d</b>      <i>Delete</i>
-  <b>Control+s</b>      <i>Schedule</i>
-  <b>Control+t</b>      <i>Start/Stop</i>
-  <b>Control+i</b>      <i>Set priority</i>
-  <b>Control+o</b>      <i>Open</i>
-  <b>Control+T</b>      <i>Switch context</i>
-  <b>Control+S</b>      <i>Wait</i>
+  <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
+  <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
+  <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
+  <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Control+T</b> <i>Switch context</i>
+  <b>Ctrl+i</b>    <i>Set priority</i> |
+  ----
   <b>Tab</b>            <i>Mark</i>
 STR
 
