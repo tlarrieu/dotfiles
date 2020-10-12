@@ -16,9 +16,14 @@ folder="#268bd2"
 file="#d33682"
 
 selection=$(\
-  find "$path"* -maxdepth 0 -printf "<span foreground='%y'>%f</span>\n" \
-  | sed -e "s/<span foreground='d'>/<span foreground='$folder'> /" \
-  | sed -e "s/<span foreground='f'>/<span foreground='$file'> /" \
+  find \
+    "$path"* \
+    -maxdepth 0 \
+    -printf "<span foreground='%y'> " \
+    -exec sh -c '[ $(find "{}"/* -maxdepth 0 -type d 2> /dev/null | wc -l) -gt 0 ] && echo -n "*" || echo -n " "' \; \
+    -printf " %f</span>\n" \
+  | sed -e "s/<span foreground='d'>/<span foreground='$folder'>/" \
+  | sed -e "s/<span foreground='f'>/<span foreground='$file'>/" \
   | sed -e "s/&/&amp;/g" \
   | rofi \
     -dmenu \
@@ -36,7 +41,7 @@ selection=$(\
 )
 rofi_signal=$?
 
-selection=$(awk -F' ' '{$1=""} {print substr($0,2)}' <<< $selection)
+selection=$(awk -F' ' '{print substr($0,5)}' <<< $selection)
 
 list=$(sed -e "s#^#$path#" <<< $selection)
 
