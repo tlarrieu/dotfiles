@@ -43,6 +43,7 @@ today = lambda do |task|
 
   parse_time(task['scheduled']) <= Time.now
 end
+wait = ->(task) { task['wait'] }
 later = lambda do |task|
   return unless task['scheduled']
 
@@ -65,6 +66,10 @@ String.class_eval do
     return self unless color
 
     "<span foreground='#{color}'>#{self}</span>"
+  end
+
+  def escape
+    strip.gsub(' ', '\ ')
   end
 end
 
@@ -103,6 +108,7 @@ end
 tasklist.each do |entry|
   category =
     case entry
+    when wait then nil
     when started then 'started'
     when inbox then 'inbox'
     when today then 'today'
@@ -114,7 +120,7 @@ tasklist.each do |entry|
     end
 
   tasks['recent'] << entry if recent.call(entry)
-  tasks[category] << entry
+  tasks[category] << entry if category
 end
 
 help = <<~STR.strip
@@ -126,6 +132,7 @@ help = <<~STR.strip
   <b>Control+i</b>      <i>Set priority</i>
   <b>Control+o</b>      <i>Open</i>
   <b>Control+T</b>      <i>Switch context</i>
+  <b>Control+S</b>      <i>Wait</i>
   <b>Tab</b>            <i>Mark</i>
 STR
 
@@ -148,6 +155,7 @@ rofi = <<~STR.strip
     -kb-custom-6 "Control+i" \
     -kb-custom-7 "Control+o" \
     -kb-custom-8 "Control+T" \
+    -kb-custom-9 "Control+S" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -199,13 +207,13 @@ when 12 # 'Control+d'
     uuids.each { |uuid| `task rc.confirmation:0 delete #{uuid}` }
   end
 when 13 # 'Control+s'
-  sched = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`
+  sched =
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
   if sched.length >= 0
+    dir = sched.strip.empty? ? '+' : '-'
     msg = "You are about to schedule #{uuids.size} element(s). Is that OK?"
-    if uuids.size == 1 || confirm(msg)
-      cmd = "task rc.confirmation:0 %s mod -inbox -someday sched:#{sched}"
-      uuids.each { |uuid| `#{cmd % uuid}` }
-    end
+    cmd = "task rc.confirmation:0 %s mod #{dir}inbox -someday sched:#{sched}"
+    uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
 when 14 # 'Control+t'
   uuids.each do |uuid|
@@ -249,6 +257,14 @@ when 17 # 'Control+T'
     end
 
   `fish -c "cont #{context}"`
+when 18 # 'Control+S'
+  sched =
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
+  if sched.length >= 0
+    msg = "You are about to wait on #{uuids.size} element(s). Is that OK?"
+    cmd = "task rc.confirmation:0 %s mod wait:#{sched}"
+    uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
+  end
 end
 
 Process.spawn($0)
