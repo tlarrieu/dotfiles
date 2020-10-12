@@ -33,8 +33,6 @@ awful.rules.rules = {
         "gtgf",
         "kitty-light",
         "Xephyr",
-        "scratchpad",
-        "wiki",
       },
       instance = {
         "meet.google.com"
@@ -78,8 +76,7 @@ awful.rules.rules = {
     },
     properties = {
       floating = true,
-      width = 1920,
-      height = 1080,
+      placement = awful.placement.centered,
     },
   },
 
