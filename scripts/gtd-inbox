@@ -1,8 +1,8 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
-LAUNCHER2='rofi -dmenu -lines 9 -i -p '
-OPTIONS="Inbox\nHome\nWork\nConnect\nCSE\nManagement\nContinuous Improvement\nCourses\nSomeday"
+LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
+LAUNCHER2='rofi -dmenu -lines 10 -i -p '
+OPTIONS="Inbox\nHome\nWork\nConnect\nRetrospective\nCSE\nManagement\nContinuous Improvement\nCourses\nSomeday"
 
 input=$(eval $LAUNCHER)
 
@@ -24,6 +24,9 @@ if [[ -n "$input" ]]; then
         ;;
       Connect)
         args="+inbox +@work project:connect"
+        ;;
+      Retrospective)
+        args="project:retrospective"
         ;;
       "Continuous Improvement")
         args="project:improvements"
