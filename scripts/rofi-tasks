@@ -85,7 +85,9 @@ output = lambda do |label, key, color|
       sched: parse_time(task['scheduled']).fit_in(10, ''),
       desc: "#{label} #{task['description']}#{annot}".
         fit_in(110, '…').
-        gsub('&', '&amp;'),
+        gsub('&', '&amp;').
+        gsub('<', '&lt;').
+        gsub('>', '&gt;'),
       proj: task['project'].fit_in(12, '…'),
       tags: task['tags']&.join(', '),
       id: task['uuid'].split('-')[0]
