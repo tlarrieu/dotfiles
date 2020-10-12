@@ -6,7 +6,9 @@ require 'json'
 require 'date'
 require 'dotenv'
 
-Dotenv.load('~/.context.env')
+# `overload` instead of `load` because we want to be able to alter the ENV at
+# runtime (for context switching)
+Dotenv.overload('~/.context.env')
 
 context =
   if ENV['CONTEXT'] == 'home'
@@ -121,6 +123,7 @@ help = <<~STR.strip
   <b>Control+t</b>      <i>Start/Stop</i>
   <b>Control+i</b>      <i>Set priority</i>
   <b>Control+o</b>      <i>Open</i>
+  <b>Control+T</b>      <i>Switch context</i>
   <b>Tab</b>            <i>Mark</i>
 STR
 
@@ -142,6 +145,7 @@ rofi = <<~STR.strip
     -kb-custom-5 "Control+t" \
     -kb-custom-6 "Control+i" \
     -kb-custom-7 "Control+o" \
+    -kb-custom-8 "Control+T" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -234,6 +238,15 @@ when 16 # 'Control+o'
   `yes | taskopen -b #{uuids.join(' ')}`
 
   exit 0
+when 17 # 'Control+T'
+  context =
+    case ENV['CONTEXT']
+    when 'home' then 'work'
+    when 'work' then 'home'
+    else 'home'
+    end
+
+  `fish -c "cont #{context}"`
 end
 
 Process.spawn($0)
