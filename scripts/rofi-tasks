@@ -137,7 +137,7 @@ rofi = <<~STR.strip
   rofi \
     -dmenu \
     -i \
-    -p  \
+    -p  \
     -mesg '#{help}' \
     -no-history \
     -lines 22 \
