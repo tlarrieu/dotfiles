@@ -37,8 +37,13 @@ end
 
 class Browser < SearchEngine
 
+  def initialize(target, prefixes: [], profile: nil)
+    super(target, prefixes: prefixes)
+    @profile = profile
+  end
+
   def run(str)
-    `browser-kiosk '#{combine(str)}'`
+    `browser-kiosk #{@profile} '#{combine(str)}'`
   end
 
   def escape(str)
@@ -59,30 +64,30 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
-  'yt'   => Browser.new('https://www.youtube.com/results?q=%s'),
+  'yt'   => Browser.new('https://www.youtube.com/results?q=%s', profile: 'perso'),
   'map'  => Browser.new('https://www.google.com/maps/search/%s/'),
   'aw'   => Browser.new(
               'https://duckduckgo.com/?ia=web&q=%s',
-              prefixes: ['site:https://awesomewm.org/doc']
+              prefixes: ['site:https://awesomewm.org/doc'],
+              profile: 'perso'
             ),
-  'am'   => Browser.new('https://www.amazon.fr/s?k=%s'),
+  'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
   'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
-  'va'   => Browser.new('https://vimawesome.com/?q=%s'),
   'g'    => BrowserRaw.new('https://github.com/%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
-  'm'    => Browser.new('https://scryfall.com/search?q=%s'),
+  'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
   'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
-  'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter'),
+  'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
-  'r'    => Browser.new('https://reddit.com/r/%s'),
+  'r'    => Browser.new('https://reddit.com/r/%s', profile: 'perso'),
   'gem'  => Browser.new('https://rubygems.org/search?query=%s'),
-  't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s'),
+  't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s', profile: 'perso'),
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
-  'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080'),
+  'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=1920x1080', profile: 'perso'),
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
-  'ym'   => Browser.new('https://music.youtube.com/search?q=%s'),
+  'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
   'man'  => Man.new
 }
 # rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
