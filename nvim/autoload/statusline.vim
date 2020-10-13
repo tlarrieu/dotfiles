@@ -4,11 +4,11 @@ function! statusline#Modified()
   endif
 
   if &modified
-    return '+'
+    return ''
   endif
 
   if !&modifiable
-    return '-'
+    return ''
   end
 
   return ''
