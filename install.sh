@@ -182,7 +182,15 @@ case $answer in
 
     search="the_silver_searcher mlocate"
 
-    files="vifm linopen udiskie thunar atool lsd"
+    files="vifm
+      linopen
+      udiskie
+      thunar
+      atool
+      lsd
+      tumbler
+      tumbler-extra-thumbnailers
+      ffmpegthumbnailer"
 
     essential="git fzf rofi pass"
 
