@@ -24,8 +24,8 @@ function edit_status {
   fi
 }
 
-HELP="<b>Return</b>         <i>Copy password</i>
-<b>Shift+Return</b>   <i>Copy login</i>
+HELP="<b>Return</b>         <i>Insert password</i>
+<b>Shift+Return</b>   <i>Insert login</i>
 <b>Control+Return</b> <i>Edit entry</i>
 <b>Alt+Return</b>     <i>Generate new password</i>"
 
@@ -59,12 +59,16 @@ if [ ${#option} -gt 0 ]; then
   # The exit code for -kb-custom-X is X+9
   case $rofi_signal in
     10)
-      pass show "$option" -c1
-      copy_status
+      xdotool type \
+        --clearmodifiers \
+        --delay=0 \
+        $(pass show "$option" | head -n 1)
       ;;
     11)
-      pass show "$option" -c2
-      copy_status
+      xdotool type \
+        --clearmodifiers \
+        --delay=0 \
+        $(pass show "$option" | head -n 2 | tail -n 1)
       ;;
     12)
       kitty -- fish -c "pass edit '$option'"

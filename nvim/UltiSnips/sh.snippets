@@ -30,6 +30,12 @@ snippet -- "Line comment"
 # -- [[ ${1} ]] ----------------------------------------------------------------
 endsnippet
 
+snippet d "function"
+function ${1:name} {
+	$0
+}
+endsnippet
+
 snippet if "if statement"
 if [ ${1:statement} ]; then
 	${2:body}
