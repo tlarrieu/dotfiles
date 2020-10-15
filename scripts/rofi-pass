@@ -24,8 +24,20 @@ function edit_status {
   fi
 }
 
-HELP="<b>Return</b>         <i>Insert password</i>
-<b>Shift+Return</b>   <i>Insert login</i>
+function type {
+  xdotool type --clearmodifiers --delay=0 $1
+}
+
+function password {
+  echo $(pass show "$option" | head -n 1)
+}
+
+function login {
+  echo $(pass show "$option" | head -n 2 | tail -n 1)
+}
+
+HELP="<b>Return</b>         <i>Autofill</i>
+<b>Shift+Return</b>   <i>Insert password or login</i>
 <b>Control+Return</b> <i>Edit entry</i>
 <b>Alt+Return</b>     <i>Generate new password</i>"
 
@@ -52,23 +64,34 @@ option=$(\
 rofi_signal=$?
 
 if [ ${#option} -gt 0 ]; then
-  notify-send \
-    "Decrypting …" \
-    "Pass is trying to decrypt <b>${option}</b>"
-
   # The exit code for -kb-custom-X is X+9
   case $rofi_signal in
     10)
-      xdotool type \
-        --clearmodifiers \
-        --delay=0 \
-        $(pass show "$option" | head -n 1)
+      type $(login)
+      xdotool key Tab
+      type $(password)
+      xdotool key Return
       ;;
     11)
-      xdotool type \
-        --clearmodifiers \
-        --delay=0 \
-        $(pass show "$option" | head -n 2 | tail -n 1)
+      answer=$(\
+        echo -e "Password\nLogin" \
+        | rofi \
+            -dmenu \
+            -lines 2 \
+            -i \
+            -p  \
+            -no-history \
+      )
+      if [ ${#answer} -gt 0 ]; then
+        case $answer in
+          "Password")
+            type $(password)
+            ;;
+          *)
+            type $(login)
+            ;;
+        esac
+      fi
       ;;
     12)
       kitty -- fish -c "pass edit '$option'"
