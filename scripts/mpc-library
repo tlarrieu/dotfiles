@@ -12,6 +12,14 @@ cd $library
 
 path=$1
 
+help="
+  <b>Return</b>   <i>Play selected</i>
+  <b>Ctrl+i</b>   <i>cd dir</i>
+  <b>Ctrl+o</b>   <i>cd ..</i>
+  <b>Ctrl+t</b>   <i>Play current dir</i>
+  ----
+  <b>Tab</b>      <i>Mark</i>"
+
 folder="#268bd2"
 file="#d33682"
 
@@ -31,6 +39,7 @@ selection=$(\
     -format p \
     -i \
     -p "library" \
+    -mesg "$help" \
     -multi-select \
     -no-history \
     -kb-custom-1 "Control+o" \
