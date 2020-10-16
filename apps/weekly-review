@@ -1,0 +1,5 @@
+#!/bin/sh
+
+root="~/.vimwiki/work/weekly-review/"
+
+kitty --directory $root --class wiki -- nvim index.md

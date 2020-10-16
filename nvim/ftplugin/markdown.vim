@@ -26,3 +26,17 @@ vmap <silent> <buffer> <leader>$ :'<,'>ExecuteSQL<cr>
 vmap <buffer> <leader>b S*gvS*eee
 vmap <buffer> <leader>i S*ee
 vmap <buffer> <leader>s S~gvS~eee
+
+function! Review()
+  let date = strftime("%Y-%m-%d")
+  let entry = "# [" . l:date . "](" . l:date . ")"
+  keepjumps execute "normal! ggO" . l:entry . "\<esc>"
+endfunction
+
+command!
+  \ -buffer
+  \ Review
+  \ call Review()
+
+cnoreabbrev <expr> rev
+  \ getcmdtype() == ":" && getcmdline() == 'rev' ? 'Review' : 'rev'
