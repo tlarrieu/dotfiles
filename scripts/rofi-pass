@@ -58,7 +58,7 @@ option=$(\
       -kb-accept-entry "" \
       -kb-accept-custom "" \
       -kb-accept-alt "" \
-      -mesg "$HELP" \
+      -mesg "$HELP"
 )
 
 rofi_signal=$?
@@ -108,8 +108,7 @@ if [ ${#option} -gt 0 ]; then
               -i \
               -p  \
               -no-history \
-              -mesg " You are about to change password for <b>$option</b>.
-  Is that OK?" \
+              -mesg " You are about to change password for <b>$option</b>. Is that OK?"
         )
         if [ ${#answer} -gt 0 ]; then
           case $answer in

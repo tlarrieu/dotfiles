@@ -133,7 +133,7 @@ priority =
   end
 
 help = <<~STR.strip
-  #{(priority.nil? ? '' : "<b>Week goal</b>: #{priority}\n").colorize('#dc322f')}
+  #{(priority.nil? ? nil : "<b>Week goal</b>: #{priority}\n")&.colorize('#dc322f')}
   <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
   <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
