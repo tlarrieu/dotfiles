@@ -67,10 +67,18 @@ if [ ${#option} -gt 0 ]; then
   # The exit code for -kb-custom-X is X+9
   case $rofi_signal in
     10)
-      type $(login)
-      xdotool key Tab
-      type $(password)
-      xdotool key Return
+      case "$option" in
+      perso/linux)
+        type $(password)
+        xdotool key Return
+        ;;
+      *)
+        type $(login)
+        xdotool key Tab
+        type $(password)
+        xdotool key Return
+        ;;
+      esac
       ;;
     11)
       answer=$(\
