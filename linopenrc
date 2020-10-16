@@ -17,31 +17,31 @@ interm=nvim
 
 # 1. File extension
 # .png:viewnior
-# .mp4:vlc
+# .mp4:mpv
 # .txt:vim
 .pdf:zathura
 .torrent:aria2c->interm
 
 # 2. Mime type
 # image/png:viewnior
-# video/mp4:vlc
+# video/mp4:mpv
 
 # 3. Mime category
 image:viewnior
-video:vlc
-audio:vlc
+video:mpv
+audio:mpv
 text:nvim->interm
 
 # 4. Regexp
 # Match some protocols by default
 ?'^magnet:':aria2c->interm
-?'^https:\/\/www\.youtube\.com':vlc
+?'^https:\/\/www\.youtube\.com':mpv
 ?'^http:\/\/':browser-kiosk
 ?'^https:\/\/':browser-kiosk
 ?'^www.':browser-kiosk
 ?'^zoommtg:\/\/':zoom
-?'^dvd:\/\/':vlc
-?'^cdda:\/\/':vlc->interm
+?'^dvd:\/\/':mpv
+?'^cdda:\/\/':mpv->interm
 
 # Directory rule for directories
 # ideally you want to use file manager
