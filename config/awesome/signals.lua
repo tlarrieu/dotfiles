@@ -86,7 +86,7 @@ local rules = {
   { class = "Chromium", instance = "whimsical.co", icon = "" },
   { class = "Chromium", instance = "reddit.com", icon = "" },
   { class = "Chromium", instance = "rubygems", icon = "" },
-  { class = "Chromium", instance = "pratebay", icon = "" },
+  { class = "Chromium", instance = "pratebay", icon = "" },
   { class = "Chromium", instance = "hoogle", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
