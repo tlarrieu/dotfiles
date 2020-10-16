@@ -125,7 +125,15 @@ tasklist.each do |entry|
   tasks[category] << entry if category
 end
 
+priority =
+  begin
+    IO.readlines(".priorities.#{ENV['CONTEXT']}")[0]&.strip
+  rescue Errno::ENOENT
+    nil
+  end
+
 help = <<~STR.strip
+  #{(priority.nil? ? '' : "<b>Week goal</b>: #{priority}\n").colorize('#dc322f')}
   <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
   <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
@@ -140,7 +148,7 @@ rofi = <<~STR.strip
     -dmenu \
     -i \
     -p  \
-    -mesg '#{help}' \
+    -mesg "#{help}" \
     -no-history \
     -lines 22 \
     -multi-select \
