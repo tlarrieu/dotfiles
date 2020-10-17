@@ -146,6 +146,7 @@ local rules = {
   { class = "Steam", icon = "" },
   -- PlayOnLinux
   { class = "Mainwindow.py", icon = "" },
+  { class = "Lutris", icon = "" },
   { class = "Wine", icon = "" },
   { class = "Zathura", icon = "" },
   { class = "kitty", icon = "" },
