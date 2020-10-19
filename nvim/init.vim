@@ -473,8 +473,8 @@ vmap <leader>d :Linediff<cr>
 " }}}
 " {{{ ==| Various keyboard mapping |============================================
 " {{{ --| Splits / Tabs |-----------------------------------
-nnoremap co :tabo<cr><c-w>o
-nnoremap <leader>o <c-w>o
+nnoremap cO :tabo<cr><c-w>o
+nnoremap co <c-w>o
 " Hack to make <c-w><c-c> mapping work
 noremap <c-w><c-c> <c-w>H
 noremap <c-w><c-t> <c-w>J
