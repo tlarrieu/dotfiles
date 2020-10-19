@@ -7,9 +7,14 @@ awful.layout.set(awful.layout.suit.tile.left)
 " | awesome-client
 
 # Start Xephyr session
-Xephyr -ac -noreset -resizeable :1.0 2> /dev/null &
+Xephyr \
+  -ac \
+  -noreset \
+  -resizeable :1.0 \
+  -keybd ephyr,,,xkbmodel=pc105,xkblayout=fr,xkbvariant=bepo,xkbrules=evdev,xkboptions="ctrl:nocaps,terminate:ctrl_alt_bksp" \
+  2> /dev/null &
 ZEPHYR_PID=$!
-sleep 0.2
+sleep 0.05
 
 # Run awesome
 export DISPLAY=:1.0
