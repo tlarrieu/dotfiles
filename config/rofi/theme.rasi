@@ -9,7 +9,7 @@
   urgent: @red;
 
   mesg-gutter: 1em 1em 0.5em 1em;
-  list-gutter: 0.5em 1em 1em 1em;
+  list-gutter: 0.5em;
   elem-gutter: 0.3em 0.5em;
 }
 
