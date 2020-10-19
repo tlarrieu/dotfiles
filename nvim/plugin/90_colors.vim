@@ -40,7 +40,7 @@ function! s:overlength()
   let l:ft_exclude = index(l:exclude['filetype'], &filetype) != -1
   let l:bt_exclude = index(l:exclude['buftype'], &buftype) != -1
 
-  if l:ft_exclude || l:bt_exclude
+  if l:ft_exclude || l:bt_exclude || &textwidth == 0
     execute 'match Folded //'
   else
     execute 'match Folded /\%' . (&textwidth + 1) . 'v.\+/'
