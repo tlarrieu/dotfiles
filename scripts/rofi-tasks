@@ -138,8 +138,8 @@ help = <<~STR.strip
   <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
   <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
-  <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Control+T</b> <i>Switch context</i>
-  <b>Ctrl+i</b>    <i>Set priority</i> |
+  <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Control+T</b> <i>Switch global context</i>
+  <b>Ctrl+i</b>    <i>Set priority</i> | <b>Control+b</b> <i>Change context</i>
   ----
   <b>Tab</b>            <i>Mark</i>
 STR
@@ -164,10 +164,12 @@ rofi = <<~STR.strip
     -kb-custom-7 "Control+o" \
     -kb-custom-8 "Control+T" \
     -kb-custom-9 "Control+S" \
+    -kb-custom-10 "Control+b" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
     -kb-accept-alt "Tab" \
+    -kb-move-char-back "Left" \
     -kb-row-tab ""
 STR
 
@@ -272,6 +274,27 @@ when 18 # 'Control+S'
   if sched.length >= 0
     msg = "You are about to wait on #{uuids.size} element(s). Is that OK?"
     cmd = "task rc.confirmation:0 %s mod wait:#{sched}"
+    uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
+  end
+when 19 # 'Control+b'
+  rofi = <<~STR.strip
+    rofi \
+      -dmenu \
+      -lines 3 \
+      -i \
+      -p  \
+      -no-history
+  STR
+
+  context = {
+    'Home' => '+@home -@work',
+    'Work' => '-@home +@work',
+    'None' => '-@home -@work'
+  }[`echo -e "Home\nWork\nNone" | #{rofi}`.strip]
+
+  if context
+    msg = "You are about to change context of #{uuids.size} element(s). Is that OK?"
+    cmd = "task rc.confirmation:0 %s mod #{context}"
     uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
 end
