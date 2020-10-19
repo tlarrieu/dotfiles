@@ -139,7 +139,7 @@ local rules = {
 
   { class = "Chromium", icon = "" },
   { class = "firefox", icon = "" },
-  { class = "Cockatrice", icon = "﬷" },
+  { class = "Cockatrice", icon = "" },
   { class = "RoomArranger", icon = "沈" },
   { class = "Luakit", icon = "" },
   { class = "nyxt", icon = "" },
