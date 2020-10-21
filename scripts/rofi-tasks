@@ -128,13 +128,20 @@ end
 
 priority =
   begin
-    IO.readlines(".priorities.#{ENV['CONTEXT']}")[0]&.strip
+    lines = IO.
+      readlines("#{ENV['HOME']}/.priorities.#{ENV['CONTEXT']}").
+      map(&:strip)
+
+    case lines.size
+    when 0 then nil
+    when 1 then lines[0]
+    else "\n#{lines.map { |line| "- #{line}" }.join("\n")}"
+    end
   rescue Errno::ENOENT
     nil
   end
 
 help = <<~STR.strip
-  #{(priority.nil? ? nil : "<b>Week goal</b>: #{priority}\n")&.colorize('#dc322f')}
   <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
   <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
@@ -142,6 +149,7 @@ help = <<~STR.strip
   <b>Ctrl+i</b>    <i>Set priority</i> | <b>Control+b</b> <i>Change context</i>
   ----
   <b>Tab</b>            <i>Mark</i>
+  #{(priority.nil? ? nil : "\n<b>Week goal</b>:#{priority}")&.colorize('#dc322f')}
 STR
 
 rofi = <<~STR.strip
