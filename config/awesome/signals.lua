@@ -79,6 +79,7 @@ local rules = {
   { class = "Chromium", instance = "citymapper.com", icon = "" },
   { class = "Chromium", instance = "hub.docker.com", icon = "" },
   { class = "Chromium", instance = "appsignal.com", icon = "" },
+  { class = "Chromium", instance = "bugsnag.com", icon = "" },
   { class = "Chromium", instance = "linkedin.com", icon = "" },
   { class = "Chromium", instance = "discord.com", icon = "" },
   { class = "Chromium", instance = "wallhaven.cc", icon = "" },
