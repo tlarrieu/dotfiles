@@ -49,6 +49,7 @@ local rules = {
   { class = "Chromium", instance = "keep.google.com" , icon = "ﯚ" },
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
+  { class = "Chromium", instance = "groups.google.com", icon = "ﯬ" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
