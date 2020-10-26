@@ -6,15 +6,20 @@ require 'cgi'
 
 class SearchEngine
 
-  def initialize(target, prefixes: [])
+  def initialize(target, fallback: nil, prefixes: [])
     @target = target
+    @fallback = fallback
     @prefix = prefixes.map { |s| "#{s} " }.join
   end
 
   private
 
   def combine(str)
-    @target % escape("#{@prefix}#{str}")
+    if @target.empty? || !@fallback
+      @target % escape("#{@prefix}#{str}")
+    else
+      @fallback % escape("#{@prefix}#{str}")
+    end
   end
 
 end
@@ -37,8 +42,8 @@ end
 
 class Browser < SearchEngine
 
-  def initialize(target, prefixes: [], profile: nil)
-    super(target, prefixes: prefixes)
+  def initialize(target, fallback: nil, prefixes: [], profile: nil)
+    super(target, fallback: fallback, prefixes: prefixes)
     @profile = profile
   end
 
@@ -64,7 +69,11 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
-  'yt'   => Browser.new('https://www.youtube.com/results?q=%s', profile: 'perso'),
+  'yt'   => Browser.new(
+              'https://www.youtube.com/results?q=%s',
+              fallback: 'https://www.youtube.com/',
+              profile: 'perso'
+            ),
   'map'  => Browser.new('https://www.google.com/maps/search/%s/'),
   'aw'   => Browser.new(
               'https://duckduckgo.com/?ia=web&q=%s',
