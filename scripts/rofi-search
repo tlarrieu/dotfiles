@@ -15,10 +15,10 @@ class SearchEngine
   private
 
   def combine(str)
-    if @target.empty? || !@fallback
-      @target % escape("#{@prefix}#{str}")
-    else
+    if str.strip.empty? && !@fallback.nil?
       @fallback % escape("#{@prefix}#{str}")
+    else
+      @target % escape("#{@prefix}#{str}")
     end
   end
 
