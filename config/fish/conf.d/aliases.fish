@@ -164,10 +164,10 @@ abbr h "hoogle"
 abbr b "bhoogle"
 
 # Docker
-abbr dc "sudo docker-compose"
-abbr dcu "sudo docker-compose up -d"
-abbr dcd "sudo docker-compose down"
-abbr d "sudo docker"
+abbr dc "docker-compose"
+abbr dcu "docker-compose up -d"
+abbr dcd "docker-compose down"
+abbr d "docker"
 
 # Kubernetes
 abbr k "kubectl"
