@@ -81,6 +81,7 @@ searchengines = {
               profile: 'perso'
             ),
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
+  'l'    => Browser.new('http://localhost:%s'),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
   'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
