@@ -68,11 +68,9 @@ if [ ${#option} -gt 0 ]; then
   case $rofi_signal in
     10)
       case "$option" in
-      perso/linux)
-        type $(password)
-        xdotool key Return
-        ;;
-      pro/okta)
+      perso/linux | \
+      pro/okta | \
+      */google)
         type $(password)
         xdotool key Return
         ;;
