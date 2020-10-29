@@ -114,7 +114,7 @@ tasklist.each do |entry|
     when started then 'started'
     when inbox then 'inbox'
     when today then 'today'
-    when shopping then 'shopping'
+    when shopping then 'course'
     when improvements then 'improvements'
     when retrospective then 'retrospective'
     when later then 'later'
@@ -185,7 +185,7 @@ results = `echo -n "#{[
   output.call('', 'started', '#859900'),
   output.call('', 'today', '#b58900'),
   output.call('', 'inbox', '#93a1a1'),
-  output.call('', 'shopping', '#93a1a1'),
+  output.call('', 'course', '#93a1a1'),
   output.call('', 'improvements', '#268bd2'),
   output.call('', 'retrospective', '#6c71c4'),
   output.call('', 'recent', '#d33682'),
