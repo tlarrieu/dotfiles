@@ -72,6 +72,10 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         xdotool key Return
         ;;
+      pro/okta)
+        type $(password)
+        xdotool key Return
+        ;;
       *)
         type $(login)
         xdotool key Tab
