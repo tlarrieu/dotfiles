@@ -1,3 +1,0 @@
-#!/bin/sh
-
-browser-kiosk pro "https://app.gitprime.com/v2/org/jobteaser/home"
