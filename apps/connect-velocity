@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://docs.google.com/spreadsheets/d/1XfF_CW9V7FJdo8MZyuCRkxe5iN0YBBjlJvBAfjSc1TA/edit#gid=626555901"
