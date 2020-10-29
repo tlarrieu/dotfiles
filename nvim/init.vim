@@ -164,7 +164,7 @@ set wildignorecase
 " ctags
 set tags=.tags,./.tags,./tags,tags
 " mouse
-set mouse=
+set mouse=a
 " Command completion style
 set wildmode=list:full,full
 set complete=.,w,b,u,t,i
@@ -489,10 +489,10 @@ nmap <leader>ve :vnew <c-r>=escape(expand("%:p:h"), ' ') . '/'<cr>
 " Dimensions
 nmap <leader>= <c-w>=
 nmap <leader>% :res<cr>:vertical res<cr>
-nnoremap <c-right> <c-w>>
-nnoremap <c-left> <c-w><
-nnoremap <c-up> <c-w>-
-nnoremap <c-down> <c-w>+
+nnoremap <m-l> <c-w>>
+nnoremap <m-h> <c-w><
+nnoremap <m-k> <c-w>-
+nnoremap <m-j> <c-w>+
 " Moving around
 nmap <tab> <c-w>w
 nmap <s-tab> <c-w>W
