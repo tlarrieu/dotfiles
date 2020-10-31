@@ -70,6 +70,7 @@ if [ ${#option} -gt 0 ]; then
       case "$option" in
       perso/linux | \
       pro/okta | \
+      perso/microsoft |\
       */google)
         type $(password)
         xdotool key Return
