@@ -214,7 +214,7 @@ case $answer in
     multimedia="
       manjaro-pulse pulsemixer
       mpc mpd mpv
-      youtube-dl
+      youtube-dlc
       sxiv feh
       imagemagick
       "
@@ -247,6 +247,8 @@ case $answer in
       $writing \
       $bluetooth \
       $fonts
+
+    sudo ln -sf /usr/bin/youtube-dlc /usr/bin/youtube-dl
 
     sudo pip install neovim
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
