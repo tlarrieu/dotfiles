@@ -14,13 +14,14 @@ function! ConfigureExecute()
   if(search("#!", 'n') == 0)
     nnoremap <silent> <buffer> <return> :TestLast \| Topen<cr>
   else
-    nnoremap <silent> <buffer> <return> :T ruby %<cr>
+    if(search("#!/usr/bin/env ruby", 'n') == 1)
+      nnoremap <silent> <buffer> <return> :T ruby %<cr>
+    endif
   endif
 endfunction
 
 augroup Test
   autocmd!
-  autocmd BufEnter ConfigureExecute()
   autocmd BufEnter scripts/*,*.rb call ConfigureExecute()
   autocmd BufEnter *_spec.rb,*_test.rb
         \ nnoremap <silent> <buffer> <leader><return>
