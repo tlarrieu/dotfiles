@@ -147,7 +147,7 @@ help = <<~STR.strip
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Ctrl+S</b> <i>Wait</i>
   <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Ctrl+T</b> <i>Switch global context</i>
   <b>Ctrl+i</b>    <i>Set priority</i> | <b>Ctrl+b</b> <i>Change context</i>
-  <b>Ctrl+B</b>    <i>Annotate</i>     |
+  <b>Ctrl+B</b>    <i>Annotate</i>     | <b>Ctrl+l</b> <i>Change labels</i>
   ----
   <b>Tab</b>            <i>Mark</i>
   #{(priority.nil? ? nil : "\n<b>Week goal</b>:#{priority}")&.colorize('#dc322f')}
@@ -175,6 +175,7 @@ rofi = <<~STR.strip
     -kb-custom-9 "Control+S" \
     -kb-custom-10 "Control+b" \
     -kb-custom-11 "Control+B" \
+    -kb-custom-12 "Control+l" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -309,11 +310,27 @@ when 19 # 'Control+b'
   end
 when 20 # 'Control+B'
   annotation =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
+    strip.
+    escape
 
-  if annotation
+  unless annotation.empty?
     msg = "You are about to annotate #{uuids.size} element(s). Is that OK?"
     cmd = "task rc.confirmation:0 %s annotate #{annotation}"
+    uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
+  end
+when 21 # 'Control+B'
+  labels =
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
+    strip.
+    escape
+
+  print("\e[31m")
+  puts(labels)
+  print("\e[0m")
+  unless labels.empty?
+    msg = "You are about to change labels of #{uuids.size} element(s). Is that OK?"
+    cmd = "task rc.confirmation:0 %s mod #{labels}"
     uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
 end
