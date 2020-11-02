@@ -35,6 +35,7 @@ tasklist = JSON.parse(raw_tasks)
 
 tasks = Hash.new { |h, k| h[k] = [] }
 
+communication = ->(task) { task['project'] == 'communication' }
 inbox = ->(task) { task['tags']&.include?('inbox') }
 someday = ->(task) { task['tags']&.include?('someday') }
 started = ->(task) { task['start'] }
@@ -112,6 +113,7 @@ tasklist.each do |entry|
     case entry
     when wait then nil
     when started then 'started'
+    when communication then 'communication'
     when inbox then 'inbox'
     when today then 'today'
     when shopping then 'course'
@@ -186,6 +188,7 @@ STR
 
 results = `echo -n "#{[
   output.call('', 'started', '#859900'),
+  output.call('', 'communication', '#d33682'),
   output.call('', 'today', '#b58900'),
   output.call('', 'inbox', '#93a1a1'),
   output.call('', 'course', '#93a1a1'),

@@ -2,7 +2,18 @@
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
 LAUNCHER2='rofi -dmenu -lines 10 -i -p '
-OPTIONS="Inbox\nHome\nWork\nConnect\nRetrospective\nCSE\nManagement\nContinuous Improvement\nCourses\nSomeday"
+OPTIONS="Inbox\n\
+Home\n\
+Work\n\
+Connect\n\
+Retrospective\n\
+CSE\n\
+Management\n\
+Communication\n\
+Management\n\
+Continuous Improvement\n\
+Courses\n\
+Someday"
 
 input=$(eval $LAUNCHER)
 
@@ -21,6 +32,9 @@ if [[ -n "$input" ]]; then
         ;;
       Management)
         args="+inbox +@work project:mgt"
+        ;;
+      Communication)
+        args="+inbox +@work project:communication"
         ;;
       Connect)
         args="+inbox +@work project:connect"
