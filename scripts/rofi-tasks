@@ -147,6 +147,7 @@ help = <<~STR.strip
   <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
   <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Control+T</b> <i>Switch global context</i>
   <b>Ctrl+i</b>    <i>Set priority</i> | <b>Control+b</b> <i>Change context</i>
+  <b>Ctrl+B</b>    <i>Annotate</i>     |
   ----
   <b>Tab</b>            <i>Mark</i>
   #{(priority.nil? ? nil : "\n<b>Week goal</b>:#{priority}")&.colorize('#dc322f')}
@@ -173,6 +174,7 @@ rofi = <<~STR.strip
     -kb-custom-8 "Control+T" \
     -kb-custom-9 "Control+S" \
     -kb-custom-10 "Control+b" \
+    -kb-custom-11 "Control+B" \
     -kb-accept-entry "" \
     -kb-remove-char-forward "Delete" \
     -kb-accept-custom "" \
@@ -305,6 +307,17 @@ when 19 # 'Control+b'
     cmd = "task rc.confirmation:0 %s mod #{context}"
     uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
+when 20 # 'Control+B'
+  annotation =
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
+
+  if annotation
+    msg = "You are about to annotate #{uuids.size} element(s). Is that OK?"
+    cmd = "task rc.confirmation:0 %s annotate #{annotation}"
+    uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
+  end
 end
 
 Process.spawn($0)
+
+# vim: tw=100
