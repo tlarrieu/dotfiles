@@ -142,11 +142,11 @@ priority =
   end
 
 help = <<~STR.strip
-  <b>Return</b>    <i>Done</i>         | <b>Control+d</b> <i>Delete</i>
-  <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Control+o</b> <i>Open</i>
-  <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Control+S</b> <i>Wait</i>
-  <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Control+T</b> <i>Switch global context</i>
-  <b>Ctrl+i</b>    <i>Set priority</i> | <b>Control+b</b> <i>Change context</i>
+  <b>Return</b>    <i>Done</i>         | <b>Ctrl+d</b> <i>Delete</i>
+  <b>Ctrl+Ret.</b> <i>Edit</i>         | <b>Ctrl+o</b> <i>Open</i>
+  <b>Ctrl+s</b>    <i>Schedule</i>     | <b>Ctrl+S</b> <i>Wait</i>
+  <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Ctrl+T</b> <i>Switch global context</i>
+  <b>Ctrl+i</b>    <i>Set priority</i> | <b>Ctrl+b</b> <i>Change context</i>
   <b>Ctrl+B</b>    <i>Annotate</i>     |
   ----
   <b>Tab</b>            <i>Mark</i>
