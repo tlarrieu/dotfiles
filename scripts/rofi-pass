@@ -71,6 +71,7 @@ if [ ${#option} -gt 0 ]; then
       perso/linux | \
       pro/okta | \
       perso/microsoft |\
+      perso/amazon |\
       */google)
         type $(password)
         xdotool key Return
