@@ -110,6 +110,7 @@ function fish_prompt
     set count $SHLVL
   end
 
+  echo -ns "❯"
   for x in (seq $count)
     echo -ns "❯"
   end

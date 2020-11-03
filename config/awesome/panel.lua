@@ -6,7 +6,7 @@ local apply_dpi = require('beautiful.xresources').apply_dpi
 local lain = require("lain")
 
 local font = "Fira Code 11"
-local tagsfont = "Fira Code Retina 20"
+local tagsfont = "Fira Code Retina 16"
 local clockfont = "Fira Code 11"
 
 local colorize = function(widget, value)
