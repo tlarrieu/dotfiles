@@ -227,7 +227,11 @@ case $answer in
 
     bluetooth="bluez bluez-utils pulseaudio-bluetooth"
 
-    fonts="ttf-fira-code nerd-fonts-inconsolata terminus-font"
+    fonts="ttf-fira-code
+      nerd-fonts-fira-code
+      nerd-fonts-inconsolata
+      terminus-font
+      "
 
     safeinstall $nvim \
       $terminal \
