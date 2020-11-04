@@ -102,7 +102,7 @@ searchengines = {
 }
 # rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 
-query = `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`
+query = `rofi -dmenu -p "ﰍ" -theme-str "#content { children: [inputbar]; }"`
 words = query.split
 
 if words.any?
