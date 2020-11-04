@@ -120,6 +120,7 @@ local rules = {
   { class = "help", icon = "" },
   { class = "gtgf", icon = "" },
 
+  { class = "Lxappearance", icon = "" },
   { class = "Thunar", icon = "" },
   { class = "Gimp", icon = "" },
   { class = "Viewnior", icon = "" },
