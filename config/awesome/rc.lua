@@ -27,4 +27,4 @@ else
 end
 
 -- Disable screen saving / blanking
-awful.spawn.with_shell("xset s off")
+awful.spawn.with_shell("xset s off -dpms")
