@@ -150,7 +150,7 @@ help = <<~STR.strip
   <b>Ctrl+t</b>    <i>Start/Stop</i>   | <b>Ctrl+T</b> <i>Switch global context</i>
   <b>Ctrl+i</b>    <i>Set priority</i> | <b>Ctrl+l</b> <i>Change labels</i>
   <b>Ctrl+b</b>    <i>Annotate</i>     | <b>Ctrl+B</b> <i>Change context</i>
-  ----
+  ————
   <b>Tab</b>            <i>Mark</i>
   #{(priority.nil? ? nil : "\n<b>Week goal</b>:#{priority}")&.colorize('#dc322f')}
 STR
