@@ -111,7 +111,7 @@ local rules = {
 
   { class = "config", icon = "" },
   { class = "scratchpad", icon = "" },
-  { class = "wiki", icon = "ﴬ" },
+  { class = "wiki", icon = "" },
   { class = "download", icon = "" },
   { class = "quake", icon = "" },
   { class = "man", icon = "" },
