@@ -152,7 +152,7 @@ help = <<~STR.strip
   <b>Ctrl+b</b>    <i>Annotate</i>     | <b>Ctrl+B</b> <i>Change context</i>
   ————
   <b>Tab</b>            <i>Mark</i>
-  #{(priority.nil? ? nil : "\n<b>Week goal</b>:#{priority}")&.colorize('#dc322f')}
+  #{(priority.nil? ? nil : "\n<b>Week goal</b>: #{priority}")&.colorize('#dc322f')}
 STR
 
 rofi = <<~STR.strip
