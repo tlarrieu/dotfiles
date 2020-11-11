@@ -172,7 +172,7 @@ case $answer in
   "yes"|"y")
     safeinstall yay
 
-    nvim="python python-pip neovim "
+    nvim="python python-pip neovim"
 
     terminal="kitty fish"
 
@@ -190,7 +190,8 @@ case $answer in
       lsd
       tumbler
       tumbler-extra-thumbnailers
-      ffmpegthumbnailer"
+      ffmpegthumbnailer
+      "
 
     essential="git fzf rofi pass"
 
@@ -206,11 +207,13 @@ case $answer in
       wmctrl
       maim
       unclutter
-      redshift"
+      redshift
+      "
 
     gtk="lxappearance-gtk3
       xcursor-breeze
-      gtk-theme-numix-solarized"
+      gtk-theme-numix-solarized
+      "
 
     multimedia="
       manjaro-pulse pulsemixer
@@ -218,6 +221,7 @@ case $answer in
       youtube-dlc
       sxiv feh
       imagemagick
+      aria2
       "
 
     internet="networkmanager chromium openssh"
