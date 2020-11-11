@@ -202,6 +202,7 @@ case $answer in
 
     window_manager="awesome
       betterlockscreen
+      picom
       wmctrl
       maim
       unclutter

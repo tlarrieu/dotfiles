@@ -43,6 +43,20 @@ awful.rules.rules = {
     },
   },
 
+  -- [[ Transparency ]] --------------------------------------------------------
+  {
+    rule_any = {
+      class = {
+        "kitty",
+        "kitty-light",
+        "config",
+      }
+    },
+    properties = {
+      opacity = 0.9,
+    },
+  },
+
   -- [[ Meet ]] ----------------------------------------------------------------
   {
     rule = { name = "meet.google.com is sharing a window." },
