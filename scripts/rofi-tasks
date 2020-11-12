@@ -328,9 +328,6 @@ when 21 # 'Control+B'
     strip.
     escape
 
-  print("\e[31m")
-  puts(labels)
-  print("\e[0m")
   unless labels.empty?
     msg = "You are about to change labels of #{uuids.size} element(s). Is that OK?"
     cmd = "task rc.confirmation:0 %s mod #{labels}"
