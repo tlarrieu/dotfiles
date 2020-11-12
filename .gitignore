@@ -22,7 +22,7 @@ nvim/spell
 nvim/spell/*
 
 vifm/vifm-help.txt
-vifm/vifminfo
+vifm/vifminfo*
 vifm/scripts/README
 
 apps/ignore
