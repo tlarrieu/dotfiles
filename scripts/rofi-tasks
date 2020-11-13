@@ -322,9 +322,10 @@ when 20 # 'Control+B'
     cmd = "task rc.confirmation:0 %s mod #{context}"
     uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
-when 21 # 'Control+B'
+when 21 # 'Control+l'
+  warning = "<b>Do not forget + or -</b>"
   labels =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
+    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar,message]; }" -mesg "#{warning}"`.
     strip.
     escape
 
