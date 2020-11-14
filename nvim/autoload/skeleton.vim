@@ -13,7 +13,7 @@ endfunction
 function! skeleton#insert() abort
   let filename = expand('%')
 
-  " Abort on non-empty buffer or extant file
+  " Abort on non-empty buffer or existing file
   if !(line('$') == 1 && getline('$') == '') || filereadable(filename)
     return
   endif
