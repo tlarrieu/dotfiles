@@ -81,6 +81,7 @@ local rules = {
   { class = "Chromium", instance = "hub.docker.com", icon = "" },
   { class = "Chromium", instance = "appsignal.com", icon = "" },
   { class = "Chromium", instance = "bugsnag.com", icon = "" },
+  { class = "Chromium", instance = "datadoghq.com", icon = "" },
   { class = "Chromium", instance = "linkedin.com", icon = "" },
   { class = "Chromium", instance = "discord.com", icon = "" },
   { class = "Chromium", instance = "wallhaven.cc", icon = "" },
@@ -93,14 +94,14 @@ local rules = {
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
 
-  { class = "kitty", name = "htop", icon = "" },
+  { class = "kitty", name = "htop", icon = "" },
   { class = "kitty", name = "exercism", icon = "" },
   { class = "kitty", name = "git/dotfiles", icon = "" },
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
   { class = "kitty", name = "vpn", icon = "嬨" },
 
-  { class = "Alacritty", name = "htop", icon = "" },
+  { class = "Alacritty", name = "htop", icon = "" },
   { class = "Alacritty", name = "exercism", icon = "" },
   { class = "Alacritty", name = "git/dotfiles", icon = "" },
   { class = "Alacritty", name = "NVIM" , icon = "" },
