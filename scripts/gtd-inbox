@@ -30,7 +30,7 @@ if [[ -n "$input" ]]; then
         args="+inbox +@home"
         ;;
       Management)
-        args="+inbox +@work project:mgt"
+        args="+inbox +@work project:management"
         ;;
       Communication)
         args="+inbox +@work project:communication"
