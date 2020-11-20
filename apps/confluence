@@ -1,9 +1,3 @@
 #!/bin/sh
 
-profile="pro"
-
-if [[ "$1" == "https"* ]]; then
-  browser-kiosk $profile "$1"
-else
-  browser-kiosk $profile "https://jobteaser.atlassian.net/wiki/$1"
-fi
+browser-kiosk pro "https://jobteaser.atlassian.net/wiki/spaces/CON"
