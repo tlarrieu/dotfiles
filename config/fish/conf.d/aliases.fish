@@ -173,6 +173,8 @@ abbr d "docker"
 abbr k "kubectl"
 abbr krew "kubectl-krew"
 function ksh; kubectl exec -it $argv -- /bin/bash; end
+abbr kns "kubens"
+abbr kctx "kubectx"
 
 # stack (haskell)
 abbr s "stack"
