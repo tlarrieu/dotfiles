@@ -25,4 +25,8 @@ vifm/vifm-help.txt
 vifm/vifminfo*
 vifm/scripts/README
 
+newsboat/cache.db
+newsboat/history.cmdline
+newsboat/urls
+
 apps/ignore

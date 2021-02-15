@@ -1,0 +1,19 @@
+auto-reload yes
+reload-time 10 # every 10 minutes
+
+##
+# Light Solarized color scheme, based on Ethan Schoonover's Solarized.
+
+# colors
+color background         default   default
+color listnormal         default   default
+color listnormal_unread  default   default bold
+color listfocus          white     color5
+color listfocus_unread   white     color5 bold
+color info               default   white
+color article            default   default
+
+# highlights
+highlight article "^(Title):.*$" blue default
+highlight article "https?://[^ ]+" red default
+highlight article "\\[image\\ [0-9]+\\]" green default

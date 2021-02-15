@@ -101,6 +101,9 @@ safelink $BASEDIR/irbrc $HOME/.irbrc
 # rubocop
 safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
+# newboat
+safelink $BASEDIR/newsboat $HOME/.newsboat
+
 # scripts
 mkdir -p $HOME/scripts
 for file in `ls -d $BASEDIR/scripts/*`; do
