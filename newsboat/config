@@ -2,9 +2,33 @@ auto-reload yes
 reload-time 10 # every 10 minutes
 
 ##
-# Light Solarized color scheme, based on Ethan Schoonover's Solarized.
+# == Navigation ================================================================
 
-# colors
+goto-next-feed no
+
+browser "browser-kiosk %u"
+
+bind-key q hard-quit all
+bind-key ESC quit all
+
+bind-key ^O prev-dialog all
+bind-key ^I next-dialog all
+bind-key ^D pagedown all
+bind-key ^U pageup all
+
+bind-key j down all
+bind-key k up all
+bind-key o open-in-browser all
+
+bind-key ^N next-feed articlelist
+bind-key ^P prev-feed articlelist
+bind-key d delete-article articlelist
+bind-key D delete-all-articles articlelist
+
+##
+# == Color scheme ==============================================================
+
+# -- colors ------------------------------------------------
 color background         default   default
 color listnormal         default   default
 color listnormal_unread  default   default bold
@@ -13,7 +37,7 @@ color listfocus_unread   white     color5 bold
 color info               default   white
 color article            default   default
 
-# highlights
+# -- highlights --------------------------------------------
 highlight article "^(Title):.*$" blue default
 highlight article "https?://[^ ]+" red default
 highlight article "\\[image\\ [0-9]+\\]" green default
