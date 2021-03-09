@@ -57,6 +57,27 @@ class Browser < SearchEngine
 
 end
 
+class YouTube < Browser
+
+  def initialize
+    super(url('results?q=%s'), fallback: url, profile: 'perso')
+  end
+
+  def run(str)
+    case str
+    when 'later' then `browser-kiosk perso '#{url('playlist?list=WL')}'`
+    else super(str)
+    end
+  end
+
+  private
+
+  def url(str=nil)
+    "https://www.youtube.com/#{str}"
+  end
+
+end
+
 class BrowserRaw < Browser
 
   def escape(str)
@@ -69,11 +90,7 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
-  'yt'   => Browser.new(
-              'https://www.youtube.com/results?q=%s',
-              fallback: 'https://www.youtube.com/',
-              profile: 'perso'
-            ),
+  'yt'   => YouTube.new,
   'map'  => Browser.new('https://www.google.com/maps/search/%s/'),
   'aw'   => Browser.new(
               'https://duckduckgo.com/?ia=web&q=%s',
