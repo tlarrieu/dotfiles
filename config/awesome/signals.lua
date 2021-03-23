@@ -100,7 +100,7 @@ local rules = {
   { class = "kitty", name = "NVIM" , icon = "" },
   { class = "kitty", name = "vifm", icon = "" },
   { class = "kitty", name = "vpn", icon = "嬨" },
-  { class = "kitty", name = "newsboat", icon = "" },
+  { class = "kitty", name = "newsboat", icon = "" },
 
   { class = "Alacritty", name = "htop", icon = "" },
   { class = "Alacritty", name = "exercism", icon = "" },
@@ -163,6 +163,7 @@ local rules = {
   { class = "Gpick", icon = "" },
   { class = "Xephyr", icon = "" },
   { class = "Seahorse", icon = "" },
+  { class = "Audacity", icon = "" },
 }
 
 local update_icon = function(tag)

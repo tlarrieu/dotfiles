@@ -184,7 +184,6 @@ _M.keyboard = {
     spawner.key({ mod, "Shift"}, "u",      "thunar"),
     spawner.key({ mod }, "g",              shell("wallpaper")),
     spawner.key({ mod }, "h",              termstart(shell("gtgf"), { class = "gtgf" })),
-    spawner.key({}, "F1",                  termstart("bhoogle", { class = "help" })),
 
     spawner.key({ mod, "Shift" }, "b",     termstart("", { directory = sandbox })),
     spawner.key({ mod }, "percent",        termstart(
