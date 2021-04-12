@@ -102,6 +102,8 @@ abbr ,s "cd ~/scripts"
 abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
 abbr ,wi "cd ~/.vimwiki"
+abbr ,jc "cd ~/git/jobteaser/connect"
+abbr ,jj "cd ~/git/jobteaser/jobteaser"
 abbr - "cd -"
 
 abbr ,l "open (ls -1tc | head -n 1)"
