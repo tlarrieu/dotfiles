@@ -72,6 +72,7 @@ local rules = {
   { class = "Chromium", instance = "trello.com", icon = "" },
   { class = "Chromium", instance = "app.productplan.com", icon = "" },
   { class = "Chromium", instance = "jobteaser.atlassian.net", icon = "" },
+  { class = "Chromium", instance = "jobteaser.kanbantool.com", icon = "﵁" },
   { class = "Chromium", instance = "circleci.com", icon = "" },
   { class = "Chromium", instance = "miro.com", icon = "﵁" },
   { class = "Chromium", instance = "pragli.com", icon = "" },
