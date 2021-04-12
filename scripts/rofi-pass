@@ -28,6 +28,10 @@ function type {
   xdotool type --clearmodifiers --delay=0 $1
 }
 
+function press {
+  xdotool key $1
+}
+
 function password {
   echo $(pass show "$option" | head -n 1)
 }
@@ -75,13 +79,20 @@ if [ ${#option} -gt 0 ]; then
       perso/paypal |\
       */google)
         type $(password)
-        xdotool key Return
+        press Return
+        ;;
+      pro/newrelic)
+        type $(login)
+        press Return
+        sleep 1
+        type $(password)
+        press Return
         ;;
       *)
         type $(login)
-        xdotool key Tab
+        press Tab
         type $(password)
-        xdotool key Return
+        press Return
         ;;
       esac
       ;;
