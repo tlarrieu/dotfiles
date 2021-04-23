@@ -1,1 +1,1 @@
-noremap <buffer> <leader><cr> :Gpush<bar>Gstatus<cr>
+noremap <buffer> <leader><cr> :Git push<bar>Gstatus<cr>
