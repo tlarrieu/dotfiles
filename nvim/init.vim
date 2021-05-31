@@ -462,7 +462,7 @@ nmap <leader>D :Gvdiff master<cr>
 nmap <leader>ed :tab Git diff --staged<cr>
 nmap <leader>r :Gread<cr>
 nmap <leader>R :Git reset %<cr>
-nmap <leader>s :Gstatus<cr>
+nmap <leader>s :Git<cr>
 nmap <leader>S :GV<cr>
 vmap <leader>S :'<,'>GV<cr>
 nmap <leader>w :Gwrite<cr>
