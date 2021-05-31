@@ -207,7 +207,7 @@ case $answer in
     display_manager="lightdm lightdm-webkit-theme-aether"
 
     window_manager="awesome
-      betterlockscreen
+      i3lock-color
       picom
       wmctrl
       maim

@@ -8,7 +8,7 @@ if [ ${#option} -gt 0 ]; then
   case $option in
     Lock)
       mpc pause
-      betterlockscreen -l blur -t "Password?"
+      i3lock
       ;;
     Reboot)
       systemctl reboot
@@ -18,7 +18,8 @@ if [ ${#option} -gt 0 ]; then
       ;;
     Suspend)
       mpc pause
-      betterlockscreen -s blur -t "Password?"
+      i3lock
+      systemctl suspend
       ;;
     Logout)
       awesome-client "awesome.quit()"
