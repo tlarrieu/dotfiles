@@ -175,6 +175,8 @@ case $answer in
   "yes"|"y")
     safeinstall yay
 
+    build_tools="fakeroot binutils base-devel"
+
     nvim="python python-pip neovim"
 
     terminal="kitty fish"
@@ -241,7 +243,8 @@ case $answer in
       terminus-font
       "
 
-    safeinstall $nvim \
+    safeinstall $build_tools \
+      $nvim \
       $terminal \
       $admin \
       $utils \
@@ -320,6 +323,20 @@ case $answer in
     ;;
 esac
 
+# LightDM
+echo
+echo -n "Do you want to set your shell to fish? ([y]es/[N]o) "
+
+read answer
+case $answer in
+  "yes"|"y")
+    chsh -s /usr/bin/fish
+    echo "$(tput setaf 2)shell configured!$(tput sgr0)"
+    ;;
+  *)
+    echo "$(tput setaf 3)shell configuration skipped$(tput sgr0)"
+    ;;
+esac
 
 echo
 echo "Configuring neovim..."
