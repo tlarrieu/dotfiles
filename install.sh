@@ -202,7 +202,12 @@ case $answer in
 
     taskwarrior="task-git taskopen"
 
-    xorg_utils="xorg-xrdb xorg-server-xephyr xorg-xwininfo xorg-xrandr"
+    xorg="xorg-xrdb
+      xorg-server-xephyr
+      xorg-xwininfo
+      xorg-xrandr
+      xorg-xinput
+      xorg-xmodmap"
 
     display_manager="lightdm lightdm-webkit-theme-aether"
 
@@ -231,7 +236,7 @@ case $answer in
 
     internet="networkmanager chromium openssh"
 
-    keyboard="xcape xorg-xmodmap"
+    keyboard="xcape"
 
     writing="zathura zathura-djvu zathura-pdf-mupdf zathura-ps pandoc"
 
@@ -252,7 +257,7 @@ case $answer in
       $files \
       $essential \
       $taskwarrior \
-      $xorg_utils \
+      $xorg \
       $display_manager \
       $window_manager \
       $gtk \
