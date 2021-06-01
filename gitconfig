@@ -52,3 +52,5 @@
 		sed 's/^\\(.\\)/  \\1/'"
 
 # vim: ft=gitconfig
+[init]
+	defaultBranch = master
