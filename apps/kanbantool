@@ -1,3 +1,10 @@
 #!/bin/sh
 
-browser-kiosk pro "https://jobteaser.kanbantool.com"
+case $1 in
+  perso)
+    browser-kiosk perso "https://tlarrieu.kanbantool.com"
+    ;;
+  *)
+    browser-kiosk $1 "https://jobteaser.kanbantool.com"
+    ;;
+esac
