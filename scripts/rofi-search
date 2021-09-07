@@ -91,7 +91,7 @@ defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
 # rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 searchengines = {
   'yt'   => YouTube.new,
-  'map'  => Browser.new('https://www.google.com/maps/search/%s/'),
+  'map'  => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
   'aw'   => Browser.new(
               'https://duckduckgo.com/?ia=web&q=%s',
               prefixes: ['site:https://awesomewm.org/doc'],
@@ -111,6 +111,7 @@ searchengines = {
   'r'    => Browser.new('https://reddit.com/r/%s', profile: 'perso'),
   'gem'  => Browser.new('https://rubygems.org/search?query=%s'),
   't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s', profile: 'perso'),
+  'tw'   => Browser.new('https://www.twitch.tv/search?term=%s', profile: 'perso'),
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
