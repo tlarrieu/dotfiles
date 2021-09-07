@@ -326,11 +326,10 @@ when 20 # 'Control+B'
     uuids.each { |uuid| `#{cmd % uuid}` } if uuids.size == 1 || confirm(msg)
   end
 when 21 # 'Control+l'
-  warning = "<b>Do not forget + or -</b>"
+  warning = '<b>Do not forget + or -</b>'
   labels =
     `rofi -dmenu -p "" -theme-str "#content { children: [inputbar,message]; }" -mesg "#{warning}"`.
-    strip.
-    escape
+    strip
 
   unless labels.empty?
     msg = "You are about to change labels of #{uuids.size} element(s). Is that OK?"
