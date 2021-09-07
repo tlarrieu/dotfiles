@@ -1,13 +1,13 @@
 function _git_branch_name
-  set -l branch (command git symbolic-ref HEAD ^/dev/null)
+  set -l branch (command git symbolic-ref HEAD)
     and string replace 'refs/heads/' " " $branch " "
     and return
 
-  set -l tag (command git describe --tags --exact-match ^/dev/null)
+  set -l tag (command git describe --tags --exact-match)
     and echo " $tag "
     and return
 
-  set -l ref (command git show-ref --head -s --abbrev | head -n1 ^/dev/null)
+  set -l ref (command git show-ref --head -s --abbrev | head -n1)
     and echo "➦ $ref "
     and return
 end
@@ -16,7 +16,7 @@ function _git_ahead
   set -l ahead 0
   set -l behind 0
 
-  for line in (command git rev-list --left-right '@{upstream}...HEAD' ^/dev/null)
+  for line in (command git rev-list --left-right '@{upstream}...HEAD')
     switch "$line"
       case '>*'
         if [ $behind -eq 1 ]
@@ -52,16 +52,16 @@ function _git_prompt
     (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
 
   set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n " ")
+    (command git diff --no-ext-diff --quiet --exit-code; or echo -n " ")
   set -l staged \
-    (command git diff --cached --no-ext-diff --quiet --exit-code ^/dev/null; or echo -n " ")
+    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n " ")
   set -l ahead \
     (_git_ahead)
 
   set -l new ''
-  set -l show_untracked (command git config --bool bash.showUntrackedFiles ^/dev/null)
+  set -l show_untracked (command git config --bool bash.showUntrackedFiles)
   if [ "$show_untracked" != 'false' ]
-    set -l untracked (command git ls-files --other --exclude-standard --directory --no-empty-directory ^/dev/null)
+    set -l untracked (command git ls-files --other --exclude-standard --directory --no-empty-directory)
     [ "$untracked" ]
       and set new " "
   end
