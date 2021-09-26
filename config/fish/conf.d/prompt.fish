@@ -16,7 +16,7 @@ function _git_ahead
   set -l ahead 0
   set -l behind 0
 
-  for line in (command git rev-list --left-right '@{upstream}...HEAD')
+  for line in (command git rev-list --left-right '@{upstream}...HEAD' 2> /dev/null)
     switch "$line"
       case '>*'
         if [ $behind -eq 1 ]
