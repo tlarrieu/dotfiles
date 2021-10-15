@@ -1,0 +1,25 @@
+configuration {
+  font: "FiraCode Nerd Font 15";
+  dpi: 96;
+
+  theme: "theme";
+
+  terminal: "kitty";
+  ssh-command: "{terminal} -e {ssh-client} {host}";
+  run-command: "{cmd}";
+  run-shell-command: "{terminal} -e {cmd}";
+
+  kb-clear-line: "Control+c";
+  kb-remove-word-back: "Control+w";
+
+  timeout {
+      action: "kb-cancel";
+      delay:  0;
+  }
+  filebrowser {
+      directories-first: true;
+      sorting-method:    "name";
+  }
+}
+
+/* vim:ft=css

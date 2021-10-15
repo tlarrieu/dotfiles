@@ -41,25 +41,6 @@ Xft.lcdfilter: lcddefault
 *.font: xft:FONT:size=FONTSIZE:dpi=DPI
 
 ! ------------------------------------------------------------------------------
-! -- rofi
-! ------------------------------------------------------------------------------
-
-! Overall look
-rofi.font: FONT FONTSIZE
-rofi.dpi: DPI
-rofi.theme: ~/.config/rofi/theme.rasi
-
-! Runner
-rofi.terminal: kitty
-rofi.ssh-command: {terminal} -e {ssh-client} {host}
-rofi.run-shell-command: {terminal} -e {cmd}
-rofi.run-command: {cmd}
-
-! Keyboard
-rofi.kb-clear-line: Control+c
-rofi.kb-remove-word-back: Control+w
-
-! ------------------------------------------------------------------------------
 ! -- vim
 ! ------------------------------------------------------------------------------
 

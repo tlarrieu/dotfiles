@@ -186,6 +186,7 @@ rofi = <<~STR.strip
     -kb-accept-custom "" \
     -kb-accept-alt "Tab" \
     -kb-move-char-back "Left" \
+    -kb-mode-complete "" \
     -kb-row-tab ""
 STR
 

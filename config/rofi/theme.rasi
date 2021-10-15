@@ -68,6 +68,11 @@
   padding: @elem-gutter;
 }
 
+#element-text {
+  background-color: inherit;
+  text-color: inherit;
+}
+
 /* -- Normal -- */
 
 #element.normal.normal {
