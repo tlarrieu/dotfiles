@@ -1,9 +1,9 @@
 function _git_branch_name
-  set -l branch (command git symbolic-ref HEAD)
+  set -l branch (command git symbolic-ref HEAD 2> /dev/null)
     and string replace 'refs/heads/' " " $branch " "
     and return
 
-  set -l tag (command git describe --tags --exact-match)
+  set -l tag (command git describe --tags --exact-match 2> /dev/null)
     and echo " $tag "
     and return
 
