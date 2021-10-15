@@ -5,3 +5,5 @@ augroup TEX
     \ | let v:char = toupper(v:char)
     \ | endif
 augroup END
+
+nnoremap <silent> <buffer> <return> :T xelatex % -o output.pdf<cr>
