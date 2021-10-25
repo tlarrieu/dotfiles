@@ -7,8 +7,8 @@ search.case.sensitive=no
 include ~/.task/taskd
 include ~/.task.context
 
-context.home=-@work
-context.work=-@home
+context.home.read=-@work
+context.work.read=-@home
 
 uda.priority.default=M
 
