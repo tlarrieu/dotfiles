@@ -134,6 +134,10 @@ _M.keyboard = {
 
     spawner.key({mod, "Shift"}, "r",       awesome.restart),
 
+    -- [[ Context ]] -----------------------------------------------------------
+
+    spawner.key({mod, "Shift"}, "t",         shell("cont")),
+
     -- [[ Applications ]] ------------------------------------------------------
 
     spawner.key({ mod }, " ",                shell("rofi -show run -lines 6")),

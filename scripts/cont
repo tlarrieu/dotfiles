@@ -1,0 +1,21 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+  source ~/.context.env
+
+  case $CONTEXT in
+    home)
+      CONTEXT="work"
+      ;;
+    *)
+      CONTEXT="home"
+      ;;
+  esac
+else
+  CONTEXT="$1"
+fi
+
+notify-send Success "Context set to '$CONTEXT'"
+
+echo "CONTEXT=\"$CONTEXT\"" > ~/.context.env
+echo "context=$CONTEXT" > ~/.task.context
