@@ -61,7 +61,7 @@ local rules = {
   { class = "Chromium", instance = "heroku", icon = "" },
   { class = "Chromium", instance = "paypal", icon = "" },
   { class = "Chromium", instance = "trainline", icon = "" },
-  { class = "Chromium", instance = "web.whatsapp.com" , icon = "甆" },
+  { class = "Chromium", instance = "web.whatsapp.com", icon = "甆" },
   { class = "Chromium", instance = "woven.com", icon = "" },
   { class = "Chromium", instance = "www.deliveroo.fr", icon = "﫱" },
   { class = "Chromium", instance = "ubereats.com", icon = "" },
@@ -135,6 +135,8 @@ local rules = {
   { name = "yay", icon = "" },
 
   { name = "Document Scanner", icon = "ﮩ" },
+
+  { class = "Signal", icon = "" },
 
   -- As the name does not imply, this if wonderdraft!
   { class = "Godot", icon = "" },
