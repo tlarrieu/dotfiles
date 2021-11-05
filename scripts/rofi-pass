@@ -88,6 +88,16 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
+      perso/carte-bleue)
+        PASSWORD_STORE_CLIP_TIME=5 pass show -c1 perso/carte-bleue
+        press "Control_L+v"
+        press Tab
+        PASSWORD_STORE_CLIP_TIME=5 pass show -c2 perso/carte-bleue
+        press "Control_L+v"
+        press Tab
+        PASSWORD_STORE_CLIP_TIME=5 pass show -c3 perso/carte-bleue
+        press "Control_L+v"
+        ;;
       *)
         type $(login)
         press Tab
