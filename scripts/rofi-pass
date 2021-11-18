@@ -48,7 +48,7 @@ HELP="<b>Return</b>         <i>Autofill</i>
 option=$(\
   pass git ls-files \
   | grep '.gpg$' \
-  | sed -e 's/.gpg$//' \
+  | { sed -e 's/.gpg$//' ; echo "perso/carte-bleue"; } \
   | rofi \
       -dmenu \
       -lines 5 \
