@@ -71,6 +71,45 @@ local clock = wibox.widget({
   font = clockfont,
 })
 
+-- [[ Mic ]] -----------------------------------------------------------------
+
+local mictext = wibox.widget({
+  valign = "center",
+  align = "center",
+  widget = wibox.widget.textbox,
+  font = font
+})
+
+local mic = wibox.container({
+  wibox.container.margin(mictext, 0, apply_dpi(0.48), apply_dpi(0.5), 0),
+  widget = wibox.container.arcchart,
+  min_value = 0,
+  max_value = 100,
+  bg = "#FF000000",
+  thickness = apply_dpi(1.5),
+})
+
+lain.widgets.pulseaudio({
+  timeout = 0.5,
+  settings = function(volume)
+    local icon, color
+
+    if volume.muted then
+      color = beautiful.colors.green.dark
+      icon = ""
+    else
+      color = beautiful.colors.red.dark
+      icon = ""
+    end
+
+    local markup = lain.util.markup(color, icon)
+    mictext:set_markup(markup)
+
+    mic:set_values({ volume.left })
+    mic:set_colors({ color })
+  end,
+})
+
 -- [[ Battery ]] ---------------------------------------------------------------
 local battery
 
@@ -190,6 +229,7 @@ local init_screen = function(screen)
     wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
     wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
+    wibox.container.margin(mic, dpi(0), dpi(10), dpi(2), dpi(2)),
     wibox.container.margin(vpn, dpi(0), dpi(10), dpi(2), dpi(9)),
     layout = wibox.layout.fixed.horizontal
   })

@@ -174,6 +174,7 @@ _M.keyboard = {
     spawner.key({ mod }, "k",              shell("rofi-emojis")),
     spawner.key({ mod }, "f",              shell("rofi-nerdfont")),
     spawner.key({ mod }, "à",              shell("rofi-bluetooth")),
+    spawner.key({ mod }, "y",              shell("pulseaudio-ctl mute-input")),
     spawner.key({ mod }, "Escape",         shell("rofi-pass")),
     spawner.key({ mod }, ",",              shell("rofi-search")),
 
