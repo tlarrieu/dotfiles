@@ -2,8 +2,6 @@ configuration {
   font: "FiraCode Nerd Font 15";
   dpi: 96;
 
-  theme: "theme";
-
   terminal: "kitty";
   ssh-command: "{terminal} -e {ssh-client} {host}";
   run-command: "{cmd}";
@@ -21,5 +19,7 @@ configuration {
       sorting-method:    "name";
   }
 }
+
+@theme "theme"
 
 /* vim:ft=css
