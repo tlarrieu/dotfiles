@@ -186,12 +186,10 @@ abbr font "fc-list | grep -i"
 
 # exercism
 abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
-  stack test;
   git init;
-  echo '.stack-work' > .gitignore;
-  hindent src/*;
   git add .;
   git commit -m 'First commit'"
+abbr es "exercism submit"
 
 # Taskwarrior
 abbr t "task"
