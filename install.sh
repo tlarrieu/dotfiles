@@ -101,6 +101,9 @@ safelink $BASEDIR/irbrc $HOME/.irbrc
 # rubocop
 safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
+# tslint
+safelink $BASEDIR/tslint.json $HOME/tslint.json
+
 # newboat
 safelink $BASEDIR/newsboat $HOME/.newsboat
 
