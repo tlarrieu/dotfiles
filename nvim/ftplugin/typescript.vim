@@ -3,6 +3,8 @@ setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
 
+setlocal formatprg=prettier
+
 let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
 
 augroup Test
