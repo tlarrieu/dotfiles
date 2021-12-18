@@ -252,6 +252,10 @@ set shortmess+=W
 set shortmess+=I
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Neoformat |---------------------------------------
+nnoremap <silent> <buffer> <leader>f :Neoformat<cr>
+vnoremap <silent> <buffer> <leader>f :Neoformat<cr>
+" }}}
 " {{{ --| vimwiki |-----------------------------------------
 let g:vimwiki_global_vars = {}
 let g:vimwiki_hl_headers = 0
