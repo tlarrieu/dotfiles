@@ -43,6 +43,18 @@ awful.rules.rules = {
     },
   },
 
+  {
+    rule_any = {
+      name = {
+        "meet.google.com is sharing a window.",
+        "discord.com is sharing a window."
+      }
+    },
+    properties = {
+      hidden = true,
+    },
+  },
+
   -- [[ Transparency ]] --------------------------------------------------------
   {
     rule_any = {
@@ -58,13 +70,6 @@ awful.rules.rules = {
   },
 
   -- [[ Meet ]] ----------------------------------------------------------------
-  {
-    rule = { name = "meet.google.com is sharing a window." },
-    properties = {
-      hidden = true,
-    },
-  },
-
   {
     rule = { instance = "meet.google.com" },
     properties = {
