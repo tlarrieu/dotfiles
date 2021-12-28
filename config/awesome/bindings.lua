@@ -215,8 +215,14 @@ _M.mouse = {
         client:emit_signal("request::activate", "mouse_click", {raise = true})
         awful.mouse.client.move(client)
     end),
-    spawner.button({mod}, 4, function(_) awful.tag.viewnext() end),
-    spawner.button({mod}, 5, function(_) awful.tag.viewprev() end)
+    spawner.button({mod}, 4, function(_)
+      spawner.grab_mouse_until_released()
+      awful.tag.viewnext()
+    end),
+    spawner.button({mod}, 5, function(_)
+      spawner.grab_mouse_until_released()
+      awful.tag.viewprev()
+    end)
   ),
 
   root = gears.table.join(

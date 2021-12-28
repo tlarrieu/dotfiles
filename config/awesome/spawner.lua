@@ -10,6 +10,15 @@ local find_client = function(props)
   end
 end
 
+_M.grab_mouse_until_released = function()
+  mousegrabber.run(function(_mouse)
+    for _, v in pairs(_mouse.buttons) do
+      if v then return true end
+    end
+    return false
+  end, "mouse")
+end
+
 _M.callbacks = {
   move_client = function(client)
     client:tags({ awful.screen.focused().selected_tag })
