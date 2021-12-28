@@ -11,9 +11,11 @@ if [ ${#option} -gt 0 ]; then
       i3lock
       ;;
     Reboot)
+      mpc pause
       systemctl reboot
       ;;
     Shutdown)
+      mpc pause
       systemctl poweroff
       ;;
     Suspend)
@@ -22,6 +24,7 @@ if [ ${#option} -gt 0 ]; then
       systemctl suspend
       ;;
     Logout)
+      mpc pause
       awesome-client "awesome.quit()"
       ;;
     *)
