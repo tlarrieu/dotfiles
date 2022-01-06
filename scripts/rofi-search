@@ -115,6 +115,7 @@ searchengines = {
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
+  'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
   'man'  => Man.new
 }
