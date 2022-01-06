@@ -201,7 +201,7 @@ case $answer in
       ffmpegthumbnailer
       "
 
-    essential="git fzf rofi pass"
+    essential="git fzf rofi pass ruby"
 
     taskwarrior="task-git taskopen"
 
