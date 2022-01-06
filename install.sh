@@ -274,6 +274,7 @@ case $answer in
     sudo ln -sf /usr/bin/youtube-dlc /usr/bin/youtube-dl
 
     sudo pip install neovim
+    gem install dotenv
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
   *)
