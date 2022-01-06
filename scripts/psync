@@ -1,0 +1,4 @@
+#!/bin/env sh
+
+cd ~/.password-store
+git push
