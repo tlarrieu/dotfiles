@@ -103,6 +103,7 @@ searchengines = {
   'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
   'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
   'g'    => BrowserRaw.new('https://github.com/%s'),
+  'go'   => BrowserRaw.new('https://www.google.com/search?q=%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
   'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
   'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
