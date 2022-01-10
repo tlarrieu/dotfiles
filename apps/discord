@@ -1,3 +1,26 @@
 #!/bin/sh
 
-browser-kiosk $1 "https://discord.com/channels/@me"
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && source "$envfile"
+
+if [ -z "$1" ]; then
+  profile="$CONTEXT"
+else
+  profile="$1"
+fi
+
+echo '$profile:' "$profile"
+
+case "$profile" in
+  work |\
+  pro \
+  )
+    /bin/discord
+    ;;
+  home)
+    browser-kiosk "perso" "https://discord.com/channels/@me"
+    ;;
+  *)
+    browser-kiosk $profile "https://discord.com/channels/@me"
+    ;;
+esac

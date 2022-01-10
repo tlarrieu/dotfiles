@@ -132,6 +132,7 @@ local rules = {
   { class = "Flowblade", icon = "" },
 
   { class = "zoom", icon = "" },
+  { class = "discord", icon = "" },
 
   { name = "yay", icon = "" },
 

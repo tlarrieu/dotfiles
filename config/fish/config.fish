@@ -44,7 +44,7 @@ set -g -x BROWSER nyxt
 
 # PATH
 set -x PATH $PATH $HOME/scripts
-set -x PATH $PATH $HOME/apps
+set -x PATH $HOME/apps $PATH
 set -x PATH $PATH $HOME/apps/ignore
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
