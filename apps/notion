@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "$1" | grep jobteaser > /dev/null
+echo "$1" | grep phantombuster > /dev/null
 
 if [[ $? -eq 0 ]]; then
   profile="pro"
