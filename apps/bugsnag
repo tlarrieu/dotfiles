@@ -1,3 +1,0 @@
-#!/bin/sh
-
-browser-kiosk pro "https://app.bugsnag.com/jobteaser/jobteaser-1/errors"
