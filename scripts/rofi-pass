@@ -77,6 +77,7 @@ if [ ${#option} -gt 0 ]; then
       perso/microsoft |\
       perso/amazon |\
       perso/paypal |\
+      pro/bitwarden |\
       */google)
         type $(password)
         press Return
