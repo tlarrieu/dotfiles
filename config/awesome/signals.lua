@@ -93,6 +93,7 @@ local rules = {
   { class = "Chromium", instance = "pratebay", icon = "" },
   { class = "Chromium", instance = "hoogle", icon = "" },
   { class = "Chromium", instance = "docusign", icon = "" },
+  { class = "Chromium", instance = "notion.so", icon = "" },
 
   { class = "Chromium", instance = "roll20.net", icon = "﫩" },
 

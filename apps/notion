@@ -1,16 +1,3 @@
 #!/bin/sh
 
-echo "$1" | grep phantombuster > /dev/null
-
-if [[ $? -eq 0 ]]; then
-  profile="pro"
-else
-  profile="perso"
-fi
-
-if [[ "$1" == "https"* ]]; then
-  browser-kiosk $profile "$1"
-else
-  browser-kiosk $profile "https://www.notion.so/$1"
-fi
-
+browser-kiosk $1 "https://www.notion.so/"
