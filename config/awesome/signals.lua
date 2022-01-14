@@ -46,14 +46,14 @@ local rules = {
   { class = "Chromium", instance = "photos.google.com" , icon = "" },
   { class = "Chromium", instance = "hangouts.google.com" , icon = "" },
   { class = "Chromium", instance = "meet.google.com" , icon = "" },
-  { class = "Chromium", instance = "keep.google.com" , icon = "ﯚ" },
+  { class = "Chromium", instance = "keep.google.com" , icon = "" },
   { class = "Chromium", instance = "maps.google.com", icon = "﫴" },
   { class = "Chromium", instance = "www.gmail.com", icon = "" },
   { class = "Chromium", instance = "groups.google.com", icon = "" },
 
   { class = "Chromium", instance = "ilucca.net", icon = "" },
   { class = "Chromium", instance = "slack" , icon = "" },
-  { class = "Chromium", instance = "www.spendesk.com", icon = "" },
+  { class = "Chromium", instance = "app.spendesk.com", icon = "" },
 
   { class = "Chromium", instance = "amazon", icon = "" },
   { class = "Chromium", instance = "bankin", icon = "" },
@@ -133,7 +133,7 @@ local rules = {
   { class = "Flowblade", icon = "" },
 
   { class = "zoom", icon = "" },
-  { class = "discord", icon = "" },
+  { class = "discord", icon = "" },
 
   { name = "yay", icon = "" },
 
