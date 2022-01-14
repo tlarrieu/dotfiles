@@ -3,7 +3,17 @@ setlocal formatoptions+=t
 setlocal foldlevel=1
 setlocal foldlevelstart=10
 setlocal spell
+setlocal concealcursor=ncv
 setlocal conceallevel=2
+
+nnoremap <leader>i :call ToggleConceal()<cr>
+function! ToggleConceal()
+  if &conceallevel == 2
+    setlocal conceallevel=0
+  else
+    setlocal conceallevel=2
+  end
+endfunction
 
 let b:deoplete_sources = ['tag', 'buffer', 'file']
 let b:switch_custom_definitions = [[ '- [ ]', '- [X]' ]]
@@ -11,6 +21,7 @@ let b:switch_custom_definitions = [[ '- [ ]', '- [X]' ]]
 augroup MARKDOWN
   autocmd!
   autocmd InsertCharPre *.md if search('\v(%^|[.!?]\_s)\_s*%#', 'bcnw') != 0 | let v:char = toupper(v:char) | endif
+  autocmd InsertLeave * setlocal conceallevel=2
 augroup END
 
 nnoremap <silent> <buffer> <cr> :T mdprev w '%'<cr>
