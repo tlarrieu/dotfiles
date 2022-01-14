@@ -69,6 +69,10 @@ function! s:setupcolors()
 
   highlight! link NormalNC CursorColumn
 
+  highlight! LineNr ctermfg=5 ctermbg=7
+  highlight! LineNrAbove ctermfg=14 ctermbg=7
+  highlight! LineNrBelow ctermfg=14 ctermbg=7
+
   highlight! link StatusLine Normal
   highlight! link StatusLineNC NormalNC
 
