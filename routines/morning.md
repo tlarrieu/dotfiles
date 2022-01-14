@@ -1,4 +1,5 @@
+ Say hi in #greetings
  Check Slack
- Check thomas.larrieu@jobteaser.com
- Check EM actions
- Curate inbox
+ Curate mail inbox
+ Check priorities
+ Check notion checklist

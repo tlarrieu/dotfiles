@@ -1,7 +1,6 @@
  Check Slack
- Check thomas.larrieu@jobteaser.com
- Check EM actions
- Curate inbox
- Check waiting tasks
- Check braindump
- Prepare daily manager
+ Curate mail inbox
+ Curate priorities
+ Check notion checklist
+ Daily journal + curate daily onboarding notes
+ Say bye in #greetings
