@@ -18,6 +18,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 " }}}
 " {{{ --| Functionnalities |---------------
+Plug 'junegunn/goyo.vim'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'beloglazov/vim-online-thesaurus'
 Plug 'kassio/neoterm'
@@ -253,6 +254,11 @@ set shortmess+=W
 set shortmess+=I
 " }}}
 " {{{ ==| Plugins |=============================================================
+" {{{ --| Goyo |--------------------------------------------
+let g:goyo_width = 130
+let g:goyo_height = '85%'
+let g:goyo_linenr = 1
+" }}}
 " {{{ --| Neoformat |---------------------------------------
 nnoremap <silent> <buffer> <leader>f :Neoformat<cr>
 vnoremap <silent> <buffer> <leader>f :Neoformat<cr>

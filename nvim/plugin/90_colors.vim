@@ -6,11 +6,43 @@ augroup END
 
 augroup SETUP_COLORS
   autocmd!
-  autocmd OptionSet background call s:setupcolors()
+  " autocmd OptionSet background call s:setupcolors()
   autocmd SourceCmd $MYVIMRC call s:setup()
-  autocmd Syntax * call s:setupcolors()
+  " autocmd Syntax * call s:setupcolors()
   autocmd DiffUpdated * call s:togglesyntax()
+  autocmd! User GoyoEnter nested call s:goyo_enter()
+  autocmd! User GoyoLeave nested call s:goyo_leave()
 augroup END
+
+function! s:goyo_enter()
+  setlocal wrap
+  silent! GitGutterEnable
+
+  augroup Goyo
+    autocmd!
+    autocmd BufReadPost,BufEnter,FileType,TermOpen * setlocal wrap
+  augroup END
+
+  " highlight! link LineNr TabLineSel
+  highlight! LineNr ctermfg=5 ctermbg=none
+  highlight! LineNrAbove ctermfg=14 ctermbg=none
+  highlight! LineNrBelow ctermfg=14 ctermbg=none
+  " highlight! link LineNrAbove Comment
+  " highlight! link LineNrBelow Comment
+  highlight! link NormalNC Comment
+
+  highlight! link StatusLine Normal
+  highlight! link StatusLineNC NormalNC
+
+  highlight! GitGutterAdd ctermfg=2 ctermbg=none
+  highlight! GitGutterChange ctermfg=3 ctermbg=none
+  highlight! GitGutterDelete ctermfg=1 ctermbg=none
+  highlight! GitGutterText ctermfg=4 ctermbg=none
+endfunction
+
+function! s:goyo_leave()
+  call s:setupcolors()
+endfunction
 
 function! s:togglesyntax()
   if &diff
