@@ -1,3 +1,14 @@
 #!/bin/sh
 
-browser-kiosk $1 "https://calendar.google.com"
+if [ "$1" == "new" ]; then
+  new=1
+  shift
+elif [ "$2" == "new" ]; then
+  new=1
+fi
+
+if [ "$new" == 1 ]; then
+  browser-kiosk $1 "https://cal.new"
+else
+  browser-kiosk $1 "https://calendar.google.com"
+fi

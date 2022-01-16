@@ -80,6 +80,17 @@ awful.rules.rules = {
     },
   },
 
+  -- [[ cal.new ]] ----------------------------------------------------------------
+  {
+    rule = { instance = "cal.new" },
+    properties = {
+      floating = true,
+      width = 1920,
+      height = 1080,
+      placement = awful.placement.centered,
+    },
+  },
+
   -- [[ Scratchpad ]] ----------------------------------------------------------
   {
     rule_any = {
