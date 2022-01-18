@@ -32,3 +32,4 @@ newsboat/history.search
 newsboat/urls
 
 apps/ignore
+!apps/*.com
