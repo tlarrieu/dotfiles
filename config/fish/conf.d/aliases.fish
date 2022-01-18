@@ -104,6 +104,7 @@ abbr ,w "cd ~/Pictures/wallpapers"
 abbr ,wi "cd ~/.vimwiki"
 abbr ,pf "cd ~/git/phantombuster/pb2-front"
 abbr ,pb "cd ~/git/phantombuster/pb2-back"
+abbr ,pd "cd ~/git/phantombuster/platform-docs"
 abbr - "cd -"
 
 abbr ,l "open (ls -1tc | head -n 1)"
