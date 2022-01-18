@@ -68,6 +68,7 @@ local rules = {
   { class = "Chromium", instance = "ubereats.com", icon = "" },
   { class = "Chromium", instance = "www.twitter.com", icon = "" },
   { class = "Chromium", name = "Twitter", icon = "" },
+  { class = "Chromium", instance = "www.gettr.com", icon = "" },
   { class = "Chromium", instance = "www.exercism.io", icon = "" },
   { class = "Chromium", instance = "www.github.com", icon = "" },
   { class = "Chromium", instance = "trello.com", icon = "" },
