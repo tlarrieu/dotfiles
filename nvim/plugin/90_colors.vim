@@ -87,6 +87,8 @@ function! s:setupcolors()
   highlight! Search cterm=bold ctermbg=7 ctermfg=none
   highlight! IncSearch cterm=bold,underline ctermbg=7 ctermfg=5
 
+  highlight! Whitespace ctermfg=14
+
   highlight! link SignColumn CursorColumn
   highlight! link SignatureMarkText Folded
   highlight! link HighlightedyankRegion Folded
