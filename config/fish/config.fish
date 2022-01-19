@@ -40,7 +40,7 @@ set PGHOST localhost
 
 # EDITOR
 set -g -x EDITOR nvim
-set -g -x BROWSER nyxt
+set -g -x BROWSER browser-kiosk
 
 # PATH
 set -x PATH $PATH $HOME/scripts
