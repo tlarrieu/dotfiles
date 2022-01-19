@@ -182,6 +182,7 @@ _M.keyboard = {
     spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
 
     spawner.key({ mod }, "m",              shell("mpc-library")),
+    spawner.key({ mod, "Shift"}, "m",      shell("toggle-dim-mpd.sh")),
     spawner.key({ mod }, "b",              shell("mpc-playlist")),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
