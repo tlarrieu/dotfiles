@@ -44,7 +44,7 @@ today = lambda do |task|
 
   parse_time(task['scheduled']) <= Time.now
 end
-wait = ->(task) { task['wait'] }
+wait = ->(task) { task['wait'] && parse_time(task['wait']) >= Time.now }
 later = lambda do |task|
   return unless task['scheduled']
 
