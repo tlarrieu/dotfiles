@@ -12,6 +12,8 @@ context.work.read=-@home
 
 uda.priority.default=M
 
+news.version=2.6.0
+
 # -- Look & feel ---------------------------------------------------------------
 include /usr/share/doc/task/rc/solarized-light-256.theme
 
