@@ -77,7 +77,7 @@ String.class_eval do
   end
 
   def escape
-    strip.gsub(' ', '\ ')
+    strip.gsub(' ', '\ ').gsub("'") { "\\'" }
   end
 end
 
