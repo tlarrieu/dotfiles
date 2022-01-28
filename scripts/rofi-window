@@ -1,17 +1,49 @@
 #!/bin/sh
 
-output=$(
-  rofi \
-    -show window \
-    -lines 6 \
-    -window-command "xprop WM_CLASS WM_NAME WM_STATE _NET_WM_WINDOW_TYPE -id {window}"
-)
+awesome-client << 'END'
+local icons = require("icons")
+local strlen = function(x)
+  return #x:gsub("[\128-\191]", "")
+end
 
-# window-command has been triggered
-if [ ! -z "$output" ]; then
-  echo "$output" \
-    | rofi -dmenu -i -lines 6 \
-    | awk -F' = ' '{ print $2 }' \
-    | tr -d '\n' \
-    | xsel -i --clipboard
-fi
+local pad = function(str, len)
+  local _str = tostring(str)
+  return _str .. string.rep(' ', len - strlen(_str))
+end
+
+local xs = {}
+local padding = 0
+
+for _, tag in ipairs(root:tags()) do
+  for _, client in ipairs(tag:clients()) do
+    table.insert(xs, {tag = tag, client = client})
+    padding = math.max(padding, strlen(tag.name))
+  end
+end
+
+local ys = {}
+
+for i, x in ipairs(xs) do
+  table.insert(
+    ys,
+    pad(i, 3) .. icons.fetch(x.client) .. "  " .. x.client.name
+  )
+end
+
+local path = os.tmpname()
+local file = io.open(path, "w")
+file:write(table.concat(ys, "\n"))
+file:close()
+
+local handle = io.popen("rofi -dmenu -i -p ﬓ -input " .. path)
+local result = handle:read("*l")
+handle:close()
+if not result then return end
+
+local s = result:match('^([0-9]+) .*$')
+if not s then return end
+
+xs[tonumber(s)].client:jump_to()
+END
+
+# vim:ft=lua
