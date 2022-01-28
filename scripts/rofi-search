@@ -106,6 +106,7 @@ searchengines = {
   'go'   => BrowserRaw.new('https://www.google.com/search?q=%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
   'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
+  'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
   'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
   'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
