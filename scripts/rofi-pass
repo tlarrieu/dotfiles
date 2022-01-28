@@ -72,23 +72,6 @@ if [ ${#option} -gt 0 ]; then
   case $rofi_signal in
     10)
       case "$option" in
-      perso/linux | \
-      pro/okta | \
-      perso/microsoft |\
-      perso/amazon |\
-      perso/paypal |\
-      pro/bitwarden |\
-      */google)
-        type $(password)
-        press Return
-        ;;
-      pro/newrelic)
-        type $(login)
-        press Return
-        sleep 1
-        type $(password)
-        press Return
-        ;;
       perso/carte-bleue)
         PASSWORD_STORE_CLIP_TIME=5 pass show -c1 perso/carte-bleue
         press "Control_L+v"
@@ -99,7 +82,37 @@ if [ ${#option} -gt 0 ]; then
         PASSWORD_STORE_CLIP_TIME=5 pass show -c3 perso/carte-bleue
         press "Control_L+v"
         ;;
+      perso/linux | \
+      pro/okta | \
+      perso/microsoft |\
+      perso/amazon |\
+      perso/paypal |\
+      pro/bitwarden |\
+      */google)
+        # password only
+        type $(password)
+        press Return
+        ;;
+      pro/elevo | \
+      pro/newrelic)
+        # passwords shows up after we validate the login
+        type $(login)
+        press Return
+        sleep 1
+        type $(password)
+        press Return
+        ;;
+      perso/bankin)
+        # “normal” case where login and password fields are visible, but the
+        # first field is not focused
+        press Tab
+        type $(login)
+        press Tab
+        type $(password)
+        press Return
+        ;;
       *)
+        # “normal” case where login and password fields are visible
         type $(login)
         press Tab
         type $(password)
