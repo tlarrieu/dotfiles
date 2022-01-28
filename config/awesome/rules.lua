@@ -35,7 +35,7 @@ awful.rules.rules = {
         "Xephyr",
       },
       instance = {
-        "meet.google.com"
+        "meet.google.com",
       }
     },
     properties = {
@@ -82,7 +82,15 @@ awful.rules.rules = {
 
   -- [[ cal.new ]] ----------------------------------------------------------------
   {
-    rule = { instance = "cal.new" },
+    rule_any = {
+      instance = {
+        "cal.new",
+        "attunement.io__search",
+        "scryfall.com__search",
+        "www.thesaurus.com__browse",
+        "translate.google.com",
+      }
+    },
     properties = {
       floating = true,
       width = 1920,
