@@ -34,12 +34,11 @@ local client_signals = {
 local tag_signals = { "tagged", "untagged" }
 
 local update_icon = function(tag)
+  local xs = {}
+  for _, client in ipairs(tag:clients()) do xs[icons.fetch(client)] = true end
+
   local name = ''
-
-  for _, client in ipairs(tag:clients()) do
-    name = name .. icons.fetch(client)
-  end
-
+  for k, v in pairs(xs) do name = name .. k end
   tag.name = name
 end
 
