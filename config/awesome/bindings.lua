@@ -167,7 +167,8 @@ _M.keyboard = {
     -- Open last downloaded video
     spawner.key({ mod, "Shift" }, "o",     shell("cd ~/sandbox; open (ls -1tc | head -n 1)")),
 
-    spawner.key({ mod }, "Tab",            shell("switch-keyboard")),
+    -- spawner.key({ mod }, "Tab",            shell("switch-keyboard")),
+    spawner.key({ mod }, "Tab",            shell("rofi-window")),
     spawner.key({mod, "Control"}, "Tab",   shell("rofi-monitors")),
     spawner.key({}, "F12",                 shell("rofi-wifi")),
     spawner.key({ mod }, "F2",             shell("rofi-keyboard")),
