@@ -38,7 +38,7 @@ local update_icon = function(tag)
   for _, client in ipairs(tag:clients()) do xs[icons.fetch(client)] = true end
 
   local name = ''
-  for k, v in pairs(xs) do name = name .. k end
+  for k, v in pairs(xs) do name = name .. " " .. k end
   tag.name = name
 end
 
