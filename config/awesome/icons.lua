@@ -41,18 +41,20 @@ local config = {
   { icon = "", rule = { class = "Chromium", name = "Twitter" }},
   { icon = "", rule = { class = "Chromium", instance = "reddit.com" }},
 
+  -- Travel
+  { icon = "", rule = { class = "Chromium", instance = "trainline" }},
+  { icon = "", rule = { class = "Chromium", instance = "citymapper.com" }},
+
   { icon = "", rule = { class = "Chromium", instance = "circleci.com" }},
   { icon = "", rule = { class = "Chromium", instance = "rubygems" }},
   { icon = "", rule = { class = "Chromium", instance = "sentry.io" }},
   { icon = "", rule = { class = "Chromium", instance = "trello.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "jobteaser.atlassian.net" }},
+  { icon = "", rule = { class = "Chromium", instance = "atlassian.net" }},
   { icon = "", rule = { class = "Chromium", name = "Jira" }},
   { icon = "", rule = { class = "Chromium", instance = "hoogle" }},
   { icon = "", rule = { class = "Chromium", instance = "heroku" }},
-  { icon = "", rule = { class = "Chromium", instance = "dynalist.io" }},
   { icon = "", rule = { class = "Chromium", instance = "grafana.net" }},
   { icon = "", rule = { class = "Chromium", instance = "tryhackme.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "trainline" }},
   { icon = "", rule = { class = "Chromium", instance = "hub.docker.com" }},
   { icon = "", rule = { class = "Chromium", instance = "app.productplan.com" }},
   { icon = "", rule = { class = "Chromium", instance = "appsignal.com" }},
@@ -63,7 +65,6 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "woven.com" }},
   { icon = "", rule = { class = "Chromium", instance = "amplitude.com" }},
   { icon = "", rule = { class = "Chromium", instance = "datadoghq.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "citymapper.com" }},
   { icon = "", rule = { class = "Chromium", instance = "pratebay" }},
   { icon = "", rule = { class = "Chromium", instance = "www.exercism.io" }},
   { icon = "", rule = { class = "Chromium", instance = "app.spendesk.com" }},
@@ -94,6 +95,7 @@ local config = {
   { icon = "﫱", rule = { class = "Chromium", instance = "www.deliveroo.fr" }},
   { icon = "﵁", rule = { class = "Chromium", instance = "jobteaser.kanbantool.com" }},
   { icon = "", rule = { class = "Chromium", instance = "app.swarmia.com" }},
+  { icon = "", rule = { class = "Chromium", instance = "app.progressionapp.com" }},
 
   { icon = "", rule = { class = "Chromium" }},
 
