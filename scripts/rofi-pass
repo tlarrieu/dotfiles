@@ -112,6 +112,15 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
+      pro/swile*)
+        # In the case of swile, a single tab is not enough (╯°o°)╯┻━┻
+        press Tab
+        press Tab
+        type $(login)
+        press Tab
+        type $(password)
+        press Return
+        ;;
       *)
         # “normal” case where login and password fields are visible
         type $(login)
