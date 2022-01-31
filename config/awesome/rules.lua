@@ -65,7 +65,7 @@ awful.rules.rules = {
       }
     },
     properties = {
-      opacity = 0.9,
+      opacity = 0.95,
     },
   },
 
@@ -124,14 +124,13 @@ awful.rules.rules = {
     properties = { size_hints_honor = false },
   },
 
-  -- [[ RoomArranger ]] --------------------------------------------------------
+  -- [[ Audacity ]] --------------------------------------------------------
   {
-    rule = { class = "RoomArranger" },
-    except_any = { modal = true },
+    rule = { class = "Audacity", modal = false },
     properties = {
       fullscreen = false,
       floating = false,
-      maximized = true,
+      maximized = false,
     },
   },
 
@@ -170,8 +169,7 @@ awful.rules.rules = {
   },
 
   {
-    rule = { class = "Cockatrice" },
-    except_any = { modal = true },
+    rule = { class = "Cockatrice", modal = false },
     properties = {
       fullscreen = false,
       floating = false,
