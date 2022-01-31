@@ -78,6 +78,8 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "ilucca.net" }},
   { icon = "", rule = { class = "Chromium", instance = "pinterest.com" }},
   { icon = "", rule = { class = "Chromium", instance = "wallhaven.cc" }},
+  { icon = "", rule = { class = "Chromium", instance = "c7f757b56c014aa5845a753d7acb6a85" }},
+  { icon = "", rule = { class = "Chromium", instance = "1aa1d5e564c4404b968a224ef4206cfa" }},
   { icon = "", rule = { class = "Chromium", instance = "notion.so" }},
   { icon = "", rule = { class = "Chromium", instance = "linkedin.com" }},
   { icon = "", rule = { class = "Chromium", instance = "watabou.itch.io" }},
