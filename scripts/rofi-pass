@@ -102,6 +102,7 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
+      pro/payfit | \
       perso/bankin)
         # “normal” case where login and password fields are visible, but the
         # first field is not focused
