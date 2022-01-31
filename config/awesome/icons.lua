@@ -93,6 +93,7 @@ local config = {
   { icon = "﫩", rule = { class = "Chromium", instance = "roll20.net" }},
   { icon = "﫱", rule = { class = "Chromium", instance = "www.deliveroo.fr" }},
   { icon = "﵁", rule = { class = "Chromium", instance = "jobteaser.kanbantool.com" }},
+  { icon = "", rule = { class = "Chromium", instance = "app.swarmia.com" }},
 
   { icon = "", rule = { class = "Chromium" }},
 
