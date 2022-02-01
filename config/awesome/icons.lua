@@ -39,7 +39,7 @@ local config = {
   -- Work
   { icon = "", rule = { class = "Chromium", instance = "circleci.com" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net" }},
-  { icon = "", rule = { class = "Chromium", name = "Jira" }},
+  { icon = "", rule = { class = "Chromium", instance = "atlassian.net", name = "Jira" }},
   { icon = "", rule = { class = "Chromium", instance = "app.swarmia.com" }},
   { icon = "", rule = { class = "Chromium", instance = "grafana.net" }},
   { icon = "", rule = { class = "Chromium", instance = "hub.docker.com" }},
