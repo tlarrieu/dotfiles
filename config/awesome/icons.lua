@@ -56,7 +56,7 @@ local config = {
 
   --  Notion
   { icon = "", rule = { class = "Chromium", instance = "c7f757b56c014aa5845a753d7acb6a85" }},
-  { icon = "", rule = { class = "Chromium", instance = "1aa1d5e564c4404b968a224ef4206cfa" }},
+  { icon = "", rule = { class = "Chromium", instance = "1aa1d5e564c4404b968a224ef4206cfa" }},
   { icon = "", rule = { class = "Chromium", instance = "notion.so" }},
 
 
