@@ -3,7 +3,7 @@ local _M = {}
 local default = ""
 
 local config = {
-  --  Google
+  --  office suite
   { icon = "", rule = { class = "Chromium", instance = "www.gmail.com" }},
   { icon = "", rules = {
       { class = "Chromium", name = "Google Sheets" },
@@ -25,18 +25,14 @@ local config = {
       { class = "Chromium", instance = "calendar.google.com" },
       { class = "Chromium", instance = "cal.new" }
     }},
-  { icon = "﫴", rules = {
-      { class = "Chromium", instance = "maps.google.com" },
-      { class = "Chromium", instance = "goo.gl__maps" },
-    }},
   { icon = "", rule = { class = "Chromium", instance = "drive.google.com"  }},
-  { icon = "", rule = { class = "Chromium", name = "Google Photos" }},
   { icon = "", rule = { class = "Chromium", instance = "groups.google.com" }},
+
+  { icon = "", rule = { class = "Chromium", name = "Google Photos" }},
   { icon = "", rule = { class = "Chromium", instance = "keep.google.com" }},
   { icon = "", rule = { class = "Chromium", instance = "photos.google.com" }},
-  { icon = "輸", rule = { class = "Chromium", name = "YouTube" }},
 
-  -- Work
+  -- 華 Work
   { icon = "", rule = { class = "Chromium", instance = "circleci.com" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net", name = "Jira" }},
@@ -59,6 +55,10 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "1aa1d5e564c4404b968a224ef4206cfa" }},
   { icon = "", rule = { class = "Chromium", instance = "notion.so" }},
 
+  --  Videos
+  { icon = "", rule = { class = "Chromium", instance = "www.twitch.tv" }},
+  { icon = "輸", rule = { class = "Chromium", name = "YouTube" }},
+
 
   --  Social
   { icon = "", rule = { class = "Chromium", instance = "www.gettr.com" }},
@@ -70,6 +70,10 @@ local config = {
   --  Travel
   { icon = "", rule = { class = "Chromium", instance = "trainline" }},
   { icon = "", rule = { class = "Chromium", instance = "citymapper.com" }},
+  { icon = "﫴", rules = {
+      { class = "Chromium", instance = "maps.google.com" },
+      { class = "Chromium", instance = "goo.gl__maps" },
+    }},
 
   --  Programming
   { icon = "", rule = { class = "Chromium", instance = "rubygems" }},
@@ -152,6 +156,7 @@ local config = {
   { icon = "嗢", rules = {{ class = "Vlc" }, { class = "vlc" } }},
   { icon = "奔", rule = { class = "mixer" }},
   { icon = "ﮩ", rule = { name = "Document Scanner" }},
+  { icon = "", rule = { name = "pass: " }},
 
   { icon = "", rule = { class = "kitty", name = "git/dotfiles" }},
   { icon = "", rule = { class = "kitty", name = "exercism" }},
