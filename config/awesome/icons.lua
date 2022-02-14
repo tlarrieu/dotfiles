@@ -49,6 +49,7 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "slack" }},
   { icon = "", rule = { class = "Chromium", instance = "papertrail" }},
   { icon = "滛", rule = { class = "Chromium", instance = "metroretro.io" }},
+  { icon = "", rule = { class = "Chromium", instance = "zendesk" }},
 
   --  Notion
   { icon = "", rule = { class = "Chromium", instance = "c7f757b56c014aa5845a753d7acb6a85" }},
