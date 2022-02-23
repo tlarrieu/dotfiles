@@ -1,3 +1,7 @@
 #!/bin/sh
 
-browser-kiosk $1 "https://www.github.com/$2"
+if [ -z "$2" ]; then
+  browser-kiosk $1 "https://www.github.com/stars"
+else
+  browser-kiosk $1 "https://www.github.com/$2"
+fi
