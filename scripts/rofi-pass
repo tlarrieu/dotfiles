@@ -43,7 +43,8 @@ function login {
 HELP="<b>Return</b>         <i>Autofill</i>
 <b>Shift+Return</b>   <i>Insert password or login</i>
 <b>Control+Return</b> <i>Edit entry</i>
-<b>Alt+Return</b>     <i>Generate new password</i>"
+<b>Alt+Return</b>     <i>Generate new password</i>
+<b>Control+q</b>      <i>Show QR-code</i>"
 
 option=$(\
   pass git ls-files \
@@ -59,6 +60,7 @@ option=$(\
       -kb-custom-2 "Shift+Return" \
       -kb-custom-3 "Control+Return" \
       -kb-custom-4 "Alt+Return" \
+      -kb-custom-5 "Control+q" \
       -kb-accept-entry "" \
       -kb-accept-custom "" \
       -kb-accept-alt "" \
@@ -189,6 +191,9 @@ if [ ${#option} -gt 0 ]; then
         pass generate -c "$option"
         copy_status
       fi
+      ;;
+    14)
+      pass -q1 "$option"
       ;;
   esac
 fi
