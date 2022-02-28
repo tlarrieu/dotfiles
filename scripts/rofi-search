@@ -78,6 +78,23 @@ class YouTube < Browser
 
 end
 
+class Dictionary
+
+  def initialize(dictionaries={})
+    @dictionaries = dictionaries
+    @default = dictionaries.first&.last
+  end
+
+  def run(str)
+    words = str.split(' ')
+    dictionary = @dictionaries[words[0]]
+
+    dictionary ? words.shift : dictionary = @default
+    Browser.new(dictionary).run(words.join(' '))
+  end
+
+end
+
 class BrowserRaw < Browser
 
   def escape(str)
@@ -100,8 +117,10 @@ searchengines = {
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
   'l'    => Browser.new('http://localhost:%s'),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
-  'dict' => Browser.new('https://www.larousse.fr/dictionnaires/francais/%s'),
-  'trad' => Browser.new('https://translate.google.com/#view=home&op=translate&sl=fr&tl=en&text=%s'),
+  'def'  => Dictionary.new(
+              'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
+              'fr' => 'https://www.larousse.fr/dictionnaires/francais/%s'
+            ),
   'g'    => BrowserRaw.new('https://github.com/%s'),
   'go'   => BrowserRaw.new('https://www.google.com/search?q=%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
