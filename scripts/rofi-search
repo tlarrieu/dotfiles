@@ -121,6 +121,7 @@ searchengines = {
               'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
               'fr' => 'https://www.larousse.fr/dictionnaires/francais/%s'
             ),
+  'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
   'g'    => BrowserRaw.new('https://github.com/%s'),
   'go'   => BrowserRaw.new('https://www.google.com/search?q=%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
