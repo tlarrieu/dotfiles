@@ -89,6 +89,8 @@ awful.rules.rules = {
         "scryfall.com__search",
         "www.thesaurus.com__browse",
         "translate.google.com",
+        "dictionary.cambridge.org",
+        "www.larousse.fr",
       }
     },
     properties = {
