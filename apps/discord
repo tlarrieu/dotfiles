@@ -15,7 +15,7 @@ case "$profile" in
   work |\
   pro \
   )
-    /bin/discord-canary
+    ~/bin/DiscordCanary/DiscordCanary
     ;;
   home)
     browser-kiosk "perso" "https://discord.com/channels/@me"
