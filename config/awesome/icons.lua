@@ -33,6 +33,7 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "photos.google.com" }},
 
   -- 華 Work
+  { icon = "", rule = { class = "Chromium", instance = "calendly.com" }},
   { icon = "", rule = { class = "Chromium", instance = "circleci.com" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net", name = "Jira" }},

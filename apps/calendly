@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://calendly.com/event_types/user/me"
