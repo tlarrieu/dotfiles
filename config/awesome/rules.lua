@@ -34,9 +34,6 @@ awful.rules.rules = {
         "kitty-light",
         "Xephyr",
       },
-      instance = {
-        "meet.google.com",
-      }
     },
     properties = {
       callback = helpers.create_tag_and_attach_to(false),
@@ -66,17 +63,6 @@ awful.rules.rules = {
     },
     properties = {
       opacity = 0.95,
-    },
-  },
-
-  -- [[ Meet ]] ----------------------------------------------------------------
-  {
-    rule = { instance = "meet.google.com" },
-    properties = {
-      callback = function(client)
-        awful.layout.set(awful.layout.suit.tile.left)
-        awful.client.swap.byidx(-1)
-      end
     },
   },
 
