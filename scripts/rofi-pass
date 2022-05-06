@@ -96,6 +96,7 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
       pro/elevo | \
+      perso/impots.gouv.fr | \
       pro/newrelic)
         # passwords shows up after we validate the login
         type $(login)
