@@ -90,6 +90,7 @@ if [ ${#option} -gt 0 ]; then
       perso/amazon |\
       perso/paypal |\
       pro/bitwarden |\
+      pro/azure |\
       */google)
         # password only
         type $(password)
