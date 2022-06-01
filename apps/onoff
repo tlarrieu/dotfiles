@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://web.onoff.app/"
