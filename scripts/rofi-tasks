@@ -191,7 +191,9 @@ rofi = <<~STR.strip
     -kb-accept-alt "Tab" \
     -kb-move-char-back "Left" \
     -kb-mode-complete "" \
-    -kb-row-tab ""
+    -kb-row-tab "" \
+    -kb-element-next "" \
+    -kb-element-prev ""
 STR
 
 results = `echo -n "#{[

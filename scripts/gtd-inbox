@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"'
+LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
 LAUNCHER2='rofi -dmenu -lines 10 -i -p '
 OPTIONS="Inbox\n\
 Home\n\
