@@ -243,7 +243,7 @@ when 12 # 'Control+d'
   end
 when 13 # 'Control+s'
   sched =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
+    `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`.escape
   if sched.length >= 0
     dir = sched.strip.empty? ? '+' : '-'
     msg = "You are about to schedule #{uuids.size} element(s). Is that OK?"
@@ -294,7 +294,7 @@ when 17 # 'Control+T'
   `fish -c "cont #{context}"`
 when 18 # 'Control+S'
   sched =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.escape
+    `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`.escape
   if sched.length >= 0
     msg = "You are about to wait on #{uuids.size} element(s). Is that OK?"
     cmd = "task rc.confirmation:0 %s mod wait:#{sched}"
@@ -302,7 +302,7 @@ when 18 # 'Control+S'
   end
 when 19 # 'Control+b'
   annotation =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar]; }"`.
+    `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`.
     strip.
     escape
 
@@ -335,7 +335,7 @@ when 20 # 'Control+B'
 when 21 # 'Control+l'
   warning = '<b>Do not forget + or -</b>'
   labels =
-    `rofi -dmenu -p "" -theme-str "#content { children: [inputbar,message]; }" -mesg "#{warning}"`.
+    `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }" -mesg "#{warning}"`.
     strip
 
   unless labels.empty?
