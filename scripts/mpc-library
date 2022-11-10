@@ -45,7 +45,7 @@ selection=$(\
       -kb-custom-2 "Control+i" \
       -kb-custom-3 "Control+t" \
       -kb-accept-alt "Tab" \
-      -kb-row-tab ""
+      -kb-element-next ""
 )
 rofi_signal=$?
 
