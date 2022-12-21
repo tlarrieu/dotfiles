@@ -1,4 +1,0 @@
-#!/bin/sh
-
-view="267ff983fc164544a155ce08e6877874"
-notion "jobteaser/4fd0bab193b044b3bb14e3b49ab195ed?v=$view"
