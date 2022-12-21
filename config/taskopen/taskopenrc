@@ -1,0 +1,15 @@
+[General]
+EDITOR = vim
+path_ext = /usr/share/taskopen/scripts
+taskbin = task
+no_annotation_hook = addnote
+task_attributes = "priority,project,tags,description"
+
+[Actions]
+url.target = annotations
+url.regex = "www|http"
+url.labelregex = ".*"
+url.command = "xdg-open $ANNOTATION"
+url.modes = "normal,any,batch"
+url.filtercommand = ""
+url.inlinecommand = ""
