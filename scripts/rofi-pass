@@ -107,7 +107,6 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
       pro/payfit | \
-      pro/onoff | \
       perso/bankin)
         # “normal” case where login and password fields are visible, but the
         # first field is not focused
@@ -117,8 +116,9 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
-      pro/swile*)
-        # In the case of swile, a single tab is not enough (╯°o°)╯┻━┻
+      pro/swile* | \
+      pro/onoff)
+        # In the case of swile and onoff, a single tab is not enough (╯°o°)╯┻━┻
         press Tab
         press Tab
         type $(login)
