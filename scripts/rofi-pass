@@ -89,13 +89,13 @@ if [ ${#option} -gt 0 ]; then
       perso/microsoft |\
       perso/amazon |\
       perso/paypal |\
-      pro/bitwarden |\
       pro/azure |\
       */google)
         # password only
         type $(password)
         press Return
         ;;
+      pro/bitwarden |\
       pro/elevo | \
       perso/impots.gouv.fr | \
       pro/newrelic)
