@@ -20,7 +20,7 @@ Plug 'junegunn/gv.vim'
 " {{{ --| Functionnalities |---------------
 Plug 'junegunn/goyo.vim'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
-Plug 'beloglazov/vim-online-thesaurus'
+Plug 'ron89/thesaurus_query.vim'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
@@ -402,10 +402,6 @@ let g:surround_61 = "<%= \r %>"
 " }}}
 " {{{ --| Tabular |-----------------------------------------
 vmap <leader>t :Tabular /
-" }}}
-" {{{ --| Thesaurus |---------------------------------------
-nnoremap gh :OnlineThesaurusCurrentWord<CR>
-nnoremap gH :Thesaurus<space>
 " }}}
 " {{{ --| Signature |---------------------------------------
 let g:SignatureMap = {
