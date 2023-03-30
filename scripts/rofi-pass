@@ -84,41 +84,45 @@ if [ ${#option} -gt 0 ]; then
         PASSWORD_STORE_CLIP_TIME=5 pass show -c3 perso/carte-bleue
         press "Control_L+v"
         ;;
+
+      # password only
       perso/linux | \
       pro/okta | \
       perso/microsoft |\
       perso/amazon |\
       perso/paypal |\
-      pro/azure |\
       */google)
-        # password only
         type $(password)
         press Return
         ;;
+
+      # passwords shows up after we validate the login
       pro/bitwarden |\
+      pro/azure |\
       pro/elevo | \
       pro/payfit | \
       perso/impots.gouv.fr | \
       pro/newrelic)
-        # passwords shows up after we validate the login
         type $(login)
         press Return
         sleep 1
         type $(password)
         press Return
         ;;
+
+      # “normal” case where login and password fields are visible, but the
+      # first field is not focused
       perso/bankin)
-        # “normal” case where login and password fields are visible, but the
-        # first field is not focused
         press Tab
         type $(login)
         press Tab
         type $(password)
         press Return
         ;;
+
+      # In the case of swile and onoff, a single tab is not enough (╯°o°)╯┻━┻
       pro/swile* | \
       pro/onoff)
-        # In the case of swile and onoff, a single tab is not enough (╯°o°)╯┻━┻
         press Tab
         press Tab
         type $(login)
@@ -126,8 +130,9 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
+
+      # “normal” case where login and password fields are visible
       *)
-        # “normal” case where login and password fields are visible
         type $(login)
         press Tab
         type $(password)
