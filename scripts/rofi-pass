@@ -40,6 +40,11 @@ function login {
   echo $(pass show "$option" | head -n 2 | tail -n 1)
 }
 
+function account_id {
+  echo $(pass show "$option" | head -n 3 | tail -n 1)
+}
+
+
 HELP="<b>Return</b>         <i>Autofill</i>
 <b>Shift+Return</b>   <i>Insert password or login</i>
 <b>Control+Return</b> <i>Edit entry</i>
@@ -95,6 +100,19 @@ if [ ${#option} -gt 0 ]; then
         type $(password)
         press Return
         ;;
+
+      # AWS are doing something of their own
+      pro/aws)
+        press Tab
+        press Tab
+        type $(account_id)
+        press Return
+        sleep 1
+        type $(login)
+        press Tab
+        type $(password)
+        press Return
+      ;;
 
       # passwords shows up after we validate the login
       pro/bitwarden |\
