@@ -92,10 +92,7 @@ if [ ${#option} -gt 0 ]; then
 
       # password only
       perso/linux | \
-      pro/okta | \
       perso/microsoft |\
-      perso/amazon |\
-      perso/paypal |\
       */google)
         type $(password)
         press Return
@@ -120,6 +117,7 @@ if [ ${#option} -gt 0 ]; then
       pro/elevo | \
       pro/payfit | \
       perso/impots.gouv.fr | \
+      perso/amazon |\
       pro/newrelic)
         type $(login)
         press Return
@@ -130,6 +128,7 @@ if [ ${#option} -gt 0 ]; then
 
       # “normal” case where login and password fields are visible, but the
       # first field is not focused
+      perso/paypal |\
       perso/bankin)
         press Tab
         type $(login)
