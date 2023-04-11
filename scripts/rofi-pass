@@ -112,7 +112,6 @@ if [ ${#option} -gt 0 ]; then
       ;;
 
       # passwords shows up after we validate the login
-      pro/bitwarden |\
       pro/azure |\
       pro/elevo | \
       pro/payfit | \
@@ -122,6 +121,16 @@ if [ ${#option} -gt 0 ]; then
         type $(login)
         press Return
         sleep 1
+        type $(password)
+        press Return
+        ;;
+
+      # Specific case for bitwarden because password field is not focused
+      pro/bitwarden)
+        type $(login)
+        press Return
+        sleep 1
+        press Tab
         type $(password)
         press Return
         ;;
