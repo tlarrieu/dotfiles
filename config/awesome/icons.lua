@@ -53,6 +53,7 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "zendesk" }},
   { icon = "", rule = { class = "Chromium", instance = "lever" }},
   { icon = "", rule = { class = "Chromium", instance = "chartmogul" }},
+  { icon = "", rule = { class = "Chromium", instance = "brightdata" }},
 
   --  Notion
   { icon = "", rule = { class = "Chromium", instance = "c7f757b56c014aa5845a753d7acb6a85" }},
