@@ -137,6 +137,7 @@ if [ ${#option} -gt 0 ]; then
 
       # “normal” case where login and password fields are visible, but the
       # first field is not focused
+      pro/travelperk |\
       perso/paypal |\
       perso/bankin)
         press Tab
