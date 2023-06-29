@@ -20,7 +20,7 @@ if filereadable("stack.yaml")
   nnoremap <buffer> <cr> :call haskell#run()<cr>
 else
   nnoremap <buffer> <cr>
-    \ :execute "T echo -ne '\\033c'; ghc Main.hs && time ./Main"<cr>
+    \ :execute "T echo -ne '\\033c'; ghc -dynamic Main.hs && time ./Main"<cr>
 endif
 
 nnoremap <buffer> <leader>e.
