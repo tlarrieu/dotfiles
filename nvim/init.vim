@@ -20,7 +20,6 @@ Plug 'junegunn/gv.vim'
 " {{{ --| Functionnalities |---------------
 Plug 'junegunn/goyo.vim'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
-Plug 'ron89/thesaurus_query.vim'
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
 Plug 'diepm/vim-rest-console'
