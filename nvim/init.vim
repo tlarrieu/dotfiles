@@ -130,6 +130,10 @@ augroup dimensions
   " windows)
   autocmd VimResized * call Autosize()
 augroup END
+nnoremap <left> <c-w><
+nnoremap <right> <c-w>>
+nnoremap <up> <c-w>+
+nnoremap <down> <c-w>-
 " Leader
 let g:mapleader="\<space>"
 " Avoiding moving cursor when hitting <space> followed by nothing
