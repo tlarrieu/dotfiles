@@ -317,6 +317,7 @@ let g:neoterm_autoscroll = 1
 let g:neoterm_size = 12
 let g:neoterm_automap_keys = '<leader>vttttt'
 nmap <silent> <leader><tab> :Ttoggle<cr>
+vnoremap <silent> <cr> :TREPLSendSelection<cr>
 " }}}
 " {{{ --| Deoplete |----------------------------------------
 let g:deoplete#enable_at_startup = 1
