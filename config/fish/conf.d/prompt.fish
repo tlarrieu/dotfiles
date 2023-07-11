@@ -105,7 +105,7 @@ function fish_prompt
 
   set -l count 0
   if test "$DESKTOP_SESSION" = "awesome"
-    set count (math $SHLVL - 2)
+    set count (math $SHLVL - 1)
   else
     set count $SHLVL
   end
