@@ -18,17 +18,20 @@ set -l color0D '#268bd2'
 set -l color0E '#6c71c4'
 set -l color0F '#d33682'
 
-set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
-set -x FZF_DEFAULT_OPTS "
+set -l fzf_common_opts "
   --reverse
   --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
   --bind=ctrl-k:kill-line
+  --no-scrollbar
 "
 
+set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
+set -x FZF_DEFAULT_OPTS $fzf_common_opts "--border=thinblock"
+
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -x FZF_CTRL_T_OPTS $FZF_DEFAULT_OPTS
+set -x FZF_CTRL_T_OPTS $fzf_common_opts "--border=none"
 
 # rbenv
 if type rbenv > /dev/null
