@@ -19,7 +19,21 @@ import $1 from '${0:.}/$1'
 endsnippet
 
 snippet e "export"
-export
+export 
+endsnippet
+
+snippet c "const"
+const 
+endsnippet
+
+snippet ec "export const"
+export const 
+endsnippet
+
+snippet = "arrow function"
+${1:name} = (${2:args}) => {
+	$0
+}
 endsnippet
 
 snippet d "function"
@@ -33,6 +47,10 @@ constructor(props) {
 	super(props)
 	$0
 }
+endsnippet
+
+snippet t "throw new Error()"
+throw new Error('$1')
 endsnippet
 
 snippet _component "Skeleton" b
