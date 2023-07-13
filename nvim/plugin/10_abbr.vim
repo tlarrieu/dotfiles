@@ -1,13 +1,3 @@
-cnoreabbrev <expr> ag
-  \ getcmdtype() == ":" && getcmdline() == 'ag' ? 'Ack!' : 'ag'
-cnoreabbrev <expr> ack
-  \ getcmdtype() == ":" && getcmdline() == 'ack' ? 'Ack!' : 'ack'
-cnoreabbrev <expr> chmod
-  \ getcmdtype() == ":" && getcmdline() == 'chmod' ? 'silent !chmod %<left><left>' : 'chmod'
-cnoreabbrev <expr> rm
-  \ getcmdtype() == ":" && getcmdline() == 'rm' ? 'DeleteFile' : 'rm'
-cnoreabbrev <expr> mv
-  \ getcmdtype() == ":" && getcmdline() == 'mv' ? 'RenameFile' : 'mv'
 cnoreabbrev <expr> mkdir
   \ getcmdtype() == ":" && getcmdline() == 'mkdir' ? '!mkdir' : 'mkdir'
 cnoreabbrev <expr> gv
