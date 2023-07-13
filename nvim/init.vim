@@ -8,7 +8,6 @@ set shell=/bin/sh
 call plug#begin()
 " {{{ --| File Manipulation |--------------
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'mileszs/ack.vim'
 Plug 'duggiefresh/vim-easydir'
 " }}}
 " {{{ --| Project manipulation |-----------
@@ -18,11 +17,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'junegunn/gv.vim'
 " }}}
 " {{{ --| Functionnalities |---------------
-Plug 'junegunn/goyo.vim'
 Plug 'AndrewRadev/linediff.vim', { 'on': 'Linediff' }
 Plug 'kassio/neoterm'
 Plug 'tpope/vim-vinegar'
-Plug 'diepm/vim-rest-console'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'thinca/vim-qfreplace', { 'on': 'Qfreplace' }
 Plug 'janko-m/vim-test'
@@ -34,7 +31,6 @@ Plug 'vimwiki/vimwiki'
 " }}}
 " {{{ --| Snippets |-----------------------
 Plug 'SirVer/ultisnips'
-Plug 'mattn/emmet-vim'
 " }}}
 " {{{ --| Text manipulation |--------------
 Plug 'AndrewRadev/switch.vim'
@@ -42,7 +38,6 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'godlygeek/tabular', { 'on' : 'Tabular' }
 Plug 'FooSoft/vim-argwrap'
 Plug 'dkarter/bullets.vim'
 " }}}
@@ -57,7 +52,6 @@ Plug 'b4winckler/vim-angry'
 Plug 'machakann/vim-highlightedyank'
 " }}}
 " {{{ --| Languages suport |---------------
-Plug 'tpope/vim-rails'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'vifm/vifm.vim'
 Plug 'dag/vim-fish'
@@ -91,10 +85,6 @@ call plug#end()
 " {{{ ==| File Related |========================================================
 augroup vimrc_autocmd
   autocmd!
-  autocmd FileType html,eruby setlocal foldlevel=10
-  autocmd FileType html setlocal foldmethod=syntax
-  autocmd FileType html setlocal foldminlines=1
-  autocmd BufReadPost *.diag setfiletype seqdiag
   "Go to the cursor position before buffer was closed
   autocmd BufReadPost *
         \ if line("'\"") > 0 && line("'\"") <= line("$") |
@@ -195,7 +185,7 @@ set updatetime=250
 let g:netrw_liststyle=3
 " inccommand
 set inccommand=nosplit
-set signcolumn=auto:1-9
+set signcolumn=auto:2-9
 " }}}
 " {{{ ==| Splits |==============================================================
 set splitright
@@ -254,15 +244,9 @@ set statusline+=%P\                             " percentage of file
 set statusline+=%*
 " }}}
 " {{{ ==| Shortmess |===========================================================
-set shortmess+=W
-set shortmess+=I
+set shortmess+=WI
 " }}}
 " {{{ ==| Plugins |=============================================================
-" {{{ --| Goyo |--------------------------------------------
-let g:goyo_width = 130
-let g:goyo_height = '85%'
-let g:goyo_linenr = 1
-" }}}
 " {{{ --| Neoformat |---------------------------------------
 nnoremap <silent> <buffer> <leader>f :Neoformat<cr>
 vnoremap <silent> <buffer> <leader>f :Neoformat<cr>
@@ -291,23 +275,8 @@ let g:vimwiki_list = [{
 " {{{ --| Bullets |-----------------------------------------
 let g:bullets_set_mappings = 0
 " }}}
-" {{{ --| Emmet |-------------------------------------------
-let g:user_emmet_install_global = 0
-let g:user_emmet_leader_key = '<c-b>'
-let g:user_emmet_mode = 'iv'
-let g:user_emmet_settings = { 'javascript.jsx': { 'extends': 'jsx' } }
-augroup Emmet
-  autocmd FileType html,css,javascript,jsx,eelixir EmmetInstall
-augroup END
-" }}}
 " {{{ --| vim-test |----------------------------------------
 let g:test#strategy = 'neoterm'
-" }}}
-" {{{ --| VimRenamer |--------------------------------------
-augroup VimRenamer
-  autocmd!
-  autocmd BufFilePost VimRenamer nmap <buffer> <c-s> :Ren<cr>
-augroup END
 " }}}
 " {{{ --| HighlightedYank |---------------------------------
 let g:highlightedyank_highlight_duration = 180
@@ -329,23 +298,10 @@ call deoplete#custom#option({
 let g:deoplete#tag#cache_limit_size = 600000
 call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 " }}}
-" {{{ --| Rails |-------------------------------------------
-vmap <leader>x :Rextract<space>
-" }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_map_keys = 0
 nmap <expr> ß &diff ? '[c' : '<Plug>(GitGutterPrevHunk)'
 nmap <expr> þ &diff ? ']c' : '<Plug>(GitGutterNextHunk)'
-" }}}
-" {{{ --| VimRestConsole |----------------------------------
-let g:vrc_set_default_mapping = 0
-let g:vrc_split_request_body = 1
-let g:vrc_show_command = 1
-let g:vrc_curl_opts = { '-L': '', '-i': '', '-s' : '' }
-augroup VimRestConsole
-  autocmd!
-  autocmd FileType rest nmap <buffer> <return> :call VrcQuery()<cr>
-augroup END
 " }}}
 " {{{ --| ArgWrap |-----------------------------------------
 nnoremap <silent> <leader>, :ArgWrap<CR>
@@ -405,32 +361,6 @@ let g:surround_35 = "<%# \r %>"
 let g:surround_37 = "<% \r %>"
 let g:surround_61 = "<%= \r %>"
 " }}}
-" {{{ --| Tabular |-----------------------------------------
-vmap <leader>t :Tabular /
-" }}}
-" {{{ --| Signature |---------------------------------------
-let g:SignatureMap = {
-  \ 'Leader'            : 'm',
-  \ 'PlaceNextMark'     : '',
-  \ 'ToggleMarkAtLine'  : '',
-  \ 'PurgeMarksAtLine'  : '',
-  \ 'PurgeMarks'        : '',
-  \ 'PurgeMarkers'      : '',
-  \ 'GotoNextLineAlpha' : '',
-  \ 'GotoPrevLineAlpha' : '',
-  \ 'GotoNextSpotAlpha' : '',
-  \ 'GotoPrevSpotAlpha' : '',
-  \ 'GotoNextLineByPos' : '',
-  \ 'GotoPrevLineByPos' : '',
-  \ 'GotoNextSpotByPos' : '',
-  \ 'GotoPrevSpotByPos' : '',
-  \ 'GotoNextMarker'    : '',
-  \ 'GotoPrevMarker'    : '',
-  \ 'GotoNextMarkerAny' : '',
-  \ 'GotoPrevMarkerAny' : '',
-  \ 'ListLocalMarks'    : ''
-  \ }
-" }}}
 " {{{ --| Angry |-------------------------------------------
 let g:angry_disable_maps = 1
 vmap <silent> ac <Plug>AngryOuterPrefix
@@ -442,12 +372,6 @@ vmap <silent> aC <Plug>AngryOuterSuffix
 omap <silent> aC <Plug>AngryOuterSuffix
 vmap <silent> iC <Plug>AngryInnerSuffix
 omap <silent> iC <Plug>AngryInnerSuffix
-" }}}
-" {{{ --| Ack |---------------------------------------------
-let g:ack_apply_qmappings = 0
-let g:ack_apply_lmappings = 0
-let g:ackprg = 'ag --vimgrep'
-set grepformat=%f:%l:%c:%m
 " }}}
 " {{{ --| UltiSnips |---------------------------------------
 let g:UltiSnipsRemoveSelectModeMappings = 1
@@ -532,11 +456,8 @@ noremap ' `
 noremap ` '
 noremap <silent> <leader>m :delmarks!<cr>
 " Beginning / end of the line
-inoremap <c-a> <c-o>^
 cnoremap <c-a> <home>
-inoremap <c-e> <c-o>$
 cnoremap <c-e> <end>
-nmap ç ^
 " Split lines
 noremap <c-j> i<cr><esc>
 " Don't make a # force column zero.
@@ -584,9 +505,6 @@ vnoremap <c-s> <esc>:w<cr>
 nnoremap gV `[v`]
 " }}}
 " {{{ --| Togglers |----------------------------------------
-" Rename file
-command! RenameFile :call RenameFile()
-command! RF :call RenameFile()
 " Toggle highlight current word
 nmap <leader>' :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 " Uppercase current word
@@ -677,7 +595,6 @@ endfunction
 
 nmap <leader>es :call OpenSchemaFile()<cr>
 
-nmap <leader>ea :call MaybeTabedit('~/httpclient.rest')<cr>
 nmap <leader>ee :call MaybeTabedit('~/.scratchpad.md')<cr>
 nmap <leader>ep :call MaybeTabedit('~/postgres.sql')<cr>
 nmap <leader>eq :call MaybeTabedit('~/sqlite.sql')<cr>
