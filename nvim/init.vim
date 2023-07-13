@@ -80,7 +80,7 @@ Plug 'bhurlow/vim-parinfer', { 'for': ['lisp', 'clojure', 'racket'] }
 " {{{ --| Good looking |-------------------
 Plug 'altercation/vim-colors-solarized'
 Plug 'gcmt/taboo.vim'
-Plug 'kshenoy/vim-signature'
+Plug 'chentoast/marks.nvim'
 " }}}
 " {{{ --| Other |--------------------------
 Plug 'vim-scripts/AnsiEsc.vim', { 'on': 'AnsiEsc' }
@@ -195,7 +195,7 @@ set updatetime=250
 let g:netrw_liststyle=3
 " inccommand
 set inccommand=nosplit
-set signcolumn=yes
+set signcolumn=auto:1-9
 " }}}
 " {{{ ==| Splits |==============================================================
 set splitright

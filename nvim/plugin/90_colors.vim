@@ -90,8 +90,10 @@ function! s:setupcolors()
   highlight! Whitespace ctermfg=14
 
   highlight! link SignColumn CursorColumn
-  highlight! link SignatureMarkText Folded
   highlight! link HighlightedyankRegion Folded
+
+  highlight! link MarkSignHL GitGutterText
+  highlight! link MarkSignNumHL MarkSignHL
 
   highlight! Folded cterm=bold
 
