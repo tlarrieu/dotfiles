@@ -23,12 +23,9 @@ function! s:goyo_enter()
     autocmd BufReadPost,BufEnter,FileType,TermOpen * setlocal wrap
   augroup END
 
-  " highlight! link LineNr TabLineSel
   highlight! LineNr ctermfg=5 ctermbg=none
   highlight! LineNrAbove ctermfg=14 ctermbg=none
   highlight! LineNrBelow ctermfg=14 ctermbg=none
-  " highlight! link LineNrAbove Comment
-  " highlight! link LineNrBelow Comment
   highlight! link NormalNC Comment
 
   highlight! link StatusLine Normal
