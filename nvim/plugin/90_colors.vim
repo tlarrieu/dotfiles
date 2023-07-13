@@ -91,6 +91,7 @@ function! s:setupcolors()
 
   highlight! link MarkSignHL GitGutterText
   highlight! link MarkSignNumHL MarkSignHL
+  highlight! MarkVirtTextHL cterm=underline ctermfg=5 ctermbg=7
 
   highlight! Folded cterm=bold
 
