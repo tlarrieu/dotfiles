@@ -201,6 +201,7 @@ set signcolumn=auto:1-9
 set splitright
 set splitbelow
 set fillchars+=vert:\ 
+set fillchars+=eob: 
 " }}}
 " {{{ ==| Scrolling |===========================================================
 set scrolloff=8
