@@ -5,10 +5,6 @@ local apply_dpi = require('beautiful.xresources').apply_dpi
 
 local lain = require("lain")
 
-local font = "Fira Code 11"
-local tagsfont = "Fira Code Retina 16"
-local clockfont = "Fira Code 11"
-
 local colorize = function(widget, value)
   local color
 
@@ -29,7 +25,6 @@ local arcprogress = function(label)
     valign = "center",
     align = "center",
     widget = wibox.widget.textbox,
-    font = font
   })
   local arcchart = wibox.container({
     text,
@@ -68,7 +63,6 @@ lain.widgets.mem({
 local clock = wibox.widget({
   widget = wibox.widget.textclock,
   format = "%Y.%m.%d %H:%M",
-  font = clockfont,
 })
 
 -- [[ Mic ]] -----------------------------------------------------------------
@@ -77,7 +71,6 @@ local mictext = wibox.widget({
   valign = "center",
   align = "center",
   widget = wibox.widget.textbox,
-  font = font
 })
 
 local mic = wibox.container({
@@ -120,10 +113,7 @@ local batteryname = pipe:read('*a')
 pipe:close()
 
 if batteryname then
-  local batterytext = wibox.widget({
-    widget = wibox.widget.textbox,
-    font = font
-  })
+  local batterytext = wibox.widget({ widget = wibox.widget.textbox })
 
   battery = wibox.widget({
     batterytext,
@@ -208,7 +198,6 @@ end
 
 local vpn = require("cmdwidget")({
   cmd = os.getenv("HOME") .. "/scripts/vpn-status",
-  font = tagsfont,
   color = function(_) return beautiful.colors.red.dark end,
   text = function(output) return output end
 })
@@ -222,7 +211,7 @@ local init_screen = function(screen)
     filter = function(tag)
       return #tag:clients() > 1 or #tag.screen.tags > 1
     end,
-    style = { spacing = dpi(6), font = tagsfont },
+    style = { spacing = dpi(6) },
   })
 
   local left = wibox.widget({
