@@ -12,11 +12,6 @@ fi
 echo '$profile:' "$profile"
 
 case "$profile" in
-  work |\
-  pro \
-  )
-    ~/bin/DiscordCanary/DiscordCanary
-    ;;
   home)
     browser-kiosk "perso" "https://discord.com/channels/@me"
     ;;
