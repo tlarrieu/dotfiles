@@ -56,3 +56,9 @@ heroku-logs
 
 .subset
 .env.local
+
+# Haskell #
+###########
+Main
+*.hi
+.stack-work/
