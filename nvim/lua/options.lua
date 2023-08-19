@@ -118,9 +118,6 @@ o.shortmess:append('WI')
 
 -- {{{ ==| Plugins |=============================================================
 vim.cmd([[
-" {{{ --| netrw |-------------------------------------------
-let g:netrw_liststyle=3
-" }}}
 " {{{ --| vimwiki |-----------------------------------------
 let g:vimwiki_global_vars = {}
 let g:vimwiki_hl_headers = 0

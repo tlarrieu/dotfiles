@@ -14,7 +14,7 @@ return require('packer').startup(function(use)
   -- {{{ --| Functionnalities |---------------
   use { 'AndrewRadev/linediff.vim', on = 'Linediff' }
   use 'kassio/neoterm'
-  use 'tpope/vim-vinegar'
+  use 'stevearc/oil.nvim'
   use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
   use 'janko-m/vim-test'
   use 'tlarrieu/vim-sniper'
