@@ -56,10 +56,7 @@ noremap('è', ':')
 noremap('È', ':!')
 -- search
 noremap('é', '/')
--- search based on word under cursor
-nmap('<space>é', ':set operatorfunc=UsageOperator<cr>g@iw')
-vmap('<space>é', ':<c-u>call UsageOperator(visualmode())<cr>')
-nmap('<space>É', ':set operatorfunc=DefinitionOperator<cr>g@iw')
+-- replace occurences of word under cursor
 nnoremap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
 -- find & replace
 nnoremap('É', ':%s/')
@@ -198,15 +195,15 @@ vnoremap('<cr>', ':TREPLSendSelection<cr>')
 --- {{{ --| argwrap |---------------------------------------
 nnoremap('<space>,', ':ArgWrap<CR>')
 --- }}}
---- {{{ --| FZF |-------------------------------------------
--- Standard mode (file list)
-nmap('<c-t>', ':FZF -m -e<cr>')
--- Custom modes (home made functions)
-nnoremap('<c-b>', ':FZFbuf<cr>')
-nnoremap('<c-e>', ':FZFsearch<space>')
-nnoremap('<c-c>', ':FZFtags tag<cr>')
-nnoremap('<c-l>', ':FZFtags tag<cr>')
-nnoremap('<c-y>', ':FZFGitFiles<cr>')
+--- {{{ --| Telescope |-------------------------------------
+local builtin = require('telescope.builtin')
+nmap('<c-t>', builtin.find_files)
+nnoremap('<c-e>', builtin.live_grep)
+nnoremap('<space>é', builtin.grep_string)
+nnoremap('<c-b>', builtin.buffers)
+nnoremap('<c-h>', builtin.help_tags)
+nnoremap('<c-y>', builtin.git_status)
+nnoremap('<c-l>', builtin.tags)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
 vmap('ac', '<Plug>AngryOuterPrefix')

@@ -7,9 +7,13 @@ vim.cmd([[
   augroup end
 ]])
 
+
 return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
-  use { 'junegunn/fzf', run = function() vim.fn['fzf#install'](0) end }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
   use 'duggiefresh/vim-easydir'
   use 'tpope/vim-eunuch'
   -- }}}

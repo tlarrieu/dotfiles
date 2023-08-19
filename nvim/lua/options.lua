@@ -120,6 +120,11 @@ o.shortmess:append('WI')
 
 -- {{{ ==| Plugins |=============================================================
 vim.cmd([[
+" {{{ --| Telescope |---------------------------------------
+augroup Telescope
+  autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
+augroup END
+" }}}
 " {{{ --| vimwiki |-----------------------------------------
 let g:vimwiki_global_vars = {}
 let g:vimwiki_hl_headers = 0
@@ -167,22 +172,6 @@ call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 " }}}
 " {{{ --| GitGutter |---------------------------------------
 let g:gitgutter_map_keys = 0
-" }}}
-" {{{ --| FZF |---------------------------------------------
-let g:fzf_colors = {
-  \   'fg':      ['fg', 'Normal'],
-  \   'bg':      ['bg', 'Normal'],
-  \   'hl':      ['fg', 'Comment'],
-  \   'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \   'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \   'hl+':     ['fg', 'Statement'],
-  \   'info':    ['fg', 'PreProc'],
-  \   'prompt':  ['fg', 'Conditional'],
-  \   'pointer': ['fg', 'Exception'],
-  \   'marker':  ['fg', 'Keyword'],
-  \   'spinner': ['fg', 'Label'],
-  \   'header':  ['fg', 'Comment']
-  \ }
 " }}}
 " {{{ --| Neomake |-----------------------------------------
 call neomake#configure#automake('w')

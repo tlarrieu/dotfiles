@@ -44,39 +44,6 @@ endfunction
 " }}} ==========================================================================
 
 " {{{ ==| Search |==============================================================
-" Those 2 functions should be refactored into a single one
-function! UsageOperator(type)
-  let saved_register = @@
-
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-
-  silent execute 'FZFsearch ' . @@
-
-  let @@ = saved_register
-endfunction
-
-function! DefinitionOperator(type)
-  let saved_register = @@
-
-  if a:type ==# 'v'
-    normal! `<v`>y
-  elseif a:type ==# 'char'
-    normal! `[v`]y
-  else
-    return
-  endif
-
-  silent execute 'FZFsearch (def (self\.)?|class )' . @@
-
-  let @@ = saved_register
-endfunction
-
 " Highlight all instances of word under cursor, when idle.
 " Useful when studying strange source code.
 function! AutoHighlightToggle()
@@ -103,12 +70,6 @@ endfunction
 " }}} ==========================================================================
 
 " {{{ ==| Buffer Handling |=====================================================
-function! DeleteFile()
-  call delete(expand('%'))
-  bdelete!
-endfunction
-command DeleteFile :call DeleteFile()
-
 function! ClearBuffers()
   silent! bufdo bdelete
   silent! tabdo tabclose

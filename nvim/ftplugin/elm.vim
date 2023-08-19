@@ -30,13 +30,6 @@ function! s:importjump(i)
   normal! ^zz
 endfunction
 
-nnoremap <silent> <c-c> :call fzf#run({
-  \   'source':  <sid>importlines(),
-  \   'sink':    function('<sid>importjump'),
-  \   'options': '--extended --nth=2.. +s',
-  \   'down':    '30%'
-  \ })<cr>
-
 " Functions list
 function! s:funclines()
   if !bufexists(expand('%'))
@@ -55,10 +48,3 @@ function! s:funcjump(l)
   exec keys[0]
   normal! ^zz
 endfunction
-
-nnoremap <silent> <c-l> :call fzf#run({
-  \   'source':  <sid>funclines(),
-  \   'sink':    function('<sid>funcjump'),
-  \   'options': '--extended --nth=2.. +s',
-  \   'down':    '30%'
-  \ })<cr>
