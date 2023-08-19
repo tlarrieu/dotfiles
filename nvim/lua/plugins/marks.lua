@@ -1,4 +1,4 @@
-require'marks'.setup {
+require('marks').setup {
   -- whether to map keybinds or not. default true
   default_mappings = true,
   -- which builtin marks to show. default {}
