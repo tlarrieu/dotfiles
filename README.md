@@ -22,4 +22,4 @@ just intend to test my configuration.
 
 ## TODO
 
-- [ ] find a way to automatically apply theme in vim upon changing xrdb theme (we have to manually — althrough through a helper function — apply it)
+- [ ] find a way to automatically apply theme in nvim upon changing xrdb theme (we have to manually — although through a helper function — apply it)
