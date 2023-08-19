@@ -11,6 +11,7 @@ return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
   use { 'junegunn/fzf', run = function() vim.fn['fzf#install'](0) end }
   use 'duggiefresh/vim-easydir'
+  use 'tpope/vim-eunuch'
   -- }}}
   -- {{{ --| Project manipulation |-----------
   use 'tpope/vim-projectionist'
