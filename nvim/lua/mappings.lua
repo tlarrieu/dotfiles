@@ -1,58 +1,25 @@
-function map(shortcut, command)
-  vim.api.nvim_set_keymap('', shortcut, command, {})
-end
+local k = vim.keymap
 
-function noremap(shortcut, command)
-  vim.api.nvim_set_keymap('', shortcut, command, { noremap = true })
-end
+function map(keys, cmd) k.set('', keys, cmd, {}) end
+function noremap(keys, cmd) k.set('', keys, cmd, { remap = false }) end
 
-function nmap(shortcut, command)
-  vim.api.nvim_set_keymap('n', shortcut, command, {})
-end
+function nmap(keys, cmd) k.set('n', keys, cmd, {}) end
+function nnoremap(keys, cmd) k.set('n', keys, cmd, { remap = false }) end
 
-function nnoremap(shortcut, command)
-  vim.api.nvim_set_keymap('n', shortcut, command, { noremap = true })
-end
+function imap(keys, cmd) k.set('i', keys, cmd, {}) end
+function inoremap(keys, cmd) k.set('i', keys, cmd, { remap = false }) end
 
-function imap(shortcut, command)
-  vim.api.nvim_set_keymap('i', shortcut, command, {})
-end
+function vmap(keys, cmd) k.set('v', keys, cmd, {}) end
+function vnoremap(keys, cmd) k.set('v', keys, cmd, { remap = false }) end
 
-function inoremap(shortcut, command)
-  vim.api.nvim_set_keymap('i', shortcut, command, { noremap = true })
-end
+function omap(keys, cmd) k.set('o', keys, cmd, {}) end
+function onoremap(keys, cmd) k.set('o', keys, cmd, { remap = false }) end
 
-function vmap(shortcut, command)
-  vim.api.nvim_set_keymap('v', shortcut, command, {})
-end
+function cmap(keys, cmd) k.set('c', keys, cmd, {}) end
+function cnoremap(keys, cmd) k.set('c', keys, cmd, { remap = false }) end
 
-function vnoremap(shortcut, command)
-  vim.api.nvim_set_keymap('v', shortcut, command, { noremap = true })
-end
-
-function omap(shortcut, command)
-  vim.api.nvim_set_keymap('o', shortcut, command, {})
-end
-
-function onoremap(shortcut, command)
-  vim.api.nvim_set_keymap('o', shortcut, command, { noremap = true })
-end
-
-function cmap(shortcut, command)
-  vim.api.nvim_set_keymap('c', shortcut, command, {})
-end
-
-function cnoremap(shortcut, command)
-  vim.api.nvim_set_keymap('c', shortcut, command, { noremap = true })
-end
-
-function tmap(shortcut, command)
-  vim.api.nvim_set_keymap('t', shortcut, command, {})
-end
-
-function tnoremap(shortcut, command)
-  vim.api.nvim_set_keymap('t', shortcut, command, { noremap = true })
-end
+function tmap(keys, cmd) k.set('t', keys, cmd, {}) end
+function tnoremap(keys, cmd) k.set('t', keys, cmd, { remap = false }) end
 
 -- Avoiding moving cursor when hitting <space> followed by nothing
 map('<space>', '<nop>')
@@ -220,22 +187,9 @@ nmap('<space>z', 'zMzv')
 nnoremap('<space>Z', 'zR')
 nnoremap('zO', 'zczO')
 --- }}}
-
 --- {{{ --| neoformat |-------------------------------------
-vim.api.nvim_buf_set_keymap(
-  0,
-  'n',
-  '<space>f',
-  ':Neoformat<cr>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_buf_set_keymap(
-  0,
-  'v',
-  '<space>f',
-  ':Neoformat<cr>',
-  { noremap = true, silent = true }
-)
+nnoremap('<space>f', ':Neoformat<cr>')
+vnoremap('<space>f', ':Neoformat<cr>')
 --- }}}
 --- {{{ --| neoterm |---------------------------------------
 nmap('<space><tab>', ':Ttoggle<cr>')
