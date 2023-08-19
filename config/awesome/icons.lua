@@ -181,12 +181,16 @@ end
 
 _M.fetch = function(client)
   for i = 1, #config do
+    -- temporary solution to handle double width glyphs, gotta find a better
+    -- solution
+    local icon = "" .. config[i].icon .. " "
+
     if config[i].rules then
       for j = 1, #config[i].rules do
-        if match(client, config[i].rules[j]) then return config[i].icon end
+        if match(client, config[i].rules[j]) then return icon end
       end
     else
-      if match(client, config[i].rule) then return config[i].icon end
+      if match(client, config[i].rule) then return icon end
     end
   end
 
