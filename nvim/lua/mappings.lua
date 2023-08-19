@@ -96,7 +96,7 @@ nmap('<space>É', ':set operatorfunc=DefinitionOperator<cr>g@iw')
 nnoremap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
 -- find & replace
 nnoremap('É', ':%s/')
-vnoremap('É', '<esc>:%s/%V')
+vnoremap('É', '<esc>:%s/\\%V')
 -- hide search matches
 nnoremap('<esc>', '<esc>:nohlsearch<cr><c-l>')
 -- Find character
