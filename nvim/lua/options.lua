@@ -2,6 +2,8 @@ local o = vim.opt
 local home = os.getenv("HOME")
 
 -- {{{ ==| General options |====================================================
+-- shell
+o.shell = '/bin/sh'
 -- allow project specific init.lua
 o.exrc = true
 o.secure = true
