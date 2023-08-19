@@ -155,6 +155,13 @@ function! UTF8()
 endfunction
 command! UTF8 :call UTF8()
 
+function! ClearTrailingSpaces()
+  let l:_s=@/
+  %substitute/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
+  let @/=l:_s
+  nohl
+endfunction
+
 function! ClearRegisters()
   let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
   let i=0
@@ -172,4 +179,16 @@ function! Redir(command)
   r /tmp/vim_redir
 endfunction
 command! -nargs=1 R call Redir(<q-args>)
+" }}} ==========================================================================
+
+" {{{ ==| align mode |==========================================================
+function! AlignMode()
+  if &virtualedit ==# 'all'
+    setlocal virtualedit=""
+  else
+    setlocal virtualedit=all
+  end
+  setlocal cursorcolumn!
+  setlocal cursorline!
+endfunction
 " }}} ==========================================================================

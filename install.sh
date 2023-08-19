@@ -180,7 +180,7 @@ case $answer in
 
     build_tools="fakeroot binutils base-devel"
 
-    nvim="python python-pip neovim"
+    nvim="python python-pip neovim nvim-packer-git"
 
     terminal="kitty fish"
 
