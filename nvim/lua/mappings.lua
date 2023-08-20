@@ -110,6 +110,9 @@ noremap('0', '*')
 -- diff hunk navigation
 nmap('ß', '<Plug>(GitGutterPrevHunk)')
 nmap('þ', '<Plug>(GitGutterNextHunk)')
+-- quickfix navigation
+nmap('<a-p>', ':cprev<cr>')
+nmap('<a-n>', ':cnext<cr>')
 -- sort
 vmap('<space>s', ':sort<cr>')
 -- macro
