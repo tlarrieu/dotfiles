@@ -119,7 +119,7 @@ vnoremap('<space><space>', ':normal 6q<cr>')
 --- {{{ --| quick access |----------------------------------
 nmap('<space>eu', ':UltiSnipsEdit<cr>')
 nmap('<space>eU', ':UltiSnipsEdit<space>')
-nmap('<space>.', ':Texplore .<cr>')
+nmap('<space>.', ':tabedit .<cr>')
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
