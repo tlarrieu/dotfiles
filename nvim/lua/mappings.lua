@@ -204,6 +204,7 @@ nnoremap('<c-b>', builtin.buffers)
 nnoremap('<c-h>', builtin.help_tags)
 nnoremap('<c-y>', builtin.git_status)
 nnoremap('<c-l>', builtin.tags)
+nnoremap('<c-q>', builtin.quickfix)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
 vmap('ac', '<Plug>AngryOuterPrefix')
