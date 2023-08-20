@@ -1,4 +1,6 @@
 configuration {
+  font: "FiraCode Nerd Font Ret 15";
+
   terminal: "kitty";
   ssh-command: "{terminal} -e {ssh-client} {host}";
   run-command: "{cmd}";
