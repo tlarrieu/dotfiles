@@ -14,6 +14,9 @@ require('telescope').setup{
     mappings = {
       i = {
         ["<esc>"] = require('telescope.actions').close,
+
+        ["<c-a>"] = { "<home>", type = "command" },
+        ["<c-e>"] = { "<end>", type = "command" },
       },
     }
   },
