@@ -21,14 +21,16 @@ function cnoremap(keys, cmd) k.set('c', keys, cmd, { remap = false }) end
 function tmap(keys, cmd) k.set('t', keys, cmd, {}) end
 function tnoremap(keys, cmd) k.set('t', keys, cmd, { remap = false }) end
 
--- Avoiding moving cursor when hitting <space> followed by nothing
-map('<space>', '<nop>')
+vim.g.mapleader = " "
+
+-- Avoiding moving cursor when hitting <leader> followed by nothing
+map('<leader>', '<nop>')
 
 --- {{{ --| basics |----------------------------------------
 -- Marks
 noremap("'", '`')
 noremap('`', "'")
-noremap('<space>m', ':delmarks!<cr>')
+noremap('<leader>m', ':delmarks!<cr>')
 -- Beginning / end of the line
 cnoremap('<c-a>', '<home>')
 cnoremap('<c-e>', '<end>')
@@ -40,9 +42,9 @@ inoremap('#', 'X<bs>#')
 nnoremap('<F1>', '<nop>')
 inoremap('<F1>', '<nop>')
 -- Clever paste from system buffer
-noremap('<space>p', '"+p')
-noremap('<space>P', '"+P')
-noremap('<space>y', '"+y')
+noremap('<leader>p', '"+p')
+noremap('<leader>P', '"+P')
+noremap('<leader>y', '"+y')
 nnoremap('yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>")
 -- Give a more logical behavior to Y
 nnoremap('Y', 'y$')
@@ -114,38 +116,38 @@ nmap('þ', '<Plug>(GitGutterNextHunk)')
 nmap('<a-p>', ':cprev<cr>')
 nmap('<a-n>', ':cnext<cr>')
 -- sort
-vmap('<space>s', ':sort<cr>')
+vmap('<leader>s', ':sort<cr>')
 -- macro
-noremap('<space><space>', '@q')
-vnoremap('<space><space>', ':normal 6q<cr>')
+noremap('<leader><leader>', '@q')
+vnoremap('<leader><leader>', ':normal 6q<cr>')
 --- }}}
 --- {{{ --| quick access |----------------------------------
-nmap('<space>eu', ':UltiSnipsEdit<cr>')
-nmap('<space>eU', ':UltiSnipsEdit<space>')
-nmap('<space>.', ':tabedit .<cr>')
+nmap('<leader>eu', ':UltiSnipsEdit<cr>')
+nmap('<leader>eU', ':UltiSnipsEdit<leader>')
+nmap('<leader>.', ':tabedit .<cr>')
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
-nmap("<space>'", ':if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>')
+nmap("<leader>'", ':if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>')
 -- Uppercase current word
 nmap('<c-g>', 'gUiw')
 imap('<c-g>', '<esc>gUiwea')
--- Clear trailing spaces (but not the escaped ones)
-nmap('<space>k', 'm`:call ClearTrailingSpaces()<cr>g``')
+-- Clear trailing leaders (but not the escaped ones)
+nmap('<leader>k', 'm`:call ClearTrailingleaders()<cr>g``')
 -- Fix indent
-nmap('ga', 'm`gg=G:call ClearTrailingSpaces()<cr>g``')
+nmap('ga', 'm`gg=G:call ClearTrailingleaders()<cr>g``')
 -- Cursorline / Cursorcolumn
-nmap('<space>g', ':call AlignMode()<cr>')
+nmap('<leader>g', ':call AlignMode()<cr>')
 -- Quickfix / Location list
-nmap('<space>q', ':call ToggleQuickfixList()<cr>')
-nmap('<space>l', ':call ToggleLocationList()<cr>')
+nmap('<leader>q', ':call ToggleQuickfixList()<cr>')
+nmap('<leader>l', ':call ToggleLocationList()<cr>')
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 tnoremap('<c-s>', '<c-\\><c-n>')
 
-nmap('<space>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>')
-nmap('<space>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>')
-nmap('<space>ni', ':new<bar>terminal<cr>:startinsert<cr>')
+nmap('<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>')
+nmap('<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>')
+nmap('<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>')
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
 nnoremap('<left>', '<c-w><')
@@ -160,49 +162,49 @@ noremap('<c-w><c-t>', '<c-w>J')
 noremap('<c-w><c-s>', '<c-w>K')
 noremap('<c-w><c-r>', '<c-w>L')
 -- Horizontal Split
-nmap('<space>nn', ':new<cr>')
-nmap('<space>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nmap('<leader>nn', ':new<cr>')
+nmap('<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
-nmap('<space>vv', ':vnew<cr>')
-nmap('<space>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nmap('<leader>vv', ':vnew<cr>')
+nmap('<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Dimensions
-nmap('<space>=', '<c-w>=')
-nmap('<space>%', ':res<cr>:vertical res<cr>')
+nmap('<leader>=', '<c-w>=')
+nmap('<leader>%', ':res<cr>:vertical res<cr>')
 -- Moving around
 nmap('<tab>', '<c-w>w')
 nmap('<s-tab>', '<c-w>W')
 nmap('<c-n>', 'gt')
 nmap('<c-p>', 'gT')
 -- New tab
-nmap('<space>tt', ':tabe<cr>')
-nmap('<space>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nmap('<leader>tt', ':tabe<cr>')
+nmap('<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
-nmap('<space>tm', ':tabm<space>')
+nmap('<leader>tm', ':tabm<leader>')
 -- Tab merge and “unmerge”
-nmap('<space>U', '<c-w>T')
-nmap('<space>u', ':call MergeTabs()<cr>')
+nmap('<leader>U', '<c-w>T')
+nmap('<leader>u', ':call MergeTabs()<cr>')
 --- }}}
 --- {{{ --| folds management |------------------------------
-nmap('<space>z', 'zMzv')
-nnoremap('<space>Z', 'zR')
+nmap('<leader>z', 'zMzv')
+nnoremap('<leader>Z', 'zR')
 nnoremap('zO', 'zczO')
 --- }}}
 --- {{{ --| neoformat |-------------------------------------
-nnoremap('<space>f', ':Neoformat<cr>')
-vnoremap('<space>f', ':Neoformat<cr>')
+nnoremap('<leader>f', ':Neoformat<cr>')
+vnoremap('<leader>f', ':Neoformat<cr>')
 --- }}}
 --- {{{ --| neoterm |---------------------------------------
-nmap('<space><tab>', ':Ttoggle<cr>')
+nmap('<leader><tab>', ':Ttoggle<cr>')
 vnoremap('<cr>', ':TREPLSendSelection<cr>')
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
-nnoremap('<space>,', ':ArgWrap<CR>')
+nnoremap('<leader>,', ':ArgWrap<CR>')
 --- }}}
 --- {{{ --| Telescope |-------------------------------------
 local builtin = require('telescope.builtin')
 nmap('<c-t>', builtin.find_files)
 nnoremap('<c-e>', builtin.live_grep)
-nnoremap('<space>é', builtin.grep_string)
+nnoremap('<leader>é', builtin.grep_string)
 nnoremap('<c-b>', builtin.buffers)
 nnoremap('<c-h>', builtin.help_tags)
 nnoremap('<c-y>', builtin.git_status)
@@ -211,8 +213,8 @@ nnoremap('<c-q>', builtin.quickfix)
 nnoremap('<c-è>', ':TodoTelescope<cr>')
 --- }}}
 --- {{{ --| packer |----------------------------------------
-nnoremap('<space>i', ':PackerInstall<cr>')
-nnoremap('<space>I', ':PackerSync<cr>')
+nnoremap('<leader>i', ':PackerInstall<cr>')
+nnoremap('<leader>I', ':PackerSync<cr>')
 --- }}}
 --- {{{ --| angry |-----------------------------------------
 vmap('ac', '<Plug>AngryOuterPrefix')
@@ -225,24 +227,24 @@ vmap('iC', '<Plug>AngryInnerSuffix')
 omap('iC', '<Plug>AngryInnerSuffix')
 --- }}}
 --- {{{ --| taboo |-----------------------------------------
-nmap('<space>tl', ':TabooRename<space>')
-nmap('<space>tr', ':TabooReset<cr>')
+nmap('<leader>tl', ':TabooRename<leader>')
+nmap('<leader>tr', ':TabooReset<cr>')
 --- }}}
 --- {{{ --| fugitive |--------------------------------------
-nmap('<space>a', ':Git commit --quiet --amend --no-edit<cr>')
-nmap('<space>A', ':Git commit --quiet --amend<cr>')
-nmap('<space>b', ':Git blame<cr>')
-nmap('<space>c', ':Git commit --quiet<cr>')
-nmap('<space>d', ':Gvdiff<cr>')
-nmap('<space>D', ':Gvdiff master<cr>')
-nmap('<space>ed', ':tab Git diff --staged<cr>')
-nmap('<space>r', ':Gread<cr>')
-nmap('<space>R', ':Git reset %<cr>')
-nmap('<space>s', ':Git<cr>')
-nmap('<space>S', ':GV<cr>')
-vmap('<space>S', ":'<,'>GV<cr>")
-nmap('<space>w', ':Gwrite<cr>')
+nmap('<leader>a', ':Git commit --quiet --amend --no-edit<cr>')
+nmap('<leader>A', ':Git commit --quiet --amend<cr>')
+nmap('<leader>b', ':Git blame<cr>')
+nmap('<leader>c', ':Git commit --quiet<cr>')
+nmap('<leader>d', ':Gvdiff<cr>')
+nmap('<leader>D', ':Gvdiff master<cr>')
+nmap('<leader>ed', ':tab Git diff --staged<cr>')
+nmap('<leader>r', ':Gread<cr>')
+nmap('<leader>R', ':Git reset %<cr>')
+nmap('<leader>s', ':Git<cr>')
+nmap('<leader>S', ':GV<cr>')
+vmap('<leader>S', ":'<,'>GV<cr>")
+nmap('<leader>w', ':Gwrite<cr>')
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-vmap('<space>d', ':Linediff<cr>')
+vmap('<leader>d', ':Linediff<cr>')
 --- }}}
