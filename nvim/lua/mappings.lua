@@ -206,6 +206,10 @@ nnoremap('<c-y>', builtin.git_status)
 nnoremap('<c-l>', builtin.tags)
 nnoremap('<c-q>', builtin.quickfix)
 --- }}}
+--- {{{ --| packer |----------------------------------------
+nnoremap('<space>i', ':PackerInstall<cr>')
+nnoremap('<space>I', ':PackerSync<cr>')
+--- }}}
 --- {{{ --| angry |-----------------------------------------
 vmap('ac', '<Plug>AngryOuterPrefix')
 omap('ac', '<Plug>AngryOuterPrefix')
