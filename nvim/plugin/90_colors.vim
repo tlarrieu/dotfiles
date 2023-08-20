@@ -6,9 +6,8 @@ augroup END
 
 augroup SETUP_COLORS
   autocmd!
-  " autocmd OptionSet background call s:setupcolors()
+  autocmd OptionSet background call s:setupcolors()
   autocmd SourceCmd $MYVIMRC call s:setup()
-  " autocmd Syntax * call s:setupcolors()
   autocmd DiffUpdated * call s:togglesyntax()
 augroup END
 
@@ -102,21 +101,8 @@ function! s:setupcolors()
 endfunction
 
 function! s:setuptheme()
-  let l:query = system('xrdb -query')
-
-  let l:res = matchlist(l:query, 'vim.theme:\s*\(.\{-}\)\n')
-  if(len(l:res) > 1)
-    execute 'colorscheme ' . l:res[1]
-  else
-    colorscheme default
-  end
-
-  let l:res = matchlist(l:query, 'vim.background:\s*\(.\{-}\)\n')
-  if(len(l:res) > 1)
-    execute 'set background=' . l:res[1]
-  else
-    set background=dark
-  end
+  colorscheme solarized
+  set background=light
 endfunction
 
 function! s:setup()
