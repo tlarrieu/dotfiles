@@ -1,4 +1,4 @@
-require('plugins.setup')
+require('plugins.packages')
 
 require('plugins.marks')
 require('plugins.oil')
