@@ -97,6 +97,8 @@ function! s:setupcolors()
   highlight! link NeomakeVirtualtextWarning WarningMsg
   highlight! link NeomakeVirtualtextInfo WarningMsg
   highlight! link NeomakeVirtualtextMessage WarningMsg
+
+  highlight! TelescopeBorder ctermfg=15 ctermbg=15
 endfunction
 
 function! s:setuptheme()
