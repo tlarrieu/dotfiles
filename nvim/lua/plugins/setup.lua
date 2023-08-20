@@ -9,9 +9,16 @@ vim.cmd([[
 
 return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    run = 'make'
+  }
   use {
     'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
+  use {
+    'folke/todo-comments.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
   use { 'duggiefresh/vim-easydir' }
@@ -24,11 +31,17 @@ return require('packer').startup(function(use)
   use { 'junegunn/gv.vim' }
   -- }}}
   -- {{{ --| Functionnalities |---------------
-  use { 'AndrewRadev/linediff.vim', on = 'Linediff' }
+  use {
+    'AndrewRadev/linediff.vim',
+    on = 'Linediff'
+  }
   use { 'kassio/neoterm' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'stevearc/oil.nvim' }
-  use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
+  use {
+    'Shougo/deoplete.nvim',
+    run = ':UpdateRemotePlugins'
+  }
   use { 'janko-m/vim-test' }
   use { 'tlarrieu/vim-sniper' }
   use { 'neomake/neomake' }
@@ -78,7 +91,10 @@ return require('packer').startup(function(use)
   use { 'chentoast/marks.nvim' }
   -- }}}
   -- {{{ --| Other |--------------------------
-  use { 'vim-scripts/AnsiEsc.vim', on = 'AnsiEsc' }
+  use {
+    'vim-scripts/AnsiEsc.vim',
+    on = 'AnsiEsc'
+  }
   use { 'ap/vim-css-color' }
   -- }}}
 end)

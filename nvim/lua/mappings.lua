@@ -205,6 +205,7 @@ nnoremap('<c-h>', builtin.help_tags)
 nnoremap('<c-y>', builtin.git_status)
 nnoremap('<c-l>', builtin.tags)
 nnoremap('<c-q>', builtin.quickfix)
+nnoremap('<c-è>', ':TodoTelescope<cr>')
 --- }}}
 --- {{{ --| packer |----------------------------------------
 nnoremap('<space>i', ':PackerInstall<cr>')
