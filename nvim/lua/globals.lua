@@ -79,7 +79,7 @@ g.UltiSnipsRemoveSelectModeMappings = 1
 g.UltiSnipsEditSplit = 'vertical'
 g.UltiSnipsJumpForwardTrigger = '<tab>'
 g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
-g.UltiSnipsSnippetsDir = home .. '/.config/nvim/UltiSnips'
+g.UltiSnipsSnippetDirectories = { home .. '/.config/nvim/UltiSnips' }
 -- }}}
 
 -- {{{ ==| Taboo |==============================================================
