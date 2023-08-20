@@ -7,7 +7,6 @@ vim.cmd([[
   augroup end
 ]])
 
-
 return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
