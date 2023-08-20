@@ -98,6 +98,12 @@ function! s:setupcolors()
   highlight! link NeomakeVirtualtextMessage WarningMsg
 
   highlight! TelescopeBorder ctermfg=15 ctermbg=15
+
+  highlight! TelescopePromptTitle ctermfg=12 ctermbg=12
+  highlight! TelescopePromptNormal ctermfg=7 ctermbg=12
+  highlight! TelescopePromptPrefix ctermfg=7 ctermbg=12
+  highlight! TelescopePromptCounter ctermfg=7 ctermbg=12
+  highlight! TelescopePromptBorder ctermfg=12 ctermbg=12
 endfunction
 
 function! s:setuptheme()
