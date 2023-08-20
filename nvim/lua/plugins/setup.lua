@@ -3,13 +3,14 @@ vim.cmd([[
 
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    autocmd BufWritePost setup.lua source <afile> | PackerCompile
   augroup end
 ]])
 
 
 return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
     'nvim-telescope/telescope.nvim',
     requires = { {'nvim-lua/plenary.nvim'} }
