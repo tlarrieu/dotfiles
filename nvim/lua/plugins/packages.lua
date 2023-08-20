@@ -8,6 +8,9 @@ vim.cmd([[
 ]])
 
 return require('packer').startup(function(use)
+  -- {{{ --| packer |-------------------------
+  use { 'wbthomason/packer.nvim' }
+  -- }}}
   -- {{{ --| File Manipulation |--------------
   use {
     'nvim-telescope/telescope-fzf-native.nvim',
