@@ -1,3 +1,5 @@
+local actions = require('telescope.actions')
+
 require('telescope').setup{
   defaults = {
     border = true,
@@ -13,7 +15,8 @@ require('telescope').setup{
 
     mappings = {
       i = {
-        ["<esc>"] = require('telescope.actions').close,
+        ["<esc>"] = actions.close,
+        ["<c-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 
         ["<c-a>"] = { "<home>", type = "command" },
         ["<c-e>"] = { "<end>", type = "command" },
