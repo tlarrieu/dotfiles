@@ -4,7 +4,6 @@ require("beautiful").init(
 require("awful.autofocus")
 require("naughty")
 
-require("screendpi")
 require("panel")
 require("signals")
 require("rules")
