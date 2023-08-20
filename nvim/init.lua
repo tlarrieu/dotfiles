@@ -5,4 +5,5 @@
 -- -----------------------------------------------------------------------------
 require('plugins')
 require('options')
+require('globals')
 require('mappings')
