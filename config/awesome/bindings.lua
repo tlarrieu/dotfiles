@@ -145,7 +145,7 @@ _M.keyboard = {
     spawner.key({ mod }, ".",                shell("rofi-tasks")),
 
     spawner.key({ mod, "Shift" }, "c", {
-      app = termstart("nvim nvim/init.vim", { class = "config", directory = dotfiles }),
+      app = termstart("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
       props = { class = "config" },
       callback = spawner.callbacks.jump_to_client
     }),
