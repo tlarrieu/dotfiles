@@ -91,10 +91,6 @@ return require('packer').startup(function(use)
   use { 'chentoast/marks.nvim' }
   -- }}}
   -- {{{ --| Other |--------------------------
-  use {
-    'vim-scripts/AnsiEsc.vim',
-    on = 'AnsiEsc'
-  }
   use { 'ap/vim-css-color' }
   -- }}}
 end)
