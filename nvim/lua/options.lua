@@ -120,11 +120,6 @@ o.shortmess:append('WI')
 
 -- {{{ ==| Plugins |=============================================================
 vim.cmd([[
-" {{{ --| Telescope |---------------------------------------
-augroup Telescope
-  autocmd FileType TelescopePrompt call deoplete#custom#buffer_option('auto_complete', v:false)
-augroup END
-" }}}
 " {{{ --| vimwiki |-----------------------------------------
 let g:vimwiki_global_vars = {}
 let g:vimwiki_hl_headers = 0
