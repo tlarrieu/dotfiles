@@ -13,52 +13,52 @@ require('NeoSolarized').setup {
     undercurl = false, -- true/false; for global undercurl
   },
   -- Add specific hightlight groups
-  on_highlights = function(highlights, colors)
-    highlights.TelescopeBorder = { fg = colors.bg2, bg = colors.bg2 }
-    highlights.TelescopePromptTitle = { fg = colors.fg2, bg = colors.fg2 }
-    highlights.TelescopePromptNormal = { fg = colors.bg2, bg = colors.fg2 }
-    highlights.TelescopePromptPrefix = { fg = colors.bg2, bg = colors.fg2 }
-    highlights.TelescopePromptCounter = { fg = colors.bg2, bg = colors.fg2 }
-    highlights.TelescopePromptBorder = { fg = colors.fg2, bg = colors.fg2 }
+  on_highlights = function(hi, c)
+    hi.TelescopeBorder = { fg = c.bg2, bg = c.bg2 }
+    hi.TelescopePromptTitle = { fg = c.fg2, bg = c.fg2 }
+    hi.TelescopePromptNormal = { fg = c.bg2, bg = c.fg2 }
+    hi.TelescopePromptPrefix = { fg = c.bg2, bg = c.fg2 }
+    hi.TelescopePromptCounter = { fg = c.bg2, bg = c.fg2 }
+    hi.TelescopePromptBorder = { fg = c.fg2, bg = c.fg2 }
 
-    highlights.TelescopeMatching = { bg = colors.bg1, fg = none }
-    highlights.TelescopeNormal = { fg = colors.fg0, bg = colors.bg2 }
-    highlights.TelescopeSelection = { link = "diffAdded" }
+    hi.TelescopeMatching = { bg = c.bg1, fg = none }
+    hi.TelescopeNormal = { fg = c.fg0, bg = c.bg2 }
+    hi.TelescopeSelection = { link = "diffAdded" }
 
-    highlights.Tabline = { link = 'Normal' }
-    highlights.TablineFill = { link = 'Normal' }
-    highlights.TablineSel = { fg = colors.purple, bg = colors.none, bold = true }
+    hi.Tabline = { link = 'Normal' }
+    hi.TablineFill = { link = 'Normal' }
+    hi.TablineSel = { fg = c.purple, bg = c.bg2 }
 
-    highlights.Comment = { fg = colors.fg2 }
-    highlights.Folded = { fg = colors.fg1, bg = colors.bg1, bold = true }
-    highlights.HighlightedyankRegion = { link = 'Folded' }
+    hi.Comment = { fg = c.fg2 }
+    hi.Folded = { fg = c.fg1, bg = c.bg1 }
+    hi.HighlightedyankRegion = { link = 'Folded' }
 
-    highlights.VertSplit = { bg = colors.bg1 }
-    highlights.NormalNC = { bg = colors.bg1 }
-    highlights.SignColumn = { bg = colors.bg1 }
+    hi.VertSplit = { bg = c.bg1 }
+    hi.NormalNC = { bg = c.bg1 }
+    hi.SignColumn = { bg = c.bg1 }
 
-    highlights.MarkSignHL = { bg = colors.bg1 }
-    highlights.MarkSignNumHL = { bg = colors.bg1 }
-    highlights.MarkVirtTextHL = { fg = colors.color5, bg = colors.color7, underline = true }
+    hi.MarkSignHL = { bg = c.bg1 }
+    hi.MarkSignNumHL = { bg = c.bg1 }
+    hi.MarkVirtTextHL = { fg = c.color5, bg = c.color7 }
 
-    highlights.LineNr = { fg = colors.purple, bg = colors.bg1 }
-    highlights.LineNrAbove = { fg = colors.fg2, bg = colors.bg1 }
-    highlights.LineNrBelow = { fg = colors.fg2, bg = colors.bg1 }
+    hi.LineNr = { fg = c.purple, bg = c.bg1 }
+    hi.LineNrAbove = { fg = c.fg2, bg = c.bg1 }
+    hi.LineNrBelow = { fg = c.fg2, bg = c.bg1 }
 
-    highlights.GitGutterAdd = { fg = colors.green, bg = colors.bg1 }
-    highlights.GitGutterChange = { fg = colors.yellow, bg = colors.bg1 }
-    highlights.GitGutterDelete = { fg = colors.red, bg = colors.bg1 }
+    hi.GitGutterAdd = { fg = c.green, bg = c.bg1 }
+    hi.GitGutterChange = { fg = c.yellow, bg = c.bg1 }
+    hi.GitGutterDelete = { fg = c.red, bg = c.bg1 }
 
-    highlights.DiffAdd = { fg = colors.green, bg = colors.none }
-    highlights.DiffChange = { fg = colors.yellow, bg = colors.none }
-    highlights.DiffDelete = { fg = colors.red, bg = colors.none }
+    hi.DiffAdd = { fg = c.green, bg = c.none }
+    hi.DiffChange = { fg = c.yellow, bg = c.none }
+    hi.DiffDelete = { fg = c.red, bg = c.none }
 
-    highlights.QuickFixLine = { fg = colors.yellow, bg = colors.none }
+    hi.QuickFixLine = { fg = c.yellow, bg = c.none }
 
-    highlights.NeomakeVirtualtextError = { link = 'ErrorMsg' }
-    highlights.NeomakeVirtualtextWarning = { link = 'WarningMsg' }
-    highlights.NeomakeVirtualtextInfo = { link = 'WarningMsg' }
-    highlights.NeomakeVirtualtextMessage = { link = 'WarningMsg' }
+    hi.NeomakeVirtualtextError = { link = 'ErrorMsg' }
+    hi.NeomakeVirtualtextWarning = { link = 'WarningMsg' }
+    hi.NeomakeVirtualtextInfo = { link = 'WarningMsg' }
+    hi.NeomakeVirtualtextMessage = { link = 'WarningMsg' }
   end,
 }
 
