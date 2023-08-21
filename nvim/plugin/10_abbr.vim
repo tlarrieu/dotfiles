@@ -9,3 +9,5 @@ cnoreabbrev <expr> h
 
 iabbrev xdate <c-r>=strftime("%d %b %Y")<cr>
 iabbrev Xdate <c-r>=strftime("%d %b %Y")<cr>
+
+cnoreabbrev hi lua require('telescope.builtin').highlights()
