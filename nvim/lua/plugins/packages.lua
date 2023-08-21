@@ -1,11 +1,11 @@
-vim.cmd([[
-  packadd packer.nvim
+vim.cmd([[ packadd packer.nvim ]])
 
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost packages.lua source <afile> | PackerCompile
-  augroup end
-]])
+local group = vim.api.nvim_create_augroup("packer_setup", {})
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = 'packages.lua',
+  command = 'source <afile> | PackerCompile',
+  group = group,
+})
 
 return require('packer').startup(function(use)
   -- {{{ --| packer |-------------------------
