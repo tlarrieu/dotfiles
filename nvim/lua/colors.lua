@@ -34,6 +34,11 @@ require('solarized').setup {
       CurSearch = { fg = c.base02, bg = c.green },
       IncSearch = { fg = c.base02, bg = c.magenta },
 
+      SpellBad = { fg = c.red, undercurl = true },
+      SpellLocal = { fg = c.blue, undercurl = true },
+      SpellCap = { link = 'SpellLocal' },
+      SpellRare = { link = 'SpellLocal' },
+
       NormalNC = { bg = c.base02 },
       SignColumn = { link = 'NormalNC' },
       WinSeparator = { link = 'NormalNC' },
