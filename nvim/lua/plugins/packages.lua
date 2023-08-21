@@ -88,7 +88,7 @@ return require('packer').startup(function(use)
   use { 'qbit/taskwarrior-vim' }
   -- }}}
   -- {{{ --| Good looking |-------------------
-  use { 'Tsuzat/NeoSolarized.nvim' }
+  use { 'maxmx03/solarized.nvim', }
   use { 'gcmt/taboo.vim' }
   use { 'chentoast/marks.nvim' }
   -- }}}
