@@ -1,30 +1,3 @@
-" {{{ ==| Tags |================================================================
-function! DelTagOfFile(file)
-  let fullpath = a:file
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-  let f = substitute(fullpath, cwd . "/", "", "")
-  let f = escape(f, './')
-  let cmd = 'sed -i "/' . f . '/d" "' . tagfilename . '"'
-  call system(cmd)
-endfunction
-
-function! UpdateTags()
-  let f = expand("%")
-  let cwd = getcwd()
-  let tagfilename = cwd . "/tags"
-
-  if filereadable(tagfilename)
-    call DelTagOfFile(f)
-    if (&ft == 'haskell')
-      call system('hasktags --ctags -x -a -f ' . tagfilename . ' "' . f . '"')
-    else
-      call system('ctags -a -f ' . tagfilename . ' "' . f . '"')
-    end
-  endif
-endfunction
-" }}} ==========================================================================
-
 " {{{ ==| Folding |=============================================================
 function! FoldText()
   let line = getline(v:foldstart)
@@ -122,24 +95,6 @@ function! ClearTrailingSpaces()
   let @/=l:_s
   nohl
 endfunction
-
-function! ClearRegisters()
-  let regs='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-="*+'
-  let i=0
-  while (i<strlen(regs))
-    exec 'let @'.regs[i].'=""'
-    let i=i+1
-  endwhile
-endfunction
-command! ClearRegisters call ClearRegisters()
-
-function! Redir(command)
-  redir! >/tmp/vim_redir
-  silent exec a:command
-  redir END
-  r /tmp/vim_redir
-endfunction
-command! -nargs=1 R call Redir(<q-args>)
 " }}} ==========================================================================
 
 " {{{ ==| align mode |==========================================================

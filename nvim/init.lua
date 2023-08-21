@@ -5,7 +5,8 @@
 -- -----------------------------------------------------------------------------
 
 require('plugins')
+require('colors')
 require('mappings')
 require('options')
 require('globals')
-require('colors')
+require('autocmd')
