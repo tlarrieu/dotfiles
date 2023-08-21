@@ -40,6 +40,8 @@ require('solarized').setup {
       StatusLine = { link = 'Normal' },
       StatusLineNC = { link = 'Tabline' },
 
+      CursorLine = { link = 'CursorColumn' },
+
       MarkSignHL = { bg = c.base02 },
       MarkSignNumHL = { link = 'MarkSignHL' },
       MarkVirtTextHL = { link = 'MarkSignHL' },
