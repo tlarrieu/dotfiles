@@ -133,7 +133,7 @@ nmap("<leader>'", ':if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>')
 nmap('<c-g>', 'gUiw')
 imap('<c-g>', '<esc>gUiwea')
 -- Clear trailing leaders (but not the escaped ones)
-nmap('<leader>k', 'm`:call ClearTrailingleaders()<cr>g``')
+nmap('<leader>k', 'm`:call ClearTrailingSpaces()<cr>g``')
 -- Fix indent
 nmap('ga', 'm`gg=G:call ClearTrailingleaders()<cr>g``')
 -- Cursorline / Cursorcolumn
