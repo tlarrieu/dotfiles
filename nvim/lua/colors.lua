@@ -1,18 +1,6 @@
 require('NeoSolarized').setup {
-  style = "light", -- "dark" or "light"
-  transparent = false, -- true/false; Enable this to disable setting the background color
-  terminal_colors = false, -- Configure the colors used when opening a `:terminal` in Neovim
-  enable_italics = false, -- Italics for different hightlight groups (eg. Statement, Condition, Comment, Include, etc.)
-  styles = {
-    comments = { italic = false },
-    keywords = { italic = false },
-    functions = { bold = false },
-    variables = {},
-    string = { italic = false },
-    underline = false, -- true/false; for global underline
-    undercurl = false, -- true/false; for global undercurl
-  },
-  -- Add specific hightlight groups
+  style = "light",
+  transparent = false,
   on_highlights = function(hi, c)
     hi.TelescopeBorder = { fg = c.bg2, bg = c.bg2 }
     hi.TelescopePromptTitle = { fg = c.fg2, bg = c.fg2 }
@@ -21,17 +9,17 @@ require('NeoSolarized').setup {
     hi.TelescopePromptCounter = { fg = c.bg2, bg = c.fg2 }
     hi.TelescopePromptBorder = { fg = c.fg2, bg = c.fg2 }
 
-    hi.TelescopeMatching = { bg = c.bg1, fg = none }
-    hi.TelescopeNormal = { fg = c.fg0, bg = c.bg2 }
-    hi.TelescopeSelection = { link = "diffAdded" }
+    hi.TelescopeMatching = { link = 'Folded' }
+    hi.TelescopeNormal = { bg = c.bg2 }
+    hi.TelescopeResultsNormal = { fg = c.fg2, bg = c.bg2 }
+    hi.TelescopeSelection = { fg = c.fg0, bg = c.bg1 }
 
-    hi.Tabline = { link = 'Normal' }
-    hi.TablineFill = { link = 'Normal' }
-    hi.TablineSel = { fg = c.purple, bg = c.bg2 }
+    hi.Tabline = { fg = c.fg2, bg = c.bg1 }
+    hi.TablineSel = { fg = c.purple, bg = c.bg }
+    hi.TablineFill = { fg = c.fg2, bg = c.bg }
 
     hi.Comment = { fg = c.fg2 }
     hi.Folded = { fg = c.fg1, bg = c.bg1 }
-    hi.HighlightedyankRegion = { link = 'Folded' }
 
     hi.VertSplit = { bg = c.bg1 }
     hi.NormalNC = { bg = c.bg1 }
@@ -61,5 +49,12 @@ require('NeoSolarized').setup {
     hi.NeomakeVirtualtextMessage = { link = 'WarningMsg' }
   end,
 }
+
+local group = vim.api.nvim_create_augroup("text_yank", {})
+vim.api.nvim_create_autocmd('TextYankPost', {
+  pattern = '*',
+  callback = function() vim.highlight.on_yank({ higroup="Folded", timeout=200 }) end,
+  group = group,
+})
 
 vim.cmd [[ colorscheme NeoSolarized ]]
