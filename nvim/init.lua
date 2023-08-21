@@ -3,7 +3,9 @@
 -- tlarrieu's nvim.lua
 -- Designed for dvorak-bépo keyboard
 -- -----------------------------------------------------------------------------
+
 require('plugins')
+require('mappings')
 require('options')
 require('globals')
-require('mappings')
+require('colors')

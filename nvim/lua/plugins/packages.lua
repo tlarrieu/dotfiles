@@ -69,7 +69,6 @@ return require('packer').startup(function(use)
   use { 'austintaylor/vim-indentobject' }
   use { 'tommcdo/vim-exchange' }
   use { 'b4winckler/vim-angry' }
-  use { 'machakann/vim-highlightedyank' }
   -- }}}
   -- {{{ --| Languages suport |---------------
   use { 'neovimhaskell/haskell-vim' }
@@ -89,7 +88,7 @@ return require('packer').startup(function(use)
   use { 'qbit/taskwarrior-vim' }
   -- }}}
   -- {{{ --| Good looking |-------------------
-  use { 'altercation/vim-colors-solarized' }
+  use { 'Tsuzat/NeoSolarized.nvim' }
   use { 'gcmt/taboo.vim' }
   use { 'chentoast/marks.nvim' }
   -- }}}
