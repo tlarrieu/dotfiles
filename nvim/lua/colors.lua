@@ -21,7 +21,7 @@ require('solarized').setup {
       TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
       TelescopePromptCounter = { link = 'TelescopePromptNormal' },
 
-      TelescopeMatching = { link = 'IncSearch' },
+      TelescopeMatching = { link = 'Search' },
       TelescopeNormal = { bg = c.base03 },
       TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
       TelescopeSelection = { fg = c.base0, bg = c.base02 },
@@ -30,8 +30,9 @@ require('solarized').setup {
       TablineSel = { fg = c.magenta, bg = c.base03 },
       TablineFill = { link = 'Tabline' },
 
-      IncSearch = { fg = c.base02, bg = c.magenta },
       Search = { bg = c.base02 },
+      CurSearch = { fg = c.base02, bg = c.green },
+      IncSearch = { fg = c.base02, bg = c.magenta },
 
       NormalNC = { bg = c.base02 },
       SignColumn = { link = 'NormalNC' },
