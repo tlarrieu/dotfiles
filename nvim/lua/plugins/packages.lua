@@ -69,6 +69,7 @@ return require('packer').startup(function(use)
   use { 'austintaylor/vim-indentobject' }
   use { 'tommcdo/vim-exchange' }
   use { 'b4winckler/vim-angry' }
+  use { 'RRethy/vim-illuminate' }
   -- }}}
   -- {{{ --| Languages suport |---------------
   use { 'neovimhaskell/haskell-vim' }

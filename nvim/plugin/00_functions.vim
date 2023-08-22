@@ -1,29 +1,3 @@
-" {{{ ==| Search |==============================================================
-" Highlight all instances of word under cursor, when idle.
-" Useful when studying strange source code.
-function! AutoHighlightToggle()
-  let @/ = ''
-  if exists('#auto_highlight')
-    set ignorecase
-    au! auto_highlight
-    augroup! auto_highlight
-    setl updatetime=4000
-    echo 'Highlight current word: OFF'
-    return 0
-  else
-    set noignorecase
-    augroup auto_highlight
-      au!
-      au CursorMoved * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-    augroup end
-    let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-    setl updatetime=200
-    echo 'Highlight current word: ON'
-    return 1
-  endif
-endfunction
-" }}} ==========================================================================
-
 " {{{ ==| Buffer Handling |=====================================================
 function! ClearBuffers()
   silent! bufdo bdelete

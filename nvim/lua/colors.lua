@@ -33,6 +33,7 @@ require('solarized').setup {
       Search = { bg = c.base02 },
       CurSearch = { fg = c.base02, bg = c.green },
       IncSearch = { fg = c.base02, bg = c.magenta },
+      IlluminatedWordText = { fg = c.base02, bg = c.blue },
 
       SpellBad = { fg = c.red, undercurl = true },
       SpellLocal = { fg = c.blue, undercurl = true },

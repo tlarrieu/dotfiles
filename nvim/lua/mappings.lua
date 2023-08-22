@@ -128,7 +128,9 @@ nmap('<leader>.', ':tabedit .<cr>')
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
-nmap("<leader>'", ':if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>')
+nmap("<leader>'", require('illuminate').toggle)
+nmap("<a-e>", require('illuminate').goto_next_reference)
+nmap("<a-i>", require('illuminate').goto_prev_reference)
 -- Uppercase current word
 nmap('<c-g>', 'gUiw')
 imap('<c-g>', '<esc>gUiwea')
