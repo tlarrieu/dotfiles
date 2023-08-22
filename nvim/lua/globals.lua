@@ -39,6 +39,7 @@ g.highlightedyank_highlight_duration = 180
 g.neoterm_default_mod = 'botright'
 g.neoterm_autoscroll = 1
 g.neoterm_size = 12
+g.neoterm_automap_keys = ''
 -- }}}
 
 -- {{{ ==| Deoplete |===========================================================
