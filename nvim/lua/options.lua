@@ -88,7 +88,6 @@ o.foldnestmax = 3
 o.foldlevelstart = 10
 o.fillchars:append('fold: ')
 o.foldminlines = 1
-o.foldtext = 'FoldText()'
 -- }}}
 
 -- {{{ ==| Searching |==========================================================
