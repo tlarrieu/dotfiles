@@ -135,11 +135,28 @@ nmap("<a-i>", require('illuminate').goto_prev_reference)
 nmap('<c-g>', 'gUiw')
 imap('<c-g>', '<esc>gUiwea')
 -- Clear trailing leaders (but not the escaped ones)
-nmap('<leader>k', 'm`:call ClearTrailingSpaces()<cr>g``')
--- Fix indent
-nmap('ga', 'm`gg=G:call ClearTrailingleaders()<cr>g``')
+nmap('<leader>k', function()
+  vim.cmd [[
+    normal! m`
+    let _s=@/
+    %substitute/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
+    let @/=_s
+    nohl
+    normal! g``
+  ]]
+end)
 -- Cursorline / Cursorcolumn
-nmap('<leader>g', ':call AlignMode()<cr>')
+nmap('<leader>g', function()
+  vim.cmd [[
+    if &virtualedit ==# 'all'
+      setlocal virtualedit=""
+    else
+      setlocal virtualedit=all
+    end
+    setlocal cursorcolumn!
+    setlocal cursorline!
+  ]]
+end)
 -- Quickfix / Location list
 nmap('<leader>q', ':call ToggleQuickfixList()<cr>')
 nmap('<leader>l', ':call ToggleLocationList()<cr>')
@@ -182,9 +199,25 @@ nmap('<leader>tt', ':tabe<cr>')
 nmap('<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
 nmap('<leader>tm', ':tabm<leader>')
--- Tab merge and “unmerge”
+-- move current split to a new tab
 nmap('<leader>U', '<c-w>T')
-nmap('<leader>u', ':call MergeTabs()<cr>')
+-- merge current split into lefthand tab
+nmap('<leader>u', function()
+  -- FIXME: This should be moved to an actual lua function once we have the proper
+  -- API for that (or until I find it)
+  vim.cmd [[
+    if tabpagenr() != 1
+      let bufferName = bufname("%")
+      if tabpagenr("$") == tabpagenr()
+        close!
+      else
+        close!
+        tabprev
+      endif
+      execute "vs " . bufferName
+    endif
+  ]]
+end)
 --- }}}
 --- {{{ --| folds management |------------------------------
 nmap('<leader>z', 'zMzv')
