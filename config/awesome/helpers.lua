@@ -29,6 +29,20 @@ _M.create_tag_and_attach_to = function(force)
   end
 end
 
+_M.resize_and_center = function(client)
+  local factor = 0.8
+
+  local swidth = client.screen.geometry.width
+  local sheight = client.screen.geometry.height
+
+  local width = math.min(1920, swidth * factor)
+  local height = math.min(1080, sheight * factor)
+  local x = (swidth - width) / 2
+  local y = (sheight - height) / 2
+
+  client:geometry({ x = x, y = y, width = width, height = height })
+end
+
 _M.center_mouse_in_client = function(client)
   local geo = client:geometry()
 

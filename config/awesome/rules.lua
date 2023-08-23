@@ -66,7 +66,7 @@ awful.rules.rules = {
     },
   },
 
-  -- [[ cal.new ]] ----------------------------------------------------------------
+  -- [[ floating ]] ------------------------------------------------------------
   {
     rule_any = {
       instance = {
@@ -77,19 +77,7 @@ awful.rules.rules = {
         "translate.google.com",
         "dictionary.cambridge.org",
         "www.larousse.fr",
-      }
-    },
-    properties = {
-      floating = true,
-      width = 1920,
-      height = 1080,
-      placement = awful.placement.centered,
-    },
-  },
-
-  -- [[ Scratchpad ]] ----------------------------------------------------------
-  {
-    rule_any = {
+      },
       class = {
         "scratchpad",
         "wiki",
@@ -103,6 +91,7 @@ awful.rules.rules = {
     properties = {
       floating = true,
       placement = awful.placement.centered,
+      callback = helpers.resize_and_center,
     },
   },
 
