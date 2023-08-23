@@ -9,7 +9,7 @@ require('solarized').setup {
     variables = { italic = false },
   },
   highlights = function (c, helper)
-    local telescope_accent = c.base0
+    local telescope_accent = c.base01
 
     return {
       TelescopeBorder = { fg = c.base03, bg = c.base03 },
