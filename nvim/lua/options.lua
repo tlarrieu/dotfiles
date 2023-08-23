@@ -50,8 +50,6 @@ o.breakindent = true
 o.showbreak = '↪ '
 -- do not insert spaces after '.', '?' and '!' when joining lines
 o.joinspaces = false
--- do not redraw screen while running macros
-o.lazyredraw = true
 -- update time
 o.updatetime = 250
 -- inccommand

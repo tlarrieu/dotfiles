@@ -26,6 +26,11 @@ require('solarized').setup {
       TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
       TelescopeSelection = { fg = c.base0, bg = c.base02 },
 
+      NoiceCursor = { fg = c.base02, bg = c.base00 },
+      NoicePopupBorder = { fg = c.base02, bg = c.base02 },
+      NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
+      NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
+
       Tabline = { fg = c.base0, bg = c.base02 },
       TablineSel = { fg = c.magenta, bg = c.base03 },
       TablineFill = { link = 'Tabline' },

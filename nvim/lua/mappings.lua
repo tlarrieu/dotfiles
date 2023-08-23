@@ -1,25 +1,26 @@
 local k = vim.keymap
+local options = { remap = false, silent = true }
 
 function map(keys, cmd) k.set('', keys, cmd, {}) end
-function noremap(keys, cmd) k.set('', keys, cmd, { remap = false }) end
+function noremap(keys, cmd) k.set('', keys, cmd, options) end
 
 function nmap(keys, cmd) k.set('n', keys, cmd, {}) end
-function nnoremap(keys, cmd) k.set('n', keys, cmd, { remap = false }) end
+function nnoremap(keys, cmd) k.set('n', keys, cmd, options) end
 
 function imap(keys, cmd) k.set('i', keys, cmd, {}) end
-function inoremap(keys, cmd) k.set('i', keys, cmd, { remap = false }) end
+function inoremap(keys, cmd) k.set('i', keys, cmd, options) end
 
 function vmap(keys, cmd) k.set('v', keys, cmd, {}) end
-function vnoremap(keys, cmd) k.set('v', keys, cmd, { remap = false }) end
+function vnoremap(keys, cmd) k.set('v', keys, cmd, options) end
 
 function omap(keys, cmd) k.set('o', keys, cmd, {}) end
-function onoremap(keys, cmd) k.set('o', keys, cmd, { remap = false }) end
+function onoremap(keys, cmd) k.set('o', keys, cmd, options) end
 
 function cmap(keys, cmd) k.set('c', keys, cmd, {}) end
-function cnoremap(keys, cmd) k.set('c', keys, cmd, { remap = false }) end
+function cnoremap(keys, cmd) k.set('c', keys, cmd, options) end
 
 function tmap(keys, cmd) k.set('t', keys, cmd, {}) end
-function tnoremap(keys, cmd) k.set('t', keys, cmd, { remap = false }) end
+function tnoremap(keys, cmd) k.set('t', keys, cmd, options) end
 
 vim.g.mapleader = " "
 
@@ -54,15 +55,15 @@ vnoremap('Y', 'Ygv<esc>')
 -- select the whole line
 nnoremap('vv', '^v$h')
 -- Command line
-noremap('è', ':')
-noremap('È', ':!')
+nmap('è', ':')
+nmap('È', ':!')
 -- search
-noremap('é', '/')
+nmap('é', '/')
 -- replace occurences of word under cursor
-nnoremap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
+nmap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
 -- find & replace
-nnoremap('É', ':%s/')
-vnoremap('É', '<esc>:%s/\\%V')
+nmap('É', ':%s/')
+vmap('É', '<esc>:%s/\\%V')
 -- hide search matches
 nnoremap('<esc>', '<esc>:nohlsearch<cr><c-l>')
 -- Find character
@@ -113,18 +114,18 @@ noremap('0', '*')
 nmap('ß', '<Plug>(GitGutterPrevHunk)')
 nmap('þ', '<Plug>(GitGutterNextHunk)')
 -- quickfix navigation
-nmap('<a-p>', ':cprev<cr>')
-nmap('<a-n>', ':cnext<cr>')
+nnoremap('<a-p>', ':cprev<cr>')
+nnoremap('<a-n>', ':cnext<cr>')
 -- sort
-vmap('<leader>s', ':sort<cr>')
+vnoremap('<leader>s', ':sort<cr>')
 -- macro
 noremap('<leader><leader>', '@q')
 vnoremap('<leader><leader>', ':normal 6q<cr>')
 --- }}}
 --- {{{ --| quick access |----------------------------------
-nmap('<leader>eu', ':UltiSnipsEdit<cr>')
-nmap('<leader>eU', ':UltiSnipsEdit<leader>')
-nmap('<leader>.', ':tabedit .<cr>')
+nnoremap('<leader>eu', ':UltiSnipsEdit<cr>')
+nnoremap('<leader>eU', ':UltiSnipsEdit<leader>')
+nnoremap('<leader>.', ':tabedit .<cr>')
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
@@ -158,15 +159,15 @@ nmap('<leader>g', function()
   ]]
 end)
 -- Quickfix / Location list
-nmap('<leader>q', ':call ToggleQuickfixList()<cr>')
-nmap('<leader>l', ':call ToggleLocationList()<cr>')
+nnoremap('<leader>q', ':call ToggleQuickfixList()<cr>')
+nnoremap('<leader>l', ':call ToggleLocationList()<cr>')
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 tnoremap('<c-s>', '<c-\\><c-n>')
 
-nmap('<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>')
-nmap('<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>')
-nmap('<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>')
+nnoremap('<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>')
+nnoremap('<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>')
+nnoremap('<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>')
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
 nnoremap('<left>', '<c-w><')
@@ -181,22 +182,22 @@ noremap('<c-w><c-t>', '<c-w>J')
 noremap('<c-w><c-s>', '<c-w>K')
 noremap('<c-w><c-r>', '<c-w>L')
 -- Horizontal Split
-nmap('<leader>nn', ':new<cr>')
-nmap('<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nnoremap('<leader>nn', ':new<cr>')
+nnoremap('<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
-nmap('<leader>vv', ':vnew<cr>')
-nmap('<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nnoremap('<leader>vv', ':vnew<cr>')
+nnoremap('<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Dimensions
-nmap('<leader>=', '<c-w>=')
-nmap('<leader>%', ':res<cr>:vertical res<cr>')
+nnoremap('<leader>=', '<c-w>=')
+nnoremap('<leader>%', ':res<cr>:vertical res<cr>')
 -- Moving around
 nmap('<tab>', '<c-w>w')
 nmap('<s-tab>', '<c-w>W')
 nmap('<c-n>', 'gt')
 nmap('<c-p>', 'gT')
 -- New tab
-nmap('<leader>tt', ':tabe<cr>')
-nmap('<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+nnoremap('<leader>tt', ':tabe<cr>')
+nnoremap('<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
 nmap('<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
@@ -229,7 +230,7 @@ nnoremap('<leader>f', ':Neoformat<cr>')
 vnoremap('<leader>f', ':Neoformat<cr>')
 --- }}}
 --- {{{ --| neoterm |---------------------------------------
-nmap('<leader><tab>', ':Ttoggle<cr>')
+nnoremap('<leader><tab>', ':Ttoggle<cr>')
 vnoremap('<cr>', ':TREPLSendSelection<cr>')
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
@@ -266,20 +267,20 @@ nmap('<leader>tl', ':TabooRename<leader>')
 nmap('<leader>tr', ':TabooReset<cr>')
 --- }}}
 --- {{{ --| fugitive |--------------------------------------
-nmap('<leader>a', ':Git commit --quiet --amend --no-edit<cr>')
-nmap('<leader>A', ':Git commit --quiet --amend<cr>')
-nmap('<leader>b', ':Git blame<cr>')
-nmap('<leader>c', ':Git commit --quiet<cr>')
-nmap('<leader>d', ':Gvdiff<cr>')
-nmap('<leader>D', ':Gvdiff master<cr>')
-nmap('<leader>ed', ':tab Git diff --staged<cr>')
-nmap('<leader>r', ':Gread<cr>')
-nmap('<leader>R', ':Git reset %<cr>')
-nmap('<leader>s', ':Git<cr>')
-nmap('<leader>S', ':GV<cr>')
-vmap('<leader>S', ":'<,'>GV<cr>")
-nmap('<leader>w', ':Gwrite<cr>')
+nnoremap('<leader>a', ':Git commit --quiet --amend --no-edit<cr>')
+nnoremap('<leader>A', ':Git commit --quiet --amend<cr>')
+nnoremap('<leader>b', ':Git blame<cr>')
+nnoremap('<leader>c', ':Git commit --quiet<cr>')
+nnoremap('<leader>d', ':Gvdiff<cr>')
+nnoremap('<leader>D', ':Gvdiff master<cr>')
+nnoremap('<leader>ed', ':tab Git diff --staged<cr>')
+nnoremap('<leader>r', ':Gread<cr>')
+nnoremap('<leader>R', ':Git reset %<cr>')
+nnoremap('<leader>s', ':Git<cr>')
+nnoremap('<leader>S', ':GV<cr>')
+vnoremap('<leader>S', ":'<,'>GV<cr>")
+nnoremap('<leader>w', ':Gwrite<cr>')
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-vmap('<leader>d', ':Linediff<cr>')
+vnoremap('<leader>d', ':Linediff<cr>')
 --- }}}
