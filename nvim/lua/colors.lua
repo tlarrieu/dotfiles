@@ -57,6 +57,10 @@ require('solarized').setup {
       LineNrAbove = { fg = c.base0, bg = c.base02 },
       LineNrBelow = { link = 'LineNrAbove' },
 
+      -- popup menu
+      Pmenu = { fg = c.blue, bg = c.base02 },
+      PmenuSel = { fg = c.base02, bg = c.magenta },
+
       GitGutterAdd = { fg = c.green, bg = c.base02 },
       GitGutterChange = { fg = c.yellow, bg = c.base02 },
       GitGutterDelete = { fg = c.red, bg = c.base02 },
