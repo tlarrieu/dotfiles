@@ -1,151 +1,124 @@
-local k = vim.keymap
-local options = { remap = false, silent = true }
-
-function map(keys, cmd) k.set('', keys, cmd, {}) end
-function noremap(keys, cmd) k.set('', keys, cmd, options) end
-
-function nmap(keys, cmd) k.set('n', keys, cmd, {}) end
-function nnoremap(keys, cmd) k.set('n', keys, cmd, options) end
-
-function imap(keys, cmd) k.set('i', keys, cmd, {}) end
-function inoremap(keys, cmd) k.set('i', keys, cmd, options) end
-
-function vmap(keys, cmd) k.set('v', keys, cmd, {}) end
-function vnoremap(keys, cmd) k.set('v', keys, cmd, options) end
-
-function omap(keys, cmd) k.set('o', keys, cmd, {}) end
-function onoremap(keys, cmd) k.set('o', keys, cmd, options) end
-
-function cmap(keys, cmd) k.set('c', keys, cmd, {}) end
-function cnoremap(keys, cmd) k.set('c', keys, cmd, options) end
-
-function tmap(keys, cmd) k.set('t', keys, cmd, {}) end
-function tnoremap(keys, cmd) k.set('t', keys, cmd, options) end
-
 vim.g.mapleader = " "
 
+local default_options = { remap = false, silent = true }
+local silent = { silent = true }
+local noopts = {}
+
+local k = vim.keymap
+
 -- Avoiding moving cursor when hitting <leader> followed by nothing
-map('<leader>', '<nop>')
+k.set('', '<leader>', '<nop>', { silent = true })
 
 --- {{{ --| basics |----------------------------------------
 -- Marks
-noremap("'", '`')
-noremap('`', "'")
-noremap('<leader>m', ':delmarks!<cr>')
+k.set('n', "'", '`', default_options)
+k.set('n', '`', "'", default_options)
+k.set('n', '<leader>m', ':delmarks!<cr>', default_options)
 -- Beginning / end of the line
-cnoremap('<c-a>', '<home>')
-cnoremap('<c-e>', '<end>')
+k.set('c', '<c-a>', '<home>', default_options)
+k.set('c', '<c-e>', '<end>', default_options)
 -- Split lines
-noremap('<c-j>', 'i<cr><esc>')
+k.set('n', '<c-j>', 'i<cr><esc>', default_options)
 -- Don't make a # force column zero.
-inoremap('#', 'X<bs>#')
+k.set('i', '#', 'X<bs>#', default_options)
 -- Fuck you, help.
-nnoremap('<F1>', '<nop>')
-inoremap('<F1>', '<nop>')
+k.set({ 'n', 'i' }, '<F1>', '<nop>', default_options)
 -- Clever paste from system buffer
-noremap('<leader>p', '"+p')
-noremap('<leader>P', '"+P')
-noremap('<leader>y', '"+y')
-nnoremap('yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>")
+k.set('', '<leader>p', '"+p', default_options)
+k.set('', '<leader>P', '"+P', default_options)
+k.set('', '<leader>y', '"+y', default_options)
+k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", default_options)
 -- Give a more logical behavior to Y
-nnoremap('Y', 'y$')
+k.set('n', 'Y', 'y$', default_options)
 -- Visual yank
-vnoremap('y', 'ygv<esc>')
-vnoremap('Y', 'Ygv<esc>')
+k.set('v', 'y', 'ygv<esc>', default_options)
+k.set('v', 'Y', 'Ygv<esc>', default_options)
 -- select the whole line
-nnoremap('vv', '^v$h')
+k.set('n', 'vv', '^v$h', default_options)
 -- Command line
-nmap('è', ':')
-vmap('è', ':')
-nmap('È', ':!')
+k.set({ 'n', 'v' }, 'è', ':', noopts)
+k.set({ 'n', 'v' }, 'È', ':!', noopts)
 -- search
-nmap('é', '/')
+k.set({ 'n', 'v' }, 'é', '/', noopts)
 -- replace occurences of word under cursor
-nmap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
+k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noopts)
 -- find & replace
-nmap('É', ':%s/')
-vmap('É', '<esc>:%s/\\%V')
+k.set('n', 'É', ':%s/', noopts)
+k.set('v', 'É', '<esc>:%s/\\%V', noopts)
 -- hide search matches
-k.set(
-  'n',
-  '<esc>',
-  function()
+k.set( 'n', '<esc>', function()
     require('illuminate').pause()
     return '<esc>:nohlsearch<cr><c-l>'
   end,
   { silent = true, remap = false, expr = true }
 )
 -- Find character
-nnoremap(',', ';')
-nnoremap(';', ',')
-vnoremap(',', ';')
-vnoremap(';', ',')
+k.set({ 'n', 'v' }, ',', ';', default_options)
+k.set({ 'n', 'v' }, ';', ',', default_options)
 -- block
-nmap('<m-t>', '}')
-nmap('<m-s>', '{')
+k.set({ 'n', 'v' }, '<m-t>', '}', noopts)
+k.set({ 'n', 's' }, '<m-s>', '{', noopts)
 -- Close current buffer
-nnoremap('Q', ':bdelete!<cr>')
+k.set('n', 'Q', ':bdelete!<cr>', default_options)
 -- Normal mode
-cnoremap('<esc>', '<c-c>')
+k.set('c', '<esc>', '<c-c>', default_options)
 -- Exit
-nnoremap('à', ':confirm quit<cr>')
-nnoremap('À', ':confirm quitall<cr>')
+k.set('n', 'à', ':confirm quit<cr>', default_options)
+k.set('n', 'À', ':confirm quitall<cr>', default_options)
 -- Save
-nnoremap('<c-s>', ':w<cr>')
-inoremap('<c-s>', '<esc>:w<cr>')
-vnoremap('<c-s>', '<esc>:w<cr>')
+k.set({ 'n', 'i', 'v' }, '<c-s>', '<esc>:w<cr>', default_options)
 -- Reselect pasted lines
-nnoremap('gV', '`[v`]')
+k.set('n', 'gV', '`[v`]', default_options)
 -- It is more convenient to access numbers directly when in normal mode
-noremap('"', '1')
-noremap('1', '"')
-noremap('«', '2')
-noremap('2', '<<_')
-vnoremap('2', '<gv')
-noremap('»', '3')
-noremap('3', '>>_')
-vnoremap('3', '>gv')
-noremap('(', '4')
-noremap('4', '(')
-noremap(')', '5')
-noremap('5', ')')
-noremap('@', '6')
-noremap('6', '@')
-noremap('+', '7')
-noremap('7', ':GitGutterStageHunk<cr>')
-noremap('-', '8')
-noremap('8', ':GitGutterUndoHunk<cr>')
-noremap('/', '9')
-noremap('9', '/')
-noremap('*', '0')
-noremap('0', '*')
+k.set('', '"', '1', default_options)
+k.set('', '1', '"', default_options)
+k.set('', '«', '2', default_options)
+k.set('', '2', '<<_', default_options)
+k.set('v', '2', '<gv', default_options)
+k.set('', '»', '3', default_options)
+k.set('', '3', '>>_', default_options)
+k.set('v', '3', '>gv', default_options)
+k.set('', '(', '4', default_options)
+k.set('', '4', '(', default_options)
+k.set('', ')', '5', default_options)
+k.set('', '5', ')', default_options)
+k.set('', '@', '6', default_options)
+k.set('', '6', '@', default_options)
+k.set('', '+', '7', default_options)
+k.set('', '7', ':GitGutterStageHunk<cr>', default_options)
+k.set('', '-', '8', default_options)
+k.set('', '8', ':GitGutterUndoHunk<cr>', default_options)
+k.set('', '/', '9', default_options)
+k.set('', '9', '/', default_options)
+k.set('', '*', '0', default_options)
+k.set('', '0', '*', default_options)
 -- diff hunk navigation
-nmap('ß', '<Plug>(GitGutterPrevHunk)')
-nmap('þ', '<Plug>(GitGutterNextHunk)')
+k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', { silent = true })
+k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', { silent = true })
 -- quickfix navigation
-nnoremap('<a-p>', ':cprev<cr>')
-nnoremap('<a-n>', ':cnext<cr>')
+k.set('n', '<a-p>', ':cprev<cr>', default_options)
+k.set('n', '<a-n>', ':cnext<cr>', default_options)
 -- sort
-vnoremap('<leader>s', ':sort<cr>')
+k.set('v', '<leader>s', ':sort<cr>', default_options)
 -- macro
-noremap('<leader><leader>', '@q')
-vnoremap('<leader><leader>', ':normal 6q<cr>')
+k.set('', '<leader><leader>', '@q', default_options)
+k.set('v', '<leader><leader>', ':normal 6q<cr>', default_options)
 --- }}}
 --- {{{ --| quick access |----------------------------------
-nnoremap('<leader>eu', ':UltiSnipsEdit<cr>')
-nnoremap('<leader>eU', ':UltiSnipsEdit<leader>')
-nnoremap('<leader>.', ':tabedit .<cr>')
+k.set('n', '<leader>eu', ':UltiSnipsEdit<cr>', default_options)
+k.set('n', '<leader>eU', ':UltiSnipsEdit<leader>', default_options)
+k.set('n', '<leader>.', ':tabedit .<cr>', default_options)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
-nmap("<leader>'", require('illuminate').resume)
-nmap("<a-e>", require('illuminate').goto_next_reference)
-nmap("<a-i>", require('illuminate').goto_prev_reference)
+k.set('n', "<leader>'", require('illuminate').resume, noopts)
+k.set('n', "<a-e>", require('illuminate').goto_next_reference, noopts)
+k.set('n', "<a-i>", require('illuminate').goto_prev_reference, noopts)
 -- Uppercase current word
-nmap('<c-g>', 'gUiw')
-imap('<c-g>', '<esc>gUiwea')
+k.set('n', '<c-g>', 'gUiw', noopts)
+k.set('i', '<c-g>', '<esc>gUiwea', noopts)
 -- Clear trailing leaders (but not the escaped ones)
-nmap('<leader>k', function()
+k.set('n', '<leader>k', function()
   vim.cmd [[
     normal! m`
     let _s=@/
@@ -154,9 +127,9 @@ nmap('<leader>k', function()
     nohl
     normal! g``
   ]]
-end)
+end, noopts)
 -- Cursorline / Cursorcolumn
-nmap('<leader>g', function()
+k.set('n', '<leader>g', function()
   vim.cmd [[
     if &virtualedit ==# 'all'
       setlocal virtualedit=""
@@ -166,53 +139,53 @@ nmap('<leader>g', function()
     setlocal cursorcolumn!
     setlocal cursorline!
   ]]
-end)
+end, noopts)
 -- Quickfix / Location list
-nnoremap('<leader>q', ':call ToggleQuickfixList()<cr>')
-nnoremap('<leader>l', ':call ToggleLocationList()<cr>')
+k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', default_options)
+k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', default_options)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
-tnoremap('<c-s>', '<c-\\><c-n>')
+k.set('t', '<c-s>', '<c-\\><c-n>', default_options)
 
-nnoremap('<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>')
-nnoremap('<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>')
-nnoremap('<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>')
+k.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', default_options)
+k.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', default_options)
+k.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', default_options)
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
-nnoremap('<left>', '<c-w><')
-nnoremap('<right>', '<c-w>>')
-nnoremap('<up>', '<c-w>+')
-nnoremap('<down>', '<c-w>-')
-nnoremap('cO', ':tabo<cr><c-w>o')
-nnoremap('co', '<c-w>o')
+k.set('n', '<left>', '<c-w><', default_options)
+k.set('n', '<right>', '<c-w>>', default_options)
+k.set('n', '<up>', '<c-w>+', default_options)
+k.set('n', '<down>', '<c-w>-', default_options)
+k.set('n', 'cO', ':tabo<cr><c-w>o', default_options)
+k.set('n', 'co', '<c-w>o', default_options)
 -- Hack to make <c-w><c-c> mapping work
-noremap('<c-w><c-c>', '<c-w>H')
-noremap('<c-w><c-t>', '<c-w>J')
-noremap('<c-w><c-s>', '<c-w>K')
-noremap('<c-w><c-r>', '<c-w>L')
+k.set('', '<c-w><c-c>', '<c-w>H', default_options)
+k.set('', '<c-w><c-t>', '<c-w>J', default_options)
+k.set('', '<c-w><c-s>', '<c-w>K', default_options)
+k.set('', '<c-w><c-r>', '<c-w>L', default_options)
 -- Horizontal Split
-nnoremap('<leader>nn', ':new<cr>')
-nnoremap('<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+k.set('n', '<leader>nn', ':new<cr>', default_options)
+k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", default_options)
 -- Vertical split
-nnoremap('<leader>vv', ':vnew<cr>')
-nnoremap('<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+k.set('n', '<leader>vv', ':vnew<cr>', default_options)
+k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", default_options)
 -- Dimensions
-nnoremap('<leader>=', '<c-w>=')
-nnoremap('<leader>%', ':res<cr>:vertical res<cr>')
+k.set('n', '<leader>=', '<c-w>=', default_options)
+k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', default_options)
 -- Moving around
-nmap('<tab>', '<c-w>w')
-nmap('<s-tab>', '<c-w>W')
-nmap('<c-n>', 'gt')
-nmap('<c-p>', 'gT')
+k.set('n', '<tab>', '<c-w>w', noopts)
+k.set('n', '<s-tab>', '<c-w>W', noopts)
+k.set('n', '<c-n>', 'gt', noopts)
+k.set('n', '<c-p>', 'gT', noopts)
 -- New tab
-nnoremap('<leader>tt', ':tabe<cr>')
-nnoremap('<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+k.set('n', '<leader>tt', ':tabe<cr>', default_options)
+k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", default_options)
 -- Move current tab
-nmap('<leader>tm', ':tabm<leader>')
+k.set('n', '<leader>tm', ':tabm<leader>', noopts)
 -- move current split to a new tab
-nmap('<leader>U', '<c-w>T')
+k.set('n', '<leader>U', '<c-w>T', noopts)
 -- merge current split into lefthand tab
-nmap('<leader>u', function()
+k.set('n', '<leader>u', function()
   -- FIXME: This should be moved to an actual lua function once we have the proper
   -- API for that (or until I find it)
   vim.cmd [[
@@ -227,69 +200,64 @@ nmap('<leader>u', function()
       execute "vs " . bufferName
     endif
   ]]
-end)
+end, noopts)
 --- }}}
 --- {{{ --| folds management |------------------------------
-nmap('<leader>z', 'zMzv')
-nnoremap('<leader>Z', 'zR')
-nnoremap('zO', 'zczO')
+k.set('n', '<leader>z', 'zMzv', noopts)
+k.set('n', '<leader>Z', 'zR', default_options)
+k.set('n', 'zO', 'zczO', default_options)
 --- }}}
 --- {{{ --| neoformat |-------------------------------------
-nnoremap('<leader>f', ':Neoformat<cr>')
-vnoremap('<leader>f', ':Neoformat<cr>')
+k.set({ 'n', 'v' }, '<leader>f', ':Neoformat<cr>', default_options)
 --- }}}
 --- {{{ --| neoterm |---------------------------------------
-nnoremap('<leader><tab>', ':Ttoggle<cr>')
-vnoremap('<cr>', ':TREPLSendSelection<cr>')
+k.set('n', '<leader><tab>', ':Ttoggle<cr>', default_options)
+k.set('v', '<cr>', ':TREPLSendSelection<cr>', default_options)
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
-nnoremap('<leader>,', ':ArgWrap<CR>')
+k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)
 --- }}}
 --- {{{ --| Telescope |-------------------------------------
 local builtin = require('telescope.builtin')
-nmap('<c-t>', builtin.find_files)
-nnoremap('<c-e>', builtin.live_grep)
-nnoremap('<leader>é', builtin.grep_string)
-nnoremap('<c-b>', builtin.buffers)
-nnoremap('<c-h>', builtin.help_tags)
-nnoremap('<c-y>', builtin.git_status)
-nnoremap('<c-l>', builtin.tags)
-nnoremap('<c-q>', builtin.quickfix)
-nnoremap('<c-è>', ':TodoTelescope<cr>')
+k.set('n', '<c-t>', builtin.find_files, default_options)
+k.set('n', '<c-e>', builtin.live_grep, default_options)
+k.set('n', '<leader>é', builtin.grep_string, default_options)
+k.set('n', '<c-b>', builtin.buffers, default_options)
+k.set('n', '<c-h>', builtin.help_tags, default_options)
+k.set('n', '<c-y>', builtin.git_status, default_options)
+k.set('n', '<c-l>', builtin.tags, default_options)
+k.set('n', '<c-q>', builtin.quickfix, default_options)
+k.set('n', '<c-è>', ':TodoTelescope<cr>', default_options)
 --- }}}
 --- {{{ --| packer |----------------------------------------
-nnoremap('<leader>i', ':PackerInstall<cr>')
-nnoremap('<leader>I', ':PackerSync<cr>')
+k.set('n', '<leader>i', ':PackerInstall<cr>', default_options)
+k.set('n', '<leader>I', ':PackerSync<cr>', default_options)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
-vmap('ac', '<Plug>AngryOuterPrefix')
-omap('ac', '<Plug>AngryOuterPrefix')
-vmap('ic', '<Plug>AngryInnerPrefix')
-omap('ic', '<Plug>AngryInnerPrefix')
-vmap('aC', '<Plug>AngryOuterSuffix')
-omap('aC', '<Plug>AngryOuterSuffix')
-vmap('iC', '<Plug>AngryInnerSuffix')
-omap('iC', '<Plug>AngryInnerSuffix')
+k.set({ 'v', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
+k.set({ 'v', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
+k.set({ 'v', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
+k.set({ 'v', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
 --- }}}
 --- {{{ --| taboo |-----------------------------------------
-nmap('<leader>tl', ':TabooRename<leader>')
-nmap('<leader>tr', ':TabooReset<cr>')
+k.set('n', '<leader>tl', ':TabooRename<leader>', noopts)
+k.set('n', '<leader>tr', ':TabooReset<cr>', noopts)
 --- }}}
 --- {{{ --| fugitive |--------------------------------------
-nnoremap('<leader>a', ':Git commit --quiet --amend --no-edit<cr>')
-nnoremap('<leader>A', ':Git commit --quiet --amend<cr>')
-nnoremap('<leader>b', ':Git blame<cr>')
-nnoremap('<leader>c', ':Git commit --quiet<cr>')
-nnoremap('<leader>d', ':Gvdiff<cr>')
-nnoremap('<leader>D', ':Gvdiff master<cr>')
-nnoremap('<leader>ed', ':tab Git diff --staged<cr>')
-nnoremap('<leader>r', ':Gread<cr>')
-nnoremap('<leader>R', ':Git reset %<cr>')
-nnoremap('<leader>s', ':Git<cr>')
-nnoremap('<leader>S', ':GV<cr>')
-vnoremap('<leader>S', ":'<,'>GV<cr>")
-nnoremap('<leader>w', ':Gwrite<cr>')
+k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', default_options)
+k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', default_options)
+k.set('n', '<leader>b', ':Git blame<cr>', default_options)
+k.set('n', '<leader>c', ':Git commit --quiet<cr>', default_options)
+k.set('n', '<leader>d', ':Gvdiff<cr>', default_options)
+k.set('n', '<leader>D', ':Gvdiff master<cr>', default_options)
+k.set('n', '<leader>ed', ':tab Git diff --staged<cr>', default_options)
+k.set('n', '<leader>r', ':Gread<cr>', default_options)
+k.set('n', '<leader>R', ':Git reset %<cr>', default_options)
+k.set('n', '<leader>s', ':Git<cr>', default_options)
+k.set('n', '<leader>S', ':GV<cr>', default_options)
+k.set('v', '<leader>S', ":'<,'>GV<cr>", default_options)
+k.set('n', '<leader>w', ':Gwrite<cr>', default_options)
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-vnoremap('<leader>d', ':Linediff<cr>')
+k.set('v', '<leader>d', ':Linediff<cr>', default_options)
 --- }}}
