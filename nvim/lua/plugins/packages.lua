@@ -1,10 +1,9 @@
 vim.cmd([[ packadd packer.nvim ]])
 
-local group = vim.api.nvim_create_augroup("packer_setup", {})
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = 'packages.lua',
   command = 'source <afile> | PackerCompile',
-  group = group,
+  group = vim.api.nvim_create_augroup("packer_setup", {}),
 })
 
 return require('packer').startup(function(use)
@@ -12,16 +11,13 @@ return require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
   -- }}}
   -- {{{ --| ui |-----------------------------
-  use {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    run = 'make'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use { 'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/plenary.nvim'}
+    }
   }
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {
-    "folke/noice.nvim",
+  use { "folke/noice.nvim",
     requires = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
@@ -29,9 +25,10 @@ return require('packer').startup(function(use)
   }
   -- }}}
   -- {{{ --| File Manipulation |--------------
-  use {
-    'folke/todo-comments.nvim',
-    requires = { {'nvim-lua/plenary.nvim'} }
+  use { 'folke/todo-comments.nvim',
+    requires = {
+      {'nvim-lua/plenary.nvim'}
+    }
   }
   use { 'duggiefresh/vim-easydir' }
   use { 'tpope/vim-eunuch' }
@@ -43,17 +40,11 @@ return require('packer').startup(function(use)
   use { 'junegunn/gv.vim' }
   -- }}}
   -- {{{ --| Functionnalities |---------------
-  use {
-    'AndrewRadev/linediff.vim',
-    on = 'Linediff'
-  }
+  use { 'AndrewRadev/linediff.vim', on = 'Linediff' }
   use { 'kassio/neoterm' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'stevearc/oil.nvim' }
-  use {
-    'Shougo/deoplete.nvim',
-    run = ':UpdateRemotePlugins'
-  }
+  use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
   use { 'janko-m/vim-test' }
   use { 'tlarrieu/vim-sniper' }
   use { 'neomake/neomake' }
