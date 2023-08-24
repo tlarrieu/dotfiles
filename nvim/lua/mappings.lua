@@ -56,6 +56,7 @@ vnoremap('Y', 'Ygv<esc>')
 nnoremap('vv', '^v$h')
 -- Command line
 nmap('è', ':')
+vmap('è', ':')
 nmap('È', ':!')
 -- search
 nmap('é', '/')
@@ -65,7 +66,15 @@ nmap('gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>')
 nmap('É', ':%s/')
 vmap('É', '<esc>:%s/\\%V')
 -- hide search matches
-nnoremap('<esc>', '<esc>:nohlsearch<cr><c-l>')
+k.set(
+  'n',
+  '<esc>',
+  function()
+    require('illuminate').pause()
+    return '<esc>:nohlsearch<cr><c-l>'
+  end,
+  { silent = true, remap = false, expr = true }
+)
 -- Find character
 nnoremap(',', ';')
 nnoremap(';', ',')
@@ -129,7 +138,7 @@ nnoremap('<leader>.', ':tabedit .<cr>')
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
-nmap("<leader>'", require('illuminate').toggle)
+nmap("<leader>'", require('illuminate').resume)
 nmap("<a-e>", require('illuminate').goto_next_reference)
 nmap("<a-i>", require('illuminate').goto_prev_reference)
 -- Uppercase current word
