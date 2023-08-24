@@ -16,13 +16,13 @@ o.number = true
 o.textwidth = 80
 -- blank characters
 o.list = true
-o.listchars = 'tab:› ,trail:·,nbsp:¬,extends:»,precedes:«'
+o.listchars = { tab = '› ', trail = '·', nbsp = ' ', extends = '»', precedes = '«' }
 -- encoding and filetype
 o.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files
-o.undodir = home .. '/.tmp//'
-o.backupdir = home .. '/.tmp//'
-o.directory = home .. '/.tmp//'
+o.undodir = { home .. '/.tmp//' }
+o.backupdir = { home .. '/.tmp//' }
+o.directory = { home .. '/.tmp//' }
 -- activate undofile, that holds undo history
 o.undofile = true
 -- ignore those files
