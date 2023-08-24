@@ -79,6 +79,13 @@ return require('packer').startup(function(use)
   use { 'RRethy/vim-illuminate' }
   -- }}}
   -- {{{ --| Languages suport |---------------
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  }
   use { 'neovimhaskell/haskell-vim' }
   use { 'vifm/vifm.vim' }
   use { 'dag/vim-fish' }
