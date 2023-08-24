@@ -22,17 +22,6 @@ require('mason-lspconfig').setup({
     'lua_ls',   -- lua
   }
 })
-require('mason-tool-installer').setup {
-  auto_update = false,
-  run_on_start = true,
-  start_delay = 0,
-  debounce_hours = 5, -- at least 5 hours between attempts to install/update
-  ensure_installed = {
-    'luacheck',
-    'luaformatter',
-    'rubocop',
-  },
-}
 
 local cmp = require('cmp')
 

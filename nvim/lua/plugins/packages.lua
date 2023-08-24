@@ -13,7 +13,6 @@ return require('packer').startup(function(use)
   -- {{{ --| LSP |----------------------------
   use { 'williamboman/mason.nvim' }
   use { 'williamboman/mason-lspconfig.nvim' }
-  use { 'WhoIsSethDaniel/mason-tool-installer.nvim' }
   use { 'neovim/nvim-lspconfig' }
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
@@ -24,7 +23,7 @@ return require('packer').startup(function(use)
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'nvim-telescope/telescope.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'}
+      { 'nvim-lua/plenary.nvim' }
     }
   }
   use { "folke/noice.nvim",
@@ -37,7 +36,7 @@ return require('packer').startup(function(use)
   -- {{{ --| File Manipulation |--------------
   use { 'folke/todo-comments.nvim',
     requires = {
-      {'nvim-lua/plenary.nvim'}
+      { 'nvim-lua/plenary.nvim' }
     }
   }
   use { 'duggiefresh/vim-easydir' }
