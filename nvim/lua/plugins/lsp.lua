@@ -20,6 +20,7 @@ require('mason-lspconfig').setup({
     'ruby_ls',  -- ruby
     'tsserver', -- javascript / TS
     'lua_ls',   -- lua
+    'vimls',    -- vim
   }
 })
 
