@@ -30,7 +30,7 @@ o.wildignore:append('*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags')
 -- case insensitive matching
 o.wildignorecase = true
 -- ctags
-tags = '.tags,./.tags,./tags,tags'
+o.tags = '.tags,./.tags,./tags,tags'
 -- mouse
 o.mouse = 'a'
 -- command completion style
