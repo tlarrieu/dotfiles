@@ -10,6 +10,15 @@ return require('packer').startup(function(use)
   -- {{{ --| packer |-------------------------
   use { 'wbthomason/packer.nvim' }
   -- }}}
+  -- {{{ --| LSP |----------------------------
+  use { 'williamboman/mason.nvim' }
+  use { 'williamboman/mason-lspconfig.nvim' }
+  use { 'WhoIsSethDaniel/mason-tool-installer.nvim' }
+  use { 'neovim/nvim-lspconfig' }
+  use { 'hrsh7th/nvim-cmp' }
+  use { 'hrsh7th/cmp-nvim-lsp' }
+  use { 'quangnguyen30192/cmp-nvim-ultisnips' }
+  -- }}}
   -- {{{ --| ui |-----------------------------
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use { 'nvim-telescope/telescope.nvim',
@@ -44,10 +53,8 @@ return require('packer').startup(function(use)
   use { 'kassio/neoterm' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'stevearc/oil.nvim' }
-  use { 'Shougo/deoplete.nvim', run = ':UpdateRemotePlugins' }
   use { 'janko-m/vim-test' }
   use { 'tlarrieu/vim-sniper' }
-  use { 'neomake/neomake' }
   use { 'sbdchd/neoformat' }
   use { 'milkypostman/vim-togglelist' }
   use { 'vimwiki/vimwiki' }

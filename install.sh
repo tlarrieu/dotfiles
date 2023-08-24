@@ -182,6 +182,8 @@ case $answer in
 
     nvim="python python-pip neovim nvim-packer-git"
 
+    languages="ghcup luarocks"
+
     terminal="kitty fish"
 
     admin="htop net-tools dnsutils ncdu"
@@ -253,6 +255,7 @@ case $answer in
 
     safeinstall $build_tools \
       $nvim \
+      $languages \
       $terminal \
       $admin \
       $utils \

@@ -3,6 +3,8 @@
 *.pyc
 *.netrwhist
 
+.luarc.json
+
 log
 logs
 

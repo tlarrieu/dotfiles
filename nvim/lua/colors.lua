@@ -8,8 +8,15 @@ require('solarized').setup {
     functions = { bold = true },
     variables = { italic = false },
   },
-  highlights = function (c, helper)
+  highlights = function (c, _)
     local telescope_accent = c.base01
+
+    vim.cmd [[
+      sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
+      sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
+      sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
+      sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
+    ]]
 
     return {
       TelescopeBorder = { fg = c.base03, bg = c.base03 },
@@ -45,6 +52,11 @@ require('solarized').setup {
       SpellCap = { link = 'SpellLocal' },
       SpellRare = { link = 'SpellLocal' },
 
+      DiagnosticSignError = { fg = c.red, bg = c.base02 },
+      DiagnosticSignWarn = { fg = c.yellow, bg = c.base02 },
+      DiagnosticSignInfo = { fg = c.blue, bg = c.base02 },
+      DiagnosticSignHint = { fg = c.base0, bg = c.base02 },
+
       NormalNC = { bg = c.base02 },
       SignColumn = { link = 'NormalNC' },
       WinSeparator = { link = 'NormalNC' },
@@ -75,11 +87,6 @@ require('solarized').setup {
       DiffDelete = { fg = c.red, bg = c.none },
 
       QuickFixLine = { fg = c.yellow, bg = c.none },
-
-      NeomakeVirtualtextError = { link = 'ErrorMsg' },
-      NeomakeVirtualtextWarning = { link = 'WarningMsg' },
-      NeomakeVirtualtextInfo = { link = 'WarningMsg' },
-      NeomakeVirtualtextMessage = { link = 'WarningMsg' },
     }
   end
 }

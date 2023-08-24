@@ -42,26 +42,8 @@ g.neoterm_size = 12
 g.neoterm_automap_keys = ''
 -- }}}
 
--- {{{ ==| Deoplete |===========================================================
-g['deoplete#enable_at_startup'] = 1
-vim.fn['deoplete#custom#option']({ smart_case = true, min_pattern_length = 3 })
-g['deoplete#tag#cache_limit_size'] = 600000
-vim.fn['deoplete#custom#source']('_', 'matchers', { 'matcher_fuzzy' })
--- }}}
-
 -- {{{ ==| GitGutter |==========================================================
 g.gitgutter_map_keys = 0
--- }}}
-
--- {{{ ==| Neomake |============================================================
-vim.fn['neomake#configure#automake']('w')
-
-g.neomake_vint_maker = { exe = 'vint', args = {'%:p'} }
-
-g.neomake_error_sign = { text = '✖', texthl = 'ErrorMsg' }
-g.neomake_warning_sign = { text = '', texthl = 'WarningMsg' }
-g.neomake_message_sign = { text = '', texthl = 'NeomakeMessageSign' }
-g.neomake_info_sign = { text = '', texthl = 'NeomakeInfoSign' }
 -- }}}
 
 -- {{{ ==| Surround |===========================================================
