@@ -119,7 +119,7 @@ searchengines = {
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'def'  => Dictionary.new(
               'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
-              'fr' => 'https://www.larousse.fr/dictionnaires/francais/%s'
+              'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
             ),
   'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
   'g'    => BrowserRaw.new('https://github.com/%s'),

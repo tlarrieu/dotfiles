@@ -76,7 +76,7 @@ awful.rules.rules = {
         "www.thesaurus.com__browse",
         "translate.google.com",
         "dictionary.cambridge.org",
-        "www.larousse.fr",
+        "dictionnaire.lerobert.com",
       },
       class = {
         "scratchpad",
