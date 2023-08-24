@@ -18,6 +18,7 @@ return require('packer').startup(function(use)
   use { 'hrsh7th/nvim-cmp' }
   use { 'hrsh7th/cmp-nvim-lsp' }
   use { 'quangnguyen30192/cmp-nvim-ultisnips' }
+  use { 'folke/neodev.nvim' }
   -- }}}
   -- {{{ --| ui |-----------------------------
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
