@@ -1,1 +1,1 @@
-noremap <buffer> <leader><cr> :Git push<bar>Git<cr>
+noremap <silent> <buffer> <leader><cr> :Git push<bar>Git<cr>
