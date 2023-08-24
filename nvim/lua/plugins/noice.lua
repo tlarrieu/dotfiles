@@ -17,10 +17,11 @@ require("noice").setup({
       -- title: set to anything or empty string to hide
       cmdline = { pattern = "^:", icon = " ", lang = "vim", title = '' },
       replace = { kind = 'search', pattern = "^:%%s/", icon = " ", lang = "regex", title = '' },
-      search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex", title = '' },
-      search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex", title = '' },
+      search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex", title = '' },
+      search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex", title = '' },
       shell = { pattern = "^:!", icon = " ", lang = "bash", title = '' },
       lua = { pattern = { "^:lua " }, icon = " ", lang = "lua", title = '' },
+      vim = { pattern = { "^:call " }, icon = " ", lang = "vim", title = '' },
     },
   },
   -- we don't want that notify UI (too clunky for my taste)
