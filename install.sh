@@ -205,7 +205,7 @@ case $answer in
 
     essential="git fzf rofi pass ruby"
 
-    taskwarrior="task-git taskopen"
+    taskwarrior="task taskopen"
 
     xorg="xorg-xrdb
       xorg-server-xephyr
