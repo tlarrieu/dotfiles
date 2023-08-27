@@ -106,6 +106,7 @@ k.set('v', '<leader><leader>', ':normal 6q<cr>', default_options)
 k.set('n', '<leader>eu', ':UltiSnipsEdit<cr>', default_options)
 k.set('n', '<leader>eU', ':UltiSnipsEdit<leader>', default_options)
 k.set('n', '<leader>.', ':tabedit .<cr>', default_options)
+k.set('n', '<leader>v.', ':vsplit .<cr>', default_options)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
