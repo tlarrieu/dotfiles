@@ -18,7 +18,6 @@ config/fish/local.fish
 config/mpv/watch_later
 
 nvim/plugged/*
-nvim/plugin/packer_compiled.lua
 nvim/autoload/plug.vim
 nvim/doc
 nvim/spell

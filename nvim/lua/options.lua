@@ -118,6 +118,7 @@ o.statusline:append('(%l,%c) ')
 -- percentage of file
 o.statusline:append('%P ')
 o.statusline:append('%*')
+
 -- }}}
 
 -- {{{ ==| Shortmess |=========================================================
