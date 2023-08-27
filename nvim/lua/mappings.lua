@@ -177,7 +177,7 @@ k.set('n', '<c-n>', 'gt', noopts)
 k.set('n', '<c-p>', 'gT', noopts)
 -- New tab
 k.set('n', '<leader>tt', ':tabe<cr>', default_options)
-k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", default_options)
+k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noopts)
 -- Move current tab
 k.set('n', '<leader>tm', ':tabm<leader>', noopts)
 -- move current split to a new tab
