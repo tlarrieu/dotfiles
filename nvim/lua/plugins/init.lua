@@ -26,7 +26,7 @@ return {
   { 'tlarrieu/vim-sniper' },
   { 'sbdchd/neoformat' },
   { 'milkypostman/vim-togglelist' },
-  { 'vimwiki/vimwiki' },
+  { 'vimwiki/vimwiki', ft = { 'markdown', 'vimwiki' } },
   -- }}}
   -- {{{ --| Snippets |-----------------------
   { 'SirVer/ultisnips' },
