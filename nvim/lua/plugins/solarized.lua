@@ -6,7 +6,7 @@ return {
     theme = 'neo',
     transparent = true,
     styles = {
-      comments = { italic = false, bold = false },
+      comments = { italic = true, bold = false },
       functions = { bold = true },
       variables = { italic = false },
     },
@@ -29,6 +29,8 @@ return {
         TelescopePromptNormal = { fg = c.base02, bg = telescope_accent },
         TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
         TelescopePromptCounter = { link = 'TelescopePromptNormal' },
+
+        String = { italic = true },
 
         TelescopeMatching = { link = 'Search' },
         TelescopeNormal = { bg = c.base03 },
