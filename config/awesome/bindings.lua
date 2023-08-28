@@ -155,7 +155,7 @@ _M.keyboard = {
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod, "Shift" }, "i", {
-      app = shell("vimwiki"),
+      app = shell("notes"),
       props = { class = "wiki" },
       callback = spawner.callbacks.move_client
     }),

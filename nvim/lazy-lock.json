@@ -59,6 +59,5 @@
   "vim-systemd-syntax": { "branch": "master", "commit": "2f788c627efa7a50baa5766cfacf1852528eca28" },
   "vim-test": { "branch": "master", "commit": "7585ad2aa2dc8d4ffef0739a02cad8a30d75bfbb" },
   "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
-  "vim-yaml-helper": { "branch": "master", "commit": "403ff568e336def133b55d25a3f9517f406054cc" },
-  "vimwiki": { "branch": "dev", "commit": "f0fe154ede6b11e3db9b058b930005a056a3d1c6" }
+  "vim-yaml-helper": { "branch": "master", "commit": "403ff568e336def133b55d25a3f9517f406054cc" }
 }

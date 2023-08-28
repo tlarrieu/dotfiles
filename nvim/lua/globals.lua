@@ -2,27 +2,6 @@ local home = os.getenv("HOME")
 
 local g = vim.g
 
--- {{{ ==| vimwiki |============================================================
-g.vimwiki_global_vars = {}
-g.vimwiki_hl_headers = 0
-g.vimwiki_key_mappings = { all_maps = 0 }
-g.vimwiki_list = {{
-    path = home .. '/.vimwiki/home',
-    syntax = 'markdown',
-    ext = '.md'
-  },
-  {
-    path = home .. '/.vimwiki/home/d&d-campaign',
-    syntax = 'markdown',
-    ext = '.md'
-  },
-  {
-    path = home .. '/.vimwiki/work',
-    syntax = 'markdown',
-    ext = '.md'
-}}
--- }}}
-
 -- {{{ ==| bullets |============================================================
 g.bullets_set_mappings = 0
 -- }}}
