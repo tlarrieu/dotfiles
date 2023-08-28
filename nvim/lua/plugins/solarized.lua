@@ -35,8 +35,9 @@ return {
 
         String = { italic = true },
 
-        ['@text.strong'] = { bold = true, fg = c.none },
-        ['@text.emphasis'] = { italic = true, fg = c.none },
+        ['@text.strong'] = { fg = c.none, bold = true },
+        ['@text.emphasis'] = { fg = c.none, italic = true },
+        ['@text.reference'] = { fg = c.base3, bold = true },
 
         TelescopeMatching = { link = 'Search' },
         TelescopeNormal = { bg = c.base03 },
