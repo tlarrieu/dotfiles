@@ -60,7 +60,6 @@ o.signcolumn = 'auto:2-9'
 -- {{{ ==| Splits |=============================================================
 o.splitright = true
 o.splitbelow = true
-o.fillchars:append('vert: ')
 o.fillchars:append('eob: ')
 -- }}}
 
@@ -99,26 +98,26 @@ o.spelllang = 'en,fr'
 -- }}}
 
 -- {{{ ==| Statusline |=========================================================
-o.statusline=''
-o.statusline:append('%*')
--- path
-o.statusline:append('%f ')
-o.statusline:append('%(%{statusline#Readonly()} %)')
-o.statusline:append('%(%{statusline#Modified()} %)')
-o.statusline:append('%(%{statusline#Paste()} %)')
--- align right
-o.statusline:append('%*%= %*')
-o.statusline:append('%#warningmsg#')
-o.statusline:append('%(%{statusline#Whitespace()} %)')
-o.statusline:append('%*')
--- file type
-o.statusline:append('%(%y %)')
--- line and column
-o.statusline:append('(%l,%c) ')
--- percentage of file
-o.statusline:append('%P ')
-o.statusline:append('%*')
-
+o.laststatus = 3
+-- o.statusline=''
+-- o.statusline:append('%*')
+-- -- path
+-- o.statusline:append('%f ')
+-- o.statusline:append('%(%{statusline#Readonly()} %)')
+-- o.statusline:append('%(%{statusline#Modified()} %)')
+-- o.statusline:append('%(%{statusline#Paste()} %)')
+-- -- align right
+-- o.statusline:append('%*%= %*')
+-- o.statusline:append('%#warningmsg#')
+-- o.statusline:append('%(%{statusline#Whitespace()} %)')
+-- o.statusline:append('%*')
+-- -- file type
+-- o.statusline:append('%(%y %)')
+-- -- line and column
+-- o.statusline:append('(%l,%c) ')
+-- -- percentage of file
+-- o.statusline:append('%P ')
+-- o.statusline:append('%*')
 -- }}}
 
 -- {{{ ==| Shortmess |=========================================================

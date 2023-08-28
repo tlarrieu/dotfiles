@@ -70,7 +70,7 @@ return {
 
         NormalNC = { bg = c.base02 },
         SignColumn = { link = 'NormalNC' },
-        WinSeparator = { link = 'NormalNC' },
+        WinSeparator = { fg = c.base01, bg = c.base02 },
 
         StatusLine = { link = 'Normal' },
         StatusLineNC = { link = 'Tabline' },
