@@ -91,8 +91,8 @@ k.set('', '9', '/', default_options)
 k.set('', '*', '0', default_options)
 k.set('', '0', '*', default_options)
 -- diff hunk navigation
-k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', { silent = true })
-k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', { silent = true })
+k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', silent)
+k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', silent)
 -- quickfix navigation
 k.set('n', '<a-p>', ':cprev<cr>', default_options)
 k.set('n', '<a-n>', ':cnext<cr>', default_options)

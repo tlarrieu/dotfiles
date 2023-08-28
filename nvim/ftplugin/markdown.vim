@@ -6,7 +6,7 @@ setlocal spell
 setlocal concealcursor=ncv
 setlocal conceallevel=2
 
-nnoremap <leader>i :call ToggleConceal()<cr>
+nnoremap <silent> <leader>i :call ToggleConceal()<cr>
 function! ToggleConceal()
   if &conceallevel == 2
     setlocal conceallevel=0
