@@ -50,6 +50,16 @@ return {
         NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
         NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
 
+        NormalFloat = { bg = c.base02 },
+        FloatBorder = { fg = c.base1, bg = c.base1 },
+
+        NotifyBackground = { bg = c.base03 },
+        NotifyINFOBody = { link = 'NotifyBackground' },
+        NotifyWARNBody = { link = 'NotifyINFOBody' },
+        NotifyERRORBody = { link = 'NotifyINFOBody' },
+        NotifyDEBUGBody = { link = 'NotifyINFOBody' },
+        NotifyTRACEBUGBody = { link = 'NotifyINFOBody' },
+
         Tabline = { fg = c.base0, bg = c.base02 },
         TablineSel = { fg = c.magenta, bg = c.base03 },
         TablineFill = { link = 'Tabline' },
