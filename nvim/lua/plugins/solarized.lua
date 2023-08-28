@@ -32,6 +32,9 @@ return {
 
         String = { italic = true },
 
+        ['@neorg.markup.bold'] = { bold = true },
+        ['@neorg.markup.italic'] = { italic = true },
+
         TelescopeMatching = { link = 'Search' },
         TelescopeNormal = { bg = c.base03 },
         TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
