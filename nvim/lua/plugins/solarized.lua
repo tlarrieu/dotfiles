@@ -32,8 +32,10 @@ return {
 
         String = { italic = true },
 
-        ['@neorg.markup.bold'] = { bold = true },
-        ['@neorg.markup.italic'] = { italic = true },
+        ['@text.strong'] = { bold = true, fg = c.none },
+        ['@text.emphasis'] = { italic = true, fg = c.none },
+        ['@neorg.markup.bold'] = { bold = true, fg = c.none },
+        ['@neorg.markup.italic'] = { italic = true, fg = c.none },
 
         TelescopeMatching = { link = 'Search' },
         TelescopeNormal = { bg = c.base03 },
