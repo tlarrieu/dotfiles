@@ -10,6 +10,9 @@ return {
       functions = { bold = true },
       variables = { italic = false },
     },
+    enables = {
+      treesitter = false,
+    },
     highlights = function(c, _)
       vim.cmd [[
         sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
@@ -34,8 +37,6 @@ return {
 
         ['@text.strong'] = { bold = true, fg = c.none },
         ['@text.emphasis'] = { italic = true, fg = c.none },
-        ['@neorg.markup.bold'] = { bold = true, fg = c.none },
-        ['@neorg.markup.italic'] = { italic = true, fg = c.none },
 
         TelescopeMatching = { link = 'Search' },
         TelescopeNormal = { bg = c.base03 },
