@@ -9,8 +9,6 @@ else
   profile="$1"
 fi
 
-echo '$profile:' "$profile"
-
 case "$profile" in
   home)
     browser-kiosk "perso" "https://discord.com/channels/@me"
