@@ -2,8 +2,9 @@ local _M = {}
 
 _M.load = function()
   local output = io.popen('xrdb -query')
-  local query = output:read('*a')
-  output:close()
+  local query = ''
+  if output then query = output:read('*a') end
+  if output then output:close() end
 
   local scheme = {}
   for i, color in string.gmatch(query, "*.color(%d+):[^#]*(#[%a%d]+)") do
@@ -36,7 +37,7 @@ _M.load = function()
   }
 end
 
-function round(x)
+local function round(x)
   return x >= 0 and math.floor(x+0.5) or math.ceil(x-0.5)
 end
 

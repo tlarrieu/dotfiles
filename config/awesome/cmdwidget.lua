@@ -14,8 +14,8 @@ local function worker(args)
   local timeout  = opts.timeout or 5
   local cmd      = opts.cmd or ""
   local font     = opts.font or beautiful.font
-  local color    = opts.color or function() end
-  local text     = opts.text or function () end
+  local color    = opts.color or function(_) end
+  local text     = opts.text or function (_) end
 
   base.widget = wibox.widget({
     widget = wibox.widget.textbox,

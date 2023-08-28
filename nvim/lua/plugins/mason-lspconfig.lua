@@ -26,6 +26,30 @@ return {
           capabilities = require('cmp_nvim_lsp').default_capabilities(),
         })
       end,
+      ["lua_ls"] = function()
+        require('lspconfig').lua_ls.setup({
+          on_attach = opts.on_attach,
+          capabilities = opts.capabilities,
+
+          settings = {
+            Lua = {
+              ["workspace.ignoreDir"] = {
+                'lain/',
+              },
+              diagnostics = {
+                -- awesome related globals
+                globals = {
+                  "awesome",
+                  "root",
+                  "client",
+                  "mouse",
+                  "mousegrabber",
+                },
+              },
+            },
+          },
+        })
+      end,
     }
   end
 }
