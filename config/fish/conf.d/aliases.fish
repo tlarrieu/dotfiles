@@ -71,6 +71,9 @@ abbr z "zathura"
 abbr tree "tree -C"
 abbr less "less -R"
 
+# fd
+abbr fd "fd -I -H"
+
 # atool
 abbr atx "aunpack"
 abbr atp "apack"
@@ -216,5 +219,4 @@ abbr rt "routine"
 abbr nmap "sudo nmap"
 
 # searchsploits
-
 abbr spl "searchsploit"
