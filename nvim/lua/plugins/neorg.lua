@@ -1,11 +1,11 @@
 return {
   "nvim-neorg/neorg",
-  dependencies = { { 'nvim-lua/plenary.nvim' } },
+  dependencies = { 'nvim-lua/plenary.nvim' },
   build = ":Neorg sync-parsers",
   ft = { 'norg' },
   keys = {
-    { '<leader>ei',  '<cmd>Neorg index<cr>', desc = 'Neorg index'},
-    { '<leader>et',  '<cmd>Neorg toc<cr>', desc = 'Neorg ToC'},
+    { '<leader>ei', '<cmd>Neorg index<cr>', desc = 'Neorg index' },
+    { '<leader>et', '<cmd>Neorg toc<cr>',   desc = 'Neorg ToC' },
   },
   opts = {
     load = {
