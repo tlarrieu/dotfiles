@@ -33,16 +33,17 @@ return {
         TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
         TelescopePromptCounter = { link = 'TelescopePromptNormal' },
 
+        TelescopeMatching = { link = 'Search' },
+        TelescopeNormal = { bg = c.base03 },
+        TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
+        TelescopeSelection = { fg = c.base0, bg = c.base02 },
+        TelescopeMultiIcon = { link = 'TelescopeNormal' },
+
         String = { italic = true },
 
         ['@text.strong'] = { fg = c.none, bold = true },
         ['@text.emphasis'] = { fg = c.none, italic = true },
         ['@text.reference'] = { fg = c.base3, bold = true },
-
-        TelescopeMatching = { link = 'Search' },
-        TelescopeNormal = { bg = c.base03 },
-        TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
-        TelescopeSelection = { fg = c.base0, bg = c.base02 },
 
         NoiceCursor = { fg = c.base02, bg = c.base00 },
         NoicePopupBorder = { fg = c.base02, bg = c.base02 },
