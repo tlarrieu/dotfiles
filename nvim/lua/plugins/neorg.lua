@@ -11,6 +11,7 @@ return {
   opts = {
     load = {
       ["core.defaults"] = {},
+      ["core.summary"] = {},
       ["core.concealer"] = {},
       ["core.qol.toc"] = {
         config = {
