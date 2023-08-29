@@ -28,3 +28,10 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end,
   group = vim.api.nvim_create_augroup('no_incremental_comments', {})
 })
+
+-- Update location list with diagnostics
+vim.api.nvim_create_autocmd('DiagnosticChanged', {
+  pattern = '*',
+  callback = function() vim.diagnostic.setloclist({ winnr = 0, open = false }) end,
+  group = vim.api.nvim_create_augroup('diagnostics_to_loclist', {})
+})
