@@ -190,7 +190,7 @@ case $answer in
 
     utils="xdotool entr xsel"
 
-    search="the_silver_searcher mlocate"
+    search="the_silver_searcher ripgrep mlocate"
 
     files="vifm
       linopen
@@ -250,6 +250,7 @@ case $answer in
     fonts="ttf-fira-code
       nerd-fonts-fira-code
       nerd-fonts-inconsolata
+      ttf-consolas-ligaturized
       terminus-font
       "
 
