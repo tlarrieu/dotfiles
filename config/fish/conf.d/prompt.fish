@@ -34,9 +34,9 @@ function _git_ahead
   end
 
   if [ $ahead -eq 1 ]
-    echo " "
+    echo "󰏕 "
   else if [ $behind -eq 1 ]
-    echo " "
+    echo "󰏔 "
   end
 end
 
@@ -89,7 +89,7 @@ function fish_prompt
 
   # Show background job if any
   [ (jobs | wc -l) -gt 0 ]
-    and echo -ns " "
+    and echo -ns " "
 
   # Print pwd or full path
   echo -n -s $cwd $normal " "
