@@ -5,14 +5,12 @@ return {
     'neovim/nvim-lspconfig',
   },
   opts = {
-    {
-      ensure_installed = {
-        'hls',      -- haskell
-        'ruby_ls',  -- ruby
-        'tsserver', -- javascript / TS
-        'lua_ls',   -- lua
-        'vimls',    -- vim
-      }
+    ensure_installed = {
+      'hls',      -- haskell
+      'ruby_ls',  -- ruby
+      'tsserver', -- javascript / TS
+      'lua_ls',   -- lua
+      'vimls',    -- vim
     }
   },
   config = function(_, opts)
