@@ -20,7 +20,7 @@ let b:switch_custom_definitions = [[ '- [ ]', '- [X]' ]]
 
 augroup MARKDOWN
   autocmd!
-  autocmd InsertCharPre *.md if search('\v(%^|[.!?]\_s)\_s*%#', 'bcnw') != 0 | let v:char = toupper(v:char) | endif
+  autocmd InsertCharPre *.md call helpers#Capitalize()
   autocmd InsertLeave * setlocal conceallevel=2
 augroup END
 
