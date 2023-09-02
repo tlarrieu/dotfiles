@@ -158,8 +158,8 @@ local config = {
   { icon = "", rule = { class = "mpv" }},
   { icon = "", rule = { class = "Audacity" }},
   { icon = "", rule = { class = "scratchpad" }},
-  { icon = "嗢", rules = {{ class = "Vlc" }, { class = "vlc" } }},
-  { icon = "奔", rule = { class = "mixer" }},
+  { icon = "󰕼", rules = {{ class = "Vlc" }, { class = "vlc" } }},
+  { icon = "󰖀", rule = { class = "mixer" }},
   { icon = "ﮩ", rule = { name = "Document Scanner" }},
   { icon = "", rule = { name = "pass: " }},
 
