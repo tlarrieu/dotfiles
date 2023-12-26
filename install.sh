@@ -182,7 +182,7 @@ case $answer in
 
     nvim="python python-pip neovim nvim-packer-git"
 
-    languages="ghcup-hs-bin luarocks rbenv ruby-build"
+    languages="ghcup-hs-bin luarocks rbenv ruby-build go go-tools gofumpt"
 
     terminal="kitty fish"
 
