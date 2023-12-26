@@ -158,6 +158,7 @@ k.set('n', '<down>', '<c-w>-', default_options)
 k.set('n', 'cO', ':tabo<cr><c-w>o', default_options)
 k.set('n', 'co', '<c-w>o', default_options)
 -- Hack to make <c-w><c-c> mapping work
+k.set('', '<c-c>', '<nop>', default_options)
 k.set('', '<c-w><c-c>', '<c-w>H', default_options)
 k.set('', '<c-w><c-t>', '<c-w>J', default_options)
 k.set('', '<c-w><c-s>', '<c-w>K', default_options)
