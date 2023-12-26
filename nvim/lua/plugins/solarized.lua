@@ -114,6 +114,10 @@ return {
   },
   config = function(_, opts)
     require('solarized').setup(opts)
+
+    vim.o.background = 'light'
+    vim.cmd.colorscheme 'solarized'
+
     local group = vim.api.nvim_create_augroup("text_yank", {})
     vim.api.nvim_create_autocmd('TextYankPost', {
       pattern = '*',

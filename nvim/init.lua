@@ -5,7 +5,6 @@
 -- -----------------------------------------------------------------------------
 
 vim.g.mapleader = " "
-vim.o.background = 'light'
 
 -- get lazy.nvim if not present
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
