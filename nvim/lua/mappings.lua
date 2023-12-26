@@ -229,10 +229,6 @@ k.set('n', '<c-e>', builtin.diagnostics, default_options)
 k.set('n', '<c-q>', builtin.quickfix, default_options)
 k.set('n', '<c-è>', ':TodoTelescope<cr>', default_options)
 --- }}}
---- {{{ --| lazy |------------------------------------------
-k.set('n', '<leader>i', '<cmd>Lazy install<cr>', default_options)
-k.set('n', '<leader>I', '<cmd>Lazy sync<cr>', default_options)
---- }}}
 --- {{{ --| angry |-----------------------------------------
 k.set({ 'v', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
 k.set({ 'v', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)

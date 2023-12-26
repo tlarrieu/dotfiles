@@ -16,17 +16,18 @@ return {
   },
   config = function(_, opts)
     local plug = require('mason-lspconfig')
+    local lspconfig = require('lspconfig')
 
     plug.setup(opts)
 
     plug.setup_handlers {
       function(server_name)
-        require('lspconfig')[server_name].setup({
+        lspconfig[server_name].setup({
           capabilities = require('cmp_nvim_lsp').default_capabilities(),
         })
       end,
       ["lua_ls"] = function()
-        require('lspconfig').lua_ls.setup({
+        lspconfig.lua_ls.setup({
           on_attach = opts.on_attach,
           capabilities = opts.capabilities,
 
@@ -50,10 +51,19 @@ return {
         })
       end,
       ["gopls"] = function()
-        require('lspconfig').gopls.setup({
+        lspconfig.gopls.setup({
+          on_attach = opts.on_attach,
+          capabilities = opts.capabilities,
           settings = {
             gopls = {
-              gofumpt = true
+              gofumpt = true,
+              completeUnimported = true,
+              usePlaceholders = true,
+              analyses = {
+                unusedparams = true,
+                staticcheck = true,
+                unreachable = true,
+              }
             }
           }
         })
