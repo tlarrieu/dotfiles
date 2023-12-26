@@ -11,7 +11,8 @@ return {
       'tsserver', -- javascript / TS
       'lua_ls',   -- lua
       'vimls',    -- vim
-    }
+      'gopls',    -- golang
+    },
   },
   config = function(_, opts)
     local plug = require('mason-lspconfig')

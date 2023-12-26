@@ -2,6 +2,7 @@ setlocal conceallevel=2
 setlocal concealcursor=c
 setlocal concealcursor+=n
 setlocal concealcursor+=i
+setlocal noexpandtab
 
 nmap <buffer> <Leader>gI <Plug>(go-implements)
 nmap <buffer> <Leader>i <Plug>(go-info)
