@@ -173,6 +173,8 @@ k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>",
 k.set('n', '<leader>=', '<c-w>=', default_options)
 k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', default_options)
 -- Moving around
+k.set('n', '<c-i>', '<c-i>', noopts) -- force standard ctrl-i behavior (because we redefine tab later on)
+k.set('n', '<c-o>', '<c-o>', noopts) -- force standard ctrl+o behavior (mostly to be symetrical)
 k.set('n', '<tab>', '<c-w>w', noopts)
 k.set('n', '<s-tab>', '<c-w>W', noopts)
 k.set('n', '<c-n>', 'gt', noopts)

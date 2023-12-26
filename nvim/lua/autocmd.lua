@@ -8,10 +8,17 @@ vim.api.nvim_create_autocmd('SwapExists', {
   group = vim.api.nvim_create_augroup("no_simultaneous_edits", {}),
 })
 
+-- Start with clean jumplist
+vim.api.nvim_create_autocmd('VimEnter', {
+  pattern = '*',
+  callback = function() vim.cmd [[ clearjumps ]] end,
+  group = vim.api.nvim_create_augroup('clearjumps', {})
+})
+
 -- Restore cursor position
 vim.api.nvim_create_autocmd('BufReadPost', {
   pattern = '*',
-  callback = function() vim.api.nvim_exec('silent! normal! g`"zv', false) end,
+  callback = function() vim.api.nvim_exec('keepjumps silent! normal! g`"zv', false) end,
   group = vim.api.nvim_create_augroup('restore_position', {})
 })
 
