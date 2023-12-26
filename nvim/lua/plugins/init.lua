@@ -27,9 +27,6 @@ return {
   { 'sbdchd/neoformat' },
   { 'milkypostman/vim-togglelist' },
   -- }}}
-  -- {{{ --| Snippets |-----------------------
-  { 'SirVer/ultisnips' },
-  -- }}}
   -- {{{ --| Text manipulation |--------------
   { 'AndrewRadev/switch.vim' },
   { 'tpope/vim-commentary' },

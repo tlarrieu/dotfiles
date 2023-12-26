@@ -1,5 +1,3 @@
-local home = os.getenv("HOME")
-
 local g = vim.g
 
 -- {{{ ==| bullets |============================================================
@@ -34,14 +32,6 @@ g.surround_61 = "<%= \r %>"
 
 -- {{{ ==| Angry |==============================================================
 g.angry_disable_maps = 1
--- }}}
-
--- {{{ ==| UltiSnips |==========================================================
-g.UltiSnipsRemoveSelectModeMappings = 1
-g.UltiSnipsEditSplit = 'vertical'
-g.UltiSnipsJumpForwardTrigger = '<tab>'
-g.UltiSnipsJumpBackwardTrigger = '<s-tab>'
-g.UltiSnipsSnippetDirectories = { home .. '/.config/nvim/UltiSnips' }
 -- }}}
 
 -- {{{ ==| Taboo |==============================================================
