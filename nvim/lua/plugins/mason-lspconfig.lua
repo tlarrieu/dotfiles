@@ -49,6 +49,15 @@ return {
           },
         })
       end,
+      ["gopls"] = function()
+        require('lspconfig').gopls.setup({
+          settings = {
+            gopls = {
+              gofumpt = true
+            }
+          }
+        })
+      end,
     }
   end
 }
