@@ -41,8 +41,8 @@ k.set({ 'n', 'v' }, 'é', '/', noopts)
 -- replace occurences of word under cursor
 k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noopts)
 -- find & replace
-k.set('n', 'É', ':%s/', noopts)
-k.set('v', 'É', '<esc>:%s/\\%V', noopts)
+k.set('n', 'É', ':%s/<space><bs>', noopts)
+k.set('v', 'É', '<esc>:%s/\\%V<space><bs>', noopts)
 -- hide search matches
 k.set( 'n', '<esc>', function()
     require('illuminate').pause()
