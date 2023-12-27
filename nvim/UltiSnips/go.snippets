@@ -16,6 +16,24 @@ snippet print "fmt.Println"
 fmt.Println(${1:${VISUAL}})
 endsnippet
 
+snippet open "os.Open"
+${1:file}, ${2:err} := os.Open(${3:"${4:input.txt}"})
+if $2 != nil {
+	panic($2)
+}
+defer $1.Close()
+endsnippet
+
+snippet scan "bufio.NewScanner"
+${1:scanner} := bufio.NewScanner(${2:file})
+for $1.Scan() {
+	line := $1.Text()
+}
+if $1.Err() != nil {
+	panic($1.Err())
+}
+endsnippet
+
 snippet for "For loop (i version, asc)"
 for i := ${1:0}; i < ${2:N}; i++ {
 	$3
