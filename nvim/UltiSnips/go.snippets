@@ -2,11 +2,18 @@ snippet p "Package"
 package ${1:packagename}
 endsnippet
 
-snippet d "Function"
+snippet d "func"
 func ${1:name} ($2) ${3:error} {
 	$4
 }
 endsnippet
+
+snippet t "type"
+type ${1:name} struct {
+	$2
+}
+endsnippet
+
 
 snippet exit "os.Exit"
 os.Exit($1)
