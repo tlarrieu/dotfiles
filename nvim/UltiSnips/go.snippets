@@ -8,6 +8,14 @@ func ${1:name} ($2) ${3:error} {
 }
 endsnippet
 
+snippet exit "os.Exit"
+os.Exit($1)
+endsnippet
+
+snippet print "fmt.Println"
+fmt.Println(${1:${VISUAL}})
+endsnippet
+
 snippet for "For loop (i version, asc)"
 for i := ${1:0}; i < ${2:N}; i++ {
 	$3
