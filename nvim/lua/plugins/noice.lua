@@ -25,9 +25,10 @@ return {
         search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex", title = '' },
         search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex", title = '' },
         shell = { pattern = "^:!", icon = " ", lang = "bash", title = '' },
-        filter = { pattern = "^:%s!", icon = " ", lang = "bash", title = '' },
-        lua = { pattern = { "^:lua " }, icon = " ", lang = "lua", title = '' },
-        vim = { pattern = { "^:call " }, icon = " ", lang = "vim", title = '' },
+        filter = { pattern = "^:%%s!", icon = " ", lang = "bash", title = '' },
+        lua = { pattern = "^:lua ", icon = " ", lang = "lua", title = '' },
+        vim = { pattern = "^:call ", icon = " ", lang = "vim", title = '' },
+        input = { title = '' },
       },
     },
     -- we don't want that notify UI (too clunky for my taste)
