@@ -45,6 +45,8 @@ return {
         ['@text.emphasis'] = { fg = c.none, italic = true },
         ['@text.reference'] = { fg = c.base3, bold = true },
 
+        CmpItemAbbrMatch = { fg = c.base0, bg = c.base02, underline = true, bold = true },
+
         NoiceCursor = { fg = c.base02, bg = c.base00 },
         NoicePopupBorder = { fg = c.base02, bg = c.base02 },
         NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
