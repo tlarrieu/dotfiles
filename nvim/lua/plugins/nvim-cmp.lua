@@ -32,14 +32,18 @@ return {
     }
 
     cmp.setup({
+      experimental = {
+        ghost_text = true,
+      },
       snippet = {
         expand = function(args)
           vim.fn["UltiSnips#Anon"](args.body)
         end,
       },
       mapping = cmp.mapping.preset.insert({
-        ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<c-e>'] = cmp.mapping.confirm(),
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
