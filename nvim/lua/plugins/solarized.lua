@@ -71,6 +71,7 @@ return {
         CmpItemKindReference = { bold = false },
         CmpItemKindEnumMember = { bold = false },
         CmpItemKindConstructor = { bold = false },
+        CmpGhostText = { fg = c.base01, italic = false },
 
         NoiceCursor = { fg = c.base02, bg = c.base00 },
         NoicePopupBorder = { fg = c.base02, bg = c.base02 },
