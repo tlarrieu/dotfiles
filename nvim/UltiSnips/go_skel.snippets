@@ -1,0 +1,10 @@
+global !p
+from ultisnips_helpers import *
+endglobal
+
+snippet _skel "Skeleton" b
+package `!p snip.rv = downcase(snip.basename)`
+
+func main() {
+}
+endsnippet
