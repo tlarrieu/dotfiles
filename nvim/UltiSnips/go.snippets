@@ -1,8 +1,8 @@
-snippet p "Package"
+snippet "^p" "Package" r
 package ${1:packagename}
 endsnippet
 
-snippet d "func"
+snippet "^d" "func" r
 func ${1:name} ($2) ${3:error} {
 	$4
 }
@@ -14,19 +14,19 @@ func main () {
 }
 endsnippet
 
-snippet s "struct"
+snippet "^s" "struct" r
 type ${1:name} struct {
 	$2
 }
 endsnippet
 
-snippet i "interface"
+snippet "^i" "interface" r
 type ${1:name} interface {
 	$2
 }
 endsnippet
 
-snippet t "type"
+snippet "^t" "type" r
 type ${1:name} ${2:type}
 endsnippet
 
