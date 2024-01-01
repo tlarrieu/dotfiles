@@ -29,20 +29,20 @@ k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>"
 -- Give a more logical behavior to Y
 k.set('n', 'Y', 'y$', default_options)
 -- Visual yank
-k.set('v', 'y', 'ygv<esc>', default_options)
-k.set('v', 'Y', 'Ygv<esc>', default_options)
+k.set('x', 'y', 'ygv<esc>', default_options)
+k.set('x', 'Y', 'Ygv<esc>', default_options)
 -- select the whole line
 k.set('n', 'vv', '^v$h', default_options)
 -- Command line
-k.set({ 'n', 'v' }, 'è', ':', noopts)
-k.set({ 'n', 'v' }, 'È', ':!', noopts)
+k.set({ 'n', 'x' }, 'è', ':', noopts)
+k.set({ 'n', 'x' }, 'È', ':!', noopts)
 -- search
-k.set({ 'n', 'v' }, 'é', '/', noopts)
+k.set({ 'n', 'x' }, 'é', '/', noopts)
 -- replace occurences of word under cursor
 k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noopts)
 -- find & replace
 k.set('n', 'É', ':%s/<space><bs>', noopts)
-k.set('v', 'É', '<esc>:%s/\\%V<space><bs>', noopts)
+k.set('x', 'É', '<esc>:%s/\\%V<space><bs>', noopts)
 -- hide search matches
 k.set( 'n', '<esc>', function()
     require('illuminate').pause()
@@ -51,10 +51,10 @@ k.set( 'n', '<esc>', function()
   { silent = true, remap = false, expr = true }
 )
 -- Find character
-k.set({ 'n', 'v' }, ',', ';', default_options)
-k.set({ 'n', 'v' }, ';', ',', default_options)
+k.set({ 'n', 'x' }, ',', ';', default_options)
+k.set({ 'n', 'x' }, ';', ',', default_options)
 -- block
-k.set({ 'n', 'v' }, '<m-t>', '}', noopts)
+k.set({ 'n', 'x' }, '<m-t>', '}', noopts)
 k.set({ 'n', 's' }, '<m-s>', '{', noopts)
 -- Close current buffer
 k.set('n', 'Q', ':bdelete!<cr>', default_options)
@@ -64,7 +64,7 @@ k.set('c', '<esc>', '<c-c>', default_options)
 k.set('n', 'à', ':confirm quit<cr>', default_options)
 k.set('n', 'À', ':confirm quitall<cr>', default_options)
 -- Save
-k.set({ 'n', 'i', 'v' }, '<c-s>', '<esc>:w<cr>', default_options)
+k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', default_options)
 -- Reselect pasted lines
 k.set('n', 'gV', '`[v`]', default_options)
 -- It is more convenient to access numbers directly when in normal mode
@@ -72,10 +72,10 @@ k.set('', '"', '1', default_options)
 k.set('', '1', '"', default_options)
 k.set('', '«', '2', default_options)
 k.set('', '2', '<<_', default_options)
-k.set('v', '2', '<gv', default_options)
+k.set('x', '2', '<gv', default_options)
 k.set('', '»', '3', default_options)
 k.set('', '3', '>>_', default_options)
-k.set('v', '3', '>gv', default_options)
+k.set('x', '3', '>gv', default_options)
 k.set('', '(', '4', default_options)
 k.set('', '4', '(', default_options)
 k.set('', ')', '5', default_options)
@@ -97,10 +97,10 @@ k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', silent)
 k.set('n', '<a-p>', ':cprev<cr>', default_options)
 k.set('n', '<a-n>', ':cnext<cr>', default_options)
 -- sort
-k.set('v', '<leader>s', ':sort<cr>', default_options)
+k.set('x', '<leader>s', ':sort<cr>', default_options)
 -- macro
 k.set('', '<leader><leader>', '@q', default_options)
-k.set('v', '<leader><leader>', ':normal 6q<cr>', default_options)
+k.set('x', '<leader><leader>', ':normal 6q<cr>', default_options)
 --- }}}
 --- {{{ --| quick access |----------------------------------
 k.set('n', '<leader>eu', ':UltiSnipsEdit<cr>', default_options)
@@ -210,11 +210,11 @@ k.set('n', '<leader>Z', 'zR', default_options)
 k.set('n', 'zO', 'zczO', default_options)
 --- }}}
 --- {{{ --| neoformat |-------------------------------------
-k.set({ 'n', 'v' }, '<leader>f', ':Neoformat<cr>', default_options)
+k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', default_options)
 --- }}}
 --- {{{ --| neoterm |---------------------------------------
 k.set('n', '<leader><tab>', ':Ttoggle<cr>', default_options)
-k.set('v', '<cr>', ':TREPLSendSelection<cr>', default_options)
+k.set('x', '<cr>', ':TREPLSendSelection<cr>', default_options)
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)
@@ -227,16 +227,16 @@ k.set('n', '<leader>é', builtin.grep_string, default_options)
 k.set('n', '<c-b>', builtin.buffers, default_options)
 k.set('n', '<c-h>', builtin.help_tags, default_options)
 k.set('n', '<c-y>', builtin.git_status, default_options)
-k.set('n', '<c-l>', builtin.lsp_workspace_symbols, default_options)
+k.set('n', '<c-l>', builtin.lsp_document_symbols, default_options)
 k.set('n', '<c-e>', builtin.diagnostics, default_options)
 k.set('n', '<c-q>', builtin.quickfix, default_options)
 k.set('n', '<c-è>', ':TodoTelescope<cr>', default_options)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
-k.set({ 'v', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
-k.set({ 'v', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
-k.set({ 'v', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
-k.set({ 'v', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
+k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
+k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
+k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
+k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
 --- }}}
 --- {{{ --| taboo |-----------------------------------------
 k.set('n', '<leader>tl', ':TabooRename<leader>', noopts)
@@ -254,9 +254,9 @@ k.set('n', '<leader>r', ':Gread<cr>', default_options)
 k.set('n', '<leader>R', ':Git reset %<cr>', default_options)
 k.set('n', '<leader>s', ':Git<cr>', default_options)
 k.set('n', '<leader>S', ':GV<cr>', default_options)
-k.set('v', '<leader>S', ":'<,'>GV<cr>", default_options)
+k.set('x', '<leader>S', ":'<,'>GV<cr>", default_options)
 k.set('n', '<leader>w', ':Gwrite<cr>', default_options)
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-k.set('v', '<leader>d', ':Linediff<cr>', default_options)
+k.set('x', '<leader>d', ':Linediff<cr>', default_options)
 --- }}}
