@@ -11,6 +11,18 @@ vim.api.nvim_create_autocmd('BufEnter', {
   group = group
 })
 
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = 'COMMIT_EDITMSG',
+  callback = require('noice').disable,
+  group = group
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'FugitiveChanged',
+  callback = require('noice').enable,
+  group = group
+})
+
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = 'index',
   callback = function()
