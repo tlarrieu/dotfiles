@@ -10,13 +10,13 @@ return {
       view = "cmdline_popup",
       opts = {
         position = {
-          row = "25%",
+          row = "20%",
           col = "50%",
         },
-        -- border = {
-        --   -- "'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'"
-        --   style = "single",
-        -- },
+        border = {
+          -- "'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'"
+          style = "single",
+        },
       },
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
