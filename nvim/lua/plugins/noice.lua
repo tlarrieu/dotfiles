@@ -12,7 +12,11 @@ return {
         position = {
           row = "25%",
           col = "50%",
-        }
+        },
+        -- border = {
+        --   -- "'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'"
+        --   style = "single",
+        -- },
       },
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
