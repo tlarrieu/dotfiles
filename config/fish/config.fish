@@ -61,6 +61,8 @@ set -x PATH $HOME/.ghcup/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
 set -x PATH $PATH $HOME/.krew/bin
 
+eval (dircolors -c ~/.dir_colors)
+
 # Tab completions
 if test -e /usr/share/doc/task/scripts/fish/task.fish
   source /usr/share/doc/task/scripts/fish/task.fish
