@@ -71,7 +71,7 @@ return {
         CmpItemKindReference = { bold = false },
         CmpItemKindEnumMember = { bold = false },
         CmpItemKindConstructor = { bold = false },
-        CmpGhostText = { fg = c.base01, italic = false },
+        CmpGhostText = { fg = c.base01, bg = c.base02 },
 
         NoiceCursor = { fg = c.base02, bg = c.base00 },
         NoicePopupBorder = { fg = c.base02, bg = c.base02 },
@@ -101,6 +101,9 @@ return {
         SpellLocal = { fg = c.blue, undercurl = true },
         SpellCap = { link = 'SpellLocal' },
         SpellRare = { link = 'SpellLocal' },
+
+        Error = { undercurl = true },
+        DiagnosticUnderlineError = { undercurl = true, bg = c.base02 },
 
         DiagnosticSignError = { fg = c.red, bg = c.base02 },
         DiagnosticSignWarn = { fg = c.yellow, bg = c.base02 },
