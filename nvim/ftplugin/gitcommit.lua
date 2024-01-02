@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     -- enter insert mode
     vim.cmd('startinsert!')
     -- <c-s> saves and exits
-    vim.keymap.set({ 'n', 'i' }, '<c-s>', '<esc><cmd>x<cr>', { silent = true, buffer = 0 })
+    vim.keymap.set( { 'n', 'i' }, '<c-s>', vim.cmd.x, { silent = true, buffer = 0 })
   end,
   group = group
 })
