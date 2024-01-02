@@ -73,7 +73,10 @@ return {
         CmpItemKindConstructor = { bold = false },
         CmpGhostText = { fg = c.base01, bg = c.base02 },
 
-        NoiceCursor = { fg = c.base02, bg = c.base00 },
+        Cursor = { fg = c.base1, bg = c.base02 },
+        TermCursorNC = { link = 'Cursor' },
+
+        NoiceCursor = { fg = c.base02, bg = c.base01 },
         NoicePopupBorder = { fg = c.base02, bg = c.base02 },
         NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
         NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
