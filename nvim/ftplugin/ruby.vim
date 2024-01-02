@@ -8,8 +8,6 @@ setlocal iskeyword+=!
 
 iabbrev <buffer> pry binding.pry
 
-let b:deoplete_sources = ['omni', 'tag', 'buffer', 'file']
-
 function! ConfigureExecute()
   if(search("#!", 'n') == 0)
     nnoremap <silent> <buffer> <return> :TestLast \| Topen<cr>

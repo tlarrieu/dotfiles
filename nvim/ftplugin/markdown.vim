@@ -15,7 +15,6 @@ function! ToggleConceal()
   end
 endfunction
 
-let b:deoplete_sources = ['tag', 'buffer', 'file']
 let b:switch_custom_definitions = [[ '- [ ]', '- [X]' ]]
 
 augroup MARKDOWN

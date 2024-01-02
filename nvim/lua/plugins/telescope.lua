@@ -48,11 +48,5 @@ return {
     }
 
     require('telescope').load_extension('fzf')
-
-    -- Do not fire autocomplete
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = 'TelescopePrompt',
-      command = "call deoplete#custom#buffer_option('auto_complete', v:false)",
-    })
   end
 }
