@@ -69,7 +69,7 @@ end
 set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 
 # TERM
-set -gx TERM xterm-256color
+set -gx TERM xterm-kitty
 
 eval (ssh-agent -c) > /dev/null
 trap 'kill -9 $SSH_AGENT_PID' EXIT
