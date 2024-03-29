@@ -2,6 +2,8 @@ local default_options = { remap = false, silent = true }
 local silent = { silent = true }
 local noopts = {}
 
+local helpers = require('helpers')
+
 local k = vim.keymap
 
 -- Avoiding moving cursor when hitting <leader> followed by nothing
@@ -44,7 +46,7 @@ k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noopts)
 k.set('n', 'É', ':%s/<space><bs>', noopts)
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>', noopts)
 -- hide search matches
-k.set( 'n', '<esc>', function()
+k.set('n', '<esc>', function()
     require('illuminate').pause()
     return '<esc>:nohlsearch<cr><c-l>'
   end,
@@ -103,8 +105,13 @@ k.set('', '<leader><leader>', '@q', default_options)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', default_options)
 --- }}}
 --- {{{ --| quick access |----------------------------------
-k.set('n', '<leader>eu', ':UltiSnipsEdit<cr>', default_options)
-k.set('n', '<leader>eU', ':UltiSnipsEdit<leader>', default_options)
+k.set('n', '<leader>eu', function()
+  if vim.bo.filetype == '' then return end
+
+  require("luasnip.loaders").edit_snippet_files({
+    edit = function(path) vim.cmd("vnew " .. path) end
+  })
+end, default_options)
 k.set('n', '<leader>.', ':tabedit .<cr>', default_options)
 k.set('n', '<leader>v.', ':vsplit .<cr>', default_options)
 --- }}}

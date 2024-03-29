@@ -1,5 +1,8 @@
 return {
   'hrsh7th/nvim-cmp',
+  dependencies = {
+    'saadparwaiz1/cmp_luasnip'
+  },
   config = function()
     local cmp = require('cmp')
 
@@ -37,18 +40,34 @@ return {
       },
       snippet = {
         expand = function(args)
-          vim.fn["UltiSnips#Anon"](args.body)
+          require('luasnip').lsp_expand(args.body)
         end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ['<c-e>'] = cmp.mapping.confirm(),
+        ['<tab>'] = cmp.mapping(function(fallback)
+          local luasnip = require('luasnip')
+          if luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
+        ['<S-tab>'] = cmp.mapping(function(fallback)
+          local luasnip = require('luasnip')
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'buffer' },
-        { name = 'ultisnips' },
+        { name = 'luasnip' },
       }),
       formatting = {
         format = function(entry, vim_item)
@@ -57,7 +76,6 @@ return {
           --   buffer = '[buff]',
           --   nvim_lsp = '[LSP]',
           --   luasnip = '[snip]',
-          --   ultisnips = '[snip]',
           --   nvim_lua = '[Lua]',
           --   latex_symbols = '[TeX]',
           -- })[entry.source.name]

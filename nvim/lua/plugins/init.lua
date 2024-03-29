@@ -2,7 +2,6 @@ return {
   -- {{{ --| LSP |----------------------------
   { 'williamboman/mason.nvim', config = true },
   { 'hrsh7th/cmp-nvim-lsp', dependencies = { 'hrsh7th/nvim-cmp' } },
-  { 'quangnguyen30192/cmp-nvim-ultisnips' },
   { 'folke/neodev.nvim', opts = {} },
   -- }}}
   -- {{{ --| ui |-----------------------------
