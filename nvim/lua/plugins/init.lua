@@ -25,6 +25,7 @@ return {
   { 'tlarrieu/vim-sniper' },
   { 'sbdchd/neoformat' },
   { 'milkypostman/vim-togglelist' },
+  { 'rcarriga/nvim-notify' },
   -- }}}
   -- {{{ --| Text manipulation |--------------
   { 'AndrewRadev/switch.vim' },
