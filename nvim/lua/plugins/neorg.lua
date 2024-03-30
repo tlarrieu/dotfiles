@@ -1,8 +1,11 @@
 return {
   "nvim-neorg/neorg",
-  dependencies = { 'nvim-lua/plenary.nvim' },
-  build = ":Neorg sync-parsers",
-  ft = { 'norg' },
+  lazy = false,
+  dependencies = { 'luarocks.nvim' },
+  version = "*",
+  config = true,
+  -- build = ":Neorg sync-parsers",
+  -- ft = { 'norg' },
   keys = {
     { '<leader>ei', '<cmd>Neorg index<cr>',    desc = 'Neorg index' },
     { '<leader>eq', '<cmd>Neorg return<cr>',   desc = 'Leave neorg' },
