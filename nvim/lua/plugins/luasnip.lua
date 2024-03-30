@@ -9,7 +9,7 @@ return {
       update_events = { "TextChanged", "TextChangedI" },
       snip_env = {
         h = require("helpers"),
-        visual = function(indent)
+        sel = function(indent)
           indent = indent or 1
           return ls.indent_snippet_node(
             nil,

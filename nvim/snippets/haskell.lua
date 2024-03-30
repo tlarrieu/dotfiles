@@ -14,7 +14,7 @@ return {
     ) where
 
     <><>
-    ]], { i(1, h.pascalize(h.basename())), i(2), visual(), i(0) })),
+    ]], { i(1, h.pascalize(h.basename())), i(2), sel(), i(0) })),
   s("d", fmta([[
     <> :: <>
     <> <> = <>
@@ -27,7 +27,7 @@ return {
   s("l", fmta([[
     let <> = <>
       in <><>
-    ]], { i(1, "lhs"), i(2, "rhs"), visual(), i(3) })),
+    ]], { i(1, "lhs"), i(2, "rhs"), sel(), i(3) })),
 
   -- common paterns
   s("match", fmta('[(_:matchResult)] = <> =~ "<>" :: [[String]]', { i(1, "string"), i(2, "pattern") })),
@@ -37,7 +37,7 @@ return {
     ]], { i(1, "filename"), i(2, "ReadMode") })),
 
   -- debug
-  s("trace", fmta("traceShowId <>", { visual() })),
+  s("trace", fmta("traceShowId <>", { sel() })),
 
   -- tests
   s("desc", fmta([[
