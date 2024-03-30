@@ -105,12 +105,8 @@ k.set('', '<leader><leader>', '@q', default_options)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', default_options)
 --- }}}
 --- {{{ --| quick access |----------------------------------
-k.set('n', '<leader>eu', function()
-  if vim.bo.filetype == '' then return end
-
-  require("luasnip.loaders").edit_snippet_files({
-    edit = function(path) vim.cmd("vnew " .. path) end
-  })
+k.set('n', '<leader>es', function()
+  require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
 end, default_options)
 k.set('n', '<leader>.', ':tabedit .<cr>', default_options)
 k.set('n', '<leader>v.', ':vsplit .<cr>', default_options)
