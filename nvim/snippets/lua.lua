@@ -31,5 +31,20 @@ return {
 
   -- snippets
   rs("(r?s)", fmta([[<>("<>", fmta(<>, {<>})),]], { cap(1), i(1, "expr"), i(2), i(3) })),
+
+  -- nvim
+  s("autocmd", fmta([[
+    vim.api.nvim_create_autocmd('<>', {
+      pattern = { <> },
+      callback = function()
+        <>
+      end,
+      group = <>
+    })
+    ]], { i(1, 'event'), i(2, "'pattern'"), i(0), i(3, 'group') })),
+  s("augroup", fmta([[vim.api.nvim_create_augroup('<>', {})]], { i(1, 'groupname') })),
+  s("key", fmta([[
+    vim.keymap.set(<>, '<>', '<>', { <> })
+    ]], { i(1, "mode"), i(2, "lhs"), i(3, "rhs"), i(4, "options") })),
 }, {
 }
