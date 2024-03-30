@@ -1,9 +1,12 @@
 vim.api.nvim_create_autocmd('SwapExists', {
   pattern = '*',
   callback = function()
+    vim.notify(
+      'This file is opened somewhere else, setting read-only',
+      vim.log.levels.WARN,
+      { title = 'Duplicate session' }
+    )
     vim.v.swapchoice = 'o'
-    print('Duplicate session (readonly)')
-    vim.cmd [[ sleep 1 ]]
   end,
   group = vim.api.nvim_create_augroup("no_simultaneous_edits", {}),
 })
