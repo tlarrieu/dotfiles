@@ -1,5 +1,7 @@
 local home = os.getenv("HOME")
 
+vim.notify = require('notify')
+
 local o = vim.opt
 
 -- {{{ ==| General options |====================================================

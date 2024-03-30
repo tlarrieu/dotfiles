@@ -19,7 +19,7 @@ local function bootstrap()
   local skeleton = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
 
   if skeleton and not xs[skeleton] then
-    require('notify').notify(
+    vim.notify(
       'Skeleton "' .. skeleton .. '" not found for filetype "' .. vim.o.filetype .. '"',
       vim.log.levels.WARN,
       { title = "skeleton.lua" }
