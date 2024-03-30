@@ -9,8 +9,13 @@ return {
       update_events = { "TextChanged", "TextChangedI" },
       snip_env = {
         h = require("helpers"),
-        visual = function()
-          return ls.function_node(function(_, snip) return snip.env.TM_SELECTED_TEXT end)
+        visual = function(indent)
+          indent = indent or 1
+          return ls.indent_snippet_node(
+            nil,
+            { ls.function_node(function(_, snip) return snip.parent.env.TM_SELECTED_TEXT end) },
+            "$PARENT_INDENT" .. ("\t"):rep(indent)
+          )
         end,
         cap = function(i)
           return ls.function_node(function(_, snip) return snip.captures[i] end)
