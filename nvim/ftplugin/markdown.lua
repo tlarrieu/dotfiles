@@ -1,0 +1,43 @@
+local o = vim.opt_local
+
+o.textwidth = 130
+o.formatoptions = o.formatoptions + 't'
+o.foldlevel = 1
+o.foldlevelstart = 10
+o.spell = true
+o.concealcursor = 'ncv'
+o.conceallevel = 2
+
+vim.fn['bullet#config']()
+-- TODO: make this work
+vim.b['sql_comment'] = '```'
+vim.fn['sql#configure']()
+
+vim.keymap.set('n', '<leader>i', function()
+  if vim.opt.conceallevel:get() == 2 then
+    o.conceallevel = 0
+  else
+    o.conceallevel = 2
+  end
+end, { silent = true, buffer = true })
+
+vim.keymap.set('n', '<cr>', [[:T mdprev w '%'<cr>]], { silent = true, buffer = true })
+vim.keymap.set('n', '<leader>$', 'vip:ExecuteSQL<cr>', { silent = true, buffer = true })
+vim.keymap.set('v', '<leader>$', [[:'<,'>ExecuteSQL<cr>]], { silent = true, buffer = true })
+vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
+vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
+vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
+
+local group = vim.api.nvim_create_augroup('MARKDOWN_AUTOCMD', {})
+
+vim.api.nvim_create_autocmd('InsertCharPre', {
+  pattern = { '*.md' },
+  callback = function() vim.fn['helpers#Capitalize']() end,
+  group = group
+})
+
+vim.api.nvim_create_autocmd('InsertLeave', {
+  pattern = { '*' },
+  callback = function() o.conceallevel = 2 end,
+  group = group
+})

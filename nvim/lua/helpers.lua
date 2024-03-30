@@ -6,6 +6,12 @@ _M.basename = function()
   return basename or filename or ""
 end
 
+_M.filexists = function(path)
+  local f = io.open(path, "rb")
+  if f then f:close() end
+  return f ~= nil
+end
+
 _M.capitalize = function(str)
   return str:gsub("^%a", string.upper, 1) or str
 end

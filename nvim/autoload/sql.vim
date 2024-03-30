@@ -26,6 +26,7 @@ function! sql#configure()
   if !exists('b:sql_comment')
     let b:sql_comment = '--'
   endif
+  echom(b:sql_comment)
 endfunction
 
 function! sql#execute() range abort

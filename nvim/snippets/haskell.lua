@@ -47,4 +47,6 @@ return {
   s("it", fmta('it "<>" $ <>', { i(1), i(0) })),
   s("should", fmta("`shouldBe` ", {})),
 }, {
+  s("é", fmta('|>>', {})),
+  s("è", fmta('<<|', {})),
 }

@@ -1,2 +1,0 @@
-setlocal nobuflisted
-setlocal cursorline

@@ -51,7 +51,6 @@ return {
   { 'mxw/vim-jsx' },
   { 'LaTeX-Box-Team/LaTeX-Box' },
   { 'wgwoods/vim-systemd-syntax' },
-  { 'lmeijvogel/vim-yaml-helper' },
   { 'krisajenkins/vim-postgresql-syntax' },
   { 'tbastos/vim-lua' },
   { 'elixir-editors/vim-elixir' },
