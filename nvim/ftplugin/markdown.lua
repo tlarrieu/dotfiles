@@ -28,13 +28,9 @@ vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
 
-local group = vim.api.nvim_create_augroup('MARKDOWN_AUTOCMD', {})
+require('utils').autocapitalize('*.md')
 
-vim.api.nvim_create_autocmd('InsertCharPre', {
-  pattern = { '*.md' },
-  callback = function() vim.fn['helpers#Capitalize']() end,
-  group = group
-})
+local group = vim.api.nvim_create_augroup('MARKDOWN_AUTOCMD', {})
 
 vim.api.nvim_create_autocmd('InsertLeave', {
   pattern = { '*' },
