@@ -22,8 +22,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
 
-require('mappings')
-require('options')
-require('globals')
-require('abbrev')
-require('autocmd')
+require('usr/mappings')
+require('usr/options')
+require('usr/globals')
+require('usr/abbrev')
+require('usr/autocmd')
