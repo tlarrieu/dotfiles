@@ -4,6 +4,7 @@ local abbr = {
   gv = 'GV',
   h = 'tab h',
   hi = 'lua require("telescope.builtin").highlights()',
+  lazy = 'Lazy'
 }
 
 for key, value in pairs(abbr) do
