@@ -1,6 +1,7 @@
 -- Command line shorthand
 local abbr = {
   mkdir = '!mkdir',
+  mv = 'Rename',
   gv = 'GV',
   h = 'tab h',
   hi = 'lua require("telescope.builtin").highlights()',
