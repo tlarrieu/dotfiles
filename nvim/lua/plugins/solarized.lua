@@ -24,6 +24,8 @@ return {
       local telescope_accent = c.base01
 
       return {
+        LazyNormal = { bg = c.base03 },
+
         TelescopeBorder = { fg = c.base03, bg = c.base03 },
         TelescopeTitle = { link = 'TelescopeBorder' },
 
