@@ -15,6 +15,14 @@ return {
     { i(1), i(0) }
   )),
   s("l", fmta("local <> = <>", { i(1), i(0) })),
+  s("mod", fmta([[
+    local _M = {}
+
+    <>
+
+    return _M]],
+    { i(0) }
+  )),
 
   -- control structures
   s("for", fmta([[
