@@ -33,7 +33,7 @@ return {
   )),
 
   -- common patterns
-  s("req", fmta("require('<>')", { i(0) })),
+  s("req", fmta("require('<>')", { i(1) })),
   s("dump", fmta("require('gears.debug').dump_return(<>)", { i(0) })),
   s("notif", fmta("require('naughty').notify({ text = <> })", { i(0) })),
 
