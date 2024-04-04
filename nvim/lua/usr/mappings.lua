@@ -216,19 +216,6 @@ k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', default_options)
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)
 --- }}}
---- {{{ --| Telescope |-------------------------------------
-local builtin = require('telescope.builtin')
-k.set('n', '<c-t>', builtin.find_files, default_options)
-k.set('n', '<c-é>', builtin.live_grep, default_options)
-k.set('n', '<leader>é', builtin.grep_string, default_options)
-k.set('n', '<c-b>', builtin.buffers, default_options)
-k.set('n', '<c-h>', builtin.help_tags, default_options)
-k.set('n', '<c-y>', builtin.git_status, default_options)
-k.set('n', '<c-l>', builtin.lsp_document_symbols, default_options)
-k.set('n', '<c-e>', builtin.diagnostics, default_options)
-k.set('n', '<c-q>', builtin.quickfix, default_options)
-k.set('n', '<c-è>', ':TodoTelescope<cr>', default_options)
---- }}}
 --- {{{ --| angry |-----------------------------------------
 k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
 k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
