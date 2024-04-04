@@ -4,8 +4,6 @@ return {
   dependencies = { 'luarocks.nvim' },
   version = "*",
   config = true,
-  -- build = ":Neorg sync-parsers",
-  -- ft = { 'norg' },
   keys = {
     { '<leader>ei', '<cmd>Neorg index<cr>',    desc = 'Neorg index' },
     { '<leader>eq', '<cmd>Neorg return<cr>',   desc = 'Leave neorg' },
