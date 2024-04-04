@@ -13,7 +13,7 @@ end
 -- public
 
 _M.term = function(cmd)
-  return ':T ' .. cmd .. '<cr>:Topen<cr>'
+  return ":TermExec cmd='" .. cmd .. "'<cr>"
 end
 
 _M.exec = function(cmd)
@@ -21,9 +21,9 @@ _M.exec = function(cmd)
 end
 
 _M.test = {
-  nearest = function() return ':TestNearest<bar>Topen<cr>' end,
-  file = function() return ':TestFile<bar>Topen<cr>' end,
-  last = function() return ':TestLast<bar>Topen<cr>' end,
+  nearest = function() return ':TestNearest<cr>' end,
+  file = function() return ':TestFile<cr>' end,
+  last = function() return ':TestLast<cr>' end,
 }
 
 _M.default = function(opts)

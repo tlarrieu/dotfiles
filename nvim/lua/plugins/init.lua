@@ -19,7 +19,6 @@ return {
   -- }}}
   -- {{{ --| Functionnalities |---------------
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  { 'kassio/neoterm' },
   { 'nvim-tree/nvim-web-devicons' },
   { 'janko-m/vim-test' },
   { 'tlarrieu/vim-sniper' },

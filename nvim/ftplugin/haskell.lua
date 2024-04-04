@@ -8,12 +8,12 @@ local runner = require('runner')
 
 if require('helpers').filexists('stack.yaml') then
   runner.default({
-    main = runner.exec('call haskell#run()'),
-    alt = runner.exec('call haskell#test()')
+    main = runner.term('stack run'),
+    alt = runner.term('stack test')
   })
 else
   runner.default({
-    main = runner.exec([[:execute "T echo -ne '\\033c'; ghc -dynamic % && time ./%:t:r"<cr>]]),
+    main = runner.term('ghc -dynamic % && time ./%:t:r'),
   })
 end
 

@@ -215,9 +215,10 @@ k.set('n', 'zO', 'zczO', default_options)
 --- {{{ --| neoformat |-------------------------------------
 k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', default_options)
 --- }}}
---- {{{ --| neoterm |---------------------------------------
-k.set('n', '<leader><tab>', ':Ttoggle<cr>', default_options)
-k.set('x', '<cr>', ':TREPLSendSelection<cr>', default_options)
+--- {{{ --| toggleterm |------------------------------------
+k.set('x', '<cr>', function()
+  require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
+end)
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)

@@ -1,15 +1,3 @@
-function! haskell#run()
-  if !exists("g:hs_stack_run_args")
-    let g:hs_stack_run_args = ""
-  endif
-
-  call execute("T stack run " . g:hs_stack_run_args, "Topen")
-endfunction
-
-function! haskell#test()
-  call execute("T stack test", "Topen")
-endfunction
-
 function! haskell#ghci(func)
   let filename = expand('%')
   exec a:func

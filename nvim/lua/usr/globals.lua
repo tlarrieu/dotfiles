@@ -5,18 +5,11 @@ g.bullets_set_mappings = 0
 -- }}}
 
 -- {{{ ==| vim-test |===========================================================
-g['test#strategy'] = 'neoterm'
+g['test#strategy'] = 'toggleterm'
 -- }}}
 
 -- {{{ ==| HighlightedYank |====================================================
 g.highlightedyank_highlight_duration = 180
--- }}}
-
--- {{{ ==| Neoterm |============================================================
-g.neoterm_default_mod = 'botright'
-g.neoterm_autoscroll = 1
-g.neoterm_size = 12
-g.neoterm_automap_keys = ''
 -- }}}
 
 -- {{{ ==| GitGutter |==========================================================
