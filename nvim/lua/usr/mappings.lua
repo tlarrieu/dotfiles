@@ -2,8 +2,6 @@ local default_options = { remap = false, silent = true }
 local silent = { silent = true }
 local noopts = {}
 
-local helpers = require('helpers')
-
 local k = vim.keymap
 
 -- Avoiding moving cursor when hitting <leader> followed by nothing
@@ -214,11 +212,6 @@ k.set('n', 'zO', 'zczO', default_options)
 --- }}}
 --- {{{ --| neoformat |-------------------------------------
 k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', default_options)
---- }}}
---- {{{ --| toggleterm |------------------------------------
-k.set('x', '<cr>', function()
-  require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
-end)
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)

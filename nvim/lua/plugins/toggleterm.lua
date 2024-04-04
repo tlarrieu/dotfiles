@@ -27,5 +27,14 @@ return {
       winblend = 3,
       title_pos = 'center' -- 'left' | 'center' | 'right'
     },
-  }
+  },
+  config = function(_, opts)
+    require('toggleterm').setup(opts)
+
+    vim.g['test#strategy'] = 'toggleterm'
+
+    vim.keymap.set('x', '<cr>', function()
+      require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
+    end)
+  end,
 }

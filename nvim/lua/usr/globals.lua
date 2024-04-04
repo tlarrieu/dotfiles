@@ -4,10 +4,6 @@ local g = vim.g
 g.bullets_set_mappings = 0
 -- }}}
 
--- {{{ ==| vim-test |===========================================================
-g['test#strategy'] = 'toggleterm'
--- }}}
-
 -- {{{ ==| HighlightedYank |====================================================
 g.highlightedyank_highlight_duration = 180
 -- }}}
