@@ -5,7 +5,7 @@ return {
   version = "*",
   config = true,
   keys = {
-    { '<leader>ei', '<cmd>Neorg index<cr>',    desc = 'Neorg index' },
+    { '<leader>ei', '<cmd>tabnew<cr><cmd>Neorg index<cr>',    desc = 'Neorg index' },
     { '<leader>eq', '<cmd>Neorg return<cr>',   desc = 'Leave neorg' },
     { '<leader>et', '<cmd>Neorg toc left<cr>', desc = 'Neorg ToC' },
   },
