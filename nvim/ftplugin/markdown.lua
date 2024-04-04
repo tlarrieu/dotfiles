@@ -9,9 +9,6 @@ o.concealcursor = 'ncv'
 o.conceallevel = 2
 
 vim.fn['bullet#config']()
--- TODO: make this work
-vim.b['sql_comment'] = '```'
-vim.fn['sql#configure']()
 
 vim.keymap.set('n', '<leader>i', function()
   if vim.opt.conceallevel:get() == 2 then
@@ -21,9 +18,9 @@ vim.keymap.set('n', '<leader>i', function()
   end
 end, { silent = true, buffer = true })
 
-vim.keymap.set('n', '<cr>', [[:T mdprev w '%'<cr>]], { silent = true, buffer = true })
-vim.keymap.set('n', '<leader>$', 'vip:ExecuteSQL<cr>', { silent = true, buffer = true })
-vim.keymap.set('v', '<leader>$', [[:'<,'>ExecuteSQL<cr>]], { silent = true, buffer = true })
+local runner = require('runner')
+runner.default({ main = runner.term("mdprev w '%'") })
+
 vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })

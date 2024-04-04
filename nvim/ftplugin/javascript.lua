@@ -1,19 +1,11 @@
 local group = vim.api.nvim_create_augroup('JS_AUTOCMD', {})
 
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { '*.js' },
-  callback = function()
-    vim.keymap.set('n', '<cr>', ':T node %', { silent = true, buffer = true })
-    vim.keymap.set('n', '<leader><cr>', ':TestLast | Topen<cr>', { silent = true, buffer = true })
-  end,
-  group = group
+local runner = require('runner')
+runner.default({
+  main = runner.term('node %'),
+  alt = runner.test.last(),
 })
-
-vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { '*.spec.js' },
-  callback = function()
-    vim.keymap.set('n', '<cr>', ':TestNearest | Topen<cr>', { silent = true, buffer = true })
-    vim.keymap.set('n', '<leader><cr>', ':TestFile | Topen<cr>', { silent = true, buffer = true })
-  end,
-  group = group
+runner.match('*.spec.js', {
+  main = runner.test.nearest(),
+  alt = runner.test.file()
 })

@@ -4,11 +4,17 @@ o.concealcursor = 'cni'
 o.formatprg = 'hindent'
 o.cpoptions = o.cpoptions + 'M'
 
+local runner = require('runner')
+
 if require('helpers').filexists('stack.yaml') then
-  vim.keymap.set('n', '<cr>', [[:call haskell#run()<cr>]], { buffer = true })
-  vim.keymap.set('n', '<leader><cr>', [[:call haskell#test()<cr>]], { buffer = true })
+  runner.default({
+    main = runner.exec('call haskell#run()'),
+    alt = runner.exec('call haskell#test()')
+  })
 else
-  vim.keymap.set('n', '<cr>', [[:execute "T echo -ne '\\033c'; ghc -dynamic % && time ./%:t:r"<cr>]], { buffer = true })
+  runner.default({
+    main = runner.exec([[:execute "T echo -ne '\\033c'; ghc -dynamic % && time ./%:t:r"<cr>]]),
+  })
 end
 
 vim.keymap.set('n', '<leader>i', [[:silent call haskell#editImports('insert')<cr>]], { silent = true, buffer = true })

@@ -1,1 +1,2 @@
-vim.keymap.set('n', '<leader><cr>', ':Git push<bar>Git<cr>', { buffer = true, silent = true })
+local runner = require('runner')
+runner.default({ alt = runner.exec('Git push<bar>Git') })
