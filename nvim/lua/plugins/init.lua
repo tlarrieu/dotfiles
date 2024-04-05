@@ -32,7 +32,6 @@ return {
   { 'tpope/vim-repeat' },
   { 'tpope/vim-surround' },
   { 'FooSoft/vim-argwrap' },
-  { 'dkarter/bullets.vim' },
   -- }}}
   -- {{{ --| Text objects |-------------------
   { 'austintaylor/vim-indentobject' },

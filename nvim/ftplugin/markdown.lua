@@ -8,8 +8,6 @@ o.spell = true
 o.concealcursor = 'ncv'
 o.conceallevel = 2
 
-vim.fn['bullet#config']()
-
 vim.keymap.set('n', '<leader>i', function()
   if vim.opt.conceallevel:get() == 2 then
     o.conceallevel = 0

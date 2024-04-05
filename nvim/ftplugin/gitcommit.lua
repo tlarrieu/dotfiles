@@ -33,5 +33,3 @@ vim.api.nvim_create_autocmd('BufEnter', {
 require('utils').autocapitalize('COMMIT_EDITMSG')
 
 vim.opt_local.spell = true
-
-vim.fn["bullet#config"]()
