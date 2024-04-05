@@ -56,7 +56,6 @@ return {
     k.set('n', '<c-t>', builtin.find_files, options)
     k.set('n', '<c-é>', builtin.live_grep, options)
     k.set('n', '<leader>é', builtin.grep_string, options)
-    k.set('n', '<c-b>', builtin.buffers, options)
     k.set('n', '<c-h>', builtin.help_tags, options)
     k.set('n', '<c-y>', builtin.git_status, options)
     k.set('n', '<c-l>', builtin.lsp_document_symbols, options)

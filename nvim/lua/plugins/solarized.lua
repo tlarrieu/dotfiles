@@ -88,8 +88,8 @@ return {
         NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
 
         Normal = { bg = c.base03 },
-        NormalFloat = { bg = c.base02 },
-        FloatBorder = { fg = c.base1, bg = c.base1 },
+        NormalFloat = { bg = c.base03 },
+        FloatBorder = { fg = c.base00, bg = c.base03 },
 
         NotifyBackground = { bg = c.base03 },
         NotifyINFOBody = { link = 'NotifyBackground' },
