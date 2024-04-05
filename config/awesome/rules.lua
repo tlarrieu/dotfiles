@@ -117,12 +117,6 @@ awful.rules.rules = {
     properties = { fullscreen = true },
   },
 
-  -- [[ Gnuplot ]] -------------------------------------------------------------
-  {
-    rule = { class = "Gnuplot" },
-    properties = { fullscreen = true },
-  },
-
   -- [[ Games ]] ---------------------------------------------------------------
   {
     rule_any = {

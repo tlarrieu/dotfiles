@@ -4,7 +4,6 @@
   "bullets.vim": { "branch": "master", "commit": "0cc28d53e9da628e006c89bb2d3b03b94a0dee33" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "5af77f54de1b16c34b23cba810150689a3a90312" },
   "cmp_luasnip": { "branch": "master", "commit": "05a9ab28b53f71d1aece421ef32fee2cb857a843" },
-  "gnuplot-syntax-highlighting": { "branch": "master", "commit": "cac18275ae4d7b60a3b001a497843ead6fa541f8" },
   "go.nvim": { "branch": "master", "commit": "ae58327c9e894f6663bf43496063c167170b4ac3" },
   "guihua.lua": { "branch": "master", "commit": "3b3126ae87c254f6849e708549ba76c39e3f42f8" },
   "gv.vim": { "branch": "master", "commit": "b6bb6664e2c95aa584059f195eb3a9f3cb133994" },

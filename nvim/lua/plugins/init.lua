@@ -42,7 +42,6 @@ return {
   { 'neovimhaskell/haskell-vim' },
   { 'vifm/vifm.vim' },
   { 'dag/vim-fish' },
-  { 'vim-scripts/gnuplot-syntax-highlighting' },
   { 'othree/html5.vim' },
   { 'pangloss/vim-javascript' },
   { 'leafgarland/typescript-vim' },

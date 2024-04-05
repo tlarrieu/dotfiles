@@ -75,9 +75,6 @@ safelink $BASEDIR/nvim $HOME/.config/nvim
 # vifm
 safelink $BASEDIR/vifm $HOME/.vifm
 
-# Gnuplot
-safelink $BASEDIR/gnuplot $HOME/gnuplot
-
 # Bash
 safelink $BASEDIR/bashrc $HOME/.bashrc
 
