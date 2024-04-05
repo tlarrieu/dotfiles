@@ -81,7 +81,11 @@ return {
           -- })[entry.source.name]
           return vim_item
         end
-      }
+      },
+      window = {
+        completion = { border = 'none' },
+        documentation = { border = 'single' },
+      },
     })
 
     -- Set configuration for specific filetype.

@@ -39,5 +39,27 @@ return {
     messages = {
       enabled = false
     },
+    lsp = {
+      signature = {
+        enabled = true,
+        silent = true,
+        opts = {
+          border = 'single',
+        },
+        auto_open = {
+          enabled = true,
+          trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+          throttle = 250, -- Debounce lsp signature help request by 50ms
+        },
+      },
+      hover = {
+        enabled = true,
+        silent = true,
+        opts = {
+          border = 'single',
+        }
+      }
+    }
   }
 }
