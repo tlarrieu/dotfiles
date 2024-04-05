@@ -1,6 +1,6 @@
 -- Command line shorthand
 local abbr = {
-  mkdir = '!mkdir',
+  mkdir = 'Mkdir',
   mv = 'Rename',
   rm = 'Delete',
   gv = 'GV',
