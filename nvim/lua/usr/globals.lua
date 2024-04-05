@@ -22,3 +22,5 @@ g.surround_61 = "<%= \r %>"
 -- {{{ ==| Angry |==============================================================
 g.angry_disable_maps = 1
 -- }}}
+
+require('backdrop'):setup({ transparency = 60 })
