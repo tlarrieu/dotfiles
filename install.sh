@@ -84,9 +84,6 @@ safelink $BASEDIR/bashrc $HOME/.bashrc
 # browser-profile
 safelink $BASEDIR/browser-config $HOME/.browser-config
 
-# weechat
-safelink $BASEDIR/weechat $HOME/.weechat
-
 # .gitconfig & .gitignore
 safelink $BASEDIR/gitconfig $HOME/.gitconfig
 safelink $BASEDIR/gitignore $HOME/.gitignore
