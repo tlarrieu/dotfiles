@@ -1,15 +1,10 @@
 #!/bin/sh
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
-LAUNCHER2='rofi -dmenu -lines 10 -i -p '
+LAUNCHER2='rofi -dmenu -l 6 -i -p '
 OPTIONS="Inbox\n\
 Home\n\
 Work\n\
-Connect\n\
-Retrospective\n\
-CSE\n\
-Management\n\
-Communication\n\
 Continuous Improvement\n\
 Courses\n\
 Someday"
@@ -29,26 +24,11 @@ if [[ -n "$input" ]]; then
       Home)
         args="+inbox +@home"
         ;;
-      Management)
-        args="+inbox +@work project:management"
-        ;;
-      Communication)
-        args="+inbox +@work project:communication"
-        ;;
-      Connect)
-        args="+inbox +@work project:connect"
-        ;;
-      Retrospective)
-        args="project:retrospective"
-        ;;
       "Continuous Improvement")
         args="project:improvements"
         ;;
       Courses)
         args="project:shopping"
-        ;;
-      CSE)
-        args="+inbox project:CSE +@work"
         ;;
       Someday)
         args="+someday"
@@ -60,6 +40,7 @@ if [[ -n "$input" ]]; then
 
     if [ -n "$args" ]; then
       uuid=$(task add "$input" $args | perl -pe 's|Created task (.*)\.|\1|')
+      echo $uuid
       url=$(echo $input | egrep -o 'https?://[^ ]+')
       if [ -n $url ]; then
         task annotate $uuid $url

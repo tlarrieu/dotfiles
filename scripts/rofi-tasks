@@ -10,6 +10,45 @@ require 'dotenv'
 # runtime (for context switching)
 Dotenv.overload('~/.context.env')
 
+category_config = {
+  'started' => {
+    icon: '',
+    color: '#859900',
+  },
+  'today' => {
+    icon: '',
+    color: '#b58900'
+  },
+  'inbox' => {
+    icon: '',
+    color: '#93a1a1'
+  },
+  'shopping' => {
+    icon: '',
+    color: '#93a1a1'
+  },
+  'improvements' => {
+    icon: '',
+    color: '#268bd2'
+  },
+  'recent' => {
+    icon: '',
+    color: '#d33682'
+  },
+  'later' => {
+    icon: '',
+    color: '#93a1a1'
+  },
+  'someday' => {
+    icon: '',
+    color: '#2aa198'
+  },
+  'other' => {
+    icon: '',
+    color: '#dc322f'
+  }
+}
+
 context =
   if ENV['CONTEXT'] == 'home'
     '-@work'
@@ -31,11 +70,12 @@ raw_tasks = `task \
     rc.verbose:nothing \
   -DELETED -COMPLETED #{context} export`
 
+puts(raw_tasks)
+
 tasklist = JSON.parse(raw_tasks)
 
 tasks = Hash.new { |h, k| h[k] = [] }
 
-communication = ->(task) { task['project'] == 'communication' }
 inbox = ->(task) { task['tags']&.include?('inbox') }
 someday = ->(task) { task['tags']&.include?('someday') }
 started = ->(task) { task['start'] }
@@ -119,12 +159,10 @@ tasklist.each do |entry|
     case entry
     when wait then nil
     when started then 'started'
-    when communication then 'communication'
     when inbox then 'inbox'
     when today then 'today'
-    when shopping then 'course'
+    when shopping then 'shopping'
     when improvements then 'improvements'
-    when retrospective then 'retrospective'
     when later then 'later'
     when someday then 'someday'
     else 'other'
@@ -196,19 +234,9 @@ rofi = <<~STR.strip
     -kb-element-prev ""
 STR
 
-results = `echo -n "#{[
-  output.call('', 'started', '#859900'),
-  output.call('', 'communication', '#d33682'),
-  output.call('', 'today', '#b58900'),
-  output.call('', 'inbox', '#93a1a1'),
-  output.call('', 'course', '#93a1a1'),
-  output.call('', 'improvements', '#268bd2'),
-  output.call('', 'retrospective', '#6c71c4'),
-  output.call('', 'recent', '#d33682'),
-  output.call('', 'later', '#93a1a1'),
-  output.call('', 'someday', '#2aa198'),
-  output.call('', 'other', '#dc322f')
-].join}" | #{rofi}`
+results = `echo -n "#{
+  category_config.map { |label, conf | output.call(conf[:icon], label, conf[:color]) }.join
+}" | #{rofi}`
 
 exit 0 unless results.length.positive?
 
