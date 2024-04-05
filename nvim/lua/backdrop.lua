@@ -11,6 +11,18 @@ function _M:_initialize()
   }
 end
 
+function _M:hook()
+  _M:show()
+
+  vim.api.nvim_create_autocmd('BufLeave', {
+    buffer = vim.api.nvim_get_current_buf(),
+    callback = function()
+      _M:hide()
+    end,
+    group = vim.api.nvim_create_augroup('backdrop_autocmd', {})
+  })
+end
+
 --- @param opts? {transparency?: integer, zindex?: integer}
 function _M:setup(opts)
   self:_initialize()
