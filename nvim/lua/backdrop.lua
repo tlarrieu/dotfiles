@@ -27,8 +27,6 @@ end
 function _M:setup(opts)
   self:_initialize()
 
-  print(vim.inspect('setup'))
-
   self.opts = vim.tbl_deep_extend("force", self.opts, opts or {})
 
   return self
@@ -37,6 +35,8 @@ end
 --- @param opts? {transparency?: integer, zindex?: integer}
 function _M:show(opts)
   self:_initialize()
+
+  vim.api.nvim_exec_autocmds("User", { pattern = "BackdropVisible" })
 
   if self.backdrop_win then return self end
 
@@ -74,6 +74,8 @@ function _M:hide()
     vim.api.nvim_win_hide(self.backdrop_win)
     self.backdrop_win = nil
   end
+
+  vim.api.nvim_exec_autocmds("User", { pattern = "BackdropHidden" })
 
   return self
 end
