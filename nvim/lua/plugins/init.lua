@@ -55,9 +55,6 @@ return {
   { 'elixir-editors/vim-elixir' },
   { 'qbit/taskwarrior-vim' },
   -- }}}
-  -- {{{ --| Good looking |-------------------
-  { 'gcmt/taboo.vim' },
-  -- }}}
   -- {{{ --| Other |--------------------------
   { 'ap/vim-css-color' },
   -- }}}

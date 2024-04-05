@@ -226,10 +226,6 @@ k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
 k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
 k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
 --- }}}
---- {{{ --| taboo |-----------------------------------------
-k.set('n', '<leader>tl', ':TabooRename<leader>', noopts)
-k.set('n', '<leader>tr', ':TabooReset<cr>', noopts)
---- }}}
 --- {{{ --| fugitive |--------------------------------------
 k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', default_options)
 k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', default_options)

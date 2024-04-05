@@ -22,10 +22,3 @@ g.surround_61 = "<%= \r %>"
 -- {{{ ==| Angry |==============================================================
 g.angry_disable_maps = 1
 -- }}}
-
--- {{{ ==| Taboo |==============================================================
-g.taboo_tab_format = ' %N %f%m '
-g.taboo_renamed_tab_format = ' %N (%l)%m '
-g.taboo_modified_tab_flag = ' ∙'
-g.taboo_unnamed_tab_label = '…'
--- }}}
