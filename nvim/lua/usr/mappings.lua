@@ -189,20 +189,24 @@ k.set('n', '<leader>tm', ':tabm<leader>', noopts)
 k.set('n', '<leader>U', '<c-w>T', noopts)
 -- merge current split into lefthand tab
 k.set('n', '<leader>u', function()
-  -- FIXME: This should be moved to an actual lua function once we have the proper
-  -- API for that (or until I find it)
-  vim.cmd [[
-    if tabpagenr() != 1
-      let bufferName = bufname("%")
-      if tabpagenr("$") == tabpagenr()
-        close!
-      else
-        close!
-        tabprev
-      endif
-      execute "vs " . bufferName
-    endif
-  ]]
+  local curtab = vim.api.nvim_get_current_tabpage()
+
+  -- tabs are not numbered the way they are displayed,
+  -- we have to go through the list
+  local prevtab = 0
+  for _, num in ipairs(vim.api.nvim_list_tabpages()) do
+    if num == curtab then break end
+    prevtab = num
+  end
+
+  if curtab == 0 then return end
+
+  local buf = vim.api.nvim_get_current_buf()
+
+  vim.api.nvim_win_close(0, true)
+  vim.api.nvim_set_current_tabpage(prevtab)
+  vim.cmd.vsplit()
+  vim.api.nvim_win_set_buf(0, buf)
 end, noopts)
 --- }}}
 --- {{{ --| folds management |------------------------------
