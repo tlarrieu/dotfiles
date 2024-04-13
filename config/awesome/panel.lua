@@ -1,7 +1,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local wibox = require("wibox")
-local apply_dpi = require('beautiful.xresources').apply_dpi
+local apply_dpi = require("beautiful.xresources").apply_dpi
 
 local lain = require("lain")
 
@@ -104,7 +104,7 @@ lain.widgets.pulseaudio({
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
-local batteryname = require('lain.helpers').read_pipe('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
+local batteryname = require("lain.helpers").read_pipe('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
 local batterytext = wibox.widget({ widget = wibox.widget.textbox })
 
 local battery = wibox.widget({
