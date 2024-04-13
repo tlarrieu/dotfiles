@@ -106,13 +106,11 @@ lain.widgets.pulseaudio({
 -- [[ Battery ]] ---------------------------------------------------------------
 local battery
 
-local pipe = io.popen(
-  'ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'
-)
-local batteryname = pipe:read('*a')
-pipe:close()
+local pipe = io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
 
-if batteryname then
+if pipe ~= nil then
+  local batteryname = pipe:read('*a')
+  pipe:close()
   local batterytext = wibox.widget({ widget = wibox.widget.textbox })
 
   battery = wibox.widget({
