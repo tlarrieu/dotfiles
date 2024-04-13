@@ -144,12 +144,12 @@ local battery_update = function(bat_now)
 
   local color, legend, icon
 
-  local arrow = bat_now.status == "Discharging"
-    and ""
-    or ""
+  local status = bat_now.status == "Discharging"
+    and ""
+    or ""
 
   -- legend
-  legend = bat_now.time == "00:00" and "100%" or (arrow .. " " .. bat_now.time)
+  legend = bat_now.time == "00:00" and "100%" or (status .. " " .. bat_now.time)
 
   -- color
   if bat_now.perc >= 98 then
