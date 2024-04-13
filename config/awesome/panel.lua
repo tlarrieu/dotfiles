@@ -196,12 +196,6 @@ if batteryname then
   })
 end
 
-local vpn = require("cmdwidget")({
-  cmd = os.getenv("HOME") .. "/scripts/vpn-status",
-  color = function(_) return beautiful.colors.red.dark end,
-  text = function(output) return output end
-})
-
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
   local dpi = function(n) return apply_dpi(n, screen) end
@@ -219,7 +213,6 @@ local init_screen = function(screen)
     wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
     wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
     wibox.container.margin(mic, dpi(0), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(vpn, dpi(0), dpi(10), dpi(2), dpi(9)),
     layout = wibox.layout.fixed.horizontal
   })
 

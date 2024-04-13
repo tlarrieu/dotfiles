@@ -1,9 +1,0 @@
-#!/bin/sh
-
-vpn=$(nmcli co show --active | grep -e vpn -e tun)
-
-if [ -n "$vpn" ]; then
-  echo -n 嬨
-else
-  echo -n "  "
-fi
