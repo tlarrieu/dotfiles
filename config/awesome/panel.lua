@@ -112,31 +112,17 @@ local battery = wibox.widget({
   layout = wibox.layout.fixed.horizontal,
 })
 
-local batteryicons = {
-  charging = {
-    { level = 10, icon = "󰢜" },
-    { level = 20, icon = "󰂆" },
-    { level = 30, icon = "󰂇" },
-    { level = 40, icon = "󰂈" },
-    { level = 50, icon = "󰂉" },
-    { level = 60, icon = "󰂉" },
-    { level = 70, icon = "󰢞" },
-    { level = 80, icon = "󰂊" },
-    { level = 90, icon = "󰂋" },
-    { level = 100, icon = "󰂅" },
-  },
-  discharging = {
-    { level = 10, icon = "󰁺" },
-    { level = 20, icon = "󰁻" },
-    { level = 30, icon = "󰁼" },
-    { level = 40, icon = "󰁽" },
-    { level = 50, icon = "󰁾" },
-    { level = 60, icon = "󰁿" },
-    { level = 70, icon = "󰂀" },
-    { level = 80, icon = "󰂁" },
-    { level = 90, icon = "󰂂" },
-    { level = 100, icon = "󰁹" },
-  },
+local iconset = {
+  { level = 10, icon = "󰁺" },
+  { level = 20, icon = "󰁻" },
+  { level = 30, icon = "󰁼" },
+  { level = 40, icon = "󰁽" },
+  { level = 50, icon = "󰁾" },
+  { level = 60, icon = "󰁿" },
+  { level = 70, icon = "󰂀" },
+  { level = 80, icon = "󰂁" },
+  { level = 90, icon = "󰂂" },
+  { level = 100, icon = "󰁹" },
 }
 
 local battery_update = function(bat_now)
@@ -145,8 +131,8 @@ local battery_update = function(bat_now)
   local color, legend, icon
 
   local status = bat_now.status == "Discharging"
-    and ""
-    or ""
+      and ""
+      or ""
 
   -- legend
   legend = bat_now.time == "00:00" and "100%" or (status .. " " .. bat_now.time)
@@ -159,8 +145,6 @@ local battery_update = function(bat_now)
   else
     color = beautiful.colors.red.dark
   end
-
-  local iconset = batteryicons.discharging
 
   for _, config in ipairs(iconset) do
     if bat_now.perc <= config.level then
@@ -188,7 +172,6 @@ lain.widgets.bat({
     }
   }
 })
--- end
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
