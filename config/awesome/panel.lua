@@ -104,97 +104,91 @@ lain.widgets.pulseaudio({
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
-local battery
+local batteryname = require('lain.helpers').read_pipe('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
+local batterytext = wibox.widget({ widget = wibox.widget.textbox })
 
-local pipe = io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
+local battery = wibox.widget({
+  batterytext,
+  layout = wibox.layout.fixed.horizontal,
+})
 
-if pipe ~= nil then
-  local batteryname = pipe:read('*a')
-  pipe:close()
-  local batterytext = wibox.widget({ widget = wibox.widget.textbox })
+local batteryicons = {
+  charging = {
+    { level = 10, icon = "󰢜" },
+    { level = 20, icon = "󰂆" },
+    { level = 30, icon = "󰂇" },
+    { level = 40, icon = "󰂈" },
+    { level = 50, icon = "󰂉" },
+    { level = 60, icon = "󰂉" },
+    { level = 70, icon = "󰢞" },
+    { level = 80, icon = "󰂊" },
+    { level = 90, icon = "󰂋" },
+    { level = 100, icon = "󰂅" },
+  },
+  discharging = {
+    { level = 10, icon = "󰁺" },
+    { level = 20, icon = "󰁻" },
+    { level = 30, icon = "󰁼" },
+    { level = 40, icon = "󰁽" },
+    { level = 50, icon = "󰁾" },
+    { level = 60, icon = "󰁿" },
+    { level = 70, icon = "󰂀" },
+    { level = 80, icon = "󰂁" },
+    { level = 90, icon = "󰂂" },
+    { level = 100, icon = "󰁹" },
+  },
+}
 
-  battery = wibox.widget({
-    batterytext,
-    layout = wibox.layout.fixed.horizontal,
-  })
+local battery_update = function(bat_now)
+  if bat_now.status == "N/A" then return end
 
-  local batteryicons = {
-    charging = {
-      { level = 10, icon = "󰢜" },
-      { level = 20, icon = "󰂆" },
-      { level = 30, icon = "󰂇" },
-      { level = 40, icon = "󰂈" },
-      { level = 50, icon = "󰂉" },
-      { level = 60, icon = "󰂉" },
-      { level = 70, icon = "󰢞" },
-      { level = 80, icon = "󰂊" },
-      { level = 90, icon = "󰂋" },
-      { level = 100, icon = "󰂅" },
-    },
-    discharging = {
-      { level = 10, icon = "󰁺" },
-      { level = 20, icon = "󰁻" },
-      { level = 30, icon = "󰁼" },
-      { level = 40, icon = "󰁽" },
-      { level = 50, icon = "󰁾" },
-      { level = 60, icon = "󰁿" },
-      { level = 70, icon = "󰂀" },
-      { level = 80, icon = "󰂁" },
-      { level = 90, icon = "󰂂" },
-      { level = 100, icon = "󰁹" },
-    },
-  }
+  local color, legend, icon
 
-  local battery_update = function(bat_now)
-    if bat_now.status == "N/A" then return end
+  local arrow = bat_now.status == "Discharging"
+    and ""
+    or ""
 
-    local color, legend, icon
+  -- legend
+  legend = bat_now.time == "00:00" and "100%" or (arrow .. " " .. bat_now.time)
 
-    local arrow = bat_now.status == "Discharging"
-      and ""
-      or ""
-
-    -- legend
-    legend = bat_now.time == "00:00" and "100%" or (arrow .. " " .. bat_now.time)
-
-    -- color
-    if bat_now.perc >= 98 then
-      color = beautiful.colors.green.dark
-    elseif bat_now.perc > 15 then
-      color = beautiful.colors.yellow.dark
-    else
-      color = beautiful.colors.red.dark
-    end
-
-    local iconset = batteryicons.discharging
-
-    for _, config in ipairs(iconset) do
-      if bat_now.perc <= config.level then
-        icon = config.icon
-        break
-      end
-    end
-
-    local markup = lain.util.markup(color, icon .. " " .. legend)
-    batterytext:set_markup(markup)
+  -- color
+  if bat_now.perc >= 98 then
+    color = beautiful.colors.green.dark
+  elseif bat_now.perc > 15 then
+    color = beautiful.colors.yellow.dark
+  else
+    color = beautiful.colors.red.dark
   end
 
-  lain.widgets.bat({
-    battery = batteryname,
-    timeout = 15,
-    settings = battery_update,
-    notifications = {
-      low = {
-        fg = beautiful.colors.red.dark,
-        bg = beautiful.colors.background
-      },
-      critical = {
-        fg = beautiful.colors.foreground,
-        bg = beautiful.colors.red.dark
-      }
-    }
-  })
+  local iconset = batteryicons.discharging
+
+  for _, config in ipairs(iconset) do
+    if bat_now.perc <= config.level then
+      icon = config.icon
+      break
+    end
+  end
+
+  local markup = lain.util.markup(color, icon .. " " .. legend)
+  batterytext:set_markup(markup)
 end
+
+lain.widgets.bat({
+  battery = batteryname,
+  timeout = 15,
+  settings = battery_update,
+  notifications = {
+    low = {
+      fg = beautiful.colors.red.dark,
+      bg = beautiful.colors.background
+    },
+    critical = {
+      fg = beautiful.colors.foreground,
+      bg = beautiful.colors.red.dark
+    }
+  }
+})
+-- end
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
