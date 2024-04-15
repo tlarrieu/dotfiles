@@ -32,35 +32,18 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "keep.google.com" }},
   { icon = "", rule = { class = "Chromium", instance = "photos.google.com" }},
 
-  -- 華 Work
+  -- Work
   { icon = "󰚒", rule = { class = "Chromium", instance = "calendly.com" }},
   { icon = "", rule = { class = "Chromium", instance = "circleci.com" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net" }},
   { icon = "", rule = { class = "Chromium", instance = "atlassian.net", name = "Jira" }},
   { icon = "", rule = { class = "Chromium", instance = "app.swarmia.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "grafana.net" }},
-  { icon = "", rule = { class = "Chromium", instance = "hub.docker.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "sentry.io" }},
-  { icon = "", rule = { class = "Chromium", instance = "amplitude.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "datadoghq.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "app.progressionapp.com" }},
   { icon = "", rule = { class = "Chromium", instance = "app.spendesk.com" }},
   { icon = "󰷼", rule = { class = "Chromium", instance = "docusign" }},
-  { icon = "", rule = { class = "Chromium", instance = "my.appoptics.com" }},
   { icon = "", rule = { class = "Chromium", instance = "slack" }},
-  { icon = "", rule = { class = "Chromium", instance = "papertrail" }},
-  { icon = "滛", rule = { class = "Chromium", instance = "metroretro.io" }},
-  { icon = "", rule = { class = "Chromium", instance = "zendesk" }},
-  { icon = "", rule = { class = "Chromium", instance = "lever" }},
-  { icon = "", rule = { class = "Chromium", instance = "chartmogul" }},
-  { icon = "", rule = { class = "Chromium", instance = "brightdata" }},
+  { icon = "󱞠", rule = { class = "Chromium", instance = "metroretro.io" }},
 
-  --  Notion
-  { icon = "", rule = { class = "Chromium", instance = "c7f757b56c014aa5845a753d7acb6a85" }},
-  { icon = "", rule = { class = "Chromium", instance = "1aa1d5e564c4404b968a224ef4206cfa" }},
-  { icon = "", rule = { class = "Chromium", instance = "notion.so" }},
-
-  --  Videos
+  -- Videos
   { icon = "", rule = { class = "Chromium", instance = "www.twitch.tv" }},
   { icon = "", rule = { class = "Chromium", name = "YouTube" }},
 
@@ -86,14 +69,15 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "hoogle" }},
   { icon = "", rule = { class = "Chromium", instance = "www.github.com" }},
 
-  --  Drawing
+  --  Drawing
   { icon = "", rule = { class = "Chromium", instance = "whimsical.co" }},
   { icon = "", rule = { class = "Chromium", instance = "app.diagrams.net" }},
   { icon = "", rule = { class = "Chromium", instance = "www.excalidraw.com" }},
 
-  -- 拾 Training
+  -- Training
   { icon = "", rule = { class = "Chromium", instance = "tryhackme.com" }},
   { icon = "", rule = { class = "Chromium", instance = "www.exercism.io" }},
+  { icon = "", rule = { class = "Chromium", instance = "app.envoituresimone.com" }},
 
   --  Money
   { icon = "", rule = { class = "Chromium", instance = "bankin" }},
@@ -103,7 +87,7 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "pinterest.com" }},
   { icon = "", rule = { class = "Chromium", instance = "wallhaven.cc" }},
 
-  --  Coms
+  -- Coms
   { icon = "", rule = { class = "Chromium", instance = "web.whatsapp.com" }},
   { icon = "󰙯", rule = { class = "Chromium", instance = "discord.com" }},
 
