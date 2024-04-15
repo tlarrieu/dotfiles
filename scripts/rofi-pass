@@ -98,19 +98,6 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
 
-      # AWS are doing something of their own
-      pro/aws)
-        press Tab
-        press Tab
-        type $(account_id)
-        press Return
-        sleep 1
-        type $(login)
-        press Tab
-        type $(password)
-        press Return
-      ;;
-
       # passwords shows up after we validate the login
       pro/azure |\
       pro/elevo | \
@@ -126,11 +113,28 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
 
-      # Specific case for bitwarden because password field is not focused
       pro/bitwarden)
         type $(login)
         press Return
         sleep 1
+        press Tab
+        type $(password)
+        press Return
+        ;;
+
+      pro/swile* | \
+      pro/onoff)
+        press Tab
+        press Tab
+        type $(login)
+        press Tab
+        type $(password)
+        press Return
+        ;;
+
+      perso/cpf)
+        type $(login)
+        press Tab
         press Tab
         type $(password)
         press Return
@@ -141,17 +145,6 @@ if [ ${#option} -gt 0 ]; then
       pro/travelperk |\
       perso/paypal |\
       perso/bankin)
-        press Tab
-        type $(login)
-        press Tab
-        type $(password)
-        press Return
-        ;;
-
-      # In the case of swile and onoff, a single tab is not enough (╯°o°)╯┻━┻
-      pro/swile* | \
-      pro/onoff)
-        press Tab
         press Tab
         type $(login)
         press Tab
