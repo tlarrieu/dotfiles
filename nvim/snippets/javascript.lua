@@ -7,7 +7,7 @@ return {
   s("warn", fmta("console.warn(<><>)", { sel(), i(0) })),
 
   -- scoping
-  s("i", fmta("import <> from '<>'", { i(1), i(0) })),
+  s("req", fmta("import <> from '<>'", { i(1), i(0) })),
 
   -- definitions
   s("c", fmta([[
@@ -30,5 +30,8 @@ return {
       <><>
     }
     ]], {i(1, "name"), i(2, "args"), sel(), i(0) })),
+
+  -- testing
+  s("test", fmta("test('<>', (<>) =>> {<>})", { i(1, 'something'), i(2, 'args'), i(3) })),
 }, {
 }
