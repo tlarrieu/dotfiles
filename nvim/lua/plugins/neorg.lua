@@ -2,7 +2,7 @@ return {
   "nvim-neorg/neorg",
   lazy = false,
   dependencies = { 'luarocks.nvim' },
-  version = "*",
+  version = "v7.0.0",
   config = true,
   keys = {
     { '<leader>ei', '<cmd>tabnew<cr><cmd>Neorg index<cr>',    desc = 'Neorg index' },
