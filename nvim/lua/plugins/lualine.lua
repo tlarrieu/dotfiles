@@ -13,9 +13,28 @@ return {
     },
     sections = {
       lualine_c = { { 'filename', path = 3 } },
+      lualine_x = {
+        'encoding',
+        'fileformat',
+        {
+          'custom',
+          fmt = function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            local name = vim.api.nvim_buf_get_name(bufnr)
+            local filetype = vim.bo[bufnr].filetype
+
+            if filetype == '' then return end
+
+            -- Icon
+            local icon = require('nvim-web-devicons').get_icon(name, filetype)
+
+            return icon .. ' ' .. filetype
+          end
+        }
+      },
     },
     tabline = {
-      lualine_b = { {
+      lualine_a = { {
         'tabs',
         mode = 2,
         path = 0,
@@ -29,22 +48,20 @@ return {
         fmt = function(name, context)
           -- Modifier
           local modifier
-          local buflist = vim.fn.tabpagebuflist(context.tabnr)
           local winnr = vim.fn.tabpagewinnr(context.tabnr)
+          local buflist = vim.fn.tabpagebuflist(context.tabnr)
           local bufnr = buflist[winnr]
           local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
 
           -- Icon
-          local defaulticon = ''
-          local icon = require('nvim-web-devicons').get_icon(name, context.filetype) or defaulticon
+          local icon
+          if context.filetype ~= '' then
+            icon = require('nvim-web-devicons').get_icon(name, context.filetype)
+          end
 
           -- Name
-          if context.filetype == 'help' then
-            name = name:match('^help:(.*)', 1)
-          elseif context.filetype == 'harpoon' then
+          if context.filetype == 'harpoon' then
             name = 'harpoon'
-          elseif context.filetype == 'backdrop' then
-            name = ''
           elseif context.filetype == 'mason' then
             name = 'mason'
           elseif context.filetype == 'lazy' then
@@ -59,16 +76,14 @@ return {
             modifier = '∙'
           end
 
-          return (icon or defaulticon) .. ' ' .. name .. (modifier and ' ' .. modifier or '')
+          return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
         end
       } },
     },
     winbar = {},
   },
   config = function(_, opts)
-    local lualine = require('lualine')
-
-    lualine.setup(opts)
+    require('lualine').setup(opts)
 
     vim.keymap.set('n', '<leader>tl', ':LualineRename ')
     vim.keymap.set('n', '<leader>tr', ':LualineRename<cr>', { silent = true })

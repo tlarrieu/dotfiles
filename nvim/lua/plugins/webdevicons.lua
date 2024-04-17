@@ -1,15 +1,15 @@
 return {
   'nvim-tree/nvim-web-devicons',
   opts = {
+    default = true,
+    default_icon = '',
     override = {
       norg = {
         icon = "",
-        color = "#268bd2",
         name = "norg"
       },
       help = {
         icon = "",
-        color = "#268bd2",
         name = "help"
       },
       man = {
@@ -35,7 +35,11 @@ return {
       qf = {
         icon = '󰁨',
         name = 'quickfix'
-      }
-    };
+      },
+      ruby = {
+        icon = '',
+        name = 'ruby'
+      },
+    },
   },
 }
