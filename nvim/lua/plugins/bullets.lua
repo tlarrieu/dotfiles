@@ -3,7 +3,6 @@ return {
   ft = {
     'markdown',
     'gitcommit',
-    'norg',
   },
   config = function(ctx)
     local group = vim.api.nvim_create_augroup('bullets_autocmd', {})
