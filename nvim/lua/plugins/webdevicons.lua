@@ -17,6 +17,7 @@ return {
       markdown = { icon = '', name = 'markdown' },
       go = { icon = '󰟓', name = 'go' },
       noice = { icon = '󱠅', name = 'noice' },
+      gitcommit = { icon = '', name = 'gitcommit' },
     },
   },
 }
