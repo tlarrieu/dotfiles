@@ -48,6 +48,10 @@ return {
         icon = '',
         name = 'markdown'
       },
+      go = {
+        icon = '󰟓',
+        name = 'go'
+      },
     },
   },
 }
