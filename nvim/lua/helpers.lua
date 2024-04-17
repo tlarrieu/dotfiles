@@ -2,7 +2,7 @@ local _M = {}
 
 _M.basename = function()
   local filename = vim.api.nvim_buf_get_name(0):match("^.+/(.+)$")
-  local basename = filename:match("(.+)[.].+")
+  local basename = (filename or ''):match("(.+)[.].+")
   return basename or filename or ""
 end
 
