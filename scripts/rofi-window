@@ -35,7 +35,7 @@ local file = io.open(path, "w")
 file:write(table.concat(ys, "\n"))
 file:close()
 
-local handle = io.popen("rofi -dmenu -i -p ﬓ -input " .. path)
+local handle = io.popen("rofi -dmenu -i -p 󰲌 -input " .. path)
 local result = handle:read("*l")
 handle:close()
 if not result then return end
