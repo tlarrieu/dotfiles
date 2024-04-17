@@ -8,7 +8,7 @@ local abbr = {
   hi = "lua require('telescope.builtin').highlights()",
   lazy = 'Lazy',
   mason = 'Mason',
-  map = "Map",
+  map = "Map", -- TODO: make this deal properly with '
 }
 
 vim.api.nvim_create_user_command('Map', function(opts)

@@ -1,6 +1,9 @@
+local luasnip = require('luasnip')
+
+-- TODO: find a more robust way than relying on keybind
 local function expand(name)
   vim.cmd.startinsert()
-  vim.api.nvim_feedkeys(name, "insert", false)
+  vim.api.nvim_feedkeys(name, "insert", true)
   vim.api.nvim_input('<c-e>')
 
   return true
@@ -10,7 +13,7 @@ local function bootstrap()
   -- Index all snipets for filetypes
   local xs = {}
   for ft in vim.o.filetype:gmatch("([^.]+)") do
-    for _, item in pairs(require('luasnip').available()[ft] or {}) do
+    for _, item in pairs(luasnip.available()[ft] or {}) do
       xs[item.name] = true
     end
   end
