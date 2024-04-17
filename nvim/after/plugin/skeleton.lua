@@ -1,7 +1,7 @@
 local function expand(name)
   vim.cmd.startinsert()
   vim.api.nvim_feedkeys(name, "insert", false)
-  vim.api.nvim_input('<tab>')
+  vim.api.nvim_input('<c-e>')
 
   return true
 end
