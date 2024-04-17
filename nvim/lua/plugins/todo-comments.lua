@@ -59,6 +59,7 @@ return {
         "--with-filename",
         "--line-number",
         "--column",
+        "--iglob=!**/snippets/all.lua",
       },
       -- regex that will be used to match keywords.
       -- don't replace the (KEYWORDS) placeholder
