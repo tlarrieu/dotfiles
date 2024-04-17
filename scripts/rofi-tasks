@@ -330,7 +330,7 @@ when 18 # 'Control+S'
   end
 when 19 # 'Control+b'
   annotation =
-    `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`.
+    `rofi -dmenu -p "󰏫" -theme-str "#listview { enabled: false; }"`.
     strip.
     escape
 

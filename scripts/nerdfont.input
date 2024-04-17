@@ -1400,6 +1400,7 @@
 󰢞 nf-md-battery_charging_70
 󰂊 nf-md-battery_charging_80
 󰂋 nf-md-battery_charging_90
+󰏫 nf-md-pencil
 ﴅ nf-mdi-battery_charging_wireless
 ﴆ nf-mdi-battery_charging_wireless_10
 ﴇ nf-mdi-battery_charging_wireless_20
@@ -2629,7 +2630,6 @@
  nf-mdi-paw
 ﭖ nf-mdi-paw_off
  nf-mdi-pen
- nf-mdi-pencil
  nf-mdi-pencil_box
  nf-mdi-pencil_box_outline
 ﯽ nf-mdi-pencil_circle
