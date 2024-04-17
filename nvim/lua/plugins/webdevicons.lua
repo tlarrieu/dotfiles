@@ -52,6 +52,10 @@ return {
         icon = '󰟓',
         name = 'go'
       },
+      noice = {
+        icon = '󱠅',
+        name = 'noice'
+      },
     },
   },
 }
