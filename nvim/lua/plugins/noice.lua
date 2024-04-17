@@ -50,9 +50,13 @@ return {
             { event = 'msg_show', find = 'hunk' },
             { event = 'msg_show', find = 'change; before' },
             { event = 'msg_show', find = 'change; after' },
+            { event = 'msg_show', find = 'line; before' },
+            { event = 'msg_show', find = 'line; after' },
             { event = 'msg_show', find = 'line less' },
             { event = 'msg_show', find = 'line more' },
+            { event = 'msg_show', find = 'fewer lines' },
             { event = 'msg_show', find = 'more lines' },
+            { event = 'msg_show', find = '--No lines in buffer--' },
           }
         },
         opts = { skip = true },
