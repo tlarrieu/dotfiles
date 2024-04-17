@@ -8,12 +8,13 @@ local abbr = {
   hi = 'lua require("telescope.builtin").highlights()',
   lazy = 'Lazy',
   mason = 'Mason',
+  map = "vnew|setf vim|put=execute('map')<left><left>",
 }
 
 for key, value in pairs(abbr) do
   vim.cmd.cnoreabbrev(
     '<expr>',
     key,
-    [[getcmdtype() == ":" && getcmdline() == ']] .. key .. [[' ? ']] .. value .. [[' : ']] .. key .. [[']]
+    [[getcmdtype() == ":" && getcmdline() == ']] .. key .. [[' ? "]] .. value .. [[" : ']] .. key .. [[']]
   )
 end
