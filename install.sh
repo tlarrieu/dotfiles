@@ -154,7 +154,6 @@ safelink $BASEDIR/routines $HOME/.routines
 for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   target=$BASEDIR/xorg.conf.d/`basename $file`
   link=/etc/X11/xorg.conf.d/`basename $file`
-  # TODO: use safelink instead of a "raw" ln call
   sudo ln -sfFT $target $link
 done
 
