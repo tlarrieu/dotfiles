@@ -25,8 +25,8 @@ vim.api.nvim_create_user_command('Map', function(opts)
 
   vim.cmd("put=execute('map " .. opts.args .. "')")
   vim.cmd("put=execute('imap " .. opts.args .. "')")
-  vim.cmd("g/^$/d")
-  vim.cmd("g/No mapping found/d")
+  vim.cmd("g/^$/d_")
+  vim.cmd("g/No mapping found/d_")
 
   vim.api.nvim_win_set_cursor(0, { 1, 0 })
 end, { nargs = 1, desc = 'show map result in a split' })
