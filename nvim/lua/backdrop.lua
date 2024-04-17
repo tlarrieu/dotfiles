@@ -57,8 +57,8 @@ function _M:show(opts)
       focusable = false,
       zindex = opts.zindex,
     })
-    vim.api.nvim_set_hl(0, "LazyBackdrop", { bg = "#000000", default = true })
-    vim.api.nvim_set_option_value("winhighlight", "Normal:LazyBackdrop", { scope = "local", win = backdrop_win })
+    vim.api.nvim_set_hl(0, "BackdropHL", { bg = "#000000", default = true })
+    vim.api.nvim_set_option_value("winhighlight", "Normal:BackdropHL", { scope = "local", win = backdrop_win })
     vim.api.nvim_set_option_value("winblend", opts.transparency, { scope = "local", win = backdrop_win })
     vim.bo[backdrop_buf].buftype = "nofile"
     vim.bo[backdrop_buf].filetype = "backdrop"
