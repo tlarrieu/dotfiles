@@ -40,6 +40,10 @@ return {
         icon = '',
         name = 'ruby'
       },
+      vim = {
+        icon = '',
+        name = 'vim'
+      }
     },
   },
 }
