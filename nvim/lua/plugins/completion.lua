@@ -5,6 +5,7 @@ return {
   },
   config = function()
     local cmp = require('cmp')
+    local luasnip = require('luasnip')
 
     local kind_icons = {
       Text = '󰦨 ',
@@ -40,23 +41,27 @@ return {
       },
       snippet = {
         expand = function(args)
-          require('luasnip').lsp_expand(args.body)
+          luasnip.lsp_expand(args.body)
         end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<c-e>'] = cmp.mapping.confirm(),
+        ['<c-e>'] = cmp.mapping(function()
+          if cmp.get_active_entry() then
+            cmp.confirm()
+          else
+            luasnip.expand()
+          end
+        end),
         ['<tab>'] = cmp.mapping(function(fallback)
-          local luasnip = require('luasnip')
-          if luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
+          if luasnip.jumpable(1) then
+            luasnip.jump(1)
           else
             fallback()
           end
         end, { 'i', 's' }),
         ['<S-tab>'] = cmp.mapping(function(fallback)
-          local luasnip = require('luasnip')
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -64,10 +69,11 @@ return {
           end
         end, { 'i', 's' }),
       }),
-      sources = cmp.config.sources({
+    sources = cmp.config.sources({
         { name = 'nvim_lsp' },
-        { name = 'buffer' },
         { name = 'luasnip' },
+      }, {
+        { name = 'buffer' },
       }),
       formatting = {
         format = function(entry, vim_item)
