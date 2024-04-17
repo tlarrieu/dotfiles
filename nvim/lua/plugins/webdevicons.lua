@@ -4,58 +4,19 @@ return {
     default = true,
     default_icon = '',
     override = {
-      norg = {
-        icon = "",
-        name = "norg"
-      },
-      help = {
-        icon = "",
-        name = "help"
-      },
-      man = {
-        icon = "",
-        name = "man"
-      },
-      harpoon = {
-        icon = "🪝",
-        name = "harpoon"
-      },
-      mason = {
-        icon = "󰣪",
-        name = "mason"
-      },
-      lazy = {
-        icon = "󰘧",
-        name = "lazy"
-      },
-      TelescopePrompt = {
-        icon = "",
-        name = "telescope"
-      },
-      qf = {
-        icon = '󰁨',
-        name = 'quickfix'
-      },
-      ruby = {
-        icon = '',
-        name = 'ruby'
-      },
-      vim = {
-        icon = '',
-        name = 'vim'
-      },
-      markdown = {
-        icon = '',
-        name = 'markdown'
-      },
-      go = {
-        icon = '󰟓',
-        name = 'go'
-      },
-      noice = {
-        icon = '󱠅',
-        name = 'noice'
-      },
+      norg = { icon = "", name = "norg" },
+      help = { icon = "", name = "help" },
+      man = { icon = "", name = "man" },
+      harpoon = { icon = "🪝", name = "harpoon" },
+      mason = { icon = "󰣪", name = "mason" },
+      lazy = { icon = "󰘧", name = "lazy" },
+      TelescopePrompt = { icon = "", name = "telescope" },
+      qf = { icon = '󰁨', name = 'quickfix' },
+      ruby = { icon = '', name = 'ruby' },
+      vim = { icon = '', name = 'vim' },
+      markdown = { icon = '', name = 'markdown' },
+      go = { icon = '󰟓', name = 'go' },
+      noice = { icon = '󱠅', name = 'noice' },
     },
   },
 }
