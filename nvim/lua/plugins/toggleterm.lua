@@ -1,13 +1,13 @@
 return {
   'akinsho/toggleterm.nvim',
-  version = "*",
+  version = '*',
   opts = {
     direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
       local factor = 0.3
-      if term.direction == "horizontal" then
+      if term.direction == 'horizontal' then
         return vim.o.lines * factor
-      elseif term.direction == "vertical" then
+      elseif term.direction == 'vertical' then
         return vim.o.columns * factor
       end
     end,

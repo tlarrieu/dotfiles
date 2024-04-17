@@ -1,21 +1,21 @@
 return {
-  "folke/noice.nvim",
+  'folke/noice.nvim',
   dependencies = {
-    "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    'MunifTanjim/nui.nvim',
+    'rcarriga/nvim-notify',
   },
   opts = {
     cmdline = {
       enabled = true,
-      view = "cmdline_popup",
+      view = 'cmdline_popup',
       opts = {
         position = {
-          row = "20%",
-          col = "50%",
+          row = '20%',
+          col = '50%',
         },
         border = {
           -- "'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'"
-          style = "single",
+          style = 'single',
         },
       },
       format = {
@@ -24,14 +24,14 @@ return {
         -- opts: any options passed to the view
         -- icon_hl_group: optional hl_group for the icon
         -- title: set to anything or empty string to hide
-        cmdline = { pattern = "^:", icon = " ", lang = "vim", title = '' },
-        replace = { kind = 'search', pattern = "^:%%s/", icon = " ", lang = "regex", title = '' },
-        search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex", title = '' },
-        search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex", title = '' },
-        shell = { pattern = "^:!", icon = " ", lang = "bash", title = '' },
-        filter = { pattern = "^:%%s!", icon = " ", lang = "bash", title = '' },
-        lua = { pattern = "^:lua ", icon = " ", lang = "lua", title = '' },
-        vim = { pattern = "^:call ", icon = " ", lang = "vim", title = '' },
+        cmdline = { pattern = '^:', icon = ' ', lang = 'vim', title = '' },
+        replace = { kind = 'search', pattern = '^:%%s/', icon = ' ', lang = 'regex', title = '' },
+        search_down = { kind = 'search', pattern = '^/', icon = ' ', lang = 'regex', title = '' },
+        search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex', title = '' },
+        shell = { pattern = '^:!', icon = ' ', lang = 'bash', title = '' },
+        filter = { pattern = '^:%%s!', icon = ' ', lang = 'bash', title = '' },
+        lua = { pattern = '^:lua ', icon = ' ', lang = 'lua', title = '' },
+        vim = { pattern = '^:call ', icon = ' ', lang = 'vim', title = '' },
         input = { title = '' },
       },
     },
@@ -42,17 +42,17 @@ return {
       {
         filter = {
           any = {
-            { event = "msg_show", find = [[".*" .*L, .*B]] },
-            { event = "msg_show", kind = "search_count" },
-            { event = "msg_show", find = [[search hit BOTTOM]] },
-            { event = "msg_show", find = [[Pattern not found]] },
-            { event = "msg_show", find = [[Hunk]] },
-            { event = "msg_show", find = [[hunk]] },
-            { event = "msg_show", find = [[change; before]] },
-            { event = "msg_show", find = [[change; after]] },
-            { event = "msg_show", find = [[line less]] },
-            { event = "msg_show", find = [[line more]] },
-            { event = "msg_show", find = [[more lines]] },
+            { event = 'msg_show', find = '".*" .*L, .*B' },
+            { event = 'msg_show', kind = 'search_count' },
+            { event = 'msg_show', find = 'search hit BOTTOM' },
+            { event = 'msg_show', find = 'Pattern not found' },
+            { event = 'msg_show', find = 'Hunk' },
+            { event = 'msg_show', find = 'hunk' },
+            { event = 'msg_show', find = 'change; before' },
+            { event = 'msg_show', find = 'change; after' },
+            { event = 'msg_show', find = 'line less' },
+            { event = 'msg_show', find = 'line more' },
+            { event = 'msg_show', find = 'more lines' },
           }
         },
         opts = { skip = true },
@@ -80,9 +80,9 @@ return {
         }
       },
       override = {
-        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        ["vim.lsp.util.stylize_markdown"] = true,
-        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+        ['vim.lsp.util.stylize_markdown'] = true,
+        ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
       },
     }
   }

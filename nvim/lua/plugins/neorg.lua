@@ -1,8 +1,8 @@
 return {
-  "nvim-neorg/neorg",
+  'nvim-neorg/neorg',
   lazy = false,
   dependencies = { 'luarocks.nvim' },
-  version = "v7.0.0",
+  version = 'v7.0.0',
   config = true,
   keys = {
     { '<leader>ei', '<cmd>tabnew<cr><cmd>Neorg index<cr>',    desc = 'Neorg index' },
@@ -11,19 +11,19 @@ return {
   },
   opts = {
     load = {
-      ["core.defaults"] = {},
-      ["core.summary"] = {},
-      ["core.concealer"] = {},
-      ["core.qol.toc"] = {
+      ['core.defaults'] = {},
+      ['core.summary'] = {},
+      ['core.concealer'] = {},
+      ['core.qol.toc'] = {
         config = {
           close_after_use = true
         }
       },
-      ["core.dirman"] = {
+      ['core.dirman'] = {
         config = {
           workspaces = {
-            work = "~/.neorg/work",
-            home = "~/.neorg/home",
+            work = '~/.neorg/work',
+            home = '~/.neorg/home',
           },
           default_workspace = 'home'
         }
