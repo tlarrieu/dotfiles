@@ -23,11 +23,11 @@ vim.api.nvim_create_user_command('Map', function(opts)
 
   vim.keymap.set('n', 'q', ':quit<cr>', { buffer = true, silent = true })
 
-  -- fill buffer with :map result
   vim.cmd("put=execute('map " .. opts.args .. "')")
-  -- remove the 3 empty lines at the top
-  vim.api.nvim_buf_set_lines(0, 0, 3, false, {})
-  -- reset cursor to the top
+  vim.cmd("put=execute('imap " .. opts.args .. "')")
+  vim.cmd("g/^$/d")
+  vim.cmd("g/No mapping found/d")
+
   vim.api.nvim_win_set_cursor(0, { 1, 0 })
 end, { nargs = 1, desc = 'show map result in a split' })
 
