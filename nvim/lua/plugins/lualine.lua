@@ -12,7 +12,13 @@ return {
       'mason',
     },
     sections = {
-      lualine_c = { { 'filename', path = 3 } },
+      lualine_c = {
+        {
+          'filename',
+          path = 3,
+          cond = function() return vim.bo[0].buftype ~= 'nofile' end
+        }
+      },
       lualine_x = {
         'encoding',
         'fileformat',
