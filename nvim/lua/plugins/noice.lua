@@ -35,9 +35,28 @@ return {
         input = { title = '' },
       },
     },
-    -- we don't want that notify UI (too clunky for my taste)
     messages = {
-      enabled = false
+      enabled = true,
+    },
+    routes = {
+      {
+        filter = {
+          any = {
+            { event = "msg_show", find = [[".*" .*L, .*B]] },
+            { event = "msg_show", kind = "search_count" },
+            { event = "msg_show", find = [[search hit BOTTOM]] },
+            { event = "msg_show", find = [[Pattern not found]] },
+            { event = "msg_show", find = [[Hunk]] },
+            { event = "msg_show", find = [[hunk]] },
+            { event = "msg_show", find = [[change; before]] },
+            { event = "msg_show", find = [[change; after]] },
+            { event = "msg_show", find = [[line less]] },
+            { event = "msg_show", find = [[line more]] },
+            { event = "msg_show", find = [[more lines]] },
+          }
+        },
+        opts = { skip = true },
+      },
     },
     lsp = {
       signature = {
@@ -49,8 +68,8 @@ return {
         auto_open = {
           enabled = true,
           trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
-          luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
-          throttle = 250, -- Debounce lsp signature help request by 50ms
+          luasnip = true,  -- Will open signature help when jumping to Luasnip insert nodes
+          throttle = 250,  -- Debounce lsp signature help request by 50ms
         },
       },
       hover = {
@@ -59,7 +78,12 @@ return {
         opts = {
           border = 'single',
         }
-      }
+      },
+      override = {
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+      },
     }
   }
 }
