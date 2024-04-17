@@ -61,8 +61,8 @@ k.set('n', 'Q', ':bdelete!<cr>', default_options)
 -- Normal mode
 k.set('c', '<esc>', '<c-c>', default_options)
 -- Exit
-k.set('n', 'à', ':confirm quit<cr>', default_options)
-k.set('n', 'À', ':confirm quitall<cr>', default_options)
+k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', default_options)
+k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', default_options)
 -- Save
 k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', default_options)
 -- Reselect pasted lines
