@@ -43,7 +43,11 @@ return {
       vim = {
         icon = '',
         name = 'vim'
-      }
+      },
+      markdown = {
+        icon = '',
+        name = 'markdown'
+      },
     },
   },
 }
