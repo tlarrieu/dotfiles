@@ -61,6 +61,7 @@ return {
     k.set('n', '<c-l>', builtin.lsp_document_symbols, options)
     k.set('n', '<c-e>', builtin.diagnostics, options)
     k.set('n', '<c-q>', builtin.quickfix, options)
+    k.set('n', 'g?', builtin.spell_suggest, options)
     k.set('n', '<c-è>', ':TodoTelescope<cr>', options)
   end
 }
