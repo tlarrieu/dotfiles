@@ -1,4 +1,5 @@
 local default_options = { remap = false, silent = true }
+local remap = { remap = true, silent = true }
 local silent = { silent = true }
 local noopts = {}
 
@@ -69,11 +70,11 @@ k.set('n', 'gV', '`[v`]', default_options)
 k.set('', '"', '1', default_options)
 k.set('', '1', '"', default_options)
 k.set('', '«', '2', default_options)
-k.set('', '2', '<<_', default_options)
-k.set('x', '2', '<gv', default_options)
+k.set('', '2', '<<_', remap)
+k.set('x', '2', '<gv', remap)
 k.set('', '»', '3', default_options)
-k.set('', '3', '>>_', default_options)
-k.set('x', '3', '>gv', default_options)
+k.set('', '3', '>>_', remap)
+k.set('x', '3', '>gv', remap)
 k.set('', '(', '4', default_options)
 k.set('', '4', '(', default_options)
 k.set('', ')', '5', default_options)
