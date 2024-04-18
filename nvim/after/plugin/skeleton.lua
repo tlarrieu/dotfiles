@@ -4,7 +4,9 @@ local luasnip = require('luasnip')
 local function expand(name)
   vim.cmd.startinsert()
   vim.api.nvim_feedkeys(name, "insert", true)
-  vim.api.nvim_input('<c-e>')
+  -- NOTE: we have to send a <bs> somehow to avoid an extra empty line being
+  -- included in the snippet expansion
+  vim.api.nvim_input('<c-e><bs>')
 
   return true
 end
