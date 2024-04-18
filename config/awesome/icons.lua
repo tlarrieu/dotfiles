@@ -109,18 +109,22 @@ local config = {
   --  Default browser
   { icon = "", rule = { class = "Chromium" }},
 
+  --  Games
+  { icon = "", rule = { class = "steam" }},
+  { icon = "", rule = { class = "Wine" }},
+  { icon = "", rule = { class = "Cockatrice" }},
+  { icon = "", rule = { class = "Lutris" }},
+  { icon = "󰸓", rule = { class = "Backpack Battles" }},
+
   { icon = "", rule = { class = "Gpick" }},
   { icon = "", rule = { class = "man" }},
   { icon = "", rule = { class = "dungeondraft.exe" }},
   { icon = "", rule = { class = "Thunar" }},
   { icon = "", rule = { class = "config" }},
-  { icon = "", rule = { class = "Wine" }},
-  { icon = "", rule = { class = "Cockatrice" }},
   { icon = "", rule = { class = "firefox" }},
   { icon = "", rule = { class = "quake" }},
   { icon = "", rule = { class = "Lxappearance" }},
   { icon = "", rule = { class = "Mainwindow.py" }}, --[[ PlayOnLinux ]]
-  { icon = "", rule = { class = "Steam" }},
   { icon = "", rule = { name = "yay" }},
   { icon = "", rule = { class = "Seahorse" }},
   { icon = "", rule = { class = "Signal" }},
@@ -133,7 +137,6 @@ local config = {
   { icon = "", rule = { class = "Zathura" }},
   { icon = "󰤽", rule = { class = "Flowblade" }},
   { icon = "", rule = { class = "gtgf" }},
-  { icon = "", rule = { class = "Lutris" }},
   { icon = "󰙯", rule = { class = "discord" }},
   { icon = "", rule = { class = "help" }},
   { icon = "", rule = { class = "Sxiv" }},
