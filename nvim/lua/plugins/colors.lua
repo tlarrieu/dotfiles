@@ -48,6 +48,13 @@ return {
         ['@text.emphasis'] = { fg = c.none, italic = true },
         ['@text.reference'] = { fg = c.base3, bold = true },
 
+        -- Those are definitions that we use inside actual neorg configuration
+        NeorgDone = { fg = c.base01, bg = c.base03, italic = false },
+        NeorgPending = { fg = c.green, bg = c.base03, italic = false },
+        NeorgOnHold = { fg = c.yellow, bg = c.base03, italic = false },
+        NeorgUndone = { fg = c.red, bg = c.base03, italic = false },
+        NeorgCancelled = { link = 'NeorgDone' },
+
         CmpItemAbbrMatch = { fg = c.base0, bg = c.base02, underline = true, bold = true },
         CmpItemKindEnum = { bold = false },
         CmpItemKindFile = { bold = false },
