@@ -1,4 +1,4 @@
-local default_options = { remap = false, silent = true }
+local noremap = { remap = false, silent = true }
 local remap = { remap = true, silent = true }
 local silent = { silent = true }
 local noopts = {}
@@ -10,28 +10,28 @@ k.set('', '<leader>', '<nop>', { silent = true })
 
 --- {{{ --| basics |----------------------------------------
 -- Marks
-k.set('n', "'", '`', default_options)
-k.set('n', '`', "'", default_options)
-k.set('n', '<leader>m', ':delmarks!<cr>', default_options)
-k.set('i', '<c-cr>', '<esc>o', default_options)
+k.set('n', "'", '`', noremap)
+k.set('n', '`', "'", noremap)
+k.set('n', '<leader>m', ':delmarks!<cr>', noremap)
+k.set('i', '<c-cr>', '<esc>o', noremap)
 -- Split lines
-k.set('n', '<c-j>', 'i<cr><esc>', default_options)
+k.set('n', '<c-j>', 'i<cr><esc>', noremap)
 -- Don't make a # force column zero.
-k.set('i', '#', 'X<bs>#', default_options)
+k.set('i', '#', 'X<bs>#', noremap)
 -- Fuck you, help.
-k.set({ 'n', 'i' }, '<F1>', '<nop>', default_options)
+k.set({ 'n', 'i' }, '<F1>', '<nop>', noremap)
 -- Clever paste from system buffer
-k.set('', '<leader>p', '"+p', default_options)
-k.set('', '<leader>P', '"+P', default_options)
-k.set('', '<leader>y', '"+y', default_options)
-k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", default_options)
+k.set('', '<leader>p', '"+p', noremap)
+k.set('', '<leader>P', '"+P', noremap)
+k.set('', '<leader>y', '"+y', noremap)
+k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", noremap)
 -- Give a more logical behavior to Y
-k.set('n', 'Y', 'y$', default_options)
+k.set('n', 'Y', 'y$', noremap)
 -- Visual yank
-k.set('x', 'y', 'ygv<esc>', default_options)
-k.set('x', 'Y', 'Ygv<esc>', default_options)
+k.set('x', 'y', 'ygv<esc>', noremap)
+k.set('x', 'Y', 'Ygv<esc>', noremap)
 -- select the whole line
-k.set('n', 'vv', '^v$h', default_options)
+k.set('n', 'vv', '^v$h', noremap)
 -- Command line
 k.set({ 'n', 'x' }, 'è', ':', noopts)
 k.set({ 'n', 'x' }, 'È', ':!', noopts)
@@ -50,63 +50,63 @@ k.set('n', '<esc>', function()
   { silent = true, remap = false, expr = true }
 )
 -- Find character
-k.set({ 'n', 'x' }, ',', ';', default_options)
-k.set({ 'n', 'x' }, ';', ',', default_options)
+k.set({ 'n', 'x' }, ',', ';', noremap)
+k.set({ 'n', 'x' }, ';', ',', noremap)
 -- block
 k.set({ 'n', 'x' }, '<m-t>', '}', noopts)
 k.set({ 'n', 's' }, '<m-s>', '{', noopts)
 -- Close current buffer
-k.set('n', 'Q', ':bdelete!<cr>', default_options)
+k.set('n', 'Q', ':bdelete!<cr>', noremap)
 -- Normal mode
-k.set('c', '<esc>', '<c-c>', default_options)
+k.set('c', '<esc>', '<c-c>', noremap)
 -- Exit
-k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', default_options)
-k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', default_options)
+k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
+k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
 -- Save
-k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', default_options)
+k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', noremap)
 -- Reselect pasted lines
-k.set('n', 'gV', '`[v`]', default_options)
+k.set('n', 'gV', '`[v`]', noremap)
 -- It is more convenient to access numbers directly when in normal mode
-k.set('', '"', '1', default_options)
-k.set('', '1', '"', default_options)
-k.set('', '«', '2', default_options)
+k.set('', '"', '1', noremap)
+k.set('', '1', '"', noremap)
+k.set('', '«', '2', noremap)
 k.set('', '2', '<<_', remap)
 k.set('x', '2', '<gv', remap)
-k.set('', '»', '3', default_options)
+k.set('', '»', '3', noremap)
 k.set('', '3', '>>_', remap)
 k.set('x', '3', '>gv', remap)
-k.set('', '(', '4', default_options)
-k.set('', '4', '(', default_options)
-k.set('', ')', '5', default_options)
-k.set('', '5', ')', default_options)
-k.set('', '@', '6', default_options)
-k.set('', '6', '@', default_options)
-k.set('', '+', '7', default_options)
-k.set('', '7', ':GitGutterStageHunk<cr>', default_options)
-k.set('', '-', '8', default_options)
-k.set('', '8', ':GitGutterUndoHunk<cr>', default_options)
-k.set('', '/', '9', default_options)
-k.set('', '9', '/', default_options)
-k.set('', '*', '0', default_options)
-k.set('', '0', '*', default_options)
+k.set('', '(', '4', noremap)
+k.set('', '4', '(', noremap)
+k.set('', ')', '5', noremap)
+k.set('', '5', ')', noremap)
+k.set('', '@', '6', noremap)
+k.set('', '6', '@', noremap)
+k.set('', '+', '7', noremap)
+k.set('', '7', ':GitGutterStageHunk<cr>', noremap)
+k.set('', '-', '8', noremap)
+k.set('', '8', ':GitGutterUndoHunk<cr>', noremap)
+k.set('', '/', '9', noremap)
+k.set('', '9', '/', noremap)
+k.set('', '*', '0', noremap)
+k.set('', '0', '*', noremap)
 -- diff hunk navigation
 k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', silent)
 k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', silent)
 -- quickfix navigation
-k.set('n', '<a-p>', ':cprev<cr>', default_options)
-k.set('n', '<a-n>', ':cnext<cr>', default_options)
+k.set('n', '<a-p>', ':cprev<cr>', noremap)
+k.set('n', '<a-n>', ':cnext<cr>', noremap)
 -- sort
-k.set('x', '<leader>s', ':sort<cr>', default_options)
+k.set('x', '<leader>s', ':sort<cr>', noremap)
 -- macro
-k.set('', '<leader><leader>', '@q', default_options)
-k.set('x', '<leader><leader>', ':normal 6q<cr>', default_options)
+k.set('', '<leader><leader>', '@q', noremap)
+k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
 --- }}}
 --- {{{ --| quick access |----------------------------------
 k.set('n', '<leader>es', function()
   require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
-end, default_options)
-k.set('n', '<leader>.', ':tabedit .<cr>', default_options)
-k.set('n', '<leader>v.', ':vsplit .<cr>', default_options)
+end, noremap)
+k.set('n', '<leader>.', ':tabedit .<cr>', noremap)
+k.set('n', '<leader>v.', ':vsplit .<cr>', noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
@@ -140,38 +140,38 @@ k.set('n', '<leader>g', function()
   ]]
 end, noopts)
 -- Quickfix / Location list
-k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', default_options)
-k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', default_options)
+k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
+k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
-k.set('t', '<c-s>', '<c-\\><c-n>', default_options)
+k.set('t', '<c-s>', '<c-\\><c-n>', noremap)
 
-k.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', default_options)
-k.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', default_options)
-k.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', default_options)
+k.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', noremap)
+k.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', noremap)
+k.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', noremap)
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
-k.set('n', '<left>', '<c-w><', default_options)
-k.set('n', '<right>', '<c-w>>', default_options)
-k.set('n', '<up>', '<c-w>+', default_options)
-k.set('n', '<down>', '<c-w>-', default_options)
-k.set('n', 'cO', ':tabo<cr><c-w>o', default_options)
-k.set('n', 'co', '<c-w>o', default_options)
+k.set('n', '<left>', '<c-w><', noremap)
+k.set('n', '<right>', '<c-w>>', noremap)
+k.set('n', '<up>', '<c-w>+', noremap)
+k.set('n', '<down>', '<c-w>-', noremap)
+k.set('n', 'cO', ':tabo<cr><c-w>o', noremap)
+k.set('n', 'co', '<c-w>o', noremap)
 -- Hack to make <c-w><c-c> mapping work
-k.set('', '<c-c>', '<nop>', default_options)
-k.set('', '<c-w><c-c>', '<c-w>H', default_options)
-k.set('', '<c-w><c-t>', '<c-w>J', default_options)
-k.set('', '<c-w><c-s>', '<c-w>K', default_options)
-k.set('', '<c-w><c-r>', '<c-w>L', default_options)
+k.set('', '<c-c>', '<nop>', noremap)
+k.set('', '<c-w><c-c>', '<c-w>H', noremap)
+k.set('', '<c-w><c-t>', '<c-w>J', noremap)
+k.set('', '<c-w><c-s>', '<c-w>K', noremap)
+k.set('', '<c-w><c-r>', '<c-w>L', noremap)
 -- Horizontal Split
-k.set('n', '<leader>nn', ':new<cr>', default_options)
-k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", default_options)
+k.set('n', '<leader>nn', ':new<cr>', noremap)
+k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Vertical split
-k.set('n', '<leader>vv', ':vnew<cr>', default_options)
+k.set('n', '<leader>vv', ':vnew<cr>', noremap)
 k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noopts)
 -- Dimensions
-k.set('n', '<leader>=', '<c-w>=', default_options)
-k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', default_options)
+k.set('n', '<leader>=', '<c-w>=', noremap)
+k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
 -- Moving around
 k.set('n', '<c-i>', '<c-i>', noopts) -- force standard ctrl-i behavior (because we redefine tab later on)
 k.set('n', '<c-o>', '<c-o>', noopts) -- force standard ctrl+o behavior (mostly to be symetrical)
@@ -180,7 +180,7 @@ k.set('n', '<s-tab>', '<c-w>W', noopts)
 k.set('n', '<c-n>', 'gt', noopts)
 k.set('n', '<c-p>', 'gT', noopts)
 -- New tab
-k.set('n', '<leader>tt', ':tabe<cr>', default_options)
+k.set('n', '<leader>tt', ':tabe<cr>', noremap)
 k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noopts)
 -- Move current tab
 k.set('n', '<leader>tm', ':tabm<leader>', noopts)
@@ -210,14 +210,14 @@ end, noopts)
 --- }}}
 --- {{{ --| folds management |------------------------------
 k.set('n', '<leader>z', 'zMzv', noopts)
-k.set('n', '<leader>Z', 'zR', default_options)
-k.set('n', 'zO', 'zczO', default_options)
+k.set('n', '<leader>Z', 'zR', noremap)
+k.set('n', 'zO', 'zczO', noremap)
 --- }}}
 --- {{{ --| neoformat |-------------------------------------
-k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', default_options)
+k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', noremap)
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
-k.set('n', '<leader>,', ':ArgWrap<CR>', default_options)
+k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
 k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
@@ -226,20 +226,20 @@ k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
 k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
 --- }}}
 --- {{{ --| fugitive |--------------------------------------
-k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', default_options)
-k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', default_options)
-k.set('n', '<leader>b', ':Git blame<cr>', default_options)
-k.set('n', '<leader>c', ':Git commit --quiet<cr>', default_options)
-k.set('n', '<leader>d', ':Gvdiff<cr>', default_options)
-k.set('n', '<leader>D', ':Gvdiff master<cr>', default_options)
-k.set('n', '<leader>ed', ':tab Git diff --staged<cr>', default_options)
-k.set('n', '<leader>r', ':Gread<cr>', default_options)
-k.set('n', '<leader>R', ':Git reset %<cr>', default_options)
-k.set('n', '<leader>s', ':Git<cr>', default_options)
-k.set('n', '<leader>S', ':GV<cr>', default_options)
-k.set('x', '<leader>S', ":'<,'>GV<cr>", default_options)
-k.set('n', '<leader>w', ':Gwrite<cr>', default_options)
+k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', noremap)
+k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', noremap)
+k.set('n', '<leader>b', ':Git blame<cr>', noremap)
+k.set('n', '<leader>c', ':Git commit --quiet<cr>', noremap)
+k.set('n', '<leader>d', ':Gvdiff<cr>', noremap)
+k.set('n', '<leader>D', ':Gvdiff master<cr>', noremap)
+k.set('n', '<leader>ed', ':tab Git diff --staged<cr>', noremap)
+k.set('n', '<leader>r', ':Gread<cr>', noremap)
+k.set('n', '<leader>R', ':Git reset %<cr>', noremap)
+k.set('n', '<leader>s', ':Git<cr>', noremap)
+k.set('n', '<leader>S', ':GV<cr>', noremap)
+k.set('x', '<leader>S', ":'<,'>GV<cr>", noremap)
+k.set('n', '<leader>w', ':Gwrite<cr>', noremap)
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-k.set('x', '<leader>d', ':Linediff<cr>', default_options)
+k.set('x', '<leader>d', ':Linediff<cr>', noremap)
 --- }}}
