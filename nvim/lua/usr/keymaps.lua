@@ -31,15 +31,15 @@ k.set('x', 'Y', 'Ygv<esc>', noremap)
 -- select the whole line
 k.set('n', 'vv', '^v$h', noremap)
 -- Command line
-k.set({ 'n', 'x' }, 'è', ':', noremap)
-k.set({ 'n', 'x' }, 'È', ':!', noremap)
+k.set({ 'n', 'x' }, 'è', ':')
+k.set({ 'n', 'x' }, 'È', ':!')
 -- search
-k.set({ 'n', 'x' }, 'é', '/', noremap)
+k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurences of word under cursor
 k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noremap)
 -- find & replace
-k.set('n', 'É', ':%s/<space><bs>', noremap)
-k.set('x', 'É', '<esc>:%s/\\%V<space><bs>', noremap)
+k.set('n', 'É', ':%s/<space><bs>')
+k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
 -- hide search matches
 k.set('n', '<esc>', function()
     require('illuminate').pause()
@@ -166,7 +166,7 @@ k.set('n', '<leader>nn', ':new<cr>', noremap)
 k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Vertical split
 k.set('n', '<leader>vv', ':vnew<cr>', noremap)
-k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
+k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Dimensions
 k.set('n', '<leader>=', '<c-w>=', noremap)
 k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
@@ -181,7 +181,7 @@ k.set('n', '<c-p>', 'gT', noremap)
 k.set('n', '<leader>tt', ':tabe<cr>', noremap)
 k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Move current tab
-k.set('n', '<leader>tm', ':tabm<leader>', noremap)
+k.set('n', '<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
 k.set('n', '<leader>U', '<c-w>T', noremap)
 -- merge current split into lefthand tab
