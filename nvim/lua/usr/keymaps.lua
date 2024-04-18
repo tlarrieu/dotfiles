@@ -1,6 +1,5 @@
 local noremap = { remap = false, silent = true }
 local remap = { remap = true, silent = true }
-local noopts = {}
 
 local k = vim.keymap
 
@@ -32,15 +31,15 @@ k.set('x', 'Y', 'Ygv<esc>', noremap)
 -- select the whole line
 k.set('n', 'vv', '^v$h', noremap)
 -- Command line
-k.set({ 'n', 'x' }, 'è', ':', noopts)
-k.set({ 'n', 'x' }, 'È', ':!', noopts)
+k.set({ 'n', 'x' }, 'è', ':', noremap)
+k.set({ 'n', 'x' }, 'È', ':!', noremap)
 -- search
-k.set({ 'n', 'x' }, 'é', '/', noopts)
+k.set({ 'n', 'x' }, 'é', '/', noremap)
 -- replace occurences of word under cursor
-k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noopts)
+k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noremap)
 -- find & replace
-k.set('n', 'É', ':%s/<space><bs>', noopts)
-k.set('x', 'É', '<esc>:%s/\\%V<space><bs>', noopts)
+k.set('n', 'É', ':%s/<space><bs>', noremap)
+k.set('x', 'É', '<esc>:%s/\\%V<space><bs>', noremap)
 -- hide search matches
 k.set('n', '<esc>', function()
     require('illuminate').pause()
@@ -52,8 +51,8 @@ k.set('n', '<esc>', function()
 k.set({ 'n', 'x' }, ',', ';', noremap)
 k.set({ 'n', 'x' }, ';', ',', noremap)
 -- block
-k.set({ 'n', 'x' }, '<m-t>', '}', noopts)
-k.set({ 'n', 's' }, '<m-s>', '{', noopts)
+k.set({ 'n', 'x' }, '<m-t>', '}', noremap)
+k.set({ 'n', 's' }, '<m-s>', '{', noremap)
 -- Close current buffer
 k.set('n', 'Q', ':bdelete!<cr>', noremap)
 -- Normal mode
@@ -109,12 +108,12 @@ k.set('n', '<leader>v.', ':vsplit .<cr>', noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Toggle highlight current word
-k.set('n', "<leader>'", require('illuminate').resume, noopts)
-k.set('n', "<a-e>", require('illuminate').goto_next_reference, noopts)
-k.set('n', "<a-i>", require('illuminate').goto_prev_reference, noopts)
+k.set('n', "<leader>'", require('illuminate').resume, noremap)
+k.set('n', "<a-e>", require('illuminate').goto_next_reference, noremap)
+k.set('n', "<a-i>", require('illuminate').goto_prev_reference, noremap)
 -- Uppercase current word
-k.set('n', '<c-g>', 'gUiw', noopts)
-k.set('i', '<c-g>', '<esc>gUiwea', noopts)
+k.set('n', '<c-g>', 'gUiw', noremap)
+k.set('i', '<c-g>', '<esc>gUiwea', noremap)
 -- Clear trailing leaders (but not the escaped ones)
 k.set('n', '<leader>k', function()
   vim.cmd [[
@@ -125,7 +124,7 @@ k.set('n', '<leader>k', function()
     nohl
     normal! g``
   ]]
-end, noopts)
+end, noremap)
 -- Cursorline / Cursorcolumn
 k.set('n', '<leader>g', function()
   vim.cmd [[
@@ -137,7 +136,7 @@ k.set('n', '<leader>g', function()
     setlocal cursorcolumn!
     setlocal cursorline!
   ]]
-end, noopts)
+end, noremap)
 -- Quickfix / Location list
 k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
@@ -167,24 +166,24 @@ k.set('n', '<leader>nn', ':new<cr>', noremap)
 k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Vertical split
 k.set('n', '<leader>vv', ':vnew<cr>', noremap)
-k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noopts)
+k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Dimensions
 k.set('n', '<leader>=', '<c-w>=', noremap)
 k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
 -- Moving around
-k.set('n', '<c-i>', '<c-i>', noopts) -- force standard ctrl-i behavior (because we redefine tab later on)
-k.set('n', '<c-o>', '<c-o>', noopts) -- force standard ctrl+o behavior (mostly to be symetrical)
-k.set('n', '<tab>', '<c-w>w', noopts)
-k.set('n', '<s-tab>', '<c-w>W', noopts)
-k.set('n', '<c-n>', 'gt', noopts)
-k.set('n', '<c-p>', 'gT', noopts)
+k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because we redefine tab later on)
+k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symetrical)
+k.set('n', '<tab>', '<c-w>w', noremap)
+k.set('n', '<s-tab>', '<c-w>W', noremap)
+k.set('n', '<c-n>', 'gt', noremap)
+k.set('n', '<c-p>', 'gT', noremap)
 -- New tab
 k.set('n', '<leader>tt', ':tabe<cr>', noremap)
-k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noopts)
+k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Move current tab
-k.set('n', '<leader>tm', ':tabm<leader>', noopts)
+k.set('n', '<leader>tm', ':tabm<leader>', noremap)
 -- move current split to a new tab
-k.set('n', '<leader>U', '<c-w>T', noopts)
+k.set('n', '<leader>U', '<c-w>T', noremap)
 -- merge current split into lefthand tab
 k.set('n', '<leader>u', function()
   local curtab = vim.api.nvim_get_current_tabpage()
@@ -205,10 +204,10 @@ k.set('n', '<leader>u', function()
   vim.api.nvim_set_current_tabpage(prevtab)
   vim.cmd.vsplit()
   vim.api.nvim_win_set_buf(0, buf)
-end, noopts)
+end, noremap)
 --- }}}
 --- {{{ --| folds management |------------------------------
-k.set('n', '<leader>z', 'zMzv', noopts)
+k.set('n', '<leader>z', 'zMzv', noremap)
 k.set('n', '<leader>Z', 'zR', noremap)
 k.set('n', 'zO', 'zczO', noremap)
 --- }}}
@@ -219,10 +218,10 @@ k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', noremap)
 k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
 --- {{{ --| angry |-----------------------------------------
-k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', noopts)
-k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', noopts)
-k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', noopts)
-k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', noopts)
+k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', remap)
+k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', remap)
+k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', remap)
+k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', remap)
 --- }}}
 --- {{{ --| fugitive |--------------------------------------
 k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', noremap)
