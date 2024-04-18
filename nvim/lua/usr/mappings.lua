@@ -12,9 +12,7 @@ k.set('', '<leader>', '<nop>', { silent = true })
 k.set('n', "'", '`', default_options)
 k.set('n', '`', "'", default_options)
 k.set('n', '<leader>m', ':delmarks!<cr>', default_options)
--- Beginning / end of the line
-k.set('c', '<c-a>', '<home>', default_options)
-k.set('c', '<c-e>', '<end>', default_options)
+k.set('i', '<c-cr>', '<esc>o', default_options)
 -- Split lines
 k.set('n', '<c-j>', 'i<cr><esc>', default_options)
 -- Don't make a # force column zero.
