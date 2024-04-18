@@ -44,6 +44,7 @@ return {
             { event = 'msg_show', find = '".*" .*L, .*B' },
             { event = 'msg_show', kind = 'search_count' },
             { event = 'msg_show', find = 'search hit BOTTOM' },
+            { event = 'msg_show', find = 'search hit TOP' },
             { event = 'msg_show', find = 'Pattern not found' },
             { event = 'msg_show', find = 'Hunk' },
             { event = 'msg_show', find = 'hunk' },
