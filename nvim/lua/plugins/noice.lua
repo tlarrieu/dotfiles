@@ -8,16 +8,6 @@ return {
     cmdline = {
       enabled = true,
       view = 'cmdline_popup',
-      opts = {
-        position = {
-          row = '20%',
-          col = '50%',
-        },
-        border = {
-          -- "'double'"|"'none'"|"'rounded'"|"'shadow'"|"'single'"|"'solid'"
-          style = 'single',
-        },
-      },
       format = {
         -- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
         -- view: (default is cmdline view)
@@ -28,8 +18,8 @@ return {
         replace = { kind = 'search', pattern = '^:%%s/', icon = '󰃕 ', lang = 'regex', title = '' },
         search_down = { kind = 'search', pattern = '^/', icon = ' ', lang = 'regex', title = '' },
         search_up = { kind = 'search', pattern = '^%?', icon = ' ', lang = 'regex', title = '' },
+        filter = { kind = 'search', pattern = '^:%%s!', icon = ' ', lang = 'bash', title = '' },
         shell = { pattern = '^:!', icon = ' ', lang = 'bash', title = '' },
-        filter = { pattern = '^:%%s!', icon = ' ', lang = 'bash', title = '' },
         lua = { pattern = '^:lua ', icon = ' ', lang = 'lua', title = '' },
         vim = { pattern = '^:call ', icon = ' ', lang = 'vim', title = '' },
         input = { title = '' },
@@ -37,6 +27,15 @@ return {
     },
     messages = {
       enabled = true,
+    },
+    views = {
+      cmdline_popup = {
+        position = { row = '20%', col = '50%' },
+        border = { style = "single" },
+      },
+      confirm = {
+        border = { style = "single", padding = { 0, 1 } },
+      },
     },
     routes = {
       {
@@ -94,6 +93,6 @@ return {
         ['vim.lsp.util.stylize_markdown'] = true,
         ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
       },
-    }
+    },
   }
 }
