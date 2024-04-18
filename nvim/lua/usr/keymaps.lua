@@ -1,12 +1,11 @@
 local noremap = { remap = false, silent = true }
 local remap = { remap = true, silent = true }
-local silent = { silent = true }
 local noopts = {}
 
 local k = vim.keymap
 
 -- Avoiding moving cursor when hitting <leader> followed by nothing
-k.set('', '<leader>', '<nop>', { silent = true })
+k.set('', '<leader>', '<nop>', noremap)
 
 --- {{{ --| basics |----------------------------------------
 -- Marks
@@ -90,8 +89,8 @@ k.set('', '9', '/', noremap)
 k.set('', '*', '0', noremap)
 k.set('', '0', '*', noremap)
 -- diff hunk navigation
-k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', silent)
-k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', silent)
+k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', noremap)
+k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', noremap)
 -- quickfix navigation
 k.set('n', '<a-p>', ':cprev<cr>', noremap)
 k.set('n', '<a-n>', ':cnext<cr>', noremap)
