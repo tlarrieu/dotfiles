@@ -22,7 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
 
-require('usr/mappings')
+require('usr/keymaps')
 require('usr/options')
 require('usr/globals')
 require('usr/abbrev')
