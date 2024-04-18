@@ -1,4 +1,3 @@
--- vim:fdm=marker
 -- -----------------------------------------------------------------------------
 -- tlarrieu's nvim.lua
 -- Designed for dvorak-bépo keyboard
