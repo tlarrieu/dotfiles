@@ -1,12 +1,6 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  -- skeletons
-  s("_skel", fmta([[
-      #!/bin/sh
-
-      <>
-    ]], { i(0) })),
   s("!", fmta([[
       #!/bin/sh
 
@@ -46,4 +40,10 @@ return {
   s("pink", fmta('echo "$(tput setaf 5)<><>$(tput sgr0)"', { sel(), i(0) })),
   s("cyan", fmta('echo "$(tput setaf 6)<><>$(tput sgr0)"', { sel(), i(0) })),
 }, {
+  -- skeletons
+  s("__skel", fmta([[
+      #!/bin/sh
+
+      <>
+    ]], { i(0) })),
 }

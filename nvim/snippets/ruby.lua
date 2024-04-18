@@ -1,14 +1,6 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  -- skeletons
-  s("_skel", fmta([[
-    #!/usr/bin/env ruby
-    # frozen_string_literal: true
-
-    <>
-    ]], { i(0) })),
-
   s("#!", fmta("#!/usr/bin/env ruby", {})),
   s("fr", fmta("# frozen_string_literal: true", {})),
 
@@ -133,4 +125,11 @@ return {
     print("\e[0m")
     ]], { sel(), i(1) })),
 }, {
+  -- skeletons
+  s("__skel", fmta([[
+    #!/usr/bin/env ruby
+    # frozen_string_literal: true
+
+    <>
+    ]], { i(0) })),
 }

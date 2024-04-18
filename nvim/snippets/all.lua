@@ -8,5 +8,6 @@ return {
   s("note", fmta('NOTE: ', {})),
   s("test", fmta('TEST: ', {})),
   s("hack", fmta('HACK: ', {})),
+  s("skel", fmta('s("__<>", fmta([[<>]], {<>})),', { i(1, 'skel'), i(2), i(3) })),
 }, {
 }

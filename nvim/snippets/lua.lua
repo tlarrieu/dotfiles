@@ -56,4 +56,12 @@ return {
     vim.keymap.set(<>, '<>', '<>', { <> })
     ]], { i(1, "mode"), i(2, "lhs"), i(3, "rhs"), i(4, "options") })),
 }, {
+  s("__snippets", fmta([[
+    ---@diagnostic disable: undefined-global
+
+    return {
+      <>
+    }, {
+    }
+    ]], {i(0)})),
 }

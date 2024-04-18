@@ -1,14 +1,5 @@
 local luasnip = require('luasnip')
 
--- TODO: find a more robust way than relying on keybind
-local function expand(name)
-  vim.cmd.startinsert()
-  vim.api.nvim_feedkeys(name, "insert", true)
-  vim.api.nvim_input('<c-e>')
-
-  return true
-end
-
 local function bootstrap()
   -- Index all snipets for filetypes
   local xs = {}
@@ -20,6 +11,8 @@ local function bootstrap()
 
   -- query projectionist
   local skeleton = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
+  local found = skeleton ~= nil
+  if found then skeleton = '__' .. skeleton end
 
   if skeleton and not xs[skeleton] then
     vim.notify(
@@ -30,10 +23,17 @@ local function bootstrap()
     return false
   end
 
-  skeleton = skeleton or "_skel"
-  if xs[skeleton] then return expand(skeleton) end
+  skeleton = skeleton or "__skel"
 
-  return false
+  if not xs[skeleton] then return false end
+
+  -- NOTE: skeletons have to be in the auto expand section of the snippet file
+  -- I could not find a way to make it work cleanly in all situation by triggering
+  -- the snippet manually (with vim.api.nvim_input)
+  vim.cmd.startinsert()
+  vim.api.nvim_feedkeys(skeleton, "insert", true)
+
+  return true
 end
 
 vim.api.nvim_create_autocmd('BufNewFile', {

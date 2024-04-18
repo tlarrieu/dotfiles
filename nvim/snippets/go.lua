@@ -1,16 +1,6 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  -- Skeleton
-  s("_skel", fmta([[
-    package <>
-
-    func main() {
-    	<>
-    }]],
-    { i(1, "main"), i(0) }
-  )),
-
   -- main
   rs("^%s*main", fmta([[
       func main() {
@@ -80,4 +70,14 @@ return {
     }]], { cap(1), i(1, "err"), rep(1) }
   )),
 }, {
+  -- Skeleton
+  s("__skel", fmta([[
+    package <>
+
+    func main() {
+    	<>
+    }]],
+    { i(1, "main"), i(0) }
+  )),
+
 }
