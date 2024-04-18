@@ -132,7 +132,8 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
 
-      perso/cpf)
+      perso/cpf |\
+      perso/trainline)
         type $(login)
         press Tab
         press Tab
