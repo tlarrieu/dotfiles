@@ -39,6 +39,11 @@ return {
         NormalFloat = { bg = c.base03 },
         FloatBorder = { fg = c.base00, bg = c.base03 },
 
+        Folded = { link = 'Normal' },
+        FoldColumn = { link = 'SignColumn' },
+
+        YankHighlight = { bg = c.base02 },
+
         Search = { bg = c.base02 },
         CurSearch = { fg = c.base02, bg = c.green },
         IncSearch = { fg = c.base02, bg = c.magenta },
@@ -173,7 +178,7 @@ return {
     local group = vim.api.nvim_create_augroup("text_yank", {})
     vim.api.nvim_create_autocmd('TextYankPost', {
       pattern = '*',
-      callback = function() vim.highlight.on_yank({ higroup = "Folded", timeout = 200 }) end,
+      callback = function() vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 200 }) end,
       group = group,
     })
   end

@@ -79,16 +79,6 @@ o.expandtab = true
 o.shiftround = true
 -- }}}
 
--- {{{ ==| Folding |============================================================
-o.foldcolumn = '0'
-o.foldclose = ''
-o.foldmethod = 'indent'
-o.foldnestmax = 3
-o.foldlevelstart = 10
-o.fillchars:append('fold: ')
-o.foldminlines = 1
--- }}}
-
 -- {{{ ==| Searching |==========================================================
 -- case behavior regarding searching
 o.ignorecase = true
