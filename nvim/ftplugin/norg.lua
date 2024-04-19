@@ -9,7 +9,6 @@ o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 o.foldlevel = 5
 o.foldnestmax = 5
 o.foldenable = true
-o.autoindent = false
 
 local group = vim.api.nvim_create_augroup('NeorgAutocmd', {})
 vim.api.nvim_create_autocmd('BufEnter', {
