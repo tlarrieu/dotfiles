@@ -58,6 +58,7 @@ return {
           workspaces = {
             work = '~/.neorg/work',
             home = '~/.neorg/home',
+            gtd = '~/.neorg/gtd',
           },
           default_workspace = 'home'
         }

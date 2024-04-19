@@ -141,8 +141,6 @@ _M.keyboard = {
     -- [[ Applications ]] ------------------------------------------------------
 
     spawner.key({ mod }, " ",                shell("rofi -show run -lines 6")),
-    spawner.key({ "Control" }, " ",          shell("gtd-inbox")),
-    spawner.key({ mod }, ".",                shell("rofi-tasks")),
 
     spawner.key({ mod, "Shift" }, "c", {
       app = termstart("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
@@ -157,6 +155,11 @@ _M.keyboard = {
     spawner.key({ mod, "Shift" }, "i", {
       app = shell("notes"),
       props = { class = "wiki" },
+      callback = spawner.callbacks.move_client
+    }),
+    spawner.key({ mod }, ".", {
+      app = shell("gtd"),
+      props = { class = "gtd" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod }, "$", {

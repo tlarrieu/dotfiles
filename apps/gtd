@@ -1,0 +1,10 @@
+#!/bin/sh
+
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && source "$envfile"
+
+context=${CONTEXT:-"home"}
+
+root="~/.neorg/gtd"
+
+kitty --directory $root --class gtd -- nvim index.norg

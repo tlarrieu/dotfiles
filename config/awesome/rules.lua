@@ -81,6 +81,7 @@ awful.rules.rules = {
       class = {
         "scratchpad",
         "wiki",
+        "gtd",
         "man",
         "quake",
         "Seahorse",
