@@ -63,6 +63,7 @@ return {
             { event = 'msg_show', find = '<ed' },
             { event = 'msg_show', find = 'indented' },
             { event = 'msg_show', find = 'yanked' },
+            { event = 'msg_show', find = 'No fold found' },
           }
         },
         opts = { skip = true },
