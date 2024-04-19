@@ -24,6 +24,63 @@ return {
       local telescope_accent = c.base01
 
       return {
+        -- base
+
+        String = { italic = true },
+
+        ['@text.strong'] = { fg = c.none, bold = true },
+        ['@text.emphasis'] = { fg = c.none, italic = true },
+        ['@text.reference'] = { fg = c.base3, bold = true },
+
+        Cursor = { fg = c.base1, bg = c.base02 },
+        TermCursorNC = { link = 'Cursor' },
+
+        Normal = { bg = c.base03 },
+        NormalFloat = { bg = c.base03 },
+        FloatBorder = { fg = c.base00, bg = c.base03 },
+
+        Search = { bg = c.base02 },
+        CurSearch = { fg = c.base02, bg = c.green },
+        IncSearch = { fg = c.base02, bg = c.magenta },
+
+        SpellBad = { fg = c.red, undercurl = true },
+        SpellLocal = { fg = c.blue, undercurl = true },
+        SpellCap = { link = 'SpellLocal' },
+        SpellRare = { link = 'SpellLocal' },
+
+        Error = { undercurl = true },
+        DiagnosticUnderlineError = { undercurl = true, bg = c.base02 },
+
+        DiagnosticSignError = { fg = c.red, bg = c.base02 },
+        DiagnosticSignWarn = { fg = c.yellow, bg = c.base02 },
+        DiagnosticSignInfo = { fg = c.blue, bg = c.base02 },
+        DiagnosticSignHint = { fg = c.base0, bg = c.base02 },
+
+        NormalNC = { bg = c.base02 },
+        SignColumn = { link = 'NormalNC' },
+        WinSeparator = { fg = c.base01, bg = c.base02 },
+
+        StatusLine = { link = 'Normal' },
+        StatusLineNC = { link = 'Tabline' },
+
+        CursorLine = { link = 'CursorColumn' },
+
+        LineNr = { fg = c.magenta, bg = c.base02 },
+        LineNrAbove = { fg = c.base0, bg = c.base02 },
+        LineNrBelow = { link = 'LineNrAbove' },
+
+        DiffAdd = { fg = c.green, bg = c.none },
+        DiffChange = { fg = c.yellow, bg = c.none },
+        DiffDelete = { fg = c.red, bg = c.none },
+
+        QuickFixLine = { fg = c.yellow, bg = c.none },
+
+        Pmenu = { fg = c.blue, bg = c.base02 },
+        PmenuSel = { fg = c.base02, bg = c.magenta },
+        PmenuThumb = { fg = c.base02, bg = c.base00 },
+
+        -- plugins
+
         LazyNormal = { bg = c.base03 },
         MasonNormal = { bg = c.base03 },
 
@@ -41,12 +98,6 @@ return {
         TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
         TelescopeSelection = { fg = c.base0, bg = c.base02 },
         TelescopeMultiIcon = { link = 'TelescopeNormal' },
-
-        String = { italic = true },
-
-        ['@text.strong'] = { fg = c.none, bold = true },
-        ['@text.emphasis'] = { fg = c.none, italic = true },
-        ['@text.reference'] = { fg = c.base3, bold = true },
 
         -- Those are definitions that we use inside actual neorg configuration
         NeorgDone = { fg = c.base01, bg = c.base03, italic = false },
@@ -83,9 +134,6 @@ return {
         CmpItemKindConstructor = { bold = false },
         CmpGhostText = { fg = c.base01, bg = c.base02 },
 
-        Cursor = { fg = c.base1, bg = c.base02 },
-        TermCursorNC = { link = 'Cursor' },
-
         NoiceCursor = { fg = c.base02, bg = c.base01 },
         NoicePopupBorder = { fg = c.base00, bg = c.base03 },
         NoiceConfirmBorder = { fg = c.base00, bg = c.base03 },
@@ -97,10 +145,6 @@ return {
         NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
         NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
 
-        Normal = { bg = c.base03 },
-        NormalFloat = { bg = c.base03 },
-        FloatBorder = { fg = c.base00, bg = c.base03 },
-
         NotifyBackground = { bg = c.base03 },
         NotifyINFOBody = { link = 'NotifyBackground' },
         NotifyWARNBody = { link = 'NotifyINFOBody' },
@@ -108,59 +152,15 @@ return {
         NotifyDEBUGBody = { link = 'NotifyINFOBody' },
         NotifyTRACEBUGBody = { link = 'NotifyINFOBody' },
 
-        Tabline = { fg = c.base0, bg = c.base02 },
-        TablineSel = { fg = c.magenta, bg = c.base03 },
-        TablineFill = { link = 'Tabline' },
-
-        Search = { bg = c.base02 },
-        CurSearch = { fg = c.base02, bg = c.green },
-        IncSearch = { fg = c.base02, bg = c.magenta },
         IlluminatedWordText = { fg = c.base02, bg = c.blue },
-
-        SpellBad = { fg = c.red, undercurl = true },
-        SpellLocal = { fg = c.blue, undercurl = true },
-        SpellCap = { link = 'SpellLocal' },
-        SpellRare = { link = 'SpellLocal' },
-
-        Error = { undercurl = true },
-        DiagnosticUnderlineError = { undercurl = true, bg = c.base02 },
-
-        DiagnosticSignError = { fg = c.red, bg = c.base02 },
-        DiagnosticSignWarn = { fg = c.yellow, bg = c.base02 },
-        DiagnosticSignInfo = { fg = c.blue, bg = c.base02 },
-        DiagnosticSignHint = { fg = c.base0, bg = c.base02 },
-
-        NormalNC = { bg = c.base02 },
-        SignColumn = { link = 'NormalNC' },
-        WinSeparator = { fg = c.base01, bg = c.base02 },
-
-        StatusLine = { link = 'Normal' },
-        StatusLineNC = { link = 'Tabline' },
-
-        CursorLine = { link = 'CursorColumn' },
 
         MarkSignHL = { bg = c.base02 },
         MarkSignNumHL = { link = 'MarkSignHL' },
         MarkVirtTextHL = { link = 'MarkSignHL' },
 
-        LineNr = { fg = c.magenta, bg = c.base02 },
-        LineNrAbove = { fg = c.base0, bg = c.base02 },
-        LineNrBelow = { link = 'LineNrAbove' },
-
-        -- popup menu
-        Pmenu = { fg = c.blue, bg = c.base02 },
-        PmenuSel = { fg = c.base02, bg = c.magenta },
-        PmenuThumb = { fg = c.base02, bg = c.base00 },
-
         GitGutterAdd = { fg = c.green, bg = c.base02 },
         GitGutterChange = { fg = c.yellow, bg = c.base02 },
         GitGutterDelete = { fg = c.red, bg = c.base02 },
-
-        DiffAdd = { fg = c.green, bg = c.none },
-        DiffChange = { fg = c.yellow, bg = c.none },
-        DiffDelete = { fg = c.red, bg = c.none },
-
-        QuickFixLine = { fg = c.yellow, bg = c.none },
       }
     end
   },
