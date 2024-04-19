@@ -96,6 +96,21 @@ awful.rules.rules = {
     },
   },
 
+  -- [[ Never kill those ]] ----------------------------------------------------
+  {
+    rule_any = {
+      class = {
+        "scratchpad",
+        "wiki",
+        "gtd",
+        "quake",
+      }
+    },
+    properties = {
+      immortal = true,
+    },
+  },
+
   -- [[ Kitty ]] ---------------------------------------------------------------
   {
     rule = { class = "kitty" },
