@@ -129,6 +129,7 @@ local config = {
   { icon = "", rule = { class = "Seahorse" }},
   { icon = "", rule = { class = "Signal" }},
   { icon = "", rule = { class = "wiki" }},
+  { icon = "", rule = { class = "gtd" }},
   { icon = "", rule = { class = "taskwarrior" }},
   { icon = "", rule = { class = "Luakit" }},
   { icon = "", rule = { class = "nyxt" }},
