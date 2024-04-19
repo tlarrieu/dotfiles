@@ -97,6 +97,12 @@ return {
             },
           },
           highlights = {
+            headings = {
+              ['4'] = {
+                prefix = '+NeorgHeading4',
+                title = '+NeorgHeading4',
+              }
+            },
             todo_items = {
               done = '+NeorgDone',
               on_hold = '+NeorgOnHold',
