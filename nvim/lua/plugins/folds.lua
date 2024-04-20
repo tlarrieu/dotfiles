@@ -9,7 +9,11 @@ return {
         'content',
       },
       right = {
-        ' ', 'number_of_folded_lines', ' ', '󰁂', ' ',
+        ' ',
+        'number_of_folded_lines',
+        ' ',
+        '󰁂',
+        ' ',
         function(config) return config.fill_char:rep(3) end
       }
     },
