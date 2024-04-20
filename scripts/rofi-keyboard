@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -i -p '
+LAUNCHER='rofi -dmenu -i -p 󰥻'
 OPTIONS="Bépo\nDvorak\nColemak\nWorkman\nQwerty\nAzerty"
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
