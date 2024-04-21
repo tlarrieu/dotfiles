@@ -1,8 +1,5 @@
 return {
   'anuvyklack/pretty-fold.nvim',
-  dependencies = {
-    'yaocccc/nvim-foldsign'
-  },
   opts = {
     sections = {
       left = {
@@ -31,13 +28,5 @@ return {
     o.foldminlines = 2
 
     require('pretty-fold').setup(opts)
-    require('nvim-foldsign').setup({
-      offset = -3,
-      foldsigns = {
-        open = '―', -- mark the beginning of a fold
-        close = '', -- show a closed fold
-        seps = { ' ' }, -- open fold middle marker
-      }
-    })
   end
 }

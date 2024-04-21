@@ -56,7 +56,7 @@ o.joinspaces = false
 o.updatetime = 250
 -- inccommand
 o.inccommand = 'nosplit'
-o.signcolumn = 'auto:2-9'
+o.signcolumn = 'auto:1-9'
 -- }}}
 
 -- {{{ ==| Splits |=============================================================

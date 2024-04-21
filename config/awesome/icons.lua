@@ -172,7 +172,7 @@ _M.fetch = function(client)
   for i = 1, #config do
     -- temporary solution to handle double width glyphs, gotta find a better
     -- solution
-    local icon = "" .. config[i].icon .. " "
+    local icon = config[i].icon .. " "
 
     if config[i].rules then
       for j = 1, #config[i].rules do
