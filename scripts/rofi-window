@@ -45,11 +45,8 @@ local s = result:match('^([0-9]+) .*$')
 if not s then return end
 
 local client = clients[tonumber(s)]
-if #client:tags() == 0 then
-  require('helpers').create_tag_and_attach_to(false)(client)
-else
-  client:jump_to()
-end
+if #client:tags() == 0 then require('helpers').create_tag_and_attach_to(client, false) end
+client:jump_to()
 END
 
 # vim:ft=lua

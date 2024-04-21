@@ -71,11 +71,11 @@ _M.keyboard = {
       c:move_to_tag(c.screen.selected_tag)
     end),
 
-    spawner.key({ mod }, "n", helpers.create_tag_and_attach_to(true)),
+    spawner.key({ mod }, "n", function(client) helpers.create_tag_and_attach_to(client, true) end),
 
     spawner.key({ mod }, "o", function(client)
       client:move_to_screen()
-      helpers.create_tag_and_attach_to(true)(client)
+      helpers.create_tag_and_attach_to(client, true)
 
       -- This is a **dirty** trick to counteract Awesome's fallback mechanism
       -- when closing a volatile tag (the focus goes to the next client of the

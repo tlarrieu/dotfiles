@@ -36,7 +36,7 @@ awful.rules.rules = {
       },
     },
     properties = {
-      callback = helpers.create_tag_and_attach_to(false),
+      callback = function(client) helpers.create_tag_and_attach_to(client, false) end,
     },
   },
 

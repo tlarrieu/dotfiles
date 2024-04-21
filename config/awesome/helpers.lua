@@ -13,20 +13,18 @@ _M.create_tag = function(screen)
   return awful.tag.add("", config)
 end
 
-_M.create_tag_and_attach_to = function(force)
-  return function(client)
-    local screen = client.screen
-    local tag
+_M.create_tag_and_attach_to = function(client, force)
+  local screen = client.screen
+  local tag
 
-    if not force and client.floating and not client.fullscreen then
-      tag = screen.selected_tag
-    end
-
-    tag = tag or _M.create_tag(screen)
-
-    client:tags({ tag })
-    tag:view_only()
+  if not force and client.floating and not client.fullscreen then
+    tag = screen.selected_tag
   end
+
+  tag = tag or _M.create_tag(screen)
+
+  client:tags({ tag })
+  tag:view_only()
 end
 
 _M.resize_and_center = function(client)
