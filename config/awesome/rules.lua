@@ -104,6 +104,7 @@ awful.rules.rules = {
         "wiki",
         "gtd",
         "quake",
+        "steam",
       }
     },
     properties = {
