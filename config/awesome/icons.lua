@@ -106,6 +106,9 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "amazon" }},
   { icon = "󰨈", rule = { class = "Chromium", instance = "pratebay" }},
 
+  -- Misc
+  { icon = "󰓙", rule = { class = "Chromium", instance = "doctolib" }},
+
   --  Default browser
   { icon = "", rule = { class = "Chromium" }},
 
