@@ -20,25 +20,6 @@ local dotfiles = string.format("%s/git/dotfiles", os.getenv("HOME"))
 local sandbox = string.format("%s/sandbox", os.getenv("HOME"))
 local mod = "Mod4"
 
-local shell = function(command)
-  return "fish -c '" .. command .. "'"
-end
-
-local termstart = function(cmd, opts)
-  local options = ""
-  if opts then
-    for name, value in pairs(opts) do
-      options = string.format("%s --%s %s", options, name, value)
-    end
-  end
-
-  return shell(string.format(
-    "kitty --single-instance %s %s",
-    options,
-    cmd
-  ))
-end
-
 local increment = 0.01
 
 local view_tag = function(id) awful.screen.focused().tags[id]:view_only() end
@@ -108,7 +89,7 @@ _M.keyboard = {
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawner.key({ mod }, "l",              shell('rofi-layouts')),
+    spawner.key({ mod }, "l",              spawner.shell('rofi-layouts')),
 
     spawner.key({ mod }, "c",              awful.tag.viewprev),
     spawner.key({ mod }, "Left",           awful.tag.viewprev),
@@ -142,75 +123,75 @@ _M.keyboard = {
 
     -- [[ Context ]] -----------------------------------------------------------
 
-    spawner.key({mod, "Shift"}, "t",         shell("cont")),
+    spawner.key({mod, "Shift"}, "t",         spawner.shell("cont")),
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod }, " ",                shell("rofi -show run -lines 6")),
+    spawner.key({ mod }, " ",                spawner.shell("rofi -show run -lines 6")),
 
     spawner.key({ mod, "Shift" }, "c", {
-      app = termstart("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
+      app = spawner.termstart("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
       props = { class = "config" },
       callback = spawner.callbacks.jump_to_client
     }),
     spawner.key({ mod, "Shift" }, "e", {
-      app = termstart("nvim ~/.scratchpad.md", { class = "scratchpad" }),
+      app = spawner.termstart("nvim ~/.scratchpad.md", { class = "scratchpad" }),
       props = { class = "scratchpad" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod, "Shift" }, "i", {
-      app = shell("notes"),
+      app = spawner.shell("notes"),
       props = { class = "wiki" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod }, ".", {
-      app = shell("gtd"),
+      app = spawner.shell("gtd"),
       props = { class = "gtd" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod }, "$", {
-      app = termstart("", { class = "quake" }),
+      app = spawner.termstart("", { class = "quake" }),
       props = { class = "quake" },
       callback = spawner.callbacks.move_client
     }),
     -- Open last downloaded video
-    spawner.key({ mod, "Shift" }, "o",     shell("cd ~/sandbox; open (ls -1tc | head -n 1)")),
+    spawner.key({ mod, "Shift" }, "o",     spawner.shell("cd ~/sandbox; open (ls -1tc | head -n 1)")),
 
     spawner.key({ mod }, "Tab",            function() require('rofi-windows')() end),
-    spawner.key({mod, "Control"}, "Tab",   shell("rofi-monitors")),
-    spawner.key({}, "F12",                 shell("rofi-wifi")),
-    spawner.key({ mod }, "F2",             shell("rofi-keyboard")),
-    spawner.key({ mod }, "k",              shell("rofi-emojis")),
-    spawner.key({ mod }, "f",              shell("rofi-nerdfont")),
-    spawner.key({ mod }, "à",              shell("rofi-bluetooth")),
-    spawner.key({ mod }, "y",              shell("pulseaudio-ctl mute-input")),
-    spawner.key({ mod }, "Escape",         shell("rofi-pass")),
-    spawner.key({ mod }, ",",              shell("rofi-search")),
+    spawner.key({mod, "Control"}, "Tab",   spawner.shell("rofi-monitors")),
+    spawner.key({}, "F12",                 spawner.shell("rofi-wifi")),
+    spawner.key({ mod }, "F2",             spawner.shell("rofi-keyboard")),
+    spawner.key({ mod }, "k",              spawner.shell("rofi-emojis")),
+    spawner.key({ mod }, "f",              spawner.shell("rofi-nerdfont")),
+    spawner.key({ mod }, "à",              spawner.shell("rofi-bluetooth")),
+    spawner.key({ mod }, "y",              spawner.shell("pulseaudio-ctl mute-input")),
+    spawner.key({ mod }, "Escape",         spawner.shell("rofi-pass")),
+    spawner.key({ mod }, ",",              spawner.shell("rofi-search")),
 
-    spawner.key({ mod }, "q",              shell("rofi-power")),
-    spawner.key({ mod }, "a",              termstart("pulsemixer", { class = "mixer" })),
+    spawner.key({ mod }, "q",              spawner.shell("rofi-power")),
+    spawner.key({ mod }, "a",              spawner.termstart("pulsemixer", { class = "mixer" })),
 
-    spawner.key({ mod }, "m",              shell("mpc-library")),
-    spawner.key({ mod, "Shift"}, "m",      shell("toggle-dim-mpd.sh")),
-    spawner.key({ mod }, "b",              shell("mpc-playlist")),
+    spawner.key({ mod }, "m",              spawner.shell("mpc-library")),
+    spawner.key({ mod, "Shift"}, "m",      spawner.shell("toggle-dim-mpd.sh")),
+    spawner.key({ mod }, "b",              spawner.shell("mpc-playlist")),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
-    spawner.key({ mod }, "u",              termstart("vifm")),
+    spawner.key({ mod }, "u",              spawner.termstart("vifm")),
     spawner.key({ mod, "Shift"}, "u",      "thunar"),
-    spawner.key({ mod }, "g",              shell("wallpaper")),
-    spawner.key({ mod }, "h",              termstart(shell("gtgf"), { class = "gtgf" })),
+    spawner.key({ mod }, "g",              spawner.shell("wallpaper")),
+    spawner.key({ mod }, "h",              spawner.termstart(spawner.shell("gtgf"), { class = "gtgf" })),
 
-    spawner.key({ mod, "Shift" }, "b",     termstart("", { directory = sandbox })),
-    spawner.key({ mod }, "percent",        termstart(
-      shell("ytdl"),
+    spawner.key({ mod, "Shift" }, "b",     spawner.termstart("", { directory = sandbox })),
+    spawner.key({ mod }, "percent",        spawner.termstart(
+      spawner.shell("ytdl"),
       { directory = sandbox, class = "download" }
     )),
-    spawner.key({ mod }, "equal",          shell("open (xsel --clipboard -o)")),
+    spawner.key({ mod }, "equal",          spawner.shell("open (xsel --clipboard -o)")),
 
-    spawner.key({ mod }, "'",              termstart("")),
-    spawner.key({ mod, "Shift" }, "'",     termstart("", { class = "kitty-light" })),
+    spawner.key({ mod }, "'",              spawner.termstart("")),
+    spawner.key({ mod, "Shift" }, "'",     spawner.termstart("", { class = "kitty-light" })),
 
-    spawner.key({ mod }, "p",              shell("screenshot.sh"))
+    spawner.key({ mod }, "p",              spawner.shell("screenshot.sh"))
   )
 }
 
@@ -242,5 +223,3 @@ _M.mouse = {
 }
 
 return _M
-
--- vim: textwidth=100

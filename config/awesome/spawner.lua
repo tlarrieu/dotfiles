@@ -2,12 +2,32 @@ local awful = require("awful")
 
 local _M = {}
 
+-- FIXME: investigate (this most likely does not return anything anytime)
 local find_client = function(props)
   for _, client in ipairs(client.get()) do
     if awful.rules.match(client, props) then
       return client
     end
   end
+end
+
+_M.shell = function(command)
+  return "fish -c '" .. command .. "'"
+end
+
+_M.termstart = function(cmd, opts)
+  local options = ""
+  if opts then
+    for name, value in pairs(opts) do
+      options = string.format("%s --%s %s", options, name, value)
+    end
+  end
+
+  return _M.shell(string.format(
+    "kitty --single-instance %s %s",
+    options,
+    cmd
+  ))
 end
 
 _M.grab_mouse_until_released = function()
