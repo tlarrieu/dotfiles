@@ -139,7 +139,8 @@ searchengines = {
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
-  'man'  => Man.new
+  'man'  => Man.new,
+  'nerd' => Browser.new('https://www.nerdfonts.com/cheat-sheet?q=%s'),
 }
 # rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
 
