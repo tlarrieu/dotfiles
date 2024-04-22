@@ -108,6 +108,7 @@ local config = {
 
   -- Misc
   { icon = "󰓙", rule = { class = "Chromium", instance = "doctolib" }},
+  { icon = "󰚗", rule = { class = "Chromium", instance = "malt" }},
 
   --  Default browser
   { icon = "", rule = { class = "Chromium" }},
