@@ -2,7 +2,6 @@ local awful = require("awful")
 
 local _M = {}
 
--- FIXME: investigate (this most likely does not return anything anytime)
 local find_client = function(props)
   for _, client in ipairs(client.get()) do
     if awful.rules.match(client, props) then
