@@ -59,7 +59,7 @@ option=$(\
       -dmenu \
       -lines 5 \
       -i \
-      -p  \
+      -p 󰟵 \
       -no-history \
       -kb-custom-1 "Return" \
       -kb-custom-2 "Shift+Return" \
@@ -91,11 +91,16 @@ if [ ${#option} -gt 0 ]; then
         ;;
 
       # password only
+      perso/assurance-maladie |\
       perso/linux | \
       perso/microsoft |\
       */google)
         type $(password)
         press Return
+        ;;
+
+      perso/assurance-maladie)
+        type $(password)
         ;;
 
       # passwords shows up after we validate the login
