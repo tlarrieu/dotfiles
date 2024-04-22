@@ -6,7 +6,7 @@ local o = vim.opt
 
 -- {{{ ==| General options |====================================================
 -- shell
-o.shell = '/bin/sh'
+o.shell = '/usr/bin/fish'
 -- allow project specific init.lua
 o.exrc = true
 o.secure = true
