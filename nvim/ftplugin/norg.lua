@@ -5,7 +5,7 @@ o.formatoptions = o.formatoptions + 't'
 o.conceallevel = 2
 o.spell = true
 o.foldmethod = 'expr'
-o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
 o.foldlevel = 5
 o.foldenable = true
 
