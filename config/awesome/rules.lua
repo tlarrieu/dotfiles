@@ -87,6 +87,7 @@ awful.rules.rules = {
         "Seahorse",
         "v4l2ucp",
         "webcam-props",
+        "zenity",
       }
     },
     properties = {
