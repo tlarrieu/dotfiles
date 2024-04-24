@@ -24,6 +24,11 @@ function edit_status {
   fi
 }
 
+function generate_password {
+  pass generate -i -c "$option"
+  copy_status
+}
+
 function type {
   xdotool type --clearmodifiers --delay=0 $1
 }
@@ -55,6 +60,7 @@ option=$(\
   pass git ls-files \
   | grep '.gpg$' \
   | { sed -e 's/.gpg$//' ; echo "perso/carte-bleue"; } \
+  | { sed -e 's/.gpg$//' ; echo "tmp"; } \
   | rofi \
       -dmenu \
       -lines 5 \
@@ -79,6 +85,9 @@ if [ ${#option} -gt 0 ]; then
   case $rofi_signal in
     10)
       case "$option" in
+      tmp)
+        generate_password
+        ;;
       perso/carte-bleue)
         PASSWORD_STORE_CLIP_TIME=5 pass show -c1 perso/carte-bleue
         press "Control_L+v"
@@ -208,8 +217,7 @@ if [ ${#option} -gt 0 ]; then
         if [ ${#answer} -gt 0 ]; then
           case $answer in
             "✔ Yes")
-              pass generate -i -c "$option"
-              copy_status
+              generate_password
               ;;
             *)
               notify-send \
