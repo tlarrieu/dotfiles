@@ -29,7 +29,7 @@ awful.rules.rules = {
     except_any = {
       class = {
         "Gpick",
-        "Thunar",
+        "Nemo",
         "gtgf",
         "kitty-light",
         "Xephyr",

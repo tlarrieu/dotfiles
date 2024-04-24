@@ -123,7 +123,7 @@ local config = {
   { icon = "", rule = { class = "Gpick" }},
   { icon = "", rule = { class = "man" }},
   { icon = "", rule = { class = "dungeondraft.exe" }},
-  { icon = "", rule = { class = "Thunar" }},
+  { icon = "", rule = { class = "Nemo" }},
   { icon = "", rule = { class = "config" }},
   { icon = "", rule = { class = "firefox" }},
   { icon = "", rule = { class = "quake" }},

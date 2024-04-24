@@ -177,7 +177,7 @@ _M.keyboard = {
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
     spawner.key({ mod }, "u",              spawner.termstart("vifm")),
-    spawner.key({ mod, "Shift"}, "u",      "thunar"),
+    spawner.key({ mod, "Shift"}, "u",      "nemo"),
     spawner.key({ mod }, "g",              spawner.shell("wallpaper")),
     spawner.key({ mod }, "h",              spawner.termstart(spawner.shell("gtgf"), { class = "gtgf" })),
 

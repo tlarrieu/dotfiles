@@ -188,7 +188,7 @@ case $answer in
     files="vifm
       linopen
       udiskie
-      thunar
+      nemo
       atool
       lsd
       tumbler
