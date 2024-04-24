@@ -146,7 +146,8 @@ local config = {
   { icon = "", rule = { class = "help" }},
   { icon = "", rule = { class = "Sxiv" }},
   { icon = "", rule = { class = "Viewnior" }},
-  { icon = "", rule = { class = "Godot" }}, --[[ wonderdraft ]]
+  { icon = "󱊄", rule = { class = "Dungeondraft" }},
+  { icon = "", rule = { class = "Godot" }},
   { icon = "", rule = { class = "Xephyr" }},
   { icon = "", rule = { class = "mpv" }},
   { icon = "", rule = { class = "Audacity" }},
