@@ -97,10 +97,10 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "ubereats.com" }},
 
   -- RPG
-  { icon = "", rule = { class = "Chromium", instance = "watabou.itch.io" }},
-  { icon = "", rule = { class = "Chromium", instance = "rolladvantage.com" }},
-  { icon = "", rule = { class = "Chromium", instance = "app.legendkeeper.com" }},
-  { icon = "﫩", rule = { class = "Chromium", instance = "roll20.net" }},
+  { icon = "󰨁", rule = { class = "Chromium", instance = "watabou.itch.io" }},
+  { icon = "󰴹", rule = { class = "Chromium", instance = "rolladvantage.com" }},
+  { icon = "󰺿", rule = { class = "Chromium", instance = "app.legendkeeper.com" }},
+  { icon = "󱅕", rule = { class = "Chromium", instance = "roll20.net" }},
 
   -- Shopping
   { icon = "", rule = { class = "Chromium", instance = "amazon" }},
