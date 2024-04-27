@@ -1,50 +1,22 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
-LAUNCHER2='rofi -dmenu -l 6 -i -p '
-OPTIONS="Inbox\n\
-Home\n\
-Work\n\
-Continuous Improvement\n\
-Courses\n\
-Someday"
+function task {
+  sed -i "2 i ** ( ) $1" ~/.neorg/gtd/index.norg
+}
 
-input=$(eval $LAUNCHER)
+function note {
+  sed -i "3 i\   - $1" ~/.neorg/gtd/index.norg
+}
+
+LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
+input="$(eval $LAUNCHER)"
+
+url=$(echo $input | grep -Eo "https?://[^ ]+")
+input=$(echo $input | sed "s# *https\?://.*##")
 
 if [[ -n "$input" ]]; then
-  option=`echo -e $OPTIONS | $LAUNCHER2`
-  if [ ${#option} -gt 0 ]; then
-    case $option in
-      Inbox)
-        args="+inbox"
-        ;;
-      Work)
-        args="+inbox +@work"
-        ;;
-      Home)
-        args="+inbox +@home"
-        ;;
-      "Continuous Improvement")
-        args="project:improvements"
-        ;;
-      Courses)
-        args="project:shopping"
-        ;;
-      Someday)
-        args="+someday"
-        ;;
-      *)
-        args=''
-        ;;
-    esac
-
-    if [ -n "$args" ]; then
-      uuid=$(task add "$input" $args | perl -pe 's|Created task (.*)\.|\1|')
-      echo $uuid
-      url=$(echo $input | egrep -o 'https?://[^ ]+')
-      if [ -n $url ]; then
-        task annotate $uuid $url
-      fi
-    fi
-  fi
+  task "$input"
+  if [ -n "$url" ]; then note "$url"; fi
+else
+  if [ -n "$url" ]; then task "$url"; fi
 fi
