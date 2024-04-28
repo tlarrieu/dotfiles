@@ -15,15 +15,7 @@ local bindings = require("bindings")
 root.keys(bindings.keyboard.root)
 root.buttons(bindings.mouse.root)
 
-local path = "/tmp/awesome_started"
-local f = io.open(path, "r")
-
-if not f then
-  awful.spawn.with_shell(os.getenv("HOME") .. "/startup.sh")
-  io.open(path, "w"):close()
-else
-  f:close()
-end
+require('startup').boot()
 
 -- Disable screen saving / blanking
 awful.spawn.with_shell("xset s off -dpms")

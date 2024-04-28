@@ -167,7 +167,7 @@ _M.keyboard = {
     spawner.key({ mod }, "y",              spawner.shell("pulseaudio-ctl mute-input")),
     spawner.key({ mod }, "Escape",         spawner.shell("rofi-pass")),
     spawner.key({ mod }, ",",              spawner.shell("rofi-search")),
-    spawner.key({ "Control" }, " ",              spawner.shell("gtd-inbox")),
+    spawner.key({ "Control" }, " ",        spawner.shell("gtd-inbox")),
 
     spawner.key({ mod }, "q",              spawner.shell("rofi-power")),
     spawner.key({ mod }, "a",              spawner.termstart("pulsemixer", { class = "mixer" })),
