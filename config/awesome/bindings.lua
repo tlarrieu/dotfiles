@@ -1,7 +1,5 @@
---| HELP |----------------------------------------------------------------------
--- To get “weird” keys name, use xev -event keyboard
+-- NOTE: To get “weird” keys name, use xev -event keyboard
 -- (it comes in the xorg-xev package)
---------------------------------------------------------------------------------
 
 local _M = {
   keyboard = {},
@@ -58,7 +56,7 @@ _M.keyboard = {
       client:move_to_screen()
       helpers.create_tag_and_attach_to(client, true)
 
-      -- This is a **dirty** trick to counteract Awesome's fallback mechanism
+      -- HACK: This is a **dirty** trick to counteract Awesome's fallback mechanism
       -- when closing a volatile tag (the focus goes to the next client of the
       -- next tag of the source screen, instead of following the client on the
       -- next screen)
@@ -77,19 +75,13 @@ _M.keyboard = {
           awful.tag.viewnext()
         end
       }
-    end),
-
-    spawner.key({ mod, "Control" }, "o", function(client)
-      for _, c in ipairs(client.first_tag:clients()) do
-        if client ~= c then c:kill() end
-      end
     end)
   ),
 
   root = gears.table.join(
     -- [[ Window Manager ]] ----------------------------------------------------
 
-    spawner.key({ mod }, "l",              spawner.shell('rofi-layouts')),
+    spawner.key({ mod }, "l",              'rofi-layouts'),
 
     spawner.key({ mod }, "c",              awful.tag.viewprev),
     spawner.key({ mod }, "Left",           awful.tag.viewprev),
@@ -123,76 +115,70 @@ _M.keyboard = {
 
     -- [[ Context ]] -----------------------------------------------------------
 
-    spawner.key({mod, "Shift"}, "t",         spawner.shell("cont")),
+    spawner.key({mod, "Shift"}, "t",         "cont"),
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod }, " ",                spawner.shell("rofi -show run -lines 6")),
+    spawner.key({ mod }, " ",                "rofi -show run -lines 6"),
 
     spawner.key({ mod, "Shift" }, "c", {
-      app = spawner.termstart("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
+      app = spawner.terminal("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
       props = { class = "config" },
       callback = spawner.callbacks.jump_to_client
     }),
     spawner.key({ mod, "Shift" }, "e", {
-      app = spawner.termstart("nvim ~/.scratchpad.md", { class = "scratchpad" }),
+      app = spawner.terminal("nvim ~/.scratchpad.md", { class = "scratchpad" }),
       props = { class = "scratchpad" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod, "Shift" }, "i", {
-      app = spawner.shell("notes"),
+      app = 'notes',
       props = { class = "wiki" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod }, ".", {
-      app = spawner.shell("gtd"),
+      app = 'gtd',
       props = { class = "gtd" },
       callback = spawner.callbacks.move_client
     }),
     spawner.key({ mod }, "$", {
-      app = spawner.termstart("", { class = "quake" }),
+      app = spawner.terminal("", { class = "quake" }),
       props = { class = "quake" },
       callback = spawner.callbacks.move_client
     }),
-    -- Open last downloaded video
-    spawner.key({ mod, "Shift" }, "o",     spawner.shell("cd ~/sandbox; open (ls -1tc | head -n 1)")),
 
-    spawner.key({ mod }, "Tab",            function() require('rofi-windows')() end),
-    spawner.key({mod, "Control"}, "Tab",   spawner.shell("rofi-monitors")),
-    spawner.key({}, "F12",                 spawner.shell("rofi-wifi")),
-    spawner.key({ mod }, "F2",             spawner.shell("rofi-keyboard")),
-    spawner.key({ mod }, "k",              spawner.shell("rofi-emojis")),
-    spawner.key({ mod }, "f",              spawner.shell("rofi-nerdfont")),
-    spawner.key({ mod }, "à",              spawner.shell("rofi-bluetooth")),
-    spawner.key({ mod }, "y",              spawner.shell("pulseaudio-ctl mute-input")),
-    spawner.key({ mod }, "Escape",         spawner.shell("rofi-pass")),
-    spawner.key({ mod }, ",",              spawner.shell("rofi-search")),
-    spawner.key({ "Control" }, " ",        spawner.shell("gtd-inbox")),
+    spawner.key({ mod }, "Tab",            require('rofi-windows')),
+    spawner.key({mod, "Control"}, "Tab",   "rofi-monitors"),
+    spawner.key({}, "F12",                 "rofi-wifi"),
+    spawner.key({ mod }, "F2",             "rofi-keyboard"),
+    spawner.key({ mod }, "k",              "rofi-emojis"),
+    spawner.key({ mod }, "f",              "rofi-nerdfont"),
+    spawner.key({ mod }, "à",              "rofi-bluetooth"),
+    spawner.key({ mod }, "y",              "pulseaudio-ctl mute-input"),
+    spawner.key({ mod }, "Escape",         "rofi-pass"),
+    spawner.key({ mod }, ",",              "rofi-search"),
+    spawner.key({ "Control" }, " ",        "gtd-inbox"),
 
-    spawner.key({ mod }, "q",              spawner.shell("rofi-power")),
-    spawner.key({ mod }, "a",              spawner.termstart("pulsemixer", { class = "mixer" })),
+    spawner.key({ mod }, "q",              "rofi-power"),
+    spawner.key({ mod }, "a",              spawner.terminal("pulsemixer", { class = "mixer" })),
 
-    spawner.key({ mod }, "m",              spawner.shell("mpc-library")),
-    spawner.key({ mod, "Shift"}, "m",      spawner.shell("toggle-dim-mpd.sh")),
-    spawner.key({ mod }, "b",              spawner.shell("mpc-playlist")),
+    spawner.key({ mod }, "m",              "mpc-library"),
+    spawner.key({ mod, "Shift"}, "m",      "toggle-dim-mpd.sh"),
+    spawner.key({ mod }, "b",              "mpc-playlist"),
     spawner.key({ mod }, "BackSpace",      "mpc toggle"),
 
-    spawner.key({ mod }, "u",              spawner.termstart("vifm")),
+    spawner.key({ mod }, "u",              spawner.terminal("vifm")),
     spawner.key({ mod, "Shift"}, "u",      "nemo"),
-    spawner.key({ mod }, "g",              spawner.shell("wallpaper")),
-    spawner.key({ mod }, "h",              spawner.termstart(spawner.shell("gtgf"), { class = "gtgf" })),
+    spawner.key({ mod }, "g",              "wallpaper"),
+    spawner.key({ mod }, "h",              spawner.terminal("gtgf", { class = "gtgf" })),
 
-    spawner.key({ mod, "Shift" }, "b",     spawner.termstart("", { directory = sandbox })),
-    spawner.key({ mod }, "percent",        spawner.termstart(
-      spawner.shell("ytdl"),
-      { directory = sandbox, class = "download" }
-    )),
+    spawner.key({ mod }, "percent",        spawner.terminal("ytdl", { directory = sandbox, class = "download" })),
     spawner.key({ mod }, "equal",          spawner.shell("open (xsel --clipboard -o)")),
 
-    spawner.key({ mod }, "'",              spawner.termstart("")),
-    spawner.key({ mod, "Shift" }, "'",     spawner.termstart("", { class = "kitty-light" })),
+    spawner.key({ mod }, "'",              spawner.terminal()),
+    spawner.key({ mod, "Shift" }, "'",     spawner.terminal(nil, { class = "kitty-light" })),
 
-    spawner.key({ mod }, "p",              spawner.shell("screenshot.sh"))
+    spawner.key({ mod }, "p",              "screenshot.sh")
   )
 }
 

@@ -14,7 +14,7 @@ _M.shell = function(command)
   return "fish -c '" .. command .. "'"
 end
 
-_M.termstart = function(cmd, opts)
+_M.terminal = function(cmd, opts)
   local options = ""
   if opts then
     for name, value in pairs(opts) do
@@ -25,7 +25,7 @@ _M.termstart = function(cmd, opts)
   return _M.shell(string.format(
     "kitty --single-instance %s %s",
     options,
-    cmd
+    cmd or ''
   ))
 end
 
