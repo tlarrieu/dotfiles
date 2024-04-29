@@ -160,7 +160,11 @@ _M.keyboard = {
     spawner.key({ "Control" }, " ", "gtd-inbox"),
 
     spawner.key({ mod }, "q", "rofi-power"),
-    spawner.key({ mod }, "a", spawner.terminal("pulsemixer", { class = "mixer" })),
+    spawner.key({ mod }, "a", {
+      app = spawner.terminal("pulsemixer", { class = "mixer" }),
+      props = { class = "mixer" },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod }, "m", "mpc-library"),
     spawner.key({ mod, "Shift" }, "m", "toggle-dim-mpd.sh"),
     spawner.key({ mod }, "b", "mpc-playlist"),
@@ -169,7 +173,11 @@ _M.keyboard = {
     spawner.key({ mod }, "u", spawner.terminal("vifm")),
     spawner.key({ mod, "Shift" }, "u", "nemo"),
     spawner.key({ mod }, "g", "wallpaper"),
-    spawner.key({ mod }, "h", spawner.terminal("gtgf", { class = "gtgf" })),
+    spawner.key({ mod }, "h", {
+      app = spawner.terminal("gtgf", { class = "gtgf" }),
+      props = { class = "gtgf" },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod }, "percent", spawner.terminal("ytdl", { directory = sandbox, class = "download" })),
     spawner.key({ mod }, "equal", spawner.shell("open (xsel --clipboard -o)")),
     spawner.key({ mod }, "'", spawner.terminal()),

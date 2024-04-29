@@ -88,6 +88,7 @@ awful.rules.rules = {
         "v4l2ucp",
         "webcam-props",
         "zenity",
+        "mixer",
       }
     },
     properties = {
