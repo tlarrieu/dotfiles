@@ -25,6 +25,9 @@ _M.boot = function ()
       awful.spawn.spawn(app)
     end
 
+    -- NOTE: Disable screen saving / blanking
+    awful.spawn.with_shell("xset s off -dpms")
+
     io.open(path, "w"):close()
   else
     f:close()
