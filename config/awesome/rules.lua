@@ -2,7 +2,7 @@ local awful = require("awful")
 require("awful.rules")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
-local bindings = require("bindings")
+local keymaps = require("keymaps")
 
 awful.rules.rules = {
   -- [[ Common rules ]] --------------------------------------------------------
@@ -12,8 +12,8 @@ awful.rules.rules = {
       focus = awful.client.focus.filter,
       screen = awful.screen.preferred,
 
-      keys = bindings.keyboard.clients,
-      buttons = bindings.mouse.clients,
+      keys = keymaps.keyboard.clients,
+      buttons = keymaps.mouse.clients,
 
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,

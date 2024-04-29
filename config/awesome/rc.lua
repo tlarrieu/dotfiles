@@ -10,10 +10,10 @@ require("rules")
 
 local awful = require("awful")
 
-local bindings = require("bindings")
+local keymaps = require("keymaps")
 
-root.keys(bindings.keyboard.root)
-root.buttons(bindings.mouse.root)
+root.keys(keymaps.keyboard.root)
+root.buttons(keymaps.mouse.root)
 
 require('startup').boot()
 
