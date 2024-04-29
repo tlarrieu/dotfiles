@@ -34,6 +34,20 @@ return {
     end]],
     { i(1, "x"), i(2, "xs"), i(0) }
   )),
+  s("if", fmta([[
+    if <> then
+      <>
+    end]],
+    { i(1, "cond"), i(2) }
+  )),
+
+  -- files
+  s("open", fmta([[local <> = io.open(<>, <>)]], { i(1, 'file'), i(2, 'path'), i(3, "'r'") })),
+  s("readl", fmta([[local <> = <>:read('*l')]], { i(1, 'str'), i(2, 'file') })),
+  s("reada", fmta([[local <> = <>:read('*a')]], { i(1, 'str'), i(2, 'file') })),
+
+  -- misc
+  s("p", fmta([[print(<><>)]], { sel(), i(1) })),
 
   -- awesome
   s("dump", fmta("require('gears.debug').dump_return(<>)", { i(0) })),
