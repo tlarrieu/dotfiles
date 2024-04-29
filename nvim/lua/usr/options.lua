@@ -89,9 +89,6 @@ o.smartcase = true
 o.spelllang = 'en,fr'
 -- }}}
 
--- {{{ ==| Statusline |=========================================================
-o.laststatus = 3
-
 -- {{{ ==| Shortmess |=========================================================
 o.shortmess:append('WI')
 -- }}}

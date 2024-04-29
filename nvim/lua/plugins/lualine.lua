@@ -91,6 +91,8 @@ return {
   config = function(_, opts)
     require('lualine').setup(opts)
 
+    vim.opt.laststatus = 2
+
     vim.keymap.set('n', '<leader>tl', ':LualineRename ')
     vim.keymap.set('n', '<leader>tr', ':LualineRename<cr>', { silent = true })
   end,
