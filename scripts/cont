@@ -18,4 +18,3 @@ fi
 notify-send Success "Context set to '$CONTEXT'"
 
 echo "CONTEXT=\"$CONTEXT\"" > ~/.context.env
-echo "context=$CONTEXT" > ~/.task.context

@@ -22,11 +22,11 @@ _M.terminal = function(cmd, opts)
     end
   end
 
-  return _M.shell(string.format(
+  return string.format(
     "kitty --single-instance %s %s",
     options,
     cmd or ''
-  ))
+  )
 end
 
 _M.grab_mouse_until_released = function()
@@ -38,31 +38,22 @@ _M.grab_mouse_until_released = function()
   end, "mouse")
 end
 
-_M.callbacks = {
-  move_client = function(client)
-    client:tags({ awful.screen.focused().selected_tag })
-  end,
-  jump_to_client = function(client)
-    client:tags()[1]:view_only()
-  end
+_M.actions = {
+  MOVE = "MOVE",
+  JUMP = "JUMP_TO",
 }
 
-_M.spawn = function(cmd, props, callback)
-  if callback then
+_M.spawn = function(cmd, props, action)
+  if action then
     local client = find_client(props)
 
     if client then
-      callback(client)
-      client:emit_signal(
-        "request::activate",
-        "client.focus.bydirection",
-        {raise=true}
-      )
+      client:emit_signal("client::custom", action)
       return
     end
   end
 
-  awful.spawn(cmd, props)
+  awful.spawn(type(cmd) == 'function' and cmd() or cmd, props)
 end
 
 _M.key = function(mods, key, target)
@@ -76,7 +67,7 @@ _M.key = function(mods, key, target)
     return awful.key(
       mods,
       key,
-      function() _M.spawn(target.app, target.props, target.callback) end
+      function() _M.spawn(target.app, target.props, target.signal) end
     )
   elseif type(target) == 'string' then
     return awful.key(

@@ -2,6 +2,7 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
 local icons = require("icons")
+local spawner = require('spawner')
 
 client.connect_signal("focus", function(client)
   client.border_color = beautiful.border_focus
@@ -73,3 +74,16 @@ awful.screen.connect_for_each_screen(function(screen)
     awful.tag.attached_connect_signal(screen, signal, handle)
   end
 end)
+
+client.connect_signal("client::custom", function(client, action)
+  if action == spawner.actions.MOVE then
+    client:tags({ awful.screen.focused().selected_tag })
+  elseif action == spawner.actions.JUMP then
+    client:jump_to()
+  else
+    return
+  end
+
+  client:emit_signal("request::activate", "client.focus.bydirection", { raise = true })
+end)
+
