@@ -2,7 +2,7 @@ return {
   'akinsho/toggleterm.nvim',
   version = '*',
   opts = {
-    direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float',
+    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
       local factor = 0.3
       if term.direction == 'horizontal' then
