@@ -2,7 +2,6 @@ require("beautiful").init(
   os.getenv("HOME") .. "/.config/awesome/themes/xresources/theme.lua"
 )
 require("awful.autofocus")
-require("naughty")
 
 require("panel")
 require("signals")
