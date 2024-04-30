@@ -15,7 +15,6 @@ _M.boot = function ()
     git_pull('~/.neorg')
 
     local apps = {
-      'gtd',
       'gmail',
       'calendar',
       'steam',
