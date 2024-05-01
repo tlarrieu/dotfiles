@@ -11,9 +11,9 @@ return {
       defaults = {
         border = true,
 
-        prompt_prefix = '   ',
-        selection_caret = ' ',
-        multi_icon = ' ',
+        prompt_prefix = '   ',
+        selection_caret = '󰄾 ',
+        multi_icon = '󰆤 ',
 
         path_display = { 'smart', 'shorten' },
 
