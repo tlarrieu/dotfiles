@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=aria2c
+Exec=kitty -- aria2c
+Terminal=true
+Type=Application

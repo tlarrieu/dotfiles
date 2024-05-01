@@ -59,10 +59,18 @@ BASEDIR=$(cd "$(dirname "$0")"; pwd)
 # -- [[ Linking ]] -------------------------------------------------------------
 echo "Linking configuration files..."
 # .config directories
-[[ -d ~/.config ]] || mkdir ~/.config
+mkdir -p ~/.config
 for file in `ls -d $BASEDIR/config/*`; do
   target=$BASEDIR/config/`basename $file`
   link=~/.config/`basename $file`
+  safelink $target $link
+done
+
+# .local directories
+mkdir -p ~/.local/share/applications
+for file in `ls -d $BASEDIR/local/share/applications/*`; do
+  target=$BASEDIR/local/share/applications/`basename $file`
+  link=~/.local/share/applications/`basename $file`
   safelink $target $link
 done
 
@@ -135,9 +143,6 @@ safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 # dircolors
 safelink $BASEDIR/dir_colors $HOME/.dir_colors
 
-# linopen
-safelink $BASEDIR/linopenrc $HOME/.linopenrc
-
 # less
 safelink $BASEDIR/lesskey $HOME/.lesskey
 
@@ -186,7 +191,7 @@ case $answer in
     search="the_silver_searcher ripgrep mlocate"
 
     files="vifm
-      linopen
+      xdg-utils
       udiskie
       nemo
       atool
@@ -226,8 +231,9 @@ case $answer in
     multimedia="
       manjaro-pulse pulsemixer
       mpc mpd mpv
-      youtube-dlc
+      yt-dlp
       sxiv feh
+      viewnior
       imagemagick
       aria2
       "

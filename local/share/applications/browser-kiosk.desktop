@@ -1,0 +1,7 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=browser-kiosk
+Exec=browser-kiosk %f
+Terminal=false
+Type=Application
+Categories=Browser;

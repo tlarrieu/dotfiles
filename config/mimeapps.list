@@ -1,0 +1,32 @@
+[Default Applications]
+application/octet-stream=nvim.desktop
+application/pdf=org.pwmt.zathura.desktop
+application/x-bittorrent=aria2c.desktop
+application/x-gettext-translation=nvim.desktop
+application/xml=nvim.desktop
+application/x-wine-extension-ini=nvim.desktop
+audio/mpeg=mpv.desktop
+audio/vnd.wave=mpv.desktop
+audio/mp4=mpv.desktop
+image/gif=viewnior.desktop;gimp.desktop
+image/jpeg=viewnior.desktop;gimp.desktop
+image/png=viewnior.desktop;gimp.desktop
+text/plain=nvim.desktop
+video/vnd.avi=mpv.desktop
+video/mp4=mpv.desktop
+video/ogg=mpv.desktop
+video/x-flv=mpv.desktop
+video/x-ms-wmv=mpv.desktop
+video/x-ogm+ogg=mpv.desktop
+video/x-theora+ogg=mpv.desktop
+video/webm=mpv.desktop
+x-scheme-handler/magnet=aria2c.desktop
+x-scheme-handler/mailto=browser-kiosk.desktop
+x-scheme-handler/https=browser-kiosk.desktop
+x-scheme-handler/http=browser-kiosk.desktop
+inode/directory=vifm.desktop
+
+[Added Associations]
+image/png=gimp.desktop;darktable.desktop;
+image/jpeg=gimp.desktop;
+video/mp4=mpv.desktop;
