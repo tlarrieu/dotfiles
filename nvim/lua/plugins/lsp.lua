@@ -8,7 +8,7 @@ return {
   opts = {
     ensure_installed = {
       'hls',      -- haskell
-      'ruby_ls',  -- ruby
+      'ruby_lsp', -- ruby
       'tsserver', -- javascript / TS
       'lua_ls',   -- lua
       'vimls',    -- vim
@@ -28,7 +28,9 @@ return {
           vim.lsp.buf.format { async = true }
         end, conf)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        client.server_capabilities.semanticTokensProvider = nil
+        if client then
+          client.server_capabilities.semanticTokensProvider = nil
+        end
       end
     })
 
