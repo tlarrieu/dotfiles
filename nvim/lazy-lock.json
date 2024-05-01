@@ -54,7 +54,6 @@
   "vim-indentobject": { "branch": "master", "commit": "740e067a34cfd805af2d3a3fbe29d65def03b40f" },
   "vim-javascript": { "branch": "master", "commit": "c470ce1399a544fe587eab950f571c83cccfbbdc" },
   "vim-jsx": { "branch": "master", "commit": "8879e0d9c5ba0e04ecbede1c89f63b7a0efa24af" },
-  "vim-lua": { "branch": "master", "commit": "fa810f85437525bcea0fc4ff22c634935721d86d" },
   "vim-postgresql-syntax": { "branch": "master", "commit": "61eccd29180c0841e1b7b8d9ff2cf43ee73f9ad0" },
   "vim-projectionist": { "branch": "master", "commit": "729f3630a4c19e52e1fd825802d2a1659daeaf48" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },

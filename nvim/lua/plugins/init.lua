@@ -49,7 +49,6 @@ return {
   { 'LaTeX-Box-Team/LaTeX-Box' },
   { 'wgwoods/vim-systemd-syntax' },
   { 'krisajenkins/vim-postgresql-syntax' },
-  { 'tbastos/vim-lua' },
   { 'elixir-editors/vim-elixir' },
   { 'qbit/taskwarrior-vim' },
   -- }}}
