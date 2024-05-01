@@ -1,20 +1,20 @@
 #!/bin/sh
 
-function task {
+task() {
   sed -i "2 i ** ( ) $1" ~/.neorg/gtd/index.norg
 }
 
-function note {
+note() {
   sed -i "3 i\   - $1" ~/.neorg/gtd/index.norg
 }
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
-input="$(eval $LAUNCHER)"
+input=$(eval "$LAUNCHER")
 
-url=$(echo $input | grep -Eo "https?://[^ ]+")
-input=$(echo $input | sed "s# *https\?://.*##")
+url=$(echo "$input" | grep -Eo "https?://[^ ]+")
+input=$(echo "$input" | sed "s# *https\?://.*##")
 
-if [[ -n "$input" ]]; then
+if [ -n "$input" ]; then
   task "$input"
   if [ -n "$url" ]; then note "$url"; fi
 else
