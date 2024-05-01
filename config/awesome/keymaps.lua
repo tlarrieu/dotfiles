@@ -114,7 +114,7 @@ _M.keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod }, " ", "rofi -show run -lines 6"),
+    spawner.key({ mod }, " ", 'rofi -show combi -modes combi -combi-modes "win:~/scripts/rofi-clients.sh,run" -display-combi "󰲌 "'),
 
     spawner.key({ mod, "Shift" }, "c", {
       app = spawner.terminal("nvim nvim/init.lua", { class = "config", directory = dotfiles }),
@@ -147,10 +147,9 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
 
-    spawner.key({ mod }, "Tab", require('rofi-windows')),
     spawner.key({ mod, "Control" }, "Tab", "rofi-monitors"),
     spawner.key({}, "F12", "rofi-wifi"),
-    spawner.key({ mod }, "F2", "rofi-keyboard"),
+    spawner.key({ mod }, "Tab", "rofi-keyboard"),
     spawner.key({ mod }, "k", "rofi-emojis"),
     spawner.key({ mod }, "f", "rofi-nerdfont"),
     spawner.key({ mod }, "à", "rofi-bluetooth"),
