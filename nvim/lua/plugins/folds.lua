@@ -1,5 +1,8 @@
 return {
   'anuvyklack/pretty-fold.nvim',
+  -- NOTE: local commit until ffi error fix gets merged into main repo
+  -- see https://github.com/anuvyklack/pretty-fold.nvim/issues/38
+  commit = '587fbce',
   opts = {
     sections = {
       left = {
