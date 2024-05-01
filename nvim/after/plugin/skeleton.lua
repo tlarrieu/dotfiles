@@ -1,6 +1,6 @@
 local luasnip = require('luasnip')
 
-local function bootstrap()
+local bootstrap = function()
   -- Index all snipets for filetypes
   local xs = {}
   for ft in vim.o.filetype:gmatch("([^.]+)") do
@@ -38,6 +38,8 @@ end
 
 vim.api.nvim_create_autocmd('BufNewFile', {
   pattern = '*',
-  callback = bootstrap,
+  -- NOTE: for some reason, passing a closure only works for the first file
+  -- opened. After this, it does not seem to be triggering anymore
+  callback = function() bootstrap() end,
   group = vim.api.nvim_create_augroup("luasnip_hooks", {})
 })
