@@ -1,5 +1,8 @@
 return {
   'maxmx03/solarized.nvim',
+  dependencies = {
+    'nvim-treesitter/nvim-treesitter',
+  },
   lazy = false,
   priority = 1000,
   opts = {
@@ -11,7 +14,7 @@ return {
       variables = { italic = false },
     },
     enables = {
-      treesitter = false,
+      treesitter = true,
     },
     highlights = function(c, _)
       vim.cmd [[
@@ -36,8 +39,6 @@ return {
         TermCursorNC = { link = 'Cursor' },
 
         Normal = { bg = c.base03 },
-        Function = { bold = false },
-        ['@variable'] = { link = 'Identifier' },
         NormalFloat = { bg = c.base03 },
         FloatBorder = { fg = c.base00, bg = c.base03 },
 
