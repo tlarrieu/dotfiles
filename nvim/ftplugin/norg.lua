@@ -14,9 +14,9 @@ vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '**/gtd/index.norg' },
   callback = function()
     o.foldlevel = 1
-    vim.keymap.set('n', '<leader>z', ':set foldlevel=1<cr>zO', { remap = false, silent = true })
-    vim.keymap.set('n', 'o', 'i<c-cr>', { remap = true })
-    vim.keymap.set('i', '<cr>', '<c-cr>', { remap = true })
+    vim.keymap.set('n', '<leader>z', ':set foldlevel=1<cr>zO', { remap = false, silent = true, buffer = true })
+    vim.keymap.set('n', 'o', 'i<c-cr>', { remap = true, buffer = true })
+    vim.keymap.set('i', '<cr>', '<c-cr>', { remap = true, buffer = true })
   end,
   group = group
 })
