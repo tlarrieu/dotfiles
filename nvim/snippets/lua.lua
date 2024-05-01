@@ -23,8 +23,7 @@ return {
     end]],
     { i(1), i(2), i(0) }
   )),
-  s("d", fmta([[
-    function(<>)
+  s("d", fmta([[function(<>)
       <>
     end]],
     { i(1), i(0) }
@@ -34,15 +33,15 @@ return {
   -- control structures
   s("for", fmta([[
     for <> in <> do
-      <>
+      <><>
     end]],
-    { i(1, "x"), i(2, "xs"), i(0) }
+    { i(1, "x"), i(2, "xs"), sel(1), i(3) }
   )),
   s("if", fmta([[
     if <> then
-      <>
+      <><>
     end]],
-    { i(1, "cond"), i(2) }
+    { i(1, "cond"), sel(1), i(2) }
   )),
 
   -- files
