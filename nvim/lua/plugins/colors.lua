@@ -36,6 +36,8 @@ return {
         TermCursorNC = { link = 'Cursor' },
 
         Normal = { bg = c.base03 },
+        Function = { bold = false },
+        ['@variable'] = { link = 'Identifier' },
         NormalFloat = { bg = c.base03 },
         FloatBorder = { fg = c.base00, bg = c.base03 },
 
