@@ -13,6 +13,7 @@ return {
       'lua_ls',   -- lua
       'vimls',    -- vim
       'gopls',    -- golang
+      'bashls',   -- bash
     },
   },
   config = function(_, opts)
