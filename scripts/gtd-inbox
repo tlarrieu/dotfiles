@@ -12,6 +12,7 @@ LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
 input=$(eval "$LAUNCHER")
 
 url=$(echo "$input" | grep -Eo "https?://[^ ]+")
+if [ -n "$url" ]; then url="{$url}"; fi
 input=$(echo "$input" | sed "s# *https\?://.*##")
 
 if [ -n "$input" ]; then
