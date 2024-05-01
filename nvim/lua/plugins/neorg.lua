@@ -98,10 +98,14 @@ return {
           },
           highlights = {
             headings = {
+              ['1'] = {
+                prefix = '+NeorgHeading1',
+                title = '+NeorgHeading1',
+              },
               ['4'] = {
                 prefix = '+NeorgHeading4',
                 title = '+NeorgHeading4',
-              }
+              },
             },
             todo_items = {
               done = '+NeorgDone',

@@ -112,6 +112,7 @@ return {
         NeorgOnHold = { fg = c.yellow, bg = c.base03, italic = false },
         NeorgUndone = { fg = c.red, bg = c.base03, italic = false },
         NeorgCancelled = { link = 'NeorgDone' },
+        NeorgHeading1 = { fg = c.magenta, italic = false, bold = false },
         NeorgHeading4 = { fg = c.cyan, italic = false },
 
         CmpItemAbbrMatch = { fg = c.base0, bg = c.base02, underline = true, bold = true },
