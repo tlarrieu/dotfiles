@@ -36,3 +36,5 @@ else
   client:jump_to()
 end
 END
+
+# vim: ft=lua.sh
