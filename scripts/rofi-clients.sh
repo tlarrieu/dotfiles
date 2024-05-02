@@ -1,7 +1,7 @@
 #!/bin/sh
 
 awesome-client <<-END | sed -zE 's/   string "(.*)"/\1/'
-local script_input = "$*"
+local script_input = "$(echo "$*" | awk -F ' ' '{print $1}')"
 
 local icons = require("icons")
 local screen = require('awful').screen:focused()
@@ -28,7 +28,7 @@ end
 if script_input == "" then
   return table.concat(lines, "\n")
 else
-  local s = script_input:match('^([0-9]+) .*$')
+  local s = script_input:match('^([0-9]+)$')
   if not s then return end
 
   local client = clients[tonumber(s)]
