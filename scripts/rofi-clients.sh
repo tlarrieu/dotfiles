@@ -21,7 +21,7 @@ for i, client in ipairs(screen.all_clients) do
   table.insert(clients, client)
   table.insert(
     lines,
-    pad(i, 4) .. icons.fetch(client) .. "  " .. client.name
+    pad(i, 4) .. icons.fetch(client) .. " " .. pad(client.instance, 15) .. "  " .. client.name
   )
 end
 
