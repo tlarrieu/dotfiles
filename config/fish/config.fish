@@ -32,6 +32,7 @@ set -x FZF_DEFAULT_OPTS $fzf_common_opts "--border=thinblock"
 
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -x FZF_CTRL_T_OPTS $fzf_common_opts "--border=none"
+set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
 
 # rbenv
 if type rbenv > /dev/null
