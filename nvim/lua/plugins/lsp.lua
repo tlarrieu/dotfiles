@@ -18,6 +18,8 @@ return {
     },
   },
   config = function(_, opts)
+    vim.keymap.set('n', 'ga', '<nop>')
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
