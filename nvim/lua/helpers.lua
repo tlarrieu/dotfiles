@@ -6,7 +6,7 @@ _M.basename = function()
   return basename or filename or ""
 end
 
-_M.filexists = function(path)
+_M.fileexists = function(path)
   local f = io.open(path, "rb")
   if f then f:close() end
   return f ~= nil

@@ -6,7 +6,7 @@ o.cpoptions = o.cpoptions + 'M'
 
 local runner = require('runner')
 
-if require('helpers').filexists('stack.yaml') then
+if require('helpers').fileexists('stack.yaml') then
   runner.default({
     main = runner.term('stack run'),
     alt = runner.term('stack test')
