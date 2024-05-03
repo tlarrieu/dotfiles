@@ -46,7 +46,7 @@ return {
     keymaps = {
       ['g?'] = 'actions.show_help',
       ['<CR>'] = 'actions.preview',
-      ['<C-c>'] = 'actions.close',
+      ['<C-c>'] = false,
       ['<C-l>'] = 'actions.refresh',
       ['<C-p>'] = false,
       ['<C-t>'] = false,
