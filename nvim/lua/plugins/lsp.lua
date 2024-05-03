@@ -25,6 +25,7 @@ return {
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
         vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
         vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
+        vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, conf)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
         vim.keymap.set('n', '<space>f', function()
           vim.lsp.buf.format { async = true }
