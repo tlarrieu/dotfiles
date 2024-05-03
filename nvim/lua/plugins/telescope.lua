@@ -5,7 +5,6 @@ return {
   },
   config = function()
     local actions = require('telescope.actions')
-    local actions_layout = require('telescope.actions.layout')
 
     require('telescope').setup {
       defaults = {
@@ -27,7 +26,7 @@ return {
           i = {
             ['<esc>'] = actions.close,
             ['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
-            ['<c-l>'] = actions_layout.toggle_preview,
+            ['<c-l>'] = actions.toggle_all,
             ['<c-a>'] = { '<home>', type = 'command' },
             ['<c-e>'] = { '<end>', type = 'command' },
           },
