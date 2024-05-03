@@ -41,12 +41,7 @@ k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noremap)
 k.set('n', 'É', ':%s/<space><bs>')
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
 -- hide search matches
-k.set('n', '<esc>', function()
-    require('illuminate').pause()
-    return '<esc>:nohlsearch<cr><c-l>'
-  end,
-  { silent = true, remap = false, expr = true }
-)
+k.set('n', '<esc>', '<esc>:nohlsearch<cr>', noremap)
 -- Find character
 k.set({ 'n', 'x' }, ',', ';', noremap)
 k.set({ 'n', 'x' }, ';', ',', noremap)
@@ -107,10 +102,6 @@ k.set('n', '<leader>.', ':tabedit .<cr>', noremap)
 k.set('n', '<leader>v.', ':vsplit .<cr>', noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
--- Toggle highlight current word
-k.set('n', "<leader>'", require('illuminate').resume, noremap)
-k.set('n', "<a-e>", require('illuminate').goto_next_reference, noremap)
-k.set('n', "<a-i>", require('illuminate').goto_prev_reference, noremap)
 -- Uppercase current word
 k.set('n', '<c-g>', 'gUiw', noremap)
 k.set('i', '<c-g>', '<esc>gUiwea', noremap)

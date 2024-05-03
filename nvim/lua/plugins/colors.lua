@@ -162,8 +162,6 @@ return {
         NotifyDEBUGBody = { link = 'NotifyINFOBody' },
         NotifyTRACEBUGBody = { link = 'NotifyINFOBody' },
 
-        IlluminatedWordText = { fg = c.base02, bg = c.blue },
-
         MarkSignHL = { bg = c.base02 },
         MarkSignNumHL = { link = 'MarkSignHL' },
         MarkVirtTextHL = { link = 'MarkSignHL' },
