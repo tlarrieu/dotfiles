@@ -30,23 +30,23 @@ function generate_password {
 }
 
 function type {
-  xdotool type --clearmodifiers --delay=0 $1
+  xdotool type --clearmodifiers --delay=0 "$1"
 }
 
 function press {
-  xdotool key $1
+  xdotool key "$1"
 }
 
 function password {
-  echo $(pass show "$option" | head -n 1)
+  pass show "$option" | sed -n '1p'
 }
 
 function login {
-  echo $(pass show "$option" | head -n 2 | tail -n 1)
+  pass show "$option" | sed -n '2p'
 }
 
 function account_id {
-  echo $(pass show "$option" | head -n 3 | tail -n 1)
+  pass show "$option" | sed -n '3p'
 }
 
 
@@ -100,16 +100,15 @@ if [ ${#option} -gt 0 ]; then
         ;;
 
       # password only
-      perso/assurance-maladie |\
       perso/linux | \
       perso/microsoft |\
       */google)
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
       perso/assurance-maladie)
-        type $(password)
+        type "$(password)"
         ;;
 
       # passwords shows up after we validate the login
@@ -120,19 +119,19 @@ if [ ${#option} -gt 0 ]; then
       perso/amazon |\
       perso/pole-emploi |\
       pro/newrelic)
-        type $(login)
+        type "$(login)"
         press Return
         sleep 1
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
       pro/bitwarden)
-        type $(login)
+        type "$(login)"
         press Return
         sleep 1
         press Tab
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
@@ -140,18 +139,18 @@ if [ ${#option} -gt 0 ]; then
       pro/onoff)
         press Tab
         press Tab
-        type $(login)
+        type "$(login)"
         press Tab
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
       perso/cpf |\
       perso/trainline)
-        type $(login)
+        type "$(login)"
         press Tab
         press Tab
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
@@ -161,17 +160,17 @@ if [ ${#option} -gt 0 ]; then
       perso/paypal |\
       perso/bankin)
         press Tab
-        type $(login)
+        type "$(login)"
         press Tab
-        type $(password)
+        type "$(password)"
         press Return
         ;;
 
       # “normal” case where login and password fields are visible
       *)
-        type $(login)
+        type "$(login)"
         press Tab
-        type $(password)
+        type "$(password)"
         press Return
         ;;
       esac
@@ -189,10 +188,10 @@ if [ ${#option} -gt 0 ]; then
       if [ ${#answer} -gt 0 ]; then
         case $answer in
           "Password")
-            type $(password)
+            type "$(password)"
             ;;
           *)
-            type $(login)
+            type "$(login)"
             ;;
         esac
       fi
