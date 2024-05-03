@@ -98,8 +98,7 @@ k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
 k.set('n', '<leader>es', function()
   require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
 end, noremap)
-k.set('n', '<leader>.', ':tabedit .<cr>', noremap)
-k.set('n', '<leader>v.', ':vsplit .<cr>', noremap)
+k.set('n', '<leader>.', require('oil').toggle_float, noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word

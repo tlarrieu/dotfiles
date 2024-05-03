@@ -45,12 +45,16 @@ return {
     -- See :help oil-actions for a list of all available actions
     keymaps = {
       ['g?'] = 'actions.show_help',
-      ['<CR>'] = 'actions.preview',
+      ['<CR>'] = 'actions.select',
+      ['<leader>vv'] = 'actions.select_vsplit',
+      ['<leader>nn'] = 'actions.select_split',
       ['<C-c>'] = false,
       ['<C-l>'] = 'actions.refresh',
       ['<C-p>'] = false,
       ['<C-t>'] = false,
       ['<C-v>'] = false,
+      ['gs'] = 'actions.change_sort',
+      ['q'] = 'actions.close',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
       ['`'] = 'actions.cd',
@@ -61,7 +65,7 @@ return {
     use_default_keymaps = true,
     view_options = {
       -- Show files and directories that start with "."
-      show_hidden = false,
+      show_hidden = true,
       -- This function defines what is considered a "hidden" file
       is_hidden_file = function(name, bufnr)
         return vim.startswith(name, ".")
@@ -75,9 +79,9 @@ return {
     float = {
       -- Padding around the floating window
       padding = 2,
-      max_width = 0,
-      max_height = 0,
-      border = 'rounded',
+      max_width = 250,
+      max_height = 80,
+      border = 'single',
       win_options = {
         winblend = 10,
       },

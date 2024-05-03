@@ -76,6 +76,8 @@ return {
             name = 'telescope'
           elseif context.filetype == 'qf' then
             name = 'quickfix'
+          elseif context.filetype == 'oil' then
+            name = 'oil'
           elseif name == '[No Name]' then -- unnamed buffer?
             name = '…'
           elseif modified then
