@@ -24,6 +24,7 @@ return {
       go = { icon = '' },
       markdown = { icon = '' },
       ruby = { icon = '' },
+      python = { icon = '' },
       cpp = { icon = '' },
       c = { icon = '' },
       gitcommit = { icon = '' },
