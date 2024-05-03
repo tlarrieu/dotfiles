@@ -59,6 +59,9 @@ set -x PATH $HOME/.ghcup/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
 set -x PATH $PATH $HOME/.krew/bin
 
+# JAVA
+set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
+
 eval (dircolors -c ~/.dir_colors)
 
 # Tab completions

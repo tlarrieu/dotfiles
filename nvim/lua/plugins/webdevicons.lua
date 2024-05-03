@@ -30,6 +30,8 @@ return {
       gitcommit = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
+      java = { icon = '' },
+      jar = { icon = '' },
       javascript = { icon = '' },
       ['javascript.jsx'] = { icon = '' },
       ['test.js'] = { icon = '' },

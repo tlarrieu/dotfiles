@@ -14,6 +14,7 @@ return {
       'vimls',    -- vim
       'gopls',    -- golang
       'bashls',   -- bash
+      'jdtls',    -- java
     },
   },
   config = function(_, opts)
