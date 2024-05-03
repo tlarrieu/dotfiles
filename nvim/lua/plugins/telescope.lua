@@ -1,7 +1,8 @@
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
-    { 'nvim-lua/plenary.nvim' }
+    { 'nvim-lua/plenary.nvim' },
+    { 'nvim-telescope/telescope-ui-select.nvim' },
   },
   config = function()
     local actions = require('telescope.actions')
@@ -19,7 +20,7 @@ return {
         sorting_strategy = 'ascending',
         layout_config = {
           prompt_position = 'top',
-          preview_width = 0.55,
+          preview_width = 0.7,
         },
 
         mappings = {
@@ -42,11 +43,17 @@ return {
           override_generic_sorter = true,
           override_file_sorter = true,
           case_mode = 'smart_case',
+        },
+        ["ui-select"] = {
+          require("telescope.themes").get_dropdown({
+            layout_strategy = 'horizontal',
+          })
         }
       }
     }
 
     require('telescope').load_extension('fzf')
+    require("telescope").load_extension("ui-select")
 
     local builtin = require('telescope.builtin')
     local k = vim.keymap
