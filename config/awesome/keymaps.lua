@@ -147,9 +147,10 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
 
+    spawner.key({ mod }, "Tab", awful.tag.history.restore),
+    spawner.key({ mod, "Shift" }, "Tab", "rofi-keyboard"),
     spawner.key({ mod, "Control" }, "Tab", "rofi-monitors"),
     spawner.key({}, "F12", "rofi-wifi"),
-    spawner.key({ mod }, "Tab", "rofi-keyboard"),
     spawner.key({ mod }, "k", "rofi-emojis"),
     spawner.key({ mod }, "f", "rofi-nerdfont"),
     spawner.key({ mod }, "à", "rofi-bluetooth"),
