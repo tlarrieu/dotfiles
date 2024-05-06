@@ -2,7 +2,6 @@ return {
   'folke/noice.nvim',
   dependencies = {
     'MunifTanjim/nui.nvim',
-    'rcarriga/nvim-notify',
   },
   opts = {
     cmdline = {
@@ -25,9 +24,8 @@ return {
         input = { title = '' },
       },
     },
-    messages = {
-      enabled = true,
-    },
+    messages = { enabled = false },
+    notify = { enabled = false },
     views = {
       cmdline_popup = {
         position = { row = '20%', col = '50%' },
@@ -70,6 +68,7 @@ return {
       },
     },
     lsp = {
+      progress = { enabled = false },
       signature = {
         enabled = true,
         silent = true,

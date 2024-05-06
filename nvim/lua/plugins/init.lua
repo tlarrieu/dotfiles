@@ -4,9 +4,6 @@ return {
   { 'hrsh7th/cmp-nvim-lsp', dependencies = { 'hrsh7th/nvim-cmp' } },
   { 'folke/neodev.nvim', opts = {} },
   -- }}}
-  -- {{{ --| ui |-----------------------------
-  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-  -- }}}
   -- {{{ --| File Manipulation |--------------
   { 'duggiefresh/vim-easydir' },
   { 'tpope/vim-eunuch' },
@@ -24,7 +21,6 @@ return {
   { 'tlarrieu/vim-sniper' },
   { 'sbdchd/neoformat' },
   { 'milkypostman/vim-togglelist' },
-  { 'rcarriga/nvim-notify' },
   -- }}}
   -- {{{ --| Text manipulation |--------------
   { 'AndrewRadev/switch.vim' },
