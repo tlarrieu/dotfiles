@@ -29,6 +29,7 @@ return {
       cpp = { icon = '' },
       c = { icon = '' },
       gitcommit = { icon = '' },
+      fugitive = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
       java = { icon = '' },
