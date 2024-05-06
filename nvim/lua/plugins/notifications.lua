@@ -19,7 +19,7 @@ return {
         display = {
           render_limit = 16,
           done_ttl = 5,
-          done_icon = "",
+          done_icon = "󰄬 ",
           done_style = "@diff.plus",
           progress_ttl = math.huge,
           progress_icon = {
@@ -33,7 +33,7 @@ return {
           skip_history = true,
           format_message = require("fidget.progress.display").default_format_message,
           format_annote = function(msg) return msg.title end,
-          format_group_name = function(group) return tostring(group) end,
+          format_group_name = function(group) return '[' .. tostring(group) .. ']' end,
           overrides = {
             rust_analyzer = { name = "rust-analyzer" },
           },
@@ -52,11 +52,11 @@ return {
         override_vim_notify = true,
         configs = {
           default = {
-            name = "notifications",
-            icon = "",
+            name = "[notif]",
+            icon = "󱜠 ",
             ttl = 10,
             group_style = "Title",
-            icon_style = "Special",
+            icon_style = "Title",
             annote_style = "String",
             debug_style = "Comment",
             info_style = "Question",
@@ -71,11 +71,6 @@ return {
             end,
           }
         },
-        redirect = function(msg, level, opts)
-          if opts and opts.on_open then
-            return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-          end
-        end,
 
         view = {
           stack_upwards = true,
@@ -89,7 +84,7 @@ return {
 
         window = {
           normal_hl = "Comment",
-          winblend = 100,
+          winblend = 0,
           border = "none",
           zindex = 45,
           max_width = 0,
