@@ -1,4 +1,4 @@
-stty -ixon
+stty -ixon 2> /dev/null
 
 # FZF
 set -l color00 '#fdf6e3'
