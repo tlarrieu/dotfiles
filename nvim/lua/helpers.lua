@@ -31,4 +31,17 @@ _M.snakify = function(str)
   return str:gsub('([a-z])([A-Z])', '%1_%2'):lower() or str
 end
 
+_M.coerce = function(str, width)
+  local count, res = 0, ''
+  for word in str:gmatch('%S+') do
+    count = count + #word
+    if count >= width then
+      res = res .. "\n"
+      count = 0
+    end
+    res = res .. word .. ' '
+  end
+  return res
+end
+
 return _M

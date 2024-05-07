@@ -73,12 +73,13 @@ return {
         },
 
         view = {
-          stack_upwards = true,
-          icon_separator = " ",
-          group_separator = "──────",
-          group_separator_hl = "Comment",
+          stack_upwards = false,
+          icon_separator = ' ',
+          group_separator = '──────',
+          group_separator_hl = 'Comment',
           render_message = function(msg, cnt)
-            return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
+            local _msg = require('helpers').coerce(msg, 80)
+            return cnt == 1 and _msg or string.format("(%dx) %s", cnt, _msg)
           end,
         },
 
