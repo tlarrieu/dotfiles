@@ -88,5 +88,5 @@ o.spelllang = 'en,fr'
 -- }}}
 
 -- {{{ ==| Shortmess |=========================================================
-o.shortmess:append('WI')
+o.shortmess:append('WIcsa')
 -- }}}

@@ -92,7 +92,7 @@ return {
           x_padding = 3,
           y_padding = 1,
           align = "top",
-          relative = "editor",
+          relative = "win",
         },
       },
 
