@@ -144,13 +144,6 @@ return {
         CmpItemKindConstructor = { bold = false },
         CmpGhostText = { fg = c.base01, bg = c.base02 },
 
-        NotifyBackground = { bg = c.base03 },
-        NotifyINFOBody = { link = 'NotifyBackground' },
-        NotifyWARNBody = { link = 'NotifyINFOBody' },
-        NotifyERRORBody = { link = 'NotifyINFOBody' },
-        NotifyDEBUGBody = { link = 'NotifyINFOBody' },
-        NotifyTRACEBUGBody = { link = 'NotifyINFOBody' },
-
         MarkSignHL = { bg = c.base02 },
         MarkSignNumHL = { link = 'MarkSignHL' },
         MarkVirtTextHL = { link = 'MarkSignHL' },
