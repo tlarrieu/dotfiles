@@ -13,7 +13,6 @@ return {
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
-      noice = { icon = '󱠅' },
       oil = { icon = '' },
 
       norg = { icon = '󱗖' },

@@ -144,17 +144,6 @@ return {
         CmpItemKindConstructor = { bold = false },
         CmpGhostText = { fg = c.base01, bg = c.base02 },
 
-        NoiceCursor = { fg = c.base02, bg = c.base01 },
-        NoicePopupBorder = { fg = c.base00, bg = c.base03 },
-        NoiceConfirmBorder = { fg = c.base00, bg = c.base03 },
-        NoiceFormatConfirm = { fg = c.base00, bg = c.base03 },
-        NoiceFormatConfirmDefault = { link = 'IncSearch' },
-        NoiceCmdlinePopup = { bg = c.base03 },
-        NoiceCmdlineIcon = { fg = c.blue, bg = c.base03 },
-        NoiceCmdlineIconSearch = { fg = c.yellow, bg = c.base03 },
-        NoiceCmdlinePopupBorder = { link = 'NoicePopupBorder' },
-        NoiceCmdlinePopupBorderSearch = { link = 'NoicePopupBorder' },
-
         NotifyBackground = { bg = c.base03 },
         NotifyINFOBody = { link = 'NotifyBackground' },
         NotifyWARNBody = { link = 'NotifyINFOBody' },
