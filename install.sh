@@ -180,7 +180,7 @@ case $answer in
 
     nvim="python python-pip neovim nvim-packer-git"
 
-    languages="ghcup-hs-bin luarocks rbenv ruby-build go go-tools gofumpt"
+    languages="ghcup-hs-bin luarocks rbenv ruby-build go go-tools gofumpt opam"
 
     terminal="kitty fish"
 
