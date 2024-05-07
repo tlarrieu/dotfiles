@@ -23,6 +23,7 @@ return {
       css = { icon = '' },
       go = { icon = '' },
       gomod = { icon = '' },
+      ocaml = { icon = '' },
       markdown = { icon = '' },
       ruby = { icon = '' },
       python = { icon = '' },
