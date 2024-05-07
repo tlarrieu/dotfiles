@@ -46,7 +46,7 @@ return {
 
   -- common patterns
   s("exit", fmta("os.Exit(<>)", { i(0, "0") })),
-  s("print", fmta("fmt.Println(<><>)", { sel(), i(0) })),
+  s("p", fmta("fmt.Println(<><>)", { sel(), i(0) })),
   s("open", fmta([[
     <>, <> := os.Open("<>")
     if <> != nil {
