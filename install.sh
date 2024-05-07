@@ -180,7 +180,7 @@ case $answer in
 
     nvim="python python-pip neovim nvim-packer-git"
 
-    languages="ghcup-hs-bin luarocks rbenv ruby-build go go-tools gofumpt opam"
+    languages="luarocks rbenv ruby-build go go-tools gofumpt opam"
 
     terminal="kitty fish"
 
@@ -188,7 +188,7 @@ case $answer in
 
     utils="xdotool entr xsel"
 
-    search="the_silver_searcher ripgrep mlocate"
+    search="ripgrep mlocate"
 
     files="vifm
       xdg-utils

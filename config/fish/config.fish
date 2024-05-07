@@ -27,7 +27,7 @@ set -l fzf_common_opts "
   --no-scrollbar
 "
 
-set -x FZF_DEFAULT_COMMAND "ag -g '' --hidden --ignore .git"
+set -x FZF_DEFAULT_COMMAND "rg -g '' --hidden --ignore .git"
 set -x FZF_DEFAULT_OPTS $fzf_common_opts "--border=thinblock"
 
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND

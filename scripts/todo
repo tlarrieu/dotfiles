@@ -1,8 +1,7 @@
 #!/usr/bin/env sh
 
 function search {
-  ag 'TODO|XXX' \
-    --ignore=app/assets/frontend/src/common_assets/javascripts/limitless
+  rg 'TODO|XXX'
 }
 
 function gitsearch {
