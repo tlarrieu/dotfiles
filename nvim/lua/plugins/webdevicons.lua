@@ -22,6 +22,7 @@ return {
       html = { icon = '' },
       css = { icon = '' },
       go = { icon = '' },
+      gomod = { icon = '' },
       markdown = { icon = '' },
       ruby = { icon = '' },
       python = { icon = '' },
@@ -46,5 +47,8 @@ return {
       ['spec.ts'] = { icon = '' },
       ['spec.tsx'] = { icon = '' },
     },
+    override_by_extension = {
+      mod = { icon = '' },
+    }
   },
 }
