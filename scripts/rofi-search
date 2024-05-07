@@ -122,8 +122,6 @@ searchengines = {
               'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
             ),
   'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
-  'g'    => BrowserRaw.new('https://github.com/%s'),
-  'go'   => BrowserRaw.new('https://www.google.com/search?q=%s'),
   'gh'   => Browser.new('https://github.com/search?q=%s'),
   'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
   'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
