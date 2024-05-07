@@ -78,8 +78,7 @@ return {
           group_separator = '──────',
           group_separator_hl = 'Comment',
           render_message = function(msg, cnt)
-            local _msg = require('helpers').coerce(msg, 80)
-            return cnt == 1 and _msg or string.format("(%dx) %s", cnt, _msg)
+            return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
           end,
         },
 
