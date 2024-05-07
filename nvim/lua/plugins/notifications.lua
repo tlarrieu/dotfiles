@@ -28,7 +28,7 @@ return {
           },
           progress_style = "@diff.delta",
           group_style = "FloatTitle",
-          icon_style = "String",
+          icon_style = "@diff.plus",
           priority = 30,
           skip_history = true,
           format_message = require("fidget.progress.display").default_format_message,
@@ -92,7 +92,7 @@ return {
           x_padding = 3,
           y_padding = 1,
           align = "top",
-          relative = "win",
+          relative = "editor",
         },
       },
 
