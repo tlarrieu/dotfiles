@@ -1,49 +1,5 @@
 #!/bin/sh
 
-SKIP=false
-
-safelink()
-{
-  $SKIP && return
-
-  target=$1
-  link=$2
-
-  if [ $FORCE ]; then
-    DO_LINK=true
-  else
-    if [ -d $link -o -f $link ]; then
-      DO_LINK=false
-
-      echo "$(tput setaf 3)'$link' already exists, do you want to replace" \
-        "it?$(tput sgr0) ([y]es/[N]o/[a]ll/[s]kip)"
-      echo -n "=> "
-
-      read answer
-      case $answer in
-        "yes"|"y")
-          DO_LINK=true
-          ;;
-        "all"|"a")
-          FORCE=true
-          DO_LINK=true
-          ;;
-        "skip"|"s")
-          SKIP=true
-          return
-          ;;
-        *)
-          DO_LINK=false
-          ;;
-      esac
-    else
-      DO_LINK=true
-    fi
-  fi
-
-  $DO_LINK && ln -sfFT $target $link
-}
-
 safeinstall() {
   package=${@}
 
@@ -63,7 +19,7 @@ mkdir -p ~/.config
 for file in `ls -d $BASEDIR/config/*`; do
   target=$BASEDIR/config/`basename $file`
   link=~/.config/`basename $file`
-  safelink $target $link
+  ln -sfFT $target $link
 done
 
 # .local directories
@@ -71,89 +27,89 @@ mkdir -p ~/.local/share/applications
 for file in `ls -d $BASEDIR/local/share/applications/*`; do
   target=$BASEDIR/local/share/applications/`basename $file`
   link=~/.local/share/applications/`basename $file`
-  safelink $target $link
+  ln -sfFT $target $link
 done
 
 # gtk2
-safelink $BASEDIR/gtkrc-2.0 $HOME/.gtkrc-2.0
+ln -sfFT $BASEDIR/gtkrc-2.0 $HOME/.gtkrc-2.0
 
 # nvim
-safelink $BASEDIR/nvim $HOME/.config/nvim
+ln -sfFT $BASEDIR/nvim $HOME/.config/nvim
 
 # vifm
-safelink $BASEDIR/vifm $HOME/.vifm
+ln -sfFT $BASEDIR/vifm $HOME/.vifm
 
 # Bash
-safelink $BASEDIR/bashrc $HOME/.bashrc
+ln -sfFT $BASEDIR/bashrc $HOME/.bashrc
 
 # browser-profile
-safelink $BASEDIR/browser-config $HOME/.browser-config
+ln -sfFT $BASEDIR/browser-config $HOME/.browser-config
 
 # .gitconfig & .gitignore
-safelink $BASEDIR/gitconfig $HOME/.gitconfig
-safelink $BASEDIR/gitignore $HOME/.gitignore
+ln -sfFT $BASEDIR/gitconfig $HOME/.gitconfig
+ln -sfFT $BASEDIR/gitignore $HOME/.gitignore
 git config --global core.excludesFile ~/.gitignore
 
 # agignore
-safelink $BASEDIR/agignore $HOME/.agignore
+ln -sfFT $BASEDIR/agignore $HOME/.agignore
 
 # irbrc
-safelink $BASEDIR/irbrc $HOME/.irbrc
+ln -sfFT $BASEDIR/irbrc $HOME/.irbrc
 
 # rubocop
-safelink $BASEDIR/rubocop.yml $HOME/.rubocop.yml
+ln -sfFT $BASEDIR/rubocop.yml $HOME/.rubocop.yml
 
 # tslint
-safelink $BASEDIR/tslint.json $HOME/tslint.json
+ln -sfFT $BASEDIR/tslint.json $HOME/tslint.json
 
 # newboat
-safelink $BASEDIR/newsboat $HOME/.newsboat
+ln -sfFT $BASEDIR/newsboat $HOME/.newsboat
 
 # scripts
 mkdir -p $HOME/scripts
 for file in `ls -d $BASEDIR/scripts/*`; do
   target=$BASEDIR/scripts/`basename $file`
   link=~/scripts/`basename $file`
-  safelink $target $link
+  ln -sfFT $target $link
 done
 
 # apps
-safelink $BASEDIR/apps $HOME/apps
+ln -sfFT $BASEDIR/apps $HOME/apps
 
 # ncpamixer
-safelink $BASEDIR/ncpamixer.conf $HOME/.ncpamixer.conf
+ln -sfFT $BASEDIR/ncpamixer.conf $HOME/.ncpamixer.conf
 
 # xprofile
-safelink $BASEDIR/xprofile $HOME/.xprofile
+ln -sfFT $BASEDIR/xprofile $HOME/.xprofile
 
 # xresources
-safelink $BASEDIR/xresources $HOME/.Xresources
+ln -sfFT $BASEDIR/xresources $HOME/.Xresources
 mkdir -p $HOME/.Xresources.d
 for file in `ls -d $BASEDIR/xresources.d/*`; do
   target=$BASEDIR/xresources.d/`basename $file`
   link=~/.Xresources.d/`basename $file`
-  safelink $target $link
+  ln -sfFT $target $link
 done
 [ -f ~/.Xresources.d/local ] || \
   cp ~/.Xresources.d/local.sample ~/.Xresources.d/local
 
 # Xmodmap
-safelink $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
+ln -sfFT $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
 
 # dircolors
-safelink $BASEDIR/dir_colors $HOME/.dir_colors
+ln -sfFT $BASEDIR/dir_colors $HOME/.dir_colors
 
 # less
-safelink $BASEDIR/lesskey $HOME/.lesskey
+ln -sfFT $BASEDIR/lesskey $HOME/.lesskey
 
 # GHCi
-safelink $BASEDIR/ghci $HOME/.ghci
+ln -sfFT $BASEDIR/ghci $HOME/.ghci
 
 # Taskwarrior
-safelink $BASEDIR/taskrc $HOME/.taskrc
+ln -sfFT $BASEDIR/taskrc $HOME/.taskrc
 
 # Routines
-safelink $BASEDIR/routines $HOME/.routines
+ln -sfFT $BASEDIR/routines $HOME/.routines
 
 # X11
 for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
@@ -162,16 +118,14 @@ for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
   sudo ln -sfFT $target $link
 done
 
-if [ ! $SKIP ]; then
-  echo "$(tput setaf 2)Done.$(tput sgr0)"
-fi
+echo "$(tput setaf 2)Done.$(tput sgr0)"
 
 # -- [[ Package / plugins installation ]] --------------------------------------
 # Core pacakages (maybe we should make a meta package or something)
 echo
 echo -n "Do you want to check packages? ([y]es/[N]o) "
 
-read answer
+read -r answer
 case $answer in
   "yes"|"y")
     safeinstall yay
@@ -288,7 +242,7 @@ esac
 echo
 echo -n "Do you want to configure services? ([y]es/[N]o) "
 
-read answer
+read -r answer
 case $answer in
   "yes"|"y")
     echo "$(tput setaf 3)Enabling lightdm...$(tput sgr0)"
@@ -315,7 +269,7 @@ esac
 echo
 echo -n "Do you want to configure lightdm? ([y]es/[N]o) "
 
-read answer
+read -r answer
 case $answer in
   "yes"|"y")
     # lightdm
@@ -339,7 +293,7 @@ esac
 echo
 echo -n "Do you want to set your shell to fish? ([y]es/[N]o) "
 
-read answer
+read -r answer
 case $answer in
   "yes"|"y")
     chsh -s /usr/bin/fish
@@ -358,7 +312,7 @@ nvim --headless "+Lazy! sync" +qa
 echo "$(tput setaf 2)Done.$(tput sgr0)"
 
 # Neorg notes
-if [[ -f ~/.neorg ]]; then
+if [ -d ~/.neorg ]; then
   echo "$(tput setaf 2)Notes already cloned. Nothing to do!$(tput sgr0)"
 else
   echo "$(tput setaf 3)Getting notes...$(tput sgr0)"
