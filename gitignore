@@ -1,16 +1,18 @@
-# Compiled source #
-###################
+# Artifacts
 *.com
 *.class
 *.dll
 *.exe
 *.o
 *.so
+*.hi
 
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
+# build paths
+node_modules
+_build
+.stack-work/
+
+# Archives
 *.7z
 *.dmg
 *.gz
@@ -20,45 +22,21 @@
 *.tar
 *.zip
 
-# Logs and databases #
-######################
+# Logs
 *.log
 
-# Redis #
-######################
+# Redis
 dump.rdb
 
-# VIM related files #
-#####################
+# VIM
 *.swp*
 *.un~
 .projections.json
 *.session
 .nvimrc
 
-# Configuration related files #
-###############################
-.agignore
-
-# Ember #
-#########
+# Misc
 tmp
 
-# Tags #
-#########
+# Tags
 tags
-
-# Javascript #
-##############
-node_modules
-
-heroku-logs
-
-.subset
-.env.local
-
-# Haskell #
-###########
-Main
-*.hi
-.stack-work/
