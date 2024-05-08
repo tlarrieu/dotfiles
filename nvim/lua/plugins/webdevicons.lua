@@ -17,6 +17,7 @@ return {
 
       norg = { icon = '󱗖' },
 
+      make = { icon = '' },
       vim = { icon = '' },
       json = { icon = '' },
       html = { icon = '' },
@@ -24,6 +25,7 @@ return {
       go = { icon = '' },
       gomod = { icon = '' },
       ocaml = { icon = '' },
+      dune = { icon = '' },
       markdown = { icon = '' },
       ruby = { icon = '' },
       python = { icon = '' },
@@ -50,6 +52,10 @@ return {
     },
     override_by_extension = {
       mod = { icon = '' },
+    },
+    override_by_filename = {
+      ['dune-project'] = { icon = '' },
+      makefile = { icon = '' },
     }
   },
 }
