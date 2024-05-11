@@ -23,8 +23,8 @@ vim.api.nvim_create_user_command('Map', function(opts)
 
   vim.keymap.set('n', 'q', ':quit<cr>', { buffer = true, silent = true })
 
-  vim.cmd("put=execute('map " .. opts.args .. "')")
-  vim.cmd("put=execute('imap " .. opts.args .. "')")
+  vim.cmd("silent put=execute('map " .. opts.args .. "')")
+  vim.cmd("silent put=execute('imap " .. opts.args .. "')")
   vim.cmd("g/^$/d_")
   vim.cmd("g/No mapping found/d_")
 
