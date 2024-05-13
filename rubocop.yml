@@ -2,6 +2,7 @@ AllCops:
   TargetRubyVersion: 2.4
   Exclude:
     - 'db/**/*'
+  NewCops: enable
 
 # -- [[ Layout ]] --------------------------------------------------------------
 
@@ -49,7 +50,7 @@ Lint/DeprecatedClassMethods:
 
 # -- [[ Metrics ]] -------------------------------------------------------------
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 80
 
 Metrics/MethodLength:
