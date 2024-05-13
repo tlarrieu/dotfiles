@@ -133,7 +133,7 @@ case $answer in
 
     build_tools="fakeroot binutils base-devel"
 
-    nvim="neovim nvim-packer-git"
+    nvim="neovim-git"
 
     languages="luarocks rbenv ruby-build go go-tools gofumpt opam"
 
