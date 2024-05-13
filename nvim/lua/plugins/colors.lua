@@ -89,6 +89,9 @@ return {
 
         -- plugins
 
+        OilDir = { fg = c.base1 },
+        OilDirIcon = { link = 'OilDir' },
+
         LazyNormal = { bg = c.base03 },
         MasonNormal = { bg = c.base03 },
 

@@ -4,7 +4,12 @@ return {
     -- Id is automatically added at the beginning, and name at the end
     -- See :help oil-columns
     columns = {
-      'icon',
+      {
+        'icon',
+        default_file = '',
+        directory = '',
+        add_padding = true,
+      },
       -- "permissions",
       -- "size",
       -- "mtime",
@@ -53,6 +58,7 @@ return {
       ['<C-p>'] = false,
       ['<C-t>'] = false,
       ['<C-v>'] = false,
+      ['<C-s>'] = false,
       ['gs'] = 'actions.change_sort',
       ['q'] = 'actions.close',
       ['-'] = 'actions.parent',
