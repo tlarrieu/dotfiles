@@ -146,8 +146,8 @@ k.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', norem
 k.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', noremap)
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
-k.set('n', '<left>', '<c-w><', noremap)
-k.set('n', '<right>', '<c-w>>', noremap)
+k.set('n', '<left>', '<c-w>5<', noremap)
+k.set('n', '<right>', '<c-w>5>', noremap)
 k.set('n', '<up>', '<c-w>+', noremap)
 k.set('n', '<down>', '<c-w>-', noremap)
 k.set('n', 'cO', ':tabo<cr><c-w>o', noremap)
