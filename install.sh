@@ -1,129 +1,130 @@
 #!/bin/sh
 
 safeinstall() {
-  package=${@}
+  package=$*
 
   if type yay > /dev/null; then
+    # shellcheck disable=SC2086 # we actually went to use word splitting here
     yay -S --color always --needed --noconfirm $package
   else
+    # shellcheck disable=SC2086 # we actually went to use word splitting here
     sudo pacman -S --color always --needed --noconfirm $package
   fi
 }
 
-BASEDIR=$(cd "$(dirname "$0")"; pwd)
+BASEDIR=$(cd "$(dirname "$0")" || exit; pwd)
 
 # -- [[ Linking ]] -------------------------------------------------------------
 echo "Linking configuration files..."
 # .config directories
 mkdir -p ~/.config
-for file in `ls -d $BASEDIR/config/*`; do
-  target=$BASEDIR/config/`basename $file`
-  link=~/.config/`basename $file`
-  ln -sfFT $target $link
+for file in "$BASEDIR"/config/*; do
+  target=$BASEDIR/config/$(basename "$file")
+  link=~/.config/$(basename "$file")
+  ln -sfFT "$target" "$link"
 done
 
 # .local directories
 mkdir -p ~/.local/share/applications
-for file in `ls -d $BASEDIR/local/share/applications/*`; do
-  target=$BASEDIR/local/share/applications/`basename $file`
-  link=~/.local/share/applications/`basename $file`
-  ln -sfFT $target $link
+for file in "$BASEDIR"/local/share/applications/*; do
+  target=$BASEDIR/local/share/applications/$(basename "$file")
+  link=~/.local/share/applications/$(basename "$file")
+  ln -sfFT "$target" "$link"
 done
 
 # gtk2
-ln -sfFT $BASEDIR/gtkrc-2.0 $HOME/.gtkrc-2.0
+ln -sfFT "$BASEDIR"/gtkrc-2.0 "$HOME"/.gtkrc-2.0
 
 # nvim
-ln -sfFT $BASEDIR/nvim $HOME/.config/nvim
+ln -sfFT "$BASEDIR"/nvim "$HOME"/.config/nvim
 
 # vifm
-ln -sfFT $BASEDIR/vifm $HOME/.vifm
+ln -sfFT "$BASEDIR"/vifm "$HOME"/.vifm
 
 # Bash
-ln -sfFT $BASEDIR/bashrc $HOME/.bashrc
+ln -sfFT "$BASEDIR"/bashrc "$HOME"/.bashrc
 
 # browser-profile
-ln -sfFT $BASEDIR/browser-config $HOME/.browser-config
+ln -sfFT "$BASEDIR"/browser-config "$HOME"/.browser-config
 
 # .gitconfig & .gitignore
-ln -sfFT $BASEDIR/gitconfig $HOME/.gitconfig
-ln -sfFT $BASEDIR/gitignore $HOME/.gitignore
+ln -sfFT "$BASEDIR"/gitconfig "$HOME"/.gitconfig
+ln -sfFT "$BASEDIR"/gitignore "$HOME"/.gitignore
 git config --global core.excludesFile ~/.gitignore
 
 # agignore
-ln -sfFT $BASEDIR/agignore $HOME/.agignore
+ln -sfFT "$BASEDIR"/agignore "$HOME"/.agignore
 
 # irbrc
-ln -sfFT $BASEDIR/irbrc $HOME/.irbrc
+ln -sfFT "$BASEDIR"/irbrc "$HOME"/.irbrc
 
 # rubocop
-ln -sfFT $BASEDIR/rubocop.yml $HOME/.rubocop.yml
+ln -sfFT "$BASEDIR"/rubocop.yml "$HOME"/.rubocop.yml
 
 # tslint
-ln -sfFT $BASEDIR/tslint.json $HOME/tslint.json
+ln -sfFT "$BASEDIR"/tslint.json "$HOME"/tslint.json
 
 # newboat
-ln -sfFT $BASEDIR/newsboat $HOME/.newsboat
+ln -sfFT "$BASEDIR"/newsboat "$HOME"/.newsboat
 
 # scripts
-mkdir -p $HOME/scripts
-for file in `ls -d $BASEDIR/scripts/*`; do
-  target=$BASEDIR/scripts/`basename $file`
-  link=~/scripts/`basename $file`
-  ln -sfFT $target $link
+mkdir -p "$HOME"/scripts
+for file in "$BASEDIR"/scripts/*; do
+  target="$BASEDIR"/scripts/$(basename "$file")
+  link=~/scripts/$(basename "$file")
+  ln -sfFT "$target" "$link"
 done
 
 # apps
-ln -sfFT $BASEDIR/apps $HOME/apps
+ln -sfFT "$BASEDIR"/apps "$HOME"/apps
 
 # ncpamixer
-ln -sfFT $BASEDIR/ncpamixer.conf $HOME/.ncpamixer.conf
+ln -sfFT "$BASEDIR"/ncpamixer.conf "$HOME"/.ncpamixer.conf
 
 # xprofile
-ln -sfFT $BASEDIR/xprofile $HOME/.xprofile
+ln -sfFT "$BASEDIR"/xprofile "$HOME"/.xprofile
 
 # xresources
-ln -sfFT $BASEDIR/xresources $HOME/.Xresources
-mkdir -p $HOME/.Xresources.d
-for file in `ls -d $BASEDIR/xresources.d/*`; do
-  target=$BASEDIR/xresources.d/`basename $file`
-  link=~/.Xresources.d/`basename $file`
-  ln -sfFT $target $link
+ln -sfFT "$BASEDIR"/xresources "$HOME"/.Xresources
+mkdir -p "$HOME"/.Xresources.d
+for file in "$BASEDIR"/xresources.d/*; do
+  target="$BASEDIR"/xresources.d/$(basename "$file")
+  link=~/.Xresources.d/$(basename "$file")
+  ln -sfFT "$target" "$link"
 done
 [ -f ~/.Xresources.d/local ] || \
   cp ~/.Xresources.d/local.sample ~/.Xresources.d/local
 
 # Xmodmap
-ln -sfFT $BASEDIR/xmodmap.lavie-hz750c $HOME/.Xmodmap
+ln -sfFT "$BASEDIR"/xmodmap.lavie-hz750c "$HOME"/.Xmodmap
 
 # dircolors
-ln -sfFT $BASEDIR/dir_colors $HOME/.dir_colors
+ln -sfFT "$BASEDIR"/dir_colors "$HOME"/.dir_colors
 
 # less
-ln -sfFT $BASEDIR/lesskey $HOME/.lesskey
+ln -sfFT "$BASEDIR"/lesskey "$HOME"/.lesskey
 
 # GHCi
-ln -sfFT $BASEDIR/ghci $HOME/.ghci
+ln -sfFT "$BASEDIR"/ghci "$HOME"/.ghci
 
 # Taskwarrior
-ln -sfFT $BASEDIR/taskrc $HOME/.taskrc
+ln -sfFT "$BASEDIR"/taskrc "$HOME"/.taskrc
 
 # Routines
-ln -sfFT $BASEDIR/routines $HOME/.routines
+ln -sfFT "$BASEDIR"/routines "$HOME"/.routines
 
 # X11
-for file in `ls -d $BASEDIR/xorg.conf.d/*`; do
-  target=$BASEDIR/xorg.conf.d/`basename $file`
-  link=/etc/X11/xorg.conf.d/`basename $file`
-  sudo ln -sfFT $target $link
+for file in "$BASEDIR"/xorg.conf.d/*; do
+  target="$BASEDIR"/xorg.conf.d/$(basename "$file")
+  link=/etc/X11/xorg.conf.d/$(basename "$file")
+  sudo ln -sfFT "$target" "$link"
 done
 
 echo "$(tput setaf 2)Done.$(tput sgr0)"
 
 # -- [[ Package / plugins installation ]] --------------------------------------
 # Core pacakages (maybe we should make a meta package or something)
-echo
-echo -n "Do you want to check packages? ([y]es/[N]o) "
+printf "Do you want to check packages? ([y]es/[N]o) "
 
 read -r answer
 case $answer in
@@ -207,26 +208,26 @@ case $answer in
       terminus-font
       "
 
-    safeinstall $build_tools \
-      $nvim \
-      $languages \
-      $terminal \
-      $admin \
-      $utils \
-      $search \
-      $files \
-      $essential \
-      $taskwarrior \
-      $xorg \
-      $display_manager \
-      $window_manager \
-      $gtk \
-      $multimedia \
-      $internet \
-      $keyboard \
-      $writing \
-      $bluetooth \
-      $fonts
+    safeinstall "$build_tools" \
+      "$nvim" \
+      "$languages" \
+      "$terminal" \
+      "$admin" \
+      "$utils" \
+      "$search" \
+      "$files" \
+      "$essential" \
+      "$taskwarrior" \
+      "$xorg" \
+      "$display_manager" \
+      "$window_manager" \
+      "$gtk" \
+      "$multimedia" \
+      "$internet" \
+      "$keyboard" \
+      "$writing" \
+      "$bluetooth" \
+      "$fonts"
 
     sudo ln -sf /usr/bin/youtube-dlc /usr/bin/youtube-dl
 
@@ -239,8 +240,7 @@ case $answer in
     ;;
 esac
 
-echo
-echo -n "Do you want to configure services? ([y]es/[N]o) "
+printf "Do you want to configure services? ([y]es/[N]o) "
 
 read -r answer
 case $answer in
@@ -266,8 +266,7 @@ case $answer in
 esac
 
 # LightDM
-echo
-echo -n "Do you want to configure lightdm? ([y]es/[N]o) "
+printf "Do you want to configure lightdm? ([y]es/[N]o) "
 
 read -r answer
 case $answer in
@@ -290,8 +289,7 @@ case $answer in
 esac
 
 # LightDM
-echo
-echo -n "Do you want to set your shell to fish? ([y]es/[N]o) "
+printf "Do you want to set your shell to fish? ([y]es/[N]o) "
 
 read -r answer
 case $answer in
