@@ -133,13 +133,13 @@ case $answer in
 
     build_tools="fakeroot binutils base-devel"
 
-    nvim="python python-pip neovim nvim-packer-git"
+    nvim="neovim nvim-packer-git"
 
     languages="luarocks rbenv ruby-build go go-tools gofumpt opam"
 
     terminal="kitty fish"
 
-    admin="htop net-tools dnsutils ncdu"
+    admin="htop-vim net-tools dnsutils ncdu"
 
     utils="xdotool entr xsel"
 
@@ -167,7 +167,7 @@ case $answer in
       xorg-xinput
       xorg-xmodmap"
 
-    display_manager="lightdm lightdm-webkit-theme-aether"
+    display_manager="lightdm"
 
     window_manager="awesome
       i3lock-color
@@ -201,9 +201,7 @@ case $answer in
 
     bluetooth="bluez bluez-utils pulseaudio-bluetooth"
 
-    fonts="ttf-fira-code
-      nerd-fonts-fira-code
-      nerd-fonts-inconsolata
+    fonts="ttf-firacode-nerd
       ttf-consolas-ligaturized
       terminus-font
       "
@@ -229,9 +227,6 @@ case $answer in
       "$bluetooth" \
       "$fonts"
 
-    sudo ln -sf /usr/bin/youtube-dlc /usr/bin/youtube-dl
-
-    sudo pip install neovim
     gem install dotenv
     echo "$(tput setaf 2)All dependencies are up to date$(tput sgr0)"
     ;;
@@ -255,36 +250,13 @@ case $answer in
     mkdir ~/.local/share/mpd 2> /dev/null
     systemctl enable mpd --user
     echo "$(tput setaf 2)Done.$(tput sgr0)"
-    echo "$(tput setaf 2)Activating NTP server$(tput sgr0)"
+    echo "$(tput setaf 3)Activating NTP server$(tput sgr0)"
     sudo timedatectl set-ntp true
     echo "$(tput setaf 2)Done.$(tput sgr0)"
     echo "$(tput setaf 2)Services successfully configured !$(tput sgr0)"
     ;;
   *)
     echo "$(tput setaf 3)Services configuration skipped$(tput sgr0)"
-    ;;
-esac
-
-# LightDM
-printf "Do you want to configure lightdm? ([y]es/[N]o) "
-
-read -r answer
-case $answer in
-  "yes"|"y")
-    # lightdm
-    echo "$(tput setaf 3)Setting webkit2 greeter for lightdm$(tput sgr0)"
-    sudo sed -si \
-      's/#\?greeter-session=.*/greeter-session=lightdm-webkit2-greeter/' \
-      /etc/lightdm/lightdm.conf
-    echo "$(tput setaf 2)Done.$(tput sgr0)"
-    echo "$(tput setaf 3)Setting theme for webkit2 greeter (aether)$(tput sgr0)"
-    sudo sed -i \
-      's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = lightdm-webkit-theme-aether #\1/g' \
-      /etc/lightdm/lightdm-webkit2-greeter.conf
-    echo "$(tput setaf 2)Done.$(tput sgr0)"
-    ;;
-  *)
-    echo "$(tput setaf 3)lightdm configuration skipped$(tput sgr0)"
     ;;
 esac
 
