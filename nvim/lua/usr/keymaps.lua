@@ -95,6 +95,13 @@ k.set('', '<leader><leader>', '@q', noremap)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
 --- }}}
 --- {{{ --| quick access |----------------------------------
+k.set('n', '<leader>em', function()
+  if require('helpers').fileexists(vim.fn.expand('%')) then
+    return ':tabe Makefile<cr>'
+  else
+    return ':e Makefile<cr>'
+  end
+end, { expr = true, silent = true })
 k.set('n', '<leader>es', function()
   require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
 end, noremap)
