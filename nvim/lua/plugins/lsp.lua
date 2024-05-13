@@ -15,6 +15,7 @@ return {
       'gopls',    -- golang
       'bashls',   -- bash
       'jdtls',    -- java
+      'ocamllsp', -- ocaml
     },
   },
   config = function(_, opts)
@@ -74,6 +75,13 @@ return {
           },
         })
       end,
+      -- ["ocamllsp"] = function()
+      --   lspconfig.ocamllsp.setup({
+      --     on_attach = opts.on_attach,
+      --     capabilities = opts.capabilities,
+      --     settings = {},
+      --   })
+      -- end,
       ["gopls"] = function()
         lspconfig.gopls.setup({
           on_attach = opts.on_attach,
