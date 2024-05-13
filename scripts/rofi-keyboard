@@ -1,9 +1,9 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -i -p 󰥻'
-OPTIONS="Bépo\nDvorak\nColemak\nWorkman\nQwerty\nAzerty"
+LAUNCHER='rofi -dmenu -i -p 󰥻 -l 6'
+OPTIONS="Bépo\nQwerty\nDvorak\nColemak\nWorkman\nAzerty"
 
-option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $1}' | tr -d '\r\n'`
+option=$(echo -e "$OPTIONS" | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
 
 if [ ${#option} -gt 0 ]; then
   case $option in
