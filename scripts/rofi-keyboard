@@ -1,43 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env ruby
 
-LAUNCHER='rofi -dmenu -i -p 󰥻 -l 6'
-OPTIONS="Bépo\nQwerty\nDvorak\nColemak\nWorkman\nAzerty"
+mapping = {
+  'Bépo'    => ['fr', 'bepo'],
+  'Qwerty'  => ['us', ''],
+  'Dvorak'  => ['us', 'dvorak'],
+  'Colemak' => ['us', 'colemak'],
+  'Workman' => ['us', 'workman'],
+  'Azerty'  => ['fr', ''],
+}
 
-option=$(echo -e "$OPTIONS" | $LAUNCHER | awk '{print $1}' | tr -d '\r\n')
+layout = %x(setxkbmap -query | grep -e 'layout' | awk -F' ' '{ print $2 }').strip
+variant = %x(setxkbmap -query | grep -e 'variant' | awk -F' ' '{ print $2 }').strip
 
-if [ ${#option} -gt 0 ]; then
-  case $option in
-    Bépo)
-      layout=fr
-      variant=bepo
-      ;;
-    Dvorak)
-      layout=us
-      variant=dvorak
-      ;;
-    Colemak)
-      layout=us
-      variant=colemak
-      ;;
-    Workman)
-      layout=us
-      variant=workman
-      ;;
-    Qwerty)
-      layout=us
-      variant=""
-      ;;
-    Azerty)
-      layout=fr
-      variant=""
-      ;;
-  esac
+current = mapping.invert[[layout, variant]]
+id = mapping.keys.find_index(current)
 
-  if [[ $(setxkbmap -option ctrl:nocaps -model pc105 -layout "$layout" -variant "$variant") ]]; then
-    notify-send Failure "Could not load (layout = $layout, variant = $variant)"
-  else
-    notify-send Success "Keyboard set to (layout = $layout, variant = $variant)"
-  fi
+launcher = "rofi -dmenu -i -p 󰥻 -l 6 -a #{id}"
+options = mapping.keys.join("\n")
 
-  xmodmap ~/.Xmodmap
-fi
+selection=%x(echo -e "#{options}" | #{launcher} | awk '{print $1}').strip
+
+if selection == '' then exit 0 end
+
+layout, variant = mapping[selection]
+
+%x(setxkbmap -option ctrl:nocaps -model pc105 -layout "#{layout}" -variant "#{variant}")
+
+if $? == 0
+  %x(notify-send Success "Keyboard set to (layout = #{layout}, variant = #{variant})")
+else
+  %x(notify-send Failure "Could not load (layout = #{layout}, variant = #{variant})")
+end
+
+%x(xmodmap ~/.Xmodmap)
