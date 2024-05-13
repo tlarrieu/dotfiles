@@ -4,11 +4,11 @@ function _git_branch_name
     and return
 
   set -l tag (command git describe --tags --exact-match 2> /dev/null)
-    and echo " $tag "
+    and echo "󱈤 $tag "
     and return
 
   set -l ref (command git show-ref --head -s --abbrev | head -n1)
-    and echo "➦ $ref "
+    and echo " $ref "
     and return
 end
 
@@ -34,9 +34,9 @@ function _git_ahead
   end
 
   if [ $ahead -eq 1 ]
-    echo "󰏕 "
+    echo "󰧜 "
   else if [ $behind -eq 1 ]
-    echo "󰏔 "
+    echo "󰧖 "
   end
 end
 
@@ -49,12 +49,12 @@ function _git_prompt
     and return
 
   set -l stashed \
-    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
+    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n '󰜦 ')
 
   set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code; or echo -n " ")
+    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󰕚 ")
   set -l staged \
-    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n " ")
+    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱉲 ")
   set -l ahead \
     (_git_ahead)
 
@@ -63,7 +63,7 @@ function _git_prompt
   if [ "$show_untracked" != 'false' ]
     set -l untracked (command git ls-files --other --exclude-standard --directory --no-empty-directory)
     [ "$untracked" ]
-      and set new " "
+      and set new " "
   end
 
   set -l flags "$stashed$dirty$staged$ahead$new"
@@ -89,7 +89,7 @@ function fish_prompt
 
   # Show background job if any
   [ (jobs | wc -l) -gt 0 ]
-    and echo -ns " "
+    and echo -ns "󰏤 "
 
   # Print pwd or full path
   echo -n -s $cwd $normal " "
