@@ -70,6 +70,6 @@ return {
     k.set('n', '<c-e>', builtin.diagnostics, options)
     k.set('n', '<c-q>', builtin.quickfix, options)
     k.set('n', 'g?', builtin.spell_suggest, options)
-    k.set('n', '<c-è>', ':TodoTelescope keywords=TODO,FIX,WARN,PERF<cr>', options)
+    k.set('n', '<c-è>', ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>', options)
   end
 }

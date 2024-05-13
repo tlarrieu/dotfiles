@@ -8,7 +8,7 @@ return {
     sign_priority = 8, -- sign priority
     keywords = {
       FIX = {
-        icon = ' ',
+        icon = '󰨰 ',
         color = 'error',
         alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
         -- signs = false, -- configure signs for some keywords individually
