@@ -50,8 +50,9 @@ k.set({ 'n', 'x' }, '<m-t>', '}', noremap)
 k.set({ 'n', 's' }, '<m-s>', '{', noremap)
 -- Close current buffer
 k.set('n', 'Q', ':bdelete!<cr>', noremap)
--- Normal mode
+-- Sanity mappings for command line mode
 k.set('c', '<esc>', '<c-c>', noremap)
+k.set('c', '<c-a>', '<home>')
 -- Exit
 k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
 k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
