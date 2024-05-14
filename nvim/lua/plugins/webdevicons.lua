@@ -58,6 +58,7 @@ return {
       ['spec.tsx'] = { icon = '' },
       ['favicon.ico'] = { icon = '' },
       lock = { icon = '󰦝' },
+      log = { icon = '' },
     },
     override_by_extension = {
       mod = { icon = '' },
@@ -68,6 +69,10 @@ return {
       svg = { icon = '' },
       js = { icon = '' },
       md = { icon = '' },
+      ml = { icon = '' },
+      mli = { icon = '' },
+      exe = { icon = '' },
+      log = { icon = '' },
     },
     override_by_filename = {
       ['.keep'] = { icon = '' },
