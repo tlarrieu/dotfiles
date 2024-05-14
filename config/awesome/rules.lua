@@ -73,6 +73,7 @@ awful.rules.rules = {
         "cal.new",
         "attunement.io__search",
         "scryfall.com__search",
+        "rubygems.org__search",
         "www.thesaurus.com__browse",
         "translate.google.com",
         "dictionary.cambridge.org",
