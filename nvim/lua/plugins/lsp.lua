@@ -7,15 +7,15 @@ return {
   },
   opts = {
     ensure_installed = {
-      'hls',      -- haskell
-      'tsserver', -- javascript / TS
-      'ruby_lsp', -- lua
-      'lua_ls',   -- lua
-      'vimls',    -- vim
-      'gopls',    -- golang
-      'bashls',   -- bash
-      'jdtls',    -- java
-      'ocamllsp', -- ocaml
+      'hls',        -- haskell
+      'tsserver',   -- javascript / TS
+      'solargraph', -- ruby
+      'lua_ls',     -- lua
+      'vimls',      -- vim
+      'gopls',      -- golang
+      'bashls',     -- bash
+      'jdtls',      -- java
+      'ocamllsp',   -- ocaml
     },
   },
   config = function(_, opts)
@@ -25,13 +25,18 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         local conf = { buffer = ev.buf }
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
-        vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, conf)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client then
           client.server_capabilities.semanticTokensProvider = nil
 
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
+
+          if client.supports_method('textDocument/hover') then
+            vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
+          end
+          if client.supports_method('textDocument/codeAction') then
+            vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, conf)
+          end
           if client.supports_method('textDocument/references') then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
           end
@@ -39,9 +44,7 @@ return {
             vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
           end
           if client.supports_method('textDocument/formatting') then
-            vim.keymap.set('n', '<space>f', function()
-              vim.lsp.buf.format { async = true }
-            end, conf)
+            vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, conf)
           end
         end
       end
