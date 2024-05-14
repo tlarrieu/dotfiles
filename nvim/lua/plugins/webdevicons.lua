@@ -40,6 +40,7 @@ return {
       ['.gitignore'] = { icon = '' },
       ['.gitattributes'] = { icon = '' },
       fugitive = { icon = '' },
+      GV = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
       java = { icon = '' },
