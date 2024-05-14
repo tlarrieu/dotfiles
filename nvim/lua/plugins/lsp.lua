@@ -26,16 +26,23 @@ return {
       callback = function(ev)
         local conf = { buffer = ev.buf }
         vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
-        vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
         vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, conf)
         vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
-        vim.keymap.set('n', '<space>f', function()
-          vim.lsp.buf.format { async = true }
-        end, conf)
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
         if client then
           client.server_capabilities.semanticTokensProvider = nil
+
+          if client.supports_method('textDocument/references') then
+            vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
+          end
+          if client.supports_method('textDocument/rename') then
+            vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
+          end
+          if client.supports_method('textDocument/formatting') then
+            vim.keymap.set('n', '<space>f', function()
+              vim.lsp.buf.format { async = true }
+            end, conf)
+          end
         end
       end
     })
