@@ -19,23 +19,23 @@ return {
         display = {
           render_limit = 16,
           done_ttl = 5,
-          done_icon = "󰄬 ",
-          done_style = "@diff.plus",
+          done_icon = '󰄬 ',
+          done_style = '@diff.plus',
           progress_ttl = math.huge,
           progress_icon = {
-            pattern = "meter",
+            pattern = 'meter',
             period = 1
           },
-          progress_style = "@diff.delta",
-          group_style = "FloatTitle",
-          icon_style = "@diff.plus",
+          progress_style = '@diff.delta',
+          group_style = 'FloatTitle',
+          icon_style = '@diff.plus',
           priority = 30,
           skip_history = true,
-          format_message = require("fidget.progress.display").default_format_message,
+          format_message = require('fidget.progress.display').default_format_message,
           format_annote = function(msg) return msg.title end,
           format_group_name = function(group) return '[' .. tostring(group) .. ']' end,
           overrides = {
-            rust_analyzer = { name = "rust-analyzer" },
+            rust_analyzer = { name = 'rust-analyzer' },
           },
         },
 
@@ -52,20 +52,20 @@ return {
         override_vim_notify = true,
         configs = {
           default = {
-            name = "[notif]",
-            icon = "󱜠 ",
+            name = '[notif]',
+            icon = '󱜠 ',
             ttl = 10,
-            group_style = "Title",
-            icon_style = "Title",
-            annote_style = "String",
-            debug_style = "Comment",
-            info_style = "Question",
-            warn_style = "WarningMsg",
-            error_style = "ErrorMsg",
-            debug_annote = "DEBUG",
-            info_annote = "INFO",
-            warn_annote = "WARN",
-            error_annote = "ERROR",
+            group_style = 'Title',
+            icon_style = 'Title',
+            annote_style = 'String',
+            debug_style = 'Comment',
+            info_style = 'Question',
+            warn_style = 'WarningMsg',
+            error_style = 'ErrorMsg',
+            debug_annote = 'DEBUG',
+            info_annote = 'INFO',
+            warn_annote = 'WARN',
+            error_annote = 'ERROR',
             update_hook = function(item)
               require('fidget.notification').set_content_key(item)
             end,
@@ -78,21 +78,21 @@ return {
           group_separator = '──────',
           group_separator_hl = 'Comment',
           render_message = function(msg, cnt)
-            return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
+            return cnt == 1 and msg or string.format('(%dx) %s', cnt, msg)
           end,
         },
 
         window = {
-          normal_hl = "Comment",
+          normal_hl = 'Comment',
           winblend = 0,
-          border = "none",
+          border = 'none',
           zindex = 45,
           max_width = 0,
           max_height = 0,
           x_padding = 3,
           y_padding = 1,
-          align = "top",
-          relative = "editor",
+          align = 'top',
+          relative = 'editor',
         },
       },
 
@@ -100,7 +100,7 @@ return {
         level = vim.log.levels.WARN,
         max_size = 10000,
         float_precision = 0.01,
-        path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
+        path = string.format('%s/fidget.nvim.log', vim.fn.stdpath('cache')),
       },
     })
   end
