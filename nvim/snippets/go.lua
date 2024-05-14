@@ -43,6 +43,16 @@ return {
     		<>
     }
   ]], { i(1, "var"), i(2, "val"), i(0) })),
+  s("if", fmta([[
+  if <> {
+    <>
+  }
+  ]], { i(1, 'cond'), i(2)})),
+  s("else", fmta([[
+  else {
+    <>
+  }
+  ]], { i(1)})),
 
   -- common patterns
   s("exit", fmta("os.Exit(<>)", { i(0, "0") })),
