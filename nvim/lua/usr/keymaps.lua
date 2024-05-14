@@ -36,7 +36,7 @@ k.set({ 'n', 'x' }, 'È', ':!')
 -- search
 k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurences of word under cursor
-k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//g<left><left>', noremap)
+k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>', noremap)
 -- find & replace
 k.set('n', 'É', ':%s/<space><bs>')
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
