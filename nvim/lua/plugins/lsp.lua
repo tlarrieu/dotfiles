@@ -8,7 +8,6 @@ return {
   opts = {
     ensure_installed = {
       'hls',      -- haskell
-      'ruby_lsp', -- ruby
       'tsserver', -- javascript / TS
       'lua_ls',   -- lua
       'vimls',    -- vim
@@ -75,13 +74,6 @@ return {
           },
         })
       end,
-      -- ["ocamllsp"] = function()
-      --   lspconfig.ocamllsp.setup({
-      --     on_attach = opts.on_attach,
-      --     capabilities = opts.capabilities,
-      --     settings = {},
-      --   })
-      -- end,
       ["gopls"] = function()
         lspconfig.gopls.setup({
           on_attach = opts.on_attach,
