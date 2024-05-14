@@ -76,7 +76,7 @@ return {
       makefile = { icon = '󱁻' },
 
       ['robots.txt'] = { icon = '󱚝' },
-      gemfile = { icon = '' },
+      gemfile = { icon = '' },
       rake = { icon = '' },
       rakefile = { icon = '' },
       ['config.ru'] = { icon = '' },
