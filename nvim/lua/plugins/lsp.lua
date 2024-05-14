@@ -9,6 +9,7 @@ return {
     ensure_installed = {
       'hls',      -- haskell
       'tsserver', -- javascript / TS
+      'ruby_lsp', -- lua
       'lua_ls',   -- lua
       'vimls',    -- vim
       'gopls',    -- golang
