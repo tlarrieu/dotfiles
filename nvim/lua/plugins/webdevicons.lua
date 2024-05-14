@@ -69,9 +69,6 @@ return {
       js = { icon = '' },
       md = { icon = '' },
     },
-    override_by_filetype = {
-      directory = { icon = '' },
-    },
     override_by_filename = {
       ['.keep'] = { icon = '' },
 
