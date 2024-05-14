@@ -7,7 +7,7 @@ return {
   end,
   opts = {
     modules = {},
-    ensure_installed = { 'all' },
+    ensure_installed = { 'all', 'markdown' },
     sync_install = false,
     auto_install = true,
     highlight = { enable = true },
