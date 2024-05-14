@@ -3,6 +3,7 @@ local abbr = {
   mkdir = 'Mkdir',
   mv = 'Rename',
   rm = 'Delete',
+  ['rm!'] = 'Delete!',
   gv = 'GV',
   h = 'tab h',
   hi = "lua require('telescope.builtin').highlights()",
