@@ -4,6 +4,6 @@ return {
   s("code", fmta([[
     @code <>
     <>
-    @end]], {i(1, 'lang'), i(2)})),
+    @end]], { i(1, 'lang'), i(2) })),
 }, {
 }
