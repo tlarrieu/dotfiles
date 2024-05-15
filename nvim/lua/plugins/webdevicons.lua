@@ -18,6 +18,7 @@ return {
       norg = { icon = '󱗖' },
 
       xf86conf = { icon = '' },
+      xdefaults = { icon = '' },
 
       make = { icon = '󱁻' },
       vim = { icon = '' },
