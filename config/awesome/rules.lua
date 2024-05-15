@@ -95,7 +95,10 @@ awful.rules.rules = {
     properties = {
       floating = true,
       placement = awful.placement.centered,
-      callback = helpers.resize_and_center,
+      callback = function(client)
+        helpers.resize_and_center(client)
+        helpers.create_tag_and_attach_to(client)
+      end
     },
   },
 

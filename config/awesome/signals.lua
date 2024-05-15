@@ -77,7 +77,7 @@ end)
 
 client.connect_signal("client::custom", function(client, action)
   if action == spawner.actions.MOVE then
-    client:tags({ awful.screen.focused().selected_tag })
+    helpers.create_tag_and_attach_to(client)
   elseif action == spawner.actions.JUMP then
     client:jump_to()
   else
