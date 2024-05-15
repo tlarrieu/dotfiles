@@ -19,7 +19,6 @@ return {
   { 'nvim-tree/nvim-web-devicons' },
   { 'janko-m/vim-test' },
   { 'tlarrieu/vim-sniper' },
-  { 'sbdchd/neoformat' },
   { 'milkypostman/vim-togglelist' },
   -- }}}
   -- {{{ --| Text manipulation |--------------
@@ -35,18 +34,7 @@ return {
   { 'b4winckler/vim-angry' },
   -- }}}
   -- {{{ --| Languages suport |---------------
-  { 'neovimhaskell/haskell-vim' },
   { 'vifm/vifm.vim' },
-  { 'dag/vim-fish' },
-  { 'othree/html5.vim' },
-  { 'pangloss/vim-javascript' },
-  { 'leafgarland/typescript-vim' },
-  { 'mxw/vim-jsx' },
-  { 'LaTeX-Box-Team/LaTeX-Box' },
-  { 'wgwoods/vim-systemd-syntax' },
-  { 'krisajenkins/vim-postgresql-syntax' },
-  { 'elixir-editors/vim-elixir' },
-  { 'qbit/taskwarrior-vim' },
   -- }}}
   -- {{{ --| Other |--------------------------
   { 'ap/vim-css-color' },

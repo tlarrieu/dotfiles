@@ -14,7 +14,6 @@ return {
       'vimls',      -- vim
       'gopls',      -- golang
       'bashls',     -- bash
-      'jdtls',      -- java
       'ocamllsp',   -- ocaml
     },
   },
@@ -43,9 +42,8 @@ return {
           if client.supports_method('textDocument/rename') then
             vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
           end
-          if client.supports_method('textDocument/formatting') then
-            vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format({ async = true }) end, conf)
-          end
+
+          vim.keymap.set({ 'n', 'v' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
         end
       end
     })

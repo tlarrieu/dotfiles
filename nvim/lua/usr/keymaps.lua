@@ -209,9 +209,6 @@ k.set('n', '<leader>z', 'zMzv', noremap)
 k.set('n', '<leader>Z', 'zR', noremap)
 k.set('n', 'zO', 'zczO', noremap)
 --- }}}
---- {{{ --| neoformat |-------------------------------------
-k.set({ 'n', 'x' }, '<leader>f', ':Neoformat<cr>', noremap)
---- }}}
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
