@@ -1,7 +1,8 @@
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
-    'saadparwaiz1/cmp_luasnip'
+    'saadparwaiz1/cmp_luasnip',
+    'folke/neodev.nvim' ,
   },
   config = function()
     local cmp = require('cmp')

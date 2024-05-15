@@ -1,9 +1,10 @@
 return {
   'williamboman/mason-lspconfig.nvim',
   dependencies = {
-    'williamboman/mason.nvim',
+    { 'williamboman/mason.nvim', config = true },
     'neovim/nvim-lspconfig',
     'folke/neodev.nvim',
+    'hrsh7th/cmp-nvim-lsp',
   },
   opts = {
     ensure_installed = {

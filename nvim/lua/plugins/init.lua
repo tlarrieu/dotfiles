@@ -1,9 +1,4 @@
 return {
-  -- {{{ --| LSP |----------------------------
-  { 'williamboman/mason.nvim', config = true },
-  { 'hrsh7th/cmp-nvim-lsp', dependencies = { 'hrsh7th/nvim-cmp' } },
-  { 'folke/neodev.nvim', opts = {} },
-  -- }}}
   -- {{{ --| File Manipulation |--------------
   { 'duggiefresh/vim-easydir' },
   { 'tpope/vim-eunuch' },
