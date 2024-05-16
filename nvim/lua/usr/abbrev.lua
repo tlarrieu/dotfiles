@@ -10,6 +10,8 @@ local abbr = {
   lazy = 'Lazy',
   mason = 'Mason',
   map = "Map",
+  ins = "Inspect",
+  tree = "InspectTree",
 }
 
 vim.api.nvim_create_user_command('Map', function(opts)
