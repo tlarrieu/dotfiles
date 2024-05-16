@@ -11,7 +11,6 @@ return {
   -- }}}
   -- {{{ --| Functionnalities |---------------
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
-  { 'nvim-tree/nvim-web-devicons' },
   { 'janko-m/vim-test' },
   { 'tlarrieu/vim-sniper' },
   { 'milkypostman/vim-togglelist' },

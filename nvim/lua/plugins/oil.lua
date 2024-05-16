@@ -6,7 +6,6 @@ return {
     columns = {
       {
         'icon',
-        default_file = '',
         directory = '',
         add_padding = true,
       },

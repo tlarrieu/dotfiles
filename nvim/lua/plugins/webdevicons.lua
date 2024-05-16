@@ -2,7 +2,6 @@ return {
   'nvim-tree/nvim-web-devicons',
   opts = {
     default = true,
-    default_icon = '',
     override = {
       help = { icon = '' },
       man = { icon = '' },
@@ -60,7 +59,7 @@ return {
       ['spec.ts'] = { icon = '' },
       ['spec.tsx'] = { icon = '' },
       ['favicon.ico'] = { icon = '' },
-      lock = { icon = '󰦝' },
+      lock = { icon = '' },
       log = { icon = '' },
     },
     override_by_extension = {
@@ -97,7 +96,12 @@ return {
       dockerfile = { icon = '' },
       ['.dockerignore'] = { icon = '' },
 
-      license =  { icon = '󰿃' },
+      license = { icon = '󰿃' },
     }
   },
+  config = function(_, opts)
+    local plug = require('nvim-web-devicons')
+    plug.setup(opts)
+    plug.set_default_icon('')
+  end
 }
