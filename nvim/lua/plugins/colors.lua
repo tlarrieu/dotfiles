@@ -10,7 +10,7 @@ return {
     transparent = true,
     styles = {
       comments = { italic = true, bold = false },
-      functions = { bold = true },
+      functions = { bold = false },
       variables = { italic = false },
     },
     enables = {
