@@ -35,6 +35,8 @@ return {
         ['@text.emphasis'] = { fg = c.none, italic = true },
         ['@text.reference'] = { fg = c.base3, bold = true },
 
+        ['@conditional'] = { link = 'Conditional' },
+
         Cursor = { fg = c.base1, bg = c.base02 },
         TermCursorNC = { link = 'Cursor' },
 
