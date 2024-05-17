@@ -211,12 +211,6 @@ k.set('n', 'zO', 'zczO', noremap)
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
---- {{{ --| angry |-----------------------------------------
-k.set({ 'x', 'o' }, 'ac', '<Plug>AngryOuterPrefix', remap)
-k.set({ 'x', 'o' }, 'ic', '<Plug>AngryInnerPrefix', remap)
-k.set({ 'x', 'o' }, 'aC', '<Plug>AngryOuterSuffix', remap)
-k.set({ 'x', 'o' }, 'iC', '<Plug>AngryInnerSuffix', remap)
---- }}}
 --- {{{ --| fugitive |--------------------------------------
 k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', noremap)
 k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', noremap)
