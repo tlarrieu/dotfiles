@@ -103,5 +103,6 @@ return {
         path = string.format('%s/fidget.nvim.log', vim.fn.stdpath('cache')),
       },
     })
+    vim.keymap.set('n', '<leader>h', require('fidget.notification').clear)
   end
 }
