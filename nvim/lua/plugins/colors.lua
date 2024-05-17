@@ -42,6 +42,7 @@ return {
 
         ['@text.title.gitcommit'] = { link = 'Keyword' },
         ['@text.reference.gitcommit'] = { link = 'Special' },
+        ['@text.uri.gitcommit'] = { link = 'Normal' },
         ['@keyword.gitcommit'] = { link = 'Constant' },
 
         Cursor = { fg = c.base1, bg = c.base02 },
