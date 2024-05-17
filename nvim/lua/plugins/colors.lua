@@ -24,6 +24,8 @@ return {
         sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
       ]]
 
+      c.none = ''
+
       local telescope_accent = c.base01
 
       return {
@@ -34,6 +36,10 @@ return {
         ['@text.strong'] = { fg = c.none, bold = true },
         ['@text.emphasis'] = { fg = c.none, italic = true },
         ['@text.reference'] = { fg = c.base3, bold = true },
+
+        ['@markup.strong'] = { fg = c.none, bold = true },
+        ['@markup.italic'] = { fg = c.none, italic = true },
+        ['@markup.underline'] = { fg = c.none, underline = true },
 
         ['@conditional'] = { link = 'Conditional' },
         ['@include'] = { link = 'Include' },
