@@ -41,7 +41,7 @@ return {
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
           end
           if client.supports_method('textDocument/rename') then
-            vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
+            vim.keymap.set({ 'n', 'v' }, 'gé', vim.lsp.buf.rename, conf)
           end
 
           vim.keymap.set({ 'n', 'v' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
