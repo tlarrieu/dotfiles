@@ -46,6 +46,8 @@ return {
           ['ad'] = '@conditional.outer',
           ['il'] = '@assignment.lhs',
           ['ir'] = '@assignment.rhs',
+          ['i='] = '@assignment.inner',
+          ['a='] = '@assignment.outer',
         },
       }
     }
