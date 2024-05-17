@@ -36,6 +36,7 @@ return {
         ['@text.reference'] = { fg = c.base3, bold = true },
 
         ['@conditional'] = { link = 'Conditional' },
+        ['@include'] = { link = 'Include' },
         ['rubyPredefinedConstant'] = { link = '@constant' },
         ['rubyPredefinedVariable'] = { link = '@constant' },
 
