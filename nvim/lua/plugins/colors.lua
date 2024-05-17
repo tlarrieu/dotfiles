@@ -36,6 +36,8 @@ return {
         ['@text.reference'] = { fg = c.base3, bold = true },
 
         ['@conditional'] = { link = 'Conditional' },
+        ['rubyPredefinedConstant'] = { link = '@constant' },
+        ['rubyPredefinedVariable'] = { link = '@constant' },
 
         Cursor = { fg = c.base1, bg = c.base02 },
         TermCursorNC = { link = 'Cursor' },
