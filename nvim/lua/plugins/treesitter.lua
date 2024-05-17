@@ -13,6 +13,7 @@ return {
     ensure_installed = {
       'bash',
       'fish',
+      'gitcommit',
       'go',
       'haskell',
       'javascript',

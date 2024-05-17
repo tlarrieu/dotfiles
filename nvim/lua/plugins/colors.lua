@@ -40,6 +40,10 @@ return {
         ['rubyPredefinedConstant'] = { link = '@constant' },
         ['rubyPredefinedVariable'] = { link = '@constant' },
 
+        ['@text.title.gitcommit'] = { link = 'Keyword' },
+        ['@text.reference.gitcommit'] = { link = 'Special' },
+        ['@keyword.gitcommit'] = { link = 'Constant' },
+
         Cursor = { fg = c.base1, bg = c.base02 },
         TermCursorNC = { link = 'Cursor' },
 
