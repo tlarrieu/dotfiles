@@ -97,6 +97,9 @@ return {
             },
           },
           highlights = {
+            links = {
+              description = '+NeorgLinkDescription',
+            },
             headings = {
               ['1'] = {
                 prefix = '+NeorgHeading1',

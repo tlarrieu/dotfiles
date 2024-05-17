@@ -123,6 +123,7 @@ return {
         NeorgCancelled = { link = 'NeorgDone' },
         NeorgHeading1 = { fg = c.magenta, italic = false, bold = false },
         NeorgHeading4 = { fg = c.cyan, italic = false },
+        NeorgLinkDescription = { underline = true },
 
         CmpItemAbbrMatch = { fg = c.base0, bg = c.base02, underline = true, bold = true },
         CmpItemKindEnum = { bold = false },
