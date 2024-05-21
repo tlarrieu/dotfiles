@@ -3,11 +3,11 @@
 awesome-client <<-END | sed -zE 's/   string "(.*)"/\1/'
 local script_input = "$(echo "$*" | awk -F ' ' '{print $1}')"
 
-local icons = require("icons")
+local icons = require('icons')
 local screen = require('awful').screen:focused()
 
 local strlen = function(x)
-  return #x:gsub("[\128-\191]", "")
+  return #x:gsub('[\128-\191]', '')
 end
 
 local pad = function(str, len)
@@ -21,12 +21,12 @@ for i, client in ipairs(screen.all_clients) do
   table.insert(clients, client)
   table.insert(
     lines,
-    pad(i, 4) .. icons.fetch(client) .. " " .. pad(client.instance, 15) .. "  " .. client.name
+    pad(i, 4) .. icons.fetch(client) .. ' ' .. pad(client.instance, 15) .. '  ' .. client.name
   )
 end
 
-if script_input == "" then
-  return table.concat(lines, "\n")
+if script_input == '' then
+  return table.concat(lines, '\n')
 else
   local s = script_input:match('^([0-9]+)$')
   if not s then return end
