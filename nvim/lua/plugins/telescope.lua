@@ -7,7 +7,7 @@ return {
   config = function()
     local actions = require('telescope.actions')
 
-    require('telescope').setup {
+    require('telescope').setup({
       defaults = {
         border = true,
 
@@ -45,7 +45,7 @@ return {
           }),
         }
       }
-    }
+    })
 
     require("telescope").load_extension("ui-select")
 
