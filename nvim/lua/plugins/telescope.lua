@@ -38,8 +38,8 @@ return {
       },
 
       extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown({
+        ['ui-select'] = {
+          require('telescope.themes').get_dropdown({
             prompt_prefix = '   ',
             layout_strategy = 'horizontal',
           }),
@@ -47,7 +47,7 @@ return {
       }
     })
 
-    require("telescope").load_extension("ui-select")
+    require('telescope').load_extension('ui-select')
 
     local builtin = require('telescope.builtin')
     local k = vim.keymap
