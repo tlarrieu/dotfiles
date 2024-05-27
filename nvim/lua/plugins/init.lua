@@ -25,7 +25,6 @@ return {
   -- {{{ --| Text objects |-------------------
   { 'austintaylor/vim-indentobject' },
   { 'tommcdo/vim-exchange' },
-  -- { 'b4winckler/vim-angry' },
   -- }}}
   -- {{{ --| Languages suport |---------------
   { 'vifm/vifm.vim' },
