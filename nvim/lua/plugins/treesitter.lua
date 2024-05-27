@@ -55,5 +55,16 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
+
+    vim.api.nvim_create_autocmd('Filetype', {
+      pattern = { '*' },
+      callback = function(args)
+        local ft = args.match
+        if vim.treesitter.language.get_lang(ft) then
+          vim.opt_local.spell = true
+        end
+      end,
+      group = vim.api.nvim_create_augroup('treesitter_autocmd', {})
+    })
   end
 }
