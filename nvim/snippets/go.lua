@@ -53,6 +53,11 @@ return {
     <>
   }
   ]], { i(1)})),
+  s("ei", fmta([[
+  else if <> {
+    <>
+  }
+  ]], { i(1, 'cond'), i(2) })),
 
   -- common patterns
   s("exit", fmta("os.Exit(<>)", { i(0, "0") })),
