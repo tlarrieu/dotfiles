@@ -19,22 +19,22 @@ return {
           folds = false,
           icons = {
             heading = {
-              icons = { "◉", "◎", "◆", "❖", "○", "◇", "⋄", "⟡" },
+              icons = { '◉', '◎', '◆', '❖', '○', '◇', '⋄', '⟡' },
             },
             footnote = {
-              single = { icon = "" },
-              multi_prefix = { icon = " " },
-              multi_suffix = { icon = " " },
+              single = { icon = '' },
+              multi_prefix = { icon = ' ' },
+              multi_suffix = { icon = ' ' },
             },
             todo = {
-              done = { icon = "×" },
-              pending = { icon = "󰔟" },
-              undone = { icon = " " },
-              uncertain = { icon = "" },
-              on_hold = { icon = "󰏤" },
-              cancelled = { icon = "󰩺" },
-              recurring = { icon = "↺" },
-              urgent = { icon = "" },
+              done = { icon = '×' },
+              pending = { icon = '󰔟' },
+              undone = { icon = ' ' },
+              uncertain = { icon = '' },
+              on_hold = { icon = '󰏤' },
+              cancelled = { icon = '󰩺' },
+              recurring = { icon = '↺' },
+              urgent = { icon = '' },
             },
             code_block = {
               width = 'content',
@@ -64,7 +64,7 @@ return {
           default_workspace = 'home'
         }
       },
-      ["core.keybinds"] = {
+      ['core.keybinds'] = {
         config = {
           hook = function(keybinds)
             local task_actions = {
@@ -77,14 +77,14 @@ return {
               ['gS'] = 'cycle_reverse',
             }
             for key, value in pairs(task_actions) do
-              keybinds.remap_event("norg", "n", key, "core.qol.todo_items.todo.task_" .. value)
+              keybinds.remap_event('norg', 'n', key, 'core.qol.todo_items.todo.task_' .. value)
             end
 
-            keybinds.remap_event("norg", "i", "<c-cr>", "core.itero.next-iteration")
+            keybinds.remap_event('norg', 'i', '<c-cr>', 'core.itero.next-iteration')
           end
         },
       },
-      ["core.highlights"] = {
+      ['core.highlights'] = {
         config = {
           dim = {
             tags = {
