@@ -68,11 +68,11 @@ return {
         config = {
           hook = function(keybinds)
             local task_actions = {
-              ['<leader>td'] = 'done',    -- task “done”
-              ['<leader>tr'] = 'undone',  -- task “reset”
-              ['<leader>tp'] = 'on_hold', -- task “pause”
-              ['<leader>ts'] = 'pending', -- task “start”
-              ['<leader>tc'] = 'cancelled', -- task “cancelled”
+              ['<leader>td'] = 'done',
+              ['<leader>tr'] = 'undone',
+              ['<leader>tp'] = 'on_hold',
+              ['<leader>ts'] = 'pending',
+              ['<leader>tc'] = 'cancelled',
               ['gs'] = 'cycle',
               ['gS'] = 'cycle_reverse',
             }
