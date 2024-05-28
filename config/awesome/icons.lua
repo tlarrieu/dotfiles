@@ -115,11 +115,12 @@ local config = {
   { icon = "", rule = { class = "Chromium" }},
 
   --  Games
-  { icon = "", rule = { class = "steam" }},
+  { icon = "󰓥", rule = { class = "steam_app_1086940" }}, -- Baldur's gate III
   { icon = "", rule = { class = "Wine" }},
   { icon = "", rule = { class = "Cockatrice" }},
   { icon = "", rule = { class = "Lutris" }},
   { icon = "󰸓", rule = { class = "Backpack Battles" }},
+  { icon = "", rule = { class = "steam" }},
 
   { icon = "", rule = { class = "Gpick" }},
   { icon = "", rule = { class = "man" }},
