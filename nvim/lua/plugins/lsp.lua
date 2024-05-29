@@ -3,15 +3,17 @@ return {
   version = '*',
   dependencies = {
     { 'williamboman/mason.nvim', version = '*', config = true },
-    { 'neovim/nvim-lspconfig', version = '*' },
-    { 'folke/neodev.nvim', version = '*' },
-    { 'hrsh7th/cmp-nvim-lsp', version = '*' },
+    { 'neovim/nvim-lspconfig',   version = '*' },
+    { 'folke/neodev.nvim',       version = '*' },
+    { 'hrsh7th/cmp-nvim-lsp',    version = '*' },
   },
   opts = {
     ensure_installed = {
       'hls',        -- haskell
       'tsserver',   -- javascript / TS
       'solargraph', -- ruby
+      'pylsp',      -- python
+      'pyright',    -- python
       'lua_ls',     -- lua
       'vimls',      -- vim
       'gopls',      -- golang
