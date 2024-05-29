@@ -74,6 +74,7 @@ awful.rules.rules = {
         "attunement.io__search",
         "scryfall.com__search",
         "rubygems.org__search",
+        "pypi.org__search",
         "www.thesaurus.com__browse",
         "translate.google.com",
         "dictionary.cambridge.org",

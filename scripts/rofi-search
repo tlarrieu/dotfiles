@@ -130,6 +130,7 @@ searchengines = {
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
   'r'    => Browser.new('https://reddit.com/r/%s', profile: 'perso'),
   'rb'   => Browser.new('https://rubygems.org/search?query=%s'),
+  'py'   => Browser.new('https://pypi.org/search/?q=%s'),
   't'    => Browser.new('https://www.xn--thepratebay-fcb.com/s/?q=%s', profile: 'perso'),
   'tw'   => Browser.new('https://www.twitch.tv/search?term=%s', profile: 'perso'),
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
