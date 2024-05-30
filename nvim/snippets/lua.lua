@@ -1,9 +1,11 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  -- annotation
-  s("param", fmta([[---@param <> <>]], { i(1, 'name'), i(2, 'type') })),
-  s("return", fmta([[---@return <>]], {i(1, 'type')})),
+  -- annotations
+  s("a", fmta([[---@]], {})),
+  s("ap", fmta([[---@param <> <>]], { i(1, 'name'), i(2, 'type') })),
+  s("af", fmta([[---@field <> <>]], { i(1, 'name'), i(2, 'type') })),
+  s("ar", fmta([[---@return <>]], {i(1, 'type')})),
 
   -- modules
   s("req", fmta("require('<>')", { i(1) })),
