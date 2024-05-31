@@ -193,6 +193,15 @@ case $answer in
       aria2
       "
 
+    gaming="
+    nvidia-utils
+    libglvnd
+    opencl-nvidia
+    lib32-nvidia-utils
+    lib32-libglvnd
+    lib32-opencl-nvidia
+    "
+
     internet="networkmanager chromium openssh"
 
     keyboard="xcape"
@@ -221,6 +230,7 @@ case $answer in
       "$window_manager" \
       "$gtk" \
       "$multimedia" \
+      "$gaming" \
       "$internet" \
       "$keyboard" \
       "$writing" \
