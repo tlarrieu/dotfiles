@@ -113,9 +113,9 @@ abbr - "cd -"
 abbr ,l "open (ls -1tc | head -n 1)"
 
 # ls(d)
-abbr l "lsd"
-abbr la "lsd -A"
-abbr ll "lsd -lAh"
+abbr l "eza"
+abbr la "eza --icons -A"
+abbr ll "eza --icons -lAh"
 
 # SSH
 abbr sa "ssh-add"

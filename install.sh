@@ -150,7 +150,7 @@ case $answer in
       udiskie
       nemo
       atool
-      lsd
+      eza
       tumbler
       tumbler-extra-thumbnailers
       ffmpegthumbnailer
