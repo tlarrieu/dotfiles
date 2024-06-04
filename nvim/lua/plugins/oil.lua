@@ -59,7 +59,6 @@ return {
       ['<C-v>'] = false,
       ['<C-s>'] = false,
       ['gs'] = 'actions.change_sort',
-      ['q'] = 'actions.close',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
       ['`'] = 'actions.cd',
