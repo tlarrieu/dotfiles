@@ -9,7 +9,7 @@ return {
   { 'tpope/vim-fugitive' },
   { 'junegunn/gv.vim' },
   -- }}}
-  -- {{{ --| Functionnalities |---------------
+  -- {{{ --| Functionalities |---------------
   { 'AndrewRadev/linediff.vim', cmd = 'Linediff' },
   { 'janko-m/vim-test' },
   { 'tlarrieu/vim-sniper' },
@@ -26,7 +26,7 @@ return {
   { 'austintaylor/vim-indentobject' },
   { 'tommcdo/vim-exchange' },
   -- }}}
-  -- {{{ --| Languages suport |---------------
+  -- {{{ --| Languages support |---------------
   { 'vifm/vifm.vim' },
   -- }}}
   -- {{{ --| Other |--------------------------
