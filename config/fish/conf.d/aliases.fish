@@ -195,23 +195,6 @@ abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
   git commit -m 'First commit'"
 abbr es "exercism submit"
 
-# Taskwarrior
-abbr t "task"
-abbr t. "task annotate"
-abbr ta "task add +inbox"
-abbr td "task done"
-abbr te "task edit"
-abbr to "taskopen"
-abbr tp "task planner"
-abbr ts "task mod -inbox -someday sched:today"
-abbr tS "task mod sched: +inbox"
-abbr tt "task rm"
-abbr tu "task undo"
-abbr tw "task mod wait:"
-abbr ty "task sync"
-abbr start "task start"
-abbr stop "task stop"
-
 # Routines
 abbr rt "routine"
 
