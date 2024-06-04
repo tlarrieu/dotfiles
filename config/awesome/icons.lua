@@ -67,7 +67,8 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "rubygems" }},
   { icon = "", rule = { class = "Chromium", instance = "heroku" }},
   { icon = "", rule = { class = "Chromium", instance = "hoogle" }},
-  { icon = "", rule = { class = "Chromium", instance = "www.github.com" }},
+  { icon = "", rule = { class = "Chromium", instance = "www.github.com" }},
+  { icon = "", rule = { class = "Chromium", instance = "gist.github.com" }},
   { icon = "", rule = { class = "Chromium", instance = "www.nerdfonts.com" }},
 
   --  Drawing
