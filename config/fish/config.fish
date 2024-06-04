@@ -24,14 +24,17 @@ set -l fzf_common_opts "
   --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C
   --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D
   --bind=ctrl-k:kill-line
+  --border=none
   --no-scrollbar
 "
 
-set -x FZF_DEFAULT_COMMAND "rg -g '' --hidden --ignore .git"
-set -x FZF_DEFAULT_OPTS $fzf_common_opts "--border=thinblock"
+set -x FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude '.git'"
+set -x FZF_DEFAULT_OPTS $fzf_common_opts
 
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -x FZF_CTRL_T_OPTS $fzf_common_opts "--border=none"
+set -x FZF_CTRL_T_OPTS $fzf_common_opts
+
+# steam
 set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
 
 # ocaml
@@ -77,14 +80,15 @@ set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 # TERM
 set -gx TERM xterm-kitty
 
+# ssh-agent
 eval (ssh-agent -c) > /dev/null
 trap 'kill -9 $SSH_AGENT_PID' EXIT
 
+# fundle
 fundle plugin 'edc/bass'
 fundle init
 
 # Load local configuration
-
 if test -e ~/.config/fish/local.fish
   source ~/.config/fish/local.fish
 end
