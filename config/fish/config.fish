@@ -58,10 +58,8 @@ set -x PATH $HOME/apps $PATH
 set -x PATH $PATH $HOME/apps/ignore
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
-set -x PATH $PATH $HOME/.ghcup/bin
-
+set -x PATH $HOME/.fly/bin $PATH
 set -x PATH $HOME/.yarn/bin $PATH
-set -x PATH $HOME/.ghcup/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
 set -x PATH $PATH $HOME/.krew/bin
 
