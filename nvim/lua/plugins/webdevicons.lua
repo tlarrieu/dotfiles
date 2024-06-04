@@ -18,6 +18,7 @@ return {
 
       xf86conf = { icon = '' },
       xdefaults = { icon = '' },
+      desktop = { icon = '󰍹' },
 
       make = { icon = '󱁻' },
       vim = { icon = '' },
