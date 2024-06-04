@@ -160,6 +160,7 @@ local config = {
   { icon = "ﮩ", rule = { name = "Document Scanner" }},
   { icon = "", rule = { name = "pass: " }},
 
+  { icon = "󰫏", rule = { class = "kitty", name = "rails" }},
   { icon = "", rule = { class = "kitty", name = "git/dotfiles" }},
   { icon = "", rule = { class = "kitty", name = "exercism" }},
   { icon = "", rule = { class = "kitty", name = "NVIM" }},
