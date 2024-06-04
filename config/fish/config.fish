@@ -70,11 +70,6 @@ set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
 
 eval (dircolors -c ~/.dir_colors)
 
-# Tab completions
-if test -e /usr/share/doc/task/scripts/fish/task.fish
-  source /usr/share/doc/task/scripts/fish/task.fish
-end
-
 set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 
 # TERM
