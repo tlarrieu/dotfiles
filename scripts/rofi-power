@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -lines 5 -i -p ⏼'
+LAUNCHER='rofi -dmenu -l 5 -i -p ⏼'
 OPTIONS=" Lock\n Reboot\n Shutdown\n Suspend\n Logout"
 
 option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`

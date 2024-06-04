@@ -63,7 +63,7 @@ option=$(\
   | { sed -e 's/.gpg$//' ; echo "tmp"; } \
   | rofi \
       -dmenu \
-      -lines 5 \
+      -l 5 \
       -i \
       -p 󰟵 \
       -no-history \
@@ -177,7 +177,7 @@ if [ ${#option} -gt 0 ]; then
         echo -e "Password\nLogin" \
         | rofi \
             -dmenu \
-            -lines 2 \
+            -l 2 \
             -i \
             -p  \
             -no-history \
