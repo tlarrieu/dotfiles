@@ -94,6 +94,7 @@ return {
       ['.ruby-version'] = { icon = '󰎠' },
 
       dockerfile = { icon = '' },
+      ['docker-compose.yml'] = { icon = '' },
       ['.dockerignore'] = { icon = '' },
 
       license = { icon = '󰿃' },
