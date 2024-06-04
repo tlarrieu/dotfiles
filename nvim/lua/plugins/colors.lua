@@ -51,6 +51,9 @@ return {
         ['@text.uri.gitcommit'] = { link = 'Normal' },
         ['@keyword.gitcommit'] = { link = 'Constant' },
 
+        ['@symbol'] = { link = 'String' },
+        ['@field'] = { link = 'Constant' },
+
         Cursor = { fg = c.base1, bg = c.base02 },
         TermCursorNC = { link = 'Cursor' },
 
