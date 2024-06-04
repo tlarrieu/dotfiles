@@ -30,7 +30,7 @@ selection=$(\
     -exec sh -c '[ $(find "{}"/* -maxdepth 0 -type d 2> /dev/null | wc -l) -gt 0 ] && echo -n "*" || echo -n " "' \; \
     -printf " %f</span>\n" \
   | sed -e "s/<span foreground='d'>/<span foreground='$folder'>/" \
-  | sed -e "s/<span foreground='f'>/<span foreground='$file'>/" \
+  | sed -e "s/<span foreground='f'>/<span foreground='$file'>/" \
   | sed -e "s/&/&amp;/g" \
   | rofi \
       -dmenu \
