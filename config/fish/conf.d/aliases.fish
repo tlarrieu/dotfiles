@@ -1,3 +1,10 @@
+abbr --erase (abbr --list)
+
+function resource
+  source ~/.config/fish/config.fish
+  source ~/.config/fish/conf.d/aliases.fish
+end
+
 # reset terminal
 abbr cls " echo -ne \\033c"
 
