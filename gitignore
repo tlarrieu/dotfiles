@@ -34,6 +34,7 @@ dump.rdb
 .projections.json
 *.session
 .nvimrc
+.solargraph.yml
 
 # Misc
 tmp
