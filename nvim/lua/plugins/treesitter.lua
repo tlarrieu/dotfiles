@@ -24,6 +24,7 @@ return {
       'ocaml',
       'query',
       'ruby',
+      'tsx',
       'typescript',
     },
     sync_install = false,

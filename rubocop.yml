@@ -51,10 +51,10 @@ Lint/DeprecatedClassMethods:
 # -- [[ Metrics ]] -------------------------------------------------------------
 
 Layout/LineLength:
-  Max: 80
+  Max: 120
 
 Metrics/MethodLength:
-  Max: 10
+  Enabled: false
 
 # -- [[ Naming ]] --------------------------------------------------------------
 

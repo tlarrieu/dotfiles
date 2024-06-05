@@ -1,1 +1,1 @@
-vim.opt_local.filetype = 'eruby.html'
+vim.opt_local.filetype = 'html'
