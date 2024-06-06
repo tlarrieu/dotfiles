@@ -31,7 +31,8 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'embedded_template' }
+      disable = { 'embedded_template' },
+      additional_vim_regex_highlighting = { 'markdown' },
     },
     indent = { enable = true, disable = { 'ruby', 'embedded_template' } },
     textobjects = {
