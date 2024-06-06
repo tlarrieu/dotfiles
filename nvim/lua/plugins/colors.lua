@@ -45,6 +45,9 @@ return {
         ['@include'] = { link = 'Include' },
         ['rubyPredefinedConstant'] = { link = '@constant' },
         ['rubyPredefinedVariable'] = { link = '@constant' },
+        ['htmlTag'] = { link = 'Keyword' },
+        ['erubyDelimiter'] = { link = 'htmlTag' },
+        ['htmlEndTag'] = { link = 'htmlTag' },
 
         ['@text.title.gitcommit'] = { link = 'Keyword' },
         ['@text.reference.gitcommit'] = { link = 'Special' },
