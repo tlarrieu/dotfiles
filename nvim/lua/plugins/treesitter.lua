@@ -29,8 +29,11 @@ return {
     },
     sync_install = false,
     auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true, disable = { 'ruby' } },
+    highlight = {
+      enable = true,
+      disable = { 'embedded_template' }
+    },
+    indent = { enable = true, disable = { 'ruby', 'embedded_template' } },
     textobjects = {
       enable = true,
       select = {
