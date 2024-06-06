@@ -6,7 +6,7 @@ adapter=$(nmcli device status | grep wifi | cut -d' ' -f1 | head -n1)
 selection=$(
   nmcli -p -f in-use,ssid,security,bars,signal device wifi list ifname $adapter \
   | tail -n +6 \
-  | rofi -hide-scrollbar -i -dmenu -p "直" \
+  | rofi -hide-scrollbar -i -dmenu -p "󱚾" \
   | cut -c4- \
   | sed 's/\s+/ /g'
 )
