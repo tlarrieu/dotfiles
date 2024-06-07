@@ -1,4 +1,4 @@
-! -- Solarized Light --
+! -- Solarized Dark --
 ! black (base02 / base03)
 #define COLOR0     #073642
 #define COLOR8     #002b36
@@ -24,10 +24,7 @@
 #define COLOR7     #eee8d5
 #define COLOR15    #fdf6e3
 
-#define BACKGROUND #fdf6e3
-#define FOREGROUND #657b83
-
-#define VIM_THEME solarized
-#define VIM_BACKGROUND light
+#define BACKGROUND #002b36
+#define FOREGROUND #fdf6e3
 
 ! vim: ft=xdefaults

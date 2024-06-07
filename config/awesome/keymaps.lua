@@ -108,9 +108,11 @@ _M.keyboard = {
     spawner.key({ mod }, "e", function() awful.screen.focus_relative(-1) end),
     spawner.key({ mod, "Shift" }, "r", awesome.restart),
 
-    -- [[ Context ]] -----------------------------------------------------------
+    -- [[ Togglers ]] ----------------------------------------------------------
 
     spawner.key({ mod, "Shift" }, "t", require('context').toggle),
+
+    spawner.key({ mod, "Shift" }, "b", "toggle-light-and-dark.sh"),
 
     -- [[ Applications ]] ------------------------------------------------------
 

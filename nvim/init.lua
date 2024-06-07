@@ -1,3 +1,5 @@
+package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
+
 vim.g.mapleader = ' '
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'

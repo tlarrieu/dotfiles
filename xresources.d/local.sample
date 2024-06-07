@@ -1,7 +1,10 @@
-#include "/home/tlarrieu/.Xresources.d/solarized"
+#include "/home/tlarrieu/.Xresources.d/solarized.light"
 
 #define DPI 96
 #define FONT Fira Code Retina
 #define FONTSIZE 18
+
+#define VIM_THEME solarized
+#define VIM_BACKGROUND light
 
 ! vim: ft=xdefaults

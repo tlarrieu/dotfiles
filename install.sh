@@ -95,6 +95,14 @@ done
 [ -f ~/.Xresources.d/local ] || \
   cp ~/.Xresources.d/local.sample ~/.Xresources.d/local
 
+# kitty colors
+[ -f ~/.config/kitty/theme.conf ] || \
+  cp "$BASEDIR"/config/kitty/theme.conf.sample ~/.config/kitty/theme.conf
+
+# rofi colors
+[ -f ~/.config/rofi/variant.rasi ] || \
+  cp "$BASEDIR"/config/rofi/variant.rasi.sample ~/.config/rofi/variant.rasi
+
 # Xmodmap
 ln -sfFT "$BASEDIR"/xmodmap.lavie-hz750c "$HOME"/.Xmodmap
 

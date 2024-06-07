@@ -36,6 +36,12 @@ dump.rdb
 .nvimrc
 .solargraph.yml
 
+# kitty
+config/kitty/theme.conf
+
+# rofi
+config/rofi/variant.rasi
+
 # Misc
 tmp
 

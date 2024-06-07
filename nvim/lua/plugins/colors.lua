@@ -1,3 +1,11 @@
+local apply_xrdb = function()
+  local xrdb = require('xrdb').load()
+  if not xrdb then return end
+
+  vim.cmd.colorscheme(xrdb.vim.theme)
+  vim.o.background = xrdb.vim.background
+end
+
 return {
   'maxmx03/solarized.nvim',
   dependencies = {
@@ -183,8 +191,14 @@ return {
   config = function(_, opts)
     require('solarized').setup(opts)
 
-    vim.o.background = 'light'
-    vim.cmd.colorscheme 'solarized'
+    apply_xrdb()
+
+    vim.api.nvim_create_autocmd('Signal', {
+      pattern = { 'SIGUSR1' },
+      callback = apply_xrdb,
+      nested = true,
+      group = vim.api.nvim_create_augroup('update_background', {})
+    })
 
     local group = vim.api.nvim_create_augroup("text_yank", {})
     vim.api.nvim_create_autocmd('TextYankPost', {
