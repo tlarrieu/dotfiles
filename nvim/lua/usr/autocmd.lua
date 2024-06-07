@@ -14,7 +14,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 -- Restore cursor position
 vim.api.nvim_create_autocmd('BufReadPost', {
   pattern = '*',
-  callback = function() vim.api.nvim_exec('keepjumps silent! normal! g`"zv', false) end,
+  callback = function() vim.api.nvim_exec2('keepjumps silent! normal! g`"zv', {}) end,
   group = vim.api.nvim_create_augroup('restore_position', {})
 })
 
