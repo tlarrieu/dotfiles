@@ -72,7 +72,7 @@ return {
       group = <>
     })
     ]], { i(1, 'event'), i(2, "'pattern'"), i(0), i(3, 'group') })),
-  s("aug", fmta([[vim.api.nvim_create_augroup('<>', {})]], { i(1, 'groupname') })),
+  s("aug", fmta([[vim.api.nvim_create_augroup('<>', {})]], { i(0, 'groupname') })),
   s("key", fmta([[
     vim.keymap.set(<>, '<>', '<>', { <> })
     ]], { i(1, "mode"), i(2, "lhs"), i(3, "rhs"), i(4, "options") })),
