@@ -1,7 +1,11 @@
 local runner = require('runner')
 
-runner.default({ main = runner.term('lua %') })
+runner.default({
+  main = runner.shell({ 'lua', '%' }),
+  alt = runner.term('lua %'),
+})
 
 runner.match({ 'config/awesome/**/*.lua', 'config/awesome/*.lua' }, {
-  main = runner.term('~/scripts/awesome-test')
+  main = runner.shell({ 'sh', vim.fn.expand('~/scripts/awesome-test') }),
+  alt = runner.term('~/scripts/awesome-test'),
 })

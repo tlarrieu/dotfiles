@@ -7,7 +7,7 @@ o.iskeyword = o.iskeyword + '?' + '!' + ':'
 local runner = require('runner')
 
 runner.default({
-  main = runner.term('ruby %'),
+  main = runner.shell({ 'ruby', vim.fn.expand('%') }),
   alt = runner.test.last(),
 })
 
