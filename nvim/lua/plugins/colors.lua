@@ -62,6 +62,10 @@ return {
         ['@text.uri.gitcommit'] = { link = 'Normal' },
         ['@keyword.gitcommit'] = { link = 'Constant' },
 
+        ['@text.diff.add.diff'] = { link = 'DiffAdd' },
+        ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
+        ['@text.diff.change.diff'] = { link = 'DiffChange' },
+
         ['@symbol'] = { link = 'String' },
         ['@field'] = { link = 'Constant' },
 
