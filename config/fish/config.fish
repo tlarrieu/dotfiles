@@ -1,5 +1,7 @@
 stty -ixon 2> /dev/null
 
+bind \cf edit_command_buffer
+
 # FZF
 set -l color00 '#fdf6e3'
 set -l color01 '#eee8d5'
