@@ -62,27 +62,9 @@ function fish_user_key_bindings
     return 1
   end
 
-  function fzf-tw
-    eval "task fzf \
-        rc._forcecolor:yes \
-        rc.row.padding:0 \
-        rc.defaultwidth:240 \
-        rc.detection:off \
-        rc.verbose:nothing | \
-      fzf --ansi --multi --exact --prompt 'task?> ' \
-      > /tmp/fzf.tw.result"
-    and commandline -i (
-      cat /tmp/fzf.tw.result \
-      | awk '{print $1}' \
-      | xargs echo -n
-    )
-    commandline -f repaint
-    rm -f /tmp/fzf.result
-  end
-
   bind þ 'fkill'
   bind æ 'enforce-git; and fzf-gitsha'
-  bind ù 'fzf-tw'
   bind \cb 'enforce-git; and fzf-gitbranch'
   bind \cx 'enforce-git; and fzf-gitfiles'
+  bind € edit_command_buffer
 end

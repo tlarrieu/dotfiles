@@ -1,7 +1,5 @@
 stty -ixon 2> /dev/null
 
-bind \cf edit_command_buffer
-
 # FZF
 set -l fzf_main_color '#268bd2' # blue
 set -l fzf_secondary_color '#d33682' # magenta
