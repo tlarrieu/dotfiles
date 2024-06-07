@@ -32,7 +32,7 @@ for file in "$BASEDIR"/local/share/applications/*; do
   ln -sfFT "$target" "$link"
 done
 
-# gtk2
+# Gtk2
 ln -sfFT "$BASEDIR"/gtkrc-2.0 "$HOME"/.gtkrc-2.0
 
 # nvim
@@ -52,10 +52,10 @@ ln -sfFT "$BASEDIR"/gitconfig "$HOME"/.gitconfig
 ln -sfFT "$BASEDIR"/gitignore "$HOME"/.gitignore
 git config --global core.excludesFile ~/.gitignore
 
-# agignore
+# .agignore
 ln -sfFT "$BASEDIR"/agignore "$HOME"/.agignore
 
-# irbrc
+# .irbrc
 ln -sfFT "$BASEDIR"/irbrc "$HOME"/.irbrc
 
 # rubocop
@@ -131,7 +131,7 @@ done
 echo "$(tput setaf 2)Done.$(tput sgr0)"
 
 # -- [[ Package / plugins installation ]] --------------------------------------
-# Core pacakages (maybe we should make a meta package or something)
+# Core packages (maybe we should make a meta package or something)
 printf "Do you want to check packages? ([y]es/[N]o) "
 
 read -r answer
@@ -278,7 +278,6 @@ case $answer in
     ;;
 esac
 
-# LightDM
 printf "Do you want to set your shell to fish? ([y]es/[N]o) "
 
 read -r answer
