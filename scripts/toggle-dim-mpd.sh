@@ -1,7 +1,7 @@
 #!/bin/sh
 target_app="Music Player Daemon"
-dim_level="30%"
-normal_level="75%"
+dim_level="35%"
+normal_level="50%"
 
 function toggle_dim_volume {
   if [ "$2" = "$normal_level" ]; then
