@@ -16,6 +16,11 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.keymap.set('n', '<leader>z', ':set foldlevel=1<cr>zO', { remap = false, silent = true, buffer = true })
     vim.keymap.set('n', 'o', 'i<c-cr>', { remap = true, buffer = true })
     vim.keymap.set('i', '<cr>', '<c-cr>', { remap = true, buffer = true })
+
+    vim.keymap.set('v', '<leader>b', 'S*ee', { buffer = true, remap = true })
+    vim.keymap.set('v', '<leader>i', 'S/ee', { buffer = true, remap = true })
+    vim.keymap.set('v', '<leader>u', 'S_ee', { buffer = true, remap = true })
+    vim.keymap.set('v', '<leader>s', 'S-ee', { buffer = true, remap = true })
   end,
   group = group
 })
