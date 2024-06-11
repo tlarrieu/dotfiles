@@ -9,10 +9,10 @@ return {
 
   -- definitions
   s("d", fmta([[
-    function <> {
+    <>(<>) {
       <><>
     }
-    ]], { i(1, "name"), sel(), i(0) })),
+    ]], { i(1, "name"), i(2), sel(), i(0) })),
 
   -- control structures
   s("if", fmta([[
@@ -28,7 +28,7 @@ return {
         ;;
       *)
         <>
-        ;;}
+        ;;
     esac
     ]], { i(1, "var"), i(2, "value"), i(3), i(4) })),
 
