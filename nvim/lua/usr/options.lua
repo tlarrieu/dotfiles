@@ -13,7 +13,7 @@ o.showmode = false
 -- line numbering
 o.relativenumber = true
 o.number = true
-o.textwidth = 80
+o.textwidth = 120
 -- blank characters
 o.list = true
 o.listchars = { tab = '› ', trail = '·', nbsp = ' ', extends = '»', precedes = '«' }

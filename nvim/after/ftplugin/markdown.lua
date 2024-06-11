@@ -1,6 +1,5 @@
 local o = vim.opt_local
 
-o.textwidth = 130
 o.formatoptions = o.formatoptions + 't'
 o.foldlevel = 1
 o.foldlevelstart = 10

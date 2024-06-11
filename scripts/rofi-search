@@ -159,5 +159,3 @@ if words.any?
 elsif query == "\n"
   `browser-with-context`
 end
-
-# vim: textwidth=100
