@@ -66,6 +66,8 @@ return {
         ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
         ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
+        ['@repeat.bash'] = { link = 'Keyword' },
+
         ['@symbol'] = { link = 'String' },
         ['@field'] = { link = 'Constant' },
 
