@@ -7,8 +7,10 @@ local git_pull = function(path)
 end
 
 _M.boot = function ()
-  local path = "/tmp/awesome_started"
-  local f = io.open(path, "r")
+  local path = '/tmp/awesome_started'
+  local f = io.open(path, 'r')
+
+  awful.spawn.with_shell('~/.fehbg')
 
   if not f then
     git_pull('~/.password-store')
@@ -25,9 +27,9 @@ _M.boot = function ()
     end
 
     -- NOTE: Disable screen saving / blanking
-    awful.spawn.with_shell("xset s off -dpms")
+    awful.spawn.with_shell('xset s off -dpms')
 
-    io.open(path, "w"):close()
+    io.open(path, 'w'):close()
   else
     f:close()
   end
