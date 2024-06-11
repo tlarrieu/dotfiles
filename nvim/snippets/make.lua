@@ -1,10 +1,23 @@
 ---@diagnostic disable: undefined-global
 
 return {
+  -- definition
+  s("d", fmta([[
+  define <>
+  	<>
+  endef
+  ]], {i(1, 'name'), i(0)})),
   -- phony
   s(".ph", fmta(".PHONY: <>", { i(0) })),
 
   -- colors
+  s("cecho", fmta([[
+  define cecho
+  	@tput setaf $(1)
+  	@echo $(2)
+  	@tput sgr0
+  endef
+  ]], {})),
   s("red", fmta('$(call cecho, 1, <><>)', { sel(), i(0) })),
   s("gr", fmta('$(call cecho, 2, <><>)', { sel(), i(0) })),
   s("yel", fmta('$(call cecho, 3, <><>)', { sel(), i(0) })),

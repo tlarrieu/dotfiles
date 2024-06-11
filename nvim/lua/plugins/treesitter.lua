@@ -32,7 +32,7 @@ return {
     highlight = {
       enable = true,
       disable = { 'embedded_template' },
-      additional_vim_regex_highlighting = { 'markdown' },
+      additional_vim_regex_highlighting = { 'markdown', 'make' },
     },
     indent = { enable = true, disable = { 'ruby', 'embedded_template' } },
     textobjects = {
