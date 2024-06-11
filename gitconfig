@@ -7,6 +7,8 @@
 	ui = auto
 	status = auto
 	diff = auto
+[init]
+	defaultBranch = master
 [push]
 	default = current
 [difftool]
@@ -21,23 +23,19 @@
 [branch]
 	committerdate = true
 [alias]
-	bd = "!git branch --no-contains master --format='%(refname:short)' --merged master | xargs --no-run-if-empty git branch -d"
+	bclean = "!git branch --no-contains master --format='%(refname:short)' --merged master | xargs --no-run-if-empty git branch -d"
 	br = branch
 	ci = commit
 	co = checkout
 	cp = cherry-pick
 	d = diff --word-diff
-	deps = "!git checkout -b update-dependencies && git add Gemfile.lock && git commit -m 'Update dependencies'"
 	ds = d --staged
 	ft = fetch
-	lc = log --merges
-	lg = llg master..@
-	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-	llga = llg --all
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	patch = diff --word-diff=none
 	r = rebase
 	rc = rebase --continue
-	s = status
+	s = status -s -b
 	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b %n'
 	sl = stash list -p
 	st = stash
@@ -54,5 +52,3 @@
 		sed 's/^\\(.\\)/  \\1/'"
 
 # vim: ft=gitconfig
-[init]
-	defaultBranch = master

@@ -40,6 +40,8 @@ return {
       c = { icon = '' },
       gitcommit = { icon = '' },
       ['.gitignore'] = { icon = '' },
+      ['.gitconfig'] = { icon = '' },
+      ['gitconfig'] = { icon = '' },
       ['.gitattributes'] = { icon = '' },
       fugitive = { icon = '' },
       GV = { icon = '' },
