@@ -112,7 +112,10 @@ awful.rules.rules = {
         "gtd",
         "quake",
         "steam",
-      }
+      },
+      instance = {
+        "web.whatsapp.com",
+      },
     },
     properties = {
       immortal = true,
