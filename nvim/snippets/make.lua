@@ -7,6 +7,14 @@ return {
   	<>
   endef
   ]], {i(1, 'name'), i(0)})),
+
+  -- check root privileges
+  s("root", fmta([[
+  ifeq ($(shell id -u), 0)
+  <><>
+  endif
+  ]], { sel(), i(0) })),
+
   -- phony
   s(".ph", fmta(".PHONY: <>", { i(0) })),
 
