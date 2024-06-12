@@ -9,7 +9,7 @@ BASEDIR:=$(shell cd "$(dirname "$0")" || exit; pwd)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: dotfiles packages services repos
+bootstrap: dotfiles repos packages services root-nvim
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -61,6 +61,13 @@ templates: ~/.config/rofi/variant.rasi
 
 ~/.config/rofi/variant.rasi:
 	@cp $(BASEDIR)/templates/.config/rofi/variant.rasi ~/.config/rofi/variant.rasi
+
+.PHONY: root-nvim
+root-nvim:
+	$(call cecho, 3, Copying root nvim config...)
+	@sudo mkdir -p /root/.config/nvim
+	@sudo cp $(BASEDIR)/templates/root/nvim.lua /root/.config/nvim/init.lua
+	$(call cecho, 2, Done.)
 
 .PHONY: packages
 packages:
