@@ -25,9 +25,6 @@ k.set('', '<leader>y', '"+y', noremap)
 k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", noremap)
 -- Give a more logical behavior to Y
 k.set('n', 'Y', 'y$', noremap)
--- Visual yank
-k.set('x', 'y', 'ygv<esc>', noremap)
-k.set('x', 'Y', 'Ygv<esc>', noremap)
 -- select the whole line
 k.set('n', 'vv', '^v$h', noremap)
 -- Command line
@@ -45,9 +42,6 @@ k.set('n', '<esc>', '<esc>:nohlsearch<cr>', noremap)
 -- Find character
 k.set({ 'n', 'x' }, ',', ';', noremap)
 k.set({ 'n', 'x' }, ';', ',', noremap)
--- block
-k.set({ 'n', 'x' }, '<m-t>', '}', noremap)
-k.set({ 'n', 's' }, '<m-s>', '{', noremap)
 -- Close current buffer
 k.set('n', 'Q', ':bdelete!<cr>', noremap)
 -- Sanity mappings for command line mode
@@ -86,9 +80,6 @@ k.set('', '0', '*', noremap)
 -- diff hunk navigation
 k.set('n', 'ß', '<Plug>(GitGutterPrevHunk)', noremap)
 k.set('n', 'þ', '<Plug>(GitGutterNextHunk)', noremap)
--- quickfix navigation
-k.set('n', '<a-p>', ':cprev<cr>', noremap)
-k.set('n', '<a-n>', ':cnext<cr>', noremap)
 -- sort
 k.set('x', '<leader>s', ':sort<cr>', noremap)
 -- macro
