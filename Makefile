@@ -54,13 +54,13 @@ templates: ~/.config/kitty/theme.conf
 templates: ~/.config/rofi/variant.rasi
 
 ~/.Xresources.d/local:
-	@cp ~/.Xresources.d/local.sample ~/.Xresources.d/local
+	@cp $(BASEDIR)/templates/.Xresources.d/local ~/.Xresources.d/local
 
 ~/.config/kitty/theme.conf:
-	@cp $(BASEDIR)/config/kitty/theme.conf.sample ~/.config/kitty/theme.conf
+	@cp $(BASEDIR)/templates/.config/kitty/theme.conf ~/.config/kitty/theme.conf
 
 ~/.config/rofi/variant.rasi:
-	@cp $(BASEDIR)/config/rofi/variant.rasi.sample ~/.config/rofi/variant.rasi
+	@cp $(BASEDIR)/templates/.config/rofi/variant.rasi ~/.config/rofi/variant.rasi
 
 .PHONY: packages
 packages:
