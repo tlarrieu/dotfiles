@@ -1,4 +1,11 @@
 # vim:set ft=conf
+# essentials
+nvim
+git
+fzf
+rofi
+pass
+
 # build tools
 fakeroot
 binutils
@@ -7,6 +14,7 @@ base-devel
 # languages
 luarocks
 rbenv
+ruby
 ruby-build
 go
 go-tools
@@ -42,13 +50,6 @@ eza
 tumbler
 tumbler-extra-thumbnailers
 ffmpegthumbnailer
-
-# essential
-git
-fzf
-rofi
-pass
-ruby
 
 # xorg
 xorg-xrdb
