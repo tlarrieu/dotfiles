@@ -7,7 +7,7 @@ else
   expr='s/dark/light/'
 fi
 
-# xresources
+# Xresources
 sed -e $expr -i ~/.Xresources.d/local
 xrdb -merge ~/.Xresources
 
@@ -25,4 +25,4 @@ sed -e $expr -i ~/.config/rofi/variant.rasi
 awesome-client "awesome.restart()"
 
 # wallpaper
-./.fehbg
+~/.fehbg
