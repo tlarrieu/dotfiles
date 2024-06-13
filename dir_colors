@@ -314,6 +314,7 @@ EXEC 31  # Unix
 .NEF 35
 .heic 35
 .HEIC 35
+.webp 35
 
 # Audio
 .aac 35
