@@ -9,7 +9,7 @@ BASEDIR:=$(shell cd "$(dirname "$0")" || exit; pwd)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: dotfiles repos packages services root-nvim
+bootstrap: dotfiles repos packages services X11 shell root-nvim
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -86,12 +86,20 @@ services:
 	@systemctl enable mpd --user
 	@sudo timedatectl set-ntp true
 	$(call cecho, 2, Done.)
+
+.PHONY: X11
+X11:
 	$(call cecho, 3, Linking X11 files...)
 	@$(foreach file,$(wildcard xorg.conf.d/*),sudo ln -sfFT $(BASEDIR)/xorg.conf.d/$(notdir $(file)) /etc/X11/xorg.conf.d/$(notdir $(file));)
 	$(call cecho, 2, Done.)
+
+.PHONY: shell
+shell:
+ifneq (/usr/bin/fish, $(shell grep $(USER) /etc/passwd | awk -F ':' '{ print $$7 }'))
 	$(call cecho, 3, Configuring shell...)
 	@chsh -s /usr/bin/fish
 	$(call cecho, 2, Done.)
+endif
 
 .PHONY: repos
 repos: ~/.neorg
