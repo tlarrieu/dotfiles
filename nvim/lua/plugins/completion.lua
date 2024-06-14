@@ -2,7 +2,7 @@ return {
   'hrsh7th/nvim-cmp',
   dependencies = {
     'saadparwaiz1/cmp_luasnip',
-    'folke/neodev.nvim' ,
+    'folke/lazydev.nvim' ,
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
   },

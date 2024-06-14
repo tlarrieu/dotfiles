@@ -4,7 +4,7 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim', version = '*', config = true },
     { 'neovim/nvim-lspconfig',   version = '*' },
-    { 'folke/neodev.nvim',       version = '*' },
+    { 'folke/lazydev.nvim',       version = '*' },
     { 'hrsh7th/cmp-nvim-lsp',    version = '*' },
   },
   opts = {
