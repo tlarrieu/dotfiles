@@ -32,7 +32,6 @@ local client_signals = {
   "manage",
   "focus"
 }
-local tag_signals = { "tagged", "untagged" }
 
 local update_icon = function(tag)
   local xs = {}
@@ -70,9 +69,12 @@ client.connect_signal("property::minimized", function(client)
 end)
 
 awful.screen.connect_for_each_screen(function(screen)
-  for _, signal in ipairs(tag_signals) do
+  for _, signal in ipairs({ "tagged", "untagged" }) do
     awful.tag.attached_connect_signal(screen, signal, handle)
   end
+  awful.tag.attached_connect_signal(screen, "property::urgent", function (tag)
+    tag:view_only()
+  end)
 end)
 
 client.connect_signal("client::custom", function(client, action)
@@ -86,4 +88,3 @@ client.connect_signal("client::custom", function(client, action)
 
   client:emit_signal("request::activate", "client.focus.bydirection", { raise = true })
 end)
-

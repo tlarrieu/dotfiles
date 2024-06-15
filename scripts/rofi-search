@@ -57,6 +57,14 @@ class Browser < SearchEngine
 
 end
 
+class BrowserWithContext < Browser
+
+  def run(str)
+    `browser-with-context #{@profile} '#{combine(str)}'`
+  end
+
+end
+
 class YouTube < Browser
 
   def initialize
@@ -103,45 +111,45 @@ class BrowserRaw < Browser
 
 end
 
-defaultengine = Browser.new('https://duckduckgo.com/?ia=web&q=%s')
+defaultengine = BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s')
 
-# rubocop:disable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
+# rubocop:disable Layout/HashAlignment
 searchengines = {
-  'yt'   => YouTube.new,
-  'map'  => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
-  'aw'   => Browser.new(
-              'https://duckduckgo.com/?ia=web&q=%s',
-              prefixes: ['site:https://awesomewm.org/doc'],
-              profile: 'perso'
-            ),
-  'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
-  'l'    => Browser.new('http://localhost:%s'),
-  'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
-  'def'  => Dictionary.new(
-              'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
-              'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
-            ),
-  'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
-  'gh'   => Browser.new('https://github.com/search?q=%s'),
-  'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
-  'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
   'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
+  'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
+  'aw'   => Browser.new(
+    'https://duckduckgo.com/?ia=web&q=%s',
+    prefixes: ['site:https://awesomewm.org/doc'],
+    profile: 'perso'
+  ),
+  'def'  => Dictionary.new(
+    'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
+    'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
+  ),
   'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
+  'gh'   => Browser.new('https://github.com/search?q=%s'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
+  'l'    => Browser.new('http://localhost:%s'),
+  'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
+  'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
+  'man'  => Man.new,
+  'map'  => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
+  'nerd' => Browser.new('https://www.nerdfonts.com/cheat-sheet?q=%s'),
+  'py'   => Browser.new('https://pypi.org/search/?q=%s'),
   'r'    => Browser.new('https://reddit.com/r/%s', profile: 'perso'),
   'rb'   => Browser.new('https://rubygems.org/search?query=%s'),
-  'py'   => Browser.new('https://pypi.org/search/?q=%s'),
   't'    => BrowserRaw.new('https://tpb.party/search/%s', profile: 'perso'),
+  'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
+  'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
   'tw'   => Browser.new('https://www.twitch.tv/search?term=%s', profile: 'perso'),
   'v'    => Browser.new('https://vimawesome.com/?q=%s'),
-  'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
+  'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
-  'man'  => Man.new,
-  'nerd' => Browser.new('https://www.nerdfonts.com/cheat-sheet?q=%s'),
+  'yt'   => YouTube.new,
 }
-# rubocop:enable Layout/HashAlignment, Layout/FirstArgumentIndentation, Layout/LineLength
+# rubocop:enable Layout/HashAlignment
 
 query = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
 words = query.split

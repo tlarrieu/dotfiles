@@ -114,7 +114,7 @@ local config = {
   { icon = "󱌣", rule = { class = "Chromium", instance = "yoojo" }},
 
   --  Default browser
-  { icon = "", rule = { class = "Chromium" }},
+  { icon = "", rule = { class = "Chromium" }},
 
   --  Games
   { icon = "󰓥", rule = { class = "steam_app_1086940" }}, -- Baldur's gate III
