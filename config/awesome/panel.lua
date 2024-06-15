@@ -3,175 +3,27 @@ local beautiful = require("beautiful")
 local wibox = require("wibox")
 local apply_dpi = require("beautiful.xresources").apply_dpi
 
-local lain = require("lain")
-
-local colorize = function(widget, value)
-  local color
-
-  if value > 80 then
-    color = beautiful.colors.red.dark
-  elseif value > 40 then
-    color = beautiful.colors.yellow.dark
-  else
-    color = beautiful.colors.green.dark
-  end
-
-  widget:set_values({ value })
-  widget:set_colors({ color })
-end
-
-local arcprogress = function(label)
-  local text = wibox.widget({
-    valign = "center",
-    align = "center",
-    widget = wibox.widget.textbox,
-  })
-  local arcchart = wibox.container({
-    text,
-    widget = wibox.container.arcchart,
-    min_value = 0,
-    max_value = 100,
-    bg = "#FF000000",
-    thickness = apply_dpi(3),
-  })
-  arcchart:connect_signal("widget::redraw_needed", function(widget)
-    if widget:get_colors() == nil then return end
-
-    local markup = lain.util.markup(widget:get_colors()[1], label)
-
-    text:set_markup(lain.util.markup.small(markup))
-  end)
-
-  return arcchart
-end
-
--- [[ CPU ]] -------------------------------------------------------------------
-local cpu = arcprogress("C")
-lain.widgets.cpu({
-  timeout = 2,
-  settings = function(cpu_now) colorize(cpu, cpu_now.usage) end
-})
-
--- [[ MEM ]] -------------------------------------------------------------------
-local mem = arcprogress("M")
-lain.widgets.mem({
-  timeout = 2,
-  settings = function(mem_now) colorize(mem, mem_now.perc) end
-})
-
 -- [[ Clock ]] -----------------------------------------------------------------
 local clock = wibox.widget({
   widget = wibox.widget.textclock,
   format = "%Y.%m.%d %H:%M",
 })
 
--- [[ Mic ]] -----------------------------------------------------------------
-
-local mictext = wibox.widget({
-  valign = "center",
-  align = "center",
-  widget = wibox.widget.textbox,
-})
-
-local mic = wibox.container({
-  wibox.container.margin(mictext, 0, apply_dpi(0.48), apply_dpi(0.5), 0),
-  widget = wibox.container.arcchart,
-  min_value = 0,
-  max_value = 100,
-  bg = "#FF000000",
-  thickness = apply_dpi(1.5),
-})
-
-lain.widgets.pulseaudio({
-  timeout = 0.5,
-  settings = function(volume)
-    local icon, color
-
-    if volume.muted then
-      color = beautiful.colors.green.dark
-      icon = ""
-    else
-      color = beautiful.colors.red.dark
-      icon = ""
-    end
-
-    local markup = lain.util.markup(color, icon)
-    mictext:set_markup(markup)
-
-    mic:set_values({ volume.left })
-    mic:set_colors({ color })
-  end,
-})
-
 -- [[ Battery ]] ---------------------------------------------------------------
-local batteryname = require("lain.helpers").read_pipe('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"')
-local batterytext = wibox.widget({ widget = wibox.widget.textbox })
-
-local battery = wibox.widget({
-  batterytext,
-  layout = wibox.layout.fixed.horizontal,
-})
-
-local iconset = {
-  { level = 10, icon = "󰁺" },
-  { level = 20, icon = "󰁻" },
-  { level = 30, icon = "󰁼" },
-  { level = 40, icon = "󰁽" },
-  { level = 50, icon = "󰁾" },
-  { level = 60, icon = "󰁿" },
-  { level = 70, icon = "󰂀" },
-  { level = 80, icon = "󰂁" },
-  { level = 90, icon = "󰂂" },
-  { level = 100, icon = "󰁹" },
-}
-
-local battery_update = function(bat_now)
-  if bat_now.status == "N/A" then return end
-
-  local color, legend, icon
-
-  local status = bat_now.status == "Discharging"
-      and ""
-      or ""
-
-  -- legend
-  legend = bat_now.time == "00:00" and "100%" or (status .. " " .. bat_now.time)
-
-  -- color
-  if bat_now.perc >= 98 then
-    color = beautiful.colors.green.dark
-  elseif bat_now.perc > 15 then
-    color = beautiful.colors.yellow.dark
-  else
-    color = beautiful.colors.red.dark
-  end
-
-  for _, config in ipairs(iconset) do
-    if bat_now.perc <= config.level then
-      icon = config.icon
-      break
-    end
-  end
-
-  local markup = lain.util.markup(color, icon .. " " .. legend)
-  batterytext:set_markup(markup)
-end
-
-lain.widgets.bat({
-  battery = batteryname,
-  timeout = 15,
-  settings = battery_update,
-  notifications = {
-    low = {
-      fg = beautiful.colors.red.dark,
-      bg = beautiful.colors.background
-    },
-    critical = {
-      fg = beautiful.colors.foreground,
-      bg = beautiful.colors.red.dark
-    }
-  }
-})
+local pipe = assert(io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'))
+local batteryname = pipe:read('*all')
+pipe:close()
+local battery = require('widgets.battery')({
+  adapter = batteryname,
+  listen = false,
+  ac_prefix = ' ',
+  battery_prefix = '󰁹 ',
+  limits = {
+    { 25,  beautiful.colors.red.dark },
+    { 50,  beautiful.colors.yellow.dark },
+    { 100, beautiful.colors.green.dark }
+  },
+}).widget
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
@@ -187,9 +39,6 @@ local init_screen = function(screen)
 
   local left = wibox.widget({
     wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(cpu, dpi(0), dpi(5), dpi(2), dpi(2)),
-    wibox.container.margin(mem, dpi(0), dpi(10), dpi(2), dpi(2)),
-    wibox.container.margin(mic, dpi(0), dpi(10), dpi(2), dpi(2)),
     layout = wibox.layout.fixed.horizontal
   })
 

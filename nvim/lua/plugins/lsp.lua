@@ -70,9 +70,6 @@ return {
 
           settings = {
             Lua = {
-              ["workspace.ignoreDir"] = {
-                'lain/',
-              },
               diagnostics = {
                 -- awesome related globals
                 globals = {
