@@ -102,6 +102,7 @@ if [ ${#option} -gt 0 ]; then
       # password only
       perso/linux | \
       perso/microsoft |\
+      perso/paypal |\
       */google)
         type "$(password)"
         press Return
@@ -154,7 +155,6 @@ if [ ${#option} -gt 0 ]; then
       # “normal” case where login and password fields are visible, but the
       # first field is not focused
       pro/travelperk |\
-      perso/paypal |\
       perso/bankin)
         press Tab
         type "$(login)"
