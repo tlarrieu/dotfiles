@@ -66,6 +66,7 @@ return {
       ['favicon.ico'] = { icon = '' },
       lock = { icon = '' },
       log = { icon = '' },
+      txt = { icon = '' },
     },
     override_by_extension = {
       mod = { icon = '' },
