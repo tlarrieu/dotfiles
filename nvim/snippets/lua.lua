@@ -50,6 +50,7 @@ return {
   s("open", fmta([[local <> = io.open(<>, <>)]], { i(1, 'file'), i(2, 'path'), i(3, "'r'") })),
   s("readl", fmta([[local <> = <>:read('*l')]], { i(1, 'str'), i(2, 'file') })),
   s("reada", fmta([[local <> = <>:read('*a')]], { i(1, 'str'), i(2, 'file') })),
+  s("write", fmta([[<>:write(<>)]], { i(1, 'file'), i(2, 'str') })),
 
   -- misc
   s("p", fmta([[print(<><>)]], { sel(), i(1) })),
