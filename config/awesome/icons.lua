@@ -65,7 +65,6 @@ local config = {
 
   --  Programming
   { icon = "", rule = { class = "Chromium", instance = "rubygems" }},
-  { icon = "", rule = { class = "Chromium", instance = "heroku" }},
   { icon = "", rule = { class = "Chromium", instance = "hoogle" }},
   { icon = "", rule = { class = "Chromium", instance = "www.github.com" }},
   { icon = "", rule = { class = "Chromium", instance = "gist.github.com" }},
@@ -118,7 +117,6 @@ local config = {
 
   --  Games
   { icon = "󰓥", rule = { class = "steam_app_1086940" }}, -- Baldur's gate III
-  { icon = "󰬔", rule = { class = "MetroExodus" }},
   { icon = "󰸓", rule = { class = "Backpack Battles" }},
   { icon = "", rule = { class = "Wine" }},
   { icon = "", rule = { class = "steam" }},
@@ -168,7 +166,7 @@ local config = {
   { icon = "", rule = { class = "kitty", name = "NVIM" }},
   { icon = "", rule = { class = "kitty", name = "newsboat" }},
   { icon = "", rule = { class = "kitty", name = "htop" }},
-  { icon = "", rule = { class = "kitty", name = "vifm" }},
+  { icon = "", rule = { class = "kitty", name = "vifm" }},
   { icon = "", rule = { class = "kitty", name = "vpn" }},
   { icon = "", rule = { class = "kitty" }},
 }
