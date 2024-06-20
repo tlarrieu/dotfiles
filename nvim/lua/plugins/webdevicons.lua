@@ -41,6 +41,7 @@ return {
       gitcommit = { icon = '' },
       ['.gitignore'] = { icon = '' },
       ['.gitconfig'] = { icon = '' },
+      ['.gitmodules'] = { icon = '' },
       ['gitconfig'] = { icon = '' },
       ['.gitattributes'] = { icon = '' },
       fugitive = { icon = '' },
