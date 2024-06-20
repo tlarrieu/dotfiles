@@ -67,6 +67,7 @@ return {
         ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
         ['@repeat.bash'] = { link = 'Keyword' },
+        ['@repeat.lua'] = { link = 'Keyword' },
 
         ['@symbol'] = { link = 'String' },
         ['@field'] = { link = 'Constant' },
