@@ -50,6 +50,7 @@ return {
     keymaps = {
       ['g?'] = 'actions.show_help',
       ['<CR>'] = 'actions.select',
+      ['<C-CR>'] = 'actions.preview',
       ['<leader>vv'] = 'actions.select_vsplit',
       ['<leader>nn'] = 'actions.select_split',
       ['<C-c>'] = false,
