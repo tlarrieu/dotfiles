@@ -13,17 +13,20 @@ local clock = wibox.widget({
 local pipe = assert(io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'))
 local batteryname = pipe:read('*all')
 pipe:close()
-local battery = require('widgets.battery')({
-  adapter = batteryname,
-  listen = false,
-  ac_prefix = ' ',
-  battery_prefix = '󰁹 ',
-  limits = {
-    { 25,  beautiful.colors.red.dark },
-    { 50,  beautiful.colors.yellow.dark },
-    { 100, beautiful.colors.green.dark }
-  },
-}).widget
+local battery
+if #batteryname > 0 then
+  battery = require('widgets.battery')({
+    adapter = batteryname,
+    listen = false,
+    ac_prefix = ' ',
+    battery_prefix = '󰁹 ',
+    limits = {
+      { 25,  beautiful.colors.red.dark },
+      { 50,  beautiful.colors.yellow.dark },
+      { 100, beautiful.colors.green.dark }
+    },
+  }).widget
+end
 
 -- [[ Screen initialization ]] -------------------------------------------------
 local init_screen = function(screen)
