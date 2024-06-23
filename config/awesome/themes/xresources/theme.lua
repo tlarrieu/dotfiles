@@ -36,10 +36,4 @@ theme.border_urgent = theme.colors.red.dark
 theme.notification_bg = theme.colors.background
 theme.notification_border_color = theme.colors.foreground
 
--- [[ icons ]] -----------------------------------------------------------------
-local theme_path = os.getenv("HOME") .. "/.config/awesome/themes/xresources/"
--- taglist
-theme.taglist_squares_sel   = theme_path.."taglist/square_sel.png"
-theme.taglist_squares_unsel = theme_path.."taglist/square_unsel.png"
-
 return theme
