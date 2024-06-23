@@ -1,4 +1,4 @@
-require('beautiful').init(os.getenv('HOME') .. '/.config/awesome/themes/xresources/theme.lua')
+require('beautiful').init(require('themes.xresources'))
 require('awful.autofocus')
 
 require('panel')
