@@ -23,7 +23,7 @@ _M.set = function(context)
 end
 
 _M.notify = function()
-  io.popen([[notify-send Context "']] .. _M.get() .. [['"]])
+  io.popen([[notify-send Context "]] .. _M.get() .. [["]])
 end
 
 _M.toggle = function()
