@@ -58,6 +58,7 @@ return {
     k.set('n', '<leader>é', builtin.grep_string, options)
     k.set('n', '<c-h>', builtin.help_tags, options)
     k.set('n', '<c-y>', builtin.git_status, options)
+    k.set('n', '<c-s-y>', builtin.git_branches, options)
     k.set('n', '<c-l>', builtin.lsp_document_symbols, options)
     k.set('n', '<c-e>', builtin.diagnostics, options)
     k.set('n', '<c-q>', builtin.quickfix, options)
