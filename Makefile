@@ -31,7 +31,6 @@ links:
 	@ln -sfFT $(BASEDIR)/gitconfig ~/.gitconfig
 	@ln -sfFT $(BASEDIR)/gitignore ~/.gitignore
 	@git config --global core.excludesFile ~/.gitignore
-	@ln -sfFT $(BASEDIR)/agignore ~/.agignore
 	@ln -sfFT $(BASEDIR)/irbrc ~/.irbrc
 	@ln -sfFT $(BASEDIR)/rubocop.yml ~/.rubocop.yml
 	@ln -sfFT $(BASEDIR)/tslint.json ~/tslint.json
