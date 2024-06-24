@@ -47,7 +47,6 @@ local config = {
   { icon = "", rule = { class = "Chromium", instance = "www.twitch.tv" }},
   { icon = "", rule = { class = "Chromium", name = "YouTube" }},
 
-
   --  Social
   { icon = "", rule = { class = "Chromium", instance = "www.gettr.com" }},
   { icon = "", rule = { class = "Chromium", instance = "www.twitter.com" }},
@@ -88,6 +87,8 @@ local config = {
   --  Pictures
   { icon = "", rule = { class = "Chromium", instance = "pinterest.com" }},
   { icon = "", rule = { class = "Chromium", instance = "wallhaven.cc" }},
+  { icon = "󰥶", rule = { class = "feh" }},
+  { icon = "󰹑", rule = { class = "screenshot" }},
 
   -- Coms
   { icon = "", rule = { class = "Chromium", instance = "web.whatsapp.com" }},
