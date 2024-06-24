@@ -1,5 +1,3 @@
-package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
-
 local dpi = require('beautiful.xresources').apply_dpi
 local xrdb = require('xrdb').load()
 

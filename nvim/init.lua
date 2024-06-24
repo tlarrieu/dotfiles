@@ -1,5 +1,3 @@
-package.path = package.path .. ';/home/tlarrieu/scripts/?.lua'
-
 vim.g.mapleader = ' '
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -17,8 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins')
 
-require('usr/keymaps')
-require('usr/options')
-require('usr/globals')
-require('usr/abbrev')
-require('usr/autocmd')
+require('usr.keymaps')
+require('usr.options')
+require('usr.globals')
+require('usr.abbrev')
+require('usr.autocmd')

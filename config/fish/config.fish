@@ -52,6 +52,10 @@ set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
 set -x PATH $PATH $HOME/.krew/bin
 
+# LUA
+
+set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
+
 # JAVA
 set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
 
