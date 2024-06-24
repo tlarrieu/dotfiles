@@ -27,7 +27,7 @@ theme.bg_focus = theme.colors.background
 theme.bg_urgent = theme.colors.red.dark
 theme.bg_systray = theme.bg_normal
 
-theme.border_width = dpi(1)
+theme.border_width = dpi(2)
 theme.border_normal = theme.colors.background
 theme.border_focus = accent
 theme.border_urgent = theme.colors.red.dark
