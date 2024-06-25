@@ -1,10 +1,13 @@
 #!/bin/sh
 
 expr=''
+btop_theme=''
 if grep 'light' ~/.Xresources.d/local > /dev/null; then
   expr='s/light/dark/'
+  btop_theme='dark'
 else
   expr='s/dark/light/'
+  btop_theme='light'
 fi
 
 # Xresources
@@ -20,6 +23,9 @@ pkill --signal USR1 kitty
 
 # rofi
 sed -e $expr -i ~/.config/rofi/variant.rasi
+
+# btop
+cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 
 # awesome
 awesome-client "awesome.restart()"

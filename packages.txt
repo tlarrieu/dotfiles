@@ -28,6 +28,7 @@ fish
 
 # admin
 htop-vim
+btop
 net-tools
 dnsutils
 ncdu
