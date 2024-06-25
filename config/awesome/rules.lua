@@ -1,5 +1,4 @@
 local awful = require("awful")
-require("awful.rules")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
 local keymaps = require("keymaps")
