@@ -1,10 +1,10 @@
 #!/bin/sh
 
 # Get window position
-posX=$(xwininfo -id $(xdotool getactivewindow) \
+posX=$(xwininfo -id "$(xdotool getactivewindow)" \
   | grep "Absolute upper-left X" \
   | awk '{print $NF}')
-posY=$(xwininfo -id $(xdotool getactivewindow) \
+  posY=$(xwininfo -id "$(xdotool getactivewindow)" \
   | grep "Absolute upper-left Y" \
   | awk '{print $NF}')
 
@@ -14,15 +14,15 @@ configs=$(xrandr \
   | sed 's/primary //' \
   | awk -F'[ +]' '{print $3":"$4":"$5}')
 for config in $configs; do
-  screenX=$(echo $config | awk -F':' '{print $2}')
-  screenY=$(echo $config | awk -F':' '{print $3}')
+  screenX=$(echo "$config" | awk -F':' '{print $2}')
+  screenY=$(echo "$config" | awk -F':' '{print $3}')
   if [ "$posX" -gt "$screenX" ] && [ "$posY" -gt "$screenY" ]; then
-    res=$(echo $config | awk -F':' '{print $1}')
-    scaledres=$(echo $res | awk -F'x' '{print $1 * 0.8 "x" $2 * 0.8}')
+    res=$(echo "$config" | awk -F':' '{print $1}')
+    scaledres=$(echo "$res" | awk -F'x' '{print $1 * 0.8 "x" $2 * 0.8}')
   fi
 done
 
-Xephyr -ac -noreset -resizeable -screen $scaledres :1.0 2> /dev/null &
+Xephyr -ac -noreset -resizeable -screen "$scaledres" :1.0 2> /dev/null &
 ZEPHYR_PID=$!
 sleep 0.2
 
