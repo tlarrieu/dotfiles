@@ -129,6 +129,8 @@ end, noremap)
 -- Quickfix / Location list
 k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
+k.set('n', '<c-s-p>', ':cprev<cr>', noremap)
+k.set('n', '<c-s-n>', ':cnext<cr>', noremap)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 k.set('t', '<c-s>', '<c-\\><c-n>', noremap)
