@@ -5,17 +5,13 @@ return {
     local xrdb = require('xrdb').load()
     local theme = {}
 
-    -- [[ palette ]] ---------------------------------------------------------------
-
     theme.colors = xrdb.colors
     theme.useless_gap = dpi(6)
 
     local accent = theme.colors.magenta.dark
 
-    -- [[ styles ]] ----------------------------------------------------------------
     theme.font = xrdb.font.name .. " " .. xrdb.font.size
 
-    -- [[ colors ]] ----------------------------------------------------------------
     theme.fg_normal = theme.colors.foreground
     theme.fg_focus = accent
     theme.fg_urgent = theme.colors.white.light
@@ -32,9 +28,11 @@ return {
     theme.border_focus = accent
     theme.border_urgent = theme.colors.red.dark
 
-    -- [[ notifications ]] ---------------------------------------------------------
     theme.notification_bg = theme.colors.background
     theme.notification_border_color = theme.colors.foreground
+    theme.notification_icon_size = dpi(32)
+
+    theme.notification_font = xrdb.font.name .. " " .. tonumber(xrdb.font.size)*1.1
 
     return theme
   end

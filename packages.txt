@@ -70,7 +70,6 @@ wmctrl
 maim
 unclutter
 redshift
-xfce4-notifyd
 
 # gtk
 lxappearance-gtk3
