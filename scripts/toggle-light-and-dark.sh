@@ -28,7 +28,10 @@ sed -e $expr -i ~/.config/rofi/variant.rasi
 cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 
 # awesome
-awesome-client "awesome.restart()"
+awesome-client <<- LUA
+  require('beautiful').init(require('themes.xresources').init())
+  for s in screen do require('panel').init(s) end
+LUA
 
 # wallpaper
 ~/.fehbg

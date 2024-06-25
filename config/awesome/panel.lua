@@ -28,47 +28,49 @@ if #batteryname > 0 then
   }).widget
 end
 
--- [[ Screen initialization ]] -------------------------------------------------
-local init_screen = function(screen)
-  local dpi = function(n) return apply_dpi(n, screen) end
+return {
+  init = function(screen)
+    local dpi = function(n) return apply_dpi(n, screen) end
 
-  local taglist = awful.widget.taglist({
-    screen = screen,
-    filter = function(tag)
-      return #tag:clients() > 1 or #tag.screen.tags > 1
-    end,
-    style = { spacing = dpi(6) },
-  })
+    local taglist = awful.widget.taglist({
+      screen = screen,
+      filter = function(tag)
+        return #tag:clients() > 1 or #tag.screen.tags > 1
+      end,
+      style = { spacing = dpi(6) },
+    })
 
-  local left = wibox.widget({
-    wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
-    layout = wibox.layout.fixed.horizontal
-  })
+    local left = wibox.widget({
+      wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
+      layout = wibox.layout.fixed.horizontal
+    })
 
-  local middle = wibox.widget({
-    wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
-    layout = wibox.layout.fixed.horizontal,
-  })
+    local middle = wibox.widget({
+      wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
+      layout = wibox.layout.fixed.horizontal,
+    })
 
-  local right = wibox.widget({
-    clock,
-    layout = wibox.layout.fixed.horizontal
-  })
-  right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
+    local right = wibox.widget({
+      clock,
+      layout = wibox.layout.fixed.horizontal
+    })
+    right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
 
-  local barwidget = wibox.widget({
-    left,
-    middle,
-    right,
-    layout = wibox.layout.align.horizontal,
-    expand = "none"
-  })
+    local barwidget = wibox.widget({
+      left,
+      middle,
+      right,
+      layout = wibox.layout.align.horizontal,
+      expand = "none"
+    })
 
-  awful.wibar({
-    position = "top",
-    height = dpi(32),
-    screen = screen,
-    widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
-  })
-end
-awful.screen.connect_for_each_screen(init_screen)
+    if screen.wibar then screen.wibar:remove() end
+
+    screen.wibar = awful.wibar({
+      position = "top",
+      height = dpi(32),
+      screen = screen,
+      widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
+    })
+  end
+}

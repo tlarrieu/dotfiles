@@ -1,4 +1,4 @@
-require('beautiful').init(require('themes.xresources'))
+require('beautiful').init(require('themes.xresources').init())
 require('awful.autofocus')
 
 require('panel')

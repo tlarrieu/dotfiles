@@ -75,6 +75,8 @@ awful.screen.connect_for_each_screen(function(screen)
   awful.tag.attached_connect_signal(screen, 'property::urgent', function(tag)
     tag:view_only()
   end)
+
+  require('panel').init(screen)
 end)
 
 client.connect_signal('client::custom', function(client, action)
