@@ -3,4 +3,7 @@
 config="$HOME/.browser-config"
 [ -f "$config" ] && source "$config"
 
-chromium --app="$1" --profile-directory="$profile"
+case "$1" in
+  *www.youtube.com/watch?*) mpv "$1";;
+  *) chromium --app="$1" --profile-directory="$profile";;
+esac
