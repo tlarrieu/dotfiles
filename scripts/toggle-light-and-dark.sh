@@ -1,18 +1,24 @@
 #!/bin/sh
 
 expr=''
+gtk_expr=''
 btop_theme=''
 if grep 'light' ~/.Xresources.d/local > /dev/null; then
   expr='s/light/dark/'
+  gtk_expr='s/Light/Dark/'
   btop_theme='dark'
 else
   expr='s/dark/light/'
+  gtk_expr='s/Dark/Light/'
   btop_theme='light'
 fi
 
 # Xresources
 sed -e $expr -i ~/.Xresources.d/local
 xrdb -merge ~/.Xresources
+
+# gtk2
+sed -e $gtk_expr -i ~/.gtkrc-2.0.mine
 
 # nvim
 pkill --signal USR1 nvim
