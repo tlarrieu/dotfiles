@@ -10,8 +10,8 @@ local strlen = function(x)
   return #x:gsub('[\128-\191]', '')
 end
 
-local pad = function(str, len)
-  local _str = tostring(str)
+local fit = function(str, len)
+  local _str = tostring(str):sub(1, len)
   return _str .. string.rep(' ', len - strlen(_str))
 end
 
@@ -21,7 +21,7 @@ for i, client in ipairs(screen.all_clients) do
   table.insert(clients, client)
   table.insert(
     lines,
-    pad(i, 4) .. icons.fetch(client) .. ' ' .. pad(client.instance, 15) .. '  ' .. client.name
+    fit(i, 2) .. ' ' .. icons.fetch(client) .. ' ' .. fit(client.pid, 6) .. ' ' .. fit(client.instance, 15) .. '  ' .. client.name
   )
 end
 
