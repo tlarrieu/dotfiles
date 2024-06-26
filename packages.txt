@@ -101,6 +101,7 @@ lib32-opencl-nvidia
 networkmanager
 chromium
 openssh
+newsboat
 
 # writing
 zathura
