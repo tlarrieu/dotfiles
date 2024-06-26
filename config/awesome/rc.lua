@@ -1,4 +1,4 @@
-require('beautiful').init(require('themes.xresources').init())
+require('theme').config()
 require('awful.autofocus')
 
 require('naughty.dbus')

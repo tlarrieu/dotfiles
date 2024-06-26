@@ -1,7 +1,9 @@
-local dpi = require('beautiful.xresources').apply_dpi
+local beautiful = require('beautiful')
+local dpi = beautiful.xresources.apply_dpi
+local naughty = require('naughty')
 
 return {
-  init = function()
+  config = function()
     local xrdb = require('xrdb').load()
     local theme = {}
 
@@ -29,11 +31,17 @@ return {
     -- theme.border_urgent = theme.colors.red.dark
 
     theme.notification_bg = theme.colors.background
-    theme.notification_border_color = theme.colors.foreground
+    theme.notification_fg = theme.colors.foreground
+    theme.notification_border_color = theme.colors.background
     theme.notification_icon_size = dpi(32)
 
     theme.notification_font = xrdb.font.name .. " " .. tonumber(xrdb.font.size)*1.1
 
-    return theme
+    beautiful.init(theme)
+
+    naughty.config.padding = dpi(10)
+    naughty.config.spacing = dpi(6)
+    naughty.config.presets.critical.bg = theme.colors.red.dark
+    naughty.config.presets.critical.fg = theme.colors.white.light
   end
 }

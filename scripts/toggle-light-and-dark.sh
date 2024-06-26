@@ -29,7 +29,7 @@ cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 
 # awesome
 awesome-client <<- LUA
-  require('beautiful').init(require('themes.xresources').init())
+  require('theme').config()
   for s in screen do require('panel').init(s) end
 LUA
 
