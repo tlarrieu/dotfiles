@@ -19,7 +19,6 @@ _M.boot = function ()
     local apps = {
       'gmail',
       'calendar',
-      'steam',
     }
 
     for _, app in ipairs(apps) do
