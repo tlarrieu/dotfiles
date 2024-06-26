@@ -37,7 +37,7 @@ color listnormal         default   default
 color listnormal_unread  default   default bold
 color listfocus          white     color5
 color listfocus_unread   white     color5 bold
-color info               default   white
+color info               default   default
 color article            default   default
 
 # -- highlights --------------------------------------------
