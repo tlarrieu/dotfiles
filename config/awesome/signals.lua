@@ -1,5 +1,6 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
+
 local helpers = require('helpers')
 local icons = require('icons')
 local spawner = require('spawner')

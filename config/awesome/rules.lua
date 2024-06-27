@@ -1,7 +1,8 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
-local helpers = require('helpers')
 local gears = require('gears')
+
+local helpers = require('helpers')
 
 awful.rules.rules = gears.table.join(awful.rules.rules, {
   -- [[ Common rules ]] --------------------------------------------------------
