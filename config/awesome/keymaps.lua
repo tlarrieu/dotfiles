@@ -117,7 +117,7 @@ _M.keyboard = {
     spawner.key({ mod }, ' ', 'rofi -show combi -modes combi -combi-modes " :~/scripts/rofi-clients.sh,run" -display-combi "󰲌 " -display-run "󱕷 "'),
 
     spawner.key({ mod, 'Shift' }, 'c', {
-      app = spawner.terminal('nvim nvim/init.lua', { class = 'config', directory = dotfiles }),
+      app = spawner.terminal('nvim', { class = 'config', directory = dotfiles }),
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
     }),
