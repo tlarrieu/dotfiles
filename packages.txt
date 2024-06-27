@@ -37,6 +37,7 @@ ncdu
 xdotool
 entr
 xsel
+xclip
 
 # search
 ripgrep
