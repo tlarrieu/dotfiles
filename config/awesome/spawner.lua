@@ -1,4 +1,4 @@
-local awful = require("awful")
+local awful = require('awful')
 
 local _M = {}
 
@@ -11,19 +11,19 @@ local find_client = function(props)
 end
 
 _M.shell = function(command)
-  return "fish -c '" .. command .. "'"
+  return 'fish -c "' .. command .. '"'
 end
 
 _M.terminal = function(cmd, opts)
-  local options = ""
+  local options = ''
   if opts then
     for name, value in pairs(opts) do
-      options = string.format("%s --%s %s", options, name, value)
+      options = string.format('%s --%s %s', options, name, value)
     end
   end
 
   return string.format(
-    "kitty --single-instance %s %s",
+    'kitty --single-instance %s %s',
     options,
     cmd or ''
   )
@@ -35,12 +35,12 @@ _M.grab_mouse_until_released = function()
       if v then return true end
     end
     return false
-  end, "mouse")
+  end, 'mouse')
 end
 
 _M.actions = {
-  MOVE = "MOVE",
-  JUMP = "JUMP_TO",
+  MOVE = 'MOVE',
+  JUMP = 'JUMP_TO',
 }
 
 _M.spawn = function(cmd, props, action)
@@ -48,7 +48,7 @@ _M.spawn = function(cmd, props, action)
     local client = find_client(props)
 
     if client then
-      client:emit_signal("client::custom", action)
+      client:emit_signal('client::custom', action)
       return
     end
   end
@@ -77,9 +77,9 @@ _M.key = function(mods, key, target)
     )
   else
     error(
-      "type of '"
+      'type of "'
       .. target
-      .. "' is not supported. Must be one of function, table or string"
+      .. '" is not supported. Must be one of function, table or string'
     )
   end
 end

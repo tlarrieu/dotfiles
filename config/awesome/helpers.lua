@@ -1,4 +1,4 @@
-local awful = require("awful")
+local awful = require('awful')
 
 local _M = {}
 
@@ -10,7 +10,7 @@ _M.create_tag = function(screen)
     volatile = true
   }
 
-  return awful.tag.add("", config)
+  return awful.tag.add('󰓹', config)
 end
 
 _M.create_tag_and_attach_to = function(client, force)

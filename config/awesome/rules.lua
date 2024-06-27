@@ -1,6 +1,6 @@
-local awful = require("awful")
-local beautiful = require("beautiful")
-local helpers = require("helpers")
+local awful = require('awful')
+local beautiful = require('beautiful')
+local helpers = require('helpers')
 local gears = require('gears')
 
 awful.rules.rules = gears.table.join(awful.rules.rules, {
@@ -24,11 +24,11 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     rule = {},
     except_any = {
       class = {
-        "Gpick",
-        "Nemo",
-        "gtgf",
-        "kitty-light",
-        "Xephyr",
+        'Gpick',
+        'Nemo',
+        'gtgf',
+        'kitty-light',
+        'Xephyr',
       },
     },
     properties = {
@@ -39,8 +39,8 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       name = {
-        "meet.google.com is sharing a window.",
-        "discord.com is sharing a window."
+        'meet.google.com is sharing a window.',
+        'discord.com is sharing a window.'
       }
     },
     properties = {
@@ -52,9 +52,9 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       class = {
-        "kitty",
-        "kitty-light",
-        "config",
+        'kitty',
+        'kitty-light',
+        'config',
       }
     },
     properties = {
@@ -66,27 +66,27 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       instance = {
-        "cal.new",
-        "attunement.io__search",
-        "scryfall.com__search",
-        "rubygems.org__search",
-        "pypi.org__search",
-        "www.thesaurus.com__browse",
-        "translate.google.com",
-        "dictionary.cambridge.org",
-        "dictionnaire.lerobert.com",
+        'cal.new',
+        'attunement.io__search',
+        'scryfall.com__search',
+        'rubygems.org__search',
+        'pypi.org__search',
+        'www.thesaurus.com__browse',
+        'translate.google.com',
+        'dictionary.cambridge.org',
+        'dictionnaire.lerobert.com',
       },
       class = {
-        "scratchpad",
-        "wiki",
-        "gtd",
-        "man",
-        "quake",
-        "Seahorse",
-        "v4l2ucp",
-        "webcam-props",
-        "zenity",
-        "mixer",
+        'scratchpad',
+        'wiki',
+        'gtd',
+        'man',
+        'quake',
+        'Seahorse',
+        'v4l2ucp',
+        'webcam-props',
+        'zenity',
+        'mixer',
       }
     },
     properties = {
@@ -103,14 +103,14 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       class = {
-        "scratchpad",
-        "wiki",
-        "gtd",
-        "quake",
-        "steam",
+        'scratchpad',
+        'wiki',
+        'gtd',
+        'quake',
+        'steam',
       },
       instance = {
-        "web.whatsapp.com",
+        'web.whatsapp.com',
       },
     },
     properties = {
@@ -120,13 +120,13 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
 
   -- [[ Kitty ]] ---------------------------------------------------------------
   {
-    rule = { class = "kitty" },
+    rule = { class = 'kitty' },
     properties = { size_hints_honor = false },
   },
 
   -- [[ Audacity ]] --------------------------------------------------------
   {
-    rule = { class = "Audacity", modal = false },
+    rule = { class = 'Audacity', modal = false },
     properties = {
       fullscreen = false,
       floating = false,
@@ -136,7 +136,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
 
   -- [[ Multimedia ]] ----------------------------------------------------------
   {
-    rule = { class = "mpv" },
+    rule = { class = 'mpv' },
     properties = { fullscreen = true },
   },
 
@@ -144,9 +144,9 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       class = {
-        "Minecraft",
-        "Gvba",
-        "mednafen",
+        'Minecraft',
+        'Gvba',
+        'mednafen',
       },
     },
     properties = { floating = true },
@@ -155,15 +155,15 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       class = {
-        "Slay the Spire",
-        "Pathway",
+        'Slay the Spire',
+        'Pathway',
       }
     },
     properties = { fullscreen = true },
   },
 
   {
-    rule = { class = "Cockatrice", modal = false },
+    rule = { class = 'Cockatrice', modal = false },
     properties = {
       fullscreen = false,
       floating = false,

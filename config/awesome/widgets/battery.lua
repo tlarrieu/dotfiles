@@ -1,9 +1,9 @@
 -- source: https://github.com/tamsanh/awesome.battery-widget
 -- Battery widget
 
-local awful = require("awful")
-local gears = require("gears")
-local wibox = require("wibox")
+local awful = require('awful')
+local gears = require('gears')
+local wibox = require('wibox')
 
 local timer = gears.timer or timer
 local watch = awful.spawn and awful.spawn.with_line_callback
@@ -42,13 +42,13 @@ end
 
 local function trim(s)
   if not s then return nil end
-  return (s:gsub("^%s*(.-)%s*$", "%1"))
+  return (s:gsub('^%s*(.-)%s*$', '%1'))
 end
 
 local function substitute(template, context)
-  if type(template) == "string" then
-    return (template:gsub("%${([%w_]+)}", function(key)
-      return tostring(context[key] or "Err!")
+  if type(template) == 'string' then
+    return (template:gsub('%${([%w_]+)}', function(key)
+      return tostring(context[key] or 'Err!')
     end))
   else
     -- function / functor:
@@ -63,24 +63,24 @@ end
 local battery_widget = {}
 local sysfs_names = {
   charging = {
-    present  = "present",
-    state    = "status",
-    rate     = "current_now",
-    charge   = "charge_now",
-    capacity = "charge_full",
-    design   = "charge_full_design",
-    ac_state = "AC/online",
-    percent  = "capacity",
+    present  = 'present',
+    state    = 'status',
+    rate     = 'current_now',
+    charge   = 'charge_now',
+    capacity = 'charge_full',
+    design   = 'charge_full_design',
+    ac_state = 'AC/online',
+    percent  = 'capacity',
   },
   discharging = {
-    present  = "present",
-    state    = "status",
-    rate     = "power_now",
-    charge   = "energy_now",
-    capacity = "energy_full",
-    design   = "energy_full_design",
-    ac_state = "AC/online",
-    percent  = "capacity"
+    present  = 'present',
+    state    = 'status',
+    rate     = 'power_now',
+    charge   = 'energy_now',
+    capacity = 'energy_full',
+    design   = 'energy_full_design',
+    ac_state = 'AC/online',
+    percent  = 'capacity'
   },
 }
 
@@ -89,22 +89,22 @@ function battery_widget:new(args)
 end
 
 function battery_widget:init(args)
-  self.adapter = args.adapter or "BAT0"
-  self.ac_prefix = args.ac_prefix or "AC: "
-  self.battery_prefix = args.battery_prefix or "Bat: "
+  self.adapter = args.adapter or 'BAT0'
+  self.ac_prefix = args.ac_prefix or 'AC: '
+  self.battery_prefix = args.battery_prefix or 'Bat: '
   self.limits = args.limits or {
-    { 25,  "red" },
-    { 50,  "orange" },
-    { 100, "green" }
+    { 25,  'red' },
+    { 50,  'orange' },
+    { 100, 'green' }
   }
 
   self.widget_text = args.widget_text or (
-    "${AC_BAT}${color_on}${percent}%${color_off}")
+    '${AC_BAT}${color_on}${percent}%${color_off}')
   self.tooltip_text = args.tooltip_text or (
-    "Battery ${state}${time_est}\nCapacity: ${capacity_percent}%")
+    'Battery ${state}${time_est}\nCapacity: ${capacity_percent}%')
 
   self.widget = wibox.widget.textbox()
-  self.widget.set_align("right")
+  self.widget.set_align('right')
   self.tooltip = awful.tooltip({ objects = { self.widget } })
 
   self.widget:buttons(awful.util.table.join(
@@ -113,18 +113,18 @@ function battery_widget:init(args)
   ))
 
   self.timer = timer({ timeout = args.timeout or 10 })
-  self.timer:connect_signal("timeout", function() self:update() end)
+  self.timer:connect_signal('timeout', function() self:update() end)
   self.timer:start()
   self:update()
 
   if (args.listen or args.listen == nil) and watch then
-    self.listener = watch("acpi_listen", {
+    self.listener = watch('acpi_listen', {
       stdout = function(line)
         self:update()
       end,
     })
 
-    awesome.connect_signal("exit", function()
+    awesome.connect_signal('exit', function()
       awesome.kill(self.listener, 9)
     end)
   end
@@ -133,9 +133,9 @@ function battery_widget:init(args)
 end
 
 function battery_widget:get_state()
-  local pow   = "/sys/class/power_supply/"
+  local pow   = '/sys/class/power_supply/'
   local bat   = pow .. self.adapter
-  local sysfs = (file_exists(bat .. "/" .. sysfs_names.charging.rate)
+  local sysfs = (file_exists(bat .. '/' .. sysfs_names.charging.rate)
     and sysfs_names.charging
     or sysfs_names.discharging)
 
@@ -145,17 +145,17 @@ function battery_widget:get_state()
 
   -- return value
   local r = {
-    state    = tolower(read_trim(bat .. "/" .. sysfs.state)),
-    present  = tonumber(read_trim(bat .. "/" .. sysfs.present)),
-    rate     = tonumber(read_trim(bat .. "/" .. sysfs.rate)),
-    charge   = tonumber(read_trim(bat .. "/" .. sysfs.charge)),
-    capacity = tonumber(read_trim(bat .. "/" .. sysfs.capacity)),
-    design   = tonumber(read_trim(bat .. "/" .. sysfs.design)),
-    ac_state = tonumber(read_trim(pow .. "/" .. sysfs.ac_state)),
-    percent  = tonumber(read_trim(bat .. "/" .. sysfs.percent)),
+    state    = tolower(read_trim(bat .. '/' .. sysfs.state)),
+    present  = tonumber(read_trim(bat .. '/' .. sysfs.present)),
+    rate     = tonumber(read_trim(bat .. '/' .. sysfs.rate)),
+    charge   = tonumber(read_trim(bat .. '/' .. sysfs.charge)),
+    capacity = tonumber(read_trim(bat .. '/' .. sysfs.capacity)),
+    design   = tonumber(read_trim(bat .. '/' .. sysfs.design)),
+    ac_state = tonumber(read_trim(pow .. '/' .. sysfs.ac_state)),
+    percent  = tonumber(read_trim(bat .. '/' .. sysfs.percent)),
   }
 
-  if r.state == "unknown" then r.state = "charged" end
+  if r.state == 'unknown' then r.state = 'charged' end
 
   if r.percent == nil and r.charge and r.capacity then
     r.percent = round(r.charge * 100 / r.capacity)
@@ -171,8 +171,8 @@ function battery_widget:update()
   ctx.AC_BAT    = ctx.ac_state == 1 and self.ac_prefix or self.battery_prefix
 
   -- Colors
-  ctx.color_on  = ""
-  ctx.color_off = ""
+  ctx.color_on  = ''
+  ctx.color_off = ''
   if ctx.percent then
     for k, v in ipairs(self.limits) do
       if ctx.percent <= v[1] then
@@ -185,14 +185,14 @@ function battery_widget:update()
   -- estimate time
   ctx.charge_dir = 0   -- +1|0|-1 -> charging|static|discharging
   ctx.time_left  = nil -- time until charging/discharging complete
-  ctx.time_text  = ""
-  ctx.time_est   = ""
+  ctx.time_text  = ''
+  ctx.time_est   = ''
 
   if ctx.rate and ctx.rate ~= 0 then
-    if not ctx.state or ctx.state == "discharging" then
+    if not ctx.state or ctx.state == 'discharging' then
       ctx.charge_dir = -1
       ctx.time_left = ctx.charge / ctx.rate
-    elseif ctx.state == "charging" then
+    elseif ctx.state == 'charging' then
       ctx.charge_dir = 1
       ctx.time_left = (ctx.capacity - ctx.charge) / ctx.rate
     end
@@ -202,11 +202,11 @@ function battery_widget:update()
     ctx.hours   = math.floor((ctx.time_left))
     ctx.minutes = math.floor((ctx.time_left - ctx.hours) * 60)
     if ctx.hours > 0 then
-      ctx.time_text = ctx.hours .. "h " .. ctx.minutes .. "m"
+      ctx.time_text = ctx.hours .. 'h ' .. ctx.minutes .. 'm'
     else
-      ctx.time_text = ctx.minutes .. "m"
+      ctx.time_text = ctx.minutes .. 'm'
     end
-    ctx.time_est = ": " .. ctx.time_text .. " remaining"
+    ctx.time_est = ': ' .. ctx.time_text .. ' remaining'
   end
 
   -- capacity text

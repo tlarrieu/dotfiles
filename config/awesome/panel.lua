@@ -1,12 +1,12 @@
-local awful = require("awful")
-local beautiful = require("beautiful")
-local wibox = require("wibox")
-local apply_dpi = require("beautiful.xresources").apply_dpi
+local awful = require('awful')
+local beautiful = require('beautiful')
+local wibox = require('wibox')
+local apply_dpi = require('beautiful.xresources').apply_dpi
 
 -- [[ Clock ]] -----------------------------------------------------------------
 local clock = wibox.widget({
   widget = wibox.widget.textclock,
-  format = "%Y.%m.%d %H:%M",
+  format = '%Y.%m.%d %H:%M',
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
@@ -61,13 +61,13 @@ return {
       middle,
       right,
       layout = wibox.layout.align.horizontal,
-      expand = "none"
+      expand = 'none'
     })
 
     if screen.wibar then screen.wibar:remove() end
 
     screen.wibar = awful.wibar({
-      position = "top",
+      position = 'top',
       height = dpi(32),
       screen = screen,
       widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
