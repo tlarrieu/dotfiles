@@ -103,6 +103,7 @@ if [ ${#option} -gt 0 ]; then
       perso/linux | \
       perso/microsoft |\
       perso/paypal |\
+      perso/duckduckgo |\
       */google)
         type "$(password)"
         press Return
