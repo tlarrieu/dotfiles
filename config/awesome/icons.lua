@@ -193,7 +193,7 @@ _M.fetch = function(client)
     end
   end
 
-  return default
+  return default .. ' '
 end
 
 return _M
