@@ -26,9 +26,9 @@ bind-key g home all
 bind-key G end all
 
 bind-key o open-in-browser all
-bind-key c mark-feed-read
-bind-key C mark-all-feeds-read
-bind-key r reload-all
+bind-key c mark-feed-read all
+bind-key C mark-all-feeds-read all
+bind-key r reload-all all
 
 bind-key d delete-article articlelist
 bind-key D delete-all-articles articlelist
