@@ -111,7 +111,6 @@ _M.keyboard = {
     -- [[ Togglers ]] ----------------------------------------------------------
 
     spawner.key({ mod, "Shift" }, "t", require('context').toggle),
-
     spawner.key({ mod, "Shift" }, "b", "toggle-light-and-dark.sh"),
 
     -- [[ Applications ]] ------------------------------------------------------
@@ -214,5 +213,22 @@ _M.mouse = {
     spawner.button({ mod }, 5, awful.tag.viewprev)
   )
 }
+
+_M.config = function()
+  -- root
+  root.keys(_M.keyboard.root)
+  root.buttons(_M.mouse.root)
+
+  -- clients
+  awful.rules.rules = gears.table.join(awful.rules.rules, {
+    {
+      rule = {},
+      properties = {
+        keys = _M.keyboard.clients,
+        buttons = _M.mouse.clients,
+      }
+    }
+  })
+end
 
 return _M

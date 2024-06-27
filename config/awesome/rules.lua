@@ -1,18 +1,15 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 local helpers = require("helpers")
-local keymaps = require("keymaps")
+local gears = require('gears')
 
-awful.rules.rules = {
+awful.rules.rules = gears.table.join(awful.rules.rules, {
   -- [[ Common rules ]] --------------------------------------------------------
   {
     rule = {},
     properties = {
       focus = awful.client.focus.filter,
       screen = awful.screen.preferred,
-
-      keys = keymaps.keyboard.clients,
-      buttons = keymaps.mouse.clients,
 
       border_width = beautiful.border_width,
       border_color = beautiful.border_normal,
@@ -172,5 +169,5 @@ awful.rules.rules = {
       floating = false,
       maximized = false,
     },
-  },
-}
+  }
+})

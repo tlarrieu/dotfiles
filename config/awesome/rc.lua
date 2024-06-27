@@ -1,15 +1,11 @@
-require('theme').config()
 require('awful.autofocus')
-
 require('naughty.dbus')
+
+require('theme').config()
+require('keymaps').config()
 
 require('panel')
 require('signals')
 require('rules')
-
-local keymaps = require('keymaps')
-
-root.keys(keymaps.keyboard.root)
-root.buttons(keymaps.mouse.root)
 
 require('startup').boot()
