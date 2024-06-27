@@ -1,6 +1,6 @@
 local _M = {}
 
-local default = '󰘔'
+local default = '󰣆'
 
 local config = {
   --  office suite
@@ -129,7 +129,6 @@ local config = {
   { icon = '', rule = { class = 'Nemo' }},
   { icon = '', rule = { class = 'config' }},
   { icon = '', rule = { class = 'firefox' }},
-  { icon = '', rule = { class = 'quake' }},
   { icon = '', rule = { class = 'Lxappearance' }},
   { icon = '', rule = { class = 'Mainwindow.py' }}, --[[ PlayOnLinux ]]
   { icon = '', rule = { name = 'yay' }},
@@ -165,11 +164,12 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' }},
   { icon = '', rule = { class = 'kitty', name = 'exercism' }},
   { icon = '', rule = { class = 'kitty', name = 'NVIM' }},
-  { icon = '', rule = { class = 'kitty', name = 'newsboat' }},
+  { icon = '', rules = {{ class = 'kitty', name = 'newsboat' }, { class = 'quake', name = 'newsboat' }}},
   { icon = '', rule = { class = 'kitty', name = 'htop' }},
   { icon = '', rule = { class = 'kitty', name = 'vifm' }},
   { icon = '', rule = { class = 'kitty', name = 'vpn' }},
   { icon = '', rule = { class = 'kitty' }},
+  { icon = '', rule = { class = 'quake' }},
 }
 
 local match = function(client, rule)
