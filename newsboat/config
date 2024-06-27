@@ -17,15 +17,19 @@ bind-key ^O prev-dialog all
 bind-key ^I next-dialog all
 bind-key ^D pagedown all
 bind-key ^U pageup all
+bind-key ^N next-feed articlelist
+bind-key ^P prev-feed articlelist
 
 bind-key j down all
 bind-key k up all
 bind-key g home all
 bind-key G end all
-bind-key o open-in-browser all
 
-bind-key ^N next-feed articlelist
-bind-key ^P prev-feed articlelist
+bind-key o open-in-browser all
+bind-key c mark-feed-read
+bind-key C mark-all-feeds-read
+bind-key r reload-all
+
 bind-key d delete-article articlelist
 bind-key D delete-all-articles articlelist
 
