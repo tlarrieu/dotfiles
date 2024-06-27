@@ -1,6 +1,6 @@
 local _M = {}
 
-local default = ''
+local default = '󰘔'
 
 local config = {
   --  office suite
@@ -128,7 +128,7 @@ local config = {
   { icon = '', rule = { class = 'dungeondraft.exe' }},
   { icon = '', rule = { class = 'Nemo' }},
   { icon = '', rule = { class = 'config' }},
-  { icon = '', rule = { class = 'firefox' }},
+  { icon = '', rule = { class = 'firefox' }},
   { icon = '', rule = { class = 'quake' }},
   { icon = '', rule = { class = 'Lxappearance' }},
   { icon = '', rule = { class = 'Mainwindow.py' }}, --[[ PlayOnLinux ]]
@@ -153,7 +153,7 @@ local config = {
   { icon = '󱊄', rule = { class = 'Dungeondraft' }},
   { icon = '', rule = { class = 'Godot' }},
   { icon = '', rule = { class = 'Xephyr' }},
-  { icon = '', rule = { class = 'mpv' }},
+  { icon = '󱜏', rule = { class = 'mpv' }},
   { icon = '', rule = { class = 'Audacity' }},
   { icon = '', rule = { class = 'scratchpad' }},
   { icon = '󰕼', rules = {{ class = 'Vlc' }, { class = 'vlc' } }},
