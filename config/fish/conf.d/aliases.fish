@@ -58,6 +58,9 @@ abbr v vifm
 abbr xo "xsel --clipboard -o"
 abbr xi "xsel --clipboard -i"
 
+# newsboat
+abbr nb newsboat
+
 # aria2c
 abbr dl "aria2c (xsel --clipboard -o) --dir=."
 
@@ -104,22 +107,14 @@ abbr ,c "cd ~/git/dotfiles"
 abbr ,d "cd ~/Documents"
 abbr ,o "cd ~/Downloads"
 abbr ,m "cd ~/Music"
-abbr ,e "cd ~/Documents/management"
-abbr ,i "cd ~/Documents/management/individual"
 abbr ,p "cd ~/Pictures"
 abbr ,ps "cd ~/.password-store"
 abbr ,s "cd ~/scripts"
 abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
-abbr ,n "cd ~/.neorg"
-abbr ,pf "cd ~/git/phantombuster/pb2-front"
-abbr ,pb "cd ~/git/phantombuster/pb2-back"
-abbr ,pd "cd ~/git/phantombuster/platform-docs"
 abbr - "cd -"
 
-abbr ,l "open (ls -1tc | head -n 1)"
-
-# ls(d)
+# eza (ls)
 abbr l "eza"
 abbr la "eza --icons -A"
 abbr ll "eza --icons -lAh"
