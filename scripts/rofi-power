@@ -3,12 +3,12 @@
 LAUNCHER='rofi -dmenu -l 5 -i -p ⏼'
 OPTIONS=" Lock\n Reboot\n Shutdown\n Suspend\n Logout"
 
-option=`echo -e $OPTIONS | $LAUNCHER | awk '{print $2}' | tr -d '\r\n'`
+option=$(echo -e "$OPTIONS" | $LAUNCHER | awk '{print $2}' | tr -d '\r\n')
 if [ ${#option} -gt 0 ]; then
   case $option in
     Lock)
       mpc pause
-      i3lock
+      i3lock -i ~/.lock-picture
       ;;
     Reboot)
       mpc pause
@@ -20,7 +20,7 @@ if [ ${#option} -gt 0 ]; then
       ;;
     Suspend)
       mpc pause
-      i3lock
+      i3lock -i ~/.lock-picture
       systemctl suspend
       ;;
     Logout)
