@@ -11,6 +11,7 @@ goto-next-feed no
 browser "browser-kiosk %u"
 
 bind-key q hard-quit all
+bind-key à hard-quit all
 bind-key ESC quit all
 
 bind-key ^O prev-dialog all
@@ -19,6 +20,10 @@ bind-key ^D pagedown all
 bind-key ^U pageup all
 bind-key ^N next-feed articlelist
 bind-key ^P prev-feed articlelist
+
+bind-key a toggle-article-read articlelist
+bind-key d delete-article articlelist
+bind-key D delete-all-articles articlelist
 
 bind-key j down all
 bind-key k up all
@@ -29,9 +34,6 @@ bind-key o open-in-browser all
 bind-key c mark-feed-read all
 bind-key C mark-all-feeds-read all
 bind-key r reload-all all
-
-bind-key d delete-article articlelist
-bind-key D delete-all-articles articlelist
 
 ##
 # == Color scheme ==============================================================
