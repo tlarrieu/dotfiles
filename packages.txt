@@ -43,6 +43,10 @@ xclip
 ripgrep
 mlocate
 
+# accounting
+hledger
+hledger-web
+
 # files
 vifm
 xdg-utils

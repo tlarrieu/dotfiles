@@ -108,6 +108,7 @@ endif
 .PHONY: repos
 repos: ~/.neorg
 repos: ~/git/rss
+repos: ~/git/accounting
 
 ~/.neorg:
 	$(call cecho, 3, Getting notes...)
@@ -118,4 +119,10 @@ repos: ~/git/rss
 	$(call cecho, 3, Getting rss config...)
 	git clone git@github.com:tlarrieu/rss.git ~/git/rss
 	make -C ~/git/rss
+	$(call cecho, 2, Done.)
+
+~/git/accounting:
+	$(call cecho, 3, Getting rss config...)
+	git clone git@github.com:tlarrieu/rss.git ~/git/accounting
+	make -C ~/git/accounting
 	$(call cecho, 2, Done.)

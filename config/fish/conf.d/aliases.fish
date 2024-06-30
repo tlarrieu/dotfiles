@@ -56,6 +56,27 @@ abbr v vifm
 
 # hledger
 abbr h hledger
+function ft
+  set -l flags --strict
+  switch $argv[1]
+  case edit
+    nvim ~/.hledger/current.journal
+    return
+  case bal bs bse is cf
+    # pretty tables
+    set flags $flags --pretty --layout tall
+    if [ $argv[1] = bse ]
+      # resolve accounting equation
+      set flags $flags --alias '/income|expenses/=equity'
+    end
+  end
+
+  echo -n -e "\e[1;38m"
+  echo hledger $argv $flags
+  echo -n -e "\e[0m"
+
+  hledger $argv 1> /dev/null; and hledger $argv $flags
+end
 
 # xsel
 abbr xo "xsel --clipboard -o"
