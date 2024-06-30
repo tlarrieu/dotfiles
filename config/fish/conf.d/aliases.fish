@@ -54,6 +54,9 @@ end
 # vifm
 abbr v vifm
 
+# hledger
+abbr h hledger
+
 # xsel
 abbr xo "xsel --clipboard -o"
 abbr xi "xsel --clipboard -i"
@@ -168,10 +171,6 @@ abbr py "python"
 abbr py2 "python2"
 abbr rb "ruby"
 
-# Hoogle
-abbr h "hoogle"
-abbr b "bhoogle"
-
 # Docker
 abbr dc "docker-compose"
 abbr dcu "docker-compose up -d"
@@ -184,9 +183,6 @@ abbr krew "kubectl-krew"
 function ksh; kubectl exec -it $argv -- /bin/bash; end
 abbr kns "kubens"
 abbr kctx "kubectx"
-
-# stack (haskell)
-abbr s "stack"
 
 # fonts
 abbr font "fc-list | grep -i"
