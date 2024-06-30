@@ -3,18 +3,19 @@ return {
   opts = {
     default = true,
     override = {
-      help = { icon = '' },
-      man = { icon = '' },
+      help = { icon = '󰭣' },
+      man = { icon = '󰭣' },
       qf = { icon = '󰁨' },
       query = { icon = '󰙅' }, -- treesitter tree view
 
-      harpoon = { icon = '🪝' },
+      harpoon = { icon = '󰛢' },
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
 
       norg = { icon = '󱗖' },
+      ledger = { icon = '' },
 
       xf86conf = { icon = '' },
       xdefaults = { icon = '' },
