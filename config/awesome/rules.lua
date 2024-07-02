@@ -81,6 +81,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'scratchpad',
         'wiki',
         'gtd',
+        'accounting',
         'man',
         'quake',
         'Seahorse',

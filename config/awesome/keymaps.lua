@@ -136,6 +136,11 @@ _M.keyboard = {
       props = { class = 'wiki' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ mod, 'Shift' }, 'a', {
+      app = function() return spawner.terminal(spawner.shell('ft edit'), { class = 'accounting' }) end,
+      props = { class = 'accounting' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod }, '.', {
       app = spawner.terminal('nvim gtd/index.norg', { class = 'gtd', directory = neorg }),
       props = { class = 'gtd' },
