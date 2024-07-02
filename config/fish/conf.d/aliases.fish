@@ -63,8 +63,7 @@ function ft
     nvim ~/.hledger/current.journal
     return
   case bal bs bse is cf
-    # pretty tables
-    set flags $flags --pretty --layout tall
+    set flags $flags --pretty --layout tall -V --forecast -M -b "last month" -e "in 100 days"
     if [ $argv[1] = bse ]
       # resolve accounting equation
       set flags $flags --alias '/income|expenses/=equity'
