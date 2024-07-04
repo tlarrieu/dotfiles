@@ -60,10 +60,14 @@ function ft
   set -l flags --strict
   switch $argv[1]
   case edit
-    nvim -p (readlink -f ~/.hledger/current.journal) ~/.hledger.journal
+    nvim -p \
+      (readlink -f ~/.hledger/current.journal) \
+      (readlink -f ~/.hledger/budget.journal) \
+      (readlink -f ~/.hledger/prices.journal) \
+      (readlink -f ~/.hledger.journal)
     return
   case bal bs bse is cf
-    set flags $flags --pretty --layout tall -V --forecast -M -b "last month" -e "in 100 days"
+    set flags $flags --pretty -V
     if [ $argv[1] = bse ]
       # resolve accounting equation
       set flags $flags --alias '/income|expenses/=equity'
