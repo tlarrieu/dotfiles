@@ -13,6 +13,7 @@ local spawner = require('spawner')
 
 local home = os.getenv('HOME')
 local dotfiles = string.format('%s/git/dotfiles', home)
+local accounting = string.format('%s/git/accounting', home)
 local sandbox = string.format('%s/sandbox', home)
 local neorg = string.format('%s/.neorg', home)
 
@@ -137,7 +138,12 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
     spawner.key({ mod, 'Shift' }, 'a', {
-      app = function() return spawner.terminal(spawner.shell('ft edit'), { class = 'accounting' }) end,
+      app = function()
+        return spawner.terminal(
+          spawner.shell('ft edit'),
+          { class = 'accounting', directory = accounting }
+        )
+      end,
       props = { class = 'accounting' },
       signal = spawner.actions.MOVE,
     }),
