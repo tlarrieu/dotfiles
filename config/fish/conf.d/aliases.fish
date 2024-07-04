@@ -60,7 +60,7 @@ function ft
   set -l flags --strict
   switch $argv[1]
   case edit
-    nvim (readlink -f ~/.hledger/current.journal)
+    nvim -p (readlink -f ~/.hledger/current.journal) ~/.hledger.journal
     return
   case bal bs bse is cf
     set flags $flags --pretty --layout tall -V --forecast -M -b "last month" -e "in 100 days"
