@@ -16,7 +16,7 @@ return {
       ['core.autocommands'] = {},
       ['core.concealer'] = {
         config = {
-          folds = false,
+          folds = true,
           icons = {
             heading = {
               icons = { '◉', '◎', '◆', '❖', '○', '◇', '⋄', '⟡' },

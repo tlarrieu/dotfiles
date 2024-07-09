@@ -3,10 +3,6 @@ local o = vim.opt_local
 o.formatoptions = o.formatoptions + 't'
 o.conceallevel = 2
 o.spell = true
-o.foldmethod = 'expr'
-o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-o.foldlevel = 5
-o.foldenable = true
 
 local group = vim.api.nvim_create_augroup('NeorgAutocmd', {})
 vim.api.nvim_create_autocmd('BufEnter', {
