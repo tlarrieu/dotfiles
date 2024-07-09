@@ -63,8 +63,8 @@ function ft
     nvim -p \
       (readlink -f ~/.hledger/current.journal) \
       (readlink -f ~/.hledger/budget.journal) \
-      (readlink -f ~/.hledger/prices.journal) \
-      (readlink -f ~/.hledger.journal)
+      (readlink -f ~/.hledger.journal) \
+      (readlink -f ~/.hledger/prices.journal)
     return
   case bal bs bse is cf
     set flags $flags --pretty -V
