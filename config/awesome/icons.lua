@@ -154,7 +154,7 @@ local config = {
   { icon = '', rule = { class = 'Xephyr' }},
   { icon = '󱜏', rule = { class = 'mpv' }},
   { icon = '', rule = { class = 'Audacity' }},
-  { icon = '', rule = { class = 'scratchpad' }},
+  { icon = '󰆒', rule = { class = 'scratchpad' }},
   { icon = '󰕼', rules = {{ class = 'Vlc' }, { class = 'vlc' } }},
   { icon = '󰖀', rule = { class = 'mixer' }},
   { icon = 'ﮩ', rule = { name = 'Document Scanner' }},
