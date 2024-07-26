@@ -1,7 +1,6 @@
 return {
   'nvim-neorg/neorg',
   lazy = false,
-  dependencies = { 'luarocks.nvim' },
   version = '*',
   config = true,
   keys = {
@@ -63,26 +62,6 @@ return {
           },
           default_workspace = 'home'
         }
-      },
-      ['core.keybinds'] = {
-        config = {
-          hook = function(keybinds)
-            local task_actions = {
-              ['<leader>td'] = 'done',
-              ['<leader>tr'] = 'undone',
-              ['<leader>tp'] = 'on_hold',
-              ['<leader>ts'] = 'pending',
-              ['<leader>tc'] = 'cancelled',
-              ['gs'] = 'cycle',
-              ['gS'] = 'cycle_reverse',
-            }
-            for key, value in pairs(task_actions) do
-              keybinds.remap_event('norg', 'n', key, 'core.qol.todo_items.todo.task_' .. value)
-            end
-
-            keybinds.remap_event('norg', 'i', '<c-cr>', 'core.itero.next-iteration')
-          end
-        },
       },
       ['core.highlights'] = {
         config = {
