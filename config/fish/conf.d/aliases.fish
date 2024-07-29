@@ -57,7 +57,7 @@ abbr v vifm
 # hledger
 abbr h hledger
 function ft
-  set -l flags --strict
+  set -l flags --strict --auto
   switch $argv[1]
   case edit
     nvim -p \
@@ -66,7 +66,7 @@ function ft
       (readlink -f ~/.hledger.journal) \
       (readlink -f ~/.hledger/prices.journal)
     return
-  case bal bs bse is cf
+  case bal bs bse is cf roi
     set flags $flags --pretty -V
     if [ $argv[1] = bse ]
       # resolve accounting equation
