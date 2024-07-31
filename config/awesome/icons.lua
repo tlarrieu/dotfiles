@@ -81,7 +81,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'app.envoituresimone.com' }},
 
   --  Money
-  { icon = '', rule = { class = 'Chromium', instance = 'bankin' }},
+  { icon = '', rule = { class = 'Chromium', name = 'Compte courant' }},
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' }},
 
   --  Pictures
