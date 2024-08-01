@@ -62,7 +62,9 @@ function ft
   case edit
     nvim -p \
       (readlink -f ~/.hledger/current.journal) \
-      (readlink -f ~/.hledger/budget.journal) \
+      (readlink -f ~/.hledger/thomas.journal) \
+      (readlink -f ~/.hledger/miriam.journal) \
+      (readlink -f ~/.hledger/simulation.journal) \
       (readlink -f ~/.hledger.journal) \
       (readlink -f ~/.hledger/prices.journal)
     return
@@ -72,6 +74,10 @@ function ft
       # resolve accounting equation
       set flags $flags --alias '/income|expenses/=equity'
     end
+  case status
+    ft bal assets -CU
+    ft bal -b 1 --budget expenses
+    return
   end
 
   echo -n -e "\e[1;38m"
