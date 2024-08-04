@@ -61,12 +61,7 @@ function ft
   switch $argv[1]
   case edit
     nvim -p \
-      (readlink -f ~/.hledger/current.journal) \
-      (readlink -f ~/.hledger/thomas.journal) \
-      (readlink -f ~/.hledger/miriam.journal) \
-      (readlink -f ~/.hledger/simulation.journal) \
-      (readlink -f ~/.hledger.journal) \
-      (readlink -f ~/.hledger/prices.journal)
+      (readlink -f ~/.hledger/current.journal)
     return
   case bal bs bse is cf roi
     set flags $flags --pretty -V --auto
