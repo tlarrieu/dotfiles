@@ -1,1 +1,3 @@
-vim.opt_local.commentstring = '; %s'
+local o = vim.opt_local
+o.commentstring = '; %s'
+o.iskeyword = o.iskeyword + ':' + '/'
