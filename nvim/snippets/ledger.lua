@@ -22,5 +22,15 @@ return {
     i(1, 'amount'),
     i(2, 'unemployment')
   })),
+  s("t", fmta([[
+  <> ! me | transfert
+    <>  <> €
+    <>
+  ]], {
+    f(function() return os.date('%m/%d') end),
+    i(1, 'to'),
+    i(2, 'amount'),
+    i(3, 'from')
+  })),
 }, {
 }
