@@ -38,6 +38,7 @@ xdotool
 entr
 xsel
 xclip
+qrencode
 
 # search
 ripgrep
