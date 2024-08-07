@@ -61,17 +61,20 @@ function ft
   switch $argv[1]
   case edit
     nvim -p \
-      (readlink -f ~/.hledger/current.journal)
+      (readlink -f ~/.hledger/current.journal) \
+      (readlink -f ~/.hledger/recurring.journal) \
+      (readlink -f ~/.hledger.journal) \
+      (readlink -f ~/.hledger/prices.journal)
     return
   case bal bs bse is cf roi
     set flags $flags --pretty -V --auto
-    if [ $argv[1] = bse ]
+    if [ $argv[1] = bse -o $argv[1] = roi ]
       # resolve accounting equation
-      set flags $flags --alias '/income|expenses/=equity'
+      set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case status
-    ft bal assets -CU
-    ft bal -b 1 --budget expenses
+    ft bs -CU --empty -b 1 -e 31
+    ft bal -CU -b 1 -e 31 --budget --empty expenses
     return
   end
 
@@ -79,7 +82,7 @@ function ft
   echo hledger $argv $flags
   echo -n -e "\e[0m"
 
-  hledger $argv 1> /dev/null; and hledger $argv $flags
+  hledger $argv 1> /dev/null; and hledger -f ~/.hledger.journal $argv $flags
 end
 
 # xsel
