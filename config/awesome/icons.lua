@@ -82,6 +82,7 @@ local config = {
 
   --  Money
   { icon = '', rule = { class = 'Chromium', name = 'Compte courant' }},
+  { icon = '󰆭', rule = { class = 'Chromium', instance = 'boursedirect' }},
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' }},
 
   --  Pictures
