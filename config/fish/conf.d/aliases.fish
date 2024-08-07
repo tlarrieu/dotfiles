@@ -80,6 +80,9 @@ function ft
   case up upcoming
     ft bal --fore=tomorrow..nextmonth tag:generated-transaction
     return
+  case weeks
+    ft bs --fore=tomorrow.. -W -b today -p 1month not:tag:miriam
+    return
   case fut future
     ft bs --fore=tomorrow.. -M -b 1 -e 6months not:tag:miriam
     return
