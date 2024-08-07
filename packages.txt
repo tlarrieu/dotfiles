@@ -124,3 +124,4 @@ pulseaudio-bluetooth
 ttf-firacode-nerd
 ttf-consolas-ligaturized
 terminus-font
+ttf-ms-fonts
