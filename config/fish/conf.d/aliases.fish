@@ -72,9 +72,10 @@ function ft
       # resolve accounting equation
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
-  case status
-    ft bal -CU --empty -e today --cumulative assets:cash assets:check
-    ft bal -CU --empty -p thismonth expenses:groceries
+  case now
+    ft bal --empty -e today --cumulative assets:cash assets:check assets:savings
+    ft bal --empty -p thismonth expenses:groceries
+    ft bal --empty -p thisyear expenses:clothing expenses:gifts
     return
   case up upcoming
     ft bal --fore=tomorrow..nextmonth tag:generated-transaction
