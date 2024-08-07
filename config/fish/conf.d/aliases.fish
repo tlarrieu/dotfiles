@@ -68,13 +68,19 @@ function ft
     return
   case bal bs bse is cf roi
     set flags $flags --pretty -V --auto
-    if [ $argv[1] = bse -o $argv[1] = roi ]
+    if [ $argv[1] = bse ]
       # resolve accounting equation
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case status
-    ft bs -CU --empty -b 1 -e 31
-    ft bal -CU -b 1 -e 31 --budget --empty expenses
+    ft bal -CU --empty -e today --cumulative assets:cash assets:check
+    ft bal -CU --empty -p thismonth expenses:groceries
+    return
+  case up upcoming
+    ft bal --fore=tomorrow..nextmonth tag:generated-transaction
+    return
+  case fut future
+    ft bs --fore=tomorrow.. -M -b 1 -e 6months not:tag:miriam
     return
   end
 
