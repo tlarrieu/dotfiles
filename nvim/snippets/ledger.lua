@@ -32,5 +32,13 @@ return {
     i(2, 'amount'),
     i(3, 'from')
   })),
+  s("m", fmta([[
+  <> * caisse d'épargne | échéance crédit
+    card:ce  -1403.16 €
+    mortgage  1051.63 €
+    bank:loans
+  ]], {
+    f(function() return os.date('%m/%d') end),
+  })),
 }, {
 }
