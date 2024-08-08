@@ -72,7 +72,7 @@ function ft
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case now
-    ft bal --empty -p today -H assets:cash assets:check assets:savings
+    ft bal --empty -p today -H type:C
     ft bal --empty -p thismonth expenses:groceries
     ft bal --empty -p thisyear expenses:clothing expenses:gifts
     return
