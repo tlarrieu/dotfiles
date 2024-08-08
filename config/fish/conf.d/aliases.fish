@@ -60,20 +60,19 @@ function ft
   set -l flags --strict
   switch $argv[1]
   case edit
-    nvim -p \
-      (readlink -f ~/.hledger/current.journal) \
-      (readlink -f ~/.hledger/recurring.journal) \
-      (readlink -f ~/.hledger.journal) \
-      (readlink -f ~/.hledger/prices.journal)
+    nvim -p (readlink -f ~/.hledger/current.journal)
     return
   case bal bs bse is cf roi
-    set flags $flags --pretty -V --auto
+    set flags $flags --pretty --auto
+    if [ $argv[1] != roi ]
+      set flags $flags --layout=tall
+    end
     if [ $argv[1] = bse ]
       # resolve accounting equation
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case now
-    ft bal --empty -e today --cumulative assets:cash assets:check assets:savings
+    ft bal --empty -p today -H assets:cash assets:check assets:savings
     ft bal --empty -p thismonth expenses:groceries
     ft bal --empty -p thisyear expenses:clothing expenses:gifts
     return
