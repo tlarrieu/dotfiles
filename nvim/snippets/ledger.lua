@@ -11,11 +11,11 @@ return {
     i(2, 'desc'),
     i(3, 'to'),
     i(4, 'amount'),
-    i(5, 'card:main')
+    i(5, 'card:ce')
   })),
   s("i", fmta([[
   <> ! me
-    card:main  <> €
+    card:ce  <> €
     <>
   ]], {
     f(function() return os.date('%m/%d') end),
