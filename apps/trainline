@@ -1,3 +1,3 @@
 #!/bin/sh
 
-browser-kiosk perso "https://www.trainline.fr"
+browser-kiosk perso "https://www.trainline.com"
