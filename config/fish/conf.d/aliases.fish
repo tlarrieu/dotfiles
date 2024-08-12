@@ -65,7 +65,7 @@ function ft
   case bal bs bse is cf roi
     set flags $flags --pretty --auto
     if [ $argv[1] != roi ]
-      set flags $flags --layout=tall
+      set flags $flags --layout=bare
     end
     if [ $argv[1] = bse ]
       # resolve accounting equation
@@ -77,7 +77,10 @@ function ft
     ft bal --empty -p thisyear expenses:clothing expenses:gifts
     return
   case up upcoming
-    ft bal --fore=tomorrow..nextmonth tag:generated-transaction
+    ft areg assets:check:ce tag:generated-transaction 'expenses|loan' --fore=today.. -p thismonth
+    return
+  case bud budget
+    ft bal --budget -p thismonth not:tag:miriam --empty
     return
   case weeks
     ft bs --fore=tomorrow.. -W -b today -p 1month not:tag:miriam
