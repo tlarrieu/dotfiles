@@ -123,7 +123,7 @@ _M.keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ mod, 'Shift' }, 'e', {
-      app = spawner.terminal('nvim ~/.scratchpad.md', { class = 'scratchpad' }),
+      app = spawner.terminal(string.format('nvim %s/.scratchpad.md', home), { class = 'scratchpad' }),
       props = { class = 'scratchpad' },
       signal = spawner.actions.MOVE,
     }),
