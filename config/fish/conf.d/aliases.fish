@@ -72,9 +72,9 @@ function ft
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case now
-    ft bal --empty -p today -H type:C
-    ft bal --empty -p thismonth expenses:groceries
-    ft bal --empty -p thisyear expenses:clothing expenses:gifts
+    ft bal --empty -p today -H type:C not:tag:miriam
+    ft bal --empty -p thismonth expenses:groceries not:tag:miriam
+    ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
     return
   case up upcoming
     ft areg assets:check:ce tag:generated-transaction 'expenses|loan' --fore=today.. -p thismonth
@@ -87,6 +87,9 @@ function ft
     return
   case fut future
     ft bs --fore=tomorrow.. -M -b 1 -e 6months not:tag:miriam
+    return
+  case 2025
+    ft bs --fore=tomorrow.. -M -p 2025 --color=always | less -RS
     return
   end
 
