@@ -82,11 +82,11 @@ function ft
   case bud budget
     ft bal --budget -p thismonth not:tag:miriam --empty
     return
-  case weeks
-    ft bs --fore=tomorrow.. -W -b today -p 1month not:tag:miriam
+  case we weeks
+    ft bs --fore=tomorrow.. -W -p today..30days not:tag:miriam
     return
-  case fut future
-    ft bs --fore=tomorrow.. -M -b 1 -e 6months not:tag:miriam
+  case mo months
+    ft bs --fore=tomorrow.. -M -p 1..6months not:tag:miriam
     return
   case 2025
     ft bs --fore=tomorrow.. -M -p 2025 --color=always | less -RS
