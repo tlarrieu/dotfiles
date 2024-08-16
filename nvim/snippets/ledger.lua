@@ -11,7 +11,7 @@ return {
     i(2, 'desc'),
     i(3, 'to'),
     i(4, 'amount'),
-    i(5, 'card:ce')
+    i(0, 'card:ce')
   })),
   s("i", fmta([[
   <> ! me
@@ -20,7 +20,7 @@ return {
   ]], {
     f(function() return os.date('%m/%d') end),
     i(1, 'amount'),
-    i(2, 'unemployment')
+    i(0, 'unemployment')
   })),
   s("t", fmta([[
   <> ! me | transfert
@@ -30,7 +30,7 @@ return {
     f(function() return os.date('%m/%d') end),
     i(1, 'to'),
     i(2, 'amount'),
-    i(3, 'from')
+    i(0, 'from')
   })),
   s("m", fmta([[
   <> * caisse d'épargne | échéance crédit
