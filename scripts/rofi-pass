@@ -115,7 +115,7 @@ if [ ${#option} -gt 0 ]; then
       pro/payfit | \
       perso/impots.gouv.fr | \
       perso/amazon |\
-      perso/pole-emploi |\
+      perso/france-travail |\
       pro/newrelic)
         type "$(login)"
         press Return
