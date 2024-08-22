@@ -32,7 +32,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'keep.google.com' }},
   { icon = '', rule = { class = 'Chromium', instance = 'photos.google.com' }},
 
-  -- Work
+  --   Work
   { icon = '󰚒', rule = { class = 'Chromium', instance = 'calendly.com' }},
   { icon = '', rule = { class = 'Chromium', instance = 'circleci.com' }},
   { icon = '', rule = { class = 'Chromium', instance = 'atlassian.net' }},
@@ -43,7 +43,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'slack' }},
   { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' }},
 
-  -- Videos
+  --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' }},
   { icon = '', rule = { class = 'Chromium', name = 'YouTube' }},
 
@@ -91,7 +91,7 @@ local config = {
   { icon = '󰥶', rule = { class = 'feh' }},
   { icon = '󰹑', rule = { class = 'screenshot' }},
 
-  -- Coms
+  --  Coms
   { icon = '', rule = { class = 'Chromium', instance = 'web.whatsapp.com' }},
   { icon = '󰙯', rule = { class = 'Chromium', instance = 'discord.com' }},
 
@@ -99,17 +99,17 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'www.deliveroo.fr' }},
   { icon = '', rule = { class = 'Chromium', instance = 'ubereats.com' }},
 
-  -- RPG
+  -- 󰞇 RPG
   { icon = '󰨁', rule = { class = 'Chromium', instance = 'watabou.itch.io' }},
   { icon = '󰴹', rule = { class = 'Chromium', instance = 'rolladvantage.com' }},
   { icon = '󰺿', rule = { class = 'Chromium', instance = 'app.legendkeeper.com' }},
   { icon = '󱅕', rule = { class = 'Chromium', instance = 'roll20.net' }},
 
-  -- Shopping
+  --  Shopping
   { icon = '', rule = { class = 'Chromium', instance = 'amazon' }},
   { icon = '󰨈', rule = { class = 'Chromium', instance = 'pratebay' }},
 
-  -- Misc
+  --  Misc
   { icon = '󰓙', rule = { class = 'Chromium', instance = 'doctolib' }},
   { icon = '󰚗', rule = { class = 'Chromium', instance = 'malt' }},
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' }},
