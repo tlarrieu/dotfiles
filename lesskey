@@ -1,3 +1,7 @@
 #command
 é forw-search
 É forw-search zz
+j forw-line
+k back-line
+h left-scroll
+l right-scroll
