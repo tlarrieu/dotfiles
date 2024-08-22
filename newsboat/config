@@ -12,7 +12,8 @@ browser "browser-kiosk %u"
 
 bind-key q hard-quit all
 bind-key à hard-quit all
-bind-key ESC quit all
+bind-key ESC quit articlelist
+bind-key é open-search all
 
 bind-key ^O prev-dialog all
 bind-key ^I next-dialog all
