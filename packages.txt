@@ -124,6 +124,6 @@ pulseaudio-bluetooth
 
 # fonts
 ttf-firacode-nerd
-ttf-consolas-ligaturized
+ttf-cascadia-code-nerd
 terminus-font
 ttf-ms-fonts
