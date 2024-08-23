@@ -1,5 +1,5 @@
 configuration {
-  font: "FiraCode Nerd Font 15";
+  font: "Cascadia Code NF 16.5";
 
   terminal: "kitty";
   ssh-command: "{terminal} -e {ssh-client} {host}";

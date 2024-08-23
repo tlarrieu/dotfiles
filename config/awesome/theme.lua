@@ -13,6 +13,7 @@ return {
     local accent = theme.colors.magenta.dark
 
     theme.font = xrdb.font.name .. " " .. xrdb.font.size
+    theme.taglist_font = xrdb.font.name .. " " .. xrdb.font.size * 1.5
 
     theme.fg_normal = theme.colors.foreground
     theme.fg_focus = accent
@@ -35,7 +36,7 @@ return {
     theme.notification_border_color = theme.colors.background
     theme.notification_icon_size = dpi(32)
 
-    theme.notification_font = xrdb.font.name .. " " .. tonumber(xrdb.font.size)*1.1
+    theme.notification_font = xrdb.font.name .. " " .. tonumber(xrdb.font.size)
 
     beautiful.init(theme)
 

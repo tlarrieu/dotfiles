@@ -164,7 +164,7 @@ local config = {
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' }},
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' }},
   { icon = '', rule = { class = 'kitty', name = 'exercism' }},
-  { icon = '', rule = { class = 'kitty', name = 'NVIM' }},
+  { icon = '', rule = { class = 'kitty', name = 'NVIM' }},
   { icon = '', rules = {{ class = 'kitty', name = 'newsboat' }, { class = 'quake', name = 'newsboat' }}},
   { icon = '', rule = { class = 'kitty', name = 'htop' }},
   { icon = '', rule = { class = 'kitty', name = 'vifm' }},
@@ -181,9 +181,7 @@ end
 
 _M.fetch = function(client)
   for i = 1, #config do
-    -- temporary solution to handle double width glyphs, gotta find a better
-    -- solution
-    local icon = config[i].icon .. ' '
+    local icon = config[i].icon
 
     if config[i].rules then
       for j = 1, #config[i].rules do
@@ -194,7 +192,7 @@ _M.fetch = function(client)
     end
   end
 
-  return default .. ' '
+  return default
 end
 
 return _M
