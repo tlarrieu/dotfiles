@@ -10,8 +10,9 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
+        file_ignore_patterns = { '^%.git/' },
 
-        prompt_prefix = '   ',
+        prompt_prefix = '  ',
         selection_caret = '󰄾 ',
         multi_icon = '󰆤 ',
 
@@ -53,9 +54,9 @@ return {
     local k = vim.keymap
     local options = { silent = true }
 
-    k.set('n', '<c-t>', builtin.find_files, options)
-    k.set('n', '<c-é>', builtin.live_grep, options)
-    k.set('n', '<leader>é', builtin.grep_string, options)
+    k.set('n', '<c-t>', function() return builtin.find_files({ hidden = true }) end, options)
+    k.set('n', '<c-é>', function() return builtin.live_grep({ additional_args = { '--hidden' } }) end, options)
+    k.set('n', '<leader>é', function() return builtin.grep_string({ additional_args = { '--hidden' } }) end, options)
     k.set('n', '<c-h>', builtin.help_tags, options)
     k.set('n', '<c-y>', builtin.git_status, options)
     k.set('n', '<c-s-y>', builtin.git_branches, options)
