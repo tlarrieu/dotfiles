@@ -57,6 +57,28 @@ class Browser < SearchEngine
 
 end
 
+class GitHub < Browser
+
+  def initialize
+    super(url('search?q=%s'), fallback: url('stars'))
+  end
+
+  def run(str)
+    if str.match('.*/.*')
+      `browser-kiosk #{@profile} '#{url(str)}'`
+    else
+      super(str)
+    end
+  end
+
+  private
+
+  def url(str=nil)
+    "https://github.com/#{str}"
+  end
+
+end
+
 class BrowserWithContext < Browser
 
   def run(str)
@@ -127,7 +149,7 @@ searchengines = {
     'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
   ),
   'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
-  'gh'   => Browser.new('https://github.com/search?q=%s'),
+  'gh'   => GitHub.new,
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
   'l'    => Browser.new('http://localhost:%s'),
   'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
