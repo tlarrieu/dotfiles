@@ -15,7 +15,7 @@ return {
       oil = { icon = '' },
 
       norg = { icon = '󱗖' },
-      ledger = { icon = '' },
+      ledger = { icon = '󰭣' },
 
       xf86conf = { icon = '' },
       xdefaults = { icon = '' },
