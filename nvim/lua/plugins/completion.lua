@@ -6,6 +6,7 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
+    'kirasok/cmp-hledger',
   },
   config = function()
     local cmp = require('cmp')
@@ -103,6 +104,12 @@ return {
       sources = cmp.config.sources({
         { name = 'git' },
         { name = 'path' },
+      })
+    })
+
+    cmp.setup.filetype('ledger', {
+      sources = cmp.config.sources({
+        { name = 'hledger' },
       })
     })
 
