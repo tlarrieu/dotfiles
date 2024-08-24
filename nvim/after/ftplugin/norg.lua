@@ -23,7 +23,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 local task_actions = {
   ['<leader>td'] = 'done',
   ['<leader>tr'] = 'undone',
-  ['<leader>tp'] = 'on_hold',
+  ['<leader>tp'] = 'on-hold',
   ['<leader>ts'] = 'pending',
   ['<leader>tc'] = 'cancelled',
   ['gs'] = 'cycle',
