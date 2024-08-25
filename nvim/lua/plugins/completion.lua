@@ -52,26 +52,13 @@ return {
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<c-e>'] = cmp.mapping(function()
-          if cmp.get_active_entry() then
-            cmp.confirm()
-          else
-            luasnip.expand()
-          end
-        end),
+        ['<c-y>'] = cmp.mapping.confirm(),
+        ['<c-e>'] = cmp.mapping(function() luasnip.expand() end),
         ['<tab>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable(1) then
-            luasnip.jump(1)
-          else
-            fallback()
-          end
+          if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
         end, { 'i', 's' }),
         ['<S-tab>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
+          if luasnip.jumpable(-1) then luasnip.jump(-1) else fallback() end
         end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({
