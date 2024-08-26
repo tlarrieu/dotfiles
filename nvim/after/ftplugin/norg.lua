@@ -6,7 +6,7 @@ o.spell = true
 
 local group = vim.api.nvim_create_augroup('NeorgAutocmd', {})
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = { '**/gtd/index.norg' },
+  pattern = { '**/gtd/*.norg' },
   callback = function()
     vim.keymap.set('n', '<leader>z', ':set foldlevel=1<cr>zO', { remap = false, silent = true, buffer = true })
     vim.keymap.set('n', 'o', 'i<m-cr>( ) ', { remap = true, buffer = true })
