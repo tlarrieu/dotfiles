@@ -97,6 +97,7 @@ return {
     cmp.setup.filetype('ledger', {
       sources = cmp.config.sources({
         { name = 'hledger' },
+        { name = 'buffer' },
       })
     })
 
