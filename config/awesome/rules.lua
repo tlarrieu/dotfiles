@@ -56,10 +56,12 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'kitty',
         'kitty-light',
         'config',
+        'gtd',
+        'quake',
       }
     },
     properties = {
-      opacity = 0.95,
+      opacity = 0.9,
     },
   },
 
