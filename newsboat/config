@@ -1,18 +1,16 @@
 auto-reload yes
 reload-time 10 # every 10 minutes
 feed-sort-order unreadarticlecount-asc
-show-read-feeds no
+# show-read-feeds no
 
-##
-# == Navigation ================================================================
+# Navigation ===================================================================
 
 goto-next-feed no
 
 browser "browser-kiosk %u"
 
-bind-key q hard-quit all
+bind-key q quit
 bind-key à hard-quit all
-bind-key ESC quit articlelist
 bind-key é open-search all
 
 bind-key ^O prev-dialog all
@@ -36,19 +34,25 @@ bind-key c mark-feed-read all
 bind-key C mark-all-feeds-read all
 bind-key r reload-all all
 
-##
-# == Color scheme ==============================================================
+# Style ========================================================================
 
-# -- colors ------------------------------------------------
+# formats --------------------------------------------------
+feedlist-format "%4i • %-25t %> %U │ %-3c"
+articlelist-format "%4i • %D • %t"
+
+# colors ---------------------------------------------------
 color background         default   default
-color listnormal         default   default
+color listnormal         color14   default
 color listnormal_unread  default   default bold
 color listfocus          white     color5
 color listfocus_unread   white     color5 bold
-color info               default   default
+color info               color14   default
 color article            default   default
+color end-of-text-marker color15   default
 
-# -- highlights --------------------------------------------
+# highlights -----------------------------------------------
 highlight article "^(Title):.*$" blue default
 highlight article "https?://[^ ]+" red default
 highlight article "\\[image\\ [0-9]+\\]" green default
+
+# vim:ft=config
