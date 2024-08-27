@@ -37,7 +37,9 @@ bind-key r reload-all all
 # Style ========================================================================
 
 # formats --------------------------------------------------
-feedlist-format "%4i • %t %> %U │ %-3c"
+# see https://newsboat.org/releases/2.36/docs/newsboat.html#_format_strings
+# for the full list of available identifiers
+feedlist-format "%4i • %t %d %> %T │ %U │ %-3c"
 articlelist-format "%4i • %D • %t %> "
 
 # colors ---------------------------------------------------
