@@ -37,18 +37,18 @@ bind-key r reload-all all
 # Style ========================================================================
 
 # formats --------------------------------------------------
-feedlist-format "%4i • %-25t %> %U │ %-3c"
-articlelist-format "%4i • %D • %t"
+feedlist-format "%4i • %t %> %U │ %-3c"
+articlelist-format "%4i • %D • %t %> "
 
 # colors ---------------------------------------------------
-color background         default   default
-color listnormal         color14   default
-color listnormal_unread  default   default bold
-color listfocus          white     color5
-color listfocus_unread   white     color5 bold
-color info               color14   default
-color article            default   default
-color end-of-text-marker color15   default
+color background         default default
+color listnormal         color14 default
+color listnormal_unread  color3  default bold
+color listfocus          white   color5
+color listfocus_unread   white   color3  bold
+color info               color12 default
+color article            default default
+color end-of-text-marker color15 default
 
 # highlights -----------------------------------------------
 highlight article "^(Title):.*$" blue default
