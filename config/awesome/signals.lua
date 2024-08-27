@@ -5,13 +5,10 @@ local helpers = require('helpers')
 local icons = require('icons')
 local spawner = require('spawner')
 
-client.connect_signal('focus', function(client)
-  client.border_color = beautiful.border_focus
-end)
+-- [[ Focus ]] -----------------------------------------------------------------
 
-client.connect_signal('unfocus', function(client)
-  client.border_color = beautiful.border_normal
-end)
+client.connect_signal('focus', function(client) client.border_color = beautiful.border_focus end)
+client.connect_signal('unfocus', function(client) client.border_color = beautiful.border_normal end)
 
 client.connect_signal('request::activate', function(client, context)
   local skip = context == 'mouse_click' or
@@ -24,15 +21,6 @@ client.connect_signal('request::activate', function(client, context)
 end)
 
 -- [[ Dynamic tag names ]] -----------------------------------------------------
-
-local client_signals = {
-  'property::name',
-  'property::class',
-  'property::instance',
-  'unmanage',
-  'manage',
-  'focus'
-}
 
 local update_icon = function(tag)
   local xs = {}
@@ -56,6 +44,15 @@ local handle = function(object)
 
   update_icon(tag)
 end
+
+local client_signals = {
+  'property::name',
+  'property::class',
+  'property::instance',
+  'unmanage',
+  'manage',
+  'focus'
+}
 
 for _, signal in ipairs(client_signals) do
   client.connect_signal(signal, handle)
