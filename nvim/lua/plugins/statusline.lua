@@ -52,13 +52,6 @@ return {
         },
         show_modified_status = false,
         fmt = function(name, context)
-          -- Modifier
-          local modifier
-          local winnr = vim.fn.tabpagewinnr(context.tabnr)
-          local buflist = vim.fn.tabpagebuflist(context.tabnr)
-          local bufnr = buflist[winnr]
-          local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
-
           -- Icon
           local icon
           if context.filetype ~= '' then
@@ -66,23 +59,22 @@ return {
           end
 
           -- Name
-          if context.filetype == 'harpoon' then
-            name = 'harpoon'
-          elseif context.filetype == 'mason' then
-            name = 'mason'
-          elseif context.filetype == 'lazy' then
-            name = 'lazy'
-          elseif context.filetype == 'TelescopePrompt' then
-            name = 'telescope'
-          elseif context.filetype == 'qf' then
-            name = 'quickfix'
-          elseif context.filetype == 'oil' then
-            name = 'oil'
-          elseif name == '[No Name]' then -- unnamed buffer?
-            name = '…'
-          elseif modified then
-            modifier = '∙'
-          end
+          local ftmap = {
+            harpoon = 'harpoon',
+            mason = 'mason',
+            lazy = 'lazy',
+            TelescopePrompt = 'telescope',
+            qf = 'quickfix',
+            oil = 'oil',
+          }
+          name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
+
+          -- Modifier
+          local winnr = vim.fn.tabpagewinnr(context.tabnr)
+          local buflist = vim.fn.tabpagebuflist(context.tabnr)
+          local bufnr = buflist[winnr]
+          local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
+          local modifier = modified and '∙' or ''
 
           return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
         end
