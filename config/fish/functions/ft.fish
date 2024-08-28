@@ -15,7 +15,7 @@ function ft
     end
   case now
     ft bal --empty -p today -H type:C not:tag:miriam
-    ft bal --empty -p thismonth expenses:groceries not:tag:miriam
+    ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure not:tag:miriam
     ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
     return
   case up upcoming
