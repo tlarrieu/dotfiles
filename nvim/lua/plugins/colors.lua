@@ -14,7 +14,7 @@ return {
   lazy = false,
   priority = 1000,
   opts = {
-    theme = 'neo',
+    palette = 'solarized',
     transparent = {
       enabled = true,
       normal = false,
@@ -24,14 +24,10 @@ return {
       lazy = true,
       mason = true,
     },
-    palette = 'solarized',
     styles = {
       comments = { italic = true, bold = false },
       functions = { bold = false },
       variables = { italic = false },
-    },
-    enables = {
-      treesitter = true,
     },
     on_highlights = function(c, _)
       vim.cmd [[
@@ -46,41 +42,38 @@ return {
       local telescope_accent = c.base0
 
       return {
-        -- base
+        ---------------------- base ------------------------
 
+        Constant = { fg = c.magenta },
+        Identifier = { fg = c.blue },
+        Include = { fg = c.orange },
+        Keyword = { fg = c.green, bold = false },
+        Special = { fg = c.magenta },
         String = { italic = true },
+        Tag = { fg = c.orange },
+        Type = { fg = c.orange },
         Whitespace = { link = 'Comment' },
-
-        ['@text.strong'] = { fg = c.none, bold = true },
-        ['@text.emphasis'] = { fg = c.none, italic = true },
-        ['@text.reference'] = { fg = c.none, bold = true },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true },
         ['@markup.underline'] = { fg = c.none, underline = true },
 
         ['@conditional'] = { link = 'Conditional' },
+        ['@field'] = { link = 'Normal' },
+        ['@field.ledger'] = { link = 'Function' },
         ['@include'] = { link = 'Include' },
-        ['rubyPredefinedConstant'] = { link = '@constant' },
-        ['rubyPredefinedVariable'] = { link = '@constant' },
-        ['htmlTag'] = { link = 'Keyword' },
-        ['erubyDelimiter'] = { link = 'htmlTag' },
-        ['htmlEndTag'] = { link = 'htmlTag' },
+        ['@label'] = { fg = c.violet },
+        ['@method'] = { link = 'Function' },
+        ['@repeat'] = { link = 'Keyword' },
+        ['@symbol'] = { link = 'String' },
+        ['@type.qualifier'] = { link = 'Keyword' },
+        ['@variable'] = { link = 'Normal' },
+        ['@variable.global'] = { fg = c.violet },
 
         ['@text.title.gitcommit'] = { link = 'Keyword' },
         ['@text.reference.gitcommit'] = { link = 'Special' },
         ['@text.uri.gitcommit'] = { link = 'Normal' },
         ['@keyword.gitcommit'] = { link = 'Constant' },
-
-        ['@text.diff.add.diff'] = { link = 'DiffAdd' },
-        ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
-        ['@text.diff.change.diff'] = { link = 'DiffChange' },
-
-        ['@repeat'] = { link = 'Keyword' },
-        ['@symbol'] = { link = 'String' },
-        ['@field'] = { link = 'Normal' },
-        ['@variable'] = { link = 'Normal' },
-        ['@method'] = { link = 'Function' },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
@@ -96,9 +89,28 @@ return {
         SpellLocal = { fg = c.blue, bg = c.mix_blue, undercurl = true },
         SpellCap = { link = 'SpellLocal' },
         SpellRare = { link = 'SpellLocal' },
-
         Error = { undercurl = true },
+
+        DiagnosticOk = { fg = c.green, bg = c.none },
+        DiagnosticError = { fg = c.red, bg = c.none },
+        DiagnosticWarn = { fg = c.yellow, bg = c.none },
+        DiagnosticInfo = { fg = c.blue, bg = c.none },
+        DiagnosticHint = { fg = c.none, bg = c.none },
         DiagnosticUnderlineError = { undercurl = true },
+
+        DiffAdd = { fg = c.green, bg = c.mix_green, reverse = false },
+        DiffDelete = { fg = c.red, bg = c.mix_red, reverse = false },
+        DiffText = { fg = c.blue, bg = c.mix_blue, reverse = false },
+        DiffChange = { fg = c.yellow, bg = c.mix_yellow, reverse = false },
+        Added = { link = 'DiffAdd' },
+        Removed = { link = 'DiffDelete' },
+        Changed = { link = 'DiffChange' },
+        ['@diff.plus'] = { link = 'DiffAdd' },
+        ['@diff.minus'] = { link = 'DiffDelete' },
+        ['@diff.delta'] = { link = 'DiffChange' },
+        ['@text.diff.add.diff'] = { link = 'DiffAdd' },
+        ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
+        ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
         WinSeparator = { link = 'Comment' },
 
@@ -111,7 +123,7 @@ return {
         Pmenu = { link = 'CursorColumn' },
         PmenuSel = { link = 'TelescopeSelection' },
 
-        -- plugins
+        --------------------- plugins ----------------------
 
         OilDir = { link = 'Normal' },
         OilDirIcon = { link = 'OilDir' },
@@ -131,20 +143,32 @@ return {
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
 
+        TelescopeResultsDiffAdd = { link = 'GitgutterAdd' },
+        TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
+        TelescopeResultsDiffChange = { link = 'GitgutterChange' },
+
+        GitgutterAdd = { fg = c.green },
+        GitgutterDelete = { fg = c.red },
+        GitgutterChange = { fg = c.yellow },
+
+        fugitiveHeading = { link = 'Include' },
+        fugitiveStagedHeading = { fg = c.green },
+        fugitiveUnstagedHeading = { fg = c.orange },
+
+        CmpGhostText = { link = '@markup.list.unchecked' },
+        CmpItemAbbrMatch = { bold = true },
+
         -- Those are definitions that we use inside actual neorg configuration
         NeorgDone = { link = '@markup.list.unchecked' },
         NeorgPending = { fg = c.green, italic = false },
         NeorgOnHold = { fg = c.yellow, italic = false },
-        NeorgUndone = { fg = c.red,  italic = false },
+        NeorgUndone = { fg = c.none, italic = false },
         NeorgCancelled = { link = 'NeorgDone' },
         NeorgHeading1 = { fg = c.magenta, italic = false, bold = false },
         NeorgHeading2 = { fg = c.green, italic = false, bold = false },
         NeorgHeading3 = { fg = c.blue, italic = false, bold = false },
         NeorgHeading4 = { fg = c.none, italic = false, bold = false },
         NeorgLinkDescription = { underline = true, italic = true },
-
-        CmpGhostText = { link = '@markup.list.unchecked' },
-        CmpItemAbbrMatch = { bold = true }
       }
     end
   },
