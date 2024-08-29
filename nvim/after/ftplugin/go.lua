@@ -6,7 +6,7 @@ local runner = require('runner')
 
 runner.default({
   main = runner.exec('GoRun'),
-  alt = runner.term('go run .'),
+  alt = runner.exec('GoTest'),
 })
 
 local group = vim.api.nvim_create_augroup('GO_AUTOCMD', {})
