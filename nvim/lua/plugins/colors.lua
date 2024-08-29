@@ -76,12 +76,11 @@ return {
         ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
         ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
-        ['@repeat.bash'] = { link = 'Keyword' },
-        ['@repeat.lua'] = { link = 'Keyword' },
-
+        ['@repeat'] = { link = 'Keyword' },
         ['@symbol'] = { link = 'String' },
         ['@field'] = { link = 'Normal' },
         ['@variable'] = { link = 'Normal' },
+        ['@method'] = { link = 'Function' },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
