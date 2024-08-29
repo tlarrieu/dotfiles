@@ -15,7 +15,16 @@ return {
   priority = 1000,
   opts = {
     theme = 'neo',
-    transparent = true,
+    transparent = {
+      enabled = true,
+      normal = false,
+      normalfloat = true,
+      pmenu = true,
+      telescope = true,
+      lazy = true,
+      mason = true,
+    },
+    palette = 'solarized',
     styles = {
       comments = { italic = true, bold = false },
       functions = { bold = false },
@@ -24,7 +33,7 @@ return {
     enables = {
       treesitter = true,
     },
-    highlights = function(c, _)
+    on_highlights = function(c, _)
       vim.cmd [[
         sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
         sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
@@ -34,7 +43,7 @@ return {
 
       c.none = ''
 
-      local telescope_accent = c.base01
+      local telescope_accent = c.base0
 
       return {
         -- base
@@ -70,128 +79,70 @@ return {
         ['@repeat.lua'] = { link = 'Keyword' },
 
         ['@symbol'] = { link = 'String' },
-        ['@field'] = { link = 'Constant' },
+        ['@field'] = { link = 'Normal' },
+        ['@variable'] = { link = 'Normal' },
 
-        Cursor = { fg = c.base1, bg = c.base02 },
-        TermCursorNC = { link = 'Cursor' },
-
-        Normal = { bg = c.base03 },
-        NormalFloat = { bg = c.base03 },
-        FloatBorder = { fg = c.base00, bg = c.base03 },
-
-        Folded = { link = 'Normal' },
+        Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
-        YankHighlight = { bg = c.base02 },
+        Visual = { link = 'CursorColumn' },
+        YankHighlight = { link = 'Visual' },
 
-        Search = { bg = c.base02 },
-        CurSearch = { fg = c.base02, bg = c.green },
-        IncSearch = { fg = c.base02, bg = c.magenta },
+        Search = { fg = c.magenta, bg = c.mix_magenta, bold = false, underline = false },
+        IncSearch = { fg = c.magenta, bg = c.mix_magenta, bold = true, underline = true },
+        CurSearch = { link = 'IncSearch' },
 
-        SpellBad = { fg = c.red, undercurl = true },
-        SpellLocal = { fg = c.blue, undercurl = true },
+        SpellBad = { fg = c.red, bg = c.mix_red },
+        SpellLocal = { fg = c.blue, bg = c.mix_blue, undercurl = true },
         SpellCap = { link = 'SpellLocal' },
         SpellRare = { link = 'SpellLocal' },
 
         Error = { undercurl = true },
-        DiagnosticUnderlineError = { undercurl = true, bg = c.base02 },
+        DiagnosticUnderlineError = { undercurl = true },
 
-        DiagnosticSignError = { fg = c.red, bg = c.base02 },
-        DiagnosticSignWarn = { fg = c.yellow, bg = c.base02 },
-        DiagnosticSignInfo = { fg = c.blue, bg = c.base02 },
-        DiagnosticSignHint = { fg = c.base0, bg = c.base02 },
+        WinSeparator = { link = 'Comment' },
 
-        NormalNC = { bg = c.base02 },
-        SignColumn = { link = 'NormalNC' },
-        WinSeparator = { fg = c.base01, bg = c.base02 },
-
-        StatusLine = { link = 'Normal' },
-        StatusLineNC = { link = 'Tabline' },
-
-        CursorLine = { link = 'CursorColumn' },
-
-        LineNr = { fg = c.magenta, bg = c.base02 },
-        LineNrAbove = { fg = c.base0, bg = c.base02 },
+        LineNr = { fg = c.magenta },
+        LineNrAbove = { link = 'Comment' },
         LineNrBelow = { link = 'LineNrAbove' },
 
-        DiffAdd = { fg = c.green, bg = c.none },
-        DiffChange = { fg = c.yellow, bg = c.none },
-        DiffDelete = { fg = c.red, bg = c.none },
+        QuickFixLine = { link = 'TelescopeSelection' },
 
-        QuickFixLine = { fg = c.yellow, bg = c.none },
-
-        Pmenu = { fg = c.blue, bg = c.base02 },
-        PmenuSel = { fg = c.base02, bg = c.magenta },
-        PmenuThumb = { fg = c.base02, bg = c.base00 },
+        Pmenu = { link = 'CursorColumn' },
+        PmenuSel = { link = 'TelescopeSelection' },
 
         -- plugins
 
-        OilDir = { fg = c.base1 },
+        OilDir = { link = 'Normal' },
         OilDirIcon = { link = 'OilDir' },
 
-        LazyNormal = { bg = c.base03 },
-        MasonNormal = { bg = c.base03 },
-
-        TelescopeBorder = { fg = c.base03, bg = c.base03 },
-        TelescopeTitle = { link = 'TelescopeBorder' },
+        TelescopeTitle = { link = '@markup.strong' },
 
         TelescopePromptTitle = { fg = telescope_accent, bg = telescope_accent },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
-        TelescopePromptNormal = { fg = c.base02, bg = telescope_accent },
+        TelescopePromptNormal = { fg = c.base2, bg = telescope_accent },
         TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
         TelescopePromptCounter = { link = 'TelescopePromptNormal' },
 
-        TelescopeMatching = { link = 'Search' },
-        TelescopeNormal = { bg = c.base03 },
-        TelescopeResultsNormal = { fg = c.base1, bg = c.base03 },
-        TelescopeSelection = { fg = c.base0, bg = c.base02 },
-        TelescopeMultiIcon = { link = 'TelescopeNormal' },
+        TelescopeSelection = { fg = c.blue, bg = c.mix_blue },
+        TelescopeSelectionCaret = { link = 'TelescopeSelection' },
+        TelescopeMatching = { link = 'Incsearch' },
+
+        TelescopeMultiSelection = { fg = c.yellow },
+        TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
 
         -- Those are definitions that we use inside actual neorg configuration
-        NeorgDone = { fg = c.base01, bg = c.base03, italic = false },
-        NeorgPending = { fg = c.green, bg = c.base03, italic = false },
-        NeorgOnHold = { fg = c.yellow, bg = c.base03, italic = false },
-        NeorgUndone = { fg = c.red, bg = c.base03, italic = false },
+        NeorgDone = { link = '@markup.list.unchecked' },
+        NeorgPending = { fg = c.green, italic = false },
+        NeorgOnHold = { fg = c.yellow, italic = false },
+        NeorgUndone = { fg = c.red,  italic = false },
         NeorgCancelled = { link = 'NeorgDone' },
         NeorgHeading1 = { fg = c.magenta, italic = false, bold = false },
         NeorgHeading4 = { fg = c.cyan, italic = false },
         NeorgLinkDescription = { underline = true },
 
-        CmpItemAbbrMatch = { fg = c.base0, bg = c.base02, underline = true, bold = true },
-        CmpItemKindEnum = { bold = false },
-        CmpItemKindFile = { bold = false },
-        CmpItemKindText = { bold = false },
-        CmpItemKindUnit = { bold = false },
-        CmpItemKindClass = { bold = false },
-        CmpItemKindColor = { bold = false },
-        CmpItemKindEvent = { bold = false },
-        CmpItemKindField = { bold = false },
-        CmpItemKindValue = { bold = false },
-        CmpItemKindFolder = { bold = false },
-        CmpItemKindMethod = { bold = false },
-        CmpItemKindModule = { bold = false },
-        CmpItemKindStruct = { bold = false },
-        CmpItemKindDefault = { bold = false },
-        CmpItemKindKeyword = { bold = false },
-        CmpItemKindSnippet = { bold = false },
-        CmpItemKindConstant = { bold = false },
-        CmpItemKindFunction = { bold = false },
-        CmpItemKindOperator = { bold = false },
-        CmpItemKindProperty = { bold = false },
-        CmpItemKindVariable = { bold = false },
-        CmpItemKindInterface = { bold = false },
-        CmpItemKindReference = { bold = false },
-        CmpItemKindEnumMember = { bold = false },
-        CmpItemKindConstructor = { bold = false },
-        CmpGhostText = { fg = c.base01, bg = c.base02 },
-
-        MarkSignHL = { bg = c.base02 },
-        MarkSignNumHL = { link = 'MarkSignHL' },
-        MarkVirtTextHL = { link = 'MarkSignHL' },
-
-        GitGutterAdd = { fg = c.green, bg = c.base02 },
-        GitGutterChange = { fg = c.yellow, bg = c.base02 },
-        GitGutterDelete = { fg = c.red, bg = c.base02 },
+        CmpGhostText = { link = '@markup.list.unchecked' },
+        CmpItemAbbrMatch = { bold = true }
       }
     end
   },

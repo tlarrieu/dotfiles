@@ -10,6 +10,8 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
+        borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        results_title = false,
         file_ignore_patterns = { '^%.git/' },
 
         prompt_prefix = '  ',

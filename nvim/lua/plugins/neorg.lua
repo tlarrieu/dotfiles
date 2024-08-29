@@ -91,6 +91,7 @@ return {
             },
             todo_items = {
               done = '+NeorgDone',
+              cancelled = '+NeorgCancelled',
               on_hold = '+NeorgOnHold',
               undone = '+NeorgUndone',
               pending = '+NeorgPending',
