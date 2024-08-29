@@ -84,6 +84,14 @@ return {
                 prefix = '+NeorgHeading1',
                 title = '+NeorgHeading1',
               },
+              ['2'] = {
+                prefix = '+NeorgHeading2',
+                title = '+NeorgHeading2',
+              },
+              ['3'] = {
+                prefix = '+NeorgHeading3',
+                title = '+NeorgHeading3',
+              },
               ['4'] = {
                 prefix = '+NeorgHeading4',
                 title = '+NeorgHeading4',

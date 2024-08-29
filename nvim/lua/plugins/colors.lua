@@ -139,8 +139,10 @@ return {
         NeorgUndone = { fg = c.red,  italic = false },
         NeorgCancelled = { link = 'NeorgDone' },
         NeorgHeading1 = { fg = c.magenta, italic = false, bold = false },
-        NeorgHeading4 = { fg = c.cyan, italic = false },
-        NeorgLinkDescription = { underline = true },
+        NeorgHeading2 = { fg = c.green, italic = false, bold = false },
+        NeorgHeading3 = { fg = c.blue, italic = false, bold = false },
+        NeorgHeading4 = { fg = c.none, italic = false, bold = false },
+        NeorgLinkDescription = { underline = true, italic = true },
 
         CmpGhostText = { link = '@markup.list.unchecked' },
         CmpItemAbbrMatch = { bold = true }
