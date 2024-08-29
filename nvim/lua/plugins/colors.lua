@@ -49,10 +49,11 @@ return {
         -- base
 
         String = { italic = true },
+        Whitespace = { link = 'Comment' },
 
         ['@text.strong'] = { fg = c.none, bold = true },
         ['@text.emphasis'] = { fg = c.none, italic = true },
-        ['@text.reference'] = { fg = c.base3, bold = true },
+        ['@text.reference'] = { fg = c.none, bold = true },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true },
