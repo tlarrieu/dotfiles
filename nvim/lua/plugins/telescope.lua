@@ -43,7 +43,7 @@ return {
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown({
-            prompt_prefix = '   ',
+            prompt_prefix = '  ',
             layout_strategy = 'horizontal',
           }),
         }
