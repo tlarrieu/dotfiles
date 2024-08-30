@@ -27,6 +27,9 @@ return {
       winblend = 3,
       title_pos = 'center' -- 'left' | 'center' | 'right'
     },
+    highlights = {
+      FloatBorder = { link = 'FloatBorder' },
+    },
   },
   config = function(_, opts)
     require('toggleterm').setup(opts)
