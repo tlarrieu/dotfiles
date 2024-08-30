@@ -29,6 +29,13 @@ return {
       functions = { bold = false },
       variables = { italic = false },
     },
+    on_colors = function(c, _)
+      if vim.o.background == 'light' then
+        return { fg = c.base00, bg = c.base3 }
+      else
+        return { fg = c.base0, bg = c.base03 }
+      end
+    end,
     on_highlights = function(c, _)
       vim.cmd [[
         sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
@@ -139,6 +146,8 @@ return {
         TelescopeSelection = { fg = c.blue, bg = c.mix_blue },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
+
+        TelescopeBorder = { fg = c.bg, bg = c.bg },
 
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
