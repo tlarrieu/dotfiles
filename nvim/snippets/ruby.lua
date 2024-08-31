@@ -8,6 +8,7 @@ return {
   s("req", fmta("require '<>'", { i(1) })),
   s("reqr", fmta("require_relative '<>'", { i(1) })),
   s("inc", fmta("include <>", { i(1, "Module") })),
+  s("ex", fmta("extend <>", { i(1, "Module") })),
   s("gem", fmta("gem '<>'", { i(1, "name") })),
 
   -- definitions
