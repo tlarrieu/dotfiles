@@ -74,7 +74,7 @@ return {
           local buflist = vim.fn.tabpagebuflist(context.tabnr)
           local bufnr = buflist[winnr]
           local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
-          local modifier = modified and '∙' or ''
+          local modifier = (modified and context.buftype ~= 'prompt') and '∙' or ''
 
           return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
         end
