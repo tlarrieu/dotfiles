@@ -194,11 +194,10 @@ return {
       group = vim.api.nvim_create_augroup('update_background', {})
     })
 
-    local group = vim.api.nvim_create_augroup("text_yank", {})
     vim.api.nvim_create_autocmd('TextYankPost', {
       pattern = '*',
       callback = function() vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 200 }) end,
-      group = group,
+      group = vim.api.nvim_create_augroup("text_yank", {})
     })
   end
 }
