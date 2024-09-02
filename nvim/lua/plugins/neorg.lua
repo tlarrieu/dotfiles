@@ -46,9 +46,9 @@ return {
       ['core.qol.todo_items'] = {
         config = {
           order = {
-            { 'undone', ' ' },
+            { 'undone',  ' ' },
             { 'pending', '-' },
-            { 'done', 'x' }
+            { 'done',    'x' }
           },
         }
       },
@@ -80,22 +80,12 @@ return {
               description = '+NeorgLinkDescription',
             },
             headings = {
-              ['1'] = {
-                prefix = '+NeorgHeading1',
-                title = '+NeorgHeading1',
-              },
-              ['2'] = {
-                prefix = '+NeorgHeading2',
-                title = '+NeorgHeading2',
-              },
-              ['3'] = {
-                prefix = '+NeorgHeading3',
-                title = '+NeorgHeading3',
-              },
-              ['4'] = {
-                prefix = '+NeorgHeading4',
-                title = '+NeorgHeading4',
-              },
+              ['1'] = { prefix = '+@markup.heading.1', title = '+@markup.heading.1' },
+              ['2'] = { prefix = '+@markup.heading.2', title = '+@markup.heading.2' },
+              ['3'] = { prefix = '+@markup.heading.3', title = '+@markup.heading.3' },
+              ['4'] = { prefix = '+@markup.heading.4', title = '+@markup.heading.4' },
+              ['5'] = { prefix = '+@markup.heading.5', title = '+@markup.heading.5' },
+              ['6'] = { prefix = '+@markup.heading.6', title = '+@markup.heading.6' },
             },
             todo_items = {
               done = '+NeorgDone',
