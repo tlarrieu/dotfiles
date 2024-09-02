@@ -1,12 +1,14 @@
 ---@diagnostic disable: undefined-global
 
+local curdate = function () return os.date('%m/%d') end
+
 return {
   s("e", fmta([[
   <> ! <> | <>
     <>  <> €
     <>
   ]], {
-    f(function() return os.date('%m/%d') end),
+    f(curdate),
     i(1, 'payee'),
     i(2, 'desc'),
     i(3, 'to'),
@@ -18,7 +20,7 @@ return {
     card:ce  <> €
     <>
   ]], {
-    f(function() return os.date('%m/%d') end),
+    f(curdate),
     i(1, 'amount'),
     i(0, 'unemployment')
   })),
@@ -27,7 +29,7 @@ return {
     <>  <> €
     <>
   ]], {
-    f(function() return os.date('%m/%d') end),
+    f(curdate),
     i(1, 'to'),
     i(2, 'amount'),
     i(0, 'from')
@@ -38,7 +40,16 @@ return {
     mortgage  1051.63 €
     bank:loans
   ]], {
-    f(function() return os.date('%m/%d') end),
+    f(curdate),
+  })),
+  s("q", fmta([[
+  <> * église | quête
+    charities  <> €
+    <>
+  ]], {
+    f(curdate),
+    i(1, 'amount'),
+    i(0, 'from')
   })),
 }, {
 }
