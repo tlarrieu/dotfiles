@@ -67,7 +67,6 @@ return {
 
         ['@conditional'] = { link = 'Conditional' },
         ['@field'] = { link = 'Normal' },
-        ['@field.ledger'] = { link = 'Function' },
         ['@include'] = { link = 'Include' },
         ['@label'] = { fg = c.violet },
         ['@method'] = { link = 'Function' },
@@ -76,11 +75,6 @@ return {
         ['@type.qualifier'] = { link = 'Keyword' },
         ['@variable'] = { link = 'Normal' },
         ['@variable.global'] = { fg = c.violet },
-
-        ['@text.title.gitcommit'] = { link = 'Keyword' },
-        ['@text.reference.gitcommit'] = { link = 'Special' },
-        ['@text.uri.gitcommit'] = { link = 'Normal' },
-        ['@keyword.gitcommit'] = { link = 'Constant' },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
@@ -164,9 +158,17 @@ return {
         fugitiveHeading = { link = 'Include' },
         fugitiveStagedHeading = { fg = c.green },
         fugitiveUnstagedHeading = { fg = c.orange },
+        ['@text.title.gitcommit'] = { link = 'Keyword' },
+        ['@text.reference.gitcommit'] = { link = 'Special' },
+        ['@text.uri.gitcommit'] = { link = 'Normal' },
+        ['@keyword.gitcommit'] = { link = 'Constant' },
 
         CmpGhostText = { link = '@markup.list.unchecked' },
         CmpItemAbbrMatch = { bold = true },
+
+        ['@field.ledger'] = { fg = c.blue },
+        ['@number.ledger'] = { fg = c.magenta },
+        ['@string.special.ledger'] = { fg = c.yellow },
 
         -- Those are definitions that we use inside actual neorg configuration
         NeorgDone = { link = '@markup.list.unchecked' },
