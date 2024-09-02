@@ -168,7 +168,7 @@ return {
 
         ['@field.ledger'] = { fg = c.blue },
         ['@number.ledger'] = { fg = c.magenta },
-        ['@string.special.ledger'] = { fg = c.yellow },
+        ['@string.special.ledger'] = { fg = c.yellow, bold = true },
 
         -- Those are definitions that we use inside actual neorg configuration
         NeorgDone = { link = '@markup.list.unchecked' },
