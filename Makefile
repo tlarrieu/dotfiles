@@ -122,7 +122,7 @@ repos: ~/git/accounting
 	$(call cecho, 2, Done.)
 
 ~/git/accounting:
-	$(call cecho, 3, Getting rss config...)
-	git clone git@github.com:tlarrieu/rss.git ~/git/accounting
+	$(call cecho, 3, Getting accounting config...)
+	git clone git@github.com:tlarrieu/accounting.git ~/git/accounting
 	make -C ~/git/accounting
 	$(call cecho, 2, Done.)
