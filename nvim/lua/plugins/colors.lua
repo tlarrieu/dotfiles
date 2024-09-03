@@ -151,6 +151,16 @@ return {
         TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
         TelescopeResultsDiffChange = { link = 'GitgutterChange' },
 
+        LazyButton = { fg = c.blue, bg = c.mix_blue },
+        LazyButtonActive = { fg = c.magenta, bg = c.mix_magenta },
+        LazySpecial = { fg = c.fg },
+
+        MasonHeader = { link = 'lazyH1' },
+        MasonHighlight = { fg = c.blue, bg = c.bg },
+        MasonHighlightBlock = { fg = c.green, bg = c.mix_green },
+        MasonHighlightBlockBold = { link = 'LazyButtonActive' },
+        MasonMutedBlock = { link = 'LazyButton' },
+
         GitgutterAdd = { fg = c.green },
         GitgutterDelete = { fg = c.red },
         GitgutterChange = { fg = c.yellow },
