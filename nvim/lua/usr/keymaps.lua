@@ -2,7 +2,7 @@ local noremap = { remap = false, silent = true }
 local remap = { remap = true, silent = true }
 
 local k = vim.keymap
-local merge = function(left, right) return vim.tbl_deep_extend('keep', left, right) end
+local merge = require('helpers').merge
 
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 k.set('', '<leader>', '<nop>', noremap)

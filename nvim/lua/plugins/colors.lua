@@ -30,23 +30,33 @@ return {
       variables = { italic = false },
     },
     on_colors = function(c, _)
+      local colors
+
       if vim.o.background == 'light' then
-        return { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2 }
+        colors = { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2 }
       else
-        return { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02 }
+        colors = { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02 }
       end
+
+      return require('helpers').merge(colors, {
+        none = '',
+        telescope = {
+          prompt = {
+            fg = colors.bg,
+            bg = colors.fg
+          }
+        }
+      })
     end,
     on_highlights = function(c, _)
-      vim.cmd [[
-        sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=
-        sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=
-        sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=
-        sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=
-      ]]
+      for kind, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
+        local hl = "DiagnosticSign" .. kind
+        vim.fn.sign_define(hl, { text = icon, texthl = '', numhl = '' })
+      end
 
-      c.none = ''
-
-      local telescope_accent = c.base0
+      local paint = function(color, opts)
+        return require('helpers').merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
+      end
 
       return {
         ---------------------- base ------------------------
@@ -87,12 +97,12 @@ return {
         Visual = { link = 'CursorColumn' },
         YankHighlight = { link = 'Visual' },
 
-        Search = { fg = c.magenta, bg = c.mix_magenta, bold = false, underline = false },
-        IncSearch = { fg = c.magenta, bg = c.mix_magenta, bold = true, underline = true },
+        Search = paint('magenta', { bold = false, underline = false }),
+        IncSearch = paint('magenta', { bold = true, underline = true }),
         CurSearch = { link = 'IncSearch' },
 
-        SpellBad = { fg = c.red, bg = c.mix_red },
-        SpellLocal = { fg = c.blue, bg = c.mix_blue, undercurl = true },
+        SpellBad = paint('red'),
+        SpellLocal = paint('blue', { undercurl = true }),
         SpellCap = { link = 'SpellLocal' },
         SpellRare = { link = 'SpellLocal' },
         Error = { undercurl = true },
@@ -102,12 +112,16 @@ return {
         DiagnosticWarn = { fg = c.yellow, bg = c.none },
         DiagnosticInfo = { fg = c.blue, bg = c.none },
         DiagnosticHint = { fg = c.none, bg = c.none },
-        DiagnosticUnderlineError = { undercurl = true },
+        DiagnosticUnderlineOk = paint('green', { underline = false }),
+        DiagnosticUnderlineError = paint('red', { underline = false }),
+        DiagnosticUnderlineWarn = paint('yellow', { underline = false }),
+        DiagnosticUnderlineInfo = paint('blue', { underline = false }),
+        DiagnosticUnderlineHint = paint('fg', { underline = false }),
 
-        DiffAdd = { fg = c.green, bg = c.mix_green, reverse = false },
-        DiffDelete = { fg = c.red, bg = c.mix_red, reverse = false },
-        DiffText = { fg = c.blue, bg = c.mix_blue, reverse = false },
-        DiffChange = { fg = c.yellow, bg = c.mix_yellow, reverse = false },
+        DiffAdd = paint('green', { reverse = false }),
+        DiffDelete = paint('red', { reverse = false }),
+        DiffText = paint('blue', { reverse = false }),
+        DiffChange = paint('yellow', { reverse = false }),
         Added = { link = 'DiffAdd' },
         Removed = { link = 'DiffDelete' },
         Changed = { link = 'DiffChange' },
@@ -136,11 +150,11 @@ return {
 
         TelescopeTitle = { link = '@markup.strong' },
 
-        TelescopePromptTitle = { fg = telescope_accent, bg = telescope_accent },
+        TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
-        TelescopePromptNormal = { fg = c.base2, bg = telescope_accent },
-        TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
-        TelescopePromptCounter = { link = 'TelescopePromptNormal' },
+        TelescopePromptNormal = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
+        TelescopePromptPrefix = { fg = c.telescope.prompt.fg },
+        TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
 
         TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
@@ -156,13 +170,13 @@ return {
         TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
         TelescopeResultsDiffChange = { link = 'GitgutterChange' },
 
-        LazyButton = { fg = c.blue, bg = c.mix_blue },
-        LazyButtonActive = { fg = c.magenta, bg = c.mix_magenta },
+        LazyButton = paint('blue'),
+        LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
         MasonHeader = { link = 'lazyH1' },
         MasonHighlight = { fg = c.blue, bg = c.bg },
-        MasonHighlightBlock = { fg = c.green, bg = c.mix_green },
+        MasonHighlightBlock = paint('green'),
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
 

@@ -44,4 +44,8 @@ _M.coerce = function(str, width)
   return res
 end
 
+_M.merge = function(left, right)
+  return vim.tbl_deep_extend('keep', left, right)
+end
+
 return _M

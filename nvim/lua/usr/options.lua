@@ -90,9 +90,4 @@ o.spelllang = 'en,fr'
 -- {{{ ==| Short message |======================================================
 o.shortmess:append('WIcsa')
 -- }}}
-
--- {{{ ==| Diagnostics |========================================================
-vim.diagnostic.config({
-  signs = false
-})
 --- }}}
