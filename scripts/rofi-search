@@ -150,6 +150,7 @@ searchengines = {
   ),
   'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
   'gh'   => GitHub.new,
+  'go'   => Browser.new('https://pkg.go.dev/search?q=%s'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
   'l'    => Browser.new('http://localhost:%s'),
   'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
