@@ -31,9 +31,9 @@ return {
     },
     on_colors = function(c, _)
       if vim.o.background == 'light' then
-        return { fg = c.base00, bg = c.base3 }
+        return { fg = c.base00, bg = c.base3, mix_bg = c.base2 }
       else
-        return { fg = c.base0, bg = c.base03 }
+        return { fg = c.base0, bg = c.base03, mix_bg = c.base02 }
       end
     end,
     on_highlights = function(c, _)
@@ -79,6 +79,9 @@ return {
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
+        CursorColumn = { fg = c.blue, bg = c.mix_blue },
+        CursorLine = { link = 'CursorColumn' },
+
         Visual = { link = 'CursorColumn' },
         YankHighlight = { link = 'Visual' },
 
@@ -119,10 +122,10 @@ return {
         LineNrAbove = { link = 'Comment' },
         LineNrBelow = { link = 'LineNrAbove' },
 
-        QuickFixLine = { link = 'TelescopeSelection' },
+        QuickFixLine = { link = 'Search' },
 
-        Pmenu = { link = 'CursorColumn' },
-        PmenuSel = { link = 'TelescopeSelection' },
+        Pmenu = { fg = c.fg, bg = c.mix_bg },
+        PmenuSel = { link = 'CursorLine' },
 
         --------------------- plugins ----------------------
 
@@ -137,7 +140,7 @@ return {
         TelescopePromptPrefix = { link = 'TelescopePromptNormal' },
         TelescopePromptCounter = { link = 'TelescopePromptNormal' },
 
-        TelescopeSelection = { fg = c.blue, bg = c.mix_blue },
+        TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
 
