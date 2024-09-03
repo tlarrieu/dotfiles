@@ -2,11 +2,13 @@
 
 return {
   -- main
-  rs("^%s*main", fmta([[
-      func main() {
-      	<>
-      }]],
-    { i(0) }
+  rs("^main", fmta([[
+    package <>
+
+    func main() {
+    	<>
+    }]],
+    { i(1, "main"), i(0) }
   )),
 
   -- bindings
@@ -93,10 +95,8 @@ return {
   s("__skel", fmta([[
     package <>
 
-    func main() {
-    	<>
-    }]],
+    <>
+    ]],
     { i(1, "main"), i(0) }
   )),
-
 }
