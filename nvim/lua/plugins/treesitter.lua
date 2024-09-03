@@ -32,10 +32,10 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'embedded_template' },
+      disable = { 'embedded_template', 'html' },
       additional_vim_regex_highlighting = { 'markdown', 'make' },
     },
-    indent = { enable = true, disable = { 'embedded_template', 'ledger' } },
+    indent = { enable = true, disable = { 'embedded_template', 'html' } },
     textobjects = {
       enable = true,
       select = {
