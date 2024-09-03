@@ -45,9 +45,7 @@ return {
         ghost_text = { hl_group = 'CmpGhostText' },
       },
       snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
+        expand = function(args) luasnip.lsp_expand(args.body) end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
