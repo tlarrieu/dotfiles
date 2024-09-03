@@ -73,6 +73,7 @@ return {
         ['@repeat'] = { link = 'Keyword' },
         ['@symbol'] = { link = 'String' },
         ['@type.qualifier'] = { link = 'Keyword' },
+        ['@type.builtin'] = { link = '@type' },
         ['@variable'] = { link = 'Normal' },
         ['@variable.global'] = { fg = c.violet },
 
