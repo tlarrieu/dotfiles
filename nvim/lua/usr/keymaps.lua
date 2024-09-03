@@ -2,6 +2,7 @@ local noremap = { remap = false, silent = true }
 local remap = { remap = true, silent = true }
 
 local k = vim.keymap
+local merge = function(left, right) return vim.tbl_deep_extend('keep', left, right) end
 
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 k.set('', '<leader>', '<nop>', noremap)
@@ -114,17 +115,16 @@ k.set('n', '<leader>em', function()
   else
     return ':e Makefile<cr>'
   end
-end, { expr = true, silent = true })
+end, { desc = 'Edit Makefile', expr = true, silent = true })
 k.set('n', '<leader>es', function()
   require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
-end, noremap)
+end, merge({ desc = 'Edit snippets' }, noremap))
 k.set('n', '<leader>.', require('oil').toggle_float, noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word
 k.set('n', '<c-g>', 'gUiw', noremap)
 k.set('i', '<c-g>', '<esc>gUiwea', noremap)
--- Clear trailing leaders (but not the escaped ones)
 k.set('n', '<leader>k', function()
   vim.cmd [[
     normal! m`
@@ -134,7 +134,7 @@ k.set('n', '<leader>k', function()
     nohl
     normal! g``
   ]]
-end, noremap)
+end, merge({ desc = 'Remove trailing spaces' }, noremap))
 -- Cursorline / Cursorcolumn
 k.set('n', '<leader>g', function()
   vim.cmd [[
@@ -146,10 +146,10 @@ k.set('n', '<leader>g', function()
     setlocal cursorcolumn!
     setlocal cursorline!
   ]]
-end, noremap)
+end, merge({ desc = 'Toggle crosshair' }, noremap))
 -- Quickfix / Location list
-k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
-k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
+k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', merge({ desc = 'Toggle quickfix list' }, noremap))
+k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', merge({ desc = 'Toggle location list' }, noremap))
 k.set('n', '<c-s-p>', ':cprev<cr>', noremap)
 k.set('n', '<c-s-n>', ':cnext<cr>', noremap)
 --- }}}
@@ -183,7 +183,7 @@ k.set('n', '<leader>=', '<c-w>=', noremap)
 k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
 -- Moving around
 k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because we redefine tab later on)
-k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symetrical)
+k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symmetrical)
 k.set('n', '<tab>', '<c-w>w', noremap)
 k.set('n', '<s-tab>', '<c-w>W', noremap)
 k.set('n', '<c-n>', 'gt', noremap)
@@ -195,7 +195,7 @@ k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>",
 k.set('n', '<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
 k.set('n', '<leader>U', '<c-w>T', noremap)
--- merge current split into lefthand tab
+-- merge current split into left-hand tab
 k.set('n', '<leader>u', function()
   local curtab = vim.api.nvim_get_current_tabpage()
 
