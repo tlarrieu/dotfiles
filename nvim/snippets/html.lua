@@ -27,6 +27,9 @@ return {
   s("p", fmt('<p>{}{}</p>', { sel(), i(0) })),
   s("div", fmt('<div>{}{}</div>', { sel(), i(0) })),
   s("span", fmt('<span>{}{}</span>', { sel(), i(0) })),
+  s("ol", fmt('<ol>{}{}</ol>', { sel(), i(0) })),
+  s("ul", fmt('<ul>{}{}</ul>', { sel(), i(0) })),
+  s("li", fmt('<li>{}{}</li>', { sel(), i(0) })),
   s("img", fmt('<img src="{}" />', { i(0, 'src') })),
 }, {
 }
