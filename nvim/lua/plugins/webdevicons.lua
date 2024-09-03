@@ -29,7 +29,8 @@ return {
       ['eruby.html'] = { icon = '' },
       css = { icon = '' },
       go = { icon = '' },
-      gomod = { icon = '' },
+      gomod = { icon = '' },
+      gosum = { icon = '󰎠' },
       ocaml = { icon = '' },
       dune = { icon = '' },
       markdown = { icon = '' },
@@ -100,6 +101,9 @@ return {
       ['seeds.rb'] = { icon = '' },
       ['database.yml'] = { icon = '󱙋' },
       ['.ruby-version'] = { icon = '󰎠' },
+
+      ['go.sum'] = { icon = '󰎠' },
+      ['go.mod'] = { icon = '' },
 
       ['package.json'] = { icon = '' },
 
