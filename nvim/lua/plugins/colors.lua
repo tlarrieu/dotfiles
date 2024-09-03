@@ -31,9 +31,9 @@ return {
     },
     on_colors = function(c, _)
       if vim.o.background == 'light' then
-        return { fg = c.base00, bg = c.base3, mix_bg = c.base2 }
+        return { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2 }
       else
-        return { fg = c.base0, bg = c.base03, mix_bg = c.base02 }
+        return { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02 }
       end
     end,
     on_highlights = function(c, _)
@@ -70,10 +70,11 @@ return {
         ['@include'] = { link = 'Include' },
         ['@label'] = { fg = c.violet },
         ['@method'] = { link = 'Function' },
+        ['@operator'] = { link = 'Normal' },
         ['@repeat'] = { link = 'Keyword' },
         ['@symbol'] = { link = 'String' },
-        ['@type.qualifier'] = { link = 'Keyword' },
         ['@type.builtin'] = { link = '@type' },
+        ['@type.qualifier'] = { link = 'Keyword' },
         ['@variable'] = { link = 'Normal' },
         ['@variable.global'] = { fg = c.violet },
 
