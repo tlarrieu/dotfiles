@@ -22,8 +22,6 @@ return {
     },
   },
   config = function(_, opts)
-    vim.keymap.set('n', 'ga', '<nop>')
-
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
@@ -38,7 +36,7 @@ return {
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
           end
           if client.supports_method('textDocument/codeAction') then
-            vim.keymap.set('n', 'ga', vim.lsp.buf.code_action, conf)
+            vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, conf)
           end
           if client.supports_method('textDocument/references') then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
