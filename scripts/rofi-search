@@ -43,7 +43,7 @@ end
 class Browser < SearchEngine
 
   def initialize(target, fallback: nil, prefixes: [], profile: nil)
-    super(target, fallback: fallback, prefixes: prefixes)
+    super(target, fallback:, prefixes:)
     @profile = profile
   end
 
@@ -67,7 +67,7 @@ class GitHub < Browser
     if str.match('.*/.*')
       `browser-kiosk #{@profile} '#{url(str)}'`
     else
-      super(str)
+      super
     end
   end
 
@@ -96,7 +96,7 @@ class YouTube < Browser
   def run(str)
     case str
     when 'later' then `browser-kiosk perso '#{url('playlist?list=WL')}'`
-    else super(str)
+    else super
     end
   end
 
@@ -116,7 +116,7 @@ class Dictionary
   end
 
   def run(str)
-    words = str.split(' ')
+    words = str.split
     dictionary = @dictionaries[words[0]]
 
     dictionary ? words.shift : dictionary = @default
@@ -169,7 +169,7 @@ searchengines = {
   'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
-  'yt'   => YouTube.new,
+  'yt'   => YouTube.new
 }
 # rubocop:enable Layout/HashAlignment
 
@@ -185,7 +185,7 @@ if words.any?
     engine = Browser.new(words.join)
   end
 
-  (engine || defaultengine).run(words[0..-1].join(' '))
+  (engine || defaultengine).run(words.join(' '))
 elsif query == "\n"
   `browser-with-context`
 end
