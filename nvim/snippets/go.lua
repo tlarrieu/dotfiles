@@ -22,9 +22,13 @@ return {
   s("d", fmta([[ func (<>) <> {<>}]], { i(1, "arg"), i(2, "type"), i(0) })),
 
   -- types
-  rs("^i", fmta([[type <> interface {<>}]], { i(1, "name"), i(0) })),
-  rs("^s", fmta([[type <> struct {<>}]], { i(1, "name"), i(0) })),
+  rs("^i", fmta("type <> interface {<>}", { i(1, "name"), i(0) })),
+  rs("^s", fmta("type <> struct {<>}", { i(1, "name"), i(0) })),
   rs("^t", fmta("type <> <>", { i(1, "name"), i(2, "type") })),
+
+  s("i", fmta([[<> interface {<>}]], { i(1, "name"), i(0) })),
+  s("s", fmta([[<> struct {<>}]], { i(1, "name"), i(0) })),
+  s("t", fmta("<> <>", { i(1, "name"), i(2, "type") })),
 
   -- control structures
   s("for", fmta([[
