@@ -15,6 +15,7 @@ return {
       'fish',
       'gitcommit',
       'go',
+      'gomod',
       'haskell',
       'javascript',
       'latex',
