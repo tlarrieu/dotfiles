@@ -79,6 +79,8 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'dictionary.cambridge.org',
         'dictionnaire.lerobert.com',
         'pkg.go.dev',
+        'fonts.google.com',
+        'nerdfonts.com',
       },
       class = {
         'scratchpad',
