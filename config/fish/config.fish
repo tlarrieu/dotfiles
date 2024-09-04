@@ -1,5 +1,7 @@
 stty -ixon 2> /dev/null
 
+set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
+
 # FZF
 set -l fzf_main_color '#268bd2' # blue
 set -l fzf_secondary_color '#d33682' # magenta
@@ -41,6 +43,15 @@ set PGHOST localhost
 set -g -x EDITOR nvim
 set -g -x BROWSER browser-kiosk
 
+# Go
+set -x -U GOPATH $HOME/go
+
+# LUA
+set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
+
+# JAVA
+set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
+
 # PATH
 set -x PATH $PATH $HOME/scripts
 set -x PATH $HOME/apps $PATH
@@ -51,17 +62,10 @@ set -x PATH $HOME/.fly/bin $PATH
 set -x PATH $HOME/.yarn/bin $PATH
 set -x PATH $HOME/bin/helm $PATH
 set -x PATH $PATH $HOME/.krew/bin
+set -x PATH $PATH $GOPATH/bin
 
-# LUA
-
-set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
-
-# JAVA
-set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
-
+# dircolors
 eval (dircolors -c ~/.dir_colors)
-
-set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 
 # TERM
 set -gx TERM xterm-kitty
