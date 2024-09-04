@@ -50,7 +50,7 @@ return {
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
         ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<c-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+        ['<c-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
         ['<c-e>'] = cmp.mapping(function() luasnip.expand() end),
         ['<tab>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
