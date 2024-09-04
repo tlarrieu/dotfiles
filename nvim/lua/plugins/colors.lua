@@ -134,6 +134,9 @@ return {
 
         WinSeparator = { link = 'Comment' },
 
+        FloatBorder = { fg = c.bg, bg = c.bg },
+        FloatTitle = { fg = c.fg, bg = c.bg, bold = true },
+
         LineNr = { fg = c.magenta },
         LineNrAbove = { link = 'Comment' },
         LineNrBelow = { link = 'LineNrAbove' },
@@ -160,8 +163,7 @@ return {
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
 
-        TelescopeBorder = { fg = c.bg, bg = c.bg },
-        FloatBorder = { link = 'TelescopeBorder' },
+        TelescopeBorder = { link = 'FloatBorder' },
 
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
