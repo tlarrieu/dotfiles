@@ -88,6 +88,11 @@ return {
         ['@variable'] = { link = 'Normal' },
         ['@variable.global'] = { fg = c.violet },
 
+        ['@constructor.css'] = { fg = c.yellow },
+        ['@property.css'] = { fg = c.violet },
+        ['@tag.css'] = { fg = c.green },
+        ['@type.css'] = { fg = c.violet },
+
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
