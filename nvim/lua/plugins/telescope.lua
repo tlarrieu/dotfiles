@@ -25,6 +25,13 @@ return {
           preview_width = 0.7,
         },
 
+        preview = {
+          treesitter = {
+            enable = true,
+            disable = { 'html', 'eruby' },
+          },
+        },
+
         mappings = {
           i = {
             ['<esc>'] = actions.close,
@@ -33,7 +40,7 @@ return {
             ['<c-a>'] = { '<home>', type = 'command' },
             ['<c-e>'] = { '<end>', type = 'command' },
           },
-        }
+        },
       },
 
       pickers = {
