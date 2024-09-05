@@ -69,6 +69,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'gist.github.com' }},
   { icon = '', rule = { class = 'Chromium', instance = 'fly.io' }},
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' }},
+  { icon = '󱨉', rule = { class = 'Chromium', instance = 'www.flaticon.com' }},
 
   --  Drawing
   { icon = '', rule = { class = 'Chromium', instance = 'whimsical.co' }},
@@ -95,7 +96,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'web.whatsapp.com' }},
   { icon = '󰙯', rule = { class = 'Chromium', instance = 'discord.com' }},
 
-  --  Food
+  -- 󰉚 Food
   { icon = '', rule = { class = 'Chromium', instance = 'www.deliveroo.fr' }},
   { icon = '', rule = { class = 'Chromium', instance = 'ubereats.com' }},
 
