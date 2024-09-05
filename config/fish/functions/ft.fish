@@ -14,12 +14,17 @@ function ft
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
     end
   case now
+    echo -e "\e[35mCurrent balance (checked transactions only)\e[0m"
+    ft bal --empty -p today -C -H type:C not:tag:miriam
+    echo -e "\e[35mPending balance (all transactions)\e[0m"
     ft bal --empty -p today -H type:C not:tag:miriam
+    echo -e "\e[35mMonthly envelopes\e[0m"
     ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure not:tag:miriam
+    echo -e "\e[35mYearly envelopes\e[0m"
     ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
     return
   case up upcoming
-    ft areg assets:check:ce tag:generated-transaction 'expenses|loan' --fore=today.. -p thismonth
+    ft areg assets:check:ce tag:generated-transaction 'expenses|loan' --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
     return
   case bud budget
     ft bal --budget -p thismonth not:tag:miriam --empty
