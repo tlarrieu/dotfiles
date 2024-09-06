@@ -81,6 +81,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'pkg.go.dev',
         'fonts.google.com',
         'nerdfonts.com',
+        'tailwindcss.com'
       },
       class = {
         'scratchpad',
@@ -117,6 +118,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       },
       instance = {
         'web.whatsapp.com',
+        'tailwindcss.com',
       },
     },
     properties = {
