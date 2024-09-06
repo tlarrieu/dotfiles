@@ -38,8 +38,13 @@ return {
     CC=<>
     CFLAGS=<>
 
-    all:<>
+    .PHONY: all
+    all: install
 
+    .PHONY: install
+    install:<>
+
+    .PHONY: clean
     clean:<>
     ]], { i(1), i(2), i(3), i(4) })),
 
