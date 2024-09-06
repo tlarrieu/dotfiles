@@ -24,7 +24,7 @@ function ft
     ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
     return
   case up upcoming
-    ft areg assets:check:ce tag:generated-transaction 'expenses|loan' --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
+    ft areg assets:check:ce expr:'tag:generated-transaction OR status:!' 'expenses|loan' --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
     return
   case bud budget
     ft bal --budget -p thismonth not:tag:miriam --empty
