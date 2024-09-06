@@ -43,9 +43,6 @@ function ft
     return
   end
 
-  echo -n -e "\e[1;38m"
-  echo hledger $argv $flags
-  echo -n -e "\e[0m"
-
-  hledger $argv 1> /dev/null; and hledger -f ~/.hledger.journal $argv $flags
+  set fish_trace 1
+  hledger $argv $flags
 end
