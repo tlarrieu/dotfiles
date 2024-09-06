@@ -105,7 +105,9 @@ return {
       ['go.sum'] = { icon = '󰎠' },
       ['go.mod'] = { icon = '' },
 
-      ['package.json'] = { icon = '' },
+      ['package.json'] = { icon = '' },
+      ['package-lock.json'] = { icon = '' },
+      ['tailwind.config.js'] = { icon = '󱏿' },
 
       dockerfile = { icon = '' },
       ['docker-compose.yml'] = { icon = '' },
