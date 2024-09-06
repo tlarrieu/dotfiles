@@ -89,9 +89,11 @@ return {
         ['@variable.global'] = { fg = c.violet },
 
         ['@constructor.css'] = { fg = c.yellow },
+        ['@operator.css'] = { link = '@tag.css' },
         ['@property.css'] = { fg = c.violet },
-        ['@tag.css'] = { fg = c.green },
+        ['@tag.css'] = { fg = c.orange },
         ['@type.css'] = { fg = c.violet },
+        ['@field.css'] = { fg = c.mix_fg },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
