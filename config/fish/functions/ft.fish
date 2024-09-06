@@ -24,7 +24,10 @@ function ft
     ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
     return
   case up upcoming
-    ft areg assets:check:ce expr:'tag:generated-transaction OR status:!' 'expenses|loan' --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
+    echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
+    ft areg assets:check expr:'tag:generated-transaction OR status:!' type:LX --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
+    echo -e "\e[35mCurrent balance\e[0m"
+    ft bal assets:check -p today -C -H not:tag:miriam
     return
   case bud budget
     ft bal --budget -p thismonth not:tag:miriam --empty
