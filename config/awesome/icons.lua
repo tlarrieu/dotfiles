@@ -82,7 +82,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'app.envoituresimone.com' }},
 
   --  Money
-  { icon = '', rule = { class = 'Chromium', name = 'Compte courant' }},
+  { icon = '', rule = { class = 'Chromium', name = ', espace client,' }},
   { icon = '󰆭', rule = { class = 'Chromium', instance = 'boursedirect' }},
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' }},
 
