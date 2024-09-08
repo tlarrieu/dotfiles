@@ -16,6 +16,7 @@ exercism-bin
 luarocks
 rbenv
 ruby
+rbenv
 ruby-build
 go
 go-tools
