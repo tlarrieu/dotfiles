@@ -87,6 +87,13 @@ return {
               ['5'] = { prefix = '+@markup.heading.5', title = '+@markup.heading.5' },
               ['6'] = { prefix = '+@markup.heading.6', title = '+@markup.heading.6' },
             },
+            tags = {
+              ranged_verbatim = {
+                ['begin'] = '+NeorgCodeBlock',
+                ['end'] = '+NeorgCodeBlock',
+                ['code_block'] = '+NeorgCodeBlock',
+              }
+            },
             todo_items = {
               done = '+NeorgDone',
               cancelled = '+NeorgCancelled',

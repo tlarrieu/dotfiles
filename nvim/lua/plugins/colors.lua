@@ -215,6 +215,7 @@ return {
         NeorgUndone = { fg = c.none, italic = false },
         NeorgCancelled = { link = 'NeorgDone' },
         NeorgLinkDescription = { underline = true, italic = true },
+        NeorgCodeBlock = { bg = c.mix_bg },
         ['@markup.heading.1'] = { fg = c.magenta },
         ['@markup.heading.2'] = { fg = c.green },
         ['@markup.heading.3'] = { fg = c.blue },
