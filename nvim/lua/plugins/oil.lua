@@ -8,6 +8,7 @@ return {
         'icon',
         directory = '',
         add_padding = true,
+        highlight = 'Normal',
       },
       -- "permissions",
       -- "size",
@@ -69,16 +70,9 @@ return {
     -- Set to false to disable all of the above keymaps
     use_default_keymaps = true,
     view_options = {
-      -- Show files and directories that start with "."
       show_hidden = true,
-      -- This function defines what is considered a "hidden" file
-      is_hidden_file = function(name, bufnr)
-        return vim.startswith(name, ".")
-      end,
-      -- This function defines what will never be shown, even when `show_hidden` is set
-      is_always_hidden = function(name, bufnr)
-        return false
-      end,
+      is_hidden_file = function(name) return vim.startswith(name, ".") end,
+      is_always_hidden = function() return false end,
     },
     -- Configuration for the floating window in oil.open_float
     float = {
