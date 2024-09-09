@@ -223,21 +223,6 @@ k.set('n', 'zO', 'zczO', noremap)
 --- {{{ --| argwrap |---------------------------------------
 k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
---- {{{ --| fugitive |--------------------------------------
-k.set('n', '<leader>a', ':Git commit --quiet --amend --no-edit<cr>', noremap)
-k.set('n', '<leader>A', ':Git commit --quiet --amend<cr>', noremap)
-k.set('n', '<leader>b', ':Git blame<cr>', noremap)
-k.set('n', '<leader>c', ':Git commit --quiet<cr>', noremap)
-k.set('n', '<leader>d', ':Gvdiff<cr>', noremap)
-k.set('n', '<leader>D', ':Gvdiff master<cr>', noremap)
-k.set('n', '<leader>ed', ':tab Git diff --staged<cr>', noremap)
-k.set('n', '<leader>r', ':Gread<cr>', noremap)
-k.set('n', '<leader>R', ':Git reset %<cr>', noremap)
-k.set('n', '<leader>s', ':Git<cr>', noremap)
-k.set('n', '<leader>S', ':GV<cr>', noremap)
-k.set('x', '<leader>S', ":'<,'>GV<cr>", noremap)
-k.set('n', '<leader>w', ':Gwrite<cr>', noremap)
---- }}}
 --- {{{ --| linediff |--------------------------------------
 k.set('x', '<leader>d', ':Linediff<cr>', noremap)
 --- }}}

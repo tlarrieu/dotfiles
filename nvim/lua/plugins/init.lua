@@ -5,7 +5,6 @@ return {
   -- }}}
   -- {{{ --| Project manipulation |-----------
   { 'tpope/vim-projectionist' },
-  { 'tpope/vim-fugitive' },
   { 'junegunn/gv.vim' },
   -- }}}
   -- {{{ --| Functionalities |---------------
