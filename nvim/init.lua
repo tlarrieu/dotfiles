@@ -17,6 +17,7 @@ require('lazy').setup('plugins')
 
 require('usr.keymaps')
 require('usr.options')
-require('usr.globals')
 require('usr.abbrev')
 require('usr.autocmd')
+
+require('backdrop'):setup({ transparency = 60 })

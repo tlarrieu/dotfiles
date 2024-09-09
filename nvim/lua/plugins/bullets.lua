@@ -22,5 +22,7 @@ return {
       end,
       group = group
     })
+
+    vim.g.set_mappings = 0
   end
 }

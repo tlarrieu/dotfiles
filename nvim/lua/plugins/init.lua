@@ -5,7 +5,6 @@ return {
   -- }}}
   -- {{{ --| Project manipulation |-----------
   { 'tpope/vim-projectionist' },
-  { 'airblade/vim-gitgutter' },
   { 'tpope/vim-fugitive' },
   { 'junegunn/gv.vim' },
   -- }}}
@@ -19,7 +18,6 @@ return {
   { 'AndrewRadev/switch.vim' },
   { 'tpope/vim-commentary' },
   { 'tpope/vim-repeat' },
-  { 'tpope/vim-surround' },
   { 'FooSoft/vim-argwrap' },
   -- }}}
   -- {{{ --| Text objects |-------------------
