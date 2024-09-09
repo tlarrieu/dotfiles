@@ -72,7 +72,7 @@ return {
         Whitespace = { link = 'Comment' },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
-        ['@markup.italic'] = { fg = c.none, italic = true },
+        ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
         ['@markup.underline'] = { fg = c.none, underline = true },
 
         ['@conditional'] = { link = 'Conditional' },
