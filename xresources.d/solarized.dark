@@ -25,6 +25,6 @@
 #define COLOR15    #fdf6e3
 
 #define BACKGROUND #002b36
-#define FOREGROUND #fdf6e3
+#define FOREGROUND #657b83
 
 ! vim: ft=xdefaults
