@@ -186,6 +186,8 @@ k.set('n', '<tab>', '<c-w>w', noremap)
 k.set('n', '<s-tab>', '<c-w>W', noremap)
 k.set('n', '<c-n>', 'gt', noremap)
 k.set('n', '<c-p>', 'gT', noremap)
+k.set('n', 'Þ', ':cnext<cr>', noremap)
+k.set('n', 'ẞ', ':cprev<cr>', noremap)
 -- New tab
 k.set('n', '<leader>tt', ':tabe<cr>', noremap)
 k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
