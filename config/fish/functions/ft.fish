@@ -25,7 +25,7 @@ function ft
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
-    ft areg assets:check expr:'tag:generated-transaction OR status:!' type:LX --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
+    ft areg assets:check expr:'tag:generated-transaction OR status:!' type:LCX --fore=today.. -p thismonth -w (math "min $COLUMNS,100")
     echo -e "\e[35mCurrent balance\e[0m"
     ft bal assets:check -p today -C -H not:tag:miriam
     return
