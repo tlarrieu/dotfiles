@@ -12,6 +12,10 @@ set trash
 
 set grepprg='ag --line-numbers %i %a %s'
 
+fileviewer *.png
+    \ kitty +icat --silent --transfer-mode=stream --place=%pwx%ph@%pxx%py %c %N
+    \ %pc
+    \ kitty icat --clear --silent %pd
 fileviewer * xdg-open
 
 nnoremap D :delete!<cr>
@@ -85,18 +89,30 @@ set classify+=' ::../::'
 " various file names
 set classify+=' ::*.pdf::'
 set classify+=' ::*.epub,,*.fb2,,*.djvu::'
-set classify+=' ::*.rb::'
+set classify+='󰟓 ::*.go::'
+set classify+=' ::go.mod::'
+set classify+='󰎠 ::go.sum::'
+set classify+='󱁻 ::Makefile::'
+set classify+=' ::*.rb::'
 set classify+=' ::*.py::'
-set classify+=' ::*.sh::'
+set classify+='󱆃 ::*.sh::'
+set classify+=' ::*.log::'
+set classify+=' ::*.js::'
+set classify+=' ::*.ts::'
+set classify+='󱏿 ::tailwind.config.js::'
+set classify+=' ::*.json::'
+set classify+=' ::*.toml::'
 set classify+=' ::*.[hc]::'
 set classify+=' ::*.[hc]pp::'
 set classify+=' ::*.md::'
+set classify+=' ::*.css::'
 set classify+=' ::*.htm,,*.html,,**.[sx]html,,*.xml::'
 set classify+=' ::*.sql::'
 set classify+=' ::*.bin::'
 set classify+=' ::*.lua::'
 set classify+=' ::*.hs::'
-set classify+='離 ::*.csv::'
+set classify+=' ::*.csv::'
+set classify+='󰿃 ::license::'
 " fonts
 set classify+=' ::*.ttf,,*.otf::'
 " archives
