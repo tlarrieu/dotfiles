@@ -5,6 +5,9 @@ function resource
   source ~/.config/fish/conf.d/aliases.fish
 end
 
+# kittens
+alias icat="kitten icat"
+
 # reset terminal
 abbr cls " echo -ne \\033c"
 
