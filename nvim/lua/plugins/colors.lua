@@ -141,8 +141,9 @@ return {
 
         WinSeparator = { link = 'Comment' },
 
-        FloatBorder = { fg = c.bg, bg = c.bg },
-        FloatTitle = { fg = c.fg, bg = c.bg, bold = true },
+        NormalFloat = { fg = c.fg, bg = c.mix_bg },
+        FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
+        FloatTitle = { fg = c.fg, bg = c.mix_bg, bold = true },
 
         LineNr = { fg = c.magenta },
         LineNrAbove = { link = 'Comment' },
