@@ -52,7 +52,7 @@ o.joinspaces = false
 o.updatetime = 250
 -- inccommand
 o.inccommand = 'nosplit'
-o.signcolumn = 'auto:1-9'
+o.signcolumn = 'yes:1'
 -- }}}
 
 -- {{{ ==| Splits |=============================================================
@@ -88,4 +88,12 @@ o.spelllang = 'en,fr'
 -- {{{ ==| Short message |======================================================
 o.shortmess:append('WIcsa')
 -- }}}
---- }}}
+
+-- {{{ ==| diagnostic |=========================================================
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = false,
+  underline = true,
+})
+-- }}}
+-- }}}
