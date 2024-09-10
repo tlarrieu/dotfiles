@@ -53,7 +53,13 @@ _M.spawn = function(cmd, props, action)
     end
   end
 
-  awful.spawn(type(cmd) == 'function' and cmd() or cmd, props)
+  awful.spawn(type(cmd) == 'function' and cmd() or cmd, props, function(client)
+    if #client:tags() == 0 then
+      local tag = require('helpers').create_tag(client.screen)
+      client:tags({ tag })
+      tag:view_only()
+    end
+  end)
 end
 
 _M.key = function(mods, key, target)
