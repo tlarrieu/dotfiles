@@ -171,7 +171,7 @@ return {
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
 
-        TelescopeBorder = { link = 'FloatBorder' },
+        TelescopeBorder = { fg = c.bg, bg = c.bg },
 
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
