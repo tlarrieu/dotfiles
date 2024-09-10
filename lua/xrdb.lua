@@ -13,6 +13,7 @@ _M.load = function()
 
   scheme.background = string.match(query, "*.background:[^#]*(#[%a%d]+)")
   scheme.foreground = string.match(query, "*.foreground:[^#]*(#[%a%d]+)")
+  scheme.comment = string.match(query, "*.comment:[^#]*(#[%a%d]+)")
 
   local vim = {
     theme = string.match(query, "vim.theme:%s*(%a+)"),
@@ -29,14 +30,15 @@ _M.load = function()
     colors = {
       foreground = scheme.foreground,
       background = scheme.background,
-      black   = { dark = scheme.color0, light = scheme.color8 },
-      red     = { dark = scheme.color1, light = scheme.color9 },
-      green   = { dark = scheme.color2, light = scheme.color10 },
-      yellow  = { dark = scheme.color3, light = scheme.color11 },
-      blue    = { dark = scheme.color4, light = scheme.color12 },
-      magenta = { dark = scheme.color5, light = scheme.color13 },
-      cyan    = { dark = scheme.color6, light = scheme.color14 },
-      white   = { dark = scheme.color7, light = scheme.color15 },
+      comment    = scheme.comment,
+      black      = { dark = scheme.color0, light = scheme.color8 },
+      red        = { dark = scheme.color1, light = scheme.color9 },
+      green      = { dark = scheme.color2, light = scheme.color10 },
+      yellow     = { dark = scheme.color3, light = scheme.color11 },
+      blue       = { dark = scheme.color4, light = scheme.color12 },
+      magenta    = { dark = scheme.color5, light = scheme.color13 },
+      cyan       = { dark = scheme.color6, light = scheme.color14 },
+      white      = { dark = scheme.color7, light = scheme.color15 },
     },
     vim = vim,
     font = font
@@ -44,7 +46,7 @@ _M.load = function()
 end
 
 local function round(x)
-  return x >= 0 and math.floor(x+0.5) or math.ceil(x-0.5)
+  return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
 end
 
 _M.apply_dpi = function(size, dpi)

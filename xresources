@@ -21,6 +21,8 @@ Xft.lcdfilter: lcddefault
 *.border:      BACKGROUND
 *.cursorColor: FOREGROUND
 *.foreground:  FOREGROUND
+*.comment:     COMMENT
+
 *.color0:  COLOR0
 *.color1:  COLOR1
 *.color2:  COLOR2

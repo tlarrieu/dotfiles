@@ -26,5 +26,6 @@
 
 #define BACKGROUND #fdf6e3
 #define FOREGROUND #657b83
+#define COMMENT    #93a1a1
 
 ! vim: ft=xdefaults
