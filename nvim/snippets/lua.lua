@@ -5,7 +5,7 @@ return {
   s("a", fmta([[---@]], {})),
   s("ap", fmta([[---@param <> <>]], { i(1, 'name'), i(2, 'type') })),
   s("af", fmta([[---@field <> <>]], { i(1, 'name'), i(2, 'type') })),
-  s("ar", fmta([[---@return <>]], {i(1, 'type')})),
+  s("ar", fmta([[---@return <>]], { i(1, 'type') })),
 
   -- modules
   s("req", fmta("require('<>')", { i(1) })),
@@ -21,14 +21,14 @@ return {
   -- definitions
   rs("^%s*d", fmta([[
     local <> = function(<>)
-      <>
+      <><>
     end]],
-    { i(1), i(2), i(0) }
+    { i(1), i(2), sel(1), i(0) }
   )),
   s("d", fmta([[function(<>)
-      <>
+      <><>
     end]],
-    { i(1), i(0) }
+    { i(1), sel(1), i(0) }
   )),
   s("l", fmta("local <> = <>", { i(1), i(0) })),
 
