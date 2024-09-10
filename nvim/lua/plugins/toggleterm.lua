@@ -2,9 +2,9 @@ return {
   'akinsho/toggleterm.nvim',
   version = '*',
   opts = {
-    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
+    direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
-      local factor = 0.3
+      local factor = 0.4
       if term.direction == 'horizontal' then
         return vim.o.lines * factor
       elseif term.direction == 'vertical' then
@@ -19,16 +19,21 @@ return {
     terminal_mappings = false,
     persist_size = false,
     persist_mode = true,
+    on_open = function(t)
+      if t.direction == 'float' then
+        require('backdrop'):hook()
+      end
+    end,
     close_on_exit = false,
     shell = vim.o.shell,
     auto_scroll = false,
     float_opts = {
       border = 'single',   -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-      winblend = 3,
+      winblend = 0,
       title_pos = 'center' -- 'left' | 'center' | 'right'
     },
     highlights = {
-      FloatBorder = { link = 'FloatBorder' },
+      FloatBorder = { link = 'WinSeparator' },
     },
   },
   config = function(_, opts)
