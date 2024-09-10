@@ -4,7 +4,7 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim', version = '*', config = true },
     { 'neovim/nvim-lspconfig',   version = '*' },
-    { 'folke/lazydev.nvim',       version = '*' },
+    { 'folke/lazydev.nvim',      version = '*' },
     { 'hrsh7th/cmp-nvim-lsp',    version = '*' },
   },
   opts = {
@@ -46,6 +46,11 @@ return {
           end
 
           vim.keymap.set({ 'n', 'v' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
+
+          vim.api.nvim_create_autocmd('BufWritePre', {
+            pattern = { ev.file },
+            callback = function() vim.lsp.buf.format() end,
+          })
         end
       end
     })
