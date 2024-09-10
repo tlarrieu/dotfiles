@@ -1,7 +1,7 @@
 #!/bin/sh
 
 envfile="$HOME/.trello.env"
-[ -f "$envfile" ] && source "$envfile"
+[ -f "$envfile" ] && . "$envfile"
 
 endpoint='https://api.trello.com/1/cards/'
 

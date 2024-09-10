@@ -1,7 +1,7 @@
 #!/bin/sh
 
 envfile="$HOME/.context.env"
-[ -f "$envfile" ] && source "$envfile"
+[ -f "$envfile" ] && . "$envfile"
 
 if [ -z "$1" ]; then
   profile="$CONTEXT"

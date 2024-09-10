@@ -1,8 +1,8 @@
 envfile="$HOME/.context.env"
-[ -f "$envfile" ] && source "$envfile"
+[ -f "$envfile" ] && . "$envfile"
 
 envfile="$HOME/.browser.env"
-[ -f "$envfile" ] && source "$envfile"
+[ -f "$envfile" ] && . "$envfile"
 
 case "$1" in
   pro)
