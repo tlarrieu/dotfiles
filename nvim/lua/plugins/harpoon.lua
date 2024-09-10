@@ -22,7 +22,7 @@ return {
 
     vim.keymap.set("n", "<c-b>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list(), {
-        title = 'Harpoon',
+        title = ' ⇁ Harpoon ',
         title_pos = 'left',
         border = 'single',
       })

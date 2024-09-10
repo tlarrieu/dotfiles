@@ -27,7 +27,7 @@ return {
             period = 1
           },
           progress_style = '@diff.delta',
-          group_style = 'FloatTitle',
+          group_style = 'FidgetGroup',
           icon_style = '@diff.plus',
           priority = 30,
           skip_history = true,

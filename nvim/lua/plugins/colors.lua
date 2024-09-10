@@ -33,9 +33,9 @@ return {
       local colors
 
       if vim.o.background == 'light' then
-        colors = { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2 }
+        colors = { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2, dim_bg = c.base4 }
       else
-        colors = { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02 }
+        colors = { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02, dim_bg = c.base04 }
       end
 
       return require('helpers').merge(colors, {
@@ -141,9 +141,12 @@ return {
 
         WinSeparator = { link = 'Comment' },
 
-        NormalFloat = { fg = c.fg, bg = c.mix_bg },
-        FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
-        FloatTitle = { fg = c.fg, bg = c.mix_bg, bold = true },
+        NormalFloat = { fg = c.fg, bg = c.dim_bg },
+        FloatBorder = { fg = c.mix_fg, bg = c.dim_bg },
+        FloatTitle = { fg = c.mix_fg, bg = c.dim_bg, bold = true },
+        FloatFooter = { fg = c.fg, bg = c.bg },
+
+        FidgetGroup = { fg = c.blue, bg = c.bg },
 
         LineNr = { fg = c.magenta },
         LineNrAbove = { link = 'Comment' },
