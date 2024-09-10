@@ -1,8 +1,9 @@
 #!/bin/sh
 
+config="$HOME/.browser-config"
+[ -f "$config" ] && . "$config"
+
 launch_browser() {
-  config="$HOME/.browser-config"
-  [ -f "$config" ] && . "$config"
   chromium --app="$1" --profile-directory="$profile"
 }
 
