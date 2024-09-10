@@ -7,7 +7,7 @@ feed-sort-order unreadarticlecount-asc
 
 goto-next-feed no
 
-browser "browser-kiosk %u"
+browser "browser-kiosk %u &"
 
 bind-key q quit
 bind-key à hard-quit all
@@ -29,7 +29,7 @@ bind-key k up all
 bind-key g home all
 bind-key G end all
 
-bind-key o open-in-browser all
+bind-key o open-in-browser-noninteractively all
 bind-key c mark-feed-read all
 bind-key C mark-all-feeds-read all
 bind-key r reload-all all
