@@ -16,8 +16,8 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       border_color = beautiful.border_normal,
 
       placement = awful.placement.no_overlap +
-        awful.placement.no_offscreen +
-        awful.placement.centered,
+          awful.placement.no_offscreen +
+          awful.placement.centered,
     },
   },
 
