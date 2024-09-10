@@ -8,7 +8,7 @@ mpc_add() {
 
 library=$HOME/Music/
 
-cd $library
+cd "$library" || exit
 
 path=$1
 
@@ -20,7 +20,7 @@ help="<b>Return</b>   <i>Play selected</i>
 <b>Tab</b>      <i>Mark</i>"
 
 folder="#268bd2"
-file="#d33682"
+# file="#d33682"
 
 selection=$(\
   find \
@@ -30,7 +30,7 @@ selection=$(\
     -exec sh -c '[ $(find "{}"/* -maxdepth 0 -type d 2> /dev/null | wc -l) -gt 0 ] && echo -n "*" || echo -n " "' \; \
     -printf " %f</span>\n" \
   | sed -e "s/<span foreground='d'>/<span foreground='$folder'>/" \
-  | sed -e "s/<span foreground='f'>/<span foreground='$file'>/" \
+  | sed -e "s/<span foreground='f'>/<span>/" \
   | sed -e "s/&/&amp;/g" \
   | rofi \
       -dmenu \

@@ -13,7 +13,7 @@
 
 #window {
   border: 0.05em;
-  border-color: @accent;
+  border-color: @fg;
 }
 
 #mainbox {
@@ -109,7 +109,7 @@
 
 #element.selected.normal {
   background-color: @bg-alt;
-  text-color: @fg;
+  text-color: @fg-alt;
 }
 
 #element.selected.urgent {
@@ -118,7 +118,7 @@
 }
 
 #element.selected.active {
-  background-color: @bg-alt;
+  background-color: @bg-accent;
   text-color: @accent;
 }
 
@@ -143,7 +143,7 @@
 }
 
 #prompt {
-  background-color: @accent;
+  background-color: @fg;
   spacing: 0;
   text-color: @bg;
   padding: 0.4em 1em;
