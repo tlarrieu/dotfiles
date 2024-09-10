@@ -8,7 +8,7 @@ return {
       qf = { icon = '󰁨' },
       query = { icon = '󰙅' }, -- treesitter tree view
 
-      harpoon = { icon = '󰛢' },
+      harpoon = { icon = '⇁' },
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
