@@ -1,9 +1,17 @@
 #!/bin/sh
 
-config="$HOME/.browser-config"
-[ -f "$config" ] && source "$config"
+launch_browser() {
+  config="$HOME/.browser-config"
+  [ -f "$config" ] && . "$config"
+  chromium --app="$1" --profile-directory="$profile"
+}
+
+launch_mpv() {
+  mpv "$1"
+}
 
 case "$1" in
-  *www.youtube.com/watch?*) mpv "$1";;
-  *) chromium --app="$1" --profile-directory="$profile";;
+  # some videos can't be launched in mpv, such as subscribers only feeds
+  *www.youtube.com/watch?*) launch_mpv "$1" || launch_browser "$1";;
+  *) launch_browser "$1";;
 esac
