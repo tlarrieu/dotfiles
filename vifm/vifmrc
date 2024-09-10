@@ -12,16 +12,11 @@ set trash
 
 set grepprg='ag --line-numbers %i %a %s'
 
-fileviewer *.png
-    \ kitty +icat --silent --transfer-mode=stream --place=%pwx%ph@%pxx%py %c %N
-    \ %pc
-    \ kitty icat --clear --silent %pd
-fileviewer * xdg-open
-
 nnoremap D :delete!<cr>
 
 nnoremap yd :!echo %d | xsel --clipboard &<cr>
 nnoremap yf :!echo %c:p | xsel --clipboard &<cr>
+nnoremap yi :!copy-file-to-clipboard %f<cr>
 
 noremap e :edit<cr>
 noremap é /

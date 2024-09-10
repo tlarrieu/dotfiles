@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+TYPE=$(file -b --mime-type "$1")
+if [ "$TYPE" = 'image/jpeg' ]; then
+  TYPE='image/png'
+fi
+xclip -selection clipboard -t "$TYPE" < "$1"

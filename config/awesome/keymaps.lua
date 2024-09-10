@@ -180,8 +180,7 @@ _M.keyboard = {
     spawner.key({ mod, 'Shift' }, 'm', 'toggle-dim-mpd.sh'),
     spawner.key({ mod }, 'b', 'mpc-playlist'),
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
-
-    spawner.key({ mod }, 'u', spawner.terminal('vifm')),
+    spawner.key({ mod }, 'u', spawner.terminal('vifm', { class = 'vifm' })),
     spawner.key({ mod, 'Shift' }, 'u', 'nemo'),
     spawner.key({ mod }, 'g', 'wallpaper'),
     spawner.key({ mod }, 'h', {
