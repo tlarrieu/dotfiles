@@ -1,4 +1,5 @@
 colorscheme solarized
+view
 only
 
 set shell=/bin/sh
@@ -14,6 +15,14 @@ set number
 set rnu
 
 set grepprg='rg -n %a %i %s'
+
+fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+    \ kitten icat --silent --transfer-mode=file --place=%pwx%ph@%pxx%py %c >/dev/tty </dev/tty %N
+    \ %pc
+    \ kitten icat --clear --silent >/dev/tty </dev/tty %N
+
+nnoremap <silent> co :!kitten icat --clear --silent<cr>:wincmd o<cr>
+nnoremap <silent> cp :vs<cr>
 
 nnoremap D :delete!<cr>
 
