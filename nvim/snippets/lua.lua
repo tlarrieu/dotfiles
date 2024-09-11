@@ -31,6 +31,7 @@ return {
     { i(1), sel(1), i(0) }
   )),
   s("l", fmta("local <> = <>", { i(1), i(0) })),
+  s("r", fmta("return <><>", { sel(1), i(0) })),
 
   -- control structures
   s("for", fmta([[
