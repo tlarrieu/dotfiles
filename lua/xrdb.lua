@@ -3,8 +3,10 @@ local _M = {}
 _M.load = function()
   local output = io.popen('xrdb -query')
   local query = ''
-  if output then query = output:read('*a') end
-  if output then output:close() end
+  if output then
+    query = output:read('*a')
+    output:close()
+  end
 
   local scheme = {}
   for i, color in string.gmatch(query, "*.color(%d+):[^#]*(#[%a%d]+)") do
