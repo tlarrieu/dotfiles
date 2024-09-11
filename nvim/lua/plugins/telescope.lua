@@ -3,6 +3,10 @@ return {
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-ui-select.nvim' },
+    {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
+    },
   },
   config = function()
     local actions = require('telescope.actions')
@@ -52,11 +56,12 @@ return {
             prompt_prefix = '  ',
             layout_strategy = 'horizontal',
           }),
-        }
+        },
       }
     })
 
     require('telescope').load_extension('ui-select')
+    require('telescope').load_extension('fzf')
 
     local builtin = require('telescope.builtin')
     local k = vim.keymap
