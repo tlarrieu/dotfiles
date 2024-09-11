@@ -3,14 +3,17 @@ only
 
 set shell=/bin/sh
 set vicmd=nvim
+set dotdirs=treeleafsparent
 
 set incsearch
 set ignorecase
 set smartcase
 set nohlsearch
 set trash
+set number
+set rnu
 
-set grepprg='ag --line-numbers %i %a %s'
+set grepprg='rg -n %a %i %s'
 
 nnoremap D :delete!<cr>
 
@@ -26,6 +29,7 @@ noremap À ZZ
 noremap <silent> <esc> <esc>:nohlsearch<cr><c-l>=<c-w><cr>
 noremap <c-t> =
 
+" this does not work. TODO: find out why
 noremap " 1
 noremap 1 "
 noremap « 2

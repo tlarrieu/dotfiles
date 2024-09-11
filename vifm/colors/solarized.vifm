@@ -38,3 +38,5 @@ highlight Socket     cterm=none              ctermfg=magenta ctermbg=default
 highlight Device     cterm=none              ctermfg=red     ctermbg=default
 highlight Fifo       cterm=none              ctermfg=cyan    ctermbg=default
 highlight Executable cterm=none              ctermfg=green   ctermbg=default
+
+highlight LineNr     cterm=italic            ctermfg=14      ctermbg=default
