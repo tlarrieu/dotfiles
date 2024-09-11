@@ -119,7 +119,7 @@ function battery_widget:init(args)
 
   if (args.listen or args.listen == nil) and watch then
     self.listener = watch('acpi_listen', {
-      stdout = function(line)
+      stdout = function(_)
         self:update()
       end,
     })
@@ -174,7 +174,7 @@ function battery_widget:update()
   ctx.color_on  = ''
   ctx.color_off = ''
   if ctx.percent then
-    for k, v in ipairs(self.limits) do
+    for _, v in ipairs(self.limits) do
       if ctx.percent <= v[1] then
         ctx.color_on, ctx.color_off = color_tags(v[2])
         break
