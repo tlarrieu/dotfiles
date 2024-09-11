@@ -4,6 +4,7 @@ local apply_xrdb = function()
 
   vim.cmd.colorscheme(xrdb.vim.theme)
   vim.o.background = xrdb.vim.background
+  vim.cmd.syntax('on')
 end
 
 return {
