@@ -29,6 +29,12 @@ return {
     { i(1, "name"), i(0) }
   )),
   s("dr", fmta([[ func (writer http.ResponseWriter, request *http.Request) {<>}]], { i(0) })),
+  rs("^m", fmta([[
+      func (<>) <>(<>) <> {
+      	<>
+      }]],
+    { i(1, "receiver"), i(2, "name"), i(3, ""), i(3, "type"), i(0) }
+  )),
 
   -- types
   rs("^i", fmta("type <> interface {<>}", { i(1, "name"), i(0) })),
@@ -60,12 +66,12 @@ return {
   if <> {
     <>
   }
-  ]], { i(1, 'cond'), i(2)})),
+  ]], { i(1, 'cond'), i(2) })),
   s("else", fmta([[
   else {
     <>
   }
-  ]], { i(1)})),
+  ]], { i(1) })),
   s("ei", fmta([[
   else if <> {
     <>
@@ -75,6 +81,7 @@ return {
   -- common patterns
   s("exit", fmta("os.Exit(<>)", { i(0, "0") })),
   s("p", fmta("fmt.Println(<><>)", { sel(), i(0) })),
+  s("r", fmta("return <><>", { sel(), i(0) })),
   s("open", fmta([[
     <>, <> := os.Open("<>")
     if <> != nil {
