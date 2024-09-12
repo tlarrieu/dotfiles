@@ -37,3 +37,5 @@ newsboat/urls
 
 apps/ignore
 !apps/*.com
+
+!**/.projections.json
