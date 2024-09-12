@@ -31,21 +31,19 @@ return {
 
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
           vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
-
           if client.supports_method('textDocument/hover') then
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
           end
           if client.supports_method('textDocument/codeAction') then
-            vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, conf)
+            vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
           end
           if client.supports_method('textDocument/references') then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
           end
           if client.supports_method('textDocument/rename') then
-            vim.keymap.set({ 'n', 'v' }, 'gé', vim.lsp.buf.rename, conf)
+            vim.keymap.set({ 'n' }, 'gé', vim.lsp.buf.rename, conf)
           end
-
-          vim.keymap.set({ 'n', 'v' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
+          vim.keymap.set({ 'n', 'x' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
 
           vim.api.nvim_create_autocmd('BufWritePre', {
             pattern = { ev.file },
