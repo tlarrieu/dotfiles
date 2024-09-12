@@ -110,9 +110,9 @@ return {
         CurSearch = { link = 'IncSearch' },
 
         SpellBad = paint('red'),
-        SpellLocal = paint('blue', { undercurl = true }),
-        SpellCap = { link = 'SpellLocal' },
-        SpellRare = { link = 'SpellLocal' },
+        SpellCap = paint('blue', { undercurl = true }),
+        SpellLocal = { link = 'SpellCap' },
+        SpellRare = { link = 'SpellCap' },
         Error = { undercurl = true },
 
         DiagnosticOk = { fg = c.green, bg = c.none },
