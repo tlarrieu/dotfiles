@@ -44,11 +44,6 @@ return {
             vim.keymap.set({ 'n' }, 'gé', vim.lsp.buf.rename, conf)
           end
           vim.keymap.set({ 'n', 'x' }, '<leader>f', function() vim.lsp.buf.format({ async = true }) end, conf)
-
-          vim.api.nvim_create_autocmd('BufWritePre', {
-            pattern = { ev.file },
-            callback = function() vim.lsp.buf.format() end,
-          })
         end
       end
     })
