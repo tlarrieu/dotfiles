@@ -30,5 +30,5 @@ local task_actions = {
   ['gS'] = 'cycle-reverse',
 }
 for key, value in pairs(task_actions) do
-  vim.keymap.set('n', key, '<Plug>(neorg.qol.todo-items.todo.task-' .. value ..')', { buffer = true })
+  vim.keymap.set('n', key, '<Plug>(neorg.qol.todo-items.todo.task-' .. value .. ')', { buffer = true })
 end
