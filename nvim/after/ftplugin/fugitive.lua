@@ -3,3 +3,4 @@ runner.default({ alt = runner.exec('Git push --force-with-lease<bar>Git') })
 
 vim.keymap.set('n', 'k', '(', { remap = true, buffer = true })
 vim.keymap.set('n', 'j', ')', { remap = true, buffer = true })
+vim.keymap.set({ 'n', 'x' }, 'x', 'X', { remap = true, buffer = true })
