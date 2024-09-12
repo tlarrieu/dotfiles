@@ -177,8 +177,12 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
     spawner.key({ mod }, 'm', 'mpc-library'),
-    spawner.key({ mod, 'Shift' }, 'm', 'toggle-dim-mpd.sh'),
     spawner.key({ mod }, 'b', 'mpc-playlist'),
+    spawner.key({ mod, 'Shift' }, 'm', {
+      app = 'music',
+      props = { instance = 'music.youtube.com' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
     spawner.key({ mod }, 'u', spawner.terminal('vifm', { class = 'vifm' })),
     spawner.key({ mod, 'Shift' }, 'u', 'nemo'),
