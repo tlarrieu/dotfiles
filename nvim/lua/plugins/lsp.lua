@@ -36,7 +36,7 @@ return {
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
           end
           if client.supports_method('textDocument/codeAction') then
-            vim.keymap.set('n', 'g.', vim.lsp.buf.code_action, conf)
+            vim.keymap.set({ 'n', 'v' }, 'g.', vim.lsp.buf.code_action, conf)
           end
           if client.supports_method('textDocument/references') then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
