@@ -96,4 +96,11 @@ vim.diagnostic.config({
   underline = true,
 })
 -- }}}
+
+-- {{{ ==| filetypes |==========================================================
+vim.filetype.add({
+  extension = {
+    rasi = 'rasi',
+  },
+})
 -- }}}
