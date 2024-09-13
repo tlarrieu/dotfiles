@@ -8,8 +8,8 @@ return {
       callback = function()
         vim.keymap.set('n', 'ß', '<Plug>(GitGutterPrevHunk)')
         vim.keymap.set('n', 'þ', '<Plug>(GitGutterNextHunk)')
-        vim.keymap.set('', '7', ':GitGutterStageHunk<cr>', { remap = true })
-        vim.keymap.set('', '8', ':GitGutterUndoHunk<cr>', { remap = true })
+        vim.keymap.set({ 'n', 'o', 'x' }, '7', ':GitGutterStageHunk<cr>', { remap = true })
+        vim.keymap.set({ 'n', 'o', 'x' }, '8', ':GitGutterUndoHunk<cr>', { remap = true })
       end,
       group = vim.api.nvim_create_augroup('GitGutterAutocmd', {})
     })
