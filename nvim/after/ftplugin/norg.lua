@@ -4,7 +4,11 @@ o.formatoptions = o.formatoptions + 't'
 o.conceallevel = 2
 o.spell = true
 
-local group = vim.api.nvim_create_augroup('NeorgAutocmd', {})
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = { '**/gtd/index.norg' },
+  callback = function() o.foldlevel = 1 end,
+})
+
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '**/gtd/*.norg' },
   callback = function()
@@ -17,7 +21,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
     vim.keymap.set('v', '<leader>u', 'S_ee', { buffer = true, remap = true })
     vim.keymap.set('v', '<leader>s', 'S-ee', { buffer = true, remap = true })
   end,
-  group = group
 })
 
 local task_actions = {
