@@ -9,11 +9,13 @@
   mesg-gutter: 1em 1em 0.5em 1em;
   list-gutter: 0.5em;
   elem-gutter: 0.3em 0.5em;
+  background: transparent;
 }
 
 #window {
   border: 0.05em;
   border-color: @fg;
+  transparency: "real";
 }
 
 #mainbox {
@@ -148,5 +150,3 @@
   text-color: @bg;
   padding: 0.4em 1em;
 }
-
-/* vim:ft=css
