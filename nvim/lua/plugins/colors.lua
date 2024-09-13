@@ -68,7 +68,8 @@ return {
         Keyword = { fg = c.green, bold = false },
         Special = { fg = c.magenta },
         String = { italic = true },
-        Tag = { fg = c.orange },
+        Tag = { fg = c.yellow },
+        TagAttribute = { fg = c.violet },
         Type = { fg = c.orange },
         Whitespace = { link = 'Comment' },
 
