@@ -36,6 +36,7 @@ return {
           end
           if client.supports_method('textDocument/codeAction') then
             vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
+            vim.keymap.set({ 'n', 'x' }, '<leader>i', require('utils').fiximports, conf)
           end
           if client.supports_method('textDocument/references') then
             vim.keymap.set('n', 'gr', vim.lsp.buf.references, conf)
