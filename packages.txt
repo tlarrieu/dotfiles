@@ -75,7 +75,7 @@ lightdm
 i3lock-color
 picom
 wmctrl
-maim
+flameshot
 unclutter
 redshift
 
