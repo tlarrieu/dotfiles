@@ -53,6 +53,7 @@ templates: ~/.Xresources.d/local
 templates: ~/.config/kitty/theme.conf
 templates: ~/.config/rofi/variant.rasi
 templates: ~/.config/btop/themes/current.theme
+templates: ~/.xsettingsd
 
 ~/.Xresources.d/local:
 	@cp $(BASEDIR)/templates/.Xresources.d/local ~/.Xresources.d/local
@@ -65,6 +66,9 @@ templates: ~/.config/btop/themes/current.theme
 
 ~/.config/btop/themes/current.theme:
 	@cp $(BASEDIR)/config/btop/themes/light.theme ~/.config/btop/themes/current.theme
+
+~/.xsettingsd:
+	@cp $(BASEDIR)/templates/.xsettingsd ~/.xsettingsd
 
 .PHONY: root-nvim
 root-nvim:

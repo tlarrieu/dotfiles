@@ -78,6 +78,7 @@ wmctrl
 flameshot
 unclutter
 redshift
+xsettingsd
 
 # gtk
 lxappearance-gtk3

@@ -5,9 +5,11 @@ btop_theme=''
 if grep 'light' ~/.Xresources.d/local > /dev/null; then
   expr='s/light/dark/'
   btop_theme='dark'
+  gtk_expr='s/Light/Dark/'
 else
   expr='s/dark/light/'
   btop_theme='light'
+  gtk_expr='s/Dark/Light/'
 fi
 
 # Xresources
@@ -32,6 +34,10 @@ awesome-client <<- LUA
   require('theme').config()
   for s in screen do require('panel').init(s) end
 LUA
+
+# GTK
+sed -e $gtk_expr -i ~/.xsettingsd
+xsettingsd &
 
 # wallpaper
 ~/.fehbg
