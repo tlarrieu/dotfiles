@@ -21,7 +21,10 @@ return {
       },
       lualine_x = {
         'encoding',
-        'fileformat',
+        {
+          'fileformat',
+          symbols = { unix = '', dos = '󰖳', mac = '' },
+        },
         {
           'custom',
           fmt = function()
