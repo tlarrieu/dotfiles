@@ -26,9 +26,10 @@ local update_icon = function(tag)
   local xs = {}
   for _, client in ipairs(tag:clients()) do xs[icons.fetch(client)] = true end
 
-  local name = ''
-  for k, v in pairs(xs) do name = name .. ' ' .. k end
-  tag.name = name
+  local ys = {}
+  for k in pairs(xs) do table.insert(ys, k) end
+
+  tag.name = table.concat(ys, ' ')
 end
 
 local handle = function(object)

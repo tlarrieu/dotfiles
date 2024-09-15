@@ -37,7 +37,7 @@ return {
       filter = function(tag)
         return #tag:clients() > 1 or #tag.screen.tags > 1
       end,
-      style = { spacing = dpi(6) },
+      style = { spacing = dpi(8) },
     })
 
     local left = wibox.widget({
