@@ -70,7 +70,22 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     },
   },
 
-  -- [[ floating ]] ------------------------------------------------------------
+  -- [[ Fullscreen ]] ----------------------------------------------------------
+
+  {
+    rule_any = {
+      instance = {
+      },
+      class = {
+        'gtgf',
+      }
+    },
+    properties = {
+      fullscreen = true,
+    },
+  },
+
+  -- [[ Floating ]] ------------------------------------------------------------
   {
     rule_any = {
       instance = {
