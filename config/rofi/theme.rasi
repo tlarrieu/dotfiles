@@ -1,22 +1,22 @@
 @import "variant"
 
 * {
+  font: "Cascadia Code NF 16.5";
+
   red: #dc322f;
   magenta: #d33682;
   accent: @magenta;
   urgent: @red;
 
   mesg-gutter: 1em 1em 0.5em 1em;
-  list-gutter: 0em;
-  window-border: 0em;
-  elem-gutter: 0.3em 0.5em;
-  background: transparent;
+  list-gutter: 0;
+  window-border: 0;
+  elem-gutter: 0.5em 1em;
 }
 
 #window {
   border: @window-border;
   border-color: @fg;
-  transparency: "real";
 }
 
 #mainbox {
@@ -62,6 +62,29 @@
   margin: 0;
   spacing: 0;
   text-color: @fg;
+}
+
+#inputbar {
+  background-color: transparent;
+  spacing: 0;
+  children: [prompt, entry];
+}
+
+#prompt {
+  font: "Cascadia Code NF 28";
+  background-color: @fg;
+  spacing: 0;
+  text-color: @bg;
+  vertical-align: 0.5;
+  padding: 0 1.5em;
+}
+
+#entry {
+  background-color: transparent;
+  spacing: 0;
+  text-color: @fg;
+  padding: 0.8em;
+  margin: 0;
 }
 
 #element {
@@ -123,31 +146,4 @@
 #element.selected.active {
   background-color: @bg-accent;
   text-color: @accent;
-}
-
-#inputbar {
-  background-color: transparent;
-  spacing: 0;
-  children: [prompt, entry];
-}
-
-#case-indicator {
-  background-color: transparent;
-  spacing: 0;
-  text-color: @fg;
-}
-
-#entry {
-  background-color: transparent;
-  spacing: 0;
-  text-color: @fg;
-  padding: 0.4em 0.6em;
-  margin: 0;
-}
-
-#prompt {
-  background-color: @fg;
-  spacing: 0;
-  text-color: @bg;
-  padding: 0.4em 1em;
 }

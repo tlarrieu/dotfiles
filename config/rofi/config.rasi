@@ -1,6 +1,4 @@
 configuration {
-  font: "Cascadia Code NF 16.5";
-
   terminal: "kitty";
   ssh-command: "{terminal} -e {ssh-client} {host}";
   run-command: "{cmd}";
