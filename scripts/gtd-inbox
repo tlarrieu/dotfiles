@@ -4,20 +4,5 @@ task() {
   sed -i "2 i ** ( ) $1" ~/.neorg/gtd/index.norg
 }
 
-note() {
-  sed -i "3 i\   - $1" ~/.neorg/gtd/index.norg
-}
-
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
-input=$(eval "$LAUNCHER")
-
-url=$(echo "$input" | grep -Eo "https?://[^ ]+")
-if [ -n "$url" ]; then url="{$url}"; fi
-input=$(echo "$input" | sed "s# *https\?://.*##")
-
-if [ -n "$input" ]; then
-  task "$input"
-  if [ -n "$url" ]; then note "$url"; fi
-else
-  if [ -n "$url" ]; then task "$url"; fi
-fi
+task "$(eval "$LAUNCHER" | sed 's#\(https\?://[^\ ]\+\)#{\1}#g')"
