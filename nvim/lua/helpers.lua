@@ -6,6 +6,17 @@ _M.basename = function()
   return basename or filename or ""
 end
 
+_M.dirname = function ()
+  local filename = vim.api.nvim_buf_get_name(0)
+  local dirname = filename:match("^(.+)/.+$")
+
+  if vim.fn.isdirectory(filename) == 1 then
+    return filename:match("^.+/(.+)$")
+  end
+
+  return dirname:match("^.+/(.+)$")
+end
+
 _M.fileexists = function(path)
   local f = io.open(path, "rb")
   if f then f:close() end

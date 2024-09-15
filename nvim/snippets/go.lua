@@ -110,6 +110,6 @@ return {
 
     <>
     ]],
-    { i(1, "main"), i(0) }
+    { f(h.dirname), i(0) }
   )),
 }
