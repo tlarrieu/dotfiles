@@ -62,7 +62,6 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'gtd',
         'scratchpad',
         'quake',
-        'gtgf',
       }
     },
     properties = {
@@ -70,19 +69,12 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     },
   },
 
-  -- [[ Fullscreen ]] ----------------------------------------------------------
+  -- [[ gtgf ]] ----------------------------------------------------------
 
   {
-    rule_any = {
-      instance = {
-      },
-      class = {
-        'gtgf',
-      }
-    },
+    rule = { class = 'gtgf' },
     properties = {
       fullscreen = true,
-      opacity = 0.8,
     },
   },
 
