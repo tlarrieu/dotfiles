@@ -2,7 +2,7 @@ return {
   'hrsh7th/nvim-cmp',
   dependencies = {
     'saadparwaiz1/cmp_luasnip',
-    'folke/lazydev.nvim' ,
+    'folke/lazydev.nvim',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
@@ -61,10 +61,18 @@ return {
         end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({
-        { name = 'nvim_lsp' },
-        { name = 'buffer' },
-        { name = 'path' },
-        { name = 'luasnip' },
+        { name = 'nvim_lsp', priority = 100 },
+        {
+          name = 'buffer',
+          priority = 90,
+          option = {
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end
+          }
+        },
+        { name = 'luasnip',  priority = 80 },
+        { name = 'path',     priority = 0 },
       }),
       formatting = {
         format = function(entry, vim_item)
@@ -95,13 +103,14 @@ return {
 
     cmp.setup.filetype('ledger', {
       sources = cmp.config.sources({
-        { name = 'hledger' },
+        { name = 'hledger', priority = 100 },
         { name = 'buffer' },
       })
     })
 
     -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
     cmp.setup.cmdline({ '/', '?' }, {
+      mapping = cmp.mapping.preset.cmdline(),
       sources = {
         { name = 'buffer' }
       },
@@ -111,6 +120,7 @@ return {
     })
 
     cmp.setup.cmdline(':', {
+      mapping = cmp.mapping.preset.cmdline(),
       sources = cmp.config.sources({
         { name = 'path' },
         { name = 'cmdline' },
