@@ -151,7 +151,7 @@ k.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K', noremap)
 k.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L', noremap)
 -- Horizontal Split
 k.set('n', '<leader>nn', ':new<cr>', noremap)
-k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
+k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
 k.set('n', '<leader>vv', ':vnew<cr>', noremap)
 k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
@@ -169,7 +169,7 @@ k.set('n', 'Þ', ':cnext<cr>', noremap)
 k.set('n', 'ẞ', ':cprev<cr>', noremap)
 -- New tab
 k.set('n', '<leader>tt', ':tabe<cr>', noremap)
-k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
+k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
 k.set('n', '<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
