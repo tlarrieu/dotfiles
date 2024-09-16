@@ -12,7 +12,7 @@ return {
 
     local k = vim.keymap
 
-    k.set('n', '<leader>$', function() harpoon:list():add() end)
+    k.set('n', '<c-$>', function() harpoon:list():add() end)
 
     k.set('n', '<c-">', function() harpoon:list():select(1) end)
     k.set('n', '<c-«>', function() harpoon:list():select(2) end)
