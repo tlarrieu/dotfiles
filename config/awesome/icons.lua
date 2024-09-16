@@ -85,6 +85,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', name = ', espace client,' }},
   { icon = '󰆭', rule = { class = 'Chromium', instance = 'boursedirect' }},
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' }},
+  { icon = '󰗑', rule = { class = 'accounting' }},
 
   --  Pictures
   { icon = '', rule = { class = 'Chromium', instance = 'pinterest.com' }},
