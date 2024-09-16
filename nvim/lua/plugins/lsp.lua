@@ -17,7 +17,6 @@ return {
       'vimls',      -- vim
       'gopls',      -- golang
       'bashls',     -- bash
-      'ocamllsp',   -- ocaml
     },
   },
   config = function(_, opts)
