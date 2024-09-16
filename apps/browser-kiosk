@@ -13,6 +13,8 @@ launch_mpv() {
 
 case "$1" in
   # some videos can't be launched in mpv, such as subscribers only feeds
-  *www.youtube.com/watch?*) launch_mpv "$1" || launch_browser "$1";;
+  *www.youtube.com/watch\?*) launch_mpv "$1" || launch_browser "$1";;
+  *changelog.com/podcast/feed) launch_browser "$1";;
+  *changelog.com/*/*) launch_mpv "$1" || launch_browser "$1";;
   *) launch_browser "$1";;
 esac
