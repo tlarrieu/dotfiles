@@ -44,6 +44,7 @@ return {
       experimental = {
         ghost_text = { hl_group = 'CmpGhostText' },
       },
+      preselect = cmp.PreselectMode.None,
       snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
       },
