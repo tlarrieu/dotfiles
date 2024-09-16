@@ -82,6 +82,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     },
     properties = {
       fullscreen = true,
+      opacity = 0.8,
     },
   },
 
