@@ -33,13 +33,8 @@ end
 _M.keyboard = {
   clients = gears.table.join(
     spawner.key({ mod }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
-    spawner.key({ mod }, 'eacute', function(c)
-      if c.immortal then
-        c:tags({}) -- hide client instead of killing it
-      else
-        c:kill()
-      end
-    end),
+    spawner.key({ mod }, 'eacute', function(c) if c.immortal then c:tags({}) else c:kill() end end),
+    spawner.key({ mod, 'Shift' }, 'eacute', function(c) c:kill() end),
 
     spawner.key({ mod, 'Control' }, 'c', function(c)
       awful.tag.viewprev()
