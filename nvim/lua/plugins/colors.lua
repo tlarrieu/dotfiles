@@ -70,7 +70,7 @@ return {
         String = { italic = true },
         Tag = { fg = c.yellow },
         TagAttribute = { fg = c.violet },
-        Type = { fg = c.orange },
+        Type = { fg = c.yellow },
         Whitespace = { link = 'Comment' },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
