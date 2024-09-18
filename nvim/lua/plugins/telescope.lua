@@ -67,22 +67,28 @@ return {
     local builtin = require('telescope.builtin')
     local k = vim.keymap
     local options = { silent = true }
+    local merge = require('helpers').merge
 
     k.set('n', '<c-t>', function()
       return builtin.find_files({
         hidden = true,
         path_display = { 'filename_first' }
       })
-    end, options)
-    k.set('n', '<c-é>', function() return builtin.live_grep({ additional_args = { '--hidden' } }) end, options)
-    k.set('n', '<leader>é', function() return builtin.grep_string({ additional_args = { '--hidden' } }) end, options)
-    k.set('n', '<c-h>', builtin.help_tags, options)
-    k.set('n', '<c-y>', builtin.git_status, options)
-    k.set('n', '<c-s-y>', builtin.git_branches, options)
-    k.set('n', '<c-l>', builtin.lsp_document_symbols, options)
-    k.set('n', '<c-e>', builtin.diagnostics, options)
-    k.set('n', '<c-q>', builtin.quickfix, options)
-    k.set('n', 'g?', builtin.spell_suggest, options)
-    k.set('n', '<c-è>', ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>', options)
+    end, merge(options, { desc = 'Telescope file finder' }))
+    k.set('n', '<c-é>', function()
+      return builtin.live_grep({ additional_args = { '--hidden' } })
+    end, merge(options, { desc = 'Telescope live grep' }))
+    k.set('n', '<leader>é', function()
+      return builtin.grep_string({ additional_args = { '--hidden' } })
+    end, merge(options, { desc = 'Telescope grep string' }))
+    k.set('n', '<c-h>', builtin.help_tags, merge(options, { desc = 'Telescope help tags' }))
+    k.set('n', '<c-y>', builtin.git_status, merge(options, { desc = 'Telescope git status' }))
+    k.set('n', '<c-s-y>', builtin.git_branches, merge(options, { desc = 'Telescope git branch' }))
+    k.set('n', '<c-l>', builtin.lsp_document_symbols, merge(options, { desc = 'Telescope LSP document symbols' }))
+    k.set('n', '<c-e>', builtin.diagnostics, merge(options, { desc = 'Telescope diagnostics' }))
+    k.set('n', '<c-q>', builtin.quickfix, merge(options, { desc = 'Telescope quickfix' }))
+    k.set('n', 'g?', builtin.spell_suggest, merge(options, { desc = 'Telescope spell suggest' }))
+    k.set('n', '<c-è>', ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
+      merge(options, { desc = 'Telescope TODO' }))
   end
 }
