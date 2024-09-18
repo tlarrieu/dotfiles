@@ -2,6 +2,7 @@ return {
   'nvim-tree/nvim-web-devicons',
   opts = {
     default = true,
+    color_icons = false,
     override = {
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
@@ -19,7 +20,7 @@ return {
 
       xf86conf = { icon = '' },
       xdefaults = { icon = '' },
-      desktop = { icon = '󰍹' },
+      xresources = { icon = '' },
 
       make = { icon = '󱁻' },
       vim = { icon = '' },
@@ -77,9 +78,9 @@ return {
       rb = { icon = '' },
       ru = { icon = '' },
       erb = { icon = '' },
-      png = { icon = '󰈟' },
-      jpg = { icon = '󰈟' },
-      svg = { icon = '󰈟' },
+      png = { icon = '' },
+      jpg = { icon = '' },
+      svg = { icon = '' },
       js = { icon = '' },
       md = { icon = '' },
       ml = { icon = '' },
@@ -120,6 +121,6 @@ return {
   config = function(_, opts)
     local plug = require('nvim-web-devicons')
     plug.setup(opts)
-    plug.set_default_icon('')
+    -- plug.set_default_icon('')
   end
 }

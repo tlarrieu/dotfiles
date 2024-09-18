@@ -67,7 +67,12 @@ return {
     local k = vim.keymap
     local options = { silent = true }
 
-    k.set('n', '<c-t>', function() return builtin.find_files({ hidden = true }) end, options)
+    k.set('n', '<c-t>', function()
+      return builtin.find_files({
+        hidden = true,
+        path_display = { 'filename_first' }
+      })
+    end, options)
     k.set('n', '<c-é>', function() return builtin.live_grep({ additional_args = { '--hidden' } }) end, options)
     k.set('n', '<leader>é', function() return builtin.grep_string({ additional_args = { '--hidden' } }) end, options)
     k.set('n', '<c-h>', builtin.help_tags, options)
