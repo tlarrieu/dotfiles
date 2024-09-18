@@ -18,8 +18,9 @@ return {
         file_ignore_patterns = { '^%.git/' },
 
         prompt_prefix = '  ',
-        selection_caret = '󰄾 ',
-        multi_icon = '󰆤 ',
+        selection_caret = ' ',
+        entry_prefix = '⠀ ',
+        multi_icon = ' ',
 
         path_display = { 'smart', 'shorten' },
 
