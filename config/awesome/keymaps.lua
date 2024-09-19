@@ -178,9 +178,10 @@ _M.keyboard = {
       props = { instance = 'music.youtube.com' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({}, 'XF86AudioPlay', 'mpc toggle'),
-    spawner.key({}, 'XF86AudioNext', 'mpc next'),
-    spawner.key({}, 'XF86AudioPrev', 'mpc prev'),
+    spawner.key({}, 'XF86AudioPause', 'mpc toggle'), -- earbuds are down
+    spawner.key({}, 'XF86AudioPlay', 'mpc toggle'), -- single tap on earbud
+    spawner.key({}, 'XF86AudioNext', 'mpc next'), -- double tap on earbud
+    spawner.key({}, 'XF86AudioPrev', 'mpc prev'), -- triple tap on earbud
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
     spawner.key({ mod }, 'u', spawner.terminal('vifm', { class = 'vifm' })),
     spawner.key({ mod, 'Shift' }, 'u', 'nemo'),
