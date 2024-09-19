@@ -80,7 +80,8 @@ return {
 
   -- common patterns
   s("exit", fmta("os.Exit(<>)", { i(0, "0") })),
-  s("p", fmta("fmt.Println(<><>)", { sel(), i(0) })),
+  s("p", fmta("fmt.Println(<><>)", { sel(), i(1) })),
+  s("pf", fmta([[fmt.Printf("<><>", <>)]], { sel(), i(1), i(2) })),
   s("open", fmta([[
     <>, <> := os.Open("<>")
     if <> != nil {
