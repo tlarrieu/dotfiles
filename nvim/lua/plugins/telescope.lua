@@ -15,7 +15,11 @@ return {
       defaults = {
         border = true,
         results_title = false,
-        file_ignore_patterns = { '^%.git/' },
+        file_ignore_patterns = {
+          '^%.git/',
+          '%.png',
+          '%.jpg'
+        },
 
         prompt_prefix = '  ',
         selection_caret = ' ',
