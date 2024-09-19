@@ -6,13 +6,12 @@ tile.right
 tile.left
 "
 
-option=$(echo "$OPTIONS" | $LAUNCHER | awk '{print $1}')
-if [ ${#option} -gt 0 ]; then
-awesome-client <<END
+layout=$(echo "$OPTIONS" | $LAUNCHER | awk '{print "awful.layout.suit."$1}')
+if [ ${#layout} -gt 0 ]; then
+awesome-client <<-LUA
   local awful = require('awful')
 
-  awful.layout.set(awful.layout.suit.$option)
-  local c = client.focus
-  if c then awful.client.setmaster(c) end
-END
+  awful.client.setmaster(client.focus)
+  awful.layout.set($layout)
+LUA
 fi
