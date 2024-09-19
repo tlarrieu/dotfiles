@@ -54,7 +54,7 @@ color end-of-text-marker color15 default
 
 # highlights -----------------------------------------------
 highlight article "^(Title):.*$" blue default
-highlight article "https?://[^ ]+" red default
+highlight article "https?://[^ ]+" magenta default
 highlight article "\\[image\\ [0-9]+\\]" green default
 
 # vim:ft=config
