@@ -1,18 +1,18 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -i -p  -l 7'
+LAUNCHER='rofi -dmenu -i -p  -l 3'
 OPTIONS="fair
-fair.horizontal
-max
 tile.right
 tile.left
-tile.top
-tile.bottom"
+"
 
 option=$(echo "$OPTIONS" | $LAUNCHER | awk '{print $1}')
 if [ ${#option} -gt 0 ]; then
-  echo "
-  awful = require('awful')
+awesome-client <<END
+  local awful = require('awful')
+
   awful.layout.set(awful.layout.suit.$option)
-  " | awesome-client
+  local c = client.focus
+  if c then awful.client.setmaster(c) end
+END
 fi
