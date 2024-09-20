@@ -13,7 +13,8 @@ return {
     local accent = theme.colors.magenta.dark
 
     theme.font = xrdb.font.name .. " " .. xrdb.font.size
-    theme.taglist_font = xrdb.font.name .. " " .. xrdb.font.size * 1.5
+    theme.taglist_font = xrdb.font.name .. " " .. tostring(xrdb.font.size * 1.5):gsub(",", ".")
+    theme.taglist_bg_focus = theme.colors.background .. '00'
 
     theme.fg_normal = theme.colors.foreground
     theme.fg_focus = accent

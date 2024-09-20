@@ -71,7 +71,7 @@ xorg-xinput
 xorg-xmodmap
 
 # window_manager
-awesome
+awesome-git
 lightdm
 i3lock-color
 picom

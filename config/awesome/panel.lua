@@ -78,22 +78,22 @@ return {
       filter = function(tag)
         return #tag:clients() > 1 or #tag.screen.tags > 1
       end,
-      style = { spacing = dpi(8) },
+      style  = { spacing = dpi(8) },
     })
 
     local left = wibox.widget({
       wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2), nil, false),
-      wibox.container.margin(earbuds, dpi(6), dpi(10), dpi(6), dpi(6), nil, false),
+      wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
       layout = wibox.layout.fixed.horizontal
     })
 
     local middle = wibox.widget({
-      wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
+      taglist,
       layout = wibox.layout.fixed.horizontal
     })
 
     local right = wibox.widget({
-      wibox.container.margin(clock, dpi(5), dpi(5), dpi(0), dpi(0)),
+      wibox.container.margin(clock, dpi(10), dpi(10), dpi(0), dpi(0)),
       layout = wibox.layout.fixed.horizontal
     })
 
@@ -111,7 +111,9 @@ return {
       position = 'top',
       height = dpi(32),
       screen = screen,
-      widget = wibox.container.margin(barwidget, dpi(2), dpi(2), dpi(2), dpi(2))
+      margins = { top = dpi(11), bottom = dpi(-2), left = dpi(11), right = dpi(11) },
+      bg = beautiful.colors.background .. "e6",
+      widget = barwidget
     })
   end
 }
