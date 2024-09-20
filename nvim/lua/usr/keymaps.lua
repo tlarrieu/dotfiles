@@ -36,23 +36,36 @@ k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurrences of word under cursor
 k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
-k.set('n', 'gÉ', function ()
+k.set('n', 'gÉ', function()
   local input = vim.fn.input({ prompt = '󰛢: ' })
   if input == '' then return end
 
-  local prevyank = vim.fn.getreg('"')
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local offset = 0
+  local capture, rest = {}, {}
 
-  vim.fn.setreg('/', input)
-  vim.fn.setreg('a', '')
-  vim.cmd('g//d A')
-  if vim.fn.getreg('a') ~= '' then
-    vim.cmd('normal! ``')
-    vim.cmd('normal! "ap')
-    vim.cmd('normal! "_dd')
+  for i, line in ipairs(vim.api.nvim_buf_get_lines(0, 0, -1, false)) do
+    if line:find(input, 1, true) then
+      table.insert(capture, line)
+      if i <= cursor[1] then offset = offset + 1 end
+    else
+      table.insert(rest, line)
+    end
   end
 
-  vim.fn.setreg('"', prevyank)
-end, require('helpers').merge(noremap, { desc = 'move matching lines after cursor'}))
+  local buffer = {}
+  for i = 1, cursor[1] - offset do
+    table.insert(buffer, rest[i])
+  end
+  for _, line in ipairs(capture) do
+    table.insert(buffer, line)
+  end
+  for i = cursor[1] - offset + 1, #rest do
+    table.insert(buffer, rest[i])
+  end
+
+  vim.api.nvim_buf_set_lines(0, 0, -1, false, buffer)
+end, require('helpers').merge(noremap, { desc = 'move matching lines after cursor' }))
 -- find & replace
 k.set('n', 'É', ':%s/<space><bs>')
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
