@@ -34,9 +34,23 @@ return {
       local colors
 
       if vim.o.background == 'light' then
-        colors = { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2, dim_bg = c.base4 }
+        colors = {
+          fg = c.base00,
+          mix_fg = c.base1,
+          bg = c.base3,
+          mix_bg = c.base2,
+          dim_bg = c.base4,
+          comment = c.base1,
+        }
       else
-        colors = { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02, dim_bg = c.base04 }
+        colors = {
+          fg = c.base0,
+          mix_fg = c.base01,
+          bg = c.base03,
+          mix_bg = c.base02,
+          dim_bg = c.base04,
+          comment = c.base01,
+        }
       end
 
       return require('helpers').merge(colors, {
@@ -236,6 +250,13 @@ return {
         ['@text.title.4'] = { link = '@markup.heading.4' },
         ['@text.title.5'] = { link = '@markup.heading.5' },
         ['@text.title.6'] = { link = '@markup.heading.6' },
+
+        ['@todo.done'] = { fg = c.comment, strikethrough = true },
+        ['@todo.priority'] = { fg = c.yellow },
+        ['@todo.kv'] = { fg = c.comment, italic = true },
+        ['@todo.date'] = { link = '@todo.kv' },
+        ['@todo.project'] = { fg = c.violet },
+        ['@todo.context'] = { fg = c.orange },
       }
     end
   },

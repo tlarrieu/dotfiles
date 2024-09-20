@@ -144,7 +144,7 @@ _M.keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ mod }, '.', {
-      app = spawner.terminal('nvim gtd/index.norg', { class = 'gtd', directory = neorg }),
+      app = spawner.terminal('nvim gtd/todo.txt', { class = 'gtd', directory = neorg }),
       props = { class = 'gtd' },
       signal = spawner.actions.MOVE,
     }),
