@@ -29,9 +29,11 @@ return {
 
     theme.border_width = 0
 
-    theme.notification_bg = theme.colors.background
-    theme.notification_fg = theme.colors.foreground
-    theme.notification_border_color = theme.colors.background
+    theme.notification_bg = theme.colors.foreground
+    theme.notification_fg = theme.colors.background
+    theme.notification_margin = dpi(12)
+    theme.notification_border_color = theme.colors.foreground
+    theme.notification_border_width = 0
     theme.notification_icon_size = dpi(32)
 
     theme.progressbar_bg = theme.colors.foreground
@@ -42,10 +44,9 @@ return {
 
     beautiful.init(theme)
 
-    naughty.config.padding = dpi(20)
+    naughty.config.padding = dpi(18)
     naughty.config.spacing = dpi(10)
     naughty.config.presets.critical.bg = theme.colors.red.dark
     naughty.config.presets.critical.fg = theme.colors.white.light
-    naughty.config.defaults.margin = dpi(10)
   end
 }
