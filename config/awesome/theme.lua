@@ -27,14 +27,15 @@ return {
     theme.bg_systray = theme.bg_normal
 
     theme.border_width = 0
-    -- theme.border_normal = theme.colors.background
-    -- theme.border_focus = accent
-    -- theme.border_urgent = theme.colors.red.dark
 
     theme.notification_bg = theme.colors.background
     theme.notification_fg = theme.colors.foreground
     theme.notification_border_color = theme.colors.background
     theme.notification_icon_size = dpi(32)
+
+    theme.progressbar_bg = theme.colors.foreground
+    theme.progressbar_fg = theme.colors.background
+    theme.progressbar_paddings = dpi(1)
 
     theme.notification_font = xrdb.font.name .. " " .. tonumber(xrdb.font.size)
 

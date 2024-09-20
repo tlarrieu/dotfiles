@@ -2,6 +2,8 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 local apply_dpi = require('beautiful.xresources').apply_dpi
+local gears = require('gears')
+local pipe
 
 -- [[ Clock ]] -----------------------------------------------------------------
 local clock = wibox.widget({
@@ -9,8 +11,47 @@ local clock = wibox.widget({
   format = '%Y.%m.%d %H:%M',
 })
 
+-- [[ earbuds power ]] -------------------------------------------------------
+local earbuds = wibox.widget({
+  widget       = wibox.widget.progressbar,
+  min_value    = 0,
+  max_value    = 100,
+  forced_width = 70,
+  paddings     = 1,
+  border_width = 0,
+  visible      = false,
+  border_color = beautiful.border_color,
+})
+
+gears.timer({
+  timeout = 10,
+  call_now = true,
+  autostart = true,
+  callback = function()
+    local cmd = [[
+      upower --enumerate |
+        grep headset |
+        head -n 1 |
+        xargs upower -i |
+        grep percentage |
+        awk '{ print $2 }' |
+        sed 's/%//'
+    ]]
+    awful.spawn.easy_async_with_shell(cmd, function(out)
+      local value = tonumber(out)
+      if value then
+        earbuds.visible = true
+        earbuds.value = value
+        if value < 10 then earbuds.color = beautiful.colors.red.dark end
+      else
+        earbuds.visible = false
+      end
+    end)
+  end
+})
+
 -- [[ Battery ]] ---------------------------------------------------------------
-local pipe = assert(io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'))
+pipe = assert(io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'))
 local batteryname = pipe:read('*all')
 pipe:close()
 local battery
@@ -41,20 +82,20 @@ return {
     })
 
     local left = wibox.widget({
-      wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2)),
+      wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2), nil, false),
+      wibox.container.margin(earbuds, dpi(6), dpi(10), dpi(6), dpi(6), nil, false),
       layout = wibox.layout.fixed.horizontal
     })
 
     local middle = wibox.widget({
       wibox.container.margin(taglist, dpi(1), dpi(1), dpi(2), dpi(2)),
-      layout = wibox.layout.fixed.horizontal,
+      layout = wibox.layout.fixed.horizontal
     })
 
     local right = wibox.widget({
-      clock,
+      wibox.container.margin(clock, dpi(5), dpi(5), dpi(0), dpi(0)),
       layout = wibox.layout.fixed.horizontal
     })
-    right = wibox.container.margin(right, dpi(5), dpi(5), dpi(0), dpi(0))
 
     local barwidget = wibox.widget({
       left,

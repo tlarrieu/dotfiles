@@ -33,6 +33,7 @@ btop
 net-tools
 dnsutils
 ncdu
+upower
 
 # utils
 xdotool
