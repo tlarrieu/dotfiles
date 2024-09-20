@@ -42,7 +42,7 @@ gears.timer({
       if value then
         earbuds.visible = true
         earbuds.value = value
-        if value < 10 then earbuds.color = beautiful.colors.red.dark end
+        if value <= 10 then earbuds.color = beautiful.colors.red.dark end
       else
         earbuds.visible = false
       end
