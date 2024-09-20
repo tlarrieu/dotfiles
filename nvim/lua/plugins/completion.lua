@@ -71,7 +71,7 @@ return {
             end
           }
         },
-        { name = 'luasnip',  priority = 80 },
+        { name = 'luasnip',  priority = 95 },
         { name = 'path',     priority = 0 },
       }),
       formatting = {

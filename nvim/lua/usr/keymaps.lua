@@ -34,10 +34,10 @@ k.set({ 'n', 'x' }, 'È', ':!')
 -- search
 k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurrences of word under cursor
-k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>', noremap)
+k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
 k.set('n', 'gÉ', function ()
-  local input = vim.fn.input({ prompt = ' 󰛢 ' })
+  local input = vim.fn.input({ prompt = '󰛢: ' })
   if input == '' then return end
 
   local prevyank = vim.fn.getreg('"')

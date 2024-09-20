@@ -1,3 +1,5 @@
+vim.opt_local.iskeyword = vim.opt_local.iskeyword + '@' + '-' + '+'
+
 vim.keymap.set('n', 'gs', function()
   local line = vim.api.nvim_get_current_line()
   if line:match('^x ') then
