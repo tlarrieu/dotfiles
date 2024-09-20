@@ -15,6 +15,7 @@ return {
       TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
 
+      todotxt = { icon = '󰃯' },
       norg = { icon = '󱗖' },
       ledger = { icon = '󰭣' },
 
