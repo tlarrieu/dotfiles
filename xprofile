@@ -1,10 +1,10 @@
 xrdb ~/.Xresources
+xsettingsd &
 
 [[ -f ~/.fehbg ]] && . ~/.fehbg
 
 udiskie &
 
-redshift &
 unclutter -root -idle 2 &
 picom &
 
