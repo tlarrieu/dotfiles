@@ -35,6 +35,24 @@ k.set({ 'n', 'x' }, 'È', ':!')
 k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurrences of word under cursor
 k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>', noremap)
+-- move all lines matching pattern after cursor
+k.set('n', 'gÉ', function ()
+  local input = vim.fn.input({ prompt = ' 󰛢 ' })
+  if input == '' then return end
+
+  local prevyank = vim.fn.getreg('"')
+
+  vim.fn.setreg('/', input)
+  vim.fn.setreg('a', '')
+  vim.cmd('g//d A')
+  if vim.fn.getreg('a') ~= '' then
+    vim.cmd('normal! ``')
+    vim.cmd('normal! "ap')
+    vim.cmd('normal! "_dd')
+  end
+
+  vim.fn.setreg('"', prevyank)
+end, require('helpers').merge(noremap, { desc = 'move matching lines after cursor'}))
 -- find & replace
 k.set('n', 'É', ':%s/<space><bs>')
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
