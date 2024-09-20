@@ -1,7 +1,7 @@
 return {
   'chentoast/marks.nvim',
   opts = {
-    signs = false,
+    signs = true,
     default_mappings = true,
     builtin_marks = {},
     cyclic = true,
