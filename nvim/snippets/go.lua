@@ -33,7 +33,7 @@ return {
       func (<>) <>(<>) <> {
       	<>
       }]],
-    { i(1, "receiver"), i(2, "name"), i(3, ""), i(3, "type"), i(0) }
+    { i(1, "receiver"), i(2, "name"), i(3), i(4, "type"), i(0) }
   )),
 
   -- types
