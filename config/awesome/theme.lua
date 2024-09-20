@@ -42,9 +42,10 @@ return {
 
     beautiful.init(theme)
 
-    naughty.config.padding = dpi(10)
-    naughty.config.spacing = dpi(6)
+    naughty.config.padding = dpi(20)
+    naughty.config.spacing = dpi(10)
     naughty.config.presets.critical.bg = theme.colors.red.dark
     naughty.config.presets.critical.fg = theme.colors.white.light
+    naughty.config.defaults.margin = dpi(10)
   end
 }
