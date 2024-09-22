@@ -13,6 +13,6 @@ return {
     vim.keymap.set('n', '<leader>s', ':Git<cr>')
     vim.keymap.set('n', '<leader>S', ':GV<cr>')
     vim.keymap.set('x', '<leader>S', ":'<,'>GV<cr>")
-    vim.keymap.set('n', '<leader>w', ':Gwrite<cr>')
+    vim.keymap.set('n', '<leader>w', ':Git add %<cr>')
   end
 }
