@@ -111,6 +111,9 @@ return {
         ['@type.css'] = { fg = c.violet },
         ['@field.css'] = { fg = c.mix_fg },
 
+        ['@namespace.rasi'] = { fg = c.violet },
+        ['@field.rasi'] = { fg = c.mix_fg },
+
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
