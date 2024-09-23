@@ -3,7 +3,7 @@
 local day = function(d)
   local curday = os.date('%u')
 
-  local offset = (curday + d) % 7
+  local offset = (d - curday) % 7
   if offset == 0 then offset = 7 end
 
   return os.date('%Y-%m-%d', os.time() + offset * 24 * 60 * 60)
