@@ -1,4 +1,5 @@
 vim.opt_local.iskeyword = vim.opt_local.iskeyword + '@' + '-' + '+'
+vim.opt_local.textwidth = 0
 
 vim.keymap.set('n', 'gs', function()
   local line = vim.api.nvim_get_current_line()
