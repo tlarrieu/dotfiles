@@ -2,14 +2,28 @@
 
 expr=''
 btop_theme=''
-if grep 'light' ~/.Xresources.d/local > /dev/null; then
+gtk_expr=''
+
+set_dark() {
   expr='s/light/dark/'
   btop_theme='dark'
   gtk_expr='s/Light/Dark/'
-else
+}
+
+set_light() {
   expr='s/dark/light/'
   btop_theme='light'
   gtk_expr='s/Dark/Light/'
+}
+
+if [ "$1" = "light" ]; then
+  set_light
+elif [ "$1" = "dark" ]; then
+  set_dark
+elif grep 'dark' ~/.Xresources.d/local > /dev/null; then
+  set_light
+else
+  set_dark
 fi
 
 # Xresources
@@ -37,7 +51,7 @@ LUA
 
 # GTK
 sed -e $gtk_expr -i ~/.xsettingsd
-xsettingsd &
+xsettingsd 1>/dev/null 2>&1 &
 
 # wallpaper
 ~/.fehbg
