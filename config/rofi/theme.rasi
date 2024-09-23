@@ -4,6 +4,7 @@
   font: "Cascadia Code NF 16.5";
 
   red: #dc322f;
+  blue: #268bd2;
   magenta: #d33682;
   accent: @magenta;
   urgent: @red;
@@ -14,12 +15,12 @@
   elem-gutter: 0.5em 1em;
 }
 
-#window {
+window {
   border: @window-border;
   border-color: @fg;
 }
 
-#mainbox {
+mainbox {
   background-color: transparent;
   children: [content];
   orientation: horizontal;
@@ -28,7 +29,7 @@
   spacing: 0;
 }
 
-#content {
+content {
   background-color: @bg;
   children: [inputbar,message,listview];
   orientation: vertical;
@@ -38,7 +39,7 @@
   margin: 0;
 }
 
-#listview {
+listview {
   background-color: transparent;
   border: 0;
   padding: 0;
@@ -47,7 +48,7 @@
   text-color: @fg;
 }
 
-#message {
+message {
   background-color: transparent;
   border: 0 0;
   padding: 0;
@@ -56,7 +57,7 @@
   text-color: @fg;
 }
 
-#textbox {
+textbox {
   background-color: transparent;
   padding: 0;
   margin: 0;
@@ -64,86 +65,92 @@
   text-color: @fg;
 }
 
-#inputbar {
+inputbar {
   background-color: transparent;
   spacing: 0;
   children: [prompt, entry];
 }
 
-#prompt {
+prompt {
   font: "Cascadia Code NF 28";
   background-color: @fg;
-  spacing: 0;
   text-color: @bg;
   vertical-align: 0.5;
-  padding: 0 1.5em;
+  padding: 0.8em 1em;
 }
 
-#entry {
-  background-color: transparent;
+entry {
+  background-color: @fg;
+  text-color: @bg;
   spacing: 0;
-  text-color: @fg;
-  padding: 0.8em;
+  vertical-align: 0.5;
   margin: 0;
 }
 
-#element {
+element {
   margin: 0;
   padding: @elem-gutter;
 }
 
-#element-text {
+element-text {
   background-color: inherit;
   text-color: inherit;
 }
 
 /* -- Normal -- */
 
-#element.normal.normal {
+element normal normal {
   background-color: transparent;
   text-color: @fg;
 }
 
-#element.normal.urgent {
+element normal urgent {
   background-color: transparent;
   text-color: @urgent;
 }
 
-#element.normal.active {
+element normal active {
   background-color: transparent;
   text-color: @accent;
 }
 
 /* -- Alternate -- */
 
-#element.alternate.normal {
+element alternate normal {
   background-color: transparent;
   text-color: @fg;
 }
 
-#element.alternate.urgent {
+element alternate urgent {
   background-color: transparent;
   text-color: @urgent;
 }
 
-#element.alternate.active {
+element alternate active {
   background-color: transparent;
   text-color: @accent;
 }
 
 /* -- selected -- */
 
-#element.selected.normal {
+element selected {
+  border: 0 0 0 0.15em;
+}
+
+element selected normal {
   background-color: @bg-alt;
+  border-color: @blue;
   text-color: @fg-alt;
 }
 
-#element.selected.urgent {
+element selected urgent {
   background-color: @bg-alt;
+  border-color: @red;
   text-color: @urgent;
 }
 
-#element.selected.active {
+element selected active {
   background-color: @bg-accent;
+  border-color: @magenta;
   text-color: @accent;
 }
