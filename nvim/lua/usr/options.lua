@@ -14,7 +14,7 @@ o.number = true
 o.textwidth = 120
 -- blank characters
 o.list = true
-o.listchars = { tab = '› ', trail = '·', nbsp = ' ', extends = '»', precedes = '«' }
+o.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
 -- encoding and filetype
 o.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files
