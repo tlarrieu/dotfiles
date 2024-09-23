@@ -20,7 +20,7 @@ local earbuds = wibox.widget({
   paddings     = 1,
   border_width = 0,
   visible      = false,
-  border_color = beautiful.border_color,
+  border_color = beautiful.colors.foreground,
 })
 
 gears.timer({
@@ -39,12 +39,20 @@ gears.timer({
     ]]
     awful.spawn.easy_async_with_shell(cmd, function(out)
       local value = tonumber(out)
-      if value then
-        earbuds.visible = true
-        earbuds.value = value
-        if value <= 10 then earbuds.color = beautiful.colors.red.dark end
-      else
+
+      if not value then
         earbuds.visible = false
+        return
+      end
+
+      earbuds.visible = true
+      earbuds.value = value
+      if value <= 10 then
+        earbuds.color = beautiful.colors.red.dark
+      elseif value <= 20 then
+        earbuds.color = beautiful.colors.yellow.dark
+      else
+        earbuds.color = beautiful.colors.background
       end
     end)
   end
