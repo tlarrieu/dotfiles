@@ -257,6 +257,10 @@ return {
         ['@todo.date'] = { link = '@todo.kv' },
         ['@todo.project'] = { fg = c.violet },
         ['@todo.context'] = { fg = c.orange },
+
+        ['@date.late'] = { fg = c.red, italic = true },
+        ['@date.early'] = { fg = c.green, italic = true },
+        ['@date.today'] = { fg = c.yellow, italic = true },
       }
     end
   },
