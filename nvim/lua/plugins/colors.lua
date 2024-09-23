@@ -226,6 +226,7 @@ return {
 
         CmpGhostText = { link = '@markup.list.unchecked' },
         CmpItemAbbrMatch = { bold = true },
+        CmpItemKindVariable = { fg = c.violet },
 
         ['@field.ledger'] = { fg = c.blue },
         ['@number.ledger'] = { fg = c.magenta },
