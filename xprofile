@@ -1,7 +1,10 @@
 xrdb ~/.Xresources
-xsettingsd &
 
-[[ -f ~/.fehbg ]] && . ~/.fehbg
+if [ "$(date +%H)" -gt 18 ]; then
+  ~/scripts/toggle-light-and-dark.sh dark
+else
+  ~/scripts/toggle-light-and-dark.sh light
+fi
 
 udiskie &
 
