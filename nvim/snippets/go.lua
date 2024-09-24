@@ -22,13 +22,6 @@ return {
     { i(1, "name"), i(2, "arg"), i(3, "type"), i(0) }
   )),
   s("d", fmta([[ func (<>) <> {<>}]], { i(1, "arg"), i(2, "type"), i(0) })),
-  rs("^dr", fmta([[
-      func <>(writer http.ResponseWriter, request *http.Request) {
-      	<>
-      }]],
-    { i(1, "name"), i(0) }
-  )),
-  s("dr", fmta([[ func (writer http.ResponseWriter, request *http.Request) {<>}]], { i(0) })),
   rs("^m", fmta([[
       func (<>) <>(<>) <> {
       	<>

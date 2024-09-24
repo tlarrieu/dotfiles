@@ -41,6 +41,14 @@ return {
           mix_bg = c.base2,
           dim_bg = c.base4,
           comment = c.base1,
+
+          lualine = {
+            git = {
+              added = { fg = c.green, bg = c.base01 },
+              removed = { fg = c.red, bg = c.base01 },
+              modified = { fg = c.yellow, bg = c.base01 },
+            },
+          },
         }
       else
         colors = {
@@ -50,6 +58,14 @@ return {
           mix_bg = c.base02,
           dim_bg = c.base04,
           comment = c.base01,
+
+          lualine = {
+            git = {
+              added = { fg = c.green, bg = c.base1 },
+              removed = { fg = c.red, bg = c.base1 },
+              modified = { fg = c.yellow, bg = c.base1 },
+            },
+          },
         }
       end
 
@@ -158,6 +174,10 @@ return {
         ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
         ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
+        ['LualineAdded'] = c.lualine.git.added,
+        ['LualineRemoved'] = c.lualine.git.removed,
+        ['LualineModified'] = c.lualine.git.modified,
+
         WinSeparator = { link = 'Comment' },
 
         NormalFloat = { fg = c.fg, bg = c.dim_bg },
@@ -227,6 +247,7 @@ return {
         CmpGhostText = { link = '@markup.list.unchecked' },
         CmpItemAbbrMatch = { bold = true },
         CmpItemKindVariable = { fg = c.violet },
+        CmpItemKindSnippet = { fg = c.orange },
 
         ['@field.ledger'] = { fg = c.blue },
         ['@number.ledger'] = { fg = c.magenta },

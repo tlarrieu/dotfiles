@@ -14,7 +14,7 @@ return {
 
     local kind_icons = {
       Text = '󰦨',
-      Method = '󰆧',
+      Method = '󰊕',
       Function = '󰡱',
       Constructor = '',
       Field = '󰓽',
@@ -26,7 +26,7 @@ return {
       Unit = '󰍘',
       Value = '󰎠',
       Enum = '󰖽',
-      Keyword = '',
+      Keyword = '',
       Snippet = '󰅩',
       Color = '',
       File = '',
@@ -76,17 +76,11 @@ return {
         },
       }),
       formatting = {
-        format = function(entry, vim_item)
-          vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
-          -- vim_item.menu = ({
-          --   buffer = '[buff]',
-          --   nvim_lsp = '[LSP]',
-          --   luasnip = '[snip]',
-          --   nvim_lua = '[Lua]',
-          --   latex_symbols = '[TeX]',
-          -- })[entry.source.name]
+        format = function(_, vim_item)
+          vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
           return vim_item
-        end
+        end,
+        fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, },
       },
       window = {
         completion = { border = 'none' },

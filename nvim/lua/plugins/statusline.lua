@@ -12,6 +12,21 @@ return {
       'mason',
     },
     sections = {
+      lualine_b = {
+        { 'branch' },
+        {
+          'diff',
+          colored = true,
+          diff_color = {
+            added = 'LualineAdded',
+            modified = 'LualineModified',
+            removed = 'LualineRemoved',
+          },
+          symbols = {
+          }
+        },
+        { 'diagnostics' },
+      },
       lualine_c = {
         {
           'filename',
