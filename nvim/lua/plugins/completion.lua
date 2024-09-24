@@ -18,22 +18,22 @@ return {
       Function = '󰡱',
       Constructor = '',
       Field = '󰓽',
-      Variable = '󰫧',
+      Variable = '󰹻',
       Class = '',
       Interface = '',
-      Module = '',
+      Module = '󰏗',
       Property = '󰓽',
       Unit = '󰍘',
       Value = '󰎠',
       Enum = '󰖽',
-      Keyword = '',
-      Snippet = '󰅩',
+      Keyword = '',
+      Snippet = '󰈸',
       Color = '',
       File = '',
       Reference = '',
       Folder = '',
       EnumMember = '󰖽',
-      Constant = '',
+      Constant = '󰹻',
       Struct = '',
       Event = '󱐌',
       Operator = '󰿈',
@@ -49,8 +49,16 @@ return {
         expand = function(args) luasnip.lsp_expand(args.body) end,
       },
       mapping = cmp.mapping.preset.insert({
-        ['<c-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-        ['<c-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        ['<c-n>'] = cmp.mapping(function()
+          if cmp.visible() then
+            cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select })()
+          end
+        end),
+        ['<c-p>'] = cmp.mapping(function()
+          if cmp.visible() then
+            cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select })()
+          end
+        end),
         ['<c-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
         ['<c-e>'] = cmp.mapping(function() luasnip.expand() end),
         ['<tab>'] = cmp.mapping(function(fallback)
