@@ -50,7 +50,7 @@ return {
   s("monday", fmta([[<>]], { f(function() return day(1) end) })),
   s("tuesday", fmta([[<>]], { f(function() return day(2) end) })),
   s("wednesday", fmta([[<>]], { f(function() return day(3) end) })),
-  s("tuesday", fmta([[<>]], { f(function() return day(4) end) })),
+  s("thursday", fmta([[<>]], { f(function() return day(4) end) })),
   s("friday", fmta([[<>]], { f(function() return day(5) end) })),
   s("saturday", fmta([[<>]], { f(function() return day(6) end) })),
   s("sunday", fmta([[<>]], { f(function() return day(7) end) })),
