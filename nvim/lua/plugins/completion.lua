@@ -62,6 +62,9 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp', priority = 100 },
+        { name = 'luasnip',  priority = 95 },
+        { name = 'path',     priority = 0 },
+      }, {
         {
           name = 'buffer',
           priority = 90,
@@ -71,8 +74,6 @@ return {
             end
           }
         },
-        { name = 'luasnip',  priority = 95 },
-        { name = 'path',     priority = 0 },
       }),
       formatting = {
         format = function(entry, vim_item)
@@ -106,6 +107,16 @@ return {
         { name = 'hledger', priority = 100 },
         { name = 'buffer' },
       })
+    })
+
+    cmp.setup.cmdline('@', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      },
+      view = {
+        entries = { name = 'wildmenu', separator = '|' }
+      },
     })
 
     -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
