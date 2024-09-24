@@ -42,6 +42,7 @@ content {
 listview {
   background-color: transparent;
   border: 0;
+  lines: 10;
   padding: 0;
   margin: @list-gutter;
   spacing: 0;
@@ -97,7 +98,7 @@ element-text {
   text-color: inherit;
 }
 
-/* -- Normal -- */
+// Normal ----------------------------------------------------------------------
 
 element normal normal {
   background-color: transparent;
@@ -114,7 +115,7 @@ element normal active {
   text-color: @accent;
 }
 
-/* -- Alternate -- */
+// Alternate -------------------------------------------------------------------
 
 element alternate normal {
   background-color: transparent;
@@ -131,11 +132,7 @@ element alternate active {
   text-color: @accent;
 }
 
-/* -- selected -- */
-
-element selected {
-  border: 0 0 0 0.15em;
-}
+// Selected --------------------------------------------------------------------
 
 element selected normal {
   background-color: @bg-alt;
