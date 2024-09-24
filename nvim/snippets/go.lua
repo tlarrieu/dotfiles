@@ -12,6 +12,7 @@ return {
   )),
 
   -- bindings
+  s("c", fmta("const <> = <>", { i(1, "lhs"), i(0, "rhs") })),
   s("l", fmta("<> := <>", { i(1, "lhs"), i(0, "rhs") })),
 
   -- function definition
