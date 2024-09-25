@@ -29,7 +29,8 @@ local update_icon = function(tag)
   local ys = {}
   for k in pairs(xs) do table.insert(ys, k) end
 
-  tag.name = table.concat(ys, ' ')
+  local lookup = { '󰎤', '󰎧', '󰎪', '󰎭', '󰎱', '󰎳', '󰎶', '󰎹', '󰎼', '󰎡' }
+  tag.name = (lookup[tag.index] and lookup[tag.index] .. ' ' or '') .. table.concat(ys, ' ')
 end
 
 local handle = function(object)

@@ -86,7 +86,13 @@ return {
       filter = function(tag)
         return #tag:clients() > 1 or #tag.screen.tags > 1
       end,
-      style  = { spacing = dpi(8) },
+      style  = { spacing = dpi(18) },
+      layout = {
+        spacing_widget = {
+            widget = wibox.widget.separator,
+        },
+        layout = wibox.layout.fixed.horizontal
+      }
     })
 
     local left = wibox.widget({
@@ -96,7 +102,7 @@ return {
     })
 
     local middle = wibox.widget({
-      taglist,
+      wibox.container.margin(taglist, dpi(0), dpi(0), dpi(5), dpi(5), nil, false),
       layout = wibox.layout.fixed.horizontal
     })
 
