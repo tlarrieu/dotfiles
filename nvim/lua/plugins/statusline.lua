@@ -24,7 +24,7 @@ return {
         {
           'mode',
           icons_enabled = true,
-          fmt = function(mode, ctx)
+          fmt = function(mode, _)
             if mode == 'NORMAL' then return ' 󰹻 ' end
             if mode == 'INSERT' then return ' 󰏪 ' end
             if mode == 'COMMAND' then return ' 󰞷 ' end
@@ -36,6 +36,13 @@ return {
         }
       },
       lualine_b = {
+        {
+          function()
+            local project
+            for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
+            return ' ' .. project
+          end,
+        },
         { 'branch' },
         {
           'diff',
@@ -132,7 +139,7 @@ return {
   config = function(_, opts)
     require('lualine').setup(opts)
 
-    vim.opt.laststatus = 2
+    vim.opt.laststatus = 3
 
     vim.keymap.set('n', '<leader>tl', ':LualineRename ')
     vim.keymap.set('n', '<leader>tr', ':LualineRename<cr>', { silent = true })
