@@ -89,6 +89,8 @@ return {
         return require('helpers').merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
       end
 
+      local group = vim.api.nvim_create_augroup('set_hl_ns', {})
+
       vim.api.nvim_set_hl(0, "LineNr", paint('magenta'))
       vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
       vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
@@ -96,6 +98,7 @@ return {
       vim.api.nvim_create_autocmd('WinEnter', {
         pattern = '*',
         callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 0) end,
+        group = group
       })
 
       vim.api.nvim_set_hl(1, "LineNr", { fg = c.comment })
@@ -105,6 +108,7 @@ return {
       vim.api.nvim_create_autocmd('WinLeave', {
         pattern = '*',
         callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 1) end,
+        group = group
       })
 
       return {
@@ -120,7 +124,8 @@ return {
         Tag = { fg = c.yellow },
         TagAttribute = { fg = c.violet },
         Type = { fg = c.yellow },
-        Whitespace = { link = 'Comment' },
+        Whitespace = { fg = c.comment },
+        Nontext = { fg = c.comment, bold = true },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
@@ -201,7 +206,7 @@ return {
         LualineTablineActive = { fg = c.bg, bg = c.fg },
         LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
 
-        WinSeparator = { link = 'Comment' },
+        WinSeparator = { fg = c.comment },
 
         NormalFloat = { fg = c.fg, bg = c.mix_bg },
         FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
@@ -223,9 +228,9 @@ return {
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { link = '@markup.strong' },
-        TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
-        TelescopePromptBorder = { link = 'TelescopePromptTitle' },
         TelescopePromptNormal = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
+        TelescopePromptBorder = { link = 'TelescopePromptTitle' },
+        TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
         TelescopePromptPrefix = { fg = c.telescope.prompt.fg },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
         TelescopeSelection = { link = 'CursorLine' },
@@ -244,7 +249,7 @@ return {
 
         MasonNormal = { link = 'NormalFloat' },
         MasonHeader = { link = 'lazyH1' },
-        MasonHighlight = { fg = c.blue, bg = c.bg },
+        MasonHighlight = { fg = c.blue, bg = c.none },
         MasonHighlightBlock = paint('green'),
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
