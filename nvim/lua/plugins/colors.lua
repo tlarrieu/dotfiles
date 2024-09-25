@@ -211,7 +211,8 @@ return {
         LualineAdded = c.lualine.git.added,
         LualineRemoved = c.lualine.git.removed,
         LualineModified = c.lualine.git.modified,
-        LualineTablineActive = { fg = c.bg, bg = c.fg },
+        LualineTablineActive = { fg = c.bg, bg = c.blue },
+        LualineTablineActiveAlt = { fg = c.bg, bg = c.fg },
         LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
 
         WinSeparator = { fg = c.comment },

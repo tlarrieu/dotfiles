@@ -94,45 +94,56 @@ return {
       },
     },
     tabline = {
-      lualine_a = { {
-        'tabs',
-        mode = 2,
-        path = 0,
-        max_length = 1000,
-        tab_max_length = 25,
-        tabs_color = {
-          active = 'LualineTablineActive',
-          inactive = 'LualineTablineInactive',
-        },
-        show_modified_status = false,
-        fmt = function(name, context)
-          -- Icon
-          local icon
-          if context.filetype ~= '' then
-            icon = require('nvim-web-devicons').get_icon(name, context.filetype)
+      lualine_a = {
+        {
+          'tabs',
+          mode = 0,
+          path = 0,
+          max_length = 1000,
+          tab_max_length = 25,
+          tabs_color = {
+            active = 'LualineTablineActive',
+            inactive = 'LualineTablineInactive',
+          },
+          show_modified_status = false,
+        }
+      },
+      lualine_b = {
+        {
+          'windows',
+          windows_color = {
+            active = 'LualineTablineActiveAlt',
+            inactive = 'LualineTablineInactive',
+          },
+          icons_enabled = false,
+          show_modified_status = false,
+          fmt = function(name, context)
+            -- Icon
+            local icon
+            if context.filetype ~= '' then
+              icon = require('nvim-web-devicons').get_icon(name, context.filetype)
+            end
+
+            -- Name
+            local ftmap = {
+              harpoon = 'harpoon',
+              mason = 'mason',
+              lazy = 'lazy',
+              TelescopePrompt = 'telescope',
+              qf = 'quickfix',
+              oil = 'oil',
+            }
+            name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
+
+            -- Modifier
+            local modified = vim.fn.getbufvar(context.bufnr, '&mod') == 1
+            local modifier = (modified and not ftmap[context.filetype]) and '' or nil
+
+            return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
           end
 
-          -- Name
-          local ftmap = {
-            harpoon = 'harpoon',
-            mason = 'mason',
-            lazy = 'lazy',
-            TelescopePrompt = 'telescope',
-            qf = 'quickfix',
-            oil = 'oil',
-          }
-          name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
-
-          -- Modifier
-          local winnr = vim.fn.tabpagewinnr(context.tabnr)
-          local buflist = vim.fn.tabpagebuflist(context.tabnr)
-          local bufnr = buflist[winnr]
-          local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
-          local modifier = (modified and context.buftype ~= 'prompt') and '' or ''
-
-          return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
-        end
-      } },
+        }
+      },
     },
     winbar = {},
   },
