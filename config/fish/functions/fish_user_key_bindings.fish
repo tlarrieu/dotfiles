@@ -40,7 +40,7 @@ function fish_user_key_bindings
   end
 
   function fzf-gitsha
-    set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "git llga"
+    set -q FZF_GIT_LOG_COMMAND; or set -l FZF_GIT_LOG_COMMAND "git lg"
     eval "$FZF_GIT_LOG_COMMAND |\
       fzf --ansi --no-sort --reverse --tiebreak=index -e\
       --preview '~/scripts/fzf-git.sh {}'\
