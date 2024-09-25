@@ -70,7 +70,7 @@ return {
       end
 
       return require('helpers').merge(colors, {
-        none = '',
+        none = 'None',
         telescope = {
           prompt = {
             fg = colors.bg,
@@ -92,6 +92,7 @@ return {
       return {
         ---------------------- base ------------------------
 
+        Normal = { fg = c.fg, bg = c.none },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
         Include = { fg = c.orange },
@@ -203,6 +204,7 @@ return {
         OilDir = { link = 'Normal' },
         OilDirIcon = { link = 'OilDir' },
 
+        TelescopeNormal = { fg = c.fg, bg = c.dim_bg },
         TelescopeTitle = { link = '@markup.strong' },
 
         TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
@@ -215,7 +217,7 @@ return {
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
 
-        TelescopeBorder = { fg = c.bg, bg = c.bg },
+        TelescopeBorder = { fg = c.dim_bg, bg = c.dim_bg },
 
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
@@ -224,10 +226,12 @@ return {
         TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
         TelescopeResultsDiffChange = { link = 'GitgutterChange' },
 
+        LazyNormal = { fg = c.fg, bg = c.dim_bg },
         LazyButton = paint('blue'),
         LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
+        MasonNormal = { link = 'LazyNormal' },
         MasonHeader = { link = 'lazyH1' },
         MasonHighlight = { fg = c.blue, bg = c.bg },
         MasonHighlightBlock = paint('green'),

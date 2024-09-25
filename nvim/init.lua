@@ -19,5 +19,3 @@ require('usr.keymaps')
 require('usr.options')
 require('usr.abbrev')
 require('usr.autocmd')
-
-require('backdrop'):setup({ transparency = 60 })

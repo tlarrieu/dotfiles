@@ -19,11 +19,6 @@ return {
     terminal_mappings = false,
     persist_size = false,
     persist_mode = true,
-    on_open = function(t)
-      if t.direction == 'float' then
-        require('backdrop'):hook()
-      end
-    end,
     close_on_exit = false,
     shell = vim.o.shell,
     auto_scroll = false,
@@ -33,7 +28,8 @@ return {
       title_pos = 'center' -- 'left' | 'center' | 'right'
     },
     highlights = {
-      FloatBorder = { link = 'WinSeparator' },
+      NormalFloat = { link = 'NormalFloat' },
+      FloatBorder = { link = 'TelescopeBorder' },
     },
   },
   config = function(_, opts)
