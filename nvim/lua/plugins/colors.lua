@@ -91,10 +91,12 @@ return {
 
       local group = vim.api.nvim_create_augroup('set_hl_ns', {})
 
-      vim.api.nvim_set_hl(0, "LineNr", paint('magenta'))
+      vim.api.nvim_set_hl(0, "LineNr", paint('blue'))
+      vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'CursorLine' })
       vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
       vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
       vim.api.nvim_set_hl(1, "LineNr", { fg = c.comment })
+      vim.api.nvim_set_hl(1, "CursorLineNr", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
 
@@ -131,7 +133,7 @@ return {
         TagAttribute = { fg = c.violet },
         Type = { fg = c.yellow },
         Whitespace = { fg = c.comment },
-        Nontext = { fg = c.comment, bold = true },
+        Nontext = { fg = c.comment, bg = c.none, bold = true },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
