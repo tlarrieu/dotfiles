@@ -152,6 +152,11 @@ _M.keyboard = {
       props = { class = 'gtd' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ mod, 'Shift' }, '.', {
+      app = spawner.terminal('newsboat', { class = 'newsboat' }),
+      props = { class = 'newsboat' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod }, '$', {
       app = spawner.terminal(nil, { class = 'quake' }),
       props = { class = 'quake' },
