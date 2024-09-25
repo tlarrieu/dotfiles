@@ -185,9 +185,9 @@ return {
 
         WinSeparator = { link = 'Comment' },
 
-        NormalFloat = { fg = c.fg, bg = c.dim_bg },
-        FloatBorder = { fg = c.mix_fg, bg = c.dim_bg },
-        FloatTitle = { fg = c.mix_fg, bg = c.dim_bg, bold = true },
+        NormalFloat = { fg = c.fg, bg = c.mix_bg },
+        FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
+        FloatTitle = { fg = c.mix_fg, bg = c.mix_bg, bold = true },
         FloatFooter = { fg = c.fg, bg = c.bg },
 
         FidgetGroup = { fg = c.blue, bg = c.bg },
@@ -206,34 +206,29 @@ return {
         OilDir = { link = 'Normal' },
         OilDirIcon = { link = 'OilDir' },
 
-        TelescopeNormal = { fg = c.fg, bg = c.dim_bg },
+        TelescopeNormal = { link = 'NormalFloat' },
+        TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { link = '@markup.strong' },
-
         TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
         TelescopePromptNormal = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
         TelescopePromptPrefix = { fg = c.telescope.prompt.fg },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
-
         TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { link = 'Incsearch' },
-
-        TelescopeBorder = { fg = c.dim_bg, bg = c.dim_bg },
-
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
-
         TelescopeResultsDiffAdd = { link = 'GitgutterAdd' },
         TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
         TelescopeResultsDiffChange = { link = 'GitgutterChange' },
 
-        LazyNormal = { fg = c.fg, bg = c.dim_bg },
+        LazyNormal = { link = 'NormalFloat' },
         LazyButton = paint('blue'),
         LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
-        MasonNormal = { link = 'LazyNormal' },
+        MasonNormal = { link = 'NormalFloat' },
         MasonHeader = { link = 'lazyH1' },
         MasonHighlight = { fg = c.blue, bg = c.bg },
         MasonHighlightBlock = paint('green'),
