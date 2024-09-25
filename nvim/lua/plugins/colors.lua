@@ -89,6 +89,24 @@ return {
         return require('helpers').merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
       end
 
+      vim.api.nvim_set_hl(0, "LineNr", paint('magenta'))
+      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
+      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
+
+      vim.api.nvim_create_autocmd('WinEnter', {
+        pattern = '*',
+        callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 0) end,
+      })
+
+      vim.api.nvim_set_hl(1, "LineNr", { fg = c.comment })
+      vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
+      vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
+
+      vim.api.nvim_create_autocmd('WinLeave', {
+        pattern = '*',
+        callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 1) end,
+      })
+
       return {
         ---------------------- base ------------------------
 
@@ -191,10 +209,6 @@ return {
         FloatFooter = { fg = c.fg, bg = c.bg },
 
         FidgetGroup = { fg = c.blue, bg = c.bg },
-
-        LineNr = { fg = c.magenta },
-        LineNrAbove = { link = 'Comment' },
-        LineNrBelow = { link = 'LineNrAbove' },
 
         QuickFixLine = { link = 'Search' },
 
