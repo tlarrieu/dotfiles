@@ -94,20 +94,26 @@ return {
       vim.api.nvim_set_hl(0, "LineNr", paint('magenta'))
       vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
       vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
-
-      vim.api.nvim_create_autocmd('WinEnter', {
-        pattern = '*',
-        callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 0) end,
-        group = group
-      })
-
       vim.api.nvim_set_hl(1, "LineNr", { fg = c.comment })
       vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
 
+      vim.api.nvim_create_autocmd('WinEnter', {
+        pattern = '*',
+        callback = function()
+          -- HACK: This is a sketchy way of not calling next line when in telescope prompt
+          -- If next line is called, for some reason TelescopePromptNormal, defined
+          -- later, does not properly get applied, and instead NormalFloat is applied
+          if vim.bo[0].buftype == 'nofile' then return end
+
+          vim.api.nvim_win_set_hl_ns(0, 0)
+        end,
+        group = group
+      })
+
       vim.api.nvim_create_autocmd('WinLeave', {
         pattern = '*',
-        callback = function() vim.api.nvim_win_set_hl_ns(vim.api.nvim_get_current_win(), 1) end,
+        callback = function() vim.api.nvim_win_set_hl_ns(0, 1) end,
         group = group
       })
 
