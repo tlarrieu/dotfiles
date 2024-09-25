@@ -288,6 +288,8 @@ return {
         ['@date.late'] = { fg = c.red, italic = true },
         ['@date.early'] = { fg = c.green, italic = true },
         ['@date.today'] = { fg = c.yellow, italic = true },
+
+        DashboardFooter = { link = 'Comment' },
       }
     end
   },
