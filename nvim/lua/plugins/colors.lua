@@ -295,7 +295,11 @@ return {
         ['@date.early'] = { fg = c.green, italic = true },
         ['@date.today'] = { fg = c.yellow, italic = true },
 
+        DashboardHeader = { link = 'Comment' },
         DashboardFooter = { link = 'Comment' },
+        DashboardDesc = { fg = c.comment, bold = true },
+        DashboardIcon = { fg = c.comment },
+        DashboardKey = { fg = c.comment, italic = true, bold = false },
       }
     end
   },
