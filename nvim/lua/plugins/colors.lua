@@ -177,9 +177,11 @@ return {
 
         Statusline = { fg = c.comment, bg = c.mix_bg },
         StatuslineNC = { link = 'Statusline' },
-        ['LualineAdded'] = c.lualine.git.added,
-        ['LualineRemoved'] = c.lualine.git.removed,
-        ['LualineModified'] = c.lualine.git.modified,
+        LualineAdded = c.lualine.git.added,
+        LualineRemoved = c.lualine.git.removed,
+        LualineModified = c.lualine.git.modified,
+        LualineTablineActive = { fg = c.bg, bg = c.fg },
+        LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
 
         WinSeparator = { link = 'Comment' },
 

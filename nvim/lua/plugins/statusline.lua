@@ -11,15 +11,30 @@ return {
       'fugitive',
       'mason',
     },
-    options = {
-      component_separators = { left = '', right = '' },
-      section_separators = { left = '', right = '' },
-    },
     -- options = {
-    --   component_separators = { left = '', right = '' },
-    --   section_separators = { left = '', right = '' },
+    --   component_separators = { left = '', right = '' },
+    --   section_separators = { left = '', right = '' },
     -- },
+    options = {
+      component_separators = { left = '', right = '' },
+      section_separators = { left = '', right = '' },
+    },
     sections = {
+      lualine_a = {
+        {
+          'mode',
+          icons_enabled = true,
+          fmt = function(mode, ctx)
+            if mode == 'NORMAL' then return ' 󰹻 ' end
+            if mode == 'INSERT' then return ' 󰏪 ' end
+            if mode == 'COMMAND' then return ' 󰞷 ' end
+            if mode == 'VISUAL' then return ' 󰬃 ' end
+            if mode == 'V-LINE' then return ' 󰫹 ' end
+            if mode == 'V-BLOCK' then return ' 󰫯 ' end
+            return mode
+          end
+        }
+      },
       lualine_b = {
         { 'branch' },
         {
@@ -39,7 +54,13 @@ return {
         {
           'filename',
           path = 3,
-          cond = function() return vim.bo[0].buftype ~= 'nofile' end
+          cond = function() return vim.bo[0].buftype ~= 'nofile' end,
+          symbols = {
+            modified = '',
+            readonly = '',
+            -- unnamed = '…',
+            -- newfile = '󰎔',
+          },
         }
       },
       lualine_x = {
@@ -73,8 +94,8 @@ return {
         max_length = 1000,
         tab_max_length = 25,
         tabs_color = {
-          active = 'lualine_a_visual',
-          inactive = 'lualine_c_normal',
+          active = 'LualineTablineActive',
+          inactive = 'LualineTablineInactive',
         },
         show_modified_status = false,
         fmt = function(name, context)
@@ -100,7 +121,7 @@ return {
           local buflist = vim.fn.tabpagebuflist(context.tabnr)
           local bufnr = buflist[winnr]
           local modified = vim.fn.getbufvar(bufnr, '&mod') == 1
-          local modifier = (modified and context.buftype ~= 'prompt') and '∙' or ''
+          local modifier = (modified and context.buftype ~= 'prompt') and '' or ''
 
           return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
         end
