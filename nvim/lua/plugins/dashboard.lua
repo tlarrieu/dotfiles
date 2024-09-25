@@ -5,7 +5,6 @@ return {
     theme = 'doom',
     config = {
       disable_move = true,
-      -- packages = { enable = true },
       header = {
         "",
         "",
@@ -39,30 +38,30 @@ return {
           icon = '󰏓 ',
           icon_hl = 'Comment',
           desc = 'Lazy',
-          desc_hl = 'Normal',
+          desc_hl = 'Nontext',
           key = 'l',
           key_hl = 'Comment',
-          key_format = ' %s', -- `%s` will be substituted with value of `key`
+          key_format = ' %s',
           action = 'Lazy',
         },
         {
           icon = ' ',
           icon_hl = 'Comment',
           desc = 'Mason',
-          desc_hl = 'Normal',
+          desc_hl = 'Nontext',
           key = 'm',
           key_hl = 'Comment',
-          key_format = ' %s', -- `%s` will be substituted with value of `key`
+          key_format = ' %s',
           action = 'Mason',
         },
         {
           icon = '⏻ ',
           icon_hl = 'Comment',
           desc = 'Quit',
-          desc_hl = 'Normal',
+          desc_hl = 'Nontext',
           key = 'q',
           key_hl = 'Comment',
-          key_format = ' %s', -- `%s` will be substituted with value of `key`
+          key_format = ' %s',
           action = 'quit',
         },
       },
