@@ -68,6 +68,5 @@ function fish_user_key_bindings
   bind \cy 'enforce-git; and fzf-gitfiles'
   bind € edit_command_buffer
   bind \cs 'fish_commandline_prepend sudo'
-  bind \ch 'fish_commandline_prepend man'
-  bind \eh 'fish_commandline_append " --help"'
+  bind \eh 'fish_commandline_prepend man'
 end
