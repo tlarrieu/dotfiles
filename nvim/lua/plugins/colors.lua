@@ -319,10 +319,10 @@ return {
         ['@date.today'] = { fg = c.yellow, italic = true },
 
         DashboardHeader = { link = 'Comment' },
-        DashboardFooter = { link = 'Comment' },
-        DashboardDesc = { fg = c.comment, bold = true },
-        DashboardIcon = { fg = c.comment },
-        DashboardKey = { fg = c.comment, italic = true, bold = false },
+        DashboardFooter = { link = 'DashboardHeader' },
+        DashboardDesc = { fg = c.fg, bold = true },
+        DashboardIcon = { fg = c.violet },
+        DashboardKey = { fg = c.cyan },
       }
     end
   },
