@@ -16,6 +16,7 @@ _M.autoformat = function(pattern)
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = pattern,
     callback = function() require('conform').format() end,
+    group = vim.api.nvim_create_augroup('autoformat_' .. vim.inspect(pattern), {})
   })
 end
 
@@ -37,6 +38,7 @@ _M.autoimport = function(pattern)
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = pattern,
     callback = _M.fiximports,
+    group = vim.api.nvim_create_augroup('autoimport_' .. vim.inspect(pattern), {})
   })
 end
 
