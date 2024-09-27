@@ -247,9 +247,9 @@ return {
         TelescopeMatching = { link = 'Incsearch' },
         TelescopeMultiSelection = { fg = c.yellow },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
-        TelescopeResultsDiffAdd = { link = 'GitgutterAdd' },
-        TelescopeResultsDiffDelete = { link = 'GitgutterDelete' },
-        TelescopeResultsDiffChange = { link = 'GitgutterChange' },
+        TelescopeResultsDiffAdd = { link = 'GitSignsAdd' },
+        TelescopeResultsDiffDelete = { link = 'GitSignsDelete' },
+        TelescopeResultsDiffChange = { link = 'GitSignsChange' },
 
         LazyNormal = { link = 'NormalFloat' },
         LazyButton = paint('blue'),
@@ -263,9 +263,11 @@ return {
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
 
-        GitgutterAdd = { fg = c.green },
-        GitgutterDelete = { fg = c.red },
-        GitgutterChange = { fg = c.yellow },
+        GitSignsAdd = { fg = c.green },
+        GitSignsDelete = { fg = c.red },
+        GitSignsChange = { fg = c.yellow },
+        GitSignsAddLn = { fg = c.none, bg = c.mix_green },
+        GitSignsChangeLn = { fg = c.none, bg = c.mix_yellow },
 
         fugitiveHeading = { link = 'Include' },
         fugitiveStagedHeading = { fg = c.green },
