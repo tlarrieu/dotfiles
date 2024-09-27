@@ -16,9 +16,9 @@ function ft
   case areg reg
     set flags $flags -w (math "min $COLUMNS,100")
   case now
-    echo -e "\e[35mCurrent balance (checked transactions only)\e[0m"
+    echo -e "\e[32mCurrent balance (checked transactions only)\e[0m"
     ft bal --empty -p today -C -H type:C not:tag:miriam
-    echo -e "\e[35mPending balance (all transactions)\e[0m"
+    echo -e "\e[33mPending balance (all transactions)\e[0m"
     ft bal --empty -p today -H type:C not:tag:miriam
     echo -e "\e[35mMonthly envelopes\e[0m"
     ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure not:tag:miriam
