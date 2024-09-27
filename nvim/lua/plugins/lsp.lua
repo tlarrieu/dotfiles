@@ -19,6 +19,18 @@ return {
       'bashls',     -- bash
     },
   },
+  ft = {
+    'bash',
+    'go',
+    'haskell',
+    'javascript',
+    'lua',
+    'python',
+    'ruby',
+    'sh',
+    'typescript',
+    'vim',
+  },
   config = function(_, opts)
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),

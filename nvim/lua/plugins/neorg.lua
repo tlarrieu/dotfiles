@@ -1,6 +1,5 @@
 return {
   'nvim-neorg/neorg',
-  lazy = false,
   version = '*',
   config = true,
   keys = {
@@ -8,6 +7,7 @@ return {
     { '<leader>eq', '<cmd>Neorg return<cr>',               desc = 'Leave neorg' },
     { '<leader>et', '<cmd>Neorg toc left<cr>',             desc = 'Neorg ToC' },
   },
+  ft = 'norg',
   opts = {
     load = {
       ['core.defaults'] = {},

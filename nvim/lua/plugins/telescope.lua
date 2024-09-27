@@ -8,6 +8,64 @@ return {
       build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release',
     },
   },
+  keys = {
+    {
+      '<c-t>',
+      function() return require('telescope.builtin').find_files({ hidden = true, path_display = { 'filename_first' } }) end,
+      { desc = 'Telescope file finder' }
+    },
+    {
+      '<c-é>',
+      function() return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } }) end,
+      { desc = 'Telescope live grep' }
+    },
+    {
+      '<leader>é',
+      function() return require('telescope.builtin').grep_string({ additional_args = { '--hidden' } }) end,
+      { desc = 'Telescope grep string' }
+    },
+    {
+      '<c-h>',
+      function() require('telescope.builtin').help_tags() end,
+      { desc = 'Telescope help tags' }
+    },
+    {
+      '<c-y>',
+      function() return require('telescope.builtin').git_status({ hidden = true, path_display = { 'filename_first' } }) end,
+      { desc = 'Telescope git status' }
+    },
+    {
+      '<c-s-y>',
+      function() require('telescope.builtin').git_branches() end,
+      { desc = 'Telescope git branch' }
+    },
+    {
+      '<c-l>',
+      function() require('telescope.builtin').lsp_document_symbols() end,
+      { desc = 'Telescope LSP document symbols' }
+    },
+    {
+      '<c-e>',
+      function() require('telescope.builtin').diagnostics() end,
+      { desc = 'Telescope diagnostics' }
+    },
+    {
+      '<c-q>',
+      function() require('telescope.builtin').quickfix() end,
+      { desc = 'Telescope quickfix' }
+    },
+    {
+      'g?',
+      function() require('telescope.builtin').spell_suggest() end,
+      { desc = 'Telescope spell suggest' }
+    },
+    {
+      '<c-è>',
+      ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
+      { desc = 'Telescope TODO' }
+    },
+  },
+  cmd = 'Telescope',
   config = function()
     local actions = require('telescope.actions')
 
@@ -67,37 +125,5 @@ return {
 
     require('telescope').load_extension('ui-select')
     require('telescope').load_extension('fzf')
-
-    local builtin = require('telescope.builtin')
-    local k = vim.keymap
-    local options = { silent = true }
-    local merge = require('helpers').merge
-
-    k.set('n', '<c-t>', function()
-      return builtin.find_files({
-        hidden = true,
-        path_display = { 'filename_first' }
-      })
-    end, merge(options, { desc = 'Telescope file finder' }))
-    k.set('n', '<c-é>', function()
-      return builtin.live_grep({ additional_args = { '--hidden' } })
-    end, merge(options, { desc = 'Telescope live grep' }))
-    k.set('n', '<leader>é', function()
-      return builtin.grep_string({ additional_args = { '--hidden' } })
-    end, merge(options, { desc = 'Telescope grep string' }))
-    k.set('n', '<c-h>', builtin.help_tags, merge(options, { desc = 'Telescope help tags' }))
-    k.set('n', '<c-y>', function()
-      return builtin.git_status({
-        hidden = true,
-        path_display = { 'filename_first' }
-      })
-    end, merge(options, { desc = 'Telescope git status' }))
-    k.set('n', '<c-s-y>', builtin.git_branches, merge(options, { desc = 'Telescope git branch' }))
-    k.set('n', '<c-l>', builtin.lsp_document_symbols, merge(options, { desc = 'Telescope LSP document symbols' }))
-    k.set('n', '<c-e>', builtin.diagnostics, merge(options, { desc = 'Telescope diagnostics' }))
-    k.set('n', '<c-q>', builtin.quickfix, merge(options, { desc = 'Telescope quickfix' }))
-    k.set('n', 'g?', builtin.spell_suggest, merge(options, { desc = 'Telescope spell suggest' }))
-    k.set('n', '<c-è>', ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
-      merge(options, { desc = 'Telescope TODO' }))
   end
 }

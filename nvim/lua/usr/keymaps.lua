@@ -125,9 +125,8 @@ k.set('n', '<leader>em', function()
   end
 end, { desc = 'Edit Makefile', expr = true, silent = true })
 k.set('n', '<leader>es', function()
-  require("luasnip.loaders").edit_snippet_files({ edit = vim.cmd.vnew })
+  require('luasnip.loaders').edit_snippet_files({ edit = vim.cmd.vnew })
 end, merge({ desc = 'Edit snippets' }, noremap))
-k.set('n', '<leader>.', require('oil').toggle_float, noremap)
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word

@@ -2,6 +2,7 @@ return {
   'L3MON4D3/LuaSnip',
   version = '*',
   build = 'make install_jsregexp',
+  event = { 'CmdlineEnter', 'InsertEnter' },
   config = function()
     local ls = require('luasnip')
     ls.setup({

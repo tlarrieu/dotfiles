@@ -1,5 +1,9 @@
 return {
   'stevearc/oil.nvim',
+  event = 'CmdlineEnter',
+  keys = {
+    { '<leader>.', function() require('oil').toggle_float() end, desc = 'Toggle oil float' },
+  },
   opts = {
     -- Id is automatically added at the beginning, and name at the end
     -- See :help oil-columns

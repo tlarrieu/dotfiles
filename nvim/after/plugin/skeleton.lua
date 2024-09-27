@@ -1,6 +1,5 @@
-local luasnip = require('luasnip')
-
 local bootstrap = function()
+  local luasnip = require('luasnip')
   -- Index all snippets for filetypes
   local xs = {}
   for ft in vim.o.filetype:gmatch("([^.]+)") do

@@ -8,6 +8,7 @@ return {
     'hrsh7th/cmp-cmdline',
     'kirasok/cmp-hledger',
   },
+  event = { 'CmdlineEnter', 'InsertEnter' },
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
