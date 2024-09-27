@@ -14,7 +14,6 @@ runner.default({
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = { '*.journal' },
-  callback = function()
-    vim.cmd(runner.term('ft now'))
-  end,
+  callback = function() vim.cmd(runner.term('ft now')) end,
+  group = vim.api.nvim_create_augroup('ledger_after_save', {})
 })
