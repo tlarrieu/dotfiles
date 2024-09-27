@@ -25,11 +25,7 @@ return {
     end]],
     { i(1), i(2), sel(1), i(0) }
   )),
-  s("d", fmta([[function(<>)
-      <><>
-    end]],
-    { i(1), sel(1), i(0) }
-  )),
+  s("d", fmta([[function(<>) <><> end]], { i(1), sel(1), i(0) })),
   s("l", fmta("local <> = <>", { i(1), i(0) })),
   s("r", fmta("return <><>", { sel(1), i(0) })),
 
