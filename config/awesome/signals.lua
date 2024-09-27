@@ -34,17 +34,13 @@ local update_icon = function(tag)
 end
 
 local handle = function(object)
-  local tag
-
   if type(object) == 'client' then
-    tag = object.first_tag
+    for _, tag in ipairs(object.screen.tags) do
+      update_icon(tag)
+    end
   elseif type(object) == 'tag' then
-    tag = object
-  else
-    return
+    update_icon(object)
   end
-
-  update_icon(tag)
 end
 
 local client_signals = {
