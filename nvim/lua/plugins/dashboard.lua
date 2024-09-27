@@ -56,6 +56,13 @@ return {
             return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } })
           end,
         },
+        {
+          icon = ' ',
+          desc = 'Git log',
+          key = 's',
+          key_format = ' {%s}',
+          action = 'GV',
+        },
         { icon = '⏻ ', desc = 'Quit', key = 'q', key_format = ' {%s}', action = 'quit', },
       },
     },
