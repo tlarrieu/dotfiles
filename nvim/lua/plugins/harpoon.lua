@@ -1,30 +1,28 @@
+local list = function() return require('harpoon'):list() end
+
 return {
   'ThePrimeagen/harpoon',
   branch = "harpoon2",
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
-  config = function()
-    local harpoon = require('harpoon')
+  keys = {
+    { '<c-$>', function() list():add() end },
 
-    harpoon:setup()
+    { '<c-">', function() list():select(1) end },
+    { '<c-«>', function() list():select(2) end },
+    { '<c-»>', function() list():select(3) end },
+    { '<c-(>', function() list():select(4) end },
+    { '<c-)>', function() list():select(4) end },
 
-    local k = vim.keymap
-
-    k.set('n', '<c-$>', function() harpoon:list():add() end)
-
-    k.set('n', '<c-">', function() harpoon:list():select(1) end)
-    k.set('n', '<c-«>', function() harpoon:list():select(2) end)
-    k.set('n', '<c-»>', function() harpoon:list():select(3) end)
-    k.set('n', '<c-(>', function() harpoon:list():select(4) end)
-    k.set('n', '<c-)>', function() harpoon:list():select(4) end)
-
-    vim.keymap.set("n", "<c-b>", function()
+    { "<c-b>", function()
+      local harpoon = require('harpoon')
       harpoon.ui:toggle_quick_menu(harpoon:list(), {
         title = ' ⇁ Harpoon ',
         title_pos = 'left',
         border = 'single',
       })
-    end)
-  end,
+    end },
+  },
+  config = true,
 }
