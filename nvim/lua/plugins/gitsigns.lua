@@ -65,7 +65,7 @@ return {
           gitsigns.nav_hunk('next', navopts)
         end
       end, { desc = 'Next hunk' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '7', gitsigns.stage_hunk, { remap = true, desc = 'Stage hunk' })
+      vim.keymap.set({ 'n', 'o', 'x' }, '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
       vim.keymap.set({ 'n', 'o', 'x' }, '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>b', gitsigns.blame, { desc = 'Blame (buffer)' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>B', gitsigns.blame_line, { desc = 'Blame (line)' })
@@ -73,7 +73,9 @@ return {
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>r', gitsigns.reset_buffer, { desc = 'Reset all unstaged hunks' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>R', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>R', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>Q', function() gitsigns.setqflist('all') end, { remap = true, desc = 'Git reset' })
+      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>Q', function()
+        gitsigns.setqflist('all')
+      end, { remap = true, desc = 'Git reset' })
     end
   }
 }
