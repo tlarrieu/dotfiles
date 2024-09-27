@@ -266,6 +266,9 @@ return {
         GitSignsAdd = { fg = c.green },
         GitSignsDelete = { fg = c.red },
         GitSignsChange = { fg = c.yellow },
+        GitSignsAddNr = { link = 'GitSignsAdd' },
+        GitSignsDeleteNr = { link = 'GitSignsDelete' },
+        GitSignsChangeNr = { link = 'GitSignsChange' },
         GitSignsAddLn = { fg = c.none, bg = c.mix_green },
         GitSignsChangeLn = { fg = c.none, bg = c.mix_yellow },
 
