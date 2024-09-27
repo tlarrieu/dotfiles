@@ -15,7 +15,7 @@ end
 _M.autoformat = function(pattern)
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = pattern,
-    callback = function() vim.lsp.buf.format() end,
+    callback = function() require('conform').format() end,
   })
 end
 
