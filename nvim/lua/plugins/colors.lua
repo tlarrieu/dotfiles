@@ -9,9 +9,6 @@ end
 
 return {
   'maxmx03/solarized.nvim',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-  },
   lazy = false,
   priority = 1000,
   opts = {
