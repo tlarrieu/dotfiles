@@ -57,6 +57,15 @@ return {
           end,
         },
         {
+          icon = ' ',
+          desc = 'Git files',
+          key = 'x',
+          key_format = ' {%s}',
+          action = function()
+            return require('telescope.builtin').git_status({ hidden = true, path_display = { 'filename_first' } })
+          end,
+        },
+        {
           icon = ' ',
           desc = 'Git log',
           key = 's',
