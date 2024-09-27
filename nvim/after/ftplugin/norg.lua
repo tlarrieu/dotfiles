@@ -4,11 +4,6 @@ o.formatoptions = o.formatoptions + 't'
 o.conceallevel = 2
 o.spell = true
 
--- vim.api.nvim_create_autocmd('BufEnter', {
---   pattern = { '**/gtd/index.norg' },
---   callback = function() o.foldlevel = 1 end,
--- })
-
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '**/gtd/*.norg' },
   callback = function()

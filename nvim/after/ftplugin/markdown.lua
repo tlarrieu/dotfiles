@@ -13,5 +13,3 @@ vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
 
 require('utils').autocapitalize('*.md')
-
-local group = vim.api.nvim_create_augroup('MARKDOWN_AUTOCMD', {})
