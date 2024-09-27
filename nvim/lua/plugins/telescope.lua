@@ -86,7 +86,12 @@ return {
       return builtin.grep_string({ additional_args = { '--hidden' } })
     end, merge(options, { desc = 'Telescope grep string' }))
     k.set('n', '<c-h>', builtin.help_tags, merge(options, { desc = 'Telescope help tags' }))
-    k.set('n', '<c-y>', builtin.git_status, merge(options, { desc = 'Telescope git status' }))
+    k.set('n', '<c-y>', function()
+      return builtin.git_status({
+        hidden = true,
+        path_display = { 'filename_first' }
+      })
+    end, merge(options, { desc = 'Telescope git status' }))
     k.set('n', '<c-s-y>', builtin.git_branches, merge(options, { desc = 'Telescope git branch' }))
     k.set('n', '<c-l>', builtin.lsp_document_symbols, merge(options, { desc = 'Telescope LSP document symbols' }))
     k.set('n', '<c-e>', builtin.diagnostics, merge(options, { desc = 'Telescope diagnostics' }))
