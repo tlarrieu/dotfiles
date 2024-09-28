@@ -1,6 +1,11 @@
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  lazy = false,
+  keys = {
+    { '<leader>tl', ':LualineRename ' },
+    { '<leader>tr', ':LualineRename<cr>', { silent = true } },
+  },
   opts = {
     extensions = {
       'man',
@@ -147,12 +152,4 @@ return {
     },
     winbar = {},
   },
-  config = function(_, opts)
-    require('lualine').setup(opts)
-
-    vim.opt.laststatus = 3
-
-    vim.keymap.set('n', '<leader>tl', ':LualineRename ')
-    vim.keymap.set('n', '<leader>tr', ':LualineRename<cr>', { silent = true })
-  end,
 }

@@ -6,8 +6,6 @@ local o = vim.opt
 -- allow project specific init.lua
 o.exrc = true
 o.secure = true
--- never show mode
-o.showmode = false
 -- line numbering
 o.relativenumber = true
 o.number = true
@@ -34,8 +32,6 @@ o.mouse = 'a'
 -- command completion style
 o.wildmode = 'list:full,full'
 o.complete = '.,w,b,u,t,i'
--- allow a modified buffer to be sent to background without saving it
-o.hidden = true
 -- set title when in console
 o.title = true
 -- disable line wrap
@@ -46,13 +42,15 @@ o.linebreak = true
 o.breakindent = true
 -- define character indicating line wrap
 o.showbreak = '↪ '
--- do not insert spaces after '.', '?' and '!' when joining lines
-o.joinspaces = false
 -- update time
 o.updatetime = 250
--- inccommand
-o.inccommand = 'nosplit'
+-- signcolumn
 o.signcolumn = 'auto:1-2'
+-- }}}
+
+-- {{{ ==| Statusline |=========================================================
+o.laststatus = 3
+o.showmode = false
 -- }}}
 
 -- {{{ ==| Splits |=============================================================
@@ -76,7 +74,6 @@ o.shiftround = true
 -- }}}
 
 -- {{{ ==| Searching |==========================================================
--- case behavior regarding searching
 o.ignorecase = true
 o.smartcase = true
 -- }}}
