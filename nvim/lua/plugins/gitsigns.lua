@@ -20,7 +20,7 @@ return {
     signs_staged_enable          = true,
     signcolumn                   = true,
     numhl                        = true,
-    linehl                       = true,
+    linehl                       = false,
     word_diff                    = false,
     watch_gitdir                 = { follow_files = true },
     auto_attach                  = true,
