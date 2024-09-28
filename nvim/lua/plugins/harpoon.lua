@@ -15,7 +15,7 @@ return {
     { '<c-(>', function() list():select(4) end },
     { '<c-)>', function() list():select(4) end },
 
-    { "<c-b>", function()
+    { "<c-,>", function()
       local harpoon = require('harpoon')
       harpoon.ui:toggle_quick_menu(harpoon:list(), {
         title = ' ⇁ Harpoon ',

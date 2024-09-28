@@ -20,6 +20,11 @@ return {
       { desc = 'Telescope live grep' }
     },
     {
+      '<c-b>',
+      function() return require('telescope.builtin').buffers({ hidden = true, path_display = { 'filename_first' } }) end,
+      { desc = 'Telescope buffers' }
+    },
+    {
       '<leader>é',
       function() return require('telescope.builtin').grep_string({ additional_args = { '--hidden' } }) end,
       { desc = 'Telescope grep string' }
