@@ -202,7 +202,7 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
     spawner.key({ mod }, 'percent', spawner.terminal('ytdl', { directory = sandbox, class = 'download' })),
-    spawner.key({ mod }, 'equal', spawner.shell('open (xsel --clipboard -o)')),
+    spawner.key({ mod }, 'ccedilla', spawner.shell('open (xsel --clipboard -o)')),
     spawner.key({ mod }, "'", spawner.terminal()),
     spawner.key({ mod, 'Shift' }, "'", spawner.terminal(nil, { class = 'kitty-light' })),
     spawner.key({ mod }, 'p', 'screenshot.sh')
