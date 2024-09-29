@@ -333,9 +333,9 @@ return {
 
         DashboardHeader = { link = 'Comment' },
         DashboardFooter = { link = 'DashboardHeader' },
-        DashboardDesc = { fg = c.fg, bold = true },
+        DashboardDesc = { fg = c.comment, bold = false },
         DashboardIcon = { fg = c.violet },
-        DashboardKey = { fg = c.cyan },
+        DashboardKey = { fg = c.blue, italic = true, bold = true },
       }
     end
   },

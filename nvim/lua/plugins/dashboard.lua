@@ -1,3 +1,6 @@
+local format = ' %s'
+local pad = function(str) return string.format('%-18s', str) end
+
 return {
   'nvimdev/dashboard-nvim',
   event = 'VimEnter',
@@ -6,6 +9,9 @@ return {
     config = {
       disable_move = true,
       header = {
+        "",
+        "",
+        "",
         "",
         "",
         "",
@@ -26,43 +32,61 @@ return {
         "",
       },
       center = {
-        { icon = '󰏗 ', desc = 'Lazy                 ', key = 'l', key_format = ' %s', action = 'Lazy', },
-        { icon = ' ', desc = 'Mason', key = 'm', key_format = ' %s', action = 'Mason', },
+        {
+          icon = '󰏗 ',
+          desc = pad('Lazy'),
+          key = 'l',
+          key_format = format,
+          action = 'Lazy'
+        },
+        {
+          icon = ' ',
+          desc = pad('Mason'),
+          key = 'm',
+          key_format = format,
+          action = 'Mason'
+        },
         {
           icon = ' ',
-          desc = 'Files',
+          desc = pad('Files'),
           key = 't',
-          key_format = ' %s',
+          key_format = format,
           action = function()
             return require('telescope.builtin').find_files({ hidden = true, path_display = { 'filename_first' } })
           end,
         },
         {
           icon = ' ',
-          desc = 'Live grep',
+          desc = pad('Live grep'),
           key = 'é',
-          key_format = '  %s',
+          key_format = ' ' .. format,
           action = function()
             return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } })
           end,
         },
         {
           icon = ' ',
-          desc = 'Git files',
+          desc = pad('Git files'),
           key = 'x',
-          key_format = ' %s',
+          key_format = format,
           action = function()
             return require('telescope.builtin').git_status({ hidden = true, path_display = { 'filename_first' } })
           end,
         },
         {
           icon = ' ',
-          desc = 'Git log',
+          desc = pad('Git log'),
           key = 's',
-          key_format = ' %s',
+          key_format = format,
           action = 'GV',
         },
-        { icon = '⏻ ', desc = 'Quit', key = 'q', key_format = ' %s', action = 'quit', },
+        {
+          icon = '⏻ ',
+          desc = pad('Quit'),
+          key = 'q',
+          key_format = format,
+          action = 'quit'
+        },
       },
     },
   },
