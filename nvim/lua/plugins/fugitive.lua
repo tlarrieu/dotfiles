@@ -10,6 +10,11 @@ return {
     { '<leader>ed', ':tab Git diff --staged<cr>' },
     { '<leader>s',  ':Git<cr>' },
     { '<leader>S',  ':GV<cr>' },
-    { '<leader>S',  ":'<,'>GV<cr>" },
+
+    {
+      '<leader>S',
+      ":'<,'>GV<cr>",
+      mode = 'x'
+    },
   },
 }
