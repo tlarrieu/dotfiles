@@ -1,23 +1,18 @@
+local signs = {
+  add          = { text = '┃󰐕' },
+  change       = { text = '┃󰜥' },
+  delete       = { text = '┃_' },
+  topdelete    = { text = '┃‾' },
+  changedelete = { text = '┃󱓉' },
+  untracked    = { text = '╏󰐕' },
+}
+
 return {
   'lewis6991/gitsigns.nvim',
   event = { 'BufReadPost' },
   opts = {
-    signs                        = {
-      add          = { text = '┃󰐕' },
-      change       = { text = '┃' },
-      delete       = { text = '┃_' },
-      topdelete    = { text = '┃‾' },
-      changedelete = { text = '┃󱓉' },
-      untracked    = { text = '╏󰐕' },
-    },
-    signs_staged                 = {
-      add          = { text = '┃󰐕' },
-      change       = { text = '┃' },
-      delete       = { text = '┃_' },
-      topdelete    = { text = '┃‾' },
-      changedelete = { text = '┃󱓉' },
-      untracked    = { text = '╏󰐕' },
-    },
+    signs                        = signs,
+    signs_staged                 = signs,
     signs_staged_enable          = true,
     signcolumn                   = true,
     numhl                        = true,
