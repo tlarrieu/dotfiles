@@ -79,6 +79,7 @@ _M.keyboard = {
 
     spawner.key({ mod }, 'l', 'rofi-layouts'),
 
+    spawner.key({ mod }, 'Tab', awful.tag.history.restore),
     spawner.key({ mod }, 'c', awful.tag.viewprev),
     spawner.key({ mod }, 'Left', awful.tag.viewprev),
     spawner.key({ mod }, 'r', awful.tag.viewnext),
@@ -114,8 +115,6 @@ _M.keyboard = {
     spawner.key({ mod, 'Shift' }, 'b', 'toggle-light-and-dark.sh'),
 
     -- [[ Applications ]] ------------------------------------------------------
-
-    spawner.key({ mod }, ' ', 'rofi -show combi -modes combi -combi-modes " :~/scripts/rofi-clients.sh,run" -display-combi "" -display-run "󱕷"'),
 
     spawner.key({ mod, 'Shift' }, 'c', {
       app = spawner.terminal('nvim', { class = 'config', directory = dotfiles }),
@@ -163,7 +162,7 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
 
-    spawner.key({ mod }, 'Tab', awful.tag.history.restore),
+    spawner.key({ mod }, ' ', spawner.shell('~/scripts/rofi-main')),
     spawner.key({ mod, 'Shift' }, 'Tab', 'rofi-keyboard'),
     spawner.key({ mod, 'Control' }, 'Tab', 'rofi-monitors'),
     spawner.key({}, 'F12', 'rofi-wifi'),
