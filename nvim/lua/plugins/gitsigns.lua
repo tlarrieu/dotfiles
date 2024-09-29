@@ -8,7 +8,7 @@ return {
       delete       = { text = '┃_' },
       topdelete    = { text = '┃‾' },
       changedelete = { text = '┃󱓉' },
-      untracked    = { text = '╏' },
+      untracked    = { text = '╏󰐕' },
     },
     signs_staged                 = {
       add          = { text = '┃󰐕' },
@@ -16,7 +16,7 @@ return {
       delete       = { text = '┃_' },
       topdelete    = { text = '┃‾' },
       changedelete = { text = '┃󱓉' },
-      untracked    = { text = '╏' },
+      untracked    = { text = '╏󰐕' },
     },
     signs_staged_enable          = true,
     signcolumn                   = true,
@@ -71,8 +71,6 @@ return {
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>b', gitsigns.blame, { desc = 'Blame (buffer)' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>B', gitsigns.blame_line, { desc = 'Blame (line)' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>w', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>r', gitsigns.reset_buffer, { desc = 'Reset all unstaged hunks' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>R', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>R', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
       vim.keymap.set({ 'n', 'o', 'x' }, '<leader>Q', function()
         gitsigns.setqflist('all')

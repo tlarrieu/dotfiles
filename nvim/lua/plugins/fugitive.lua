@@ -8,6 +8,7 @@ return {
     { '<leader>d',  ':Gvdiff<cr>' },
     { '<leader>D',  ':Gvdiff master<cr>' },
     { '<leader>ed', ':tab Git diff --staged<cr>' },
+    { '<leader>r',  ':Git checkout %<cr>' },
     { '<leader>s',  ':Git<cr>' },
     { '<leader>S',  ':GV<cr>' },
 
