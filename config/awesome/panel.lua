@@ -59,23 +59,48 @@ gears.timer({
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
-pipe = assert(io.popen('ls /sys/class/power_supply | grep BAT | head -n 1 | tr -d "\n"'))
-local batteryname = pipe:read('*all')
-pipe:close()
-local battery
-if #batteryname > 0 then
-  battery = require('widgets.battery')({
-    adapter = batteryname,
-    listen = false,
-    ac_prefix = ' ',
-    battery_prefix = '󰁹 ',
-    limits = {
-      { 25,  beautiful.colors.red.dark },
-      { 50,  beautiful.colors.yellow.dark },
-      { 100, beautiful.colors.green.dark }
-    },
-  }).widget
-end
+local battery = wibox.widget({
+  widget       = wibox.widget.progressbar,
+  min_value    = 0,
+  max_value    = 100,
+  forced_width = 70,
+  paddings     = 1,
+  border_width = 0,
+  visible      = false,
+  border_color = beautiful.colors.foreground,
+})
+
+gears.timer({
+  timeout = 10,
+  call_now = true,
+  autostart = true,
+  callback = function()
+    local cmd = [[
+      acpi |
+        awk '{ print $3,$4 }' |
+        awk -F, '{ print $2 }' |
+        tr -d ' %\n'
+    ]]
+    awful.spawn.easy_async_with_shell(cmd, function(out)
+      local value = tonumber(out)
+
+      if not value then
+        battery.visible = false
+        return
+      end
+
+      battery.visible = true
+      battery.value = value
+      if value <= 10 then
+        battery.color = beautiful.colors.red.dark
+      elseif value <= 20 then
+        battery.color = beautiful.colors.yellow.dark
+      else
+        battery.color = beautiful.colors.background
+      end
+    end)
+  end
+})
 
 return {
   init = function(screen)
@@ -89,14 +114,14 @@ return {
       style  = { spacing = dpi(18) },
       layout = {
         spacing_widget = {
-            widget = wibox.widget.separator,
+          widget = wibox.widget.separator,
         },
         layout = wibox.layout.fixed.horizontal
       }
     })
 
     local left = wibox.widget({
-      wibox.container.margin(battery, dpi(10), dpi(10), dpi(2), dpi(2), nil, false),
+      wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
       wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
       layout = wibox.layout.fixed.horizontal
     })
