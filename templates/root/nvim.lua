@@ -1,11 +1,16 @@
---- {{{ --| Colors |------------------------------------------------------------
-vim.cmd.colorscheme('desert')
+-- {{{ --| Colors |-------------------------------------------------------------
+vim.cmd.colorscheme('retrobox')
 vim.o.background = 'dark'
 vim.cmd('filetype plugin off')
 vim.cmd('syntax on')
---- }}}
+-- }}}
 
---- {{{ --| Keymaps |-----------------------------------------------------------
+-- {{{ --| lines numbering |----------------------------------------------------
+vim.o.number = true
+vim.o.relativenumber = true
+-- }}}
+
+-- {{{ --| Keymaps |------------------------------------------------------------
 vim.g.mapleader = ' '
 local k = vim.keymap
 local noremap = { remap = false, silent = true }
@@ -13,7 +18,7 @@ local noremap = { remap = false, silent = true }
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 k.set('', '<leader>', '<nop>', noremap)
 
---- {{{ --| basics |----------------------------------------
+-- {{{ --| basics |-----------------------------------------
 -- Marks
 k.set('n', "'", '`', noremap)
 k.set('n', '`', "'", noremap)
@@ -89,8 +94,8 @@ k.set('x', '<leader>s', ':sort<cr>', noremap)
 -- macro
 k.set('', '<leader><leader>', '@q', noremap)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
---- }}}
---- {{{ --| togglers |--------------------------------------
+-- }}}
+-- {{{ --| togglers |---------------------------------------
 -- Uppercase current word
 k.set('n', '<c-g>', 'gUiw', noremap)
 k.set('i', '<c-g>', '<esc>gUiwea', noremap)
@@ -120,8 +125,8 @@ end, noremap)
 -- Quickfix / Location list
 k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
---- }}}
---- {{{ --| splits / tabs |---------------------------------
+-- }}}
+-- {{{ --| splits / tabs |----------------------------------
 k.set('n', '<left>', '<c-w>5<', noremap)
 k.set('n', '<right>', '<c-w>5>', noremap)
 k.set('n', '<up>', '<c-w>+', noremap)
@@ -177,10 +182,10 @@ k.set('n', '<leader>u', function()
   vim.cmd.vsplit()
   vim.api.nvim_win_set_buf(0, buf)
 end, noremap)
---- }}}
---- {{{ --| folds management |------------------------------
+-- }}}
+-- {{{ --| folds management |-------------------------------
 k.set('n', '<leader>z', 'zMzv', noremap)
 k.set('n', '<leader>Z', 'zR', noremap)
 k.set('n', 'zO', 'zczO', noremap)
---- }}}
---- }}}
+-- }}}
+-- }}}
