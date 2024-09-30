@@ -31,6 +31,8 @@ return {
     'sh',
     'typescript',
     'vim',
+    'json',
+    'yaml',
   },
   config = function(_, opts)
     vim.api.nvim_create_autocmd('LspAttach', {
