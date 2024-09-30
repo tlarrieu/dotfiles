@@ -137,12 +137,12 @@ element alternate active {
 element selected normal {
   background-color: @bg-alt;
   border-color: @blue;
-  text-color: @fg-alt;
+  text-color: inherit;
 }
 
 element selected urgent {
   background-color: @bg-alt;
-  border-color: @red;
+  border-color: @urgent;
   text-color: @urgent;
 }
 
