@@ -7,6 +7,8 @@ local apply_xrdb = function()
   vim.cmd.syntax('on')
 end
 
+local merge = require('helpers').merge
+
 return {
   'maxmx03/solarized.nvim',
   lazy = false,
@@ -66,7 +68,7 @@ return {
         }
       end
 
-      return require('helpers').merge(colors, {
+      return merge(colors, {
         none = 'None',
         telescope = {
           prompt = {
@@ -83,7 +85,7 @@ return {
       end
 
       local paint = function(color, opts)
-        return require('helpers').merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
+        return merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
       end
 
       local group = vim.api.nvim_create_augroup('set_hl_ns', {})
@@ -162,7 +164,7 @@ return {
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
-        CursorColumn = { fg = c.blue, bg = c.mix_blue },
+        CursorColumn = { fg = c.none, bg = c.mix_blue },
         CursorLine = { link = 'CursorColumn' },
 
         Visual = { link = 'CursorColumn' },
