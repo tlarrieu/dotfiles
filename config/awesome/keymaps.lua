@@ -1,10 +1,3 @@
-local _M = {
-  keyboard = {},
-  mouse = {}
-}
-
--- [[ Variables ]] -------------------------------------------------------------
-
 local awful = require('awful')
 local helpers = require('helpers')
 local gears = require('gears')
@@ -30,23 +23,20 @@ end
 
 -- [[ Keyboard ]] ==============================================================
 
-_M.keyboard = {
+local keyboard = {
   clients = gears.table.join(
     spawner.key({ mod }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
     spawner.key({ mod }, 'eacute', function(c) if c.immortal then c:tags({}) else c:kill() end end),
     spawner.key({ mod, 'Shift' }, 'eacute', function(c) c:kill() end),
     spawner.key({ mod, 'Control' }, 'm', function(c) awful.client.setmaster(c) end),
-
     spawner.key({ mod, 'Control' }, 'c', function(c)
       awful.tag.viewprev()
       c:move_to_tag(c.screen.selected_tag)
     end),
-
     spawner.key({ mod, 'Control' }, 'r', function(c)
       awful.tag.viewnext()
       c:move_to_tag(c.screen.selected_tag)
     end),
-
     spawner.key({ mod }, 'n', function(client) helpers.create_tag_and_attach_to(client, true) end),
     spawner.key({ mod }, 'o', function(client)
       client:move_to_screen()
@@ -75,10 +65,6 @@ _M.keyboard = {
   ),
 
   root = gears.table.join(
-    -- [[ Window Manager ]] ----------------------------------------------------
-
-    spawner.key({ mod }, 'l', 'rofi-layouts'),
-
     spawner.key({ mod }, 'Tab', awful.tag.history.restore),
     spawner.key({ mod }, 'c', awful.tag.viewprev),
     spawner.key({ mod }, 'Left', awful.tag.viewprev),
@@ -162,6 +148,7 @@ _M.keyboard = {
       signal = spawner.actions.MOVE,
     }),
 
+    spawner.key({ mod }, 'l', 'rofi-layouts'),
     spawner.key({ mod }, ' ', spawner.shell('~/scripts/rofi-main')),
     spawner.key({ mod, 'Shift' }, 'Tab', 'rofi-keyboard'),
     spawner.key({ mod, 'Control' }, 'Tab', 'rofi-monitors'),
@@ -173,8 +160,8 @@ _M.keyboard = {
     spawner.key({ mod }, 'Escape', 'rofi-pass'),
     spawner.key({ mod }, ',', 'rofi-search'),
     spawner.key({ 'Control' }, ' ', 'gtd-inbox'),
-
     spawner.key({ mod }, 'q', 'rofi-power'),
+
     spawner.key({ mod }, 'a', {
       app = spawner.terminal('pulsemixer', { class = 'mixer' }),
       props = { class = 'mixer' },
@@ -187,10 +174,10 @@ _M.keyboard = {
       props = { instance = 'music.youtube.com' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({}, 'XF86AudioPause', 'mpc toggle'), -- earbuds are down
-    spawner.key({}, 'XF86AudioPlay', 'mpc toggle'), -- single tap on earbud
-    spawner.key({}, 'XF86AudioNext', 'mpc next'), -- double tap on earbud
-    spawner.key({}, 'XF86AudioPrev', 'mpc prev'), -- triple tap on earbud
+    spawner.key({}, 'XF86AudioPause', 'mpc toggle'),
+    spawner.key({}, 'XF86AudioPlay', 'mpc toggle'),
+    spawner.key({}, 'XF86AudioNext', 'mpc next'),
+    spawner.key({}, 'XF86AudioPrev', 'mpc prev'),
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
     spawner.key({ mod }, 'u', spawner.terminal('vifm', { class = 'vifm' })),
     spawner.key({ mod, 'Shift' }, 'u', 'nemo'),
@@ -210,7 +197,7 @@ _M.keyboard = {
 
 -- [[ Mouse ]] =================================================================
 
-_M.mouse = {
+local mouse = {
   clients = gears.table.join(
     spawner.button({}, 1, function(client)
       client:emit_signal('request::activate', 'mouse_click', { raise = true })
@@ -235,21 +222,19 @@ _M.mouse = {
   )
 }
 
-_M.config = function()
-  -- root
-  root.keys(_M.keyboard.root)
-  root.buttons(_M.mouse.root)
+return {
+  config = function()
+    root.keys(keyboard.root)
+    root.buttons(mouse.root)
 
-  -- clients
-  awful.rules.rules = gears.table.join(awful.rules.rules, {
-    {
-      rule = {},
-      properties = {
-        keys = _M.keyboard.clients,
-        buttons = _M.mouse.clients,
+    awful.rules.rules = gears.table.join(awful.rules.rules, {
+      {
+        rule = {},
+        properties = {
+          keys = keyboard.clients,
+          buttons = mouse.clients,
+        }
       }
-    }
-  })
-end
-
-return _M
+    })
+  end
+}
