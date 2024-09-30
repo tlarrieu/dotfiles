@@ -19,6 +19,7 @@ return {
       'bashls',     -- bash
     },
   },
+  cmd = { 'Mason' },
   ft = {
     'bash',
     'go',
