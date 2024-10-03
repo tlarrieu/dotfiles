@@ -1,1 +1,1 @@
-vim.keymap.set({ 'i', 'n', 'v' }, '’', "'", noremap)
+vim.keymap.set({ 'i', 'n', 'v', 'o' }, '’', "'", noremap)
