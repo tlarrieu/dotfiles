@@ -1,9 +1,6 @@
 local apply_xrdb = function()
-  local xrdb = require('xrdb').load()
-  if not xrdb then return end
-
-  vim.cmd.colorscheme(xrdb.vim.theme)
-  vim.o.background = xrdb.vim.background
+  vim.cmd.colorscheme('solarized')
+  vim.o.background = require('xrdb').load().vim.background or 'light'
   vim.cmd.syntax('on')
 end
 
