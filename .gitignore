@@ -14,6 +14,8 @@ config/fish/fishd.*
 config/fish/conf.d/local.fish
 config/fish/fundle
 config/fish/local.fish
+config/kitty/theme.conf
+config/rofi/variant.rasi
 
 config/btop/themes/current.theme
 
