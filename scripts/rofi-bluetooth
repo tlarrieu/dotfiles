@@ -1,26 +1,43 @@
 #!/bin/sh
 
-function notify {
-  output=$($1)
-
-  case $? in
-    0) notify-send Success "Success: $2";;
-    *) notify-send Error "Error: $output"
-  esac
+_rofi() {
+  rofi \
+    -i \
+    -l 3 \
+    -dmenu \
+    -a "$1" \
+    -selected-row "$1" \
+    -p ""
 }
 
-selection=$(bluetoothctl devices | rofi -i -dmenu -p "" | awk '{ print $2 }')
+connected=$(bluetoothctl info | head -n 1 | awk '{ print $2 }' | grep '..:..:..:..:..:..')
+if [ -n "$connected" ]; then
+  preselected=$(bluetoothctl devices | grep -n "$connected" | awk -F':' '{print $1 - 1}')
+fi
 
-if [[ -z "$selection" ]]; then exit 0; fi
+selection=$(bluetoothctl devices | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
 
-notify-send Info "Connecting to $selection ..."
+if [ -z "$selection" ]; then exit 0; fi
 
-bluetoothctl power on
-bluetoothctl disconnect
+if [ "$connected" = "$selection" ]; then
+  notify-send Info "Disconnecting $selection..."
 
-output=$(bluetoothctl connect $selection)
+  output=$(bluetoothctl disconnect "$selection")
+  bluetoothctl power off
 
-case $? in
-  0) notify-send Success "Connection to $selection successful";;
-  *) notify-send Error "Error: $output"
-esac
+  case $? in
+    0) notify-send Success "$selection disconnected";;
+    *) notify-send Error "Error: $output"
+  esac
+else
+  notify-send Info "Connecting to $selection..."
+
+  bluetoothctl power on
+  bluetoothctl disconnect
+  output=$(bluetoothctl connect "$selection")
+
+  case $? in
+    0) notify-send Success "$selection connected";;
+    *) notify-send Error "Error: $output"
+  esac
+fi
