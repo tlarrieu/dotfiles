@@ -109,7 +109,6 @@ k.set({ 'n', 'o', 'x' }, '/', '9', noremap)
 k.set({ 'n', 'o', 'x' }, '9', '/', noremap)
 k.set({ 'n', 'o', 'x' }, '*', '0', noremap)
 k.set({ 'n', 'o', 'x' }, '0', '*', noremap)
--- diff hunk navigation
 -- sort
 k.set('x', '<leader>s', ':sort<cr>', noremap)
 -- macro
