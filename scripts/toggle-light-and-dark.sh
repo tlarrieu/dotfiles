@@ -46,7 +46,7 @@ cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 # awesome
 awesome-client <<- LUA
   require('theme').config()
-  for s in screen do require('panel').init(s) end
+  require('panel').reset()
 LUA
 
 # GTK

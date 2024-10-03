@@ -16,10 +16,12 @@ end
 _M.set = function(context)
   local file = io.open(PATH, 'w+')
   if file then
-    file:write('CONTEXT="'.. context .. '"')
+    file:write('CONTEXT="' .. context .. '"')
     file:close()
     _M.notify()
   end
+
+  require('panel').reset()
 end
 
 _M.notify = function()

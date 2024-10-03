@@ -11,6 +11,14 @@ local clock = wibox.widget({
   format = '%Y.%m.%d %H:%M',
 })
 
+-- [[ Context ]] -----------------------------------------------------------------
+local context = wibox.widget {
+  markup = 'context',
+  align  = 'center',
+  valign = 'center',
+  widget = wibox.widget.textbox
+}
+
 -- [[ earbuds power ]] -------------------------------------------------------
 local earbuds = wibox.widget({
   widget       = wibox.widget.progressbar,
@@ -102,57 +110,64 @@ gears.timer({
   end
 })
 
+local init = function(screen)
+  local dpi = function(n) return apply_dpi(n, screen) end
+
+  local taglist = awful.widget.taglist({
+    screen = screen,
+    filter = function(tag)
+      return #tag:clients() > 1 or #tag.screen.tags > 1
+    end,
+    style  = { spacing = dpi(18) },
+    layout = {
+      spacing_widget = {
+        widget = wibox.widget.separator,
+      },
+      layout = wibox.layout.fixed.horizontal
+    }
+  })
+  context.markup = '<b>@' .. require('context').get() .. '</b>'
+
+  local left = wibox.widget({
+    wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
+    wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
+    layout = wibox.layout.fixed.horizontal
+  })
+
+  local middle = wibox.widget({
+    wibox.container.margin(taglist, dpi(0), dpi(0), dpi(5), dpi(5), nil, false),
+    layout = wibox.layout.fixed.horizontal
+  })
+
+  local right = wibox.widget({
+    wibox.container.margin(context, dpi(10), dpi(10), dpi(0), dpi(0)),
+    wibox.container.margin(clock, dpi(10), dpi(10), dpi(0), dpi(0)),
+    layout = wibox.layout.fixed.horizontal
+  })
+
+  local barwidget = wibox.widget({
+    left,
+    middle,
+    right,
+    layout = wibox.layout.align.horizontal,
+    expand = 'none'
+  })
+
+  if screen.wibar then screen.wibar:remove() end
+
+  screen.wibar = awful.wibar({
+    position = 'top',
+    height = dpi(32),
+    screen = screen,
+    margins = { top = dpi(6), bottom = dpi(-2), left = dpi(6), right = dpi(6) },
+    bg = beautiful.colors.background .. "e6",
+    widget = barwidget
+  })
+end
+
+local reset = function() for s in screen do init(s) end end
+
 return {
-  init = function(screen)
-    local dpi = function(n) return apply_dpi(n, screen) end
-
-    local taglist = awful.widget.taglist({
-      screen = screen,
-      filter = function(tag)
-        return #tag:clients() > 1 or #tag.screen.tags > 1
-      end,
-      style  = { spacing = dpi(18) },
-      layout = {
-        spacing_widget = {
-          widget = wibox.widget.separator,
-        },
-        layout = wibox.layout.fixed.horizontal
-      }
-    })
-
-    local left = wibox.widget({
-      wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
-      wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
-      layout = wibox.layout.fixed.horizontal
-    })
-
-    local middle = wibox.widget({
-      wibox.container.margin(taglist, dpi(0), dpi(0), dpi(5), dpi(5), nil, false),
-      layout = wibox.layout.fixed.horizontal
-    })
-
-    local right = wibox.widget({
-      wibox.container.margin(clock, dpi(10), dpi(10), dpi(0), dpi(0)),
-      layout = wibox.layout.fixed.horizontal
-    })
-
-    local barwidget = wibox.widget({
-      left,
-      middle,
-      right,
-      layout = wibox.layout.align.horizontal,
-      expand = 'none'
-    })
-
-    if screen.wibar then screen.wibar:remove() end
-
-    screen.wibar = awful.wibar({
-      position = 'top',
-      height = dpi(32),
-      screen = screen,
-      margins = { top = dpi(6), bottom = dpi(-2), left = dpi(6), right = dpi(6) },
-      bg = beautiful.colors.background .. "e6",
-      widget = barwidget
-    })
-  end
+  reset = reset,
+  init = init
 }
