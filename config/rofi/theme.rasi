@@ -1,7 +1,7 @@
 @import "variant"
 
 * {
-  font: "Cascadia Code NF 16.5";
+  font: "CaskaydiaCove Nerd Font 16.5";
 
   red: #dc322f;
   blue: #268bd2;
@@ -73,7 +73,7 @@ inputbar {
 }
 
 prompt {
-  font: "Cascadia Code NF 28";
+  font: "CaskaydiaCove Nerd Font 28";
   background-color: @fg;
   text-color: @bg;
   vertical-align: 0.5;

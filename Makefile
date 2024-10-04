@@ -4,15 +4,27 @@ define cecho
 	@tput sgr0
 endef
 
-BASEDIR:=$(shell cd "$(dirname "$0")" || exit; pwd)
+BASEDIR := $(shell cd "$(dirname "$0")" || exit; pwd)
+PACMAN := $(shell type pacman 2>&1 > /dev/null && echo 1 || echo 0)
+APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: dotfiles repos packages services X11 shell root-nvim
+bootstrap: packages fonts dotfiles repos services X11 shell root-nvim
 
 .PHONY: dotfiles
 dotfiles: links templates
+
+.PHONY: fonts
+fonts: TMP:=/tmp/CaskaydiaCove.zip
+fonts: DIR:=~/.fonts/CaskaydiaCove
+fonts:
+	@wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/CascadiaCode.zip -O $(TMP)
+	@rm -rf $(DIR)
+	@mkdir -p $(DIR)
+	@cd $(DIR) && unzip $(TMP)
+	@fc-cache -fr
 
 .PHONY: links
 links:
@@ -39,6 +51,7 @@ links:
 	@ln -sfFT $(BASEDIR)/apps ~/apps
 	@ln -sfFT $(BASEDIR)/ncpamixer.conf ~/.ncpamixer.conf
 	@ln -sfFT $(BASEDIR)/xprofile ~/.xprofile
+	@[ -f ~/.profile ] && rm ~/.profile || /bin/true
 	@ln -sfFT $(BASEDIR)/xresources ~/.Xresources
 	@mkdir -p ~/.Xresources.d
 	@$(foreach file,$(wildcard xresources.d/*),ln -sfFT $(BASEDIR)/$(file) ~/.Xresources.d/$(notdir $(file));)
@@ -78,17 +91,61 @@ root-nvim:
 	$(call cecho, 2, Done.)
 
 .PHONY: packages
+ifeq ($(PACMAN), 1)
 packages:
 	$(call cecho, 3, Installing packages...)
 	@sudo pacman -S --color always --needed --noconfirm yay
-	@yay -S --color always --needed --noconfirm $(shell cat packages.txt | grep -v "#")
-	@gem install dotenv
+	@yay -S --color always --needed --noconfirm $(shell cat packages-arch.txt | grep -v "#")
 	$(call cecho, 2, Done.)
+else ifeq ($(APT), 1)
+packages: ~/git/neovim
+packages: ~/git/awesome
+packages: ~/git/picom
+packages:
+	$(call cecho, 3, Installing packages...)
+	@sudo cp ./ubuntu-sources.list /etc/apt/sources.list.d/ubuntu.sources
+	@sudo apt update
+	@sudo apt install -y $(shell cat packages-ubuntu.txt | grep -v "#")
+	@mkdir -p ~/bin
+	@ln -sfFT /usr/bin/fdfind ~/bin/fd
+	@cd ~/git/neovim \
+		&& git fetch \
+		&& git checkout stable \
+		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
+		&& cd build \
+		&& cpack -G DEB \
+		&& sudo dpkg -i nvim-linux64.deb
+	@sudo apt build-dep awesome
+	@cd ~/git/awesome \
+		&& git clean -f \
+		&& git checkout . \
+		&& make package \
+		&& cd build \
+		&& sudo apt install -y ./*.deb
+	@cd ~/git/picom && \
+		meson setup --buildtype=release build && \
+		ninja -C build && \
+		sudo ninja -C build install
+	$(call cecho, 2, Done.)
+else
+packages:
+	@echo Unsupported distro
+	exit 1
+endif
+
+~/git/neovim:
+	@git clone https://github.com/neovim/neovim ~/git/neovim
+
+~/git/awesome:
+	@git clone https://github.com/awesomewm/awesome ~/git/awesome
+
+~/git/picom:
+	@git clone https://github.com/yshui/picom ~/git/picom
 
 .PHONY: services
 services:
 	$(call cecho, 3, Configuring services...)
-	@sudo systemctl enable lightdm
+	@sudo systemctl enable lightdm || /bin/true
 	@sudo systemctl enable NetworkManager
 	@mkdir -p ~/.local/share/mpd
 	@systemctl enable mpd --user

@@ -9,7 +9,6 @@ return {
   },
   opts = {
     ensure_installed = {
-      'hls',        -- haskell
       'solargraph', -- ruby
       'pylsp',      -- python
       'pyright',    -- python

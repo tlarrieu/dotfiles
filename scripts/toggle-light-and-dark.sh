@@ -44,7 +44,7 @@ sed -e $expr -i ~/.config/rofi/variant.rasi
 cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 
 # awesome
-awesome-client <<- LUA
+awesome-client > /dev/null 2>&1 <<- LUA
   require('theme').config()
   require('panel').reset()
 LUA
@@ -54,4 +54,6 @@ sed -e $gtk_expr -i ~/.xsettingsd
 xsettingsd 1>/dev/null 2>&1 &
 
 # wallpaper
-~/.fehbg
+if [ -x ~/.fehbg ]; then
+  ~/.fehbg
+fi

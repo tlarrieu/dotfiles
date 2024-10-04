@@ -29,10 +29,12 @@ set -x FZF_CTRL_T_OPTS $fzf_common_opts
 set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
 
 # ocaml
-eval (opam env)
+if type opam > /dev/null 2>&1
+  eval (opam env)
+end
 
 # rbenv
-if type rbenv > /dev/null
+if type rbenv > /dev/null 2>&1
   source (rbenv init - | psub)
 end
 

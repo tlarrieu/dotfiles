@@ -1,4 +1,5 @@
 export SHLVL=1
+export LUA_PATH="$HOME/lua/?.lua;;"
 
 xrdb ~/.Xresources
 
@@ -8,14 +9,11 @@ else
   ~/scripts/toggle-light-and-dark.sh light
 fi
 
-udiskie &
-
-unclutter -root -idle 2 &
-picom &
+pgrep unclutter || unclutter -root -idle 2 &
+pgrep picom || picom &
 
 setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
-xinput set-prop "DLL0704:01 06CB:76AE Touchpad" "libinput Tapping Enabled" 1
 
 # vim:ft=sh

@@ -1,0 +1,96 @@
+# vim:filetype=conf
+# essentials
+luarocks
+fzf
+rofi
+pass
+unzip
+curl
+kitty
+fish
+
+# dev
+build-essential
+golang
+cmake
+ninja-build
+npm
+python3-venv
+ruby-dev
+
+# neovim
+gettext
+libtree-sitter-dev
+
+# utils
+plocate
+fd-find
+xdotool
+entr
+xsel
+xclip
+qrencode
+upower
+
+# accounting
+hledger
+hledger-web
+
+# files
+vifm
+nemo
+atool
+eza
+zathura
+ripgrep
+
+# awesome WM
+libxcb-xfixes0-dev
+
+# picom
+libconfig-dev
+libdbus-1-dev
+libegl-dev
+libev-dev
+libgl-dev
+libepoxy-dev
+libpcre2-dev
+libpixman-1-dev
+libx11-xcb-dev
+libxcb1-dev
+libxcb-composite0-dev
+libxcb-damage0-dev
+libxcb-glx0-dev
+libxcb-image0-dev
+libxcb-present-dev
+libxcb-randr0-dev
+libxcb-render0-dev
+libxcb-render-util0-dev
+libxcb-shape0-dev
+libxcb-util-dev
+libxcb-xfixes0-dev
+meson
+ninja-build
+uthash-dev
+
+# window manager
+lightdm
+wmctrl
+flameshot
+xsettingsd
+unclutter
+xcape
+
+# multimedia
+pulsemixer
+mpc
+mpd
+mpv
+sxiv
+feh
+viewnior
+imagemagick
+aria2
+
+# internet
+chromium-browser

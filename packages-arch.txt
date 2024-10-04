@@ -125,8 +125,3 @@ pandoc
 bluez
 bluez-utils
 pulseaudio-bluetooth
-
-# fonts
-ttf-cascadia-code-nerd
-terminus-font
-ttf-ms-fonts
