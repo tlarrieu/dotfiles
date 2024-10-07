@@ -1,3 +1,5 @@
+export SHLVL=1
+
 xrdb ~/.Xresources
 
 if [ "$(date +%H)" -gt 18 ]; then
