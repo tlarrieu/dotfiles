@@ -18,3 +18,7 @@ fi
 notify-send Success "Context set to '$CONTEXT'"
 
 echo "CONTEXT=\"$CONTEXT\"" > ~/.context.env
+
+awesome-client <<-LUA
+  require('panel').reset()
+LUA
