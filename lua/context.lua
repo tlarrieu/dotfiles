@@ -21,6 +21,7 @@ _M.set = function(context)
     _M.notify()
   end
 
+  os.execute('sleep 0.1')
   require('panel').reset()
 end
 
