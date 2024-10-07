@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local curdate = function () return os.date('%m/%d') end
+local curdate = function() return os.date('%m/%d') end
 
 return {
   -- definitions
@@ -16,7 +16,7 @@ return {
     i(4, 'amount'),
     i(0, 'card:ce')
   })),
-  s("i", fmta([[
+  s("*", fmta([[
   <> ! me
     card:ce  <> €
     <>
@@ -26,7 +26,7 @@ return {
     i(0, 'unemployment')
   })),
   s("t", fmta([[
-  <> ! me | transfert
+  <> * me | transfert
     <>  <> €
     <>
   ]], {
