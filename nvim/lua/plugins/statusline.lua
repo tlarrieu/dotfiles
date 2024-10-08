@@ -31,11 +31,12 @@ return {
           icons_enabled = true,
           fmt = function(mode, _)
             if mode == 'NORMAL' then return ' 󰹻 ' end
+            if mode == 'O-PENDING' then return '  ' end
             if mode == 'INSERT' then return ' 󰏪 ' end
             if mode == 'COMMAND' then return ' 󰞷 ' end
-            if mode == 'VISUAL' then return ' 󰬃 ' end
-            if mode == 'V-LINE' then return ' 󰫹 ' end
-            if mode == 'V-BLOCK' then return ' 󰫯 ' end
+            if mode == 'VISUAL' then return ' 󰩭 ' end
+            if mode == 'V-LINE' then return ' 󰩭 ' end
+            if mode == 'V-BLOCK' then return ' 󰩭 ' end
             return mode
           end
         }
@@ -79,7 +80,7 @@ return {
         'encoding',
         {
           'fileformat',
-          symbols = { unix = '', dos = '󰖳', mac = '' },
+          symbols = { unix = '󰻀', dos = '󰖳', mac = '' },
         },
         {
           'custom',
