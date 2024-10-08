@@ -73,7 +73,6 @@ inputbar {
 }
 
 prompt {
-  font: "CaskaydiaCove Nerd Font 28";
   background-color: @fg;
   text-color: @bg;
   vertical-align: 0.5;
