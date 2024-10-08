@@ -74,7 +74,7 @@ xorg-xmodmap
 awesome-git
 lightdm
 i3lock-color
-picom
+picom-git
 wmctrl
 flameshot
 unclutter
