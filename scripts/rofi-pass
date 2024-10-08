@@ -133,7 +133,6 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
 
-      pro/swile* | \
       pro/onoff)
         press Tab
         press Tab
