@@ -55,7 +55,9 @@ set -g -x MANPAGER 'nvim +Man!'
 set -x -U GOPATH $HOME/go
 
 # LUA
-set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
+if [ -z (echo $LUA_PATH | grep "$HOME/lua") ]; then
+  set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
+end
 
 # JAVA
 set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
