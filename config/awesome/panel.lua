@@ -3,7 +3,6 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local apply_dpi = require('beautiful.xresources').apply_dpi
 local gears = require('gears')
-local pipe
 
 -- [[ Clock ]] -----------------------------------------------------------------
 local clock = wibox.widget({
