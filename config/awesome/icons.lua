@@ -202,7 +202,7 @@ end
 
 _M.fetch = function(client)
   for i = 1, #config do
-    local icon = config[i].icon .. ' '
+    local icon = config[i].icon
 
     if config[i].rules then
       for j = 1, #config[i].rules do
@@ -213,7 +213,7 @@ _M.fetch = function(client)
     end
   end
 
-  return default .. ' '
+  return default
 end
 
 return _M
