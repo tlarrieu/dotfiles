@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -z "$1" ]; then
-  source ~/.context.env
+  . ~/.context.env
 
   case $CONTEXT in
     home)
@@ -14,8 +14,6 @@ if [ -z "$1" ]; then
 else
   CONTEXT="$1"
 fi
-
-notify-send Success "Context set to '$CONTEXT'"
 
 echo "CONTEXT=\"$CONTEXT\"" > ~/.context.env
 

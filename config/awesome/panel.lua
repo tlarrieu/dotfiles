@@ -125,7 +125,11 @@ local init = function(screen)
       layout = wibox.layout.fixed.horizontal
     }
   })
-  context.markup = '<b>@' .. require('context').get() .. '</b>'
+
+  local cmd = "sh -c '. " .. require('context').path .. " && echo $CONTEXT'"
+  awful.spawn.easy_async_with_shell(cmd, function(out)
+    context.markup = '<b>@' .. out .. '</b>'
+  end)
 
   local left = wibox.widget({
     wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
