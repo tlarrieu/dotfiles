@@ -63,8 +63,12 @@ end
 set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
 
 # PATH
-set -x PATH $PATH $HOME/scripts
-set -x PATH $HOME/apps $PATH
+if [ -z (echo $PATH | grep "$HOME/scripts") ]; then
+  set -x PATH $PATH "$HOME/scripts"
+end
+if [ -z (echo $PATH | grep "$HOME/apps") ]; then
+  set -x PATH $PATH "$HOME/apps"
+end
 set -x PATH $PATH $HOME/apps/ignore
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
