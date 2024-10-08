@@ -122,6 +122,7 @@ packages:
 		&& make package \
 		&& cd build \
 		&& sudo apt install -y ./*.deb
+		&& sudo cp ~/git/awesome/build/_CPack_Packages/Linux/DEB/awesome-4.3.0.0~git1666-gd53eb1be-Linux/usr/local/share/xsessions/awesome.desktop /usr/share/xsessions/awesome.desktop
 	@cd ~/git/picom && \
 		meson setup --buildtype=release build && \
 		ninja -C build && \
