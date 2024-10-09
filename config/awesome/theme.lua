@@ -10,7 +10,7 @@ return {
     theme.colors = xrdb.colors
     theme.useless_gap = dpi(6)
 
-    local accent = theme.colors.magenta.dark
+    local accent = theme.colors.blue.dark
 
     theme.font = xrdb.font.name .. " " .. xrdb.font.size
     theme.taglist_font = xrdb.font.name .. " " .. tostring(xrdb.font.size * 1.3):gsub(",", ".")
