@@ -11,7 +11,7 @@ APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell root-nvim
+bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell root-nvim crontab
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -36,6 +36,10 @@ gtk-theme:
 	@wget --quiet https://github.com/Ferdi265/numix-solarized-gtk-theme/releases/download/$(VERSION)/NumixSolarized-$(VERSION).tar.gz -O $(TMP)
 	@tar xvzf $(TMP) --directory=/tmp
 	@sudo mv /tmp/$(NAME)/* $(DIR)/.
+
+.PHONY: crontab
+crontab:
+	@sh crontab.sh
 
 .PHONY: links
 links:
