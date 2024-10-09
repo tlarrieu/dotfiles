@@ -7,7 +7,7 @@ export PATH="$HOME/apps:$PATH"
 
 xrdb ~/.Xresources
 
-if [ "$(date +%H)" -gt 18 ]; then
+if [ "$(date +%H)" -gt 18 ] || [ "$(date +%H)" -lt 8 ]; then
   ~/scripts/toggle-light-and-dark.sh dark
 else
   ~/scripts/toggle-light-and-dark.sh light
