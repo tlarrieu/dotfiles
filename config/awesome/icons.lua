@@ -56,6 +56,7 @@ local config = {
   { icon = '󰷼', rule = { class = 'Chromium', instance = 'docusign' } },
   { icon = '', rule = { class = 'Chromium', instance = 'slack' } },
   { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' } },
+  { icon = '', rule = { class = '1Password' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
