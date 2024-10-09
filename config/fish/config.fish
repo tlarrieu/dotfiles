@@ -55,7 +55,7 @@ set -g -x MANPAGER 'nvim +Man!'
 set -x -U GOPATH $HOME/go
 
 # LUA
-if [ -z (echo $LUA_PATH | grep "$HOME/lua") ]; then
+if [ -z (echo $LUA_PATH | grep "$HOME/lua") ]
   set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
 end
 
