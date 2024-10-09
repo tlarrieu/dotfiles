@@ -33,21 +33,21 @@ return {
       },
       center = {
         {
-          icon = '󰏗 ',
+          icon = ' ',
           desc = pad('Lazy'),
           key = 'l',
           key_format = format,
           action = 'Lazy'
         },
         {
-          icon = ' ',
+          icon = ' ',
           desc = pad('Mason'),
           key = 'm',
           key_format = format,
           action = 'Mason'
         },
         {
-          icon = ' ',
+          icon = ' ',
           desc = pad('Files'),
           key = 't',
           key_format = format,
@@ -56,7 +56,7 @@ return {
           end,
         },
         {
-          icon = ' ',
+          icon = ' ',
           desc = pad('Live grep'),
           key = 'é',
           key_format = ' ' .. format,
@@ -65,7 +65,7 @@ return {
           end,
         },
         {
-          icon = ' ',
+          icon = ' ',
           desc = pad('Git files'),
           key = 'y',
           key_format = format,
@@ -74,14 +74,14 @@ return {
           end,
         },
         {
-          icon = ' ',
+          icon = ' ',
           desc = pad('Git log'),
           key = 's',
           key_format = format,
           action = 'GV',
         },
         {
-          icon = '⏻ ',
+          icon = ' ',
           desc = pad('Quit'),
           key = 'q',
           key_format = format,
