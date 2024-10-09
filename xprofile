@@ -3,7 +3,7 @@ export LUA_PATH="$HOME/lua/?.lua;;"
 export PATH="$HOME/scripts:$PATH"
 export PATH="$HOME/apps:$PATH"
 
-[ -f "~/.xprofile.local" ] && . ~/.xprofile.local
+[ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
 xrdb ~/.Xresources
 
