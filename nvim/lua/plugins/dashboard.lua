@@ -1,5 +1,5 @@
 local format = ' %s'
-local pad = function(str) return string.format('%-18s', str) end
+local pad = function(str) return string.format(' %-18s', str) end
 
 return {
   'nvimdev/dashboard-nvim',
