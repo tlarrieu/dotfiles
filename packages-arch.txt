@@ -84,7 +84,6 @@ xsettingsd
 # gtk
 lxappearance-gtk3
 xcursor-breeze
-gtk-theme-numix-solarized
 papirus-icon-theme
 
 # multimedia

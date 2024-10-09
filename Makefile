@@ -11,7 +11,7 @@ APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: packages fonts dotfiles repos services X11 shell root-nvim
+bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell root-nvim
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -26,6 +26,16 @@ fonts:
 	@mkdir -p $(DIR)
 	@cd $(DIR) && unzip $(TMP)
 	@fc-cache -fr
+
+.PHONY: gtk-theme
+gtk-theme: NAME:=NumixSolarized
+gtk-theme: TMP:=/tmp/$(NAME).tar.gz
+gtk-theme: DIR:=/usr/share/themes
+gtk-theme: VERSION=20230408
+gtk-theme:
+	@wget --quiet https://github.com/Ferdi265/numix-solarized-gtk-theme/releases/download/$(VERSION)/NumixSolarized-$(VERSION).tar.gz -O $(TMP)
+	@tar xvzf $(TMP) --directory=/tmp
+	@sudo mv /tmp/$(NAME)/* $(DIR)/.
 
 .PHONY: links
 links:

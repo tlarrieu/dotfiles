@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/tlarrieu/.gtkrc-2.0.mine"
-gtk-theme-name="NumixSolarizedLightMagenta"
+gtk-theme-name="NumixSolarizedLightBlue"
 gtk-icon-theme-name="Menda-Circle"
 gtk-font-name="Cantarell 15"
 gtk-cursor-theme-name="xcursor-breeze-snow"
