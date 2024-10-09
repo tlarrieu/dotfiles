@@ -113,17 +113,37 @@ local init = function(screen)
   local dpi = function(n) return apply_dpi(n, screen) end
 
   local taglist = awful.widget.taglist({
-    screen = screen,
-    filter = function(tag)
+    screen          = screen,
+    filter          = function(tag)
       return #tag:clients() > 1 or #tag.screen.tags > 1
     end,
-    style  = { spacing = dpi(18) },
-    layout = {
+    style           = {
+      shape   = gears.shape.powerline,
+      spacing = dpi(13)
+    },
+    layout          = {
       spacing_widget = {
+        shape  = gears.shape.powerline,
         widget = wibox.widget.separator,
       },
       layout = wibox.layout.fixed.horizontal
-    }
+    },
+    widget_template = {
+      {
+        {
+          {
+            id     = 'text_role',
+            widget = wibox.widget.textbox,
+          },
+          layout = wibox.layout.fixed.horizontal,
+        },
+        left   = dpi(13),
+        right  = dpi(4),
+        widget = wibox.container.margin
+      },
+      id     = 'background_role',
+      widget = wibox.container.background,
+    },
   })
 
   local cmd = "sh -c '. " .. require('context').path .. " && echo $CONTEXT'"
