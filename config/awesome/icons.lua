@@ -196,9 +196,9 @@ local config = {
 }
 
 local match = function(client, rule)
-  return (not rule.name or client.name:find(rule.name)) and
-      (not rule.instance or client.instance:find(rule.instance)) and
-      (not rule.class or client.class:find(rule.class))
+  return (not rule.name or (client.name or ''):find(rule.name)) and
+      (not rule.instance or (client.instance or ''):find(rule.instance)) and
+      (not rule.class or (client.class or ''):find(rule.class))
 end
 
 _M.fetch = function(client)
