@@ -2,19 +2,19 @@ local awful = require('awful')
 
 local _M = {}
 
-local git_pull = function(path)
-  awful.spawn.with_shell('cd ' .. path .. ' && git pull')
-end
+-- local git_pull = function(path)
+--   awful.spawn.with_shell('cd ' .. path .. ' && git pull')
+-- end
 
-_M.boot = function ()
+_M.boot = function()
   local path = '/tmp/awesome_started'
   local f = io.open(path, 'r')
 
   awful.spawn.with_shell('~/.fehbg')
 
   if not f then
-    git_pull('~/.password-store')
-    git_pull('~/.neorg')
+    -- git_pull('~/.password-store')
+    -- git_pull('~/.neorg')
 
     local apps = {
       'gmail',
