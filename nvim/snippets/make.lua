@@ -6,7 +6,12 @@ return {
   define <>
   	<>
   endef
-  ]], {i(1, 'name'), i(0)})),
+  ]], { i(1, 'name'), i(0) })),
+  s("r", fmta([[
+  .PHONY: <>
+  <>:
+  	<>
+  ]], { i(1, 'name'), rep(1), i(0) })),
 
   -- check root privileges
   s("root", fmta([[
