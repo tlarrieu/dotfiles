@@ -8,10 +8,11 @@
 log
 logs
 
+config/fish/completions
+config/fish/conf.d/local.fish
 config/fish/fish_history
 config/fish/fish_variables
 config/fish/fishd.*
-config/fish/conf.d/local.fish
 config/fish/fundle
 config/fish/local.fish
 config/kitty/theme.conf
