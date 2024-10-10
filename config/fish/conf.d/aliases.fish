@@ -110,6 +110,7 @@ alias lspkg "awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/)
 abbr ,a "cd ~/apps"
 abbr ,b "cd ~/sandbox"
 abbr ,c "cd ~/git/dotfiles"
+abbr ,. "cd ~/dev/job"
 abbr ,d "cd ~/Documents"
 abbr ,m "cd ~/Music"
 abbr ,n "cd ~/.neorg/"
@@ -176,10 +177,10 @@ abbr py2 "python2"
 abbr rb "ruby"
 
 # Docker
-abbr dc "docker-compose"
-abbr dcu "docker-compose up -d"
-abbr dcd "docker-compose down"
 abbr d "docker"
+abbr dc "docker compose"
+abbr dcu "docker compose up -d"
+abbr dcd "docker compose down"
 
 # Kubernetes
 abbr k "kubectl"
