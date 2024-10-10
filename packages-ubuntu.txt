@@ -94,3 +94,4 @@ aria2
 
 # internet
 chromium-browser
+net-tools
