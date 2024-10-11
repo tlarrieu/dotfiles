@@ -98,6 +98,7 @@ abbr atp "apack"
 abbr a "sudo apt"
 abbr ai "sudo apt install"
 abbr ar "sudo apt remove"
+abbr as "apt search"
 abbr aar "sudo apt autoremove"
 
 # YAY
