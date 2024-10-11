@@ -11,7 +11,7 @@ APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell root-nvim crontab
+bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell crontab root-dotfiles
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -98,9 +98,10 @@ templates: ~/.xsettingsd
 ~/.xsettingsd:
 	@cp $(BASEDIR)/templates/.xsettingsd ~/.xsettingsd
 
-.PHONY: root-nvim
-root-nvim:
+.PHONY: root-dotfiles
+root-dotfiles:
 	$(call cecho, 3, Copying root nvim config...)
+	@sudo cp $(BASEDIR)/templates/root/.bashrc /root/.bashrc
 	@sudo mkdir -p /root/.config/nvim
 	@sudo cp $(BASEDIR)/templates/root/nvim.lua /root/.config/nvim/init.lua
 	$(call cecho, 2, Done.)
