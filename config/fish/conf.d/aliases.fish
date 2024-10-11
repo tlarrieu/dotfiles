@@ -94,6 +94,12 @@ abbr fd "fd -I -H"
 abbr atx "aunpack"
 abbr atp "apack"
 
+# apt
+abbr a "sudo apt"
+abbr ai "sudo apt install"
+abbr ar "sudo apt remove"
+abbr aar "sudo apt autoremove"
+
 # YAY
 abbr y "yay"
 abbr yqs "yay -Qs --color always"
