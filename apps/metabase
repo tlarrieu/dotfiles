@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://metabase.pennylane.tech/"
