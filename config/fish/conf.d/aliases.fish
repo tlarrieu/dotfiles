@@ -116,7 +116,7 @@ alias lspkg "awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/)
 abbr ,a "cd ~/apps"
 abbr ,b "cd ~/sandbox"
 abbr ,c "cd ~/git/dotfiles"
-abbr ,. "cd ~/dev/job"
+abbr ,. "cd ~/dev"
 abbr ,d "cd ~/Documents"
 abbr ,m "cd ~/Music"
 abbr ,n "cd ~/.neorg/"
