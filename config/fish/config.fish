@@ -85,8 +85,12 @@ eval (dircolors -c ~/.dir_colors)
 set -gx TERM xterm-kitty
 
 # ssh-agent
-eval (ssh-agent -c) > /dev/null
-trap 'kill -9 $SSH_AGENT_PID' EXIT
+if which keychain > /dev/null 2>&1
+  source ~/.keychain/$HOSTNAME-fish
+else
+  eval (ssh-agent -c) > /dev/null
+  trap 'kill -9 $SSH_AGENT_PID' EXIT
+end
 
 # fundle
 fundle plugin 'edc/bass'
