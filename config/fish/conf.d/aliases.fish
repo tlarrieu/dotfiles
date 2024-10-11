@@ -136,7 +136,6 @@ abbr la "eza --icons -A"
 abbr ll "eza --icons -lAh"
 
 # SSH
-abbr kc "ls ~/.ssh/*.pub | sed 's/.pub\$//' | xargs keychain"
 abbr sa "ssh-add"
 abbr ssh-wtf "cat ~/.ssh/config | grep Host | grep -v Hostname | sort | sed 's/Host //'"
 

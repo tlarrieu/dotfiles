@@ -95,7 +95,3 @@ aria2
 # internet
 chromium-browser
 net-tools
-
-# security
-keychain
-ssh-askpass
