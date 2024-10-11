@@ -20,4 +20,7 @@ setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
 xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
 
+# NOTE: Disable screen saving / blanking
+xset s off -dpms
+
 # vim:ft=sh

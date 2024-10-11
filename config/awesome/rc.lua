@@ -7,4 +7,4 @@ require('keymaps').config()
 require('signals')
 require('rules')
 
-require('startup').boot()
+require('awful').spawn.with_shell('~/.fehbg')
