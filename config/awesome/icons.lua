@@ -59,6 +59,7 @@ local config = {
   { icon = '󰠮', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = '1Password' } },
+  { icon = '', rule = { class = 'kitty', name = 'jeancaisse' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
