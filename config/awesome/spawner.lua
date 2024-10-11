@@ -25,7 +25,7 @@ _M.terminal = function(cmd, opts)
   return string.format(
     'kitty --single-instance %s %s',
     options,
-    cmd or ''
+    cmd and _M.shell(cmd) or ''
   )
 end
 
