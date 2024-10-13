@@ -13,7 +13,6 @@ return {
     { '<leader>S',  ':GV<cr>' },
     { '<leader>gp', ':Git push --force-with-lease<cr>' },
     { '<leader>gu', ':Git pull --rebase<cr>' },
-
     {
       '<leader>S',
       ":'<,'>GV<cr>",
