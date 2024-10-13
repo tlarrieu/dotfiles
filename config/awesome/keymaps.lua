@@ -123,12 +123,7 @@ local keyboard = {
       signal = spawner.actions.MOVE,
     }),
     spawner.key({ mod, 'Shift' }, 'a', {
-      app = function()
-        return spawner.terminal(
-          spawner.shell('ft edit'),
-          { class = 'accounting', directory = accounting }
-        )
-      end,
+      app = spawner.terminal('ft edit', { class = 'accounting', directory = accounting }),
       props = { class = 'accounting' },
       signal = spawner.actions.JUMP,
     }),
