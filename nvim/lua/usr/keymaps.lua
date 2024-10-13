@@ -139,7 +139,7 @@ k.set('n', '<leader>k', function()
   ]]
 end, merge({ desc = 'Remove trailing spaces' }, noremap))
 -- Cursorline / Cursorcolumn
-k.set('n', '<leader>g', function()
+k.set('n', '<leader>r', function()
   vim.cmd [[
     if &virtualedit ==# 'all'
       setlocal virtualedit=""
