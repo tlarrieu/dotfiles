@@ -16,14 +16,24 @@ return {
     i(4, 'amount'),
     i(0, 'card:ce')
   })),
-  s("*", fmta([[
+  s("r", fmta([[
+  <> ! me | <>
+    <>  <> €
+    refund
+  ]], {
+    f(curdate),
+    i(1, 'desc'),
+    i(2, 'card:ce'),
+    i(3, 'amount'),
+  })),
+  s("i", fmta([[
   <> ! me
     card:ce  <> €
-    <>
+    salary/<>
   ]], {
     f(curdate),
     i(1, 'amount'),
-    i(0, 'unemployment')
+    i(0, 'Thomas')
   })),
   s("t", fmta([[
   <> * me | transfert
@@ -35,6 +45,7 @@ return {
     i(2, 'amount'),
     i(0, 'from')
   })),
+
   s("l", fmta("<>  <> €", {
     i(1, 'account'),
     i(0, 'amount')
