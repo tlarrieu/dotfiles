@@ -59,7 +59,6 @@ local config = {
   { icon = '󰠮', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = '1Password' } },
-  { icon = '', rule = { class = 'kitty', name = 'jeancaisse' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
@@ -187,6 +186,7 @@ local config = {
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
 
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
+  { icon = '', rule = { class = 'kitty', name = 'redis%-server' } },
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' } },
   { icon = '', rule = { class = 'kitty', name = 'exercism' } },
   { icon = '', rule = { class = 'kitty', name = 'NVIM' } },
