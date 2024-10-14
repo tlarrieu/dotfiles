@@ -36,7 +36,6 @@ return {
           bg = c.base3,
           mix_bg = c.base2,
           dim_bg = c.base4,
-          comment = c.base1,
 
           lualine = {
             git = {
@@ -53,7 +52,6 @@ return {
           bg = c.base03,
           mix_bg = c.base02,
           dim_bg = c.base04,
-          comment = c.base01,
 
           lualine = {
             git = {
@@ -89,9 +87,9 @@ return {
 
       vim.api.nvim_set_hl(0, "LineNr", paint('blue'))
       vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'CursorLine' })
-      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.comment })
-      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.comment })
-      vim.api.nvim_set_hl(1, "LineNr", { fg = c.comment })
+      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.mix_fg })
+      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.mix_fg })
+      vim.api.nvim_set_hl(1, "LineNr", { fg = c.mix_fg })
       vim.api.nvim_set_hl(1, "CursorLineNr", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
@@ -128,8 +126,8 @@ return {
         Tag = { fg = c.yellow },
         TagAttribute = { fg = c.violet },
         Type = { fg = c.yellow },
-        Whitespace = { fg = c.comment },
-        Nontext = { fg = c.comment, bg = c.none, bold = true },
+        Whitespace = { fg = c.mix_fg },
+        Nontext = { fg = c.mix_fg, bg = c.none, bold = true },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
@@ -210,7 +208,7 @@ return {
         ['@text.diff.delete.diff'] = { link = 'DiffDelete' },
         ['@text.diff.change.diff'] = { link = 'DiffChange' },
 
-        Statusline = { fg = c.comment, bg = c.mix_bg },
+        Statusline = { fg = c.mix_fg, bg = c.mix_bg },
         StatuslineNC = { link = 'Statusline' },
         LualineAdded = c.lualine.git.added,
         LualineRemoved = c.lualine.git.removed,
@@ -219,7 +217,7 @@ return {
         LualineTablineActiveAlt = { fg = c.bg, bg = c.fg },
         LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
 
-        WinSeparator = { fg = c.comment },
+        WinSeparator = { fg = c.mix_fg },
 
         NormalFloat = { fg = c.fg, bg = c.mix_bg },
         FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
@@ -331,9 +329,9 @@ return {
         ['@text.title.5'] = { link = '@markup.heading.5' },
         ['@text.title.6'] = { link = '@markup.heading.6' },
 
-        ['@todo.done'] = { fg = c.comment, strikethrough = true },
+        ['@todo.done'] = { fg = c.mix_fg, strikethrough = true },
         ['@todo.priority'] = { fg = c.yellow },
-        ['@todo.kv'] = { fg = c.comment, italic = true },
+        ['@todo.kv'] = { fg = c.mix_fg, italic = true },
         ['@todo.date'] = { link = '@todo.kv' },
         ['@todo.project'] = { fg = c.violet },
         ['@todo.context'] = { fg = c.orange },
@@ -344,7 +342,7 @@ return {
 
         DashboardHeader = { link = 'Comment' },
         DashboardFooter = { link = 'DashboardHeader' },
-        DashboardDesc = { fg = c.comment, bold = false },
+        DashboardDesc = { fg = c.mix_fg, bold = false },
         DashboardIcon = { fg = c.violet },
         DashboardKey = { fg = c.blue, italic = true, bold = true },
       }
