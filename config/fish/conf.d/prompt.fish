@@ -1,3 +1,5 @@
+set async_prompt_functions _git_prompt
+
 function _git_branch_name
   set -l branch (command git symbolic-ref HEAD 2> /dev/null)
     and string replace 'refs/heads/' " " $branch " "
