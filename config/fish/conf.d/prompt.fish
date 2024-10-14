@@ -51,12 +51,12 @@ function _git_prompt
     and return
 
   set -l stashed \
-    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n '󰜦 ')
+    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
 
   set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󰕚 ")
+    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦡 ")
   set -l staged \
-    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱉲 ")
+    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱊖 ")
   set -l ahead \
     (_git_ahead)
 
@@ -85,7 +85,7 @@ function fish_prompt
   set -l last_status $status
 
   set -l blue (set_color blue)
-  set -l cwd $blue(basename (pwd | sed "s:^$HOME:~:"))
+  set -l cwd $blue(prompt_pwd)
 
   echo -ns ' '
 
