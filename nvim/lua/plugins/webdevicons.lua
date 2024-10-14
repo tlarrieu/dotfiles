@@ -31,6 +31,8 @@ return {
       eruby = { icon = '' },
       ['eruby.html'] = { icon = '' },
       css = { icon = '' },
+      scss = { icon = '' },
+      rasi = { icon = '' },
       go = { icon = '' },
       gomod = { icon = '' },
       gosum = { icon = '󰎠' },
