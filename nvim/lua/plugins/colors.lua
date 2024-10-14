@@ -136,7 +136,7 @@ return {
         ['@markup.underline'] = { fg = c.none, underline = true },
 
         ['@conditional'] = { link = 'Conditional' },
-        ['@field'] = { link = 'Normal' },
+        ['@field'] = { fg = c.mix_fg },
         ['@include'] = { link = 'Include' },
         ['@label'] = { fg = c.violet },
         ['@method'] = { link = 'Function' },
@@ -153,10 +153,8 @@ return {
         ['@property.css'] = { fg = c.violet },
         ['@tag.css'] = { fg = c.orange },
         ['@type.css'] = { fg = c.violet },
-        ['@field.css'] = { fg = c.mix_fg },
 
         ['@namespace.rasi'] = { fg = c.violet },
-        ['@field.rasi'] = { fg = c.mix_fg },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
