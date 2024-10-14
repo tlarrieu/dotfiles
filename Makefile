@@ -11,7 +11,7 @@ APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 all: dotfiles
 
 .PHONY: bootstrap
-bootstrap: packages fonts gtk-theme dotfiles repos services X11 shell crontab root-dotfiles
+bootstrap: packages fonts gtk-theme dotfiles services X11 shell crontab root-dotfiles
 
 .PHONY: dotfiles
 dotfiles: links templates
@@ -35,7 +35,8 @@ gtk-theme: VERSION=20230408
 gtk-theme:
 	@wget --quiet https://github.com/Ferdi265/numix-solarized-gtk-theme/releases/download/$(VERSION)/NumixSolarized-$(VERSION).tar.gz -O $(TMP)
 	@tar xvzf $(TMP) --directory=/tmp
-	@sudo mv /tmp/$(NAME)/* $(DIR)/.
+	@sudo rm -rf $(DIR)/Numix*
+	@sudo mv -f /tmp/$(NAME)/* $(DIR)/.
 
 .PHONY: crontab
 crontab:
@@ -137,7 +138,7 @@ packages:
 		&& git checkout . \
 		&& make package \
 		&& cd build \
-		&& sudo apt install -y ./*.deb
+		&& sudo apt install -y ./*.deb \
 		&& sudo cp ~/git/awesome/awesome.desktop /usr/share/xsessions/awesome.desktop
 	@cd ~/git/picom && \
 		meson setup --buildtype=release build && \
