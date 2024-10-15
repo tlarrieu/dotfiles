@@ -96,10 +96,11 @@ abbr atp "apack"
 
 # apt
 abbr a "sudo apt"
+abbr aar "sudo apt autoremove"
 abbr ai "sudo apt install"
+abbr al "apt list --installed"
 abbr ar "sudo apt remove"
 abbr as "apt search"
-abbr aar "sudo apt autoremove"
 
 # YAY
 abbr y "yay"
