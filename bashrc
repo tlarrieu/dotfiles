@@ -1,5 +1,5 @@
 # rbenv
-if type rbenv > /dev/null; then
+if type rbenv > /dev/null 2>&1; then
   set RBENV_ROOT /usr/local/var/rbenv
   eval "$(rbenv init -)"
 fi

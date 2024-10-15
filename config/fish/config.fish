@@ -50,7 +50,6 @@ set -g -x BROWSER browser-kiosk
 # MANPAGER
 set -g -x MANPAGER 'nvim +Man!'
 
-
 # Go
 set -x -U GOPATH $HOME/go
 
