@@ -9,13 +9,13 @@ return {
   },
   opts = {
     ensure_installed = {
-      'solargraph', -- ruby
-      'pylsp',      -- python
-      'pyright',    -- python
-      'lua_ls',     -- lua
-      'vimls',      -- vim
-      'gopls',      -- golang
-      'bashls',     -- bash
+      'ruby_lsp', -- ruby
+      'pylsp',    -- python
+      'pyright',  -- python
+      'lua_ls',   -- lua
+      'vimls',    -- vim
+      'gopls',    -- golang
+      'bashls',   -- bash
     },
   },
   cmd = { 'Mason' },
