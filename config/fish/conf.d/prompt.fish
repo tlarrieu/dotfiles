@@ -1,4 +1,4 @@
-set async_prompt_functions _git_prompt
+set async_prompt_functions _git
 
 function _git_branch_name
   set -l branch (command git symbolic-ref HEAD 2> /dev/null)
@@ -42,7 +42,7 @@ function _git_ahead
   end
 end
 
-function _git_prompt
+function _git
   # Check if we are in a git repository
   [ (command git rev-parse --git-dir 2> /dev/null) ]
     or return
@@ -81,35 +81,29 @@ function _git_prompt
   set_color normal
 end
 
+function _jobs
+  [ (jobs | wc -l) -gt 0 ]
+    and echo -ns " 󰏤"
+end
+
+function _pwd
+  echo -ns ' '(set_color blue)(prompt_pwd)(set_color normal)' '
+end
+
 function fish_prompt
   set -l last_status $status
 
-  set -l blue (set_color blue)
-  set -l cwd $blue(prompt_pwd)
+  _jobs
+  _pwd
+  _git
+
+  [ $last_status = 0 ]
+    and set_color normal
+    or set_color red
+
+  for x in (seq $SHLVL); echo -ns "❯"; end
 
   echo -ns ' '
-
-  # Show background job if any
-  [ (jobs | wc -l) -gt 0 ]
-    and echo -ns "󰏤 "
-
-  # Print pwd or full path
-  echo -n -s $cwd $normal " "
-
-  # Show git branch and status
-  _git_prompt
-
-  if test $last_status = 0
-    set_color normal
-  else
-    set_color red
-  end
-
-  for x in (seq $SHLVL)
-    echo -ns "❯"
-  end
-
-  echo -ns " "
 
   set_color normal
 end
