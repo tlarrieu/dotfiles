@@ -53,6 +53,7 @@ return {
       ['.gitattributes'] = { icon = '' },
       fugitive = { icon = '' },
       GV = { icon = '' },
+      ['gitsigns-blame'] = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
       java = { icon = '' },
