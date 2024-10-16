@@ -31,11 +31,11 @@ sed -e $expr -i ~/.Xresources.d/local
 xrdb -merge ~/.Xresources
 
 # nvim
-pkill --signal USR1 nvim
+pkill --signal USR1 nvim || /bin/true
 
 # kitty
 sed -e $expr -i ~/.config/kitty/theme.conf
-pkill --signal USR1 kitty
+pkill --signal USR1 kitty || /bin/true
 
 # rofi
 sed -e $expr -i ~/.config/rofi/variant.rasi
@@ -54,6 +54,4 @@ sed -e $gtk_expr -i ~/.xsettingsd
 xsettingsd 1>/dev/null 2>&1 &
 
 # wallpaper
-if [ -x ~/.fehbg ]; then
-  ~/.fehbg
-fi
+[ -x ~/.fehbg ] && ~/.fehbg
