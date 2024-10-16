@@ -21,6 +21,11 @@ local focus_client = function(direction)
   if client.focus then client.focus:raise() end
 end
 
+local move_to_screen = function(client, screen)
+  client:move_to_screen(screen)
+  helpers.create_tag_and_attach_to(client, true)
+end
+
 -- [[ Keyboard ]] ==============================================================
 
 local keyboard = {
@@ -38,10 +43,10 @@ local keyboard = {
       c:move_to_tag(c.screen.selected_tag)
     end),
     spawner.key({ mod }, 'n', function(client) helpers.create_tag_and_attach_to(client, true) end),
-    spawner.key({ mod }, 'o', function(client)
-      client:move_to_screen()
-      helpers.create_tag_and_attach_to(client, true)
-    end)
+    spawner.key({ mod, 'Control' }, '"', function(client) move_to_screen(client, 1) end),
+    spawner.key({ mod, 'Control' }, 'guillemotleft', function(client) move_to_screen(client, 2) end),
+    spawner.key({ mod, 'Control' }, 'guillemotright', function(client) move_to_screen(client, 3) end),
+    spawner.key({ mod }, 'o', function(client) move_to_screen(client) end)
   ),
 
   root = gears.table.join(
@@ -65,14 +70,15 @@ local keyboard = {
     spawner.key({ mod, 'Control' }, 's', function() awful.client.swap.byidx(-1) end),
     spawner.key({ mod }, 'd', function() awful.tag.incmwfact(increment) end),
     spawner.key({ mod }, 'v', function() awful.tag.incmwfact(-increment) end),
-    spawner.key({ mod, 'Shift' }, 'd', function() awful.client.incwfact(increment) end),
-    spawner.key({ mod, 'Shift' }, 'v', function() awful.client.incwfact(-increment) end),
     spawner.key({ mod }, 't', function() focus_client(1) end),
     spawner.key({ mod }, 'Down', function() focus_client(1) end),
     spawner.key({ mod }, 's', function() focus_client(-1) end),
     spawner.key({ mod }, 'Up', function() focus_client(-1) end),
     spawner.key({ mod }, 'i', function() awful.screen.focus_relative(1) end),
     spawner.key({ mod }, 'e', function() awful.screen.focus_relative(-1) end),
+    spawner.key({ mod, 'Shift' }, '"', function() awful.screen.focus(1) end),
+    spawner.key({ mod, 'Shift' }, 'guillemotleft', function() awful.screen.focus(2) end),
+    spawner.key({ mod, 'Shift' }, 'guillemotright', function() awful.screen.focus(3) end),
     spawner.key({ mod, 'Shift' }, 'r', awesome.restart),
 
     -- [[ Togglers ]] ----------------------------------------------------------

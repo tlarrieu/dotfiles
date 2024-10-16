@@ -11,12 +11,12 @@ local clock = wibox.widget({
 })
 
 -- [[ Context ]] -----------------------------------------------------------------
-local context = wibox.widget {
+local context = wibox.widget({
   markup = 'context',
   align  = 'center',
   valign = 'center',
   widget = wibox.widget.textbox
-}
+})
 
 -- [[ earbuds power ]] -------------------------------------------------------
 local earbuds = wibox.widget({
@@ -146,6 +146,16 @@ local init = function(screen)
     },
   })
 
+  local color = beautiful.colors.foreground
+  local glyph = require('glyphs').number(screen.index)
+  local markup = '<span color="' .. color .. '" size="x-large">󰍹 ' .. glyph .. ' </span>'
+  local screennum = wibox.widget({
+    markup = markup,
+    align  = 'center',
+    valign = 'center',
+    widget = wibox.widget.textbox
+  })
+
   local cmd = "sh -c '. " .. require('context').path .. " && echo $CONTEXT'"
   awful.spawn.easy_async_with_shell(cmd, function(out)
     out = out:gsub("[\n\r]", '')
@@ -158,6 +168,7 @@ local init = function(screen)
   end)
 
   local left = wibox.widget({
+    wibox.container.margin(screennum, dpi(10), dpi(0), dpi(5), dpi(5), nil, false),
     wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
     wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
     layout = wibox.layout.fixed.horizontal
