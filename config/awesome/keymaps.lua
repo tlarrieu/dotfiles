@@ -43,10 +43,9 @@ local keyboard = {
       c:move_to_tag(c.screen.selected_tag)
     end),
     spawner.key({ mod }, 'n', function(client) helpers.create_tag_and_attach_to(client, true) end),
-    spawner.key({ mod, 'Control' }, '"', function(client) move_to_screen(client, 1) end),
-    spawner.key({ mod, 'Control' }, 'guillemotleft', function(client) move_to_screen(client, 2) end),
-    spawner.key({ mod, 'Control' }, 'guillemotright', function(client) move_to_screen(client, 3) end),
-    spawner.key({ mod }, 'o', function(client) move_to_screen(client) end)
+    spawner.key({ mod, 'Control' }, 'e', function(client) move_to_screen(client, 1) end),
+    spawner.key({ mod, 'Control' }, 'i', function(client) move_to_screen(client, 2) end),
+    spawner.key({ mod, 'Control' }, 'u', function(client) move_to_screen(client, 3) end)
   ),
 
   root = gears.table.join(
@@ -74,8 +73,9 @@ local keyboard = {
     spawner.key({ mod }, 'Down', function() focus_client(1) end),
     spawner.key({ mod }, 's', function() focus_client(-1) end),
     spawner.key({ mod }, 'Up', function() focus_client(-1) end),
-    spawner.key({ mod }, 'i', function() awful.screen.focus_relative(1) end),
-    spawner.key({ mod }, 'e', function() awful.screen.focus_relative(-1) end),
+    spawner.key({ mod }, 'u', function() awful.screen.focus(3) end),
+    spawner.key({ mod }, 'i', function() awful.screen.focus(2) end),
+    spawner.key({ mod }, 'e', function() awful.screen.focus(1) end),
     spawner.key({ mod, 'Shift' }, '"', function() awful.screen.focus(1) end),
     spawner.key({ mod, 'Shift' }, 'guillemotleft', function() awful.screen.focus(2) end),
     spawner.key({ mod, 'Shift' }, 'guillemotright', function() awful.screen.focus(3) end),
@@ -160,8 +160,8 @@ local keyboard = {
     spawner.key({}, 'XF86AudioNext', 'mpc next'),
     spawner.key({}, 'XF86AudioPrev', 'mpc prev'),
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
-    spawner.key({ mod }, 'u', spawner.terminal('vifm', { class = 'vifm' })),
-    spawner.key({ mod, 'Shift' }, 'u', 'nemo'),
+    spawner.key({ mod }, 'o', spawner.terminal('vifm', { class = 'vifm' })),
+    spawner.key({ mod, 'Shift' }, 'o', 'nemo'),
     spawner.key({ mod }, 'g', 'wallpaper'),
     spawner.key({ mod }, 'h', {
       app = spawner.terminal('gtgf', { class = 'gtgf' }),
