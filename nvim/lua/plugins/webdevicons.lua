@@ -73,7 +73,7 @@ return {
       ['spec.ts'] = { icon = '' },
       ['spec.tsx'] = { icon = '󰜈' },
       ['favicon.ico'] = { icon = '' },
-      lock = { icon = '' },
+      lock = { icon = '' },
       log = { icon = '' },
       txt = { icon = '' },
     },
@@ -112,7 +112,8 @@ return {
       ['go.mod'] = { icon = '' },
 
       ['package.json'] = { icon = '' },
-      ['package-lock.json'] = { icon = '' },
+      ['package-lock.json'] = { icon = '' },
+      ['yarn.lock'] = { icon = '' },
       ['tailwind.config.js'] = { icon = '󱏿' },
 
       dockerfile = { icon = '' },
