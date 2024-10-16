@@ -1,3 +1,8 @@
+local filename_first_and_shorten = {
+  'filename_first',
+  shorten = { len = 1, exclude = { 1, -3, -2, -1 } }
+}
+
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
@@ -11,7 +16,12 @@ return {
   keys = {
     {
       '<c-t>',
-      function() return require('telescope.builtin').find_files({ hidden = true, path_display = { 'filename_first' } }) end,
+      function()
+        return require('telescope.builtin').find_files({
+          hidden = true,
+          path_display = filename_first_and_shorten
+        })
+      end,
       { desc = 'Telescope file finder' }
     },
     {
@@ -21,7 +31,12 @@ return {
     },
     {
       '<c-b>',
-      function() return require('telescope.builtin').buffers({ hidden = true, path_display = { 'filename_first' } }) end,
+      function()
+        return require('telescope.builtin').buffers({
+          hidden = true,
+          path_display = filename_first_and_shorten
+        })
+      end,
       { desc = 'Telescope buffers' }
     },
     {
@@ -36,7 +51,12 @@ return {
     },
     {
       '<c-y>',
-      function() return require('telescope.builtin').git_status({ hidden = true, path_display = { 'filename_first' } }) end,
+      function()
+        return require('telescope.builtin').git_status({
+          hidden = true,
+          path_display = filename_first_and_shorten
+        })
+      end,
       { desc = 'Telescope git status' }
     },
     {
