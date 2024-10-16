@@ -102,6 +102,7 @@ return {
 
   -- debug
   s("pp", fmta("require 'pp'; pp(<><>)", { sel(), i(1) })),
+  s("bb", fmta("byebug", {})),
   s("p", fmta("puts(<><>)", { sel(), i(1) })),
   s("red", fmta([[
     print("\e[31m")
