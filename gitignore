@@ -34,7 +34,9 @@ dump.rdb
 .projections.json
 *.session
 .nvimrc
+.nvim.lua
 .solargraph.yml
+.ignore
 
 # Misc
 tmp
