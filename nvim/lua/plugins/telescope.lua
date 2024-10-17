@@ -25,6 +25,18 @@ return {
       { desc = 'Telescope file finder' }
     },
     {
+      '<c-s-t>',
+      function()
+        require('oil') -- we need oil to “open” directories
+        return require('telescope.builtin').find_files({
+          hidden = true,
+          path_display = filename_first_and_shorten,
+          find_command = { 'fd', '-td' } -- only list directories
+        })
+      end,
+      { desc = 'Telescope file finder' }
+    },
+    {
       '<c-é>',
       function() return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } }) end,
       { desc = 'Telescope live grep' }

@@ -4,6 +4,8 @@ return {
     default = true,
     color_icons = false,
     override = {
+      [''] = { icon = '' }, -- hack for telescope to display folders icon
+
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
       qf = { icon = '󰁨' },
