@@ -9,12 +9,13 @@ return {
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
       qf = { icon = '󰁨' },
+      telescope = { icon = '' },
       query = { icon = '󰙅' }, -- treesitter tree view
 
       harpoon = { icon = '⇁' },
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },
-      TelescopePrompt = { icon = '', name = 'telescope' },
+      TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
 
       todotxt = { icon = '󰃯' },

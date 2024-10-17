@@ -3,7 +3,7 @@ local home = os.getenv("HOME")
 local o = vim.opt
 
 -- {{{ ==| General options |====================================================
--- allow project specific init.lua
+-- allow project specific .nvim.lua
 o.exrc = true
 o.secure = true
 -- line numbering

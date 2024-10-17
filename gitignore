@@ -37,6 +37,7 @@ dump.rdb
 .nvim.lua
 .solargraph.yml
 .ignore
+.*.fdignore
 
 # Misc
 tmp

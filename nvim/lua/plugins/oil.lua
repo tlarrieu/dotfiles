@@ -67,8 +67,7 @@ return {
       ['gs'] = 'actions.change_sort',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
-      ['`'] = 'actions.cd',
-      ['~'] = 'actions.tcd',
+      ['<leader>cd'] = 'actions.cd',
       ['g.'] = 'actions.toggle_hidden',
     },
     -- Set to false to disable all of the above keymaps
