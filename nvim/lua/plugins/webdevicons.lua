@@ -82,6 +82,7 @@ return {
       rb = { icon = '' },
       ru = { icon = '' },
       erb = { icon = '' },
+      jbuilder = { icon = '' },
       png = { icon = '' },
       jpg = { icon = '' },
       svg = { icon = '' },
