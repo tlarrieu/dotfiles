@@ -49,7 +49,7 @@ return {
       cpp = { icon = '' },
       c = { icon = '' },
       gitcommit = { icon = '' },
-      ['.gitignore'] = { icon = '' },
+      ['.gitignore'] = { icon = '' },
       ['.gitconfig'] = { icon = '' },
       ['.gitmodules'] = { icon = '' },
       ['gitconfig'] = { icon = '' },
@@ -99,6 +99,10 @@ return {
     override_by_filename = {
       ['.keep'] = { icon = '' },
 
+      ['.ignore'] = { icon = '' },
+      ['.rgignore'] = { icon = '' },
+      ['.fdignore'] = { icon = '' },
+
       ['dune-project'] = { icon = '' },
       makefile = { icon = '󱁻' },
 
@@ -106,6 +110,7 @@ return {
       gemfile = { icon = '' },
       rake = { icon = '' },
       rakefile = { icon = '' },
+      ['.irbrc'] = { icon = '' },
       ['config.ru'] = { icon = '' },
       ['routes.rb'] = { icon = '' },
       ['seeds.rb'] = { icon = '' },
