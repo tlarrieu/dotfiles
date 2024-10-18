@@ -3,6 +3,16 @@ local filename_first_and_shorten = {
   shorten = { len = 1, exclude = { 1, -3, -2, -1 } }
 }
 
+local find_files = { 'fd' }
+local find_directories = { 'fd', '-td' }
+local rg_args = { '--hidden' }
+
+if vim.fn.filereadable('.ignore') then
+  find_files = { 'fd', '--no-ignore-vcs' }
+  find_directories = { 'fd', '-td', '--no-ignore-vcs' }
+  rg_args = { '--hidden', '--no-ignore-vcs' }
+end
+
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
@@ -19,7 +29,8 @@ return {
       function()
         return require('telescope.builtin').find_files({
           hidden = true,
-          path_display = filename_first_and_shorten
+          path_display = filename_first_and_shorten,
+          find_command = find_files
         })
       end,
       { desc = 'Telescope file finder' }
@@ -31,14 +42,14 @@ return {
         return require('telescope.builtin').find_files({
           hidden = true,
           path_display = filename_first_and_shorten,
-          find_command = { 'fd', '-td' } -- only list directories
+          find_command = find_directories
         })
       end,
       { desc = 'Telescope file finder' }
     },
     {
       '<c-é>',
-      function() return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } }) end,
+      function() return require('telescope.builtin').live_grep({ additional_args = rg_args }) end,
       { desc = 'Telescope live grep' }
     },
     {
@@ -53,7 +64,7 @@ return {
     },
     {
       '<leader>é',
-      function() return require('telescope.builtin').grep_string({ additional_args = { '--hidden' } }) end,
+      function() return require('telescope.builtin').grep_string({ additional_args = rg_args }) end,
       { desc = 'Telescope grep string' }
     },
     {
