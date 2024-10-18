@@ -51,46 +51,6 @@ return {
           action = 'Mason'
         },
         {
-          icon = ' ',
-          desc = pad('Files'),
-          key = 't',
-          key_format = format,
-          action = function()
-            return require('telescope.builtin').find_files({
-              hidden = true,
-              path_display = filename_first_and_shorten,
-            })
-          end,
-        },
-        {
-          icon = ' ',
-          desc = pad('Live grep'),
-          key = 'é',
-          key_format = ' ' .. format,
-          action = function()
-            return require('telescope.builtin').live_grep({ additional_args = { '--hidden' } })
-          end,
-        },
-        {
-          icon = ' ',
-          desc = pad('Git files'),
-          key = 'y',
-          key_format = format,
-          action = function()
-            return require('telescope.builtin').git_status({
-              hidden = true,
-              path_display = filename_first_and_shorten,
-            })
-          end,
-        },
-        {
-          icon = ' ',
-          desc = pad('Git log'),
-          key = 's',
-          key_format = format,
-          action = 'GV',
-        },
-        {
           icon = ' ',
           desc = pad('Quit'),
           key = 'q',
