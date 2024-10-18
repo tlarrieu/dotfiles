@@ -3,15 +3,15 @@ local filename_first_and_shorten = {
   shorten = { len = 1, exclude = { 1, -3, -2, -1 } }
 }
 
-local find_files = { 'fd', '-tf' }
+local find_files = { 'fd', '-tf', '--hidden' }
 local find_directories = { 'fd', '-td' }
 local rg_args = { '--hidden' }
 
 local file = io.open('.ignore', 'r')
 if file then
-  find_files = { 'fd', '-tf', '--no-ignore-vcs' }
-  find_directories = { 'fd', '-td', '--no-ignore-vcs' }
-  rg_args = { '--hidden', '--no-ignore-vcs' }
+  for _, tab in ipairs({ find_files, find_directories, rg_args }) do
+    vim.list_extend(tab, { '--no-ignore-vcs' })
+  end
 
   file:close()
 end
