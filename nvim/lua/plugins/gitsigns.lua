@@ -46,28 +46,24 @@ return {
     on_attach                    = function()
       local gitsigns = require('gitsigns')
       local navopts = { wrap = false, target = 'all' }
+      local modes = { 'n', 'o', 'x' }
 
-      vim.keymap.set('n', 'ß', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ '[c', bang = true })
-        else
-          gitsigns.nav_hunk('prev', navopts)
-        end
-      end, { desc = 'Previous hunk' })
-      vim.keymap.set('n', 'þ', function()
-        if vim.wo.diff then
-          vim.cmd.normal({ ']c', bang = true })
-        else
-          gitsigns.nav_hunk('next', navopts)
-        end
-      end, { desc = 'Next hunk' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>gB', gitsigns.blame_line, { desc = 'Blame (line)' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>gR', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
-      vim.keymap.set({ 'n', 'o', 'x' }, '<leader>gq', function()
+      local prev_hunk = function()
+        if vim.wo.diff then vim.cmd.normal({ '[c', bang = true }) else gitsigns.nav_hunk('prev', navopts) end
+      end
+      local next_hunk = function()
+        if vim.wo.diff then vim.cmd.normal({ ']c', bang = true }) else gitsigns.nav_hunk('next', navopts) end
+      end
+
+      vim.keymap.set('n', 'ß', prev_hunk, { desc = 'Previous hunk' })
+      vim.keymap.set('n', 'þ', next_hunk, { desc = 'Next hunk' })
+      vim.keymap.set('n', '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
+      vim.keymap.set('n', '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
+      vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
+      vim.keymap.set(modes, '<leader>gB', gitsigns.blame_line, { desc = 'Blame (line)' })
+      vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
+      vim.keymap.set(modes, '<leader>gR', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
+      vim.keymap.set(modes, '<leader>gq', function()
         gitsigns.setqflist('all')
       end, { remap = true, desc = 'Git reset' })
     end
