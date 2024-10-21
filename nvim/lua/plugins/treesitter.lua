@@ -31,7 +31,7 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'embedded_template', 'html', 'javascript', 'typescript' },
+      disable = { 'embedded_template', 'html' },
       additional_vim_regex_highlighting = { 'make' },
     },
     indent = { enable = true, disable = { 'embedded_template', 'html' } },
@@ -39,7 +39,7 @@ return {
       enable = true,
       select = {
         enable = true,
-        disable = { 'javascript', 'typescript' },
+        disable = { 'javascript', 'typescript', 'tsx' },
         lookahead = true,
 
         keymaps = {
