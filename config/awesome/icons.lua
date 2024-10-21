@@ -58,6 +58,7 @@ local config = {
   { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' } },
   { icon = '󰠮', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
   { icon = '', rule = { class = '1Password' } },
 
   --  Videos
