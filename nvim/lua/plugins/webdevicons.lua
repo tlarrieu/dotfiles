@@ -26,6 +26,9 @@ return {
       xdefaults = { icon = '' },
       xresources = { icon = '' },
 
+      conf = { icon = '' },
+      confini = { icon = '' },
+
       make = { icon = '󱁻' },
       vim = { icon = '' },
       json = { icon = '' },
