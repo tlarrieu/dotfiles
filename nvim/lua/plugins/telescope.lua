@@ -36,7 +36,7 @@ return {
           find_command = find_files
         })
       end,
-      { desc = 'Telescope file finder' }
+      desc = 'Telescope file finder'
     },
     {
       '<c-s-t>',
@@ -48,12 +48,12 @@ return {
           find_command = find_directories
         })
       end,
-      { desc = 'Telescope file finder' }
+      desc = 'Telescope file finder'
     },
     {
       '<c-é>',
       function() return require('telescope.builtin').live_grep({ additional_args = rg_args }) end,
-      { desc = 'Telescope live grep' }
+      desc = 'Telescope live grep'
     },
     {
       '<c-b>',
@@ -63,17 +63,17 @@ return {
           path_display = filename_first_and_shorten
         })
       end,
-      { desc = 'Telescope buffers' }
+      desc = 'Telescope buffers'
     },
     {
       '<leader>é',
       function() return require('telescope.builtin').grep_string({ additional_args = rg_args }) end,
-      { desc = 'Telescope grep string' }
+      desc = 'Telescope grep string'
     },
     {
       '<c-h>',
       function() require('telescope.builtin').help_tags() end,
-      { desc = 'Telescope help tags' }
+      desc = 'Telescope help tags'
     },
     {
       '<c-y>',
@@ -83,12 +83,12 @@ return {
           path_display = filename_first_and_shorten
         })
       end,
-      { desc = 'Telescope git status' }
+      desc = 'Telescope git status'
     },
     {
       '<c-s-y>',
       function() require('telescope.builtin').git_branches() end,
-      { desc = 'Telescope git branch' }
+      desc = 'Telescope git branch'
     },
     {
       '<c-l>',
@@ -98,22 +98,22 @@ return {
     {
       '<c-e>',
       function() require('telescope.builtin').diagnostics() end,
-      { desc = 'Telescope diagnostics' }
+      desc = 'Telescope diagnostics'
     },
     {
       '<c-q>',
       function() require('telescope.builtin').quickfix() end,
-      { desc = 'Telescope quickfix' }
+      desc = 'Telescope quickfix'
     },
     {
       'g?',
       function() require('telescope.builtin').spell_suggest() end,
-      { desc = 'Telescope spell suggest' }
+      desc = 'Telescope spell suggest'
     },
     {
       '<c-è>',
       ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
-      { desc = 'Telescope TODO' }
+      desc = 'Telescope TODO'
     },
   },
   cmd = 'Telescope',
