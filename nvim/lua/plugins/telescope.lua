@@ -92,8 +92,8 @@ return {
     },
     {
       '<c-l>',
-      function() require('telescope.builtin').lsp_document_symbols() end,
-      { desc = 'Telescope LSP document symbols' }
+      function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
+      desc = 'Telescope LSP workspace symbols'
     },
     {
       '<c-e>',
