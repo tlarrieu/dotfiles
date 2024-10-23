@@ -19,7 +19,7 @@ function ft
     echo -e "\e[32mCurrent balance (checked transactions only)\e[0m"
     ft bal --empty -p today -C -H type:C not:tag:miriam
     echo -e "\e[33mPending balance (all transactions)\e[0m"
-    ft bal --empty -p today -H type:C not:tag:miriam
+    ft bal --empty -p today..7days -H type:C not:tag:miriam
     echo -e "\e[34mPending balance (business expenses)\e[0m"
     ft bal tag:business type:RX --empty -p today -H
     echo -e "\e[35mMonthly envelopes\e[0m"
