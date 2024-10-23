@@ -112,7 +112,7 @@ k.set({ 'n', 'o', 'x' }, '0', '*', noremap)
 -- sort
 k.set('x', '<leader>s', ':sort<cr>', noremap)
 -- macro
-k.set({ 'n', 'o', 'x' }, '<leader><leader>', '@q', noremap)
+k.set({ 'n', 'o' }, '<leader><leader>', '@q', noremap)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
 --- }}}
 --- {{{ --| quick access |----------------------------------
@@ -155,6 +155,8 @@ k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', merge({ desc = 'Toggle
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', merge({ desc = 'Toggle location list' }, noremap))
 k.set('n', '<c-s-p>', ':cprev<cr>', noremap)
 k.set('n', '<c-s-n>', ':cnext<cr>', noremap)
+-- Alternate file
+k.set('n', '<c-k>', '<c-^>')
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 k.set('t', '<c-s>', '<c-\\><c-n>', noremap)
