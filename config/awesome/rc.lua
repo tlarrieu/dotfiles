@@ -6,5 +6,3 @@ require('keymaps').config()
 
 require('signals')
 require('rules')
-
-require('awful').spawn.with_shell('~/.fehbg')
