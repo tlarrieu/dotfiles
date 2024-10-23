@@ -53,12 +53,14 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'atlassian.net', name = 'Jira' } },
   { icon = '', rule = { class = 'Chromium', instance = 'app.swarmia.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'app.spendesk.com' } },
-  { icon = '󰷼', rule = { class = 'Chromium', instance = 'docusign' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
   { icon = '', rule = { class = 'Chromium', instance = 'slack' } },
   { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' } },
   { icon = '󰠮', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
+  { icon = '󰨰', rule = { class = 'Chromium', instance = 'sentry.io' } },
+  { icon = '󰡴', rule = { class = 'Chromium', instance = 'datadoghq.com' } },
   { icon = '', rule = { class = '1Password' } },
 
   --  Videos
