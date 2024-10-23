@@ -1,3 +1,4 @@
+---@alias Runner { default: function, shell: function, term: function, exec: function, match: function, test: { nearest: function, file: function, last: function } }
 local _M = {}
 
 -- private
