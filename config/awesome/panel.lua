@@ -199,7 +199,7 @@ local init = function(screen)
     position = 'top',
     height = dpi(32),
     screen = screen,
-    margins = { top = dpi(6), bottom = dpi(-2), left = dpi(6), right = dpi(6) },
+    margins = { top = dpi(6), bottom = dpi(0), left = dpi(6), right = dpi(6) },
     bg = beautiful.colors.background .. "e6",
     widget = barwidget
   })

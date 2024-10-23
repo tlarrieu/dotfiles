@@ -8,7 +8,7 @@ return {
     local theme = {}
 
     theme.colors = xrdb.colors
-    theme.useless_gap = dpi(6)
+    theme.useless_gap = dpi(3)
 
     local accent = theme.colors.blue.dark
 
