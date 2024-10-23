@@ -34,7 +34,7 @@ return {
       disable = { 'embedded_template', 'html' },
       additional_vim_regex_highlighting = { 'make' },
     },
-    indent = { enable = true, disable = { 'embedded_template', 'html' } },
+    indent = { enable = true, disable = { 'embedded_template', 'html', 'ruby' } },
     textobjects = {
       enable = true,
       select = {
