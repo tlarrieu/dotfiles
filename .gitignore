@@ -14,7 +14,6 @@ config/fish/fish_history
 config/fish/fish_variables
 config/fish/fishd.*
 config/fish/fundle
-config/fish/local.fish
 config/kitty/theme.conf
 config/rofi/variant.rasi
 

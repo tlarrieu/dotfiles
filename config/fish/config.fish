@@ -91,8 +91,3 @@ trap 'kill -9 $SSH_AGENT_PID' EXIT
 fundle plugin 'edc/bass'
 fundle plugin 'acomagu/fish-async-prompt'
 fundle init
-
-# Load local configuration
-if test -e ~/.config/fish/local.fish
-  source ~/.config/fish/local.fish
-end
