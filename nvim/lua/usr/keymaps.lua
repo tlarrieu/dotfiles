@@ -153,8 +153,8 @@ end, merge({ desc = 'Toggle crosshair' }, noremap))
 -- Quickfix / Location list
 k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', merge({ desc = 'Toggle quickfix list' }, noremap))
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', merge({ desc = 'Toggle location list' }, noremap))
-k.set('n', '<c-s-p>', ':cprev<cr>', noremap)
-k.set('n', '<c-s-n>', ':cnext<cr>', noremap)
+k.set('n', '<c-n>', ':cnext<cr>', noremap)
+k.set('n', '<c-p>', ':cprev<cr>', noremap)
 -- Alternate file
 k.set('n', '<c-k>', '<c-^>')
 --- }}}
@@ -191,10 +191,6 @@ k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because
 k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symmetrical)
 k.set('n', '<tab>', '<c-w>w', noremap)
 k.set('n', '<s-tab>', '<c-w>W', noremap)
-k.set('n', '<c-n>', 'gt', noremap)
-k.set('n', '<c-p>', 'gT', noremap)
-k.set('n', 'Þ', ':cnext<cr>', noremap)
-k.set('n', 'ẞ', ':cprev<cr>', noremap)
 -- New tab
 k.set('n', '<leader>tt', ':tabe<cr>', noremap)
 k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
