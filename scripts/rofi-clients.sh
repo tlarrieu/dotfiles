@@ -4,7 +4,6 @@ awesome-client <<-END | sed -zE 's/   string "(.*)"/\1/'
 local script_input = "$(echo "$*" | awk -F ' ' '{print $1}')"
 
 local icons = require('icons')
-local screen = require('awful').screen:focused()
 
 local strlen = function(x)
   return #x:gsub('[\128-\191]', '')
@@ -17,12 +16,16 @@ end
 
 local clients, lines = {}, {}
 
-for i, client in ipairs(screen.all_clients) do
-  table.insert(clients, client)
-  table.insert(
-    lines,
-    fit(i, 2) .. ' ' .. icons.fetch(client) .. '  ' .. fit(client.pid, 6) .. ' ' .. fit(client.instance, 15) .. '  ' .. client.name
-  )
+local i = 0
+for s in screen do
+  for _, client in ipairs(s.all_clients) do
+    i = i + 1
+    table.insert(clients, client)
+    table.insert(
+      lines,
+      fit(i, 3) .. ' ' .. icons.fetch(client) .. '  ' .. fit(client.pid, 6) .. ' ' .. fit(client.instance, 15) .. '  ' .. client.name
+    )
+  end
 end
 
 if script_input == '' then
