@@ -42,7 +42,6 @@ return {
         if client then
           client.server_capabilities.semanticTokensProvider = nil
 
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, conf)
           vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
           if client.supports_method('textDocument/hover') then
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
