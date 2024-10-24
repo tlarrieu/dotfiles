@@ -91,6 +91,11 @@ return {
       desc = 'Telescope git branch'
     },
     {
+      'gr',
+      function() return require('telescope.builtin').lsp_references() end,
+      desc = 'Telescope LSP references'
+    },
+    {
       '<c-l>',
       function() require('telescope.builtin').lsp_dynamic_workspace_symbols() end,
       desc = 'Telescope LSP workspace symbols'
