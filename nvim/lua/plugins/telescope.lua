@@ -185,6 +185,9 @@ return {
             layout_strategy = 'horizontal',
           }),
         },
+        fzf = {
+          fuzzy = false
+        },
       }
     })
 
