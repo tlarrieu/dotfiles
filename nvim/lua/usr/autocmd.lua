@@ -31,3 +31,10 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end,
   group = vim.api.nvim_create_augroup('no_incremental_comments', {})
 })
+
+-- Deactivate spell checking on RO files
+vim.api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*',
+  callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end,
+  group = vim.api.nvim_create_augroup('restore_position', {})
+})
