@@ -234,5 +234,5 @@ k.set('n', 'zO', 'zczO', noremap)
 k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-k.set('x', '<leader>d', ':Linediff<cr>', noremap)
+k.set('x', '<leader>gd', ':Linediff<cr>', noremap)
 --- }}}
