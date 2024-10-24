@@ -10,3 +10,5 @@ runner.match({ '*.test.ts', '*.test.tsx', '*.spec.ts', '*.spec.tsx' }, {
   main = runner.test.nearest(),
   alt = runner.test.file()
 })
+
+require('utils').autoformat({ '*.ts', '*.tsx' })
