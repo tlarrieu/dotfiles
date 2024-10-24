@@ -2,10 +2,6 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   lazy = false,
-  keys = {
-    { '<leader>tl', ':LualineRename ' },
-    { '<leader>tr', ':LualineRename<cr>', { silent = true } },
-  },
   opts = {
     extensions = {
       'man',
