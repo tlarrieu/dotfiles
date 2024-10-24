@@ -150,13 +150,18 @@ k.set('n', '<leader>r', function()
     setlocal cursorline!
   ]]
 end, merge({ desc = 'Toggle crosshair' }, noremap))
--- Quickfix / Location list
+-- Alternate file
+k.set('n', '<c-k>', '<c-^>')
+--- }}}
+--- {{{ --| Quickfix / Location list |----------------------
 k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', merge({ desc = 'Toggle quickfix list' }, noremap))
 k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', merge({ desc = 'Toggle location list' }, noremap))
 k.set('n', '<c-n>', ':cnext<cr>', noremap)
 k.set('n', '<c-p>', ':cprev<cr>', noremap)
--- Alternate file
-k.set('n', '<c-k>', '<c-^>')
+--- }}}
+--- {{{ --| Diagnostics |-----------------------------------
+k.set('n', 'Þ', vim.diagnostic.goto_next, noremap)
+k.set('n', 'ẞ', vim.diagnostic.goto_prev, noremap)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 k.set('t', '<c-s>', '<c-\\><c-n>', noremap)
