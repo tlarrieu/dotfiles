@@ -144,7 +144,10 @@ return {
         ['@type.builtin'] = { link = '@type' },
         ['@type.qualifier'] = { link = 'Keyword' },
         ['@variable'] = { link = 'Normal' },
+        ['@property'] = { fg = c.mix_fg, bg = c.none },
         ['@variable.global'] = { fg = c.violet },
+
+        ['@variable.member.lua'] = { link = 'Normal' },
 
         ['@constructor.css'] = { fg = c.yellow },
         ['@operator.css'] = { link = '@tag.css' },
