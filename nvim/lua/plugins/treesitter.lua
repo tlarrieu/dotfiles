@@ -39,7 +39,6 @@ return {
       enable = true,
       select = {
         enable = true,
-        disable = { 'javascript', 'typescript', 'tsx' },
         lookahead = true,
 
         keymaps = {
