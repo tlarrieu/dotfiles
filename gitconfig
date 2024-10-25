@@ -39,6 +39,7 @@
 	sh = show -s --pretty=format:'%Cred%h %C(blue)(^ %p)%C(yellow)%d%n%C(bold blue)<%an>%Creset %Cgreen(%cr) %Creset%Creset: %s%Creset%+b %n'
 	sl = stash list -p
 	st = stash
+	sp = stash pop
 	sync = fetch --all --prune --tags
 	wip = commit -m "WIP"
 	wtf = "!git config --list --show-origin | \
