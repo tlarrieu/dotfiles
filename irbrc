@@ -16,3 +16,5 @@ IRB.conf[:PROMPT][:CUSTOM] = {
   PROMPT_S: "\e[34mλ\e[0m \e[3m(%M)\e[0m \e[31m󰝗\e[0m ",
   RETURN: "=> %s\n"
 }
+
+load "#{Dir.home}/.irbrc.local" rescue nil
