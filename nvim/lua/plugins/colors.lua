@@ -292,7 +292,7 @@ return {
         fugitiveHeading = { link = 'Include' },
         fugitiveStagedHeading = { fg = c.green },
         fugitiveUnstagedHeading = { fg = c.orange },
-        ['@text.title.gitcommit'] = { link = 'Keyword' },
+        ['@markup.heading.gitcommit'] = { link = 'Keyword' },
         ['@text.reference.gitcommit'] = { link = 'Special' },
         ['@text.uri.gitcommit'] = { link = 'Normal' },
         ['@keyword.gitcommit'] = { link = 'Constant' },
