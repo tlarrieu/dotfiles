@@ -1,5 +1,6 @@
 return {
   'tlarrieu/nvim-relative-date',
+  ft = { 'todotxt' },
   opts = {
     filetypes = {
       'todotxt',
