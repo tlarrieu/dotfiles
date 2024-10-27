@@ -67,8 +67,8 @@ k.set('n', 'gÉ', function()
   vim.api.nvim_buf_set_lines(0, 0, -1, false, buffer)
 end, require('helpers').merge(noremap, { desc = 'move matching lines after cursor' }))
 -- find & replace
-k.set('n', 'É', ':%s/<space><bs>')
-k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
+k.set('n', 'É', ':%s/')
+k.set('x', 'É', '<esc>:%s/\\%V')
 -- hide search matches
 k.set('n', '<esc>', '<esc>:nohlsearch<cr>', noremap)
 -- Find character
