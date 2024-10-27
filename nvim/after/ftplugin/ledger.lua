@@ -6,6 +6,8 @@ o.tabstop = 2
 o.shiftwidth = 2
 o.shiftround = true
 
+vim.keymap.set('n', '<c-cr>', 'o<c-u>', { remap = true, buffer = true })
+
 local runner = require('runner')
 runner.default({
   main = runner.term('ft now'),
