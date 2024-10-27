@@ -149,6 +149,8 @@ return {
 
         ['@variable.member.lua'] = { link = 'Normal' },
 
+        ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
+
         ['@constructor.css'] = { fg = c.yellow },
         ['@operator.css'] = { link = '@tag.css' },
         ['@property.css'] = { fg = c.violet },
