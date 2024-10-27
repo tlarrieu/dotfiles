@@ -347,11 +347,11 @@ return {
         ['@date.early'] = { fg = c.green, italic = true },
         ['@date.today'] = { fg = c.yellow, italic = true },
 
-        DashboardHeader = { link = 'Comment' },
-        DashboardFooter = { link = 'DashboardHeader' },
-        DashboardDesc = { fg = c.mix_fg, bold = false },
+        DashboardHeader = { fg = c.mix_fg },
+        DashboardFooter = { fg = c.mix_fg },
+        DashboardDesc = { fg = c.fg, bold = false },
         DashboardIcon = { fg = c.violet },
-        DashboardKey = { fg = c.blue, italic = true, bold = true },
+        DashboardKey = { fg = c.violet, italic = false, bold = true },
       }
     end
   },
