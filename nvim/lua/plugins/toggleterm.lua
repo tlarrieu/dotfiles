@@ -1,6 +1,7 @@
 return {
   'akinsho/toggleterm.nvim',
   version = '*',
+  cmd = 'TermExec',
   opts = {
     direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
