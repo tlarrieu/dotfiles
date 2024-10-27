@@ -1,3 +1,5 @@
+local format = function() require('conform').format() end
+
 return {
   'stevearc/conform.nvim',
   opts = {
@@ -6,9 +8,8 @@ return {
       async = true,
     },
   },
-  config = function(_, opts)
-    local conform = require('conform')
-    conform.setup(opts)
-    vim.keymap.set({ 'n', 'x' }, '<leader>f', conform.format)
-  end
+  keys = {
+    { '<leader>f', format, mode = 'n', desc = 'Format (conform)' },
+    { '<leader>f', format, mode = 'x', desc = 'Format (conform)' },
+  },
 }
