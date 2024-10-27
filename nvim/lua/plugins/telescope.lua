@@ -19,6 +19,7 @@ end
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
+    { 'nvim-treesitter/nvim-treesitter' },
     { 'nvim-lua/plenary.nvim' },
     { 'nvim-telescope/telescope-ui-select.nvim' },
     {

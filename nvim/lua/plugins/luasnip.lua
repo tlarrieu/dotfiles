@@ -1,16 +1,16 @@
 return {
   'L3MON4D3/LuaSnip',
-  dependencies = {
-    'nvim-telescope/telescope.nvim',
-  },
   version = '*',
   build = 'make install_jsregexp',
   event = { 'CmdlineEnter', 'InsertEnter' },
   keys = {
     {
       '<leader>es',
-      function() require('luasnip.loaders').edit_snippet_files({ edit = vim.cmd.vnew }) end,
-      { desc = 'Edit snippets' }
+      function()
+        require('telescope')
+        require('luasnip.loaders').edit_snippet_files({ edit = vim.cmd.vnew })
+      end,
+      desc = 'Edit snippets'
     },
   },
   config = function()

@@ -8,6 +8,7 @@ return {
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
     ts_update()
   end,
+  event = { 'BufRead' },
   opts = {
     ensure_installed = {
       'bash',
