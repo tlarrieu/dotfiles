@@ -10,6 +10,7 @@ return {
   event = 'VimEnter',
   opts = {
     theme = 'doom',
+    hide = { statusline = false, tabline = false },
     config = {
       disable_move = true,
       header = {

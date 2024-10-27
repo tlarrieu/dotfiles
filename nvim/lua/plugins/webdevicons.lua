@@ -12,6 +12,7 @@ return {
       telescope = { icon = '' },
       query = { icon = '󰙅' }, -- treesitter tree view
 
+      dashboard = { icon = '󰆋' },
       harpoon = { icon = '⇁' },
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },

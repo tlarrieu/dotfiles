@@ -130,6 +130,7 @@ return {
             -- Name
             local ftmap = {
               harpoon = 'harpoon',
+              dashboard = 'dash',
               mason = 'mason',
               lazy = 'lazy',
               TelescopePrompt = 'telescope',
