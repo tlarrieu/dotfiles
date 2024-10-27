@@ -14,7 +14,8 @@ _M.create_tag = function(screen)
 end
 
 _M.create_tag_and_attach_to = function(client, force)
-  local screen = client.screen
+  local screen = awful.screen.focused()
+  client:move_to_screen(screen)
   local tag
 
   if not force and client.floating and not client.fullscreen then
