@@ -156,8 +156,6 @@ end, merge({ desc = 'Toggle crosshair' }, noremap))
 k.set('n', '<c-k>', '<c-^>')
 --- }}}
 --- {{{ --| Quickfix / Location list |----------------------
-k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', merge({ desc = 'Toggle quickfix list' }, noremap))
-k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', merge({ desc = 'Toggle location list' }, noremap))
 k.set('n', '<c-n>', ':cnext<cr>', noremap)
 k.set('n', '<c-p>', ':cprev<cr>', noremap)
 --- }}}

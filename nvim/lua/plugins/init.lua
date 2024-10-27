@@ -15,7 +15,6 @@ return {
   { 'AndrewRadev/linediff.vim',     cmd = 'Linediff' },
   { 'janko-m/vim-test',             cmd = { 'TestNearest', 'TestFile', 'TestLast' } },
   { 'tlarrieu/vim-sniper' },
-  { 'milkypostman/vim-togglelist' },
   -- }}}
   -- {{{ --| Text manipulation |--------------
   { 'AndrewRadev/switch.vim', },
