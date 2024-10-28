@@ -36,7 +36,7 @@ k.set({ 'n', 'x' }, 'é', '/')
 -- call snipe from visual mode
 k.set('v', 'S', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
-k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
+k.set('n', 'cié', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
 k.set('n', 'gÉ', function()
   local input = vim.fn.input({ prompt = '󰛢: ' })
