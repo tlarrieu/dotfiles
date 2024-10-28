@@ -13,7 +13,11 @@ return {
   -- }}}
   -- {{{ --| Functionalities |---------------
   { 'AndrewRadev/linediff.vim',     cmd = 'Linediff' },
-  { 'janko-m/vim-test',             cmd = { 'TestNearest', 'TestFile', 'TestLast' } },
+  {
+    'janko-m/vim-test',
+    cmd = { 'TestNearest', 'TestFile', 'TestLast' },
+    dependencies = { 'akinsho/toggleterm.nvim' }
+  },
   { 'tlarrieu/vim-sniper' },
   -- }}}
   -- {{{ --| Text manipulation |--------------
