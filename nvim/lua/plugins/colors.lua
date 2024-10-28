@@ -150,6 +150,7 @@ return {
         ['@variable.member.lua'] = { link = 'Normal' },
 
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
+        ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
 
         ['@constructor.css'] = { fg = c.yellow },
         ['@operator.css'] = { link = '@tag.css' },
