@@ -10,6 +10,7 @@ return {
   opts = {
     ensure_installed = {
       'ruby_lsp', -- ruby
+      'ts_ls',    -- typescript
       'lua_ls',   -- lua
       'gopls',    -- golang
       'bashls',   -- bash
