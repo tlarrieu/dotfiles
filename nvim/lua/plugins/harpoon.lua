@@ -28,5 +28,23 @@ return {
       desc = 'Harpoon: edit list'
     },
   },
-  config = true,
+  config = function()
+    local harpoon = require('harpoon')
+    harpoon.setup()
+    harpoon:extend({
+      UI_CREATE = function(cx)
+        vim.keymap.set('n', '<c-v>', function()
+          harpoon.ui:select_menu_item({ vsplit = true })
+        end, { buffer = cx.bufnr })
+
+        vim.keymap.set('n', '<c-x>', function()
+          harpoon.ui:select_menu_item({ split = true })
+        end, { buffer = cx.bufnr })
+
+        vim.keymap.set('n', '<c-t>', function()
+          harpoon.ui:select_menu_item({ tabedit = true })
+        end, { buffer = cx.bufnr })
+      end,
+    })
+  end,
 }
