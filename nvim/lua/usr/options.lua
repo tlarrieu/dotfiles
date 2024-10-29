@@ -88,7 +88,9 @@ o.shortmess:append('WIcsa')
 
 -- {{{ ==| diagnostic |=========================================================
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = {
+    prefix = '▰',
+  },
   signs = false,
   underline = true,
 })
