@@ -10,10 +10,7 @@ return {
   opts = {
     ensure_installed = {
       'ruby_lsp', -- ruby
-      'pylsp',    -- python
-      'pyright',  -- python
       'lua_ls',   -- lua
-      'vimls',    -- vim
       'gopls',    -- golang
       'bashls',   -- bash
     },
