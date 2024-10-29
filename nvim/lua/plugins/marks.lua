@@ -1,5 +1,6 @@
 return {
   'chentoast/marks.nvim',
+  event = { 'BufNew' },
   opts = {
     signs = true,
     default_mappings = true,

@@ -126,11 +126,6 @@ return {
       function() require('telescope.builtin').spell_suggest() end,
       desc = 'Telescope spell suggest'
     },
-    {
-      '<c-è>',
-      ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
-      desc = 'Telescope TODO'
-    },
   },
   cmd = 'Telescope',
   config = function()

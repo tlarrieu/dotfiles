@@ -9,7 +9,7 @@ local signs = {
 
 return {
   'lewis6991/gitsigns.nvim',
-  event = { 'BufReadPost', 'BufNewFile' },
+  event = { 'BufNew' },
   opts = {
     signs                        = signs,
     signs_staged                 = signs,

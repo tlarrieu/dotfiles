@@ -1,8 +1,17 @@
 return {
   'folke/todo-comments.nvim',
   dependencies = {
-    { 'nvim-lua/plenary.nvim' }
+    { 'nvim-lua/plenary.nvim' },
+    { 'nvim-telescope/telescope.nvim' },
   },
+  keys = {
+    {
+      '<c-è>',
+      ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
+      desc = 'Telescope TODO'
+    },
+  },
+  event = { 'BufNew' },
   opts = {
     signs = false,
     sign_priority = 8,
