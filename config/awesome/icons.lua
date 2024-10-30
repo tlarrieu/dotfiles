@@ -60,7 +60,13 @@ local config = {
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
   { icon = '󰨰', rule = { class = 'Chromium', instance = 'sentry.io' } },
-  { icon = '󰡴', rule = { class = 'Chromium', instance = 'datadoghq.com' } },
+  {
+    icon = '󰡴',
+    rules = {
+      { class = 'Chromium', instance = 'datadoghq.com' },
+      { class = 'Chromium', name = 'Datadog' }
+    }
+  },
   { icon = '', rule = { class = '1Password' } },
 
   --  Videos
