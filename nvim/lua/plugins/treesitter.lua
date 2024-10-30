@@ -32,7 +32,6 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'embedded_template', 'html' },
       additional_vim_regex_highlighting = { 'make' },
     },
     indent = { enable = true, disable = { 'ruby' } },

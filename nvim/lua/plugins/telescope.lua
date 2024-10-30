@@ -156,7 +156,6 @@ return {
         preview = {
           treesitter = {
             enable = true,
-            disable = { 'html', 'eruby' },
           },
         },
 
