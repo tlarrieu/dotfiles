@@ -43,7 +43,7 @@ function ft
     ft bs --fore=tomorrow.. -M -p 1..6months not:tag:miriam
     return
   case 2024
-    ft bs --fore=tomorrow.. -M -b 2024/06 -e 2025 --color=always | less -RS
+    ft bs --fore=tomorrow.. -M -b 2024/06 -e 2025 not:tag:miriam --color=always | less -RS
     return
   case 2025
     ft bs --fore=tomorrow.. -M -p 2025 --color=always | less -RS
