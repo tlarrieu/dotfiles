@@ -33,6 +33,8 @@ k.set({ 'n', 'x' }, 'è', ':')
 k.set({ 'n', 'x' }, 'È', ':!')
 -- search
 k.set({ 'n', 'x' }, 'é', '/')
+k.set('n', '<c-é>', ':silent grep! ')
+k.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
 -- call snipe from visual mode
 k.set('v', 'S', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor

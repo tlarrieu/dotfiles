@@ -76,6 +76,12 @@ o.shiftround = true
 -- {{{ ==| Searching |==========================================================
 o.ignorecase = true
 o.smartcase = true
+local file = io.open('.ignore', 'r')
+if file then
+  o.grepprg = 'rg --vimgrep --hidden --no-ignore-vcs'
+else
+  o.grepprg = 'rg --vimgrep --hidden'
+end
 -- }}}
 
 -- {{{ ==| Spell checking |=====================================================

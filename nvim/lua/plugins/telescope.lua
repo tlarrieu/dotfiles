@@ -5,11 +5,10 @@ local filename_first_and_shorten = {
 
 local find_files = { 'fd', '-tf', '--hidden' }
 local find_directories = { 'fd', '-td' }
-local rg_args = { '--hidden' }
 
 local file = io.open('.ignore', 'r')
 if file then
-  for _, tab in ipairs({ find_files, find_directories, rg_args }) do
+  for _, tab in ipairs({ find_files, find_directories }) do
     vim.list_extend(tab, { '--no-ignore-vcs' })
   end
 
@@ -52,11 +51,6 @@ return {
       desc = 'Telescope file finder'
     },
     {
-      '<c-é>',
-      function() return require('telescope.builtin').live_grep({ additional_args = rg_args }) end,
-      desc = 'Telescope live grep'
-    },
-    {
       '<c-b>',
       function()
         return require('telescope.builtin').buffers({
@@ -65,11 +59,6 @@ return {
         })
       end,
       desc = 'Telescope buffers'
-    },
-    {
-      '<leader>é',
-      function() return require('telescope.builtin').grep_string({ additional_args = rg_args }) end,
-      desc = 'Telescope grep string'
     },
     {
       '<c-h>',
@@ -155,7 +144,7 @@ return {
         mappings = {
           i = {
             ['<esc>'] = actions.close,
-            ['<c-q>'] = actions.smart_send_to_qflist + actions.open_qflist,
+            ['<c-q>'] = actions.smart_send_to_qflist,
             ['<c-l>'] = actions.toggle_all,
             ['<c-a>'] = { '<home>', type = 'command' },
             ['<c-e>'] = { '<end>', type = 'command' },
