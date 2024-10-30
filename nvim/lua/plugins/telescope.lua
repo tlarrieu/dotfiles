@@ -134,7 +134,6 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
-        results_title = false,
         file_ignore_patterns = {
           '^%.git/',
           '%.png',
@@ -153,12 +152,6 @@ return {
           prompt_position = 'top',
         },
 
-        preview = {
-          treesitter = {
-            enable = true,
-          },
-        },
-
         mappings = {
           i = {
             ['<esc>'] = actions.close,
@@ -168,9 +161,6 @@ return {
             ['<c-e>'] = { '<end>', type = 'command' },
           },
         },
-      },
-
-      pickers = {
       },
 
       extensions = {
