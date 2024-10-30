@@ -94,7 +94,7 @@ local config = {
   --  Programming
   { icon = '', rule = { class = 'Chromium', instance = 'rubygems' } },
   { icon = '', rule = { class = 'Chromium', instance = 'hoogle' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'fly.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' } },
   { icon = '󱨉', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },
