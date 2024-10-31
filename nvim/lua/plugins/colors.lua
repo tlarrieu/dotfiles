@@ -152,6 +152,8 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
 
+        ['@variable.member.go'] = { fg = c.mix_fg },
+
         ['@constructor.css'] = { fg = c.yellow },
         ['@operator.css'] = { link = '@tag.css' },
         ['@property.css'] = { fg = c.violet },
@@ -165,7 +167,6 @@ return {
         ['@tag.scss'] = { fg = c.orange },
         ['@type.scss'] = { fg = c.violet },
         ['@field.scss'] = { fg = c.mix_fg },
-
 
         ['@namespace.rasi'] = { fg = c.violet },
         ['@field.rasi'] = { fg = c.mix_fg },
