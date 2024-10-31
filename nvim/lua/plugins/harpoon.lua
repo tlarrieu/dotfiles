@@ -27,6 +27,8 @@ return {
       end,
       desc = 'Harpoon: edit list'
     },
+
+    { '<c-s-,>', ":silent cfdo lua require('harpoon'):list():add()<cr>", desc = 'Harpoon: append quickfix to file list' },
   },
   config = function()
     local harpoon = require('harpoon')
