@@ -53,6 +53,7 @@ return {
       cpp = { icon = '' },
       c = { icon = '' },
       gitcommit = { icon = '' },
+      gitignore = { icon = '' },
       ['.gitignore'] = { icon = '' },
       ['.gitconfig'] = { icon = '' },
       ['.gitmodules'] = { icon = '' },
