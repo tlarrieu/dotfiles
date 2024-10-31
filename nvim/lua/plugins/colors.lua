@@ -119,7 +119,7 @@ return {
         Normal = { fg = c.fg, bg = c.none },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
-        Include = { fg = c.orange },
+        Include = { fg = c.orange, bold = false },
         Keyword = { fg = c.green, bold = false },
         Special = { fg = c.magenta },
         String = { italic = true },
