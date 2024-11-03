@@ -64,6 +64,7 @@ return {
       ['gitsigns-blame'] = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
+      lisp = { icon = 'λ' },
       java = { icon = '' },
       jar = { icon = '' },
       javascript = { icon = '' },
