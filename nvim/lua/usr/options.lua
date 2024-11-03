@@ -89,7 +89,7 @@ o.spelllang = 'en,fr'
 -- }}}
 
 -- {{{ ==| Short message |======================================================
-o.shortmess:append('WIcsa')
+o.shortmess:append('WIcsSa')
 -- }}}
 
 -- {{{ ==| diagnostic |=========================================================

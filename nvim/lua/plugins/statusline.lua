@@ -95,6 +95,7 @@ return {
           end
         }
       },
+      lualine_y = { 'searchcount', 'progress' },
     },
     tabline = {
       lualine_a = {
