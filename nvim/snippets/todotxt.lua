@@ -55,4 +55,10 @@ return {
   s("saturday", fmta([[<>]], { f(function() return day(6) end) })),
   s("sunday", fmta([[<>]], { f(function() return day(7) end) })),
 }, {
+  rs("^A", fmt('(A) ', {})),
+  rs("^B", fmt('(B) ', {})),
+  rs("^C", fmt('(C) ', {})),
+  rs("^D", fmt('(D) ', {})),
+  rs("^E", fmt('(E) ', {})),
+  s("+co", fmt('+course', {})),
 }
