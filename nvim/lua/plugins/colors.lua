@@ -341,14 +341,14 @@ return {
 
         ['@todo.done'] = { fg = c.mix_fg, strikethrough = true },
         ['@todo.priority'] = { fg = c.yellow },
+        ['@comment.todotxt'] = { link = '' },
         ['@todo.kv'] = { fg = c.mix_fg, italic = true },
-        ['@todo.date'] = { link = '@todo.kv' },
+        ['@todo.date'] = { fg = c.mix_fg },
         ['@todo.project'] = { fg = c.violet },
         ['@todo.context'] = { fg = c.orange },
-
-        ['@date.late'] = { fg = c.red, italic = true },
-        ['@date.early'] = { fg = c.green, italic = true },
-        ['@date.today'] = { fg = c.yellow, italic = true },
+        ['@date.late'] = { fg = c.red },
+        ['@date.early'] = { fg = c.green },
+        ['@date.today'] = { fg = c.yellow },
 
         DashboardHeader = { fg = c.mix_fg },
         DashboardFooter = { fg = c.mix_fg },

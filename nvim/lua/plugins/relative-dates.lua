@@ -5,7 +5,7 @@ return {
     filetypes = {
       'todotxt',
     },
-    format = ' (󰭧 %s)',
+    format = ' 󰭧 %s',
     highlight_groups = {
       early = '@date.early',
       late = '@date.late',
