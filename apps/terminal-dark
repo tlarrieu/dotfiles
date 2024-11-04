@@ -1,6 +1,0 @@
-#!/bin/sh
-
-kitty \
-  -o background="#002b36" \
-  -o foreground="#fdf6e3" \
-  --class="kitty-light"
