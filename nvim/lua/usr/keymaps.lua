@@ -1,46 +1,39 @@
-local noremap = { remap = false, silent = true }
-local remap = { remap = true, silent = true }
-
-local k = vim.keymap
-local merge = require('helpers').merge
-
 -- Avoiding moving cursor when hitting <leader> followed by nothing
-k.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', noremap)
+vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
 
 --- {{{ --| basics |----------------------------------------
 -- Marks
-k.set('n', "'", '`', noremap)
-k.set('n', '`', "'", noremap)
-k.set('n', '<leader>m', ':delmarks!<cr>', noremap)
-k.set('i', '<c-cr>', '<esc>o', noremap)
+vim.keymap.set('n', "'", '`')
+vim.keymap.set('n', '`', "'")
+vim.keymap.set('i', '<c-cr>', '<esc>o')
 -- Split lines
-k.set('n', '<c-j>', 'i<cr><esc>', noremap)
+vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 -- Don't make a # force column zero.
-k.set('i', '#', 'X<bs>#', noremap)
+vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
-k.set({ 'n', 'i' }, '<F1>', '<nop>', noremap)
+vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
 -- Clever paste from system buffer
-k.set({ 'n', 'o', 'x' }, '<leader>p', '"+p', noremap)
-k.set({ 'n', 'o', 'x' }, '<leader>P', '"+P', noremap)
-k.set({ 'n', 'o', 'x' }, '<leader>y', '"+y', noremap)
-k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", noremap)
+vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
+vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
+vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
+vim.keymap.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", { silent = true })
 -- Give a more logical behavior to Y
-k.set('n', 'Y', 'y$', noremap)
+vim.keymap.set('n', 'Y', 'y$')
 -- select the whole line
-k.set('n', 'vv', '^v$h', noremap)
+vim.keymap.set('n', 'vv', '^v$h')
 -- Command line
-k.set({ 'n', 'x' }, 'è', ':')
-k.set({ 'n', 'x' }, 'È', ':!')
+vim.keymap.set({ 'n', 'x' }, 'è', ':')
+vim.keymap.set({ 'n', 'x' }, 'È', ':!')
 -- search
-k.set({ 'n', 'x' }, 'é', '/')
-k.set('n', '<c-é>', ':silent grep! ')
-k.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
+vim.keymap.set({ 'n', 'x' }, 'é', '/')
+vim.keymap.set('n', '<c-é>', ':silent grep! ')
+vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
 -- call snipe from visual mode
-k.set('v', 'S', '<esc><cmd>call Snipe("new")<cr>')
+vim.keymap.set('v', 'S', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
-k.set('n', 'cié', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
+vim.keymap.set('n', 'cié', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
-k.set('n', 'gÉ', function()
+vim.keymap.set('n', 'gÉ', function()
   local input = vim.fn.input({ prompt = '󰛢: ' })
   if input == '' then return end
 
@@ -69,60 +62,60 @@ k.set('n', 'gÉ', function()
   end
 
   vim.api.nvim_buf_set_lines(0, 0, -1, false, buffer)
-end, require('helpers').merge(noremap, { desc = 'move matching lines after cursor' }))
+end, { desc = 'move matching lines after cursor' })
 -- find & replace
-k.set('n', 'É', ':%s/')
-k.set('x', 'É', '<esc>:%s/\\%V')
+vim.keymap.set('n', 'É', ':%s/')
+vim.keymap.set('x', 'É', '<esc>:%s/\\%V')
 -- hide search matches
-k.set('n', '<esc>', '<esc>:nohlsearch<cr>', noremap)
+vim.keymap.set('n', '<esc>', '<esc>:nohlsearch<cr>', { silent = true })
 -- Find character
-k.set({ 'n', 'x' }, ',', ';', noremap)
-k.set({ 'n', 'x' }, ';', ',', noremap)
+vim.keymap.set({ 'n', 'x' }, ',', ';')
+vim.keymap.set({ 'n', 'x' }, ';', ',')
 -- Close current buffer
-k.set('n', 'Q', ':bdelete!<cr>', noremap)
+vim.keymap.set('n', 'Q', ':bdelete!<cr>', { silent = true })
 -- Sanity mappings for command line mode
-k.set('c', '<esc>', '<c-c>', noremap)
-k.set('c', '<c-a>', '<home>')
+vim.keymap.set('c', '<esc>', '<c-c>')
+vim.keymap.set('c', '<c-a>', '<home>')
 -- <BS> enters insert mode in select mode (this makes it easier to jump to the next snippet anchor)
-k.set('s', '<bs>', '<bs>i')
+vim.keymap.set('s', '<bs>', '<bs>i')
 -- Exit
-k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
-k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
+vim.keymap.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', { silent = true })
+vim.keymap.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', { silent = true })
 -- Save
-k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', noremap)
+vim.keymap.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', { silent = true })
 -- Reselect pasted lines
-k.set('n', 'gV', '`[v`]', noremap)
+vim.keymap.set('n', 'gV', '`[v`]')
 -- direct access to numbers when in normal / operator pending / visual mode
-k.set({ 'n', 'o', 'x' }, '"', '1', noremap)
-k.set({ 'n', 'o', 'x' }, '1', '"', noremap)
-k.set({ 'n', 'o', 'x' }, '«', '2', noremap)
-k.set({ 'n', 'o' }, '2', '<<_', remap)
-k.set('x', '2', '<gv', remap)
-k.set({ 'n', 'o', 'x' }, '»', '3', noremap)
-k.set({ 'n', 'o', }, '3', '>>_', remap)
-k.set('x', '3', '>gv', remap)
-k.set({ 'n', 'o', 'x' }, '(', '4', noremap)
-k.set({ 'n', 'o', 'x' }, '4', '(', noremap)
-k.set({ 'n', 'o', 'x' }, ')', '5', noremap)
-k.set({ 'n', 'o', 'x' }, '5', ')', noremap)
-k.set({ 'n', 'o', 'x' }, '@', '6', noremap)
-k.set({ 'n', 'o', 'x' }, '6', '@', noremap)
-k.set({ 'n', 'o', 'x' }, '+', '7', noremap)
-k.set({ 'n', 'o', 'x' }, '7', '+', noremap)
-k.set({ 'n', 'o', 'x' }, '-', '8', noremap)
-k.set({ 'n', 'o', 'x' }, '8', '-', noremap)
-k.set({ 'n', 'o', 'x' }, '/', '9', noremap)
-k.set({ 'n', 'o', 'x' }, '9', '/', noremap)
-k.set({ 'n', 'o', 'x' }, '*', '0', noremap)
-k.set({ 'n', 'o', 'x' }, '0', '*', noremap)
+vim.keymap.set({ 'n', 'o', 'x' }, '"', '1')
+vim.keymap.set({ 'n', 'o', 'x' }, '1', '"')
+vim.keymap.set({ 'n', 'o', 'x' }, '«', '2')
+vim.keymap.set({ 'n', 'o' }, '2', '<<_', { remap = true })
+vim.keymap.set('x', '2', '<gv', { remap = true })
+vim.keymap.set({ 'n', 'o', 'x' }, '»', '3')
+vim.keymap.set({ 'n', 'o', }, '3', '>>_', { remap = true })
+vim.keymap.set('x', '3', '>gv', { remap = true })
+vim.keymap.set({ 'n', 'o', 'x' }, '(', '4')
+vim.keymap.set({ 'n', 'o', 'x' }, '4', '(')
+vim.keymap.set({ 'n', 'o', 'x' }, ')', '5')
+vim.keymap.set({ 'n', 'o', 'x' }, '5', ')')
+vim.keymap.set({ 'n', 'o', 'x' }, '@', '6')
+vim.keymap.set({ 'n', 'o', 'x' }, '6', '@')
+vim.keymap.set({ 'n', 'o', 'x' }, '+', '7')
+vim.keymap.set({ 'n', 'o', 'x' }, '7', '+')
+vim.keymap.set({ 'n', 'o', 'x' }, '-', '8')
+vim.keymap.set({ 'n', 'o', 'x' }, '8', '-')
+vim.keymap.set({ 'n', 'o', 'x' }, '/', '9')
+vim.keymap.set({ 'n', 'o', 'x' }, '9', '/')
+vim.keymap.set({ 'n', 'o', 'x' }, '*', '0')
+vim.keymap.set({ 'n', 'o', 'x' }, '0', '*')
 -- sort
-k.set('x', '<leader>s', ':sort<cr>', noremap)
+vim.keymap.set('x', '<leader>s', ':sort<cr>', { silent = true })
 -- macro
-k.set({ 'n', 'o' }, '<leader><leader>', '@q', noremap)
-k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
+vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
+vim.keymap.set('x', '<leader><leader>', ':normal 6q<cr>', { silent = true })
 --- }}}
 --- {{{ --| quick access |----------------------------------
-k.set('n', '<leader>em', function()
+vim.keymap.set('n', '<leader>em', function()
   if require('helpers').fileexists(vim.fn.expand('%')) then
     return ':tabe Makefile<cr>'
   else
@@ -132,9 +125,9 @@ end, { desc = 'Edit Makefile', expr = true, silent = true })
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word
-k.set('n', '<c-g>', 'gUiw', noremap)
-k.set('i', '<c-g>', '<esc>gUiwea', noremap)
-k.set('n', '<leader>k', function()
+vim.keymap.set('n', '<c-g>', 'gUiw')
+vim.keymap.set('i', '<c-g>', '<esc>gUiwea')
+vim.keymap.set('n', '<leader>k', function()
   vim.cmd [[
     normal! m`
     let _s=@/
@@ -143,9 +136,9 @@ k.set('n', '<leader>k', function()
     nohl
     normal! g``
   ]]
-end, merge({ desc = 'Remove trailing spaces' }, noremap))
+end, { silent = true, desc = 'Remove trailing spaces' })
 -- Cursorline / Cursorcolumn
-k.set('n', '<leader>r', function()
+vim.keymap.set('n', '<leader>r', function()
   vim.cmd [[
     if &virtualedit ==# 'all'
       setlocal virtualedit=""
@@ -155,60 +148,60 @@ k.set('n', '<leader>r', function()
     setlocal cursorcolumn!
     setlocal cursorline!
   ]]
-end, merge({ desc = 'Toggle crosshair' }, noremap))
+end, { desc = 'Toggle crosshair' })
 -- Alternate file
-k.set('n', '<c-k>', '<c-^>')
+vim.keymap.set('n', '<c-k>', '<c-^>')
 --- }}}
 --- {{{ --| Quickfix / Location list |----------------------
-k.set('n', '<c-n>', ':cnext<cr>', noremap)
-k.set('n', '<c-p>', ':cprev<cr>', noremap)
+vim.keymap.set('n', '<c-n>', ':cnext<cr>', { silent = true })
+vim.keymap.set('n', '<c-p>', ':cprev<cr>', { silent = true })
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
-k.set('n', 'Þ', vim.diagnostic.goto_next, noremap)
-k.set('n', 'ẞ', vim.diagnostic.goto_prev, noremap)
+vim.keymap.set('n', 'Þ', vim.diagnostic.goto_next)
+vim.keymap.set('n', 'ẞ', vim.diagnostic.goto_prev)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
-k.set('t', '<c-s>', '<c-\\><c-n>', noremap)
+vim.keymap.set('t', '<c-s>', '<c-\\><c-n>')
 
-k.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', noremap)
-k.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', noremap)
-k.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', noremap)
+vim.keymap.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', { silent = true })
+vim.keymap.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', { silent = true })
 --- }}}
 --- {{{ --| splits / tabs |---------------------------------
-k.set('n', '<left>', '<c-w>5<', noremap)
-k.set('n', '<right>', '<c-w>5>', noremap)
-k.set('n', '<up>', '<c-w>+', noremap)
-k.set('n', '<down>', '<c-w>-', noremap)
-k.set('n', 'co', ':tabo<cr><c-w>o', noremap)
+vim.keymap.set('n', '<left>', '<c-w>5<')
+vim.keymap.set('n', '<right>', '<c-w>5>')
+vim.keymap.set('n', '<up>', '<c-w>+')
+vim.keymap.set('n', '<down>', '<c-w>-')
+vim.keymap.set('n', 'co', ':tabo<cr><c-w>o', { silent = true })
 -- Hack to make <c-w><c-c> mapping work
-k.set('', '<c-c>', '<nop>', noremap)
-k.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H', noremap)
-k.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J', noremap)
-k.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K', noremap)
-k.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L', noremap)
+vim.keymap.set('', '<c-c>', '<nop>')
+vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
+vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
+vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
+vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
 -- Horizontal Split
-k.set('n', '<leader>nn', ':new<cr>', noremap)
-k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+vim.keymap.set('n', '<leader>nn', ':new<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
-k.set('n', '<leader>vv', ':vnew<cr>', noremap)
-k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+vim.keymap.set('n', '<leader>vv', ':vnew<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Dimensions
-k.set('n', '<leader>=', '<c-w>=', noremap)
-k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
+vim.keymap.set('n', '<leader>=', '<c-w>=')
+vim.keymap.set('n', '<leader>%', ':res<cr>:vertical res<cr>', { silent = true })
 -- Moving around
-k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because we redefine tab later on)
-k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symmetrical)
-k.set('n', '<tab>', '<c-w>w', noremap)
-k.set('n', '<s-tab>', '<c-w>W', noremap)
+vim.keymap.set('n', '<c-i>', '<c-i>') -- force standard ctrl-i behavior (because we redefine tab later on)
+vim.keymap.set('n', '<c-o>', '<c-o>') -- force standard ctrl+o behavior (mostly to be symmetrical)
+vim.keymap.set('n', '<tab>', '<c-w>w')
+vim.keymap.set('n', '<s-tab>', '<c-w>W')
 -- New tab
-k.set('n', '<leader>tt', ':tabe<cr>', noremap)
-k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+vim.keymap.set('n', '<leader>tt', ':tabe<cr>', { silent = true })
+vim.keymap.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
-k.set('n', '<leader>tm', ':tabm<leader>')
+vim.keymap.set('n', '<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
-k.set('n', '<leader>U', '<c-w>T', noremap)
+vim.keymap.set('n', '<leader>U', '<c-w>T')
 -- merge current split into left-hand tab
-k.set('n', '<leader>u', function()
+vim.keymap.set('n', '<leader>u', function()
   local curtab = vim.api.nvim_get_current_tabpage()
 
   -- tabs are not numbered the way they are displayed,
@@ -227,16 +220,16 @@ k.set('n', '<leader>u', function()
   vim.api.nvim_set_current_tabpage(prevtab)
   vim.cmd.vsplit()
   vim.api.nvim_win_set_buf(0, buf)
-end, noremap)
+end)
 --- }}}
 --- {{{ --| folds management |------------------------------
-k.set('n', '<leader>z', 'zMzv', noremap)
-k.set('n', '<leader>Z', 'zR', noremap)
-k.set('n', 'zO', 'zczO', noremap)
+vim.keymap.set('n', '<leader>z', 'zMzv')
+vim.keymap.set('n', '<leader>Z', 'zR')
+vim.keymap.set('n', 'zO', 'zczO')
 --- }}}
 --- {{{ --| argwrap |---------------------------------------
-k.set('n', '<leader>,', ':ArgWrap<CR>', noremap)
+vim.keymap.set('n', '<leader>,', ':ArgWrap<CR>', { silent = true })
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-k.set('x', '<leader>gd', ':Linediff<cr>', noremap)
+vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
 --- }}}
