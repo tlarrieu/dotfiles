@@ -37,7 +37,7 @@ selection=$(\
       -markup-rows \
       -format p \
       -i \
-      -p "" \
+      -p "󱧻" \
       -mesg "$help" \
       -multi-select \
       -no-history \
