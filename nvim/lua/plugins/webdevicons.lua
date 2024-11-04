@@ -55,7 +55,7 @@ return {
       c = { icon = '' },
       haskell = { icon = '󰲒' },
       rust = { icon = '' },
-      lisp = { icon = 'λ' },
+      lisp = { icon = '' },
       java = { icon = '' },
       jar = { icon = '' },
       javascript = { icon = '' },
