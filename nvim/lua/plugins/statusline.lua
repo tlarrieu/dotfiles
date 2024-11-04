@@ -47,18 +47,6 @@ return {
             return ' ' .. project
           end,
         },
-        { 'branch' },
-        {
-          'diff',
-          colored = true,
-          diff_color = {
-            added = 'LualineAdded',
-            modified = 'LualineModified',
-            removed = 'LualineRemoved',
-          },
-          symbols = {
-          }
-        },
         { 'diagnostics' },
       },
       lualine_c = {
@@ -72,7 +60,16 @@ return {
             -- unnamed = '…',
             -- newfile = '󰎔',
           },
-        }
+        },
+        {
+          'diff',
+          colored = true,
+          diff_color = {
+            added = 'LualineAdded',
+            modified = 'LualineModified',
+            removed = 'LualineRemoved',
+          },
+        },
       },
       lualine_x = {
         'encoding',
@@ -150,6 +147,9 @@ return {
 
         }
       },
+      lualine_y = {
+        'branch',
+      }
     },
     winbar = {},
   },

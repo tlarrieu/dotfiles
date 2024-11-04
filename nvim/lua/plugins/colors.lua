@@ -39,9 +39,9 @@ return {
 
           lualine = {
             git = {
-              added = { fg = c.green, bg = c.base01 },
-              removed = { fg = c.red, bg = c.base01 },
-              modified = { fg = c.yellow, bg = c.base01 },
+              added = { fg = c.green, bg = c.base2 },
+              removed = { fg = c.red, bg = c.base2 },
+              modified = { fg = c.yellow, bg = c.base2 },
             },
           },
         }
@@ -55,9 +55,9 @@ return {
 
           lualine = {
             git = {
-              added = { fg = c.green, bg = c.base1 },
-              removed = { fg = c.red, bg = c.base1 },
-              modified = { fg = c.yellow, bg = c.base1 },
+              added = { fg = c.green, bg = c.base02 },
+              removed = { fg = c.red, bg = c.base02 },
+              modified = { fg = c.yellow, bg = c.base02 },
             },
           },
         }
