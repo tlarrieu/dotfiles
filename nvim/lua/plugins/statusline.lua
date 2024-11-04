@@ -30,6 +30,7 @@ return {
             if mode == 'O-PENDING' then return '  ' end
             if mode == 'INSERT' then return ' 󰏪 ' end
             if mode == 'COMMAND' then return ' 󰞷 ' end
+            if mode == 'TERMINAL' then return '  ' end
             if mode == 'SELECT' then return ' 󰫙 ' end
             if mode == 'VISUAL' then return ' 󰩭 ' end
             if mode == 'V-LINE' then return ' 󰩭 ' end
