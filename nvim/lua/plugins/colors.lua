@@ -349,12 +349,6 @@ return {
         ['@date.late'] = { fg = c.red },
         ['@date.early'] = { fg = c.green },
         ['@date.today'] = { fg = c.yellow },
-
-        DashboardHeader = { fg = c.mix_fg },
-        DashboardFooter = { fg = c.mix_fg },
-        DashboardDesc = { fg = c.fg, bold = false },
-        DashboardIcon = { fg = c.violet },
-        DashboardKey = { fg = c.violet, italic = false, bold = true },
       }
     end
   },
