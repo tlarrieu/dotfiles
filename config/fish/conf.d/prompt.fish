@@ -54,7 +54,7 @@ function _git
     (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
 
   set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦡 ")
+    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦢 ")
   set -l staged \
     (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱊖 ")
   set -l ahead \
