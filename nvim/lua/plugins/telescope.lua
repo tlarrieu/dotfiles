@@ -70,7 +70,16 @@ return {
       function()
         return require('telescope.builtin').git_status({
           hidden = true,
-          path_display = filename_first_and_shorten
+          path_display = filename_first_and_shorten,
+          git_icons = {
+            added = "󰐕",
+            changed = "~",
+            copied = ">",
+            deleted = "-",
+            renamed = "",
+            unmerged = "‡",
+            untracked = "?",
+          },
         })
       end,
       desc = 'Telescope git status'
