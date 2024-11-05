@@ -6,7 +6,7 @@ function _git_branch_name
     and return
 
   set -l tag (command git describe --tags --exact-match 2> /dev/null)
-    and echo "󱈤 $tag "
+    and echo "󰓽 $tag "
     and return
 
   set -l ref (command git show-ref --head -s --abbrev | head -n1)
@@ -36,9 +36,9 @@ function _git_ahead
   end
 
   if [ $ahead -eq 1 ]
-    echo "󰧜 "
+    echo "󰧝 "
   else if [ $behind -eq 1 ]
-    echo "󰧖 "
+    echo "󰧗 "
   end
 end
 
