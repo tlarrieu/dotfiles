@@ -147,6 +147,8 @@ return {
         ['@property'] = { fg = c.mix_fg, bg = c.none },
         ['@variable.global'] = { fg = c.violet },
 
+        ['@variable.parameter.fish'] = { fg = c.violet },
+
         ['@variable.member.lua'] = { link = 'Normal' },
 
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
