@@ -3,7 +3,7 @@ local _M = {}
 local default = '󰣆'
 
 local config = {
-  --  office suite
+  -- 󰊭 office suite
   { icon = '󰊫', rule = { class = 'Chromium', instance = 'www.gmail.com' } },
   {
     icon = '󱎏',
@@ -47,10 +47,8 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'photos.google.com' } },
 
   --   Work
+  { icon = '󰙃', rule = { class = 'Chromium', instance = 'lucca' } },
   { icon = '󰚒', rule = { class = 'Chromium', instance = 'calendly.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'circleci.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'atlassian.net' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'atlassian.net', name = 'Jira' } },
   { icon = '', rule = { class = 'Chromium', instance = 'app.swarmia.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'app.spendesk.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
@@ -81,8 +79,8 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'reddit.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linkedin.com' } },
 
-  --  Travel
-  { icon = '', rule = { class = 'Chromium', instance = 'trainline' } },
+  -- 󰔬 Travel
+  { icon = '󰔬', rule = { class = 'Chromium', instance = 'trainline' } },
   { icon = '', rule = { class = 'Chromium', instance = 'citymapper.com' } },
   {
     icon = '',
@@ -92,13 +90,13 @@ local config = {
     }
   },
 
-  --  Programming
+  --  Programming
   { icon = '', rule = { class = 'Chromium', instance = 'rubygems' } },
   { icon = '', rule = { class = 'Chromium', instance = 'hoogle' } },
   { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'fly.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' } },
-  { icon = '󱨉', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },
 
   --  Drawing
   { icon = '', rule = { class = 'Chromium', instance = 'whimsical.co' } },
@@ -201,7 +199,13 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' } },
   { icon = '', rule = { class = 'kitty', name = 'exercism' } },
   { icon = '', rule = { class = 'kitty', name = 'NVIM' } },
-  { icon = '', rules = { { class = 'kitty', name = 'newsboat' }, { class = 'quake', name = 'newsboat' } } },
+  {
+    icon = '',
+    rules = {
+      { class = 'newsboat' },
+      { class = 'kitty',   name = 'newsboat' },
+      { class = 'quake',   name = 'newsboat' } }
+  },
   { icon = '', rule = { class = 'kitty', name = 'htop' } },
   { icon = '', rule = { class = 'kitty', name = 'vifm' } },
   { icon = '', rule = { class = 'kitty', name = 'vpn' } },
