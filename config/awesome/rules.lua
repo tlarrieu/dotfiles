@@ -70,7 +70,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       }
     },
     properties = {
-      opacity = 0.9,
+      opacity = 0.85,
     },
   },
 
