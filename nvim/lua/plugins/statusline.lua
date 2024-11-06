@@ -148,7 +148,7 @@ return {
         }
       },
       lualine_y = {
-        'branch',
+        { 'branch', icon = { '', align = 'right' } },
       }
     },
     winbar = {},
