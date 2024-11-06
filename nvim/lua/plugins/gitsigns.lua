@@ -25,7 +25,7 @@ return {
     current_line_blame_opts      = {
       virt_text = true,
       virt_text_pos = 'eol',
-      delay = 200,
+      delay = 50,
       ignore_whitespace = false,
       virt_text_priority = 100,
       use_focus = true,
@@ -60,7 +60,7 @@ return {
       vim.keymap.set('n', '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
       vim.keymap.set('n', '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
       vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
-      vim.keymap.set(modes, '<leader>gB', gitsigns.blame_line, { desc = 'Blame (line)' })
+      vim.keymap.set(modes, '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'Blame (line)' })
       vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
       vim.keymap.set(modes, '<leader>gR', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset' })
       vim.keymap.set(modes, '<leader>gq', function()
