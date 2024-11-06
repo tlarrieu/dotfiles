@@ -19,7 +19,7 @@ return {
     function <>(<>) {
       <><>
     }
-    ]], {i(1, "name"), i(2, "args"), sel(), i(0) })),
+    ]], { i(1, "name"), i(2, "args"), sel(), i(0) })),
   s("di", fmta([[
     constructor(<>) {
       <><>
@@ -29,7 +29,7 @@ return {
     <> = (<>) =>> {
       <><>
     }
-    ]], {i(1, "name"), i(2, "args"), sel(), i(0) })),
+    ]], { i(1, "name"), i(2, "args"), sel(), i(0) })),
 
   -- testing
   s("test", fmta("test('<>', (<>) =>> {<>})", { i(1, 'something'), i(2, 'args'), i(3) })),
