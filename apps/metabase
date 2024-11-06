@@ -1,3 +1,3 @@
 #!/bin/sh
 
-browser-kiosk pro "https://metabase.pennylane.tech/"
+browser-kiosk pro "https://metabase.pennylane.tech/question#eyJkYXRhc2V0X3F1ZXJ5Ijp7ImRhdGFiYXNlIjoyLCJ0eXBlIjoibmF0aXZlIiwibmF0aXZlIjp7InF1ZXJ5IjoiIiwidGVtcGxhdGUtdGFncyI6e319fSwiZGlzcGxheSI6InRhYmxlIiwidmlzdWFsaXphdGlvbl9zZXR0aW5ncyI6e30sInR5cGUiOiJxdWVzdGlvbiJ9"
