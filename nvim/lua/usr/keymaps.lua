@@ -82,7 +82,7 @@ vim.keymap.set('s', '<bs>', '<bs>i')
 vim.keymap.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', { silent = true })
 -- Save
-vim.keymap.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', { silent = true })
+vim.keymap.set('n', 'S', ':w<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- direct access to numbers when in normal / operator pending / visual mode
@@ -161,8 +161,7 @@ vim.keymap.set('n', 'Þ', vim.diagnostic.goto_next)
 vim.keymap.set('n', 'ẞ', vim.diagnostic.goto_prev)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
-vim.keymap.set('t', '<c-s>', '<c-\\><c-n>')
-
+vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('n', '<leader>ti', ':tabnew<bar>terminal<cr>:startinsert!<cr>', { silent = true })
 vim.keymap.set('n', '<leader>vi', ':vertical new<bar>terminal<cr>:startinsert<cr>', { silent = true })
 vim.keymap.set('n', '<leader>ni', ':new<bar>terminal<cr>:startinsert<cr>', { silent = true })

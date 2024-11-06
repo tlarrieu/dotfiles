@@ -63,7 +63,7 @@ k.set('c', '<c-a>', '<home>')
 k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
 k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
 -- Save
-k.set({ 'n', 'i', 'x' }, '<c-s>', '<esc>:w<cr>', noremap)
+k.set('n', 'S', ':w<cr>', noremap)
 -- Reselect pasted lines
 k.set('n', 'gV', '`[v`]', noremap)
 -- It is more convenient to access numbers directly when in normal mode

@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
       vim.cmd.normal('gg')
       vim.cmd.startinsert({ bang = true })
     end
-    vim.keymap.set( { 'n', 'i' }, '<c-s>', vim.cmd.x, { silent = true, buffer = 0 })
+    vim.keymap.set('n', 'S', vim.cmd.x, { silent = true, buffer = 0 })
   end,
   group = vim.api.nvim_create_augroup('GIT_AUTOCMD', {})
 })
