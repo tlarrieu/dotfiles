@@ -1,4 +1,4 @@
 #!/bin/sh
 
 path=${1:-~/Pictures/wallpapers}
-feh --bg-scale $(sxiv -tor $path 2>/dev/null)
+feh --bg-scale "$(sxiv -tor "$path" 2>/dev/null)"
