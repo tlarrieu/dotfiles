@@ -143,6 +143,7 @@ local config = {
   { icon = '󰓙', rule = { class = 'Chromium', instance = 'doctolib' } },
   { icon = '󰚗', rule = { class = 'Chromium', instance = 'malt' } },
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
 
   --  Default browser
   { icon = '', rule = { class = 'Chromium' } },
