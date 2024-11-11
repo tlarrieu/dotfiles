@@ -1,13 +1,14 @@
 #!/bin/sh
 
 url=$(xsel --clipboard -o)
+cmd="yt-dlp --add-chapters --sponsorblock-mark all"
 
 notify-send "Download started" "Your download will be available in $(pwd)"
 
-yt-dlp "$url"
+$cmd "$url"
 if [ $? != 0 ]; then
   notify-send "Error" "Could not download in playlist mode, retrying in single mode"
-  yt-dlp --no-playlist "$url"
+  $cmd --no-playlist "$url"
 fi
 
 if [ $? = 0 ]; then
