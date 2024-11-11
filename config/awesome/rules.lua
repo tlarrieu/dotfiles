@@ -67,7 +67,11 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'newsboat',
         'scratchpad',
         'quake',
-      }
+        'monkeytype.com',
+      },
+      instance = {
+        'monkeytype.com',
+      },
     },
     properties = {
       opacity = 0.85,
