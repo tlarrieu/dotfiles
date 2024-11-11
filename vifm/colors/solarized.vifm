@@ -39,4 +39,4 @@ highlight Device     cterm=none              ctermfg=red     ctermbg=default
 highlight Fifo       cterm=none              ctermfg=cyan    ctermbg=default
 highlight Executable cterm=none              ctermfg=green   ctermbg=default
 
-highlight LineNr     cterm=italic            ctermfg=14      ctermbg=default
+highlight LineNr     cterm=none              ctermfg=14      ctermbg=default
