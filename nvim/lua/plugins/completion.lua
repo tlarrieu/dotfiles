@@ -117,9 +117,6 @@ return {
       sources = {
         { name = 'buffer' }
       },
-      view = {
-        entries = { name = 'wildmenu', separator = '|' }
-      },
     })
 
     cmp.setup.cmdline(':', {
@@ -128,9 +125,9 @@ return {
         { name = 'path' },
         { name = 'cmdline' },
       }),
-      view = {
-        entries = { name = 'wildmenu', separator = '|' }
-      },
+      -- view = {
+      --   entries = { name = 'wildmenu', separator = '|' }
+      -- },
     })
   end
 }
