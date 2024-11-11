@@ -1,7 +1,7 @@
 #!/bin/sh
 
 task() {
-  sed -i "3 i $1" ~/.neorg/gtd/todo.txt
+  sed -i "3 i $1 +inbox" ~/.neorg/gtd/todo.txt
 }
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
