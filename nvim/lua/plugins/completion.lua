@@ -46,6 +46,9 @@ return {
         ghost_text = { hl_group = 'CmpGhostText' },
       },
       preselect = cmp.PreselectMode.None,
+      performance = {
+        max_view_entries = 15,
+      },
       snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
       },
@@ -117,6 +120,9 @@ return {
       sources = {
         { name = 'buffer' }
       },
+      view = {
+        entries = { name = 'wildmenu', separator = '|' }
+      },
     })
 
     cmp.setup.cmdline(':', {
@@ -125,9 +131,6 @@ return {
         { name = 'path' },
         { name = 'cmdline' },
       }),
-      -- view = {
-      --   entries = { name = 'wildmenu', separator = '|' }
-      -- },
     })
   end
 }
