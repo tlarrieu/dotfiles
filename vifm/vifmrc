@@ -83,6 +83,7 @@ mark e ~/Documents/management
 mark i ~/Documents/management/individual
 mark p ~/Pictures
 mark s ~/Pictures/screenshots
+mark y /tmp/ytdl
 mark v ~/Videos
 mark w ~/Pictures/wallpapers
 mark M /run/media/tlarrieu

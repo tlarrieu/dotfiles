@@ -1,5 +1,8 @@
 #!/bin/sh
 
+mkdir -p /tmp/ytdl
+cd /tmp/ytdl || exit
+
 url=$(xsel --clipboard -o)
 cmd="yt-dlp --add-chapters --sponsorblock-mark all"
 

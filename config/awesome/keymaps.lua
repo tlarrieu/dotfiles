@@ -7,7 +7,6 @@ local spawner = require('spawner')
 local home = os.getenv('HOME')
 local dotfiles = string.format('%s/git/dotfiles', home)
 local accounting = string.format('%s/git/accounting', home)
-local sandbox = string.format('%s/sandbox', home)
 local neorg = string.format('%s/.neorg', home)
 
 local mod = 'Mod4'
@@ -168,7 +167,7 @@ local keyboard = {
       props = { class = 'gtgf' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ mod }, 'percent', spawner.terminal('ytdl', { directory = sandbox, class = 'download' })),
+    spawner.key({ mod }, 'percent', spawner.terminal('ytdl', { class = 'download' })),
     spawner.key({ mod }, 'ccedilla', spawner.shell('open (xsel --clipboard -o)')),
     spawner.key({ mod }, "'", spawner.terminal()),
     spawner.key({ mod, 'Shift' }, "'", spawner.terminal(nil, { class = 'kitty-light' })),
