@@ -60,5 +60,8 @@ return {
   rs("^C", fmt('(C) ', {})),
   rs("^D", fmt('(D) ', {})),
   rs("^E", fmt('(E) ', {})),
+  rs("^F", fmt('(F) ', {})),
   s("+co", fmt('+course', {})),
+  s("@h", fmt('@home', {})),
+  s("@w", fmt('@work', {})),
 }
