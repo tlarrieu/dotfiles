@@ -348,11 +348,11 @@ return {
         ['@comment.todotxt'] = { link = '' },
         ['@todo.kv'] = { fg = c.mix_fg, italic = true },
         ['@todo.date'] = { fg = c.mix_fg },
-        ['@todo.project'] = { fg = c.violet, bold = true },
+        ['@todo.project'] = { fg = c.violet },
         ['@todo.context'] = { fg = c.orange, bold = true },
-        ['@date.late'] = { fg = c.red },
-        ['@date.early'] = { fg = c.green },
+        ['@date.late'] = { fg = c.red, bold = true },
         ['@date.today'] = { fg = c.yellow },
+        ['@date.early'] = { fg = c.green },
 
         DashboardHeader = { fg = c.mix_fg, bg = c.none }
       }
