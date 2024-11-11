@@ -62,6 +62,7 @@ return {
   rs("^E", fmt('(E) ', {})),
   rs("^F", fmt('(F) ', {})),
   s("+co", fmt('+course', {})),
+  s("+wo", fmt('+workflow', {})),
   s("@h", fmt('@home', {})),
   s("@w", fmt('@work', {})),
 }
