@@ -44,8 +44,8 @@ return {
         keymaps = {
           ['if'] = '@function.inner',
           ['af'] = '@function.outer',
-          ['ic'] = '@parameter.inner',
-          ['ac'] = '@parameter.outer',
+          ['ia'] = '@parameter.inner',
+          ['aa'] = '@parameter.outer',
           ['ie'] = '@block.inner',
           ['ae'] = '@block.outer',
           ['id'] = '@conditional.inner',
