@@ -1,8 +1,8 @@
 set async_prompt_functions _git
 
 function _git_branch_name
-  set -l branch (command git symbolic-ref HEAD 2> /dev/null)
-    and string replace 'refs/heads/' " " $branch " "
+  set -l branch (command git symbolic-ref HEAD | sed 's#refs/heads/##' | sed -E 's#(tl/[a-zA-Z]{3}-[0-9]+).*#\1#' 2> /dev/null)
+    and echo " $branch "
     and return
 
   set -l tag (command git describe --tags --exact-match 2> /dev/null)
