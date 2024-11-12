@@ -100,7 +100,6 @@ return {
       },
     })
 
-    -- Set configuration for specific filetype.
     cmp.setup.filetype('gitcommit', {
       sources = cmp.config.sources({
         { name = 'git' },
@@ -119,9 +118,6 @@ return {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {
         { name = 'buffer' }
-      },
-      view = {
-        entries = { name = 'wildmenu', separator = '|' }
       },
     })
 
