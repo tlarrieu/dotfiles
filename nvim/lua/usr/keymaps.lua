@@ -29,7 +29,7 @@ vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
 vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
 -- call snipe from visual mode
-vim.keymap.set('v', 'S', '<esc><cmd>call Snipe("new")<cr>')
+vim.keymap.set('v', 's', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
 vim.keymap.set('n', 'cié', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
@@ -82,7 +82,7 @@ vim.keymap.set('s', '<bs>', '<bs>i')
 vim.keymap.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', { silent = true })
 -- Save
-vim.keymap.set('n', 'S', ':w<cr>', { silent = true })
+vim.keymap.set('n', 's', ':w<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- direct access to numbers when in normal / operator pending / visual mode
@@ -179,8 +179,8 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
 -- Horizontal Split
-vim.keymap.set('n', '<leader>nn', ':new<cr>', { silent = true })
-vim.keymap.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+vim.keymap.set('n', '<leader>ss', ':new<cr>', { silent = true })
+vim.keymap.set('n', '<leader>se', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
 vim.keymap.set('n', '<leader>vv', ':vnew<cr>', { silent = true })
 vim.keymap.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
