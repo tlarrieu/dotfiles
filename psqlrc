@@ -1,0 +1,12 @@
+\set PROMPT1 '%n@%M:%>  %/ 󰄾 '
+\set PROMPT2 '%n@%M:%>  %/ 󰄼 '
+
+\set QUIET 1
+\pset border 2
+\pset linestyle unicode
+\pset null '∅'
+\x auto
+SET tcp_keepalives_idle = 1;
+\set HISTCONTROL ignoredups
+\timing on
+\unset QUIET
