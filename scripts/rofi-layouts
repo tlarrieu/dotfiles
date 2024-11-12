@@ -3,8 +3,7 @@
 LAUNCHER='rofi -dmenu -i -p  -l 3'
 OPTIONS="fair
 tile.right
-tile.left
-"
+tile.left"
 
 layout=$(echo "$OPTIONS" | $LAUNCHER | awk '{print "awful.layout.suit."$1}')
 if [ ${#layout} -gt 0 ]; then
