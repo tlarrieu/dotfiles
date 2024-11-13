@@ -167,9 +167,9 @@ abbr gstk "git stash --keep-index"
 abbr gstp "git stash pop"
 
 # Rails / Rake / Bundler
-abbr r "rails"
-abbr rc "rails console"
-abbr rs "bundle exec rails server"
+abbr r "bin/rails"
+abbr rc "bin/rails console"
+abbr rs "bin/rails server"
 abbr be "bundle exec"
 abbr bi "bundle install"
 abbr bu "bundle update"
