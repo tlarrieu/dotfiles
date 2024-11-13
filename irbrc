@@ -10,10 +10,12 @@ IRB.conf[:PROMPT_MODE] = :CUSTOM
 
 IRB.conf[:AUTO_INDENT] = true
 
+prompt = " \e[31m\e[0m \e[3m(%M)\e[0m"
+
 IRB.conf[:PROMPT][:CUSTOM] = {
-  PROMPT_I: "\e[34mλ\e[0m \e[3m(%M)\e[0m \e[32m󰄾\e[0m ",
-  PROMPT_C: "\e[34mλ\e[0m \e[3m(%M)\e[0m \e[33m󰄼\e[0m ",
-  PROMPT_S: "\e[34mλ\e[0m \e[3m(%M)\e[0m \e[31m󰝗\e[0m ",
+  PROMPT_I: "#{prompt} \e[32m󰄾\e[0m ",
+  PROMPT_C: "#{prompt} \e[33m󰄼\e[0m ",
+  PROMPT_S: "#{prompt} \e[31m󰝗\e[0m ",
   RETURN: "=> %s\n"
 }
 

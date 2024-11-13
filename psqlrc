@@ -1,5 +1,5 @@
-\set PROMPT1 '%n@%M:%> %[%033[34m%]%[%033[0m%] %/\n%[%033[32m%]󰄾%[%033[0m%] '
-\set PROMPT2 '%[%033[33m%]󰄼%[%033[0m%] '
+\set PROMPT1 ' %n@%M:%> %[%033[34m%]%[%033[0m%] %/\n %[%033[32m%]󰄾%[%033[0m%] '
+\set PROMPT2 ' %[%033[33m%]󰄼%[%033[0m%] '
 
 \set QUIET 1
 \set ON_ERROR_ROLLBACK interactive
