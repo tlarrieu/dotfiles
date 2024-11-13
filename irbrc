@@ -19,4 +19,7 @@ IRB.conf[:PROMPT][:CUSTOM] = {
   RETURN: "=> %s\n"
 }
 
-load "#{Dir.home}/.irbrc.local" rescue nil
+begin
+  load "#{Dir.home}/.irbrc.local"
+rescue LoadError
+end
