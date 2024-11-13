@@ -2,6 +2,8 @@
 \set PROMPT2 '%[%033[33m%]󰄼%[%033[0m%] '
 
 \set QUIET 1
+\set ON_ERROR_ROLLBACK interactive
+\pset pager off
 \pset border 2
 \pset linestyle unicode
 \pset null '∅'
