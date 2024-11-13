@@ -195,6 +195,7 @@ local config = {
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
 
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
+  { icon = '', rule = { class = 'kitty', name = 'sidekiq' } },
   { icon = '', rule = { class = 'kitty', name = 'yarn' } },
   { icon = '', rule = { class = 'kitty', name = 'redis%-server' } },
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' } },
