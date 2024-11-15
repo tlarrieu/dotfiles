@@ -29,7 +29,7 @@ vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
 vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
 -- call snipe from visual mode
-vim.keymap.set('v', 's', '<esc><cmd>call Snipe("new")<cr>')
+vim.keymap.set('x', 's', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
 vim.keymap.set('n', 'cié', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>')
 -- move all lines matching pattern after cursor
