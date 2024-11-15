@@ -101,38 +101,37 @@ return {
   s("exp", fmta("expect(<>).to <>)", { i(1, "subject"), i(0) })),
 
   -- debug
-  s("pp", fmta("require 'pp'; pp(<><>)", { sel(), i(1) })),
   s("bb", fmta("byebug", {})),
-  s("p", fmta("puts(<><>)", { sel(), i(1) })),
+  s("p", fmta("puts <><>", { sel(), i(1) })),
   s("red", fmta([[
-    print("\e[31m")
+    print "\e[31m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
   s("gr", fmta([[
-    print("\e[32m")
+    print "\e[32m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
   s("yel", fmta([[
-    print("\e[33m")
+    print "\e[33m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
   s("blue", fmta([[
-    print("\e[34m")
+    print "\e[34m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
   s("pink", fmta([[
-    print("\e[35m")
+    print "\e[35m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
   s("cyan", fmta([[
-    print("\e[36m")
+    print "\e[36m"
     <><>
-    print("\e[0m")
+    print "\e[0m"
     ]], { sel(), i(1) })),
 }, {
   -- skeletons
