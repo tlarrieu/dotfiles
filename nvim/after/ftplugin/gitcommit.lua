@@ -1,5 +1,5 @@
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = 'COMMIT_EDITMSG',
+  pattern = { 'COMMIT_EDITMSG', 'MERGE_MSG' },
   callback = function()
     local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
     if first_line == '' then
