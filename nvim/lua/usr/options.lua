@@ -1,7 +1,6 @@
-local home = os.getenv("HOME")
+vim.g.mapleader = ' '
 
 -- {{{ ==| General options |====================================================
-vim.g.mapleader = ' '
 vim.opt.shell = '/bin/sh'
 -- allow project specific .nvim.lua
 vim.opt.exrc = true
@@ -16,9 +15,9 @@ vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', 
 -- encoding and filetype
 vim.opt.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files
-vim.opt.undodir = { home .. '/.tmp//' }
-vim.opt.backupdir = { home .. '/.tmp//' }
-vim.opt.directory = { home .. '/.tmp//' }
+vim.opt.undodir = { os.getenv("HOME") .. '/.tmp//' }
+vim.opt.backupdir = { os.getenv("HOME") .. '/.tmp//' }
+vim.opt.directory = { os.getenv("HOME") .. '/.tmp//' }
 -- activate undofile, that holds undo history
 vim.opt.undofile = true
 -- ignore those files
