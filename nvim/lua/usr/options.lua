@@ -1,96 +1,95 @@
 local home = os.getenv("HOME")
 
-local o = vim.opt
-
 -- {{{ ==| General options |====================================================
-o.shell = '/bin/sh'
+vim.g.mapleader = ' '
+vim.opt.shell = '/bin/sh'
 -- allow project specific .nvim.lua
-o.exrc = true
-o.secure = true
+vim.opt.exrc = true
+vim.opt.secure = true
 -- line numbering
-o.relativenumber = true
-o.number = true
-o.textwidth = 120
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.textwidth = 120
 -- blank characters
-o.list = true
-o.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
+vim.opt.list = true
+vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
 -- encoding and filetype
-o.fileformats = 'unix,dos,mac'
+vim.opt.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files
-o.undodir = { home .. '/.tmp//' }
-o.backupdir = { home .. '/.tmp//' }
-o.directory = { home .. '/.tmp//' }
+vim.opt.undodir = { home .. '/.tmp//' }
+vim.opt.backupdir = { home .. '/.tmp//' }
+vim.opt.directory = { home .. '/.tmp//' }
 -- activate undofile, that holds undo history
-o.undofile = true
+vim.opt.undofile = true
 -- ignore those files
-o.wildignore:append('*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags')
+vim.opt.wildignore:append('*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags')
 -- case insensitive matching
-o.wildignorecase = true
+vim.opt.wildignorecase = true
 -- ctags
-o.tags = '.tags,./.tags,./tags,tags'
+vim.opt.tags = '.tags,./.tags,./tags,tags'
 -- mouse
-o.mouse = 'a'
+vim.opt.mouse = 'a'
 -- command completion style
-o.wildmode = 'list:full,full'
-o.complete = '.,w,b,u,t,i'
+vim.opt.wildmode = 'list:full,full'
+vim.opt.complete = '.,w,b,u,t,i'
 -- set title when in console
-o.title = true
+vim.opt.title = true
 -- disable line wrap
-o.wrap = false
+vim.opt.wrap = false
 -- line wrap at word boundaries
-o.linebreak = true
+vim.opt.linebreak = true
 -- indent soft-wrapped lines
-o.breakindent = true
+vim.opt.breakindent = true
 -- define character indicating line wrap
-o.showbreak = '↪ '
+vim.opt.showbreak = '↪ '
 -- update time
-o.updatetime = 250
+vim.opt.updatetime = 250
 -- signcolumn
-o.signcolumn = 'auto:1-2'
+vim.opt.signcolumn = 'auto:1-2'
 -- }}}
 
 -- {{{ ==| Statusline |=========================================================
-o.laststatus = 3
-o.showmode = false
+vim.opt.laststatus = 3
+vim.opt.showmode = false
 -- }}}
 
 -- {{{ ==| Splits |=============================================================
-o.splitright = true
-o.splitbelow = true
-o.fillchars:append('eob: ')
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.fillchars:append('eob: ')
 -- }}}
 
 -- {{{ ==| Scrolling |==========================================================
-o.scrolloff = 8
-o.sidescrolloff = 15
-o.sidescroll = 1
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 15
+vim.opt.sidescroll = 1
 -- }}}
 
 -- {{{ ==| Indent |=============================================================
-o.smartindent = true
-o.tabstop = 2
-o.shiftwidth = 2
-o.expandtab = true
-o.shiftround = true
+vim.opt.smartindent = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.shiftround = true
 -- }}}
 
 -- {{{ ==| Searching |==========================================================
-o.ignorecase = true
-o.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 local file = io.open('.ignore', 'r')
 if file then
-  o.grepprg = 'rg --vimgrep --hidden --no-ignore-vcs'
+  vim.opt.grepprg = 'rg --vimgrep --hidden --no-ignore-vcs'
 else
-  o.grepprg = 'rg --vimgrep --hidden'
+  vim.opt.grepprg = 'rg --vimgrep --hidden'
 end
 -- }}}
 
 -- {{{ ==| Spell checking |=====================================================
-o.spelllang = 'en,fr'
+vim.opt.spelllang = 'en,fr'
 -- }}}
 
 -- {{{ ==| Short message |======================================================
-o.shortmess:append('WIcsSa')
+vim.opt.shortmess:append('WIcsSa')
 -- }}}
 
 -- {{{ ==| diagnostic |=========================================================
