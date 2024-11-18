@@ -2,7 +2,7 @@
 
 task() {
   if [ -n "$1" ]; then
-    sed -i "3 i $1 +inbox" ~/.neorg/gtd/todo.txt
+    sed -i "3 i +inbox $1" ~/.neorg/gtd/todo.txt
   fi
 }
 
