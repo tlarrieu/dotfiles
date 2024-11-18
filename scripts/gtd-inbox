@@ -1,7 +1,9 @@
 #!/bin/sh
 
 task() {
-  sed -i "3 i $1 +inbox" ~/.neorg/gtd/todo.txt
+  if [ -n "$1" ]; then
+    sed -i "3 i $1 +inbox" ~/.neorg/gtd/todo.txt
+  fi
 }
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
