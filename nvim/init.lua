@@ -1,4 +1,5 @@
 vim.g.mapleader = ' '
+require('usr.options')
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -17,6 +18,5 @@ require('lazy').setup('plugins')
 
 require('usr.filetypes')
 require('usr.keymaps')
-require('usr.options')
 require('usr.abbrev')
 require('usr.autocmd')

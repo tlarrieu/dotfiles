@@ -3,6 +3,7 @@ local home = os.getenv("HOME")
 local o = vim.opt
 
 -- {{{ ==| General options |====================================================
+o.shell = '/bin/sh'
 -- allow project specific .nvim.lua
 o.exrc = true
 o.secure = true
