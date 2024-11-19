@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 
 -- {{{ ==| General options |====================================================
-vim.opt.shell = '/bin/sh'
+vim.opt.shell = '/bin/bash'
 -- allow project specific .nvim.lua
 vim.opt.exrc = true
 vim.opt.secure = true
