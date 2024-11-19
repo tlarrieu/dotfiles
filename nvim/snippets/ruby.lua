@@ -49,13 +49,13 @@ return {
     ]], { i(1, "i"), sel(), i(2) })),
 
   -- methods
-  rs("(.+).times", fmta("<>.times { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+).red", fmta("<>.reduce { |<>, <>| <> }", { cap(1), i(1, 'memo'), i(2, "i"), i(3) })),
-  rs("(.+).map", fmta("<>.map { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+).each", fmta("<>.each { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+).sel", fmta("<>.select { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+).tap", fmta("<>.tap { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+).ins", fmta("<>.inspect", { cap(1) })),
+  rs("(.+)%.times", fmta("<>.times { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.red", fmta("<>.reduce { |<>, <>| <> }", { cap(1), i(1, 'memo'), i(2, "i"), i(3) })),
+  rs("(.+)%.map", fmta("<>.map { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.each", fmta("<>.each { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.sel", fmta("<>.select { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.tap", fmta("<>.tap { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.ins", fmta("<>.inspect", { cap(1) })),
 
   -- minitest
   s("t", fmta([[
