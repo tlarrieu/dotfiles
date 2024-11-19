@@ -10,12 +10,12 @@ vim.keymap.set('n', '<c-cr>', 'o<c-u>', { remap = true, buffer = true })
 
 local runner = require('runner')
 runner.default({
-  main = runner.term('ft now'),
-  alt = runner.term('ft up'),
+  main = runner.term('fish -c "ft now"'),
+  alt = runner.term('fish -c "ft up"'),
 })
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = { '*.journal' },
-  callback = function() vim.cmd(runner.term('ft now')) end,
+  callback = function() vim.cmd(runner.term('fish -c "ft now"')) end,
   group = vim.api.nvim_create_augroup('ledger_after_save', {})
 })
