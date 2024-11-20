@@ -1,7 +1,8 @@
 set async_prompt_functions _git
 
 function _git_branch_name
-  set -l branch (command git symbolic-ref HEAD | sed 's#refs/heads/##' | sed -E 's#(tl/[a-zA-Z]{3}-[0-9]+).*#\1#' 2> /dev/null)
+  set -l branch (command git symbolic-ref HEAD 2> /dev/null)
+    and set -l branch (echo $branch | sed 's#refs/heads/##' | sed -E 's#(tl/[a-zA-Z]{3}-[0-9]+).*#\1#')
     and echo " $branch "
     and return
 
@@ -10,7 +11,7 @@ function _git_branch_name
     and return
 
   set -l ref (command git show-ref --head -s --abbrev | head -n1)
-    and echo " $ref "
+    and echo " $ref "
     and return
 end
 
