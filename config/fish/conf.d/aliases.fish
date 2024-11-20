@@ -173,9 +173,9 @@ abbr rs "bin/rails server"
 abbr be "bundle exec"
 abbr bi "bundle install"
 abbr bu "bundle update"
-abbr rdm "bundle exec rake db:migrate db:test:prepare"
-abbr rds "bundle exec rake db:migrate:status | tail"
-abbr rpp "bundle exec rake parallel:prepare"
+abbr rdm "bin/rails db:migrate"
+abbr rdr "bin/rails db:rollback"
+abbr rds "bin/rails db:migrate:status | tail"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
