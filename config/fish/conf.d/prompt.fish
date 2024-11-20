@@ -82,8 +82,23 @@ function _git
 end
 
 function _jobs
-  [ (jobs | wc -l) -gt 0 ]
-    and echo -ns " 󰏤"
+  set -l jobs_count (jobs | wc -l)
+
+  [ $jobs_count -gt 0 ]
+    or return
+
+  echo -ns ' '(set_color brmagenta)
+  switch $jobs_count
+    case 0
+    case 1
+      echo -ns 󰎤
+    case 2
+      echo -ns 󰎧
+    case 3
+      echo -ns 󰎪
+    case '*'
+  end
+  echo -ns (set_color normal)
 end
 
 function _pwd
