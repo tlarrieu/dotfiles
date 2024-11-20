@@ -148,7 +148,7 @@ local init = function(screen)
 
   local color = beautiful.colors.foreground
   local glyph = require('glyphs').number(screen.index)
-  local markup = '<span color="' .. color .. '" size="x-large">󰍹 ' .. glyph .. ' </span>'
+  local markup = '<span color="' .. color .. '" size="large">󰍹 ' .. glyph .. ' </span>'
   local screennum = wibox.widget({
     markup = markup,
     align  = 'center',
