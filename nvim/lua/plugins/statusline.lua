@@ -138,6 +138,11 @@ return {
             }
             name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
 
+            if context.file:find('^fugitive:///') then
+              icon = ''
+              name = name .. ' (diff)'
+            end
+
             -- Modifier
             local modified = vim.fn.getbufvar(context.bufnr, '&mod') == 1
             local modifier = (modified and not ftmap[context.filetype]) and '' or nil
