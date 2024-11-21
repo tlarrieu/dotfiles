@@ -9,7 +9,7 @@ _browser() {
 
 # some videos can't be launched in mpv, such as subscribers only feeds
 _mpv() {
-  mpv "$1" || _browser
+  mpv "$1" || _browser "$1"
 }
 
 case "$1" in
