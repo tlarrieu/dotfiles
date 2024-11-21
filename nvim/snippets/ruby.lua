@@ -19,9 +19,7 @@ return {
     ]], { i(1, "Name"), sel(), i(0) })),
   s("c", fmta([[
     class <>
-
       <><>
-
     end
     ]], { i(1, h.pascalize(h.basename())), sel(), i(0) })),
   s("d", fmta([[
@@ -34,10 +32,17 @@ return {
       <><>
     end
     ]], { i(1), sel(), i(0) })),
+  s("do", fmta([[
+    do<>
+      <><>
+    end
+    ]], { i(1), sel(), i(0) })),
+  s("r", fmta("return ", {})),
+  s("l", fmta("<> = <>", { i(1, 'lhs'), i(2, 'rhs') })),
 
   -- accessors
-  s("r", fmta("attr_reader :<>", { i(0) })),
-  s("w", fmta("attr_writer :<>", { i(0) })),
+  s("ar", fmta("attr_reader :<>", { i(0) })),
+  s("aw", fmta("attr_writer :<>", { i(0) })),
   s("rw", fmta("attr_accessor :<>", { i(0) })),
 
   -- lambdas
@@ -49,12 +54,12 @@ return {
     ]], { i(1, "i"), sel(), i(2) })),
 
   -- methods
-  rs("(.+)%.times", fmta("<>.times { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+)%.red", fmta("<>.reduce { |<>, <>| <> }", { cap(1), i(1, 'memo'), i(2, "i"), i(3) })),
-  rs("(.+)%.map", fmta("<>.map { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+)%.each", fmta("<>.each { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+)%.sel", fmta("<>.select { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
-  rs("(.+)%.tap", fmta("<>.tap { |<>| <> }", { cap(1), i(1, "i"), i(2) })),
+  rs("(.+)%.times", fmta("<>.times { <> }", { cap(1), i(1) })),
+  rs("(.+)%.red", fmta("<>.reduce { <> }", { cap(1), i(1) })),
+  rs("(.+)%.map", fmta("<>.map { <> }", { cap(1), i(1) })),
+  rs("(.+)%.each", fmta("<>.each { <> }", { cap(1), i(1) })),
+  rs("(.+)%.sel", fmta("<>.select { <> }", { cap(1), i(1) })),
+  rs("(.+)%.tap", fmta("<>.tap { <> }", { cap(1), i(1) })),
   rs("(.+)%.ins", fmta("<>.inspect", { cap(1) })),
 
   -- minitest
@@ -69,13 +74,13 @@ return {
     describe '<>' do
       <><>
     end
-    ]], { i(1, "subject_name"), sel(), i(0) })),
+    ]], { i(1, "topic"), sel(), i(0) })),
   s("cont", fmta([[
     context '<>' do
       <><>
     end
-    ]], { i(1, "context_name"), sel(), i(0) })),
-  s("sh", fmta([[
+    ]], { i(1, "when something"), sel(), i(0) })),
+  s("se", fmta([[
     shared_example '<>' do
       <><>
     end
@@ -92,12 +97,12 @@ return {
     ]], { sel(), i(0) })),
   s("sub", fmta("subject(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("let", fmta("let(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
-  s("let!", fmta("let!(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
+  s("lett", fmta("let!(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("it", fmta([[
   it '<>' do
     <><>
   end
-  ]], { i(1, "example title"), sel(), i(0) })),
+  ]], { i(1, "does something"), sel(), i(0) })),
   s("exp", fmta("expect(<>).to <>)", { i(1, "subject"), i(0) })),
 
   -- debug
