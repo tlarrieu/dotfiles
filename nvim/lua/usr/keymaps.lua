@@ -153,6 +153,11 @@ vim.keymap.set('n', '<c-k>', '<c-^>')
 --- {{{ --| Quickfix / Location list |----------------------
 vim.keymap.set('n', '<c-n>', ':cnext<cr>', { silent = true })
 vim.keymap.set('n', '<c-p>', ':cprev<cr>', { silent = true })
+vim.keymap.set('n', '<leader>"', ':cc1<cr>', { silent = true })
+vim.keymap.set('n', '<leader>«', ':cc2<cr>', { silent = true })
+vim.keymap.set('n', '<leader>»', ':cc3<cr>', { silent = true })
+vim.keymap.set('n', '<leader>(', ':cc4<cr>', { silent = true })
+vim.keymap.set('n', '<leader>)', ':cc5<cr>', { silent = true })
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
 vim.keymap.set('n', 'Þ', vim.diagnostic.goto_next)
