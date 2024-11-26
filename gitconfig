@@ -31,7 +31,8 @@
 	d = diff --word-diff
 	ds = d --staged
 	ft = fetch
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	llg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lg = llg --first-parent
 	patch = diff --word-diff=none
 	r = rebase
 	rc = rebase --continue
