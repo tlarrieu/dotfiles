@@ -94,7 +94,7 @@ return {
       vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
 
-      vim.api.nvim_create_autocmd({ 'WinNew', 'WinEnter' }, {
+      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
         pattern = '*',
         callback = function()
           -- HACK: This is a sketchy way of not calling next line when in telescope prompt
