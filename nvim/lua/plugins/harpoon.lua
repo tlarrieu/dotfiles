@@ -20,7 +20,7 @@ return {
       function()
         local harpoon = require('harpoon')
         harpoon.ui:toggle_quick_menu(harpoon:list(), {
-          title = ' 󰓾 Harpoon ',
+          title = '󰓾 Harpoon',
           title_pos = 'left',
           border = 'single',
         })
