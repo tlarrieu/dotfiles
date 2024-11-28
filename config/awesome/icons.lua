@@ -58,6 +58,7 @@ local config = {
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
   { icon = '󰨰', rule = { class = 'Chromium', instance = 'sentry.io' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'figma.com' } },
   { icon = '󱘶', rule = { class = 'Chromium', instance = 'metabase' } },
   { icon = '󱤢', rule = { class = 'Chromium', instance = 'dalibo' } },
   {
