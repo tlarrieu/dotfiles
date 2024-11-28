@@ -155,6 +155,8 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
 
+        ['@property.yaml'] = { fg = c.mix_fg, bg = c.none, bold = false },
+
         ['@variable.member.go'] = { fg = c.mix_fg },
 
         ['@constructor.css'] = { fg = c.yellow },
