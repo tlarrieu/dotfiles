@@ -12,10 +12,11 @@ vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
--- Clever paste from system buffer
+-- + buffer keymaps
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
+vim.keymap.set({ 'n', 'o', 'x' }, '<leader>d', '"+d')
 vim.keymap.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", { silent = true })
 -- select the whole line
 vim.keymap.set('n', 'vv', '^v$h')
