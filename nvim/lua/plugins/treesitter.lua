@@ -34,7 +34,7 @@ return {
       enable = true,
       additional_vim_regex_highlighting = { 'make' },
     },
-    indent = { enable = true, disable = { 'ruby' } },
+    indent = { enable = true },
     textobjects = {
       enable = true,
       select = {
