@@ -69,6 +69,7 @@ local config = {
     }
   },
   { icon = '', rule = { class = '1Password' } },
+  { icon = '󰳴', rule = { class = 'Chromium', instance = 'pennylane' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
