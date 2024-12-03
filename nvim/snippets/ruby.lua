@@ -80,8 +80,18 @@ return {
       <><>
     end
     ]], { i(1, "when something"), sel(), i(0) })),
+  s("with", fmta([[
+    context 'with <>' do
+      <><>
+    end
+    ]], { i(1, "something"), sel(), i(0) })),
+  s("when", fmta([[
+    context 'when <>' do
+      <><>
+    end
+    ]], { i(1, "something"), sel(), i(0) })),
   s("se", fmta([[
-    shared_example '<>' do
+    shared_examples '<>' do
       <><>
     end
     ]], { i(1, "name"), sel(), i(0) })),
@@ -98,6 +108,7 @@ return {
   s("sub", fmta("subject(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("let", fmta("let(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("lett", fmta("let!(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
+  s("lib", fmta("let_it_be(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("it", fmta([[
   it '<>' do
     <><>
