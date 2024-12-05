@@ -149,6 +149,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
 
   --  Default browser
+  { icon = '󰖟', rule = { class = 'Chromium', instance = 'localhost' } },
   { icon = '󰊯', rule = { class = 'Chromium', name = 'DevTool' } },
   { icon = '', rule = { class = 'Chromium' } },
 
