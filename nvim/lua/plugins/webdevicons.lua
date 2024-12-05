@@ -120,6 +120,7 @@ return {
       ['seeds.rb'] = { icon = '' },
       ['database.yml'] = { icon = '󱙋' },
       ['.ruby-version'] = { icon = '󰎠' },
+      ['.ruby-gemset'] = { icon = '' },
 
       ['go.sum'] = { icon = '󰎠' },
       ['go.mod'] = { icon = '' },
@@ -135,6 +136,8 @@ return {
 
       license = { icon = '󰿃' },
       ['favicon.ico'] = { icon = '' },
+      ['favicon_dev.ico'] = { icon = '' },
+      ['favicon_staging.ico'] = { icon = '' },
     }
   },
   config = function(_, opts)
