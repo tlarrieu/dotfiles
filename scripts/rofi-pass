@@ -116,6 +116,7 @@ if [ ${#option} -gt 0 ]; then
       perso/impots.gouv.fr | \
       perso/amazon |\
       perso/france-travail |\
+      perso/swile |\
       pro/newrelic)
         type "$(login)"
         press Return
