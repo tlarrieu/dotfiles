@@ -5,7 +5,7 @@ return {
     { '<leader>ga',  ':Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit', silent = true },
     { '<leader>gA',  ':Git commit --quiet --amend<cr>',           desc = 'Git commit --amend',           silent = true },
     { '<leader>gc',  ':Git commit --quiet<cr>',                   desc = 'Git commit',                   silent = true },
-    { '<leader>gd',  ':leftabove Gvdiff @~<cr>',                  desc = 'Git diff',                     silent = true },
+    { '<leader>gd',  ':leftabove Gvdiff<cr>',                     desc = 'Git diff',                     silent = true },
     { '<leader>gD',  ':leftabove Gvdiff master<cr>',              desc = 'Git diff master..',            silent = true },
     { '<leader>ed',  ':tab Git diff --staged<cr>',                desc = 'Git diff --staged',            silent = true },
     { '<leader>gr',  ':Git checkout %<cr>',                       desc = 'Git checkout %',               silent = true },
