@@ -150,6 +150,7 @@ return {
         ['@variable.parameter.fish'] = { fg = c.violet },
 
         ['@variable.member.lua'] = { link = 'Normal' },
+        ['@variable.parameter.lua'] = { link = 'Normal' },
 
         ['@variable.parameter.ruby'] = { link = 'Normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
