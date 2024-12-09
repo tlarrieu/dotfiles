@@ -202,7 +202,7 @@ vim.keymap.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . 
 -- Move current tab
 vim.keymap.set('n', '<leader>tm', ':tabm<leader>')
 -- move current split to a new tab
-vim.keymap.set('n', '<leader>U', '<c-w>T')
+vim.keymap.set('n', '<leader>U', '<c-w>T', { desc = 'Move current window into its own tab' })
 -- merge current split into left-hand tab
 vim.keymap.set('n', '<leader>u', function()
   local curtab = vim.api.nvim_get_current_tabpage()
@@ -223,7 +223,7 @@ vim.keymap.set('n', '<leader>u', function()
   vim.api.nvim_set_current_tabpage(prevtab)
   vim.cmd.vsplit()
   vim.api.nvim_win_set_buf(0, buf)
-end)
+end, { desc = 'Merge current window into previous tab' })
 --- }}}
 --- {{{ --| folds management |------------------------------
 vim.keymap.set('n', '<leader>z', 'zMzv')
