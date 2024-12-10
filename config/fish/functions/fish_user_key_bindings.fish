@@ -9,7 +9,7 @@ function fish_user_key_bindings
   end
 
   function fzf-gitbranch
-    set -q FZF_CTRL_B_COMMAND; or set -l FZF_CTRL_B_COMMAND "git branch -a | fzf > /tmp/fzf.result"
+    set -q FZF_CTRL_B_COMMAND; or set -l FZF_CTRL_B_COMMAND "git branch -a | fzf -m > /tmp/fzf.result"
     eval "$FZF_CTRL_B_COMMAND"
     and commandline -i (
       cat /tmp/fzf.result | \
