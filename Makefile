@@ -19,7 +19,7 @@ dotfiles: links templates
 .PHONY: fonts
 fonts: TMP:=/tmp/CaskaydiaCove.zip
 fonts: DIR:=~/.fonts/CaskaydiaCove
-fonts: VERSION=3.2.1
+fonts: VERSION=3.3.0
 fonts:
 	@wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$(VERSION)/CascadiaCode.zip -O $(TMP)
 	@rm -rf $(DIR)
