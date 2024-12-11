@@ -124,6 +124,16 @@ return {
       function() require('telescope.builtin').spell_suggest() end,
       desc = 'Telescope spell suggest'
     },
+    {
+      '<leader>ep',
+      function()
+        require('telescope.builtin').find_files({
+          path_display = filename_first_and_shorten,
+          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
+        })
+      end,
+      desc = 'Telescope spell suggest'
+    },
   },
   cmd = 'Telescope',
   config = function()
