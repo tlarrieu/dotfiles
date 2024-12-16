@@ -39,6 +39,16 @@ return {
     ]], { i(1), sel(), i(0) })),
   s("r", fmta("return ", {})),
   s("l", fmta("<> = <>", { i(1, 'lhs'), i(2, 'rhs') })),
+  s("if", fmta([[
+    if <>
+      <><>
+    end
+    ]], { i(1), sel(), i(0) })),
+  s("unless", fmta([[
+    unless <>
+      <><>
+    end
+    ]], { i(1), sel(), i(0) })),
 
   -- accessors
   s("ar", fmta("attr_reader :<>", { i(0) })),
