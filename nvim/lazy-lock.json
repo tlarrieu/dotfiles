@@ -25,7 +25,7 @@
   "mini.align": { "branch": "main", "commit": "26111a737494bc39576ad67b52bbc2638ca23553" },
   "neorg": { "branch": "main", "commit": "81ee90cb2d72ac43bfadb7dd276646f34c8f85be" },
   "nui.nvim": { "branch": "main", "commit": "53e907ffe5eedebdca1cd503b00aa8692068ca46" },
-  "nvim-cmp": { "branch": "main", "commit": "3403e2e9391ed0a28c3afddd8612701b647c8e26" },
+  "nvim-cmp": { "branch": "main", "commit": "98e8b9d593a5547c126a39212d6f5e954a2d85dd" },
   "nvim-lspconfig": { "branch": "master", "commit": "124be12d782d656b3c75b513a44d9e4728406078" },
   "nvim-nio": { "branch": "master", "commit": "a428f309119086dc78dd4b19306d2d67be884eee" },
   "nvim-relative-date": { "branch": "main", "commit": "fb3cb3a8e4ac0aa6215d80a299737ca22a2afef3" },
@@ -43,7 +43,7 @@
   "telescope.nvim": { "branch": "master", "commit": "2eca9ba22002184ac05eddbe47a7fe2d5a384dfc" },
   "todo-comments.nvim": { "branch": "main", "commit": "ae0a2afb47cf7395dc400e5dc4e05274bf4fb9e0" },
   "toggleterm.nvim": { "branch": "main", "commit": "022ff5594acccc8d90d2e46dc43994f7722ebdf7" },
-  "vifm.vim": { "branch": "master", "commit": "bbf0ae9323a6bf67519e9381cf15f574c4414b86" },
+  "vifm.vim": { "branch": "master", "commit": "69fe7ec76aab14049c15e4819d358d496d4c18e9" },
   "vim-argwrap": { "branch": "master", "commit": "f3e26a5ad249d09467804b92e760d08b1cc457a1" },
   "vim-css-color": { "branch": "master", "commit": "950e80352b325ff26d3b0faf95b29e301c200f7d" },
   "vim-easydir": { "branch": "master", "commit": "2efbed9e24438f626971a526d19af719b89e8040" },
@@ -55,7 +55,7 @@
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vim-sniper": { "branch": "master", "commit": "31970c26ae91f5cceeb41b49e057f49bc18e428b" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-test": { "branch": "master", "commit": "8872ec0f788af934386b2aef0cd28a5c2b923146" },
+  "vim-test": { "branch": "master", "commit": "5de3bfff03a36d88608d94dba69266f3a48238f2" },
   "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
   "yaml.nvim": { "branch": "main", "commit": "1c1096a0b4b2cc31ca7cf430570911faaeca02c2" }
 }
