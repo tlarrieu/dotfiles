@@ -158,6 +158,7 @@ return {
 
         ['@property.yaml'] = { fg = c.mix_fg, bg = c.none, bold = false },
 
+        ['@variable.parameter.go'] = { fg = c.mix_fg },
         ['@variable.member.go'] = { fg = c.mix_fg },
 
         ['@constructor.css'] = { fg = c.yellow },
