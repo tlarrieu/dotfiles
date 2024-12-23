@@ -166,6 +166,7 @@ abbr gst "git stash"
 abbr gsts "git stash -- (git diff --staged --name-only)"
 abbr gstk "git stash --keep-index"
 abbr gstp "git stash pop"
+abbr gstd "git stash drop"
 
 # Rails / Rake / Bundler
 abbr r "bin/rails"
