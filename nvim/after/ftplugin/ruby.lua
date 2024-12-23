@@ -28,6 +28,8 @@ runner.match({ 'Gemfile', '*.gemspec' }, { main = runner.term('bundle') })
 
 runner.match('config/routes.rb', { main = runner.term('rails routes') })
 
+require('utils').autoformat('*.rb')
+
 local alternate = function()
   local path = vim.api.nvim_buf_get_name(0)
   local alt
