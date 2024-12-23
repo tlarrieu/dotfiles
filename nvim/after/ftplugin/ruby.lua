@@ -5,6 +5,13 @@ o.concealcursor = 'cni'
 o.iskeyword = o.iskeyword + '?' + '!'
 o.spell = true
 
+local group = vim.api.nvim_create_augroup('ruby_autocmd', {})
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = { '*.rb' },
+  callback = function() o.indentkeys:remove({ '.', ':' }) end,
+  group = group
+})
+
 local runner = require('runner')
 
 runner.default({
