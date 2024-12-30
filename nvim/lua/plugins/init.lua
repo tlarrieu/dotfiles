@@ -4,11 +4,6 @@ return {
   -- }}}
   -- {{{ --| Project manipulation |-----------
   { 'tpope/vim-projectionist' },
-  {
-    'junegunn/gv.vim',
-    dependencies = { 'tpope/vim-fugitive' },
-    cmd = 'GV'
-  },
   -- }}}
   -- {{{ --| Functionalities |---------------
   { 'AndrewRadev/linediff.vim',     cmd = 'Linediff' },

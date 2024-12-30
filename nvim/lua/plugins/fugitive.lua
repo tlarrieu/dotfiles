@@ -1,5 +1,6 @@
 return {
   'tpope/vim-fugitive',
+  dependencies = { 'junegunn/gv.vim' },
   cmd = { 'Git', 'Gvdiff', 'GV' },
   keys = {
     { '<leader>ga',  ':Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit', silent = true },
