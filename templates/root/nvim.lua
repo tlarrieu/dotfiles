@@ -63,7 +63,7 @@ k.set('c', '<c-a>', '<home>')
 k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
 k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
 -- Save
-k.set('n', 'S', ':w<cr>', noremap)
+k.set('n', 's', ':w ++p<cr>', noremap)
 -- Reselect pasted lines
 k.set('n', 'gV', '`[v`]', noremap)
 -- It is more convenient to access numbers directly when in normal mode
@@ -90,7 +90,7 @@ k.set('', '9', '/', noremap)
 k.set('', '*', '0', noremap)
 k.set('', '0', '*', noremap)
 -- sort
-k.set('x', '<leader>s', ':sort<cr>', noremap)
+k.set('x', 's', ':sort<cr>', noremap)
 -- macro
 k.set('', '<leader><leader>', '@q', noremap)
 k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
