@@ -48,7 +48,7 @@ return {
           find_command = find_directories
         })
       end,
-      desc = 'Telescope file finder'
+      desc = 'Telescope directories finder'
     },
     {
       '<c-b>',
@@ -92,12 +92,12 @@ return {
     {
       'go',
       function() return require('telescope.builtin').lsp_type_definitions() end,
-      desc = 'Telescope LSP type references'
+      desc = 'Telescope LSP type definitions'
     },
     {
       'gd',
       function() return require('telescope.builtin').lsp_definitions() end,
-      desc = 'Telescope LSP references'
+      desc = 'Telescope LSP definitions'
     },
     {
       'gr',
