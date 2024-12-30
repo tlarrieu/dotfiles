@@ -81,7 +81,7 @@ vim.keymap.set('s', '<bs>', '<bs>i')
 vim.keymap.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', { silent = true })
 -- Save
-vim.keymap.set('n', 's', ':w<cr>', { silent = true })
+vim.keymap.set('n', 's', ':w ++p<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- direct access to numbers when in normal / operator pending / visual mode

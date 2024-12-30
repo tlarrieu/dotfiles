@@ -1,6 +1,5 @@
 return {
   -- {{{ --| File Manipulation |--------------
-  { 'duggiefresh/vim-easydir' },
   { 'tpope/vim-eunuch',       cmd = { 'Remove', 'Delete', 'Move', 'Rename', 'Mkdir', 'SudoWrite' } },
   -- }}}
   -- {{{ --| Project manipulation |-----------
