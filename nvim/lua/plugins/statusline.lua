@@ -138,7 +138,10 @@ return {
             }
             name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
 
-            if context.file:find('^fugitive:///') then
+            if context.filetype == 'fugitive' then
+              icon = ''
+              name = 'status'
+            elseif context.file:find('^fugitive:///') then
               icon = ''
               name = name .. ' (diff)'
             end
