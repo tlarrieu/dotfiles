@@ -129,6 +129,11 @@ return {
   -- debug
   s("bb", fmta("byebug", {})),
   s("p", fmta("puts <><>", { sel(), i(1) })),
+  s("deb", fmta([[
+    print "\e[31m"
+    puts "------------->> <>: #{<>}"
+    print "\e[0m"
+    ]], { i(1), rep(1) })),
   s("red", fmta([[
     print "\e[31m"
     <><>
