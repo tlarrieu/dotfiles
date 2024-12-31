@@ -50,8 +50,6 @@ return {
           ['ae'] = '@block.outer',
           ['id'] = '@conditional.inner',
           ['ad'] = '@conditional.outer',
-          ['il'] = '@assignment.lhs',
-          ['ir'] = '@assignment.rhs',
         },
       }
     }

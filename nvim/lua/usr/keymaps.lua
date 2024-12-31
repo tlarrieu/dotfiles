@@ -113,6 +113,10 @@ vim.keymap.set('x', 's', ':sort<cr>', { silent = true })
 vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
 vim.keymap.set('x', '<leader><leader>', ':normal 6q<cr>', { silent = true })
 --- }}}
+--- {{{ --| operations |------------------------------------
+vim.keymap.set('o', 'ar', 'a[')
+vim.keymap.set('o', 'ir', 'i[')
+--- }}}
 --- {{{ --| quick access |----------------------------------
 vim.keymap.set('n', '<leader>em', function()
   if require('helpers').fileexists(vim.fn.expand('%')) then
