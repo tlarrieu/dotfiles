@@ -12,7 +12,7 @@ vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
--- + buffer keymaps
+-- + register keymaps
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
