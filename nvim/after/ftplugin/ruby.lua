@@ -33,24 +33,16 @@ require('utils').autoformat('*.rb')
 local alternate = function()
   local path = vim.api.nvim_buf_get_name(0)
   local alt
-  if path:match('%.rb$') then
-    if path:match("spec") then
-      alt = path
-          :gsub("(.*)/spec/requests/(.*)_spec%.rb", "%1/app/controllers/%2.rb")
-          :gsub("(.*)/spec/(.*)_spec%.rb", "%1/app/%2.rb")
-    else
-      alt = path
-          :gsub("(.*)/app/controllers/(.*)%.rb", "%1/spec/requests/%2_spec.rb")
-          :gsub("(.*)/app/(.*)%.rb", "%1/spec/%2_spec.rb")
-    end
-  elseif path:match('%.yml$') then
-    if path:match('en%.yml$') then
-      alt = path:gsub("(.*)/en%.yml", "%1/fr.yml")
-    else
-      alt = path:gsub("(.*)/fr%.yml", "%1/en.yml")
-    end
+  if path:match("spec") then
+    alt = path
+        :gsub("(.*)/spec/requests/(.*)_spec%.rb", "%1/app/controllers/%2.rb")
+        :gsub("(.*)/spec/(.*)_spec%.rb", "%1/app/%2.rb")
+  else
+    alt = path
+        :gsub("(.*)/app/controllers/(.*)%.rb", "%1/spec/requests/%2_spec.rb")
+        :gsub("(.*)/app/(.*)%.rb", "%1/spec/%2_spec.rb")
   end
   vim.cmd.edit(alt)
 end
 
-vim.keymap.set('n', '<c-$>', alternate, { silent = false })
+vim.keymap.set('n', '<c-$>', alternate, { silent = true, buffer = true })
