@@ -146,6 +146,8 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'web.whatsapp.com',
         'tailwindcss.com',
         'music.youtube.com',
+        'app.slack.com',
+        'linear.app',
       },
     },
     properties = {
