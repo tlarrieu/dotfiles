@@ -39,7 +39,7 @@ local config = {
       { class = 'Chromium', instance = 'cal.new' }
     }
   },
-  { icon = '', rule = { class = 'Chromium', instance = 'drive.google.com' } },
+  { icon = '󰊶', rule = { class = 'Chromium', instance = 'drive.google.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'groups.google.com' } },
 
   { icon = '', rule = { class = 'Chromium', name = 'Google Photos' } },
