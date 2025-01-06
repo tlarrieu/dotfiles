@@ -45,6 +45,18 @@ return {
     i(2, 'amount'),
     i(0, 'from')
   })),
+  s("del", fmta([[
+  <> ! deliveroo | <>
+    restaurant  <> €
+    swile      -<> €
+    card:ce    -<> €
+  ]], {
+    f(curdate),
+    i(1, 'desc'),
+    i(2, 'amount'),
+    i(3, 'amount'),
+    i(4, 'amount')
+  })),
 
   s("l", fmta("<>  <> €", {
     i(1, 'account'),
