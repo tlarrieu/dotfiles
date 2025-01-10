@@ -279,6 +279,9 @@ return {
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
 
+        MarkSignHL = paint('violet'),
+        MarkSignNumHL = { link = 'MarkSignHL' },
+
         GitSignsAdd = paint('green'),
         GitSignsAddNr = { link = 'GitSignsAdd' },
         GitSignsAddLn = { fg = c.none, bg = c.mix_green },
