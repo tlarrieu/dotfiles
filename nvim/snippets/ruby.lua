@@ -173,4 +173,5 @@ return {
 
     <>
     ]], { i(0) })),
+  s("pry", fmta("binding.pry", {})),
 }
