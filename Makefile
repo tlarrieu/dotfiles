@@ -62,6 +62,7 @@ links:
 	@git config --global core.excludesFile ~/.gitignore
 	@ln -sfFT $(BASEDIR)/psqlrc ~/.psqlrc
 	@ln -sfFT $(BASEDIR)/irbrc ~/.irbrc
+	@ln -sfFT $(BASEDIR)/pryrc ~/.pryrc
 	@ln -sfFT $(BASEDIR)/rubocop.yml ~/.rubocop.yml
 	@ln -sfFT $(BASEDIR)/tslint.json ~/tslint.json
 	@ln -sfFT $(BASEDIR)/newsboat ~/.newsboat

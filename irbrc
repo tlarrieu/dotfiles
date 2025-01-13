@@ -10,7 +10,7 @@ IRB.conf[:PROMPT_MODE] = :CUSTOM
 
 IRB.conf[:AUTO_INDENT] = true
 
-prompt = " \e[31m\e[0m \e[3m(%M)\e[0m"
+prompt = " \e[29m\e[0m \e[3m(%M)\e[0m"
 
 IRB.conf[:PROMPT][:CUSTOM] = {
   PROMPT_I: "#{prompt} \e[32m󰄾\e[0m ",
