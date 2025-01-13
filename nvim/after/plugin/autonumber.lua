@@ -4,7 +4,7 @@ vim.api.nvim_create_autocmd('WinEnter', {
   pattern = { '*' },
   callback = function()
     if vim.wo.number then
-      vim.wo.relativenumber = vim.g.relativenumber
+      vim.wo.relativenumber = true
     end
   end,
   group = group
@@ -13,10 +13,6 @@ vim.api.nvim_create_autocmd('WinEnter', {
 vim.api.nvim_create_autocmd('WinLeave', {
   pattern = { '*' },
   callback = function()
-    if vim.wo.relativenumber == true then
-      vim.g.relativenumber = true
-    end
-
     vim.wo.relativenumber = false
   end,
   group = group
@@ -27,14 +23,6 @@ vim.api.nvim_create_autocmd('OptionSet', {
   pattern = { 'number' },
   callback = function()
     vim.wo.relativenumber = vim.wo.number
-  end,
-  group = group
-})
-
-vim.api.nvim_create_autocmd('OptionSet', {
-  pattern = { 'relativenumber' },
-  callback = function()
-    vim.g.relativenumber = vim.wo.relativenumber
   end,
   group = group
 })
