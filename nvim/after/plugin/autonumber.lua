@@ -1,6 +1,6 @@
 local group = vim.api.nvim_create_augroup('autonumber_group', {})
 
-vim.api.nvim_create_autocmd('WinEnter', {
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   pattern = { '*' },
   callback = function()
     if vim.wo.number then
