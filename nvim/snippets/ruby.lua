@@ -127,7 +127,7 @@ return {
   s("exp", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
 
   -- debug
-  s("pry", fmta("require('pry') and binding.pry", {})),
+  s("pry", fmta("binding.pry", {})),
   s("bb", fmta("byebug", {})),
   s("p", fmta("puts <><>", { sel(), i(1) })),
   s("deb", fmta([[
