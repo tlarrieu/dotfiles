@@ -49,6 +49,13 @@ return {
       <><>
     end
     ]], { i(1), sel(), i(0) })),
+  s("raise", fmta([[
+    raise <> <> <>
+    ]], {
+    i(1, "'houston we have a problem'"),
+    i(2, 'if'),
+    i(3, 'condition')
+  })),
 
   -- accessors
   s("ar", fmta("attr_reader :<>", { i(0) })),
