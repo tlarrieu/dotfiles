@@ -190,6 +190,7 @@ return {
         Search = paint('magenta', { bold = false, underline = false }),
         IncSearch = paint('magenta', { bold = true, underline = true }),
         CurSearch = { link = 'IncSearch' },
+        ExchangeRegion = paint('violet'),
 
         SpellBad = paint('red'),
         SpellCap = paint('blue', { undercurl = true }),
