@@ -142,6 +142,9 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
+        borderchars = { "", "", "", "", "", "", "", "" },
+        dynamic_preview_title = true,
+
         file_ignore_patterns = {
           '^%.git/',
           '%.png',

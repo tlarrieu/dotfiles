@@ -254,6 +254,8 @@ return {
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { link = '@markup.strong' },
+        TelescopePreviewBorder = { fg = c.yellow, bg = c.mix_bg, bold = true },
+        TelescopePreviewTitle = { link = 'TelescopePreviewBorder' },
         TelescopePromptNormal = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
         TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
