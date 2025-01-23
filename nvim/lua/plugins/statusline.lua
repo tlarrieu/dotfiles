@@ -158,7 +158,10 @@ return {
       lualine_y = {
         {
           'branch',
-          fmt = function(name) if #name > 10 then return name:sub(0, 10) .. '…' else return name end end,
+          fmt = function(name)
+            local length = 20
+            if #name > length then return name:sub(0, length) .. '…' else return name end
+          end,
           icon = { '', align = 'right' }
         },
       }
