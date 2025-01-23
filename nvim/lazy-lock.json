@@ -10,7 +10,7 @@
   "conform.nvim": { "branch": "master", "commit": "f8d743ce333bedc47821de2cd4d23c43856ecbe5" },
   "dashboard-nvim": { "branch": "master", "commit": "000448d837f6e7a47f8f342f29526c4d7e49e9ce" },
   "fidget.nvim": { "branch": "main", "commit": "a0abbf18084b77d28bc70e24752e4f4fd54aea17" },
-  "gitsigns.nvim": { "branch": "main", "commit": "2d2156a2f8c6babbf5f10aea6df23993416f0f28" },
+  "gitsigns.nvim": { "branch": "main", "commit": "3ec5fbd9202ae3908551c98c4b6c3c05ff7c8e96" },
   "gv.vim": { "branch": "master", "commit": "b6bb6664e2c95aa584059f195eb3a9f3cb133994" },
   "harpoon": { "branch": "harpoon2", "commit": "a84ab829eaf3678b586609888ef52f7779102263" },
   "lazy.nvim": { "branch": "main", "commit": "d8f26efd456190241afd1b0f5235fe6fdba13d4a" },
