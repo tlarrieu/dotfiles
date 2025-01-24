@@ -67,13 +67,11 @@ return {
         if request.method == 'textDocument/inlayHint' then return end
         if request.method == 'textDocument/hover' then return end
 
-        if request.type == 'pending' then
-          vim.notify("󰔟 " .. request.method)
-        elseif request.type == 'cancel' then
-          vim.notify("󰜺 " .. request.method)
-        elseif request.type == 'complete' then
-          vim.notify(" " .. request.method)
-        end
+        local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
+        local icon = icons[request.type]
+        if not icon then return end
+
+        vim.notify(icon .. ' ' .. request.method)
       end,
       group = vim.api.nvim_create_augroup('lsp_request_status', {})
     })
