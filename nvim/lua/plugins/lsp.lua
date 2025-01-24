@@ -58,6 +58,20 @@ return {
       end
     })
 
+    vim.api.nvim_create_autocmd('LspRequest', {
+      callback = function(args)
+        local request = args.data.request
+        if request.type == 'pending' then
+          vim.notify("󰔟 " .. request.method)
+        elseif request.type == 'cancel' then
+          vim.notify("󰜺 " .. request.method)
+        elseif request.type == 'complete' then
+          vim.notify(" " .. request.method)
+        end
+      end,
+      group = vim.api.nvim_create_augroup('lsp_request_status', {})
+    })
+
     local plug = require('mason-lspconfig')
     local lspconfig = require('lspconfig')
 
