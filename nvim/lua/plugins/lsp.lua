@@ -61,6 +61,12 @@ return {
     vim.api.nvim_create_autocmd('LspRequest', {
       callback = function(args)
         local request = args.data.request
+
+        if request.method == 'textDocument/formatting' then return end
+        if request.method == 'textDocument/completion' then return end
+        if request.method == 'textDocument/inlayHint' then return end
+        if request.method == 'textDocument/hover' then return end
+
         if request.type == 'pending' then
           vim.notify("󰔟 " .. request.method)
         elseif request.type == 'cancel' then
