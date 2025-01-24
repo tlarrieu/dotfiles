@@ -142,7 +142,7 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
-        borderchars = { "", "", "", "", "", "", "", "" },
+        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
         dynamic_preview_title = true,
 
         file_ignore_patterns = {
