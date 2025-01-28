@@ -42,4 +42,15 @@ _M.autoimport = function(pattern)
   })
 end
 
+_M.trim_trailing_spaces = function()
+  vim.cmd [[
+    normal! m`
+    let _s=@/
+    %substitute/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
+    let @/=_s
+    nohl
+    normal! g``
+  ]]
+end
+
 return _M

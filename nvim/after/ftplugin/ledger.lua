@@ -14,8 +14,16 @@ runner.default({
   alt = runner.term('fish -c "ft up"'),
 })
 
+local group = vim.api.nvim_create_augroup('ledger_after_save', {})
+
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = { '*.journal' },
+  callback = require('utils').trim_trailing_spaces,
+  group = group
+})
+
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = { '*.journal' },
   callback = function() vim.cmd(runner.term('fish -c "ft now"')) end,
-  group = vim.api.nvim_create_augroup('ledger_after_save', {})
+  group = group
 })
