@@ -62,6 +62,7 @@ return {
       ['<C-t>'] = false,
       ['<C-v>'] = false,
       ['<C-s>'] = false,
+      ['s'] = function() require('oil').save({ confirm = true }) end,
       ['gs'] = 'actions.change_sort',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
