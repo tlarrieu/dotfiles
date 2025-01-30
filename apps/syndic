@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk perso "https://lesieur.monespaceclient.immo/"

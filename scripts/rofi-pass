@@ -125,7 +125,8 @@ if [ ${#option} -gt 0 ]; then
         press Return
         ;;
 
-      pro/bitwarden)
+      pro/bitwarden |\
+      perso/syndic)
         type "$(login)"
         press Return
         sleep 1
