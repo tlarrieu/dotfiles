@@ -77,9 +77,9 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 local file = io.open('.ignore', 'r')
 if file then
-  vim.opt.grepprg = 'rg --vimgrep --hidden --no-ignore-vcs'
+  vim.opt.grepprg = "rg --smart-case --vimgrep --hidden --no-ignore-vcs '$*'"
 else
-  vim.opt.grepprg = 'rg --vimgrep --hidden'
+  vim.opt.grepprg = "rg --smart-case --vimgrep --hidden '$*'"
 end
 -- }}}
 
