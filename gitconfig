@@ -11,6 +11,7 @@
 	defaultBranch = master
 [push]
 	default = current
+	autoSetupRemote = true
 [difftool]
 	prompt = true
 [difftool.nvim]
