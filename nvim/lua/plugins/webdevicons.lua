@@ -24,7 +24,6 @@ return {
       oil = { icon = '' },
 
       todotxt = { icon = '󰃯' },
-      norg = { icon = '' },
       ledger = { icon = '󰭣' },
 
       xf86conf = { icon = '' },
