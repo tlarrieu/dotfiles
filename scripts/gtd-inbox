@@ -7,4 +7,4 @@ task() {
 }
 
 LAUNCHER='rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"'
-task "$(eval "$LAUNCHER" | sed 's#\(https\?://[^\ ]\+\)#{\1}#g')"
+task "$(eval "$LAUNCHER" | sed 's#\(https\?://[^\ ]\+\)#\1#g')"
