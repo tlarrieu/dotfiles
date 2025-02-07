@@ -4,7 +4,7 @@ LAUNCHER='rofi -dmenu -l 6 -i -p 󱐋'
 OPTIONS="  Lock\n  Reboot\n󰶐  Monitor\n  Shutdown\n  Suspend\n  Logout"
 
 lock() {
-  i3lock -C -i ~/.lock-picture
+  i3lock -C -i ~/.lock-picture || i3lock
 }
 
 option=$(echo -e "$OPTIONS" | $LAUNCHER | awk '{print $2}' | tr -d '\r\n')
