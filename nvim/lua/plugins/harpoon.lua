@@ -43,9 +43,13 @@ return {
           harpoon.ui:select_menu_item({ split = true })
         end, { buffer = cx.bufnr })
 
-        vim.keymap.set('n', '<c-t>', function()
-          harpoon.ui:select_menu_item({ tabedit = true })
-        end, { buffer = cx.bufnr })
+        -- highlight current buffer
+        for line_number, file in pairs(cx.contents) do
+          if string.find(cx.current_file, file, 1, true) then
+            vim.api.nvim_buf_add_highlight(cx.bufnr, -1, "HarpoonLine", line_number - 1, 0, -1)
+            vim.api.nvim_win_set_cursor(cx.win_id, { line_number, 0 })
+          end
+        end
       end,
     })
   end,

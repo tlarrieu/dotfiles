@@ -251,6 +251,8 @@ return {
         OilDir = { link = 'Normal' },
         OilDirIcon = { link = 'OilDir' },
 
+        HarpoonLine = { link = 'QuickFixLine' },
+
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { link = '@markup.strong' },
