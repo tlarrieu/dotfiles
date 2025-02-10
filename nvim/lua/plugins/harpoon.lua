@@ -35,13 +35,11 @@ return {
     harpoon.setup()
     harpoon:extend({
       UI_CREATE = function(cx)
-        vim.keymap.set('n', '<c-v>', function()
-          harpoon.ui:select_menu_item({ vsplit = true })
-        end, { buffer = cx.bufnr })
+        local select = function(mode) harpoon.ui:select_menu_item({ [mode] = true }) end
 
-        vim.keymap.set('n', '<c-x>', function()
-          harpoon.ui:select_menu_item({ split = true })
-        end, { buffer = cx.bufnr })
+        vim.keymap.set('n', '<c-v>', function() select('vsplit') end, { buffer = cx.bufnr })
+        vim.keymap.set('n', '<c-x>', function() select('split') end, { buffer = cx.bufnr })
+        vim.keymap.set('n', '<c-t>', function() select('tabedit') end, { buffer = cx.bufnr })
 
         -- highlight current buffer
         for line_number, file in pairs(cx.contents) do
