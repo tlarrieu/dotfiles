@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk $1 "https://www.notion.so/scribetech/1-1-Thomas-x-Julien-1932276c03bf80f08771e43621f87483"
