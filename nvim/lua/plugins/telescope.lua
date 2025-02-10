@@ -100,9 +100,19 @@ return {
       desc = 'Telescope LSP definitions'
     },
     {
+      '<c-w>gd',
+      function() return require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' }) end,
+      desc = 'Telescope LSP definitions (vertical split)'
+    },
+    {
       'gr',
       function() return require('telescope.builtin').lsp_references() end,
       desc = 'Telescope LSP references'
+    },
+    {
+      '<c-w>gr',
+      function() return require('telescope.builtin').lsp_references({ jump_type = 'vsplit' }) end,
+      desc = 'Telescope LSP references (vertical split)'
     },
     {
       '<c-l>',
