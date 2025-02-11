@@ -4,6 +4,7 @@ configuration {
   run-command: "{cmd}";
   run-shell-command: "{terminal} -e {cmd}";
 
+  kb-secondary-copy: "";
   kb-clear-line: "Control+c";
   kb-remove-word-back: "Control+w";
 
