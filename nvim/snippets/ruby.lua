@@ -135,6 +135,7 @@ return {
 
   -- debug
   s("pry", fmta("binding.pry", {})),
+  s(".tp", fmta(".tap { |o| binding.pry }", {})),
   s("bb", fmta("byebug", {})),
   s("p", fmta("puts <><>", { sel(), i(1) })),
   s("deb", fmta([[
@@ -181,4 +182,5 @@ return {
     <>
     ]], { i(0) })),
   s("pry", fmta("binding.pry", {})),
+  s(".tp", fmta(".tap { |o| binding.pry }", {})),
 }
