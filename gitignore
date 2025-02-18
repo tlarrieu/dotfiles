@@ -31,6 +31,9 @@ _build
 # Redis
 dump.rdb
 
+# local files
+.pre-commit-config.local.yaml
+
 # VIM
 *.swp*
 *.un~
