@@ -85,14 +85,15 @@ return {
     i(0, 'from')
   })),
   s("c", fmta([[
-  <> * <> | courses
+  <> <> <> | courses
     groceries  <> €
     <>
   ]], {
     f(curdate),
-    i(1, 'payee'),
-    i(2, 'amount'),
-    i(0, 'from')
+    i(1, '!'),
+    i(2, 'amazon'),
+    i(3, 'amount'),
+    i(0, 'card:ce')
   })),
 }, {
 }
