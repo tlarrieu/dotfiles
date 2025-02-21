@@ -1,6 +1,9 @@
 return {
   'tpope/vim-fugitive',
-  dependencies = { 'junegunn/gv.vim' },
+  dependencies = {
+    'junegunn/gv.vim',
+    'tpope/vim-rhubarb',
+  },
   cmd = { 'Git', 'Gvdiff', 'GV' },
   keys = {
     { '<leader>ga',  ':Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit', silent = true },
@@ -17,6 +20,13 @@ return {
     { '<leader>gtd', ':Git stash drop<cr>',                       desc = 'Git stash drop',               silent = true },
     { '<leader>gp',  ':Git push --force-with-lease<cr>',          desc = 'Git push --force-with-lease',  silent = true },
     { '<leader>gu',  ':Git pull --rebase<cr>',                    desc = 'Git pull --rebase',            silent = true },
+    {
+      'yg',
+      ':GBrowse!<cr>',
+      mode = { 'v', 'n' },
+      desc = 'Git(Hub) yank file URL',
+      silent = true,
+    },
     {
       '<leader>gS',
       ":'<,'>GV<cr>",
