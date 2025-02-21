@@ -134,6 +134,13 @@ return {
   s("exp", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
 
   -- debug
+  s("sentry", fmta([[
+    Sentry.capture_exception(
+      <>,
+      level: <>,
+      extra: <>,
+    )
+  ]], { i(1, "e"), i(2, ":info"), i(3, "{}") })),
   s("pry", fmta("binding.pry", {})),
   s(".tp", fmta(".tap { |o| binding.pry }", {})),
   s("bb", fmta("byebug", {})),
