@@ -111,10 +111,10 @@ return {
 
       ['robots.txt'] = { icon = '󱚝' },
       gemfile = { icon = '' },
-      rake = { icon = '' },
-      rakefile = { icon = '' },
+      rake = { icon = '󱁻' },
+      rakefile = { icon = '󱁻' },
       ['.irbrc'] = { icon = '' },
-      ['config.ru'] = { icon = '' },
+      ['config.ru'] = { icon = '' },
       ['routes.rb'] = { icon = '' },
       ['seeds.rb'] = { icon = '' },
       ['database.yml'] = { icon = '󱙋' },
