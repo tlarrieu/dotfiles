@@ -80,6 +80,12 @@ return {
             unmerged = "‡",
             untracked = "?",
           },
+          attach_mappings = function(_, map)
+            local actions = require('telescope.actions')
+            map('i', '<tab>', actions.toggle_selection + actions.move_selection_next)
+            map('i', '<c-s>', actions.git_staging_toggle)
+            return true
+          end,
         })
       end,
       desc = 'Telescope git status'
@@ -148,7 +154,6 @@ return {
   cmd = 'Telescope',
   config = function()
     local actions = require('telescope.actions')
-
     require('telescope').setup({
       defaults = {
         border = true,
@@ -178,6 +183,7 @@ return {
             ['<esc>'] = actions.close,
             ['<c-q>'] = actions.smart_send_to_qflist,
             ['<c-l>'] = actions.toggle_all,
+            ['<tab>'] = actions.toggle_selection + actions.move_selection_next,
             ['<c-a>'] = { '<home>', type = 'command' },
             ['<c-e>'] = { '<end>', type = 'command' },
           },
