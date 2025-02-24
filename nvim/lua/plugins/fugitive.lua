@@ -21,7 +21,7 @@ return {
     { '<leader>gp',  ':Git push --force-with-lease<cr>',          desc = 'Git push --force-with-lease',  silent = true },
     { '<leader>gu',  ':Git pull --rebase<cr>',                    desc = 'Git pull --rebase',            silent = true },
     {
-      'yg',
+      '<leader>gy',
       ':GBrowse!<cr>',
       mode = { 'v', 'n' },
       desc = 'Git(Hub) yank file URL',
