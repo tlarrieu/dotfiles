@@ -125,6 +125,13 @@ vim.keymap.set('n', '<leader>em', function()
     return ':e Makefile<cr>'
   end
 end, { desc = 'Edit Makefile', expr = true, silent = true })
+vim.keymap.set('n', '<leader>er', function()
+  if require('helpers').fileexists(vim.fn.expand('%')) then
+    return ':tabe ~/.pryrc.local<cr>'
+  else
+    return ':e ~/.pryrc.local<cr>'
+  end
+end, { desc = 'Edit local pryrc', expr = true, silent = true })
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word
