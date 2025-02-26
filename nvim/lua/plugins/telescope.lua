@@ -182,6 +182,7 @@ return {
           i = {
             ['<esc>'] = actions.close,
             ['<c-q>'] = actions.smart_send_to_qflist,
+            ['<c-s-q>'] = actions.smart_add_to_qflist,
             ['<c-l>'] = actions.toggle_all,
             ['<tab>'] = actions.toggle_selection + actions.move_selection_next,
             ['<c-a>'] = { '<home>', type = 'command' },
