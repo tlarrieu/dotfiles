@@ -148,7 +148,7 @@ return {
           cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
         })
       end,
-      desc = 'Telescope spell suggest'
+      desc = 'Telescope plugins explorer'
     },
   },
   cmd = 'Telescope',
