@@ -95,13 +95,14 @@ return {
           settings = {
             Lua = {
               diagnostics = {
-                -- awesome related globals
+                -- awesome / vim related globals
                 globals = {
                   "awesome",
                   "root",
                   "client",
                   "mouse",
                   "mousegrabber",
+                  "vim",
                 },
               },
             },
