@@ -1,6 +1,9 @@
 return {
   'nvim-lualine/lualine.nvim',
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  dependencies = {
+    'nvim-tree/nvim-web-devicons',
+    'lewis6991/gitsigns.nvim',
+  },
   lazy = false,
   opts = {
     extensions = {
@@ -69,6 +72,19 @@ return {
             modified = 'LualineModified',
             removed = 'LualineRemoved',
           },
+          source = function()
+            local success, source = pcall(vim.api.nvim_buf_get_var, 0, 'gitsigns_status_dict')
+
+            if success then
+              return {
+                modified = source.changed,
+                added = source.added,
+                removed = source.removed
+              }
+            end
+
+            return {}
+          end
         },
       },
       lualine_x = {
