@@ -48,8 +48,8 @@ return {
           ['aa'] = '@parameter.outer',
           ['ie'] = '@block.inner',
           ['ae'] = '@block.outer',
-          ['id'] = '@conditional.inner',
-          ['ad'] = '@conditional.outer',
+          ['ic'] = '@conditional.inner',
+          ['ac'] = '@conditional.outer',
         },
       }
     }
