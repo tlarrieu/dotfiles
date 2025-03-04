@@ -146,7 +146,8 @@ if [ ${#option} -gt 0 ]; then
 
       perso/cpf |\
       perso/trainline |\
-      perso/assurance-maladie)
+      perso/assurance-maladie |\
+      perso/mma-assurance)
         type "$(login)"
         press Tab
         press Tab
