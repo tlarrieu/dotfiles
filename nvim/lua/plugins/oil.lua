@@ -1,6 +1,6 @@
 return {
   'stevearc/oil.nvim',
-  event = 'CmdlineEnter',
+  lazy = false,
   keys = {
     { '<leader>.', function() require('oil').toggle_float() end, desc = 'Toggle oil float' },
   },
