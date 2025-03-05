@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk perso "https://espaceabonne.rme.saint-malo.fr/"
