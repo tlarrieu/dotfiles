@@ -141,8 +141,8 @@ return {
       extra: <>,
     )
   ]], { i(1, "e"), i(2, ":info"), i(3, "{}") })),
-  s("pry", fmta("binding.pry", {})),
-  s(".tp", fmta(".tap { |o| binding.pry }", {})),
+  s("pry", fmta("Kernel.binding.pry", {})),
+  s(".tp", fmta(".tap { |o| Kernel.binding.pry }", {})),
   s("bb", fmta("byebug", {})),
   s("p", fmta("puts <><>", { sel(), i(1) })),
   s("deb", fmta([[
@@ -188,6 +188,6 @@ return {
 
     <>
     ]], { i(0) })),
-  s("pry", fmta("binding.pry", {})),
+  s("pry", fmta("Kernel.binding.pry", {})),
   s(".tp", fmta(".tap { |o| binding.pry }", {})),
 }
