@@ -43,7 +43,7 @@
   "telescope.nvim": { "branch": "master", "commit": "a4ed82509cecc56df1c7138920a1aeaf246c0ac5" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "toggleterm.nvim": { "branch": "main", "commit": "50ea089fc548917cc3cc16b46a8211833b9e3c7c" },
-  "vifm.vim": { "branch": "master", "commit": "14d81758ff57420a961c7a8d10d7d672d2e00fe4" },
+  "vifm.vim": { "branch": "master", "commit": "23358c7f0dda437a3dec3ec902911ee4376c0a56" },
   "vim-argwrap": { "branch": "master", "commit": "f3e26a5ad249d09467804b92e760d08b1cc457a1" },
   "vim-css-color": { "branch": "master", "commit": "14fd934cdd9ca1ac0e53511094e612eb9bace373" },
   "vim-eunuch": { "branch": "master", "commit": "e86bb794a1c10a2edac130feb0ea590a00d03f1e" },
