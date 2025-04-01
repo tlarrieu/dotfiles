@@ -14,7 +14,6 @@ base-devel
 # languages
 exercism-bin
 luarocks
-rbenv
 ruby
 rbenv
 ruby-build
