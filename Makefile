@@ -129,11 +129,11 @@ packages:
 	@ln -sfFT /usr/bin/fdfind ~/bin/fd
 	@cd ~/git/neovim \
 		&& git fetch \
-		&& git checkout stable \
+		&& git checkout v0.11.0 \
 		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
 		&& cd build \
 		&& cpack -G DEB \
-		&& sudo dpkg -i nvim-linux64.deb
+		&& sudo dpkg -i nvim-linux-x86_64.deb
 	@sudo apt build-dep awesome
 	@cd ~/git/awesome \
 		&& git clean -f \

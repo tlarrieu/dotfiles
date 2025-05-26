@@ -41,14 +41,14 @@ return {
           client.server_capabilities.semanticTokensProvider = nil
 
           vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
-          if client.supports_method('textDocument/hover') then
+          if client.supports_method('textDocument/hover', ev.buf) then
             vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
           end
-          if client.supports_method('textDocument/codeAction') then
+          if client.supports_method('textDocument/codeAction', ev.buf) then
             vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
             vim.keymap.set({ 'n', 'x' }, '<leader>i', require('utils').fiximports, conf)
           end
-          if client.supports_method('textDocument/rename') then
+          if client.supports_method('textDocument/rename', ev.buf) then
             vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
           end
 
@@ -77,56 +77,46 @@ return {
     })
 
     local plug = require('mason-lspconfig')
-    local lspconfig = require('lspconfig')
 
     plug.setup(opts)
 
-    plug.setup_handlers({
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = require('cmp_nvim_lsp').default_capabilities(),
-        })
-      end,
-      ["lua_ls"] = function()
-        lspconfig.lua_ls.setup({
-          on_attach = opts.on_attach,
-          capabilities = opts.capabilities,
+    vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
 
-          settings = {
-            Lua = {
-              diagnostics = {
-                -- awesome / vim related globals
-                globals = {
-                  "awesome",
-                  "root",
-                  "client",
-                  "mouse",
-                  "mousegrabber",
-                  "vim",
-                },
-              },
+    vim.lsp.config('lua_ls', {
+      on_attach = opts.on_attach,
+      capabilities = opts.capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            -- awesome / vim related globals
+            globals = {
+              "awesome",
+              "root",
+              "client",
+              "mouse",
+              "mousegrabber",
+              "vim",
             },
           },
-        })
-      end,
-      ["gopls"] = function()
-        lspconfig.gopls.setup({
-          on_attach = opts.on_attach,
-          capabilities = opts.capabilities,
-          settings = {
-            gopls = {
-              gofumpt = true,
-              completeUnimported = true,
-              usePlaceholders = true,
-              analyses = {
-                unusedparams = true,
-                staticcheck = true,
-                unreachable = true,
-              }
-            }
+        },
+      },
+    })
+
+    vim.lsp.config('gopls', {
+      on_attach = opts.on_attach,
+      capabilities = opts.capabilities,
+      settings = {
+        gopls = {
+          gofumpt = true,
+          completeUnimported = true,
+          usePlaceholders = true,
+          analyses = {
+            unusedparams = true,
+            staticcheck = true,
+            unreachable = true,
           }
-        })
-      end,
+        }
+      }
     })
   end
 }
