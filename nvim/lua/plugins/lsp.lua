@@ -32,6 +32,47 @@ return {
     'yaml',
   },
   config = function(_, opts)
+    require('mason-lspconfig').setup(opts)
+
+    vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
+
+    vim.lsp.config('lua_ls', {
+      on_attach = opts.on_attach,
+      capabilities = opts.capabilities,
+      settings = {
+        Lua = {
+          diagnostics = {
+            -- awesome / vim related globals
+            globals = {
+              "awesome",
+              "root",
+              "client",
+              "mouse",
+              "mousegrabber",
+              "vim",
+            },
+          },
+        },
+      },
+    })
+
+    vim.lsp.config('gopls', {
+      on_attach = opts.on_attach,
+      capabilities = opts.capabilities,
+      settings = {
+        gopls = {
+          gofumpt = true,
+          completeUnimported = true,
+          usePlaceholders = true,
+          analyses = {
+            unusedparams = true,
+            staticcheck = true,
+            unreachable = true,
+          }
+        }
+      }
+    })
+
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
@@ -74,49 +115,6 @@ return {
         vim.notify(icon .. ' ' .. request.method)
       end,
       group = vim.api.nvim_create_augroup('lsp_request_status', {})
-    })
-
-    local plug = require('mason-lspconfig')
-
-    plug.setup(opts)
-
-    vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
-
-    vim.lsp.config('lua_ls', {
-      on_attach = opts.on_attach,
-      capabilities = opts.capabilities,
-      settings = {
-        Lua = {
-          diagnostics = {
-            -- awesome / vim related globals
-            globals = {
-              "awesome",
-              "root",
-              "client",
-              "mouse",
-              "mousegrabber",
-              "vim",
-            },
-          },
-        },
-      },
-    })
-
-    vim.lsp.config('gopls', {
-      on_attach = opts.on_attach,
-      capabilities = opts.capabilities,
-      settings = {
-        gopls = {
-          gofumpt = true,
-          completeUnimported = true,
-          usePlaceholders = true,
-          analyses = {
-            unusedparams = true,
-            staticcheck = true,
-            unreachable = true,
-          }
-        }
-      }
     })
   end
 }
