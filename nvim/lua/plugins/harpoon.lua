@@ -14,6 +14,7 @@ return {
     { '<c-»>',     function() list():select(3) end, desc = 'Harpoon: open #3' },
     { '<c-(>',     function() list():select(4) end, desc = 'Harpoon: open #4' },
     { '<c-)>',     function() list():select(5) end, desc = 'Harpoon: open #5' },
+    { '<c-@>',     function() list():select(6) end, desc = 'Harpoon: open #6' },
 
     {
       "<c-,>",
