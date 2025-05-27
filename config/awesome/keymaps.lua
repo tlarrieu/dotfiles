@@ -113,11 +113,6 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ mod }, '.', {
-      app = spawner.terminal('nvim gtd/todo.txt', { class = 'gtd', directory = neorg }),
-      props = { class = 'gtd' },
-      signal = spawner.actions.MOVE,
-    }),
-    spawner.key({ mod, 'Shift' }, '.', {
       app = spawner.terminal('newsboat', { class = 'newsboat' }),
       props = { class = 'newsboat' },
       signal = spawner.actions.MOVE,
