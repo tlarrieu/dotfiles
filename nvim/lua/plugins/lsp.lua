@@ -44,12 +44,13 @@ return {
           diagnostics = {
             -- awesome / vim related globals
             globals = {
-              "awesome",
-              "root",
-              "client",
-              "mouse",
-              "mousegrabber",
-              "vim",
+              'awesome',
+              'screen',
+              'root',
+              'client',
+              'mouse',
+              'mousegrabber',
+              'vim',
             },
           },
         },

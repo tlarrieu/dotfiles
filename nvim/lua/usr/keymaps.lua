@@ -164,8 +164,8 @@ vim.keymap.set('n', '<leader>(', ':cc4<cr>', { silent = true })
 vim.keymap.set('n', '<leader>)', ':cc5<cr>', { silent = true })
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
-vim.keymap.set('n', 'Þ', vim.diagnostic.goto_next)
-vim.keymap.set('n', 'ẞ', vim.diagnostic.goto_prev)
+vim.keymap.set('n', 'Þ', function() vim.diagnostic.jump({ count = 1, float = true }) end)
+vim.keymap.set('n', 'ẞ', function() vim.diagnostic.jump({ count = -1, float = true }) end)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
