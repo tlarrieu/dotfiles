@@ -15,5 +15,4 @@ runner.match({ '*_test.go' }, {
   alt = runner.test.file()
 })
 
-require('utils').autoimport('*.go')
 require('utils').autoformat('*.go')
