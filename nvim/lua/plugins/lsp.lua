@@ -36,6 +36,18 @@ return {
 
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
 
+    vim.lsp.config('ruby_lsp', {
+      on_attach = opts.on_attach,
+      capabilities = opts.capabilities,
+      init_options = {
+        addonSettings = {
+          ['Ruby LSP Rails'] = {
+            enablePendingMigrationsPrompt = false,
+          },
+        }
+      },
+    })
+
     vim.lsp.config('lua_ls', {
       on_attach = opts.on_attach,
       capabilities = opts.capabilities,
