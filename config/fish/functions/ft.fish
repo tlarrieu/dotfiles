@@ -23,13 +23,13 @@ function ft
     # echo -e "\e[34mPending balance (business expenses)\e[0m"
     # ft bal tag:business type:RX --empty -p today -H
     echo -e "\e[35mMonthly envelopes\e[0m"
-    ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure not:tag:miriam
+    ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
     echo -e "\e[35mYearly envelopes\e[0m"
-    ft bal --empty -p thisyear expenses:clothing expenses:gifts not:tag:miriam
+    ft bal --empty -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
-    ft reg assets:check expr:'tag:generated-transaction OR status:!' type:LCX --fore=today.. -p ..14days not:tag:miriam
+    ft reg assets:check expr:'tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX not:tag:miriam
     echo -e "\e[35mCurrent balance\e[0m"
     ft bal assets:check -p today -C -H not:tag:miriam
     return
