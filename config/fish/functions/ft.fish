@@ -16,12 +16,12 @@ function ft
   case areg reg
     set flags $flags -w (math "min $COLUMNS,100")
   case now
-    echo -e "\e[32mCurrent balance (checked transactions only)\e[0m"
-    ft bal --empty -p today -C -H type:C not:tag:miriam
-    echo -e "\e[33mPending balance (all transactions)\e[0m"
-    ft bal --empty -p today..15days -H type:C not:tag:miriam
-    # echo -e "\e[34mPending balance (business expenses)\e[0m"
-    # ft bal tag:business type:RX --empty -p today -H
+    echo -e "\e[32mCurrent checking balance (checked transactions only)\e[0m"
+    ft bal --empty -p today -C -H assets:check assets:cash assets:swile assets:amazon
+    echo -e "\e[33mPending checking balance (all transactions)\e[0m"
+    ft bal --empty -p today..15days -H assets:check assets:cash assets:swile assets:amazon
+    echo -e "\e[34mCurrent savings balance\e[0m"
+    ft bal --empty -p today..15days -H assets:savings
     echo -e "\e[35mMonthly envelopes\e[0m"
     ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
     echo -e "\e[35mYearly envelopes\e[0m"
@@ -29,12 +29,12 @@ function ft
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
-    ft reg assets:check expr:'tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX not:tag:miriam
+    ft reg assets:check expr:'tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX
     echo -e "\e[35mCurrent balance\e[0m"
-    ft bal assets:check -p today -C -H not:tag:miriam
+    ft bal assets:check -p today -C -H
     return
   case bud budget
-    ft bal --budget -p thismonth not:tag:miriam --empty
+    ft bal --budget -p thismonth --empty
     return
   case we weeks
     ft bs --fore=tomorrow.. -W -p today..30days
@@ -43,7 +43,7 @@ function ft
     ft bs --fore=tomorrow.. -M -p 1..6months
     return
   case 2024
-    ft bs --fore=tomorrow.. -M -b 2024/06 -e 2025 not:tag:miriam --color=always | less -RS
+    ft bs --fore=tomorrow.. -M -b 2024/06 -e 2025 --color=always | less -RS
     return
   case 2025
     ft bs --fore=tomorrow.. -M -p 2025 --color=always | less -RS
