@@ -59,6 +59,17 @@ return {
       vim.keymap.set('n', 'þ', next_hunk, { desc = 'Next hunk' })
       vim.keymap.set('n', '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
       vim.keymap.set('n', '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
+
+      local line_of = function(mark) return vim.api.nvim_buf_get_mark(0, mark)[1] end
+      vim.keymap.set('x', '7', function()
+        vim.cmd([[execute "normal! \<ESC>"]])
+        gitsigns.stage_hunk({ line_of('<'), line_of('>') })
+      end, { remap = true, desc = 'Toggle stage hunk (VISUAL)' })
+      vim.keymap.set('x', '8', function()
+        vim.cmd([[execute "normal! \<ESC>"]])
+        gitsigns.reset_hunk({ line_of('<'), line_of('>') })
+      end, { remap = true, desc = 'Reset hunk (VISUAL)' })
+
       vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
       vim.keymap.set(modes, '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'Blame (line)' })
       vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
