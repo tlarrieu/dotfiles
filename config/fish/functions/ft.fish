@@ -1,3 +1,11 @@
+function now
+  hledger bal --empty $argv --strict --pretty --auto --layout=bare
+end
+
+function forecast
+  ft bs --fore=tomorrow.. $argv
+end
+
 function ft
   set -l flags --strict
   switch $argv[1]
@@ -16,16 +24,16 @@ function ft
   case areg reg
     set flags $flags -w (math "min $COLUMNS,100")
   case now
-    echo -e "\e[32mCurrent checking balance (checked transactions only)\e[0m"
-    ft bal --empty -p today -C -H assets:check assets:cash assets:swile assets:amazon
-    echo -e "\e[33mPending checking balance (all transactions)\e[0m"
-    ft bal --empty -p today..15days -H assets:check assets:cash assets:swile assets:amazon
-    echo -e "\e[34mCurrent savings balance\e[0m"
-    ft bal --empty -p today..15days -H assets:savings
-    echo -e "\e[35mMonthly envelopes\e[0m"
-    ft bal --empty -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
-    echo -e "\e[35mYearly envelopes\e[0m"
-    ft bal --empty -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books
+    echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
+    now -p today -C -H assets:check assets:cash assets:swile assets:amazon
+    echo -e "\e[33m• Pending checking balance (all transactions) --------------\e[0m"
+    now -p today..15days -H assets:check assets:swile
+    echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
+    now -p today..15days -H assets:savings
+    echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
+    now -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
+    echo -e "\e[35m• Yearly envelopes -----------------------------------------\e[0m"
+    now -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
@@ -37,16 +45,13 @@ function ft
     ft bal --budget -p thismonth --empty
     return
   case we weeks
-    ft bs --fore=tomorrow.. -W -p today..30days
+    forecast -W -p today..30days
     return
   case mo months
-    ft bs --fore=tomorrow.. -M -p 1..6months
+    forecast -M -p 1..6months
     return
-  case 2024
-    ft bs --fore=tomorrow.. -M -b 2024/06 -e 2025 --color=always | less -RS
-    return
-  case 2025
-    ft bs --fore=tomorrow.. -M -p 2025 --color=always | less -RS
+  case ye year
+    forecast -M -p 2025 --color=always | less -RS
     return
   end
 
