@@ -154,6 +154,10 @@ end, { desc = 'Toggle crosshair' })
 -- Alternate file
 vim.keymap.set('n', '<c-k>', '<c-^>')
 --- }}}
+--- {{{ --| Spelling |--------------------------------------
+vim.keymap.set('n', '<a-n>', ']s', { silent = true, remap = true, desc = 'Next spelling error' })
+vim.keymap.set('n', '<a-p>', '[s', { silent = true, remap = true, desc = 'Previous spelling error' })
+--- }}}
 --- {{{ --| Quickfix / Location list |----------------------
 vim.keymap.set('n', '<c-n>', ':cnext<cr>', { silent = true })
 vim.keymap.set('n', '<c-p>', ':cprev<cr>', { silent = true })
