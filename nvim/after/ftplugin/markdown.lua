@@ -1,9 +1,10 @@
 local o = vim.opt_local
 
 o.formatoptions = o.formatoptions + 't'
-o.foldlevel = 1
+o.foldlevel = 10
 o.foldlevelstart = 10
 o.spell = true
+o.shiftwidth = 2
 
 local runner = require('runner')
 runner.default({ main = runner.term("mdprev w '%'") })
@@ -11,5 +12,6 @@ runner.default({ main = runner.term("mdprev w '%'") })
 vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
+vim.keymap.set('n', '<leader>i', ':Markview toggle<cr>', { buffer = true, remap = true })
 
 require('utils').autocapitalize('*.md')

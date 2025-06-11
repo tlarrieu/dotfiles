@@ -2,11 +2,31 @@
 
 return {
   -- fence
-  s("`", fmta([[
+  rs("^`", fmta([[
     ``` <>
     <><>
     ```
     ]], { i(1, "lang"), sel(), i(0) })),
+  rs("^[Cc]ode", fmta([[
+    ``` <>
+    <><>
+    ```
+    ]], { i(1, "lang"), sel(), i(0) })),
+  rs("^[Rr]b", fmta([[
+    ``` ruby
+    <><>
+    ```
+    ]], { sel(), i(0) })),
+  rs("^[Jj]s", fmta([[
+    ``` javascript
+    <><>
+    ```
+    ]], { sel(), i(0) })),
+  rs("^[Gg]o", fmta([[
+    ``` go
+    <><>
+    ```
+    ]], { sel(), i(0) })),
 
   -- link / image
   s("[", fmta("[<>](<>)", { i(1, "alttxt"), i(0, "url") })),
