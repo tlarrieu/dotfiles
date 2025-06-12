@@ -33,7 +33,7 @@ function ft
     echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
     now -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
     echo -e "\e[35m• Yearly envelopes -----------------------------------------\e[0m"
-    now -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books
+    now -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
