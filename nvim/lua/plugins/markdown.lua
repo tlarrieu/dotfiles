@@ -4,7 +4,7 @@ return {
   -- https://github.com/OXY2DEV/markview.nvim/wiki/Markdown
   opts = {
     preview = {
-      enable = false,
+      enable = true,
       icon_provider = 'devicons',
     },
     markdown_inline = {
