@@ -36,13 +36,14 @@ return {
     i(0, 'Thomas')
   })),
   s("t", fmta([[
-  <> * me | transfert
+  <> * <> | transfert
     <>  <> €
     <>
   ]], {
     f(curdate),
-    i(1, 'to'),
-    i(2, 'amount'),
+    i(1, 'me'),
+    i(2, 'to'),
+    i(3, 'amount'),
     i(0, 'from')
   })),
   s("del", fmta([[
