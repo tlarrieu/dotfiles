@@ -2,7 +2,8 @@ return {
   'stevearc/oil.nvim',
   lazy = false,
   keys = {
-    { '<leader>.', function() require('oil').toggle_float() end, desc = 'Toggle oil float' },
+    { '<leader>.', ':vsplit | lua require("oil").open()<cr>',    desc = 'Open Oil split', silent = true },
+    { '<leader>:', ':tab split | lua require("oil").open()<cr>', desc = 'Open Oil tab',   silent = true },
   },
   opts = {
     -- Id is automatically added at the beginning, and name at the end
