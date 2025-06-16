@@ -5,11 +5,11 @@ return {
   opts = {
     direction = 'vertical', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
-      local factor = 0.4
+      local factor = 0.3
       if term.direction == 'horizontal' then
-        return vim.o.lines * factor
+        return math.max(30, vim.o.lines * factor)
       elseif term.direction == 'vertical' then
-        return vim.o.columns * factor
+        return math.max(80, vim.o.columns * factor)
       end
     end,
     open_mapping = '<leader><tab>',
@@ -33,13 +33,15 @@ return {
       FloatBorder = { link = 'TelescopeBorder' },
     },
   },
-  config = function(_, opts)
-    require('toggleterm').setup(opts)
-
-    vim.g['test#strategy'] = 'toggleterm'
-
-    vim.keymap.set('x', '<cr>', function()
-      require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
-    end)
-  end,
+  config = true,
+  keys = {
+    {
+      '<cr>',
+      function()
+        require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
+      end,
+      mode = 'x',
+      desc = 'Send to terminal'
+    }
+  },
 }
