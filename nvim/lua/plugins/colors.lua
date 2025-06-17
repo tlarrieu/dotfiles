@@ -182,6 +182,10 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
 
+        ['@variable.sql'] = { fg = c.normal, bg = c.none, italic = true },
+        ['@variable.member.sql'] = { fg = c.mix_fg, bg = c.none },
+        ['@type.sql'] = { fg = c.yellow, bg = c.none },
+
         ['@property.yaml'] = { fg = c.mix_fg, bg = c.none, bold = false },
 
         ['@variable.parameter.go'] = { fg = c.mix_fg },
