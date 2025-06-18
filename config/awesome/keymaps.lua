@@ -92,6 +92,11 @@ local keyboard = {
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod }, 'è', {
+      app = spawner.terminal(string.format('nvim %s/postgres.sql', home), { class = 'postgres' }),
+      props = { class = 'postgres' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ mod, 'Shift' }, 'e', {
       app = spawner.terminal(string.format('nvim %s/.scratchpad.md', home), { class = 'scratchpad' }),
       props = { class = 'scratchpad' },

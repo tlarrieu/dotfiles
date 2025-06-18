@@ -62,6 +62,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'vifm',
         'config',
         'accounting',
+        'postgres',
         'gtd',
         'wiki',
         'newsboat',
@@ -110,6 +111,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       class = {
         'scratchpad',
         'wiki',
+        'postgres',
         'gtd',
         'newsboat',
         'man',
@@ -137,6 +139,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       class = {
         'scratchpad',
         'wiki',
+        'postgres',
         'gtd',
         'newsboat',
         'quake',

@@ -94,6 +94,7 @@ local config = {
   },
 
   --  Programming
+  { icon = '󱘫', rule = { class = 'postgres' } },
   { icon = '', rule = { class = 'Chromium', instance = 'rubygems' } },
   { icon = '', rule = { class = 'Chromium', instance = 'hoogle' } },
   {
