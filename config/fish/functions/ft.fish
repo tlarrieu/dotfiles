@@ -31,9 +31,9 @@ function ft
     echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
     now -p today..15days -H assets:savings
     echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
-    now -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books
+    now -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books expenses:car
     echo -e "\e[35m• Yearly envelopes -----------------------------------------\e[0m"
-    now -p thisyear expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home
+    now -p thisyear --depth 2 expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home expenses:car
     return
   case up upcoming
     echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
