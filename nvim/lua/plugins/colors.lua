@@ -76,7 +76,8 @@ return {
     on_highlights = function(c, _)
       for kind, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
         local hl = "DiagnosticSign" .. kind
-        vim.fn.sign_define(hl, { text = icon, texthl = '', numhl = '' })
+        local hl_value = 'Diagnostic' .. kind
+        vim.fn.sign_define(hl, { text = icon, texthl = hl_value, numhl = hl_value })
       end
 
       local paint = function(color, opts)
@@ -231,13 +232,13 @@ return {
         DiagnosticOk = { fg = c.green, bg = c.none },
         DiagnosticError = { fg = c.red, bg = c.none },
         DiagnosticWarn = { fg = c.yellow, bg = c.none },
-        DiagnosticInfo = { fg = c.blue, bg = c.none },
-        DiagnosticHint = { fg = c.blue, bg = c.none },
+        DiagnosticInfo = { fg = c.violet, bg = c.none },
+        DiagnosticHint = { fg = c.violet, bg = c.none },
         DiagnosticUnderlineOk = paint('green', { underline = false }),
         DiagnosticUnderlineError = paint('red', { underline = false }),
         DiagnosticUnderlineWarn = paint('yellow', { underline = false }),
-        DiagnosticUnderlineInfo = paint('blue', { underline = false }),
-        DiagnosticUnderlineHint = paint('blue', { underline = false }),
+        DiagnosticUnderlineInfo = paint('violet', { underline = false }),
+        DiagnosticUnderlineHint = paint('violet', { underline = false }),
 
         DiffAdd = paint('green', { reverse = false }),
         DiffDelete = paint('red', { reverse = false }),
@@ -399,6 +400,21 @@ return {
         ['@date.late'] = { fg = c.red, bold = true },
         ['@date.today'] = { fg = c.yellow },
         ['@date.early'] = { fg = c.green },
+
+        ['TodoBgFIX'] = paint('red'),
+        ['TodoFgFIX'] = { fg = c.red },
+        ['TodoBgTODO'] = paint('violet'),
+        ['TodoFgTODO'] = { fg = c.violet },
+        ['TodoBgHACK'] = paint('red'),
+        ['TodoFgHACK'] = { fg = c.red },
+        ['TodoBgWARN'] = paint('yellow'),
+        ['TodoFgWARN'] = { fg = c.yellow },
+        ['TodoBgPERF'] = paint('cyan'),
+        ['TodoFgPERF'] = { fg = c.cyan },
+        ['TodoBgNOTE'] = paint('violet'),
+        ['TodoFgNOTE'] = { fg = c.violet },
+        ['TodoBgTEST'] = paint('cyan'),
+        ['TodoFgTEST'] = { fg = c.cyan },
 
         DashboardHeader = { fg = c.mix_fg, bg = c.none }
       }

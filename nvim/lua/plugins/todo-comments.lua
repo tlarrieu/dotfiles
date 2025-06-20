@@ -22,12 +22,12 @@ return {
         alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
         -- signs = false, -- configure signs for some keywords individually
       },
-      TODO = { icon = '󰥪 ', color = 'info' },
-      HACK = { icon = '󱍔 ', color = 'error' },
-      WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
+      TODO = { icon = '󰥪 ' },
+      HACK = { icon = '󱍔 ' },
+      WARN = { icon = ' ', alt = { 'WARNING', 'XXX' } },
       PERF = { icon = '󰅒 ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-      NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
-      TEST = { icon = '󰙨 ', color = 'test', alt = { 'TESTING' } },
+      NOTE = { icon = ' ', alt = { 'INFO' } },
+      TEST = { icon = '󰙨 ', alt = { 'TESTING' } },
     },
     gui_style = {
       fg = 'NONE',
@@ -45,14 +45,6 @@ return {
       comments_only = true,
       max_line_len = 400,
       exclude = {},
-    },
-    colors = {
-      error = { 'DiagnosticError', 'ErrorMsg', '#DC2626' },
-      warning = { 'DiagnosticWarn', 'WarningMsg', '#FBBF24' },
-      info = { 'DiagnosticInfo', '#2563EB' },
-      hint = { 'DiagnosticHint', '#10B981' },
-      test = { 'Identifier', '#FF00FF' },
-      default = { 'Identifier', '#7C3AED' },
     },
     search = {
       command = 'rg',
