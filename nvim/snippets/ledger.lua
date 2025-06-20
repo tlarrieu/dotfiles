@@ -17,14 +17,15 @@ return {
     i(0, 'card:ce')
   })),
   s("r", fmta([[
-  <> ! me | <>
+  <> ! <> | <>
     <>  <> €
     refund
   ]], {
     f(curdate),
-    i(1, 'desc'),
-    i(2, 'card:ce'),
-    i(3, 'amount'),
+    i(1, 'me'),
+    i(2, 'desc'),
+    i(3, 'card:ce'),
+    i(4, 'amount'),
   })),
   s("i", fmta([[
   <> ! me
@@ -60,7 +61,7 @@ return {
   })),
   s("g", fmta([[
   <> ! <> | courses
-    groceries   <> €
+    groceries  <> €
     <>
   ]], {
     f(curdate),
