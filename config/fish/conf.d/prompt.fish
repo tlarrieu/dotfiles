@@ -51,8 +51,19 @@ function _git
   [ (command git rev-parse --is-inside-git-dir 2> /dev/null) = "true" ]
     and return
 
-  set -l stashed \
-    (command git rev-parse --verify --quiet refs/stash >/dev/null; and echo -n ' ')
+  set -l stashed
+  switch (command git stash list | wc -l)
+    case 0
+      set stashed ''
+    case 1
+      set stashed " 󰎤 "
+    case 2
+      set stashed " 󰎧 "
+    case 3
+      set stashed " 󰎪 "
+    case '*'
+      set stashed " 󰼑 "
+  end
 
   set -l dirty \
     (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦢 ")
@@ -98,6 +109,7 @@ function _jobs
     case 3
       echo -ns 󰎪
     case '*'
+      echo -ns 󰼑
   end
   echo -ns (set_color normal)
 end
