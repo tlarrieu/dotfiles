@@ -3,6 +3,9 @@ return {
   lazy = false,
   -- https://github.com/OXY2DEV/markview.nvim/wiki/Markdown
   opts = {
+    experimental = {
+      check_rtp_message = false,
+    },
     preview = {
       enable = true,
       icon_provider = 'devicons',
