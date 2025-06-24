@@ -206,8 +206,9 @@ return {
         ['@type.scss'] = { fg = c.violet },
         ['@field.scss'] = { fg = c.mix_fg },
 
-        ['@namespace.rasi'] = { fg = c.violet },
+        ['@namespace.rasi'] = { fg = c.yellow },
         ['@field.rasi'] = { fg = c.mix_fg },
+        ['@variable.rasi'] = { fg = c.violet },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },

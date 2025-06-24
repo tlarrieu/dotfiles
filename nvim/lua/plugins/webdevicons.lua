@@ -42,7 +42,6 @@ return {
       html = { icon = '' },
       css = { icon = '' },
       scss = { icon = '' },
-      rasi = { icon = '' },
       go = { icon = '' },
       templ = { icon = '' },
       gomod = { icon = '' },
