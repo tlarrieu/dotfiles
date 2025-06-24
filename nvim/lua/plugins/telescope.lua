@@ -69,7 +69,6 @@ return {
       '<c-y>',
       function()
         return require('telescope.builtin').git_status({
-          hidden = true,
           path_display = filename_first_and_shorten,
           git_icons = {
             added = "󰐕",
