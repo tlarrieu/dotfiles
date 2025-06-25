@@ -235,6 +235,19 @@ return {
         DiagnosticWarn = { fg = c.yellow, bg = c.none },
         DiagnosticInfo = { fg = c.violet, bg = c.none },
         DiagnosticHint = { fg = c.violet, bg = c.none },
+
+        DiagnosticFloatingOk = { fg = c.green, bg = c.none },
+        DiagnosticFloatingError = { fg = c.red, bg = c.none },
+        DiagnosticFloatingWarn = { fg = c.yellow, bg = c.none },
+        DiagnosticFloatingInfo = { fg = c.violet, bg = c.none },
+        DiagnosticFloatingHint = { fg = c.violet, bg = c.none },
+
+        DiagnosticVirtualTextOk = { fg = c.green, bg = c.none },
+        DiagnosticVirtualTextError = { fg = c.red, bg = c.none },
+        DiagnosticVirtualTextWarn = { fg = c.yellow, bg = c.none },
+        DiagnosticVirtualTextInfo = { fg = c.violet, bg = c.none },
+        DiagnosticVirtualTextHint = { fg = c.violet, bg = c.none },
+
         DiagnosticUnderlineOk = paint('green', { underline = false }),
         DiagnosticUnderlineError = paint('red', { underline = false }),
         DiagnosticUnderlineWarn = paint('yellow', { underline = false }),

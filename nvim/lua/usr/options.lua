@@ -95,6 +95,10 @@ vim.opt.shortmess:append('WIcsSa')
 vim.diagnostic.config({
   virtual_text = {
     prefix = '▰',
+    source = true,
+  },
+  float = {
+    source = true,
   },
   signs = false,
   underline = true,
