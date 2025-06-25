@@ -2,6 +2,10 @@ function now
   hledger bal --empty $argv --strict --pretty --auto --layout=bare
 end
 
+function up
+  hledger reg $argv 'expr:tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX --strict -w 100
+end
+
 function forecast
   ft bs --fore=tomorrow.. $argv
 end
@@ -36,10 +40,13 @@ function ft
     now -p thisyear --depth 2 expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home expenses:car
     return
   case up upcoming
-    echo -e "\e[35mUpcoming transactions (forecasted OR pending) \e[0m"
-    ft reg assets:check expr:'tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX
-    echo -e "\e[35mCurrent balance\e[0m"
-    ft bal assets:check -p today -C -H
+    echo -e "\e[33mUpcoming transactions (forecasted OR pending) \e[0m"
+    echo -e "\e[96m• Caisse d'Épargne -----\e[0m"
+    up assets:check:caisse-epargne
+    echo -e "\e[96m• Banque postale -------\e[0m"
+    up assets:check:banque-postal
+    echo -e "\e[32mCurrent balance\e[0m"
+    now assets:check -p today -C -H
     return
   case bud budget
     ft bal --budget -p thismonth --empty
