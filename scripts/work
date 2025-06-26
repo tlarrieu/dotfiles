@@ -1,0 +1,11 @@
+#!/bin/sh
+
+kitty --session work &
+sleep 0.5
+browser-kiosk http://localhost:3000 &
+
+awesome-client <<-LUA
+  local awful = require('awful')
+  awful.client.setmaster(client.focus)
+  awful.layout.set(awful.layout.suit.tile.left)
+LUA
