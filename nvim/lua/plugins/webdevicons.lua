@@ -6,6 +6,7 @@ return {
     override = {
       [''] = { icon = '' }, -- hack for telescope to display folders icon
 
+      text = { icon = '' },
       txt = { icon = '' },
       log = { icon = '' },
       lock = { icon = '' },
