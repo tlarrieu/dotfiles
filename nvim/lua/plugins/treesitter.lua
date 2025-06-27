@@ -27,6 +27,7 @@ return {
       'ruby',
       'tsx',
       'typescript',
+      'ledger',
     },
     sync_install = false,
     auto_install = true,
