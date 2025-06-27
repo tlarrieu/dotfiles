@@ -4,7 +4,7 @@ return {
   'stevearc/conform.nvim',
   opts = {
     formatters_by_ft = {
-      json = { 'jq' },
+      json = { 'jq', lsp_format = 'never' },
       javascript = { 'biome' },
       typescript = { 'biome' },
     },
