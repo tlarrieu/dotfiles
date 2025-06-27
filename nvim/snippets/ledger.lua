@@ -28,12 +28,14 @@ return {
     i(4, 'amount'),
   })),
   s("i", fmta([[
-  <> ! me
-    card:ce  <> €
+  <> * <>
+    card:<>  <> €
     salary/<>
   ]], {
     f(curdate),
-    i(1, 'amount'),
+    i(1, 'me'),
+    i(2, 'ce'),
+    i(3, 'amount'),
     i(0, 'Thomas')
   })),
   s("t", fmta([[
