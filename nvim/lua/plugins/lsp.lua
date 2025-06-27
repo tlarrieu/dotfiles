@@ -20,6 +20,7 @@ return {
   ft = {
     'bash',
     'go',
+    'zig',
     'haskell',
     'javascript',
     'lua',
