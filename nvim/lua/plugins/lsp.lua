@@ -28,7 +28,6 @@ return {
     'sh',
     'typescript',
     'vim',
-    'json',
     'yaml',
   },
   config = function(_, opts)
