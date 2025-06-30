@@ -19,6 +19,10 @@ Pry.config.prompt = Pry::Prompt.new(
   [ proc { "#{prompt.(_2, _3)} \e[32m󰄾\e[0m " }, proc { "#{prompt.(_2, _3)} \e[33m󰄼\e[0m " }]
 )
 
+def write str
+  File.open("#{ENV['HOME']}/output.txt", 'w+') { _1.write str }
+end
+
 begin
   load "#{Dir.home}/.pryrc.local"
 rescue LoadError
