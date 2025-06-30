@@ -188,6 +188,13 @@ return {
 
     <>
     ]], { i(0) })),
+  s("__spec", fmta([[
+    # frozen_string_literal: true
+
+    Rspec.describe <> do
+      <>
+    end
+    ]], { i(1, 'class'), i(0) })),
   s("pry", fmta("Kernel.binding.pry", {})),
   s(".tp", fmta(".tap { |o| binding.pry }", {})),
 }

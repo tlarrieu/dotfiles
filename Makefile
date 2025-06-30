@@ -51,6 +51,7 @@ links:
 	@$(foreach file,$(wildcard local/share/applications/*),ln -sfFT $(BASEDIR)/$(file) ~/.local/share/applications/$(notdir $(file));)
 	@mkdir -p ~/scripts
 	@$(foreach file,$(wildcard scripts/*),ln -sfFT $(BASEDIR)/$(file) ~/scripts/$(notdir $(file));)
+	@ln -sfFT $(BASEDIR)/projections.json ~/.projections.json
 	@ln -sfFT $(BASEDIR)/lua ~/lua
 	@ln -sfFT $(BASEDIR)/gtkrc-2.0 ~/.gtkrc-2.0
 	@ln -sfFT $(BASEDIR)/nvim ~/.config/nvim
