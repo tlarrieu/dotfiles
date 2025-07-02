@@ -50,6 +50,22 @@ return {
             return ' ' .. project
           end,
         },
+        {
+          function()
+            if not vim.g.test_status then return '' end
+            if vim.g.test_status == 'running' then return '󰙨 → 󰐌' end
+            if vim.g.test_status == 'stopped' then return '󰙨 → ' end
+            if vim.g.test_status == 'success' then return '󰙨 → 󰗠' end
+            if vim.g.test_status == 'failure' then return '󰙨 → 󰅙' end
+          end,
+          color = function()
+            if not vim.g.test_status then return {} end
+            if vim.g.test_status == 'running' then return {} end
+            if vim.g.test_status == 'stopped' then return { fg = 136 } end -- red
+            if vim.g.test_status == 'success' then return { fg = 106 } end -- green
+            if vim.g.test_status == 'failure' then return { fg = 167 } end -- red
+          end,
+        },
         { 'diagnostics' },
       },
       lualine_c = {
@@ -109,7 +125,7 @@ return {
           end
         }
       },
-      lualine_y = { 'searchcount', 'progress' },
+      lualine_y = { 'searchcount', 'progress', 'lsp_status', }
     },
     tabline = {
       lualine_a = {
