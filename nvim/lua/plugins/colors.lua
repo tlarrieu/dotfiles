@@ -74,7 +74,7 @@ return {
       })
     end,
     on_highlights = function(c, _)
-      for kind, icon in pairs({ Error = "", Warn = "", Hint = "", Info = "" }) do
+      for kind, icon in pairs({ Error = "󰅙", Warn = "", Hint = "󰠠", Info = "" }) do
         local hl = "DiagnosticSign" .. kind
         local hl_value = 'Diagnostic' .. kind
         vim.fn.sign_define(hl, { text = icon, texthl = hl_value, numhl = hl_value })
