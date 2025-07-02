@@ -50,27 +50,7 @@ return {
             return ' ' .. project
           end,
         },
-        {
-          function()
-            local icons = { running = '󰐌', stopped = '', success = '󰗠', failure = '󰅙' }
-
-            local icon = icons[vim.g.test_status]
-
-            if not icon then return '' end
-
-            local progress = ''
-            if vim.g.test_progress then progress = ' (' .. vim.g.test_progress .. ')' end
-
-            return '󰙨 → ' .. icon .. progress
-          end,
-          color = function()
-            if not vim.g.test_status then return {} end
-            if vim.g.test_status == 'running' then return {} end
-            if vim.g.test_status == 'stopped' then return { fg = 136 } end -- red
-            if vim.g.test_status == 'success' then return { fg = 106 } end -- green
-            if vim.g.test_status == 'failure' then return { fg = 167 } end -- red
-          end,
-        },
+        require('usr.testbus').lualine,
         { 'diagnostics' },
       },
       lualine_c = {

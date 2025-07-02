@@ -14,45 +14,8 @@ return {
     end,
     open_mapping = '<leader><tab>',
     hide_numbers = true,
-    on_stdout = function(_, _, data)
-      local started = false
-      local success = false
-      local failure = false
-      local stopped = false
-      local progress
-
-      for _, line in ipairs(data) do
-        local match = line:match("%d+/%d+")
-        if match then progress = match end
-
-        if line:find('rspec') then started = true end
-        if line:find('shutting down') then stopped = true end
-        if not stopped then
-          if line:find('0 failures') then
-            success = true
-          elseif line:find('failure') then
-            failure = true
-          end
-        end
-      end
-
-      if not success and not failure and not stopped then
-        vim.g.test_progress = progress
-      end
-
-      if success then
-        vim.g.test_status = 'success'
-      elseif failure then
-        vim.g.test_status = 'failure'
-      elseif started then
-        vim.g.test_status = 'running'
-      elseif stopped then
-        vim.g.test_status = 'stopped'
-      end
-    end,
-    on_exit = function()
-      if vim.g.test_status == 'running' then vim.g.test_status = 'stopped' end
-    end,
+    on_stdout = function(_, _, data) require('usr.testbus').on_stdout(data) end,
+    on_exit = require('usr.testbus').on_exit,
     shade_terminals = false,
     start_in_insert = false,
     insert_mappings = false,
