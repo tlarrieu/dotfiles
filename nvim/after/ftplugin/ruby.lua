@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
 local runner = require('runner')
 
 runner.default({
-  main = runner.term('ruby %', false),
+  main = runner.term('ruby %', { open = false }),
   alt = runner.test.last(),
 })
 

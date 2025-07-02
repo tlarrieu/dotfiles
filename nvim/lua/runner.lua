@@ -13,9 +13,11 @@ end
 
 -- public
 
-_M.term = function(cmd, _open)
-  local open = (_open == nil or _open == true) and 1 or 0
-  return ":TermExec open=" .. open .. " cmd='" .. cmd .. "'<cr>"
+_M.term = function(cmd, opts)
+  opts = opts or {}
+  local open = (opts.open == nil or opts.open == true) and 1 or 0
+  local direction = opts.direction or 'float'
+  return ":TermExec open=" .. open .. " direction=" .. direction .. " cmd='" .. cmd .. "'<cr>"
 end
 
 _M.exec = function(cmd)

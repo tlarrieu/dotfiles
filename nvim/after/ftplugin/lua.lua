@@ -1,12 +1,12 @@
 local runner = require('runner')
 
 runner.default({
-  main = runner.term('lua' .. '%', false),
+  main = runner.term('lua' .. '%', { open = false }),
   alt = runner.term('lua %'),
 })
 
 runner.match({ 'config/awesome/**/*.lua', 'config/awesome/*.lua' }, {
-  main = runner.term('sh' .. vim.fn.expand('~/scripts/awesome-test'), false),
+  main = runner.term('sh' .. vim.fn.expand('~/scripts/awesome-test'), { open = false }),
   alt = runner.term('~/scripts/awesome-test'),
 })
 
