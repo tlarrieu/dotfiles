@@ -1,4 +1,4 @@
----@alias Runner { default: function, shell: function, term: function, exec: function, match: function, test: { nearest: function, file: function, last: function } }
+---@alias Runner { default: function, term: function, exec: function, match: function, test: { nearest: function, file: function, last: function } }
 local _M = {}
 
 -- private
@@ -13,25 +13,9 @@ end
 
 -- public
 
-_M.term = function(cmd)
-  return ":TermExec cmd='" .. cmd .. "'<cr>"
-end
-
--- TODO: make this async
-_M.shell = function(cmd)
-  return function()
-    local res = vim.system(cmd, { text = true }):wait()
-
-    if res.stdout ~= '' then
-      vim.notify(res.stdout)
-    end
-
-    if res.stderr ~= '' then
-      vim.notify(res.stderr, vim.log.levels.ERROR)
-    end
-
-    vim.notify('done.', vim.log.levels.INFO)
-  end
+_M.term = function(cmd, _open)
+  local open = (_open == nil or _open == true) and 1 or 0
+  return ":TermExec open=" .. open .. " cmd='" .. cmd .. "'<cr>"
 end
 
 _M.exec = function(cmd)

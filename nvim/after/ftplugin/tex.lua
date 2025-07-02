@@ -2,6 +2,6 @@ require('utils').autocapitalize({ '*.tex', '*.latex' })
 
 local runner = require('runner')
 runner.default({
-  main = runner.shell({ 'make' }),
-  alt = runner.term('xelatex % -o output.pdf'),
+  main = runner.term('make', false),
+  alt = runner.term('xelatex % -o output.pdf', false),
 })
