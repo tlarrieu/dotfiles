@@ -131,7 +131,8 @@ return {
     <><>
   end
   ]], { i(1, "does something"), sel(), i(0) })),
-  s("exp", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
+  s("e", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
+  s("eb", fmta("expect { <> }.to <>", { i(1, "subject"), i(0) })),
 
   -- debug
   s("sentry", fmta([[
