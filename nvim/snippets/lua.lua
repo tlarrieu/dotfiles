@@ -60,7 +60,8 @@ return {
   rs("(r?s)", fmta([[<>("<>", fmta(<>, {<>})),]], { cap(1), i(1, "expr"), i(2), i(3) })),
 
   -- nvim
-  s("ins", fmta("print(vim.inspect(<><>))", { sel(1), i(1) })),
+  s("n", fmta([[vim.notify(<><>)]], { sel(), i(1) })),
+  s("ins", fmta("vim.inspect(<><>)", { sel(1), i(1) })),
   s("au", fmta([[
     vim.api.nvim_create_autocmd('<>', {
       pattern = { <> },
