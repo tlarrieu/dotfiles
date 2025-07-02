@@ -182,6 +182,7 @@ return {
         ['@variable.parameter.ruby'] = { link = 'Normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
+        ['@operator.ruby'] = { fg = c.mix_fg, bg = c.none },
 
         ['@variable.sql'] = { fg = c.normal, bg = c.none, italic = true },
         ['@variable.member.sql'] = { fg = c.mix_fg, bg = c.none },
