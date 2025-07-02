@@ -52,11 +52,16 @@ return {
         },
         {
           function()
-            if not vim.g.test_status then return '' end
-            if vim.g.test_status == 'running' then return '󰙨 → 󰐌' end
-            if vim.g.test_status == 'stopped' then return '󰙨 → ' end
-            if vim.g.test_status == 'success' then return '󰙨 → 󰗠' end
-            if vim.g.test_status == 'failure' then return '󰙨 → 󰅙' end
+            local icons = { running = '󰐌', stopped = '', success = '󰗠', failure = '󰅙' }
+
+            local icon = icons[vim.g.test_status]
+
+            if not icon then return '' end
+
+            local progress = ''
+            if vim.g.test_progress then progress = ' (' .. vim.g.test_progress .. ')' end
+
+            return '󰙨 → ' .. icon .. progress
           end,
           color = function()
             if not vim.g.test_status then return {} end

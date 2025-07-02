@@ -19,8 +19,12 @@ return {
       local success = false
       local failure = false
       local stopped = false
+      local progress
 
       for _, line in ipairs(data) do
+        local match = line:match("%d+/%d+")
+        if match then progress = match end
+
         if line:find('rspec') then started = true end
         if line:find('shutting down') then stopped = true end
         if not stopped then
@@ -30,6 +34,10 @@ return {
             failure = true
           end
         end
+      end
+
+      if not success and not failure and not stopped then
+        vim.g.test_progress = progress
       end
 
       if success then
