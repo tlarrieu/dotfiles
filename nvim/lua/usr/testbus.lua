@@ -90,12 +90,12 @@ local adapters = {
               break
             end
           end
-          -- TODO: make the diag target only the written portion of the line,
-          -- excluding preceding whitespaces
+
+          local _, col = vim.api.nvim_buf_get_lines(bufnr, anchor, anchor + 1, true)[1]:find('^%s*')
           table.insert(diag, {
             bufnr = bufnr,
             lnum = anchor,
-            col = 0,
+            col = col,
             severity = vim.diagnostic.severity.ERROR,
             message = require('ansi').strip(example.exception.message),
             source = 'rspec',
