@@ -15,15 +15,19 @@ end
 
 _M.term = function(cmd, opts)
   opts = opts or {}
-  local open = (opts.open == nil or opts.open == true) and 1 or 0
-  local direction = opts.direction or 'float'
-  return ":TermExec open=" .. open .. " direction=" .. direction .. " cmd='" .. cmd .. "'<cr>"
+  return function()
+    vim.cmd.TermExec({
+      'open=' .. ((opts.open == nil or opts.open == true) and 1 or 0),
+      'direction="' .. (opts.direction or 'float') .. '"',
+      'cmd="' .. cmd .. '"'
+    })
+  end
 end
 
 _M.test = {
-  nearest = function() return ':TestNearest<cr>' end,
-  file = function() return ':TestFile<cr>' end,
-  last = function() return ':TestLast<cr>' end,
+  nearest = function() return vim.cmd.TestNearest end,
+  file = function() return vim.cmd.TestFile end,
+  last = function() return vim.cmd.TestLast end,
 }
 
 _M.default = function(opts)
