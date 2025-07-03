@@ -72,33 +72,38 @@ local adapters = {
 
     local diag = {}
     local bufnr = vim.g.testbus_bufnr
+    local bufname = vim.api.nvim_buf_get_name(vim.g.testbus_bufnr)
     for _, example in ipairs(json.examples) do
-      local mark = {}
-      local lnum = example.line_number - 1
-      if example.status == 'passed' then
-        mark = { '󰸞 ', '@comment' }
-      else
-        mark = { '󰆤 ', 'DiagnosticError' }
+      if bufname:find(vim.fs.normalize(example.file_path)) then
+        local mark = {}
+        local lnum = example.line_number - 1
+        if example.status == 'passed' then
+          mark = { '󰸞 ', '@comment' }
+        else
+          mark = { '󰆤 ', 'DiagnosticError' }
 
-        local anchor = lnum
-        for _, line in ipairs(example.exception.backtrace) do
-          local match = line:match(example.file_path .. ':(%d+)')
-          if match then
-            anchor = tonumber(match) - 1
-            break
+          local anchor = lnum
+          for _, line in ipairs(example.exception.backtrace) do
+            local match = line:match(example.file_path .. ':(%d+)')
+            if match then
+              anchor = tonumber(match) - 1
+              break
+            end
           end
+          -- TODO: make the diag target only the written portion of the line,
+          -- excluding preceding whitespaces
+          table.insert(diag, {
+            bufnr = bufnr,
+            lnum = anchor,
+            col = 0,
+            severity = vim.diagnostic.severity.ERROR,
+            message = require('ansi').strip(example.exception.message),
+            source = 'rspec',
+            namespace = namespace,
+          })
         end
-        table.insert(diag, {
-          bufnr = bufnr,
-          lnum = anchor,
-          col = 0,
-          severity = vim.diagnostic.severity.ERROR,
-          message = example.exception.message,
-          source = 'rspec',
-          namespace = namespace,
-        })
+        vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, 0, { id = lnum, virt_text = { mark } })
       end
-      vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, 0, { id = lnum, virt_text = { mark } })
     end
     vim.diagnostic.set(namespace, bufnr, diag, {})
   end
