@@ -25,9 +25,9 @@ _M.term = function(cmd, opts)
 end
 
 _M.test = {
-  nearest = function() return vim.cmd.TestNearest end,
-  file = function() return vim.cmd.TestFile end,
-  last = function() return vim.cmd.TestLast end,
+  nearest = function() return require('usr.testbus').run.nearest end,
+  file = function() return require('usr.testbus').run.file end,
+  last = function() return require('usr.testbus').run.last end,
 }
 
 _M.default = function(opts)

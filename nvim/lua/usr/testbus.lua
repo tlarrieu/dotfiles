@@ -41,7 +41,14 @@ local handlers = {
   ruby = adapters.rspec
 }
 
+local run = {
+  nearest = vim.cmd.TestNearest,
+  file = vim.cmd.TestFile,
+  last = vim.cmd.TestLast
+}
+
 return {
+  run = run,
   lualine = {
     function()
       local icons = { running = '󰐌', stopped = '', success = '󰗠', failure = '󰅙' }
