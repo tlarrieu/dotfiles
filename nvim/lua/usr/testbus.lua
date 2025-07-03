@@ -4,11 +4,11 @@ local file = require('file')
 local config = {
   status = {
     running = { id = 'running', icon = '󰐌', color = nil }, -- white
-    cmdline = { id = 'cmdline', icon = '', color = 68 }, -- violet
-    stopped = { id = 'stopped', icon = '', color = 136 }, -- yellow
-    success = { id = 'success', icon = '󰗠', color = 106 }, -- green
-    failure = { id = 'failure', icon = '󰅙', color = 167 }, -- red
-    panic = { id = 'panic', icon = '󰀨', color = 168 }, -- pink
+    cmdline = { id = 'cmdline', icon = '', color = 'DiagnosticHint' }, -- violet
+    stopped = { id = 'stopped', icon = '', color = 'DiagnosticWarn' }, -- yellow
+    success = { id = 'success', icon = '󰗠', color = 'DiagnosticOk' }, -- green
+    failure = { id = 'failure', icon = '󰅙', color = 'DiagnosticError' }, -- red
+    panic = { id = 'panic', icon = '󰀨', color = 'DiagnosticUnnecessary' }, -- pink
   },
   json_path = '/tmp/testbus.json',
 }
@@ -138,7 +138,7 @@ return {
         )
       ) or ''
     end,
-    color = function() return { fg = (config.status[status()] or {}).color } end,
+    color = function() return (config.status[status()] or {}).color end,
   },
   parse = function(data) handlers.ruby(data) end,
   interrupt = function() if is_running() then stop() end end

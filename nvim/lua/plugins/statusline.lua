@@ -50,8 +50,6 @@ return {
             return ' ' .. project
           end,
         },
-        require('usr.testbus').lualine,
-        { 'diagnostics' },
       },
       lualine_c = {
         {
@@ -65,6 +63,8 @@ return {
             -- newfile = '󰎔',
           },
         },
+        require('usr.testbus').lualine,
+        { 'diagnostics' },
         {
           'diff',
           colored = true,
