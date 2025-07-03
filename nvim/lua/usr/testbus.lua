@@ -3,7 +3,7 @@ local file = require('file')
 ---- Configuration -------------------------------------------------------------
 local config = {
   status = {
-    running = { id = 'running', icon = '󰐌', color = 254 }, -- white
+    running = { id = 'running', icon = '󰐌', color = nil }, -- white
     cmdline = { id = 'cmdline', icon = '', color = 68 }, -- violet
     stopped = { id = 'stopped', icon = '', color = 136 }, -- yellow
     success = { id = 'success', icon = '󰗠', color = 106 }, -- green
