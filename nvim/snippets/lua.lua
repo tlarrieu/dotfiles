@@ -51,6 +51,7 @@ return {
 
   -- misc
   s("p", fmta([[print(<><>)]], { sel(), i(1) })),
+  s("pc", fmta([[pcall(function() <><> end)]], { sel(), i(1) })),
 
   -- awesome
   s("dump", fmta("require('gears.debug').dump_return(<>)", { i(0) })),
@@ -61,7 +62,7 @@ return {
 
   -- nvim
   s("n", fmta([[vim.notify(<><>)]], { sel(), i(1) })),
-  s("ins", fmta("vim.inspect(<><>)", { sel(1), i(1) })),
+  s("i", fmta("vim.inspect(<><>)", { sel(1), i(1) })),
   s("au", fmta([[
     vim.api.nvim_create_autocmd('<>', {
       pattern = { <> },
