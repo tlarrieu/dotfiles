@@ -45,6 +45,11 @@ local succeed = function() vim.g.test_status = config.status.success.id end
 local status = function() return vim.g.test_status end
 --------------------------------------------------------------------------------
 
+-- TODO: add support for multiple buffers
+-- Right now we only support the current one, and we expect all examples in result
+-- file to be matching the current one.
+-- This is fine for now, since we only run tests within a single spec file, but it'd
+-- be more robust to be generic.
 local adapters = {
   rspec = function(data)
     if is_done() then return end
