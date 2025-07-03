@@ -60,7 +60,7 @@ return {
       if vim.g.test_status == 'running' then return {} end
       if vim.g.test_status == 'stopped' then return { fg = 136 } end -- red
       if vim.g.test_status == 'success' then return { fg = 106 } end -- green
-      if vim.g.test_status == 'failure' then return { fg = 167 } end -- red
+      if vim.g.test_status == 'failure' then return { fg = 167 } end -- yellow
     end,
   },
   parse = function(stdout) handlers.ruby(stdout) end,
