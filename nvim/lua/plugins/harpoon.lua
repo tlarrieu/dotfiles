@@ -45,7 +45,8 @@ return {
         -- highlight current buffer
         for line_number, file in pairs(cx.contents) do
           if string.find(cx.current_file, file, 1, true) then
-            vim.api.nvim_buf_add_highlight(cx.bufnr, -1, "HarpoonLine", line_number - 1, 0, -1)
+            local ns = vim.api.nvim_create_namespace('Harpoon')
+            vim.hl.range(cx.bufnr, ns, "HarpoonLine", { line_number - 1, 0 }, { line_number - 1, -1 })
             vim.api.nvim_win_set_cursor(cx.win_id, { line_number, 0 })
           end
         end
