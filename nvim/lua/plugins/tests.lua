@@ -13,6 +13,7 @@ return {
       function! ToggleTermBackground(cmd) abort
         execute "TermExec open=0 cmd='".substitute(a:cmd, "'", '"', "g")."'"
       endfunction
+      let test#ruby#rspec#options = '--format=json --out=/tmp/testbus.json --format=progress'
       let g:test#custom_strategies = { 'toggleterm_background': function('ToggleTermBackground') }
       let g:test#strategy = 'toggleterm_background'
     ]]

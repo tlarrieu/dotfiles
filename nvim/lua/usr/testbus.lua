@@ -1,19 +1,28 @@
+local file = require('file')
+local json_path = '/tmp/testbus.json'
+
 local adapters = {
   rspec = function(data)
-    local msg = table.concat(data)
+    if vim.g.test_status ~= 'running' then return end
 
-    if not vim.g.test_status == 'running' then return end
-
-    if msg:find('shutting down') then
+    if table.concat(data):find('shutting down') then
       vim.g.test_status = 'stopped'
-    elseif msg:find('errors? occurred outside') then
+      return
+    end
+
+    vim.notify(vim.inspect(vim.g.test_status))
+
+    local success, json = pcall(function() return vim.json.decode(file.read(json_path)) end)
+
+    if not success then return end
+
+    if json.summary.errors_outside_of_examples_count > 0 then
       vim.g.test_status = 'panic'
-    elseif msg:find('0 failures') then
-      vim.g.test_status = 'success'
-    elseif msg:find('%d failures?') then
-      local match = msg:match('(%d) failures?')
+    elseif json.summary.failure_count > 0 then
       vim.g.test_status = 'failure'
-      vim.g.test_failures = tonumber(match)
+      vim.g.test_failures = json.summary.failure_count
+    else
+      vim.g.test_status = 'success'
     end
   end
 }
@@ -24,6 +33,9 @@ local handlers = {
 
 local wrap = function(fun)
   return function()
+    if vim.g.test_status == 'running' then return end
+
+    file.rm(json_path)
     vim.g.test_status = 'running'
     vim.g.test_failures = nil
     fun()
@@ -37,7 +49,7 @@ local run = {
 }
 
 local config = {
-  running = { icon = '󰐌', color = nil }, -- no color
+  running = { icon = '󰐌', color = 254 }, -- white
   stopped = { icon = '', color = 136 }, -- yellow
   success = { icon = '󰗠', color = 106 }, -- green
   failure = { icon = '󰅙', color = 167 }, -- red
@@ -58,10 +70,6 @@ return {
     end,
     color = function() return { fg = (config[vim.g.test_status] or {}).color } end,
   },
-  parse = function(stdout) handlers.ruby(stdout) end,
-  interrupt = function()
-    if vim.g.test_status ~= 'running' then return end
-
-    vim.g.test_status = 'stopped'
-  end
+  parse = function(data) handlers.ruby(data) end,
+  interrupt = function() if vim.g.test_status == 'running' then vim.g.test_status = 'stopped' end end
 }
