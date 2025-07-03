@@ -12,6 +12,7 @@ local config = {
   },
   json_path = '/tmp/testbus.json',
 }
+local namespace = vim.api.nvim_create_namespace('testbus')
 --------------------------------------------------------------------------------
 
 ---- State management ----------------------------------------------------------
@@ -25,6 +26,9 @@ local is_done = function() return not is_running() end
 local start = function()
   if is_running() then return false end
   file.rm(config.json_path)
+  vim.diagnostic.set(namespace, 0, {}, {})
+  vim.g.test_bufnr = vim.api.nvim_get_current_buf()
+  vim.api.nvim_buf_clear_namespace(vim.g.test_bufnr, namespace, 0, -1)
   vim.g.test_status = config.status.running.id
   vim.g.test_failures = nil
   return true
@@ -60,6 +64,38 @@ local adapters = {
     else
       succeed()
     end
+
+    local diag = {}
+    local bufnr = vim.g.test_bufnr
+    for _, example in ipairs(json.examples) do
+      local mark = {}
+      local lnum = example.line_number - 1
+      if example.status == 'passed' then
+        mark = { '󰸞 ', '@comment' }
+      else
+        mark = { '󰆤 ', 'DiagnosticError' }
+
+        local anchor = lnum
+        for _, line in ipairs(example.exception.backtrace) do
+          local match = line:match(example.file_path .. ':(%d+)')
+          if match then
+            anchor = tonumber(match) - 1
+            break
+          end
+        end
+        table.insert(diag, {
+          bufnr = bufnr,
+          lnum = anchor,
+          col = 0,
+          severity = vim.diagnostic.severity.ERROR,
+          message = example.exception.message,
+          source = 'rspec',
+          namespace = namespace,
+        })
+      end
+      vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, 0, { id = lnum, virt_text = { mark } })
+    end
+    vim.diagnostic.set(namespace, bufnr, diag, {})
   end
 }
 
