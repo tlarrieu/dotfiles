@@ -16,10 +16,10 @@ local namespace = vim.api.nvim_create_namespace('testbus')
 --------------------------------------------------------------------------------
 
 ---- State management ----------------------------------------------------------
-local has_run = function() return vim.g.test_status ~= nil end
+local has_run = function() return vim.g.testbus_status ~= nil end
 local is_running = function()
-  return vim.g.test_status == config.status.running.id
-      or vim.g.test_status == config.status.cmdline.id
+  return vim.g.testbus_status == config.status.running.id
+      or vim.g.testbus_status == config.status.cmdline.id
 end
 local is_done = function() return not is_running() end
 
@@ -27,22 +27,22 @@ local start = function()
   if is_running() then return false end
   file.rm(config.json_path)
   vim.diagnostic.set(namespace, 0, {}, {})
-  vim.g.test_bufnr = vim.api.nvim_get_current_buf()
-  vim.api.nvim_buf_clear_namespace(vim.g.test_bufnr, namespace, 0, -1)
-  vim.g.test_status = config.status.running.id
-  vim.g.test_failures = nil
+  vim.g.testbus_bufnr = vim.api.nvim_get_current_buf()
+  vim.api.nvim_buf_clear_namespace(vim.g.testbus_bufnr, namespace, 0, -1)
+  vim.g.testbus_status = config.status.running.id
+  vim.g.testbus_failures = nil
   return true
 end
-local cmdline = function() vim.g.test_status = config.status.cmdline.id end
-local stop = function() vim.g.test_status = config.status.stopped.id end
-local panic = function() vim.g.test_status = config.status.panic.id end
+local cmdline = function() vim.g.testbus_status = config.status.cmdline.id end
+local stop = function() vim.g.testbus_status = config.status.stopped.id end
+local panic = function() vim.g.testbus_status = config.status.panic.id end
 local fail = function(count)
-  vim.g.test_status = config.status.failure.id
-  vim.g.test_failures = count
+  vim.g.testbus_status = config.status.failure.id
+  vim.g.testbus_failures = count
 end
-local succeed = function() vim.g.test_status = config.status.success.id end
+local succeed = function() vim.g.testbus_status = config.status.success.id end
 
-local status = function() return vim.g.test_status end
+local status = function() return vim.g.testbus_status end
 --------------------------------------------------------------------------------
 
 -- TODO: add support for multiple buffers
@@ -71,7 +71,7 @@ local adapters = {
     end
 
     local diag = {}
-    local bufnr = vim.g.test_bufnr
+    local bufnr = vim.g.testbus_bufnr
     for _, example in ipairs(json.examples) do
       local mark = {}
       local lnum = example.line_number - 1
@@ -122,8 +122,8 @@ return {
     function()
       return has_run() and (
         '󰙨 → ' .. (
-          vim.g.test_failures
-          and require('glyphs').number(vim.g.test_failures)
+          vim.g.testbus_failures
+          and require('glyphs').number(vim.g.testbus_failures)
           or (config.status[status()] or {}).icon
         )
       ) or ''
