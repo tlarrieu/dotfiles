@@ -50,6 +50,8 @@ local status = function() return vim.g.testbus_status end
 -- the current one.
 -- This is fine for now, since we only run tests within a single spec file, but it'd
 -- be more robust to be generic.
+-- TODO: find a way to mark shared examples that fail, they do not seem to appear in
+-- the JSON output though, sadly
 local adapters = {
   rspec = function(data)
     if is_done() then return end
