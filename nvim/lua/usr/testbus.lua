@@ -1,38 +1,19 @@
 local adapters = {
   rspec = function(data)
-    local started = false
-    local success = false
-    local failure = false
-    local stopped = false
-    local progress
+    local msg = table.concat(data)
 
-    for _, line in ipairs(data) do
-      local match = line:match("%d+/%d+")
-      if match then progress = match end
+    if not vim.g.test_status == 'running' then return end
 
-      if line:find('rspec') then started = true end
-      if line:find('shutting down') then stopped = true end
-      if not stopped then
-        if line:find('0 failures') then
-          success = true
-        elseif line:find('failure') then
-          failure = true
-        end
-      end
-    end
-
-    if not success and not failure and not stopped then
-      vim.g.test_progress = progress
-    end
-
-    if success then
-      vim.g.test_status = 'success'
-    elseif failure then
-      vim.g.test_status = 'failure'
-    elseif started then
-      vim.g.test_status = 'running'
-    elseif stopped then
+    if msg:find('shutting down') then
       vim.g.test_status = 'stopped'
+    elseif msg:find('errors? occurred outside') then
+      vim.g.test_status = 'panic'
+    elseif msg:find('0 failures') then
+      vim.g.test_status = 'success'
+    elseif msg:find('%d failures?') then
+      local match = msg:match('(%d) failures?')
+      vim.g.test_status = 'failure'
+      vim.g.test_failures = match
     end
   end
 }
@@ -41,34 +22,40 @@ local handlers = {
   ruby = adapters.rspec
 }
 
+local wrap = function(fun)
+  return function()
+    vim.g.test_status = 'running'
+    vim.g.test_failures = nil
+    fun()
+  end
+end
+
 local run = {
-  nearest = vim.cmd.TestNearest,
-  file = vim.cmd.TestFile,
-  last = vim.cmd.TestLast
+  nearest = wrap(vim.cmd.TestNearest),
+  file = wrap(vim.cmd.TestFile),
+  last = wrap(vim.cmd.TestLast)
+}
+
+local config = {
+  running = { icon = '󰐌', color = nil }, -- no color
+  stopped = { icon = '', color = 136 }, -- yellow
+  success = { icon = '󰗠', color = 106 }, -- green
+  failure = { icon = '󰅙', color = 167 }, -- red
+  panic   = { icon = '󰀨', color = 168 }, -- pink
 }
 
 return {
   run = run,
   lualine = {
     function()
-      local icons = { running = '󰐌', stopped = '', success = '󰗠', failure = '󰅙' }
+      if not vim.g.test_status then return '' end
 
-      local icon = icons[vim.g.test_status]
+      local icon = (config[vim.g.test_status] or {}).icon
+      local errors = vim.g.test_failures and (' ' .. vim.g.test_failures) or ''
 
-      if not icon then return '' end
-
-      local progress = ''
-      if vim.g.test_progress then progress = ' (' .. vim.g.test_progress .. ')' end
-
-      return '󰙨 → ' .. icon .. progress
+      return '󰙨 → ' .. icon .. errors
     end,
-    color = function()
-      if not vim.g.test_status then return {} end
-      if vim.g.test_status == 'running' then return {} end
-      if vim.g.test_status == 'stopped' then return { fg = 136 } end -- red
-      if vim.g.test_status == 'success' then return { fg = 106 } end -- green
-      if vim.g.test_status == 'failure' then return { fg = 167 } end -- yellow
-    end,
+    color = function() return { fg = (config[vim.g.test_status] or {}).color } end,
   },
   parse = function(stdout) handlers.ruby(stdout) end,
   interrupt = function()
