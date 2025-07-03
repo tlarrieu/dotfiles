@@ -4,6 +4,7 @@ local file = require('file')
 local config = {
   status = {
     running = { id = 'running', icon = '󰐌', color = 254 }, -- white
+    cmdline = { id = 'cmdline', icon = '', color = 68 }, -- violet
     stopped = { id = 'stopped', icon = '', color = 136 }, -- yellow
     success = { id = 'success', icon = '󰗠', color = 106 }, -- green
     failure = { id = 'failure', icon = '󰅙', color = 167 }, -- red
@@ -15,7 +16,10 @@ local config = {
 
 ---- State management ----------------------------------------------------------
 local has_run = function() return vim.g.test_status ~= nil end
-local is_running = function() return vim.g.test_status == config.status.running.id end
+local is_running = function()
+  return vim.g.test_status == config.status.running.id
+      or vim.g.test_status == config.status.cmdline.id
+end
 local is_done = function() return not is_running() end
 
 local start = function()
@@ -25,6 +29,7 @@ local start = function()
   vim.g.test_failures = nil
   return true
 end
+local cmdline = function() vim.g.test_status = config.status.cmdline.id end
 local stop = function() vim.g.test_status = config.status.stopped.id end
 local panic = function() vim.g.test_status = config.status.panic.id end
 local fail = function(count)
@@ -40,7 +45,9 @@ local adapters = {
   rspec = function(data)
     if is_done() then return end
 
-    if table.concat(data):find('shutting down') then return stop() end
+    local stdout = table.concat(data)
+    if stdout:find('shutting down') then return stop() end
+    if stdout:find('pry') then return cmdline() end
 
     local success, json = pcall(function() return vim.json.decode(file.read(config.json_path)) end)
 
