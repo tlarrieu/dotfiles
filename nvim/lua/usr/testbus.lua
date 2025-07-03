@@ -75,12 +75,12 @@ local adapters = {
     local bufname = vim.api.nvim_buf_get_name(vim.g.testbus_bufnr)
     for _, example in ipairs(json.examples) do
       if bufname:find(vim.fs.normalize(example.file_path)) then
-        local mark = {}
+        local outcome = {}
         local lnum = example.line_number - 1
         if example.status == 'passed' then
-          mark = { '󰸞 ', '@comment' }
+          outcome = { ' ✔ ', 'DiagnosticPass' }
         else
-          mark = { '󰆤 ', 'DiagnosticError' }
+          outcome = { ' ✖ ', 'DiagnosticFail' }
 
           local anchor = lnum
           for _, line in ipairs(example.exception.backtrace) do
@@ -102,10 +102,13 @@ local adapters = {
             namespace = namespace,
           })
         end
-        vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, 0, { id = lnum, virt_text = { mark } })
+
+        local _, col = vim.api.nvim_buf_get_lines(bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
+        local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { outcome, { ' ', 'Normal' } } }
+        vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, col, mark)
       end
     end
-    vim.diagnostic.set(namespace, bufnr, diag, {})
+    vim.diagnostic.set(namespace, bufnr, diag, { virtual_lines = true, virtual_text = false, underline = false })
   end
 }
 
