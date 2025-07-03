@@ -13,7 +13,7 @@ local adapters = {
     elseif msg:find('%d failures?') then
       local match = msg:match('(%d) failures?')
       vim.g.test_status = 'failure'
-      vim.g.test_failures = match
+      vim.g.test_failures = tonumber(match)
     end
   end
 }
@@ -50,10 +50,11 @@ return {
     function()
       if not vim.g.test_status then return '' end
 
-      local icon = (config[vim.g.test_status] or {}).icon
-      local errors = vim.g.test_failures and (' ' .. vim.g.test_failures) or ''
-
-      return '󰙨 → ' .. icon .. errors
+      return '󰙨 → ' .. (
+        vim.g.test_failures
+        and require('glyphs').number(vim.g.test_failures)
+        or (config[vim.g.test_status] or {}).icon
+      )
     end,
     color = function() return { fg = (config[vim.g.test_status] or {}).color } end,
   },

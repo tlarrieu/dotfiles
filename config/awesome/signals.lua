@@ -29,7 +29,7 @@ local update_icon = function(tag)
   local ys = {}
   for k in pairs(xs) do table.insert(ys, k) end
 
-  tag.name = require('glyphs').number(tag.index) .. table.concat(ys, ' ') .. ' '
+  tag.name = require('glyphs').number(tag.index) .. ' ' .. table.concat(ys, ' ') .. ' '
 end
 
 local handle = function(object)
