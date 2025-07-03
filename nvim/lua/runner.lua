@@ -1,4 +1,4 @@
----@alias Runner { default: function, term: function, exec: function, match: function, test: { nearest: function, file: function, last: function } }
+---@alias Runner { default: function, term: function, match: function, test: { nearest: function, file: function, last: function } }
 local _M = {}
 
 -- private
@@ -18,10 +18,6 @@ _M.term = function(cmd, opts)
   local open = (opts.open == nil or opts.open == true) and 1 or 0
   local direction = opts.direction or 'float'
   return ":TermExec open=" .. open .. " direction=" .. direction .. " cmd='" .. cmd .. "'<cr>"
-end
-
-_M.exec = function(cmd)
-  return ':' .. cmd .. '<cr>'
 end
 
 _M.test = {

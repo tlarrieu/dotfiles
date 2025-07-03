@@ -1,2 +1,2 @@
 local runner = require('runner')
-runner.default({ main = runner.exec(":call jobstart('xrdb ~/.Xresources')") })
+runner.default({ main = runner.term("xrdb ~/.Xresources", { open = false }) })
