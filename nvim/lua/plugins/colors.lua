@@ -333,7 +333,7 @@ return {
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
 
-        MarkSignHL = paint('violet'),
+        MarkSignHL = { fg = c.mix_fg, bg = c.mix_bg },
         MarkSignNumHL = { link = 'MarkSignHL' },
 
         GitSignsAdd = paint('green'),
@@ -362,7 +362,7 @@ return {
         GitSignsStagedChangeDelete = { link = 'GitSignsStagedChange' },
         GitSignsStagedChangeDeleteNr = { link = 'GitSignsStagedChangeNr' },
         GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
-        GitSignsCurrentLineBlame = { fg = c.blue, bg = c.mix_bg, underline = true },
+        GitSignsCurrentLineBlame = { fg = c.mix_fg, bg = c.mix_bg, underline = true, italic = true },
 
         fugitiveHeading = { link = 'Include' },
         fugitiveStagedHeading = { fg = c.green },

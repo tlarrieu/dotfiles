@@ -5,6 +5,8 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
 -- Marks
 vim.keymap.set('n', "'", '`')
 vim.keymap.set('n', '`', "'")
+vim.keymap.set('n', 'Þ', "m]", { remap = true })
+vim.keymap.set('n', 'ẞ', "m[", { remap = true })
 vim.keymap.set('i', '<c-cr>', '<esc>o')
 -- Split lines
 vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
@@ -168,8 +170,8 @@ vim.keymap.set('n', '<leader>(', ':cc4<cr>', { silent = true })
 vim.keymap.set('n', '<leader>)', ':cc5<cr>', { silent = true })
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
-vim.keymap.set('n', 'Þ', function() vim.diagnostic.jump({ count = 1 }) end)
-vim.keymap.set('n', 'ẞ', function() vim.diagnostic.jump({ count = -1 }) end)
+vim.keymap.set('n', '<c-þ>', function() vim.diagnostic.jump({ count = 1 }) end)
+vim.keymap.set('n', '<c-ß>', function() vim.diagnostic.jump({ count = -1 }) end)
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')

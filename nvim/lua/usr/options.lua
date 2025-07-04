@@ -44,7 +44,7 @@ vim.opt.showbreak = '↪ '
 -- update time
 vim.opt.updatetime = 250
 -- signcolumn
-vim.opt.signcolumn = 'auto:1-2'
+vim.opt.signcolumn = 'yes:1'
 -- }}}
 
 -- {{{ ==| Statusline |=========================================================

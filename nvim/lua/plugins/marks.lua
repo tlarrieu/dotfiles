@@ -8,7 +8,7 @@ return {
     cyclic = true,
     force_write_shada = true,
     refresh_interval = 150,
-    sign_priority = { lower = 10, upper = 15, builtin = 100, bookmark = 20 },
+    sign_priority = { lower = 0, upper = 15, builtin = 100, bookmark = 20 },
     excluded_filetypes = { 'harpoon', '', 'lazy', 'notify', 'TelescopePrompt' },
     bookmark_0 = {
       sign = '󰈾',
