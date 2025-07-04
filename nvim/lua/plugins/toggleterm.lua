@@ -23,7 +23,7 @@ return {
     persist_size = false,
     persist_mode = true,
     close_on_exit = false,
-    shell = vim.o.shell,
+    shell = '/usr/bin/fish',
     auto_scroll = false,
     float_opts = {
       border = 'single',   -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open

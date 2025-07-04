@@ -24,6 +24,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = { '*.journal' },
-  command = runner.term('fish -c "ft now"', { open = true, direction = 'vertical' }),
+  callback = runner.term('ft now', { open = true, direction = 'vertical' }),
   group = group
 })
