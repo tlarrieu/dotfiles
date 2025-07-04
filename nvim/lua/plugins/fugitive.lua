@@ -6,6 +6,7 @@ return {
   },
   cmd = { 'Git', 'Gvdiff', 'GV' },
   keys = {
+    { '<leader>gW',  ':Git add .<cr>',                            desc = 'Git add .',                    silent = true },
     { '<leader>ga',  ':Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit', silent = true },
     { '<leader>gA',  ':Git commit --quiet --amend<cr>',           desc = 'Git commit --amend',           silent = true },
     { '<leader>gc',  ':Git commit --quiet<cr>',                   desc = 'Git commit',                   silent = true },
