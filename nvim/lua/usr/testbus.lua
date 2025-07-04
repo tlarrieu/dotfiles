@@ -50,8 +50,6 @@ local status = function() return vim.g.testbus_status end
 -- the current one.
 -- This is fine for now, since we only run tests within a single spec file, but it'd
 -- be more robust to be generic.
--- TODO: find a way to mark shared examples that fail, they do not seem to appear in
--- the JSON output though, sadly
 local adapters = {
   rspec = function(data)
     if is_done() then return end
@@ -76,9 +74,10 @@ local adapters = {
     local bufnr = vim.g.testbus_bufnr
     local bufname = vim.api.nvim_buf_get_name(vim.g.testbus_bufnr)
     for _, example in ipairs(json.examples) do
-      if bufname:find(vim.fs.normalize(example.file_path)) then
+      local file_path = (example.included_from or {}).file_path or example.file_path
+      if bufname:find(vim.fs.normalize(file_path)) then
         local outcome = {}
-        local lnum = example.line_number - 1
+        local lnum = ((example.included_from or {}).line_number or example.line_number) - 1
         if example.status == 'passed' then
           outcome = { ' ✔ ', 'DiagnosticPass' }
         else
@@ -86,7 +85,7 @@ local adapters = {
 
           local anchor = lnum
           for _, line in ipairs(example.exception.backtrace) do
-            local match = line:match(example.file_path .. ':(%d+)')
+            local match = line:match(file_path .. ':(%d+)')
             if match then
               anchor = tonumber(match) - 1
               break
