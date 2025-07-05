@@ -51,22 +51,45 @@ local succeed = function() vim.g.testbus_status = config.status.success.id end
 local status = function() return vim.g.testbus_status end
 --------------------------------------------------------------------------------
 
+---- Drawer --------------------------------------------------------------------
+---@enum Outcome
+Outcome = {
+  PASSED = 'passed',
+  FAILED = 'failed',
+  MIXED = 'mixed',
+}
+---@class State
+---@field bufnr integer
+---@field outcomes table<string, Outcome>
+---@field diag table<vim.Diagnostic>
+---@param state State
+local draw = function(state)
+  for lnum, outcome in pairs(state.outcomes) do
+    local _, col = vim.api.nvim_buf_get_lines(state.bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
+    local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config.markers[outcome]), { ' ', 'Normal' } } }
+    vim.api.nvim_buf_set_extmark(state.bufnr, namespace, lnum, col, mark)
+  end
+  vim.diagnostic.set(namespace, state.bufnr, state.diag, config['diagnostics'])
+end
+--------------------------------------------------------------------------------
+
 -- TODO: add support for multiple buffers
 -- Right now we only support the current one, and ignore files not matching
 -- the current one.
 -- This is fine for now, since we only run tests within a single spec file, but it'd
 -- be more robust to be generic.
 local adapters = {
+  ---@param data string
   rspec = function(data)
-    if is_done() then return end
+    if is_done() then return false end
 
     local stdout = table.concat(data)
-    if stdout:find('shutting down') then return stop() end
-    if stdout:find('pry') then return cmdline() end
+    if stdout:find('shutting down') then return false, stop() end
+    if stdout:find('pry') then return false, cmdline() end
 
     local success, json = pcall(function() return vim.json.decode(file.read(config.json_path)) end)
 
-    if not success then return end
+    if not success then return false end
 
     if json.summary.errors_outside_of_examples_count > 0 then
       panic()
@@ -86,7 +109,7 @@ local adapters = {
       if bufname:find(vim.fs.normalize(file_path)) then
         local lnum = (example.included_from.line_number or example.line_number) - 1
 
-        outcomes[lnum] = (outcomes[lnum] == nil or outcomes[lnum] == example.status) and example.status or 'mixed'
+        outcomes[lnum] = (outcomes[lnum] == nil or outcomes[lnum] == example.status) and example.status or Outcome.MIXED
 
         if example.status == 'failed' then
           local anchor = lnum
@@ -114,12 +137,7 @@ local adapters = {
       end
     end
 
-    for lnum, outcome in pairs(outcomes) do
-      local _, col = vim.api.nvim_buf_get_lines(bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
-      local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config['markers'][outcome]), { ' ', 'Normal' } } }
-      vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, col, mark)
-    end
-    vim.diagnostic.set(namespace, bufnr, diag, config['diagnostics'])
+    return true, { bufnr = bufnr, outcomes = outcomes, diag = diag }
   end
 }
 
@@ -149,7 +167,10 @@ return {
     end,
     color = function() return (config.status[status()] or {}).color end,
   },
-  redraw = function(data) handlers.ruby(data) end,
+  redraw = function(data)
+    local success, state = handlers.ruby(data)
+    if success then draw(state) end
+  end,
   interrupt = function() if is_running() then stop() end end
 }
 --------------------------------------------------------------------------------
