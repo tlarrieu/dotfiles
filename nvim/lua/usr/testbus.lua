@@ -79,9 +79,9 @@ local adapters = {
         local outcome = {}
         local lnum = (example.included_from.line_number or example.line_number) - 1
         if example.status == 'passed' then
-          outcome = { ' ✔ ', 'DiagnosticPass' }
+          outcome = { ' ✔ ', 'DiagnosticPass' }
         else
-          outcome = { ' ✖ ', 'DiagnosticFail' }
+          outcome = { ' ✘ ', 'DiagnosticFail' }
 
           local anchor = lnum
           if not example.included_from.line_number then
