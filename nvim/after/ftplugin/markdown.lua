@@ -3,7 +3,7 @@ local o = vim.opt_local
 o.formatoptions = o.formatoptions + 't'
 o.foldlevel = 10
 o.foldlevelstart = 10
-o.spell = true
+o.spell = vim.bo.buftype ~= 'nofile'
 o.shiftwidth = 2
 
 local runner = require('runner')

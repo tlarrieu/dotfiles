@@ -176,8 +176,13 @@ return {
 
         ['@variable.parameter.fish'] = { fg = c.violet },
 
-        ['@variable.member.lua'] = { link = 'Normal' },
-        ['@variable.parameter.lua'] = { link = 'Normal' },
+        ['@variable.member.lua'] = { link = '@normal' },
+        ['@variable.parameter.lua'] = { link = '@normal' },
+        ['@keyword.luadoc'] = { link = '@constant' },
+        ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
+        ['@variable.member.luadoc'] = { link = '@comment' },
+        ['@variable.parameter.luadoc'] = { link = '@comment' },
+        ['@function.macro.luadoc'] = { link = '@type' },
 
         ['@variable.parameter.ruby'] = { link = 'Normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
