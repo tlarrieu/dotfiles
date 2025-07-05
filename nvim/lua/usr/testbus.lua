@@ -149,7 +149,7 @@ return {
     end,
     color = function() return (config.status[status()] or {}).color end,
   },
-  parse = function(data) handlers.ruby(data) end,
+  redraw = function(data) handlers.ruby(data) end,
   interrupt = function() if is_running() then stop() end end
 }
 --------------------------------------------------------------------------------

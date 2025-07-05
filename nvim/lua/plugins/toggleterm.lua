@@ -14,7 +14,7 @@ return {
     end,
     open_mapping = '<leader><tab>',
     hide_numbers = true,
-    on_stdout = function(_, _, data) require('usr.testbus').parse(data) end,
+    on_stdout = function(_, _, data) require('usr.testbus').redraw(data) end,
     on_exit = require('usr.testbus').interrupt,
     shade_terminals = false,
     start_in_insert = false,
