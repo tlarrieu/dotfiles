@@ -256,6 +256,7 @@ return {
         DiagnosticUnderlineHint = paint('violet', { underline = false }),
 
         DiagnosticPass = { fg = c.green, bg = c.mix_green, italic = true },
+        DiagnosticMixed = { fg = c.yellow, bg = c.mix_yellow, italic = true },
         DiagnosticFail = { fg = c.red, bg = c.mix_red, italic = true },
 
         DiffAdd = paint('green', { reverse = false }),

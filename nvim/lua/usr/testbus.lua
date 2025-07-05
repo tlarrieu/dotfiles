@@ -10,6 +10,11 @@ local config = {
     failure = { id = 'failure', icon = '󰅙', color = 'DiagnosticError' }, -- red
     panic = { id = 'panic', icon = '󰀨', color = 'DiagnosticUnnecessary' }, -- pink
   },
+  markers = {
+    passed = { ' ✔ ', 'DiagnosticPass' },
+    mixed  = { ' ✘ ', 'DiagnosticMixed' },
+    failed = { ' ✘ ', 'DiagnosticFail' },
+  },
   json_path = '/tmp/testbus.json',
 }
 local namespace = vim.api.nvim_create_namespace('testbus')
@@ -71,18 +76,18 @@ local adapters = {
     end
 
     local diag = {}
+    local outcomes = {}
     local bufnr = vim.g.testbus_bufnr
-    local bufname = vim.api.nvim_buf_get_name(vim.g.testbus_bufnr)
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+
     for _, example in ipairs(json.examples) do
       local file_path = example.included_from.file_path or example.file_path
       if bufname:find(vim.fs.normalize(file_path)) then
-        local outcome = {}
         local lnum = (example.included_from.line_number or example.line_number) - 1
-        if example.status == 'passed' then
-          outcome = { ' ✔ ', 'DiagnosticPass' }
-        else
-          outcome = { ' ✘ ', 'DiagnosticFail' }
 
+        outcomes[lnum] = (outcomes[lnum] == nil or outcomes[lnum] == example.status) and example.status or 'mixed'
+
+        if example.status == 'failed' then
           local anchor = lnum
           if not example.included_from.line_number then
             for _, line in ipairs(example.exception.backtrace) do
@@ -105,11 +110,13 @@ local adapters = {
             namespace = namespace,
           })
         end
-
-        local _, col = vim.api.nvim_buf_get_lines(bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
-        local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { outcome, { ' ', 'Normal' } } }
-        vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, col, mark)
       end
+    end
+
+    for lnum, outcome in pairs(outcomes) do
+      local _, col = vim.api.nvim_buf_get_lines(bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
+      local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config['markers'][outcome]), { ' ', 'Normal' } } }
+      vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, col, mark)
     end
     vim.diagnostic.set(namespace, bufnr, diag, { virtual_lines = true, virtual_text = false, underline = false })
   end
