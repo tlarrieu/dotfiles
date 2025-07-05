@@ -74,21 +74,23 @@ local adapters = {
     local bufnr = vim.g.testbus_bufnr
     local bufname = vim.api.nvim_buf_get_name(vim.g.testbus_bufnr)
     for _, example in ipairs(json.examples) do
-      local file_path = (example.included_from or {}).file_path or example.file_path
+      local file_path = example.included_from.file_path or example.file_path
       if bufname:find(vim.fs.normalize(file_path)) then
         local outcome = {}
-        local lnum = ((example.included_from or {}).line_number or example.line_number) - 1
+        local lnum = (example.included_from.line_number or example.line_number) - 1
         if example.status == 'passed' then
           outcome = { ' ✔ ', 'DiagnosticPass' }
         else
           outcome = { ' ✖ ', 'DiagnosticFail' }
 
           local anchor = lnum
-          for _, line in ipairs(example.exception.backtrace) do
-            local match = line:match(file_path .. ':(%d+)')
-            if match then
-              anchor = tonumber(match) - 1
-              break
+          if not example.included_from.line_number then
+            for _, line in ipairs(example.exception.backtrace) do
+              local match = line:match(file_path .. ':(%d+)')
+              if match then
+                anchor = tonumber(match) - 1
+                break
+              end
             end
           end
 
