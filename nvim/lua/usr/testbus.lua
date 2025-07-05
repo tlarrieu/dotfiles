@@ -15,6 +15,7 @@ local config = {
     mixed  = { ' ✘ ', 'DiagnosticMixed' },
     failed = { ' ✘ ', 'DiagnosticFail' },
   },
+  diagnostics = { virtual_lines = true, virtual_text = false, underline = false },
   json_path = '/tmp/testbus.json',
 }
 local namespace = vim.api.nvim_create_namespace('testbus')
@@ -118,7 +119,7 @@ local adapters = {
       local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config['markers'][outcome]), { ' ', 'Normal' } } }
       vim.api.nvim_buf_set_extmark(bufnr, namespace, lnum, col, mark)
     end
-    vim.diagnostic.set(namespace, bufnr, diag, { virtual_lines = true, virtual_text = false, underline = false })
+    vim.diagnostic.set(namespace, bufnr, diag, config['diagnostics'])
   end
 }
 
