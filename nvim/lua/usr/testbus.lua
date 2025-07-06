@@ -69,7 +69,7 @@ local draw = function(state)
     local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config.markers[outcome]), { ' ', 'Normal' } } }
     vim.api.nvim_buf_set_extmark(state.bufnr, namespace, lnum, col, mark)
   end
-  vim.diagnostic.set(namespace, state.bufnr, state.diag, config['diagnostics'])
+  vim.diagnostic.set(namespace, state.bufnr, state.diag, config.diagnostics)
 end
 --------------------------------------------------------------------------------
 
