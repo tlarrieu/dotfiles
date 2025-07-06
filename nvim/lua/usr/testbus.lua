@@ -1,4 +1,6 @@
 local file = require('file')
+local ansi = require('ansi')
+local glyphs = require('glyphs')
 
 ---- Configuration -------------------------------------------------------------
 local config = {
@@ -129,7 +131,7 @@ local adapters = {
             lnum = anchor,
             col = col,
             severity = vim.diagnostic.severity.ERROR,
-            message = require('ansi').strip(example.exception.message),
+            message = ansi.strip(example.exception.message),
             source = 'rspec',
             namespace = namespace,
           })
@@ -160,7 +162,7 @@ return {
       return has_run() and (
         '󰙨 → ' .. (
           vim.g.testbus_failures
-          and require('glyphs').number(vim.g.testbus_failures)
+          and glyphs.number(vim.g.testbus_failures)
           or (config.status[status()] or {}).icon
         )
       ) or ''
