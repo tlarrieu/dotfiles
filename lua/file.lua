@@ -1,4 +1,3 @@
----@alias File { read: function, rm: function, equal: function }
 local _M = {}
 
 _M.read = function(path)

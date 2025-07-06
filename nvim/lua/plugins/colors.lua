@@ -179,6 +179,7 @@ return {
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.luadoc'] = { link = '@constant' },
+        ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
         ['@variable.member.luadoc'] = { link = '@comment' },
         ['@variable.parameter.luadoc'] = { link = '@comment' },

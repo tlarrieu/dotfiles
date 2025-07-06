@@ -59,10 +59,10 @@ Outcome = {
   MIXED = 'mixed',
 }
 ---@class State
----@field bufnr integer
----@field outcomes table<string, Outcome>
----@field diag table<vim.Diagnostic>
----@param state State
+---@field bufnr integer buffer number to update
+---@field outcomes table<string, Outcome> list of outcomes, indexed by line number
+---@field diag table<vim.Diagnostic> list of diagnostics with errors
+---@param state State the state to be drawn
 local draw = function(state)
   for lnum, outcome in pairs(state.outcomes) do
     local _, col = vim.api.nvim_buf_get_lines(state.bufnr, lnum, lnum + 1, true)[1]:find('^%s*')
@@ -79,7 +79,7 @@ end
 -- This is fine for now, since we only run tests within a single spec file, but it'd
 -- be more robust to be generic.
 local adapters = {
-  ---@param data string
+  ---@param data string stdout from running job
   rspec = function(data)
     if is_done() then return false end
 
