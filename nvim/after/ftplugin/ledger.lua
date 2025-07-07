@@ -10,8 +10,8 @@ vim.keymap.set('n', '<c-cr>', 'o<c-u>', { remap = true, buffer = true })
 
 local runner = require('runner')
 runner.default({
-  main = runner.term('fish -c "ft now"'),
-  alt = runner.term('fish -c "ft up"'),
+  main = runner.term('ft now', { open = true, direction = 'float' }),
+  alt = runner.term('ft up', { open = true, direction = 'float' }),
 })
 
 local group = vim.api.nvim_create_augroup('ledger_after_save', {})
