@@ -3,6 +3,7 @@ return {
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'lewis6991/gitsigns.nvim',
+    'tlarrieu/testbus',
   },
   lazy = false,
   opts = {
@@ -63,7 +64,10 @@ return {
             -- newfile = '󰎔',
           },
         },
-        require('usr.testbus').lualine,
+        {
+          function() return require('testbus').statusline.icon() end,
+          color = function() return require('testbus').statusline.color() end
+        },
         { 'diagnostics' },
         {
           'diff',

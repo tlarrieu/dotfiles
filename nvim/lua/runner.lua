@@ -25,9 +25,9 @@ _M.term = function(cmd, opts)
 end
 
 _M.test = {
-  nearest = function() return require('usr.testbus').run.nearest end,
-  file = function() return require('usr.testbus').run.file end,
-  last = function() return require('usr.testbus').run.last end,
+  nearest = function() return require('testbus').run.nearest end,
+  file = function() return require('testbus').run.file end,
+  last = function() return require('testbus').run.last end,
 }
 
 _M.default = function(opts)

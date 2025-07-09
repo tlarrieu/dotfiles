@@ -1,5 +1,6 @@
 return {
   'akinsho/toggleterm.nvim',
+  dependencies = { 'tlarrieu/testbus' },
   version = '*',
   cmd = 'TermExec',
   opts = {
@@ -14,8 +15,8 @@ return {
     end,
     open_mapping = '<leader><tab>',
     hide_numbers = true,
-    on_stdout = function(_, _, data) require('usr.testbus').redraw(data) end,
-    on_exit = require('usr.testbus').interrupt,
+    on_stdout = function(_, _, data) require('testbus').redraw(data) end,
+    on_exit = require('testbus').interrupt,
     shade_terminals = false,
     start_in_insert = false,
     insert_mappings = false,
