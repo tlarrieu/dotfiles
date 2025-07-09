@@ -20,6 +20,7 @@ return {
       'javascript',
       'latex',
       'lua',
+      'luadoc',
       'markdown',
       'norg',
       'ocaml',
