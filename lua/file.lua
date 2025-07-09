@@ -1,3 +1,6 @@
+---@class FileHelper
+---@field read function
+---@field rm function
 local _M = {}
 
 _M.read = function(path)
