@@ -2,19 +2,16 @@
 
 return {
   -- annotations
-  s("a", fmta([[---@]], {})),
-  s("ap", fmta([[---@param <> <>]], { i(1, 'name'), i(2, 'type') })),
-  s("af", fmta([[---@field <> <>]], { i(1, 'name'), i(2, 'type') })),
-  s("ar", fmta([[---@return <>]], { i(1, 'type') })),
+  s("e", fmta([[---@]], {})),
 
   -- modules
   s("req", fmta("require('<>')", { i(1) })),
   s("mod", fmta([[
-    local _M = {}
+    local M = {}
 
     <>
 
-    return _M]],
+    return M]],
     { i(0) }
   )),
 
