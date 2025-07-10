@@ -24,10 +24,16 @@ _M.term = function(cmd, opts)
   end
 end
 
+local wrap = function(fun)
+  local required, testbus = pcall(require, 'testbus')
+  if not required then return fun end
+  return function() testbus.start(fun) end
+end
+
 _M.test = {
-  nearest = function() return require('testbus').run.nearest end,
-  file = function() return require('testbus').run.file end,
-  last = function() return require('testbus').run.last end,
+  nearest = function() return wrap(vim.cmd.TestNearest) end,
+  file = function() return wrap(vim.cmd.TestFile) end,
+  last = function() return wrap(vim.cmd.TestLast) end,
 }
 
 _M.default = function(opts)
