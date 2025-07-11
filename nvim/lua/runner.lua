@@ -31,9 +31,9 @@ local wrap = function(fun)
 end
 
 M.test = {
-  nearest = function() return wrap(vim.cmd.TestNearest) end,
-  file = function() return wrap(vim.cmd.TestFile) end,
-  last = function() return wrap(vim.cmd.TestLast) end,
+  nearest = wrap(vim.cmd.TestNearest),
+  file = wrap(vim.cmd.TestFile),
+  last = wrap(vim.cmd.TestLast),
 }
 
 M.default = function(opts)
