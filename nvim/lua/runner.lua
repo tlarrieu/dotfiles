@@ -1,4 +1,15 @@
----@alias Runner { default: function, term: function, match: function, test: { nearest: function, file: function, last: function } }
+---@class TestConfig
+---@field nearest fun()
+---@field file fun()
+---@field last fun()
+
+---@alias command string|fun()
+
+---@class Runner
+---@field default fun(opts: { main: command, alt: command })
+---@field term fun(cmd: string, opts?: {}): fun()
+---@field match fun(pattern: string, opts?: { main: command, alt: command})
+---@field test TestConfig
 local M = {}
 
 -- private
