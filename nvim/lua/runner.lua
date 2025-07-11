@@ -14,10 +14,12 @@ local M = {}
 
 -- private
 
+---@param cmd command
 local _main = function(cmd)
   vim.keymap.set('n', '<cr>', cmd, { silent = true, buffer = true })
 end
 
+---@param cmd command
 local _alt = function(cmd)
   vim.keymap.set('n', '<leader><cr>', cmd, { silent = true, buffer = true })
 end
