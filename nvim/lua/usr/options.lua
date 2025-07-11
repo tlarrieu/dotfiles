@@ -92,7 +92,6 @@ vim.opt.shortmess:append('WIcsSa')
 -- }}}
 
 -- {{{ ==| diagnostic |=========================================================
-local namespace = vim.api.nvim_create_namespace('testbus')
 vim.diagnostic.config({
   virtual_text = {
     prefix = '▰',
