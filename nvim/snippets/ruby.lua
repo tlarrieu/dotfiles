@@ -131,6 +131,7 @@ return {
     <><>
   end
   ]], { i(1, "does something"), sel(), i(0) })),
+  s("ibl", fmta("it_behaves_like '<>'", { i(1, "example") })),
   s("e", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
   s("eb", fmta("expect { <> }.to <>", { i(1, "subject"), i(0) })),
 
