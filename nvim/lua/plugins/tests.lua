@@ -17,6 +17,16 @@ return {
     { '<leader>tr', wrap(vim.cmd.TestNearest), desc = 'Run nearest test', silent = true },
     { '<leader>ta', wrap(vim.cmd.TestFile),    desc = 'Run test file',    silent = true },
     { '<leader>tl', wrap(vim.cmd.TestLast),    desc = 'Rerun last test',  silent = true },
+    {
+      '<leader>ts',
+      function()
+        local bufnr = vim.fn.bufnr('#toggleterm#')
+        if bufnr == -1 then return end
+        vim.cmd.bdelete({ bufnr, bang = true })
+      end,
+      desc = 'Stop running test',
+      silent = true
+    },
   },
   config = function()
     local testbus = require('testbus')
