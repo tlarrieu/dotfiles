@@ -28,7 +28,8 @@ vim.keymap.set({ 'n', 'x' }, 'È', ':!')
 -- search
 vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
-vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>')
+vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>', { silent = true })
+vim.keymap.set('x', '<leader>é', '"by:silent grep! <c-r>b<cr>', { silent = true })
 -- call snipe from visual mode
 vim.keymap.set('x', '<leader>s', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
@@ -192,10 +193,10 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
 -- Horizontal Split
-vim.keymap.set('n', '<leader>ss', ':new<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ss', '<c-w>s', { silent = true })
 vim.keymap.set('n', '<leader>se', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Vertical split
-vim.keymap.set('n', '<leader>vv', ':vnew<cr>', { silent = true })
+vim.keymap.set('n', '<leader>vv', '<c-w>v', { silent = true })
 vim.keymap.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Dimensions
 vim.keymap.set('n', '<leader>=', '<c-w>=')

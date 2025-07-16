@@ -43,6 +43,7 @@ vim.opt.breakindent = true
 vim.opt.showbreak = '↪ '
 -- update time
 vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
 -- signcolumn
 vim.opt.signcolumn = 'yes:1'
 -- }}}

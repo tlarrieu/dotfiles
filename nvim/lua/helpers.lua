@@ -6,7 +6,7 @@ _M.basename = function()
   return basename or filename or ""
 end
 
-_M.dirname = function ()
+_M.dirname = function()
   local filename = vim.api.nvim_buf_get_name(0)
   local dirname = filename:match("^(.+)/.+$")
 

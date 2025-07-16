@@ -13,13 +13,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
 })
 
 local runner = require('runner')
-
-runner.default({
-  main = runner.term('ruby %', { open = false }),
-})
-
+runner.default({ main = runner.term('ruby %', { open = false }) })
 runner.match({ 'Gemfile', '*.gemspec' }, { main = runner.term('bundle') })
-
 runner.match('config/routes.rb', { main = runner.term('rails routes') })
 
 require('utils').autoformat({ '*.rb', '*.json.jbuilder' })
@@ -40,3 +35,5 @@ local alternate = function()
 end
 
 vim.keymap.set('n', '<c-$>', alternate, { silent = true, buffer = true })
+
+vim.keymap.set('x', 'gf', '"ay:silent grep shared_example.*<c-r>a<cr>', { silent = true, buffer = true, remap = false })
