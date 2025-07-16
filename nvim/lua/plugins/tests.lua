@@ -1,13 +1,22 @@
+local wrap = function(fun)
+  return function() require('testbus').start(fun) end
+end
+
 return {
   'janko-m/vim-test',
+  dependencies = {
+    'akinsho/toggleterm.nvim',
+    'tlarrieu/testbus',
+  },
   cmd = {
     'TestNearest',
     'TestFile',
     'TestLast'
   },
-  dependencies = {
-    'akinsho/toggleterm.nvim',
-    'tlarrieu/testbus',
+  keys = {
+    { '<leader>tr', wrap(vim.cmd.TestNearest), desc = 'Run nearest test', silent = true },
+    { '<leader>ta', wrap(vim.cmd.TestFile),    desc = 'Run test file',    silent = true },
+    { '<leader>tl', wrap(vim.cmd.TestLast),    desc = 'Rerun last test',  silent = true },
   },
   config = function()
     local testbus = require('testbus')

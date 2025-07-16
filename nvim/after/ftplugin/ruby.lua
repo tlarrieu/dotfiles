@@ -16,12 +16,6 @@ local runner = require('runner')
 
 runner.default({
   main = runner.term('ruby %', { open = false }),
-  alt = runner.test.last,
-})
-
-runner.match({ '*_spec.rb', '*_test.rb' }, {
-  main = runner.test.nearest,
-  alt = runner.test.file
 })
 
 runner.match({ 'Gemfile', '*.gemspec' }, { main = runner.term('bundle') })

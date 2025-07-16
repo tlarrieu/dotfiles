@@ -1,15 +1,9 @@
----@class TestConfig
----@field nearest fun()
----@field file fun()
----@field last fun()
-
 ---@alias command string|fun()
 
 ---@class Runner
 ---@field default fun(opts: { main: command, alt: command })
 ---@field term fun(cmd: string, opts?: {}): fun()
 ---@field match fun(pattern: string, opts?: { main: command, alt: command})
----@field test TestConfig
 local M = {}
 
 -- private
@@ -36,18 +30,6 @@ M.term = function(cmd, opts)
     })
   end
 end
-
-local wrap = function(fun)
-  local required, testbus = pcall(require, 'testbus')
-  if not required then return fun end
-  return function() testbus.start(fun) end
-end
-
-M.test = {
-  nearest = wrap(vim.cmd.TestNearest),
-  file = wrap(vim.cmd.TestFile),
-  last = wrap(vim.cmd.TestLast),
-}
 
 M.default = function(opts)
   if opts.main then _main(opts.main) end
