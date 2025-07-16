@@ -1,3 +1,5 @@
+local max_width = 40
+
 return {
   'j-hui/fidget.nvim',
   config = function()
@@ -78,7 +80,10 @@ return {
           group_separator = '──────',
           group_separator_hl = 'Comment',
           render_message = function(msg, cnt)
-            return cnt == 1 and msg or string.format('(%dx) %s', cnt, msg)
+            local _msg = {}
+            for str in msg:gmatch(('.'):rep(max_width - 5)) do table.insert(_msg, str) end
+            local message = table.concat(_msg, "\n")
+            return cnt == 1 and message or string.format('(%dx) %s', cnt, message)
           end,
         },
 
@@ -87,7 +92,7 @@ return {
           winblend = 0,
           border = 'none',
           zindex = 45,
-          max_width = 80,
+          max_width = max_width,
           max_height = 0,
           x_padding = 2,
           y_padding = 1,
