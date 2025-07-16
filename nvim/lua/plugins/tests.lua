@@ -15,7 +15,7 @@ return {
   },
   keys = {
     { '<leader>tr', wrap(vim.cmd.TestNearest), desc = 'Run nearest test', silent = true },
-    { '<leader>ta', wrap(vim.cmd.TestFile),    desc = 'Run test file',    silent = true },
+    { '<leader>tf', wrap(vim.cmd.TestFile),    desc = 'Run test file',    silent = true },
     { '<leader>tl', wrap(vim.cmd.TestLast),    desc = 'Rerun last test',  silent = true },
     {
       '<leader>ts',
