@@ -20,6 +20,7 @@ return {
     {
       '<leader>ts',
       function()
+        require('testbus').clear()
         local bufnr = vim.fn.bufnr('#toggleterm#')
         if bufnr == -1 then return end
         vim.cmd.bdelete({ bufnr, bang = true })
