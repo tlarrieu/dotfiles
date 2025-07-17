@@ -202,8 +202,6 @@ vim.keymap.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . 
 vim.keymap.set('n', '<leader>=', '<c-w>=')
 vim.keymap.set('n', '<leader>%', ':res<cr>:vertical res<cr>', { silent = true })
 -- Moving around
-vim.keymap.set('n', '<c-i>', '<c-i>') -- force standard ctrl-i behavior (because we redefine tab later on)
-vim.keymap.set('n', '<c-o>', '<c-o>') -- force standard ctrl+o behavior (mostly to be symmetrical)
 vim.keymap.set('n', '<tab>', '<c-w>w')
 vim.keymap.set('n', '<s-tab>', '<c-w>W')
 -- New tab
