@@ -36,4 +36,84 @@ end
 
 vim.keymap.set('n', '<c-$>', alternate, { silent = true, buffer = true })
 
-vim.keymap.set('x', 'gf', '"ay:silent grep shared_example.*<c-r>a<cr>', { silent = true, buffer = true, remap = false })
+local get_root = function(bufnr)
+  local parser = vim.treesitter.get_parser(bufnr, 'ruby', {})
+  return parser and parser:parse()[1]:root() or nil
+end
+
+---@param cursor table<integer>
+---@param region table<integer>
+local cursor_in_region = function(cursor, region)
+  local currow, curcol = cursor[1], cursor[2]
+  local start_row, start_col, end_row, end_col = region[1], region[2], region[3], region[4]
+
+  if start_row + 1 <= currow and currow <= end_row + 1 then
+    if start_row + 1 == currow then
+      return start_col <= curcol
+    elseif end_row + 1 == currow then
+      return end_col - 1 >= curcol
+    else
+      return true
+    end
+  end
+
+  return false
+end
+
+-- TODO: make the two following query deal properly with blocks
+-- Currently, we also capture the block content, meaning that gd inside the block will move us to the definition of the
+-- shared_context/shared_example, instead of potentially a LSP definition
+-- NOTE: both functions are almost identical, besides the query itself
+-- I'm keeping it like this instead of extracting logic in case the queries differ significantly when working on the
+-- todo above.
+local shared_example_at = function(bufnr, cursor)
+  local query = vim.treesitter.query.parse('ruby', [[
+    (call
+      method: (identifier) @identifier (#any-of? @identifier "it_behaves_like" "include_examples")
+      arguments: (argument_list
+        (string (string_content) @label))) @block
+  ]])
+  local label, range
+  for id, node in query:iter_captures(get_root(bufnr), bufnr, 0, -1) do
+    if query.captures[id] == 'label' then label = vim.treesitter.get_node_text(node, bufnr) end
+    if query.captures[id] == 'block' then range = { node:range() } end
+
+    if label and range then
+      if cursor_in_region(cursor, range) then return label end
+      label, range = nil, nil
+    end
+  end
+end
+
+local shared_context_at = function(bufnr, cursor)
+  local query = vim.treesitter.query.parse('ruby', [[
+    (call
+      method: (identifier) @identifier (#eq? @identifier "include_context")
+      arguments: (argument_list
+        (string (string_content) @label))) @block
+  ]])
+
+  local label, range
+  for id, node in query:iter_captures(get_root(bufnr), bufnr, 0, -1) do
+    if query.captures[id] == 'label' then label = vim.treesitter.get_node_text(node, bufnr) end
+    if query.captures[id] == 'block' then range = { node:range() } end
+
+    if label and range then
+      if cursor_in_region(cursor, range) then return label end
+      label, range = nil, nil
+    end
+  end
+end
+
+vim.keymap.set('n', 'gd', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+
+  local shared_examples = shared_example_at(bufnr, cursor)
+  if shared_examples then return vim.cmd.grep { 'shared_examples[\\( ].' .. shared_examples, mods = { silent = true } } end
+
+  local shared_context = shared_context_at(bufnr, cursor)
+  if shared_context then return vim.cmd.grep { 'shared_context[\\( ].' .. shared_context, mods = { silent = true } } end
+
+  require('telescope.builtin').lsp_definitions()
+end, { silent = true, buffer = true })
