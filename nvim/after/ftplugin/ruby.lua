@@ -71,12 +71,12 @@ local shared_example_at = function(bufnr, cursor)
     (call
       method: (identifier) @identifier (#any-of? @identifier "it_behaves_like" "include_examples")
       arguments: (argument_list
-        (string (string_content) @label))) @block
+        ((string (string_content) @label)+))) @block
   ]])
   local label, range
   for id, node in query:iter_captures(get_root(bufnr), bufnr, 0, -1) do
-    if query.captures[id] == 'label' then label = vim.treesitter.get_node_text(node, bufnr) end
     if query.captures[id] == 'block' then range = { node:range() } end
+    if query.captures[id] == 'label' then label = vim.treesitter.get_node_text(node, bufnr) end
 
     if label and range then
       if cursor_in_region(cursor, range) then return label end
@@ -90,7 +90,7 @@ local shared_context_at = function(bufnr, cursor)
     (call
       method: (identifier) @identifier (#eq? @identifier "include_context")
       arguments: (argument_list
-        (string (string_content) @label))) @block
+        ((string (string_content) @label)+))) @block
   ]])
 
   local label, range
