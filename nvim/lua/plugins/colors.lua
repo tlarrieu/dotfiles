@@ -117,7 +117,7 @@ return {
       return {
         ---------------------- base ------------------------
 
-        Normal = { fg = c.fg, bg = c.none },
+        Normal = { fg = c.fg, bg = c.bg },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
