@@ -45,18 +45,14 @@ return {
     },
     on_attach                    = function()
       local gitsigns = require('gitsigns')
-      local navopts = { wrap = false, target = 'all' }
-      local modes = { 'n', 'o', 'x' }
 
-      local prev_hunk = function()
-        if vim.wo.diff then vim.cmd.normal({ '[c', bang = true }) else gitsigns.nav_hunk('prev', navopts) end
-      end
-      local next_hunk = function()
-        if vim.wo.diff then vim.cmd.normal({ ']c', bang = true }) else gitsigns.nav_hunk('next', navopts) end
+      local nav_hunk = function(dir)
+        if vim.wo.diff then return vim.cmd.normal({ dir == 'prev' and '[c' or ']c', bang = true }) end
+        gitsigns.nav_hunk(dir, { wrap = false, target = 'all' })
       end
 
-      vim.keymap.set('n', 'ß', prev_hunk, { desc = 'Previous hunk' })
-      vim.keymap.set('n', 'þ', next_hunk, { desc = 'Next hunk' })
+      vim.keymap.set('n', 'ß', function() nav_hunk('prev') end, { desc = 'Previous hunk' })
+      vim.keymap.set('n', 'þ', function() nav_hunk('next') end, { desc = 'Next hunk' })
       vim.keymap.set('n', '7', gitsigns.stage_hunk, { remap = true, desc = 'Toggle stage hunk' })
       vim.keymap.set('n', '8', gitsigns.reset_hunk, { remap = true, desc = 'Reset hunk' })
 
@@ -70,6 +66,7 @@ return {
         gitsigns.reset_hunk({ line_of('<'), line_of('>') })
       end, { remap = true, desc = 'Reset hunk (VISUAL)' })
 
+      local modes = { 'n', 'o', 'x' }
       vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
       vim.keymap.set(modes, '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'Blame (line)' })
       vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
