@@ -130,6 +130,8 @@ return {
         Whitespace = { fg = c.mix_fg },
         Nontext = { fg = c.mix_fg, bg = c.none, bold = true },
 
+        ['@normal'] = { fg = c.fg, bg = c.none },
+
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
         ['@markup.underline'] = { fg = c.none, underline = true },
@@ -161,16 +163,16 @@ return {
         ['MarkviewBlockQuoteDefault'] = { fg = c.mix_fg, bg = c.none },
 
         ['@conditional'] = { link = 'Conditional' },
-        ['@field'] = { link = 'Normal' },
+        ['@field'] = { link = '@normal' },
         ['@include'] = { link = 'Include' },
         ['@label'] = { fg = c.violet },
         ['@method'] = { link = 'Function' },
-        ['@operator'] = { link = 'Normal' },
+        ['@operator'] = { link = '@normal' },
         ['@repeat'] = { link = 'Keyword' },
         ['@symbol'] = { link = 'String' },
         ['@type.builtin'] = { link = '@type' },
         ['@type.qualifier'] = { link = 'Keyword' },
-        ['@variable'] = { link = 'Normal' },
+        ['@variable'] = { link = '@normal' },
         ['@property'] = { fg = c.mix_fg, bg = c.none },
         ['@variable.global'] = { fg = c.violet },
 
@@ -185,7 +187,7 @@ return {
         ['@variable.parameter.luadoc'] = { link = '@comment' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
-        ['@variable.parameter.ruby'] = { link = 'Normal' },
+        ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
         ['@operator.ruby'] = { fg = c.mix_fg, bg = c.none },
@@ -304,7 +306,7 @@ return {
 
         --------------------- plugins ----------------------
 
-        OilDir = { link = 'Normal' },
+        OilDir = { link = '@normal' },
         OilDirIcon = { link = 'OilDir' },
 
         HarpoonLine = { link = 'QuickFixLine' },
