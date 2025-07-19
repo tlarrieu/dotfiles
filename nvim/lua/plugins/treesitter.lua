@@ -2,6 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'austintaylor/vim-indentobject' -- not treesitter related, but close enough
   },
   version = '*',
   build = function()
@@ -58,5 +59,8 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
+
+    -- Fix vim-indentobject keymaps
+    vim.keymap.set('s', 'ai', 'ai')
   end
 }
