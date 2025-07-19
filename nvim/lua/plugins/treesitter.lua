@@ -2,7 +2,6 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'austintaylor/vim-indentobject' -- not treesitter related, but close enough
   },
   version = '*',
   build = function()
@@ -38,6 +37,15 @@ return {
       additional_vim_regex_highlighting = { 'make' },
     },
     indent = { enable = true, disable = { 'ruby' } },
+    incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = " ",
+        node_incremental = " ",
+        scope_incremental = false,
+        node_decremental = "<bs>",
+      },
+    },
     textobjects = {
       enable = true,
       select = {
