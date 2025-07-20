@@ -9,3 +9,39 @@
   . (_) @parameter.inner
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
+
+(method_parameters
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(method_parameters
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+
+(block_parameters
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(block_parameters
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+
+(lambda_parameters
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(lambda_parameters
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+
+(array
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(array
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
