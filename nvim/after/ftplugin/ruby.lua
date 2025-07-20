@@ -62,16 +62,16 @@ end
 
 local queries = {
   shared_examples = vim.treesitter.query.parse('ruby', [[
-    (call
-      method: (identifier) @identifier (#any-of? @identifier "it_behaves_like" "include_examples")
-      arguments: (argument_list
-        ((string (string_content) @label)+))) @block
+    (
+      (identifier) @identifier (#any-of? @identifier "it_behaves_like" "include_examples")
+      (argument_list
+        (string (string_content) @label)+)) @block
   ]]),
   shared_context = vim.treesitter.query.parse('ruby', [[
-    (call
-      method: (identifier) @identifier (#eq? @identifier "include_context")
-      arguments: (argument_list
-        ((string (string_content) @label)+))) @block
+    (
+      (identifier) @identifier (#eq? @identifier "include_context")
+      (argument_list
+        (string (string_content) @label)+)) @block
   ]]),
 }
 local label_for = function(bufnr, cursor, qname)
