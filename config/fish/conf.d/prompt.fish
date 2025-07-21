@@ -129,7 +129,12 @@ function fish_prompt
     and set_color normal
     or set_color red
 
-  for x in (seq $SHLVL); echo -ns "❯"; end
+  set -l count $SHLVL
+  if set -q NVIM
+    set count (math $count-1)
+  end
+
+  for x in (seq $count); echo -ns "❯"; end
 
   echo -ns ' '
 

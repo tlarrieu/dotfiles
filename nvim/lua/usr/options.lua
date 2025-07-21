@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 
 -- {{{ ==| General options |====================================================
-vim.opt.shell = '/bin/bash'
+vim.opt.shell = '/usr/bin/fish'
 -- allow project specific .nvim.lua
 vim.opt.exrc = true
 vim.opt.secure = true
