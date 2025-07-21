@@ -13,7 +13,7 @@ local abbr = {
   mason = 'Mason',
   map = "lua require('telescope.builtin').keymaps({lfs_filter = true })",
   ins = "Inspect",
-  inst = "InspectTree",
+  tree = "InspectTree",
   man = "tab Man",
 }
 
