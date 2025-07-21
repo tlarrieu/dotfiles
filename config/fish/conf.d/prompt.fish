@@ -132,6 +132,7 @@ function fish_prompt
   set -l count $SHLVL
   if set -q NVIM
     set count (math $count-1)
+    set count (math "max($count, 1)")
   end
 
   for x in (seq $count); echo -ns "❯"; end
