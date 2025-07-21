@@ -1,6 +1,7 @@
 ; extends
 
-; @parameters
+; @parameters ------------------------------------------------------------------
+
 (argument_list
   "," @_start .
   (_) @parameter.inner
@@ -45,3 +46,21 @@
   . (_) @parameter.inner
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
+
+; @conditional -----------------------------------------------------------------
+
+((_ condition: (_) @conditional.inner)?) @conditional.outer
+((unless_modifier body: (_) @conditional.inner)?) @conditional.outer
+((if_modifier body: (_) @conditional.inner)?) @conditional.outer
+
+(else
+  . (_) @_start
+  (_)* @_end
+  (#make-range! "conditional.inner" @_start @_end))
+(then
+  . (_) @_start
+  (_)* @_end
+  (#make-range! "conditional.inner" @_start @_end))
+
+(case value: (_) @conditional.inner)
+(case (when pattern: (_) @conditional.inner)) @conditional.outer
