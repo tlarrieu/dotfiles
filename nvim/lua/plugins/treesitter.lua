@@ -61,6 +61,8 @@ return {
           ['ae'] = '@block.outer',
           ['ic'] = '@conditional.inner',
           ['ac'] = '@conditional.outer',
+          ['iC'] = '@class.inner',
+          ['aC'] = '@class.outer',
         },
         selection_modes = {
           ['@function.outer'] = 'V',

@@ -52,15 +52,7 @@
 ((_ condition: (_) @conditional.inner)?) @conditional.outer
 ((unless_modifier body: (_) @block.inner)?) @conditional.outer @block.outer
 ((if_modifier body: (_) @block.inner)?) @conditional.outer @block.outer
-
-(else
-  . (_) @_start
-  (_)* @_end
-  (#make-range! "block.inner" @_start @_end)) @block.outer
-(then
-  . (_) @_start
-  (_)* @_end
-  (#make-range! "block.inner" @_start @_end)) @block.outer
-
+(else . (_) @_start (_)* @_end (#make-range! "block.inner" @_start @_end)) @block.outer
+(then . (_) @_start (_)* @_end (#make-range! "block.inner" @_start @_end)) @block.outer
 (case value: (_) @conditional.inner)
 (case (when pattern: (_) @conditional.inner)) @conditional.outer
