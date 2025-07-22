@@ -12,3 +12,5 @@ local alternate = function()
 end
 
 vim.keymap.set('n', '<c-$>', alternate, { silent = true, buffer = true })
+vim.keymap.set('n', '<leader>yk', ':YAMLYankKey<cr>', { silent = true, buffer = true })
+vim.keymap.set('n', '<leader>yv', ':YAMLYankValue<cr>', { silent = true, buffer = true })
