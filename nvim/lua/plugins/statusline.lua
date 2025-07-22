@@ -173,8 +173,7 @@ return {
 
             return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
           end
-
-        }
+        },
       },
       lualine_y = {
         {
