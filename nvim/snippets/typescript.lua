@@ -3,6 +3,7 @@
 return {
   -- debug
   s("log", fmta("console.log(<><>)", { sel(), i(0) })),
+  s("err", fmta("console.error(<><>)", { sel(), i(0) })),
   s("info", fmta("console.info(<><>)", { sel(), i(0) })),
   s("warn", fmta("console.warn(<><>)", { sel(), i(0) })),
 
