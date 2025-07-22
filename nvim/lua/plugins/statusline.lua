@@ -1,3 +1,6 @@
+local ro_icon = '󰌾'
+local mod_icon = '󰴓'
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
@@ -58,15 +61,15 @@ return {
           path = 3,
           cond = function() return vim.bo[0].buftype ~= 'nofile' end,
           symbols = {
-            modified = '',
-            readonly = '',
+            modified = mod_icon,
+            readonly = ro_icon,
             -- unnamed = '…',
             -- newfile = '󰎔',
           },
         },
         {
           function() return require('testbus').statusline.icon() end,
-          color = function() return require('testbus').statusline.color() end
+          color = function() return require('testbus').statusline.color() end,
         },
         { 'diagnostics' },
         {
@@ -89,7 +92,7 @@ return {
             end
 
             return {}
-          end
+          end,
         },
       },
       lualine_x = {
@@ -112,7 +115,7 @@ return {
 
             return icon .. ' ' .. filetype
           end
-        }
+        },
       },
       lualine_y = { 'searchcount', 'progress', 'lsp_status', }
     },
@@ -129,7 +132,7 @@ return {
             inactive = 'LualineTablineInactive',
           },
           show_modified_status = false,
-        }
+        },
       },
       lualine_b = {
         {
@@ -169,7 +172,7 @@ return {
 
             -- Modifier
             local modified = vim.fn.getbufvar(context.bufnr, '&mod') == 1
-            local modifier = (modified and not ftmap[context.filetype]) and '' or nil
+            local modifier = (modified and not ftmap[context.filetype]) and mod_icon or nil
 
             return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
           end
@@ -179,7 +182,7 @@ return {
         {
           'branch',
           fmt = function(name)
-            local length = 20
+            local length = 40
             if #name > length then return name:sub(0, length) .. '…' else return name end
           end,
           icon = { '', align = 'right' }
