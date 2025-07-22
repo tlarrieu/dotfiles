@@ -72,8 +72,5 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
-
-    -- Fix vim-indentobject keymaps
-    vim.keymap.set('s', 'ai', 'ai')
   end
 }
