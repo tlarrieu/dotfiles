@@ -79,12 +79,27 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     },
   },
 
-  -- [[ gtgf ]] ----------------------------------------------------------
+  -- [[ gtgf ]] ----------------------------------------------------------------
 
   {
     rule = { class = 'gtgf' },
     properties = {
       fullscreen = true,
+    },
+  },
+
+  -- [[ music ]] ---------------------------------------------------------------
+
+  {
+    rule = { instance = 'music.youtube.com', },
+    properties = {
+      fullscreen = true,
+      floating = true,
+      placement = awful.placement.centered,
+      opacity = 0.85,
+      callback = function(client)
+        helpers.create_tag_and_attach_to(client)
+      end
     },
   },
 
@@ -105,7 +120,6 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'fonts.google.com',
         'nerdfonts.com',
         'tailwindcss.com',
-        'music.youtube.com',
         'web.whatsapp.com',
       },
       class = {
