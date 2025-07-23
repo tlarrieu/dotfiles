@@ -63,6 +63,8 @@ return {
           ['ac'] = '@conditional.outer',
           ['iC'] = '@class.inner',
           ['aC'] = '@class.outer',
+          ['il'] = '@assignment.lhs',
+          ['ir'] = '@assignment.rhs',
         },
         selection_modes = {
           ['@function.outer'] = 'V',

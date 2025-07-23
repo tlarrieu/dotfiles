@@ -56,3 +56,8 @@
 (then . (_) @_start (_)* @_end (#make-range! "block.inner" @_start @_end)) @block.outer
 (case value: (_) @conditional.inner)
 (case (when pattern: (_) @conditional.inner)) @conditional.outer
+
+; @assignment ------------------------------------------------------------------
+
+(assignment left: (_) @assignment.lhs right: (_) @assignment.rhs)
+(pair key: (_) @assignment.lhs value: (_) @assignment.rhs)
