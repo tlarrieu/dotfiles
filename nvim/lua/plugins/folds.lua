@@ -18,14 +18,13 @@ return {
     ft_ignore = {},
   },
   config = function(_, opts)
-    local o = vim.opt
-
-    o.foldcolumn = '0'
-    o.foldclose = ''
-    o.foldmethod = 'indent'
-    o.foldnestmax = 3
-    o.foldlevelstart = 10
-    o.foldminlines = 2
+    vim.opt.foldcolumn = '0'
+    vim.opt.foldclose = ''
+    vim.opt.foldmethod = 'expr'
+    vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+    vim.opt.foldnestmax = 3
+    vim.opt.foldlevelstart = 10
+    vim.opt.foldminlines = 2
 
     require('pretty-fold').setup(opts)
   end
