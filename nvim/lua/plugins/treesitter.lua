@@ -2,6 +2,7 @@ return {
   'nvim-treesitter/nvim-treesitter',
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    'nvim-treesitter/nvim-treesitter-context',
   },
   version = '*',
   build = function()
@@ -46,6 +47,11 @@ return {
         node_decremental = "<bs>",
       },
     },
+    context = {
+      enable = true,
+      multiwindow = true,
+      mode = 'cursor',
+    },
     textobjects = {
       enable = true,
 
@@ -86,5 +92,6 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
+    require('treesitter-context').setup(opts['context'])
   end,
 }
