@@ -131,6 +131,7 @@ return {
         Nontext = { fg = c.mix_fg, bg = c.none, bold = true },
 
         ['@normal'] = { fg = c.fg, bg = c.none },
+        qfText = { link = '@normal' },
 
         ['@markup.strong'] = { fg = c.none, bold = true },
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
