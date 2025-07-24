@@ -268,7 +268,7 @@ return {
         LualineTablineActiveAlt = { fg = c.bg, bg = c.fg },
         LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
 
-        WinSeparator = { fg = c.mix_fg },
+        WinSeparator = { fg = c.mix_bg, bg = c.none },
 
         NormalFloat = { fg = c.fg, bg = c.mix_bg },
         FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
