@@ -1,5 +1,9 @@
 #!/bin/sh
 
+pkill -USR2 -f '^puma'
+
+if [ $? -eq 0 ]; then exit 0; fi
+
 kitty --session work &
 sleep 0.5
 browser-kiosk http://localhost:3000 &
