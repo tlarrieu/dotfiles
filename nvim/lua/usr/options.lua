@@ -9,6 +9,8 @@ vim.opt.secure = true
 vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.textwidth = 120
+-- termguicolors
+vim.opt.termguicolors = true
 -- blank characters
 vim.opt.list = true
 vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
