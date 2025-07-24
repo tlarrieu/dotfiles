@@ -141,7 +141,7 @@ return {
 
         ['MarkviewCode'] = { fg = c.pink, bg = c.mix_bg },
         ['MarkviewInlineCode'] = { fg = c.none, bg = c.mix_bg },
-        ['MarkviewHeading1'] = { fg = c.magenta, bg = c.none },
+        ['MarkviewHeading1'] = { fg = c.magenta, bg = c.mix_bg },
         ['MarkviewHeading2'] = { fg = c.green, bg = c.none },
         ['MarkviewHeading3'] = { fg = c.blue, bg = c.none },
         ['MarkviewHeading4'] = { fg = c.yellow, bg = c.none },
