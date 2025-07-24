@@ -202,6 +202,7 @@ return {
 
         CursorColumn = { fg = c.none, bg = c.mix_blue },
         CursorLine = { link = 'CursorColumn' },
+        CursorLineNr = { fg = c.blue, bg = c.mix_blue },
 
         Visual = { link = 'CursorColumn' },
         YankHighlight = { link = 'Visual' },
