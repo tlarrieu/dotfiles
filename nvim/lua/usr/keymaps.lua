@@ -170,6 +170,10 @@ vim.keymap.set('n', '<leader>»', ':cc3<cr>', { silent = true })
 vim.keymap.set('n', '<leader>(', ':cc4<cr>', { silent = true })
 vim.keymap.set('n', '<leader>)', ':cc5<cr>', { silent = true })
 --- }}}
+--- {{{ --| Jumps |-----------------------------------------
+vim.keymap.set('n', '<c-i>', '<c-i>')
+vim.keymap.set('n', '<c-o>', '<c-o>')
+--- }}}
 --- {{{ --| Diagnostics |-----------------------------------
 vim.keymap.set('n', '<c-þ>', function() vim.diagnostic.jump({ count = 1 }) end)
 vim.keymap.set('n', '<c-ß>', function() vim.diagnostic.jump({ count = -1 }) end)
