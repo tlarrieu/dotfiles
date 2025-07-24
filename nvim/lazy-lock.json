@@ -46,7 +46,7 @@
   "testbus": { "branch": "master", "commit": "84fa755747e541b6b1b801fc6d498c8ca7a57f67" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "toggleterm.nvim": { "branch": "main", "commit": "50ea089fc548917cc3cc16b46a8211833b9e3c7c" },
-  "vifm.vim": { "branch": "master", "commit": "9de479064ca3c75650ad8ebb1e2da5b611040676" },
+  "vifm.vim": { "branch": "master", "commit": "57d24bebbeaac26970e87935bc7ff2b19d94e877" },
   "vim-argwrap": { "branch": "master", "commit": "f3e26a5ad249d09467804b92e760d08b1cc457a1" },
   "vim-css-color": { "branch": "master", "commit": "14fd934cdd9ca1ac0e53511094e612eb9bace373" },
   "vim-eunuch": { "branch": "master", "commit": "e86bb794a1c10a2edac130feb0ea590a00d03f1e" },
