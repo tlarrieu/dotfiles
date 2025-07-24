@@ -48,6 +48,7 @@ return {
     },
     textobjects = {
       enable = true,
+
       select = {
         enable = true,
         lookahead = true,
@@ -71,7 +72,16 @@ return {
           ['@block.outer'] = 'V',
           ['@conditional.outer'] = 'V',
         },
-      }
+      },
+
+      lsp_interop = {
+        enable = true,
+        border = 'none',
+        floating_preview_opts = {},
+        peek_definition_code = {
+          ['go'] = '@function.outer',
+        },
+      },
     },
   },
   config = function(_, opts)

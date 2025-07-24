@@ -95,11 +95,6 @@ return {
       desc = 'Telescope git branch'
     },
     {
-      'go',
-      function() return require('telescope.builtin').lsp_type_definitions() end,
-      desc = 'Telescope LSP type definitions'
-    },
-    {
       'gd',
       function() return require('telescope.builtin').lsp_definitions() end,
       desc = 'Telescope LSP definitions'
