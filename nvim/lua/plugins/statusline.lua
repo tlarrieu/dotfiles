@@ -15,9 +15,18 @@ return {
       'toggleterm',
       'quickfix',
       'oil',
-      'lazy',
       'fugitive',
       'mason',
+      {
+        sections = {
+          lualine_a = { function() return 'lazy 󰒲' end },
+          lualine_b = { function()
+            return 'loaded: ' .. require('lazy').stats().loaded .. '/' .. require('lazy').stats().count
+          end },
+          lualine_c = { { require('lazy.status').updates, cond = require('lazy.status').has_updates } },
+        },
+        filetypes = { 'lazy' }
+      },
     },
     -- options = {
     --   component_separators = { left = '', right = '' },
