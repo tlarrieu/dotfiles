@@ -95,6 +95,11 @@ return {
       desc = 'Telescope git branch'
     },
     {
+      '<leader>gt',
+      function() require('telescope.builtin').git_bcommits() end,
+      desc = 'Telescope git commits'
+    },
+    {
       'gd',
       function() return require('telescope.builtin').lsp_definitions() end,
       desc = 'Telescope LSP definitions'
