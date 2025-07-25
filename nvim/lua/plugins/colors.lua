@@ -290,6 +290,8 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
+        TreesitterContextLineNumber = { fg = c.mix_fg, bg = c.mix_bg },
+
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { link = '@markup.strong' },
