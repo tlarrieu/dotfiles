@@ -9,6 +9,16 @@ local signs = {
 
 return {
   'lewis6991/gitsigns.nvim',
+  commit = '60676707b6a5fa42369e8ff40a481ca45987e0d0', -- pinned until the slowness of staging hunks has been resolved
+
+  -- those commits where tested to identify the most recent one that was not broken
+  -- B01433169be710d6c69f7b4ee264d9670698b831: bad
+  -- 1fcaddcc427ff5802b6602f46de37a5352d0f9e0: bad
+  -- 60676707b6a5fa42369e8ff40a481ca45987e0d0: good -- the commit we want
+  -- 93f882f7041a2e779addbd34943812ca66edef5a: good
+  -- 7bf01f0c27040ffe4ab2d9ed52ab1f926b0670a8: good
+  -- aa49c9675433d3751b7afd198c9f5d2e03252af1: good
+  -- 1b0350ab707713b2bc6c236151f1a324175347b1: good
   event = { 'BufNew', 'BufReadPost' },
   opts = {
     signs                        = signs,
