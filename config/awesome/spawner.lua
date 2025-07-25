@@ -1,6 +1,6 @@
 local awful = require('awful')
 
-local _M = {}
+local M = {}
 
 local find_client = function(props)
   for _, client in ipairs(client.get()) do
@@ -10,11 +10,11 @@ local find_client = function(props)
   end
 end
 
-_M.shell = function(command)
+M.shell = function(command)
   return 'fish -c "' .. command .. '"'
 end
 
-_M.terminal = function(cmd, opts)
+M.terminal = function(cmd, opts)
   local options = ''
   if opts then
     for name, value in pairs(opts) do
@@ -25,11 +25,11 @@ _M.terminal = function(cmd, opts)
   return string.format(
     'kitty --single-instance %s %s',
     options,
-    cmd and _M.shell(cmd) or ''
+    cmd and M.shell(cmd) or ''
   )
 end
 
-_M.grab_mouse_until_released = function()
+M.grab_mouse_until_released = function()
   mousegrabber.run(function(_mouse)
     for _, v in pairs(_mouse.buttons) do
       if v then return true end
@@ -38,17 +38,23 @@ _M.grab_mouse_until_released = function()
   end, 'mouse')
 end
 
-_M.actions = {
+M.actions = {
   MOVE = 'MOVE',
   JUMP = 'JUMP_TO',
 }
 
-_M.spawn = function(cmd, props, action)
-  if action then
-    local client = find_client(props)
+M.soft_kill = function(client) if client.immortal then client:tags({}) else client:kill() end end
 
-    if client then
-      client:emit_signal('client::custom', action)
+M.spawn = function(cmd, props, action)
+  if action then
+    local _client = find_client(props)
+
+    if _client then
+      if _client == client.focus then
+        M.soft_kill(_client)
+      else
+        _client:emit_signal('client::custom', action)
+      end
       return
     end
   end
@@ -62,7 +68,7 @@ _M.spawn = function(cmd, props, action)
   end)
 end
 
-_M.key = function(mods, key, target)
+M.key = function(mods, key, target)
   if type(target) == 'function' then
     return awful.key(
       mods,
@@ -73,13 +79,13 @@ _M.key = function(mods, key, target)
     return awful.key(
       mods,
       key,
-      function() _M.spawn(target.app, target.props, target.signal) end
+      function() M.spawn(target.app, target.props, target.signal) end
     )
   elseif type(target) == 'string' then
     return awful.key(
       mods,
       key,
-      function() _M.spawn(target) end
+      function() M.spawn(target) end
     )
   else
     error(
@@ -90,6 +96,6 @@ _M.key = function(mods, key, target)
   end
 end
 
-_M.button = awful.button
+M.button = awful.button
 
-return _M
+return M

@@ -30,7 +30,7 @@ end
 local keyboard = {
   clients = gears.table.join(
     spawner.key({ mod }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
-    spawner.key({ mod }, 'eacute', function(c) if c.immortal then c:tags({}) else c:kill() end end),
+    spawner.key({ mod }, 'eacute', spawner.soft_kill),
     spawner.key({ mod, 'Shift' }, 'eacute', function(c) c:kill() end),
     spawner.key({ mod, 'Control' }, 'm', function(c) awful.client.setmaster(c) end),
     spawner.key({ mod, 'Control' }, 'c', function(c)
