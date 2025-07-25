@@ -11,7 +11,7 @@ return {
         ' ',
         '󰁂',
         ' ',
-        function(config) return config.fill_char:rep(3) end
+        function(config) return config.fill_char:rep(4) end,
       }
     },
     fill_char = '-',
@@ -20,6 +20,7 @@ return {
   config = function(_, opts)
     vim.opt.foldcolumn = '0'
     vim.opt.foldclose = ''
+    vim.opt.fillchars:append('fold:' .. opts.fill_char)
     vim.opt.foldmethod = 'expr'
     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     vim.opt.foldnestmax = 3
