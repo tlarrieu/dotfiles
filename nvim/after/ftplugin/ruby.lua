@@ -17,7 +17,7 @@ runner.default({ main = runner.term('ruby %', { open = false }) })
 runner.match({ 'Gemfile', '*.gemspec' }, { main = runner.term('bundle') })
 runner.match('config/routes.rb', { main = runner.term('rails routes') })
 
-require('utils').autoformat({ '*.rb', '*.json.jbuilder' })
+require('utils').autoformat({ '*.rb', '*.rake', '*.json.jbuilder' })
 
 local alternate = function()
   local path = vim.api.nvim_buf_get_name(0)
