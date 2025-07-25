@@ -49,6 +49,7 @@ return {
     },
     context = {
       enable = true,
+      max_lines = 5,
       multiwindow = true,
       mode = 'cursor',
     },
