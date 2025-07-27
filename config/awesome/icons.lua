@@ -212,7 +212,7 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'redis%-server' } },
   { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' } },
   { icon = '', rule = { class = 'kitty', name = 'exercism' } },
-  { icon = '', rule = { class = 'kitty', name = 'NVIM' } },
+  { icon = '', rule = { class = 'kitty', name = 'Nvim' } },
   {
     icon = '',
     rules = {
