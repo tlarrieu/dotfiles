@@ -2,7 +2,7 @@ return {
   'akinsho/toggleterm.nvim',
   dependencies = { 'tlarrieu/testbus' },
   version = '*',
-  cmd = 'TermExec',
+  cmd = { 'TermExec', 'TermOpen' },
   opts = {
     direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
@@ -38,6 +38,7 @@ return {
   },
   config = true,
   keys = {
+    { '<leader><tab>', function() require('toggleterm').toggle() end, desc = 'Send to terminal' },
     {
       '<cr>',
       function()
@@ -45,6 +46,6 @@ return {
       end,
       mode = 'x',
       desc = 'Send to terminal'
-    }
+    },
   },
 }
