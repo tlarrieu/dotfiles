@@ -1,6 +1,5 @@
 return {
   'nvimdev/dashboard-nvim',
-  commit = '000448d',
   event = 'VimEnter',
   opts = {
     theme = 'hyper',
