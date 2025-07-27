@@ -50,7 +50,7 @@ M.spawn = function(cmd, props, action)
     local _client = find_client(props)
 
     if _client then
-      if _client == client.focus then
+      if _client == client.focus and _client.immortal then
         M.soft_kill(_client)
       else
         _client:emit_signal('client::custom', action)
