@@ -1,5 +1,14 @@
 local ro_icon = '󰌾'
 local mod_icon = '󰴓'
+local ftmap = {
+  harpoon = 'harpoon',
+  dashboard = 'dash',
+  mason = 'mason',
+  lazy = 'lazy',
+  TelescopePrompt = 'telescope',
+  qf = 'quickfix',
+  oil = 'oil',
+}
 
 return {
   'nvim-lualine/lualine.nvim',
@@ -63,12 +72,13 @@ return {
             return ' ' .. project
           end,
         },
+        'searchcount',
       },
       lualine_c = {
         {
           'filename',
           path = 3,
-          cond = function() return vim.bo[0].buftype ~= 'nofile' end,
+          cond = function() return vim.bo[0].buftype ~= 'nofile' and not ftmap[vim.bo[0].filetype] end,
           symbols = {
             modified = mod_icon,
             readonly = ro_icon,
@@ -126,7 +136,8 @@ return {
           end
         },
       },
-      lualine_y = { 'searchcount', 'progress', 'lsp_status', }
+      lualine_y = { 'lsp_status', 'progress', },
+      lualine_z = { 'location' },
     },
     tabline = {
       lualine_a = {
@@ -160,15 +171,6 @@ return {
             end
 
             -- Name
-            local ftmap = {
-              harpoon = 'harpoon',
-              dashboard = 'dash',
-              mason = 'mason',
-              lazy = 'lazy',
-              TelescopePrompt = 'telescope',
-              qf = 'quickfix',
-              oil = 'oil',
-            }
             name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
 
             if context.filetype == 'fugitive' then
