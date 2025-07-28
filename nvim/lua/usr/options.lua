@@ -44,7 +44,7 @@ vim.opt.breakindent = true
 -- define character indicating line wrap
 vim.opt.showbreak = '↪ '
 -- update time
-vim.opt.updatetime = 250
+vim.opt.updatetime = 50
 vim.opt.timeoutlen = 400
 -- signcolumn
 vim.opt.signcolumn = 'yes:1'
