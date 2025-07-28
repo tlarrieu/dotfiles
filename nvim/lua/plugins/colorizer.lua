@@ -1,8 +1,10 @@
 return {
   'norcalli/nvim-colorizer.lua',
   opts = {
-    ['*'] = {},
-    '!GV',
-    '!lazy',
+    'css',
+    'scss',
+    'rasi',
+    'conf',
+    'xdefaults',
   },
 }
