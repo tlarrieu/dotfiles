@@ -14,7 +14,7 @@ return {
     palette = 'solarized',
     transparent = {
       enabled = true,
-      normal = false,
+      normal = true,
       normalfloat = true,
       pmenu = true,
       telescope = true,
@@ -117,7 +117,7 @@ return {
       return {
         ---------------------- base ------------------------
 
-        Normal = { fg = c.fg, bg = c.bg },
+        Normal = { fg = c.fg, bg = c.none },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
@@ -164,6 +164,8 @@ return {
         ['@variable.member.luadoc'] = { link = '@comment' },
         ['@variable.parameter.luadoc'] = { link = '@comment' },
         ['@function.macro.luadoc'] = { link = '@type' },
+
+        ['@function.builtin.make'] = { link = 'makeConfig' },
 
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
