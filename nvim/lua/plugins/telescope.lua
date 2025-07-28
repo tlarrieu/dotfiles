@@ -156,7 +156,7 @@ return {
     require('telescope').setup({
       defaults = {
         border = true,
-        borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+        borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
         dynamic_preview_title = true,
 
         file_ignore_patterns = {
@@ -175,6 +175,9 @@ return {
         sorting_strategy = 'ascending',
         layout_config = {
           prompt_position = 'top',
+          anchor = 'S',
+          anchor_padding = 0,
+          height = 0.75,
         },
 
         mappings = {
