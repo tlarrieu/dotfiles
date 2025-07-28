@@ -326,7 +326,7 @@ return {
         MarkSignHL = { fg = c.mix_fg, bg = c.mix_bg },
         MarkSignNumHL = { link = 'MarkSignHL' },
 
-        ['MarkviewCode'] = { fg = c.pink, bg = c.mix_bg },
+        ['MarkviewCode'] = { fg = c.none, bg = c.mix_bg },
         ['MarkviewInlineCode'] = { fg = c.none, bg = c.mix_bg },
         ['MarkviewHeading1'] = { fg = c.magenta, bg = c.mix_bg },
         ['MarkviewHeading2'] = { fg = c.green, bg = c.none },

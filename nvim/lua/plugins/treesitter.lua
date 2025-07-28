@@ -1,8 +1,11 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  lazy = false,
+  priority = 100,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
     'nvim-treesitter/nvim-treesitter-context',
+    'OXY2DEV/markview.nvim'
   },
   version = '*',
   build = function()

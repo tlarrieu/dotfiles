@@ -1,6 +1,7 @@
 return {
   'OXY2DEV/markview.nvim',
   lazy = false,
+  priority = 10,
   -- https://github.com/OXY2DEV/markview.nvim/wiki/Markdown
   opts = {
     experimental = {
@@ -26,7 +27,7 @@ return {
 
         style = 'block',
 
-        label_direction = 'left',
+        label_direction = 'right',
 
         border_hl = 'MarkviewCode',
         info_hl = 'MarkviewCodeInfo',
