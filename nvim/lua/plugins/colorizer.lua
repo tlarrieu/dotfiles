@@ -3,5 +3,6 @@ return {
   opts = {
     ['*'] = {},
     '!GV',
+    '!lazy',
   },
 }
