@@ -1,7 +1,27 @@
+local xrdb = require('xrdb')
+
 local apply_xrdb = function()
   vim.cmd.colorscheme('solarized')
-  vim.o.background = require('xrdb').load().vim.background or 'light'
+  vim.o.background = xrdb.load().vim.background or 'light'
   vim.cmd.syntax('on')
+
+  local theme = xrdb.load() or {}
+  vim.g.terminal_color_0 = theme.color0
+  vim.g.terminal_color_1 = theme.color1
+  vim.g.terminal_color_2 = theme.color2
+  vim.g.terminal_color_3 = theme.color3
+  vim.g.terminal_color_4 = theme.color4
+  vim.g.terminal_color_5 = theme.color5
+  vim.g.terminal_color_6 = theme.color6
+  vim.g.terminal_color_7 = theme.color7
+  vim.g.terminal_color_8 = theme.color8
+  vim.g.terminal_color_9 = theme.color9
+  vim.g.terminal_color_10 = theme.color10
+  vim.g.terminal_color_11 = theme.color11
+  vim.g.terminal_color_12 = theme.color12
+  vim.g.terminal_color_13 = theme.color13
+  vim.g.terminal_color_14 = theme.color14
+  vim.g.terminal_color_15 = theme.color15
 end
 
 local merge = require('helpers').merge
