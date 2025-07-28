@@ -245,9 +245,6 @@ vim.keymap.set('n', '<leader>z', 'zMzv')
 vim.keymap.set('n', '<leader>Z', 'zR')
 vim.keymap.set('n', 'zO', 'zczO')
 --- }}}
---- {{{ --| argwrap |---------------------------------------
-vim.keymap.set('n', '<leader>,', ':ArgWrap<CR>', { silent = true })
---- }}}
 --- {{{ --| linediff |--------------------------------------
 vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
 --- }}}
