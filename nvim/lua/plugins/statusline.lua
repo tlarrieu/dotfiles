@@ -8,6 +8,7 @@ local ftmap = {
   TelescopePrompt = 'telescope',
   qf = 'quickfix',
   oil = 'oil',
+  undotree = 'undotree',
 }
 
 return {
@@ -78,7 +79,12 @@ return {
         {
           'filename',
           path = 3,
-          cond = function() return vim.bo[0].buftype ~= 'nofile' and not ftmap[vim.bo[0].filetype] end,
+          cond = function()
+            local bo = vim.bo[0]
+            return bo.buftype ~= 'nofile'
+                and bo.buftype ~= 'nowrite'
+                and not ftmap[bo.filetype]
+          end,
           symbols = {
             modified = mod_icon,
             readonly = ro_icon,
@@ -171,7 +177,10 @@ return {
             end
 
             -- Name
-            name = ftmap[context.filetype] or (name == '[No Name]' and '…') or name
+            name = ftmap[context.filetype]
+                or (name == '[No Name]' and '…')
+                or (name == 'diffpanel_3' and 'undodiff')
+                or name
 
             if context.filetype == 'fugitive' then
               icon = ''

@@ -76,6 +76,8 @@ return {
       ['spec.ts'] = { icon = '' },
       ['spec.tsx'] = { icon = '󰜈' },
 
+      undotree = { icon = '󰙅' },
+
       gitcommit = { icon = '' },
       gitignore = { icon = '' },
       ['.gitignore'] = { icon = '' },
