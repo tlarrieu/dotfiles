@@ -14,6 +14,8 @@ vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
+-- make current file executable
+vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<cr>')
 -- + register keymaps
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
@@ -87,6 +89,12 @@ vim.keymap.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', { silent = true 
 vim.keymap.set('n', 's', ':w ++p<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
+-- center after page scroll
+vim.keymap.set('n', '<c-d>', '<c-d>zz')
+vim.keymap.set('n', '<c-u>', '<c-u>zz')
+-- center after search
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
 -- direct access to numbers when in normal / operator pending / visual mode
 vim.keymap.set({ 'n', 'o', 'x' }, '"', '1')
 vim.keymap.set({ 'n', 'o', 'x' }, '1', '"')
