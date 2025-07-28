@@ -2,7 +2,7 @@ return {
   'stevearc/oil.nvim',
   lazy = false,
   keys = {
-    { '<leader>.', ':lua require("oil").open()<cr>', desc = 'Open Oil', silent = true },
+    { '<leader>.', function() require('oil').open() end, desc = 'Open Oil', silent = true },
   },
   opts = {
     -- Id is automatically added at the beginning, and name at the end
