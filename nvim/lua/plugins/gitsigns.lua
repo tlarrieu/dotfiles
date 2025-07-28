@@ -9,6 +9,7 @@ local signs = {
 
 return {
   'lewis6991/gitsigns.nvim',
+  -- TODO: remove this once the issue is fixed
   commit = '60676707b6a5fa42369e8ff40a481ca45987e0d0', -- pinned until the slowness of staging hunks has been resolved
 
   -- those commits where tested to identify the most recent one that was not broken
