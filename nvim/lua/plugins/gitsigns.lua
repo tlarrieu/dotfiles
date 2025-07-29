@@ -13,7 +13,7 @@ return {
   commit = '60676707b6a5fa42369e8ff40a481ca45987e0d0', -- pinned until the slowness of staging hunks has been resolved
 
   -- those commits where tested to identify the most recent one that was not broken
-  -- B01433169be710d6c69f7b4ee264d9670698b831: bad
+  -- b01433169be710d6c69f7b4ee264d9670698b831: bad
   -- 1fcaddcc427ff5802b6602f46de37a5352d0f9e0: bad
   -- 60676707b6a5fa42369e8ff40a481ca45987e0d0: good -- the commit we want
   -- 93f882f7041a2e779addbd34943812ca66edef5a: good
