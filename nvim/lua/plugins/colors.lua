@@ -158,6 +158,13 @@ return {
         ['@markup.underline'] = { fg = c.none, underline = true },
         ['@markup.quote'] = { fg = c.none, italic = true },
 
+        -- ['@markup.heading.1.markdown'] = { fg = c.magenta, underline = true },
+        -- ['@markup.heading.2.markdown'] = { fg = c.green, underline = true },
+        -- ['@markup.heading.3.markdown'] = { fg = c.blue },
+        -- ['@markup.heading.4.markdown'] = { fg = c.yellow },
+        -- ['@markup.heading.5.markdown'] = { fg = c.cyan },
+        -- ['@markup.heading.6.markdown'] = { fg = c.violet },
+
         ['@markup.raw.markdown_inline'] = { fg = c.none, bg = c.none },
 
         ['@conditional'] = { link = 'Conditional' },
@@ -352,7 +359,7 @@ return {
 
         ['MarkviewCode'] = { fg = c.none, bg = c.mix_bg },
         ['MarkviewInlineCode'] = { fg = c.none, bg = c.mix_bg },
-        ['MarkviewHeading1'] = { fg = c.magenta, bg = c.mix_bg },
+        ['MarkviewHeading1'] = { fg = c.magenta, bg = c.mix_bg, underline = true },
         ['MarkviewHeading2'] = { fg = c.green, bg = c.none },
         ['MarkviewHeading3'] = { fg = c.blue, bg = c.none },
         ['MarkviewHeading4'] = { fg = c.yellow, bg = c.none },
