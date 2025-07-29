@@ -158,13 +158,6 @@ return {
         ['@markup.underline'] = { fg = c.none, underline = true },
         ['@markup.quote'] = { fg = c.none, italic = true },
 
-        -- ['@markup.heading.1.markdown'] = { fg = c.magenta, underline = true },
-        -- ['@markup.heading.2.markdown'] = { fg = c.green, underline = true },
-        -- ['@markup.heading.3.markdown'] = { fg = c.blue },
-        -- ['@markup.heading.4.markdown'] = { fg = c.yellow },
-        -- ['@markup.heading.5.markdown'] = { fg = c.cyan },
-        -- ['@markup.heading.6.markdown'] = { fg = c.violet },
-
         ['@markup.raw.markdown_inline'] = { fg = c.none, bg = c.none },
 
         ['@conditional'] = { link = 'Conditional' },
