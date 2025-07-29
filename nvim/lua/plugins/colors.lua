@@ -135,7 +135,7 @@ return {
       })
 
       return {
-        ---------------------- base ------------------------
+        ---------------------| base |-----------------------
 
         Normal = { fg = c.fg, bg = c.none },
         Constant = { fg = c.magenta },
@@ -305,7 +305,7 @@ return {
         Pmenu = { fg = c.fg, bg = c.mix_bg },
         PmenuSel = { link = 'CursorLine' },
 
-        --------------------- plugins ----------------------
+        --------------------| plugins |---------------------
 
         OilDir = { link = '@normal' },
         OilDirIcon = { link = 'OilDir' },
