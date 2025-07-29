@@ -1,5 +1,9 @@
 return {
   'j-hui/fidget.nvim',
+  -- NOTE: 46cb5c1 is currently broken because of unknown highlight group "bg", which prevents us from updating to the
+  -- latest version of master.
+  -- TODO: Remove the pin once fixed.
+  commit = 'e4e71e9',
   config = function()
     require('fidget').setup({
       progress = {
