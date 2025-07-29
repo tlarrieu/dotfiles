@@ -136,6 +136,13 @@ vim.keymap.set('n', '<leader>em', function()
     return ':e Makefile<cr>'
   end
 end, { desc = 'Edit Makefile', expr = true, silent = true })
+vim.keymap.set('n', '<leader>ep', function()
+  if require('helpers').fileexists(vim.fn.expand('%')) then
+    return ':tabe .projections.json<cr>'
+  else
+    return ':e .projections.json<cr>'
+  end
+end, { desc = 'Edit projections', expr = true, silent = true })
 vim.keymap.set('n', '<leader>er', function()
   if require('helpers').fileexists(vim.fn.expand('%')) then
     return ':tabe ~/.pryrc.local<cr>'

@@ -140,7 +140,7 @@ return {
       desc = 'Telescope spell suggest'
     },
     {
-      '<leader>ep',
+      '<leader>eP',
       function()
         require('telescope.builtin').find_files({
           path_display = filename_first_and_shorten,
