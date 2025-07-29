@@ -1,17 +1,18 @@
+local edit_snippet = function(ft)
+  require('telescope')
+  require('luasnip.loaders').edit_snippet_files({
+    ft_filter = function(filetype) return filetype == ft end
+  })
+end
+
 return {
   'L3MON4D3/LuaSnip',
   version = '*',
   build = 'make install_jsregexp',
   event = { 'CmdlineEnter', 'InsertEnter' },
   keys = {
-    {
-      '<leader>es',
-      function()
-        require('telescope')
-        require('luasnip.loaders').edit_snippet_files({ edit = vim.cmd.vnew })
-      end,
-      desc = 'Edit snippets'
-    },
+    { '<leader>es', function() edit_snippet(vim.bo.filetype) end, desc = 'Edit snippets (current filetype)' },
+    { '<leader>eS', function() edit_snippet('all') end,           desc = 'Edit snippets ("all")' },
   },
   config = function()
     local ls = require('luasnip')
