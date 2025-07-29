@@ -312,6 +312,8 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
+        TreesitterContext = { fg = c.none, bg = c.mix_bg },
+        TreesitterContextBottom = { fg = c.none, bg = c.mix_bg },
         TreesitterContextLineNumber = { fg = c.mix_fg, bg = c.mix_bg },
 
         TelescopeNormal = { link = 'NormalFloat' },
