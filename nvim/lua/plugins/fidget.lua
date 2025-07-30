@@ -23,8 +23,8 @@ return {
           done_style = '@diff.plus',
           progress_ttl = math.huge,
           progress_icon = {
-            pattern = 'meter',
-            period = 1
+            pattern = 'moon',
+            period = 1,
           },
           progress_style = '@diff.delta',
           group_style = 'FidgetGroup',
@@ -32,11 +32,8 @@ return {
           priority = 30,
           skip_history = true,
           format_message = require('fidget.progress.display').default_format_message,
-          format_annote = function(msg) return msg.title end,
+          format_annote = function(msg) return msg.title .. ' ' end,
           format_group_name = function(group) return '[' .. tostring(group) .. ']' end,
-          overrides = {
-            rust_analyzer = { name = 'rust-analyzer' },
-          },
         },
 
         lsp = {
@@ -52,7 +49,7 @@ return {
         override_vim_notify = true,
         configs = {
           default = {
-            name = '[notif]',
+            name = '[info]',
             icon = '󱜠 ',
             ttl = 10,
             group_style = 'Title',
