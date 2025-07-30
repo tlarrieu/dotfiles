@@ -19,22 +19,21 @@ runner.match('config/routes.rb', { main = runner.term('rails routes') })
 
 require('utils').autoformat({ '*.rb', '*.rake', '*.json.jbuilder' })
 
-local alternate = function()
-  local path = vim.api.nvim_buf_get_name(0)
-  local alt
-  if path:match("spec") then
-    alt = path
-        :gsub("(.*)/spec/requests/(.*)_spec%.rb", "%1/app/controllers/%2.rb")
-        :gsub("(.*)/spec/(.*)_spec%.rb", "%1/app/%2.rb")
-  else
-    alt = path
-        :gsub("(.*)/app/controllers/(.*)%.rb", "%1/spec/requests/%2_spec.rb")
-        :gsub("(.*)/app/(.*)%.rb", "%1/spec/%2_spec.rb")
-  end
-  vim.cmd.edit(alt)
-end
+vim.keymap.set('n', '<c-$>', function()
+  require('usr.alternator').alternate({
+    ["(.*)/packs/declarations/tax_returns/app/views/declarations/tax_returns/consistency_checks/index.json.jbuilder"] =
+    "packs/declarations/tax_returns/app/views/declarations/tax_returns/forms/show.json.jbuilder",
 
-vim.keymap.set('n', '<c-$>', alternate, { silent = true, buffer = true })
+    ["(.*)/packs/declarations/tax_returns/app/views/declarations/tax_returns/forms/show.json.jbuilder"] =
+    "packs/declarations/tax_returns/app/views/declarations/tax_returns/consistency_checks/index.json.jbuilder",
+
+    ["(.*)/spec/requests/(.*)_spec%.rb"] = "%1/app/controllers/%2.rb",
+    ["(.*)/spec/(.*)_spec%.rb"] = "%1/app/%2.rb",
+
+    ["(.*)/app/controllers/(.*)%.rb"] = "%1/spec/requests/%2_spec.rb",
+    ["(.*)/app/(.*)%.rb"] = "%1/spec/%2_spec.rb",
+  })
+end, { silent = true, buffer = true })
 
 local rootnode = function(bufnr)
   local parser = vim.treesitter.get_parser(bufnr, 'ruby', {})
