@@ -14,7 +14,7 @@ return {
     i(2, 'desc'),
     i(3, 'to'),
     i(4, 'amount'),
-    i(0, 'card:ce')
+    i(0, 'card:bp')
   })),
   s("r", fmta([[
   <> ! <> | <>
@@ -48,18 +48,6 @@ return {
     i(2, 'to'),
     i(3, 'amount'),
     i(0, 'from')
-  })),
-  s("del", fmta([[
-  <> ! deliveroo | <>
-    restaurant  <> €
-    swile      -<> €
-    card:ce    -<> €
-  ]], {
-    f(curdate),
-    i(1, 'desc'),
-    i(2, 'amount'),
-    i(3, 'amount'),
-    i(4, 'amount')
   })),
   s("g", fmta([[
   <> ! <> | courses
@@ -97,17 +85,6 @@ return {
     f(curdate),
     i(1, 'amount'),
     i(0, 'from')
-  })),
-  s("c", fmta([[
-  <> <> <> | courses
-    groceries  <> €
-    <>
-  ]], {
-    f(curdate),
-    i(1, '!'),
-    i(2, 'amazon'),
-    i(3, 'amount'),
-    i(0, 'card:ce')
   })),
 }, {
 }
