@@ -298,7 +298,7 @@ return {
         FloatTitle = { fg = c.mix_fg, bg = c.mix_bg, bold = true },
         FloatFooter = { fg = c.fg, bg = c.bg },
 
-        FidgetGroup = { fg = c.blue, bg = c.none },
+        FidgetGroup = { fg = c.orange, bg = c.none, bold = true, italic = true },
 
         QuickFixLine = { link = 'Search' },
 

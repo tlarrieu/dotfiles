@@ -33,7 +33,7 @@ return {
           skip_history = true,
           format_message = require('fidget.progress.display').default_format_message,
           format_annote = function(msg) return msg.title .. ' ' end,
-          format_group_name = function(group) return '[' .. tostring(group) .. ']' end,
+          format_group_name = tostring,
         },
 
         lsp = {
@@ -49,11 +49,11 @@ return {
         override_vim_notify = true,
         configs = {
           default = {
-            name = '[info]',
-            icon = '󱜠 ',
+            name = 'notif',
+            icon = '  ',
             ttl = 10,
-            group_style = 'Title',
-            icon_style = 'Title',
+            group_style = 'FidgetGroup',
+            icon_style = 'FidgetGroup',
             annote_style = 'String',
             debug_style = 'Comment',
             info_style = 'Question',
@@ -72,7 +72,7 @@ return {
         view = {
           stack_upwards = false,
           icon_separator = ' ',
-          group_separator = '──────',
+          group_separator = '─── ',
           group_separator_hl = 'Comment',
         },
 
