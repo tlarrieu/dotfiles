@@ -8,7 +8,8 @@ return {
     {
       '<c-è>',
       ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
-      desc = 'Telescope TODO'
+      desc = 'Telescope TODO',
+      silent = true,
     },
   },
   event = { 'BufNew' },
