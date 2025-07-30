@@ -20,7 +20,7 @@ runner.match('config/routes.rb', { main = runner.term('rails routes') })
 require('utils').autoformat({ '*.rb', '*.rake', '*.json.jbuilder' })
 
 vim.keymap.set('n', '<c-$>', function()
-  require('usr.alternator').alternate({
+  require('alternator').alternate({
     ["(.*)/packs/declarations/tax_returns/app/views/declarations/tax_returns/consistency_checks/index.json.jbuilder"] =
     "packs/declarations/tax_returns/app/views/declarations/tax_returns/forms/show.json.jbuilder",
 
