@@ -47,7 +47,9 @@ return {
       },
       preselect = cmp.PreselectMode.None,
       performance = {
-        max_view_entries = 15,
+        max_view_entries = 8,
+        debounce = 250,
+        throttle = 250,
       },
       snippet = {
         expand = function(args) luasnip.lsp_expand(args.body) end,
