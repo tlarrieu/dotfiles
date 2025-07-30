@@ -131,7 +131,7 @@ packages:
 	@ln -sfFT /usr/bin/fdfind ~/bin/fd
 	@cd ~/git/neovim \
 		&& git fetch \
-		&& git checkout v0.11.0 \
+		&& git checkout v0.11.3 \
 		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
 		&& cd build \
 		&& cpack -G DEB \
