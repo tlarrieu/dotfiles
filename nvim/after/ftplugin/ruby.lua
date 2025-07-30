@@ -17,7 +17,13 @@ runner.default({ main = runner.term('ruby %', { open = false }) })
 runner.match({ 'Gemfile', '*.gemspec' }, { main = runner.term('bundle') })
 runner.match('config/routes.rb', { main = runner.term('rails routes') })
 
-require('utils').autoformat({ '*.rb', '*.rake', '*.json.jbuilder' })
+require('utils').autoformat({
+  '*.json.jbuilder',
+  '*.rake',
+  '*.rb',
+  '.pryrc',
+  '.pryrc.local',
+})
 
 vim.keymap.set('n', '<c-$>', function()
   require('alternator').alternate({
