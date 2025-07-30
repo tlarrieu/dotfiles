@@ -96,8 +96,8 @@ return {
         fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, },
       },
       window = {
-        completion = { border = 'none' },
-        documentation = { border = 'single' },
+        completion = { border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' } },
+        documentation = { border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' } },
       },
     })
 
