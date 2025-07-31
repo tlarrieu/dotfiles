@@ -1,3 +1,0 @@
-#!/bin/sh
-
-browser-kiosk pro "https://phantombuster.zendesk.com/agent/dashboard"

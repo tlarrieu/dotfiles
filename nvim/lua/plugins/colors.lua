@@ -488,8 +488,6 @@ return {
         ['TodoFgNOTE'] = { fg = c.violet },
         ['TodoBgTEST'] = paint('cyan'),
         ['TodoFgTEST'] = { fg = c.cyan },
-
-        DashboardHeader = { fg = c.mix_fg, bg = c.none }
       }
     end
   },

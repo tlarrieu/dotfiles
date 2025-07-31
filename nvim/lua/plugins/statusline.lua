@@ -2,7 +2,6 @@ local ro_icon = '󰌾'
 local mod_icon = '󰴓'
 local ftmap = {
   harpoon = 'harpoon',
-  dashboard = 'dash',
   mason = 'mason',
   lazy = 'lazy',
   TelescopePrompt = 'telescope',
