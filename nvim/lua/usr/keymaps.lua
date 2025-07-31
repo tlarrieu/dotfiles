@@ -88,12 +88,14 @@ vim.keymap.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', { silent = true }
 vim.keymap.set('n', 's', '<cmd>w ++p<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
+-- center after go to bottom
+vim.keymap.set('n', 'G', 'Gzz')
 -- center after page scroll
 vim.keymap.set('n', '<c-d>', '<c-d>zz')
 vim.keymap.set('n', '<c-u>', '<c-u>zz')
 -- center after search
-vim.keymap.set('n', 'n', 'nzzzv')
-vim.keymap.set('n', 'N', 'Nzzzv')
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
 -- direct access to numbers when in normal / operator pending / visual mode
 vim.keymap.set({ 'n', 'o', 'x' }, '"', '1')
 vim.keymap.set({ 'n', 'o', 'x' }, '1', '"')
@@ -172,25 +174,25 @@ end, { desc = 'Toggle crosshair' })
 vim.keymap.set('n', '<c-k>', '<c-^>')
 --- }}}
 --- {{{ --| Spelling |--------------------------------------
-vim.keymap.set('n', '<a-n>', ']s', { silent = true, remap = true, desc = 'Next spelling error' })
-vim.keymap.set('n', '<a-p>', '[s', { silent = true, remap = true, desc = 'Previous spelling error' })
+vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next spelling error' })
+vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Previous spelling error' })
 --- }}}
 --- {{{ --| Quickfix / Location list |----------------------
-vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>', { silent = true })
-vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>', { silent = true })
-vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>', { silent = true })
-vim.keymap.set('n', '<leader>«', '<cmd>cc2<cr>', { silent = true })
-vim.keymap.set('n', '<leader>»', '<cmd>cc3<cr>', { silent = true })
-vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>', { silent = true })
-vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>', { silent = true })
+vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>zz', { silent = true })
+vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>«', '<cmd>cc2<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>»', '<cmd>cc3<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>zz', { silent = true })
 --- }}}
 --- {{{ --| Jumps |-----------------------------------------
 vim.keymap.set('n', '<c-i>', '<c-i>')
 vim.keymap.set('n', '<c-o>', '<c-o>')
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
-vim.keymap.set('n', '<c-þ>', function() vim.diagnostic.jump({ count = 1 }) end)
-vim.keymap.set('n', '<c-ß>', function() vim.diagnostic.jump({ count = -1 }) end)
+vim.keymap.set('n', '<c-þ>', ']dzz', { remap = true })
+vim.keymap.set('n', '<c-ß>', '[dzz', { remap = true })
 --- }}}
 --- {{{ --| terminal |--------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
