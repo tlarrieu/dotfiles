@@ -29,8 +29,8 @@ vim.keymap.set({ 'n', 'x' }, 'è', ':')
 -- search
 vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
-vim.keymap.set('n', '<leader>é', '<cmd>silent grep! <c-r><c-w><cr>', { silent = true })
-vim.keymap.set('x', '<leader>é', '"by<cmd>silent grep! <c-r>b<cr>', { silent = true })
+vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>', { silent = true })
+vim.keymap.set('x', '<leader>é', '"by:silent grep! <c-r>b<cr>', { silent = true })
 -- call snipe from visual mode
 vim.keymap.set('x', '<leader>s', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
