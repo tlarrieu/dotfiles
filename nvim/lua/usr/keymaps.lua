@@ -210,21 +210,25 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
+
+local edit_path = function(cmd)
+  return function() return ':' .. cmd .. ' ' .. vim.fn.escape(vim.fn.expand('%:p:h'), ' ') .. '/' end
+end
 -- Horizontal Split
 vim.keymap.set('n', '<leader>ss', '<c-w>s', { silent = true })
-vim.keymap.set('n', '<leader>se', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>") -- do something here
+vim.keymap.set('n', '<leader>se', edit_path('new'), { expr = true })
 -- Vertical split
 vim.keymap.set('n', '<leader>vv', '<c-w>v', { silent = true })
-vim.keymap.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>") -- do something here
+vim.keymap.set('n', '<leader>ve', edit_path('vnew'), { expr = true })
+-- Tabs
+vim.keymap.set('n', '<leader>tt', '<cmd>tabe<cr>', { silent = true })
+vim.keymap.set('n', '<leader>te', edit_path('tabe'), { expr = true })
 -- Dimensions
 vim.keymap.set('n', '<leader>=', '<c-w>=')
 vim.keymap.set('n', '<leader>%', '<cmd>res<cr><cmd>vertical res<cr>', { silent = true })
 -- Moving around
 vim.keymap.set('n', '<tab>', '<c-w>w')
 vim.keymap.set('n', '<s-tab>', '<c-w>W')
--- New tab
-vim.keymap.set('n', '<leader>tt', '<cmd>tabe<cr>', { silent = true })
-vim.keymap.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
 -- Move current tab
 vim.keymap.set('n', '<leader>tm', ':tabm<space>')
 -- move current split to a new tab
