@@ -6,5 +6,6 @@ return {
     'rasi',
     'conf',
     'xdefaults',
+    'Solarized',
   },
 }
