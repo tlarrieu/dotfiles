@@ -1,23 +1,3 @@
-vim.api.nvim_create_autocmd('SwapExists', {
-  pattern = '*',
-  callback = function() vim.v.swapchoice = 'e' end,
-  group = vim.api.nvim_create_augroup('swapexists', {}),
-})
-
--- Start with clean jumplist
-vim.api.nvim_create_autocmd('VimEnter', {
-  pattern = '*',
-  callback = function() vim.cmd [[ clearjumps ]] end,
-  group = vim.api.nvim_create_augroup('clearjumps', {})
-})
-
--- Restore cursor position
-vim.api.nvim_create_autocmd('BufReadPost', {
-  pattern = '*',
-  callback = function() vim.api.nvim_exec2('keepjumps silent! normal! g`"zv', {}) end,
-  group = vim.api.nvim_create_augroup('restore_position', {})
-})
-
 -- Balance splits size upon changing host window size
 vim.api.nvim_create_autocmd('VimResized', {
   pattern = '*',

@@ -22,6 +22,8 @@ vim.opt.backupdir = { os.getenv("HOME") .. '/.tmp//' }
 vim.opt.directory = { os.getenv("HOME") .. '/.tmp//' }
 -- activate undofile, that holds undo history
 vim.opt.undofile = true
+-- deactive swapfiles
+vim.opt.swapfile = false
 -- ignore those files
 vim.opt.wildignore:append('*/tmp/*,*.so,*.swp,*.zip,*.pyc,tags')
 -- case insensitive matching
