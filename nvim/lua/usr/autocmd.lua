@@ -38,3 +38,25 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end,
   group = vim.api.nvim_create_augroup('restore_position', {})
 })
+
+-- Set relativenumber only in active window
+local group = vim.api.nvim_create_augroup('autonumber_group', {})
+
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
+  pattern = { '*' },
+  callback = function() if vim.wo.number then vim.wo.relativenumber = true end end,
+  group = group
+})
+
+vim.api.nvim_create_autocmd('WinLeave', {
+  pattern = { '*' },
+  callback = function() vim.wo.relativenumber = false end,
+  group = group
+})
+
+-- auto turn on relativenumber if we activate number
+vim.api.nvim_create_autocmd('OptionSet', {
+  pattern = { 'number' },
+  callback = function() vim.wo.relativenumber = vim.wo.number end,
+  group = group
+})
