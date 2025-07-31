@@ -80,7 +80,7 @@ return {
           normal_hl = 'Comment',
           winblend = 0,
           border = 'none',
-          zindex = 45,
+          zindex = 100,
           max_width = 0,
           max_height = 0,
           x_padding = 2,

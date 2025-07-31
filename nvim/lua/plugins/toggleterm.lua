@@ -27,9 +27,9 @@ return {
     shell = '/usr/bin/fish',
     auto_scroll = false,
     float_opts = {
-      border = 'single',   -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+      border = 'single',
       winblend = 0,
-      title_pos = 'center' -- 'left' | 'center' | 'right'
+      title_pos = 'center',
     },
     highlights = {
       NormalFloat = { link = 'NormalFloat' },
