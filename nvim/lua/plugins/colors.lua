@@ -219,6 +219,8 @@ return {
         ['@field.rasi'] = { fg = c.mix_fg },
         ['@variable.rasi'] = { fg = c.violet },
 
+        MsgArea = { fg = c.fg, bg = c.mix_bg },
+
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
 
