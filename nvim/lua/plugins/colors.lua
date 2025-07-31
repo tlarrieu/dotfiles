@@ -134,14 +134,19 @@ return {
         group = group
       })
 
+      local set_msg_area_hl = function(opts)
+        vim.api.nvim_set_hl(0, 'MsgArea', opts)
+        vim.cmd.redraw()
+      end
+
       vim.api.nvim_create_autocmd('CmdlineEnter', {
         pattern = '*',
-        callback = function() vim.api.nvim_set_hl(0, 'MsgArea', { fg = c.fg, bg = c.none, italic = false }) end,
+        callback = function() set_msg_area_hl({ fg = c.fg, bg = c.none, italic = false }) end,
         group = group,
       })
       vim.api.nvim_create_autocmd('CmdlineLeave', {
         pattern = '*',
-        callback = function() vim.api.nvim_set_hl(0, 'MsgArea', { fg = c.mix_fg, bg = c.none, italic = true }) end,
+        callback = function() set_msg_area_hl({ fg = c.mix_fg, bg = c.none, italic = true }) end,
         group = group,
       })
 
