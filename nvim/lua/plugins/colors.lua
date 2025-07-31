@@ -134,6 +134,17 @@ return {
         group = group
       })
 
+      vim.api.nvim_create_autocmd('CmdlineEnter', {
+        pattern = '*',
+        callback = function() vim.api.nvim_set_hl(0, 'MsgArea', { fg = c.fg, bg = c.none, italic = false }) end,
+        group = group,
+      })
+      vim.api.nvim_create_autocmd('CmdlineLeave', {
+        pattern = '*',
+        callback = function() vim.api.nvim_set_hl(0, 'MsgArea', { fg = c.mix_fg, bg = c.none, italic = true }) end,
+        group = group,
+      })
+
       return {
         ---------------------| base |-----------------------
 
@@ -219,7 +230,7 @@ return {
         ['@field.rasi'] = { fg = c.mix_fg },
         ['@variable.rasi'] = { fg = c.violet },
 
-        MsgArea = { fg = c.fg, bg = c.mix_bg },
+        MsgArea = { fg = c.mix_fg, bg = c.none, italic = true },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
