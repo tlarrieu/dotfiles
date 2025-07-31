@@ -1,7 +1,6 @@
 -- Command line shorthand
 local abbr = {
   git = 'Git',
-  g = 'Git',
   mkdir = 'Mkdir',
   mv = 'Rename',
   rm = 'Delete',
