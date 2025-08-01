@@ -24,8 +24,8 @@ return {
       inline_codes = {
         enable = true,
         hl = "MarkviewInlineCode",
-        padding_left = '',
-        padding_right = '',
+        padding_left = ' ',
+        padding_right = ' ',
       },
     },
     markdown = {
