@@ -173,7 +173,9 @@ return {
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
         ['@markup.underline'] = { fg = c.none, underline = true },
         ['@markup.quote'] = { fg = c.none, italic = true },
-
+        ['@markup.link'] = { fg = c.violet, bg = c.none, italic = true },
+        ['@markup.link.url'] = { link = '@markup.link' },
+        ['@markup.link.label'] = { link = '@markup.link' },
         ['@markup.raw.markdown_inline'] = { fg = c.none, bg = c.none },
 
         ['@conditional'] = { link = 'Conditional' },
@@ -371,6 +373,8 @@ return {
         ['MarkviewCode'] = { fg = c.none, bg = c.mix_bg },
         ['MarkviewCodeLabel'] = { fg = c.mix_yellow, bg = c.yellow, bold = true },
         ['MarkviewInlineCode'] = { fg = c.none, bg = c.mix_bg },
+        ['MarkviewHyperlink'] = paint('violet', { italic = true }),
+        ['MarkviewImage'] = paint('magenta', { italic = true }),
         ['MarkviewHeading1'] = { fg = c.magenta, bg = c.mix_bg, underline = true },
         ['MarkviewHeading2'] = { fg = c.green, bg = c.none },
         ['MarkviewHeading3'] = { fg = c.blue, bg = c.none },
