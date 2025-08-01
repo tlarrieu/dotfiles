@@ -1,3 +1,12 @@
+local ruler_repeat_amount = function(buf)
+  local window = require('markview.utils').buf_getwin(buf)
+
+  local width = vim.api.nvim_win_get_width(window)
+  local textoff = vim.fn.getwininfo(window)[1].textoff;
+
+  return math.floor((width - textoff - 3) / 2);
+end
+
 return {
   'OXY2DEV/markview.nvim',
   lazy = false,
@@ -127,19 +136,8 @@ return {
           {
             type = 'repeating',
             direction = 'left',
-
-            repeat_amount = function(buffer)
-              local utils = require('markview.utils');
-              local window = utils.buf_getwin(buffer)
-
-              local width = vim.api.nvim_win_get_width(window)
-              local textoff = vim.fn.getwininfo(window)[1].textoff;
-
-              return math.floor((width - textoff - 3) / 2);
-            end,
-
+            repeat_amount = ruler_repeat_amount,
             text = '-',
-
             hl = {
               'MarkviewGradient1', 'MarkviewGradient1',
               'MarkviewGradient2', 'MarkviewGradient2',
@@ -160,17 +158,7 @@ return {
           {
             type = 'repeating',
             direction = 'right',
-
-            repeat_amount = function(buffer)
-              local utils = require('markview.utils');
-              local window = utils.buf_getwin(buffer)
-
-              local width = vim.api.nvim_win_get_width(window)
-              local textoff = vim.fn.getwininfo(window)[1].textoff;
-
-              return math.ceil((width - textoff - 3) / 2);
-            end,
-
+            repeat_amount = ruler_repeat_amount,
             text = '-',
             hl = {
               'MarkviewGradient1', 'MarkviewGradient1',
