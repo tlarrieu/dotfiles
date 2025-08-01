@@ -137,7 +137,6 @@ defaultengine = BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment
 searchengines = {
-  'a'    => Browser.new('https://wiki.archlinux.org/index.php/%s'),
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
   'aw'   => Browser.new(
     'https://duckduckgo.com/?ia=web&q=%s',
@@ -148,13 +147,12 @@ searchengines = {
     'en' => 'https://dictionary.cambridge.org/dictionary/english/%s',
     'fr' => 'https://dictionnaire.lerobert.com/definition/%s'
   ),
-  'dt'   => Browser.new('https://www.dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
+  'dt'   => Browser.new('https://dndtools.net/spells/?name=%s&_filter=Filter', profile: 'perso'),
   'ft'   => Browser.new('https://fonts.google.com/icons?icon.size=24&icon.query=%s'),
   'gh'   => GitHub.new,
   'go'   => Browser.new('https://pkg.go.dev/search?q=%s'),
   'h'    => Browser.new('https://www.haskell.org/hoogle?hoogle=%s'),
   'l'    => Browser.new('http://localhost:%s'),
-  'lor'  => Browser.new('https://attunement.io/search?query=%s', profile: 'perso'),
   'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
   'man'  => Man.new,
   'map'  => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
