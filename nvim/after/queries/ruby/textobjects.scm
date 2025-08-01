@@ -20,6 +20,15 @@
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
 
+(hash
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(hash
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+
 (block_parameters
   "," @_start .
   (_) @parameter.inner
@@ -59,5 +68,5 @@
 
 ; @assignment ------------------------------------------------------------------
 
-(assignment left: (_) @assignment.lhs right: (_) @assignment.rhs)
-(pair key: (_) @assignment.lhs value: (_) @assignment.rhs)
+(pair key: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment
+(assignment left: (_) @assignment.lhs right: (_) @assignment.rhs) @assignment

@@ -205,6 +205,7 @@ return {
 
         ['@function.builtin.make'] = { link = 'makeConfig' },
 
+        ['@variable.key.ruby'] = { link = '@comment' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
