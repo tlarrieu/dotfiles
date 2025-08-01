@@ -43,7 +43,7 @@ return {
     -- Deleted files will be removed with the trash_command (below).
     delete_to_trash = false,
     -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
-    prompt_save_on_select_new_entry = true,
+    prompt_save_on_select_new_entry = false,
     -- Keymaps in oil buffer. Can be any value that `vim.keymap.set` accepts OR a table of keymap
     -- options with a `callback` (e.g. { callback = function() ... end, desc = "", nowait = true })
     -- Additionally, if it is a string that matches "actions.<name>",
@@ -64,6 +64,7 @@ return {
       ['<C-s>'] = false,
       ['s'] = function() require('oil').save({ confirm = true }) end,
       ['gs'] = 'actions.change_sort',
+      ['<bs>'] = 'actions.parent',
       ['-'] = 'actions.parent',
       ['_'] = 'actions.open_cwd',
       ['<leader>cd'] = 'actions.cd',
