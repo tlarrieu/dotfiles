@@ -4,7 +4,7 @@ return {
     'junegunn/gv.vim',
     'tpope/vim-rhubarb',
   },
-  cmd = { 'Git', 'Gvdiff', 'GV' },
+  cmd = { 'Git', 'Gvdiff', 'GV', 'Gcd' },
   keys = {
     { '<leader>gW', ':Git add .<cr>',                            desc = 'Git add .',                    silent = true },
     { '<leader>ga', ':Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit', silent = true },
@@ -18,6 +18,7 @@ return {
     { '<leader>gS', ':GV<cr>',                                   desc = 'GV',                           silent = true },
     { '<leader>gp', ':Git push --force-with-lease<cr>',          desc = 'Git push --force-with-lease',  silent = true },
     { '<leader>gu', ':Git pull --rebase<cr>',                    desc = 'Git pull --rebase',            silent = true },
+    { '<leader>cc', '<cmd>Gcd<cr>',                              desc = 'Git pull --rebase' },
     {
       '<leader>gy',
       ':GBrowse!<cr>',
