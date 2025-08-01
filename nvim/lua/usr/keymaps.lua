@@ -120,7 +120,7 @@ vim.keymap.set({ 'n', 'o', 'x' }, '9', '/')
 vim.keymap.set({ 'n', 'o', 'x' }, '*', '0')
 vim.keymap.set({ 'n', 'o', 'x' }, '0', '*')
 -- sort
-vim.keymap.set('x', 's', '<cmd>sort<cr>', { silent = true })
+vim.keymap.set('x', 's', ':sort<cr>', { silent = true })
 -- macro
 vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
 vim.keymap.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', { silent = true })
