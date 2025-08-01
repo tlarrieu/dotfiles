@@ -233,12 +233,12 @@ vim.keymap.set('n', '<tab>', '<c-w>w')
 vim.keymap.set('n', '<s-tab>', '<c-w>W')
 -- Move current tab
 vim.keymap.set('n', '<leader>tm', ':tabm<space>')
--- move current split to a new tab
-vim.keymap.set('n', '<leader>U', '<c-w>T', { desc = 'Move current window into its own tab' })
--- merge current split into left-hand tab
 -- switch tabs
 vim.keymap.set('n', '<c-tab>', 'gt', { silent = true, remap = true, desc = 'Next tab' })
 vim.keymap.set('n', '<c-s-tab>', 'gT', { silent = true, remap = true, desc = 'Previous tab' })
+-- move current split to a new tab
+vim.keymap.set('n', '<leader>U', '<c-w>T', { desc = 'Move current window into its own tab' })
+-- merge current split into left-hand tab
 vim.keymap.set('n', '<leader>u', function()
   local curtab = vim.api.nvim_get_current_tabpage()
 
@@ -254,10 +254,12 @@ vim.keymap.set('n', '<leader>u', function()
 
   local buf = vim.api.nvim_get_current_buf()
 
-  vim.api.nvim_win_close(0, true)
-  vim.api.nvim_set_current_tabpage(prevtab)
-  vim.cmd.vsplit()
-  vim.api.nvim_win_set_buf(0, buf)
+  local success, _ = pcall(vim.api.nvim_win_close, 0, true)
+  if success then
+    vim.api.nvim_set_current_tabpage(prevtab)
+    vim.cmd.vsplit()
+    vim.api.nvim_win_set_buf(0, buf)
+  end
 end, { desc = 'Merge current window into previous tab' })
 --- }}}
 --- {{{ --| folds management |------------------------------
