@@ -7,7 +7,6 @@ local ftmap = {
   TelescopePrompt = 'telescope',
   qf = 'quickfix',
   oil = 'oil',
-  undotree = 'undotree',
 }
 
 return {
