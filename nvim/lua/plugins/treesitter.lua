@@ -55,6 +55,7 @@ return {
       max_lines = 5,
       multiwindow = true,
       mode = 'cursor',
+      separator = '-',
     },
     textobjects = {
       enable = true,

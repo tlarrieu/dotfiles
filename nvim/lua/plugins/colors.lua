@@ -333,9 +333,10 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
-        TreesitterContext = { fg = c.none, bg = c.dim_bg, italic = true },
-        TreesitterContextBottom = { fg = c.none, bg = c.dim_bg, italic = true },
-        TreesitterContextLineNumber = { fg = c.mix_fg, bg = c.dim_bg, italic = true },
+        TreesitterContext = { fg = c.none, bg = c.none, italic = true },
+        TreesitterContextBottom = { link = 'TreesitterContext' },
+        TreesitterContextLineNumber = { fg = c.mix_fg, bg = c.none, italic = true },
+        TreesitterContextSeparator = { link = 'WinSeparator' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
