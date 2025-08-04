@@ -28,6 +28,7 @@ return {
     'typescript',
     'vim',
     'yaml',
+    'json',
   },
   config = function(_, opts)
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
@@ -47,21 +48,6 @@ return {
     vim.lsp.config('lua_ls', {
       on_attach = opts.on_attach,
       capabilities = opts.capabilities,
-      settings = {
-        Lua = {
-          diagnostics = {
-            -- awesome / vim related globals
-            globals = {
-              'awesome',
-              'screen',
-              'root',
-              'client',
-              'mouse',
-              'mousegrabber',
-            },
-          },
-        },
-      },
     })
 
     vim.lsp.config('gopls', {
