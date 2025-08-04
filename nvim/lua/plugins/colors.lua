@@ -508,6 +508,17 @@ return {
         ['TodoFgNOTE'] = { fg = c.violet },
         ['TodoBgTEST'] = paint('cyan'),
         ['TodoFgTEST'] = { fg = c.cyan },
+
+        ['AvanteTitle'] = { fg = c.bg, bg = c.mix_fg },
+        ['AvanteReversedTitle'] = { fg = c.mix_fg, bg = c.bg },
+        ['AvanteSubtitle'] = { link = 'AvanteTitle' },
+        ['AvanteReversedSubtitle'] = { link = 'AvanteReversedTitle' },
+        ['AvanteThirdTitle'] = { link = 'AvanteTitle' },
+        ['AvanteReversedThirdTitle'] = { link = 'AvanteReversedTitle' },
+        ['AvantePopupHint'] = { fg = c.mix_fg, bg = c.bg, italic = true },
+        ['AvanteSidebarNormal'] = { fg = c.none, bg = c.bg },
+        ['AvanteSidebarWinSeparator'] = { fg = c.none, bg = c.bg },
+        ['AvanteSidebarWinHorizontalSeparator'] = { fg = c.none, bg = c.bg },
       }
     end
   },
