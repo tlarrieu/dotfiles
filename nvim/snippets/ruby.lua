@@ -88,7 +88,7 @@ return {
 
   -- specs
   s("desc", fmta([[
-    describe '<>' do
+    describe <> do
       <><>
     end
     ]], { i(1, "topic"), sel(), i(0) })),
