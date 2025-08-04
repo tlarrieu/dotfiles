@@ -3,7 +3,6 @@ return {
   dependencies = {
     { 'williamboman/mason.nvim', config = true },
     { 'neovim/nvim-lspconfig' },
-    { 'folke/lazydev.nvim' },
     { 'hrsh7th/cmp-nvim-lsp' },
   },
   opts = {
@@ -59,7 +58,6 @@ return {
               'client',
               'mouse',
               'mousegrabber',
-              'vim',
             },
           },
         },
