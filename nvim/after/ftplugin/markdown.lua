@@ -7,7 +7,7 @@ o.spell = vim.bo.buftype ~= 'nofile'
 o.shiftwidth = 2
 
 local runner = require('runner')
-runner.default({ main = runner.term("mdprev w '%'") })
+runner.default({ main = runner.term('mdprev w %', { open = false }) })
 
 vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
