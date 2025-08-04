@@ -19,12 +19,8 @@ config/rofi/variant.rasi
 
 config/btop/themes/current.theme
 
-config/mpv/watch_later
-
 config/gtk-3.0/bookmarks
 
-nvim/plugged/*
-nvim/autoload/plug.vim
 nvim/doc
 nvim/spell
 nvim/spell/*
