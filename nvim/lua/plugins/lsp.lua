@@ -1,11 +1,10 @@
 return {
   'williamboman/mason-lspconfig.nvim',
-  version = '*',
   dependencies = {
-    { 'williamboman/mason.nvim', version = '*', config = true },
-    { 'neovim/nvim-lspconfig',   version = '*' },
-    { 'folke/lazydev.nvim',      version = '*' },
-    { 'hrsh7th/cmp-nvim-lsp',    version = '*' },
+    { 'williamboman/mason.nvim', config = true },
+    { 'neovim/nvim-lspconfig' },
+    { 'folke/lazydev.nvim' },
+    { 'hrsh7th/cmp-nvim-lsp' },
   },
   opts = {
     ensure_installed = {
@@ -32,8 +31,6 @@ return {
     'yaml',
   },
   config = function(_, opts)
-    require('mason-lspconfig').setup(opts)
-
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
 
     vim.lsp.config('ruby_lsp', {
@@ -85,6 +82,8 @@ return {
         }
       }
     })
+
+    require('mason-lspconfig').setup(opts)
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
