@@ -23,31 +23,32 @@ return {
 
   event = { 'BufNew', 'BufReadPost' },
   opts = {
-    signs                        = signs,
-    signs_staged                 = signs,
-    signs_staged_enable          = true,
-    signcolumn                   = true,
-    numhl                        = true,
-    linehl                       = false,
-    word_diff                    = false,
-    watch_gitdir                 = { follow_files = true },
-    auto_attach                  = true,
-    attach_to_untracked          = true,
-    current_line_blame           = false,
-    current_line_blame_opts      = {
+    signs = signs,
+    signs_staged = signs,
+    signs_staged_enable = true,
+    signcolumn = true,
+    numhl = true,
+    linehl = false,
+    word_diff = false,
+    watch_gitdir = { follow_files = true },
+    auto_attach = true,
+    attach_to_untracked = true,
+    current_line_blame = false,
+    current_line_blame_opts = {
       virt_text = true,
       virt_text_pos = 'eol',
-      delay = 50,
+      delay = 0,
       ignore_whitespace = false,
       virt_text_priority = 100,
       use_focus = true,
     },
-    current_line_blame_formatter = '<abbrev_sha> <author>, <author_time:%R> — <summary>',
-    sign_priority                = 6,
-    update_debounce              = 100,
-    status_formatter             = nil,
-    max_file_length              = 40000,
-    preview_config               = {
+    current_line_blame_formatter = ' <abbrev_sha> <author>, <author_time:%R> — <summary>',
+    current_line_blame_formatter_nc = ' Not committed yet',
+    sign_priority = 6,
+    update_debounce = 100,
+    status_formatter = nil,
+    max_file_length = 40000,
+    preview_config = {
       -- Options passed to nvim_open_win
       border = 'single',
       style = 'minimal',
@@ -55,7 +56,7 @@ return {
       row = 0,
       col = 1
     },
-    on_attach                    = function()
+    on_attach = function()
       local gitsigns = require('gitsigns')
 
       local nav_hunk = function(dir)

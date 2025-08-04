@@ -437,7 +437,7 @@ return {
         GitSignsStagedChangeDelete = { link = 'GitSignsStagedChange' },
         GitSignsStagedChangeDeleteNr = { link = 'GitSignsStagedChangeNr' },
         GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
-        GitSignsCurrentLineBlame = { fg = c.mix_fg, bg = c.mix_bg, underline = true, italic = true },
+        GitSignsCurrentLineBlame = { fg = c.mix_fg, bg = c.dim_bg, underline = true, italic = true },
 
         fugitiveHeading = { link = 'Include' },
         fugitiveStagedHeading = { fg = c.green },
