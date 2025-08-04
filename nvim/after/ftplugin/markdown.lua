@@ -12,6 +12,6 @@ runner.default({ main = runner.term("mdprev w '%'") })
 vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
-vim.keymap.set('n', '<leader>i', ':Markview toggle<cr>', { buffer = true, remap = true })
+vim.keymap.set('n', '<leader>i', '<cmd>Markview toggle<cr>', { buffer = true, remap = true })
 
 require('utils').autocapitalize('*.md')

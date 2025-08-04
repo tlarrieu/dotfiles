@@ -22,7 +22,7 @@ k.set('', '<leader>', '<nop>', noremap)
 -- Marks
 k.set('n', "'", '`', noremap)
 k.set('n', '`', "'", noremap)
-k.set('n', '<leader>m', ':delmarks!<cr>', noremap)
+k.set('n', '<leader>m', '<cmd>delmarks!<cr>', noremap)
 k.set('i', '<c-cr>', '<esc>o', noremap)
 -- Split lines
 k.set('n', '<c-j>', 'i<cr><esc>', noremap)
@@ -34,7 +34,7 @@ k.set({ 'n', 'i' }, '<F1>', '<nop>', noremap)
 k.set('', '<leader>p', '"+p', noremap)
 k.set('', '<leader>P', '"+P', noremap)
 k.set('', '<leader>y', '"+y', noremap)
-k.set('n', 'yf', ":<c-u>let @+ = expand(\"%\")<cr>:echo 'File name yanked.'<cr>", noremap)
+k.set('n', 'yf', [[<cmd>let @+ = expand("%")<cr><cmd>echo 'File name yanked.'<cr>]], noremap)
 -- Give a more logical behavior to Y
 k.set('n', 'Y', 'y$', noremap)
 -- select the whole line
@@ -45,25 +45,25 @@ k.set({ 'n', 'x' }, 'È', ':!')
 -- search
 k.set({ 'n', 'x' }, 'é', '/')
 -- replace occurrences of word under cursor
-k.set('n', 'gé', '*N:redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>', noremap)
+k.set('n', 'gé', '*N<cmd>redraw!<cr>:%s/<c-r><c-w>//gI<left><left><left>', noremap)
 -- find & replace
 k.set('n', 'É', ':%s/<space><bs>')
 k.set('x', 'É', '<esc>:%s/\\%V<space><bs>')
 -- hide search matches
-k.set('n', '<esc>', '<esc>:nohlsearch<cr>', noremap)
+k.set('n', '<esc>', '<esc><cmd>nohlsearch<cr>', noremap)
 -- Find character
 k.set({ 'n', 'x' }, ',', ';', noremap)
 k.set({ 'n', 'x' }, ';', ',', noremap)
 -- Close current buffer
-k.set('n', 'Q', ':bdelete!<cr>', noremap)
+k.set('n', 'Q', '<cmd>bdelete!<cr>', noremap)
 -- Sanity mappings for command line mode
 k.set('c', '<esc>', '<c-c>', noremap)
 k.set('c', '<c-a>', '<home>')
 -- Exit
-k.set({ 'n', 'x' }, 'à', ':<c-u>confirm quit<cr>', noremap)
-k.set({ 'n', 'x' }, 'À', ':<c-u>confirm quitall<cr>', noremap)
+k.set({ 'n', 'x' }, 'à', '<cmd>confirm quit<cr>', noremap)
+k.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', noremap)
 -- Save
-k.set('n', 's', ':w ++p<cr>', noremap)
+k.set('n', 's', '<cmd>w ++p<cr>', noremap)
 -- Reselect pasted lines
 k.set('n', 'gV', '`[v`]', noremap)
 -- It is more convenient to access numbers directly when in normal mode
@@ -93,7 +93,7 @@ k.set('', '0', '*', noremap)
 k.set('x', 's', ':sort<cr>', noremap)
 -- macro
 k.set('', '<leader><leader>', '@q', noremap)
-k.set('x', '<leader><leader>', ':normal 6q<cr>', noremap)
+k.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', noremap)
 -- }}}
 -- {{{ --| togglers |---------------------------------------
 -- Uppercase current word
@@ -123,30 +123,37 @@ k.set('n', '<leader>g', function()
   ]]
 end, noremap)
 -- Quickfix / Location list
-k.set('n', '<leader>q', ':call ToggleQuickfixList()<cr>', noremap)
-k.set('n', '<leader>l', ':call ToggleLocationList()<cr>', noremap)
+k.set('n', '<leader>q', '<cmd>call ToggleQuickfixList()<cr>', noremap)
+k.set('n', '<leader>l', '<cmd>call ToggleLocationList()<cr>', noremap)
 -- }}}
 -- {{{ --| splits / tabs |----------------------------------
 k.set('n', '<left>', '<c-w>5<', noremap)
 k.set('n', '<right>', '<c-w>5>', noremap)
 k.set('n', '<up>', '<c-w>+', noremap)
 k.set('n', '<down>', '<c-w>-', noremap)
-k.set('n', 'co', ':tabo<cr><c-w>o', noremap)
+k.set('n', 'co', '<cmd>tabo<cr><c-w>o', noremap)
 -- Hack to make <c-w><c-c> mapping work
 k.set('', '<c-c>', '<nop>', noremap)
 k.set('', '<c-w><c-c>', '<c-w>H', noremap)
 k.set('', '<c-w><c-t>', '<c-w>J', noremap)
 k.set('', '<c-w><c-s>', '<c-w>K', noremap)
 k.set('', '<c-w><c-r>', '<c-w>L', noremap)
+
+local edit_path = function(cmd)
+  return function() return ':' .. cmd .. ' ' .. vim.fn.escape(vim.fn.expand('%:p:h'), ' ') .. '/' end
+end
 -- Horizontal Split
-k.set('n', '<leader>nn', ':new<cr>', noremap)
-k.set('n', '<leader>ne', ":new <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
+k.set('n', '<leader>ss', '<c-w>s', { silent = true })
+k.set('n', '<leader>se', edit_path('new'), { expr = true })
 -- Vertical split
-k.set('n', '<leader>vv', ':vnew<cr>', noremap)
-k.set('n', '<leader>ve', ":vnew <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>")
+k.set('n', '<leader>vv', '<c-w>v', { silent = true })
+k.set('n', '<leader>ve', edit_path('vnew'), { expr = true })
+-- Tabs
+k.set('n', '<leader>tt', '<cmd>tabe<cr>', { silent = true })
+k.set('n', '<leader>te', edit_path('tabe'), { expr = true })
 -- Dimensions
 k.set('n', '<leader>=', '<c-w>=', noremap)
-k.set('n', '<leader>%', ':res<cr>:vertical res<cr>', noremap)
+k.set('n', '<leader>%', '<cmd>res<cr><cmd>vertical res<cr>', noremap)
 -- Moving around
 k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because we redefine tab later on)
 k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symetrical)
@@ -154,11 +161,8 @@ k.set('n', '<tab>', '<c-w>w', noremap)
 k.set('n', '<s-tab>', '<c-w>W', noremap)
 k.set('n', '<c-n>', 'gt', noremap)
 k.set('n', '<c-p>', 'gT', noremap)
--- New tab
-k.set('n', '<leader>tt', ':tabe<cr>', noremap)
-k.set('n', '<leader>te', ":tabe <c-r>=escape(expand(\"%:p:h\"), ' ') . '/'<cr>", noremap)
 -- Move current tab
-k.set('n', '<leader>tm', ':tabm<leader>')
+k.set('n', '<leader>tm', '<cmd>tabm<leader>')
 -- move current split to a new tab
 k.set('n', '<leader>U', '<c-w>T', noremap)
 -- merge current split into lefthand tab

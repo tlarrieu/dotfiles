@@ -7,7 +7,7 @@ o.spell = true
 vim.api.nvim_create_autocmd('BufEnter', {
   pattern = { '**/gtd/*.norg' },
   callback = function()
-    vim.keymap.set('n', '<leader>z', ':set foldlevel=1<cr>zO', { remap = false, silent = true, buffer = true })
+    vim.keymap.set('n', '<leader>z', '<cmd>set foldlevel=1<cr>zO', { remap = false, silent = true, buffer = true })
     vim.keymap.set('n', 'o', 'i<m-cr>( ) ', { remap = true, buffer = true })
     vim.keymap.set('i', '<cr>', '<m-cr>', { remap = true, buffer = true })
 
