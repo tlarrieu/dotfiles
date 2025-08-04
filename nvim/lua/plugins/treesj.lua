@@ -15,5 +15,7 @@ return {
       desc = 'Toggle split (recursive)'
     },
   },
-  opts = {},
+  opts = {
+    max_join_length = 1000,
+  },
 }
