@@ -173,7 +173,7 @@ return {
         ['@markup.italic'] = { fg = c.none, italic = true, underline = false },
         ['@markup.underline'] = { fg = c.none, underline = true },
         ['@markup.quote'] = { fg = c.none, italic = true },
-        ['@markup.link'] = { fg = c.violet, bg = c.none, italic = true },
+        ['@markup.link'] = { fg = c.violet, bg = c.none, italic = true, underline = false },
         ['@markup.link.url'] = { link = '@markup.link' },
         ['@markup.link.label'] = { link = '@markup.link' },
         ['@markup.raw.markdown_inline'] = { fg = c.none, bg = c.none },
