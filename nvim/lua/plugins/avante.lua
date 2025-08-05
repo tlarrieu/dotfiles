@@ -34,6 +34,41 @@ return {
     provider = 'copilot',
     auto_suggestions_provider = 'copilot',
     hints = { enabled = false },
+    windows = {
+      position = 'right',
+      wrap = true,
+      width = 35, -- %
+      sidebar_header = {
+        enabled = true,
+        align = 'center',
+        rounded = true,
+      },
+      spinner = {
+        editing = { '∙∙∙', '●∙∙', '∙●∙', '∙∙●', '∙∙∙' },
+        generating = { '✶', '✸', '✹', '✺', '✹', '✷' },
+        thinking = { '🤯', '🙄' },
+      },
+      input = {
+        prefix = ' ',
+        height = 8,
+      },
+      edit = {
+        border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        start_insert = true,
+      },
+      ask = {
+        floating = true,
+        start_insert = true,
+        border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+        focus_on_apply = 'ours',
+      },
+    },
+    highlights = {
+      diff = {
+        current = 'DiffText',
+        incoming = 'DiffAdd',
+      },
+    },
     behaviour = {
       auto_suggestions = true,
       auto_set_highlight_group = true,
