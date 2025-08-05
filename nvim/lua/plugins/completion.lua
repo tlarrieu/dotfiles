@@ -11,7 +11,7 @@ return {
   },
   event = { 'CmdlineEnter', 'InsertEnter' },
   config = function()
-    require("copilot_cmp").setup()
+    require('copilot_cmp').setup()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
