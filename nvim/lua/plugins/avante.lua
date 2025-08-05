@@ -48,6 +48,10 @@ return {
         close = { 'q' },
         close_from_input = { normal = 'q', insert = '<c-d>' },
       },
+      submit = {
+        normal = '<enter>',
+        insert = '<enter>',
+      },
       cancel = {
         normal = { '<esc>' },
         insert = { '<esc>' },
