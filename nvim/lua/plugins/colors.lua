@@ -515,9 +515,9 @@ return {
         ['AvanteReversedSubtitle'] = { link = 'AvanteReversedTitle' },
         ['AvanteThirdTitle'] = { link = 'AvanteTitle' },
         ['AvanteReversedThirdTitle'] = { link = 'AvanteReversedTitle' },
-        ['AvantePopupHint'] = { fg = c.mix_fg, bg = c.bg, italic = true },
+        ['AvantePopupHint'] = { fg = c.mix_fg, bg = c.mix_bg, italic = true, blend = 0 },
         ['AvanteSidebarNormal'] = { fg = c.none, bg = c.bg },
-        ['AvanteSidebarWinSeparator'] = { fg = c.none, bg = c.bg },
+        ['AvanteSidebarWinSeparator'] = { link = 'WinSeparator' },
         ['AvanteSidebarWinHorizontalSeparator'] = { fg = c.none, bg = c.bg },
       }
     end

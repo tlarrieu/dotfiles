@@ -3,11 +3,12 @@ return {
   build = 'make',
   event = 'VeryLazy',
   dependencies = {
-    'nvim-lua/plenary.nvim',
-    'MunifTanjim/nui.nvim',
-    'nvim-telescope/telescope.nvim',
-    'hrsh7th/nvim-cmp',
-    'nvim-tree/nvim-web-devicons',
+    { 'nvim-lua/plenary.nvim' },
+    { 'MunifTanjim/nui.nvim' },
+    { 'zbirenbaum/copilot.lua' },
+    { 'nvim-telescope/telescope.nvim' },
+    { 'hrsh7th/nvim-cmp' },
+    { 'nvim-tree/nvim-web-devicons' },
   },
   keys = function(_, keys)
     local avante = require('avante.api')
@@ -24,18 +25,9 @@ return {
     return vim.list_extend(mappings, keys)
   end,
   opts = {
-    provider = 'claude',
-    providers = {
-      claude = {
-        endpoint = 'https://api.anthropic.com',
-        model = 'claude-sonnet-4-20250514',
-        timeout = 30000,
-        extra_request_body = {
-          temperature = 0.75,
-          max_tokens = 20480,
-        },
-      },
-    },
+    provider = 'copilot',
+    auto_suggestions_provider = 'copilot',
+    hints = { enabled = false },
     behaviour = {
       auto_suggestions = true,
       auto_set_highlight_group = true,
