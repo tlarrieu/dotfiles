@@ -159,8 +159,10 @@ k.set('n', '<c-i>', '<c-i>', noremap) -- force standard ctrl-i behavior (because
 k.set('n', '<c-o>', '<c-o>', noremap) -- force standard ctrl+o behavior (mostly to be symetrical)
 k.set('n', '<tab>', '<c-w>w', noremap)
 k.set('n', '<s-tab>', '<c-w>W', noremap)
-k.set('n', '<c-n>', 'gt', noremap)
-k.set('n', '<c-p>', 'gT', noremap)
+k.set('n', '<c-tab>', 'gt', noremap)
+k.set('n', '<c-s-tab>', 'gT', noremap)
+k.set('n', '<c-n>', '<cmd>cnext<cr>', noremap)
+k.set('n', '<c-p>', '<cmd>cprev<cr>', noremap)
 -- Move current tab
 k.set('n', '<leader>tm', '<cmd>tabm<leader>')
 -- move current split to a new tab
