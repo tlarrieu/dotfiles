@@ -14,6 +14,9 @@ nvim/doc
 nvim/spell
 nvim/spell/*
 
+config/fish/fundle
+config/fish/functions/fundle.fish
+
 vifm/vifm-help.txt
 vifm/vifminfo*
 vifm/scripts/README
