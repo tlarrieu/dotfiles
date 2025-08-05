@@ -7,14 +7,14 @@ return {
     'nvim-lua/plenary.nvim',
   },
   keys = {
-    { '<leader>a', function() list():add() end,     desc = 'Harpoon: add file' },
+    { '<c-.>', function() list():add() end,     desc = 'Harpoon: add file' },
 
-    { '<c-">',     function() list():select(1) end, desc = 'Harpoon: open #1' },
-    { '<c-«>',     function() list():select(2) end, desc = 'Harpoon: open #2' },
-    { '<c-»>',     function() list():select(3) end, desc = 'Harpoon: open #3' },
-    { '<c-(>',     function() list():select(4) end, desc = 'Harpoon: open #4' },
-    { '<c-)>',     function() list():select(5) end, desc = 'Harpoon: open #5' },
-    { '<c-@>',     function() list():select(6) end, desc = 'Harpoon: open #6' },
+    { '<c-">', function() list():select(1) end, desc = 'Harpoon: open #1' },
+    { '<c-«>', function() list():select(2) end, desc = 'Harpoon: open #2' },
+    { '<c-»>', function() list():select(3) end, desc = 'Harpoon: open #3' },
+    { '<c-(>', function() list():select(4) end, desc = 'Harpoon: open #4' },
+    { '<c-)>', function() list():select(5) end, desc = 'Harpoon: open #5' },
+    { '<c-@>', function() list():select(6) end, desc = 'Harpoon: open #6' },
 
     {
       "<c-,>",
@@ -28,8 +28,6 @@ return {
       end,
       desc = 'Harpoon: edit list'
     },
-
-    { '<c-s-,>', ":silent cfdo lua require('harpoon'):list():add()<cr>", desc = 'Harpoon: append quickfix to file list' },
   },
   config = function()
     local harpoon = require('harpoon')

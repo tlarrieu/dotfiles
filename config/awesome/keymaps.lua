@@ -133,7 +133,6 @@ local keyboard = {
     spawner.key({ mod }, 'y', 'pulseaudio-ctl mute-input'),
     spawner.key({ mod }, 'Escape', 'rofi-pass'),
     spawner.key({ mod }, ',', 'rofi-search'),
-    spawner.key({ 'Control' }, ' ', 'gtd-inbox'),
     spawner.key({ mod }, 'q', 'rofi-power'),
 
     spawner.key({ mod }, 'a', {

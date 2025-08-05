@@ -20,14 +20,13 @@ return {
     local api = require('avante.api')
     local toggle = function() require('avante').toggle() end
     local mappings = {
-      { '<leader>ca', api.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
-      { '<leader>ce', api.edit,         desc = 'avante: edit',         mode = { 'n', 'v' } },
-      { '<leader>cr', api.refresh,      desc = 'avante: refresh',      mode = 'v', },
-      { '<leader>ct', toggle,           desc = 'avante: toggle',       mode = 'n', },
-      { '<leader>cr', api.refresh,      desc = 'avante: refresh',      mode = 'n' },
-      { '<leader>cf', api.focus,        desc = 'avante: focus',        mode = 'n' },
-      { '<leader>cs', api.stop,         desc = 'avante: stop',         mode = 'n' },
-      { '<leader>c?', api.select_model, desc = 'avante: select model', mode = 'n' },
+      { '<c-space>',  api.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
+      { ' ',          api.edit,         desc = 'avante: edit',         mode = 'v' },
+      { '<leader>ar', api.refresh,      desc = 'avante: refresh',      mode = 'v' },
+      { '<leader>at', toggle,           desc = 'avante: toggle',       mode = 'n' },
+      { '<leader>af', api.focus,        desc = 'avante: focus',        mode = 'n' },
+      { '<leader>as', api.stop,         desc = 'avante: stop',         mode = 'n' },
+      { '<leader>am', api.select_model, desc = 'avante: select model', mode = 'n' },
     }
     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
     return vim.list_extend(mappings, keys)
