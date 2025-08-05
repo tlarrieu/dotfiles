@@ -7,6 +7,11 @@ local ftmap = {
   TelescopePrompt = 'telescope',
   qf = 'quickfix',
   oil = 'oil',
+  Avante = 'avante',
+  AvanteSelectedCode = 'avante',
+  AvanteSelectedFiles = 'avante',
+  AvanteTodos = 'avante',
+  AvanteInput = 'avante',
 }
 
 return {
@@ -167,6 +172,7 @@ return {
           },
           icons_enabled = false,
           show_modified_status = false,
+          disabled_buftypes = { 'nofile' },
           fmt = function(name, context)
             -- Icon
             local icon
@@ -180,7 +186,10 @@ return {
                 or (name == 'diffpanel_3' and 'undodiff')
                 or name
 
-            if context.filetype == 'fugitive' then
+            if ftmap[context.filetype] == 'avante' then
+              icon = '󰚩'
+              name = 'avante'
+            elseif context.filetype == 'fugitive' then
               icon = ''
               name = 'status'
             elseif context.file:find('^fugitive:///') then
