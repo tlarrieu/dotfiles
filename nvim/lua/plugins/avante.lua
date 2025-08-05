@@ -5,7 +5,13 @@ return {
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },
-    { 'zbirenbaum/copilot.lua' },
+    {
+      'zbirenbaum/copilot.lua',
+      opts = {
+        suggestion = { enabled = false },
+        panel = { enabled = false },
+      }
+    },
     { 'nvim-telescope/telescope.nvim' },
     { 'hrsh7th/nvim-cmp' },
     { 'nvim-tree/nvim-web-devicons' },

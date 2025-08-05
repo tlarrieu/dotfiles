@@ -453,6 +453,7 @@ return {
         CmpItemAbbrMatch = { bold = true },
         CmpItemKindVariable = { fg = c.violet },
         CmpItemKindSnippet = { fg = c.orange },
+        CmpItemKindCopilot = { fg = c.mix_fg },
 
         ['@field.ledger'] = { fg = c.blue },
         ['@number.ledger'] = { fg = c.magenta },

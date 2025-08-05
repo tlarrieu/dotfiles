@@ -7,9 +7,11 @@ return {
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
     'kirasok/cmp-hledger',
+    'zbirenbaum/copilot-cmp',
   },
   event = { 'CmdlineEnter', 'InsertEnter' },
   config = function()
+    require("copilot_cmp").setup()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
 
@@ -39,6 +41,7 @@ return {
       Event = '󱐌',
       Operator = '󰿈',
       TypeParameter = '󰅲',
+      Copilot = '',
     }
 
     cmp.setup({
@@ -75,18 +78,11 @@ return {
         end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({
+        { name = 'copilot',  priority = 110 },
         { name = 'nvim_lsp', priority = 100 },
         { name = 'luasnip',  priority = 95 },
         { name = 'path',     priority = 0 },
-        {
-          name = 'buffer',
-          priority = 90,
-          option = {
-            get_bufnrs = function()
-              return vim.api.nvim_list_bufs()
-            end
-          }
-        },
+        { name = 'buffer',   priority = 10, option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
       }),
       formatting = {
         format = function(_, vim_item)
