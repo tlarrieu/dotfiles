@@ -43,7 +43,7 @@ end
 class Browser < SearchEngine
 
   def initialize(target, fallback: nil, prefixes: [], profile: nil)
-    super(target, fallback:, prefixes:)
+    super(target, fallback: fallback, prefixes: prefixes)
     @profile = profile
   end
 
