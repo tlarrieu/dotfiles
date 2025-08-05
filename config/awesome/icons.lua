@@ -210,7 +210,7 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'sidekiq' } },
   { icon = '', rule = { class = 'kitty', name = 'yarn' } },
   { icon = '', rule = { class = 'kitty', name = 'redis%-server' } },
-  { icon = '', rule = { class = 'kitty', name = 'git/dotfiles' } },
+  { icon = '', rule = { class = 'kitty', name = 'dotfiles' } },
   { icon = '', rule = { class = 'kitty', name = 'exercism' } },
   { icon = '', rule = { class = 'kitty', name = 'Nvim' } },
   {
