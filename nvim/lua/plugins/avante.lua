@@ -17,15 +17,17 @@ return {
     { 'nvim-tree/nvim-web-devicons' },
   },
   keys = function(_, keys)
-    local avante = require('avante.api')
+    local api = require('avante.api')
+    local toggle = function() require('avante').toggle() end
     local mappings = {
-      { '<leader>ca', avante.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
-      { '<leader>cr', avante.refresh,      desc = 'avante: refresh',      mode = 'v', },
-      { '<leader>ce', avante.edit,         desc = 'avante: edit',         mode = { 'n', 'v' } },
-      { '<leader>cr', avante.refresh,      desc = 'avante: refresh',      mode = { 'n', 'v' } },
-      { '<leader>cf', avante.focus,        desc = 'avante: focus',        mode = { 'n', 'v' } },
-      { '<leader>cs', avante.stop,         desc = 'avante: stop',         mode = { 'n', 'v' } },
-      { '<leader>c?', avante.select_model, desc = 'avante: select model', mode = { 'n', 'v' } },
+      { '<leader>ca', api.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
+      { '<leader>ce', api.edit,         desc = 'avante: edit',         mode = { 'n', 'v' } },
+      { '<leader>cr', api.refresh,      desc = 'avante: refresh',      mode = 'v', },
+      { '<leader>ct', toggle,           desc = 'avante: toggle',       mode = 'n', },
+      { '<leader>cr', api.refresh,      desc = 'avante: refresh',      mode = 'n' },
+      { '<leader>cf', api.focus,        desc = 'avante: focus',        mode = 'n' },
+      { '<leader>cs', api.stop,         desc = 'avante: stop',         mode = 'n' },
+      { '<leader>c?', api.select_model, desc = 'avante: select model', mode = 'n' },
     }
     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
     return vim.list_extend(mappings, keys)
