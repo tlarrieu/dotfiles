@@ -35,6 +35,37 @@ return {
     provider = 'copilot',
     auto_suggestions_provider = 'copilot',
     hints = { enabled = false },
+    mappings = {
+      sidebar = {
+        apply_all = 'A',
+        apply_cursor = 'a',
+        retry_user_request = 'r',
+        edit_user_request = 'e',
+        switch_windows = nil,
+        reverse_switch_windows = nil,
+        remove_file = 'd',
+        add_file = '@',
+        close = { 'q' },
+        close_from_input = { normal = 'q', insert = '<c-d>' },
+      },
+      cancel = {
+        normal = { '<esc>' },
+        insert = { '<esc>' },
+      },
+    },
+    prompt_logger = {
+      enabled = true,
+      log_dir = vim.fn.stdpath('cache') .. '/avante_prompts',
+      fortune_cookie_on_success = false,
+      next_prompt = {
+        normal = '<c-n>',
+        insert = '<c-n>',
+      },
+      prev_prompt = {
+        normal = '<c-p>',
+        insert = '<c-p>',
+      },
+    },
     windows = {
       position = 'right',
       wrap = true,
