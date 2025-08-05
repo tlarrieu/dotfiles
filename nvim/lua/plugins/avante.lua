@@ -105,6 +105,13 @@ return {
         "Please provide a detailed explanation of the code's functionality, including its purpose, logic, and any important considerations.",
       },
       {
+        name = 'annotate',
+        description = 'Add comments to the code',
+        details = 'Document the code with comments explaining its purpose, logic, and any important considerations.',
+        prompt =
+        'Please document the code with comments explaining its purpose, logic, and any important considerations.',
+      },
+      {
         name = 'summarize',
         description = 'Generate short summary',
         details = 'Generate a concise summary of the selected text, highlighting key elements and main ideas.',
