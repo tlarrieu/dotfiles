@@ -218,13 +218,13 @@ local edit_path = function(cmd)
 end
 -- Horizontal Split
 vim.keymap.set('n', '<leader>ss', '<c-w>s', { silent = true })
-vim.keymap.set('n', '<leader>se', edit_path('new'), { expr = true })
+vim.keymap.set('n', '<leader>se', edit_path('new'), { expr = true, desc = 'Edit path in a new horizontal split' })
 -- Vertical split
 vim.keymap.set('n', '<leader>vv', '<c-w>v', { silent = true })
-vim.keymap.set('n', '<leader>ve', edit_path('vnew'), { expr = true })
+vim.keymap.set('n', '<leader>ve', edit_path('vnew'), { expr = true, desc = 'Edit path in a new vertical split' })
 -- Tabs
 vim.keymap.set('n', '<leader>tt', '<cmd>tabe<cr>', { silent = true })
-vim.keymap.set('n', '<leader>te', edit_path('tabe'), { expr = true })
+vim.keymap.set('n', '<leader>te', edit_path('tabe'), { expr = true, desc = 'Edit path in a new tab' })
 -- Dimensions
 vim.keymap.set('n', '<leader>=', '<c-w>=')
 vim.keymap.set('n', '<leader>%', '<cmd>res<cr><cmd>vertical res<cr>', { silent = true })
