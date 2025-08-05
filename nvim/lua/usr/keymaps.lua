@@ -187,8 +187,8 @@ vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>zz', { silent = true })
 --- }}}
 --- {{{ --| Jumps |-----------------------------------------
-vim.keymap.set('n', '<c-i>', '<c-i>')
-vim.keymap.set('n', '<c-o>', '<c-o>')
+vim.keymap.set('n', '<c-i>', '<c-i>zz')
+vim.keymap.set('n', '<c-o>', '<c-o>zz')
 --- }}}
 --- {{{ --| Diagnostics |-----------------------------------
 vim.keymap.set('n', '<c-þ>', ']dzz', { remap = true })
