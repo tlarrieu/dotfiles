@@ -79,9 +79,7 @@ return {
           ['ir'] = '@assignment.rhs',
         },
         selection_modes = {
-          ['@function.outer'] = 'V',
           ['@block.outer'] = 'V',
-          ['@conditional.outer'] = 'V',
         },
       },
 
