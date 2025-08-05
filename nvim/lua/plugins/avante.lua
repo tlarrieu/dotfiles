@@ -73,11 +73,41 @@ return {
       auto_suggestions = true,
       auto_set_highlight_group = true,
       auto_set_keymaps = false,
-      auto_apply_diff_after_generation = false,
+      auto_apply_diff_after_generation = true,
       support_paste_from_clipboard = false,
       minimize_diff = true,
       enable_token_counting = true,
       auto_approve_tool_permissions = false,
     },
+    shortcuts = {
+      {
+        name = 'refactor',
+        description = 'Refactor code with best practices',
+        details =
+        'Automatically refactor code to improve readability, maintainability, and follow best practices while preserving functionality',
+        prompt =
+        'Please refactor this code following best practices, improving readability and maintainability while preserving functionality.',
+      },
+      {
+        name = 'test',
+        description = 'Generate unit tests',
+        details = 'Create comprehensive unit tests covering edge cases, error scenarios, and various input conditions',
+        prompt = 'Please generate comprehensive unit tests for this code, covering edge cases and error scenarios.',
+      },
+      {
+        name = 'explain',
+        description = 'Explain code functionality',
+        details =
+        "Provide a detailed explanation of the code's functionality, including its purpose, logic, and any important considerations.",
+        prompt =
+        "Please provide a detailed explanation of the code's functionality, including its purpose, logic, and any important considerations.",
+      },
+      {
+        name = 'summarize',
+        description = 'Generate short summary',
+        details = 'Generate a concise summary of the selected text, highlighting key elements and main ideas.',
+        prompt = 'Please generate a concise summary of the selected text, highlighting key elements and main ideas.',
+      },
+    }
   },
 }
