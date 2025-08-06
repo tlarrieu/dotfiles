@@ -1,6 +1,5 @@
 return {
   'yetone/avante.nvim',
-  build = 'make',
   event = 'VeryLazy',
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
@@ -17,14 +16,19 @@ return {
     { 'nvim-tree/nvim-web-devicons' },
   },
   keys = function(_, keys)
-    local api = require('avante.api')
-    local toggle = function() require('avante').toggle() end
+    local run = function(action)
+      return function()
+        if action == 'toggle' then return require('avante').toggle() end
+        require('avante.api')[action]()
+      end
+    end
+
     local mappings = {
-      { '<c-space>',  api.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
-      { ' ',          api.edit,         desc = 'avante: edit',         mode = 'v' },
-      { '<leader>aa', toggle,           desc = 'avante: toggle',       mode = 'n' },
-      { '<leader>ae', api.focus,        desc = 'avante: focus',        mode = 'n' },
-      { '<leader>as', api.select_model, desc = 'avante: select model', mode = 'n' },
+      { '<c-space>',  run('ask'),          desc = 'avante: ask',          mode = { 'n', 'v' } },
+      { ' ',          run('edit'),         desc = 'avante: edit',         mode = 'v' },
+      { '<leader>aa', run('toggle'),       desc = 'avante: toggle',       mode = 'n' },
+      { '<leader>ae', run('focus'),        desc = 'avante: focus',        mode = 'n' },
+      { '<leader>as', run('select_model'), desc = 'avante: select model', mode = 'n' },
     }
     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
     return vim.list_extend(mappings, keys)
