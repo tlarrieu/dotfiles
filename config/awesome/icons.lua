@@ -172,7 +172,7 @@ local config = {
   { icon = '', rule = { class = 'man' } },
   { icon = '', rule = { class = 'dungeondraft.exe' } },
   { icon = '', rule = { class = 'Nemo' } },
-  { icon = '', rule = { class = 'config' } },
+  { icon = '', rule = { class = 'config' } },
   { icon = '', rule = { class = 'firefox' } },
   { icon = '', rule = { class = 'Lxappearance' } },
   { icon = '', rule = { class = 'Mainwindow.py' } }, --[[ PlayOnLinux ]]
