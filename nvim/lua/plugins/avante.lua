@@ -22,11 +22,9 @@ return {
     local mappings = {
       { '<c-space>',  api.ask,          desc = 'avante: ask',          mode = { 'n', 'v' } },
       { ' ',          api.edit,         desc = 'avante: edit',         mode = 'v' },
-      { '<leader>ar', api.refresh,      desc = 'avante: refresh',      mode = 'v' },
-      { '<leader>at', toggle,           desc = 'avante: toggle',       mode = 'n' },
-      { '<leader>af', api.focus,        desc = 'avante: focus',        mode = 'n' },
-      { '<leader>as', api.stop,         desc = 'avante: stop',         mode = 'n' },
-      { '<leader>am', api.select_model, desc = 'avante: select model', mode = 'n' },
+      { '<leader>aa', toggle,           desc = 'avante: toggle',       mode = 'n' },
+      { '<leader>ae', api.focus,        desc = 'avante: focus',        mode = 'n' },
+      { '<leader>as', api.select_model, desc = 'avante: select model', mode = 'n' },
     }
     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)
     return vim.list_extend(mappings, keys)
