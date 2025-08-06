@@ -331,7 +331,7 @@ return {
         OilDir = { link = '@normal' },
         OilDirIcon = { link = 'OilDir' },
 
-        HarpoonLine = { link = 'QuickFixLine' },
+        HarpoonLine = { fg = c.none, bg = c.none, bold = true },
 
         TreesitterContext = { fg = c.none, bg = c.none, italic = true },
         TreesitterContextBottom = { link = 'TreesitterContext' },
