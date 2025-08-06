@@ -22,8 +22,8 @@ return {
         local harpoon = require('harpoon')
         harpoon.ui:toggle_quick_menu(harpoon:list(), {
           title = '󰓾 Harpoon',
-          title_pos = 'left',
-          border = 'single',
+          title_pos = 'center',
+          border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
         })
       end,
       desc = 'Harpoon: edit list'
