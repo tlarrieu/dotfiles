@@ -1,7 +1,7 @@
 local runner = require('runner')
 
 runner.default({
-  main = runner.term('lua' .. '%', { open = false }),
+  main = runner.term('lua ' .. '%', { open = false }),
   alt = runner.term('lua %'),
 })
 
