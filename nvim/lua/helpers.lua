@@ -59,4 +59,13 @@ M.merge = function(left, right)
   return vim.tbl_deep_extend('keep', left, right)
 end
 
+M.strip = function(string)
+  local lines = {}
+  for line in string:gmatch('[^\n]+') do
+    local stripped, _ = line:gsub('^ *', '')
+    table.insert(lines, stripped)
+  end
+  return table.concat(lines, '\n')
+end
+
 return M

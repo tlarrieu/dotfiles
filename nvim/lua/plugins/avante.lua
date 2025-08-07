@@ -1,3 +1,4 @@
+local strip = require('helpers').strip
 return {
   'yetone/avante.nvim',
   event = 'VeryLazy',
@@ -175,6 +176,19 @@ return {
         description = 'Generate short summary',
         details = 'Generate a concise summary of the selected text, highlighting key elements and main ideas.',
         prompt = 'Please generate a concise summary of the selected text, highlighting key elements and main ideas.',
+      },
+      {
+        name = 'review',
+        description = 'Review code for potential issues',
+        details =
+        'Analyze the code for potential issues, bugs, or areas of improvement, providing suggestions for enhancement.',
+        prompt = strip([[
+          You are a seasoned engineer with expertise in code review. Your task is to analyze the provided code snippet and provide a detailed review.
+          Focus your attention on the following aspects:
+          - code clarity and readability
+          - performance
+          - compliance with our guidelines
+        ]])
       },
     }
   },
