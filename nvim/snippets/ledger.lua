@@ -6,15 +6,15 @@ return {
   -- definitions
   s("e", fmta([[
   <> ! <> | <>
-    <>  <> €
+    <>  -<> €
     <>
   ]], {
     f(curdate),
     i(1, 'payee'),
     i(2, 'desc'),
-    i(3, 'to'),
+    i(3, 'card:bp'),
     i(4, 'amount'),
-    i(0, 'card:bp')
+    i(0, 'to')
   })),
   s("r", fmta([[
   <> ! <> | <>

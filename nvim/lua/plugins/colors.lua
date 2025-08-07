@@ -416,7 +416,8 @@ return {
         CmpItemKindCopilot = { fg = c.mix_fg },
 
         ['@field.ledger'] = { fg = c.blue },
-        ['@number.ledger'] = { fg = c.magenta },
+        ['@number.ledger'] = { fg = c.green },
+        ['@number.negative.ledger'] = { fg = c.red },
         ['@markup.raw.ledger'] = { fg = c.fg },
         ['@string.special.ledger'] = { fg = c.yellow, bold = true },
 
