@@ -113,7 +113,7 @@ return {
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
         Keyword = { fg = c.green, bold = false },
-        Comment = { link = '@comment.high' },
+        Comment = { fg = c.mix_fg, bg = c.none, italic = true },
         Special = { fg = c.magenta },
         String = { italic = true },
         Tag = { fg = c.yellow },
@@ -175,11 +175,6 @@ return {
 
         ['@property.yaml'] = { link = '@key' },
 
-        ['@comment.low'] = { fg = c.mix_fg, bg = c.none, bold = false, italic = true },
-        ['@comment.high'] = { fg = c.mix_fg, bg = c.mix_bg, bold = false, italic = false, nocombine = true },
-        ['@comment.query'] = { link = '@comment.low' },
-        ['@comment.gitcommit'] = { link = '@comment.low' },
-
         ['@variable.parameter.go'] = { fg = c.mix_fg },
         ['@variable.member.go'] = { fg = c.mix_fg },
 
@@ -229,7 +224,7 @@ return {
         DiagnosticWarn = { fg = c.yellow, bg = c.none },
         DiagnosticInfo = { fg = c.violet, bg = c.none },
         DiagnosticHint = { fg = c.violet, bg = c.none },
-        DiagnosticUnnecessary = { link = '@comment.low' },
+        DiagnosticUnnecessary = { fg = c.mix_fg, bg = c.none },
 
         DiagnosticFloatingOk = { link = 'DiagnosticOk' },
         DiagnosticFloatingError = { link = 'DiagnosticError' },
@@ -324,12 +319,12 @@ return {
         TelescopeResultsDiffChange = { fg = c.yellow },
 
         LazyNormal = { link = 'NormalFloat' },
-        LazyComment = { link = '@comment.low' },
+        LazyComment = { link = 'Comment' },
         LazyButton = paint('blue'),
         LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
-        MasonNormal = { link = 'NormalFloat' },
+        MasonNormal = { link = 'Normal' },
         MasonHeader = { link = 'lazyH1' },
         MasonHighlight = { fg = c.green, bg = c.none },
         MasonHighlightBlock = paint('green'),
@@ -488,9 +483,6 @@ return {
         AvanteStateSpinnerCompacting = paint('violet'),
         AvanteStateSpinnerGenerating = paint('blue'),
         AvanteStateSpinnerToolCalling = paint('cyan'),
-
-        CopilotSuggestion = { link = '@comment.low' },
-        CopilotAnnotation = { link = '@comment.low' },
       }
     end
   },
