@@ -37,6 +37,9 @@ return {
     provider = 'copilot',
     auto_suggestions_provider = 'copilot',
     hints = { enabled = false },
+    providers = {
+      morph = { model = "auto" },
+    },
     mappings = {
       sidebar = {
         apply_all = 'A',
@@ -135,6 +138,7 @@ return {
       minimize_diff = true,
       enable_token_counting = true,
       auto_approve_tool_permissions = false,
+      enable_fast_apply = true,
     },
     shortcuts = {
       {
