@@ -1,27 +1,10 @@
 local xrdb = require('xrdb')
 
 local apply_xrdb = function()
-  vim.cmd.colorscheme('solarized')
-  vim.o.background = xrdb.load().vim.background or 'light'
-  vim.cmd.syntax('on')
-
   local theme = xrdb.load() or {}
-  vim.g.terminal_color_0 = theme.color0
-  vim.g.terminal_color_1 = theme.color1
-  vim.g.terminal_color_2 = theme.color2
-  vim.g.terminal_color_3 = theme.color3
-  vim.g.terminal_color_4 = theme.color4
-  vim.g.terminal_color_5 = theme.color5
-  vim.g.terminal_color_6 = theme.color6
-  vim.g.terminal_color_7 = theme.color7
-  vim.g.terminal_color_8 = theme.color8
-  vim.g.terminal_color_9 = theme.color9
-  vim.g.terminal_color_10 = theme.color10
-  vim.g.terminal_color_11 = theme.color11
-  vim.g.terminal_color_12 = theme.color12
-  vim.g.terminal_color_13 = theme.color13
-  vim.g.terminal_color_14 = theme.color14
-  vim.g.terminal_color_15 = theme.color15
+  vim.cmd.colorscheme('solarized')
+  vim.o.background = theme.vim.background or 'light'
+  for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] end
 end
 
 local merge = require('helpers').merge
@@ -49,48 +32,20 @@ return {
     on_colors = function(c, _)
       local colors
 
-      if vim.o.background == 'light' then
-        colors = {
-          fg = c.base00,
-          mix_fg = c.base1,
-          bg = c.base3,
-          mix_bg = c.base2,
-          dim_bg = c.base4,
-
-          lualine = {
-            git = {
-              added = { fg = c.green, bg = c.base2 },
-              removed = { fg = c.red, bg = c.base2 },
-              modified = { fg = c.yellow, bg = c.base2 },
-            },
-          },
-        }
-      else
-        colors = {
-          fg = c.base0,
-          mix_fg = c.base01,
-          bg = c.base03,
-          mix_bg = c.base02,
-          dim_bg = c.base04,
-
-          lualine = {
-            git = {
-              added = { fg = c.green, bg = c.base02 },
-              removed = { fg = c.red, bg = c.base02 },
-              modified = { fg = c.yellow, bg = c.base02 },
-            },
-          },
-        }
-      end
+      colors = vim.o.background == 'light'
+          and { fg = c.base00, mix_fg = c.base1, bg = c.base3, mix_bg = c.base2, dim_bg = c.base4 }
+          or { fg = c.base0, mix_fg = c.base01, bg = c.base03, mix_bg = c.base02, dim_bg = c.base04 }
 
       return merge(colors, {
         none = 'None',
-        telescope = {
-          prompt = {
-            fg = colors.bg,
-            bg = colors.fg
-          }
-        }
+        telescope = { prompt = { fg = colors.bg, bg = colors.fg } },
+        lualine = {
+          git = {
+            added = { fg = c.green, bg = colors.mix_bg },
+            removed = { fg = c.red, bg = colors.mix_bg },
+            modified = { fg = c.yellow, bg = colors.mix_bg },
+          },
+        },
       })
     end,
     on_highlights = function(c, _)
