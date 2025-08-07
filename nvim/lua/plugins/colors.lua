@@ -108,12 +108,12 @@ return {
       return {
         ---------------------| base |-----------------------
 
-        Normal = { fg = c.fg, bg = c.none },
+        Normal = { fg = c.fg, bg = c.none, blend = 0 },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
         Keyword = { fg = c.green, bold = false },
-        Comment = { fg = c.mix_fg, bg = c.none, italic = true },
+        Comment = { fg = c.mix_fg, bg = c.none, italic = true, blend = 0 },
         Special = { fg = c.magenta },
         String = { italic = true },
         Tag = { fg = c.yellow },
@@ -275,8 +275,8 @@ return {
 
         WinSeparator = { fg = c.mix_bg, bg = c.none },
 
-        NormalFloat = { fg = c.fg, bg = c.mix_bg },
-        FloatBorder = { fg = c.mix_bg, bg = c.mix_bg },
+        NormalFloat = { fg = c.fg, bg = c.mix_bg, blend = 0 },
+        FloatBorder = { fg = c.mix_bg, bg = c.mix_bg, blend = 0 },
         FloatTitle = { fg = c.mix_fg, bg = c.mix_bg, bold = true },
         FloatFooter = { fg = c.fg, bg = c.bg },
 
@@ -483,6 +483,8 @@ return {
         AvanteStateSpinnerCompacting = paint('violet'),
         AvanteStateSpinnerGenerating = paint('blue'),
         AvanteStateSpinnerToolCalling = paint('cyan'),
+        AvantePromptInput = { link = 'NormalFloat' },
+        AvantePromptInputBorder = { link = 'FloatBorder' },
       }
     end
   },
