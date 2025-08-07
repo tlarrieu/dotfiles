@@ -44,13 +44,11 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule_any = {
       name = {
-        'meet.google.com is sharing a window.',
-        'discord.com is sharing a window.'
+        'meet.google.com is sharing',
+        'discord.com is sharing'
       }
     },
-    properties = {
-      hidden = true,
-    },
+    properties = { hidden = true },
   },
 
   -- [[ Transparency ]] --------------------------------------------------------
