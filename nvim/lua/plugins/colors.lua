@@ -113,6 +113,7 @@ return {
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
         Keyword = { fg = c.green, bold = false },
+        Comment = { fg = c.mix_fg, bg = c.mix_bg, bold = true, italic = false },
         Special = { fg = c.magenta },
         String = { italic = true },
         Tag = { fg = c.yellow },
@@ -149,18 +150,20 @@ return {
 
         ['@variable.parameter.fish'] = { fg = c.violet },
 
+        ['@key'] = { fg = c.mix_fg, bg = c.none, italic = true, bold = false, nocombine = true },
+
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.luadoc'] = { link = '@constant' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
-        ['@variable.member.luadoc'] = { link = '@comment' },
-        ['@variable.parameter.luadoc'] = { link = '@comment' },
+        ['@variable.member.luadoc'] = { link = '@key' },
+        ['@variable.parameter.luadoc'] = { link = '@key' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
         ['@function.builtin.make'] = { link = 'makeConfig' },
 
-        ['@variable.key.ruby'] = { link = '@comment' },
+        ['@variable.key.ruby'] = { link = '@key' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@variable.member.ruby'] = { fg = c.violet, bg = c.none },
@@ -170,7 +173,10 @@ return {
         ['@variable.member.sql'] = { fg = c.mix_fg, bg = c.none },
         ['@type.sql'] = { fg = c.yellow, bg = c.none },
 
-        ['@property.yaml'] = { fg = c.mix_fg, bg = c.none, bold = false },
+        ['@property.yaml'] = { link = '@key' },
+
+        ['@comment.query'] = { fg = c.mix_fg, bg = c.none, italic = true },
+        ['@comment.gitcommit'] = { fg = c.mix_fg, bg = c.none, italic = true },
 
         ['@variable.parameter.go'] = { fg = c.mix_fg },
         ['@variable.member.go'] = { fg = c.mix_fg },
