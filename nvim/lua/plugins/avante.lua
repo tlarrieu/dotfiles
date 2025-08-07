@@ -1,17 +1,11 @@
 local strip = require('helpers').strip
 return {
   'yetone/avante.nvim',
-  event = 'VeryLazy',
+  event = { 'BufRead' },
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },
-    {
-      'zbirenbaum/copilot.lua',
-      opts = {
-        suggestion = { enabled = false },
-        panel = { enabled = false },
-      }
-    },
+    { 'zbirenbaum/copilot.lua' },
     { 'nvim-telescope/telescope.nvim' },
     { 'hrsh7th/nvim-cmp' },
     { 'nvim-tree/nvim-web-devicons' },
