@@ -176,10 +176,9 @@ return {
         ['@property.yaml'] = { link = '@key' },
 
         ['@comment.low'] = { fg = c.mix_fg, bg = c.none, bold = false, italic = true },
-        ['@comment.high'] = { fg = c.mix_fg, bg = c.mix_bg, bold = true, italic = false },
+        ['@comment.high'] = { fg = c.mix_fg, bg = c.mix_bg, bold = false, italic = false, nocombine = true },
         ['@comment.query'] = { link = '@comment.low' },
         ['@comment.gitcommit'] = { link = '@comment.low' },
-        ['@comment.documentation'] = { link = '@comment.low' },
 
         ['@variable.parameter.go'] = { fg = c.mix_fg },
         ['@variable.member.go'] = { fg = c.mix_fg },
@@ -325,13 +324,14 @@ return {
         TelescopeResultsDiffChange = { fg = c.yellow },
 
         LazyNormal = { link = 'NormalFloat' },
+        LazyComment = { link = '@comment.low' },
         LazyButton = paint('blue'),
         LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
         MasonNormal = { link = 'NormalFloat' },
         MasonHeader = { link = 'lazyH1' },
-        MasonHighlight = { fg = c.blue, bg = c.none },
+        MasonHighlight = { fg = c.green, bg = c.none },
         MasonHighlightBlock = paint('green'),
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
@@ -461,7 +461,7 @@ return {
         TodoBgTODO = paint('violet'),
         TodoFgTODO = { fg = c.violet },
         TodoBgHACK = paint('red'),
-        TodoFgHACK = { fg = c.red },
+        TodoFgHACK = { fg = c.red, bg = c.none },
         TodoBgWARN = paint('yellow'),
         TodoFgWARN = { fg = c.yellow },
         TodoBgPERF = paint('cyan'),
