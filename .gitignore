@@ -34,6 +34,7 @@ newsboat/cache.db.lock
 newsboat/history.cmdline
 newsboat/history.search
 newsboat/urls
+newsboat/queue
 
 apps/ignore
 !apps/*.com
