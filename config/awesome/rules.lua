@@ -97,13 +97,21 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       floating = true,
       placement = awful.placement.centered,
       opacity = 0.85,
-      callback = function(client)
-        helpers.create_tag_and_attach_to(client)
-      end
+      callback = function(client) helpers.create_tag_and_attach_to(client) end
     },
   },
 
-  -- [[ Floating ]] ------------------------------------------------------------
+  -- [[ floating ]] ------------------------------------------------------------
+
+  {
+    rule_any = {
+      role = {
+        'bubble',
+      },
+    },
+    properties = { floating = true, },
+  },
+
   {
     rule_any = {
       instance = {
@@ -195,16 +203,6 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   },
 
   -- [[ Games ]] ---------------------------------------------------------------
-  {
-    rule_any = {
-      class = {
-        'Minecraft',
-        'Gvba',
-        'mednafen',
-      },
-    },
-    properties = { floating = true },
-  },
 
   {
     rule_any = {
