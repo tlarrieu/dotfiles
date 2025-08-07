@@ -191,7 +191,9 @@ return {
         'Analyze the code for potential issues, bugs, or areas of improvement, providing suggestions for enhancement.',
         prompt = strip([[
           You are a seasoned engineer with expertise in code review. Your task is to analyze the provided code snippet and come up with a detailed review.
-          Focus your attention on code clarity and readability and performance
+          Focus your attention on:
+          - code clarity
+          - readability and performance
         ]])
       },
     }
