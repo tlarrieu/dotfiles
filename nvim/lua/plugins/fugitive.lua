@@ -15,7 +15,7 @@ return {
     { '<leader>ed', '<cmd>tab Git diff --staged<cr>',                desc = 'Git diff --staged',            silent = true },
     { '<leader>gr', '<cmd>Git checkout %<cr>',                       desc = 'Git checkout %',               silent = true },
     { '<leader>gs', '<cmd>Git<cr>',                                  desc = 'Git',                          silent = true },
-    { '<leader>gS', '<cmd>GV<cr>',                                   desc = 'GV',                           silent = true },
+    { '<leader>gl', '<cmd>GV<cr>',                                   desc = 'GV',                           silent = true },
     { '<leader>gp', '<cmd>Git push --force-with-lease<cr>',          desc = 'Git push --force-with-lease',  silent = true },
     { '<leader>gu', '<cmd>Git pull --rebase<cr>',                    desc = 'Git pull --rebase',            silent = true },
     { '<leader>cc', '<cmd>Gcd<cr>',                                  desc = 'Git CWD' },
