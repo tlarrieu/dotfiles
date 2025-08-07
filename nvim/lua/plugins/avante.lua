@@ -139,31 +139,44 @@ return {
       {
         name = 'refactor',
         description = 'Refactor code with best practices',
-        details =
-        'Automatically refactor code to improve readability, maintainability, and follow best practices while preserving functionality',
-        prompt =
-        'Please refactor this code following best practices, improving readability and maintainability while preserving functionality.',
+        details = 'Refactor code to enhance readability, maintainability, and follow best practices.',
+        prompt = strip([[
+          Please refactor this code following best practices. Improve readability, maintainability, and code structure
+          by applying relevant design patterns, simplifying logic where possible, and ensuring that functionality remains
+          unchanged. Clearly document any complex sections of code and address any potential performance or security concerns.
+        ]]),
       },
       {
         name = 'test',
         description = 'Generate unit tests',
         details = 'Create comprehensive unit tests covering edge cases, error scenarios, and various input conditions',
-        prompt = 'Please generate comprehensive unit tests for this code, covering edge cases and error scenarios.',
+        prompt = strip([[
+          Please generate comprehensive unit tests for this code, ensuring coverage of both typical and edge cases, error
+          scenarios, and a variety of input conditions. Your tests should verify expected outputs, check for proper error
+          handling, and include assertions for boundary and invalid input situations. If relevant, mock dependencies as
+          needed and provide clear naming for each test case to indicate its purpose.
+        ]]),
       },
       {
         name = 'explain',
         description = 'Explain code functionality',
-        details =
-        "Provide a detailed explanation of the code's functionality, including its purpose, logic, and any important considerations.",
-        prompt =
-        "Please provide a detailed explanation of the code's functionality, including its purpose, logic, and any important considerations.",
+        details = 'Explain what this code does, its main purpose, step-by-step logic, and any key design decisions.',
+        prompt = strip([[
+          Please explain in detail what this code does: describe its purpose, break down its logic step by step,
+          and highlight any important implementation details or considerations.
+        ]]),
       },
       {
         name = 'annotate',
         description = 'Add comments to the code',
         details = 'Document the code with comments explaining its purpose, logic, and any important considerations.',
-        prompt =
-        'Please document the code with comments explaining its purpose, logic, and any important considerations.',
+        prompt = strip([[
+          Please document the code by adding clear and concise comments.
+          For each function, variable, or logic block, include comments that explain its main purpose, its inputs and
+          outputs, and how it interacts with other parts of the code.
+          Ensure that any complex algorithms, edge cases, or tricky logic are thoroughly explained.
+          Highlight any important considerations such as performance implications, security concerns, or dependencies.
+        ]]),
       },
       {
         name = 'summarize',
@@ -177,11 +190,8 @@ return {
         details =
         'Analyze the code for potential issues, bugs, or areas of improvement, providing suggestions for enhancement.',
         prompt = strip([[
-          You are a seasoned engineer with expertise in code review. Your task is to analyze the provided code snippet and provide a detailed review.
-          Focus your attention on the following aspects:
-          - code clarity and readability
-          - performance
-          - compliance with our guidelines
+          You are a seasoned engineer with expertise in code review. Your task is to analyze the provided code snippet and come up with a detailed review.
+          Focus your attention on code clarity and readability and performance
         ]])
       },
     }
