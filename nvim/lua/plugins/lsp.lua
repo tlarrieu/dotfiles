@@ -1,7 +1,34 @@
 return {
   'williamboman/mason-lspconfig.nvim',
   dependencies = {
-    { 'williamboman/mason.nvim', config = true },
+    {
+      'williamboman/mason.nvim',
+      config = true,
+      opts = {
+        ui = {
+          border = 'none',
+          height = 0.85,
+          icons = {
+            package_installed = '󰄲',
+            package_pending = '󰔟',
+            package_uninstalled = '󰄮',
+          },
+          keymaps = {
+            toggle_package_expand = '<cr>',
+            install_package = 'i',
+            update_package = 'u',
+            check_package_version = 'c',
+            update_all_packages = 'U',
+            check_outdated_packages = 'C',
+            uninstall_package = 'x',
+            cancel_installation = '<c-c>',
+            apply_language_filter = '<c-f>',
+            toggle_package_install_log = '<cr>',
+            toggle_help = 'g?',
+          },
+        },
+      },
+    },
     { 'neovim/nvim-lspconfig' },
     { 'hrsh7th/cmp-nvim-lsp' },
   },
