@@ -450,18 +450,6 @@ return {
         ['@text.title.5'] = { link = '@markup.heading.5' },
         ['@text.title.6'] = { link = '@markup.heading.6' },
 
-        ['@string.todotxt'] = { italic = false },
-        ['@todo.done'] = { fg = c.mix_fg, strikethrough = true },
-        ['@todo.priority'] = { fg = c.yellow },
-        ['@comment.todotxt'] = { link = '' },
-        ['@todo.kv'] = { fg = c.mix_fg, italic = true },
-        ['@todo.date'] = { fg = c.mix_fg },
-        ['@todo.project'] = { fg = c.violet },
-        ['@todo.context'] = { fg = c.orange, bold = true },
-        ['@date.late'] = { fg = c.red, bold = true },
-        ['@date.today'] = { fg = c.yellow },
-        ['@date.early'] = { fg = c.green },
-
         TodoBgFIX = paint('red'),
         TodoFgFIX = { fg = c.red },
         TodoBgTODO = paint('violet'),
