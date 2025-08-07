@@ -488,6 +488,9 @@ return {
         AvanteStateSpinnerCompacting = paint('violet'),
         AvanteStateSpinnerGenerating = paint('blue'),
         AvanteStateSpinnerToolCalling = paint('cyan'),
+
+        CopilotSuggestion = { link = '@comment.low' },
+        CopilotAnnotation = { link = '@comment.low' },
       }
     end
   },
