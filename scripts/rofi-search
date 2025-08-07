@@ -125,14 +125,6 @@ class Dictionary
 
 end
 
-class BrowserRaw < Browser
-
-  def escape(str)
-    str
-  end
-
-end
-
 defaultengine = BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s')
 
 # rubocop:disable Layout/HashAlignment
@@ -161,7 +153,7 @@ searchengines = {
   'py'   => Browser.new('https://pypi.org/search/?q=%s'),
   'r'    => Browser.new('https://reddit.com/r/%s', profile: 'perso'),
   'rb'   => Browser.new('https://rubygems.org/search?query=%s'),
-  't'    => BrowserRaw.new('https://tpb.party/search/%s', profile: 'perso'),
+  't'    => Browser.new('https://thepiratebay.org/search/%s', profile: 'perso'),
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
   'tw'   => Browser.new('https://www.twitch.tv/search?term=%s', profile: 'perso'),
