@@ -15,7 +15,7 @@ vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
 -- make current file executable
-vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<cr>')
+vim.keymap.set('n', '<leader>x', '<cmd>silent !chmod +x %<cr><cmd>echo "file is now executable"<cr>')
 -- + register keymaps
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')

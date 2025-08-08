@@ -88,6 +88,10 @@ return {
                 and bo.buftype ~= 'nowrite'
                 and not ftmap[bo.filetype]
           end,
+          color = function()
+            if vim.fn.executable(vim.api.nvim_buf_get_name(0)) == 0 then return {} end
+            return 'LualineExecutable'
+          end,
           symbols = {
             modified = mod_icon,
             readonly = ro_icon,

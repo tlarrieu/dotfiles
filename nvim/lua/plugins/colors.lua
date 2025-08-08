@@ -272,6 +272,7 @@ return {
         LualineTablineActive = { fg = c.bg, bg = c.blue },
         LualineTablineActiveAlt = { fg = c.bg, bg = c.fg },
         LualineTablineInactive = { fg = c.fg, bg = c.mix_bg },
+        LualineExecutable = { fg = c.green, bg = c.none },
 
         WinSeparator = { fg = c.mix_bg, bg = c.none },
 
