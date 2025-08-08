@@ -119,10 +119,13 @@ return {
       callback = function(args)
         local request = args.data.request
 
+        if request.method == 'getCompletions' then return end
         if request.method == 'textDocument/formatting' then return end
         if request.method == 'textDocument/completion' then return end
         if request.method == 'textDocument/inlayHint' then return end
         if request.method == 'textDocument/hover' then return end
+        if request.method == 'textDocument/diagnostic' then return end
+        if request.method == 'textDocument/signatureHelp' then return end
 
         local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
         local icon = icons[request.type]
