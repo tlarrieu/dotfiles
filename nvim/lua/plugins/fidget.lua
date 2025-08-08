@@ -76,7 +76,7 @@ return {
       window = {
         normal_hl = 'Comment',
         winblend = 0,
-        border = 'none',
+        border = { '', '', '', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
         zindex = 100,
         max_width = 0,
         max_height = 0,
