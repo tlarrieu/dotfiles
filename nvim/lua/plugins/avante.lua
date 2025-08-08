@@ -50,7 +50,7 @@ return {
       },
       cancel = {
         normal = { '<esc>' },
-        insert = { '<esc>' },
+        insert = { '<c-d>' },
       },
     },
     prompt_logger = {
@@ -193,4 +193,20 @@ return {
       },
     }
   },
+  config = function(_, opts)
+    require('avante').setup(opts)
+
+    local group = vim.api.nvim_create_augroup('avante_prompt_input', {})
+
+    vim.api.nvim_create_autocmd('Filetype', {
+      pattern = { 'AvantePromptInput' },
+      callback = function()
+        vim.api.nvim_create_autocmd('InsertEnter', {
+          once = true,
+          callback = function() vim.wo.sidescrolloff = 0 end,
+        })
+      end,
+      group = group,
+    })
+  end,
 }
