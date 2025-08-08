@@ -484,6 +484,8 @@ return {
         AvanteStateSpinnerCompacting = paint('violet'),
         AvanteStateSpinnerGenerating = paint('blue'),
         AvanteStateSpinnerToolCalling = paint('cyan'),
+        AvanteToBeDeletedWOStrikethrough = { link = 'DiffDelete' },
+        AvanteConflictIncoming = { fg = c.none, bg = c.mix_green },
         AvantePromptInput = { link = 'NormalFloat' },
         AvantePromptInputBorder = { link = 'FloatBorder' },
       }
