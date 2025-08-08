@@ -50,7 +50,7 @@ return {
       },
       cancel = {
         normal = { '<esc>' },
-        insert = { '<c-d>' },
+        insert = { '<esc>' },
       },
     },
     prompt_logger = {
@@ -121,14 +121,14 @@ return {
       },
     },
     behaviour = {
-      auto_suggestions = true,
+      auto_suggestions = false,
       auto_set_highlight_group = true,
       auto_set_keymaps = false,
       auto_apply_diff_after_generation = true,
       support_paste_from_clipboard = false,
       minimize_diff = true,
       enable_token_counting = true,
-      auto_approve_tool_permissions = false,
+      auto_approve_tool_permissions = { 'replace_in_file' },
     },
     shortcuts = {
       {
