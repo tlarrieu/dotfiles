@@ -1,5 +1,8 @@
 return {
   'j-hui/fidget.nvim',
+  -- pinned until 046930d gets fixed (icons do not show)
+  -- TODO: unpin this
+  commit = '4ec7bed',
   opts = {
     progress = {
       poll_rate = 0,

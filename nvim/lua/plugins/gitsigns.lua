@@ -10,16 +10,9 @@ local signs = {
 return {
   'lewis6991/gitsigns.nvim',
 
-  -- those commits where tested to identify the most recent one that was not broken
-  -- b014331: bad
-  -- 1fcaddc: bad
-  -- 6067670: good -- the commit we want
-  -- 93f882f: good
-  -- 7bf01f0: good
-  -- aa49c96: good
-  -- 1b0350a: good
-  -- TODO: remove this once the issue is fixed
-  commit = '6067670', -- pinned until the slowness of staging hunks has been resolved
+  -- pinned until 1fcaddc gets fixed (staging hunks is significantly slower)
+  -- TODO: unpin this
+  commit = '6067670',
 
   event = { 'BufNew', 'BufReadPost' },
   opts = {
