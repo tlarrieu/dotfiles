@@ -1,7 +1,6 @@
 local strip = require('helpers').strip
 return {
   'yetone/avante.nvim',
-  event = { 'BufRead' },
   dependencies = {
     { 'nvim-lua/plenary.nvim' },
     { 'MunifTanjim/nui.nvim' },

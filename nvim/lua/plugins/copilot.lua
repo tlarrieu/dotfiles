@@ -1,6 +1,6 @@
 return {
   'zbirenbaum/copilot.lua',
-  event = 'BufRead',
+  event = { 'InsertEnter' },
   opts = {
     suggestion = { enabled = false },
     panel = { enabled = false },
