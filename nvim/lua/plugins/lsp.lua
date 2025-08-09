@@ -126,6 +126,7 @@ return {
         if request.method == 'textDocument/hover' then return end
         if request.method == 'textDocument/diagnostic' then return end
         if request.method == 'textDocument/signatureHelp' then return end
+        if request.method == 'textDocument/prepareName' then return end
 
         local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
         local icon = icons[request.type]
