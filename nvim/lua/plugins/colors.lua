@@ -40,50 +40,42 @@ return {
       })
     end,
     on_highlights = function(c, _)
-      for kind, icon in pairs({ Error = "󰅙", Warn = "", Hint = "󰠠", Info = "" }) do
-        local hl = "DiagnosticSign" .. kind
+      for kind, icon in pairs({ Error = '󰅙', Warn = '', Hint = '󰠠', Info = '' }) do
+        local hl = 'DiagnosticSign' .. kind
         local hl_value = 'Diagnostic' .. kind
         vim.fn.sign_define(hl, { text = icon, texthl = hl_value, numhl = hl_value })
       end
 
-      local paint = function(color, opts)
-        return merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {})
-      end
+      local paint = function(color, opts) return merge({ fg = c[color], bg = c['mix_' .. color] }, opts or {}) end
 
       local group = vim.api.nvim_create_augroup('set_hl_ns', {})
 
-      vim.api.nvim_set_hl(0, "LineNr", paint('blue'))
-      vim.api.nvim_set_hl(0, "CursorLineNr", { link = 'CursorLine' })
-      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = c.mix_fg })
-      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = c.mix_fg })
-      vim.api.nvim_set_hl(1, "LineNr", { fg = c.mix_fg })
-      vim.api.nvim_set_hl(1, "CursorLineNr", { link = 'LineNr' })
-      vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
-      vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
-
       vim.api.nvim_create_autocmd('WinEnter', {
-        callback = function() if vim.bo.buftype ~= 'nofile' then vim.api.nvim_win_set_hl_ns(0, 0) end end,
+        callback = function() if vim.w.should_restore_hl then vim.api.nvim_win_set_hl_ns(0, 0) end end,
+        group = group
+      })
+      vim.api.nvim_create_autocmd('WinLeave', {
+        callback = function()
+          vim.w.should_restore_hl = true
+          vim.api.nvim_set_hl(1, 'CursorColumn', { fg = c.none, bg = c.mix_bg })
+          vim.api.nvim_set_hl(1, 'CursorLineNr', { link = 'CursorColumn' })
+          vim.api.nvim_set_hl(1, 'LineNr', { fg = c.mix_fg, bg = c.none })
+          vim.api.nvim_set_hl(1, 'LineNrAbove', { link = 'LineNr' })
+          vim.api.nvim_set_hl(1, 'LineNrBelow', { link = 'LineNr' })
+          vim.api.nvim_win_set_hl_ns(0, 1)
+        end,
         group = group
       })
 
-      vim.api.nvim_create_autocmd('WinLeave', {
-        callback = function() vim.api.nvim_win_set_hl_ns(0, 1) end,
-        group = group,
-      })
-
-      local set_msg_area_hl = function(opts)
-        vim.api.nvim_set_hl(0, 'MsgArea', opts)
+      local set_msg_area_hl = function(link)
+        vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
         vim.cmd.redraw()
       end
 
-      vim.api.nvim_create_autocmd('CmdlineEnter', {
-        callback = function() set_msg_area_hl({ fg = c.fg, italic = false }) end,
-        group = group,
-      })
-      vim.api.nvim_create_autocmd('CmdlineLeave', {
-        callback = function() set_msg_area_hl({ fg = c.mix_fg, italic = true }) end,
-        group = group,
-      })
+      vim.api.nvim_create_autocmd('CmdlineEnter',
+        { callback = function() set_msg_area_hl('MsgAreaCmd') end, group = group })
+      vim.api.nvim_create_autocmd('CmdlineLeave',
+        { callback = function() set_msg_area_hl('MsgAreaMsg') end, group = group })
 
       return {
         ---------------------| base |-----------------------
@@ -101,6 +93,9 @@ return {
         Type = { fg = c.yellow },
         Whitespace = { fg = c.mix_fg },
         Nontext = { fg = c.mix_fg, bg = c.none, bold = true },
+
+        MsgAreaCmd = { fg = c.fg, italic = false },
+        MsgAreaMsg = { fg = c.mix_fg, italic = true },
 
         ['@normal'] = { fg = c.fg, bg = c.none },
         qfText = { link = '@normal' },
@@ -183,7 +178,10 @@ return {
 
         CursorColumn = { fg = c.none, bg = c.mix_blue },
         CursorLine = { link = 'CursorColumn' },
-        CursorLineNr = { fg = c.blue, bg = c.mix_blue },
+        CursorLineNr = paint('blue'),
+        LineNr = paint('blue'),
+        LineNrAbove = { fg = c.mix_fg, bg = c.none },
+        LineNrBelow = { fg = c.mix_fg, bg = c.none },
 
         Visual = { link = 'CursorColumn' },
 
@@ -287,7 +285,7 @@ return {
         TelescopePromptNormal = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
         TelescopePromptTitle = { fg = c.telescope.prompt.bg, bg = c.telescope.prompt.bg },
-        TelescopePromptPrefix = { fg = c.telescope.prompt.fg },
+        TelescopePromptPrefix = { fg = c.telescope.prompt.fg, bg = c.telescope.prompt.bg },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
         TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
@@ -304,7 +302,7 @@ return {
         LazyButtonActive = paint('magenta'),
         LazySpecial = { fg = c.fg },
 
-        MasonNormal = { link = 'Normal' },
+        MasonNormal = { link = 'NormalFloat' },
         MasonHeader = { link = 'lazyH1' },
         MasonHighlight = { fg = c.green, bg = c.none },
         MasonHighlightBlock = paint('green'),
