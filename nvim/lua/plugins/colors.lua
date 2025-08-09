@@ -1,12 +1,3 @@
-local xrdb = require('xrdb')
-
-local apply_xrdb = function()
-  local theme = xrdb.load() or { vim = {} }
-  vim.o.background = theme.vim.background or 'light'
-  vim.cmd.colorscheme(theme.vim.colorscheme or 'solarized')
-  for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] or vim.g['terminal_color_' .. i] end
-end
-
 local merge = require('helpers').merge
 
 return {
@@ -195,7 +186,6 @@ return {
         CursorLineNr = { fg = c.blue, bg = c.mix_blue },
 
         Visual = { link = 'CursorColumn' },
-        YankHighlight = { link = 'Visual' },
 
         Search = paint('magenta', { bold = false, underline = false }),
         IncSearch = paint('magenta', { bold = true, underline = true }),
@@ -480,21 +470,4 @@ return {
       }
     end
   },
-  config = function(_, opts)
-    require('solarized').setup(opts)
-
-    apply_xrdb()
-
-    vim.api.nvim_create_autocmd('Signal', {
-      pattern = { 'SIGUSR1' },
-      callback = apply_xrdb,
-      nested = true,
-      group = vim.api.nvim_create_augroup('update_background', {})
-    })
-
-    vim.api.nvim_create_autocmd('TextYankPost', {
-      callback = function() vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 200 }) end,
-      group = vim.api.nvim_create_augroup("text_yank", {})
-    })
-  end
 }

@@ -17,21 +17,45 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 -- Set relativenumber only in active window
-local group = vim.api.nvim_create_augroup('autonumber_group', {})
+local number_group = vim.api.nvim_create_augroup('autonumber_group', {})
 
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
   callback = function() if vim.wo.number then vim.wo.relativenumber = true end end,
-  group = group
+  group = number_group
 })
 
 vim.api.nvim_create_autocmd('WinLeave', {
   callback = function() vim.wo.relativenumber = false end,
-  group = group
+  group = number_group
 })
 
 -- auto turn on relativenumber if we activate number
 vim.api.nvim_create_autocmd('OptionSet', {
   pattern = { 'number' },
   callback = function() vim.wo.relativenumber = vim.wo.number end,
-  group = group
+  group = number_group
+})
+
+-- highlight yank
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 200 }) end,
+  group = vim.api.nvim_create_augroup("text_yank", {})
+})
+
+-- theme setting
+
+local apply_xrdb = function()
+  local theme = require('xrdb').load() or { vim = {} }
+  vim.o.background = theme.vim.background or 'light'
+  vim.cmd.colorscheme(theme.vim.theme or 'default')
+  for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] or vim.g['terminal_color_' .. i] end
+end
+
+apply_xrdb()
+
+vim.api.nvim_create_autocmd('Signal', {
+  pattern = { 'SIGUSR1' },
+  callback = apply_xrdb,
+  nested = true,
+  group = vim.api.nvim_create_augroup('update_background', {}),
 })
