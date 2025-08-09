@@ -1,10 +1,10 @@
 local xrdb = require('xrdb')
 
 local apply_xrdb = function()
-  local theme = xrdb.load() or {}
-  vim.cmd.colorscheme('solarized')
+  local theme = xrdb.load() or { vim = {} }
   vim.o.background = theme.vim.background or 'light'
-  for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] end
+  vim.cmd.colorscheme(theme.vim.colorscheme or 'solarized')
+  for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] or vim.g['terminal_color_' .. i] end
 end
 
 local merge = require('helpers').merge
@@ -17,8 +17,8 @@ return {
     palette = 'solarized',
     transparent = {
       enabled = true,
-      normal = true,
-      normalfloat = true,
+      normal = false,
+      normalfloat = false,
       pmenu = true,
       telescope = true,
       lazy = true,
@@ -70,23 +70,14 @@ return {
       vim.api.nvim_set_hl(1, "LineNrAbove", { link = 'LineNr' })
       vim.api.nvim_set_hl(1, "LineNrBelow", { link = 'LineNr' })
 
-      vim.api.nvim_create_autocmd({ 'WinEnter' }, {
-        pattern = '*',
-        callback = function()
-          -- HACK: This is a sketchy way of not calling next line when in telescope prompt
-          -- If next line is called, for some reason TelescopePromptNormal, defined
-          -- later, does not properly get applied, and instead NormalFloat is applied
-          if vim.bo[0].buftype == 'nofile' then return end
-
-          vim.api.nvim_win_set_hl_ns(0, 0)
-        end,
+      vim.api.nvim_create_autocmd('WinEnter', {
+        callback = function() if vim.bo.buftype ~= 'nofile' then vim.api.nvim_win_set_hl_ns(0, 0) end end,
         group = group
       })
 
       vim.api.nvim_create_autocmd('WinLeave', {
-        pattern = '*',
         callback = function() vim.api.nvim_win_set_hl_ns(0, 1) end,
-        group = group
+        group = group,
       })
 
       local set_msg_area_hl = function(opts)
@@ -95,13 +86,11 @@ return {
       end
 
       vim.api.nvim_create_autocmd('CmdlineEnter', {
-        pattern = '*',
-        callback = function() set_msg_area_hl({ fg = c.fg, bg = c.none, italic = false }) end,
+        callback = function() set_msg_area_hl({ fg = c.fg, italic = false }) end,
         group = group,
       })
       vim.api.nvim_create_autocmd('CmdlineLeave', {
-        pattern = '*',
-        callback = function() set_msg_area_hl({ fg = c.mix_fg, bg = c.none, italic = true }) end,
+        callback = function() set_msg_area_hl({ fg = c.mix_fg, italic = true }) end,
         group = group,
       })
 
@@ -504,7 +493,6 @@ return {
     })
 
     vim.api.nvim_create_autocmd('TextYankPost', {
-      pattern = '*',
       callback = function() vim.highlight.on_yank({ higroup = "YankHighlight", timeout = 200 }) end,
       group = vim.api.nvim_create_augroup("text_yank", {})
     })

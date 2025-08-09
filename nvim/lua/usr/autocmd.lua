@@ -1,20 +1,17 @@
 -- Balance splits size upon changing host window size
 vim.api.nvim_create_autocmd('VimResized', {
-  pattern = '*',
   callback = function() vim.api.nvim_input('<esc><c-w>=') end,
   group = vim.api.nvim_create_augroup('dimensions', {})
 })
 
 -- Do not insert comments upon <cr> or o/O
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = '*',
   callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end,
   group = vim.api.nvim_create_augroup('no_incremental_comments', {})
 })
 
 -- Deactivate spell checking on RO files
 vim.api.nvim_create_autocmd('BufReadPost', {
-  pattern = '*',
   callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end,
   group = vim.api.nvim_create_augroup('restore_position', {})
 })
@@ -23,13 +20,11 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 local group = vim.api.nvim_create_augroup('autonumber_group', {})
 
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
-  pattern = { '*' },
   callback = function() if vim.wo.number then vim.wo.relativenumber = true end end,
   group = group
 })
 
 vim.api.nvim_create_autocmd('WinLeave', {
-  pattern = { '*' },
   callback = function() vim.wo.relativenumber = false end,
   group = group
 })
