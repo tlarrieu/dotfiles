@@ -89,13 +89,15 @@ return {
                 and not ftmap[bo.filetype]
           end,
           color = function()
-            if vim.fn.executable(vim.api.nvim_buf_get_name(0)) == 0 then return {} end
+            local bufname = vim.api.nvim_buf_get_name(0)
+            if bufname == '' then return {} end
+            if vim.fn.executable(bufname) == 0 then return {} end
             return 'LualineExecutable'
           end,
           symbols = {
             modified = mod_icon,
             readonly = ro_icon,
-            -- unnamed = '…',
+            unnamed = '',
             -- newfile = '󰎔',
           },
         },
