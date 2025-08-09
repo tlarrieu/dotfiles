@@ -15,11 +15,6 @@ return {
       lazy = true,
       mason = true,
     },
-    styles = {
-      comments = { italic = true, bold = false },
-      functions = { bold = false },
-      variables = { italic = false },
-    },
     on_colors = function(c, _)
       local colors
 
@@ -80,7 +75,7 @@ return {
       return {
         ---------------------| base |-----------------------
 
-        Normal = { fg = c.fg, bg = c.none, blend = 0 },
+        Normal = { fg = c.fg, bg = c.bg, blend = 0 },
         Constant = { fg = c.magenta },
         Identifier = { fg = c.blue },
         Include = { fg = c.orange, bold = false },
@@ -329,6 +324,9 @@ return {
         MarkviewHeading4 = { fg = c.yellow, bg = c.none },
         MarkviewHeading5 = { fg = c.cyan, bg = c.none },
         MarkviewHeading6 = { fg = c.violet, bg = c.none },
+        MarkviewListItemMinus = { fg = c.magenta, bg = c.none },
+        MarkviewListItemStar = { fg = c.green, bg = c.none },
+        MarkviewListItemPlus = { fg = c.blue, bg = c.none },
         MarkviewPalette0 = { fg = c.none, bg = c.mix_bg },
         MarkviewPalette1 = paint('magenta'),
         MarkviewPalette2 = paint('green'),
