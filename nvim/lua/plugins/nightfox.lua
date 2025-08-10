@@ -85,13 +85,7 @@ return {
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
-
-        CursorColumn = { fg = 'none', bg = 'palette.sel0' },
-        CursorLine = { link = 'CursorColumn' },
         CursorLineNr = { link = 'CursorLine' },
-        LineNr = { fg = 'palette.fg3', bg = 'palette.sel0' },
-        LineNrAbove = { fg = 'palette.fg3', bg = 'none' },
-        LineNrBelow = { link = 'LineNrAbove' },
 
         Search = { fg = 'palette.bg1', bg = 'palette.green.dim', style = 'bold' },
         IncSearch = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'bold' },
@@ -266,14 +260,11 @@ return {
         ['@markup.heading.6'] = { fg = 'palette.magenta' },
 
         AvanteTitle = { fg = 'palette.bg1', bg = 'palette.fg0' },
-        AvanteReversedTitle = { fg = 'palette.fg0', bg = 'none' },
+        AvanteReversedTitle = { fg = 'palette.fg0', bg = 'palette.bg0' },
         AvanteSubtitle = { link = 'AvanteTitle' },
         AvanteReversedSubtitle = { link = 'AvanteReversedTitle' },
         AvanteThirdTitle = { link = 'AvanteTitle' },
         AvanteReversedThirdTitle = { link = 'AvanteReversedTitle' },
-        AvanteSidebarNormal = { fg = 'none', bg = 'palette.bg1' },
-        AvanteSidebarWinSeparator = { link = 'WinSeparator' },
-        AvanteSidebarWinHorizontalSeparator = { link = 'WinSeparator' },
         AvantePopupHint = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
         AvanteTaskFailed = { fg = 'palette.red' },
         AvanteThinking = { fg = 'palette.pink' },
@@ -297,32 +288,6 @@ return {
 
   config = function(_, opts)
     local group = vim.api.nvim_create_augroup('set_hl_ns', {})
-
-    vim.api.nvim_create_autocmd('ColorScheme', {
-      callback = function(args)
-        local palette = require('nightfox.palette').load(args.match)
-
-        vim.api.nvim_set_hl(1, 'CursorColumn', { fg = 'none', bg = palette.bg0 })
-        vim.api.nvim_set_hl(1, 'CursorLineNr', { link = 'CursorColumn' })
-        vim.api.nvim_set_hl(1, 'LineNr', { fg = palette.comment, bg = 'none' })
-        vim.api.nvim_set_hl(1, 'LineNrAbove', { link = 'LineNr' })
-        vim.api.nvim_set_hl(1, 'LineNrBelow', { link = 'LineNr' })
-
-        vim.api.nvim_create_autocmd('WinEnter', {
-          callback = function() if vim.w.should_restore_hl then vim.api.nvim_win_set_hl_ns(0, 0) end end,
-          group = group
-        })
-        vim.api.nvim_create_autocmd('WinLeave', {
-          callback = function()
-            vim.w.should_restore_hl = true
-            vim.api.nvim_win_set_hl_ns(0, 1)
-          end,
-          group = group
-        })
-      end,
-      nested = true,
-      group = group
-    })
 
     local set_msg_area_hl = function(link)
       vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
