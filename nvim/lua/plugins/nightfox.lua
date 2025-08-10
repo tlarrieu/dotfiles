@@ -96,20 +96,10 @@ return {
         DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright', style = 'italic' },
         DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright', style = 'italic' },
 
-        LualineAdded = { fg = 'palette.green' },
-        LualineRemoved = { fg = 'palette.red' },
-        LualineModified = { fg = 'palette.yellow' },
-        LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
-        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
-        LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
-        LualineExecutable = { fg = 'palette.green', bg = 'none' },
-
         NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
         FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
         FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
         FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
-
-        FidgetGroup = { fg = 'palette.orange', bg = 'none', style = 'bold,italic' },
 
         QuickFixLine = { link = 'Search' },
 
@@ -151,6 +141,16 @@ return {
         MasonHighlightBlock = { fg = 'palette.bg1', bg = 'palette.green.bright' },
         MasonHighlightBlockBold = { link = 'LazyButtonActive' },
         MasonMutedBlock = { link = 'LazyButton' },
+
+        LualineAdded = { fg = 'palette.green' },
+        LualineRemoved = { fg = 'palette.red' },
+        LualineModified = { fg = 'palette.yellow' },
+        LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
+        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
+        LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        LualineExecutable = { fg = 'palette.green', bg = 'none' },
+
+        FidgetGroup = { fg = 'palette.orange', bg = 'none', style = 'bold,italic' },
 
         MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },
