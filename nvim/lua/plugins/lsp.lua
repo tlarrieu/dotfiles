@@ -128,6 +128,7 @@ return {
         if request.method == 'textDocument/signatureHelp' then return end
         if request.method == 'textDocument/prepareName' then return end
         if request.method == 'textDocument/documentColor' then return end
+        if request.method == 'textDocument/codeAction' then return end
 
         local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
         local icon = icons[request.type]
