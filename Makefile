@@ -4,7 +4,7 @@ define cecho
 	@tput sgr0
 endef
 
-BASEDIR := $(shell cd "$(dirname "$0")" || exit; pwd)
+BASEDIR := $(shell pwd)
 PACMAN := $(shell type pacman 2>&1 > /dev/null && echo 1 || echo 0)
 APT := $(shell type apt 2>&1 > /dev/null && echo 1 || echo 0)
 
