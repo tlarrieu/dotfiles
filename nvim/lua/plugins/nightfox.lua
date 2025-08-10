@@ -40,6 +40,8 @@ return {
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
+        ['@variable.parameter.bash'] = { link = '@normal' },
+
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.luadoc'] = { link = '@constant' },
