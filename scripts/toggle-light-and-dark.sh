@@ -6,13 +6,13 @@ fish_theme=''
 
 set_dark() {
   expr='s/dawnfox/nordfox/'
-  gtk_expr='s/Light/Dark/'
+  gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='nordfox'
 }
 
 set_light() {
   expr='s/nordfox/dawnfox/'
-  gtk_expr='s/Dark/Light/'
+  gtk_expr='s/Nordic/Nightfox-Light/'
   fish_theme='dawnfox'
 }
 
