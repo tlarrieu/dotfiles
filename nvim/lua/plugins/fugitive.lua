@@ -27,7 +27,7 @@ return {
       silent = true,
     },
     {
-      '<leader>gS',
+      '<leader>gl',
       ":'<,'>GV<cr>",
       mode = 'x',
       desc = 'GV (visual mode)',
