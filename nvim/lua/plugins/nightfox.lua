@@ -67,21 +67,21 @@ return {
 
         ['@constructor.css'] = { fg = 'palette.yellow' },
         ['@operator.css'] = { link = '@tag.css' },
-        ['@property.css'] = { fg = 'palette.magenta' }, -- violet
+        ['@property.css'] = { fg = 'palette.magenta' },
         ['@tag.css'] = { fg = 'palette.orange' },
-        ['@type.css'] = { fg = 'palette.magenta' },     -- violet
+        ['@type.css'] = { fg = 'palette.magenta' },
         ['@field.css'] = { fg = 'palette.fg0' },
 
         ['@constructor.scss'] = { fg = 'palette.yellow' },
         ['@operator.scss'] = { link = '@tag.css' },
-        ['@property.scss'] = { fg = 'palette.pink' }, -- violet
+        ['@property.scss'] = { fg = 'palette.pink' },
         ['@tag.scss'] = { fg = 'palette.orange' },
-        ['@type.scss'] = { fg = 'palette.pink' },     -- violet
+        ['@type.scss'] = { fg = 'palette.pink' },
         ['@field.scss'] = { fg = 'palette.fg0' },
 
         ['@namespace.rasi'] = { fg = 'palette.yellow' },
         ['@field.rasi'] = { fg = 'palette.fg0' },
-        ['@variable.rasi'] = { fg = 'palette.magenta' }, -- violet
+        ['@variable.rasi'] = { fg = 'palette.magenta' },
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
@@ -177,7 +177,7 @@ return {
         MarkviewHeading3 = { fg = 'palette.blue', bg = 'none' },
         MarkviewHeading4 = { fg = 'palette.yellow', bg = 'none' },
         MarkviewHeading5 = { fg = 'palette.cyan', bg = 'none' },
-        MarkviewHeading6 = { fg = 'palette.magenta', bg = 'none' }, -- violet
+        MarkviewHeading6 = { fg = 'palette.magenta', bg = 'none' },
         MarkviewListItemMinus = { fg = 'palette.pink', bg = 'none' },
         MarkviewListItemStar = { fg = 'palette.green', bg = 'none' },
         MarkviewListItemPlus = { fg = 'palette.blue', bg = 'none' },
@@ -218,9 +218,37 @@ return {
         ['@keyword.gitcommit'] = { fg = 'palette.yellow', bg = 'none' },
         ['@markup.heading.git_config'] = { fg = 'palette.yellow', bg = 'none' },
 
+        GitSignsAdd = { fg = 'palette.green', bg = 'palette.bg0' },
+        GitSignsAddNr = { link = 'GitSignsAdd' },
+        GitSignsAddLn = { fg = 'none', },
+        GitSignsDelete = { fg = 'palette.red', bg = 'palette.bg0' },
+        GitSignsDeleteNr = { link = 'GitSignsDelete' },
+        GitSignsTopDelete = { link = 'GitSignsDelete' },
+        GitSignsTopDeleteNr = { link = 'GitSignsTopDelete' },
+        GitSignsChange = { fg = 'palette.yellow', bg = 'palette.bg0' },
+        GitSignsChangeNr = { link = 'GitSignsChange' },
+        GitSignsChangeLn = { fg = 'none', },
+        GitSignsChangeDelete = { fg = 'palette.magenta', bg = 'palette.bg0' },
+        GitSignsChangeDeleteNr = { link = 'GitSignsChangeDelete' },
+        GitSignsChangeDeleteLn = { fg = 'none', },
+        GitSignsStagedAdd = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedAddNr = { link = 'GitSignsStagedAdd' },
+        GitSignsStagedAddLn = { fg = 'none', bg = 'palette.bg1' },
+        GitSignsStagedDelete = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedDeleteNr = { link = 'GitSignsStagedDelete' },
+        GitSignsStagedTopDelete = { link = 'GitSignsStagedDelete' },
+        GitSignsStagedTopDeleteNr = { link = 'GitSignsStagedDeleteNr' },
+        GitSignsStagedChange = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedChangeNr = { link = 'GitSignsStagedChange' },
+        GitSignsStagedChangeLn = { fg = 'none', bg = 'palette.bg0' },
+        GitSignsStagedChangeDelete = { link = 'GitSignsStagedChange' },
+        GitSignsStagedChangeDeleteNr = { link = 'GitSignsStagedChangeNr' },
+        GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
+        GitSignsCurrentLineBlame = { fg = 'palette.comment', bg = 'palette.bg0', style = 'underline,italic' },
+
         CmpGhostText = { fg = 'palette.white.dim' },
         CmpItemAbbrMatch = { style = 'bold' },
-        CmpItemKindVariable = { fg = 'palette.magenta' }, -- violet
+        CmpItemKindVariable = { fg = 'palette.magenta' },
         CmpItemKindSnippet = { fg = 'palette.orange' },
         CmpItemKindCopilot = { fg = 'palette.white.dim' },
 
