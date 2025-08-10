@@ -1,0 +1,335 @@
+return {
+  'EdenEast/nightfox.nvim',
+  lazy = false,
+  opts = {
+    options = {
+      transparent = true,
+      dim_inactive = false,
+      styles = {
+        strings = 'italic',
+        comments = 'italic',
+      },
+    },
+    groups = {
+      all = {
+        ---------------------| base |-----------------------
+
+        Normal = { fg = 'palette.fg1' },
+        Constant = { fg = 'palette.magenta' },
+        Identifier = { fg = 'palette.blue' },
+        Include = { fg = 'palette.orange' },
+        Special = { fg = 'palette.magenta' },
+        Function = { fg = 'palette.blue.bright' },
+        Tag = { fg = 'palette.yellow' },
+        TagAttribute = { fg = 'palette.magenta' }, --violet
+        Type = { fg = 'palette.yellow' },
+        Whitespace = { fg = 'palette.fg0' },
+        Nontext = { fg = 'palette.fg0', bg = 'none', style = 'bold' },
+
+        MsgArea = { link = 'MsgAreaMsg' },
+        MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
+        MsgAreaMsg = { link = 'Comment' },
+
+        ['@normal'] = { fg = 'palette.fg1', bg = 'none' },
+        qfText = { link = '@normal' },
+
+        ['@markup.strong'] = { fg = 'none', style = 'bold' },
+        ['@markup.italic'] = { fg = 'none', style = 'italic' },
+        ['@markup.underline'] = { fg = 'none', style = 'underline' },
+        ['@markup.quote'] = { fg = 'none', style = 'italic' },
+        ['@markup.link'] = { fg = 'palette.pink.bright', bg = 'none', style = 'italic' },
+        ['@markup.link.url'] = { link = '@markup.link' },
+        ['@markup.link.label'] = { link = '@markup.link' },
+        ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
+
+        ['@conditional'] = { link = 'Conditional' },
+        ['@field'] = { link = '@normal' },
+        ['@include'] = { link = 'Include' },
+        ['@label'] = { fg = 'palette.pink' },
+        ['@method'] = { link = 'Function' },
+        ['@operator'] = { link = '@normal' },
+        ['@repeat'] = { link = 'Keyword' },
+        ['@symbol'] = { link = 'String' },
+        ['@type.builtin'] = { link = '@type' },
+        ['@type.qualifier'] = { link = 'Keyword' },
+        ['@variable'] = { link = '@normal' },
+        ['@property'] = { fg = 'palette.comment', bg = 'none' },
+        ['@variable.global'] = { fg = 'palette.pink' },
+
+        ['@variable.parameter.fish'] = { fg = 'palette.pink' },
+
+        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
+
+        ['@variable.member.lua'] = { link = '@normal' },
+        ['@variable.parameter.lua'] = { link = '@normal' },
+        ['@keyword.luadoc'] = { link = '@constant' },
+        ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
+        ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
+        ['@variable.member.luadoc'] = { link = '@key' },
+        ['@variable.parameter.luadoc'] = { link = '@key' },
+        ['@function.macro.luadoc'] = { link = '@type' },
+
+        ['@function.builtin.make'] = { link = 'makeConfig' },
+
+        ['@variable.key.ruby'] = { link = '@key' },
+        ['@variable.parameter.ruby'] = { link = '@normal' },
+        ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
+        ['@variable.member.ruby'] = { fg = 'palette.pink', bg = 'none' }, -- violet
+        ['@operator.ruby'] = { fg = 'palette.fg0', bg = 'none' },
+
+        ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
+        ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
+        ['@type.sql'] = { fg = 'palette.yellow', bg = 'none' },
+
+        ['@property.yaml'] = { link = '@key' },
+
+        ['@variable.parameter.go'] = { fg = 'palette.fg0' },
+        ['@variable.member.go'] = { fg = 'palette.fg0' },
+
+        ['@constructor.css'] = { fg = 'palette.yellow' },
+        ['@operator.css'] = { link = '@tag.css' },
+        ['@property.css'] = { fg = 'palette.pink' }, -- violet
+        ['@tag.css'] = { fg = 'palette.orange' },
+        ['@type.css'] = { fg = 'palette.pink' },     -- violet
+        ['@field.css'] = { fg = 'palette.fg0' },
+
+        ['@constructor.scss'] = { fg = 'palette.yellow' },
+        ['@operator.scss'] = { link = '@tag.css' },
+        ['@property.scss'] = { fg = 'palette.pink' }, -- violet
+        ['@tag.scss'] = { fg = 'palette.orange' },
+        ['@type.scss'] = { fg = 'palette.pink' },     -- violet
+        ['@field.scss'] = { fg = 'palette.fg0' },
+
+        ['@namespace.rasi'] = { fg = 'palette.yellow' },
+        ['@field.rasi'] = { fg = 'palette.fg0' },
+        ['@variable.rasi'] = { fg = 'palette.pink' }, -- violet
+
+        Folded = { link = 'Comment' },
+        FoldColumn = { link = 'SignColumn' },
+
+        CursorColumn = { fg = 'none', bg = 'palette.sel0' },
+        CursorLine = { link = 'CursorColumn' },
+        CursorLineNr = { link = 'CursorLine' },
+        LineNr = { fg = 'palette.fg3', bg = 'palette.sel0' },
+        LineNrAbove = { fg = 'palette.fg3', bg = 'none' },
+        LineNrBelow = { link = 'LineNrAbove' },
+
+        Search = { fg = 'palette.bg1', bg = 'palette.green.dim', style = 'bold' },
+        IncSearch = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'bold' },
+        CurSearch = { link = 'IncSearch' },
+        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
+
+        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'italic' },
+        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright', style = 'italic' },
+        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright', style = 'italic' },
+
+        LualineAdded = { fg = 'palette.green' },
+        LualineRemoved = { fg = 'palette.red' },
+        LualineModified = { fg = 'palette.yellow' },
+        LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
+        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
+        LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        LualineExecutable = { fg = 'palette.green', bg = 'none' },
+
+        NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
+        FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
+        FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
+
+        FidgetGroup = { fg = 'palette.orange', bg = 'none', style = 'bold,italic' },
+
+        QuickFixLine = { link = 'Search' },
+
+        Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        PmenuSel = { bg = 'palette.sel0' },
+
+        ----------------------| plugins |----------------------
+
+        HarpoonLine = { fg = 'palette.sel1' },
+
+        TreesitterContext = { bg = 'None', style = 'italic' },
+        TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
+        TreesitterContextLineNumber = { fg = 'palette.fg0', bg = 'none', style = 'italic' },
+        TreesitterContextSeparator = { bg = 'none', link = 'WinSeparator' },
+
+        TelescopeNormal = { link = 'NormalFloat' },
+        TelescopeBorder = { link = 'FloatBorder' },
+        TelescopeTitle = { fg = 'palette.fg3', bg = 'none' },
+        TelescopePreviewBorder = { link = 'FloatBorder' },
+        TelescopePreviewTitle = { fg = 'palette.fg3', style = 'bold' },
+        TelescopePromptNormal = { fg = 'palette.bg1', bg = 'palette.fg1' },
+        TelescopePromptBorder = { link = 'TelescopePromptTitle' },
+        TelescopePromptTitle = { fg = 'palette.fg1', bg = 'palette.fg1' },
+        TelescopePromptPrefix = { fg = 'palette.bg1', bg = 'palette.fg1' },
+        TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
+        TelescopeSelection = { link = 'CursorLine' },
+        TelescopeSelectionCaret = { link = 'TelescopeSelection' },
+        TelescopeMatching = { link = 'Incsearch' },
+        TelescopeMultiSelection = { fg = 'palette.yellow' },
+        TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
+        TelescopeResultsDiffAdd = { fg = 'palette.green' },
+        TelescopeResultsDiffDelete = { fg = 'palette.red' },
+        TelescopeResultsDiffChange = { fg = 'palette.yellow' },
+
+        LazySpecial = { fg = 'palette.fg1' },
+
+        MasonHeader = { link = 'lazyH1' },
+        MasonHighlight = { fg = 'palette.green', bg = 'none' },
+        MasonHighlightBlock = { fg = 'palette.bg1', bg = 'palette.green.bright' },
+        MasonHighlightBlockBold = { link = 'LazyButtonActive' },
+        MasonMutedBlock = { link = 'LazyButton' },
+
+        MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
+        MarkSignNumHL = { link = 'MarkSignHL' },
+
+        MarkviewCode = { fg = 'none', bg = 'palette.bg0' },
+        MarkviewCodeLabel = { fg = 'palette.bg0', bg = 'palette.yellow.bright', style = 'bold' },
+        MarkviewInlineCode = { fg = 'none', bg = 'palette.bg0' },
+        MarkviewHyperlink = { fg = 'palette.bg1', bg = 'palette.magenta.bright', style = 'italic' },
+        MarkviewImage = { fg = 'palette.bg1', bg = 'palette.blue.bright', style = 'italic' },
+        MarkviewBlockQuoteDefault = { fg = 'palette.fg0', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteError = { fg = 'palette.red', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteNote = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteOk = { fg = 'palette.green', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteSpecial = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteWarn = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
+        MarkviewHeading1 = { fg = 'palette.pink', bg = 'palette.bg0', style = 'underline' },
+        MarkviewHeading2 = { fg = 'palette.green', bg = 'none' },
+        MarkviewHeading3 = { fg = 'palette.blue', bg = 'none' },
+        MarkviewHeading4 = { fg = 'palette.yellow', bg = 'none' },
+        MarkviewHeading5 = { fg = 'palette.cyan', bg = 'none' },
+        MarkviewHeading6 = { fg = 'palette.magenta', bg = 'none' }, -- violet
+        MarkviewListItemMinus = { fg = 'palette.pink', bg = 'none' },
+        MarkviewListItemStar = { fg = 'palette.green', bg = 'none' },
+        MarkviewListItemPlus = { fg = 'palette.blue', bg = 'none' },
+        MarkviewPalette0 = { fg = 'none', bg = 'palette.bg0' },
+        MarkviewPalette1 = { fg = 'palette.bg1', bg = 'palette.pink' },
+        MarkviewPalette2 = { fg = 'palette.bg1', bg = 'palette.green' },
+        MarkviewPalette3 = { fg = 'palette.bg1', bg = 'palette.blue' },
+        MarkviewPalette4 = { fg = 'palette.bg1', bg = 'palette.yellow' },
+        MarkviewPalette5 = { fg = 'palette.bg1', bg = 'palette.cyan' },
+        MarkviewPalette6 = { fg = 'palette.bg1', bg = 'palette.magenta' },
+        MarkviewPalette1Sign = { fg = 'palette.pink', bg = 'none' },
+        MarkviewPalette2Sign = { fg = 'palette.green', bg = 'none' },
+        MarkviewPalette3Sign = { fg = 'palette.blue', bg = 'none' },
+        MarkviewPalette4Sign = { fg = 'palette.yellow', bg = 'none' },
+        MarkviewPalette5Sign = { fg = 'palette.cyan', bg = 'none' },
+        MarkviewPalette6Sign = { fg = 'palette.magenta', bg = 'none' },
+        MarkviewCheckboxChecked = { fg = 'palette.green', bg = 'none' },
+        MarkviewCheckboxUnchecked = { fg = 'palette.yellow', bg = 'none' },
+        MarkviewCheckboxStriked = { fg = 'palette.fg0', bg = 'none', style = 'strikethrough' },
+        MarkviewGradient0 = { fg = '#cccdc1', bg = 'none' },
+        MarkviewGradient1 = { fg = '#c4c8bd', bg = 'none' },
+        MarkviewGradient2 = { fg = '#bdc3b9', bg = 'none' },
+        MarkviewGradient3 = { fg = '#b6bfb5', bg = 'none' },
+        MarkviewGradient4 = { fg = '#afbab1', bg = 'none' },
+        MarkviewGradient5 = { fg = '#a9b5ae', bg = 'none' },
+        MarkviewGradient6 = { fg = '#a2b0aa', bg = 'none' },
+        MarkviewGradient7 = { fg = '#9daaa7', bg = 'none' },
+        MarkviewGradient8 = { fg = '#97a5a3', bg = 'none' },
+        MarkviewGradient9 = { fg = '#92a0a0', bg = 'none' },
+
+        fugitiveHeading = { link = 'Include' },
+        fugitiveStagedHeading = { fg = 'palette.green' },
+        fugitiveUnstagedHeading = { fg = 'palette.orange' },
+        ['@markup.heading.gitcommit'] = { fg = 'palette.green', bg = 'none' },
+        ['@text.reference.gitcommit'] = { fg = 'palette.magenta', bg = 'none' },
+        ['@text.uri.gitcommit'] = { fg = 'palette.fg1', bg = 'none' },
+        ['@string.special.path.gitcommit'] = { fg = 'palette.fg0', bg = 'none' },
+        ['@keyword.gitcommit'] = { fg = 'palette.yellow', bg = 'none' },
+        ['@markup.heading.git_config'] = { fg = 'palette.yellow', bg = 'none' },
+
+        CmpGhostText = { fg = 'palette.white.dim' },
+        CmpItemAbbrMatch = { style = 'bold' },
+        CmpItemKindVariable = { fg = 'palette.magenta' }, -- violet
+        CmpItemKindSnippet = { fg = 'palette.orange' },
+        CmpItemKindCopilot = { fg = 'palette.white.dim' },
+
+        ['@field.ledger'] = { fg = 'palette.blue' },
+        ['@number.ledger'] = { fg = 'palette.green' },
+        ['@number.negative.ledger'] = { fg = 'palette.red' },
+        ['@markup.raw.ledger'] = { fg = 'palette.fg1' },
+        ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
+
+        ['@markup.heading.1'] = { fg = 'palette.pink' },
+        ['@markup.heading.2'] = { fg = 'palette.green' },
+        ['@markup.heading.3'] = { fg = 'palette.blue' },
+        ['@markup.heading.4'] = { fg = 'palette.yellow' },
+        ['@markup.heading.5'] = { fg = 'palette.cyan' },
+        ['@markup.heading.6'] = { fg = 'palette.magenta' },
+
+        AvanteTitle = { fg = 'palette.bg3', bg = 'palette.fg0' },
+        AvanteReversedTitle = { fg = 'palette.fg0', bg = 'palette.bg0' },
+        AvanteSubtitle = { link = 'AvanteTitle' },
+        AvanteReversedSubtitle = { link = 'AvanteReversedTitle' },
+        AvanteThirdTitle = { link = 'AvanteTitle' },
+        AvanteReversedThirdTitle = { link = 'AvanteReversedTitle' },
+        AvantePopupHint = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
+        AvanteTaskFailed = { fg = 'palette.red' },
+        AvanteThinking = { fg = 'palette.pink' },
+        AvanteTaskRunning = { fg = 'palette.pink' },
+        AvanteTaskCompleted = { fg = 'palette.green' },
+        AvanteStateSpinnerFailed = { fg = 'palette.bg1', bg = 'palette.red.bright' },
+        AvanteStateSpinnerThinking = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
+        AvanteStateSpinnerSearching = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
+        AvanteStateSpinnerSucceeded = { fg = 'palette.bg1', bg = 'palette.green.bright' },
+        AvanteStateSpinnerCompacting = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
+        AvanteStateSpinnerGenerating = { fg = 'palette.bg1', bg = 'palette.blue.bright' },
+        AvanteStateSpinnerToolCalling = { fg = 'palette.bg1', bg = 'palette.cyan.bright' },
+        AvanteToBeDeletedWOStrikethrough = { link = 'DiffDelete' },
+        AvanteConflictIncoming = { fg = 'none', bg = 'palette.green.bright' },
+        AvantePromptInput = { link = 'NormalFloat' },
+        AvantePromptInputBorder = { link = 'FloatBorder' },
+      },
+    },
+  },
+
+  config = function(_, opts)
+    for kind, icon in pairs({ Error = '󰅙', Warn = '', Hint = '󰠠', Info = '' }) do
+      local hl = 'DiagnosticSign' .. kind
+      local hl_value = 'Diagnostic' .. kind
+      vim.fn.sign_define(hl, { text = icon, texthl = hl_value, numhl = hl_value })
+    end
+
+    local group = vim.api.nvim_create_augroup('set_hl_ns', {})
+
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      callback = function(args)
+        local palette = require('nightfox.palette').load(args.match)
+
+        vim.api.nvim_set_hl(1, 'CursorColumn', { fg = 'none', bg = palette.bg0 })
+        vim.api.nvim_set_hl(1, 'CursorLineNr', { link = 'CursorColumn' })
+        vim.api.nvim_set_hl(1, 'LineNr', { fg = palette.fg0, bg = 'none' })
+        vim.api.nvim_set_hl(1, 'LineNrAbove', { link = 'LineNr' })
+        vim.api.nvim_set_hl(1, 'LineNrBelow', { link = 'LineNr' })
+
+        vim.api.nvim_create_autocmd('WinEnter', {
+          callback = function() if vim.w.should_restore_hl then vim.api.nvim_win_set_hl_ns(0, 0) end end,
+          group = group
+        })
+        vim.api.nvim_create_autocmd('WinLeave', {
+          callback = function()
+            vim.w.should_restore_hl = true
+            vim.api.nvim_win_set_hl_ns(0, 1)
+          end,
+          group = group
+        })
+      end,
+      nested = true,
+      group = group
+    })
+
+    local set_msg_area_hl = function(link)
+      vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
+      vim.cmd.redraw()
+    end
+
+    vim.api.nvim_create_autocmd('CmdlineEnter',
+      { callback = function() set_msg_area_hl('MsgAreaCmd') end, group = group })
+    vim.api.nvim_create_autocmd('CmdlineLeave',
+      { callback = function() set_msg_area_hl('MsgAreaMsg') end, group = group })
+
+
+    require('nightfox').setup(opts)
+  end,
+}

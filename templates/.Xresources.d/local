@@ -1,10 +1,7 @@
-#include "/home/tlarrieu/.Xresources.d/solarized.light"
+#include "/home/tlarrieu/.Xresources.d/dawnfox"
 
 #define DPI 96
 #define FONT CaskaydiaCove Nerd Font
 #define FONTSIZE 12
-
-#define VIM_THEME solarized
-#define VIM_BACKGROUND light
 
 ! vim: ft=xdefaults

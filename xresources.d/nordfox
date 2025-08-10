@@ -1,0 +1,25 @@
+#define COLOR0  #3b4252
+#define COLOR1  #bf616a
+#define COLOR2  #a3be8c
+#define COLOR3  #ebcb8b
+#define COLOR4  #81a1c1
+#define COLOR5  #b48ead
+#define COLOR6  #88c0d0
+#define COLOR7  #e5e9f0
+#define COLOR8  #465780
+#define COLOR9  #d06f79
+#define COLOR10 #b1d196
+#define COLOR11 #f0d399
+#define COLOR12 #8cafd2
+#define COLOR13 #c895bf
+#define COLOR14 #93ccdc
+#define COLOR15 #e7ecf4
+
+#define BACKGROUND #2e3440
+#define FOREGROUND #cdcecf
+#define COMMENT #3b4252
+
+#define VIM_THEME nordfox
+#define VIM_BACKGROUND dark
+
+! vim: ft=xdefaults

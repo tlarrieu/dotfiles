@@ -3,9 +3,6 @@
 * {
   font: "CaskaydiaCove Nerd Font 16.5";
 
-  red: #dc322f;
-  blue: #268bd2;
-  magenta: #d33682;
   accent: @magenta;
   urgent: @red;
 

@@ -1,26 +1,26 @@
 #!/bin/sh
 
 expr=''
-btop_theme=''
 gtk_expr=''
+fish_theme=''
 
 set_dark() {
-  expr='s/light/dark/'
-  btop_theme='dark'
+  expr='s/dawnfox/nordfox/'
   gtk_expr='s/Light/Dark/'
+  fish_theme='nordfox'
 }
 
 set_light() {
-  expr='s/dark/light/'
-  btop_theme='light'
+  expr='s/nordfox/dawnfox/'
   gtk_expr='s/Dark/Light/'
+  fish_theme='dawnfox'
 }
 
 if [ "$1" = "light" ]; then
   set_light
 elif [ "$1" = "dark" ]; then
   set_dark
-elif grep 'dark' ~/.Xresources.d/local > /dev/null; then
+elif grep 'nordfox' ~/.Xresources.d/local > /dev/null; then
   set_light
 else
   set_dark
@@ -37,11 +37,11 @@ pkill --signal USR1 nvim || /bin/true
 sed -e $expr -i ~/.config/kitty/theme.conf
 pkill --signal USR1 kitty || /bin/true
 
+# fish
+echo 'y' | fish -c "fish_config theme save $fish_theme"
+
 # rofi
 sed -e $expr -i ~/.config/rofi/variant.rasi
-
-# btop
-cp ~/.config/btop/themes/"$btop_theme".theme ~/.config/btop/themes/current.theme
 
 # awesome
 awesome-client > /dev/null 2>&1 <<- LUA

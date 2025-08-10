@@ -2,10 +2,6 @@ stty -ixon 2> /dev/null
 
 set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 
-# FZF
-set -l fzf_main_color '#268bd2' # blue
-set -l fzf_secondary_color '#d33682' # magenta
-
 set -l fzf_common_opts "
   --reverse
   --color=bw

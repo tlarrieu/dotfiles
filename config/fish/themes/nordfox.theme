@@ -1,0 +1,27 @@
+# Syntax Highlighting Colors
+fish_color_normal cdcecf
+fish_color_command 81a1c1
+fish_color_keyword bf88bc
+fish_color_quote ebcb8b
+fish_color_redirection cdcecf
+fish_color_end c9826b
+fish_color_error bf616a
+fish_color_param b48ead
+fish_color_comment 60728a
+fish_color_selection --background=3e4a5b
+fish_color_search_match --background=3e4a5b
+fish_color_operator a3be8c
+fish_color_escape bf88bc
+fish_color_autosuggestion 60728a
+
+# Completion Pager Colors
+fish_pager_color_progress 60728a
+fish_pager_color_prefix 81a1c1
+fish_pager_color_completion cdcecf
+fish_pager_color_description 60728a
+
+# FZF
+set -g fzf_main_color 81a1c1
+set -g fzf_secondary_color b48ead
+
+# vim: ft=fish

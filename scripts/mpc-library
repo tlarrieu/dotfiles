@@ -19,8 +19,7 @@ help="<b>Return</b>   <i>Play selected</i>
 ----
 <b>Tab</b>      <i>Mark</i>"
 
-folder="#268bd2"
-# file="#d33682"
+folder=$(xrdb -get color4)
 
 selection=$(\
   find \
