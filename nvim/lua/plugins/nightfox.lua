@@ -10,6 +10,12 @@ return {
         comments = 'italic',
       },
     },
+    palettes = {
+      dawnfox = {
+        green = '#a1bc89',
+        blue = '#429cbf',
+      },
+    },
     groups = {
       all = {
         ---------------------| base |-----------------------
