@@ -65,8 +65,8 @@ vim.opt.fillchars:append('eob: ')
 
 -- {{{ ==| Scrolling |==========================================================
 vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 15
-vim.opt.sidescroll = 1
+vim.opt.sidescrolloff = 0
+vim.opt.sidescroll = 15
 -- }}}
 
 -- {{{ ==| Indent |=============================================================

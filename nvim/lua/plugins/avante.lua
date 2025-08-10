@@ -18,7 +18,7 @@ return {
     end
 
     local mappings = {
-      { '<c-space>',  run('ask'),          desc = 'avante: ask',          mode = { 'n', 'v' } },
+      { '<c-space>',  run('ask'),          desc = 'avante: ask',          mode = { 'n', 'v', 'i' } },
       { ' ',          run('edit'),         desc = 'avante: edit',         mode = 'v' },
       { '<leader>aa', run('toggle'),       desc = 'avante: toggle',       mode = 'n' },
       { '<leader>ae', run('focus'),        desc = 'avante: focus',        mode = 'n' },
@@ -193,20 +193,4 @@ return {
       },
     }
   },
-  config = function(_, opts)
-    require('avante').setup(opts)
-
-    local group = vim.api.nvim_create_augroup('avante_prompt_input', {})
-
-    vim.api.nvim_create_autocmd('Filetype', {
-      pattern = { 'AvantePromptInput' },
-      callback = function()
-        vim.api.nvim_create_autocmd('InsertEnter', {
-          once = true,
-          callback = function() vim.wo.sidescrolloff = 0 end,
-        })
-      end,
-      group = group,
-    })
-  end,
 }
