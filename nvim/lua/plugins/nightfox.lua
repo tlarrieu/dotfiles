@@ -14,49 +14,23 @@ return {
       all = {
         ---------------------| base |-----------------------
 
-        Normal = { fg = 'palette.fg1' },
-        Constant = { fg = 'palette.magenta' },
-        Identifier = { fg = 'palette.blue' },
-        Include = { fg = 'palette.orange' },
-        Special = { fg = 'palette.magenta' },
-        Function = { fg = 'palette.blue.bright' },
-        Tag = { fg = 'palette.yellow' },
-        TagAttribute = { fg = 'palette.magenta' }, --violet
-        Type = { fg = 'palette.yellow' },
-        Whitespace = { fg = 'palette.fg0' },
-        Nontext = { fg = 'palette.fg0', bg = 'none', style = 'bold' },
-
         MsgArea = { link = 'MsgAreaMsg' },
         MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
         MsgAreaMsg = { link = 'Comment' },
 
-        ['@normal'] = { fg = 'palette.fg1', bg = 'none' },
         qfText = { link = '@normal' },
+        qfLineNr = { fg = 'palette.comment' },
 
         ['@markup.strong'] = { fg = 'none', style = 'bold' },
         ['@markup.italic'] = { fg = 'none', style = 'italic' },
         ['@markup.underline'] = { fg = 'none', style = 'underline' },
-        ['@markup.quote'] = { fg = 'none', style = 'italic' },
-        ['@markup.link'] = { fg = 'palette.pink.bright', bg = 'none', style = 'italic' },
+        ['@markup.quote'] = { fg = 'palette.comment', style = 'italic' },
+        ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
         ['@markup.link.url'] = { link = '@markup.link' },
         ['@markup.link.label'] = { link = '@markup.link' },
         ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
 
-        ['@conditional'] = { link = 'Conditional' },
-        ['@field'] = { link = '@normal' },
-        ['@include'] = { link = 'Include' },
-        ['@label'] = { fg = 'palette.pink' },
-        ['@method'] = { link = 'Function' },
-        ['@operator'] = { link = '@normal' },
-        ['@repeat'] = { link = 'Keyword' },
-        ['@symbol'] = { link = 'String' },
-        ['@type.builtin'] = { link = '@type' },
-        ['@type.qualifier'] = { link = 'Keyword' },
-        ['@variable'] = { link = '@normal' },
         ['@property'] = { fg = 'palette.comment', bg = 'none' },
-        ['@variable.global'] = { fg = 'palette.pink' },
-
-        ['@variable.parameter.fish'] = { fg = 'palette.pink' },
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
@@ -74,8 +48,7 @@ return {
         ['@variable.key.ruby'] = { link = '@key' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
-        ['@variable.member.ruby'] = { fg = 'palette.pink', bg = 'none' }, -- violet
-        ['@operator.ruby'] = { fg = 'palette.fg0', bg = 'none' },
+        ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
 
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
         ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
@@ -88,9 +61,9 @@ return {
 
         ['@constructor.css'] = { fg = 'palette.yellow' },
         ['@operator.css'] = { link = '@tag.css' },
-        ['@property.css'] = { fg = 'palette.pink' }, -- violet
+        ['@property.css'] = { fg = 'palette.magenta' }, -- violet
         ['@tag.css'] = { fg = 'palette.orange' },
-        ['@type.css'] = { fg = 'palette.pink' },     -- violet
+        ['@type.css'] = { fg = 'palette.magenta' },     -- violet
         ['@field.css'] = { fg = 'palette.fg0' },
 
         ['@constructor.scss'] = { fg = 'palette.yellow' },
@@ -102,7 +75,7 @@ return {
 
         ['@namespace.rasi'] = { fg = 'palette.yellow' },
         ['@field.rasi'] = { fg = 'palette.fg0' },
-        ['@variable.rasi'] = { fg = 'palette.pink' }, -- violet
+        ['@variable.rasi'] = { fg = 'palette.magenta' }, -- violet
 
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
@@ -289,12 +262,6 @@ return {
   },
 
   config = function(_, opts)
-    for kind, icon in pairs({ Error = '󰅙', Warn = '', Hint = '󰠠', Info = '' }) do
-      local hl = 'DiagnosticSign' .. kind
-      local hl_value = 'Diagnostic' .. kind
-      vim.fn.sign_define(hl, { text = icon, texthl = hl_value, numhl = hl_value })
-    end
-
     local group = vim.api.nvim_create_augroup('set_hl_ns', {})
 
     vim.api.nvim_create_autocmd('ColorScheme', {
@@ -303,7 +270,7 @@ return {
 
         vim.api.nvim_set_hl(1, 'CursorColumn', { fg = 'none', bg = palette.bg0 })
         vim.api.nvim_set_hl(1, 'CursorLineNr', { link = 'CursorColumn' })
-        vim.api.nvim_set_hl(1, 'LineNr', { fg = palette.fg0, bg = 'none' })
+        vim.api.nvim_set_hl(1, 'LineNr', { fg = palette.comment, bg = 'none' })
         vim.api.nvim_set_hl(1, 'LineNrAbove', { link = 'LineNr' })
         vim.api.nvim_set_hl(1, 'LineNrBelow', { link = 'LineNr' })
 
