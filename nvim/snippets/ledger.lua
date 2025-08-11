@@ -51,13 +51,13 @@ return {
   })),
   s("g", fmta([[
   <> ! <> | courses
-    groceries  <> €
-    <>
+    <>  -<> €
+    groceries
   ]], {
     f(curdate),
     i(1, 'grandfrais'),
-    i(2, 'amount'),
     i(3, 'card:bp'),
+    i(2, 'amount'),
   })),
 
   s("l", fmta("<>  <> €", {
