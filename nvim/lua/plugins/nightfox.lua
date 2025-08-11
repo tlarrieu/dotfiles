@@ -14,6 +14,7 @@ return {
       dawnfox = {
         green = '#a1bc89',
         blue = '#429cbf',
+        yellow = '#d39f02',
       },
     },
     groups = {
@@ -38,6 +39,7 @@ return {
 
         ['@property'] = { fg = 'palette.comment', bg = 'none' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
+        ['@type'] = { fg = 'palette.yellow', bg = 'none' },
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
