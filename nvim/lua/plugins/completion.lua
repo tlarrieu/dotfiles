@@ -1,3 +1,5 @@
+local blank_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
@@ -92,8 +94,8 @@ return {
         fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, },
       },
       window = {
-        completion = { border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' } },
-        documentation = { border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' } },
+        completion = { border = blank_border },
+        documentation = { border = blank_border },
       },
     })
 
