@@ -21,26 +21,9 @@ return {
       all = {
         ---------------------| base |-----------------------
 
-        Directory = { fg = 'palette.blue', bg = 'none' },
-        OilDir = { link = 'Directory' },
-        OilDirIcon = { link = 'OilDir' },
-
-        MsgArea = { link = 'MsgAreaMsg' },
-        MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
-        MsgAreaMsg = { link = 'Comment' },
-
-        qfText = { link = '@normal' },
-        qfLineNr = { fg = 'palette.comment' },
-
-        ['@markup.strong'] = { fg = 'none', style = 'bold' },
-        ['@markup.italic'] = { fg = 'none', style = 'italic' },
-        ['@markup.underline'] = { fg = 'none', style = 'underline' },
-        ['@markup.quote'] = { fg = 'palette.comment', style = 'italic' },
-        ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
-        ['@markup.link.url'] = { link = '@markup.link' },
-        ['@markup.link.label'] = { link = '@markup.link' },
-        ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
-
+        Keyword = { fg = 'palette.green', bg = 'none' },
+        Conditional = { link = 'Keyword' },
+        String = { fg = 'palette.cyan.bright', bg = 'none' },
         ['@property'] = { fg = 'palette.comment', bg = 'none' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
         ['@type'] = { fg = 'palette.yellow', bg = 'none' },
@@ -49,8 +32,64 @@ return {
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
+        -- MsgArea
+        MsgArea = { link = 'MsgAreaMsg' },
+        MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
+        MsgAreaMsg = { link = 'Comment' },
+
+        -- quickfix
+        qfText = { link = '@normal' },
+        qfLineNr = { fg = 'palette.comment' },
+        QuickFixLine = { link = 'Search' },
+
+        -- folds
+        Folded = { link = 'Comment' },
+        FoldColumn = { link = 'SignColumn' },
+        CursorLineNr = { link = 'CursorLine' },
+
+        -- search
+        Search = { fg = 'palette.bg1', bg = 'palette.green.dim', style = 'bold' },
+        IncSearch = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'bold' },
+        CurSearch = { link = 'IncSearch' },
+        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
+
+        -- diagnostics
+        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'italic' },
+        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright', style = 'italic' },
+        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright', style = 'italic' },
+
+        -- floats
+        NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
+        FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
+        FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
+
+        -- pmenu
+        Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        PmenuSel = { bg = 'palette.sel0' },
+
+        -- markup
+        ['@markup.strong'] = { fg = 'none', style = 'bold' },
+        ['@markup.italic'] = { fg = 'none', style = 'italic' },
+        ['@markup.underline'] = { fg = 'none', style = 'underline' },
+        ['@markup.quote'] = { fg = 'palette.comment', style = 'italic' },
+        ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
+        ['@markup.link.url'] = { link = '@markup.link' },
+        ['@markup.link.label'] = { link = '@markup.link' },
+        ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
+        ['@markup.heading.1'] = { fg = 'palette.pink' },
+        ['@markup.heading.2'] = { fg = 'palette.green' },
+        ['@markup.heading.3'] = { fg = 'palette.blue' },
+        ['@markup.heading.4'] = { fg = 'palette.yellow' },
+        ['@markup.heading.5'] = { fg = 'palette.cyan' },
+        ['@markup.heading.6'] = { fg = 'palette.magenta' },
+
+        ---------------| Language specific |----------------
+
+        -- bash
         ['@variable.parameter.bash'] = { link = '@normal' },
 
+        -- lua
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.luadoc'] = { link = '@constant' },
@@ -60,65 +99,52 @@ return {
         ['@variable.parameter.luadoc'] = { link = '@key' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
+        -- make
         ['@function.builtin.make'] = { link = 'makeConfig' },
 
+        -- ruby
         ['@variable.key.ruby'] = { link = '@key' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment', bg = 'none' },
 
+        -- SQL
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
         ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
         ['@type.sql'] = { fg = 'palette.yellow', bg = 'none' },
 
+        -- yaml
         ['@property.yaml'] = { link = '@key' },
 
+        -- go
         ['@variable.parameter.go'] = { fg = 'palette.fg0' },
         ['@variable.member.go'] = { fg = 'palette.fg0' },
 
+        -- css / scss
         ['@constructor.css'] = { fg = 'palette.yellow' },
-        ['@operator.css'] = { link = '@tag.css' },
-        ['@property.css'] = { fg = 'palette.magenta' },
-        ['@tag.css'] = { fg = 'palette.orange' },
-        ['@type.css'] = { fg = 'palette.magenta' },
+        ['@constructor.scss'] = { link = '@constructor.css' },
         ['@field.css'] = { fg = 'palette.fg0' },
-
-        ['@constructor.scss'] = { fg = 'palette.yellow' },
+        ['@field.scss'] = { link = '@field.css' },
+        ['@operator.css'] = { link = '@tag.css' },
         ['@operator.scss'] = { link = '@tag.css' },
-        ['@property.scss'] = { fg = 'palette.pink' },
-        ['@tag.scss'] = { fg = 'palette.orange' },
-        ['@type.scss'] = { fg = 'palette.pink' },
-        ['@field.scss'] = { fg = 'palette.fg0' },
+        ['@property.css'] = { fg = 'palette.magenta' },
+        ['@property.scss'] = { link = '@property.css' },
+        ['@tag.css'] = { fg = 'palette.orange' },
+        ['@tag.scss'] = { link = '@tag.css' },
+        ['@type.css'] = { fg = 'palette.magenta' },
+        ['@type.scss'] = { link = '@type.css' },
 
-        ['@namespace.rasi'] = { fg = 'palette.yellow' },
-        ['@field.rasi'] = { fg = 'palette.fg0' },
-        ['@variable.rasi'] = { fg = 'palette.magenta' },
-
-        Folded = { link = 'Comment' },
-        FoldColumn = { link = 'SignColumn' },
-        CursorLineNr = { link = 'CursorLine' },
-
-        Search = { fg = 'palette.bg1', bg = 'palette.green.dim', style = 'bold' },
-        IncSearch = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'bold' },
-        CurSearch = { link = 'IncSearch' },
-        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
-
-        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'italic' },
-        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright', style = 'italic' },
-        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright', style = 'italic' },
-
-        NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
-        FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
-        FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
-        FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
-
-        QuickFixLine = { link = 'Search' },
-
-        Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
-        PmenuSel = { bg = 'palette.sel0' },
+        -- rasi
+        ['@namespace.rasi'] = { link = '@constructor.css' },
+        ['@field.rasi'] = { link = '@field.css' },
+        ['@variable.rasi'] = { link = '@property.css' },
 
         ----------------------| plugins |----------------------
+
+        Directory = { fg = 'palette.blue', bg = 'none' },
+        OilDir = { link = 'Directory' },
+        OilDirIcon = { link = 'OilDir' },
 
         HarpoonLine = { link = 'Search' },
 
@@ -263,13 +289,6 @@ return {
         ['@number.negative.ledger'] = { fg = 'palette.red' },
         ['@markup.raw.ledger'] = { fg = 'palette.fg1' },
         ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
-
-        ['@markup.heading.1'] = { fg = 'palette.pink' },
-        ['@markup.heading.2'] = { fg = 'palette.green' },
-        ['@markup.heading.3'] = { fg = 'palette.blue' },
-        ['@markup.heading.4'] = { fg = 'palette.yellow' },
-        ['@markup.heading.5'] = { fg = 'palette.cyan' },
-        ['@markup.heading.6'] = { fg = 'palette.magenta' },
 
         AvanteTitle = { fg = 'palette.bg1', bg = 'palette.fg0' },
         AvanteReversedTitle = { fg = 'palette.fg0', bg = 'palette.bg0' },
