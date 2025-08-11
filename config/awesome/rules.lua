@@ -73,7 +73,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       },
     },
     properties = {
-      opacity = 0.85,
+      opacity = 0.80,
     },
   },
 
@@ -94,7 +94,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       fullscreen = true,
       floating = true,
       placement = awful.placement.centered,
-      opacity = 0.85,
+      opacity = 0.80,
       callback = function(client) helpers.create_tag_and_attach_to(client) end
     },
   },
