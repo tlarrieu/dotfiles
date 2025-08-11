@@ -288,21 +288,4 @@ return {
       },
     },
   },
-
-  config = function(_, opts)
-    local group = vim.api.nvim_create_augroup('set_hl_ns', {})
-
-    local set_msg_area_hl = function(link)
-      vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
-      vim.cmd.redraw()
-    end
-
-    vim.api.nvim_create_autocmd('CmdlineEnter',
-      { callback = function() set_msg_area_hl('MsgAreaCmd') end, group = group })
-    vim.api.nvim_create_autocmd('CmdlineLeave',
-      { callback = function() set_msg_area_hl('MsgAreaMsg') end, group = group })
-
-
-    require('nightfox').setup(opts)
-  end,
 }
