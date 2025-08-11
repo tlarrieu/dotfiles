@@ -40,6 +40,8 @@ return {
         ['@property'] = { fg = 'palette.comment', bg = 'none' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
         ['@type'] = { fg = 'palette.yellow', bg = 'none' },
+        ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
+        ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
@@ -60,6 +62,7 @@ return {
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
+        ['@punctuation.special.ruby'] = { fg = 'palette.comment', bg = 'none' },
 
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
         ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
