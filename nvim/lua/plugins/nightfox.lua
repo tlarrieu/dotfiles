@@ -148,7 +148,7 @@ return {
         LualineRemoved = { fg = 'palette.red' },
         LualineModified = { fg = 'palette.yellow' },
         LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
-        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
+        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold' },
         LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
 
