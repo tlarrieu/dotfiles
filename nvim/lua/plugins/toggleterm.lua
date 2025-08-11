@@ -18,7 +18,7 @@ return {
     on_stdout = function(_, _, data) require('testbus').redraw(data) end,
     on_exit = require('testbus').interrupt,
     shade_terminals = false,
-    start_in_insert = false,
+    start_in_insert = true,
     insert_mappings = false,
     terminal_mappings = false,
     persist_size = false,

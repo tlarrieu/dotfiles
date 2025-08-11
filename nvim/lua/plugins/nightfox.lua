@@ -65,7 +65,7 @@ return {
         FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
 
         -- winseparator
-        WinSeparator = { fg = 'palette.bg0', bg = 'palette.bg0' },
+        WinSeparator = { fg = 'palette.bg0', bg = 'none' },
 
         -- pmenu
         Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
@@ -153,7 +153,7 @@ return {
         OilDir = { link = 'Directory' },
         OilDirIcon = { link = 'OilDir' },
 
-        HarpoonLine = { link = 'Search' },
+        HarpoonLine = { fg = 'palette.blue', bg = 'none', style = 'bold' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
