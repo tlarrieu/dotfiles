@@ -141,6 +141,9 @@ return {
         ['@field.rasi'] = { link = '@field.css' },
         ['@variable.rasi'] = { link = '@property.css' },
 
+        -- kitty
+        kittySt = { link = 'String' },
+
         ----------------------| plugins |----------------------
 
         Directory = { fg = 'palette.blue', bg = 'none' },

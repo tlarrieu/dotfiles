@@ -13,4 +13,4 @@ layout grid
 cd ~/dev/jeancaisse
 launch yarn start
 
-# vim:ft=conf
+# vim: ft=kitty

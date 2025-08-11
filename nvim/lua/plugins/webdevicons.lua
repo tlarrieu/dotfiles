@@ -101,6 +101,8 @@ return {
       mli = { icon = '' },
       exe = { icon = '' },
       log = { icon = '' },
+
+      kitty = { icon = '󰄛' },
     },
     override_by_filename = {
       ['.keep'] = { icon = '' },
