@@ -104,6 +104,7 @@ return {
 
         -- ruby
         ['@variable.key.ruby'] = { link = '@key' },
+        ['@variable.member.ruby'] = { fg = 'palette.magenta', bg = 'none' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
