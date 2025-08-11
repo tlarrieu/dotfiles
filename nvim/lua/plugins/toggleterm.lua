@@ -27,13 +27,15 @@ return {
     shell = '/usr/bin/fish',
     auto_scroll = false,
     float_opts = {
-      border = 'single',
-      winblend = 0,
+      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+      winblend = 5,
       title_pos = 'center',
     },
     highlights = {
+      Normal = { link = 'NormalFloat' },
       NormalFloat = { link = 'NormalFloat' },
-      FloatBorder = { link = 'TelescopeBorder' },
+      WinSeparator = { link = 'FloatBorder' },
+      FloatBorder = { link = 'FloatBorder' },
     },
   },
   config = true,

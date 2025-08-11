@@ -6,7 +6,7 @@ return {
       config = true,
       opts = {
         ui = {
-          border = 'none',
+          border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
           height = 0.85,
           icons = {
             package_installed = '󰄲',

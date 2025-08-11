@@ -59,10 +59,13 @@ return {
         DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright' },
 
         -- floats
-        NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        NormalFloat = { fg = 'none', bg = 'palette.bg0' },
         FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
         FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
         FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
+
+        -- winseparator
+        WinSeparator = { fg = 'palette.bg0', bg = 'palette.bg0' },
 
         -- pmenu
         Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
@@ -152,10 +155,10 @@ return {
 
         HarpoonLine = { link = 'Search' },
 
-        TreesitterContext = { bg = 'None', style = 'italic' },
+        TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
-        TreesitterContextLineNumber = { fg = 'palette.fg0', bg = 'none', style = 'italic' },
-        TreesitterContextSeparator = { bg = 'none', link = 'WinSeparator' },
+        TreesitterContextLineNumber = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
+        TreesitterContextSeparator = { fg = 'palette.bg0', bg = 'palette.bg0' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
