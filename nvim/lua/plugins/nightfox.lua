@@ -37,6 +37,7 @@ return {
         ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
 
         ['@property'] = { fg = 'palette.comment', bg = 'none' },
+        ['@function'] = { fg = 'palette.blue', bg = 'none' },
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
@@ -110,7 +111,7 @@ return {
 
         ----------------------| plugins |----------------------
 
-        HarpoonLine = { fg = 'palette.sel1' },
+        HarpoonLine = { link = 'IncSearch' },
 
         TreesitterContext = { bg = 'None', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
