@@ -12,7 +12,6 @@ return {
         'icon',
         directory = '',
         add_padding = true,
-        highlight = 'Normal',
       },
       -- "permissions",
       -- "size",

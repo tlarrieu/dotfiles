@@ -21,6 +21,10 @@ return {
       all = {
         ---------------------| base |-----------------------
 
+        Directory = { fg = 'palette.blue', bg = 'none' },
+        OilDir = { link = 'Directory' },
+        OilDirIcon = { link = 'OilDir' },
+
         MsgArea = { link = 'MsgAreaMsg' },
         MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
         MsgAreaMsg = { link = 'Comment' },
