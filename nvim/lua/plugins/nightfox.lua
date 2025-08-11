@@ -54,9 +54,9 @@ return {
         ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
 
         -- diagnostics
-        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'italic' },
-        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright', style = 'italic' },
-        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright', style = 'italic' },
+        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright' },
+        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright' },
+        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright' },
 
         -- floats
         NormalFloat = { fg = 'palette.fg1', bg = 'palette.bg0' },
