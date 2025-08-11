@@ -26,6 +26,7 @@ vim.keymap.set('n', 'yf', "<cmd>let @+ = expand(\"%\")<cr><cmd>echo 'File name y
 vim.keymap.set('n', 'vv', '^v$h')
 -- Command line
 vim.keymap.set({ 'n', 'x' }, 'è', ':')
+vim.keymap.set({ 'n', 'x' }, 'È', '@:')
 -- search
 vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
