@@ -111,7 +111,7 @@ return {
 
         ----------------------| plugins |----------------------
 
-        HarpoonLine = { link = 'IncSearch' },
+        HarpoonLine = { link = 'Search' },
 
         TreesitterContext = { bg = 'None', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
