@@ -55,8 +55,6 @@ xsettingsd 1>/dev/null 2>&1 &
 gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # wallpaper
-if [ -f ~/Pictures/wallpapers/wallpaper-$mode ]; then
-  feh --bg-scale ~/Pictures/wallpapers/wallpaper-$mode
-else
-  [ -x ~/.fehbg ] && ~/.fehbg
-fi
+[ -f ~/Pictures/wallpapers/wallpaper-$mode ] \
+  && feh --bg-scale ~/Pictures/wallpapers/wallpaper-$mode \
+  || [ -x ~/.fehbg ] && ~/.fehbg
