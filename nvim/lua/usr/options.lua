@@ -37,6 +37,7 @@ vim.opt.wildmode = 'list:full,full'
 vim.opt.complete = '.,w,b,u,t,i'
 -- set title when in console
 vim.opt.title = true
+vim.opt.titlestring = 'Nvim (%{substitute(getcwd(), $HOME, "~", "")})'
 -- disable line wrap
 vim.opt.wrap = false
 -- line wrap at word boundaries
