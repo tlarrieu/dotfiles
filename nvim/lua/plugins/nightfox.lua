@@ -14,7 +14,7 @@ return {
       dawnfox = {
         green = '#a1bc89',
         blue = '#429cbf',
-        yellow = '#d39f02',
+        yellow = '#b59900',
       },
     },
     groups = {
