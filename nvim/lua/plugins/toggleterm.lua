@@ -1,22 +1,43 @@
+local restore_win_separator = function()
+  vim.api.nvim_set_hl(0, 'WinSeparator', { link = '_WinSeparator' })
+end
+
+local save_win_separator = function()
+  local saved = vim.api.nvim_get_hl(0, {})['_WinSeparator']
+  if not saved then
+    vim.api.nvim_set_hl(0, '_WinSeparator', vim.api.nvim_get_hl(0, {})['WinSeparator'])
+  end
+end
+
 return {
   'akinsho/toggleterm.nvim',
   dependencies = { 'tlarrieu/testbus' },
   version = '*',
-  cmd = { 'TermExec', 'TermOpen' },
+  cmd = { 'TermExec', 'TermOpen', 'ToggleTerm' },
   opts = {
     direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
     size = function(term)
       local factor = 0.3
       if term.direction == 'horizontal' then
-        return math.max(30, vim.o.lines * factor)
+        return math.max(10, vim.o.lines * factor)
       elseif term.direction == 'vertical' then
         return math.max(80, vim.o.columns * factor)
       end
     end,
     open_mapping = '<leader><tab>',
     hide_numbers = true,
+    on_open = function(term)
+      save_win_separator()
+      if term.direction == 'vertical' or term.direction == 'horizontal' then
+        vim.api.nvim_set_hl(0, 'WinSeparator', { link = 'FloatBorder' })
+      end
+    end,
+    on_close = restore_win_separator,
     on_stdout = function(_, _, data) require('testbus').redraw(data) end,
-    on_exit = require('testbus').interrupt,
+    on_exit = function()
+      restore_win_separator()
+      require('testbus').interrupt()
+    end,
     shade_terminals = false,
     start_in_insert = true,
     insert_mappings = false,
