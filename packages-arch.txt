@@ -40,6 +40,7 @@ entr
 xsel
 xclip
 qrencode
+xfce4-settings
 
 # search
 ripgrep

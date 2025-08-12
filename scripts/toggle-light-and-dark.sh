@@ -1,24 +1,26 @@
 #!/bin/sh
 
+current=$(gsettings get org.gnome.desktop.interface color-scheme | sed -E "s/'prefer-(\w+)'/\1/")
+
 set_dark() {
   expr='s/dawnfox/nordfox/'
   gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='nordfox'
-  wallpaper='wallpaper-dark'
+  mode='dark'
 }
 
 set_light() {
   expr='s/nordfox/dawnfox/'
   gtk_expr='s/Nordic/Nightfox-Light/'
   fish_theme='dawnfox'
-  wallpaper='wallpaper-light'
+  mode='light'
 }
 
 if [ "$1" = "light" ]; then
   set_light
 elif [ "$1" = "dark" ]; then
   set_dark
-elif grep 'nordfox' ~/.Xresources.d/local > /dev/null; then
+elif [ "$current" = "dark" ]; then
   set_light
 else
   set_dark
@@ -50,10 +52,11 @@ LUA
 # GTK
 sed -e $gtk_expr -i ~/.xsettingsd
 xsettingsd 1>/dev/null 2>&1 &
+gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # wallpaper
-if [ -f ~/Pictures/wallpapers/$wallpaper ]; then
-  feh --bg-scale ~/Pictures/wallpapers/$wallpaper
+if [ -f ~/Pictures/wallpapers/wallpaper-$mode ]; then
+  feh --bg-scale ~/Pictures/wallpapers/wallpaper-$mode
 else
   [ -x ~/.fehbg ] && ~/.fehbg
 fi
