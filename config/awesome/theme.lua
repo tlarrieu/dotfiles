@@ -26,7 +26,7 @@ return {
     theme.bg_urgent = theme.colors.red.dark
     theme.bg_systray = theme.bg_normal
 
-    theme.border_width = 2.5
+    theme.border_width = 0
     theme.border_normal = theme.colors.white.dark
     theme.border_focus = theme.colors.green.dark
 
