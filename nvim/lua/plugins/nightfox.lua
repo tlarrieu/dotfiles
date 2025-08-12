@@ -89,8 +89,11 @@ return {
 
         ---------------| Language specific |----------------
 
-        -- bash
+        -- shells
         ['@variable.parameter.bash'] = { link = '@normal' },
+        ['@operator.bash'] = { link = 'Keyword' },
+        ['@operator.fish'] = { link = 'Keyword' },
+        ['@keyword.operator.fish'] = { link = 'Keyword' },
 
         -- lua
         ['@variable.member.lua'] = { link = '@normal' },
