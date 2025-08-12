@@ -95,6 +95,7 @@ return {
         -- lua
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
+        ['@keyword.operator.lua'] = { link = '@keyword' },
         ['@keyword.luadoc'] = { link = '@constant' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
