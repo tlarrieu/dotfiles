@@ -115,28 +115,20 @@ return {
       end
     })
 
+    local notify_request = function(request)
+      local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
+      local icon = icons[request.type]
+      if not icon then return end
+
+      vim.notify(icon .. ' ' .. request.method)
+    end
+
     vim.api.nvim_create_autocmd('LspRequest', {
       callback = function(args)
         local request = args.data.request
 
-        if request.method == 'getCompletions' then return end
-        if request.method == 'textDocument/formatting' then return end
-        if request.method == 'textDocument/completion' then return end
-        if request.method == 'textDocument/inlayHint' then return end
-        if request.method == 'textDocument/hover' then return end
-        if request.method == 'textDocument/diagnostic' then return end
-        if request.method == 'textDocument/signatureHelp' then return end
-        if request.method == 'textDocument/prepareName' then return end
-        if request.method == 'textDocument/documentColor' then return end
-        if request.method == 'textDocument/codeAction' then return end
-        if request.method == 'textDocument/rangeFormatting' then return end
-        if request.method == 'completionItem/resolve' then return end
-
-        local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
-        local icon = icons[request.type]
-        if not icon then return end
-
-        vim.notify(icon .. ' ' .. request.method)
+        if request.method == 'textDocument/definition' then notify_request(request) end
+        if request.method == 'textDocument/references' then notify_request(request) end
       end,
       group = vim.api.nvim_create_augroup('lsp_request_status', {})
     })
