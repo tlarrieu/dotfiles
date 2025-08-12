@@ -160,11 +160,11 @@ local init = function(screen)
   awful.spawn.easy_async_with_shell(cmd, function(out)
     out = out:gsub("[\n\r]", '')
 
-    local color = out == 'work'
+    local context_color = out == 'work'
         and beautiful.colors.red.dark
         or beautiful.colors.green.dark
 
-    context.markup = '<span color="' .. color .. '"><b>@' .. out .. '</b></span>'
+    context.markup = '<span color="' .. context_color .. '"><b>@' .. out .. '</b></span>'
   end)
 
   local left = wibox.widget({
