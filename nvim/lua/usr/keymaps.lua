@@ -207,7 +207,7 @@ vim.keymap.set('n', '<right>', '<c-w>5>')
 vim.keymap.set('n', '<up>', '<c-w>+')
 vim.keymap.set('n', '<down>', '<c-w>-')
 vim.keymap.set('n', 'co', '<c-w>o')
-vim.keymap.set('n', 'cO', '<cmd>tabo<cr><c-w>o')
+vim.keymap.set('n', 'cO', ':tabo<cr><c-w>o')
 -- Hack to make <c-w><c-c> mapping work
 vim.keymap.set('', '<c-c>', '<nop>')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
