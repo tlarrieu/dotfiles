@@ -6,8 +6,8 @@ vim.opt.shell = '/usr/bin/fish'
 vim.opt.exrc = true
 vim.opt.secure = true
 -- line numbering
-vim.opt.relativenumber = true
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.textwidth = 120
 -- termguicolors
 vim.opt.termguicolors = true

@@ -29,13 +29,6 @@ vim.api.nvim_create_autocmd('WinLeave', {
   group = number_group
 })
 
--- auto turn on relativenumber if we activate number
-vim.api.nvim_create_autocmd('OptionSet', {
-  pattern = { 'number' },
-  callback = function() vim.wo.relativenumber = vim.wo.number end,
-  group = number_group
-})
-
 -- highlight yank
 vim.api.nvim_create_autocmd('TextYankPost', {
   callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 200 }) end,
