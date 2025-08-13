@@ -17,6 +17,9 @@ require('lazy').setup({
   spec = { import = 'plugins' },
   install = { colorscheme = { 'evening' } },
   change_detection = { notify = false },
+  ui = {
+    border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+  },
 })
 
 require('usr.filetypes')
