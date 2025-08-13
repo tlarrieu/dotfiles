@@ -1,8 +1,8 @@
 #!/bin/sh
 
-pkill -USR2 -f '^puma'
+if [ "$1" = 'restart' ]; then pkill -USR2 -f '^puma'; fi
 
-if [ $? -eq 0 ]; then exit 0; fi
+if wmctrl -l -x | grep -q localhost; then wmctrl -x -a 'localhost'; exit 0; fi
 
 kitty --session work &
 sleep 0.5

@@ -6,6 +6,7 @@ local spawner = require('spawner')
 
 local home = os.getenv('HOME')
 local dotfiles = string.format('%s/git/dotfiles', home)
+local work = string.format('%s/dev/jeancaisse', home)
 local accounting = string.format('%s/git/accounting', home)
 local neorg = string.format('%s/.neorg', home)
 
@@ -85,7 +86,13 @@ local keyboard = {
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ mod, 'Shift' }, 'w', spawner.shell('~/scripts/work')),
+    spawner.key({ mod }, 'w', spawner.shell('~/scripts/work')),
+    spawner.key({ mod, 'Shift' }, 'w', spawner.shell('~/scripts/work restart')),
+    spawner.key({ mod }, 'x', {
+      app = spawner.terminal('nvim', { class = 'work', directory = work }),
+      props = { class = 'work' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod }, 'è', {
       app = spawner.terminal(string.format('nvim %s/postgres.sql', home), { class = 'postgres' }),
       props = { class = 'postgres' },
