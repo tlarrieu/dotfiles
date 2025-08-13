@@ -150,7 +150,7 @@ return {
         OilDir = { link = 'Directory' },
         OilDirIcon = { link = 'OilDir' },
 
-        HarpoonLine = { link = 'QuickFixLine' },
+        HarpoonLine = { fg = 'palette.bg1', bg = 'palette.green', style = 'bold' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
