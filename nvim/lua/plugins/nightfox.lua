@@ -21,10 +21,9 @@ return {
       all = {
         ---------------------| base |-----------------------
 
-        Keyword = { fg = 'palette.green', bg = 'none' },
         Conditional = { link = 'Keyword' },
         String = { fg = 'palette.cyan.bright', bg = 'none' },
-        ['@property'] = { fg = 'palette.comment', bg = 'none' },
+        ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
         ['@type'] = { fg = 'palette.yellow', bg = 'none' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
@@ -46,12 +45,6 @@ return {
         Folded = { link = 'Comment' },
         FoldColumn = { link = 'SignColumn' },
         CursorLineNr = { link = 'CursorLine' },
-
-        -- search
-        Search = { fg = 'palette.bg1', bg = 'palette.green.dim', style = 'bold' },
-        IncSearch = { fg = 'palette.bg1', bg = 'palette.green.bright', style = 'bold' },
-        CurSearch = { link = 'IncSearch' },
-        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
 
         -- diagnostics
         DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright' },
@@ -157,7 +150,7 @@ return {
         OilDir = { link = 'Directory' },
         OilDirIcon = { link = 'OilDir' },
 
-        HarpoonLine = { fg = 'palette.blue', bg = 'none', style = 'bold' },
+        HarpoonLine = { link = 'QuickFixLine' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
@@ -338,6 +331,8 @@ return {
         TodoFgNOTE = { fg = 'palette.magenta' },
         TodoBgTEST = { fg = 'palette.bg1', bg = 'palette.cyan' },
         TodoFgTEST = { fg = 'palette.cyan' },
+
+        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
 
       },
     },
