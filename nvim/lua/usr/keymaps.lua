@@ -171,6 +171,9 @@ vim.keymap.set('n', '<leader>r', function()
     setlocal cursorline!
   ]]
 end, { desc = 'Toggle crosshair' })
+vim.keymap.set('n', '<leader>R', function()
+  vim.wo.cursorline = not vim.wo.cursorline
+end, { desc = 'Toggle crosshair' })
 -- Alternate file
 vim.keymap.set('n', '<c-k>', '<c-^>')
 --- }}}
