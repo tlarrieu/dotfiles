@@ -6,7 +6,7 @@ runner.default({
 })
 
 runner.match({ 'config/awesome/**/*.lua', 'config/awesome/*.lua' }, {
-  main = runner.term('sh' .. vim.fn.expand('~/scripts/awesome-test'), { open = false }),
+  main = runner.term('sh ' .. vim.fn.expand('~/scripts/awesome-test'), { open = false }),
   alt = runner.term('~/scripts/awesome-test'),
 })
 
