@@ -4,19 +4,19 @@ local curdate = function() return os.date('%m/%d') end
 
 return {
   -- definitions
-  s("e", fmta([[
+  s('e', fmta([[
   <> ! <> | <>
     <>  -<> €
     <>
   ]], {
     f(curdate),
-    i(1, 'payee'),
-    i(2, 'desc'),
-    i(3, 'card:bp'),
-    i(4, 'amount'),
-    i(0, 'to')
+    i(4, 'payee'),
+    i(5, 'desc'),
+    i(2, 'card:ce'),
+    i(1, 'amount'),
+    i(3, 'to')
   })),
-  s("r", fmta([[
+  s('r', fmta([[
   <> ! <> | <>
     <>  <> €
     refund
@@ -27,7 +27,7 @@ return {
     i(3, 'card:ce'),
     i(4, 'amount'),
   })),
-  s("i", fmta([[
+  s('i', fmta([[
   <> * <>
     card:<>  <> €
     salary/<>
@@ -38,7 +38,7 @@ return {
     i(3, 'amount'),
     i(0, 'Thomas')
   })),
-  s("t", fmta([[
+  s('t', fmta([[
   <> * <> | transfert
     <>  <> €
     <>
@@ -49,7 +49,7 @@ return {
     i(3, 'amount'),
     i(0, 'from')
   })),
-  s("g", fmta([[
+  s('g', fmta([[
   <> ! <> | courses
     <>  -<> €
     groceries
@@ -60,13 +60,13 @@ return {
     i(2, 'amount'),
   })),
 
-  s("l", fmta("<>  <> €", {
+  s('l', fmta('<>  <> €', {
     i(1, 'account'),
     i(0, 'amount')
   })),
 
   -- Specific expenses
-  s("m", fmta([[
+  s('m', fmta([[
   <> * caisse d'épargne | échéance crédit
     card:ce  -1403.16 €
     mortgage  1051.63 €
@@ -77,7 +77,7 @@ return {
   ]], {
     f(curdate), f(curdate),
   })),
-  s("q", fmta([[
+  s('q', fmta([[
   <> * église | quête
     charities  <> €
     <>
