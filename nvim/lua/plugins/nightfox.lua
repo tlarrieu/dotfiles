@@ -169,7 +169,7 @@ return {
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
         TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
-        TelescopeMatching = { link = 'Incsearch' },
+        TelescopeMatching = { fg = 'palette.green' },
         TelescopeMultiSelection = { fg = 'palette.yellow' },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
         TelescopeResultsDiffAdd = { fg = 'palette.green' },
