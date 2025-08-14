@@ -86,8 +86,12 @@ local keyboard = {
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ mod }, 'w', spawner.shell('~/scripts/work')),
-    spawner.key({ mod, 'Shift' }, 'w', spawner.shell('~/scripts/work restart')),
+    spawner.key({ mod }, 'w', {
+      app = spawner.shell('work'),
+      props = { name = 'rails' },
+      signal = spawner.actions.JUMP,
+    }),
+    spawner.key({ mod, 'Shift' }, 'w', spawner.shell('work restart')),
     spawner.key({ mod }, 'x', {
       app = spawner.terminal('nvim', { class = 'work', directory = work }),
       props = { class = 'work' },

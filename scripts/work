@@ -2,7 +2,7 @@
 
 if [ "$1" = 'restart' ]; then pkill -USR2 -f '^puma'; fi
 
-if wmctrl -l -x | grep -q localhost; then wmctrl -x -a 'localhost'; exit 0; fi
+if wmctrl -x -l | grep rails | grep -q kitty.kitty; then exit 0; fi
 
 kitty --session work &
 sleep 0.5
