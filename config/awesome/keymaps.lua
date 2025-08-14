@@ -97,6 +97,11 @@ local keyboard = {
       props = { class = 'work' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod }, 'g', {
+      app = spawner.shell('github'),
+      props = { instance = 'www.github.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod, 'Shift' }, 's', {
       app = spawner.shell('slack'),
       props = { instance = 'app.slack.com' },
@@ -170,7 +175,7 @@ local keyboard = {
     spawner.key({ mod }, 'BackSpace', 'mpc toggle'),
     spawner.key({ mod }, 'o', spawner.terminal('vifm', { class = 'vifm' })),
     spawner.key({ mod, 'Shift' }, 'o', 'nemo'),
-    spawner.key({ mod }, 'g', 'wallpaper'),
+    spawner.key({ mod, 'Shift' }, 'g', 'wallpaper'),
     spawner.key({ mod }, 'h', {
       app = spawner.terminal('gtgf', { class = 'gtgf' }),
       props = { class = 'gtgf' },
