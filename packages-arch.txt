@@ -109,7 +109,7 @@ lib32-opencl-nvidia
 
 # internet
 networkmanager
-chromium
+omarchy-chromium-bin
 openssh
 newsboat
 

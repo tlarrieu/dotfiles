@@ -7,6 +7,7 @@ set_dark() {
   gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='nordfox'
   mode='dark'
+  chrome_colors='46,52,64'
 }
 
 set_light() {
@@ -14,6 +15,7 @@ set_light() {
   gtk_expr='s/Nordic/Nightfox-Light/'
   fish_theme='dawnfox'
   mode='light'
+  chrome_colors='250,244,237'
 }
 
 if [ "$1" = "light" ]; then
@@ -53,6 +55,9 @@ LUA
 sed -e $gtk_expr -i ~/.xsettingsd
 xsettingsd 1>/dev/null 2>&1 &
 gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
+
+# chromium
+chromium --no-startup-window --set-color-scheme=$mode --set-theme-color="$chrome_colors"
 
 # wallpaper
 [ -f ~/Pictures/wallpapers/wallpaper-$mode ] \
