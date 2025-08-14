@@ -15,7 +15,7 @@ return {
   version = '*',
   cmd = { 'TermExec', 'TermOpen', 'ToggleTerm' },
   opts = {
-    direction = 'float', -- 'vertical' | 'horizontal' | 'tab' | 'float',
+    direction = 'float',
     size = function(term)
       local factor = 0.3
       if term.direction == 'horizontal' then
