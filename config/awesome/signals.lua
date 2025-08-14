@@ -56,10 +56,7 @@ for _, signal in ipairs(client_signals) do
 end
 
 client.connect_signal('property::minimized', function(client)
-  if client.name == 'meet.google.com is sharing a window.' then
-    return
-  end
-
+  if client.name == 'meet.google.com is sharing a window.' then return end
   client.minimized = false
 end)
 
@@ -78,6 +75,7 @@ client.connect_signal('client::custom', function(client, action)
   if action == spawner.actions.MOVE then
     helpers.create_tag_and_attach_to(client)
   elseif action == spawner.actions.JUMP then
+    if #client:tags() == 0 then helpers.create_tag_and_attach_to(client) end
     client:jump_to()
   else
     return

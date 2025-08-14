@@ -59,6 +59,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'kitty-light',
         'vifm',
         'config',
+        'work',
         'accounting',
         'postgres',
         'gtd',
@@ -164,6 +165,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'newsboat',
         'quake',
         'steam',
+        'work',
       },
       instance = {
         'web.whatsapp.com',
