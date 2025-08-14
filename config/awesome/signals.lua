@@ -73,7 +73,13 @@ end)
 
 client.connect_signal('client::custom', function(client, action)
   if action == spawner.actions.MOVE then
-    helpers.create_tag_and_attach_to(client)
+    if client.floating then
+      client:move_to_screen(mouse.screen)
+      helpers.resize_and_center(client)
+    end
+    if #client:tags() == 0 or client.screen ~= mouse.screen then
+      helpers.create_tag_and_attach_to(client)
+    end
   elseif action == spawner.actions.JUMP then
     if #client:tags() == 0 then helpers.create_tag_and_attach_to(client) end
     client:jump_to()

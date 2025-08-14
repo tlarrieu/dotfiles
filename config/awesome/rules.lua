@@ -84,6 +84,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     rule = { class = 'gtgf' },
     properties = {
       fullscreen = true,
+      floating = false,
     },
   },
 
@@ -93,7 +94,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     rule = { instance = 'music.youtube.com', },
     properties = {
       fullscreen = true,
-      floating = true,
+      floating = false,
       placement = awful.placement.centered,
       opacity = 0.80,
       callback = function(client) helpers.create_tag_and_attach_to(client) end
@@ -211,7 +212,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'Pathway',
       }
     },
-    properties = { fullscreen = true },
+    properties = { fullscreen = true, floating = false },
   },
 
   {

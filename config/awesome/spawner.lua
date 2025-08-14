@@ -50,7 +50,7 @@ M.spawn = function(cmd, props, action)
     local _client = find_client(props)
 
     if _client then
-      if _client == client.focus and _client.immortal then
+      if _client == client.focus and _client.screen == mouse.screen and _client.immortal then
         M.soft_kill(_client)
       else
         _client:emit_signal('client::custom', action)
@@ -63,6 +63,7 @@ M.spawn = function(cmd, props, action)
     if #client:tags() == 0 then
       local tag = require('helpers').create_tag(client.screen)
       client:tags({ tag })
+      client:raise()
       tag:view_only()
     end
   end)
