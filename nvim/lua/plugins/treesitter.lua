@@ -38,6 +38,7 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
+      disabled = { 'Avante' },
       additional_vim_regex_highlighting = { 'make' },
     },
     indent = { enable = true, disable = { 'ruby' } },
