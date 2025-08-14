@@ -93,6 +93,11 @@ local keyboard = {
       props = { class = 'work' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod, 'Shift' }, 's', {
+      app = spawner.shell('slack'),
+      props = { instance = 'app.slack.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod }, 'è', {
       app = spawner.terminal(string.format('nvim %s/postgres.sql', home), { class = 'postgres' }),
       props = { class = 'postgres' },
