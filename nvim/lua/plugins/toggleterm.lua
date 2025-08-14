@@ -24,7 +24,7 @@ return {
         return math.max(80, vim.o.columns * factor)
       end
     end,
-    open_mapping = '<leader><tab>',
+    open_mapping = '<c-s>',
     hide_numbers = true,
     on_open = function(term)
       save_win_separator()
@@ -61,12 +61,15 @@ return {
   },
   config = true,
   keys = {
-    { '<leader><tab>', function() require('toggleterm').toggle() end, desc = 'Send to terminal' },
+    {
+      '<c-s>',
+      function() require('toggleterm').toggle() end,
+      desc = 'Toggle terminal',
+      mode = { 'n', 'i', 't' }
+    },
     {
       '<cr>',
-      function()
-        require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 })
-      end,
+      function() require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 }) end,
       mode = 'x',
       desc = 'Send to terminal'
     },
