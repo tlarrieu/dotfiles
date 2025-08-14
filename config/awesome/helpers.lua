@@ -1,8 +1,8 @@
 local awful = require('awful')
 
-local _M = {}
+local M = {}
 
-_M.create_tag = function(screen)
+M.create_tag = function(screen)
   local config = {
     layout = awful.layout.suit.fair,
     master_width_factor = 0.72,
@@ -13,7 +13,7 @@ _M.create_tag = function(screen)
   return awful.tag.add('󰓹', config)
 end
 
-_M.create_tag_and_attach_to = function(client, force)
+M.create_tag_and_attach_to = function(client, force)
   local screen = awful.screen.focused()
   client:move_to_screen(screen)
   local tag
@@ -22,13 +22,13 @@ _M.create_tag_and_attach_to = function(client, force)
     tag = screen.selected_tag
   end
 
-  tag = tag or _M.create_tag(screen)
+  tag = tag or M.create_tag(screen)
 
   client:tags({ tag })
   tag:view_only()
 end
 
-_M.resize_and_center = function(client)
+M.resize_and_center = function(client)
   local factor = 0.8
 
   local swidth = client.screen.geometry.width
@@ -42,7 +42,7 @@ _M.resize_and_center = function(client)
   client:geometry({ x = x, y = y, width = width, height = height })
 end
 
-_M.center_mouse_in_client = function(client)
+M.center_mouse_in_client = function(client)
   local geo = client:geometry()
 
   mouse.coords {
@@ -51,4 +51,4 @@ _M.center_mouse_in_client = function(client)
   }
 end
 
-return _M
+return M
