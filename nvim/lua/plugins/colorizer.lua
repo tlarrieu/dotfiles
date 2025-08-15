@@ -1,6 +1,14 @@
 return {
   'brenoprata10/nvim-highlight-colors',
-  opts = {},
+  opts = {
+    exclude_filetypes = {
+      'lazy',
+      'mason',
+      'fugitive',
+      'gitcommit',
+      'GV',
+    },
+  },
   config = function(_, opts)
     require('nvim-highlight-colors').setup(opts)
     vim.api.nvim_create_autocmd('ColorScheme', {
