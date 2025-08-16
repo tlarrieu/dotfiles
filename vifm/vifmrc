@@ -70,7 +70,7 @@ vnoremap c :rename<cr>
 noremap s :shell<cr>
 
 command thumb sxiv . -t
-filetype * {use xdg-open} xdg-open
+filetype * {use xdg-open} xdg-open 2>/dev/null &
 
 mark a ~/apps
 mark b ~/sandbox
