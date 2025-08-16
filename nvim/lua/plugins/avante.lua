@@ -18,10 +18,10 @@ return {
     end
 
     local mappings = {
-      { '<c-space>',  run('ask'),          desc = 'avante: ask',          mode = { 'n', 'v', 'i' } },
-      { ' ',          run('edit'),         desc = 'avante: edit',         mode = 'v' },
-      { '<leader>aa', run('toggle'),       desc = 'avante: toggle',       mode = 'n' },
-      { '<leader>ae', run('focus'),        desc = 'avante: focus',        mode = 'n' },
+      { '<c-space>', run('ask'), desc = 'avante: ask', mode = { 'n', 'v', 'i' } },
+      { ' ', run('edit'), desc = 'avante: edit', mode = 'v' },
+      { '<leader>aa', run('toggle'), desc = 'avante: toggle', mode = 'n' },
+      { '<leader>ae', run('focus'), desc = 'avante: focus', mode = 'n' },
       { '<leader>as', run('select_model'), desc = 'avante: select model', mode = 'n' },
     }
     mappings = vim.tbl_filter(function(m) return m[1] and #m[1] > 0 end, mappings)

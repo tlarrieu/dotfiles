@@ -4,8 +4,8 @@ return {
   config = true,
   keys = {
     { '<leader>ei', '<cmd>tabnew<cr><cmd>Neorg index<cr>', desc = 'Neorg index' },
-    { '<leader>eq', '<cmd>Neorg return<cr>',               desc = 'Leave neorg' },
-    { '<leader>et', '<cmd>Neorg toc left<cr>',             desc = 'Neorg ToC' },
+    { '<leader>eq', '<cmd>Neorg return<cr>', desc = 'Leave neorg' },
+    { '<leader>et', '<cmd>Neorg toc left<cr>', desc = 'Neorg ToC' },
   },
   ft = 'norg',
   opts = {
@@ -46,9 +46,9 @@ return {
       ['core.qol.todo_items'] = {
         config = {
           order = {
-            { 'undone',  ' ' },
+            { 'undone', ' ' },
             { 'pending', '-' },
-            { 'done',    'x' }
+            { 'done', 'x' }
           },
         }
       },

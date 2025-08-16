@@ -100,7 +100,7 @@ local config = {
   {
     icon = '',
     rules = {
-      { class = 'Chromium', instance = 'github.com',          name = '/issues' },
+      { class = 'Chromium', instance = 'github.com', name = '/issues' },
       { class = 'Chromium', instance = 'github.com.*projects' }
     },
   },
@@ -218,8 +218,8 @@ local config = {
     icon = '',
     rules = {
       { class = 'newsboat' },
-      { class = 'kitty',   name = 'newsboat' },
-      { class = 'quake',   name = 'newsboat' } }
+      { class = 'kitty', name = 'newsboat' },
+      { class = 'quake', name = 'newsboat' } }
   },
   { icon = '', rule = { class = 'kitty', name = 'htop' } },
   { icon = '', rule = { class = 'kitty', name = 'vifm' } },

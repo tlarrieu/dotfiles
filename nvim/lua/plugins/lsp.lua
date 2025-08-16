@@ -85,6 +85,23 @@ return {
       }
     })
 
+    vim.lsp.config('lua_ls', {
+      settings = {
+        Lua = {
+          format = {
+            defaultConfig = {
+              indent_style = 'space',
+              indent_size = '2',
+              align_array_table = 'false',
+            },
+          },
+          diagnostics = {
+            neededFileStatus = { ['codestyle-check'] = 'Any' },
+          },
+        }
+      }
+    })
+
     require('mason-lspconfig').setup(opts)
 
     vim.api.nvim_create_autocmd('LspAttach', {

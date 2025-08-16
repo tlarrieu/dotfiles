@@ -7,7 +7,7 @@ return {
     'nvim-lua/plenary.nvim',
   },
   keys = {
-    { '<c-.>', function() list():add() end,     desc = 'Harpoon: add file' },
+    { '<c-.>', function() list():add() end, desc = 'Harpoon: add file' },
 
     { '<c-">', function() list():select(1) end, desc = 'Harpoon: open #1' },
     { '<c-«>', function() list():select(2) end, desc = 'Harpoon: open #2' },

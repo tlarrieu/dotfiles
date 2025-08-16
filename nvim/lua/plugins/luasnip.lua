@@ -11,7 +11,7 @@ return {
   event = { 'CmdlineEnter', 'InsertEnter' },
   keys = {
     { '<leader>es', function() edit_snippet(vim.bo.filetype) end, desc = 'Edit snippets (current filetype)' },
-    { '<leader>eS', function() edit_snippet('all') end,           desc = 'Edit snippets (all)' },
+    { '<leader>eS', function() edit_snippet('all') end, desc = 'Edit snippets (all)' },
   },
   config = function()
     local ls = require('luasnip')

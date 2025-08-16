@@ -80,11 +80,11 @@ return {
         end, { 'i', 's' }),
       }),
       sources = cmp.config.sources({
-        { name = 'path',     priority = 1000 },
-        { name = 'copilot',  priority = 110 },
+        { name = 'path', priority = 1000 },
+        { name = 'copilot', priority = 110 },
         { name = 'nvim_lsp', priority = 100 },
-        { name = 'luasnip',  priority = 95 },
-        { name = 'buffer',   priority = 10,  option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
+        { name = 'luasnip', priority = 95 },
+        { name = 'buffer', priority = 10, option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
       }),
       formatting = {
         format = function(_, vim_item)
