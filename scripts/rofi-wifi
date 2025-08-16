@@ -4,7 +4,7 @@ nmcli radio wifi on
 
 adapter=$(nmcli device status | grep wifi | cut -d' ' -f1 | head -n1)
 selection=$(
-  nmcli -p -f in-use,ssid,security,bars,signal device wifi list ifname $adapter \
+  nmcli -p -f in-use,ssid,security,bars,signal device wifi list ifname "$adapter" \
   | tail -n +6 \
   | rofi -hide-scrollbar -i -dmenu -p "󱚾" \
   | cut -c4- \
@@ -21,23 +21,23 @@ case $ssid in
 esac
 
 notify-send Info "Bringing connection $ssid up..."
-connection=$(nmcli connection up id $ssid 2> /dev/null)
+connection=$(nmcli connection up id "$ssid" 2> /dev/null)
 
-if [[ $(echo $connection | grep 'activated') ]]; then
+if echo "$connection" | grep -q 'activated'; then
   notify-send Success "Connection to $ssid successful!"
   exit 0
 fi
 
-if [ $security == '--' ]; then
-  nmcli device wifi connect $ssid
+if [ "$security" = '--' ]; then
+  nmcli device wifi connect "$ssid"
 else
   password=$(zenity --password --text="passphrase?")
-  nmcli device wifi connect $ssid password $password 2> /dev/null
+  nmcli device wifi connect "$ssid" password "$password" 2> /dev/null
 fi
 
 new_ssid=$(nmcli -t -f GENERAL.CONNECTION dev show | cut -d':' -f2 | head -n 1)
 
-if [[ $new_ssid == $ssid ]]; then
+if [ "$new_ssid" = "$ssid" ]; then
   notify-send Success "Connection to $ssid successful!"
   exit 0
 else
