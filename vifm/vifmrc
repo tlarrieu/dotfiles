@@ -2,7 +2,7 @@ colorscheme theme
 view
 only
 
-set shell=/bin/sh
+set shell=/usr/bin/fish
 set vicmd=nvim
 set dotdirs=treeleafsparent
 
@@ -38,28 +38,6 @@ noremap À ZZ
 noremap <silent> <esc> <esc>:nohlsearch<cr><c-l>=<c-w><cr>
 noremap <c-t> =
 
-" this does not work. TODO: find out why
-noremap " 1
-noremap 1 "
-noremap « 2
-noremap 2 «
-noremap » 3
-noremap 3 »
-noremap ( 4
-noremap 4 (
-noremap ) 5
-noremap 5 )
-noremap @ 6
-noremap 6 @
-noremap + 7
-noremap 7 +
-noremap - 8
-noremap 8 -
-noremap / 9
-noremap 9 /
-noremap * 0
-noremap 0 *
-
 nnoremap i cW<c-a>
 nnoremap a cW
 nnoremap A cw
@@ -70,7 +48,9 @@ vnoremap c :rename<cr>
 noremap s :shell<cr>
 
 command thumb sxiv . -t
-filetype * {use xdg-open} xdg-open 2>/dev/null &
+filetype *.pdf,*.png,*.jpg,*.jpeg,*.avi,*.mp4,*.mkv,*.gif,*.webm
+  \ {use xdg-open}
+  \ xdg-open 2>/dev/null &
 
 mark a ~/apps
 mark b ~/sandbox
