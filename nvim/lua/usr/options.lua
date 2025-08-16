@@ -61,7 +61,11 @@ vim.opt.showmode = false
 -- {{{ ==| Splits |=============================================================
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+-- }}}
+
+-- {{{ ==| Fillchars |==========================================================
 vim.opt.fillchars:append('eob: ')
+vim.opt.fillchars:append('msgsep:-')
 -- }}}
 
 -- {{{ ==| Scrolling |==========================================================

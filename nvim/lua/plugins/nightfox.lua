@@ -35,6 +35,7 @@ return {
         MsgArea = { link = 'MsgAreaMsg' },
         MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
         MsgAreaMsg = { link = 'Comment' },
+        MsgSeparator = { link = 'WinSeparator' },
 
         -- quickfix
         qfText = { link = '@normal' },
