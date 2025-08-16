@@ -1,7 +1,6 @@
 auto-reload yes
-reload-time 10 # every 10 minutes
+reload-time 10 # minutes
 feed-sort-order unreadarticlecount-asc
-# show-read-feeds no
 
 # Navigation ===================================================================
 
@@ -9,30 +8,29 @@ goto-next-feed no
 
 browser "browser-kiosk %u &"
 
-bind-key q quit
-bind-key à hard-quit all
-bind-key é open-search all
+bind q everywhere quit
+bind à everywhere hard-quit
+bind é everywhere open-search
 
-bind-key ^O prev-dialog all
-bind-key ^I next-dialog all
-bind-key ^D pagedown all
-bind-key ^U pageup all
-bind-key ^N next-feed articlelist
-bind-key ^P prev-feed articlelist
+bind ^D everywhere pagedown
+bind ^U everywhere pageup
+bind j everywhere down
+bind k everywhere up
+bind l everywhere open
+bind h articlelist,article quit
+bind g everywhere home
+bind G everywhere end
 
-bind-key a toggle-article-read articlelist
-bind-key d delete-article articlelist
-bind-key D delete-all-articles articlelist
+bind ^N articlelist next-feed
+bind ^P articlelist prev-feed
+bind a articlelist toggle-article-read
+bind d articlelist delete-article
+bind D articlelist delete-all-articles
 
-bind-key j down all
-bind-key k up all
-bind-key g home all
-bind-key G end all
-
-bind-key o open-in-browser-noninteractively all
-bind-key c mark-feed-read all
-bind-key C mark-all-feeds-read all
-bind-key r reload-all all
+bind o everywhere open-in-browser-noninteractively
+bind c everywhere mark-feed-read
+bind C everywhere mark-all-feeds-read
+bind r everywhere reload-all
 
 # Style ========================================================================
 
