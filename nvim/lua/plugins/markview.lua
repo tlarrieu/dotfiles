@@ -126,23 +126,22 @@ return {
         marker_minus = {
           add_padding = true,
           conceal_on_checkboxes = false,
-          text = '◈',
+          text = '',
           hl = 'MarkviewListItemMinus'
         },
-
-        marker_plus = {
-          add_padding = true,
-          conceal_on_checkboxes = false,
-          text = '◈',
-          hl = 'MarkviewListItemPlus'
-        },
-
         marker_star = {
           add_padding = true,
           conceal_on_checkboxes = false,
           text = '◈',
           hl = 'MarkviewListItemStar'
         },
+        marker_plus = {
+          add_padding = true,
+          conceal_on_checkboxes = false,
+          text = '◇',
+          hl = 'MarkviewListItemPlus'
+        },
+
 
         marker_dot = {
           add_padding = true,
