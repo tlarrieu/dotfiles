@@ -12,9 +12,20 @@ return {
     },
     palettes = {
       dawnfox = {
-        green = '#a1bc89',
-        blue = '#429cbf',
-        yellow = '#b59900',
+        green   = { base = '#a1bc89', dim = '#dfe3cf' },
+        blue    = { base = '#429cbf', dim = '#c3dadf' },
+        yellow  = { base = '#b59900', dim = '#e5d9a6' },
+        red     = { dim = '#e5c9cb' },
+        magenta = { dim = '#e5dcdf' },
+        pink    = { dim = '#f3dee1' },
+      },
+      nordfox = {
+        green   = { dim = '#45504f' },
+        blue    = { dim = '#3f4a5a' },
+        yellow  = { dim = '#54524f' },
+        red     = { dim = '#4b3d48' },
+        magenta = { dim = '#494656' },
+        pink    = { dim = '#4b4559' },
       },
     },
     groups = {
@@ -209,7 +220,7 @@ return {
         MarkviewBlockQuoteOk = { fg = 'palette.green', bg = 'none', style = 'NONE' },
         MarkviewBlockQuoteSpecial = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
         MarkviewBlockQuoteWarn = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
-        MarkviewHeading1 = { fg = 'palette.pink', bg = 'palette.bg0', style = 'underline' },
+        MarkviewHeading1 = { fg = 'palette.pink', bg = 'palette.pink.dim' },
         MarkviewHeading2 = { fg = 'palette.green', bg = 'none' },
         MarkviewHeading3 = { fg = 'palette.blue', bg = 'none' },
         MarkviewHeading4 = { fg = 'palette.yellow', bg = 'none' },
