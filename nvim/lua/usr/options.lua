@@ -104,7 +104,8 @@ vim.opt.shortmess:append('WIcsSa')
 -- {{{ ==| diagnostic |=========================================================
 vim.diagnostic.config({
   virtual_text = {
-    prefix = '▰',
+    prefix = function(_, i, _) return i == 1 and ' ▰' or '▰' end,
+    suffix = ' ',
     source = true,
     spacing = 0,
   },

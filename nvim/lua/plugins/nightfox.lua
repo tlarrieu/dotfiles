@@ -62,6 +62,7 @@ return {
         DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright' },
         DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright' },
         DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright' },
+        DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
 
         -- floats
         NormalFloat = { fg = 'none', bg = 'palette.bg0' },
