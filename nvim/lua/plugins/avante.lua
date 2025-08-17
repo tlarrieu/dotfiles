@@ -30,7 +30,7 @@ return {
   opts = {
     provider = 'copilot',
     auto_suggestions_provider = 'copilot',
-    hints = { enabled = false },
+    selection = { enabled = false },
     mappings = {
       sidebar = {
         apply_all = 'A',
