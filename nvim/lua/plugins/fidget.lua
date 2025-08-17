@@ -1,8 +1,5 @@
 return {
   'j-hui/fidget.nvim',
-  -- pinned until 046930d gets fixed (icons do not show)
-  -- TODO: unpin this
-  commit = '4ec7bed',
   opts = {
     progress = {
       poll_rate = 0,
@@ -79,7 +76,7 @@ return {
       window = {
         normal_hl = 'Comment',
         winblend = 5,
-        border = { '', '', '', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
+        border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
         zindex = 100,
         max_width = 0,
         max_height = 0,
