@@ -6,7 +6,7 @@ return {
   },
   keys = {
     {
-      '<c-è>',
+      '<c-s-è>',
       ':TodoTelescope keywords=TODO,FIX,FIXME,WARN,PERF<cr>',
       desc = 'Telescope TODO',
       silent = true,

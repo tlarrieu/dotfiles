@@ -27,6 +27,7 @@ return {
     },
   },
   keys = {
+    { '<c-è>', '<cmd>Telescope resume<cr>', desc = 'Telescope resume' },
     {
       '<c-t>',
       function()
