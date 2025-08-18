@@ -134,27 +134,19 @@ vim.keymap.set('o', 'ar', 'a[')
 vim.keymap.set('o', 'ir', 'i[')
 --- }}}
 --- {{{ --| quick access |----------------------------------
-vim.keymap.set('n', '<leader>em', function()
-  if require('helpers').fileexists(vim.fn.expand('%')) then
-    return '<cmd>tabe Makefile<cr>'
-  else
-    return '<cmd>e Makefile<cr>'
+local quickedit = function(path)
+  return function()
+    if require('helpers').fileexists(vim.fn.expand('%')) then
+      return '<cmd>tabe ' .. path .. '<cr>'
+    else
+      return '<cmd>e ' .. path .. '<cr>'
+    end
   end
-end, { desc = 'Edit Makefile', expr = true, silent = true })
-vim.keymap.set('n', '<leader>ep', function()
-  if require('helpers').fileexists(vim.fn.expand('%')) then
-    return '<cmd>tabe .projections.json<cr>'
-  else
-    return '<cmd>e .projections.json<cr>'
-  end
-end, { desc = 'Edit projections', expr = true, silent = true })
-vim.keymap.set('n', '<leader>er', function()
-  if require('helpers').fileexists(vim.fn.expand('%')) then
-    return '<cmd>tabe ~/.pryrc.local<cr>'
-  else
-    return '<cmd>e ~/.pryrc.local<cr>'
-  end
-end, { desc = 'Edit local pryrc', expr = true, silent = true })
+end
+vim.keymap.set('n', '<leader>em', quickedit('Makefile'), { desc = 'Edit Makefile', expr = true })
+vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
+vim.keymap.set('n', '<leader>er', quickedit('~/.pryrc.local'), { desc = 'Edit local pryrc', expr = true })
+vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit local pryrc', expr = true })
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word
