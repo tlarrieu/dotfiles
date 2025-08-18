@@ -86,6 +86,8 @@ return {
       fugitive = { icon = '' },
       GV = { icon = '' },
       ['gitsigns-blame'] = { icon = '' },
+
+      ['vifm-rename'] = { icon = '' },
     },
     override_by_extension = {
       mod = { icon = '' },
