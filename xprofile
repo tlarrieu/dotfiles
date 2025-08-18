@@ -13,8 +13,8 @@ else
   ~/scripts/toggle-light-and-dark.sh light
 fi
 
-pgrep unclutter || unclutter -root -idle 2 &
-pgrep picom || picom &
+pgrep unclutter || unclutter -root -idle 2 2>/dev/null &
+pgrep picom || picom 2>/dev/null &
 
 setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
 xmodmap ~/.Xmodmap
