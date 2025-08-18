@@ -1,16 +1,16 @@
 new_tab Server
 layout grid
 cd ~/dev/jeancaisse
-launch --var window=first bin/rails server
+launch --var window=first --title="rails server" bin/rails server
 
 new_tab Sidekiq
 layout grid
 cd ~/dev/jeancaisse
-launch --location=vsplit bin/sidekiq
+launch --location=vsplit --title="rails server" bin/sidekiq
 
 new_tab Frontend
 layout grid
 cd ~/dev/jeancaisse
-launch yarn start
+launch --title="rails server" yarn start
 
 # vim: ft=kitty

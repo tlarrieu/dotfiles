@@ -88,7 +88,7 @@ local keyboard = {
     }),
     spawner.key({ mod }, 'w', {
       app = spawner.shell('work'),
-      props = { name = 'rails' },
+      props = { name = 'rails server' },
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ mod, 'Shift' }, 'w', spawner.shell('work restart')),
