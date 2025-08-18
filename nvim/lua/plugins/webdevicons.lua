@@ -76,6 +76,7 @@ return {
       ['spec.tsx'] = { icon = '󰜈' },
 
       gitcommit = { icon = '' },
+      gitrebase = { icon = '' },
       gitignore = { icon = '' },
       ['.gitignore'] = { icon = '' },
       ['.gitconfig'] = { icon = '' },
