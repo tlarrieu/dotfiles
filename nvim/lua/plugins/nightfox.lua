@@ -32,6 +32,9 @@ return {
       all = {
         ---------------------| base |-----------------------
 
+        Special = { fg = 'palette.orange', bg = 'none' },
+        Number = { fg = 'palette.pink', bg = 'none' },
+        PreProc = { fg = 'palette.red', bg = 'none' },
         Conditional = { link = 'Keyword' },
         String = { fg = 'palette.cyan.bright', bg = 'none' },
         ['@property'] = { link = '@key' },
