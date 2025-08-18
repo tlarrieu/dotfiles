@@ -224,8 +224,8 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'htop' } },
   { icon = '', rule = { class = 'kitty', name = 'vifm' } },
   { icon = '', rule = { class = 'kitty', name = 'vpn' } },
-  { icon = '', rule = { class = 'kitty' } },
-  { icon = '', rule = { class = 'quake' } },
+  { icon = '󰆍', rule = { class = 'kitty' } },
+  { icon = '', rule = { class = 'quake' } },
 }
 
 local match = function(client, rule)
