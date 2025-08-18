@@ -39,6 +39,7 @@ return {
         String = { fg = 'palette.green', bg = 'none' },
         Type = { fg = 'palette.yellow', bg = 'none' },
         Keyword = { fg = 'palette.magenta', bg = 'none' },
+        MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
@@ -63,9 +64,9 @@ return {
         CursorLineNr = { link = 'CursorLine' },
 
         -- diagnostics
-        DiagnosticPass = { fg = 'palette.bg1', bg = 'palette.green.bright' },
-        DiagnosticMixed = { fg = 'palette.bg1', bg = 'palette.yellow.bright' },
-        DiagnosticFail = { fg = 'palette.bg1', bg = 'palette.red.bright' },
+        DiagnosticPass = { fg = 'palette.green', bg = 'palette.green.dim' },
+        DiagnosticMixed = { fg = 'palette.yellow', bg = 'palette.yellow.dim' },
+        DiagnosticFail = { fg = 'palette.red', bg = 'palette.red.dim' },
         DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
 
         -- floats
