@@ -35,10 +35,10 @@ return {
       virt_text_priority = 100,
       use_focus = true,
     },
-    current_line_blame_formatter = '  <abbrev_sha> <author>, <author_time:%R> — <summary> ',
+    current_line_blame_formatter = '  <abbrev_sha> • <author> (<author_time:%R>) • <summary> ',
     current_line_blame_formatter_nc = '  Not committed yet ',
     sign_priority = 6,
-    update_debounce = 100,
+    update_debounce = 50,
     status_formatter = nil,
     max_file_length = 40000,
     preview_config = {
