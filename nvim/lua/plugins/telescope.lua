@@ -91,7 +91,7 @@ return {
       desc = 'Telescope git status'
     },
     {
-      '<c-s-y>',
+      '<c-s-b>',
       function() require('telescope.builtin').git_branches() end,
       desc = 'Telescope git branch'
     },
