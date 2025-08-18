@@ -16,6 +16,9 @@ vim.keymap.set('i', '#', 'X<bs>#')
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
 -- make current file executable
 vim.keymap.set('n', '<leader>x', '<cmd>silent !chmod +x %<cr><cmd>echo "file is now executable"<cr>')
+-- navigate wrapped lines like normal lines
+vim.keymap.set('n', 'k', 'gk', { remap = true })
+vim.keymap.set('n', 'j', 'gj', { remap = true })
 -- + register keymaps
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
