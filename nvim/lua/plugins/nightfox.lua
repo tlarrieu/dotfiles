@@ -36,10 +36,11 @@ return {
         Number = { fg = 'palette.pink', bg = 'none' },
         PreProc = { fg = 'palette.red', bg = 'none' },
         Conditional = { link = 'Keyword' },
-        String = { fg = 'palette.cyan.bright', bg = 'none' },
+        String = { fg = 'palette.green', bg = 'none' },
+        Type = { fg = 'palette.yellow', bg = 'none' },
+        Keyword = { fg = 'palette.magenta', bg = 'none' },
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
-        ['@type'] = { fg = 'palette.yellow', bg = 'none' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
 
@@ -120,11 +121,11 @@ return {
 
         -- ruby
         ['@variable.key.ruby'] = { link = '@key' },
-        ['@variable.member.ruby'] = { fg = 'palette.magenta', bg = 'none' },
+        ['@variable.member.ruby'] = { fg = 'palette.magenta' },
         ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
-        ['@punctuation.special.ruby'] = { fg = 'palette.comment', bg = 'none' },
+        ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
 
         -- SQL
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
