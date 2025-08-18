@@ -6,13 +6,9 @@ local filename_first_and_shorten = {
 local find_files = { 'fd', '-tf', '--hidden' }
 local find_directories = { 'fd', '-td' }
 
-local file = io.open('.ignore', 'r')
-if file then
-  for _, tab in ipairs({ find_files, find_directories }) do
-    vim.list_extend(tab, { '--no-ignore-vcs' })
-  end
-
-  file:close()
+if require('helpers').fileexists('.ignore') then
+  vim.list_extend(find_files, { '--no-ignore-vcs' })
+  vim.list_extend(find_directories, { '--no-ignore-vcs' })
 end
 
 return {
@@ -178,7 +174,9 @@ return {
           prompt_position = 'top',
           anchor = 'S',
           anchor_padding = 0,
+          preview_width = 0.55,
           height = 0.75,
+          width = 0.75,
         },
 
         mappings = {
