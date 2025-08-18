@@ -79,12 +79,12 @@ return {
   })),
   s('q', fmta([[
   <> * église | quête
-    charities  <> €
-    <>
+    <>  -<> €
+    charities
   ]], {
     f(curdate),
-    i(1, 'amount'),
-    i(0, 'from')
+    i(2, 'from'),
+    i(1, 'amount')
   })),
 }, {
 }
