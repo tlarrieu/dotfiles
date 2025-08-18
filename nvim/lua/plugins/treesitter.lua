@@ -41,7 +41,7 @@ return {
       disabled = { 'Avante' },
       additional_vim_regex_highlighting = { 'make' },
     },
-    indent = { enable = true, disable = { 'ruby' } },
+    indent = { enable = true },
     incremental_selection = {
       enable = true,
       keymaps = {
