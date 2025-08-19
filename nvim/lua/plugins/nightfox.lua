@@ -41,6 +41,8 @@ return {
         Keyword = { fg = 'palette.magenta', bg = 'none' },
         MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
         Title = { fg = 'palette.comment', bg = 'none', style = 'bold' },
+        Function = { fg = 'palette.blue', bg = 'none' },
+        Identifier = { fg = 'palette.green', bg = 'none' },
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', bg = 'none' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
