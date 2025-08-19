@@ -115,19 +115,16 @@ local init = function(screen)
   local taglist = awful.widget.taglist({
     screen = screen,
     filter = function(tag) return #tag:clients() > 1 or #tag.screen.tags > 1 end,
-    style = { spacing = dpi(13) },
-    layout = {
-      spacing_widget = { shape = gears.shape.powerline, widget = wibox.widget.separator },
-      layout = wibox.layout.fixed.horizontal
-    },
+    style = { spacing = dpi(10) },
+    layout = { spacing_widget = wibox.widget.textbox('•'), layout = wibox.layout.fixed.horizontal },
     widget_template = {
       {
         {
           { id = 'text_role', widget = wibox.widget.textbox },
           layout = wibox.layout.fixed.horizontal,
         },
-        left = dpi(13),
-        right = dpi(4),
+        left = dpi(10),
+        right = dpi(10),
         widget = wibox.container.margin
       },
       id = 'background_role',
