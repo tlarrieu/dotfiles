@@ -70,7 +70,7 @@ vim.opt.fillchars:append('msgsep:-')
 
 -- {{{ ==| Scrolling |==========================================================
 vim.opt.scrolloff = 8
-vim.opt.sidescrolloff = 2
+vim.opt.sidescrolloff = 3
 vim.opt.sidescroll = 15
 -- }}}
 
