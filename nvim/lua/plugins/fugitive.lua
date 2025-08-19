@@ -19,7 +19,7 @@ return {
     { '<leader>gu', '<cmd>Git pull --rebase<cr>', desc = 'Git pull --rebase' },
     { '<leader>gy', ':GBrowse!<cr>', mode = { 'v', 'n' }, desc = 'Git(Hub) yank file URL' },
     { '<leader>gl', '<cmd>GV<cr>', desc = 'GV' },
-    { '<leader>gl', "<cmd>'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
+    { '<leader>gl', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
     { '<leader>cc', '<cmd>Gcd<cr>', desc = 'Git CWD' },
   },
 }
