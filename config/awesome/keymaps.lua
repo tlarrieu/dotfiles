@@ -81,7 +81,7 @@ local keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod, 'Shift' }, 'c', {
+    spawner.key({ mod, 'Shift' }, 'd', {
       app = spawner.terminal('nvim', { class = 'config', directory = dotfiles }),
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
@@ -110,6 +110,11 @@ local keyboard = {
     spawner.key({ mod, 'Shift' }, 'l', {
       app = spawner.shell('linear'),
       props = { instance = 'linear.app' },
+      signal = spawner.actions.JUMP,
+    }),
+    spawner.key({ mod, 'Shift' }, 'c', {
+      app = spawner.shell('calendar'),
+      props = { instance = 'calendar.google.com' },
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ mod }, 'è', {
