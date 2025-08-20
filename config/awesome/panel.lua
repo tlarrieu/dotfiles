@@ -30,12 +30,8 @@ local earbuds = wibox.widget({
   border_color = beautiful.colors.foreground,
 })
 
-gears.timer({
-  timeout = 10,
-  call_now = true,
-  autostart = true,
-  callback = function()
-    local cmd = [[
+local earbuds_callback = function()
+  local cmd = [[
       upower --enumerate |
         grep headset |
         head -n 1 |
@@ -44,25 +40,33 @@ gears.timer({
         awk '{ print $2 }' |
         sed 's/%//'
     ]]
-    awful.spawn.easy_async_with_shell(cmd, function(out)
-      local value = tonumber(out)
+  awful.spawn.easy_async_with_shell(cmd, function(out)
+    local value = tonumber(out)
 
-      if not value then
-        earbuds.visible = false
-        return
-      end
+    if not value then
+      earbuds.visible = false
+      return
+    end
 
-      earbuds.visible = true
-      earbuds.value = value
-      if value <= 10 then
-        earbuds.color = beautiful.colors.red.dark
-      elseif value <= 20 then
-        earbuds.color = beautiful.colors.yellow.dark
-      else
-        earbuds.color = beautiful.colors.background
-      end
-    end)
-  end
+    earbuds.border_color = beautiful.colors.foreground
+
+    earbuds.visible = true
+    earbuds.value = value
+    if value <= 10 then
+      earbuds.color = beautiful.colors.red.dark
+    elseif value <= 20 then
+      earbuds.color = beautiful.colors.yellow.dark
+    else
+      earbuds.color = beautiful.colors.background
+    end
+  end)
+end
+
+gears.timer({
+  timeout = 10,
+  call_now = true,
+  autostart = true,
+  callback = earbuds_callback
 })
 
 -- [[ Battery ]] ---------------------------------------------------------------
@@ -77,39 +81,46 @@ local battery = wibox.widget({
   border_color = beautiful.colors.foreground,
 })
 
-gears.timer({
-  timeout = 10,
-  call_now = true,
-  autostart = true,
-  callback = function()
-    local cmd = [[
+local battery_callback = function()
+  local cmd = [[
       acpi |
         awk '{ print $3,$4 }' |
         awk -F, '{ print $2 }' |
         tr -d ' %\n'
     ]]
-    awful.spawn.easy_async_with_shell(cmd, function(out)
-      local value = tonumber(out)
+  awful.spawn.easy_async_with_shell(cmd, function(out)
+    local value = tonumber(out)
 
-      if not value then
-        battery.visible = false
-        return
-      end
+    if not value then
+      battery.visible = false
+      return
+    end
 
-      battery.visible = true
-      battery.value = value
-      if value <= 10 then
-        battery.color = beautiful.colors.red.dark
-      elseif value <= 20 then
-        battery.color = beautiful.colors.yellow.dark
-      else
-        battery.color = beautiful.colors.background
-      end
-    end)
-  end
+    battery.border_color = beautiful.colors.foreground
+
+    battery.visible = true
+    battery.value = value
+    if value <= 10 then
+      battery.color = beautiful.colors.red.dark
+    elseif value <= 20 then
+      battery.color = beautiful.colors.yellow.dark
+    else
+      battery.color = beautiful.colors.background
+    end
+  end)
+end
+
+gears.timer({
+  timeout = 10,
+  call_now = true,
+  autostart = true,
+  callback = battery_callback()
 })
 
 local init = function(screen)
+  battery_callback()
+  earbuds_callback()
+
   local dpi = function(n) return apply_dpi(n, screen) end
 
   local taglist = awful.widget.taglist({
