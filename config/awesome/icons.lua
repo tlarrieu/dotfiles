@@ -1,4 +1,4 @@
-local _M = {}
+local M = {}
 
 local default = '󰣆'
 
@@ -234,7 +234,7 @@ local match = function(client, rule)
       (not rule.class or (client.class or ''):find(rule.class))
 end
 
-_M.fetch = function(client)
+M.fetch = function(client)
   for i = 1, #config do
     local icon = config[i].icon
 
@@ -250,4 +250,4 @@ _M.fetch = function(client)
   return default
 end
 
-return _M
+return M

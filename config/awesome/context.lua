@@ -1,9 +1,9 @@
-local _M = {}
+local M = {}
 
-_M.path = string.format("%s/.context.env", os.getenv('HOME'))
+M.path = string.format("%s/.context.env", os.getenv('HOME'))
 
-_M.get = function()
-  local file = io.open(_M.path, 'r')
+M.get = function()
+  local file = io.open(M.path, 'r')
   if file then
     local context = file:read('*l'):match('CONTEXT="(%a*)"')
     file:close()
@@ -13,8 +13,8 @@ _M.get = function()
   return 'home'
 end
 
-_M.set = function(context)
-  local file = io.open(_M.path, 'w+')
+M.set = function(context)
+  local file = io.open(M.path, 'w+')
   if file then
     file:write('CONTEXT="' .. context .. '"')
     file:close()
@@ -23,6 +23,6 @@ _M.set = function(context)
   end
 end
 
-_M.toggle = function() _M.set(_M.get() == 'home' and 'work' or 'home') end
+M.toggle = function() M.set(M.get() == 'home' and 'work' or 'home') end
 
-return _M
+return M

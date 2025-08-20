@@ -1,6 +1,6 @@
-local _M = {}
+local M = {}
 
-_M.load = function()
+M.load = function()
   local output = io.popen('xrdb -query')
   local query = ''
   if output then
@@ -51,8 +51,8 @@ local function round(x)
   return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
 end
 
-_M.apply_dpi = function(size, dpi)
+M.apply_dpi = function(size, dpi)
   return round(size / 96 * dpi)
 end
 
-return _M
+return M

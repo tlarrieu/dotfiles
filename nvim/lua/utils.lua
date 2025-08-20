@@ -1,6 +1,6 @@
-local _M = {}
+local M = {}
 
-_M.autocapitalize = function(pattern)
+M.autocapitalize = function(pattern)
   vim.api.nvim_create_autocmd('InsertCharPre', {
     pattern = pattern,
     callback = function()
@@ -12,7 +12,7 @@ _M.autocapitalize = function(pattern)
   })
 end
 
-_M.autoformat = function(pattern)
+M.autoformat = function(pattern)
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = pattern,
     callback = function() require('conform').format() end,
@@ -20,7 +20,7 @@ _M.autoformat = function(pattern)
   })
 end
 
-_M.trim_trailing_spaces = function()
+M.trim_trailing_spaces = function()
   vim.cmd [[
     normal! m`
     let _s=@/
@@ -31,4 +31,4 @@ _M.trim_trailing_spaces = function()
   ]]
 end
 
-return _M
+return M
