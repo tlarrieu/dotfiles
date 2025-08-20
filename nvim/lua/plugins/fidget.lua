@@ -74,8 +74,8 @@ return {
       },
 
       window = {
-        normal_hl = 'FidgetFloat',
-        border_hl = 'FidgetFloat',
+        normal_hl = 'FidgetNormal',
+        border_hl = 'FidgetBorder',
         winblend = 5,
         border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
         zindex = 100,

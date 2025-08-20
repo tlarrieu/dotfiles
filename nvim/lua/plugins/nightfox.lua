@@ -3,7 +3,7 @@ return {
   lazy = false,
   opts = {
     options = {
-      transparent = true,
+      transparent = false,
       dim_inactive = false,
       styles = {
         strings = 'italic',
@@ -175,7 +175,7 @@ return {
         HarpoonLine = { fg = 'palette.bg1', bg = 'palette.green', style = 'bold' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
-        TreesitterContextBottom = { bg = 'none', link = 'TreesitterContext' },
+        TreesitterContextBottom = { link = 'TreesitterContext' },
         TreesitterContextLineNumber = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
         TreesitterContextSeparator = { fg = 'palette.bg0', bg = 'palette.bg0' },
 
@@ -215,8 +215,9 @@ return {
         LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
 
-        FidgetGroup = { fg = 'palette.orange', bg = 'none', style = 'bold,italic' },
-        FidgetFloat = { link = 'FloatTitle' },
+        FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
+        FidgetNormal = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        FidgetBorder = { link = 'FidgetNormal' },
 
         MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },

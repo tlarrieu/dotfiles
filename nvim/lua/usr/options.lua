@@ -101,6 +101,11 @@ vim.opt.spelllang = 'en,fr'
 vim.opt.shortmess:append('WIcsSa')
 -- }}}
 
+-- {{{ ==| Blend |==============================================================
+vim.opt.pumblend = 5
+-- vim.opt.winblend = 5
+-- }}}
+
 -- {{{ ==| diagnostic |=========================================================
 vim.diagnostic.config({
   virtual_text = {
