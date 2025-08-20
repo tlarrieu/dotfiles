@@ -215,6 +215,7 @@ return {
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
 
         FidgetGroup = { fg = 'palette.orange', bg = 'none', style = 'bold,italic' },
+        FidgetFloat = { link = 'FloatTitle' },
 
         MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },
