@@ -197,6 +197,7 @@ return {
         TelescopeResultsDiffAdd = { fg = 'palette.green' },
         TelescopeResultsDiffDelete = { fg = 'palette.red' },
         TelescopeResultsDiffChange = { fg = 'palette.yellow' },
+        TelescopeResultsIdentifier = { link = 'Normal' },
 
         LazySpecial = { fg = 'palette.fg1' },
 
