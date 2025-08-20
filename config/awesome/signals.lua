@@ -51,9 +51,7 @@ local client_signals = {
   'focus'
 }
 
-for _, signal in ipairs(client_signals) do
-  client.connect_signal(signal, handle)
-end
+for _, signal in ipairs(client_signals) do client.connect_signal(signal, handle) end
 
 client.connect_signal('property::minimized', function(client)
   if client.name == 'meet.google.com is sharing a window.' then return end
@@ -73,21 +71,20 @@ end)
 
 client.connect_signal('client::custom', function(client, action)
   if action == spawner.actions.MOVE then
-    local screen = mouse.screen
-    client:move_to_screen(screen)
+    client:move_to_screen(mouse.screen)
     if client.floating then helpers.resize_and_center(client) end
     if #client:tags() == 0 or client.screen ~= mouse.screen then
       helpers.create_tag_and_attach_to(client)
     else
-      local tag = mouse.screen.selected_tag or helpers.create_tag(screen)
+      local tag = mouse.screen.selected_tag or helpers.create_tag(mouse.screen)
       client:tags({ tag })
     end
   elseif action == spawner.actions.JUMP then
     if #client:tags() == 0 then helpers.create_tag_and_attach_to(client) end
-    client:jump_to()
   else
     return
   end
 
-  client:emit_signal('request::activate', 'client.focus.bydirection', { raise = true })
+  client:jump_to()
+  client:emit_signal('request::activate')
 end)
