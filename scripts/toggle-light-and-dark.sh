@@ -57,7 +57,11 @@ xsettingsd 1>/dev/null 2>&1 &
 gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # chromium
-chromium --no-startup-window --set-color-scheme=$mode --set-theme-color="$chrome_colors"
+chromium \
+  --no-startup-window \
+  --set-color-scheme=$mode \
+  --set-theme-color="$chrome_colors" \
+  > /dev/null 2>&1 &
 
 # wallpaper
 [ -f ~/Pictures/wallpapers/wallpaper-$mode ] \
