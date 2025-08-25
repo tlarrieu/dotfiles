@@ -1,13 +1,13 @@
 #!/bin/sh
 
-function fail {
-  notify-send -t 2000 -i dialog-warning 'aria2c' $1
+fail() {
+  notify-send -t 2000 -i dialog-warning 'aria2c' "$1"
   exit 1
 }
 
 notify-send -t 2000 'aria2c' 'Starting to download...'
 
-kitty aria2c --dir=$HOME/Downloads "$1" --seed-time=0 \
+kitty aria2c --dir="$HOME/Downloads" "$1" --seed-time=0 \
   || fail 'Failed downloading'
 
 notify-send -t 2000 'aria2c' 'Finished downloading'
