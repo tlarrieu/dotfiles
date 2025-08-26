@@ -27,3 +27,5 @@ newsboat/history.cmdline
 newsboat/history.search
 newsboat/urls
 newsboat/queue
+
+.ruby-lsp
