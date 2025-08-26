@@ -93,7 +93,7 @@ vim.keymap.set('n', 's', '<cmd>w ++p<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- center after go to bottom
-vim.keymap.set('n', 'G', 'Gzz')
+vim.keymap.set({ 'n', 'x' }, 'G', 'Gzz')
 -- center after page scroll
 vim.keymap.set('n', '<c-d>', '<c-d>zz')
 vim.keymap.set('n', '<c-u>', '<c-u>zz')
@@ -146,7 +146,7 @@ end
 vim.keymap.set('n', '<leader>em', quickedit('Makefile'), { desc = 'Edit Makefile', expr = true })
 vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.pryrc.local'), { desc = 'Edit local pryrc', expr = true })
-vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit local pryrc', expr = true })
+vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 --- }}}
 --- {{{ --| togglers |--------------------------------------
 -- Uppercase current word
