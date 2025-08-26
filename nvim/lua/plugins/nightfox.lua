@@ -147,7 +147,7 @@ return {
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.yellow' },
         ['@constructor.scss'] = { link = '@constructor.css' },
-        ['@field.css'] = { fg = 'palette.fg0' },
+        ['@field.css'] = { fg = 'palette.comment' },
         ['@field.scss'] = { link = '@field.css' },
         ['@operator.css'] = { link = '@tag.css' },
         ['@operator.scss'] = { link = '@tag.css' },
