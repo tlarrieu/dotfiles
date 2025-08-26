@@ -122,7 +122,7 @@ local keyboard = {
       props = { class = 'postgres' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ mod, 'Shift' }, 'e', {
+    spawner.key({ mod }, ',', {
       app = spawner.terminal(string.format('nvim %s/.scratchpad.md', home), { class = 'scratchpad' }),
       props = { class = 'scratchpad' },
       signal = spawner.actions.MOVE,
@@ -155,6 +155,7 @@ local keyboard = {
 
     spawner.key({ mod }, 'l', 'rofi-layouts'),
     spawner.key({ mod }, ' ', spawner.shell('~/scripts/rofi-main')),
+    spawner.key({ mod, 'Shift' }, ' ', 'rofi-search'),
     spawner.key({ mod, 'Shift' }, 'Tab', 'rofi-keyboard'),
     spawner.key({ mod, 'Control' }, 'Tab', 'rofi-monitors'),
     spawner.key({}, 'F12', 'rofi-wifi'),
@@ -163,7 +164,6 @@ local keyboard = {
     spawner.key({ mod }, 'à', 'rofi-bluetooth'),
     spawner.key({ mod }, 'y', 'pulseaudio-ctl mute-input'),
     spawner.key({ mod }, 'Escape', 'rofi-pass'),
-    spawner.key({ mod }, ',', 'rofi-search'),
     spawner.key({ mod }, 'q', 'rofi-power'),
 
     spawner.key({ mod }, 'a', {
