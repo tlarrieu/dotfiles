@@ -91,8 +91,8 @@ abbr less "less -R"
 abbr fd "fd -I -H"
 
 # atool
-abbr atx "aunpack"
-abbr atp "apack"
+abbr dec "aunpack"
+abbr comp "apack"
 
 # apt
 abbr a "sudo apt"
