@@ -30,9 +30,14 @@ return {
         icon_style = '@diff.plus',
         priority = 30,
         skip_history = true,
-        format_message = function(msg) require('fidget.progress.display').default_format_message(msg) end,
+        -- format_message = function(msg) require('fidget.progress.display').default_format_message(msg) end,
         format_annote = function(msg) return msg.title .. ' ' end,
-        format_group_name = tostring,
+        format_group_name = function(name)
+          if name == 'ruby_lsp' then return 'Ruby LSP' end
+          if name == 'eslint' then return 'eslint LSP' end
+          if name == 'ts_ls' then return 'TypeScript LSP' end
+          return name
+        end,
       },
 
       lsp = {
