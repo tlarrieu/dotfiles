@@ -86,7 +86,7 @@ local config = {
   { icon = '󰔬', rule = { class = 'Chromium', instance = 'trainline' } },
   { icon = '', rule = { class = 'Chromium', instance = 'citymapper.com' } },
   {
-    icon = '',
+    icon = '󰗵',
     rules = {
       { class = 'Chromium', instance = 'maps.google.com' },
       { class = 'Chromium', instance = 'google.com__maps' },
@@ -203,7 +203,7 @@ local config = {
   { icon = '󰆒', rule = { class = 'scratchpad' } },
   { icon = '󰕼', rules = { { class = 'Vlc' }, { class = 'vlc' } } },
   { icon = '󰖀', rule = { class = 'mixer' } },
-  { icon = 'ﮩ', rule = { name = 'Document Scanner' } },
+  { icon = '󰚫', rule = { name = 'Document Scanner' } },
   { icon = '', rule = { name = 'pass: ' } },
   { icon = '󰇅', rule = { class = 'VirtualBox Manager' } },
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
