@@ -61,6 +61,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'vifm',
         'config',
         'work',
+        'opencode',
         'accounting',
         'postgres',
         'gtd',
@@ -139,6 +140,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'newsboat',
         'man',
         'quake',
+        'opencode',
         'Seahorse',
         'v4l2ucp',
         'webcam-props',
@@ -168,6 +170,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'quake',
         'steam',
         'work',
+        'opencode',
       },
       instance = {
         'web.whatsapp.com',

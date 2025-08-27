@@ -174,6 +174,7 @@ local config = {
   { icon = '', rule = { class = 'Nemo' } },
   { icon = '', rule = { class = 'config' } },
   { icon = '', rule = { class = 'work' } },
+  { icon = '󰜍', rule = { class = 'opencode' } },
   { icon = '', rule = { class = 'firefox' } },
   { icon = '', rule = { class = 'Lxappearance' } },
   { icon = '', rule = { class = 'Mainwindow.py' } }, --[[ PlayOnLinux ]]

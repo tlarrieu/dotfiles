@@ -97,6 +97,11 @@ local keyboard = {
       props = { class = 'work' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod, 'Shift' }, 'x', {
+      app = spawner.terminal('opencode', { class = 'opencode', directory = work }),
+      props = { class = 'opencode' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod }, 'g', {
       app = spawner.shell('github'),
       props = { instance = 'www.github.com' },
