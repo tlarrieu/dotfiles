@@ -51,4 +51,7 @@ tmp
 # Tags
 tags
 
+# AI related
+AGENTS.md
+
 # vim:ft=gitignore
