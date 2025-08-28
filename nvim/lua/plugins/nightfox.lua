@@ -13,7 +13,7 @@ return {
     palettes = {
       dawnfox = {
         green   = { base = '#a1bc89', dim = '#dfe3cf' },
-        blue    = { base = '#429cbf', dim = '#c3dadf' },
+        blue    = { base = '#429cbf', dim = '#e1eff2' },
         yellow  = { base = '#b59900', dim = '#e5d9a6' },
         red     = { dim = '#e5c9cb' },
         magenta = { dim = '#e5dcdf' },
@@ -44,7 +44,8 @@ return {
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
         ['@property'] = { link = '@key' },
-        ['@function'] = { fg = 'palette.blue', bg = 'none' },
+        ['@function'] = { fg = 'palette.blue', bg = 'palette.blue.dim' },
+        ['@function.call'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
 
@@ -72,6 +73,7 @@ return {
         DiagnosticMixed = { fg = 'palette.yellow', bg = 'palette.yellow.dim' },
         DiagnosticFail = { fg = 'palette.red', bg = 'palette.red.dim' },
         DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
+        DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
         -- floats
         NormalFloat = { fg = 'none', bg = 'palette.bg0' },
