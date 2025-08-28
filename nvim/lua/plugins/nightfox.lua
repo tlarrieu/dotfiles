@@ -32,6 +32,8 @@ return {
       all = {
         ---------------------| base |-----------------------
 
+        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
+
         Special = { fg = 'palette.orange', bg = 'none' },
         Number = { fg = 'palette.pink', bg = 'none' },
         PreProc = { fg = 'palette.red', bg = 'none' },
@@ -48,8 +50,7 @@ return {
         ['@function.call'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
-
-        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
+        ['@tag.attribute'] = { link = '@key' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -133,6 +134,9 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
+
+        -- TS
+        ['@variable.member.tsx'] = { fg = 'palette.comment' },
 
         -- SQL
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
@@ -272,8 +276,11 @@ return {
         MarkviewGradient9 = { fg = '#92a0a0', bg = 'none' },
 
         fugitiveHeading = { link = 'Include' },
+        fugitiveHeader = { fg = 'palette.blue', bg = 'palette.blue.dim' },
+        fugitiveSymbolicRef = { link = '@markup.link.gitcommit' },
         fugitiveStagedHeading = { fg = 'palette.green' },
         fugitiveUnstagedHeading = { fg = 'palette.orange' },
+        fugitiveHash = { link = '@markup.link.gitcommit' },
         ['@markup.heading.gitcommit'] = { fg = 'palette.green', bg = 'none' },
         ['@text.reference.gitcommit'] = { fg = 'palette.magenta', bg = 'none' },
         ['@text.uri.gitcommit'] = { fg = 'palette.fg1', bg = 'none' },
