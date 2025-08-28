@@ -1,5 +1,8 @@
 #!/bin/sh
 
+envfile="$HOME/.browser.env"
+[ -f "$envfile" ] && . "$envfile"
+
 current=$(gsettings get org.gnome.desktop.interface color-scheme | sed -E "s/'prefer-(\w+)'/\1/")
 
 set_dark() {
@@ -57,11 +60,8 @@ xsettingsd 1>/dev/null 2>&1 &
 gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # chromium
-chromium \
-  --no-startup-window \
-  --set-color-scheme=$mode \
-  --set-theme-color="$chrome_colors" \
-  > /dev/null 2>&1 &
+chromium --no-startup-window --profile-directory="$BROWSER_WORK" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
+chromium --no-startup-window --profile-directory="$BROWSER_PERSONAL" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
 
 # wallpaper
 [ -f ~/Pictures/wallpapers/wallpaper-$mode ] \
