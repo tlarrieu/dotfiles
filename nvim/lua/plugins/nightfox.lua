@@ -289,6 +289,11 @@ return {
         ['@keyword.gitcommit'] = { fg = 'palette.yellow', bg = 'none' },
         ['@markup.heading.git_config'] = { fg = 'palette.yellow', bg = 'none' },
         ['@git.branch'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
+        ['@git.title.committed'] = { fg = 'palette.green', bg = 'none', style = 'bold' },
+        ['@git.title.untracked'] = { fg = 'palette.red', bg = 'none', style = 'bold' },
+        ['@git.change.deleted'] = { fg = 'palette.red', bg = 'none' },
+        ['@git.change.modified'] = { fg = 'palette.yellow', bg = 'none' },
+        ['@git.change.new'] = { fg = 'palette.green', bg = 'none' },
         ['@keyword.git_rebase'] = { fg = 'palette.green', bg = 'palette.green.dim' },
         ['@constant.git_rebase'] = { fg = 'palette.magenta' },
 
