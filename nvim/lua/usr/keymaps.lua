@@ -74,7 +74,7 @@ end, { desc = 'move matching lines after cursor' })
 vim.keymap.set('n', 'É', ':%s/')
 vim.keymap.set('x', 'É', '<esc>:%s/\\%V')
 -- hide search matches
-vim.keymap.set('n', '<esc>', '<esc><cmd>nohlsearch<cr>', { silent = true })
+vim.keymap.set('n', '<esc>', '<esc>cxc<cmd>nohlsearch<cr>', { silent = true, remap = true }) -- cxc clears exchange
 -- Find character
 vim.keymap.set({ 'n', 'x' }, ',', ';')
 vim.keymap.set({ 'n', 'x' }, ';', ',')
