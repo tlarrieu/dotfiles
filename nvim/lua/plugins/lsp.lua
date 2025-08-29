@@ -38,6 +38,7 @@ return {
       'lua_ls',   -- lua
       'gopls',    -- golang
       'bashls',   -- bash
+      'jsonls',   -- json
     },
   },
   cmd = { 'Mason' },
