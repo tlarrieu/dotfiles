@@ -46,7 +46,7 @@ return {
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
         ['@property'] = { link = '@key' },
-        ['@function'] = { fg = 'palette.blue', bg = 'palette.blue.dim' },
+        ['@function'] = { fg = 'palette.blue', style = 'bold,italic' },
         ['@function.call'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
