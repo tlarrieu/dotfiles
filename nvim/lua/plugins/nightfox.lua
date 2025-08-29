@@ -126,6 +126,9 @@ return {
 
         -- make
         ['@function.builtin.make'] = { link = 'makeConfig' },
+        ['@function.make'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
+        ['@operator.make'] = { fg = 'palette.comment', bg = 'none' },
+        ['makeSpecTarget'] = { link = 'PreProc' },
 
         -- ruby
         ['@variable.key.ruby'] = { link = '@key' },
