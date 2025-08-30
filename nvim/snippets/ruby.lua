@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  s("#!", fmta("#!/usr/bin/env ruby", {})),
+  s("!", fmta("#!/usr/bin/env ruby", {})),
   s("fr", fmta("# frozen_string_literal: true", {})),
 
   -- requires / includes
@@ -185,7 +185,6 @@ return {
 }, {
   -- skeletons
   s("__skel", fmta([[
-    #!/usr/bin/env ruby
     # frozen_string_literal: true
 
     <>

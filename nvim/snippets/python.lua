@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  s("#!", fmta("#!/usr/bin/env ruby", {})),
+  s("!", fmta("#!/usr/bin/env python", {})),
   -- imports
   s("req", fmta("import <>", { i(1) })),
   s("from", fmta("from <> import <>", { i(1, 'modname'), i(2, 'funcname') })),

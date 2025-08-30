@@ -1,11 +1,7 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  s("!", fmta([[
-      #!/bin/sh
-
-      <>
-    ]], { i(0) })),
+  s("!", fmta("#!/usr/bin/env bash", {})),
 
   -- definitions
   s("d", fmta([[
@@ -42,8 +38,8 @@ return {
 }, {
   -- skeletons
   s("__skel", fmta([[
-      #!/bin/sh
+      #!/usr/bin/env bash
 
-      <>
-    ]], { i(0) })),
+
+    ]], {})),
 }

@@ -1,6 +1,8 @@
 ---@diagnostic disable: undefined-global
 
 return {
+  s("!", fmta("#!/usr/bin/env fish", {})),
+
   s("d", fmta([[
     function <>
       <><>
