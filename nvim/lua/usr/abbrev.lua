@@ -11,9 +11,9 @@ local abbr = {
   lazy = 'Lazy',
   mason = 'Mason',
   map = "lua require('telescope.builtin').keymaps({lfs_filter = true })",
-  ins = "Inspect",
-  tree = "InspectTree",
-  man = "tab Man",
+  ins = 'Inspect',
+  tree = 'InspectTree',
+  man = 'tab Man',
 }
 
 for key, value in pairs(abbr) do
