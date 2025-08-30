@@ -49,7 +49,7 @@
   "testbus": { "branch": "master", "commit": "0293ba12d85055420657277f0a9013bd5ce79d04" },
   "todo-comments.nvim": { "branch": "main", "commit": "304a8d204ee787d2544d8bc23cd38d2f929e7cc5" },
   "toggleterm.nvim": { "branch": "main", "commit": "50ea089fc548917cc3cc16b46a8211833b9e3c7c" },
-  "treesj": { "branch": "main", "commit": "3b4a2bc42738a63de17e7485d4cc5e49970ddbcc" },
+  "treesj": { "branch": "main", "commit": "150a65052563e002acc1e7b46bc9f5f7a368a046" },
   "vifm.vim": { "branch": "master", "commit": "efeded48a0dedbcf6fa5c4caadc385f4a908b4e0" },
   "vim-eunuch": { "branch": "master", "commit": "e86bb794a1c10a2edac130feb0ea590a00d03f1e" },
   "vim-exchange": { "branch": "master", "commit": "d6c1e9790bcb8df27c483a37167459bbebe0112e" },
