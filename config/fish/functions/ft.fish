@@ -1,9 +1,9 @@
 function now
-  hledger bal --empty $argv --strict --pretty --auto --layout=bare
+  hledger bal --empty $argv --strict --pretty --auto
 end
 
 function up
-  hledger reg $argv 'expr:tag:generated-transaction OR (status:! AND date:..14days)' --fore=tomorrow..14days type:LCX --strict -w 100
+  hledger reg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
 end
 
 function forecast
@@ -51,10 +51,18 @@ function ft
     echo -e "\e[33mUpcoming transactions (forecasted OR pending) \e[0m"
     echo -e "\e[96m• Caisse d'Épargne -----\e[0m"
     up assets:check:caisse-epargne
+    set_color -d brblack
+    echo
+    now assets:check:caisse-epargne -p today -C -H
+    echo
+    set_color normal
     echo -e "\e[96m• Banque postale -------\e[0m"
-    up assets:check:banque-postal
-    echo -e "\e[32mCurrent balance\e[0m"
-    now assets:check -p today -C -H
+    up assets:check:banque-postale
+    set_color -d brblack
+    echo
+    now assets:check:banque-postale -p today -C -H --layout=tall
+    echo
+    set_color normal
     return
   case bud budget
     ft bal --budget -p thismonth --empty
