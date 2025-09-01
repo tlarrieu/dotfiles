@@ -81,7 +81,7 @@ local keyboard = {
 
     -- [[ Applications ]] ------------------------------------------------------
 
-    spawner.key({ mod, 'Shift' }, 'd', {
+    spawner.key({ mod }, '.', {
       app = spawner.terminal('nvim', { class = 'config', directory = dotfiles }),
       props = { class = 'config' },
       signal = spawner.actions.JUMP,
@@ -132,7 +132,7 @@ local keyboard = {
       props = { class = 'scratchpad' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ mod, 'Shift' }, ',', {
+    spawner.key({ mod }, 'y', {
       app = spawner.shell('excalidraw'),
       props = { instance = 'www.excalidraw.com' },
       signal = spawner.actions.JUMP,
@@ -152,7 +152,7 @@ local keyboard = {
       props = { class = 'accounting' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ mod }, '.', {
+    spawner.key({ mod, 'Shift' }, '.', {
       app = spawner.terminal('newsboat', { class = 'newsboat' }),
       props = { class = 'newsboat' },
       signal = spawner.actions.MOVE,
