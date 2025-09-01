@@ -171,6 +171,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'steam',
         'work',
         'opencode',
+        'config',
       },
       instance = {
         'web.whatsapp.com',
