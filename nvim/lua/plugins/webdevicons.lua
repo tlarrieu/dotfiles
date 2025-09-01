@@ -152,9 +152,4 @@ return {
       ['favicon_staging.ico'] = { icon = '' },
     }
   },
-  config = function(_, opts)
-    local plug = require('nvim-web-devicons')
-    plug.setup(opts)
-    -- plug.set_default_icon('')
-  end
 }

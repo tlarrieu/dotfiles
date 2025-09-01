@@ -182,6 +182,12 @@ return {
         Directory = { fg = 'palette.blue', bg = 'none' },
         OilDir = { link = 'Directory' },
         OilDirIcon = { link = 'OilDir' },
+        OilCreate = { fg = 'palette.green' },
+        OilDelete = { fg = 'palette.red' },
+        OilTrash = { link = 'OilDelete' },
+        OilPurge = { link = 'OilDelete' },
+        OilChange = { fg = 'palette.yellow' },
+        OilMove = { fg = 'palette.yellow' },
 
         HarpoonLine = { fg = 'palette.bg1', bg = 'palette.green', style = 'bold' },
 
