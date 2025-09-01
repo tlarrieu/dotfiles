@@ -182,6 +182,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'calendar.google.com',
         'www.gmail.com',
         'www.excalidraw.com',
+        'metabase',
       },
     },
     properties = {

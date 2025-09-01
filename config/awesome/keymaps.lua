@@ -142,6 +142,11 @@ local keyboard = {
       props = { instance = 'www.excalidraw.com' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod, 'Shift' }, 'e', {
+      app = spawner.shell('metabase'),
+      props = { instance = 'metabase' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod, 'Shift' }, 'i', {
       app = function()
         return spawner.terminal(
