@@ -7,6 +7,7 @@ o.shiftwidth = 2
 o.shiftround = true
 
 vim.keymap.set('n', '<c-cr>', 'o<c-u>', { remap = true, buffer = true })
+vim.keymap.set('i', '<c-cr>', '<cr><c-u>', { remap = true, buffer = true })
 
 local runner = require('runner')
 runner.default({
