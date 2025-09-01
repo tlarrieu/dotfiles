@@ -5,6 +5,7 @@
 
   accent: @magenta;
   urgent: @red;
+  match: @green;
 
   mesg-gutter: 1em 1em 0.5em 1em;
   list-gutter: 0;
@@ -92,6 +93,7 @@ element {
 element-text {
   background-color: inherit;
   text-color: inherit;
+  highlight: @match;
 }
 
 // Normal ----------------------------------------------------------------------

@@ -5,5 +5,6 @@
   bg-accent: #ebdfe4;
   red: #b4637a;
   blue: #429cbf;
+  green: #a1bc89;
   magenta: #907aa9;
 }

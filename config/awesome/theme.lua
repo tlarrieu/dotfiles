@@ -10,7 +10,7 @@ return {
     theme.colors = xrdb.colors
     theme.useless_gap = dpi(3)
 
-    local accent = theme.colors.blue.dark
+    local accent = theme.colors.green.dark
 
     theme.font = xrdb.font.name .. " " .. xrdb.font.size
     theme.taglist_bg_focus = theme.colors.background .. '00'
