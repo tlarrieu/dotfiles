@@ -55,9 +55,9 @@ return {
     groceries
   ]], {
     f(curdate),
-    i(1, 'grandfrais'),
-    i(3, 'card:bp'),
-    i(2, 'amount'),
+    i(3, 'grandfrais'),
+    i(2, 'card:bp'),
+    i(1, 'amount'),
   })),
 
   s('l', fmta('<>  <> €', {
