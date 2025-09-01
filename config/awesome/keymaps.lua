@@ -172,6 +172,11 @@ local keyboard = {
       props = { class = 'quake' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ mod, 'Shift' }, 'h', {
+      app = spawner.terminal('htop', { class = 'htop' }),
+      props = { class = 'htop' },
+      signal = spawner.actions.MOVE,
+    }),
 
     spawner.key({ mod }, 'l', 'rofi-layouts'),
     spawner.key({ mod }, ' ', spawner.shell('~/scripts/rofi-main')),

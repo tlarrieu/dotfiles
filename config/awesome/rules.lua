@@ -69,6 +69,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'newsboat',
         'scratchpad',
         'quake',
+        'htop',
         'monkeytype.com',
       },
       instance = {
@@ -148,6 +149,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'newsboat',
         'man',
         'quake',
+        'htop',
         'opencode',
         'Seahorse',
         'v4l2ucp',
@@ -176,6 +178,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'gtd',
         'newsboat',
         'quake',
+        'htop',
         'steam',
         'work',
         'opencode',
