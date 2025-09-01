@@ -122,6 +122,11 @@ local keyboard = {
       props = { instance = 'calendar.google.com' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod }, 'a', {
+      app = spawner.shell('gmail'),
+      props = { instance = 'www.gmail.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod }, 'è', {
       app = spawner.terminal(string.format('nvim %s/postgres.sql', home), { class = 'postgres' }),
       props = { class = 'postgres' },
@@ -176,7 +181,7 @@ local keyboard = {
     spawner.key({ mod }, 'Escape', 'rofi-pass'),
     spawner.key({ mod }, 'q', 'rofi-power'),
 
-    spawner.key({ mod }, 'a', {
+    spawner.key({ mod, 'Shift' }, 'u', {
       app = spawner.terminal('pulsemixer', { class = 'mixer' }),
       props = { class = 'mixer' },
       signal = spawner.actions.MOVE,
