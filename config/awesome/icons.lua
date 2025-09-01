@@ -54,7 +54,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
   { icon = '', rule = { class = 'Chromium', instance = 'slack' } },
   { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' } },
-  { icon = '󰠮', rule = { class = 'Chromium', instance = 'notion.so' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
   { icon = '󰨰', rule = { class = 'Chromium', instance = 'sentry.io' } },
