@@ -132,6 +132,11 @@ local keyboard = {
       props = { class = 'scratchpad' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ mod, 'Shift' }, ',', {
+      app = spawner.shell('excalidraw'),
+      props = { instance = 'www.excalidraw.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod, 'Shift' }, 'i', {
       app = function()
         return spawner.terminal(
