@@ -74,7 +74,6 @@ links:
 	@ln -sfFT $(BASEDIR)/xresources ~/.Xresources
 	@mkdir -p ~/.Xresources.d
 	@$(foreach file,$(wildcard xresources.d/*),ln -sfFT $(BASEDIR)/$(file) ~/.Xresources.d/$(notdir $(file));)
-	@ln -sfFT $(BASEDIR)/xmodmap.lavie-hz750c ~/.Xmodmap
 	@ln -sfFT $(BASEDIR)/dir_colors ~/.dir_colors
 	@ln -sfFT $(BASEDIR)/lesskey ~/.lesskey
 	@ln -sfFT $(BASEDIR)/ghci ~/.ghci

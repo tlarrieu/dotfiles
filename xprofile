@@ -17,7 +17,6 @@ pgrep unclutter || unclutter -root -idle 2 2>/dev/null &
 pgrep picom || picom 2>/dev/null &
 
 setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
-xmodmap ~/.Xmodmap
 xcape -e 'Control_L=Escape'
 
 # NOTE: Disable screen saving / blanking

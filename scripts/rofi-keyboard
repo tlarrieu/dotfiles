@@ -31,5 +31,3 @@ if $? == 0
 else
   %x(notify-send Failure "Could not load (layout = #{layout}, variant = #{variant})")
 end
-
-%x(xmodmap ~/.Xmodmap)
