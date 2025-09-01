@@ -430,4 +430,15 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require('nightfox').setup(opts)
+
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      callback = function(args)
+        local palette = require('nightfox.palette').load(args.match)
+        require('nvim-web-devicons').set_default_icon('', palette.comment, 0)
+      end,
+      group = vim.api.nvim_create_augroup('nightfox_group', {})
+    })
+  end,
 }
