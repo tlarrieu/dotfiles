@@ -1,3 +1,5 @@
+local lock = '󰈡'
+
 return {
   'nvim-tree/nvim-web-devicons',
   opts = {
@@ -9,7 +11,7 @@ return {
       text = { icon = '' },
       txt = { icon = '' },
       log = { icon = '' },
-      lock = { icon = '' },
+      lock = { icon = lock },
 
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
@@ -136,8 +138,8 @@ return {
       ['go.mod'] = { icon = '' },
 
       ['package.json'] = { icon = '' },
-      ['package-lock.json'] = { icon = '' },
-      ['yarn.lock'] = { icon = '' },
+      ['package-lock.json'] = { icon = lock },
+      ['yarn.lock'] = { icon = lock },
       ['tailwind.config.js'] = { icon = '󱏿' },
 
       dockerfile = { icon = '' },

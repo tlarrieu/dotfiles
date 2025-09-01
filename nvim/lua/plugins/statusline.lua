@@ -195,6 +195,9 @@ return {
             if ftmap[context.filetype] == 'avante' then
               icon = '󰚩'
               name = 'avante'
+            elseif ftmap[context.filetype] == 'oil' then
+              icon = ''
+              name = 'oil'
             elseif context.filetype == 'fugitive' then
               icon = ''
               name = 'status'
