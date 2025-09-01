@@ -54,7 +54,7 @@ return {
       ['<CR>'] = 'actions.select',
       ['<C-CR>'] = 'actions.preview',
       ['<leader>vv'] = 'actions.select_vsplit',
-      ['<leader>nn'] = 'actions.select_split',
+      ['<leader>ss'] = 'actions.select_split',
       ['<C-c>'] = false,
       ['<C-l>'] = 'actions.refresh',
       ['<C-p>'] = false,
