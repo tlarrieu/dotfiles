@@ -88,6 +88,7 @@ local config = {
   -- 󰔬 Travel
   { icon = '󰔬', rule = { class = 'Chromium', instance = 'trainline' } },
   { icon = '', rule = { class = 'Chromium', instance = 'citymapper.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'airbnb' } },
   {
     icon = '󰗵',
     rules = {
