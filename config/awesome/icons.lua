@@ -71,6 +71,9 @@ local config = {
   { icon = '', rule = { class = '1Password' } },
   { icon = '󰳴', rule = { class = 'Chromium', instance = 'app.pennylane.com' } },
 
+  --  music
+  { icon = '󰎄', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
+
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
   { icon = '', rule = { class = 'Chromium', name = 'YouTube' } },
@@ -161,7 +164,7 @@ local config = {
   { icon = '󰊯', rule = { class = 'Chromium', name = 'DevTool' } },
   { icon = '', rule = { class = 'Chromium' } },
 
-  --  Games
+  -- 󰺶 Games
   { icon = '󰓥', rule = { class = 'steam_app_1086940' } }, -- Baldur's gate III
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
   { icon = '', rule = { class = 'Wine' } },
