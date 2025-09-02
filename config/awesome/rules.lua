@@ -194,6 +194,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'www.gmail.com',
         'www.excalidraw.com',
         'metabase',
+        'documentation',
       },
     },
     properties = {

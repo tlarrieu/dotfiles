@@ -112,6 +112,11 @@ local keyboard = {
       props = { instance = 'app.slack.com' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ mod, 'Shift' }, 'd', {
+      app = spawner.shell('documentation'),
+      props = { instance = 'documentation' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ mod, 'Shift' }, 'l', {
       app = spawner.shell('linear'),
       props = { instance = 'linear.app' },
