@@ -5,7 +5,7 @@ Pry.config.pager = false
 prompt = lambda do |level, instance|
   color, suffix =
     if instance.last_file.nil?
-      ['[29m', '']
+      ['[29m', defined?(Rails) ? '-rails' : '']
     else
       ['[31m', '-dbg']
     end
