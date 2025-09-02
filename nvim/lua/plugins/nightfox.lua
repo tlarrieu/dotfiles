@@ -48,6 +48,7 @@ return {
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', bg = 'palette.blue.dim', style = 'underline' },
         ['@class'] = { fg = 'palette.yellow', bg = 'palette.yellow.dim', style = 'underline' },
+        ['@constant'] = { fg = 'palette.red' },
         ['@constant.assignment'] = { fg = 'palette.red', bg = 'palette.red.dim', style = 'underline' },
         ['@function.call'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
