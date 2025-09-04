@@ -30,6 +30,12 @@ local earbuds = wibox.widget({
   border_color = beautiful.colors.foreground,
 })
 
+local buds_widget = wibox.widget({
+  { markup = '<span size="small">󱡏 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
+  earbuds,
+  layout = wibox.layout.stack,
+})
+
 local earbuds_callback = function()
   local cmd = [[
       upower --enumerate |
@@ -44,7 +50,7 @@ local earbuds_callback = function()
     local value = tonumber(out)
 
     if not value then
-      earbuds.visible = false
+      buds_widget.visible = false
       return
     end
 
@@ -81,18 +87,19 @@ local battery = wibox.widget({
   border_color = beautiful.colors.foreground,
 })
 
+local bat_widget = wibox.widget({
+  { markup = '<span size="medium">󱊣 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
+  battery,
+  layout = wibox.layout.fixed.horizontal,
+})
+
 local battery_callback = function()
-  local cmd = [[
-      acpi |
-        awk '{ print $3,$4 }' |
-        awk -F, '{ print $2 }' |
-        tr -d ' %\n'
-    ]]
+  local cmd = [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]]
   awful.spawn.easy_async_with_shell(cmd, function(out)
     local value = tonumber(out)
 
     if not value then
-      battery.visible = false
+      bat_widget.visible = false
       return
     end
 
@@ -166,8 +173,8 @@ local init = function(screen)
 
   local left = wibox.widget({
     wibox.container.margin(screennum, dpi(10), dpi(0), dpi(5), dpi(5), nil, false),
-    wibox.container.margin(battery, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
-    wibox.container.margin(earbuds, dpi(10), dpi(10), dpi(10), dpi(10), nil, false),
+    wibox.container.margin(bat_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
+    wibox.container.margin(buds_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
     layout = wibox.layout.fixed.horizontal
   })
 
