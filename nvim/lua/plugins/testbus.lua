@@ -1,4 +1,10 @@
 return {
   'tlarrieu/testbus',
-  opts = {},
+  opts = {
+    markers = {
+      passed = { ' ✔ ', 'DiagnosticPass' },
+      mixed  = { ' ➠ ', 'DiagnosticMixed' },
+      failed = { ' ✘ ', 'DiagnosticFail' },
+    },
+  },
 }
