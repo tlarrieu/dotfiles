@@ -162,10 +162,7 @@ return {
           path = 0,
           max_length = 1000,
           tab_max_length = 25,
-          tabs_color = {
-            active = 'LualineTablineActive',
-            inactive = 'LualineTablineInactive',
-          },
+          use_mode_colors = true,
           show_modified_status = false,
         },
       },
