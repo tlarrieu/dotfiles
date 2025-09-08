@@ -15,6 +15,16 @@ function _git_branch_name
     and return
 end
 
+function _git_merge_head
+  echo -ne "\e[0;31m"
+  if test (command git rev-parse -q --verify MERGE_HEAD 2> /dev/null)
+    echo -n " "
+  else if test (command git rev-parse -q --verify REBASE_HEAD 2> /dev/null)
+    echo -n " "
+  end
+  echo -ne "\e[0m"
+end
+
 function _git_ahead
   set -l ahead 0
   set -l behind 0
@@ -65,12 +75,9 @@ function _git
       set stashed " 󰼑 "
   end
 
-  set -l dirty \
-    (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦢 ")
-  set -l staged \
-    (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱊖 ")
-  set -l ahead \
-    (_git_ahead)
+  set -l dirty (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦢 ")
+  set -l staged (command git diff --cached --no-ext-diff --quiet --exit-code; or echo -n "󱊖 ")
+  set -l ahead (_git_ahead)
 
   set -l new ''
   set -l show_untracked (command git config --bool bash.showUntrackedFiles)
@@ -82,15 +89,15 @@ function _git
 
   set -l flags "$stashed$dirty$staged$ahead$new"
 
+  set -l reset "\e[0m"
+  set -l color
   if [ "$dirty" ]
-    set_color yellow
+    set color "\e[0;33m" # yellow
   else
-    set_color green
+    set color "\e[0;32m" # green
   end
 
-  echo -ns (_git_branch_name) $flags
-
-  set_color normal
+  echo -nes $color(_git_branch_name)$reset(_git_merge_head)$color$flags$reset
 end
 
 function _jobs
