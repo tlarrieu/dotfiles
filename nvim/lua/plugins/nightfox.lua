@@ -145,6 +145,8 @@ return {
         ['@variable.member.tsx'] = { fg = 'palette.comment' },
 
         -- SQL
+        ['@keyword.sql'] = { fg = 'palette.magenta' },
+        ['@keyword.operator.sql'] = { link = '@keyword.sql' },
         ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
         ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
         ['@type.sql'] = { fg = 'palette.yellow', bg = 'none' },
