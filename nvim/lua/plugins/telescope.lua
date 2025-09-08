@@ -122,6 +122,11 @@ return {
       desc = 'Telescope LSP document symbols'
     },
     {
+      '<c-s-l>',
+      function() require('telescope.builtin').lsp_workspace_symbols() end,
+      desc = 'Telescope LSP document symbols'
+    },
+    {
       '<c-e>',
       function() require('telescope.builtin').diagnostics() end,
       desc = 'Telescope diagnostics'
