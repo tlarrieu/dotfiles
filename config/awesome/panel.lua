@@ -31,9 +31,9 @@ local earbuds = wibox.widget({
 })
 
 local buds_widget = wibox.widget({
-  { markup = '<span size="small">󱡏 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
+  { markup = '<span size="large">󰥈 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
   earbuds,
-  layout = wibox.layout.stack,
+  layout = wibox.layout.fixed.horizontal,
 })
 
 local earbuds_callback = function()
@@ -83,7 +83,7 @@ local battery = wibox.widget({
 })
 
 local bat_widget = wibox.widget({
-  { markup = '<span size="medium">󱊣 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
+  { markup = '<span size="large">󰁹 </span>', align = 'center', valign = 'center', widget = wibox.widget.textbox },
   battery,
   layout = wibox.layout.fixed.horizontal,
 })
