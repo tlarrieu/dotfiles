@@ -85,6 +85,7 @@ vim.opt.shiftround = true
 -- {{{ ==| Searching |==========================================================
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.gdefault = true
 local file = io.open('.ignore', 'r')
 if file then
   vim.opt.grepprg = "rg --smart-case --vimgrep --hidden --no-ignore-vcs '$*'"
