@@ -68,12 +68,7 @@ local earbuds_callback = function()
   end)
 end
 
-gears.timer({
-  timeout = 10,
-  call_now = true,
-  autostart = true,
-  callback = earbuds_callback
-})
+gears.timer({ callback = earbuds_callback, timeout = 10, call_now = true, autostart = true })
 
 -- [[ Battery ]] ---------------------------------------------------------------
 local battery = wibox.widget({
@@ -117,12 +112,7 @@ local battery_callback = function()
   end)
 end
 
-gears.timer({
-  timeout = 10,
-  call_now = true,
-  autostart = true,
-  callback = battery_callback()
-})
+gears.timer({ callback = battery_callback, timeout = 10, call_now = true, autostart = true })
 
 local init = function(screen)
   battery_callback()
