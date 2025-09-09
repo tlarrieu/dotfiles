@@ -10,12 +10,12 @@ _rofi() {
     -p ""
 }
 
-connected=$(bluetoothctl info | head -n 1 | awk '{ print $2 }' | grep '..:..:..:..:..:..')
+connected=$(bluetoothctl info | grep '..:..:..:..:..:..' | head -n 1 | awk '{ print $2 }')
 if [ -n "$connected" ]; then
   preselected=$(bluetoothctl devices | grep -n "$connected" | awk -F':' '{print $1 - 1}')
 fi
 
-selection=$(bluetoothctl devices | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
+selection=$(bluetoothctl devices | grep '..:..:..:..:..:..' | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
 
 if [ -z "$selection" ]; then exit 0; fi
 
