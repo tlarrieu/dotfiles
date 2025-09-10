@@ -35,7 +35,7 @@
   "nvim-lspconfig": { "branch": "master", "commit": "c8b90ae5cbe21d547b342b05c9266dcb8ca0de8f" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "nvim-treesitter-context": { "branch": "master", "commit": "66a9b5fa9e806918b5fe3dba00c6cce7e230abd2" },
+  "nvim-treesitter-context": { "branch": "master", "commit": "41847d3dafb5004464708a3db06b14f12bde548a" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "71385f191ec06ffc60e80e6b0c9a9d5daed4824c" },
   "nvim-web-devicons": { "branch": "master", "commit": "6e51ca170563330e063720449c21f43e27ca0bc1" },
   "oil.nvim": { "branch": "master", "commit": "07f80ad645895af849a597d1cac897059d89b686" },
@@ -61,7 +61,7 @@
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "vim-sniper": { "branch": "master", "commit": "31970c26ae91f5cceeb41b49e057f49bc18e428b" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-test": { "branch": "master", "commit": "ba859e8f66ffe12a097e9963110cd7712db14801" },
+  "vim-test": { "branch": "master", "commit": "5ee3c0b3734eab612b9f70bbc8a4f69f17f8e8ef" },
   "vim-togglelist": { "branch": "master", "commit": "48f0d30292efdf20edc883e61b121e6123e03df7" },
   "yaml.nvim": { "branch": "main", "commit": "c6c7bac834c3f48e1afdb78a7a1d23996a2f89d9" }
 }
