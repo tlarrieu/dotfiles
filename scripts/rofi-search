@@ -148,6 +148,7 @@ searchengines = {
   'm'    => Browser.new('https://scryfall.com/search?q=%s', profile: 'perso'),
   'man'  => Man.new,
   'map'  => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
+  'maps' => Browser.new('https://www.google.com/maps/search/%s/', profile: 'perso'),
   'nerd' => Browser.new('https://www.nerdfonts.com/cheat-sheet?q=%s'),
   'icon' => Browser.new('https://www.flaticon.com/search?word=%s'),
   'py'   => Browser.new('https://pypi.org/search/?q=%s'),
