@@ -76,6 +76,7 @@ return {
         DiagnosticPass = { fg = 'palette.green', bg = 'palette.green.dim' },
         DiagnosticMixed = { fg = 'palette.yellow', bg = 'palette.yellow.dim' },
         DiagnosticFail = { fg = 'palette.red', bg = 'palette.red.dim' },
+        DiagnosticPending = { fg = 'palette.blue', bg = 'palette.blue.dim' },
         DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
         DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
