@@ -3,6 +3,6 @@
 rofi \
   -show combi \
   -modes combi \
-  -combi-modes " :~/scripts/rofi-clients.sh,run" \
-  -display-combi "" \
+  -combi-modes "󰘔 :~/scripts/rofi-clients.sh,run" \
+  -display-combi "󰹻" \
   -display-run "󱕷"

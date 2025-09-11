@@ -167,7 +167,7 @@ searchengines = {
 }
 # rubocop:enable Layout/HashAlignment
 
-query = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
+query = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
 words = query.split
 
 if words.any?
