@@ -27,17 +27,14 @@ require('utils').autoformat({
 
 vim.keymap.set('n', '<c-$>', function()
   require('alternator').alternate({
-    ["(.*)/packs/declarations/tax_returns/app/views/declarations/tax_returns/consistency_checks/index.json.jbuilder"] =
-    "packs/declarations/tax_returns/app/views/declarations/tax_returns/forms/show.json.jbuilder",
+    { pattern = "(.*)/tax_returns/consistency_checks/index.json.jbuilder", target = "%1/tax_returns/forms/show.json.jbuilder" },
+    { pattern = "(.*)/tax_returns/forms/show.json.jbuilder", target = "%1/tax_returns/consistency_checks/index.json.jbuilder" },
 
-    ["(.*)/packs/declarations/tax_returns/app/views/declarations/tax_returns/forms/show.json.jbuilder"] =
-    "packs/declarations/tax_returns/app/views/declarations/tax_returns/consistency_checks/index.json.jbuilder",
+    { pattern = "(.*)/spec/requests/(.*)_spec%.rb", target = "%1/app/controllers/%2.rb" },
+    { pattern = "(.*)/app/controllers/(.*)%.rb", target = "%1/spec/requests/%2_spec.rb" },
 
-    ["(.*)/spec/requests/(.*)_spec%.rb"] = "%1/app/controllers/%2.rb",
-    ["(.*)/spec/(.*)_spec%.rb"] = "%1/app/%2.rb",
-
-    ["(.*)/app/controllers/(.*)%.rb"] = "%1/spec/requests/%2_spec.rb",
-    ["(.*)/app/(.*)%.rb"] = "%1/spec/%2_spec.rb",
+    { pattern = "(.*)/spec/(.*)_spec%.rb", target = "%1/app/%2.rb" },
+    { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
   })
 end, { silent = true, buffer = true })
 
