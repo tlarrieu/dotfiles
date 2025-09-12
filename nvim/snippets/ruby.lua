@@ -192,13 +192,6 @@ return {
   s("__spec", fmta([[
     # frozen_string_literal: true
 
-    Rspec.describe <> do
-      <>
-    end
-    ]], { i(1, 'class'), i(0) })),
-  s("__short_spec", fmta([[
-    # frozen_string_literal: true
-
     describe <> do
       <>
     end
