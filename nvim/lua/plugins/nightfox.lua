@@ -24,6 +24,7 @@ return {
         green   = { dim = '#45504f' },
         blue    = { dim = '#3f4a5a' },
         yellow  = { dim = '#54524f' },
+        orange  = { dim = '#4d4449' },
         red     = { dim = '#4b3d48' },
         magenta = { dim = '#494656' },
         pink    = { dim = '#4b4559' },
@@ -447,7 +448,7 @@ return {
         TodoBgTEST = { fg = 'palette.bg1', bg = 'palette.cyan' },
         TodoFgTEST = { fg = 'palette.cyan' },
 
-        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.pink.bright' },
+        ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.orange' },
 
       },
     },
