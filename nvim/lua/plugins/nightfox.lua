@@ -125,6 +125,8 @@ return {
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
         ['@keyword.luadoc'] = { link = '@constant' },
+        ['@keyword.function.luadoc'] = { link = '@function.call' },
+        ['@type.builtin.luadoc'] = { link = '@type' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
         ['@variable.member.luadoc'] = { link = '@key' },
