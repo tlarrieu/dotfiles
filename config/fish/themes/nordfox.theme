@@ -20,8 +20,4 @@ fish_pager_color_prefix 81a1c1
 fish_pager_color_completion cdcecf
 fish_pager_color_description 60728a
 
-# FZF
-set -g fzf_main_color 81a1c1
-set -g fzf_secondary_color b48ead
-
 # vim: ft=fish

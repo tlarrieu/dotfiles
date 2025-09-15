@@ -2,18 +2,13 @@ stty -ixon 2> /dev/null
 
 set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
 
-set -l fzf_common_opts "
+set -l fzf_common_opts '
   --reverse
   --color=bw
-  --color=query:$fzf_main_color:regular
-  --color=fg+:$fzf_main_color:regular
-  --color=pointer:$fzf_main_color:regular
-  --color=hl:$fzf_secondary_color:underline
-  --color=hl+:$fzf_secondary_color:underline
   --bind=ctrl-k:kill-line
   --border=none
   --no-scrollbar
-"
+'
 
 set -x FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude '.git'"
 set -x FZF_DEFAULT_OPTS $fzf_common_opts
