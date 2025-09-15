@@ -18,7 +18,7 @@ return {
         orange  = { base = '#db926d', dim = '#f1d7c7' },
         red     = { base = '#b4637a', dim = '#e5c9cb' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
-        pink    = { dim = '#f3dee1' },
+        pink    = { base = '#d685af', dim = '#f3dee1' },
       },
       nordfox = {
         green   = { dim = '#45504f' },
