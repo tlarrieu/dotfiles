@@ -14,9 +14,10 @@ return {
       dawnfox = {
         green   = { base = '#9ab582', dim = '#e6ead7' },
         blue    = { base = '#429cbf', dim = '#e1eff2' },
-        yellow  = { base = '#b59900', dim = '#f2e7b5' },
-        red     = { dim = '#e5c9cb' },
-        magenta = { dim = '#e5dcdf' },
+        yellow  = { base = '#e5c890', dim = '#f4e7d1' },
+        orange  = { base = '#ef9f76', dim = '#f7dbc9' },
+        red     = { base = '#b4637a', dim = '#e5c9cb' },
+        magenta = { base = '#907aa9', dim = '#e5dcdf' },
         pink    = { dim = '#f3dee1' },
       },
       nordfox = {
