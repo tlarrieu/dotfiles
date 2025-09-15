@@ -342,6 +342,9 @@ return {
         ['@keyword.git_rebase.invalid'] = { fg = 'palette.red', bg = 'palette.red.dim', style = 'undercurl' },
         ['@constant.git_rebase'] = { fg = 'palette.magenta', style = 'italic' },
         ['@none.git_rebase'] = { fg = 'palette.comment' },
+        ['@string.special.path.gitignore'] = { fg = 'palette.blue' },
+        ['@punctuation.delimiter.gitignore'] = { fg = 'palette.comment' },
+        ['@character.special.gitignore'] = { fg = 'palette.orange' },
 
         DiffAdd = { bg = 'palette.green.dim' },
         DiffDelete = { bg = 'palette.red.dim' },
