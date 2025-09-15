@@ -405,7 +405,7 @@ return {
         ['@number.ledger'] = { fg = 'palette.green' },
         ['@number.negative.ledger'] = { fg = 'palette.red' },
         ['@markup.raw.ledger'] = { fg = 'palette.fg1' },
-        ['@string.special.ledger'] = { fg = 'palette.orange', style = 'bold' },
+        ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
 
         AvanteTitle = { fg = 'palette.bg1', bg = 'palette.fg0' },
         AvanteReversedTitle = { fg = 'palette.fg0', bg = 'palette.bg0' },
