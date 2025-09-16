@@ -37,6 +37,7 @@ return {
       toml = { icon = '' },
       dir_colors = { icon = '' },
       dircolors = { icon = '' },
+      desktop = { icon = '󱕷' },
 
       bashrc = { icon = '󱆃' },
       make = { icon = '󱌣' },
