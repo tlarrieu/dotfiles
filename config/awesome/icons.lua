@@ -189,7 +189,7 @@ local config = {
   { icon = '󰢨', rule = { class = 'gtd' } },
   { icon = '', rule = { class = 'Luakit' } },
   { icon = '', rule = { class = 'nyxt' } },
-  { icon = '', rule = { class = 'Gimp' } },
+  { icon = '', rule = { class = 'Gimp' } },
   { icon = '', rule = { name = 'aria2c' } },
   { icon = '', rule = { class = 'download' } },
   { icon = '', rule = { class = 'Zathura' } },
