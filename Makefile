@@ -83,8 +83,8 @@ links:
 .PHONY: templates
 templates: ~/.Xresources.d/local
 templates: ~/.config/kitty/theme.conf
+templates: ~/.config/zathura/theme
 templates: ~/.config/rofi/variant.rasi
-templates: ~/.config/btop/themes/current.theme
 templates: ~/.xsettingsd
 
 ~/.Xresources.d/local:
@@ -93,11 +93,11 @@ templates: ~/.xsettingsd
 ~/.config/kitty/theme.conf:
 	@cp $(BASEDIR)/templates/.config/kitty/theme.conf ~/.config/kitty/theme.conf
 
+~/.config/zathura/theme:
+	@cp $(BASEDIR)/templates/.config/zathura/theme ~/.config/zathura/theme
+
 ~/.config/rofi/variant.rasi:
 	@cp $(BASEDIR)/templates/.config/rofi/variant.rasi ~/.config/rofi/variant.rasi
-
-~/.config/btop/themes/current.theme:
-	@cp $(BASEDIR)/config/btop/themes/light.theme ~/.config/btop/themes/current.theme
 
 ~/.xsettingsd:
 	@cp $(BASEDIR)/templates/.xsettingsd ~/.xsettingsd

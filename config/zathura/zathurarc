@@ -1,19 +1,4 @@
-set statusbar-bg "#faf4ed"
-set statusbar-fg "#575279"
-set completion-bg "#faf4ed"
-set completion-fg "#575279"
-set completion-highlight-bg "#faf4ed"
-set completion-highlight-fg "#9ab582"
-set inputbar-bg "#faf4ed"
-set inputbar-fg "#575279"
-set default-bg "#ebe5df"
-set default-fg "#575279"
-set recolor-lightcolor "#faf4ed"
-set recolor-darkcolor "#575279"
-
+include theme
 set recolor true
-
-# set scroll-step 500
 set selection-clipboard clipboard
-
 map f follow

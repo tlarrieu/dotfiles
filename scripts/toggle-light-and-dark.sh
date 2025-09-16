@@ -48,6 +48,9 @@ echo 'y' | fish -c "fish_config theme save $fish_theme"
 # rofi
 sed -e $expr -i ~/.config/rofi/variant.rasi
 
+# zathura
+sed -e $expr -i ~/.config/zathura/theme
+
 # awesome
 awesome-client > /dev/null 2>&1 <<- LUA
   require('theme').config()

@@ -19,6 +19,8 @@ config/rofi/variant.rasi
 
 config/btop/themes/current.theme
 
+config/zathura/theme
+
 config/gtk-3.0/bookmarks
 
 nvim/doc

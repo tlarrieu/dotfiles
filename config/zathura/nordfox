@@ -1,0 +1,14 @@
+set statusbar-bg "#3b4252"
+set statusbar-fg "#cdcecf"
+set completion-bg "#3b4252"
+set completion-fg "#cdcecf"
+set completion-highlight-bg "#3b4252"
+set completion-highlight-fg "#a3be8c"
+set inputbar-bg "#3b4252"
+set inputbar-fg "#cdcecf"
+set default-bg "#2e3440"
+set default-fg "#cdcecf"
+set recolor-lightcolor "#3b4252"
+set recolor-darkcolor "#cdcecf"
+
+# vim:ft=zathurarc
