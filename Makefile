@@ -17,11 +17,12 @@ bootstrap: packages fonts gtk-theme dotfiles services X11 shell crontab root-dot
 dotfiles: links templates
 
 .PHONY: fonts
-fonts: TMP:=/tmp/CaskaydiaCove.zip
+fonts: ZIPNAME:=CascadiaCode.zip
+fonts: TMP:=/tmp/$(ZIPNAME)
 fonts: DIR:=~/.fonts/CaskaydiaCove
-fonts: VERSION=3.3.0
+fonts: VERSION=3.4.0
 fonts:
-	@wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$(VERSION)/CascadiaCode.zip -O $(TMP)
+	@wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$(VERSION)/$(ZIPNAME) -O $(TMP)
 	@rm -rf $(DIR)
 	@mkdir -p $(DIR)
 	@cd $(DIR) && unzip $(TMP)
