@@ -171,6 +171,15 @@ vim.keymap.set('n', '<leader>R', function()
 end, { desc = 'Toggle crosshair' })
 -- Alternate file
 vim.keymap.set('n', '<c-k>', '<c-^>')
+-- Quickfix list
+vim.keymap.set('n', '<leader>q', function()
+  local lastwin = vim.api.nvim_get_current_win()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == 'quickfix' and vim.fn.bufwinnr(buf) ~= -1 then return vim.cmd.cclose() end
+  end
+  vim.cmd('below copen')
+  vim.api.nvim_set_current_win(lastwin)
+end, { desc = 'Toggle quickfix list' })
 --- }}}
 --- {{{ --| Spelling |--------------------------------------
 vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next spelling error' })

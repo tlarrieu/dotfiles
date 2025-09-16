@@ -111,7 +111,7 @@ k.set('n', '<leader>k', function()
   ]]
 end, noremap)
 -- Cursorline / Cursorcolumn
-k.set('n', '<leader>g', function()
+k.set('n', '<leader>r', function()
   vim.cmd [[
     if &virtualedit ==# 'all'
       setlocal virtualedit=""
@@ -122,10 +122,25 @@ k.set('n', '<leader>g', function()
     setlocal cursorline!
   ]]
 end, noremap)
--- Quickfix / Location list
-k.set('n', '<leader>q', '<cmd>call ToggleQuickfixList()<cr>', noremap)
-k.set('n', '<leader>l', '<cmd>call ToggleLocationList()<cr>', noremap)
--- }}}
+-- Alternate file
+vim.keymap.set('n', '<c-k>', '<c-^>')
+-- Quickfix list
+local togglelist = function()
+  local curwin = vim.api.nvim_get_current_win()
+
+  local found = false
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == 'quickfix' then
+      found = vim.fn.bufwinnr(buf) ~= -1
+      break
+    end
+  end
+
+  if found then vim.cmd.cclose() else vim.cmd.copen() end
+
+  vim.api.nvim_set_current_win(curwin)
+end
+vim.keymap.set('n', '<leader>q', togglelist, { desc = 'Toggle quickfix list' })
 -- {{{ --| splits / tabs |----------------------------------
 k.set('n', '<left>', '<c-w>5<', noremap)
 k.set('n', '<right>', '<c-w>5>', noremap)
