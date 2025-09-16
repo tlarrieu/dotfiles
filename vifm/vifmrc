@@ -20,6 +20,7 @@ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
     \ kitten icat --silent --transfer-mode=file --place=%pwx%ph@%pxx%py %c >/dev/tty </dev/tty %N
     \ %pc
     \ kitten icat --clear --silent >/dev/tty </dev/tty %N
+fileviewer */ eza --color=always --icons=always --tree --level 1
 
 nnoremap <silent> co :!kitten icat --clear --silent<cr>:wincmd o<cr>
 nnoremap <silent> cp :vs<cr>

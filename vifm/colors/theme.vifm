@@ -1,20 +1,3 @@
-" Default = -1 = None, can be used for transparency or default color
-" Black = 0
-" Red = 1
-" Green = 2
-" Yellow = 3
-" Blue = 4
-" Magenta = 5
-" Cyan = 6
-" White = 7
-
-" STYLES
-" bold
-" underline
-" reverse or inverse
-" standout
-" none
-
 highlight clear
 
 highlight Win        cterm=none              ctermfg=default ctermbg=none
@@ -39,4 +22,4 @@ highlight Device     cterm=none              ctermfg=red     ctermbg=default
 highlight Fifo       cterm=none              ctermfg=cyan    ctermbg=default
 highlight Executable cterm=none              ctermfg=green   ctermbg=default
 
-highlight LineNr     cterm=none              ctermfg=14      ctermbg=default
+highlight LineNr     cterm=none              ctermfg=42      ctermbg=default
