@@ -11,7 +11,7 @@
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
   "conform.nvim": { "branch": "master", "commit": "b4aab989db276993ea5dcb78872be494ce546521" },
   "copilot-cmp": { "branch": "master", "commit": "15fc12af3d0109fa76b60b5cffa1373697e261d1" },
-  "copilot.lua": { "branch": "master", "commit": "8aebaa3a102125fedf08c98773a0a8def92fff37" },
+  "copilot.lua": { "branch": "master", "commit": "af6410a5cc618469fe8098887914c309a3e6425e" },
   "fidget.nvim": { "branch": "main", "commit": "4d5858bd4c471c895060e1b9f3575f1551184dc5" },
   "gitsigns.nvim": { "branch": "main", "commit": "60676707b6a5fa42369e8ff40a481ca45987e0d0" },
   "gv.vim": { "branch": "master", "commit": "b6bb6664e2c95aa584059f195eb3a9f3cb133994" },
