@@ -3,3 +3,4 @@ vim.keymap.set('n', '<leader>gu', '<cmd>Git pull --rebase<bar>Git<cr>', { buffer
 vim.keymap.set('n', 'k', '(', { remap = true, buffer = true })
 vim.keymap.set('n', 'j', ')', { remap = true, buffer = true })
 vim.keymap.set({ 'n', 'x' }, 'x', 'X', { remap = true, buffer = true })
+vim.keymap.set('n', '<leader>l', '<cmd>bd<cr>', { buffer = true })

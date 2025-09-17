@@ -6,6 +6,10 @@ return {
   },
   cmd = { 'Git', 'Gvdiff', 'GV', 'Gcd' },
   keys = {
+    { '<leader>l', '<cmd>Git<cr>', desc = 'Git' },
+    { '<leader>L', '<cmd>GV<cr>', desc = 'GV' },
+    { '<leader>L', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
+
     { '<leader>gW', '<cmd>Git add .<cr>', desc = 'Git add .' },
     { '<leader>ga', '<cmd>Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit' },
     { '<leader>gA', '<cmd>Git commit --quiet --amend<cr>', desc = 'Git commit --amend' },
@@ -14,12 +18,10 @@ return {
     { '<leader>gD', '<cmd>leftabove Gvdiff master<cr>', desc = 'Git diff master..' },
     { '<leader>ed', '<cmd>tab Git diff --staged<cr>', desc = 'Git diff --staged' },
     { '<leader>gr', '<cmd>Git checkout %<cr>', desc = 'Git checkout %' },
-    { '<leader>gs', '<cmd>Git<cr>', desc = 'Git' },
     { '<leader>gp', '<cmd>Git push --force-with-lease<cr>', desc = 'Git push --force-with-lease' },
     { '<leader>gu', '<cmd>Git pull --rebase<cr>', desc = 'Git pull --rebase' },
     { '<leader>gy', ':GBrowse!<cr>', mode = { 'v', 'n' }, desc = 'Git(Hub) yank file URL' },
-    { '<leader>gl', '<cmd>GV<cr>', desc = 'GV' },
-    { '<leader>gl', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
+
     { '<leader>cc', '<cmd>Gcd<cr>', desc = 'Git CWD' },
   },
 }
