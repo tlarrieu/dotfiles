@@ -4,6 +4,8 @@ local filename_first_and_shorten = {
 }
 
 local find_files = { 'fd', '-tf', '--hidden' }
+local find_modified_files_master = { 'git', 'diff', 'master', '--name-only' }
+local find_modified_files_head = { 'git', 'diff', 'HEAD', '--name-only' }
 local find_directories = { 'fd', '-td' }
 
 if require('helpers').fileexists('.ignore') then
@@ -66,26 +68,24 @@ return {
     {
       '<c-y>',
       function()
-        return require('telescope.builtin').git_status({
+        return require('telescope.builtin').find_files({
+          hidden = true,
           path_display = filename_first_and_shorten,
-          git_icons = {
-            added = "󰐕",
-            changed = "~",
-            copied = ">",
-            deleted = "-",
-            renamed = "",
-            unmerged = "‡",
-            untracked = "?",
-          },
-          attach_mappings = function(_, map)
-            local actions = require('telescope.actions')
-            map('i', '<tab>', actions.toggle_selection + actions.move_selection_next)
-            map('i', '<c-s>', actions.git_staging_toggle)
-            return true
-          end,
+          find_command = find_modified_files_head,
         })
       end,
-      desc = 'Telescope git status'
+      desc = 'Telescope git diff head'
+    },
+    {
+      '<c-s-y>',
+      function()
+        return require('telescope.builtin').find_files({
+          hidden = true,
+          path_display = filename_first_and_shorten,
+          find_command = find_modified_files_master,
+        })
+      end,
+      desc = 'Telescope git diff master'
     },
     {
       '<c-s-b>',
