@@ -208,7 +208,7 @@ return {
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
-        TelescopeTitle = { fg = 'palette.fg3', bg = 'none' },
+        TelescopeTitle = { fg = 'palette.fg3', bg = 'none', style = 'bold' },
         TelescopePreviewBorder = { link = 'FloatBorder' },
         TelescopePreviewTitle = { fg = 'palette.fg3', style = 'bold' },
         TelescopePromptNormal = { fg = 'palette.bg1', bg = 'palette.fg1' },

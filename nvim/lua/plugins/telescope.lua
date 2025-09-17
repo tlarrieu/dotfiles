@@ -72,6 +72,7 @@ return {
           hidden = true,
           path_display = filename_first_and_shorten,
           find_command = find_modified_files_head,
+          results_title = ' HEAD...',
         })
       end,
       desc = 'Telescope git diff head'
@@ -83,6 +84,7 @@ return {
           hidden = true,
           path_display = filename_first_and_shorten,
           find_command = find_modified_files_master,
+          results_title = ' master...',
         })
       end,
       desc = 'Telescope git diff master'
