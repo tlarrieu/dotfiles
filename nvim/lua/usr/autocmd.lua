@@ -31,7 +31,7 @@ vim.api.nvim_create_autocmd('WinLeave', {
 
 -- highlight yank
 vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.highlight.on_yank({ higroup = "Visual", timeout = 200 }) end,
+  callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200 }) end,
   group = vim.api.nvim_create_augroup("text_yank", {})
 })
 
