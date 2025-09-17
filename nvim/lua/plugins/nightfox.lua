@@ -84,6 +84,9 @@ return {
         DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
         DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
+        -- LSP
+        LspSignatureActiveParameter = { fg = 'none', bg = 'palette.sel1', sp = 'palette.blue', style = 'underline' },
+
         -- floats
         NormalFloat = { fg = 'none', bg = 'palette.bg0' },
         FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
