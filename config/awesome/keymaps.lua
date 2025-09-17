@@ -80,7 +80,7 @@ local keyboard = {
     -- [[ Togglers ]] ----------------------------------------------------------
 
     spawner.key({ super, shift }, 't', require('context').toggle),
-    spawner.key({ super, shift }, 'b', 'toggle-light-and-dark.sh'),
+    spawner.key({ super, shift }, 'Return', 'toggle-light-and-dark.sh'),
 
     -- [[ Applications ]] ------------------------------------------------------
 
@@ -209,9 +209,9 @@ local keyboard = {
       props = { class = 'mixer' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ super }, 'm', 'mpc-library'),
-    spawner.key({ super }, 'b', 'mpc-playlist'),
-    spawner.key({ super, shift }, 'm', {
+    spawner.key({ super }, 'b', 'mpc-library'),
+    spawner.key({ super, shift }, 'b', 'mpc-playlist'),
+    spawner.key({ super }, 'm', {
       app = 'music',
       props = { instance = 'music.youtube.com' },
       signal = spawner.actions.MOVE,

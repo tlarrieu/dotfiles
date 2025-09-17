@@ -106,7 +106,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule = { instance = 'music.youtube.com', },
     properties = {
-      fullscreen = true,
+      fullscreen = false,
       floating = false,
       placement = awful.placement.centered,
       opacity = 0.80,
