@@ -107,28 +107,28 @@ return {
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
-        local conf = { buffer = ev.buf }
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
-        if client then
-          client.server_capabilities.semanticTokensProvider = nil
+        if not client then return end
 
-          vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
-          if client:supports_method('textDocument/hover', ev.buf) then
-            vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
-          end
-          if client:supports_method('textDocument/codeAction', ev.buf) then
-            vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
-            vim.keymap.set({ 'n', 'x' }, '<leader>i', function()
-              vim.lsp.buf.code_action({ context = { only = { 'quickfix' }, diagnostics = vim.diagnostic.get(0, {}) } })
-            end, conf)
-          end
-          if client:supports_method('textDocument/rename', ev.buf) then
-            vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
-          end
+        client.server_capabilities.semanticTokensProvider = nil
 
-          vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
-          vim.keymap.set('i', '<c-h>', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
+        local conf = { buffer = ev.buf }
+        vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
+        if client:supports_method('textDocument/hover', ev.buf) then
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
         end
+        if client:supports_method('textDocument/codeAction', ev.buf) then
+          vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
+          vim.keymap.set({ 'n', 'x' }, '<leader>i', function()
+            vim.lsp.buf.code_action({ context = { only = { 'quickfix' }, diagnostics = vim.diagnostic.get(0, {}) } })
+          end, conf)
+        end
+        if client:supports_method('textDocument/rename', ev.buf) then
+          vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
+        end
+
+        vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
+        vim.keymap.set('i', '<c-h>', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
       end
     })
 
