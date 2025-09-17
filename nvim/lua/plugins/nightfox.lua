@@ -50,6 +50,7 @@ return {
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
+        ['@function.method.call'] = { link = '@function.call' },
         ['@class'] = { fg = 'palette.orange', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.red' },
         ['@constant.builtin'] = { fg = 'palette.orange' },
