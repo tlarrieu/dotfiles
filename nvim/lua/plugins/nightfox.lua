@@ -199,7 +199,7 @@ return {
         OilChange = { fg = 'palette.yellow' },
         OilMove = { fg = 'palette.yellow' },
 
-        HarpoonLine = { fg = 'palette.bg1', bg = 'palette.green', style = 'bold' },
+        HarpoonLine = { fg = 'palette.green', bg = 'none', style = 'bold' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { link = 'TreesitterContext' },
