@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk $1 "https://meet.new"
