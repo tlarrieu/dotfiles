@@ -216,6 +216,11 @@ local keyboard = {
       props = { instance = 'music.youtube.com' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ super }, 'y', {
+      app = 'youtube',
+      props = { instance = 'www.youtube.com' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({}, 'XF86AudioPause', 'mpc toggle'),
     spawner.key({}, 'XF86AudioPlay', 'mpc toggle'),
     spawner.key({}, 'XF86AudioNext', 'mpc next'),
