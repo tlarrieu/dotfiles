@@ -1,3 +1,0 @@
-#!/bin/sh
-
-browser-kiosk perso "https://docs.google.com/spreadsheets/d/1PrWNkYTNR5bA612_zJr6Ku-vu7_hWE2NivSvtGty9v8/edit"
