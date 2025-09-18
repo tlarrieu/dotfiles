@@ -12,9 +12,8 @@ set -l fzf_common_opts '
 
 set -x FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude '.git'"
 set -x FZF_DEFAULT_OPTS $fzf_common_opts
-
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -x FZF_CTRL_T_OPTS $fzf_common_opts
+set -x FZF_CTRL_T_OPTS $FZF_DEFAULT_OPTS
 
 # steam
 set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
@@ -45,27 +44,14 @@ set -g -x MANPAGER 'nvim +Man!'
 set -x -U GOPATH $HOME/go
 
 # LUA
-if [ -z (echo $LUA_PATH | grep "$HOME/lua") ]
-  set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
-end
-
-# JAVA
-set -x JAVA_HOME "/usr/lib/jvm/java-21-openjdk/"
+set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
 
 # PATH
-if [ -z (echo $PATH | grep "$HOME/scripts") ]
-  set -x PATH $PATH "$HOME/scripts"
-end
-if [ -z (echo $PATH | grep "$HOME/apps") ]
-  set -x PATH $PATH "$HOME/apps"
-end
+set -x PATH $PATH $HOME/scripts
+set -x PATH $PATH $HOME/apps
 set -x PATH $PATH $HOME/apps/ignore
 set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
-set -x PATH $HOME/.fly/bin $PATH
-set -x PATH $HOME/.yarn/bin $PATH
-set -x PATH $HOME/bin/helm $PATH
-set -x PATH $PATH $HOME/.krew/bin
 set -x PATH $PATH $GOPATH/bin
 
 # dircolors
