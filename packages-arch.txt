@@ -5,6 +5,7 @@ git
 fzf
 rofi
 pass
+tealdeer
 
 # build tools
 fakeroot

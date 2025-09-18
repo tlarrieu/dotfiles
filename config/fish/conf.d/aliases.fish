@@ -8,9 +8,6 @@ end
 # kittens
 alias icat="kitten icat"
 
-# reset terminal
-abbr cls " echo -ne \\033c"
-
 # xdg-open
 abbr . "open"
 
@@ -219,3 +216,6 @@ abbr nmap "sudo nmap"
 
 # searchsploits
 abbr spl "searchsploit"
+
+# tealdeer
+abbr tl "tldr"
