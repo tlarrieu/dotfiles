@@ -53,8 +53,8 @@ return {
       override_vim_notify = true,
       configs = {
         default = {
-          name = 'message',
-          icon = ' ',
+          name = 'messages',
+          icon = ' ',
           ttl = 10,
           group_style = 'FidgetGroup',
           icon_style = 'FidgetGroup',

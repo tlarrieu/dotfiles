@@ -257,6 +257,10 @@ return {
         FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
         FidgetNormal = { fg = 'palette.fg1', bg = 'palette.bg0' },
         FidgetBorder = { link = 'FidgetNormal' },
+        NotifyDEBUGTitle = { fg = 'palette.magenta' },
+        NotifyINFOTitle = { fg = 'palette.blue' },
+        NotifyWARNTitle = { fg = 'palette.yellow' },
+        NotifyERRORTitle = { fg = 'palette.red' },
 
         MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },
