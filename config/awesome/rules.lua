@@ -49,7 +49,8 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     rule_any = {
       name = {
         'meet.google.com is sharing',
-        'discord.com is sharing'
+        'discord.com is sharing',
+        'app.slack.com is sharing',
       }
     },
     properties = { hidden = true },
