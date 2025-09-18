@@ -61,9 +61,6 @@ abbr h hledger
 abbr xo "xsel --clipboard -o"
 abbr xi "xsel --clipboard -i"
 
-# newsboat
-abbr nb newsboat
-
 # aria2c
 abbr dl "aria2c (xsel --clipboard -o) --dir=."
 
@@ -76,9 +73,6 @@ abbr cco "curl -O (xsel --clipboard -o)"
 # youtube-dl
 abbr yv "yt-dlp --no-playlist (xsel --clipboard -o)"
 abbr ym "yt-dlp -fbestaudio --no-playlist (xsel --clipboard -o)"
-
-# Zathura
-abbr z "zathura"
 
 # Various CLI utils
 abbr tree "tree -C"
@@ -131,6 +125,7 @@ abbr - "cd -"
 
 # eza (ls)
 abbr l "eza"
+abbr ls "eza"
 abbr la "eza --icons -A"
 abbr ll "eza --icons -lAh"
 
@@ -200,16 +195,6 @@ abbr kctx "kubectx"
 
 # fonts
 abbr font "fc-list | grep -i"
-
-# exercism
-abbr ed "cd (echo (xsel --clipboard -o) | xargs -I{} /bin/sh -c '{}');
-  git init;
-  git add .;
-  git commit -m 'First commit'"
-abbr es "exercism submit"
-
-# Routines
-abbr rt "routine"
 
 # nmap
 abbr nmap "sudo nmap"
