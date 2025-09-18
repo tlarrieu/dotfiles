@@ -192,6 +192,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'music.youtube.com',
         'www.youtube.com',
         'app.slack.com',
+        'meet',
         'linear.app',
         'calendar.google.com',
         'www.gmail.com',

@@ -36,7 +36,6 @@ local keyboard = {
     spawner.key({ super }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
     spawner.key({ super }, 'eacute', spawner.soft_kill),
     spawner.key({ super, shift }, 'eacute', function(c) c:kill() end),
-    spawner.key({ super, ctrl }, 'm', function(c) awful.client.setmaster(c) end),
     spawner.key({ super, ctrl }, 'c', function(c)
       awful.tag.viewprev()
       c:move_to_tag(c.screen.selected_tag)
@@ -118,6 +117,11 @@ local keyboard = {
     spawner.key({ super, shift }, 's', {
       app = spawner.shell('slack'),
       props = { instance = 'app.slack.com' },
+      signal = spawner.actions.JUMP,
+    }),
+    spawner.key({ super, shift }, 'm', {
+      app = 'meet.new',
+      props = { instance = 'meet' },
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super, shift }, 'd', {
