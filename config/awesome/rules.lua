@@ -35,7 +35,10 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       },
       instance = {
         'localhost',
-      }
+      },
+      name = {
+        'DevTools'
+      },
     },
     properties = {
       callback = function(client) helpers.create_tag_and_attach_to(client, false) end,
