@@ -52,7 +52,8 @@ return {
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
         ['@class'] = { fg = 'palette.orange', style = 'underline,bold' },
-        ['@constant'] = { fg = 'palette.red' },
+        ['Constant'] = { fg = 'palette.red' },
+        ['@constant'] = { link = 'Constant', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
         ['@constant.assignment'] = { fg = 'palette.red', style = 'underline,bold' },
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
@@ -190,6 +191,13 @@ return {
 
         -- kitty
         kittySt = { link = 'String' },
+
+        -- man pages
+        manHeader = { link = 'Title' },
+        manFooter = { link = 'manHeader' },
+        manOptionDesc = { fg = 'palette.magenta' },
+        manSectionHeading = { link = 'MarkViewHeading1' },
+        manSubHeading = { link = 'MarkViewHeading2' },
 
         ----------------------| plugins |----------------------
 
