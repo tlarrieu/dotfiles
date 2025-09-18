@@ -32,7 +32,8 @@ return {
         return require('telescope.builtin').find_files({
           hidden = true,
           path_display = filename_first_and_shorten,
-          find_command = find_files
+          find_command = find_files,
+          results_title = '󰈔 files',
         })
       end,
       desc = 'Telescope file finder'
@@ -44,10 +45,22 @@ return {
         return require('telescope.builtin').find_files({
           hidden = true,
           path_display = filename_first_and_shorten,
-          find_command = find_directories
+          find_command = find_directories,
+          results_title = '󰉋 directories',
         })
       end,
       desc = 'Telescope directories finder'
+    },
+    {
+      '<leader>eP',
+      function()
+        require('telescope.builtin').find_files({
+          path_display = filename_first_and_shorten,
+          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+          results_title = '󱔝 plugins',
+        })
+      end,
+      desc = 'Telescope plugins explorer'
     },
     {
       '<c-b>',
@@ -56,13 +69,14 @@ return {
           hidden = true,
           path_display = filename_first_and_shorten,
           sort_mru = true,
+          results_title = ' buffers',
         })
       end,
       desc = 'Telescope buffers'
     },
     {
       '<c-h>',
-      function() require('telescope.builtin').help_tags() end,
+      function() require('telescope.builtin').help_tags({ results_title = ' documentation' }) end,
       desc = 'Telescope help tags'
     },
     {
@@ -91,68 +105,58 @@ return {
     },
     {
       '<c-s-b>',
-      function() require('telescope.builtin').git_branches() end,
+      function() require('telescope.builtin').git_branches({ results_title = ' branches' }) end,
       desc = 'Telescope git branch'
     },
     {
       '<leader>gt',
-      function() require('telescope.builtin').git_bcommits() end,
+      function() require('telescope.builtin').git_bcommits({ results_title = ' commits' }) end,
       desc = 'Telescope git commits'
     },
     {
       'gd',
-      function() return require('telescope.builtin').lsp_definitions() end,
+      function() require('telescope.builtin').lsp_definitions({ results_title = ' LSP definitions' }) end,
       desc = 'Telescope LSP definitions'
     },
     {
       '<c-w>gd',
-      function() return require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' }) end,
+      function() require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit', results_title = ' LSP definitions' }) end,
       desc = 'Telescope LSP definitions (vertical split)'
     },
     {
       'gr',
-      function() return require('telescope.builtin').lsp_references() end,
+      function() require('telescope.builtin').lsp_references({ results_title = ' LSP references' }) end,
       desc = 'Telescope LSP references'
     },
     {
       '<c-w>gr',
-      function() return require('telescope.builtin').lsp_references({ jump_type = 'vsplit' }) end,
+      function() require('telescope.builtin').lsp_references({ jump_type = 'vsplit', results_title = ' LSP references' }) end,
       desc = 'Telescope LSP references (vertical split)'
     },
     {
       '<c-l>',
-      function() require('telescope.builtin').lsp_document_symbols() end,
+      function() require('telescope.builtin').lsp_document_symbols({ results_title = '󱈤 LSP document symbols' }) end,
       desc = 'Telescope LSP document symbols'
     },
     {
       '<c-s-l>',
-      function() require('telescope.builtin').lsp_workspace_symbols() end,
+      function() require('telescope.builtin').lsp_workspace_symbols({ results_title = '󱈤 LSP workspace symbols' }) end,
       desc = 'Telescope LSP document symbols'
     },
     {
       '<c-e>',
-      function() require('telescope.builtin').diagnostics() end,
+      function() require('telescope.builtin').diagnostics({ results_title = ' diagnostics' }) end,
       desc = 'Telescope diagnostics'
     },
     {
       '<c-q>',
-      function() require('telescope.builtin').quickfix() end,
+      function() require('telescope.builtin').quickfix({ results_title = '󰁨 quickfix' }) end,
       desc = 'Telescope quickfix'
     },
     {
       'g?',
       function() require('telescope.builtin').spell_suggest() end,
       desc = 'Telescope spell suggest'
-    },
-    {
-      '<leader>eP',
-      function()
-        require('telescope.builtin').find_files({
-          path_display = filename_first_and_shorten,
-          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
-        })
-      end,
-      desc = 'Telescope plugins explorer'
     },
   },
   cmd = 'Telescope',
