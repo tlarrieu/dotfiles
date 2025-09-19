@@ -4,7 +4,7 @@ local filename_first_and_shorten = {
 }
 
 local find_files = { 'fd', '-tf', '--hidden' }
-local find_modified_files_master = { 'git', 'diff', 'master', '--name-only' }
+local find_modified_files_master = { 'git', 'diff', 'master...', '--name-only' }
 local find_modified_files_head = { 'git', 'diff', 'HEAD', '--name-only' }
 local find_directories = { 'fd', '-td' }
 
