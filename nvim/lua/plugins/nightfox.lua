@@ -22,6 +22,22 @@ return {
         red     = { base = '#b4637a', dim = '#e5c9cb' },
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
         yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
+
+        comment = '#9893a5',
+
+        bg0     = '#ebe5df', -- Dark bg (status line and float)
+        bg1     = '#faf4ed', -- Default bg
+        bg2     = '#ebe0df', -- Lighter bg (colorcolm folds)
+        bg3     = '#ebdfe4', -- Lighter bg (cursor line)
+        bg4     = '#bdbfc9', -- Conceal, border fg
+
+        fg0     = '#4c4769', -- Lighter fg
+        fg1     = '#575279', -- Default fg
+        fg2     = '#625c87', -- Darker fg (status line)
+        fg3     = '#a8a3b3', -- Darker fg (line numbers, fold colums)
+
+        sel0    = '#d0d8d8', -- Popup bg, visual selection bg
+        sel1    = '#b8cece', -- Popup sel bg, search bg
       },
       nordfox = {
         black   = { base = '#3b4252', dim = '#313744' },
@@ -34,6 +50,22 @@ return {
         red     = { base = '#bf616a', dim = '#4b3d48' },
         white   = { base = '#e5e9f0', dim = '#535863' },
         yellow  = { base = '#ebcb8b', dim = '#54524f' },
+
+        comment = '#60728a',
+
+        bg0     = '#232831', -- Dark bg (status line and float)
+        bg1     = '#2e3440', -- Default bg
+        bg2     = '#39404f', -- Lighter bg (colorcolm folds)
+        bg3     = '#444c5e', -- Lighter bg (cursor line)
+        bg4     = '#5a657d', -- Conceal, border fg
+
+        fg0     = '#c7cdd9', -- Lighter fg
+        fg1     = '#cdcecf', -- Default fg
+        fg2     = '#abb1bb', -- Darker fg (status line)
+        fg3     = '#7e8188', -- Darker fg (line numbers, fold colums)
+
+        sel0    = '#3e4a5b', -- Popup bg, visual selection bg
+        sel1    = '#4f6074', -- Popup sel bg, search bg
       },
     },
     groups = {
