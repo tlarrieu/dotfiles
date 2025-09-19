@@ -183,6 +183,10 @@ return {
     print "\e[0m"
     ]], { sel(), i(1) })),
 }, {
+  s("flip", fmta(
+    'Flipper.enabled?(:<>, <>)',
+    { i(1, 'flag_name'), i(2, 'company') }
+  )),
   -- skeletons
   s("__skel", fmta([[
     # frozen_string_literal: true
