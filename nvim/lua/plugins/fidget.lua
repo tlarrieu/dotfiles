@@ -54,7 +54,7 @@ return {
       configs = {
         default = {
           name = 'messages',
-          icon = ' ',
+          icon = '󰂞 ',
           ttl = 10,
           group_style = 'FidgetGroup',
           icon_style = 'FidgetGroup',
