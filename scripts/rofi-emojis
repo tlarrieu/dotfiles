@@ -1,6 +1,5 @@
 #!/bin/sh
 
-cat `dirname $0`/emojis.input \
-  | rofi -dmenu -p '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧' \
+ rofi -theme-str 'listview {dynamic: true; lines: 15; fixed-height: false; columns: 4;}' -dmenu -p 󰞅 < "$(dirname "$0")"/emojis.input \
   | awk '{ printf "%s", $1 }' \
   | xsel -b -i
