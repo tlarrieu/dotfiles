@@ -41,23 +41,24 @@ local config = {
   },
   { icon = '󰊶', rule = { class = 'Chromium', instance = 'drive.google.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'groups.google.com' } },
-
-  { icon = '', rule = { class = 'Chromium', name = 'Google Photos' } },
   { icon = '', rule = { class = 'Chromium', instance = 'keep.google.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'photos.google.com' } },
+  {
+    icon = '',
+    rules = {
+      { class = 'Chromium', name = 'Google Photos' },
+      { class = 'Chromium', instance = 'photos.google.com' },
+    }
+  },
 
   --   Work
   { icon = '󰙃', rule = { class = 'Chromium', instance = 'lucca' } },
-  { icon = '󰚒', rule = { class = 'Chromium', instance = 'calendly.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'app.swarmia.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'app.spendesk.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'slack' } },
-  { icon = '󱞠', rule = { class = 'Chromium', instance = 'metroretro.io' } },
+  { icon = '󰒱', rule = { class = 'Chromium', instance = 'slack' } },
+  { icon = '󱞟', rule = { class = 'Chromium', instance = 'metroretro.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'notion.so' } },
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'linear.app' } },
-  { icon = '󰨰', rule = { class = 'Chromium', instance = 'sentry.io' } },
+  { icon = '󰙮', rule = { class = 'Chromium', instance = 'linear.app' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'sentry.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'figma.com' } },
   { icon = '󱘶', rule = { class = 'Chromium', instance = 'metabase' } },
   { icon = '󱤢', rule = { class = 'Chromium', instance = 'dalibo' } },
@@ -68,26 +69,26 @@ local config = {
       { class = 'Chromium', name = 'Datadog' }
     }
   },
-  { icon = '', rule = { class = '1Password' } },
+  { icon = '󰒃', rule = { class = '1Password' } },
   { icon = '󰳴', rule = { class = 'Chromium', instance = 'app.pennylane.com' } },
 
   --  music
-  { icon = '󰎄', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
+  { icon = '󰎆', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
-  { icon = '', rule = { class = 'Chromium', name = 'YouTube' } },
+  { icon = '󰑈', rule = { class = 'Chromium', name = 'YouTube' } },
 
   --  Social
   { icon = '', rule = { class = 'Chromium', instance = 'www.gettr.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'www.twitter.com' } },
-  { icon = '', rule = { class = 'Chromium', name = 'Twitter' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'reddit.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'www.twitter.com' } },
+  { icon = '', rule = { class = 'Chromium', name = 'Twitter' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'reddit.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'linkedin.com' } },
 
   -- 󰔬 Travel
-  { icon = '󰔬', rule = { class = 'Chromium', instance = 'trainline' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'citymapper.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'trainline' } },
+  { icon = '󰃧', rule = { class = 'Chromium', instance = 'citymapper.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'airbnb' } },
   {
     icon = '󰗵',
@@ -98,25 +99,30 @@ local config = {
   },
 
   --  Programming
-  { icon = '󱘫', rule = { class = 'postgres' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'rubygems' } },
+  { icon = '󰡦', rule = { class = 'postgres' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'rubygems' } },
   { icon = '', rule = { class = 'Chromium', instance = 'hoogle' } },
   {
-    icon = '',
+    icon = '',
     rules = {
       { class = 'Chromium', instance = 'github.com', name = '/issues' },
       { class = 'Chromium', instance = 'github.com.*projects' }
     },
   },
-  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'fly.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },
 
   --  Drawing
-  { icon = '', rule = { class = 'Chromium', instance = 'whimsical.co' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'app.diagrams.net' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'www.excalidraw.com' } },
+  {
+    icon = '󱍓',
+    rules = {
+      { class = 'Chromium', instance = 'www.excalidraw.com' },
+      { class = 'Chromium', instance = 'app.diagrams.net' },
+      { class = 'Chromium', instance = 'whimsical.co' }
+    }
+  },
 
   -- Training
   { icon = '', rule = { class = 'Chromium', instance = 'tryhackme.com' } },
@@ -125,24 +131,26 @@ local config = {
 
   --  Money
   { icon = '', rule = { class = 'Chromium', name = ', espace client,' } },
-  { icon = '󰆭', rule = { class = 'Chromium', instance = 'boursedirect' } },
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' } },
-  { icon = '󰯝', rule = { class = 'Chromium', instance = 'swile' } },
-  { icon = '󰗑', rule = { class = 'accounting' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'swile' } },
+  { icon = '', rule = { class = 'accounting' } },
 
   --  Pictures
-  { icon = '', rule = { class = 'Chromium', instance = 'pinterest.com' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'wallhaven.cc' } },
-  { icon = '󰥶', rule = { class = 'feh' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'pinterest.com' } },
+  {
+    icon = '',
+    rules = {
+      { class = 'feh' },
+      { class = 'Sxiv' },
+      { class = 'Viewnior' },
+      { class = 'Chromium', instance = 'wallhaven.cc' },
+    }
+  },
   { icon = '󰹑', rule = { class = 'screenshot' } },
 
   --  Coms
   { icon = '', rule = { class = 'Chromium', instance = 'web.whatsapp.com' } },
-  { icon = '󰙯', rule = { class = 'Chromium', instance = 'discord.com' } },
-
-  -- 󰉚 Food
-  { icon = '', rule = { class = 'Chromium', instance = 'www.deliveroo.fr' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'ubereats.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'discord.com' } },
 
   -- 󰞇 RPG
   { icon = '󰨁', rule = { class = 'Chromium', instance = 'watabou.itch.io' } },
@@ -155,8 +163,7 @@ local config = {
   { icon = '󰨈', rule = { class = 'Chromium', instance = 'pratebay' } },
 
   --  Misc
-  { icon = '󰓙', rule = { class = 'Chromium', instance = 'doctolib' } },
-  { icon = '󰚗', rule = { class = 'Chromium', instance = 'malt' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'doctolib' } },
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' } },
   { icon = '', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
 
@@ -168,28 +175,22 @@ local config = {
   -- 󰺶 Games
   { icon = '󰓥', rule = { class = 'steam_app_1086940' } }, -- Baldur's gate III
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
-  { icon = '', rule = { class = 'Wine' } },
-  { icon = '', rule = { class = 'steam' } },
+  { icon = '', rules = { { class = 'steam' }, { name = 'Steam' } } },
   { icon = '', rule = { class = 'Cockatrice' } },
 
-  { icon = '', rule = { class = 'Gpick' } },
-  { icon = '', rule = { class = 'man' } },
+  { icon = '', rule = { class = 'man' } },
   { icon = '', rule = { class = 'dungeondraft.exe' } },
   { icon = '', rule = { class = 'Nemo' } },
-  { icon = '', rule = { class = 'config' } },
+  { icon = '', rule = { class = 'config' } },
   { icon = '', rule = { class = 'work' } },
-  { icon = '󰜍', rule = { class = 'opencode' } },
-  { icon = '', rule = { class = 'firefox' } },
-  { icon = '', rule = { class = 'Lxappearance' } },
-  { icon = '', rule = { class = 'Mainwindow.py' } }, --[[ PlayOnLinux ]]
-  { icon = '', rule = { name = 'yay' } },
-  { icon = '', rule = { class = 'Seahorse' } },
+  { icon = '󰭆', rule = { class = 'opencode' } },
+  { icon = '', rule = { class = 'firefox' } },
+  { icon = '󰭠', rule = { class = 'Lxappearance' } },
+  { icon = '', rule = { name = 'yay' } },
+  { icon = '󱕵', rule = { class = 'Seahorse' } },
   { icon = '', rule = { class = 'Signal' } },
-  { icon = '', rule = { class = 'wiki' } },
-  { icon = '󰢨', rule = { class = 'gtd' } },
-  { icon = '', rule = { class = 'Luakit' } },
-  { icon = '', rule = { class = 'nyxt' } },
-  { icon = '󱨍', rule = { class = 'Gimp' } },
+  { icon = '', rule = { class = 'wiki' } },
+  { icon = '', rule = { class = 'Gimp' } },
   { icon = '', rule = { name = 'aria2c' } },
   { icon = '', rule = { class = 'download' } },
   { icon = '', rule = { class = 'Zathura' } },
@@ -197,16 +198,14 @@ local config = {
   { icon = '', rule = { class = 'gtgf' } },
   { icon = '󰙯', rule = { class = 'discord' } },
   { icon = '', rule = { class = 'help' } },
-  { icon = '', rule = { class = 'Sxiv' } },
-  { icon = '', rule = { class = 'Viewnior' } },
   { icon = '󱊄', rule = { class = 'Dungeondraft' } },
   { icon = '', rule = { class = 'Godot' } },
   { icon = '', rule = { class = 'Xephyr' } },
   { icon = '󱜏', rule = { class = 'mpv' } },
   { icon = '', rule = { class = 'Audacity' } },
-  { icon = '󰆒', rule = { class = 'scratchpad' } },
+  { icon = '󰅍', rule = { class = 'scratchpad' } },
   { icon = '󰕼', rules = { { class = 'Vlc' }, { class = 'vlc' } } },
-  { icon = '󰖀', rule = { class = 'mixer' } },
+  { icon = '', rule = { class = 'mixer' } },
   { icon = '󰚫', rule = { name = 'Document Scanner' } },
   { icon = '', rule = { name = 'pass: ' } },
   { icon = '󰇅', rule = { class = 'VirtualBox Manager' } },
@@ -219,20 +218,19 @@ local config = {
   { icon = '', rule = { class = 'kitty', name = 'dotfiles' } },
   { icon = '', rule = { class = 'kitty', name = 'exercism' } },
   { icon = '', rule = { class = 'kitty', name = 'Nvim' } },
-  { icon = '󱊞', rule = { class = 'kitty', name = 'udiskie' } },
-  { icon = '', rule = { class = 'kitty', name = 'cp' } },
+  { icon = '󰕓', rule = { class = 'kitty', name = 'udiskie' } },
+  { icon = '󰆏', rule = { class = 'kitty', name = 'cp' } },
   {
-    icon = '',
+    icon = '󰻈',
     rules = {
       { class = 'newsboat' },
       { class = 'kitty', name = 'newsboat' },
       { class = 'quake', name = 'newsboat' } }
   },
-  { icon = '', rule = { class = 'kitty', name = 'htop' } },
-  { icon = '', rule = { class = 'kitty', name = 'vifm' } },
-  { icon = '', rule = { class = 'kitty', name = 'vpn' } },
+  { icon = '', rule = { class = 'htop' } },
+  { icon = '', rule = { class = 'vifm' } },
   { icon = '󰆍', rule = { class = 'kitty' } },
-  { icon = '', rule = { class = 'quake' } },
+  { icon = '󱐋', rule = { class = 'quake' } },
 }
 
 local match = function(client, rule)
