@@ -80,7 +80,9 @@ client.connect_signal('client::custom', function(client, action)
       client:tags({ tag })
     end
   elseif action == spawner.actions.JUMP then
-    if #client:tags() == 0 then helpers.create_tag_and_attach_to(client) end
+    if #client:tags() == 0 or client.screen ~= mouse.screen then
+      helpers.create_tag_and_attach_to(client)
+    end
   else
     return
   end
