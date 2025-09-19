@@ -1,5 +1,5 @@
 #!/bin/sh
 
- rofi -dmenu -p  < "$(dirname "$0")"/nerdfont.input \
+ rofi -theme-str 'listview {dynamic: true; lines: 15; fixed-height: false; columns: 4;}' -dmenu -p  < "$(dirname "$0")"/nerdfont.input \
   | awk '{ printf "%s", $1 }' \
   | xsel -b -i
