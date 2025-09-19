@@ -62,6 +62,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       class = {
         'kitty',
         'kitty-light',
+        'man',
         'vifm',
         'config',
         'work',
