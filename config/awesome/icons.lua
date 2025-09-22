@@ -73,7 +73,7 @@ local config = {
   { icon = '󰳴', rule = { class = 'Chromium', instance = 'app.pennylane.com' } },
 
   --  music
-  { icon = '󰎆', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
