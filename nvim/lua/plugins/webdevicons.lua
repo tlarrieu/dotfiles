@@ -23,7 +23,7 @@ return {
       mason = { icon = '󰣪' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
-      oil = { icon = '' },
+      oil = { icon = '' },
 
       todotxt = { icon = '󰃯' },
       ledger = { icon = '󰭣' },
