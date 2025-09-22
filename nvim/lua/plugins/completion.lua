@@ -18,32 +18,32 @@ return {
     local luasnip = require('luasnip')
 
     local kind_icons = {
-      Text = '󰊄',
-      Method = '󰊕',
-      Function = '󰊕',
+      Text = '',
+      Method = '󰡱',
+      Function = '󰡱',
       Constructor = '󰡱',
       Field = '',
+      Property = '',
       Variable = '󰫧',
       Constant = '󰫧',
       Class = '',
       Interface = '',
       Module = '󰅩',
-      Property = '',
-      Unit = '',
+      Unit = '󰺾',
       Value = '󰎠',
       Enum = '',
       EnumMember = '',
       Keyword = '',
       Snippet = '󰈸',
-      Color = '',
-      File = '',
+      Color = '󰌁',
       Reference = '',
-      Folder = '',
+      File = '󰈔',
+      Folder = '',
       Struct = '',
       Event = '󱐌',
       Operator = '󱓉',
       TypeParameter = '',
-      Copilot = '',
+      Copilot = '󰭆',
     }
 
     cmp.setup({
@@ -84,7 +84,7 @@ return {
         { name = 'copilot', priority = 110 },
         { name = 'nvim_lsp', priority = 100 },
         { name = 'luasnip', priority = 95 },
-        { name = 'buffer', priority = 10, option = { get_bufnrs = function() return vim.api.nvim_list_bufs() end } },
+        { name = 'buffer', priority = 10, option = { get_bufnrs = vim.api.nvim_list_bufs } },
       }),
       formatting = {
         format = function(_, vim_item)
