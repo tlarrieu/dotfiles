@@ -158,6 +158,9 @@ return {
 
         ---------------| Language specific |----------------
 
+        -- vimdoc
+        ['@variable.parameter.vimdoc'] = { fg = 'palette.fg3' },
+
         -- shells
         ['@variable.parameter.bash'] = { link = '@normal' },
         ['@operator.bash'] = { link = 'Keyword' },
