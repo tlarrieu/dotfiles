@@ -85,6 +85,8 @@ return {
         Title = { fg = 'palette.comment', bg = 'none', style = 'bold' },
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
+        ['@type'] = { fg = 'palette.orange' },
+        ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@property'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
