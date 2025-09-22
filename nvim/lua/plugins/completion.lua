@@ -38,12 +38,12 @@ return {
       Color = '󰌁',
       Reference = '',
       File = '󰈔',
-      Folder = '',
+      Folder = '',
       Struct = '',
       Event = '󱐌',
       Operator = '󱓉',
       TypeParameter = '',
-      Copilot = '󰭆',
+      Copilot = '󱨚',
     }
 
     cmp.setup({
@@ -88,13 +88,13 @@ return {
       }),
       formatting = {
         format = function(_, vim_item)
-          vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
+          vim_item.kind = string.format('%s ', kind_icons[vim_item.kind])
           return vim_item
         end,
         fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, },
       },
       window = {
-        completion = { border = blank_border },
+        completion = { border = blank_border, col_offset = -4 },
         documentation = { border = blank_border },
       },
     })
