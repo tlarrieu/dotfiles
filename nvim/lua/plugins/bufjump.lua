@@ -1,9 +1,8 @@
 return {
   'kwkarlwang/bufjump.nvim',
-  config = function()
-    local bufjump = require('bufjump')
-    bufjump.setup()
-    vim.keymap.set('n', '<c-s-o>', bufjump.backward)
-    vim.keymap.set('n', '<c-s-i>', bufjump.forward)
-  end,
+  opts = {
+    backward_key = '<c-s-o>',
+    forward_key  = '<c-s-i>',
+    on_success   = function() vim.cmd.normal('zz') end -- for some reason this does trigger oO
+  },
 }
