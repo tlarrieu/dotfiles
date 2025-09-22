@@ -19,6 +19,27 @@ require('lazy').setup({
   change_detection = { notify = false },
   ui = {
     border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    icons = {
+      lazy       = '󰒲 ',
+      cmd        = '󰊕',
+      config     = '',
+      debug      = '●',
+      event      = '󱐋',
+      favorite   = '󰃀',
+      ft         = '󰈮',
+      init       = '',
+      import     = '',
+      keys       = '󰌌',
+      loaded     = '●',
+      not_loaded = '○',
+      plugin     = '',
+      runtime    = '',
+      require    = '󰢱',
+      source     = '',
+      start      = '',
+      task       = '󰄴',
+      list       = { '●', '➜', '★', '‒' },
+    }
   },
 })
 

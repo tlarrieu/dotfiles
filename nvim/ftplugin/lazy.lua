@@ -1,1 +1,1 @@
-vim.wo.winblend = 5
+vim.wo.winblend = 0
