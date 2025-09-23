@@ -27,8 +27,8 @@ return {
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
         bg1     = '#faf4ed', -- Default bg
-        bg2     = '#ebe0df', -- Lighter bg (colorcolm folds)
-        bg3     = '#ebdfe4', -- Lighter bg (cursor line)
+        bg2     = '#e5e2de', -- Lighter bg (colorcolm folds)
+        bg3     = '#d8d5d2', -- Lighter bg (cursor line)
         bg4     = '#bdbfc9', -- Conceal, border fg
 
         fg0     = '#4c4769', -- Lighter fg
