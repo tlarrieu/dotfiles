@@ -99,6 +99,7 @@ return {
         ['@string.regexp'] = { fg = 'palette.pink', bg = 'none' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
         ['@tag.attribute'] = { link = '@key' },
+        ['@punctuation.special'] = { fg = 'palette.comment' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -478,7 +479,8 @@ return {
         GitSignsCurrentLineBlame = { fg = 'palette.comment', bg = 'palette.bg0', style = 'italic' },
 
         CmpGhostText = { fg = 'palette.comment' },
-        CmpItemAbbrMatch = { fg = 'palette.fg1', sp = 'palette.comment', style = 'underline' },
+        CmpItemAbbr = { fg = 'palette.comment' },
+        CmpItemAbbrMatch = { fg = 'palette.bg0', bg = 'palette.comment' },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
         CmpItemKind = { fg = 'palette.comment' },
         CmpItemKindSnippet = { link = 'CmpItemKind' },
