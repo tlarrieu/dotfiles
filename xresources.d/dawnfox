@@ -15,9 +15,9 @@
 #define COLOR14 #5ca7b4
 #define COLOR15 #e6ebf3
 
-#define BACKGROUND #faf4ed
+#define BACKGROUND #f2ece6
 #define FOREGROUND #575279
-#define COMMENT #5f5695
+#define COMMENT #a3a5a0
 
 #define VIM_THEME dawnfox
 #define VIM_BACKGROUND light

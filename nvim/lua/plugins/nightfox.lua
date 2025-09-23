@@ -23,10 +23,10 @@ return {
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
         yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
 
-        comment = '#9893a5',
+        comment = '#a3a5a0',
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
-        bg1     = '#faf4ed', -- Default bg
+        bg1     = '#f2ece6', -- Default bg
         bg2     = '#e5e2de', -- Lighter bg (colorcolm folds)
         bg3     = '#d8d5d2', -- Lighter bg (cursor line)
         bg4     = '#bdbfc9', -- Conceal, border fg
