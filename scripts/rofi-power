@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LAUNCHER='rofi -dmenu -l 6 -i -p 󱐋'
+LAUNCHER='rofi -dmenu -i -p 󱐋'
 OPTIONS="󰷛  Lock\n  Reboot\n󰶐  Screen off\n  Shutdown\n󰒲  Suspend\n󰍃  Logout"
 
 lock() {

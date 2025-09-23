@@ -40,7 +40,9 @@ content {
 listview {
   background-color: transparent;
   border: 0;
-  lines: 10;
+  lines: 15;
+  fixed-height: false;
+  dynamic: true;
   padding: 0;
   margin: @list-gutter;
   spacing: 0;

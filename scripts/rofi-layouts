@@ -1,6 +1,6 @@
 #!/bin/sh
 
-LAUNCHER='rofi -dmenu -i -p  -l 3'
+LAUNCHER='rofi -dmenu -i -p  '
 OPTIONS="fair
 tile.right
 tile.left"

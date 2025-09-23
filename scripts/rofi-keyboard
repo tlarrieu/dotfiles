@@ -15,7 +15,7 @@ variant = %x(setxkbmap -query | grep -e 'variant' | awk -F' ' '{ print $2 }').st
 current = mapping.invert[[layout, variant]]
 id = mapping.keys.find_index(current)
 
-launcher = "rofi -dmenu -i -p 󰥻 -l 6 -a #{id}"
+launcher = "rofi -dmenu -i -p 󰥻 -a #{id}"
 options = mapping.keys.join("\n")
 
 selection=%x(echo "#{options}" | #{launcher} | awk '{print $1}').strip

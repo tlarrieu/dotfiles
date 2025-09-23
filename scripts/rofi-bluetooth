@@ -1,14 +1,6 @@
 #!/bin/sh
 
-_rofi() {
-  rofi \
-    -i \
-    -l 3 \
-    -dmenu \
-    -a "$1" \
-    -selected-row "$1" \
-    -p ""
-}
+_rofi() { rofi -i -dmenu -a "$1" -selected-row "$1" -p ""; }
 
 connected=$(bluetoothctl info | grep '..:..:..:..:..:..' | head -n 1 | awk '{ print $2 }')
 if [ -n "$connected" ]; then
