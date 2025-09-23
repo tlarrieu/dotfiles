@@ -226,11 +226,26 @@ return {
         ['@tag.scss'] = { link = '@tag.css' },
         ['@type.css'] = { fg = 'palette.magenta' },
         ['@type.scss'] = { link = '@type.css' },
+        ['@variable.parameter.css'] = { fg = 'palette.magenta' },
+        ['@variable.parameter.scss'] = { link = '@variable.parameter.css' },
+        ['@function.css'] = { link = '@function.call' },
+        ['@function.scss'] = { link = '@function.call' },
+        ['@punctuation.delimiter.css'] = { fg = 'palette.cyan.dim' },
+        ['@punctuation.delimiter.scss'] = { link = '@punctuation.delimiter.css' },
+        ['@punctuation.bracket.css'] = { fg = 'palette.cyan.dim' },
+        ['@punctuation.bracket.scss'] = { link = '@punctuation.bracket.css' },
+
+        -- html
+        ['@tag.delimiter.html'] = { fg = 'palette.comment' },
 
         -- rasi
         ['@namespace.rasi'] = { link = '@constructor.css' },
         ['@field.rasi'] = { link = '@field.css' },
-        ['@variable.rasi'] = { link = '@property.css' },
+        ['@variable.rasi'] = { fg = 'palette.magenta' },
+        ['@keyword.rasi'] = { fg = 'palette.pink' },
+        ['@punctuation.special.rasi'] = { fg = 'palette.magenta' },
+        ['@punctuation.delimiter.rasi'] = { link = '@punctuation.delimiter.css' },
+        ['@punctuation.bracket.rasi'] = { link = '@punctuation.bracket.css' },
 
         -- kitty
         kittySt = { link = 'String' },
