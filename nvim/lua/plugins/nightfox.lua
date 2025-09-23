@@ -509,8 +509,8 @@ return {
         AvanteStateSpinnerCompacting = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
         AvanteStateSpinnerGenerating = { fg = 'palette.bg1', bg = 'palette.blue.bright' },
         AvanteStateSpinnerToolCalling = { fg = 'palette.bg1', bg = 'palette.cyan.bright' },
-        AvanteToBeDeletedWOStrikethrough = { link = 'DiffDelete' },
-        AvanteConflictIncoming = { fg = 'none', bg = 'palette.green.bright' },
+        AvanteToBeDeletedWOStrikethrough = { fg = 'palette.red', bg = 'palette.red' },
+        AvanteConflictIncoming = { fg = 'palette.fg1', bg = 'palette.green.dim' },
         AvantePromptInput = { link = 'NormalFloat' },
         AvantePromptInputBorder = { link = 'FloatBorder' },
 
