@@ -480,7 +480,7 @@ return {
 
         CmpGhostText = { fg = 'palette.comment' },
         CmpItemAbbr = { fg = 'palette.comment' },
-        CmpItemAbbrMatch = { fg = 'palette.bg0', bg = 'palette.comment' },
+        CmpItemAbbrMatch = { fg = 'palette.green' },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
         CmpItemKind = { fg = 'palette.comment' },
         CmpItemKindSnippet = { link = 'CmpItemKind' },
