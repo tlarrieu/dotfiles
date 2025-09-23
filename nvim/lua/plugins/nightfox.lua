@@ -87,7 +87,9 @@ return {
         Identifier = { fg = 'palette.green', bg = 'none' },
         ['@type'] = { fg = 'palette.orange' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
+        ['@module'] = { fg = 'palette.cyan' },
         ['@property'] = { link = '@key' },
+        ['@variable.parameter'] = { link = '@property' },
         ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
@@ -100,6 +102,8 @@ return {
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
         ['@tag.attribute'] = { link = '@key' },
         ['@punctuation.special'] = { fg = 'palette.comment' },
+        ['@punctuation.delimiter'] = { fg = 'palette.cyan.dim' },
+        ['@punctuation.bracket'] = { fg = 'palette.cyan.dim' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -168,9 +172,10 @@ return {
         ['@variable.parameter.bash'] = { link = '@normal' },
         ['@operator.bash'] = { link = 'Keyword' },
         ['@operator.fish'] = { link = 'Keyword' },
-        ['@keyword.operator.fish'] = { link = 'Keyword' },
+        ['@keyword.operator.fish'] = { link = '@operator.fish' },
 
         -- lua
+        ['@constructor.lua'] = { link = '@punctuation.bracket' },
         ['@variable.member.lua'] = { link = '@normal' },
         ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
@@ -231,10 +236,6 @@ return {
         ['@variable.parameter.scss'] = { link = '@variable.parameter.css' },
         ['@function.css'] = { link = '@function.call' },
         ['@function.scss'] = { link = '@function.call' },
-        ['@punctuation.delimiter.css'] = { fg = 'palette.cyan.dim' },
-        ['@punctuation.delimiter.scss'] = { link = '@punctuation.delimiter.css' },
-        ['@punctuation.bracket.css'] = { fg = 'palette.cyan.dim' },
-        ['@punctuation.bracket.scss'] = { link = '@punctuation.bracket.css' },
 
         -- html
         ['@tag.delimiter.html'] = { fg = 'palette.comment' },
@@ -245,8 +246,6 @@ return {
         ['@variable.rasi'] = { fg = 'palette.magenta' },
         ['@keyword.rasi'] = { fg = 'palette.pink' },
         ['@punctuation.special.rasi'] = { fg = 'palette.magenta' },
-        ['@punctuation.delimiter.rasi'] = { link = '@punctuation.delimiter.css' },
-        ['@punctuation.bracket.rasi'] = { link = '@punctuation.bracket.css' },
 
         -- kitty
         kittySt = { link = 'String' },
@@ -478,7 +477,7 @@ return {
         GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
         GitSignsCurrentLineBlame = { fg = 'palette.comment', bg = 'palette.bg0', style = 'italic' },
 
-        CmpGhostText = { fg = 'palette.comment' },
+        CmpGhostText = { fg = 'palette.cyan.dim' },
         CmpItemAbbr = { fg = 'palette.comment' },
         CmpItemAbbrMatch = { fg = 'palette.green' },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
