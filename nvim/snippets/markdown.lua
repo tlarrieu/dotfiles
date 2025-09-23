@@ -32,6 +32,9 @@ return {
   s("warn", fmta([[
     >> [!warning]
     >> <>]], { i(0) })),
+  s("caution", fmta([[
+    >> [!caution]
+    >> <>]], { i(0) })),
   s("error", fmta([[
     >> [!error]
     >> <>]], { i(0) })),
