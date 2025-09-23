@@ -57,7 +57,7 @@ return {
         require('telescope.builtin').find_files({
           path_display = filename_first_and_shorten,
           cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
-          results_title = '󱔝 plugins',
+          results_title = '󱊞 plugins',
         })
       end,
       desc = 'Telescope plugins explorer'
