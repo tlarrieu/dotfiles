@@ -89,7 +89,8 @@ return {
         ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@module'] = { fg = 'palette.cyan' },
         ['@property'] = { link = '@key' },
-        ['@variable.parameter'] = { link = '@property' },
+        ['@variable.parameter'] = { link = '@variable' },
+        ['@variable.member'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
@@ -165,11 +166,7 @@ return {
 
         ---------------| Language specific |----------------
 
-        -- vimdoc
-        ['@variable.parameter.vimdoc'] = { fg = 'palette.fg3' },
-
         -- shells
-        ['@variable.parameter.bash'] = { link = '@normal' },
         ['@operator.bash'] = { link = 'Keyword' },
         ['@operator.fish'] = { link = 'Keyword' },
         ['@keyword.operator.fish'] = { link = '@operator.fish' },
@@ -177,7 +174,6 @@ return {
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
         ['@variable.member.lua'] = { link = '@normal' },
-        ['@variable.parameter.lua'] = { link = '@normal' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
         ['@keyword.luadoc'] = { link = '@constant' },
         ['@keyword.function.luadoc'] = { link = '@function.call' },
@@ -197,7 +193,6 @@ return {
         -- ruby
         ['@variable.key.ruby'] = { link = '@key' },
         ['@variable.member.ruby'] = { fg = 'palette.magenta' },
-        ['@variable.parameter.ruby'] = { link = '@normal' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
@@ -214,10 +209,6 @@ return {
 
         -- yaml
         ['@property.yaml'] = { link = '@key' },
-
-        -- go
-        ['@variable.parameter.go'] = { fg = 'palette.fg0' },
-        ['@variable.member.go'] = { fg = 'palette.fg0' },
 
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.orange' },
@@ -436,7 +427,7 @@ return {
         ['@character.special.gitignore'] = { fg = 'palette.orange' },
 
         DiffAdd = { bg = 'palette.green.dim' },
-        DiffDelete = { bg = 'palette.red.dim' },
+        DiffDelete = { fg = 'palette.red.dim', bg = 'palette.red.dim' },
         DiffChange = { bg = 'palette.yellow.dim' },
         DiffText = { bg = 'palette.blue.dim' },
 
