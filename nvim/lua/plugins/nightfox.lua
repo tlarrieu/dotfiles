@@ -72,8 +72,6 @@ return {
       all = {
         ---------------------| base |-----------------------
 
-        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
-
         Special = { fg = 'palette.orange', bg = 'none' },
         Number = { fg = 'palette.pink', bg = 'none' },
         PreProc = { fg = 'palette.red', bg = 'none' },
@@ -85,6 +83,11 @@ return {
         Title = { fg = 'palette.comment', bg = 'none', style = 'bold' },
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
+        Constant = { fg = 'palette.red' },
+
+        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
+
+
         ['@type'] = { fg = 'palette.orange' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@module'] = { fg = 'palette.cyan' },
@@ -95,7 +98,6 @@ return {
         ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
         ['@class'] = { fg = 'palette.orange', style = 'underline,bold' },
-        ['Constant'] = { fg = 'palette.red' },
         ['@constant'] = { link = 'Constant', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
         ['@constant.assignment'] = { fg = 'palette.red', style = 'underline,bold' },
@@ -180,7 +182,6 @@ return {
         ['@type.builtin.luadoc'] = { link = '@type' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
-        ['@variable.member.luadoc'] = { link = '@key' },
         ['@variable.parameter.luadoc'] = { link = '@key' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
@@ -197,15 +198,10 @@ return {
         ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
 
-        -- TS
-        ['@variable.member.tsx'] = { fg = 'palette.comment' },
-
         -- SQL
         ['@keyword.sql'] = { fg = 'palette.magenta' },
         ['@keyword.operator.sql'] = { link = '@keyword.sql' },
-        ['@variable.sql'] = { fg = 'palette.fg1', bg = 'none', style = 'italic' },
-        ['@variable.member.sql'] = { fg = 'palette.fg0', bg = 'none' },
-        ['@type.sql'] = { fg = 'palette.orange', bg = 'none' },
+        ['@variable.member.sql'] = { link = '@variable' },
 
         -- yaml
         ['@property.yaml'] = { link = '@key' },
