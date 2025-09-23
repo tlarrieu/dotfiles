@@ -28,6 +28,17 @@ return {
     ```
     ]], { sel(), i(0) })),
 
+  -- callouts
+  s("warn", fmta([[
+    >> [!warning]
+    >> <>]], { i(0) })),
+  s("error", fmta([[
+    >> [!error]
+    >> <>]], { i(0) })),
+  s("info", fmta([[
+    >> [!info]
+    >> <>]], { i(0) })),
+
   -- link / image
   s("[", fmta("[<>](<>)", { i(1, "alttxt"), i(0, "url") })),
   s("!", fmta("![<>](<>)", { i(1, "alttxt"), i(0, "url") })),
