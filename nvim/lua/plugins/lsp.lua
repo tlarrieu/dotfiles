@@ -119,9 +119,6 @@ return {
         end
         if client:supports_method('textDocument/codeAction', ev.buf) then
           vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
-          vim.keymap.set({ 'n', 'x' }, '<leader>i', function()
-            vim.lsp.buf.code_action({ context = { only = { 'quickfix' }, diagnostics = vim.diagnostic.get(0, {}) } })
-          end, conf)
         end
         if client:supports_method('textDocument/rename', ev.buf) then
           vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)

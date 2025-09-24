@@ -13,6 +13,10 @@ return {
     ts_update()
   end,
   event = { 'BufRead' },
+  keys = {
+    { '<leader>i', vim.show_pos, desc = 'Inspect' },
+    { '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end, desc = 'InspectTree' },
+  },
   opts = {
     ensure_installed = {
       'bash',
