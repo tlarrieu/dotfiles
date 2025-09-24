@@ -171,6 +171,13 @@ return {
 
         ---------------| Language specific |----------------
 
+        -- query
+        ['@comment.query'] = { fg = 'palette.dim' },
+        ['@keyword.directive.query'] = { fg = 'palette.red' },
+        ['@type.query'] = { fg = 'palette.yellow' },
+        ['@variable.query'] = { fg = 'palette.cyan' },
+        ['@variable.member.query'] = { fg = 'palette.comment' },
+
         -- shells
         ['@operator.bash'] = { link = 'Keyword' },
         ['@operator.fish'] = { link = 'Keyword' },
