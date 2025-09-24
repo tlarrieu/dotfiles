@@ -492,10 +492,10 @@ return {
         CmpItemKindFunction = { link = 'CmpItemKind' },
         CmpItemKindMethod = { link = 'CmpItemKind' },
 
-        ['@field.ledger'] = { fg = 'palette.blue' },
+        ['@variable.member.ledger'] = { fg = 'palette.blue' },
         ['@number.ledger'] = { fg = 'palette.green' },
         ['@number.negative.ledger'] = { fg = 'palette.red' },
-        ['@markup.raw.ledger'] = { fg = 'palette.fg1' },
+        ['@markup.raw.ledger'] = { fg = 'palette.dim' },
         ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
 
         AvanteTitle = { fg = 'palette.bg1', bg = 'palette.fg0' },
