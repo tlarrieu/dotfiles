@@ -129,10 +129,10 @@ local init = function(screen)
       {
         {
           { id = 'text_role', widget = wibox.widget.textbox },
-          layout = wibox.layout.fixed.horizontal,
+          layout = wibox.layout.align.horizontal,
         },
         left = dpi(10),
-        right = dpi(10),
+        right = dpi(5),
         widget = wibox.container.margin
       },
       id = 'background_role',
