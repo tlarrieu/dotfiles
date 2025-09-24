@@ -32,11 +32,6 @@ return {
       <><>
     end
     ]], { i(1), sel(), i(0) })),
-  s("do", fmta([[
-    do<>
-      <><>
-    end
-    ]], { i(1), sel(), i(0) })),
   s("r", fmta("return ", {})),
   s("l", fmta("<> = <>", { i(1, 'lhs'), i(2, 'rhs') })),
   s("if", fmta([[
@@ -49,13 +44,7 @@ return {
       <><>
     end
     ]], { i(1), sel(), i(0) })),
-  s("raise", fmta([[
-    raise <> <> <>
-    ]], {
-    i(1, "'houston we have a problem'"),
-    i(2, 'if'),
-    i(3, 'condition')
-  })),
+  s("raise", fmta([[raise <> <> <>]], { i(1, "'houston we have a problem'"), i(2, 'if'), i(3, 'condition') })),
 
   -- accessors
   s("ar", fmta("attr_reader :<>", { i(0) })),
@@ -64,11 +53,6 @@ return {
 
   -- lambdas
   s("-", fmta("->>(<>) { <><> }", { i(1, "i"), sel(), i(2) })),
-  s("fn", fmta([[
-    lambda do |<>|
-      <><>
-    end
-    ]], { i(1, "i"), sel(), i(2) })),
 
   -- methods
   rs("(.+)%.times", fmta("<>.times { <> }", { cap(1), i(1) })),
@@ -78,13 +62,6 @@ return {
   rs("(.+)%.sel", fmta("<>.select { <> }", { cap(1), i(1) })),
   rs("(.+)%.tap", fmta("<>.tap { <> }", { cap(1), i(1) })),
   rs("(.+)%.ins", fmta("<>.inspect", { cap(1) })),
-
-  -- minitest
-  s("t", fmta([[
-    test '<>' do
-      <><>
-    end
-    ]], { i(1, "it works"), sel(), i(0) })),
 
   -- specs
   s("desc", fmta([[
@@ -117,25 +94,21 @@ return {
       <><>
     end
     ]], { i(1, "name"), sel(), i(0) })),
-  s("bef", fmta([[
-    before do
-      <><>
-    end
-    ]], { sel(), i(0) })),
+  s("bef", fmta([[before { <><> }]], { sel(), i(0) })),
   s("sub", fmta("subject(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("let", fmta("let(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("lett", fmta("let!(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("lib", fmta("let_it_be(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
-  s("it", fmta([[
-  it '<>' do
-    <><>
-  end
-  ]], { i(1, "does something"), sel(), i(0) })),
+  s("it", fmta([[ it('<>') { <><> } ]], { i(1, "does something"), sel(), i(0) })),
   s("ibl", fmta("it_behaves_like '<>'", { i(1, "example") })),
   s("e", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
   s("eb", fmta("expect { <> }.to <>", { i(1, "subject"), i(0) })),
 
   -- debug
+  s("p", fmta("puts <><>", { sel(), i(1) })),
+
+  -- gem specific
+  s("flip", fmta('Flipper.enabled?(:<>, <>)', { i(1, 'flag_name'), i(2, 'company') })),
   s("sentry", fmta([[
     Sentry.capture_exception(
       <>,
@@ -143,50 +116,7 @@ return {
       extra: <>,
     )
   ]], { i(1, "e"), i(2, ":info"), i(3, "{}") })),
-  s("pry", fmta("Kernel.binding.pry", {})),
-  s(".tp", fmta(".tap { |o| Kernel.binding.pry }", {})),
-  s("bb", fmta("byebug", {})),
-  s("p", fmta("puts <><>", { sel(), i(1) })),
-  s("deb", fmta([[
-    print "\e[31m"
-    puts "------------->> <>: #{<>}"
-    print "\e[0m"
-    ]], { i(1), rep(1) })),
-  s("red", fmta([[
-    print "\e[31m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
-  s("gr", fmta([[
-    print "\e[32m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
-  s("yel", fmta([[
-    print "\e[33m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
-  s("blue", fmta([[
-    print "\e[34m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
-  s("pink", fmta([[
-    print "\e[35m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
-  s("cyan", fmta([[
-    print "\e[36m"
-    <><>
-    print "\e[0m"
-    ]], { sel(), i(1) })),
 }, {
-  s("flip", fmta(
-    'Flipper.enabled?(:<>, <>)',
-    { i(1, 'flag_name'), i(2, 'company') }
-  )),
   -- skeletons
   s("__skel", fmta([[
     # frozen_string_literal: true

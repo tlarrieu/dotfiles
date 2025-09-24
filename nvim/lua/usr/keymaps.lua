@@ -7,7 +7,6 @@ vim.keymap.set('n', "'", '`')
 vim.keymap.set('n', '`', "'")
 vim.keymap.set('n', 'Þ', "m]", { remap = true })
 vim.keymap.set('n', 'ẞ', "m[", { remap = true })
-vim.keymap.set('i', '<c-cr>', '<esc>o')
 -- Split lines
 vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 -- Don't make a # force column zero.

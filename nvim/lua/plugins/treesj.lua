@@ -5,14 +5,21 @@ return {
     {
       '<leader>,',
       function() require('treesj').toggle() end,
-      silent = true,
       desc = 'Toggle split'
     },
     {
       '<leader>;',
       function() require('treesj').toggle({ split = { recursive = true } }) end,
-      silent = true,
       desc = 'Toggle split (recursive)'
+    },
+    {
+      '<c-cr>',
+      function()
+        require('treesj').split()
+        vim.api.nvim_input('<esc>O')
+      end,
+      desc = 'Split',
+      mode = { 'i' }
     },
   },
   opts = {
