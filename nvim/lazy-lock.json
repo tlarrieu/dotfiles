@@ -61,6 +61,6 @@
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "vim-sniper": { "branch": "master", "commit": "31970c26ae91f5cceeb41b49e057f49bc18e428b" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-test": { "branch": "master", "commit": "5ee3c0b3734eab612b9f70bbc8a4f69f17f8e8ef" },
+  "vim-test": { "branch": "master", "commit": "2b0ee6036473c86a2f3e9dedf5beb91c9e84e691" },
   "yaml.nvim": { "branch": "main", "commit": "c6c7bac834c3f48e1afdb78a7a1d23996a2f89d9" }
 }
