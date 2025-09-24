@@ -8,7 +8,7 @@ return {
   'L3MON4D3/LuaSnip',
   version = '*',
   build = 'make install_jsregexp',
-  event = { 'CmdlineEnter', 'InsertEnter' },
+  event = { 'ModeChanged' },
   keys = {
     { '<leader>es', function() edit_snippet(vim.bo.filetype) end, desc = 'Edit snippets (current filetype)' },
     { '<leader>eS', function() edit_snippet('all') end, desc = 'Edit snippets (all)' },
