@@ -24,6 +24,7 @@ return {
         yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
 
         comment = '#7d9299',
+        dim     = '#cfd1cf',
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
         bg1     = '#f2ece6', -- Default bg
@@ -52,6 +53,7 @@ return {
         yellow  = { base = '#ebcb8b', dim = '#54524f' },
 
         comment = '#60728a',
+        dim     = '#4a5468',
 
         bg0     = '#232831', -- Dark bg (status line and float)
         bg1     = '#2e3440', -- Default bg
@@ -105,8 +107,9 @@ return {
         ['@string.escape'] = { fg = 'palette.magenta.bright', bg = 'none', style = 'bold' },
         ['@tag.attribute'] = { link = '@key' },
         ['@punctuation.special'] = { fg = 'palette.comment' },
-        ['@punctuation.delimiter'] = { fg = 'palette.cyan.dim' },
-        ['@punctuation.bracket'] = { fg = 'palette.cyan.dim' },
+        ['@punctuation.delimiter'] = { fg = 'palette.dim' },
+        ['@punctuation.bracket'] = { fg = 'palette.dim' },
+        ['@tag.delimiter'] = { fg = 'palette.dim' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -224,9 +227,6 @@ return {
         ['@function.css'] = { link = '@function.call' },
         ['@function.scss'] = { link = '@function.call' },
 
-        -- html
-        ['@tag.delimiter.html'] = { fg = 'palette.comment' },
-
         -- rasi
         ['@namespace.rasi'] = { link = '@constructor.css' },
         ['@field.rasi'] = { link = '@field.css' },
@@ -256,7 +256,7 @@ return {
         OilChange = { fg = 'palette.yellow' },
         OilMove = { fg = 'palette.yellow' },
 
-        HarpoonLine = { fg = 'palette.green', bg = 'none', style = 'bold' },
+        HarpoonLine = { link = 'QuickFixLine' },
 
         TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
         TreesitterContextBottom = { link = 'TreesitterContext' },
