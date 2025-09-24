@@ -198,7 +198,7 @@ return {
         ['@variable.key.ruby'] = { link = '@key' },
         ['@variable.member.ruby'] = { fg = 'palette.magenta' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
-        ['@operator.ruby'] = { fg = 'palette.comment', bg = 'none' },
+        ['@operator.ruby'] = { fg = 'palette.comment' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
 
         -- SQL
