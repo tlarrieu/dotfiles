@@ -23,7 +23,7 @@ return {
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
         yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
 
-        comment = '#a3a5a0',
+        comment = '#7d9299',
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
         bg1     = '#f2ece6', -- Default bg
