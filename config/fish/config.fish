@@ -47,10 +47,10 @@ set -x -U GOPATH $HOME/go
 set -x LUA_PATH $LUA_PATH "$HOME/lua/?.lua;;"
 
 # PATH
-set -x PATH $PATH $HOME/scripts
+set -x PATH $HOME/bin $PATH
+set -x PATH $HOME/scripts $PATH
 set -x PATH $PATH $HOME/apps
 set -x PATH $PATH $HOME/apps/ignore
-set -x PATH $PATH $HOME/bin
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $GOPATH/bin
 
