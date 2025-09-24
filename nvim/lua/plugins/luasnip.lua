@@ -21,6 +21,7 @@ return {
       update_events = { 'TextChanged', 'TextChangedI' },
       snip_env = {
         h = require('helpers'),
+        fname = require('luasnip.extras').lambda.TM_FILENAME:gsub('%..*$', ''),
         sel = function(indent)
           indent = indent or 1
           return ls.indent_snippet_node(

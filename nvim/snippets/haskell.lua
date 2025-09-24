@@ -14,7 +14,7 @@ return {
     ) where
 
     <><>
-    ]], { i(1, h.pascalize(h.basename())), i(2), sel(), i(0) })),
+    ]], { dl(1, h.pascalize(fname), {}), sel(), i(0) })),
   s("d", fmta([[
     <> :: <>
     <> <> = <>

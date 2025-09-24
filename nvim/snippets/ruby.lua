@@ -21,7 +21,7 @@ return {
     class <>
       <><>
     end
-    ]], { i(1, h.pascalize(h.basename())), sel(), i(0) })),
+    ]], { dl(1, h.pascalize(fname), {}), sel(), i(0) })),
   s("d", fmta([[
     def <>
       <><>
@@ -33,7 +33,7 @@ return {
     end
     ]], { i(1), sel(), i(0) })),
   s("r", fmta("return ", {})),
-  s("l", fmta("<> = <>", { i(1, 'lhs'), i(2, 'rhs') })),
+  s("l", fmta("@<> = <>", { i(1, 'var'), rep(1) })),
   s("if", fmta([[
     if <>
       <><>
