@@ -110,6 +110,7 @@ else ifeq ($(APT), 1)
 packages: ~/git/neovim
 packages: ~/git/awesome
 packages: ~/git/picom
+packages: ~/git/kitty
 packages:
 	$(call cecho, 3, Installing packages...)
 	@sudo cp ./ubuntu-sources.list /etc/apt/sources.list.d/ubuntu.sources
@@ -136,6 +137,10 @@ packages:
 		meson setup --buildtype=release build && \
 		ninja -C build && \
 		sudo ninja -C build install
+	@cd ~/git/kitty && \
+		./dev.sh build && \
+		ln -sf ~/git/kitty/kitty/launcher/kitty ~/bin/kitty && \
+		ln -sf ~/git/kitty/kitty/launcher/kitten ~/bin/kitten
 	$(call cecho, 2, Done.)
 else
 packages:
@@ -151,6 +156,9 @@ endif
 
 ~/git/picom:
 	@git clone https://github.com/yshui/picom ~/git/picom
+
+~/git/kitty:
+	@git clone https://github.com/kovidgoyal/kitty.git ~/git/kitty
 
 .PHONY: services
 services:
