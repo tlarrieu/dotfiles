@@ -75,7 +75,6 @@ abbr yv "yt-dlp --no-playlist (xsel --clipboard -o)"
 abbr ym "yt-dlp -fbestaudio --no-playlist (xsel --clipboard -o)"
 
 # Various CLI utils
-abbr tree "tree -C"
 abbr less "less -R"
 
 # fd
@@ -131,6 +130,7 @@ abbr l "eza"
 abbr ls "eza"
 abbr la "eza --icons -A"
 abbr ll "eza --icons -lAh"
+abbr tree "eza --tree --icons"
 
 # SSH
 abbr sa "ssh-add"
