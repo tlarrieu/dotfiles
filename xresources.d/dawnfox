@@ -4,12 +4,12 @@
 #define COLOR3  #e5bb67
 #define COLOR4  #8da8bf
 #define COLOR5  #907aa9
-#define COLOR6  #67b2bf
+#define COLOR6  #0097a5
 #define COLOR7  #e5e9f0
 #define COLOR8  #5f5695
-#define COLOR9  #c26d85
+#define COLOR9  #cc7ea6
 #define COLOR10 #629f81
-#define COLOR11 #dd9242
+#define COLOR11 #da9100
 #define COLOR12 #2d81a3
 #define COLOR13 #9a80b9
 #define COLOR14 #5ca7b4

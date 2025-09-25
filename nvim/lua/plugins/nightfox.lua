@@ -14,11 +14,11 @@ return {
       dawnfox = {
         black   = { base = '#575279', dim = '#c9c3ca' },
         blue    = { base = '#8da8bf', dim = '#d4d8da' },
-        cyan    = { base = '#67b2bf', dim = '#c8dbda' },
+        cyan    = { base = '#0097a5', dim = '#a9d3d3' },
         green   = { base = '#7a9461', dim = '#ced2be' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
-        orange  = { base = '#dd9242', dim = '#ecd1b5' },
-        pink    = { base = '#d685af', dim = '#f3dee1' },
+        orange  = { base = '#da9100', dim = '#ebd1a1' },
+        pink    = { base = '#cc7ea6', dim = '#e7cbd3' },
         red     = { base = '#c65f5f', dim = '#e5c2be' },
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
         yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
@@ -175,7 +175,7 @@ return {
         ['@comment.query'] = { fg = 'palette.dim' },
         ['@keyword.directive.query'] = { fg = 'palette.red' },
         ['@type.query'] = { fg = 'palette.yellow' },
-        ['@variable.query'] = { fg = 'palette.cyan' },
+        ['@variable.query'] = { fg = 'palette.pink' },
         ['@variable.member.query'] = { fg = 'palette.comment' },
 
         -- shells
