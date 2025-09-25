@@ -171,7 +171,6 @@ abbr bu "bundle update"
 abbr rdm "bin/rails db:migrate"
 abbr rdr "bin/rails db:rollback"
 abbr rds "bin/rails db:migrate:status | tail"
-abbr sk "bin/sidekiq"
 function rdd; bundle exec rake db:migrate:down VERSION=$argv; end
 function rdu; bundle exec rake db:migrate:up VERSION=$argv; end
 
