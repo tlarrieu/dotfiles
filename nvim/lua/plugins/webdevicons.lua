@@ -10,17 +10,17 @@ return {
 
       text = { icon = '' },
       txt = { icon = '' },
-      log = { icon = '' },
+      log = { icon = '' },
       lock = { icon = lock },
 
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
       qf = { icon = '󰁨' },
       telescope = { icon = '' },
-      query = { icon = '󰙅' }, -- treesitter tree view
+      query = { icon = '' }, -- treesitter tree view
       vim = { icon = '' },
-      harpoon = { icon = '⇁' },
-      mason = { icon = '󰣪' },
+      harpoon = { icon = '󱡁' },
+      mason = { icon = '󰺾' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
@@ -34,9 +34,9 @@ return {
       xprofile = { icon = '' },
       conf = { icon = '' },
       confini = { icon = '' },
-      toml = { icon = '' },
-      dir_colors = { icon = '' },
-      dircolors = { icon = '' },
+      toml = { icon = '' },
+      dir_colors = { icon = '󰌁' },
+      dircolors = { icon = '󰌁' },
       desktop = { icon = '󱕷' },
 
       bashrc = { icon = '󱆃' },
@@ -52,7 +52,7 @@ return {
       ocaml = { icon = '' },
       dune = { icon = '' },
       markdown = { icon = '' },
-      lua = { icon = '' },
+      lua = { icon = '󰢱' },
       ruby = { icon = '' },
       eruby = { icon = '' },
       python = { icon = '' },
@@ -106,8 +106,10 @@ return {
       ml = { icon = '' },
       mli = { icon = '' },
       exe = { icon = '' },
-      log = { icon = '' },
+      log = { icon = '' },
+      yml = { icon = '󱉯' },
 
+      fish = { icon = '󰈺' },
       kitty = { icon = '󰄛' },
     },
     override_by_filename = {
@@ -118,7 +120,7 @@ return {
       ['.fdignore'] = { icon = '' },
 
       ['dune-project'] = { icon = '' },
-      makefile = { icon = '󰣖' },
+      makefile = { icon = '󱌣' },
 
       ['robots.txt'] = { icon = '󱚝' },
       gemfile = { icon = '' },
@@ -126,12 +128,12 @@ return {
       rakefile = { icon = '󰣖' },
       ['.irbrc'] = { icon = '' },
       ['irbrc'] = { icon = '' },
-      ['config.ru'] = { icon = '' },
-      ['routes.rb'] = { icon = '' },
-      ['seeds.rb'] = { icon = '' },
+      ['config.ru'] = { icon = '' },
+      ['routes.rb'] = { icon = '󰑪' },
+      ['seeds.rb'] = { icon = '󰹢' },
       ['database.yml'] = { icon = '󱙋' },
       ['.ruby-version'] = { icon = '󰎠' },
-      ['.ruby-gemset'] = { icon = '' },
+      ['.ruby-gemset'] = { icon = '󰹢' },
       ['.rubocop.yml'] = { icon = '' },
       ['rubocop.yml'] = { icon = '' },
 
@@ -141,6 +143,7 @@ return {
       ['package.json'] = { icon = '' },
       ['package-lock.json'] = { icon = lock },
       ['yarn.lock'] = { icon = lock },
+      ['Gemfile.lock'] = { icon = lock },
       ['tailwind.config.js'] = { icon = '󱏿' },
 
       dockerfile = { icon = '' },
@@ -148,9 +151,9 @@ return {
       ['.dockerignore'] = { icon = '' },
 
       license = { icon = '󰿃' },
-      ['favicon.ico'] = { icon = '' },
-      ['favicon_dev.ico'] = { icon = '' },
-      ['favicon_staging.ico'] = { icon = '' },
+      ['favicon.ico'] = { icon = '' },
+      ['favicon_dev.ico'] = { icon = '' },
+      ['favicon_staging.ico'] = { icon = '' },
     }
   },
 }
