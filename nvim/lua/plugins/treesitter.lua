@@ -42,8 +42,7 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disabled = { 'Avante' },
-      additional_vim_regex_highlighting = { 'make' },
+      disable = { 'Avante', 'make' },
     },
     indent = { enable = true },
     incremental_selection = {
