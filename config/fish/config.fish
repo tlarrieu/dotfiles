@@ -15,6 +15,8 @@ set -x FZF_DEFAULT_OPTS $fzf_common_opts
 set -x FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -x FZF_CTRL_T_OPTS $FZF_DEFAULT_OPTS
 
+set -x SKIM_DEFAULT_OPTIONS '--reverse --multi --color=bw --bind=ctrl-k:kill-line --ansi'
+
 # steam
 set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
 

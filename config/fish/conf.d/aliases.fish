@@ -81,6 +81,9 @@ abbr less "less -R"
 # fd
 abbr fd "fd -I -H"
 
+# skim
+abbr lg "sk -i -c 'rg --color=always --line-number "{}"'"
+
 # atool
 abbr dec "aunpack"
 abbr comp "apack"

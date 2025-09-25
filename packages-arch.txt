@@ -46,6 +46,7 @@ xfce4-settings
 # search
 ripgrep
 mlocate
+skim
 
 # accounting
 hledger

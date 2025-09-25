@@ -471,7 +471,7 @@ return {
         GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
         GitSignsCurrentLineBlame = { fg = 'palette.comment', bg = 'palette.bg0', style = 'italic' },
 
-        CmpGhostText = { fg = 'palette.cyan.dim' },
+        CmpGhostText = { fg = 'palette.dim' },
         CmpItemAbbr = { fg = 'palette.comment' },
         CmpItemAbbrMatch = { fg = 'palette.green' },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
