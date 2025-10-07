@@ -88,7 +88,7 @@ vim.keymap.set('s', '<bs>', '<bs>i')
 vim.keymap.set({ 'n', 'x' }, 'à', '<cmd>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', { silent = true })
 -- Save
-vim.keymap.set('n', 's', '<cmd>w ++p<cr>', { silent = true })
+vim.keymap.set('n', 's', '<cmd>update ++p<cr>', { silent = true })
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- center after go to bottom
