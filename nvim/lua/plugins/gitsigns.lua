@@ -10,10 +10,6 @@ local signs = {
 return {
   'lewis6991/gitsigns.nvim',
 
-  -- pinned until 1fcaddc gets fixed (staging hunks is significantly slower)
-  -- TODO: unpin this
-  commit = '6067670',
-
   event = { 'BufNew', 'BufReadPost' },
   opts = {
     signs = signs,
