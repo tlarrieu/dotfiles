@@ -9,9 +9,9 @@ return {
           border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
           height = 0.85,
           icons = {
-            package_installed = '●',
-            package_pending = '󰔟',
-            package_uninstalled = '○',
+            package_installed = '',
+            package_pending = '󱫬',
+            package_uninstalled = '',
           },
           keymaps = {
             toggle_package_expand = '<cr>',
