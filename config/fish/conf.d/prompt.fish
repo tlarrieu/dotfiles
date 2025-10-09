@@ -102,7 +102,7 @@ end
 
 function _git_loading_indicator
   if git -C (pwd) rev-parse 2> /dev/null
-    echo -nes (set_color brblack)'󱫥 '(set_color normal)
+    echo -nes (set_color brblack)'󱫤 '(set_color normal)
   end
 end
 
