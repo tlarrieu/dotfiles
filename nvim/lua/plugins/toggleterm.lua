@@ -49,7 +49,7 @@ return {
     auto_scroll = false,
     float_opts = {
       border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
-      winblend = 5,
+      winblend = 0,
       title_pos = 'center',
     },
     highlights = {
