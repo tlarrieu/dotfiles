@@ -160,7 +160,7 @@ local config = {
   --  Misc
   { icon = '', rule = { class = 'Chromium', instance = 'doctolib' } },
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
+  { icon = '󰌓', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
 
   --  Default browser
   { icon = '󰖟', rule = { class = 'Chromium', instance = 'localhost' } },
@@ -190,7 +190,7 @@ local config = {
   { icon = '', rule = { class = 'download' } },
   { icon = '', rule = { class = 'Zathura' } },
   { icon = '󰤽', rule = { class = 'Flowblade' } },
-  { icon = '', rule = { class = 'gtgf' } },
+  { icon = '󰌓', rule = { class = 'gtgf' } },
   { icon = '󰙯', rule = { class = 'discord' } },
   { icon = '', rule = { class = 'help' } },
   { icon = '󱊄', rule = { class = 'Dungeondraft' } },
