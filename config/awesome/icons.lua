@@ -32,13 +32,8 @@ local config = {
       { class = 'Chromium', instance = 'meet.google.com' },
     }
   },
-  {
-    icon = '󰃭',
-    rules = {
-      { class = 'Chromium', instance = 'calendar.google.com' },
-      { class = 'Chromium', instance = 'cal.new' }
-    }
-  },
+  { icon = '󰃶', rule = { class = 'Chromium', instance = 'calendar.google.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'cal.new' } },
   { icon = '󰊶', rule = { class = 'Chromium', instance = 'drive.google.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'groups.google.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'keep.google.com' } },
@@ -73,11 +68,11 @@ local config = {
   { icon = '󰳴', rule = { class = 'Chromium', instance = 'app.pennylane.com' } },
 
   --  music
-  { icon = '', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
+  { icon = '󰦚', rule = { class = 'Chromium', instance = 'music.youtube.com' } },
 
   --  Videos
   { icon = '', rule = { class = 'Chromium', instance = 'www.twitch.tv' } },
-  { icon = '󰑈', rule = { class = 'Chromium', name = 'YouTube' } },
+  { icon = '', rule = { class = 'Chromium', name = 'YouTube' } },
 
   --  Social
   { icon = '', rule = { class = 'Chromium', instance = 'www.gettr.com' } },
@@ -109,7 +104,7 @@ local config = {
       { class = 'Chromium', instance = 'github.com.*projects' }
     },
   },
-  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'github.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'fly.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },

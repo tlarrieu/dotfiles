@@ -107,7 +107,7 @@ return {
       mli = { icon = '' },
       exe = { icon = '' },
       log = { icon = '' },
-      yml = { icon = '󱉯' },
+      yml = { icon = '󰷐' },
 
       fish = { icon = '󰈺' },
       kitty = { icon = '󰄛' },
