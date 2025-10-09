@@ -66,13 +66,13 @@ function _git
     case 0
       set stashed ''
     case 1
-      set stashed " 󰎤 "
+      set stashed " 󰎤 "
     case 2
-      set stashed " 󰎧 "
+      set stashed " 󰎧 "
     case 3
-      set stashed " 󰎪 "
+      set stashed " 󰎪 "
     case '*'
-      set stashed " 󰼑 "
+      set stashed " 󰼑 "
   end
 
   set -l dirty (command git diff --no-ext-diff --quiet --exit-code; or echo -n "󱦢 ")
