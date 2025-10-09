@@ -75,6 +75,15 @@ return {
       desc = 'Telescope buffers'
     },
     {
+      '<c-s-r>',
+      function()
+        return require('telescope.builtin').registers({
+          results_title = ' registers',
+        })
+      end,
+      desc = 'Telescope registers'
+    },
+    {
       '<c-h>',
       function() require('telescope.builtin').help_tags({ results_title = ' documentation' }) end,
       desc = 'Telescope help tags'

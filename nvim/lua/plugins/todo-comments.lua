@@ -23,11 +23,11 @@ return {
         alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' },
         -- signs = false, -- configure signs for some keywords individually
       },
-      TODO = { icon = '󰥪 ' },
+      TODO = { icon = ' ' },
       HACK = { icon = '󱍔 ' },
       WARN = { icon = ' ', alt = { 'WARNING', 'XXX' } },
       PERF = { icon = '󰅒 ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
-      NOTE = { icon = ' ', alt = { 'INFO' } },
+      NOTE = { icon = '󰋽 ', alt = { 'INFO' } },
       TEST = { icon = '󰙨 ', alt = { 'TESTING' } },
     },
     gui_style = {
