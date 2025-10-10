@@ -2,6 +2,8 @@
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
 
 --- {{{ --| basics |----------------------------------------
+-- undo
+vim.keymap.set('n', 'U', '<c-r>')
 -- Marks
 vim.keymap.set('n', "'", '`')
 vim.keymap.set('n', '`', "'")
