@@ -20,6 +20,8 @@ return {
     { '<leader>gr', '<cmd>Git checkout %<cr>', desc = 'Git checkout %' },
     { '<leader>gp', '<cmd>Git push --force-with-lease<cr>', desc = 'Git push --force-with-lease' },
     { '<leader>gu', '<cmd>Git pull --rebase<cr>', desc = 'Git pull --rebase' },
+    { '<leader>gs', '<cmd>echo "stash"<bar>silent Git stash<cr>', desc = 'Git stash' },
+    { '<leader>gS', '<cmd>echo "unstash"<bar>silent Git stash pop<cr>', desc = 'Git stash pop' },
     { '<leader>gy', ':GBrowse!<cr>', mode = { 'v', 'n' }, desc = 'Git(Hub) yank file URL' },
 
     { '<leader>cc', '<cmd>Gcd<cr>', desc = 'Git CWD' },
