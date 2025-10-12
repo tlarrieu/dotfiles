@@ -76,11 +76,7 @@ return {
     },
     {
       '<c-s-r>',
-      function()
-        return require('telescope.builtin').registers({
-          results_title = ' registers',
-        })
-      end,
+      function() return require('telescope.builtin').registers({ results_title = ' registers' }) end,
       desc = 'Telescope registers'
     },
     {
