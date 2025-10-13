@@ -12,7 +12,7 @@ fish_color_selection --background=d0d8d8
 fish_color_search_match --background=d0d8d8
 fish_color_operator 7a9461
 fish_color_escape cc7ea6
-fish_color_autosuggestion 7d9299
+fish_color_autosuggestion cfd1cf
 
 # Completion Pager Colors
 fish_pager_color_progress 7d9299
