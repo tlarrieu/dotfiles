@@ -14,7 +14,7 @@ fish_color_operator 7a9461
 fish_color_escape cc7ea6
 fish_color_autosuggestion 7d9299
 
- Completion Pager Colors
+# Completion Pager Colors
 fish_pager_color_progress 7d9299
 fish_pager_color_prefix 8da8bf
 fish_pager_color_completion 575279
