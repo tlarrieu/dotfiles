@@ -7,6 +7,7 @@ return {
       json = { 'jq', lsp_format = 'never' },
       javascript = { 'biome' },
       typescript = { 'biome' },
+      yaml = { 'prettier', lsp_format = 'fallback' },
     },
     default_format_opts = {
       lsp_format = 'prefer',
