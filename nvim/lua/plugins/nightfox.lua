@@ -17,14 +17,14 @@ return {
         cyan    = { base = '#008c99', dim = '#a9cfcf' },
         green   = { base = '#7a9461', dim = '#ced2be' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
-        orange  = { base = '#da9100', dim = '#ebd1a1' },
+        orange  = { base = '#cc8800', dim = '#e7cea1' },
         pink    = { base = '#cc7ea6', dim = '#e7cbd3' },
         red     = { base = '#c65f5f', dim = '#e5c2be' },
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
-        yellow  = { base = '#e5bb67', dim = '#f4e3c5' },
+        yellow  = { base = '#d8b161', dim = '#eadabe' },
 
         comment = '#7d9299',
-        dim     = '#cfd1cf',
+        dim     = '#c4c6c4',
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
         bg1     = '#f2ece6', -- Default bg
