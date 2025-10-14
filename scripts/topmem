@@ -1,0 +1,3 @@
+#!/bin/sh
+
+ps auxch --sort -%mem  | head -n 10 | awk '{print $1 " " $2 " " $4 "% " $11}' | column -t -o ' • '
