@@ -43,7 +43,7 @@ return {
     insert_mappings = false,
     terminal_mappings = false,
     persist_size = false,
-    persist_mode = true,
+    persist_mode = false,
     close_on_exit = false,
     shell = '/usr/bin/fish',
     auto_scroll = false,
