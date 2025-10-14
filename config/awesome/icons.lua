@@ -56,6 +56,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'sentry.io' } },
   { icon = '', rule = { class = 'Chromium', instance = 'figma.com' } },
   { icon = '󱘶', rule = { class = 'Chromium', instance = 'metabase' } },
+  { icon = '󱘶', rule = { class = 'Chromium', name = 'SQL command' } },
   { icon = '󱤢', rule = { class = 'Chromium', instance = 'dalibo' } },
   {
     icon = '󰡴',
