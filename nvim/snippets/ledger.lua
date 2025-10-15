@@ -8,12 +8,12 @@ return {
   <> ! <> | <>
     <>  -<> €
     <>
-  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'card:ce'), i(1, 'amount'), i(3, 'to') })),
+  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'card:ce:j'), i(1, 'amount'), i(3, 'to') })),
   s('r', fmta([[
   <> ! <> | <>
     <>  <> €
     refund
-  ]], { f(curdate), i(1, 'me'), i(2, 'desc'), i(3, 'card:ce'), i(4, 'amount') })),
+  ]], { f(curdate), i(1, 'me'), i(2, 'desc'), i(3, 'card:ce:j'), i(4, 'amount') })),
   s('i', fmta([[
   <> * <>
     card:<>  <> €
@@ -37,7 +37,7 @@ return {
   <> ! <> | courses
     <>  -<> €
     groceries
-  ]], { f(curdate), i(3, 'grandfrais'), i(2, 'card:bp'), i(1, 'amount') })),
+  ]], { f(curdate), i(3, 'grandfrais'), i(2, 'card:ce:j'), i(1, 'amount') })),
   s('q', fmta([[
   <> * église | quête
     <>  -<> €
@@ -49,7 +49,7 @@ return {
   })),
   s('sfr', fmta([[
   <> * sfr | abonnement téléphone Miriam
-    card:bp  -11.68 €
+    card:ce:j  -11.68 €
     phone
   ]], { f(curdate) })),
   s('rent', fmta([[
