@@ -24,7 +24,7 @@ return {
         yellow  = { base = '#d8b161', dim = '#eadabe' },
 
         comment = '#7d9299',
-        dim     = '#c4c6c4',
+        dim     = '#bdbfbd',
 
         bg0     = '#ebe5df', -- Dark bg (status line and float)
         bg1     = '#f2ece6', -- Default bg
