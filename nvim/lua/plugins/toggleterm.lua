@@ -39,7 +39,7 @@ return {
       require('testbus').interrupt()
     end,
     shade_terminals = false,
-    start_in_insert = true,
+    start_in_insert = false,
     insert_mappings = false,
     terminal_mappings = false,
     persist_size = false,
