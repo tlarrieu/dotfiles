@@ -14,6 +14,16 @@ local ftmap = {
   AvanteInput = 'avante',
 }
 
+local filenamecolor = function()
+  if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) > 0 then return 'LualineError' end
+  if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) > 0 then return 'LualineWarning' end
+
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if bufname == '' then return end
+
+  if vim.fn.executable(bufname) > 0 then return 'LualineExecutable' end
+end
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
@@ -88,12 +98,7 @@ return {
                 and bo.buftype ~= 'nowrite'
                 and not ftmap[bo.filetype]
           end,
-          color = function()
-            local bufname = vim.api.nvim_buf_get_name(0)
-            if bufname == '' then return {} end
-            if vim.fn.executable(bufname) == 0 then return {} end
-            return 'LualineExecutable'
-          end,
+          color = filenamecolor,
           symbols = {
             modified = mod_icon,
             readonly = ro_icon,
@@ -170,7 +175,7 @@ return {
         {
           'windows',
           windows_color = {
-            active = 'LualineTablineActiveAlt',
+            active = function() return filenamecolor() or 'LualineTablineActiveAlt' end,
             inactive = 'LualineTablineInactive',
           },
           icons_enabled = false,

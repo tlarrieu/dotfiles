@@ -314,9 +314,11 @@ return {
         LualineRemoved = { fg = 'palette.red' },
         LualineModified = { fg = 'palette.yellow' },
         LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
-        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold' },
+        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
         LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
+        LualineError = { fg = 'palette.red', bg = 'none' },
+        LualineWarning = { fg = 'palette.yellow', bg = 'none' },
 
         FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
         FidgetNormal = { fg = 'palette.fg1', bg = 'palette.bg0' },
