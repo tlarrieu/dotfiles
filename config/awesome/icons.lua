@@ -23,7 +23,8 @@ local config = {
     icon = '󱎒',
     rules = {
       { class = 'Chromium', instance = 'docs.google.com' },
-      { class = 'Chromium', name = 'Google Docs' }, }
+      { class = 'Chromium', name = 'Google Docs' },
+    }
   },
   {
     icon = '󰋉',
@@ -54,7 +55,13 @@ local config = {
   { icon = '󱙺', rule = { class = 'Chromium', instance = 'dust.tt' } },
   { icon = '󰙮', rule = { class = 'Chromium', instance = 'linear.app' } },
   { icon = '', rule = { class = 'Chromium', instance = 'sentry.io' } },
-  { icon = '', rule = { class = 'Chromium', instance = 'figma.com' } },
+  {
+    icon = '',
+    rules = {
+      { class = 'Chromium', instance = 'figma.com' },
+      { class = 'Chromium', name = 'Figma' },
+    },
+  },
   { icon = '󱘶', rule = { class = 'Chromium', instance = 'metabase' } },
   { icon = '󱘶', rule = { class = 'Chromium', name = 'SQL command' } },
   { icon = '󱤢', rule = { class = 'Chromium', instance = 'dalibo' } },
