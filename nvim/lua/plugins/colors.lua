@@ -18,8 +18,8 @@ return {
         green   = { base = '#7a9461', dim = '#ced2be' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
         orange  = { base = '#cc8800', dim = '#e7cea1' },
-        pink    = { base = '#cc7ea6', dim = '#e7cbd3' },
-        red     = { base = '#c65f5f', dim = '#e5c2be' },
+        pink    = { base = '#d7827e', dim = '#eaccc7' },
+        red     = { base = '#b4637a', dim = '#dfc3c6' },
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
         yellow  = { base = '#d8b161', dim = '#eadabe' },
 

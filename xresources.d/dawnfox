@@ -1,13 +1,13 @@
 #define COLOR0  #575279
-#define COLOR1  #c65f5f
+#define COLOR1  #b4637a
 #define COLOR2  #7a9461
-#define COLOR3  #e5bb67
+#define COLOR3  #d8b161
 #define COLOR4  #8da8bf
 #define COLOR5  #907aa9
 #define COLOR6  #008c99
 #define COLOR7  #e5e9f0
 #define COLOR8  #5f5695
-#define COLOR9  #cc7ea6
+#define COLOR9  #d7827e
 #define COLOR10 #629f81
 #define COLOR11 #cc8800
 #define COLOR12 #2d81a3
