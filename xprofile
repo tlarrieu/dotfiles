@@ -23,6 +23,6 @@ xcape -e 'Control_L=Escape'
 # NOTE: Disable screen saving / blanking
 xset s off -dpms
 # make key repeat faster
-xset r rate 200 35
+xset r rate 210 35
 
 # vim:ft=sh
