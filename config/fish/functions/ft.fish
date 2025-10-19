@@ -30,6 +30,10 @@ function ft
   case sum
     echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
     now -p today -C -H assets:check assets:cash assets:swile assets:amazon
+    tput setaf 9
+    echo -e "• Pending transfers balance --------------------------------"
+    tput setaf 0
+    now -p today -P equity:transfers
     echo -e "\e[33m• Pending checking balance (all transactions) --------------\e[0m"
     now -p today..15days -H assets:cash assets:check assets:swile
     echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
@@ -40,6 +44,10 @@ function ft
     now -p today -C -H assets:check assets:cash assets:swile assets:amazon
     echo -e "\e[33m• Pending checking balance (all transactions) --------------\e[0m"
     now -p today..15days -H assets:cash assets:check assets:swile
+    tput setaf 9
+    echo -e "• Pending transfers balance --------------------------------"
+    tput setaf 0
+    now -p today -P equity:transfers
     echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
     now -p today..15days -H assets:savings
     echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
