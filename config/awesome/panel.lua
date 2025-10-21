@@ -9,6 +9,12 @@ local clock = wibox.widget({
   widget = wibox.widget.textclock,
   format = '• %b %d • %H:%M',
 })
+local utcclock = wibox.widget({
+  widget = wibox.widget.textclock,
+  format = '(UTC %H)',
+  opacity = 0.5,
+  timezone = 'Z',
+})
 
 -- [[ Context ]] -----------------------------------------------------------------
 local context = wibox.widget({
@@ -175,7 +181,8 @@ local init = function(screen)
 
   local right = wibox.widget({
     wibox.container.margin(context, dpi(10), dpi(0), dpi(0), dpi(0)),
-    wibox.container.margin(clock, dpi(10), dpi(10), dpi(0), dpi(0)),
+    wibox.container.margin(clock, dpi(10), dpi(0), dpi(0), dpi(0)),
+    wibox.container.margin(utcclock, dpi(10), dpi(10), dpi(0), dpi(0)),
     layout = wibox.layout.fixed.horizontal
   })
 
