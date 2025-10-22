@@ -110,6 +110,11 @@ return {
         ['@punctuation.delimiter'] = { fg = 'palette.dim' },
         ['@punctuation.bracket'] = { fg = 'palette.dim' },
         ['@tag.delimiter'] = { fg = 'palette.dim' },
+        ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
+        ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
+        ['@keyword.next'] = { link = '@keyword.return' },
+        ['@keyword.break'] = { link = '@keyword.return' },
+        ['@keyword.repeat'] = { link = '@keyword.conditional' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
