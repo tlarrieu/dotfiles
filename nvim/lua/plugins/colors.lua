@@ -14,7 +14,7 @@ return {
       dawnfox = {
         black   = { base = '#575279', dim = '#c9c3ca' },
         blue    = { base = '#8da8bf', dim = '#d4d8da' },
-        cyan    = { base = '#008c99', dim = '#a9cfcf' },
+        cyan    = { base = '#56949f', dim = '#c3d2d1' },
         green   = { base = '#7a9461', dim = '#ced2be' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
         orange  = { base = '#cc8800', dim = '#e7cea1' },
@@ -207,6 +207,11 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
+        ['@keyword.return.ruby'] = { fg = 'palette.red', bg = 'palette.red.dim' },
+        ['@keyword.next.ruby'] = { link = '@keyword.return.ruby' },
+        ['@keyword.break.ruby'] = { link = '@keyword.return.ruby' },
+        ['@keyword.conditional.ruby'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
+        ['@keyword.repeat.ruby'] = { link = '@keyword.conditional.ruby' },
 
         -- SQL
         ['@keyword.sql'] = { fg = 'palette.magenta' },
@@ -350,7 +355,7 @@ return {
         MarkviewHeading6 = { fg = 'palette.magenta', bg = 'none' },
         MarkviewListItemMinus = { fg = 'palette.pink.dim', bg = 'none' },
         MarkviewListItemStar = { fg = 'palette.green.dim', bg = 'none' },
-        MarkviewListItemPlus = { fg = 'palette.blue.dim', bg = 'none' },
+        MarkviewListItemPlus = { fg = 'palette.cyan.dim', bg = 'none' },
         MarkviewPalette0 = { fg = 'none', bg = 'palette.bg0' },
         MarkviewPalette1 = { fg = 'palette.bg1', bg = 'palette.pink' },
         MarkviewPalette2 = { fg = 'palette.bg1', bg = 'palette.green' },
