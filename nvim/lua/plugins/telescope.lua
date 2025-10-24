@@ -4,8 +4,6 @@ local filename_first_and_shorten = {
 }
 
 local find_files = { 'fd', '-tf', '--hidden' }
-local find_modified_files_master = { 'git', 'diff', 'master...', '--name-only' }
-local find_modified_files_head = { 'git', 'diff', 'HEAD', '--name-only' }
 local find_directories = { 'fd', '-td' }
 
 if require('helpers').fileexists('.ignore') then
@@ -90,7 +88,7 @@ return {
         return require('telescope.builtin').find_files({
           hidden = true,
           path_display = filename_first_and_shorten,
-          find_command = find_modified_files_head,
+          find_command = { 'git', 'diff', 'HEAD', '--name-only' },
           results_title = '󰕜 HEAD...',
         })
       end,
@@ -102,7 +100,7 @@ return {
         return require('telescope.builtin').find_files({
           hidden = true,
           path_display = filename_first_and_shorten,
-          find_command = find_modified_files_master,
+          find_command = { 'git', 'diff', 'master...', '--name-only' },
           results_title = '󰕜 master...',
         })
       end,
