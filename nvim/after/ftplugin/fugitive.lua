@@ -1,5 +1,3 @@
-vim.keymap.set('n', '<leader>gp', '<cmd>Git push --force-with-lease<bar>Git<cr>', { buffer = true })
-vim.keymap.set('n', '<leader>gu', '<cmd>Git pull --rebase<bar>Git<cr>', { buffer = true })
 vim.keymap.set('n', 'k', '(', { remap = true, buffer = true })
 vim.keymap.set('n', 'j', ')', { remap = true, buffer = true })
 vim.keymap.set({ 'n', 'x' }, 'x', 'X', { remap = true, buffer = true })
