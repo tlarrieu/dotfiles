@@ -22,6 +22,16 @@ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
     \ kitten icat --clear --silent >/dev/tty </dev/tty %N
 fileviewer */ eza --color=always --icons=always --tree --level 1
 
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
+  \ {view} sxiv %f &,
+  \ {edit} gimp-3.0 %f 2>/dev/null &,
+filetype *.pdf,*.png,*.jpg,*.jpeg,*.avi,*.mp4,*.mkv,*.gif,*.webm
+  \ {open}
+  \ xdg-open 2>/dev/null &
+filetype *.sql
+  \ {edit} nvim %f,
+  \ {run} psql -f %f,
+
 nnoremap <silent> co :!kitten icat --clear --silent<cr>:wincmd o<cr>
 nnoremap <silent> cp :vs<cr>
 
@@ -31,8 +41,7 @@ nnoremap yd :!echo %d | xsel --clipboard &<cr>
 nnoremap yf :!echo %c:p | xsel --clipboard &<cr>
 nnoremap yi :!copy-file-to-clipboard %f<cr>
 
-noremap e :edit<cr>
-noremap ge :file<cr>
+noremap e :file<cr>
 noremap é /
 noremap è :
 noremap à ZZ
@@ -48,11 +57,6 @@ nnoremap C cw<c-u>
 vnoremap c :rename<cr>
 
 noremap s :shell<cr>
-
-command thumb sxiv . -t
-filetype *.pdf,*.png,*.jpg,*.jpeg,*.avi,*.mp4,*.mkv,*.gif,*.webm
-  \ {use xdg-open}
-  \ xdg-open 2>/dev/null &
 
 mark a ~/apps
 mark b ~/sandbox
