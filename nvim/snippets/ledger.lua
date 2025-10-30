@@ -6,19 +6,19 @@ return {
   -- definitions
   s('e', fmta([[
   <> ! <> | <>
-    <>  -<> €
+    card:ce:<>  -<> €
     <>
-  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'card:ce:j'), i(1, 'amount'), i(3, 'to') })),
+  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'j'), i(1, 'amount'), i(3, 'to') })),
   s('r', fmta([[
   <> ! <> | <>
-    <>  <> €
+    card:ce:<>  <> €
     refund
-  ]], { f(curdate), i(1, 'me'), i(2, 'desc'), i(3, 'card:ce:j'), i(4, 'amount') })),
+  ]], { f(curdate), i(1, 'me'), i(2, 'desc'), i(3, 'j'), i(4, 'amount') })),
   s('i', fmta([[
   <> * <>
-    card:<>  <> €
+    card:ce:j  <> €
     salary/<>
-  ]], { f(curdate), i(1, 'me'), i(2, 'ce'), i(3, 'amount'), i(0, 'Thomas') })),
+  ]], { f(curdate), i(1, 'me'), i(2, 'amount'), i(0, 'Thomas') })),
   s('t', fmta([[
   <> * <> | transfert
     <>  <> €
@@ -31,13 +31,13 @@ return {
   s('c', fmta([[
   <> * me | retrait
     cash  <> €
-    card:<>
-  ]], { f(curdate), i(1, 'amount'), i(2, 'ce') })),
+    card:ce:<>
+  ]], { f(curdate), i(1, 'amount'), i(2, 'j') })),
   s('g', fmta([[
   <> ! <> | courses
-    <>  -<> €
+    card:ce:<>  -<> €
     groceries
-  ]], { f(curdate), i(3, 'grandfrais'), i(2, 'card:ce:j'), i(1, 'amount') })),
+  ]], { f(curdate), i(3, 'grandfrais'), i(2, 'j'), i(1, 'amount') })),
   s('q', fmta([[
   <> * église | quête
     <>  -<> €
@@ -54,9 +54,9 @@ return {
   ]], { f(curdate) })),
   s('rent', fmta([[
   <> * mme Evain | loyer + charges
-    card:ce  -800 €
-    rent      730 €
-    charges   70  €
+    card:ce:j  -800 €
+    rent        730 €
+    charges     70  €
   ]], { f(curdate) })),
 }, {
 }
