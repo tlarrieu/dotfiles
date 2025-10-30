@@ -74,6 +74,9 @@ return {
       all = {
         ---------------------| base |-----------------------
 
+        SpellRare = { style = 'NONE' },
+        SpellLocal = { style = 'NONE' },
+
         Special = { fg = 'palette.orange', bg = 'none' },
         Number = { fg = 'palette.pink', bg = 'none' },
         PreProc = { fg = 'palette.red', bg = 'none' },
