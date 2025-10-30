@@ -47,6 +47,7 @@ local config = {
   },
 
   --   Work
+  { icon = '󰙨', rule = { class = 'kitty', name = 'technical%-tests' } },
   { icon = '󰙃', rule = { class = 'Chromium', instance = 'lucca' } },
   { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
   { icon = '󰒱', rule = { class = 'Chromium', instance = 'slack' } },
@@ -62,8 +63,13 @@ local config = {
       { class = 'Chromium', name = 'Figma' },
     },
   },
-  { icon = '󱘶', rule = { class = 'Chromium', instance = 'metabase' } },
-  { icon = '󱘶', rule = { class = 'Chromium', name = 'SQL command' } },
+  {
+    icon = '󱘶',
+    rules = {
+      { class = 'Chromium', instance = 'metabase' },
+      { class = 'Chromium', name = 'SQL command' },
+    },
+  },
   { icon = '󱤢', rule = { class = 'Chromium', instance = 'dalibo' } },
   {
     icon = '󰡴',
