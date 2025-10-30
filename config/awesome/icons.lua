@@ -220,6 +220,7 @@ local config = {
   { icon = '󰇅', rule = { class = 'VirtualBox Manager' } },
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
 
+  { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
   { icon = '', rule = { class = 'kitty', name = 'sidekiq' } },
   { icon = '', rule = { class = 'kitty', name = 'yarn' } },
