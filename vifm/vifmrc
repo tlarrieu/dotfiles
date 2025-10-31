@@ -22,12 +22,15 @@ fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
     \ kitten icat --clear --silent >/dev/tty </dev/tty %N
 fileviewer */ eza --color=always --icons=always --tree --level 1
 
-filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-  \ {view} sxiv %f &,
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm
+  \ {view} sxiv %f 2>/dev/null &,
+filetype *.pdf
+  \ {view} zathura %f 2>/dev/null &,
+filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm,*.pdf
   \ {edit} gimp-3.0 %f 2>/dev/null &,
-filetype *.pdf,*.png,*.jpg,*.jpeg,*.avi,*.mp4,*.mkv,*.gif,*.webm
-  \ {open}
-  \ xdg-open 2>/dev/null &
+filetype *.avi,*.mp4,*.mkv
+  \ {view}
+  \ mpv %f 2>/dev/null &
 filetype *.sql
   \ {edit} nvim %f,
   \ {run} psql -f %f,
