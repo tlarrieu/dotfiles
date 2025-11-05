@@ -202,10 +202,10 @@ return {
               name = 'oil'
             elseif context.filetype == 'fugitive' then
               icon = ''
-              name = 'status'
+              name = 'git'
             elseif context.file:find('^fugitive:///') then
-              icon = ''
-              name = name .. ' (diff)'
+              icon = '󰕛'
+              name = name .. ' (󱓉)'
             end
 
             -- Modifier
