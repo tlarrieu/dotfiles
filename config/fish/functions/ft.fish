@@ -4,6 +4,10 @@ end
 
 function up
   hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
+  set_color -d brblack
+  echo
+  hledger bal $argv --strict --pretty --auto -p today -C -H
+  set_color normal
 end
 
 function forecast
@@ -56,15 +60,14 @@ function ft
     now -p thisyear --depth 2 expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home expenses:car
     return
   case up upcoming
-    echo -e "\e[33mUpcoming transactions (forecasted OR pending):\e[0m"
+    echo -e "\e[33mUpcoming transactions (forecasted OR pending)\e[0m"
     echo
-    up assets:check:caisse-epargne
+    up assets:check:caisse-epargne:joint
     echo
-    set_color -d brblack
-    echo "Current assets:"
+    up assets:check:caisse-epargne:thomas
     echo
-    now assets:check:caisse-epargne -p today -C -H
-    set_color normal
+    up assets:check:caisse-epargne:miriam
+    echo
     return
   case bud budget
     ft bal --budget -p thismonth --empty
