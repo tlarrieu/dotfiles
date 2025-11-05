@@ -5,8 +5,8 @@ return {
   opts = {
     formatters_by_ft = {
       json = { 'jq', lsp_format = 'never' },
-      javascript = { 'biome' },
-      typescript = { 'biome' },
+      javascript = { 'biome', lsp_format = 'never' },
+      typescript = { 'biome', lsp_format = 'never' },
       yaml = { 'prettier', lsp_format = 'fallback' },
     },
     default_format_opts = {
