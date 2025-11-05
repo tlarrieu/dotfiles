@@ -3,7 +3,7 @@ function now
 end
 
 function up
-  hledger reg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
+  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
 end
 
 function forecast
