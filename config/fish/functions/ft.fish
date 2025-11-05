@@ -56,20 +56,14 @@ function ft
     now -p thisyear --depth 2 expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home expenses:car
     return
   case up upcoming
-    echo -e "\e[33mUpcoming transactions (forecasted OR pending) \e[0m"
-    echo -e "\e[96m• Caisse d'Épargne -----\e[0m"
+    echo -e "\e[33mUpcoming transactions (forecasted OR pending):\e[0m"
+    echo
     up assets:check:caisse-epargne
+    echo
     set_color -d brblack
+    echo "Current assets:"
     echo
     now assets:check:caisse-epargne -p today -C -H
-    echo
-    set_color normal
-    echo -e "\e[96m• Banque postale -------\e[0m"
-    up assets:check:banque-postale
-    set_color -d brblack
-    echo
-    now assets:check:banque-postale -p today -C -H --layout=tall
-    echo
     set_color normal
     return
   case bud budget
