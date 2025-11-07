@@ -29,6 +29,15 @@
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
 
+(array
+  "," @_start .
+  (_) @parameter.inner
+ (#make-range! "parameter.outer" @_start @parameter.inner))
+(array
+  . (_) @parameter.inner
+  . ","? @_end
+ (#make-range! "parameter.outer" @parameter.inner @_end))
+
 (block_parameters
   "," @_start .
   (_) @parameter.inner
@@ -47,11 +56,11 @@
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
 
-(array
+(when
   "," @_start .
   (_) @parameter.inner
  (#make-range! "parameter.outer" @_start @parameter.inner))
-(array
+(when
   . (_) @parameter.inner
   . ","? @_end
  (#make-range! "parameter.outer" @parameter.inner @_end))
