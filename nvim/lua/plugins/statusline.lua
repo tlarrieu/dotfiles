@@ -175,7 +175,7 @@ return {
         {
           'windows',
           windows_color = {
-            active = function() return filenamecolor() or 'LualineTablineActiveAlt' end,
+            active = 'LualineTablineActiveAlt',
             inactive = 'LualineTablineInactive',
           },
           icons_enabled = false,
