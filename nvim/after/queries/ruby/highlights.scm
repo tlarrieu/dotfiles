@@ -12,8 +12,8 @@
 (module name: (constant) @class)
 (assignment left: (constant) @constant.assignment)
 
-((next) @keyword.next (#set! priority 110))
-((break) @keyword.break (#set! priority 110))
+(("next") @keyword.next (#set! priority 110))
+(("break") @keyword.break (#set! priority 110))
 
 (unless
   "end" @keyword.conditional)
