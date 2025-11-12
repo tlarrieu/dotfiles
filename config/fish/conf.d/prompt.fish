@@ -25,6 +25,14 @@ function _git_merge_head
   echo -ne "\e[0m"
 end
 
+function _git_bisect
+  echo -ne "\e[0;35m"
+  if git bisect log &> /dev/null
+    echo -n "󰩫 "
+  end
+  echo -ne "\e[0m"
+end
+
 function _git_ahead
   set -l ahead 0
   set -l behind 0
@@ -97,7 +105,7 @@ function _git
     set color "\e[0;32m" # green
   end
 
-  echo -nes $color(_git_branch_name)$reset(_git_merge_head)$color$flags$reset
+  echo -nes $color(_git_branch_name)$reset(_git_merge_head)$color$flags(_git_bisect)$reset
 end
 
 function _git_loading_indicator
