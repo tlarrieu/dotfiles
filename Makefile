@@ -121,7 +121,7 @@ packages:
 	@cd ~/git/neovim \
 		&& git fetch \
 		&& git checkout v0.11.5 \
-		&& make CMAKE_BUILD_TYPE=RelWithDebInfo \
+		&& make CMAKE_BUILD_TYPE=Release \
 		&& cd build \
 		&& cpack -G DEB \
 		&& sudo dpkg -i nvim-linux-x86_64.deb
