@@ -278,5 +278,5 @@ vim.keymap.set('n', '<leader>Z', 'zR')
 vim.keymap.set('n', 'zO', 'zczO')
 --- }}}
 --- {{{ --| linediff |--------------------------------------
-vim.keymap.set('x', '<leader>gd', '<cmd>Linediff<cr>', { silent = true })
+vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
 --- }}}
