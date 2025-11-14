@@ -1,3 +1,10 @@
+-- Source local nvimrc on save
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = '.nvim.lua',
+  callback = function() vim.cmd.source('.nvim.lua') end,
+  group = vim.api.nvim_create_augroup('resource_local_nvim', {})
+})
+
 -- Balance splits size upon changing host window size
 vim.api.nvim_create_autocmd('VimResized', {
   callback = function() vim.api.nvim_input('<esc><c-w>=') end,

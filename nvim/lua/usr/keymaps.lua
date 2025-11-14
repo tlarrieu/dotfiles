@@ -145,6 +145,7 @@ local quickedit = function(path)
   end
 end
 vim.keymap.set('n', '<leader>em', quickedit('Makefile'), { desc = 'Edit Makefile', expr = true })
+vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefile', expr = true })
 vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.pryrc.local'), { desc = 'Edit local pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
