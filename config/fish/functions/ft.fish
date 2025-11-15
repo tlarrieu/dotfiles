@@ -6,7 +6,7 @@ function up
   hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
   set_color -d brblack
   echo
-  hledger bal $argv --strict --pretty --auto -p today -C -H
+  hledger bal $argv --strict --pretty --auto -p today -C -H -N
   set_color normal
 end
 
@@ -32,16 +32,16 @@ function ft
   case areg reg
     set flags $flags -w (math "min $COLUMNS,100")
   case sum
-    echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
-    now -p today -C -H assets:check assets:cash assets:swile assets:amazon
+    echo -e "\e[32m• Current checking balance (checked transactions only) --------------------\e[0m"
+    now -p today -N -C -H assets:check assets:cash assets:swile assets:amazon
     tput setaf 9
-    echo -e "• Pending transfers balance --------------------------------"
+    echo -e "• Pending transfers balance -----------------------------------------------"
     tput setaf 0
-    now -p today -H -P equity:transfers
-    echo -e "\e[33m• Pending checking balance (all transactions) --------------\e[0m"
-    now -p today..15days -H assets:cash assets:check assets:swile
-    echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
-    now -p today..15days -H assets:savings
+    now -p today -N -H -P equity:transfers
+    echo -e "\e[33m• Pending checking balance (all transactions) -----------------------------\e[0m"
+    now -p today..15days -N -H assets:cash assets:check assets:swile
+    echo -e "\e[34m• Current savings balance -------------------------------------------------\e[0m"
+    now -p today..15days -N -H assets:savings
     return
   case now
     echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
@@ -70,7 +70,10 @@ function ft
     echo
     return
   case bud budget
-    ft bal --budget -p thismonth --empty
+    ft bal expenses --budget --empty -p 2monthago..nextmonth -M
+    return
+  case inc income
+    ft is -p 2monthago..3months --fore=tomorrow.. -M --depth 2
     return
   case we weeks
     forecast -W -p today..30days
