@@ -8,7 +8,7 @@ return {
   <> ! <> | <>
     card:ce:<>  -<> €
     <>
-  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'j'), i(1, 'amount'), i(3, 'to') })),
+  ]], { f(curdate), i(4, 'payee'), i(5, 'desc'), i(2, 'j'), i(1, 'amount'), i(3, 'from') })),
   s('r', fmta([[
   <> ! <> | <>
     card:ce:<>  <> €
