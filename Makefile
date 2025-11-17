@@ -120,7 +120,8 @@ packages:
 	@ln -sfFT /usr/bin/fdfind ~/bin/fd
 	@cd ~/git/neovim \
 		&& git fetch \
-		&& git checkout v0.11.5 \
+		&& git checkout nightly \
+		&& rm -r build \
 		&& make CMAKE_BUILD_TYPE=Release \
 		&& cd build \
 		&& cpack -G DEB \
