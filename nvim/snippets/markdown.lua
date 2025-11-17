@@ -1,20 +1,10 @@
 ---@diagnostic disable: undefined-global
 
-local warning = fmta([[
-  >> [!warning]
+local callout = function(label)
+  return fmta([[
+  >> [!]] .. label .. [[]
   >> <>]], { i(0) })
-local caution = fmta([[
-  >> [!caution]
-  >> <>]], { i(0) })
-local error = fmta([[
-  >> [!error]
-  >> <>]], { i(0) })
-local info = fmta([[
-  >> [!info]
-  >> <>]], { i(0) })
-local question = fmta([[
-  >> [!question]
-  >> <>]], { i(0) })
+end
 
 return {
   -- fence
@@ -45,16 +35,16 @@ return {
     ]], { sel(), i(0) })),
 
   -- callouts
-  s("w", warning),
-  s("W", warning),
-  s("c", caution),
-  s("C", caution),
-  s("e", error),
-  s("E", error),
-  s("i", info),
-  s("I", info),
-  s("q", info),
-  s("Q", question),
+  s("w", callout('warning')),
+  s("W", callout('warning')),
+  s("c", callout('caution')),
+  s("C", callout('caution')),
+  s("e", callout('error')),
+  s("E", callout('error')),
+  s("i", callout('info')),
+  s("I", callout('info')),
+  s("q", callout('info')),
+  s("Q", callout('question')),
 
   -- link / image
   s("[", fmta("[<>](<>)", { i(1, "alttxt"), i(0, "url") })),
