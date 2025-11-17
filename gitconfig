@@ -42,7 +42,7 @@
 	sl = stash list -p
 	st = stash
 	sp = stash pop
-	sync = fetch --all --prune --tags
+	sync = fetch --all --prune --tags --force
 	wip = commit -m "WIP" --no-verify
 	wtf = "!git config --list --show-origin | \
 		grep -v alias.wtf | \
