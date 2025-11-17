@@ -1,5 +1,5 @@
-local ro_icon = '󰌾'
-local mod_icon = '󰴓'
+local ro_icon = '󱆠'
+local mod_icon = '󰴓 '
 local ftmap = {
   harpoon = 'harpoon',
   mason = 'mason',
