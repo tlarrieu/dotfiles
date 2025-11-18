@@ -155,7 +155,9 @@ return {
         FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
 
         -- winseparator
-        WinSeparator = { fg = 'palette.bg0', bg = 'none' },
+        WinSeparator = { link = 'WinSeparatorThin' },
+        WinSeparatorThin = { fg = 'palette.bg0', bg = 'none' },
+        WinSeparatorThick = { fg = 'palette.bg0', bg = 'palette.bg0' },
 
         -- pmenu
         Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },

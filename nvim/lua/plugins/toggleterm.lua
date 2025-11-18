@@ -1,13 +1,12 @@
-local restore_win_separator = function()
-  vim.api.nvim_set_hl(0, 'WinSeparator', { link = '_WinSeparator' })
+local set_win_sep = function(link)
+  vim.api.nvim_set_hl(0, 'WinSeparator', { link = link })
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    callback = function() vim.api.nvim_set_hl(0, 'WinSeparator', { link = link }) end,
+    group = vim.api.nvim_create_augroup('toggle_term_augroup', {})
+  })
 end
 
-local save_win_separator = function()
-  local saved = vim.api.nvim_get_hl(0, {})['_WinSeparator']
-  if not saved then
-    vim.api.nvim_set_hl(0, '_WinSeparator', vim.api.nvim_get_hl(0, {})['WinSeparator'])
-  end
-end
+local THIN_SEP, THICK_SEP = 'WinSeparatorThin', 'WinSeparatorThick'
 
 return {
   'akinsho/toggleterm.nvim',
@@ -27,15 +26,15 @@ return {
     open_mapping = '<c-s>',
     hide_numbers = true,
     on_open = function(term)
-      save_win_separator()
+      set_win_sep(THICK_SEP)
       if term.direction == 'vertical' or term.direction == 'horizontal' then
         vim.api.nvim_set_hl(0, 'WinSeparator', { link = 'FloatBorder' })
       end
     end,
-    on_close = restore_win_separator,
+    on_close = function() set_win_sep(THIN_SEP) end,
     on_stdout = function(_, _, data) require('testbus').redraw(data) end,
     on_exit = function()
-      restore_win_separator()
+      set_win_sep(THIN_SEP)
       require('testbus').interrupt()
     end,
     shade_terminals = false,
