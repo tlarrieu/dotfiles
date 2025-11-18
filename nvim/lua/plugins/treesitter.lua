@@ -56,7 +56,7 @@ return {
     },
     context = {
       enable = true,
-      max_lines = 5,
+      max_lines = 8,
       multiwindow = true,
       mode = 'cursor',
       separator = '-',
