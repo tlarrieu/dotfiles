@@ -121,7 +121,7 @@ return {
           vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
         end
         if client:supports_method('textDocument/rename', ev.buf) then
-          vim.keymap.set('n', 'gé', vim.lsp.buf.rename, conf)
+          vim.keymap.set('n', 'cé', vim.lsp.buf.rename, conf)
         end
 
         vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
