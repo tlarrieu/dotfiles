@@ -22,3 +22,5 @@ vim.keymap.set('n', '<a-s>', function() return require('telescope.builtin').find
   { desc = 'Telescope services lookup (Ruby on Rails)' })
 vim.keymap.set('n', '<a-j>', function() return require('telescope.builtin').find_files(params_for('jobs')) end,
   { desc = 'Telescope jobs lookup (Ruby on Rails)' })
+vim.keymap.set('n', '<a-d>', function() return require('telescope.builtin').find_files(params_for('lib')) end,
+  { desc = 'Telescope POROs lookup (Ruby on Rails)' })

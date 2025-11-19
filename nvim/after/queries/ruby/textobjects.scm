@@ -79,3 +79,4 @@
 
 (pair key: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment
 (assignment left: (_) @assignment.lhs right: (_) @assignment.rhs) @assignment
+(keyword_parameter name: (identifier) @assignment.lhs value: (nil) @assignment.rhs) @assignment
