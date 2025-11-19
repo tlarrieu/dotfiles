@@ -92,8 +92,6 @@ return {
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
-        ['@conditional.expression'] = { fg = 'palette.magenta' },
-
         ['@type'] = { fg = 'palette.orange' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@module'] = { fg = 'palette.cyan' },
