@@ -191,7 +191,7 @@ local config = {
   { icon = '', rule = { class = 'dungeondraft.exe' } },
   { icon = '', rule = { class = 'Nemo' } },
   { icon = '', rule = { class = 'config' } },
-  { icon = '', rule = { class = 'work' } },
+  { icon = '', rule = { class = 'dev' } },
   { icon = '󰭆', rule = { class = 'opencode' } },
   { icon = '', rule = { class = 'firefox' } },
   { icon = '󰭠', rule = { class = 'Lxappearance' } },
