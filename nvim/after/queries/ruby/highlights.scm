@@ -12,6 +12,9 @@
 (module name: (constant) @class)
 (assignment left: (constant) @constant.assignment)
 
+(_ condition: (_) @conditional.expression (#set! priority 120))
+((_) . "?" @operator.ternary.ruby (_) ":"  @operator.ternary.ruby (_))
+
 (("next") @keyword.next (#set! priority 110))
 (("break") @keyword.break (#set! priority 110))
 

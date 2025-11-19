@@ -92,15 +92,17 @@ return {
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
+        ['@conditional.expression'] = { fg = 'palette.magenta' },
 
         ['@type'] = { fg = 'palette.orange' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@module'] = { fg = 'palette.cyan' },
         ['@property'] = { link = '@key' },
+        ['@variable'] = { fg = 'palette.comment' }, -- TEST: experiment
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@key' },
         ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
-        ['@function.call'] = { fg = 'palette.blue', style = 'NONE' },
+        ['@function.call'] = { fg = 'palette.comment', style = 'NONE' }, -- TEST: experiment
         ['@function.method.call'] = { link = '@function.call' },
         ['@class'] = { fg = 'palette.orange', style = 'underline,bold' },
         ['@constant'] = { link = 'Constant', },
@@ -114,6 +116,8 @@ return {
         ['@punctuation.delimiter'] = { fg = 'palette.dim' },
         ['@punctuation.bracket'] = { fg = 'palette.dim' },
         ['@tag.delimiter'] = { fg = 'palette.dim' },
+        ['@keyword'] = { fg = 'palette.dim' },          -- TEST: experiment
+        ['@keyword.function'] = { fg = 'palette.dim' }, -- TEST: experiment
         ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
         ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
         ['@keyword.next'] = { link = '@keyword.return' },
@@ -213,10 +217,11 @@ return {
         ['makeSpecTarget'] = { link = 'PreProc' },
 
         -- ruby
-        ['@variable.key.ruby'] = { link = '@key' },
-        ['@variable.member.ruby'] = { fg = 'palette.magenta' },
+        ['@variable.key.ruby'] = { fg = 'palette.dim' },        -- TEST: experiment
+        ['@variable.member.ruby'] = { fg = 'palette.comment' }, -- TEST: experiment
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment' },
+        ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' }, -- TEST: experiment
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
         ['@keyword.return.ruby'] = { fg = 'palette.red', bg = 'palette.red.dim' },
         ['@keyword.next.ruby'] = { link = '@keyword.return.ruby' },
