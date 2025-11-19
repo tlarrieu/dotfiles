@@ -15,8 +15,8 @@
 (_ condition: (_) @conditional.expression (#set! priority 120))
 ((_) . "?" @operator.ternary.ruby (_) ":"  @operator.ternary.ruby (_))
 
-(("next") @keyword.next (#set! priority 110))
-(("break") @keyword.break (#set! priority 110))
+("next") @keyword.next (#set! priority 110)
+("break") @keyword.break (#set! priority 110)
+(unless "end" @keyword.conditional)
 
-(unless
-  "end" @keyword.conditional)
+(comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)")

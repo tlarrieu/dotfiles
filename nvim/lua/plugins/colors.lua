@@ -187,6 +187,7 @@ return {
         ---------------| Language specific |----------------
 
         -- query
+        ['@function.call.query'] = { fg = 'palette.blue' }, -- TEST: experiment (override to counterbalance other settings)
         ['@comment.query'] = { fg = 'palette.dim' },
         ['@keyword.directive.query'] = { fg = 'palette.red' },
         ['@type.query'] = { fg = 'palette.yellow' },
@@ -217,8 +218,10 @@ return {
         ['makeSpecTarget'] = { link = 'PreProc' },
 
         -- ruby
-        ['@variable.key.ruby'] = { fg = 'palette.dim' },        -- TEST: experiment
-        ['@variable.member.ruby'] = { fg = 'palette.comment' }, -- TEST: experiment
+        ['@comment.directive'] = { fg = 'palette.dim', bg = 'palette.bg1' },  -- TEST: experiment
+        ['@comment.ruby'] = { fg = 'palette.pink', bg = 'palette.pink.dim' }, -- TEST: experiment
+        ['@variable.key.ruby'] = { fg = 'palette.dim' },                      -- TEST: experiment
+        ['@variable.member.ruby'] = { fg = 'palette.comment' },               -- TEST: experiment
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ruby'] = { fg = 'palette.comment' },
         ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' }, -- TEST: experiment
