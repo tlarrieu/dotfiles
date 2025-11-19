@@ -10,7 +10,7 @@ fish_color_param 907aa9
 fish_color_comment 7d9299
 fish_color_selection --background=d0d8d8
 fish_color_search_match --background=d0d8d8
-fish_color_operator 7a9461
+fish_color_operator 82a561
 fish_color_escape d7827e
 fish_color_autosuggestion bdbfbd
 

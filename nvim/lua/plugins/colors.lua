@@ -15,7 +15,7 @@ return {
         black   = { base = '#575279', dim = '#c9c3ca' },
         blue    = { base = '#8da8bf', dim = '#d4d8da' },
         cyan    = { base = '#56949f', dim = '#c3d2d1' },
-        green   = { base = '#7a9461', dim = '#ced2be' },
+        green   = { base = '#82a561', dim = '#d0d7be' },
         magenta = { base = '#907aa9', dim = '#e5dcdf' },
         orange  = { base = '#cc8800', dim = '#e7cea1' },
         pink    = { base = '#d7827e', dim = '#eaccc7' },
@@ -89,23 +89,28 @@ return {
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
         Constant = { fg = 'palette.red' },
+        IncSearch = { fg = 'palette.bg1', bg = 'palette.green' },
 
         ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
 
-        ['@type'] = { fg = 'palette.orange' },
+        ['@number'] = { fg = 'palette.green' },
+        ['@float'] = { link = '@number' },
+        ['@boolean'] = { link = '@number' },
+        ['@string'] = { link = '@number' },
+        ['@type'] = { fg = 'palette.yellow' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
         ['@module'] = { fg = 'palette.cyan' },
         ['@property'] = { link = '@key' },
-        ['@variable'] = { fg = 'palette.comment' }, -- TEST: experiment
+        ['@variable'] = { fg = 'palette.comment' },
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@key' },
-        ['@function'] = { fg = 'palette.blue', style = 'underline,bold' },
-        ['@function.call'] = { fg = 'palette.comment', style = 'NONE' }, -- TEST: experiment
+        ['@function'] = { fg = 'palette.comment', style = 'underline,bold' },
+        ['@function.call'] = { fg = 'palette.comment', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
-        ['@class'] = { fg = 'palette.orange', style = 'underline,bold' },
-        ['@constant'] = { link = 'Constant', },
+        ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
+        ['@constant'] = { fg = 'palette.comment', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
-        ['@constant.assignment'] = { fg = 'palette.red', style = 'underline,bold' },
+        ['@constant.assignment'] = { fg = 'palette.comment', style = 'underline,bold' },
         ['@operator.regex'] = { fg = 'palette.pink' },
         ['@string.regexp'] = { fg = 'palette.cyan', style = 'NONE' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
@@ -114,13 +119,16 @@ return {
         ['@punctuation.delimiter'] = { fg = 'palette.dim' },
         ['@punctuation.bracket'] = { fg = 'palette.dim' },
         ['@tag.delimiter'] = { fg = 'palette.dim' },
-        ['@keyword'] = { fg = 'palette.dim' },          -- TEST: experiment
-        ['@keyword.function'] = { fg = 'palette.dim' }, -- TEST: experiment
+        ['@keyword'] = { fg = 'palette.dim' },
+        ['@keyword.function'] = { fg = 'palette.dim' },
         ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
         ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
         ['@keyword.next'] = { link = '@keyword.return' },
         ['@keyword.break'] = { link = '@keyword.return' },
         ['@keyword.repeat'] = { link = '@keyword.conditional' },
+        ['@keyword.raise'] = { link = '@keyword.return' },
+        ['@keyword.exception'] = { link = '@keyword' },
+        ['@variable.builtin'] = { fg = 'palette.pink' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -185,7 +193,7 @@ return {
         ---------------| Language specific |----------------
 
         -- query
-        ['@function.call.query'] = { fg = 'palette.blue' }, -- TEST: experiment (override to counterbalance other settings)
+        ['@function.call.query'] = { fg = 'palette.blue' },
         ['@comment.query'] = { fg = 'palette.dim' },
         ['@keyword.directive.query'] = { fg = 'palette.red' },
         ['@type.query'] = { fg = 'palette.yellow' },
@@ -216,19 +224,16 @@ return {
         ['makeSpecTarget'] = { link = 'PreProc' },
 
         -- ruby
-        ['@comment.directive'] = { fg = 'palette.dim', bg = 'palette.bg1' },  -- TEST: experiment
-        ['@comment.ruby'] = { fg = 'palette.pink', bg = 'palette.pink.dim' }, -- TEST: experiment
-        ['@variable.key.ruby'] = { fg = 'palette.dim' },                      -- TEST: experiment
-        ['@variable.member.ruby'] = { fg = 'palette.comment' },               -- TEST: experiment
+        ['@comment.directive'] = { fg = 'palette.dim', bg = 'palette.bg1' },
+        ['@variable.key.ruby'] = { fg = 'palette.dim' },
+        ['@variable.member.ruby'] = { fg = 'palette.comment' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
-        ['@operator.ruby'] = { fg = 'palette.comment' },
-        ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' }, -- TEST: experiment
+        ['@operator.ruby'] = { fg = 'palette.dim' },
+        ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
-        ['@keyword.return.ruby'] = { fg = 'palette.red', bg = 'palette.red.dim' },
-        ['@keyword.next.ruby'] = { link = '@keyword.return.ruby' },
-        ['@keyword.break.ruby'] = { link = '@keyword.return.ruby' },
-        ['@keyword.conditional.ruby'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
-        ['@keyword.repeat.ruby'] = { link = '@keyword.conditional.ruby' },
+
+        -- golang
+        ['@module.go'] = { fg = 'palette.comment' },
 
         -- SQL
         ['@keyword.sql'] = { fg = 'palette.magenta' },
