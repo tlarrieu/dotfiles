@@ -21,7 +21,7 @@ return {
         pink    = { base = '#d7827e', dim = '#eaccc7' },
         red     = { base = '#b4637a', dim = '#dfc3c6' },
         white   = { base = '#e5e9f0', dim = '#f4f1ee' },
-        yellow  = { base = '#d8b161', dim = '#eadabe' },
+        yellow  = { base = '#d1aa5e', dim = '#e8d8bd' },
 
         comment = '#7d9299',
         dim     = '#bdbfbd',
