@@ -46,8 +46,8 @@ return {
         cyan    = { base = '#88c0d0', dim = '#40505d' },
         green   = { base = '#a3be8c', dim = '#45504f' },
         magenta = { base = '#b48ead', dim = '#494656' },
-        orange  = { base = '#c9826b', dim = '#4d4449' },
-        pink    = { base = '#bf88bc', dim = '#4b4559' },
+        orange  = { base = '#d89715', dim = '#504837' },
+        pink    = { base = '#d8847f', dim = '#50444d' },
         red     = { base = '#bf616a', dim = '#4b3d48' },
         white   = { base = '#e5e9f0', dim = '#535863' },
         yellow  = { base = '#ebcb8b', dim = '#54524f' },
@@ -81,7 +81,7 @@ return {
         Number = { fg = 'palette.pink', bg = 'none' },
         PreProc = { fg = 'palette.red', bg = 'none' },
         Conditional = { link = 'Keyword' },
-        String = { fg = 'palette.green', bg = 'none' },
+        String = { link = 'Number' },
         Type = { fg = 'palette.orange', bg = 'none' },
         Keyword = { fg = 'palette.magenta', bg = 'none' },
         MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
@@ -89,46 +89,56 @@ return {
         Function = { fg = 'palette.blue', bg = 'none' },
         Identifier = { fg = 'palette.green', bg = 'none' },
         Constant = { fg = 'palette.red' },
-        IncSearch = { fg = 'palette.bg1', bg = 'palette.green' },
 
-        ['@key'] = { fg = 'palette.comment', bg = 'none', style = 'italic' },
+        ['@key'] = { fg = 'palette.comment', bg = 'none' },
 
-        ['@number'] = { fg = 'palette.green' },
+        ['@number'] = { fg = 'palette.pink' },
         ['@float'] = { link = '@number' },
         ['@boolean'] = { link = '@number' },
         ['@string'] = { link = '@number' },
+        ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
+        ['@string.regexp'] = { fg = 'palette.green', style = 'NONE' },
+        ['@operator.regex'] = { fg = 'palette.green.dim', style = 'bold' },
+
         ['@type'] = { fg = 'palette.yellow' },
         ['@type.builtin'] = { fg = 'palette.yellow' },
-        ['@module'] = { fg = 'palette.cyan' },
+
+        ['@module'] = { fg = 'palette.blue' },
+
         ['@property'] = { link = '@key' },
         ['@variable'] = { fg = 'palette.comment' },
+        ['@variable.key'] = { fg = 'palette.dim', style = 'italic' },
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@key' },
+        ['@variable.builtin'] = { fg = 'palette.orange' },
+
         ['@function'] = { fg = 'palette.comment', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.comment', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
+
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.comment', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
         ['@constant.assignment'] = { fg = 'palette.comment', style = 'underline,bold' },
-        ['@operator.regex'] = { fg = 'palette.pink' },
-        ['@string.regexp'] = { fg = 'palette.cyan', style = 'NONE' },
-        ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
+
+        ['@operator'] = { fg = 'palette.dim' },
+
         ['@tag.attribute'] = { link = '@key' },
+        ['@tag.delimiter'] = { fg = 'palette.dim' },
+
         ['@punctuation.special'] = { fg = 'palette.comment' },
         ['@punctuation.delimiter'] = { fg = 'palette.dim' },
         ['@punctuation.bracket'] = { fg = 'palette.dim' },
-        ['@tag.delimiter'] = { fg = 'palette.dim' },
+
         ['@keyword'] = { fg = 'palette.dim' },
-        ['@keyword.function'] = { fg = 'palette.dim' },
+        ['@keyword.function'] = { link = '@keyword' },
+        ['@keyword.exception'] = { link = '@keyword' },
         ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
-        ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
         ['@keyword.next'] = { link = '@keyword.return' },
         ['@keyword.break'] = { link = '@keyword.return' },
-        ['@keyword.repeat'] = { link = '@keyword.conditional' },
         ['@keyword.raise'] = { link = '@keyword.return' },
-        ['@keyword.exception'] = { link = '@keyword' },
-        ['@variable.builtin'] = { fg = 'palette.pink' },
+        ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
+        ['@keyword.repeat'] = { link = '@keyword.conditional' },
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
@@ -198,7 +208,6 @@ return {
         ['@keyword.directive.query'] = { fg = 'palette.red' },
         ['@type.query'] = { fg = 'palette.yellow' },
         ['@variable.query'] = { fg = 'palette.pink' },
-        ['@variable.member.query'] = { fg = 'palette.comment' },
 
         -- shells
         ['@operator.bash'] = { link = 'Keyword' },
@@ -207,8 +216,8 @@ return {
 
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
-        ['@variable.member.lua'] = { link = '@normal' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
+
         ['@keyword.luadoc'] = { link = '@constant' },
         ['@keyword.function.luadoc'] = { link = '@function.call' },
         ['@type.builtin.luadoc'] = { link = '@type' },
@@ -225,23 +234,14 @@ return {
 
         -- ruby
         ['@comment.directive'] = { fg = 'palette.dim', bg = 'palette.bg1' },
-        ['@variable.key.ruby'] = { fg = 'palette.dim' },
-        ['@variable.member.ruby'] = { fg = 'palette.comment' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
-        ['@operator.ruby'] = { fg = 'palette.dim' },
         ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
-
-        -- golang
-        ['@module.go'] = { fg = 'palette.comment' },
 
         -- SQL
         ['@keyword.sql'] = { fg = 'palette.magenta' },
         ['@keyword.operator.sql'] = { link = '@keyword.sql' },
         ['@variable.member.sql'] = { link = '@variable' },
-
-        -- yaml
-        ['@property.yaml'] = { link = '@key' },
 
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.orange' },
@@ -266,6 +266,7 @@ return {
         ['@field.rasi'] = { link = '@field.css' },
         ['@variable.rasi'] = { fg = 'palette.magenta' },
         ['@keyword.rasi'] = { fg = 'palette.pink' },
+        ['@constant.rasi'] = { fg = 'palette.yellow' },
         ['@punctuation.special.rasi'] = { fg = 'palette.magenta' },
 
         -- kitty
