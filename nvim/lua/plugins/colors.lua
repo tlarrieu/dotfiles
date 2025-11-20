@@ -12,24 +12,24 @@ return {
     },
     palettes = {
       dawnfox = {
-        black   = { base = '#575279', dim = '#c9c3ca' },
-        blue    = { base = '#8da8bf', dim = '#d4d8da' },
-        cyan    = { base = '#56949f', dim = '#c3d2d1' },
-        green   = { base = '#82a561', dim = '#d0d7be' },
-        magenta = { base = '#907aa9', dim = '#e5dcdf' },
-        orange  = { base = '#cc8800', dim = '#e7cea1' },
-        pink    = { base = '#d7827e', dim = '#eaccc7' },
-        red     = { base = '#b4637a', dim = '#dfc3c6' },
-        white   = { base = '#e5e9f0', dim = '#f4f1ee' },
-        yellow  = { base = '#d1aa5e', dim = '#e8d8bd' },
+        black   = { base = '#575279', dim = '#bab5bd' },
+        blue    = { base = '#8da8bf', dim = '#cbcfd2' },
+        cyan    = { base = '#56949f', dim = '#bac9c8' },
+        green   = { base = '#82a561', dim = '#c7ceb6' },
+        magenta = { base = '#907aa9', dim = '#ccc1cb' },
+        orange  = { base = '#cc8800', dim = '#dec599' },
+        pink    = { base = '#d7827e', dim = '#e1c3be' },
+        red     = { base = '#b4637a', dim = '#d6babd' },
+        white   = { base = '#e5e9f0', dim = '#e5e2e1' },
+        yellow  = { base = '#d1aa5e', dim = '#dfcfb5' },
 
         comment = '#7d9299',
-        dim     = '#bdbfbd',
+        dim     = '#b0b2b0',
 
-        bg0     = '#ebe5df', -- Dark bg (status line and float)
-        bg1     = '#f2ece6', -- Default bg
-        bg2     = '#e5e2de', -- Lighter bg (colorcolm folds)
-        bg3     = '#d8d5d2', -- Lighter bg (cursor line)
+        bg0     = '#ddd8d2', -- Dark bg (status line and float)
+        bg1     = '#e5dfda', -- Default bg
+        bg2     = '#e5e5e5', -- Lighter bg (colorcolm folds)
+        bg3     = '#eae7e3', -- Lighter bg (cursor line)
         bg4     = '#bdbfc9', -- Conceal, border fg
 
         fg0     = '#4c4769', -- Lighter fg
