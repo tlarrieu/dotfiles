@@ -3,15 +3,10 @@
 (keyword_parameter name: (_) @variable.key)
 (pair key: (_) @variable.key)
 
-(call
-  method: (identifier)
-  @keyword.function.ruby
-  (#eq? @keyword.function.ruby "private_class_method"))
+(call method: (identifier) @keyword.function.ruby (#eq? @keyword.function.ruby "private_class_method"))
 
-(call
-  method: (identifier)
-  @keyword.raise
-  (#eq? @keyword.raise "raise"))
+(call method: (identifier) @keyword.raise (#eq? @keyword.raise "raise"))
+((identifier) @keyword.raise (#eq? @keyword.raise "raise"))
 
 (class name: (constant) @class)
 (module name: (constant) @class)
@@ -23,4 +18,4 @@
 ("break") @keyword.break (#set! priority 110)
 (unless "end" @keyword.conditional)
 
-(comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)")
+((comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)"))
