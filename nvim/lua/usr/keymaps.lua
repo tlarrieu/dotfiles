@@ -89,6 +89,8 @@ vim.keymap.set('s', '<bs>', '<bs>i')
 -- Exit
 vim.keymap.set({ 'n', 'x' }, 'à', '<cmd>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', { silent = true })
+-- Restart
+vim.keymap.set({ 'n', 'x' }, '<leader>à', '<cmd>confirm restart<cr>', { silent = true })
 -- Save
 vim.keymap.set('n', 's', '<cmd>update ++p<cr>', { silent = true })
 -- Reselect pasted lines
