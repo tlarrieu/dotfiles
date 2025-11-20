@@ -17,5 +17,6 @@
 ("next") @keyword.next (#set! priority 110)
 ("break") @keyword.break (#set! priority 110)
 (unless "end" @keyword.conditional)
+(case "end" @keyword.conditional)
 
 ((comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)"))
