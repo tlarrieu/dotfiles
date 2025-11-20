@@ -92,6 +92,9 @@ return {
 
         ['@key'] = { fg = 'palette.comment', bg = 'none' },
 
+        ['@comment'] = { fg = 'palette.green', style = 'italic' },
+        ['@comment.documentation'] = { fg = 'palette.green', bg = 'palette.green.dim' },
+
         ['@number'] = { fg = 'palette.pink' },
         ['@float'] = { link = '@number' },
         ['@boolean'] = { link = '@number' },
@@ -424,6 +427,7 @@ return {
         gvMessage = { fg = 'palette.comment', style = 'italic' },
         gvTag = { fg = 'palette.orange', style = 'bold' },
         gvMeta = { link = 'gvTag' },
+        ['@comment.gitcommit'] = { fg = 'palette.dim', bg = 'none' },
         ['@markup.heading.gitcommit'] = { fg = 'palette.green', bg = 'none' },
         ['@text.reference.gitcommit'] = { link = '@markup.link.gitcommit' },
         ['@text.uri.gitcommit'] = { fg = 'palette.fg1', bg = 'none' },
