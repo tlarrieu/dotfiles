@@ -16,7 +16,7 @@
 #define COLOR15 #e7ecf4
 
 #define BACKGROUND #2e3440
-#define FOREGROUND #cdcecf
+#define FOREGROUND #b0b1b2
 #define COMMENT #60728a
 
 #define VIM_THEME nordfox

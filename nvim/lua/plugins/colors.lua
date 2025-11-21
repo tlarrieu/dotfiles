@@ -62,7 +62,7 @@ return {
         bg4     = '#5a657d', -- Conceal, border fg
 
         fg0     = '#c7cdd9', -- Lighter fg
-        fg1     = '#cdcecf', -- Default fg
+        fg1     = '#b0b1b2', -- Default fg
         fg2     = '#abb1bb', -- Darker fg (status line)
         fg3     = '#7e8188', -- Darker fg (line numbers, fold colums)
 
@@ -116,7 +116,7 @@ return {
         ['@function'] = { fg = 'palette.fg1', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.fg1', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
-        ['@function.builtin'] = { link = '@keyword' },
+        ['@function.builtin'] = { link = '@function.call' },
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.fg1', },
@@ -239,6 +239,7 @@ return {
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
         ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
+        ['@function.builtin.ruby'] = { link = '@keyword' },
 
         -- SQL
         ['@keyword.sql'] = { fg = 'palette.magenta' },
