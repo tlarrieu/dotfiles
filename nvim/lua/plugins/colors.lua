@@ -108,7 +108,7 @@ return {
 
         ['@property'] = { fg = 'palette.comment' },
         ['@variable'] = { fg = 'palette.fg1' },
-        ['@variable.key'] = { fg = 'palette.dim', style = 'italic' },
+        ['@variable.key'] = { fg = 'palette.comment', style = 'italic' },
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@variable' },
         ['@variable.builtin'] = { fg = 'palette.orange' },
@@ -125,11 +125,11 @@ return {
         ['@operator'] = { fg = 'palette.dim' },
 
         ['@tag.attribute'] = { fg = 'palette.comment' },
-        ['@tag.delimiter'] = { fg = 'palette.dim' },
+        ['@tag.delimiter'] = { link = '@operator' },
 
         ['@punctuation.special'] = { fg = 'palette.comment' },
-        ['@punctuation.delimiter'] = { fg = 'palette.dim' },
-        ['@punctuation.bracket'] = { fg = 'palette.dim' },
+        ['@punctuation.delimiter'] = { link = '@operator' },
+        ['@punctuation.bracket'] = { link = '@operator' },
 
         ['@keyword'] = { fg = 'palette.dim' },
         ['@keyword.function'] = { link = '@keyword' },
@@ -151,7 +151,7 @@ return {
         -- quickfix
         qfText = { link = '@normal' },
         qfLineNr = { fg = 'palette.comment' },
-        QuickFixLine = { link = 'Search' },
+        QuickFixLine = { fg = 'palette.green' },
 
         -- folds
         Folded = { link = 'Comment' },
