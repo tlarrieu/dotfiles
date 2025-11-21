@@ -12,7 +12,7 @@ return {
     },
     palettes = {
       dawnfox = {
-        black   = { base = '#575279', dim = '#bab5bd' },
+        black   = { base = '#6d6a84', dim = '#bab5bd' },
         blue    = { base = '#8da8bf', dim = '#cbcfd2' },
         cyan    = { base = '#56949f', dim = '#bac9c8' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
@@ -33,7 +33,7 @@ return {
         bg4     = '#bdbfc9', -- Conceal, border fg
 
         fg0     = '#4c4769', -- Lighter fg
-        fg1     = '#575279', -- Default fg
+        fg1     = '#6d6a84', -- Default fg
         fg2     = '#625c87', -- Darker fg (status line)
         fg3     = '#a8a3b3', -- Darker fg (line numbers, fold colums)
 
@@ -90,8 +90,6 @@ return {
         Identifier = { fg = 'palette.green', bg = 'none' },
         Constant = { fg = 'palette.red' },
 
-        ['@key'] = { fg = 'palette.comment', bg = 'none' },
-
         ['@comment'] = { fg = 'palette.green', style = 'italic' },
         ['@comment.documentation'] = { fg = 'palette.green', bg = 'palette.green.dim' },
 
@@ -108,25 +106,25 @@ return {
 
         ['@module'] = { fg = 'palette.blue' },
 
-        ['@property'] = { link = '@key' },
-        ['@variable'] = { fg = 'palette.comment' },
+        ['@property'] = { fg = 'palette.comment' },
+        ['@variable'] = { fg = 'palette.fg1' },
         ['@variable.key'] = { fg = 'palette.dim', style = 'italic' },
         ['@variable.parameter'] = { link = '@variable' },
-        ['@variable.member'] = { link = '@key' },
+        ['@variable.member'] = { link = '@variable' },
         ['@variable.builtin'] = { fg = 'palette.orange' },
 
-        ['@function'] = { fg = 'palette.comment', style = 'underline,bold' },
-        ['@function.call'] = { fg = 'palette.comment', style = 'NONE' },
+        ['@function'] = { fg = 'palette.fg1', style = 'underline,bold' },
+        ['@function.call'] = { fg = 'palette.fg1', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
-        ['@constant'] = { fg = 'palette.comment', },
+        ['@constant'] = { fg = 'palette.fg1', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
-        ['@constant.assignment'] = { fg = 'palette.comment', style = 'underline,bold' },
+        ['@constant.assignment'] = { fg = 'palette.fg1', style = 'underline,bold' },
 
         ['@operator'] = { fg = 'palette.dim' },
 
-        ['@tag.attribute'] = { link = '@key' },
+        ['@tag.attribute'] = { fg = 'palette.comment' },
         ['@tag.delimiter'] = { fg = 'palette.dim' },
 
         ['@punctuation.special'] = { fg = 'palette.comment' },
@@ -226,7 +224,7 @@ return {
         ['@type.builtin.luadoc'] = { link = '@type' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
-        ['@variable.parameter.luadoc'] = { link = '@key' },
+        ['@variable.parameter.luadoc'] = { fg = 'palette.comment' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
         -- make
@@ -323,6 +321,9 @@ return {
 
         LazyH1 = { fg = 'palette.green', bg = 'palette.green.dim' },
         LazySpecial = { fg = 'palette.comment' },
+        LazyDimmed = { fg = 'palette.dim' },
+        LazyCommit = { link = 'fugitiveHash' },
+        LazyCommitType = { fg = 'palette.blue', style = 'bold' },
         LazyButton = { fg = 'palette.fg2', bg = 'palette.bg1' },
         LazyButtonActive = { link = 'LazyH1' },
         LazyProgressDone = { fg = 'palette.green' },
@@ -420,8 +421,8 @@ return {
         fugitiveStagedHeading = { fg = 'palette.green', style = 'bold' },
         fugitiveUnstagedHeading = { fg = 'palette.yellow', style = 'bold' },
         fugitiveUntrackedHeading = { fg = 'palette.red', style = 'bold' },
-        fugitiveHash = { link = '@constant.git_rebase' },
-        gvSha = { link = '@constant.git_rebase' },
+        fugitiveHash = { fg = 'palette.magenta', style = 'italic' },
+        gvSha = { link = 'fugitiveHash' },
         gvDate = { fg = 'palette.green' },
         gvAuthor = { fg = 'palette.blue' },
         gvMessage = { fg = 'palette.comment', style = 'italic' },
@@ -459,7 +460,7 @@ return {
         ['@keyword.git_rebase.merge'] = { fg = 'palette.pink' },
         ['@keyword.git_rebase.update-ref'] = { fg = 'palette.pink' },
         ['@keyword.git_rebase.invalid'] = { fg = 'palette.red', bg = 'palette.red.dim', style = 'undercurl' },
-        ['@constant.git_rebase'] = { fg = 'palette.magenta', style = 'italic' },
+        ['@constant.git_rebase'] = { link = 'fugitiveHash' },
         ['@none.git_rebase'] = { fg = 'palette.comment' },
         ['@string.special.path.gitignore'] = { fg = 'palette.blue' },
         ['@punctuation.delimiter.gitignore'] = { fg = 'palette.comment' },
@@ -533,29 +534,6 @@ return {
         ['@number.negative.ledger'] = { fg = 'palette.red' },
         ['@markup.raw.ledger'] = { fg = 'palette.dim' },
         ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
-
-        AvanteTitle = { fg = 'palette.bg1', bg = 'palette.fg0' },
-        AvanteReversedTitle = { fg = 'palette.fg0', bg = 'palette.bg0' },
-        AvanteSubtitle = { link = 'AvanteTitle' },
-        AvanteReversedSubtitle = { link = 'AvanteReversedTitle' },
-        AvanteThirdTitle = { link = 'AvanteTitle' },
-        AvanteReversedThirdTitle = { link = 'AvanteReversedTitle' },
-        AvantePopupHint = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
-        AvanteTaskFailed = { fg = 'palette.red' },
-        AvanteThinking = { fg = 'palette.pink' },
-        AvanteTaskRunning = { fg = 'palette.pink' },
-        AvanteTaskCompleted = { fg = 'palette.green' },
-        AvanteStateSpinnerFailed = { fg = 'palette.bg1', bg = 'palette.red.bright' },
-        AvanteStateSpinnerThinking = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
-        AvanteStateSpinnerSearching = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
-        AvanteStateSpinnerSucceeded = { fg = 'palette.bg1', bg = 'palette.green.bright' },
-        AvanteStateSpinnerCompacting = { fg = 'palette.bg1', bg = 'palette.magenta.bright' },
-        AvanteStateSpinnerGenerating = { fg = 'palette.bg1', bg = 'palette.blue.bright' },
-        AvanteStateSpinnerToolCalling = { fg = 'palette.bg1', bg = 'palette.cyan.bright' },
-        AvanteToBeDeletedWOStrikethrough = { fg = 'palette.red', bg = 'palette.red' },
-        AvanteConflictIncoming = { fg = 'palette.fg1', bg = 'palette.green.dim' },
-        AvantePromptInput = { link = 'NormalFloat' },
-        AvantePromptInputBorder = { link = 'FloatBorder' },
 
         TodoBgFIX = { fg = 'palette.bg1', bg = 'palette.red' },
         TodoFgFIX = { fg = 'palette.red' },

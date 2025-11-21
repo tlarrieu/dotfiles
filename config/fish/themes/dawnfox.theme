@@ -1,9 +1,9 @@
 # Syntax Highlighting Colors
-fish_color_normal 575279
+fish_color_normal 6d6a84
 fish_color_command 8da8bf
 fish_color_keyword d7827e
 fish_color_quote d1aa5e
-fish_color_redirection 575279
+fish_color_redirection 6d6a84
 fish_color_end cc8800
 fish_color_error b4637a
 fish_color_param 907aa9
@@ -17,7 +17,7 @@ fish_color_autosuggestion b0b2b0
 # Completion Pager Colors
 fish_pager_color_progress 7d9299
 fish_pager_color_prefix 8da8bf
-fish_pager_color_completion 575279
+fish_pager_color_completion 6d6a84
 fish_pager_color_description 907aa9
 
 # vim: ft=fish
