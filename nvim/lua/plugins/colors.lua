@@ -116,6 +116,7 @@ return {
         ['@function'] = { fg = 'palette.fg1', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.fg1', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
+        ['@function.builtin'] = { link = '@keyword' },
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.fg1', },
