@@ -14,7 +14,7 @@ return {
       dawnfox = {
         black   = { base = '#6d6a84', dim = '#bab5bd' },
         blue    = { base = '#8da8bf', dim = '#cbcfd2' },
-        cyan    = { base = '#5c9faa', dim = '#bccccc' },
+        cyan    = { base = '#56a1ad', dim = '#bacccd' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
         magenta = { base = '#907aa9', dim = '#ccc1cb' },
         orange  = { base = '#cc8800', dim = '#dec599' },
