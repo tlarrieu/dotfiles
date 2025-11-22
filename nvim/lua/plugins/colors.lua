@@ -141,16 +141,11 @@ return {
         ['@comment'] = { link = 'Comment' },
         ['@comment.documentation'] = { link = 'Documentation' },
 
-        ['@number'] = { fg = 'palette.pink' },
-        ['@float'] = { link = '@number' },
-        ['@boolean'] = { link = '@number' },
-        ['@string'] = { link = '@number' },
         ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
         ['@string.regexp'] = { fg = 'palette.green', style = 'NONE' },
         ['@operator.regex'] = { fg = 'palette.green.dim', style = 'bold' },
 
-        ['@type'] = { fg = 'palette.yellow' },
-        ['@type.builtin'] = { fg = 'palette.yellow' },
+        ['@type.builtin'] = { link = 'Type' },
 
         ['@module'] = { fg = 'palette.blue' },
 
@@ -256,25 +251,13 @@ return {
         -- query
         ['@function.call.query'] = { fg = 'palette.blue' },
         ['@comment.query'] = { fg = 'palette.fg.dimmer' },
-        ['@keyword.directive.query'] = { fg = 'palette.red' },
-        ['@type.query'] = { fg = 'palette.yellow' },
+        ['@keyword.directive.query'] = { fg = 'palette.fg.dim' },
         ['@variable.query'] = { fg = 'palette.pink' },
-
-        -- shells
-        ['@operator.bash'] = { link = 'Keyword' },
-        ['@operator.fish'] = { link = 'Keyword' },
-        ['@keyword.operator.fish'] = { link = '@operator.fish' },
-
-        -- xresources
-        ['@constant.macro.xresources'] = { link = 'Variable' },
-        ['@markup.raw.xresources'] = { link = 'String' },
-
-        -- zathurarc
-        ['@variable.builtin.zathurarc'] = { link = 'Variable' },
 
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
+        ['@comment.documentation.lua'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg0' },
 
         ['@keyword.luadoc'] = { link = '@constant' },
         ['@keyword.function.luadoc'] = { link = '@function.call' },
@@ -302,6 +285,9 @@ return {
         ['@keyword.operator.sql'] = { link = '@keyword.sql' },
         ['@variable.member.sql'] = { link = '@variable' },
 
+        -- yaml
+        ['@property.yaml'] = { link = '@variable' },
+
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.orange' },
         ['@constructor.scss'] = { link = '@constructor.css' },
@@ -320,6 +306,11 @@ return {
         ['@function.css'] = { link = '@function.call' },
         ['@function.scss'] = { link = '@function.call' },
 
+        -- xresources
+        ['@character.special.xresources'] = { link = '@variable' },
+        ['@constant.macro.xresources'] = { link = '@variable' },
+        ['@markup.raw.xresources'] = { link = 'String' },
+
         -- rasi
         ['@namespace.rasi'] = { link = '@constructor.css' },
         ['@field.rasi'] = { link = '@field.css' },
@@ -331,6 +322,9 @@ return {
         -- kitty
         kittySt = { link = 'String' },
         kittyKeyword = { fg = 'palette.fg.base' },
+
+        -- zathurarc
+        ['@variable.builtin.zathurarc'] = { link = '@variable' },
 
         -- man pages
         manHeader = { link = 'Title' },
