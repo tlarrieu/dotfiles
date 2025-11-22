@@ -48,9 +48,9 @@ return {
       nordfox = {
         black   = { base = '#3b4252', dim = '#313744' },
         blue    = { base = '#81a1c1', dim = '#3f4a5a' },
-        cyan    = { base = '#88c0d0', dim = '#40505d' },
+        cyan    = { base = '#9fbec6', dim = '#45505b' },
         green   = { base = '#a3be8c', dim = '#45504f' },
-        magenta = { base = '#b48ead', dim = '#494656' },
+        magenta = { base = '#a289bf', dim = '#454559' },
         orange  = { base = '#d89715', dim = '#504837' },
         pink    = { base = '#d8847f', dim = '#50444d' },
         red     = { base = '#bf616a', dim = '#4b3d48' },

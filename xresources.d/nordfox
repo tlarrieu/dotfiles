@@ -3,8 +3,8 @@
 #define COLOR2  #a3be8c
 #define COLOR3  #ebcb8b
 #define COLOR4  #81a1c1
-#define COLOR5  #b48ead
-#define COLOR6  #88c0d0
+#define COLOR5  #a289bf
+#define COLOR6  #9fbec6
 #define COLOR7  #e5e9f0
 #define COLOR8  #465780
 #define COLOR9  #d06f79
