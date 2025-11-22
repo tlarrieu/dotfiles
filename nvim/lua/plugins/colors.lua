@@ -14,7 +14,7 @@ return {
       dawnfox = {
         black   = { base = '#6d6a84', dim = '#bab5bd' },
         blue    = { base = '#8da8bf', dim = '#cbcfd2' },
-        cyan    = { base = '#56949f', dim = '#bac9c8' },
+        cyan    = { base = '#5c9faa', dim = '#bccccc' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
         magenta = { base = '#907aa9', dim = '#ccc1cb' },
         orange  = { base = '#cc8800', dim = '#dec599' },
@@ -24,7 +24,12 @@ return {
         yellow  = { base = '#d1aa5e', dim = '#dfcfb5' },
 
         comment = '#7d9299',
-        dim     = '#b0b2b0',
+
+        fg      = {
+          base   = '#6d6a84',
+          dim    = '#7d9299',
+          dimmer = '#a9b0b2',
+        },
 
         bg0     = '#ddd8d2', -- Dark bg (status line and float)
         bg1     = '#e5dfda', -- Default bg
@@ -53,7 +58,12 @@ return {
         yellow  = { base = '#ebcb8b', dim = '#54524f' },
 
         comment = '#60728a',
-        dim     = '#4a5468',
+
+        fg      = {
+          base   = '#b0b1b2',
+          dim    = '#60728a',
+          dimmer = '#4a5468',
+        },
 
         bg0     = '#232831', -- Dark bg (status line and float)
         bg1     = '#2e3440', -- Default bg
@@ -72,27 +82,64 @@ return {
     },
     groups = {
       all = {
-        ---------------------| base |-----------------------
+        -- ------------------| base |-----------------------
 
         SpellRare = { style = 'NONE' },
         SpellLocal = { style = 'NONE' },
 
         MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
-        PreProc = { fg = 'palette.red', },
-        Special = { fg = 'palette.orange', },
-        Number = { fg = 'palette.pink', },
-        String = { link = 'Number' },
-        Type = { fg = 'palette.orange', },
-        Keyword = { fg = 'palette.magenta', },
-        Conditional = { link = 'Keyword' },
-        Title = { fg = 'palette.comment', style = 'bold' },
-        Function = { fg = 'palette.blue', },
-        Identifier = { fg = 'palette.green', },
-        Constant = { fg = 'palette.red' },
+        Comment = { fg = 'palette.cyan', style = 'italic' },
+        Documentation = { fg = 'palette.cyan', bg = 'palette.cyan.dim', style = 'italic' },
 
-        ['@comment'] = { fg = 'palette.green', style = 'italic' },
-        ['@comment.documentation'] = { fg = 'palette.green', bg = 'palette.green.dim' },
+        Constant = { fg = 'palette.fg.base' },
+        String = { fg = 'palette.pink', style = 'NONE' },
+        Character = { link = 'String' },
+        Boolean = { link = 'String' },
+        Number = { link = 'String' },
+        Float = { link = 'Number' },
+
+        Identifier = { fg = 'palette.fg.base' },
+        Function = { link = 'Identifier', },
+
+        Statement = { fg = 'palette.fg.base' },
+        Keyword = { fg = 'palette.fg.dimmer' },
+        Exception = { link = 'Keyword' },
+        Conditional = { link = 'Keyword' },
+        Repeat = { link = 'Conditional' },
+        Label = { link = 'Conditional' },
+        Operator = { fg = 'palette.fg.dimmer' },
+
+        PreProc = { fg = 'palette.fg.dim' },
+        Include = { link = 'PreProc' },
+        Define = { link = 'PreProc' },
+        Macro = { link = 'PreProc' },
+        PreCondit = { link = 'PreProc' },
+
+        Type = { fg = 'palette.yellow' },
+        StorageClass = { link = 'Type' },
+        Structure = { link = 'Type' },
+        Typedef = { link = 'Type' },
+
+        Special = { fg = 'palette.orange', },
+        SpecialChar = { link = 'Special' },
+        Tag = { link = 'Special' },
+        Delimiter = { link = 'Special' },
+        SpecialComment = { link = 'Special' },
+        Debug = { link = 'Special' },
+
+        Error = { fg = 'palette.red' },
+        Todo = { fg = 'palette.bg1', bg = 'palette.yellow', style = 'bold' },
+
+        Added = { fg = 'palette.green' },
+        Changed = { fg = 'palette.yellow' },
+        Removed = { fg = 'palette.red' },
+
+        Title = { fg = 'palette.fg.dim', style = 'bold' },
+        Whitespace = { fg = 'palette.fg.dimmer' },
+
+        ['@comment'] = { link = 'Comment' },
+        ['@comment.documentation'] = { link = 'Documentation' },
 
         ['@number'] = { fg = 'palette.pink' },
         ['@float'] = { link = '@number' },
@@ -107,33 +154,34 @@ return {
 
         ['@module'] = { fg = 'palette.blue' },
 
-        ['@property'] = { fg = 'palette.comment' },
-        ['@variable'] = { fg = 'palette.fg1' },
-        ['@variable.key'] = { fg = 'palette.comment', style = 'italic' },
+        ['@property'] = { fg = 'palette.fg.dim' },
+        ['@variable'] = { fg = 'palette.fg.base' },
+        ['@variable.key'] = { fg = 'palette.fg.dim', style = 'italic' },
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@variable' },
         ['@variable.builtin'] = { fg = 'palette.orange' },
 
-        ['@function'] = { fg = 'palette.fg1', style = 'underline,bold' },
-        ['@function.call'] = { fg = 'palette.fg1', style = 'NONE' },
+        ['@function'] = { fg = 'palette.fg.base', style = 'underline,bold' },
+        ['@function.call'] = { fg = 'palette.fg.base', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
         ['@function.builtin'] = { link = '@function.call' },
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
-        ['@constant'] = { fg = 'palette.fg1', },
+        ['@constant'] = { fg = 'palette.fg.base', },
         ['@constant.builtin'] = { fg = 'palette.orange' },
-        ['@constant.assignment'] = { fg = 'palette.fg1', style = 'underline,bold' },
+        ['@constant.assignment'] = { fg = 'palette.fg.base', style = 'underline,bold' },
 
-        ['@operator'] = { fg = 'palette.dim' },
+        ['@operator'] = { fg = 'palette.fg.dimmer' },
 
-        ['@tag.attribute'] = { fg = 'palette.comment' },
+        ['@tag.attribute'] = { fg = 'palette.fg.dim' },
         ['@tag.delimiter'] = { link = '@operator' },
 
-        ['@punctuation.special'] = { fg = 'palette.comment' },
+        ['@punctuation.special'] = { fg = 'palette.fg.dim' },
         ['@punctuation.delimiter'] = { link = '@operator' },
         ['@punctuation.bracket'] = { link = '@operator' },
 
-        ['@keyword'] = { fg = 'palette.dim' },
+        ['@keyword'] = { fg = 'palette.fg.dimmer' },
+        ['@keyword.operator'] = { link = '@keyword' },
         ['@keyword.function'] = { link = '@keyword' },
         ['@keyword.exception'] = { link = '@keyword' },
         ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
@@ -145,18 +193,18 @@ return {
 
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
-        MsgAreaCmd = { fg = 'palette.fg1', style = 'NONE' },
-        MsgAreaMsg = { link = 'Comment' },
+        MsgAreaCmd = { fg = 'palette.fg.base', style = 'NONE' },
+        MsgAreaMsg = { fg = 'palette.fg.dimmer' },
         MsgSeparator = { link = 'WinSeparator' },
-        MoreMsg = { fg = 'palette.comment', bg = 'none', style = 'bold' },
+        MoreMsg = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
 
         -- quickfix
         qfText = { link = '@normal' },
-        qfLineNr = { fg = 'palette.comment' },
+        qfLineNr = { fg = 'palette.fg.dim' },
         QuickFixLine = { fg = 'palette.green' },
 
         -- folds
-        Folded = { link = 'Comment' },
+        Folded = { fg = 'palette.fg.dim' },
         FoldColumn = { link = 'SignColumn' },
         CursorLineNr = { link = 'CursorLine' },
 
@@ -165,7 +213,7 @@ return {
         DiagnosticMixed = { fg = 'palette.yellow', bg = 'palette.yellow.dim' },
         DiagnosticFail = { fg = 'palette.red', bg = 'palette.red.dim' },
         DiagnosticPending = { fg = 'palette.blue', bg = 'palette.blue.dim' },
-        DiagnosticVirtualTextHint = { fg = 'palette.comment', bg = 'palette.bg0' },
+        DiagnosticVirtualTextHint = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
         -- LSP
@@ -175,7 +223,7 @@ return {
         NormalFloat = { fg = 'none', bg = 'palette.bg0' },
         FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
         FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
-        FloatFooter = { fg = 'palette.fg1', bg = 'palette.bg1' },
+        FloatFooter = { fg = 'palette.fg.base', bg = 'palette.bg1' },
 
         -- winseparator
         WinSeparator = { link = 'WinSeparatorThin' },
@@ -183,14 +231,14 @@ return {
         WinSeparatorThick = { fg = 'palette.bg0', bg = 'palette.bg0' },
 
         -- pmenu
-        Pmenu = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        Pmenu = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         PmenuSel = { bg = 'palette.sel0' },
 
         -- markup
         ['@markup.strong'] = { fg = 'none', style = 'bold' },
         ['@markup.italic'] = { fg = 'none', style = 'italic' },
         ['@markup.underline'] = { fg = 'none', style = 'underline' },
-        ['@markup.quote'] = { fg = 'palette.comment', style = 'italic' },
+        ['@markup.quote'] = { fg = 'palette.fg.dim', style = 'italic' },
         ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
         ['@markup.link.url'] = { link = '@markup.link' },
         ['@markup.link.label'] = { link = '@markup.link' },
@@ -203,11 +251,11 @@ return {
         ['@markup.heading.5'] = { fg = 'palette.cyan' },
         ['@markup.heading.6'] = { fg = 'palette.magenta' },
 
-        ---------------| Language specific |----------------
+        -- ------------| Language specific |----------------
 
         -- query
         ['@function.call.query'] = { fg = 'palette.blue' },
-        ['@comment.query'] = { fg = 'palette.dim' },
+        ['@comment.query'] = { fg = 'palette.fg.dimmer' },
         ['@keyword.directive.query'] = { fg = 'palette.red' },
         ['@type.query'] = { fg = 'palette.yellow' },
         ['@variable.query'] = { fg = 'palette.pink' },
@@ -216,6 +264,13 @@ return {
         ['@operator.bash'] = { link = 'Keyword' },
         ['@operator.fish'] = { link = 'Keyword' },
         ['@keyword.operator.fish'] = { link = '@operator.fish' },
+
+        -- xresources
+        ['@constant.macro.xresources'] = { link = 'Variable' },
+        ['@markup.raw.xresources'] = { link = 'String' },
+
+        -- zathurarc
+        ['@variable.builtin.zathurarc'] = { link = 'Variable' },
 
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
@@ -226,20 +281,20 @@ return {
         ['@type.builtin.luadoc'] = { link = '@type' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
-        ['@variable.parameter.luadoc'] = { fg = 'palette.comment' },
+        ['@variable.parameter.luadoc'] = { fg = 'palette.fg.dim' },
         ['@function.macro.luadoc'] = { link = '@type' },
 
         -- make
         ['@function.builtin.make'] = { link = 'makeConfig' },
         ['@function.make'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
-        ['@operator.make'] = { fg = 'palette.comment', bg = 'none' },
+        ['@operator.make'] = { fg = 'palette.fg.dim', bg = 'none' },
         ['makeSpecTarget'] = { link = 'PreProc' },
 
         -- ruby
-        ['@comment.directive'] = { fg = 'palette.dim', bg = 'palette.bg1' },
+        ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg1' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
-        ['@punctuation.special.ruby'] = { fg = 'palette.comment' },
+        ['@punctuation.special.ruby'] = { fg = 'palette.fg.dim' },
         ['@function.builtin.ruby'] = { link = '@keyword' },
 
         -- SQL
@@ -250,11 +305,11 @@ return {
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.orange' },
         ['@constructor.scss'] = { link = '@constructor.css' },
-        ['@field.css'] = { fg = 'palette.comment' },
+        ['@field.css'] = { fg = 'palette.fg.dim' },
         ['@field.scss'] = { link = '@field.css' },
         ['@operator.css'] = { link = '@tag.css' },
         ['@operator.scss'] = { link = '@tag.css' },
-        ['@property.css'] = { fg = 'palette.comment' },
+        ['@property.css'] = { fg = 'palette.fg.dim' },
         ['@property.scss'] = { link = '@property.css' },
         ['@tag.css'] = { fg = 'palette.orange' },
         ['@tag.scss'] = { link = '@tag.css' },
@@ -275,6 +330,7 @@ return {
 
         -- kitty
         kittySt = { link = 'String' },
+        kittyKeyword = { fg = 'palette.fg.base' },
 
         -- man pages
         manHeader = { link = 'Title' },
@@ -283,7 +339,7 @@ return {
         manSectionHeading = { link = 'MarkViewHeading1' },
         manSubHeading = { link = 'MarkViewHeading2' },
 
-        ----------------------| plugins |----------------------
+        -- -------------------| plugins |----------------------
 
         Directory = { fg = 'palette.blue', bg = 'none' },
         OilDir = { link = 'Directory' },
@@ -307,24 +363,25 @@ return {
         TelescopeTitle = { fg = 'palette.fg3', bg = 'none', style = 'bold' },
         TelescopePreviewBorder = { link = 'FloatBorder' },
         TelescopePreviewTitle = { fg = 'palette.fg3', style = 'bold' },
-        TelescopePromptNormal = { fg = 'palette.bg1', bg = 'palette.fg1' },
+        TelescopePromptNormal = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
-        TelescopePromptTitle = { fg = 'palette.fg1', bg = 'palette.fg1' },
-        TelescopePromptPrefix = { fg = 'palette.bg1', bg = 'palette.fg1' },
+        TelescopePromptTitle = { fg = 'palette.fg.base', bg = 'palette.fg.base' },
+        TelescopePromptPrefix = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
         TelescopeSelection = { link = 'CursorLine' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { fg = 'palette.green' },
         TelescopeMultiSelection = { fg = 'palette.orange' },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
-        TelescopeResultsDiffAdd = { fg = 'palette.green' },
-        TelescopeResultsDiffDelete = { fg = 'palette.red' },
-        TelescopeResultsDiffChange = { fg = 'palette.yellow' },
+        TelescopeResultsComment = { fg = 'palette.fg.dimmer', style = 'italic' },
+        TelescopeResultsDiffAdd = { link = 'Added' },
+        TelescopeResultsDiffDelete = { link = 'Removed' },
+        TelescopeResultsDiffChange = { link = 'Changed' },
         TelescopeResultsIdentifier = { fg = 'palette.magenta', style = 'italic' },
 
         LazyH1 = { fg = 'palette.green', bg = 'palette.green.dim' },
-        LazySpecial = { fg = 'palette.comment' },
-        LazyDimmed = { fg = 'palette.dim' },
+        LazySpecial = { fg = 'palette.fg.dim' },
+        LazyDimmed = { fg = 'palette.fg.dimmer' },
         LazyCommit = { link = 'fugitiveHash' },
         LazyCommitType = { fg = 'palette.blue', style = 'bold' },
         LazyButton = { fg = 'palette.fg2', bg = 'palette.bg1' },
@@ -349,14 +406,14 @@ return {
         LualineRemoved = { fg = 'palette.red' },
         LualineModified = { fg = 'palette.yellow' },
         LualineTablineActive = { fg = 'palette.bg1', bg = 'palette.blue' },
-        LualineTablineActiveAlt = { fg = 'palette.fg1', bg = 'palette.bg1', style = 'bold,underline' },
-        LualineTablineInactive = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        LualineTablineActiveAlt = { fg = 'palette.fg.base', bg = 'palette.bg1', style = 'bold,underline' },
+        LualineTablineInactive = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
         LualineError = { fg = 'palette.red', bg = 'none' },
         LualineWarning = { fg = 'palette.yellow', bg = 'none' },
 
         FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
-        FidgetNormal = { fg = 'palette.fg1', bg = 'palette.bg0' },
+        FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         FidgetBorder = { link = 'FidgetNormal' },
         NotifyDEBUGTitle = { fg = 'palette.magenta' },
         NotifyINFOTitle = { fg = 'palette.blue' },
@@ -401,7 +458,7 @@ return {
         MarkviewPalette6Sign = { fg = 'palette.magenta', bg = 'none' },
         MarkviewCheckboxChecked = { fg = 'palette.green', bg = 'none' },
         MarkviewCheckboxUnchecked = { fg = 'palette.yellow', bg = 'none' },
-        MarkviewCheckboxStriked = { fg = 'palette.comment', bg = 'none', style = 'strikethrough' },
+        MarkviewCheckboxStriked = { fg = 'palette.fg.dim', bg = 'none', style = 'strikethrough' },
         MarkviewGradient0 = { fg = '#cccdc1', bg = 'none' },
         MarkviewGradient1 = { fg = '#c4c8bd', bg = 'none' },
         MarkviewGradient2 = { fg = '#bdc3b9', bg = 'none' },
@@ -414,7 +471,7 @@ return {
         MarkviewGradient9 = { fg = '#92a0a0', bg = 'none' },
 
         fugitiveHeader = { fg = 'palette.green', bg = 'none', style = 'bold' },
-        fugitiveSection = { fg = 'palette.comment' },
+        fugitiveSection = { fg = 'palette.fg.dim' },
         fugitiveHelpTag = { fg = 'palette.blue', bg = 'none' },
         fugitiveSymbolicRef = { link = '@git.branch' },
         fugitiveStagedModifier = { fg = 'palette.green' },
@@ -428,13 +485,13 @@ return {
         gvSha = { link = 'fugitiveHash' },
         gvDate = { fg = 'palette.green' },
         gvAuthor = { fg = 'palette.blue' },
-        gvMessage = { fg = 'palette.comment', style = 'italic' },
+        gvMessage = { fg = 'palette.fg.dim', style = 'italic' },
         gvTag = { fg = 'palette.orange', style = 'bold' },
         gvMeta = { link = 'gvTag' },
-        ['@comment.gitcommit'] = { fg = 'palette.dim', bg = 'none' },
+        ['@comment.gitcommit'] = { fg = 'palette.fg.dimmer', bg = 'none' },
         ['@markup.heading.gitcommit'] = { fg = 'palette.green', bg = 'none' },
         ['@text.reference.gitcommit'] = { link = '@markup.link.gitcommit' },
-        ['@text.uri.gitcommit'] = { fg = 'palette.fg1', bg = 'none' },
+        ['@text.uri.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
         ['@string.special.path.gitcommit'] = { fg = 'palette.magenta', bg = 'none' },
         ['@keyword.gitcommit'] = { fg = 'palette.orange', bg = 'none' },
         ['@markup.heading.git_config'] = { fg = 'palette.orange', bg = 'none' },
@@ -442,10 +499,10 @@ return {
         ['@git.title.committed'] = { fg = 'palette.green', bg = 'none', style = 'bold' },
         ['@git.title.not_committed'] = { fg = 'palette.yellow', bg = 'none', style = 'bold' },
         ['@git.title.untracked'] = { fg = 'palette.red', bg = 'none', style = 'bold' },
-        ['@git.change.deleted'] = { fg = 'palette.comment', bg = 'none' },
-        ['@git.change.modified'] = { fg = 'palette.comment', bg = 'none' },
-        ['@git.change.new'] = { fg = 'palette.comment', bg = 'none' },
-        ['@git.change.renamed'] = { fg = 'palette.comment', bg = 'none' },
+        ['@git.change.deleted'] = { fg = 'palette.fg.dim', bg = 'none' },
+        ['@git.change.modified'] = { fg = 'palette.fg.dim', bg = 'none' },
+        ['@git.change.new'] = { fg = 'palette.fg.dim', bg = 'none' },
+        ['@git.change.renamed'] = { fg = 'palette.fg.dim', bg = 'none' },
         ['@git.change.deleted.filepath'] = { fg = 'palette.red', bg = 'none' },
         ['@git.change.modified.filepath'] = { fg = 'palette.yellow', bg = 'none' },
         ['@git.change.new.filepath'] = { fg = 'palette.green', bg = 'none' },
@@ -464,9 +521,9 @@ return {
         ['@keyword.git_rebase.update-ref'] = { fg = 'palette.pink' },
         ['@keyword.git_rebase.invalid'] = { fg = 'palette.red', bg = 'palette.red.dim', style = 'undercurl' },
         ['@constant.git_rebase'] = { link = 'fugitiveHash' },
-        ['@none.git_rebase'] = { fg = 'palette.comment' },
+        ['@none.git_rebase'] = { fg = 'palette.fg.dim' },
         ['@string.special.path.gitignore'] = { fg = 'palette.blue' },
-        ['@punctuation.delimiter.gitignore'] = { fg = 'palette.comment' },
+        ['@punctuation.delimiter.gitignore'] = { fg = 'palette.fg.dim' },
         ['@character.special.gitignore'] = { fg = 'palette.orange' },
 
         DiffAdd = { bg = 'palette.green.dim' },
@@ -496,26 +553,26 @@ return {
         GitSignsChangeDelete = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
         GitSignsChangeDeleteNr = { link = 'GitSignsChangeDelete' },
         GitSignsChangeDeleteLn = { fg = 'none', },
-        GitSignsStagedAdd = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedAdd = { fg = 'palette.fg.dim', bg = 'palette.bg1' },
         GitSignsStagedAddNr = { link = 'GitSignsStagedAdd' },
         GitSignsStagedAddLn = { fg = 'none', bg = 'palette.bg1' },
-        GitSignsStagedDelete = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedDelete = { fg = 'palette.fg.dim', bg = 'palette.bg1' },
         GitSignsStagedDeleteNr = { link = 'GitSignsStagedDelete' },
         GitSignsStagedTopDelete = { link = 'GitSignsStagedDelete' },
         GitSignsStagedTopDeleteNr = { link = 'GitSignsStagedDeleteNr' },
-        GitSignsStagedChange = { fg = 'palette.comment', bg = 'palette.bg1' },
+        GitSignsStagedChange = { fg = 'palette.fg.dim', bg = 'palette.bg1' },
         GitSignsStagedChangeNr = { link = 'GitSignsStagedChange' },
         GitSignsStagedChangeLn = { fg = 'none', bg = 'palette.bg0' },
         GitSignsStagedChangeDelete = { link = 'GitSignsStagedChange' },
         GitSignsStagedChangeDeleteNr = { link = 'GitSignsStagedChangeNr' },
         GitSignsStagedChangeDeleteLn = { link = 'GitSignsStagedChangeLn' },
-        GitSignsCurrentLineBlame = { fg = 'palette.comment', bg = 'palette.bg0', style = 'italic' },
+        GitSignsCurrentLineBlame = { fg = 'palette.fg.dim', bg = 'palette.bg0', style = 'italic' },
 
-        CmpGhostText = { fg = 'palette.dim' },
-        CmpItemAbbr = { fg = 'palette.comment' },
+        CmpGhostText = { fg = 'palette.fg.dimmer' },
+        CmpItemAbbr = { fg = 'palette.fg.dim' },
         CmpItemAbbrMatch = { fg = 'palette.green' },
         CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
-        CmpItemKind = { fg = 'palette.comment' },
+        CmpItemKind = { fg = 'palette.fg.dim' },
         CmpItemKindSnippet = { link = 'CmpItemKind' },
         CmpItemKindCopilot = { link = 'CmpItemKind' },
         CmpItemKindVariable = { link = 'CmpItemKind' },
@@ -535,7 +592,7 @@ return {
         ['@variable.member.ledger'] = { fg = 'palette.blue' },
         ['@number.ledger'] = { fg = 'palette.green' },
         ['@number.negative.ledger'] = { fg = 'palette.red' },
-        ['@markup.raw.ledger'] = { fg = 'palette.dim' },
+        ['@markup.raw.ledger'] = { fg = 'palette.fg.dimmer' },
         ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
 
         TodoBgFIX = { fg = 'palette.bg1', bg = 'palette.red' },
@@ -564,7 +621,7 @@ return {
     vim.api.nvim_create_autocmd('ColorScheme', {
       callback = function(args)
         local palette = require('nightfox.palette').load(args.match)
-        require('nvim-web-devicons').set_default_icon('', palette.comment, 0)
+        require('nvim-web-devicons').set_default_icon('', palette.fg.dim, 0)
       end,
       group = vim.api.nvim_create_augroup('nightfox_group', {})
     })
