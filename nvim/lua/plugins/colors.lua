@@ -483,7 +483,7 @@ return {
         gvTag = { fg = 'palette.orange', style = 'bold' },
         gvMeta = { link = 'gvTag' },
         ['@comment.gitcommit'] = { fg = 'palette.fg.dimmer', bg = 'none' },
-        ['@markup.heading.gitcommit'] = { fg = 'palette.green', bg = 'none' },
+        ['@markup.heading.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
         ['@text.reference.gitcommit'] = { link = '@markup.link.gitcommit' },
         ['@text.uri.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
         ['@string.special.path.gitcommit'] = { fg = 'palette.magenta', bg = 'none' },
