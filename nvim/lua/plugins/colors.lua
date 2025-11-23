@@ -164,7 +164,7 @@ return {
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.fg.base', },
-        ['@constant.builtin'] = { fg = 'palette.orange' },
+        ['@constant.builtin'] = { link = '@variable.builtin' },
         ['@constant.assignment'] = { fg = 'palette.fg.base', style = 'underline,bold' },
 
         ['@operator'] = { fg = 'palette.fg.dimmer' },
@@ -289,21 +289,26 @@ return {
 
         -- css / scss
         ['@constructor.css'] = { fg = 'palette.orange' },
-        ['@constructor.scss'] = { link = '@constructor.css' },
         ['@field.css'] = { fg = 'palette.fg.dim' },
-        ['@field.scss'] = { link = '@field.css' },
+        ['@attribute.css'] = { fg = 'palette.fg.dimmer' },
         ['@operator.css'] = { link = '@tag.css' },
-        ['@operator.scss'] = { link = '@tag.css' },
-        ['@property.css'] = { fg = 'palette.fg.dim' },
-        ['@property.scss'] = { link = '@property.css' },
+        ['@property.css'] = { fg = 'palette.fg.dimmer' },
         ['@tag.css'] = { fg = 'palette.orange' },
-        ['@tag.scss'] = { link = '@tag.css' },
         ['@type.css'] = { fg = 'palette.magenta' },
-        ['@type.scss'] = { link = '@type.css' },
+        ['@constant.css'] = { link = '@type.css' },
         ['@variable.parameter.css'] = { fg = 'palette.magenta' },
-        ['@variable.parameter.scss'] = { link = '@variable.parameter.css' },
         ['@function.css'] = { link = '@function.call' },
-        ['@function.scss'] = { link = '@function.call' },
+
+        ['@constructor.scss'] = { link = '@constructor.css' },
+        ['@field.scss'] = { link = '@field.css' },
+        ['@attribute.scss'] = { link = '@attribute.css' },
+        ['@operator.scss'] = { link = '@operator.css' },
+        ['@property.scss'] = { link = '@property.css' },
+        ['@tag.scss'] = { link = '@tag.css' },
+        ['@type.scss'] = { link = '@type.css' },
+        ['@constant.scss'] = { link = '@constant.css' },
+        ['@variable.parameter.scss'] = { link = '@variable.parameter.css' },
+        ['@function.scss'] = { link = '@function.css' },
 
         -- xresources
         ['@character.special.xresources'] = { link = '@variable' },
