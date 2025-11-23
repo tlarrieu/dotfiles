@@ -148,6 +148,7 @@ return {
         ['@type.builtin'] = { link = 'Type' },
 
         ['@module'] = { fg = 'palette.blue' },
+        ['@module.builtin'] = { fg = 'palette.fg.base' },
 
         ['@property'] = { fg = 'palette.fg.dim' },
         ['@variable'] = { fg = 'palette.fg.base' },
@@ -259,13 +260,11 @@ return {
         ['@keyword.operator.lua'] = { link = '@keyword' },
         ['@comment.documentation.lua'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg0' },
 
-        ['@keyword.luadoc'] = { link = '@constant' },
-        ['@keyword.function.luadoc'] = { link = '@function.call' },
-        ['@type.builtin.luadoc'] = { link = '@type' },
+        ['@comment.luadoc'] = { link = '@comment.documentation.lua' },
+        ['@keyword.luadoc'] = { fg = 'palette.fg.dim', style = 'bold' },
+        ['@keyword.function.luadoc'] = { link = '@type' },
         ['@keyword.import.luadoc'] = { link = '@keyword.luadoc' },
         ['@keyword.return.luadoc'] = { link = '@keyword.luadoc' },
-        ['@variable.parameter.luadoc'] = { fg = 'palette.fg.dim' },
-        ['@function.macro.luadoc'] = { link = '@type' },
 
         -- make
         ['@function.builtin.make'] = { link = 'makeConfig' },
