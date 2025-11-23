@@ -141,6 +141,9 @@ return {
         ['@comment'] = { link = 'Comment' },
         ['@comment.documentation'] = { link = 'Documentation' },
 
+
+        ['@character.special'] = { fg = 'palette.fg.dim' },
+
         ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
         ['@string.regexp'] = { fg = 'palette.green', style = 'NONE' },
         ['@operator.regex'] = { fg = 'palette.green.dim', style = 'bold' },
@@ -287,33 +290,25 @@ return {
         -- yaml
         ['@property.yaml'] = { link = '@variable' },
 
-        -- css / scss
-        ['@constructor.css'] = { fg = 'palette.orange' },
-        ['@field.css'] = { fg = 'palette.fg.dim' },
-        ['@attribute.css'] = { fg = 'palette.fg.dimmer' },
-        ['@operator.css'] = { link = '@tag.css' },
+        -- CSS
+        ['@attribute.css'] = { fg = 'palette.fg.dim' },
+        ['@tag.attribute.css'] = { link = '@attribute.css' },
+        ['@field.css'] = { link = '@attribute.css' },
         ['@property.css'] = { fg = 'palette.fg.dimmer' },
-        ['@tag.css'] = { fg = 'palette.orange' },
+        ['@character.special.css'] = { fg = 'palette.fg.dim' },
+        ['@keyword.directive.css'] = { fg = 'palette.blue' },
+        ['@constructor.css'] = { fg = 'palette.orange' },
+        ['@tag.css'] = { link = '@type' },
         ['@type.css'] = { fg = 'palette.magenta' },
         ['@constant.css'] = { link = '@type.css' },
-        ['@variable.parameter.css'] = { fg = 'palette.magenta' },
         ['@function.css'] = { link = '@function.call' },
-
-        ['@constructor.scss'] = { link = '@constructor.css' },
-        ['@field.scss'] = { link = '@field.css' },
-        ['@attribute.scss'] = { link = '@attribute.css' },
-        ['@operator.scss'] = { link = '@operator.css' },
-        ['@property.scss'] = { link = '@property.css' },
-        ['@tag.scss'] = { link = '@tag.css' },
-        ['@type.scss'] = { link = '@type.css' },
-        ['@constant.scss'] = { link = '@constant.css' },
-        ['@variable.parameter.scss'] = { link = '@variable.parameter.css' },
-        ['@function.scss'] = { link = '@function.css' },
 
         -- xresources
         ['@character.special.xresources'] = { link = '@variable' },
         ['@constant.macro.xresources'] = { link = '@variable' },
         ['@markup.raw.xresources'] = { link = 'String' },
+        ['@keyword.import.xresources'] = { fg = 'palette.fg.base' },
+        ['@keyword.directive.define.xresources'] = { link = '@keyword.import.xresources' },
 
         -- rasi
         ['@namespace.rasi'] = { link = '@constructor.css' },
