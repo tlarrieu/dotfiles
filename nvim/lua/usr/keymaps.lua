@@ -1,7 +1,7 @@
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
 
---- {{{ --| basics |----------------------------------------
+-- {{{ --| basics |-----------------------------------------
 -- undo
 vim.keymap.set('n', 'U', '<c-r>')
 -- Marks
@@ -131,14 +131,14 @@ vim.keymap.set('x', 's', ':sort<cr>', { silent = true })
 -- macro
 vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
 vim.keymap.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', { silent = true })
---- }}}
+-- }}}
 
---- {{{ --| operations |------------------------------------
+-- {{{ --| operations |-------------------------------------
 vim.keymap.set('o', 'ar', 'a[')
 vim.keymap.set('o', 'ir', 'i[')
---- }}}
+-- }}}
 
---- {{{ --| quick access |----------------------------------
+-- {{{ --| quick access |-----------------------------------
 local quickedit = function(path)
   return function()
     if require('helpers').fileexists(vim.fn.expand('%')) then
@@ -153,9 +153,9 @@ vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefil
 vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.pryrc.local'), { desc = 'Edit local pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
---- }}}
+-- }}}
 
---- {{{ --| togglers |--------------------------------------
+-- {{{ --| togglers |---------------------------------------
 -- Uppercase current word
 vim.keymap.set('n', '<c-g>', 'gUiw')
 vim.keymap.set('i', '<c-g>', '<esc>gUiwea')
@@ -187,14 +187,14 @@ vim.keymap.set('n', '<leader>q', function()
   vim.cmd('below copen')
   vim.api.nvim_set_current_win(lastwin)
 end, { desc = 'Toggle quickfix list' })
---- }}}
+-- }}}
 
---- {{{ --| Spelling |--------------------------------------
+-- {{{ --| Spelling |---------------------------------------
 vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next spelling error' })
 vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Previous spelling error' })
---- }}}
+-- }}}
 
---- {{{ --| Quickfix / Location list |----------------------
+-- {{{ --| Quickfix / Location list |-----------------------
 vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>zz', { silent = true })
 vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>zz', { silent = true })
@@ -202,26 +202,26 @@ vim.keymap.set('n', '<leader>«', '<cmd>cc2<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>»', '<cmd>cc3<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>zz', { silent = true })
---- }}}
+-- }}}
 
---- {{{ --| Jumps |-----------------------------------------
+-- {{{ --| Jumps |------------------------------------------
 vim.keymap.set('n', '<c-i>', '<c-i>zz')
 vim.keymap.set('n', '<c-o>', '<c-o>zz')
---- }}}
+-- }}}
 
---- {{{ --| Diagnostics |-----------------------------------
+-- {{{ --| Diagnostics |------------------------------------
 vim.keymap.set('n', '<c-þ>', ']dzz', { remap = true })
 vim.keymap.set('n', '<c-ß>', '[dzz', { remap = true })
---- }}}
+-- }}}
 
---- {{{ --| terminal |--------------------------------------
+-- {{{ --| terminal |---------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('n', '<leader>ti', '<cmd>tabnew<bar>terminal<cr><cmd>startinsert!<cr>', { silent = true })
 vim.keymap.set('n', '<leader>vi', '<cmd>vertical new<bar>terminal<cr><cmd>startinsert<cr>', { silent = true })
 vim.keymap.set('n', '<leader>ni', '<cmd>new<bar>terminal<cr><cmd>startinsert<cr>', { silent = true })
---- }}}
+-- }}}
 
---- {{{ --| splits / tabs |---------------------------------
+-- {{{ --| splits / tabs |----------------------------------
 vim.keymap.set('n', '<left>', '<c-w>5<')
 vim.keymap.set('n', '<right>', '<c-w>5>')
 vim.keymap.set('n', '<up>', '<c-w>+')
@@ -283,23 +283,23 @@ vim.keymap.set('n', '<leader>u', function()
     vim.api.nvim_win_set_buf(0, buf)
   end
 end, { desc = 'Merge current window into previous tab' })
---- }}}
+-- }}}
 
---- {{{ --| folds management |------------------------------
+-- {{{ --| folds management |-------------------------------
 vim.keymap.set('n', '<leader>z', 'zMzv')
 vim.keymap.set('n', '<leader>Z', 'zR')
 vim.keymap.set('n', 'zO', 'zczO')
---- }}}
+-- }}}
 
---- {{{ --| linediff |--------------------------------------
+-- {{{ --| linediff |---------------------------------------
 vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
---- }}}
+-- }}}
 
---- {{{ --| Diff |------------------------------------------
+-- {{{ --| Diff |-------------------------------------------
 vim.keymap.set(
   'n',
   '<leader>D',
   function() if vim.wo.diff then vim.cmd.diffoff() else vim.cmd.diffthis() end end,
   { silent = true }
 )
---- }}}
+-- }}}
