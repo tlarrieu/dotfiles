@@ -12,13 +12,13 @@ return {
     },
     palettes = {
       dawnfox = {
-        black   = { base = '#6d6a84', dim = '#bab5bd' },
+        black   = { base = '#7d7b8c', dim = '#c6c1c3' },
         blue    = { base = '#8da8bf', dim = '#cbcfd2' },
         cyan    = { base = '#56a1ad', dim = '#bacccd' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
         magenta = { base = '#907aa9', dim = '#ccc1cb' },
         orange  = { base = '#cc8800', dim = '#dec599' },
-        pink    = { base = '#d1738f', dim = '#dfbfc3' },
+        pink    = { base = '#d18ea2', dim = '#dfc7c9' },
         red     = { base = '#b4637a', dim = '#d6babd' },
         white   = { base = '#e5e9f0', dim = '#e5e2e1' },
         yellow  = { base = '#d1aa5e', dim = '#dfcfb5' },
@@ -26,7 +26,7 @@ return {
         comment = '#7d9299',
 
         fg      = {
-          base   = '#6d6a84',
+          base   = '#7d7b8c',
           dim    = '#7d9299',
           dimmer = '#a9b0b2',
         },
@@ -38,7 +38,7 @@ return {
         bg4     = '#bdbfc9', -- Conceal, border fg
 
         fg0     = '#4c4769', -- Lighter fg
-        fg1     = '#6d6a84', -- Default fg
+        fg1     = '#7d7b8c', -- Default fg
         fg2     = '#625c87', -- Darker fg (status line)
         fg3     = '#a8a3b3', -- Darker fg (line numbers, fold colums)
 
