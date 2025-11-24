@@ -18,5 +18,6 @@
 ("break") @keyword.break (#set! priority 110)
 (unless "end" @keyword.conditional)
 (case "end" @keyword.conditional)
+(singleton_method object: (self) @keyword) ; "self" in singleton method definition
 
 ((comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)"))
