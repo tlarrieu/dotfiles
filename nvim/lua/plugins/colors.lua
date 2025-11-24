@@ -336,13 +336,14 @@ return {
 
         Directory = { fg = 'palette.blue', bg = 'none' },
         OilDir = { link = 'Directory' },
+        OilDirHidden = { link = 'OilDir' },
         OilDirIcon = { link = 'OilDir' },
-        OilCreate = { fg = 'palette.green' },
-        OilDelete = { fg = 'palette.red' },
+        OilCreate = { link = 'Added' },
+        OilDelete = { link = 'Removed' },
         OilTrash = { link = 'OilDelete' },
         OilPurge = { link = 'OilDelete' },
-        OilChange = { fg = 'palette.yellow' },
-        OilMove = { fg = 'palette.yellow' },
+        OilChange = { link = 'Changed' },
+        OilMove = { link = 'OilChange' },
 
         HarpoonLine = { link = 'QuickFixLine' },
 
