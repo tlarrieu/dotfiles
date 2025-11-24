@@ -8,7 +8,7 @@
   "cmp-nvim-lsp": { "branch": "main", "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef" },
   "cmp-path": { "branch": "main", "commit": "c642487086dbd9a93160e1679a1327be111cbc25" },
   "cmp_luasnip": { "branch": "master", "commit": "98d9cb5c2c38532bd9bdb481067b20fea8f32e90" },
-  "conform.nvim": { "branch": "master", "commit": "afce105eb47b0869dfafdac90d82f02ef2419d61" },
+  "conform.nvim": { "branch": "master", "commit": "6208aefd675939cc7c8f1a57176135974dad269f" },
   "copilot-cmp": { "branch": "master", "commit": "15fc12af3d0109fa76b60b5cffa1373697e261d1" },
   "copilot.lua": { "branch": "master", "commit": "4383e05a47493d7ff77b058c0548129eb38ec7fb" },
   "fidget.nvim": { "branch": "main", "commit": "e32b672d8fd343f9d6a76944fedb8c61d7d8111a" },
@@ -60,6 +60,6 @@
   "vim-rhubarb": { "branch": "master", "commit": "5496d7c94581c4c9ad7430357449bb57fc59f501" },
   "vim-sniper": { "branch": "master", "commit": "31970c26ae91f5cceeb41b49e057f49bc18e428b" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
-  "vim-test": { "branch": "master", "commit": "8db0f2074d989d452e5ad4b11e01bb5aa0787a01" },
+  "vim-test": { "branch": "master", "commit": "bbdc7f5d6280a047c3b1a951614454555a566356" },
   "yaml.nvim": { "branch": "main", "commit": "e70ee49f7aefc79dce020d3ffc3c9447b0c52236" }
 }
