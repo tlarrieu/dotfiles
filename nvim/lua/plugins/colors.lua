@@ -13,7 +13,7 @@ return {
     palettes = {
       dawnfox = {
         black   = { base = '#575279', dim = '#c9c3ca' },
-        blue    = { base = '#286983', dim = '#bbcacd' },
+        blue    = { base = '#3385a5', dim = '#bed3d7' },
         cyan    = { base = '#56949f', dim = '#c9d7d6' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
         magenta = { base = '#907aa9', dim = '#ccc1cb' },
