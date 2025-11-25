@@ -79,14 +79,6 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       },
       instance = {
         'monkeytype.com',
-      },
-    },
-    properties = { opacity = 0.80 },
-  },
-
-  {
-    rule_any = {
-      instance = {
         'www.excalidraw.com',
         'metabase',
         'www.github.com',
