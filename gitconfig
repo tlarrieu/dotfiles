@@ -44,14 +44,5 @@
 	sp = stash pop
 	sync = fetch --all --prune --tags --force
 	wip = commit -m "WIP" --no-verify
-	wtf = "!git config --list --show-origin | \
-		grep -v alias.wtf | \
-		sed 's#file:/home/.*/.gitconfig#global#' | \
-		sed 's#file:.git/config#project#' | \
-		grep 'alias.' | \
-		sed 's/alias.//' | \
-		sed 's/=/ø/' | \
-		column -s 'ø' -t | \
-		sed 's/^\\(.\\)/  \\1/'"
 
 # vim: ft=gitconfig
