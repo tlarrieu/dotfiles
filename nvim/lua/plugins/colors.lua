@@ -142,6 +142,8 @@ return {
         ['@comment.documentation'] = { link = 'Documentation' },
 
 
+        ['@string.special.url'] = { link = '@markup.link' },
+
         ['@character.special'] = { fg = 'palette.fg.dim' },
 
         ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
