@@ -28,7 +28,7 @@ return {
         fg      = {
           base   = '#575279',
           dim    = '#797593',
-          dimmer = '#9893a5',
+          dimmer = '#9d9aa5',
         },
 
         bg0     = '#f2e9e1', -- Dark bg (status line and float)
