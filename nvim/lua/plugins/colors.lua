@@ -482,7 +482,7 @@ return {
         gvDate = { fg = 'palette.green' },
         gvAuthor = { fg = 'palette.blue' },
         gvMessage = { fg = 'palette.fg.dim', style = 'italic' },
-        gvTag = { fg = 'palette.orange', style = 'bold' },
+        gvTag = { fg = 'palette.pink', style = 'bold' },
         gvMeta = { link = 'gvTag' },
         ['@comment.gitcommit'] = { fg = 'palette.fg.dimmer', bg = 'none' },
         ['@markup.heading.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
