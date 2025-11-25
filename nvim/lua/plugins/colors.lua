@@ -12,38 +12,38 @@ return {
     },
     palettes = {
       dawnfox = {
-        black   = { base = '#7d7b8c', dim = '#c6c1c3' },
-        blue    = { base = '#8da8bf', dim = '#cbcfd2' },
-        cyan    = { base = '#56a1ad', dim = '#bacccd' },
+        black   = { base = '#575279', dim = '#c9c3ca' },
+        blue    = { base = '#286983', dim = '#bbcacd' },
+        cyan    = { base = '#56949f', dim = '#c9d7d6' },
         green   = { base = '#82a561', dim = '#c7ceb6' },
         magenta = { base = '#907aa9', dim = '#ccc1cb' },
-        orange  = { base = '#cc8800', dim = '#dec599' },
-        pink    = { base = '#d18ea2', dim = '#dfc7c9' },
+        orange  = { base = '#ea9d34', dim = '#f5dab6' },
+        pink    = { base = '#d7827e', dim = '#f0d2cc' },
         red     = { base = '#b4637a', dim = '#d6babd' },
         white   = { base = '#e5e9f0', dim = '#e5e2e1' },
-        yellow  = { base = '#d1aa5e', dim = '#dfcfb5' },
+        yellow  = { base = '#d3a634', dim = '#eeddb6' },
 
-        comment = '#7d9299',
+        comment = '#797593',
 
         fg      = {
-          base   = '#7d7b8c',
-          dim    = '#7d9299',
-          dimmer = '#a9b0b2',
+          base   = '#575279',
+          dim    = '#797593',
+          dimmer = '#9893a5',
         },
 
-        bg0     = '#ddd8d2', -- Dark bg (status line and float)
-        bg1     = '#e5dfda', -- Default bg
-        bg2     = '#e5e5e5', -- Lighter bg (colorcolm folds)
-        bg3     = '#eae7e3', -- Lighter bg (cursor line)
+        bg0     = '#f2e9e1', -- Dark bg (status line and float)
+        bg1     = '#faf4ed', -- Default bg
+        bg2     = '#fffaf3', -- Lighter bg (colorcolm folds)
+        bg3     = '#dbdee0', -- Lighter bg (cursor line)
         bg4     = '#bdbfc9', -- Conceal, border fg
 
-        fg0     = '#4c4769', -- Lighter fg
-        fg1     = '#7d7b8c', -- Default fg
+        fg0     = '#797593', -- Lighter fg
+        fg1     = '#575279', -- Default fg
         fg2     = '#625c87', -- Darker fg (status line)
         fg3     = '#a8a3b3', -- Darker fg (line numbers, fold colums)
 
-        sel0    = '#d0d8d8', -- Popup bg, visual selection bg
-        sel1    = '#b8cece', -- Popup sel bg, search bg
+        sel0    = '#dfdad9', -- Popup bg, visual selection bg
+        sel1    = '#cecacd', -- Popup sel bg, search bg
       },
       nordfox = {
         black   = { base = '#3b4252', dim = '#313744' },
