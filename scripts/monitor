@@ -1,7 +1,28 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+progress() {
+  # round to nearest integer
+  count="$(printf '%.*f\n' 0 "$1")"
+
+  color=2
+  if [ "$count" -gt 50 ]; then
+    color=3
+  elif [ "$count" -gt 75 ]; then
+    color=1
+  fi
+
+  tput setaf $color
+  for _ in $(seq 1 "$count"); do echo -n "▰"; done
+  for _ in $(seq "$((count+1))" 100); do echo -n "▱"; done
+  tput sgr0
+  echo
+}
 
 echo "$(tput setaf 9) TOP MEM$(tput sgr0)"
+progress "$(awk '/MemTotal|MemFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 - $2) / $1) * 100 }')"
+progress "$(awk '/SwapTotal|SwapFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 - $2) / $1) * 100 }')"
 topmem
 echo
 echo "$(tput setaf 9) TOP CPU$(tput sgr0)"
+progress "$(mpstat -u | awk '/ all / { print $4 }')"
 topcpu
