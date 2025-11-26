@@ -7,11 +7,6 @@ local ftmap = {
   TelescopePrompt = 'telescope',
   qf = 'quickfix',
   oil = 'oil',
-  Avante = 'avante',
-  AvanteSelectedCode = 'avante',
-  AvanteSelectedFiles = 'avante',
-  AvanteTodos = 'avante',
-  AvanteInput = 'avante',
 }
 
 local filenamecolor = function()
@@ -194,10 +189,7 @@ return {
                 or (name == 'diffpanel_3' and 'undodiff')
                 or name
 
-            if ftmap[context.filetype] == 'avante' then
-              icon = '󰚩'
-              name = 'avante'
-            elseif ftmap[context.filetype] == 'oil' then
+            if ftmap[context.filetype] == 'oil' then
               icon = ''
               name = 'oil'
             elseif context.filetype == 'fugitive' then

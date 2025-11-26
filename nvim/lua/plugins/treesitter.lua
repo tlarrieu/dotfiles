@@ -42,7 +42,7 @@ return {
     auto_install = true,
     highlight = {
       enable = true,
-      disable = { 'Avante', 'make' },
+      disable = { 'make' },
     },
     indent = { enable = true },
     incremental_selection = {
