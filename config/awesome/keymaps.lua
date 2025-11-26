@@ -185,8 +185,8 @@ local keyboard = {
       signal = spawner.actions.MOVE,
     }),
     spawner.key({ super, shift }, 'h', {
-      app = spawner.terminal('htop', { class = 'htop' }),
-      props = { class = 'htop' },
+      app = spawner.terminal('watch monitor', { class = 'monitor' }),
+      props = { class = 'monitor' },
       signal = spawner.actions.MOVE,
     }),
 

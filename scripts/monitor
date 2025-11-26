@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "$(tput setaf 9) TOP MEM$(tput sgr0)"
+topmem
+echo
+echo "$(tput setaf 9) TOP CPU$(tput sgr0)"
+topcpu
