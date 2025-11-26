@@ -275,7 +275,13 @@ return {
         ['@function.builtin.make'] = { link = 'makeConfig' },
         ['@function.make'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         ['@operator.make'] = { fg = 'palette.fg.dim', bg = 'none' },
-        ['makeSpecTarget'] = { link = 'PreProc' },
+        ['makeSpecial'] = { fg = 'palette.fg.dimmer' },
+        ['makeCommands'] = { fg = 'palette.fg.base' },
+        ['makeTarget'] = { fg = 'palette.blue' },
+        ['makeSpecTarget'] = { fg = 'palette.fg.dimmer' },
+        ['makePreCondit'] = { link = '@keyword.conditional' },
+        ['makeStatement'] = { fg = 'palette.magenta' },
+        ['makeDefine'] = { link = '@keyword' },
 
         -- ruby
         ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg1' },
