@@ -592,11 +592,12 @@ return {
         CmpItemKindFunction = { link = 'CmpItemKind' },
         CmpItemKindMethod = { link = 'CmpItemKind' },
 
-        ['@variable.member.ledger'] = { fg = 'palette.blue' },
+        ['@keyword.import.ledger'] = { link = '@keyword' },
+        ['@variable.member.ledger'] = { link = '@property' },
         ['@number.ledger'] = { fg = 'palette.green' },
         ['@number.negative.ledger'] = { fg = 'palette.red' },
         ['@markup.raw.ledger'] = { fg = 'palette.fg.dimmer' },
-        ['@string.special.ledger'] = { fg = 'palette.yellow', style = 'bold' },
+        ['@string.special.ledger'] = { fg = 'palette.pink', style = 'bold' },
 
         TodoBgFIX = { fg = 'palette.bg1', bg = 'palette.red' },
         TodoFgFIX = { fg = 'palette.red' },
