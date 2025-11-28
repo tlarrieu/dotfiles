@@ -616,6 +616,7 @@ return {
 
         ExchangeRegion = { fg = 'palette.bg1', bg = 'palette.orange' },
 
+        Cursorword = { fg = 'palette.bg1', bg = 'palette.pink' },
       },
     },
   },
