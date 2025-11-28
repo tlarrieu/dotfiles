@@ -44,7 +44,7 @@ return {
       enable = true,
       disable = { 'make' },
     },
-    indent = { enable = true },
+    indent = { enable = true, disable = { 'ledger' } },
     incremental_selection = {
       enable = true,
       keymaps = {
