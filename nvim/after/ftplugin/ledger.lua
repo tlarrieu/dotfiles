@@ -6,9 +6,6 @@ vim.opt_local.shiftround = true
 vim.opt_local.autoindent = false
 vim.opt_local.smartindent = false
 
-vim.keymap.set('n', '<c-cr>', 'o<c-u>', { remap = true, buffer = true })
-vim.keymap.set('i', '<c-cr>', '<cr><c-u>', { remap = true, buffer = true })
-
 local runner = require('runner')
 
 runner.default({
