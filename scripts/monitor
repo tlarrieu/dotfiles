@@ -5,10 +5,10 @@ progress() {
   count="$(printf '%.*f\n' 0 "$1")"
 
   color=2
-  if [ "$count" -gt 50 ]; then
-    color=3
-  elif [ "$count" -gt 75 ]; then
+  if [ "$count" -gt 75 ]; then
     color=1
+  elif [ "$count" -gt 50 ]; then
+    color=3
   fi
 
   tput setaf $color
