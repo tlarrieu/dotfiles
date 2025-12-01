@@ -160,7 +160,7 @@ return {
         ['@variable.key'] = { fg = 'palette.fg.dim', style = 'italic' },
         ['@variable.parameter'] = { link = '@variable' },
         ['@variable.member'] = { link = '@variable' },
-        ['@variable.builtin'] = { fg = 'palette.orange' },
+        ['@variable.builtin'] = { fg = 'palette.pink' },
 
         ['@function'] = { fg = 'palette.fg.base', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.fg.base', style = 'NONE' },
