@@ -214,6 +214,7 @@ return {
         DiagnosticMixed = { fg = 'palette.yellow', bg = 'palette.yellow.dim' },
         DiagnosticFail = { fg = 'palette.red', bg = 'palette.red.dim' },
         DiagnosticPending = { fg = 'palette.blue', bg = 'palette.blue.dim' },
+        DiagnosticUnnecessary = { fg = 'palette.fg.dim', style = 'italic' },
         DiagnosticVirtualTextHint = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
