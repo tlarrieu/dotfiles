@@ -385,6 +385,7 @@ return {
         LazyH1 = { fg = 'palette.green', bg = 'palette.green.dim' },
         LazySpecial = { fg = 'palette.fg.dim' },
         LazyDimmed = { fg = 'palette.fg.dimmer' },
+        LazyComment = { fg = 'palette.fg.dimmer' },
         LazyCommit = { link = 'fugitiveHash' },
         LazyCommitType = { fg = 'palette.blue', style = 'bold' },
         LazyButton = { fg = 'palette.fg2', bg = 'palette.bg1' },
