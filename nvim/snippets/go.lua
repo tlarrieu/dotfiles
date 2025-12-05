@@ -29,6 +29,16 @@ return {
       }]],
     { i(1, "receiver"), i(2, "name"), i(3), i(4, "type"), i(0) }
   )),
+  rs("^iter", fmta([[
+  func <>(<>) func(yield func(<>) bool) {
+    <>
+    return func(yield func(<>) bool) {
+      if !yield(<>) {
+        return
+      }
+    }
+  }
+  ]], { i(1, "name"), i(2, "arg"), i(3, "arg"), i(4), rep(3), i(0) })),
 
   -- types
   rs("^i", fmta("type <> interface {<>}", { i(1, "name"), i(0) })),
