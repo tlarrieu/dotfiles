@@ -152,7 +152,7 @@ return {
 
         ['@type.builtin'] = { link = 'Type' },
 
-        ['@module'] = { fg = 'palette.blue' },
+        ['@module'] = { fg = 'palette.orange' },
         ['@module.builtin'] = { fg = 'palette.fg.base' },
 
         ['@property'] = { fg = 'palette.fg.dim' },
@@ -182,6 +182,7 @@ return {
         ['@punctuation.bracket'] = { link = '@operator' },
 
         ['@keyword'] = { fg = 'palette.fg.dimmer' },
+        ['@keyword.import'] = { link = '@keyword' },
         ['@keyword.operator'] = { link = '@keyword' },
         ['@keyword.function'] = { link = '@keyword' },
         ['@keyword.exception'] = { link = '@keyword' },
@@ -594,7 +595,6 @@ return {
         CmpItemKindFunction = { link = 'CmpItemKind' },
         CmpItemKindMethod = { link = 'CmpItemKind' },
 
-        ['@keyword.import.ledger'] = { link = '@keyword' },
         ['@variable.member.ledger'] = { link = '@property' },
         ['@number.ledger'] = { fg = 'palette.green' },
         ['@number.negative.ledger'] = { fg = 'palette.red' },
