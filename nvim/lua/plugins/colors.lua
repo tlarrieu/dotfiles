@@ -93,7 +93,7 @@ return {
         Documentation = { fg = 'palette.cyan', bg = 'palette.cyan.dim', style = 'italic' },
 
         Constant = { fg = 'palette.fg.base' },
-        String = { fg = 'palette.pink', style = 'NONE' },
+        String = { fg = 'palette.green', style = 'NONE' },
         Character = { link = 'String' },
         Boolean = { link = 'String' },
         Number = { link = 'String' },
