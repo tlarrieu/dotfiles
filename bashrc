@@ -6,6 +6,7 @@ fi
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # FZF
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
