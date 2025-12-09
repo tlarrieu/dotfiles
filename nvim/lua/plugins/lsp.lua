@@ -1,3 +1,5 @@
+local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+
 return {
   'williamboman/mason-lspconfig.nvim',
   dependencies = {
@@ -6,7 +8,7 @@ return {
       config = true,
       opts = {
         ui = {
-          border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+          border = border,
           height = 0.85,
           icons = {
             package_installed = '',
@@ -116,7 +118,13 @@ return {
         local conf = { buffer = ev.buf }
         vim.keymap.set('n', 'gD', vim.diagnostic.open_float, conf)
         if client:supports_method('textDocument/hover', ev.buf) then
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, conf)
+          vim.keymap.set('n', 'K', function()
+            vim.lsp.buf.hover({
+              title = '',
+              anchor_bias = 'below',
+              border = border,
+            })
+          end, conf)
         end
         if client:supports_method('textDocument/codeAction', ev.buf) then
           vim.keymap.set({ 'n', 'x' }, 'g.', vim.lsp.buf.code_action, conf)
