@@ -218,6 +218,7 @@ return {
         DiagnosticUnnecessary = { fg = 'palette.fg.dim', style = 'italic' },
         DiagnosticVirtualTextHint = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         DiagnosticVirtualTextInfo = { fg = 'palette.blue', bg = 'palette.blue.dim' },
+        DiagnosticUnderlineHint = { sp = 'palette.fg.dim' },
 
         -- LSP
         LspSignatureActiveParameter = { fg = 'none', bg = 'palette.sel1', sp = 'palette.blue', style = 'underline' },
