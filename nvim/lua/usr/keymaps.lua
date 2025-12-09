@@ -241,6 +241,7 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
+vim.keymap.set({ 'n', 'o', 'x' }, ' ', '<c-w>r')
 
 local edit_path = function(cmd)
   return function() return ':' .. cmd .. ' ' .. vim.fn.escape(vim.fn.expand('%:p:h'), ' ') .. '/' end
