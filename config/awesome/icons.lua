@@ -31,6 +31,7 @@ local config = {
     rules = {
       { class = 'Chromium', instance = 'hangouts.google.com' },
       { class = 'Chromium', instance = 'meet.google.com' },
+      { class = 'Chromium', instance = 'meet.new' },
     }
   },
   { icon = '󰃶', rule = { class = 'Chromium', instance = 'calendar.google.com' } },
