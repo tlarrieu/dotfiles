@@ -81,8 +81,6 @@ vim.keymap.set(
   '<esc>cxc<cmd>nohlsearch<bar>Cursorword disable<cr>', -- cxc clears exchange
   { silent = true, remap = true }
 )
--- highlight current word
-vim.keymap.set('n', '<c-space>', '<cmd>Cursorword toggle<cr>', { silent = true })
 -- Find character
 vim.keymap.set({ 'n', 'x' }, ',', ';')
 vim.keymap.set({ 'n', 'x' }, ';', ',')

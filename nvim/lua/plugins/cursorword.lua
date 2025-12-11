@@ -11,6 +11,9 @@ return {
     },
     highlight = { link = 'Cursorword' },
   },
+  keys = {
+    { '<c-space>', '<cmd>Cursorword toggle<cr>' },
+  },
   config = function(_, opts)
     require('stcursorword').setup(opts)
     vim.cmd.Cursorword('disable')
