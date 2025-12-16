@@ -1,6 +1,5 @@
 return {
-  -- FIXME: use sontungexpt/stcursorword once this fix is merged: https://github.com/sontungexpt/stcursorword/pull/7
-  'tlarrieu/stcursorword',
+  'sontungexpt/stcursorword',
   opts = {
     max_word_length = 100,
     min_word_length = 2,
