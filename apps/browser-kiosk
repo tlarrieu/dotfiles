@@ -22,6 +22,6 @@ case "$1" in
   *www.youtube.com/shorts/*) _mpv "$1";;
   *changelog.com/podcast/feed) _browser "$1";;
   *changelog.com/*/*) _mpv "$1";;
+  http*) _browser "$1";;
   */*) _github "$1";;
-  *) _browser "$1";;
 esac
