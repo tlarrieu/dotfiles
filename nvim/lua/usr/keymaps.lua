@@ -15,6 +15,8 @@ vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
 vim.keymap.set('i', '#', 'X<bs>#')
 -- Fuck you, help.
 vim.keymap.set({ 'n', 'i' }, '<F1>', '<nop>')
+-- open file under the cursor in github (to navigate short-hand repo links mostly)
+vim.keymap.set('n', 'gh', function() vim.system({ 'browser-kiosk', vim.fn.expand('<cfile>') }) end, { silent = true })
 -- make current file executable
 vim.keymap.set('n', '<leader>x', '<cmd>silent !chmod +x %<cr><cmd>echo "file is now executable"<cr>')
 -- navigate wrapped lines like normal lines

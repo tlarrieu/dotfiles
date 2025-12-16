@@ -7,6 +7,10 @@ _browser() {
   chromium --app="$1" --profile-directory="$profile"
 }
 
+_github() {
+  chromium --app="https://github.com/$1" --profile-directory="$profile"
+}
+
 # some videos can't be launched in mpv, such as subscribers only feeds
 _mpv() {
   mpv "$1" || _browser "$1"
@@ -18,5 +22,6 @@ case "$1" in
   *www.youtube.com/shorts/*) _mpv "$1";;
   *changelog.com/podcast/feed) _browser "$1";;
   *changelog.com/*/*) _mpv "$1";;
+  */*) _github "$1";;
   *) _browser "$1";;
 esac
