@@ -11,9 +11,6 @@ vim.opt.relativenumber = true
 vim.opt.textwidth = 120
 -- termguicolors
 vim.opt.termguicolors = true
--- blank characters
-vim.opt.list = true
-vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
 -- encoding and filetype
 vim.opt.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files

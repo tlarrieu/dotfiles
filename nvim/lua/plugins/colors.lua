@@ -336,6 +336,10 @@ return {
         -- zathurarc
         ['@variable.builtin.zathurarc'] = { link = '@variable' },
 
+        -- vimdoc
+        ['@markup.raw.vimdoc'] = { fg = 'palette.fg.dim' },
+        ['@markup.raw.block.vimdoc'] = { link = '@markup.raw.vimdoc' },
+
         -- man pages
         manHeader = { link = 'Title' },
         manFooter = { link = 'manHeader' },
