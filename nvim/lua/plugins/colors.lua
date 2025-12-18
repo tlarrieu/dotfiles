@@ -20,7 +20,7 @@ return {
         orange  = { base = '#ea9d34', dim = '#f5dab6' },
         pink    = { base = '#d7827e', dim = '#f0d2cc' },
         red     = { base = '#b4637a', dim = '#d6babd' },
-        white   = { base = '#e5e9f0', dim = '#e5e2e1' },
+        white   = { base = '#faf4ed', dim = '#faf4ed' },
         yellow  = { base = '#d3a634', dim = '#eeddb6' },
 
         comment = '#797593',
@@ -46,38 +46,38 @@ return {
         sel1    = '#cecacd', -- Popup sel bg, search bg
       },
       nordfox = {
-        black   = { base = '#3b4252', dim = '#313744' },
-        blue    = { base = '#81a1c1', dim = '#3f4a5a' },
-        cyan    = { base = '#9fbec6', dim = '#45505b' },
-        green   = { base = '#a3be8c', dim = '#45504f' },
-        magenta = { base = '#a289bf', dim = '#454559' },
-        orange  = { base = '#d89715', dim = '#504837' },
-        pink    = { base = '#d8847f', dim = '#50444d' },
-        red     = { base = '#bf616a', dim = '#4b3d48' },
-        white   = { base = '#e5e9f0', dim = '#535863' },
-        yellow  = { base = '#ebcb8b', dim = '#54524f' },
+        black   = { base = '#191724', dim = '#191724' },
+        blue    = { base = '#3988a8', dim = '#1f2e3e' },
+        cyan    = { base = '#89b7bf', dim = '#2f3743' },
+        green   = { base = '#a3be8c', dim = '#353839' },
+        magenta = { base = '#c4a7e7', dim = '#3b344b' },
+        orange  = { base = '#f6c177', dim = '#453935' },
+        pink    = { base = '#ebbcba', dim = '#433842' },
+        red     = { base = '#eb6f92', dim = '#43293a' },
+        white   = { base = '#e0def4', dim = '#413f4e' },
+        yellow  = { base = '#ebcb8b', dim = '#433b39' },
 
-        comment = '#60728a',
+        comment = '#908caa',
 
         fg      = {
-          base   = '#b0b1b2',
-          dim    = '#60728a',
-          dimmer = '#4a5468',
+          base   = '#e0def4',
+          dim    = '#908caa',
+          dimmer = '#6e6a86',
         },
 
-        bg0     = '#232831', -- Dark bg (status line and float)
-        bg1     = '#2e3440', -- Default bg
-        bg2     = '#39404f', -- Lighter bg (colorcolm folds)
+        bg0     = '#26233a', -- Dark bg (status line and float)
+        bg1     = '#191724', -- Default bg
+        bg2     = '#1f1d2e', -- Lighter bg (colorcolm folds)
         bg3     = '#444c5e', -- Lighter bg (cursor line)
         bg4     = '#5a657d', -- Conceal, border fg
 
         fg0     = '#c7cdd9', -- Lighter fg
-        fg1     = '#b0b1b2', -- Default fg
+        fg1     = '#e0def4', -- Default fg
         fg2     = '#abb1bb', -- Darker fg (status line)
         fg3     = '#7e8188', -- Darker fg (line numbers, fold colums)
 
-        sel0    = '#3e4a5b', -- Popup bg, visual selection bg
-        sel1    = '#4f6074', -- Popup sel bg, search bg
+        sel0    = '#403d52', -- Popup bg, visual selection bg
+        sel1    = '#524f67', -- Popup sel bg, search bg
       },
     },
     groups = {
