@@ -1,10 +1,10 @@
-#define COLOR0  #191724
+#define COLOR0  #232136
 #define COLOR1  #eb6f92
 #define COLOR2  #a3be8c
 #define COLOR3  #ebcb8b
-#define COLOR4  #3988a8
+#define COLOR4  #3e8fb0
 #define COLOR5  #c4a7e7
-#define COLOR6  #89b7bf
+#define COLOR6  #9ccfd8
 #define COLOR7  #e0def4
 #define COLOR8  #465780
 #define COLOR9  #d06f79
@@ -15,7 +15,7 @@
 #define COLOR14 #93ccdc
 #define COLOR15 #e7ecf4
 
-#define BACKGROUND #191724
+#define BACKGROUND #232136
 #define FOREGROUND #e0def4
 #define COMMENT #908caa
 

@@ -46,16 +46,16 @@ return {
         sel1    = '#cecacd', -- Popup sel bg, search bg
       },
       nordfox = {
-        black   = { base = '#191724', dim = '#191724' },
-        blue    = { base = '#3988a8', dim = '#1f2e3e' },
-        cyan    = { base = '#89b7bf', dim = '#2f3743' },
-        green   = { base = '#a3be8c', dim = '#353839' },
-        magenta = { base = '#c4a7e7', dim = '#3b344b' },
-        orange  = { base = '#f6c177', dim = '#453935' },
-        pink    = { base = '#ebbcba', dim = '#433842' },
-        red     = { base = '#eb6f92', dim = '#43293a' },
-        white   = { base = '#e0def4', dim = '#413f4e' },
-        yellow  = { base = '#ebcb8b', dim = '#433b39' },
+        black   = { base = '#232136', dim = '#232136' },
+        blue    = { base = '#3e8fb0', dim = '#28374e' },
+        cyan    = { base = '#99c4cc', dim = '#3b4254' },
+        green   = { base = '#a3be8c', dim = '#3d4047' },
+        magenta = { base = '#c4a7e7', dim = '#433c59' },
+        orange  = { base = '#f6c177', dim = '#4d4143' },
+        pink    = { base = '#ea9a97', dim = '#4b3949' },
+        red     = { base = '#eb6f92', dim = '#4b3148' },
+        white   = { base = '#e0def4', dim = '#49475c' },
+        yellow  = { base = '#ebcb8b', dim = '#4b4347' },
 
         comment = '#908caa',
 
@@ -65,9 +65,9 @@ return {
           dimmer = '#6e6a86',
         },
 
-        bg0     = '#26233a', -- Dark bg (status line and float)
-        bg1     = '#191724', -- Default bg
-        bg2     = '#1f1d2e', -- Lighter bg (colorcolm folds)
+        bg0     = '#393552', -- Dark bg (status line and float)
+        bg1     = '#232136', -- Default bg
+        bg2     = '#2a273f', -- Lighter bg (colorcolm folds)
         bg3     = '#444c5e', -- Lighter bg (cursor line)
         bg4     = '#5a657d', -- Conceal, border fg
 
@@ -76,8 +76,8 @@ return {
         fg2     = '#abb1bb', -- Darker fg (status line)
         fg3     = '#7e8188', -- Darker fg (line numbers, fold colums)
 
-        sel0    = '#403d52', -- Popup bg, visual selection bg
-        sel1    = '#524f67', -- Popup sel bg, search bg
+        sel0    = '#44415a', -- Popup bg, visual selection bg
+        sel1    = '#56526e', -- Popup sel bg, search bg
       },
     },
     groups = {

@@ -1,22 +1,22 @@
 # Syntax Highlighting Colors
 fish_color_normal e0def4
-fish_color_command 3988a8
-fish_color_keyword ebbcba
+fish_color_command 3e8fb0
+fish_color_keyword ea9a97
 fish_color_quote ebcb8b
 fish_color_redirection e0def4
 fish_color_end f6c177
 fish_color_error eb6f92
 fish_color_param c4a7e7
 fish_color_comment 908caa
-fish_color_selection --background=403d52
-fish_color_search_match --background=403d52
+fish_color_selection --background=44415a
+fish_color_search_match --background=44415a
 fish_color_operator a3be8c
-fish_color_escape ebbcba
+fish_color_escape ea9a97
 fish_color_autosuggestion 6e6a86
 
 # Completion Pager Colors
 fish_pager_color_progress 908caa
-fish_pager_color_prefix 3988a8
+fish_pager_color_prefix 3e8fb0
 fish_pager_color_completion e0def4
 fish_pager_color_description 908caa
 

@@ -10,7 +10,7 @@ set_dark() {
   gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='nordfox'
   mode='dark'
-  chrome_colors='25,23,36'
+  chrome_colors='35,33,54'
 }
 
 set_light() {
