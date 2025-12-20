@@ -39,8 +39,8 @@ return {
 
         fg0     = '#797593', -- Lighter fg
         fg1     = '#575279', -- Default fg
-        fg2     = '#625c87', -- Darker fg (status line)
-        fg3     = '#a8a3b3', -- Darker fg (line numbers, fold colums)
+        fg2     = '#797593', -- Darker fg (status line)
+        fg3     = '#9d9aa5', -- Darker fg (line numbers, fold colums)
 
         sel0    = '#dfdad9', -- Popup bg, visual selection bg
         sel1    = '#cecacd', -- Popup sel bg, search bg
@@ -73,8 +73,8 @@ return {
 
         fg0     = '#c7cdd9', -- Lighter fg
         fg1     = '#e0def4', -- Default fg
-        fg2     = '#abb1bb', -- Darker fg (status line)
-        fg3     = '#7e8188', -- Darker fg (line numbers, fold colums)
+        fg2     = '#908caa', -- Darker fg (status line)
+        fg3     = '#6e6a86', -- Darker fg (line numbers, fold colums)
 
         sel0    = '#44415a', -- Popup bg, visual selection bg
         sel1    = '#56526e', -- Popup sel bg, search bg
@@ -369,9 +369,9 @@ return {
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
-        TelescopeTitle = { fg = 'palette.fg3', bg = 'none', style = 'bold' },
+        TelescopeTitle = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
         TelescopePreviewBorder = { link = 'FloatBorder' },
-        TelescopePreviewTitle = { fg = 'palette.fg3', style = 'bold' },
+        TelescopePreviewTitle = { fg = 'palette.fg.dim', style = 'bold' },
         TelescopePromptNormal = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         TelescopePromptBorder = { link = 'TelescopePromptTitle' },
         TelescopePromptTitle = { fg = 'palette.fg.base', bg = 'palette.fg.base' },
@@ -394,7 +394,7 @@ return {
         LazyComment = { fg = 'palette.fg.dimmer' },
         LazyCommit = { link = 'fugitiveHash' },
         LazyCommitType = { fg = 'palette.blue', style = 'bold' },
-        LazyButton = { fg = 'palette.fg2', bg = 'palette.bg1' },
+        LazyButton = { fg = 'palette.fg.dimmer', bg = 'palette.bg1' },
         LazyButtonActive = { link = 'LazyH1' },
         LazyProgressDone = { fg = 'palette.green' },
         LazyReasonCmd = { fg = 'palette.blue' },
