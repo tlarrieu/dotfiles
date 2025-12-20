@@ -71,7 +71,7 @@ return {
         bg3     = '#444c5e', -- Lighter bg (cursor line)
         bg4     = '#5a657d', -- Conceal, border fg
 
-        fg0     = '#c7cdd9', -- Lighter fg
+        fg0     = '#908caa', -- Lighter fg
         fg1     = '#e0def4', -- Default fg
         fg2     = '#908caa', -- Darker fg (status line)
         fg3     = '#6e6a86', -- Darker fg (line numbers, fold colums)
