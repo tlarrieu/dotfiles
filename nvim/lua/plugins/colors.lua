@@ -254,6 +254,7 @@ return {
         ['@markup.heading.4'] = { fg = 'palette.yellow' },
         ['@markup.heading.5'] = { fg = 'palette.cyan' },
         ['@markup.heading.6'] = { fg = 'palette.magenta' },
+        ['@markup.list'] = { fg = 'palette.cyan.dim' },
 
         -- ------------| Language specific |----------------
 
