@@ -175,7 +175,7 @@ return {
           },
           icons_enabled = false,
           show_modified_status = false,
-          disabled_buftypes = { 'nofile' },
+          disabled_buftypes = { 'nofile', 'quickfix' },
           fmt = function(name, context)
             -- Icon
             local icon
