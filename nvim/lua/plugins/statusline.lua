@@ -46,10 +46,6 @@ return {
         filetypes = { 'lazy' }
       },
     },
-    -- options = {
-    --   component_separators = { left = '', right = '' },
-    --   section_separators = { left = '', right = '' },
-    -- },
     options = {
       component_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
@@ -131,10 +127,7 @@ return {
       },
       lualine_x = {
         'encoding',
-        {
-          'fileformat',
-          symbols = { unix = '󰻀', dos = '󰖳', mac = '' },
-        },
+        { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } },
         {
           'custom',
           fmt = function()
