@@ -46,6 +46,7 @@ links:
 	@ln -sfFT $(BASEDIR)/gtkrc-2.0 ~/.gtkrc-2.0
 	@ln -sfFT $(BASEDIR)/nvim ~/.config/nvim
 	@ln -sfFT $(BASEDIR)/vifm ~/.vifm
+	@ln -sfFT $(BASEDIR)/hledger.conf ~/.hledger.conf
 	@ln -sfFT $(BASEDIR)/bashrc ~/.bashrc
 	@ln -sfFT $(BASEDIR)/browser-config ~/.browser-config
 	@ln -sfFT $(BASEDIR)/gitconfig ~/.gitconfig
