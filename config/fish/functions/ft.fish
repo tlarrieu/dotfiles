@@ -1,12 +1,12 @@
 function now
-  hledger bal --empty $argv --strict --pretty --auto
+  hledger bal --empty --pretty=no -N $argv
 end
 
 function up
-  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX --strict -w 173
+  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX -w 173
   set_color -d brblack
   echo
-  hledger bal $argv --strict --pretty --auto -p today -C -H -N
+  hledger bal $argv -p today -C -H -N --pretty=no
   set_color normal
 end
 
@@ -15,16 +15,12 @@ function forecast
 end
 
 function ft
-  set -l flags --strict
+  set -l flags
   switch $argv[1]
   case edit
     nvim -p (readlink -f ~/.hledger/current.journal)
     return
   case bal bs bse is cf roi
-    set flags $flags --pretty --auto
-    if [ $argv[1] != roi ]
-      set flags $flags --layout=bare
-    end
     if [ $argv[1] = bse ]
       # resolve accounting equation
       set flags $flags --alias '/^(income|expenses)/=equity:\1'
