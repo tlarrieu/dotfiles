@@ -8,7 +8,6 @@ return {
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
-    'kirasok/cmp-hledger',
     'zbirenbaum/copilot-cmp',
   },
   event = { 'CmdlineEnter', 'InsertEnter' },
@@ -84,7 +83,7 @@ return {
         { name = 'copilot', priority = 110 },
         { name = 'nvim_lsp', priority = 100 },
         { name = 'luasnip', priority = 95 },
-        { name = 'buffer', priority = 10, option = { get_bufnrs = vim.api.nvim_list_bufs } },
+        { name = 'buffer', priority = 10, option = { get_bufnrs = vim.api.nvim_list_bufs, keyword_pattern = [[\k\+]] } },
       }),
       formatting = {
         format = function(_, vim_item)
@@ -103,13 +102,6 @@ return {
       sources = cmp.config.sources({
         { name = 'git' },
         { name = 'path' },
-      })
-    })
-
-    cmp.setup.filetype('ledger', {
-      sources = cmp.config.sources({
-        { name = 'hledger', priority = 100 },
-        { name = 'buffer' },
       })
     })
 
