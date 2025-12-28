@@ -143,7 +143,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', name = ', espace client,' } },
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' } },
   { icon = '', rule = { class = 'Chromium', instance = 'swile' } },
-  { icon = '', rule = { class = 'accounting' } },
+  { icon = '󰗑', rule = { class = 'accounting' } },
 
   --  Pictures
   { icon = '', rule = { class = 'Chromium', instance = 'pinterest.com' } },
@@ -232,7 +232,7 @@ local config = {
   { icon = '󰕓', rule = { class = 'kitty', name = 'udiskie' } },
   { icon = '󰆏', rule = { class = 'kitty', name = 'cp' } },
   {
-    icon = '󰻈',
+    icon = '󰑫',
     rules = {
       { class = 'newsboat' },
       { class = 'kitty', name = 'newsboat' },
