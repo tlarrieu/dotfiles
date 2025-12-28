@@ -44,8 +44,8 @@ articlelist-format "%4i • %D • %t %> "
 color background         default default
 color listnormal         color42 default
 color listnormal_unread  color3  default bold
-color listfocus          white   color4  bold
-color listfocus_unread   white   color3  bold
+color listfocus          color16 color4  bold
+color listfocus_unread   color16 color3  bold
 color info               color42 default
 color article            default default
 color end-of-text-marker color15 default
