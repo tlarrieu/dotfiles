@@ -141,7 +141,6 @@ return {
         ['@comment'] = { link = 'Comment' },
         ['@comment.documentation'] = { link = 'Documentation' },
 
-
         ['@string.special.url'] = { link = '@markup.link' },
 
         ['@character.special'] = { fg = 'palette.fg.dim' },
