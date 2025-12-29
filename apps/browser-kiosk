@@ -17,9 +17,7 @@ _mpv() {
 }
 
 case "$1" in
-  *youtu.be/*) _mpv "$1";;
-  *www.youtube.com/watch\?*) _mpv "$1";;
-  *www.youtube.com/shorts/*) _mpv "$1";;
+  *youtu.be/* | *www.youtube.com/watch\?* | *www.youtube.com/shorts/*) _browser "$1";;
   *changelog.com/podcast/feed) _browser "$1";;
   *changelog.com/*/*) _mpv "$1";;
   http*) _browser "$1";;
