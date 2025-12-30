@@ -202,7 +202,10 @@ return {
         -- quickfix
         qfText = { link = '@normal' },
         qfLineNr = { fg = 'palette.fg.dim' },
-        QuickFixLine = { fg = 'palette.green' },
+        qfSeparator1 = { fg = 'palette.fg.dimmer' },
+        qfSeparator2 = { link = 'qfSeparator1' },
+        qfFileName = { fg = 'palette.blue' },
+        QuickFixLine = { bg = 'palette.sel0', style = 'bold' },
 
         -- folds
         Folded = { fg = 'palette.fg.dim' },
