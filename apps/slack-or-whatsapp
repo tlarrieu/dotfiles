@@ -1,0 +1,13 @@
+#!/bin/sh
+
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && . "$envfile"
+
+case "$CONTEXT" in
+  work)
+    ~/apps/slack-web
+    ;;
+  *)
+    ~/apps/whatsapp
+    ;;
+esac

@@ -4,8 +4,16 @@ local M = {}
 
 local find_client = function(props)
   for _, client in ipairs(client.get()) do
-    if awful.rules.match(client, props) then
-      return client
+    if props.any_of then
+      for _, rule in ipairs(props.any_of) do
+        if awful.rules.match(client, rule) then
+          return client
+        end
+      end
+    else
+      if awful.rules.match(client, props) then
+        return client
+      end
     end
   end
 end

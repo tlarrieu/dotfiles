@@ -110,8 +110,13 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super, shift }, 's', {
-      app = spawner.shell('slack-web'),
-      props = { instance = 'app.slack.com' },
+      app = spawner.shell('slack-or-whatsapp'),
+      props = {
+        any_of = {
+          { instance = 'app.slack.com' },
+          { instance = 'web.whatsapp.com' },
+        },
+      },
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super, shift }, 'm', {
