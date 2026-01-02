@@ -34,7 +34,7 @@ return {
         bg0     = '#f2e9e1', -- Dark bg (status line and float)
         bg1     = '#faf4ed', -- Default bg
         bg2     = '#fffaf3', -- Lighter bg (colorcolm folds)
-        bg3     = '#dbdee0', -- Lighter bg (cursor line)
+        bg3     = '#f4ede8', -- Lighter bg (cursor line)
         bg4     = '#bdbfc9', -- Conceal, border fg
 
         fg0     = '#797593', -- Lighter fg
@@ -68,7 +68,7 @@ return {
         bg0     = '#393552', -- Dark bg (status line and float)
         bg1     = '#232136', -- Default bg
         bg2     = '#2a273f', -- Lighter bg (colorcolm folds)
-        bg3     = '#444c5e', -- Lighter bg (cursor line)
+        bg3     = '#2a283e', -- Lighter bg (cursor line)
         bg4     = '#5a657d', -- Conceal, border fg
 
         fg0     = '#908caa', -- Lighter fg
