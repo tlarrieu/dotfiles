@@ -24,7 +24,7 @@ notify-send Info "Bringing connection $ssid up..."
 connection=$(nmcli connection up id "$ssid" 2> /dev/null)
 
 if echo "$connection" | grep -q 'activated'; then
-  notify-send Success "Connection to $ssid successful!"
+  notify-send "Wifi: success!" "Connected to $ssid"
   exit 0
 fi
 
@@ -38,9 +38,9 @@ fi
 new_ssid=$(nmcli -t -f GENERAL.CONNECTION dev show | cut -d':' -f2 | head -n 1)
 
 if [ "$new_ssid" = "$ssid" ]; then
-  notify-send Success "Connection to $ssid successful!"
+  notify-send "Wifi: success!" "Connected to $ssid"
   exit 0
 else
-  notify-send Failure "Failed to connect to $ssid"
+  notify-send "Wifi: failure!" "Failed to connect to $ssid"
   exit 1
 fi

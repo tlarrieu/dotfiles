@@ -2,25 +2,17 @@
 
 function copy_status {
   if [ $? = 0 ]; then
-    notify-send \
-      "Copied!" \
-      "The clipboard will be cleared in <b>45 sec</b>"
+    notify-send "Pass: copied" "The clipboard will be cleared in <b>45 sec</b>"
   else
-    notify-send \
-      "Error" \
-      "Something went wrong.\nTry running pass manually."
+    notify-send "Pass: error" "Something went wrong.\nTry running pass manually."
   fi
 }
 
 function edit_status {
   if [ $? = 0 ]; then
-    notify-send \
-      "Success!" \
-      "The entry has been modified"
+    notify-send "Pass: success" "The entry has been modified"
   else
-    notify-send \
-      "Failure!" \
-      "The entry has <b>not</b> been modified"
+    notify-send "Pass: failure" "The entry has <b>not</b> been modified"
   fi
 }
 
@@ -219,15 +211,11 @@ if [ ${#option} -gt 0 ]; then
               generate_password
               ;;
             *)
-              notify-send \
-                "Aborted!" \
-                "Nothing was changed!"
+              notify-send "Pass: aborted" "Nothing was changed!"
             ;;
           esac
         else
-          notify-send \
-            "Aborted!" \
-            "Nothing was changed!"
+          notify-send "Pass: aborted" "Nothing was changed!"
         fi
       else
         pass generate -c "$option"

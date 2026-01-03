@@ -12,24 +12,24 @@ selection=$(bluetoothctl devices | grep '..:..:..:..:..:..' | sed 's/Device //' 
 if [ -z "$selection" ]; then exit 0; fi
 
 if [ "$connected" = "$selection" ]; then
-  notify-send Info "Disconnecting $selection..."
+  notify-send "Bluetooth" "Disconnecting $selection..."
 
   output=$(bluetoothctl disconnect "$selection")
   bluetoothctl power off
 
   case $? in
-    0) notify-send Success "$selection disconnected";;
-    *) notify-send Error "Error: $output"
+    0) notify-send "Bluetooth: success" "$selection disconnected";;
+    *) notify-send "Bluetooth: error" "Error: $output"
   esac
 else
-  notify-send Info "Connecting to $selection..."
+  notify-send "Bluetooth" "Connecting to $selection..."
 
   bluetoothctl power on
   bluetoothctl disconnect
   output=$(bluetoothctl connect "$selection")
 
   case $? in
-    0) notify-send Success "$selection connected";;
-    *) notify-send Error "Error: $output"
+    0) notify-send "Bluetooth: success" "$selection connected";;
+    *) notify-send "Bluetooth: error" "$output"
   esac
 fi

@@ -1,16 +1,17 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 mapping = {
-  'Bépo'    => ['fr', 'bepo'],
-  'Qwerty'  => ['us', ''],
-  'Dvorak'  => ['us', 'dvorak'],
-  'Colemak' => ['us', 'colemak'],
-  'Workman' => ['us', 'workman'],
-  'Azerty'  => ['fr', ''],
+  'Bépo' => %w[fr bepo],
+  'Qwerty' => ['us', ''],
+  'Dvorak' => %w[us dvorak],
+  'Colemak' => %w[us colemak],
+  'Workman' => %w[us workman],
+  'Azerty' => ['fr', '']
 }
 
-layout = %x(setxkbmap -query | grep -e 'layout' | awk -F' ' '{ print $2 }').strip
-variant = %x(setxkbmap -query | grep -e 'variant' | awk -F' ' '{ print $2 }').strip
+layout = `setxkbmap -query | grep -e 'layout' | awk -F' ' '{ print $2 }'`.strip
+variant = `setxkbmap -query | grep -e 'variant' | awk -F' ' '{ print $2 }'`.strip
 
 current = mapping.invert[[layout, variant]]
 id = mapping.keys.find_index(current)
@@ -18,16 +19,16 @@ id = mapping.keys.find_index(current)
 launcher = "rofi -dmenu -i -p  -a #{id}"
 options = mapping.keys.join("\n")
 
-selection=%x(echo "#{options}" | #{launcher} | awk '{print $1}').strip
+selection = `echo "#{options}" | #{launcher} | awk '{print $1}'`.strip
 
-if selection == '' then exit 0 end
+exit 0 if selection == ''
 
 layout, variant = mapping[selection]
 
-%x(setxkbmap -option ctrl:nocaps -model pc105 -layout "#{layout}" -variant "#{variant}")
+`setxkbmap -option ctrl:nocaps -model pc105 -layout "#{layout}" -variant "#{variant}"`
 
 if $? == 0
-  %x(notify-send Success "Keyboard set to (layout = #{layout}, variant = #{variant})")
+  `notify-send "Keyboard: success" "Keyboard set to (layout = #{layout}, variant = #{variant})"`
 else
-  %x(notify-send Failure "Could not load (layout = #{layout}, variant = #{variant})")
+  `(notify-send "Keyboard: failure "Could not load (layout = #{layout}, variant = #{variant})"`
 end
