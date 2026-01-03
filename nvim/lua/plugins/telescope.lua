@@ -54,7 +54,7 @@ return {
       function()
         require('telescope.builtin').find_files({
           path_display = filename_first_and_shorten,
-          cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+          cwd = vim.fs.joinpath(vim.fn.stdpath('data'), 'lazy'),
           results_title = '󱊞 plugins',
         })
       end,
@@ -192,6 +192,13 @@ return {
           preview_width = 0.55,
           height = 0.75,
           width = 0.75,
+        },
+
+        preview = {
+          treesitter = {
+            enable = true,
+            disable = { 'make' },
+          }
         },
 
         mappings = {
