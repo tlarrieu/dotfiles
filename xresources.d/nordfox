@@ -19,7 +19,6 @@
 #define FOREGROUND #e0def4
 #define COMMENT #908caa
 
-#define VIM_THEME nordfox
-#define VIM_BACKGROUND dark
+#define VARIANT dark
 
 ! vim: ft=xdefaults

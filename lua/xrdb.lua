@@ -16,11 +16,7 @@ M.load = function()
   scheme.background = string.match(query, "*.background:[^#]*(#[%a%d]+)")
   scheme.foreground = string.match(query, "*.foreground:[^#]*(#[%a%d]+)")
   scheme.comment = string.match(query, "*.comment:[^#]*(#[%a%d]+)")
-
-  local vim = {
-    theme = string.match(query, "vim.theme:%s*(%a+)"),
-    background = string.match(query, "vim.background:%s*(%a+)"),
-  }
+  scheme.variant = string.match(query, "*.variant:%s*(%a+)")
 
   local name, size, dpi = string.match(
     query,
@@ -42,7 +38,7 @@ M.load = function()
       cyan       = { dark = scheme.color6, light = scheme.color14 },
       white      = { dark = scheme.color7, light = scheme.color15 },
     },
-    vim = vim,
+    variant = scheme.variant,
     font = font
   }
 end

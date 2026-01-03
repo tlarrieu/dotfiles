@@ -43,10 +43,9 @@ Xft.lcdfilter: lcddefault
 *.font: xft:FONT:size=FONTSIZE:dpi=DPI
 
 ! ------------------------------------------------------------------------------
-! -- vim
+! -- misc
 ! ------------------------------------------------------------------------------
 
-vim.theme: VIM_THEME
-vim.background: VIM_BACKGROUND
+*.variant: VARIANT
 
 ! vim: ft=xdefaults

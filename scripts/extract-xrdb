@@ -4,7 +4,6 @@ xrdb -query | \
   grep -E "(\*\.(color|background|foreground))|(vim\.).*" | \
   sed "s/*.//" | \
   sed "s/^\(color[0-9]*\|background\|foreground\):/#define \U\1/" | \
-  sed "s/vim.theme:/#define VIM_THEME/" | \
-  sed "s/vim.background:/#define VIM_BACKGROUND/"
+  sed "s/vim.background:/#define VARIANT/"
 
 echo -n "! vim: ft=xdefaults"

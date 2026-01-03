@@ -19,7 +19,6 @@
 #define FOREGROUND #575279
 #define COMMENT #797593
 
-#define VIM_THEME dawnfox
-#define VIM_BACKGROUND light
+#define VARIANT light
 
 ! vim: ft=xdefaults

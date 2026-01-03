@@ -46,8 +46,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 local apply_xrdb = function()
   local theme = require('xrdb').load() or { vim = {} }
-  vim.o.background = theme.vim.background or 'light'
-  vim.cmd.colorscheme(theme.vim.theme or 'default')
+  vim.o.background = theme.variant or 'light'
+  vim.cmd.colorscheme(vim.o.background == 'light' and 'dawnfox' or 'nordfox')
   for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] or vim.g['terminal_color_' .. i] end
 end
 
