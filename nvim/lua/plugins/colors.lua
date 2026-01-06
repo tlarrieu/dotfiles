@@ -352,9 +352,13 @@ return {
 
         -- edifact
         edifactTag = { link = 'Type' },
-        edifactColon = { fg = 'palette.pink' },
+        edifactData = { fg = 'palette.fg.dim' },
+        edifactColon = { fg = 'palette.cyan' },
         edifactPlusSign = { link = 'edifactColon' },
+        edifactAsterisk = { link = 'edifactColon' },
         edifactApostrophe = { fg = 'palette.fg.dimmer' },
+        edifactEscape = { link = 'Special' },
+        edifactError = { link = 'Error' },
 
         -- -------------------| plugins |----------------------
 
