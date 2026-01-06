@@ -142,9 +142,11 @@ end
 function fish_prompt
   set -l last_status $status
 
-  _jobs
   _pwd
   _git
+
+  echo
+  _jobs
 
   [ $last_status = 0 ]
     and set_color normal
@@ -156,9 +158,11 @@ function fish_prompt
     set count (math "max($count, 1)")
   end
 
-  for x in (seq $count); echo -ns "❯"; end
-
   echo -ns ' '
 
+  for x in (seq $count); echo -ns "❯"; end
+
   set_color normal
+
+  echo -ns ' '
 end
