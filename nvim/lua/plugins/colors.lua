@@ -350,6 +350,12 @@ return {
         manSectionHeading = { link = 'MarkViewHeading1' },
         manSubHeading = { link = 'MarkViewHeading2' },
 
+        -- edifact
+        edifactTag = { link = 'Type' },
+        edifactColon = { fg = 'palette.pink' },
+        edifactPlusSign = { link = 'edifactColon' },
+        edifactApostrophe = { fg = 'palette.fg.dimmer' },
+
         -- -------------------| plugins |----------------------
 
         Directory = { fg = 'palette.blue', bg = 'none' },

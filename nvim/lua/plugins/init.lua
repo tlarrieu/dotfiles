@@ -7,4 +7,5 @@ return {
   { 'tpope/vim-projectionist' },
   { 'tpope/vim-repeat', },
   { 'vifm/vifm.vim', ft = 'vifm' },
+  { 'vim-scripts/edifact.vim' },
 }
