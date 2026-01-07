@@ -1,5 +1,5 @@
 local awful = require('awful')
-local colors = require('beautiful').colors
+local beautiful = require('beautiful')
 local wibox = require('wibox')
 local apply_dpi = require('beautiful.xresources').apply_dpi
 local gears = require('gears')
@@ -33,7 +33,7 @@ local earbuds = wibox.widget({
   paddings     = 1,
   border_width = 0,
   visible      = false,
-  border_color = colors.foreground,
+  border_color = beautiful.colors.foreground,
 })
 
 local buds_widget = wibox.widget({
@@ -60,6 +60,7 @@ local earbuds_callback = function()
       return
     end
 
+    local colors = beautiful.colors
     earbuds.border_color = colors.foreground
 
     earbuds.visible = true
@@ -85,7 +86,7 @@ local battery = wibox.widget({
   paddings     = 1,
   border_width = 0,
   visible      = false,
-  border_color = colors.foreground,
+  border_color = beautiful.colors.foreground,
 })
 
 local bat_widget = wibox.widget({
@@ -104,6 +105,7 @@ local battery_callback = function()
       return
     end
 
+    local colors = beautiful.colors
     battery.border_color = colors.foreground
 
     battery.visible = true
@@ -146,6 +148,7 @@ local init = function(screen)
     },
   })
 
+  local colors = beautiful.colors
   local color = colors.foreground
   local glyph = require('glyphs').number(screen.index)
   local markup = '<span color="' .. color .. '" size="large">󰍹 ' .. glyph .. ' </span>'
@@ -201,7 +204,7 @@ local init = function(screen)
     height = dpi(32),
     screen = screen,
     margins = { top = dpi(6), bottom = dpi(0), left = dpi(6), right = dpi(6) },
-    bg = require('beautiful').colors.background .. "e6",
+    bg = colors.background .. "e6",
     widget = barwidget
   })
 end
