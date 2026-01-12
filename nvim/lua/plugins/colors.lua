@@ -352,13 +352,16 @@ return {
 
         -- edifact
         edifactTag = { link = 'Type' },
-        edifactData = { fg = 'palette.fg.dim' },
-        edifactColon = { fg = 'palette.cyan' },
+        edifactData = { fg = 'palette.green' },
+        edifactColon = { fg = 'palette.fg.dimmer' },
         edifactPlusSign = { link = 'edifactColon' },
         edifactAsterisk = { link = 'edifactColon' },
         edifactApostrophe = { fg = 'palette.fg.dimmer' },
         edifactEscape = { link = 'Special' },
         edifactError = { link = 'Error' },
+        edifactTagUNA = { fg = 'palette.fg.dimmer' },
+        edifactTagSEQ = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'bold' },
+        edifactTagIND = { fg = 'palette.fg.dimmer' },
 
         -- -------------------| plugins |----------------------
 
