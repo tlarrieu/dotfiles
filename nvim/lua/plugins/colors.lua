@@ -266,6 +266,9 @@ return {
         ['@keyword.directive.query'] = { fg = 'palette.fg.dim' },
         ['@variable.query'] = { fg = 'palette.pink' },
 
+        -- latex
+        ['@string.special.path.latex'] = { fg = 'palette.blue' },
+
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
