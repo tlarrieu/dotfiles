@@ -399,7 +399,7 @@ return {
         TelescopeSelection = { bg = 'palette.sel1' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { fg = 'palette.green' },
-        TelescopeMultiSelection = { fg = 'palette.orange' },
+        TelescopeMultiSelection = { bg = 'palette.sel0' },
         TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
         TelescopeResultsComment = { fg = 'palette.fg.dimmer', style = 'italic' },
         TelescopeResultsDiffAdd = { link = 'Added' },
