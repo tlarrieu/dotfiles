@@ -19,6 +19,7 @@
 [core]
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
+	ignorecase = false
 [pull]
 	ff = only
 [branch]
