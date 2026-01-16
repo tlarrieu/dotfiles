@@ -236,6 +236,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       class = {
         'Slay the Spire',
         'Pathway',
+        'steam_app_3570950', -- everything is crab
       }
     },
     properties = { fullscreen = true, floating = false },
