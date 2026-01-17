@@ -27,8 +27,10 @@ layout, variant = mapping[selection]
 
 `setxkbmap -option ctrl:nocaps -model pc105 -layout "#{layout}" -variant "#{variant}"`
 
+str = variant == '' ? layout : "#{layout}/#{variant}"
+
 if $? == 0
-  `notify-send "Keyboard: success" "Keyboard set to (layout = #{layout}, variant = #{variant})"`
+  `notify-send "Keyboard" "Layout set to #{str}"`
 else
-  `(notify-send "Keyboard: failure "Could not load (layout = #{layout}, variant = #{variant})"`
+  `notify-send "Keyboard" "Could not load #{str}"`
 end
