@@ -124,13 +124,13 @@ function _jobs
   switch $jobs_count
     case 0
     case 1
-      echo -ns 󰎤
+      echo -ns 󰼏
     case 2
-      echo -ns 󰎧
+      echo -ns 󰼐
     case 3
-      echo -ns 󰎪
-    case '*'
       echo -ns 󰼑
+    case '*'
+      echo -ns 󰌴
   end
   echo -ns (set_color normal)
 end

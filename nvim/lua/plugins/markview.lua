@@ -92,12 +92,12 @@ return {
       headings = {
         enable = true,
 
-        heading_1 = { style = 'icon', icon = '󰎤 ', hl = 'MarkviewHeading1', sign = '', },
-        heading_2 = { style = 'icon', icon = '󰎧 ', hl = 'MarkviewHeading2', sign = '' },
-        heading_3 = { style = 'icon', icon = '󰎪 ', hl = 'MarkviewHeading3' },
-        heading_4 = { style = 'icon', icon = '󰎭 ', hl = 'MarkviewHeading4' },
-        heading_5 = { style = 'icon', icon = '󰎱 ', hl = 'MarkviewHeading5' },
-        heading_6 = { style = 'icon', icon = '󰎳 ', hl = 'MarkviewHeading6' },
+        heading_1 = { style = 'icon', icon = '󰼏 ', hl = 'MarkviewHeading1', sign = '', },
+        heading_2 = { style = 'icon', icon = '󰼐 ', hl = 'MarkviewHeading2', sign = '' },
+        heading_3 = { style = 'icon', icon = '󰼑 ', hl = 'MarkviewHeading3' },
+        heading_4 = { style = 'icon', icon = '󰼒 ', hl = 'MarkviewHeading4' },
+        heading_5 = { style = 'icon', icon = '󰼓 ', hl = 'MarkviewHeading5' },
+        heading_6 = { style = 'icon', icon = '󰼔 ', hl = 'MarkviewHeading6' },
 
         setext_1 = {
           style = 'decorated',
