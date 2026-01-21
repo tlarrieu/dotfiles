@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 mpc_add() {
   mpc clear -q
@@ -48,22 +48,22 @@ selection=$(\
 )
 rofi_signal=$?
 
-selection=$(awk -F' ' '{print substr($0,5)}' <<< $selection)
+selection=$(awk -F' ' '{print substr($0,5)}' <<< "$selection")
 
-list=$(sed -e "s#^#$path#" <<< $selection)
+list=$(sed -e "s#^#$path#" <<< "$selection")
 
 case $rofi_signal in
   10)
     target="$(readlink -f "$path/..")/"
     # We do not want to navigate “before” the library in the file tree
-    if [ $(wc -c <<< "$target") -ge $(wc -c <<< $library) ]; then
+    if [ "$(wc -c <<< "$target")" -ge "$(wc -c <<< "$library")" ]; then
       $0 "$(sed -e "s#$library##" <<< "$target")"
     else
       $0
     fi
     ;;
   11)
-    [ -n "$selection" ] && $0 "$(head -n 1 <<< $list)/"
+    [ -n "$selection" ] && $0 "$(head -n 1 <<< "$list")/"
     ;;
   12)
     mpc_add "$1"
