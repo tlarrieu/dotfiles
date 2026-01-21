@@ -242,7 +242,8 @@ local keyboard = {
     spawner.key({ super }, 'ccedilla', spawner.shell('open (xsel --clipboard -o)')),
     spawner.key({ super }, "'", spawner.terminal()),
     spawner.key({ super, shift }, "'", spawner.terminal(nil, { class = 'kitty-light' })),
-    spawner.key({ super }, 'p', 'screenshot.sh')
+    spawner.key({ super }, 'p', 'screenshot.sh gui'),
+    spawner.key({ super, shift }, 'p', 'screenshot.sh screen')
   )
 }
 
