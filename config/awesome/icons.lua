@@ -183,7 +183,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium' } },
 
   -- 󰺶 Games
-  { icon = '󰞇', rule = { class = 'ChildrenOfMorta' } },
+  { icon = '󰆥', rule = { class = 'Tiny Kingdom' } },
   { icon = '󰓥', rule = { class = 'steam_app_1086940' } }, -- Baldur's gate III
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
   { icon = '', rules = { { class = 'steam' }, { name = 'Steam' } } },
