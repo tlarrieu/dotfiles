@@ -161,15 +161,17 @@ return {
         ['@variable.member'] = { link = '@variable' },
         ['@variable.builtin'] = { fg = 'palette.pink' },
 
-        ['@function'] = { fg = 'palette.fg.base', style = 'underline,bold' },
+        ['@function'] = { fg = 'palette.fg.dim', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.fg.base', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
         ['@function.builtin'] = { link = '@function.call' },
 
+        ['@function.method.class'] = { style = 'italic' },
+
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.fg.base', },
         ['@constant.builtin'] = { link = '@variable.builtin' },
-        ['@constant.assignment'] = { fg = 'palette.fg.base', style = 'underline,bold' },
+        ['@constant.assignment'] = { fg = 'palette.fg.base', style = 'underline' },
 
         ['@operator'] = { fg = 'palette.fg.dimmer' },
 

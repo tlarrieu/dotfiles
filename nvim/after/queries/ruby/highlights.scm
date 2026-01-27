@@ -16,7 +16,7 @@
 (case "end" @keyword.conditional)
 ((_) . "?" @operator.ternary.ruby (_) ":"  @operator.ternary.ruby (_))
 
-(_ method: ((identifier)) @type (#eq? @type "class"))
+(_ method: ((identifier)) @type @function.method.class (#eq? @type "class"))
 
 ; class
 (class name: (constant) @class)
@@ -26,7 +26,6 @@
 
 ; constants
 (assignment left: (constant) @constant.assignment)
-(_ receiver: (constant) @constant (#set! priority 110))
 
 (singleton_method object: (self) @keyword) ; "self" in singleton method definition
 
