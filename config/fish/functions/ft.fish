@@ -57,13 +57,7 @@ function ft
     return
   case up upcoming
     echo -e "\e[33mUpcoming transactions (forecasted OR pending)\e[0m"
-    echo
     up assets:check:caisse-epargne:joint
-    echo
-    up assets:check:caisse-epargne:thomas
-    echo
-    up assets:check:caisse-epargne:miriam
-    echo
     return
   case bud budget
     ft bal expenses --budget --empty -p 2monthago..nextmonth -M
