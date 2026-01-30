@@ -307,7 +307,7 @@ vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
 vim.keymap.set(
   'n',
   '<leader>D',
-  function() if vim.wo.diff then vim.cmd.diffoff() else vim.cmd.diffthis() end end,
+  function() if vim.wo.diff then vim.cmd.diffoff({ bang = true }) else vim.cmd.diffthis() end end,
   { silent = true }
 )
 -- }}}
