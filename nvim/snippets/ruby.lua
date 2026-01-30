@@ -131,6 +131,5 @@ return {
     end
     ]], { i(1, 'class'), i(0) })),
   s("pry", fmta("Kernel.binding.pry", {})),
-  rs("(.+)%.tp", fmta("<>.tap { |o| Kernel.binding.pry }", { cap(1) })),
-  rs("(.+)%.tr", fmta("<>.tap { raise <> }", { cap(1), i(1) })),
+  rs("(.+)%.tp", fmta("<>.tap { |o| <> }", { cap(1), i(1, "Kernel.binding.pry") })),
 }
