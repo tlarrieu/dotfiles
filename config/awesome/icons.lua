@@ -40,7 +40,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'groups.google.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'keep.google.com' } },
   {
-    icon = '',
+    icon = '',
     rules = {
       { class = 'Chromium', name = 'Google Photos' },
       { class = 'Chromium', instance = 'photos.google.com' },
