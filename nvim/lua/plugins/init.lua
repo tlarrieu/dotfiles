@@ -6,6 +6,7 @@ return {
   { 'tpope/vim-eunuch', cmd = { 'Delete', 'Mkdir', 'Move', 'Remove', 'Rename', 'SudoWrite', } },
   { 'tpope/vim-projectionist' },
   { 'tpope/vim-repeat', },
+  { 'tpope/vim-rails' },
   { 'vifm/vifm.vim', ft = 'vifm' },
   { 'vim-scripts/edifact.vim' },
 }
