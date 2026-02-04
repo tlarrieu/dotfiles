@@ -106,10 +106,11 @@ local battery_callback = function()
       return
     end
 
+    bat_widget.visible = true
+    battery.visible = true
+
     local colors = beautiful.colors
     battery.border_color = colors.foreground
-
-    battery.visible = true
     battery.value = value
     if value <= 10 then
       battery.color = colors.red.dark
