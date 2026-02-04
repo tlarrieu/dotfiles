@@ -120,7 +120,7 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super, shift }, 'm', {
-      app = 'meet.new',
+      app = 'meet',
       props = { instance = 'meet' },
       signal = spawner.actions.JUMP,
     }),
