@@ -60,10 +60,11 @@ local earbuds_callback = function()
       return
     end
 
+    buds_widget.visible = true
+    earbuds.visible = true
+
     local colors = beautiful.colors
     earbuds.border_color = colors.foreground
-
-    earbuds.visible = true
     earbuds.value = value
     if value <= 10 then
       earbuds.color = colors.red.dark
