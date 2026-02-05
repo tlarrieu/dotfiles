@@ -81,7 +81,7 @@ end
 
 class BrowserWithContext < Browser
 
-  def run(str)
+  def run(str='')
     `browser-with-context #{@profile} '#{combine(str)}'`
   end
 
@@ -125,9 +125,7 @@ class Dictionary
 
 end
 
-defaultengine = BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s')
-
-searchengines = {
+ENGINES = {
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
   'aw'   => Browser.new(
     'https://duckduckgo.com/?ia=web&q=%s',
@@ -163,15 +161,15 @@ searchengines = {
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
   'yt'   => YouTube.new
-}
+}.freeze
 
 words = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
   .tap { exit if _1.empty? }
   .strip
-  .tap { `browser-with-context`.then { exit } if _1.empty? }
+  .tap { BrowserWithContext.new('').run.then { exit } if _1.empty? }
   .then { _1.split }
   .tap { Browser.new(_1.join).run.then { exit } if _1[0].match('http.?://.*') }
 
-searchengines
-  .fetch(words[0]) { defaultengine.run(words.join(' ')).then { exit } }
-  .then { _1.run(words.drop(1).join(' ')) }
+ENGINES[words[0]]
+  .then { [_1 || BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s'), _1 ? words.drop(1) : words] }
+  .then { _1.run(_2.join(' ')) }

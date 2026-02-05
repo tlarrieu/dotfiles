@@ -84,6 +84,9 @@ Style/HashSyntax:
 Style/Lambda:
   Enabled: true
 
+Style/LambdaCall:
+  Enabled: false
+
 Style/MethodDefParentheses:
   Enabled: true
 
