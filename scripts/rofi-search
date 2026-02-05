@@ -127,7 +127,6 @@ end
 
 defaultengine = BrowserWithContext.new('https://duckduckgo.com/?ia=web&q=%s')
 
-# rubocop:disable Layout/HashAlignment
 searchengines = {
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
   'aw'   => Browser.new(
@@ -165,7 +164,6 @@ searchengines = {
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
   'yt'   => YouTube.new
 }
-# rubocop:enable Layout/HashAlignment
 
 query = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
 words = query.split

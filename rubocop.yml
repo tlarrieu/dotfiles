@@ -13,7 +13,7 @@ Layout/DefEndAlignment:
   Enabled: true
 
 Layout/DotPosition:
-  EnforcedStyle: trailing
+  EnforcedStyle: leading
 
 Layout/EmptyLines:
   Enabled: true
@@ -24,6 +24,9 @@ Layout/EmptyLinesAroundAccessModifier:
 Layout/EmptyLinesAroundClassBody:
   Enabled: true
   EnforcedStyle: empty_lines_except_namespace
+
+Layout/HashAlignment:
+  Enabled: false
 
 Layout/LeadingCommentSpace:
   Enabled: true
