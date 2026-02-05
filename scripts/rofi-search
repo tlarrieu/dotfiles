@@ -47,7 +47,7 @@ class Browser < SearchEngine
     @profile = profile
   end
 
-  def run(str)
+  def run(str='')
     `browser-kiosk #{@profile} '#{combine(str)}'`
   end
 
@@ -165,19 +165,13 @@ searchengines = {
   'yt'   => YouTube.new
 }
 
-query = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
-words = query.split
+words = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
+  .tap { exit if _1.empty? }
+  .strip
+  .tap { `browser-with-context`.then { exit } if _1.empty? }
+  .then { _1.split }
+  .tap { Browser.new(_1.join).run.then { exit } if _1[0].match('http.?://.*') }
 
-if words.any?
-  engine = searchengines[words[0]]
-
-  if engine
-    words.shift
-  elsif words[0].match('http.?://.*')
-    engine = Browser.new(words.join)
-  end
-
-  (engine || defaultengine).run(words.join(' '))
-elsif query == "\n"
-  `browser-with-context`
-end
+searchengines
+  .fetch(words[0]) { defaultengine.run(words.join(' ')).then { exit } }
+  .then { _1.run(words.drop(1).join(' ')) }
