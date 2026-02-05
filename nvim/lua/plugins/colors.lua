@@ -191,6 +191,7 @@ return {
         ['@keyword.next'] = { link = '@keyword.return' },
         ['@keyword.break'] = { link = '@keyword.return' },
         ['@keyword.raise'] = { link = '@keyword.return' },
+        ['@keyword.exit'] = { link = '@keyword.return' },
         ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
         ['@keyword.repeat'] = { link = '@keyword.conditional' },
 

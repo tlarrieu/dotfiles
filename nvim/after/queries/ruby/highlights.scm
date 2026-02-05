@@ -8,6 +8,8 @@
 (call method: (identifier) @keyword.function.ruby (#eq? @keyword.function.ruby "private_class_method"))
 
 ; control flow keywords
+(call method: (identifier) @keyword.exit (#eq? @keyword.exit "exit"))
+((identifier) @keyword.exit (#eq? @keyword.exit "exit"))
 (call method: (identifier) @keyword.raise (#eq? @keyword.raise "raise"))
 ((identifier) @keyword.raise (#eq? @keyword.raise "raise"))
 ("next") @keyword.next (#set! priority 110)
