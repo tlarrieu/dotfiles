@@ -164,9 +164,9 @@ return {
         ['@function'] = { fg = 'palette.fg.dim', style = 'underline,bold' },
         ['@function.call'] = { fg = 'palette.fg.base', style = 'NONE' },
         ['@function.method.call'] = { link = '@function.call' },
+        ['@function.method.call.class'] = { style = 'italic' },
+        ['@function.method.call.flow'] = { fg = 'palette.magenta' },
         ['@function.builtin'] = { link = '@function.call' },
-
-        ['@function.method.class'] = { style = 'italic' },
 
         ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
         ['@constant'] = { fg = 'palette.fg.base', },

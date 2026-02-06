@@ -6,6 +6,9 @@
 
 ; functions
 (call method: (identifier) @keyword.function.ruby (#eq? @keyword.function.ruby "private_class_method"))
+(_ method: ((identifier)) @type @function.method.call.class (#eq? @type "class"))
+(_ method: ((identifier)) @function.method.call.flow (#eq? @function.method.call.flow "then"))
+(_ method: ((identifier)) @function.method.call.flow (#eq? @function.method.call.flow "tap"))
 
 ; control flow keywords
 (call method: (identifier) @keyword.exit (#eq? @keyword.exit "exit"))
@@ -18,13 +21,14 @@
 (case "end" @keyword.conditional)
 ((_) . "?" @operator.ternary.ruby (_) ":"  @operator.ternary.ruby (_))
 
-(_ method: ((identifier)) @type @function.method.class (#eq? @type "class"))
-
 ; class
-(class name: (constant) @class)
+(class name: (constant) @class (#set! priority 120))
+(class name: (scope_resolution name: (constant)) @class (#set! priority 120))
+((scope_resolution name: (constant)) @type (#set! priority 110))
 
 ; module
-(module name: (constant) @class)
+(module name: (constant) @class (#set! priority 120))
+(module name: (scope_resolution name: (constant)) @class (#set! priority 120))
 
 ; constants
 (assignment left: (constant) @constant.assignment)
