@@ -28,11 +28,6 @@ return {
   s('l', fmta('<>  <> €', { i(1, 'account'), i(0, 'amount') })),
 
   -- Specific expenses
-  s('c', fmta([[
-  <> * me | retrait
-    cash  <> €
-    card:ce:<>
-  ]], { f(curdate), i(1, 'amount'), i(2, 'j') })),
   s('g', fmta([[
   <> ! <> | courses
     card:ce:<>  -<> €
