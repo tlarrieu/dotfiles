@@ -308,7 +308,7 @@ return {
         ['@variable.member.sql'] = { link = '@variable' },
 
         -- yaml
-        ['@property.yaml'] = { link = '@variable' },
+        ['@property.yaml'] = { link = '@variable.key' },
 
         -- CSS
         ['@attribute.css'] = { fg = 'palette.fg.dim' },
