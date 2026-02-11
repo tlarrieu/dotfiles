@@ -6,7 +6,12 @@ return {
   { 'tpope/vim-eunuch', cmd = { 'Delete', 'Mkdir', 'Move', 'Remove', 'Rename', 'SudoWrite', } },
   { 'tpope/vim-projectionist' },
   { 'tpope/vim-repeat', },
-  { 'tpope/vim-rails' },
+  {
+    'tpope/vim-rails',
+    config = function()
+      vim.treesitter.language.register('yaml', 'eruby.yaml')
+    end,
+  },
   { 'vifm/vifm.vim', ft = 'vifm' },
   { 'vim-scripts/edifact.vim' },
 }
