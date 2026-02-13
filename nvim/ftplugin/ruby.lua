@@ -1,5 +1,3 @@
-vim.g.loaded_ruby_provider = 0
-
 local params_for = function(kind, root)
   return {
     hidden = true,

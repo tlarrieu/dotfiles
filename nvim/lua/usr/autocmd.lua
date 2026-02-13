@@ -1,7 +1,10 @@
 -- Source local nvimrc on save
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '.nvim.lua',
-  callback = function() vim.cmd.source('.nvim.lua') end,
+  callback = function()
+    vim.secure.trust({ action = 'allow', bufnr = 0 })
+    vim.cmd.source('.nvim.lua')
+  end,
   group = vim.api.nvim_create_augroup('resource_local_nvim', {})
 })
 
