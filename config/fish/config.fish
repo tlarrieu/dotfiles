@@ -55,6 +55,7 @@ set -x PATH $PATH $HOME/apps
 set -x PATH $PATH $HOME/apps/ignore
 set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $GOPATH/bin
+set -x PATH $PATH $HOME/.cargo/bin
 
 # dircolors
 eval (dircolors -c ~/.dir_colors)

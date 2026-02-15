@@ -206,3 +206,6 @@ abbr spl "searchsploit"
 
 # tealdeer
 abbr tl "tldr"
+
+# rustormy
+abbr st "rustormy"
