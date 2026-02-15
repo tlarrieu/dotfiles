@@ -271,6 +271,9 @@ return {
 
         -- latex
         ['@string.special.path.latex'] = { fg = 'palette.blue' },
+        ['@markup.math.latex'] = { fg = 'palette.magenta' },
+        ['@function.latex'] = { fg = 'palette.pink', style = 'NONE' },
+        ['@function.linebreak.latex'] = { link = '@operator' },
 
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
