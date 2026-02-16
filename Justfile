@@ -29,7 +29,7 @@ links: (green "configuration: linking files...") && (yellow "configuration: done
 
 alias x11 := X11
 
-[group("config/links")]
+[group("config/links"), doc("link X11 configuration files into /etc/X11/")]
 X11: (green "X11: linking files...") && (yellow "X11: done.")
   #!/usr/bin/env bash
   for name in xorg.conf.d/*; do sudo ln -rsfFT $name /etc/X11/$name; done
@@ -49,7 +49,7 @@ root: (green "root configuration: linking files...") && (yellow "root configurat
   sudo mkdir -p /root/.config/nvim
   sudo cp templates/root/nvim.lua /root/.config/nvim/init.lua
 
-[group("system/packages"), doc("install dependencies and single packages")]
+[group("system"), doc("install dependencies and single packages")]
 packages: (green "packages: installing...") && (yellow "packages: done.")
   #!/usr/bin/env bash
   # Arch Linux
@@ -69,7 +69,7 @@ packages: (green "packages: installing...") && (yellow "packages: done.")
     exit 1
   fi
 
-[group("system/packages"), doc("build neovim from sources")]
+[group("deps/sources"), doc("build neovim from sources")]
 neovim: (green "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && (yellow "neovim: done.")
   #!/usr/bin/env bash
   cd ~/git/neovim
@@ -81,7 +81,7 @@ neovim: (green "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && 
   cpack -G DEB
   sudo dpkg -i nvim-linux-x86_64.deb
 
-[group("system/packages"), doc("build awesome from sources")]
+[group("deps/sources"), doc("build awesome from sources")]
 awesome: (green "awesome: building...") (clone "awesomewm/awesome" "~/git/awesome") && (yellow "awesome: done.")
   #!/usr/bin/env bash
   cd ~/git/awesome
@@ -92,7 +92,7 @@ awesome: (green "awesome: building...") (clone "awesomewm/awesome" "~/git/awesom
   sudo apt install -y ./*.deb
   sudo cp ~/git/awesome/awesome.desktop /usr/share/xsessions/awesome.desktop
 
-[group("system/packages"), doc("build picom from sources")]
+[group("deps/sources"), doc("build picom from sources")]
 picom: (green "picom: building...") (clone "yshui/picom" "~/git/picom") && (yellow "picom: done.")
   #!/usr/bin/env bash
   cd ~/git/picom
@@ -100,7 +100,7 @@ picom: (green "picom: building...") (clone "yshui/picom" "~/git/picom") && (yell
   ninja -C build
   sudo ninja -C build install
 
-[group("system/packages"), doc("build kitty from sources")]
+[group("deps/sources"), doc("build kitty from sources")]
 kitty: (green "kitty: building...") (clone "kovidgoyal/kitty" "~/git/kitty") && (yellow "kitty: done.")
   #!/usr/bin/env bash
   cd ~/git/kitty
@@ -108,7 +108,7 @@ kitty: (green "kitty: building...") (clone "kovidgoyal/kitty" "~/git/kitty") && 
   ln -sf ~/git/kitty/kitty/launcher/kitty ~/bin/kitty
   ln -sf ~/git/kitty/kitty/launcher/kitten ~/bin/kitten
 
-[group("system/assets"), doc("install fonts (Caskaydia Cove)")]
+[group("system"), doc("install fonts (Caskaydia Cove)")]
 fonts:
   #!/usr/bin/env bash
   ZIPNAME="CascadiaCode.zip"
@@ -130,7 +130,7 @@ services: (green "services: enabling...") && (yellow "services: done.")
   -sudo systemctl --user enable mpd
   -sudo timedatectl set-ntp true
 
-[group("system"), doc("set default shell (fish by default)")]
+[group("system"), doc("set user shell")]
 shell bin="/usr/bin/fish":
   #!/usr/bin/env bash
   [ "$SHELL" = "{{bin}}" ] && exit 0
