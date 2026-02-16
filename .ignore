@@ -10,9 +10,9 @@ config/mpv/watch_later
 
 config/gtk-3.0/bookmarks
 
-nvim/doc
-nvim/spell
-nvim/spell/*
+config/nvim/doc
+config/nvim/spell
+config/nvim/spell/*
 
 config/fish/fundle
 config/fish/functions/fundle.fish

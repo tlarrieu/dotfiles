@@ -23,9 +23,9 @@ config/zathura/theme
 
 config/gtk-3.0/bookmarks
 
-nvim/doc
-nvim/spell
-nvim/spell/*
+config/nvim/doc
+config/nvim/spell
+config/nvim/spell/*
 
 vifm/vifm-help.txt
 vifm/vifminfo*
