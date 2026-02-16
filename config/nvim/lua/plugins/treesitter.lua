@@ -40,10 +40,7 @@ return {
     },
     sync_install = false,
     auto_install = true,
-    highlight = {
-      enable = true,
-      disable = { 'make' },
-    },
+    highlight = { enable = true },
     indent = { enable = true, disable = { 'ledger' } },
     incremental_selection = {
       enable = true,
