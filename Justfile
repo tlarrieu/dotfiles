@@ -1,27 +1,12 @@
 BASEDIR := `pwd`
 
-[group("meta")]
-@bootstrap list="packages fonts dotfiles templates services X11 shell crontab root":
+@bootstrap list="packages fonts links templates services X11 shell crontab root":
   just green "Bootstrapping system..."
   just {{list}}
   just yellow "Done."
 
-[group("assets")]
-fonts:
-  #!/usr/bin/env bash
-  ZIPNAME="CascadiaCode.zip"
-  TMP="/tmp/$ZIPNAME"
-  DIR="$HOME/.fonts/CaskaydiaCove"
-  VERSION="3.4.0"
-  wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$VERSION/$ZIPNAME -O $TMP
-  rm -rf $DIR
-  mkdir -p $DIR
-  cd $DIR
-  unzip $TMP
-  fc-cache -fr
-
-[group("config"), default]
-dotfiles: (green "Linking configuration files") && (yellow "Done.")
+[group("config:links"), default]
+links: (green "Linking configuration files") && (yellow "Done.")
   #!/usr/bin/env bash
   mkdir -p ~/.config
   for name in config/*; do ln -sfFT {{BASEDIR}}/"$name" ~/."$name"; done
@@ -35,7 +20,7 @@ dotfiles: (green "Linking configuration files") && (yellow "Done.")
   mkdir -p ~/.Xresources.d
   for name in Xresources.d/*; do ln -sfFT {{BASEDIR}}/"$name" ~/."$name"; done
 
-  ln -sfFT {{BASEDIR}}/xresources ~/.Xresources
+  ln -sfFT {{BASEDIR}}/Xresources ~/.Xresources
   ln -sfFT {{BASEDIR}}/projections.json ~/.projections.json
   ln -sfFT {{BASEDIR}}/lua ~/lua
   ln -sfFT {{BASEDIR}}/gtkrc-2.0 ~/.gtkrc-2.0
@@ -62,25 +47,25 @@ dotfiles: (green "Linking configuration files") && (yellow "Done.")
   git config --global core.excludesFile ~/.gitignore
   [ -f ~/.profile ] && rm ~/.profile || /bin/true
 
-[group("templates")]
+[group("config:links")]
+X11: (green "X11: linking configuration files...") && (yellow "X11: done.")
+  #!/usr/bin/env bash
+  for name in xorg.conf.d/*; do sudo ln -sfFT {{BASEDIR}}/$name /etc/X11/$name; done
+
+[group("config:templates")]
 templates: (template ".Xresources.d/local") \
   (template ".xsettingsd") \
   (template ".config/kitty/theme.conf") \
   (template ".config/zathura/theme") \
   (template ".config/rofi/variant.rasi")
 
-[group("templates")]
+[group("config:templates")]
 root: (green "Linking root configuration files...") && (yellow "Done.")
   sudo cp {{BASEDIR}}/templates/root/.bashrc /root/.bashrc
   sudo mkdir -p /root/.config/nvim
   sudo cp {{BASEDIR}}/templates/root/nvim.lua /root/.config/nvim/init.lua
 
-[group("config")]
-X11: (green "X11: linking configuration files...") && (yellow "X11: done.")
-  #!/usr/bin/env bash
-  for name in xorg.conf.d/*; do sudo ln -sfFT {{BASEDIR}}/$name /etc/X11/$name; done
-
-[group("packages"), doc("install dependencies and single packages")]
+[group("system:packages"), doc("install dependencies and single packages")]
 packages: (green "packages: installing...") && (yellow "packages: done.")
   #!/usr/bin/env bash
   # Arch Linux
@@ -100,7 +85,7 @@ packages: (green "packages: installing...") && (yellow "packages: done.")
     exit 1
   fi
 
-[group("packages"), doc("build neovim from sources")]
+[group("system:packages"), doc("build neovim from sources")]
 neovim: (green "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && (yellow "neovim: done.")
   #!/usr/bin/env bash
   cd ~/git/neovim
@@ -112,7 +97,7 @@ neovim: (green "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && 
   cpack -G DEB
   sudo dpkg -i nvim-linux-x86_64.deb
 
-[group("packages"), doc("build awesome from sources")]
+[group("system:packages"), doc("build awesome from sources")]
 awesome: (green "awesome: building...") (clone "awesomewm/awesome" "~/git/awesome") && (yellow "awesome: done.")
   #!/usr/bin/env bash
   cd ~/git/awesome
@@ -123,7 +108,7 @@ awesome: (green "awesome: building...") (clone "awesomewm/awesome" "~/git/awesom
   sudo apt install -y ./*.deb
   sudo cp ~/git/awesome/awesome.desktop /usr/share/xsessions/awesome.desktop
 
-[group("packages"), doc("build picom from sources")]
+[group("system:packages"), doc("build picom from sources")]
 picom: (green "picom: building...") (clone "yshui/picom" "~/git/picom") && (yellow "picom: done.")
   #!/usr/bin/env bash
   cd ~/git/picom
@@ -131,13 +116,27 @@ picom: (green "picom: building...") (clone "yshui/picom" "~/git/picom") && (yell
   ninja -C build
   sudo ninja -C build install
 
-[group("packages"), doc("build kitty from sources")]
+[group("system:packages"), doc("build kitty from sources")]
 kitty: (green "kitty: building...") (clone "kovidgoyal/kitty" "~/git/kitty") && (yellow "kitty: done.")
   #!/usr/bin/env bash
   cd ~/git/kitty
   ./dev.sh build
   ln -sf ~/git/kitty/kitty/launcher/kitty ~/bin/kitty
   ln -sf ~/git/kitty/kitty/launcher/kitten ~/bin/kitten
+
+[group("system:assets")]
+fonts:
+  #!/usr/bin/env bash
+  ZIPNAME="CascadiaCode.zip"
+  TMP="/tmp/$ZIPNAME"
+  DIR="$HOME/.fonts/CaskaydiaCove"
+  VERSION="3.4.0"
+  wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$VERSION/$ZIPNAME -O $TMP
+  rm -rf $DIR
+  mkdir -p $DIR
+  cd $DIR
+  unzip $TMP
+  fc-cache -fr
 
 [group("system")]
 crontab:
