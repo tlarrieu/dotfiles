@@ -41,6 +41,7 @@ return {
 
       bashrc = { icon = '󱆃' },
       make = { icon = '󱌣' },
+      just = { icon = '' },
       json = { icon = '' },
       html = { icon = '' },
       css = { icon = '' },

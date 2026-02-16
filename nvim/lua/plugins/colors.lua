@@ -298,6 +298,12 @@ return {
         ['makeStatement'] = { fg = 'palette.magenta' },
         ['makeDefine'] = { link = '@keyword' },
 
+        -- just
+        ['@function.just'] = { fg = 'palette.blue' },
+        ['@attribute.builtin.just'] = { fg = 'palette.fg.dimmer' },
+        ['@variable.parameter.just'] = { fg = 'palette.fg.dim', style = 'italic' },
+        ['@variable.just'] = { fg = 'palette.magenta' },
+
         -- ruby
         ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg1' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },

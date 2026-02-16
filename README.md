@@ -7,7 +7,12 @@ My personal config files.
 This repository contains my personal config files for various applications.
 This is first and foremost designed for my own needs (backup / bootstrapping
 from various places).
-I would ***not*** advise to run the makefile as it will forcefully link everything, plus a whole lot more.
+I would ***not*** advise to run the Justfile as it will forcefully link everything, plus a whole lot more.
+
+## Installation
+
+- `just -l` for the list of available recipes
+- `just bootstrap` to install everything
 
 ## Goals
 

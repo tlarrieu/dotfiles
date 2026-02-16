@@ -151,8 +151,7 @@ crontab:
   CRONTAB
 
 [group("system"), doc("lightdm, NetworkManager, mpd, timedatectl")]
-services:
-  @echo "Enabling and starting services..."
+services: (green "services: enabling...") && (yellow "services: done.")
   -sudo systemctl enable lightdm
   -sudo systemctl enable NetworkManager
   @mkdir -p ~/.local/share/mpd

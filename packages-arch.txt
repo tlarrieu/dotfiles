@@ -1,6 +1,6 @@
 # vim:filetype=conf
 # essentials
-nvim
+neovim-git
 git
 fzf
 rofi
@@ -50,8 +50,7 @@ mlocate
 skim
 
 # accounting
-hledger
-hledger-web
+hledger-bin
 
 # files
 vifm
@@ -79,7 +78,7 @@ lightdm
 i3lock-color
 picom-git
 wmctrl
-flameshot
+flameshot-git
 unclutter
 redshift
 xsettingsd
