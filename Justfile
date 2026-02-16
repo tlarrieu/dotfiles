@@ -8,6 +8,10 @@ BASEDIR := `pwd`
 [group("config:links"), default]
 links: (green "Linking configuration files") && (yellow "Done.")
   #!/usr/bin/env bash
+  shopt -s dotglob # include hidden files in globbing
+
+  for name in home/*; do ln -sfFT {{BASEDIR}}/"$name" ~/"$(basename $name)"; done
+
   mkdir -p ~/.config
   for name in config/*; do ln -sfFT {{BASEDIR}}/"$name" ~/."$name"; done
 
@@ -19,29 +23,6 @@ links: (green "Linking configuration files") && (yellow "Done.")
 
   mkdir -p ~/.Xresources.d
   for name in Xresources.d/*; do ln -sfFT {{BASEDIR}}/"$name" ~/."$name"; done
-
-  ln -sfFT {{BASEDIR}}/Xresources ~/.Xresources
-  ln -sfFT {{BASEDIR}}/projections.json ~/.projections.json
-  ln -sfFT {{BASEDIR}}/lua ~/lua
-  ln -sfFT {{BASEDIR}}/gtkrc-2.0 ~/.gtkrc-2.0
-  ln -sfFT {{BASEDIR}}/vifm ~/.vifm
-  ln -sfFT {{BASEDIR}}/hledger.conf ~/.hledger.conf
-  ln -sfFT {{BASEDIR}}/bashrc ~/.bashrc
-  ln -sfFT {{BASEDIR}}/browser-config ~/.browser-config
-  ln -sfFT {{BASEDIR}}/gitconfig ~/.gitconfig
-  ln -sfFT {{BASEDIR}}/gitignore ~/.gitignore
-  ln -sfFT {{BASEDIR}}/psqlrc ~/.psqlrc
-  ln -sfFT {{BASEDIR}}/irbrc ~/.irbrc
-  ln -sfFT {{BASEDIR}}/pryrc ~/.pryrc
-  ln -sfFT {{BASEDIR}}/rubocop.yml ~/.rubocop.yml
-  ln -sfFT {{BASEDIR}}/tslint.json ~/tslint.json
-  ln -sfFT {{BASEDIR}}/newsboat ~/.newsboat
-  ln -sfFT {{BASEDIR}}/apps ~/apps
-  ln -sfFT {{BASEDIR}}/ncpamixer.conf ~/.ncpamixer.conf
-  ln -sfFT {{BASEDIR}}/xprofile ~/.xprofile
-  ln -sfFT {{BASEDIR}}/dir_colors ~/.dir_colors
-  ln -sfFT {{BASEDIR}}/lesskey ~/.lesskey
-  ln -sfFT {{BASEDIR}}/ghci ~/.ghci
 
   git config --global core.excludesFile ~/.gitignore
   [ -f ~/.profile ] && rm ~/.profile || /bin/true
@@ -70,10 +51,10 @@ packages: (green "packages: installing...") && (yellow "packages: done.")
   # Arch Linux
   if type -p pacman > /dev/null; then
     sudo pacman -S --color always --needed --noconfirm yay
-    yay -S --color always --needed --noconfirm $(cat packages-arch.txt | grep -v "#")
+    yay -S --color always --needed --noconfirm $(cat ./packages/arch.txt | grep -v "#")
   # Ubuntu
   elif type -p apt > /dev/null; then
-    sudo cp ./ubuntu-sources.list /etc/apt/sources.list.d/ubuntu.sources
+    sudo cp ./packages/sources.list /etc/apt/sources.list.d/ubuntu.sources
     sudo apt update
     sudo apt install -y $(cat packages-ubuntu.txt | grep -v "#")
     mkdir -p ~/bin

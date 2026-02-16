@@ -27,18 +27,17 @@ config/nvim/doc
 config/nvim/spell
 config/nvim/spell/*
 
-vifm/vifm-help.txt
-vifm/vifminfo*
-vifm/scripts/README
+home/.vifm/vifm-help.txt
+home/.vifm/vifminfo*
+home/.vifm/scripts/README
 
-newsboat/cache.db
-newsboat/cache.db.lock
-newsboat/history.cmdline
-newsboat/history.search
-newsboat/urls
-newsboat/queue
+home/.newsboat/cache.db
+home/.newsboat/cache.db.lock
+home/.newsboat/history.cmdline
+home/.newsboat/history.search
+home/.newsboat/urls
+home/.newsboat/queue
+!home/.projections.json
 
-apps/ignore
-!apps/*.com
-
-!**/.projections.json
+home/apps/ignore
+!home/apps/*.com

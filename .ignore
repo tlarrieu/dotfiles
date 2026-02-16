@@ -17,15 +17,16 @@ config/nvim/spell/*
 config/fish/fundle
 config/fish/functions/fundle.fish
 
-vifm/vifm-help.txt
-vifm/vifminfo*
-vifm/scripts/README
+config/.vifm/vifm-help.txt
+config/.vifm/vifminfo*
+config/.vifm/scripts/README
+config/.vifm/vifminfo.json
 
-newsboat/cache.db
-newsboat/cache.db.lock
-newsboat/history.cmdline
-newsboat/history.search
-newsboat/urls
-newsboat/queue
+dotfiles/.newsboat/cache.db
+dotfiles/.newsboat/cache.db.lock
+dotfiles/.newsboat/history.cmdline
+dotfiles/.newsboat/history.search
+dotfiles/.newsboat/urls
+dotfiles/.newsboat/queue
 
 .ruby-lsp

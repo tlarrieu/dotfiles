@@ -84,7 +84,7 @@ redshift
 xsettingsd
 
 # gtk
-lxappearance-gtk3
+lxappearance
 xcursor-breeze
 papirus-icon-theme
 
