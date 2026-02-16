@@ -41,3 +41,9 @@
 (assignment (identifier) @variable (#set! "priority" 120))
 (alias (identifier) @variable (#set! "priority" 120))
 (value (identifier) @variable (#set! "priority" 120))
+
+((recipe
+  (attribute
+    (identifier) @attribute.builtin @attribute.default))
+  (#any-of? @attribute.builtin
+    "default"))

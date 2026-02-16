@@ -301,6 +301,7 @@ return {
         -- just
         ['@function.just'] = { fg = 'palette.blue' },
         ['@attribute.builtin.just'] = { fg = 'palette.fg.dimmer' },
+        ['@attribute.default'] = { fg = 'palette.pink' },
         ['@variable.parameter.just'] = { fg = 'palette.fg.dim', style = 'italic' },
         ['@variable.just'] = { fg = 'palette.magenta' },
 
