@@ -148,11 +148,8 @@ vim.keymap.set('o', 'ir', 'i[')
 -- {{{ --| quick access |-----------------------------------
 local quickedit = function(path)
   return function()
-    if require('helpers').fileexists(vim.fn.expand('%')) then
-      return '<cmd>tabe ' .. path .. '<cr>'
-    else
-      return '<cmd>e ' .. path .. '<cr>'
-    end
+    local cmd = require('helpers').fileexists(vim.fn.expand('%')) and 'vsplit' or 'edit'
+    return '<cmd>' .. cmd .. ' ' .. path .. '<cr>'
   end
 end
 
