@@ -1,11 +1,12 @@
-alias boot := bootstrap
+@_usage:
+  just -l
 
+alias boot := bootstrap
 [doc("bootstrap the system: install packages, link configuration files, enable services...")]
 @bootstrap: (green "boostrapping: running...") packages fonts links templates services X11 shell crontab root && (yellow "bootstrapping: done.")
 
 alias ln := links
-
-[group("config/links"), default, doc("link configuration files into ~/.config/")]
+[group("config/links"), doc("link configuration files into ~/.config/")]
 links: (green "configuration: linking files...") && (yellow "configuration: done.")
   #!/usr/bin/env bash
   shopt -s dotglob # include hidden files in globbing
@@ -27,15 +28,11 @@ links: (green "configuration: linking files...") && (yellow "configuration: done
   git config --global core.excludesFile ~/.gitignore
   [ -f ~/.profile ] && rm ~/.profile || /bin/true
 
-alias x11 := X11
-
 [group("config/links"), doc("link X11 configuration files into /etc/X11/")]
-X11: (green "X11: linking files...") && (yellow "X11: done.")
-  #!/usr/bin/env bash
+@X11: (green "X11: linking files...") && (yellow "X11: done.")
   for name in xorg.conf.d/*; do sudo ln -rsfFT $name /etc/X11/$name; done
 
 alias cp := templates
-
 [group("config/templates"), doc("deploy templates")]
 templates: (template ".Xresources.d/local") \
   (template ".xsettingsd") \
@@ -152,10 +149,10 @@ crontab:
 neorg: (clone "tlarrieu/notes" "~/.neorg")
 
 [group("other/repos"), doc("clone RSS streams")]
-rss: (clone "tlarrieu/rss" "~/.rss")
+rss: (clone "tlarrieu/rss" "~/git/rss")
 
 [group("other/repos"), doc("clone accounting ledgers")]
-accounting: (clone "tlarrieu/accounting" "~/.accounting")
+accounting: (clone "tlarrieu/accounting" "~/git/accounting")
 
 # ------------------------------------------------------------------------------
 # helpers
@@ -166,18 +163,19 @@ template name:
   @cp --update=none templates/{{name}} ~/{{name}}
 
 [private]
-clone repo target:
-  #!/usr/bin/env bash
-  [ ! -d {{target}} ] && just do_clone {{repo}} {{target}} || /bin/true
+@clone repo target:
+  [ -d {{target}} ] || just do_clone {{repo}} {{target}}
 
 [private]
 @do_clone repo target: (green repo + ": cloning...") && (yellow repo + ": done.")
-  -git clone https://github.com/{{repo}} {{target}}
+  -git clone git://github.com/{{repo}}.git {{target}}
 
 [private]
-@green label:
-  echo {{GREEN + ITALIC + label + NORMAL}}
+@green label: (say GREEN label)
 
 [private]
-@yellow label:
-  echo {{YELLOW + ITALIC + label + NORMAL}}
+@yellow label: (say YELLOW label)
+
+[private]
+say color label:
+  @echo {{color + ITALIC + label + NORMAL}}

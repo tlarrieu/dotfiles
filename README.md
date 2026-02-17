@@ -12,7 +12,7 @@ I would ***not*** advise to run the Justfile as it will forcefully link everythi
 ## Installation
 
 - install `just`: get it [here](https://just.systems/man/en/packages.html)
-- `just -l` for the list of available recipes
+- `just` prints the available recipes
 - `just bootstrap` to install everything
 
 ## Goals
