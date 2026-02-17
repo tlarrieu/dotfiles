@@ -451,6 +451,7 @@ return {
         LualineTablineActiveAlt = { fg = 'palette.fg.base', bg = 'palette.bg1', style = 'bold,underline' },
         LualineTablineInactive = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
+        LualineSuccess = { fg = 'palette.green', bg = 'none' },
         LualineError = { fg = 'palette.red', bg = 'none' },
         LualineWarning = { fg = 'palette.yellow', bg = 'none' },
 

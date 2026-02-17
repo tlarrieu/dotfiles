@@ -81,6 +81,23 @@ return {
       },
       lualine_c = {
         {
+          function()
+            local handle = io.popen("git stash list 2> /dev/null | wc -l")
+            if not handle then return '' end
+
+            local result = tonumber(handle:read("*a"))
+
+            if result == 0 then return '' end
+            if result == 1 then return '----  󰎤 ----' end
+            if result == 2 then return '----  󰎧 ----' end
+            if result == 3 then return '----  󰎪 ----' end
+            if result >= 4 then return '----  󰼑 ----' end
+
+            return ''
+          end,
+          color = function() return 'LualineSuccess' end,
+        },
+        {
           'filename',
           path = 3,
           cond = function()
@@ -101,21 +118,21 @@ return {
           function() return require('testbus').statusline.icon() end,
           color = function() return require('testbus').statusline.color() end,
         },
-        { 'diagnostics' },
         {
           function()
-            local handle = io.popen('git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | xargs echo -n')
+            local handle = io.popen("git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | paste -sd ''")
             if not handle then return '' end
 
             local result = handle:read("*a")
-            if result:match('> <') then return '----  ----' end
+            if result:match('><') then return '----  ----' end
             if result:match('<') then return '---- 󰧗 ----' end
             if result:match('>') then return '---- 󰧝 ----' end
 
             return ''
           end,
-          color = function() return 'ErrorMsg' end,
+          color = function() return 'LualineError' end,
         },
+        { 'diagnostics' },
         {
           'diff',
           colored = true,

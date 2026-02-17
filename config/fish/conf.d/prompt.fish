@@ -34,8 +34,8 @@ function _git_bisect
 end
 
 function _git_ahead
-  switch (command git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | xargs echo -n)
-  case '*> <*'
+  switch (command git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | paste -sd '')
+  case '*><*'
     echo ' '
   case '*<'
     echo '󰧗 '
