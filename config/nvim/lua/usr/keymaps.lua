@@ -148,8 +148,7 @@ vim.keymap.set('o', 'ir', 'i[')
 -- {{{ --| quick access |-----------------------------------
 local quickedit = function(path)
   return function()
-    local cmd = require('helpers').fileexists(vim.fn.expand('%')) and 'vsplit' or 'edit'
-    return '<cmd>' .. cmd .. ' ' .. path .. '<cr>'
+    return '<cmd>' .. (require('helpers').fileexists(vim.fn.expand('%')) and 'vsplit' or 'edit') .. ' ' .. path .. '<cr>'
   end
 end
 
@@ -158,6 +157,7 @@ vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builde
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefile', expr = true })
 vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.pryrc.local'), { desc = 'Edit local pryrc', expr = true })
+vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 -- }}}
 
