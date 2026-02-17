@@ -11,7 +11,7 @@ I would ***not*** advise to run the Justfile as it will forcefully link everythi
 
 ## Installation
 
-- install `just`: get it [here](https://just.systems/man/en/packages.html)
+- install `just`: get it (_see how [here](https://just.systems/man/en/packages.html)_)
 - `just` prints the available recipes
 - `just bootstrap` to install everything
 
