@@ -24,6 +24,9 @@ abbr jctl "journalctl -xe"
 abbr nmcli "nmcli --color yes"
 
 # Pass
+abbr j "just"
+
+# Pass
 abbr p "pass"
 
 # NVIM
