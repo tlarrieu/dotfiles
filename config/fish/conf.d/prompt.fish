@@ -34,30 +34,13 @@ function _git_bisect
 end
 
 function _git_ahead
-  set -l ahead 0
-  set -l behind 0
-
-  for line in (command git rev-list --left-right '@{upstream}...HEAD' 2> /dev/null)
-    switch "$line"
-      case '>*'
-        if [ $behind -eq 1 ]
-          echo " "
-          return
-        end
-        set ahead 1
-      case '<*'
-        if [ $ahead -eq 1 ]
-          echo " "
-          return
-        end
-        set behind 1
-    end
-  end
-
-  if [ $ahead -eq 1 ]
-    echo "󰧝 "
-  else if [ $behind -eq 1 ]
-    echo "󰧗 "
+  switch (command git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | xargs echo -n)
+  case '<'
+    echo '󰧗 '
+  case '>'
+    echo '󰧝 '
+  case '> <'
+    echo ' '
   end
 end
 

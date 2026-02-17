@@ -104,16 +104,15 @@ return {
         { 'diagnostics' },
         {
           function()
-            local handle = io.popen('git log --oneline @{u}..HEAD 2> /dev/null | wc -l')
+            local handle = io.popen('git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | xargs echo -n')
             if not handle then return '' end
 
             local result = handle:read("*a")
-            if result == '' then return '' end
+            if result == '<' then return '󰧗' end
+            if result == '>' then return '󰧝' end
+            if result == '> <' then return '' end
 
-            result = tonumber(result)
-            if result <= 0 then return '' end
-
-            return 'unpushed commits'
+            return ''
           end,
           color = function() return 'ErrorMsg' end,
         },
@@ -128,15 +127,13 @@ return {
           source = function()
             local success, source = pcall(vim.api.nvim_buf_get_var, 0, 'gitsigns_status_dict')
 
-            if success then
-              return {
-                modified = source.changed,
-                added = source.added,
-                removed = source.removed
-              }
-            end
+            if not success then return end
 
-            return {}
+            return {
+              modified = source.changed,
+              added = source.added,
+              removed = source.removed
+            }
           end,
         },
       },
