@@ -5,7 +5,7 @@
 #define COLOR4  #69a6bf
 #define COLOR5  #c4a7e7
 #define COLOR6  #8fb8bf
-#define COLOR7  #e0def4
+#define COLOR7  #c2c0d3
 #define COLOR8  #465780
 #define COLOR9  #d06f79
 #define COLOR10 #b1d196
@@ -16,7 +16,7 @@
 #define COLOR15 #e7ecf4
 
 #define BACKGROUND #232136
-#define FOREGROUND #e0def4
+#define FOREGROUND #c2c0d3
 #define COMMENT #908caa
 
 #define VARIANT dark

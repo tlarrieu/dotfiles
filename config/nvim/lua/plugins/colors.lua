@@ -54,13 +54,13 @@ return {
         orange  = { base = '#f6c177', dim = '#4d4143' },
         pink    = { base = '#ea9a97', dim = '#4b3949' },
         red     = { base = '#eb6f92', dim = '#4b3148' },
-        white   = { base = '#e0def4', dim = '#49475c' },
+        white   = { base = '#c2c0d3', dim = '#49475c' },
         yellow  = { base = '#ebcb8b', dim = '#4b4347' },
 
         comment = '#908caa',
 
         fg      = {
-          base   = '#e0def4',
+          base   = '#c2c0d3',
           dim    = '#908caa',
           dimmer = '#6e6a86',
         },
@@ -72,7 +72,7 @@ return {
         bg4     = '#5a657d', -- Conceal, border fg
 
         fg0     = '#908caa', -- Lighter fg
-        fg1     = '#e0def4', -- Default fg
+        fg1     = '#c2c0d3', -- Default fg
         fg2     = '#908caa', -- Darker fg (status line)
         fg3     = '#6e6a86', -- Darker fg (line numbers, fold colums)
 
