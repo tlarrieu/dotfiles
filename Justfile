@@ -152,9 +152,11 @@ neorg: (clone "tlarrieu/notes" "~/.neorg")
 
 [group("other/repos"), doc("clone RSS streams")]
 rss: (clone "tlarrieu/rss" "~/git/rss")
+  cd ~/git/accounting && just link
 
 [group("other/repos"), doc("clone accounting ledgers")]
 accounting: (clone "tlarrieu/accounting" "~/git/accounting")
+  cd ~/git/accounting && just link
 
 # ------------------------------------------------------------------------------
 # helpers
