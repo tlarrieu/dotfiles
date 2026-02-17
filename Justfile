@@ -122,10 +122,9 @@ fonts:
 
 [group("system"), doc("enable lightdm, NetworkManager, mpd & active timedatectl's ntp")]
 services: (pending "services: enabling...") && (success "services: done.")
-  -sudo systemctl enable lightdm
-  -sudo systemctl enable NetworkManager
+  -sudo systemctl enable lightdm NetworkManager
   @mkdir -p ~/.local/share/mpd
-  -sudo systemctl --user enable mpd
+  -systemctl --user enable --now mpd
   -sudo timedatectl set-ntp true
 
 alias sh := shell
