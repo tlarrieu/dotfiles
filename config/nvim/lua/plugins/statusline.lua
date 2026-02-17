@@ -103,6 +103,21 @@ return {
         },
         { 'diagnostics' },
         {
+          function()
+            local handle = io.popen('git log --oneline @{u}..HEAD 2> /dev/null | wc -l')
+            if not handle then return '' end
+
+            local result = handle:read("*a")
+            if result == '' then return '' end
+
+            result = tonumber(result)
+            if result <= 0 then return '' end
+
+            return 'unpushed commits'
+          end,
+          color = function() return 'ErrorMsg' end,
+        },
+        {
           'diff',
           colored = true,
           diff_color = {
