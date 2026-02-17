@@ -35,12 +35,12 @@ end
 
 function _git_ahead
   switch (command git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | xargs echo -n)
-  case '<'
-    echo '󰧗 '
-  case '>'
-    echo '󰧝 '
-  case '> <'
+  case '*> <*'
     echo ' '
+  case '*<'
+    echo '󰧗 '
+  case '*>'
+    echo '󰧝 '
   end
 end
 
