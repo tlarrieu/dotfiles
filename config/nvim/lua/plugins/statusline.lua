@@ -103,9 +103,9 @@ return {
             if not handle then return '' end
 
             local result = handle:read("*a")
-            if result:match('><') then return '----  ----' end
-            if result:match('<') then return '---- 󰧗 ----' end
-            if result:match('>') then return '---- 󰧝 ----' end
+            if result:match('><') then return '---- 󰆖 ----' end
+            if result:match('<') then return '---- 󰧖 ----' end
+            if result:match('>') then return '---- 󰧜 ----' end
 
             return ''
           end,
