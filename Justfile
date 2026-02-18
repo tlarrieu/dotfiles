@@ -147,17 +147,17 @@ crontab:
   CRONTAB
 
 [group("other/repos"), doc("clone curriculum")]
-curriculum: (clone "tlarrieu/curriculum" "~/Documents/curriculum")
+curriculum: (clone "tlarrieu/curriculum" "~/Documents/curriculum" "git://")
 
 [group("other/repos"), doc("clone personal wiki")]
-neorg: (clone "tlarrieu/notes" "~/.neorg")
+neorg: (clone "tlarrieu/notes" "~/.neorg" "git://")
 
 [group("other/repos"), doc("clone RSS streams")]
-rss: (clone "tlarrieu/rss" "~/git/rss")
+rss: (clone "tlarrieu/rss" "~/git/rss" "git://")
   cd ~/git/accounting && just link
 
 [group("other/repos"), doc("clone accounting ledgers")]
-accounting: (clone "tlarrieu/accounting" "~/git/accounting")
+accounting: (clone "tlarrieu/accounting" "~/git/accounting" "git://")
   cd ~/git/accounting && just link
 
 # ------------------------------------------------------------------------------
@@ -169,12 +169,12 @@ template name:
   @cp --update=none templates/{{name}} ~/{{name}}
 
 [private]
-@clone repo target:
-  [ -d {{target}} ] || just do_clone {{repo}} {{target}}
+@clone repo target protocol="https://":
+  [ -d {{target}} ] || just do_clone {{repo}} {{target}} {{protocol}}
 
 [private]
-@do_clone repo target: (pending repo + ": cloning...") && (success repo + ": done.")
-  -git clone git://github.com/{{repo}}.git {{target}}
+@do_clone repo target protocol="https://": (pending repo + ": cloning...") && (success repo + ": done.")
+  git clone {{protocol}}github.com/{{repo}}.git {{target}}
 
 [private]
 @pending label: (say YELLOW "󰔟 " + label)
