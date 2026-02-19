@@ -88,10 +88,11 @@ return {
             local result = tonumber(handle:read("*a"))
 
             if result == 0 then return '' end
-            if result == 1 then return '----  󰎤 ----' end
-            if result == 2 then return '----  󰎧 ----' end
-            if result == 3 then return '----  󰎪 ----' end
-            if result >= 4 then return '----  󰼑 ----' end
+            -- '─── 󰆖 ───'
+            if result == 1 then return '───  󰎤 ───' end
+            if result == 2 then return '───  󰎧 ───' end
+            if result == 3 then return '───  󰎪 ───' end
+            if result >= 4 then return '───  󰼑 ───' end
 
             return ''
           end,
@@ -103,9 +104,9 @@ return {
             if not handle then return '' end
 
             local result = handle:read("*a")
-            if result:match('><') then return '---- 󰆖 ----' end
-            if result:match('<') then return '---- 󰧖 ----' end
-            if result:match('>') then return '---- 󰧜 ----' end
+            if result:match('><') then return '─── 󰆖 ───' end
+            if result:match('<') then return '─── 󰧖 ───' end
+            if result:match('>') then return '─── 󰧜 ───' end
 
             return ''
           end,
