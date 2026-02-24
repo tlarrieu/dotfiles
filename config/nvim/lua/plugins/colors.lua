@@ -231,7 +231,7 @@ return {
         -- floats
         NormalFloat = { fg = 'none', bg = 'palette.bg0' },
         FloatBorder = { fg = 'palette.bg0', bg = 'palette.bg0' },
-        FloatTitle = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'bold' },
+        FloatTitle = { fg = 'palette.fg.dim', bg = 'palette.bg0', style = 'bold' },
         FloatFooter = { fg = 'palette.fg.base', bg = 'palette.bg1' },
 
         -- winseparator
@@ -394,10 +394,10 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
-        TreesitterContext = { bg = 'palette.bg0', style = 'italic' },
+        TreesitterContext = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'italic' },
         TreesitterContextBottom = { link = 'TreesitterContext' },
-        TreesitterContextLineNumber = { fg = 'palette.fg0', bg = 'palette.bg0', style = 'italic' },
-        TreesitterContextSeparator = { fg = 'palette.bg0', bg = 'palette.bg0' },
+        TreesitterContextLineNumber = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'italic' },
+        TreesitterContextSeparator = { fg = 'palette.bg3', bg = 'palette.bg3' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
@@ -463,7 +463,7 @@ return {
         NotifyWARNTitle = { fg = 'palette.yellow' },
         NotifyERRORTitle = { fg = 'palette.red' },
 
-        MarkSignHL = { fg = 'palette.fg0', bg = 'palette.bg0' },
+        MarkSignHL = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },
 
         MarkviewCode = { fg = 'none', bg = 'palette.bg0' },
@@ -471,7 +471,7 @@ return {
         MarkviewInlineCode = { fg = 'none', bg = 'palette.bg0' },
         MarkviewHyperlink = { fg = 'palette.magenta', bg = 'none', style = 'italic' },
         MarkviewImage = { fg = 'palette.blue', bg = 'none', style = 'italic' },
-        MarkviewBlockQuoteDefault = { fg = 'palette.fg0', bg = 'none', style = 'NONE' },
+        MarkviewBlockQuoteDefault = { fg = 'palette.fg.dim', bg = 'none', style = 'NONE' },
         MarkviewBlockQuoteError = { fg = 'palette.red', bg = 'none', style = 'NONE' },
         MarkviewBlockQuoteNote = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
         MarkviewBlockQuoteOk = { fg = 'palette.green', bg = 'none', style = 'NONE' },
