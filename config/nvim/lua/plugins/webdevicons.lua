@@ -78,6 +78,7 @@ return {
       ['test.tsx'] = { icon = '󰜈' },
       ['spec.ts'] = { icon = '' },
       ['spec.tsx'] = { icon = '󰜈' },
+      perl = { icon = '' },
 
       gitcommit = { icon = '' },
       gitrebase = { icon = '' },
@@ -110,6 +111,7 @@ return {
       exe = { icon = '' },
       log = { icon = '' },
       yml = { icon = '󰷐' },
+      pl = { icon = '' },
 
       fish = { icon = '󰈺' },
       kitty = { icon = '󰄛' },
