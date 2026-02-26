@@ -12,16 +12,16 @@ return {
     },
     palettes = {
       dawnfox = {
-        black   = { base = '#575279', dim = '#c9c3ca' },
-        blue    = { base = '#3385a5', dim = '#bed3d7' },
-        cyan    = { base = '#56949f', dim = '#c9d7d6' },
-        green   = { base = '#82a561', dim = '#c7ceb6' },
-        magenta = { base = '#907aa9', dim = '#ccc1cb' },
-        orange  = { base = '#ea9d34', dim = '#f5dab6' },
-        pink    = { base = '#d7827e', dim = '#f0d2cc' },
-        red     = { base = '#b4637a', dim = '#d6babd' },
-        white   = { base = '#faf4ed', dim = '#faf4ed' },
-        yellow  = { base = '#d3a634', dim = '#eeddb6' },
+        black   = { base = '#575279', dim = '#cec8cd', dimmer = '#ebe5e2' },
+        blue    = { base = '#3385a5', dim = '#c4d6d9', dimmer = '#e8eae6' },
+        cyan    = { base = '#56949f', dim = '#cddad8', dimmer = '#ebebe6' },
+        green   = { base = '#82a561', dim = '#d9dec7', dimmer = '#efede0' },
+        magenta = { base = '#907aa9', dim = '#ddd3da', dimmer = '#f0e9e7' },
+        orange  = { base = '#ea9d34', dim = '#f6dcbb', dimmer = '#f9ecdc' },
+        pink    = { base = '#d7827e', dim = '#f0d5cf', dimmer = '#f4dfd9' },
+        red     = { base = '#b4637a', dim = '#e7ccce', dimmer = '#f4e7e3' },
+        white   = { base = '#faf4ed', dim = '#faf4ed', dimmer = '#faf4ed' },
+        yellow  = { base = '#d3a634', dim = '#efdfbb', dimmer = '#f6eddc' },
 
         comment = '#797593',
 
@@ -46,16 +46,16 @@ return {
         sel1    = '#cecacd', -- Popup sel bg, search bg
       },
       nordfox = {
-        black   = { base = '#232136', dim = '#232136' },
-        blue    = { base = '#69a6bf', dim = '#28374e' },
-        cyan    = { base = '#8fb8bf', dim = '#393f51' },
-        green   = { base = '#a3be8c', dim = '#3d4047' },
-        magenta = { base = '#c4a7e7', dim = '#433c59' },
-        orange  = { base = '#f6c177', dim = '#4d4143' },
-        pink    = { base = '#ea9a97', dim = '#4b3949' },
-        red     = { base = '#eb6f92', dim = '#4b3148' },
-        white   = { base = '#c2c0d3', dim = '#49475c' },
-        yellow  = { base = '#ebcb8b', dim = '#4b4347' },
+        black   = { base = '#232136', dim = '#232136', dimmer = '#232136' },
+        blue    = { base = '#69a6bf', dim = '#36455b', dimmer = '#292d42' },
+        cyan    = { base = '#8fb8bf', dim = '#404a5b', dimmer = '#2d2f42' },
+        green   = { base = '#a3be8c', dim = '#464c4d', dimmer = '#2f2f3e' },
+        magenta = { base = '#c4a7e7', dim = '#4f4666', dimmer = '#322d46' },
+        orange  = { base = '#f6c177', dim = '#5d4d48', dimmer = '#36303c' },
+        pink    = { base = '#ea9a97', dim = '#594250', dimmer = '#352c3f' },
+        red     = { base = '#eb6f92', dim = '#5a364f', dimmer = '#35283e' },
+        white   = { base = '#c2c0d3', dim = '#4e4c61', dimmer = '#312f44' },
+        yellow  = { base = '#ebcb8b', dim = '#5a4f4d', dimmer = '#35303e' },
 
         comment = '#908caa',
 
@@ -187,12 +187,12 @@ return {
         ['@keyword.operator'] = { link = '@keyword' },
         ['@keyword.function'] = { link = '@keyword' },
         ['@keyword.exception'] = { link = '@keyword' },
-        ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dim' },
+        ['@keyword.return'] = { fg = 'palette.red', bg = 'palette.red.dimmer' },
         ['@keyword.next'] = { link = '@keyword.return' },
         ['@keyword.break'] = { link = '@keyword.return' },
         ['@keyword.raise'] = { link = '@keyword.return' },
         ['@keyword.exit'] = { link = '@keyword.return' },
-        ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
+        ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dimmer' },
         ['@keyword.repeat'] = { link = '@keyword.conditional' },
 
         -- MsgArea
