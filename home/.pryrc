@@ -31,5 +31,3 @@ begin
 rescue LoadError
   nil
 end
-
-# vim:ft=ruby
