@@ -86,6 +86,7 @@ xsettingsd
 # gtk
 lxappearance
 xcursor-breeze
+rose-pine-cursor
 papirus-icon-theme
 
 # multimedia
@@ -122,6 +123,7 @@ zathura-djvu
 zathura-pdf-mupdf
 zathura-ps
 pandoc
+noto-fonts-emoji
 
 # bluetooth
 bluez
