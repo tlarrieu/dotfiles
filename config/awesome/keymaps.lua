@@ -174,6 +174,11 @@ local keyboard = {
       props = { class = 'wiki' },
       signal = spawner.actions.MOVE,
     }),
+    spawner.key({ super, shift }, 'x', {
+      app = spawner.shell('notebooklm'),
+      props = { instance = 'notebooklm.google.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ super, shift }, 'a', {
       app = spawner.terminal('ft edit', { class = 'accounting', directory = accounting }),
       props = { class = 'accounting' },
