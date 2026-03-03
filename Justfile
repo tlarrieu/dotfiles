@@ -146,6 +146,9 @@ crontab:
   0 9 * * * ~/scripts/toggle-light-and-dark.sh light
   CRONTAB
 
+[group("other/repos"), doc("clone every repos")]
+repos: curriculum neorg rss accounting
+
 [group("other/repos"), doc("clone curriculum")]
 curriculum: (clone "tlarrieu/curriculum" "~/Documents/curriculum" "git://")
 
