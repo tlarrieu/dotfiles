@@ -90,7 +90,7 @@ return {
         MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
         Comment = { fg = 'palette.cyan', style = 'italic' },
-        Documentation = { fg = 'palette.cyan', bg = 'palette.cyan.dim', style = 'italic' },
+        Documentation = { fg = 'palette.cyan', bg = 'palette.cyan.dimmer', style = 'italic' },
 
         Constant = { fg = 'palette.fg.base' },
         String = { fg = 'palette.green', style = 'NONE' },
@@ -278,7 +278,7 @@ return {
         -- lua
         ['@constructor.lua'] = { link = '@punctuation.bracket' },
         ['@keyword.operator.lua'] = { link = '@keyword' },
-        ['@comment.documentation.lua'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg0' },
+        ['@comment.documentation.lua'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg3' },
 
         ['@comment.luadoc'] = { link = '@comment.documentation.lua' },
         ['@keyword.luadoc'] = { fg = 'palette.fg.dim', style = 'bold' },
