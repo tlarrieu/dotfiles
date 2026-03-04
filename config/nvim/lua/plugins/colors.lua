@@ -466,9 +466,9 @@ return {
         MarkSignHL = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         MarkSignNumHL = { link = 'MarkSignHL' },
 
-        MarkviewCode = { fg = 'none', bg = 'palette.bg0' },
-        MarkviewCodeLabel = { fg = 'palette.bg0', bg = 'palette.yellow', style = 'bold' },
-        MarkviewInlineCode = { fg = 'none', bg = 'palette.bg0' },
+        MarkviewCode = { fg = 'none', bg = 'palette.bg3' },
+        MarkviewCodeLabel = { fg = 'palette.bg3', bg = 'palette.yellow', style = 'bold' },
+        MarkviewInlineCode = { fg = 'none', bg = 'palette.bg3' },
         MarkviewHyperlink = { fg = 'palette.magenta', bg = 'none', style = 'italic' },
         MarkviewImage = { fg = 'palette.blue', bg = 'none', style = 'italic' },
         MarkviewBlockQuoteDefault = { fg = 'palette.fg.dim', bg = 'none', style = 'NONE' },
