@@ -221,6 +221,7 @@ local config = {
   { icon = '', rule = { name = 'pass: ' } },
   { icon = '󰇅', rule = { class = 'VirtualBox Manager' } },
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
+  { icon = '󰢹', rule = { class = 'org.remmina.Remmina' } },
 
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
@@ -239,7 +240,13 @@ local config = {
       { class = 'kitty', name = 'newsboat' },
       { class = 'quake', name = 'newsboat' } }
   },
-  { icon = '', rule = { class = 'htop' } },
+  {
+    icon = '',
+    rules = {
+      { class = 'htop' },
+      { class = 'monitor' },
+    }
+  },
   { icon = '', rule = { class = 'vifm' } },
   { icon = '󰆍', rule = { class = 'kitty' } },
   { icon = '󱐋', rule = { class = 'quake' } },
