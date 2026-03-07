@@ -20,11 +20,6 @@ return {
     override = {
       [''] = { icon = '' }, -- hack for telescope to display folders icon
 
-      text = { icon = '' },
-      txt = { icon = '' },
-      log = { icon = '' },
-      lock = { icon = lock },
-
       help = { icon = '󰭣' },
       man = { icon = '󰭣' },
       qf = { icon = '󰁨' },
@@ -36,6 +31,13 @@ return {
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
+
+      text = { icon = '' },
+      txt = { icon = '' },
+      log = { icon = '' },
+      lock = { icon = lock },
+      typst = { icon = '' },
+      yaml = { icon = '󰷐' },
 
       todotxt = { icon = '󰃯' },
       ledger = { icon = '󰭣' },

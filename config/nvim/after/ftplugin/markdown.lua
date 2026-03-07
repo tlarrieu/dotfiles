@@ -1,10 +1,8 @@
-local o = vim.opt_local
-
-o.formatoptions = o.formatoptions + 't'
-o.foldlevel = 10
-o.foldlevelstart = 10
-o.spell = vim.bo.buftype ~= 'nofile'
-o.shiftwidth = 2
+vim.opt_local.formatoptions:append('t')
+vim.opt_local.foldlevel = 10
+vim.opt_local.foldlevelstart = 10
+vim.opt_local.spell = vim.bo.buftype ~= 'nofile'
+vim.opt_local.shiftwidth = 2
 
 local runner = require('runner')
 runner.default({ main = runner.term('mdprev w %', { open = false }) })
