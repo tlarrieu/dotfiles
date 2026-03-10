@@ -188,6 +188,7 @@ local config = {
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
   { icon = '', rules = { { class = 'steam' }, { name = 'Steam' } } },
   { icon = '', rule = { class = 'Cockatrice' } },
+  { icon = '󱉵', rule = { class = 'Slay the Spire 2' } },
 
   { icon = '', rule = { class = 'man' } },
   { icon = '', rule = { class = 'dungeondraft.exe' } },
