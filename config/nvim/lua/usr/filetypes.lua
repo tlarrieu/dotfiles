@@ -6,6 +6,7 @@ vim.filetype.add({
     zathurarc = 'zathurarc',
     edi = 'edifact',
     mjml = 'eruby',
+    tex = 'tex',
   },
   filename = {
     ['~/.neorg/gtd/todo.txt'] = 'todotxt',
