@@ -86,6 +86,7 @@ set classify+=' :reg:'
 set classify+=' :exe:'
 set classify+='󱧪 ::../::'
 " various file names
+set classify+=' ::*.xcf::'
 set classify+=' ::*.pdf::'
 set classify+=' ::*.epub,,*.fb2,,*.djvu::'
 set classify+='󰟓 ::*.go::'
@@ -121,7 +122,7 @@ set classify+=' ::*.tb2,,*.tbz,,*.tbz2,,*.tgz,,*.tlz,,*.trz,,*.txz,,*.tz::'
 set classify+=' ::*.tz2,,*.xz,,*.z,,*.zip,,*.zoo::'
 " images
 set classify+=' ::*.bmp,,*.gif,,*.jpeg,,*.jpg,,*.ico,,*.png,,*.ppm,,*.svg,,::'
-set classify+=' ::*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xcf,,*.xpm,,*.xspf::'
+set classify+=' ::*.svgz,,*.tga,,*.tif,,*.tiff,,*.xbm,,*.xpm,,*.xspf::'
 set classify+=' ::*.xwd::'
 " audio
 set classify+=' ::*.aac,,*.anx,,*.asf,,*.au,,*.axa,,*.flac,,*.m2a,,*.m4a::'
