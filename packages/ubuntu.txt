@@ -40,7 +40,7 @@ hledger-web
 
 # files
 vifm
-nemo
+thunar
 atool
 eza
 zathura

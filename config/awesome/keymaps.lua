@@ -236,7 +236,7 @@ local keyboard = {
     spawner.key({}, 'XF86AudioPrev', 'mpc prev'),
     spawner.key({ super }, 'BackSpace', 'mpc toggle'),
     spawner.key({ super }, 'o', spawner.terminal('vifm', { class = 'vifm' })),
-    spawner.key({ super, shift }, 'o', 'nemo'),
+    spawner.key({ super, shift }, 'o', 'thunar'),
     spawner.key({ super, shift }, 'q', 'wallpaper'),
     spawner.key({ super }, 'h', {
       app = spawner.terminal('gtgf', { class = 'gtgf' }),

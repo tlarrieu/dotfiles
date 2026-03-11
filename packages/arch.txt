@@ -56,7 +56,7 @@ hledger-bin
 vifm
 xdg-utils
 udiskie
-nemo
+thunar
 atool
 eza
 tumbler

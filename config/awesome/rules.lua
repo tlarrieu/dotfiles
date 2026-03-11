@@ -26,7 +26,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     except_any = {
       class = {
         'Gpick',
-        'Nemo',
+        'Thunar',
         'vifm',
         'gtgf',
         'kitty-light',
