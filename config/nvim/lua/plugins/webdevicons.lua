@@ -39,6 +39,8 @@ return {
       typst = { icon = '' },
       yaml = { icon = '󰷐' },
 
+      gabc = { icon = '󰽲' },
+
       todotxt = { icon = '󰃯' },
       ledger = { icon = '󰭣' },
 

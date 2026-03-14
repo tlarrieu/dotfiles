@@ -87,6 +87,7 @@ set classify+=' :exe:'
 set classify+='󱧪 ::../::'
 " various file names
 set classify+=' ::*.xcf::'
+set classify+='󰽲 ::*.gabc::'
 set classify+=' ::*.pdf::'
 set classify+=' ::*.epub,,*.fb2,,*.djvu::'
 set classify+='󰟓 ::*.go::'
