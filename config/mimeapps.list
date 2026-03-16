@@ -12,6 +12,7 @@ image/gif=sxiv.desktop;gimp.desktop
 image/jpeg=sxiv.desktop;gimp.desktop
 image/png=sxiv.desktop;gimp.desktop
 image/webp=sxiv.desktop;gimp.desktop
+image/x-eps=org.inkscape.Inkscape.desktop
 text/plain=nvim.desktop
 video/vnd.avi=mpv.desktop
 video/mp4=mpv.desktop
