@@ -36,8 +36,10 @@ return {
       txt = { icon = '' },
       log = { icon = '' },
       lock = { icon = lock },
-      typst = { icon = '' },
       yaml = { icon = '󰷐' },
+
+      typst = { icon = '' },
+      tex = { icon = '' },
 
       gabc = { icon = '󰽲' },
 
