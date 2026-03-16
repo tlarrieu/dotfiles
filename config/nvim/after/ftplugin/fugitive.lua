@@ -5,7 +5,7 @@ vim.keymap.set('n', 'gp', '=', { remap = true, buffer = true, desc = 'Diff previ
 vim.keymap.set('n', 'þ', ')', { remap = true, buffer = true, desc = 'Next diff (fugitive)' })
 vim.keymap.set('n', 'ß', '(', { remap = true, buffer = true, desc = 'Prev diff (fugitive)' })
 vim.keymap.set({ 'n', 'x' }, 'x', 'X', { remap = true, buffer = true, desc = 'Discard (fugitive)' })
-vim.keymap.set('n', '<leader>l', '<cmd>bd<cr>', { buffer = true, desc = 'Close (fugitive)' })
+vim.keymap.set('n', '<c-y>', '<cmd>bd<cr>', { buffer = true, desc = 'Close (fugitive)' })
 
 vim.keymap.set('n', 'cc', '<cmd>Git commit --quiet<cr>', {
   desc = 'Git commit',

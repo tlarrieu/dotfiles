@@ -6,9 +6,9 @@ return {
   },
   cmd = { 'Git', 'Gvdiff', 'GV', 'Gcd' },
   keys = {
-    { '<leader>l', '<cmd>below Git<cr>', desc = 'Git' },
-    { '<leader>L', '<cmd>GV<cr>', desc = 'GV' },
-    { '<leader>L', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
+    { '<c-y>', '<cmd>below Git<cr>', desc = 'Git' },
+    { '<leader>l', '<cmd>GV<cr>', desc = 'GV' },
+    { '<leader>l', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
 
     { '<leader>gW', '<cmd>Git add .<cr>', desc = 'Git add .' },
     { '<leader>gc', '<cmd>Git commit --quiet<cr>', desc = 'Git commit' },

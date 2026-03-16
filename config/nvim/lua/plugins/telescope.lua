@@ -83,18 +83,6 @@ return {
       desc = 'Telescope help tags'
     },
     {
-      '<c-y>',
-      function()
-        return require('telescope.builtin').find_files({
-          hidden = true,
-          path_display = filename_first_and_shorten,
-          find_command = { 'git', 'diff', 'HEAD', '--name-only' },
-          results_title = '󰕜 HEAD...',
-        })
-      end,
-      desc = 'Telescope git diff head'
-    },
-    {
       '<c-s-y>',
       function()
         return require('telescope.builtin').find_files({

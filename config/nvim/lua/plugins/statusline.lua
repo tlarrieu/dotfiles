@@ -217,7 +217,7 @@ return {
               name = 'oil'
             elseif context.filetype == 'fugitive' then
               icon = ''
-              name = 'git'
+              name = 'log'
             elseif context.file:find('^fugitive:///') then
               icon = '󰕛'
               name = name .. ' (󱓉)'
