@@ -27,7 +27,7 @@ def write(str)
 end
 
 begin
-  load "#{Dir.home}/.pryrc.local"
+  load "#{Dir.home}/.ruby.local"
 rescue LoadError
   nil
 end
