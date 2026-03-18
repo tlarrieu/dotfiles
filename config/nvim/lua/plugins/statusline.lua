@@ -110,7 +110,7 @@ return {
 
             return ''
           end,
-          color = function() return 'LualineError' end,
+          color = function() return 'LualineNotice' end,
         },
         {
           'filename',

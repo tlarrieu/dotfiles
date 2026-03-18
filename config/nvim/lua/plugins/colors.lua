@@ -452,6 +452,7 @@ return {
         LualineTablineInactive = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         LualineExecutable = { fg = 'palette.green', bg = 'none' },
         LualineSuccess = { fg = 'palette.green', bg = 'none' },
+        LualineNotice = { fg = 'palette.fg.dimmer', bg = 'none' },
         LualineError = { fg = 'palette.red', bg = 'none' },
         LualineWarning = { fg = 'palette.yellow', bg = 'none' },
 
