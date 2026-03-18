@@ -218,9 +218,9 @@ return {
             elseif context.filetype == 'fugitive' then
               icon = ''
               name = 'log'
-            elseif context.file:find('^fugitive:///') then
+            elseif context.file:find('^fugitive:///') or context.file:find('^gitsigns:///') then
               icon = '󰕛'
-              name = name .. ' (󱓉)'
+              name = name .. ' 󱓉'
             end
 
             -- Modifier

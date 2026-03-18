@@ -69,6 +69,8 @@ return {
       end, { remap = true, desc = 'Reset hunk (VISUAL)' })
 
       local modes = { 'n', 'o', 'x' }
+      vim.keymap.set(modes, '<leader>gd', gitsigns.diffthis, { desc = 'Diff (current)' })
+      vim.keymap.set(modes, '<leader>gD', function() gitsigns.diffthis('master') end, { desc = 'Diff (master)' })
       vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
       vim.keymap.set(modes, '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'Blame (line)' })
       vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })

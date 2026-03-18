@@ -14,8 +14,6 @@ return {
     { '<leader>gc', '<cmd>Git commit --quiet<cr>', desc = 'Git commit' },
     { '<leader>ga', '<cmd>Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit' },
     { '<leader>gA', '<cmd>Git commit --quiet --amend<cr>', desc = 'Git commit --amend' },
-    { '<leader>gd', '<cmd>leftabove Gvdiff<cr>', desc = 'Git diff' },
-    { '<leader>gD', '<cmd>leftabove Gvdiff master<cr>', desc = 'Git diff master..' },
     { '<leader>ed', '<cmd>tab Git diff --staged<cr>', desc = 'Git diff --staged' },
     { '<leader>gr', '<cmd>Git checkout %<cr>', desc = 'Git checkout %' },
     { '<leader>gp', '<cmd>Git push --force-with-lease --quiet<cr>', desc = 'Git push --force-with-lease' },
