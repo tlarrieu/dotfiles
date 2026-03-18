@@ -200,4 +200,8 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    require('markview').setup(opts)
+    vim.keymap.set('n', '<leader><tab>', '<cmd>Markview toggle<cr>', { buffer = true, remap = true })
+  end
 }
