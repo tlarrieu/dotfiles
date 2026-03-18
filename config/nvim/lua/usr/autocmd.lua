@@ -45,13 +45,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup("text_yank", {})
 })
 
--- fugitive <-> gitsigns sync
-vim.api.nvim_create_autocmd('User', {
-  pattern = { 'FugitiveChanged' },
-  callback = require('gitsigns').refresh,
-  group = vim.api.nvim_create_augroup('sync_fugitive_gitsigns', {}),
-})
-
 -- theme setting
 
 local apply_xrdb = function()
