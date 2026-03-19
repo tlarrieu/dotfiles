@@ -245,6 +245,8 @@ vim.keymap.set({ 'n', 'o', 'x' }, ' ', '<c-w>r')
 local edit_path = function(cmd)
   return function() return ':' .. cmd .. ' ' .. vim.fn.escape(vim.fn.expand('%:p:h'), ' ') .. '/' end
 end
+-- In place edition
+vim.keymap.set('n', '<leader>ee', edit_path('edit'), { expr = true, desc = 'Edit path in current split' })
 -- Horizontal Split
 vim.keymap.set('n', '<leader>ss', '<c-w>s', { silent = true })
 vim.keymap.set('n', '<leader>se', edit_path('new'), { expr = true, desc = 'Edit path in a new horizontal split' })
