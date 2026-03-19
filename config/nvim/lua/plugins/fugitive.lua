@@ -6,10 +6,6 @@ return {
   },
   cmd = { 'Git', 'Gvdiff', 'GV', 'Gcd' },
   keys = {
-    -- { '<c-y>', '<cmd>below Git<cr>', desc = 'Git' },
-    { '<leader>l', '<cmd>GV<cr>', desc = 'GV' },
-    { '<leader>l', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
-
     { '<leader>gW', '<cmd>Git add .<cr>', desc = 'Git add .' },
     { '<leader>gc', '<cmd>Git commit --quiet<cr>', desc = 'Git commit' },
     { '<leader>ga', '<cmd>Git commit --quiet --amend --no-edit<cr>', desc = 'Git commit --amend --no-edit' },
