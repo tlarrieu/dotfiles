@@ -12,7 +12,7 @@ return {
     { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Neogit' },
     { '<leader>gu', '<cmd>Neogit pull<cr>', desc = 'Neogit' },
     { '<leader>gp', '<cmd>Neogit push<cr>', desc = 'Neogit' },
-    { '<leader>l', ':NeogitLogCurrent<cr>', mode = 'x', desc = 'NeogitLogCurrent' },
+    { '<leader>l', ':NeogitLogCurrent<cr>', mode = { 'n', 'x' }, desc = 'NeogitLogCurrent' },
   },
   opts = {
     signs = {
