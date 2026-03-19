@@ -8,7 +8,8 @@ return {
   },
   cmd = 'Neogit',
   keys = {
-    { '<c-y>', '<cmd>Neogit<cr>', desc = 'Neogit' }
+    { '<c-y>', '<cmd>Neogit<cr>', desc = 'Neogit' },
+    { '<leader>l', ":NeogitLogCurrent<cr>", mode = 'x', desc = 'NeogitLogCurrent' },
   },
   opts = {
     signs = {
