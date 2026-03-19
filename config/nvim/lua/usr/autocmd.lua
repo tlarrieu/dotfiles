@@ -45,6 +45,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup("text_yank", {})
 })
 
+-- refresh gitsigns
+vim.api.nvim_create_autocmd('User', {
+  pattern = { 'NeogitStatusRefreshed', 'NeogitCommitComplete', 'NeogitReset', 'NeogitStash' },
+  callback = require('gitsigns').refresh,
+  group = vim.api.nvim_create_augroup('neogit_autocmd', {}),
+})
+
 -- theme setting
 
 local apply_xrdb = function()
