@@ -3,8 +3,8 @@ return {
   event = 'VeryLazy',
   version = false, -- Never set this value to '*'! Never!
   keys = {
-    { '<c-e>', '<cmd>AvanteEdit<cr>', desc = 'Avante edit', silent = true, mode = { 'n', 'v' } },
-    { '<c-s-e>', '<cmd>AvanteAsk<cr>', desc = 'Avante ask', silent = true },
+    { '<c-e>', ':AvanteEdit<cr>', desc = 'Avante edit', silent = true, mode = { 'n', 'v' } },
+    { '<c-s-e>', ':AvanteAsk<cr>', desc = 'Avante ask', silent = true },
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
