@@ -52,5 +52,11 @@ return {
         ["?"] = "",
       },
     },
+    commit_editor = {
+      kind = 'vsplit_left',
+      show_staged_diff = false,
+      staged_diff_split_kind = 'split',
+      spell_check = true,
+    },
   },
 }
