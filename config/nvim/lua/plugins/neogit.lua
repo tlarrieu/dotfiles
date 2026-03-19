@@ -4,6 +4,7 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
+    'esmuellert/codediff.nvim',
   },
   cmd = 'Neogit',
   keys = {
@@ -47,6 +48,5 @@ return {
         ["?"] = "",
       },
     },
-    mappings = {},
   },
 }
