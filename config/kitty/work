@@ -1,11 +1,11 @@
-new_tab Sidekiq
-layout grid
-cd ~/dev/jeancaisse
-launch --hold=yes --title="rails server" bin/sidekiq
-
 new_tab Backend
 layout grid
 cd ~/dev/jeancaisse
 launch --hold=yes --var window=first --title="rails server" bin/rails server
+
+new_tab Sidekiq
+layout grid
+cd ~/dev/jeancaisse
+launch --hold=yes --title="rails server" bin/sidekiq
 
 # vim: ft=kitty
