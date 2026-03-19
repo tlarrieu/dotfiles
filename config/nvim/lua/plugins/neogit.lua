@@ -24,7 +24,9 @@ return {
     integrations = {
       telescope = true,
     },
+    prompt_amend_commit = false,
     graph_style = 'kitty',
+    use_per_project_settings = false,
     remember_settings = true,
     kind = 'tab',
     status = {
