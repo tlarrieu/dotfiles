@@ -1,21 +1,12 @@
 return {
   'NeogitOrg/neogit',
-  lazy = true,
+  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
     'esmuellert/codediff.nvim',
   },
   cmd = 'Neogit',
-  keys = {
-    { '<c-y>', '<cmd>Neogit<cr>', desc = 'Neogit' },
-    { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Neogit commit' },
-    { '<leader>l', ':NeogitLogCurrent<cr>', mode = { 'n', 'x' }, desc = 'NeogitLogCurrent' },
-    { '<leader>gu', ':silent !git pull --rebase<cr>', desc = 'git pull --rebase' },
-    { '<leader>gp', ':silent !git push --force-with-lease<cr>', desc = 'git push --force-with-lease' },
-    { '<leader>gs', ':silent !git stash --quiet<cr>', desc = 'Git stash' },
-    { '<leader>gS', ':silent !git stash pop --quiet<cr>', desc = 'Git stash pop' },
-  },
   opts = {
     signs = {
       -- { CLOSED, OPENED }
@@ -63,4 +54,23 @@ return {
       spell_check = true,
     },
   },
+  config = function(_, opts)
+    local neogit = require('neogit')
+    neogit.setup(opts)
+    vim.keymap.set('n', '<c-y>', '<cmd>Neogit<cr>', { desc = 'Neogit' })
+    vim.keymap.set('v', '<leader>l', ':NeogitLogCurrent<cr>', { desc = 'Neogit history (visual)' })
+    vim.keymap.set(
+      'n',
+      '<leader>l',
+      neogit.action('log', 'log_current', { '--graph', '--decorate', '--max-count=100' }),
+      { desc = 'Neogit log' }
+    )
+    vim.keymap.set('n', '<leader>gc', neogit.action('commit', 'commit', {}), { desc = 'Neogit commit' })
+    vim.keymap.set('n', '<leader>ga', neogit.action('commit', 'extend', {}), { desc = 'Neogit commit extend' })
+    vim.keymap.set('n', '<leader>gA', neogit.action('commit', 'amend', {}), { desc = 'Neogit commit amend' })
+    vim.keymap.set('n', '<leader>gu', ':silent !git pull --rebase<cr>', { desc = 'git pull' })
+    vim.keymap.set('n', '<leader>gp', ':silent !git push --force-with-lease<cr>', { desc = 'git push' })
+    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr>', { desc = 'Git stash' })
+    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr>', { desc = 'Git stash pop' })
+  end
 }
