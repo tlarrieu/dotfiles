@@ -9,6 +9,12 @@ local ftmap = {
   oil = 'oil',
 }
 
+local projectdir = function()
+  local project
+  for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
+  return ' ' .. project
+end
+
 local filenamecolor = function()
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) > 0 then return 'LualineError' end
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) > 0 then return 'LualineWarning' end
@@ -45,6 +51,14 @@ return {
         },
         filetypes = { 'lazy' }
       },
+      {
+        sections = {
+          lualine_a = { function() return 'neogit ' end },
+          lualine_b = { projectdir },
+          lualine_z = { 'location' },
+        },
+        filetypes = { 'NeogitStatus', 'NeogitLogView' }
+      },
     },
     options = {
       component_separators = { left = '', right = '' },
@@ -69,16 +83,7 @@ return {
           end
         }
       },
-      lualine_b = {
-        {
-          function()
-            local project
-            for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
-            return ' ' .. project
-          end,
-        },
-        'searchcount',
-      },
+      lualine_b = { projectdir, 'searchcount' },
       lualine_c = {
         {
           function()
@@ -215,9 +220,15 @@ return {
             if ftmap[context.filetype] == 'oil' then
               icon = ''
               name = 'oil'
-            elseif context.filetype == 'fugitive' then
+            elseif context.filetype == 'NeogitLogView' then
               icon = ''
               name = 'log'
+            elseif context.filetype == 'NeogitPopup' then
+              icon = ''
+              name = 'choose'
+            elseif context.filetype == 'NeogitStatus' then
+              icon = ''
+              name = 'status'
             elseif context.file:find('^fugitive:///') or context.file:find('^gitsigns:///') then
               icon = '󰕛'
               name = name .. ' 󱓉'

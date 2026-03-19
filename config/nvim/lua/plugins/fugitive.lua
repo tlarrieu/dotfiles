@@ -6,7 +6,7 @@ return {
   },
   cmd = { 'Git', 'Gvdiff', 'GV', 'Gcd' },
   keys = {
-    { '<c-y>', '<cmd>below Git<cr>', desc = 'Git' },
+    -- { '<c-y>', '<cmd>below Git<cr>', desc = 'Git' },
     { '<leader>l', '<cmd>GV<cr>', desc = 'GV' },
     { '<leader>l', ":'<,'>GV<cr>", mode = 'x', desc = 'GV (visual mode)' },
 
