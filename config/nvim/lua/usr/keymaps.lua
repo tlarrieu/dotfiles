@@ -200,7 +200,7 @@ vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next
 vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Previous spelling error' })
 -- }}}
 
--- {{{ --| Quickfix / Location list |-----------------------
+-- {{{ --| Quickfix list |----------------------------------
 vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>zz', { silent = true })
 vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>zz', { silent = true })
