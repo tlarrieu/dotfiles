@@ -10,9 +10,11 @@ return {
   keys = {
     { '<c-y>', '<cmd>Neogit<cr>', desc = 'Neogit' },
     { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Neogit' },
-    { '<leader>gu', '<cmd>Neogit pull<cr>', desc = 'Neogit' },
-    { '<leader>gp', '<cmd>Neogit push<cr>', desc = 'Neogit' },
+    { '<leader>gu', ':silent !git pull --rebase<cr>', desc = 'git pull --rebase' },
+    { '<leader>gp', ':silent !git push --force-with-lease<cr>', desc = 'git push --force-with-lease' },
     { '<leader>l', ':NeogitLogCurrent<cr>', mode = { 'n', 'x' }, desc = 'NeogitLogCurrent' },
+    { '<leader>gs', ':silent !git stash --quiet<cr>', desc = 'Git stash' },
+    { '<leader>gS', ':silent !git stash pop --quiet<cr>', desc = 'Git stash pop' },
   },
   opts = {
     signs = {
