@@ -220,6 +220,9 @@ return {
             if ftmap[context.filetype] == 'oil' then
               icon = ''
               name = 'oil'
+            elseif context.filetype == 'NeogitCommitView' then
+              icon = ''
+              name = 'commit'
             elseif context.filetype == 'NeogitLogView' then
               icon = ''
               name = 'log'
