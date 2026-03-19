@@ -6,6 +6,9 @@ return {
     instructions_file = 'avante.md',
     provider = 'copilot',
   },
+  keys = {
+    { '<c-e>', '<cmd>AvanteEdit<cr>', desc = 'Avante edit', silent = true, mode = { 'n', 'v' } },
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
     'MunifTanjim/nui.nvim',

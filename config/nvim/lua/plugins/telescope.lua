@@ -135,11 +135,6 @@ return {
       desc = 'Telescope LSP document symbols'
     },
     {
-      '<c-e>',
-      function() require('telescope.builtin').diagnostics({ results_title = ' diagnostics' }) end,
-      desc = 'Telescope diagnostics'
-    },
-    {
       '<c-q>',
       function() require('telescope.builtin').quickfix({ results_title = '󰁨 quickfix' }) end,
       desc = 'Telescope quickfix'
