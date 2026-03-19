@@ -9,6 +9,9 @@ return {
   cmd = 'Neogit',
   keys = {
     { '<c-y>', '<cmd>Neogit<cr>', desc = 'Neogit' },
+    { '<leader>gc', '<cmd>Neogit commit<cr>', desc = 'Neogit' },
+    { '<leader>gu', '<cmd>Neogit pull<cr>', desc = 'Neogit' },
+    { '<leader>gp', '<cmd>Neogit push<cr>', desc = 'Neogit' },
     { '<leader>l', ":NeogitLogCurrent<cr>", mode = 'x', desc = 'NeogitLogCurrent' },
   },
   opts = {
