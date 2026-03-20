@@ -8,6 +8,7 @@ return {
   },
   cmd = 'Neogit',
   opts = {
+    disable_hint = true,
     signs = {
       -- { CLOSED, OPENED }
       hunk = { '', '' },
