@@ -53,6 +53,7 @@ return {
       staged_diff_split_kind = 'split',
       spell_check = true,
     },
+    log_view = { kind = 'vsplit' },
   },
   config = function(_, opts)
     local neogit = require('neogit')
