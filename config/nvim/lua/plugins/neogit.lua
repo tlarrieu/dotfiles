@@ -9,9 +9,9 @@ return {
   opts = {
     disable_hint = true,
     signs = {
-      hunk = { '', '' },
-      item = { '', '' },
-      section = { '', '' },
+      section = { '󰅂', '󰅀' },
+      item = { '󰄾', '󰄼' },
+      hunk = { '󰶻', '󰶹' },
     },
     integrations = {
       telescope = false, -- weird, but this disables neogit custom telescope config, and uses mine instead
