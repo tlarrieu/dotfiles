@@ -5,7 +5,6 @@ local abbr = {
   mv = 'Rename',
   rm = 'Delete',
   ['rm!'] = 'Delete!',
-  gv = 'GV',
   h = 'tab h',
   hi = "lua require('telescope.builtin').highlights()",
   lazy = 'Lazy',

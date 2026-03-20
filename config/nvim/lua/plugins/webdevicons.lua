@@ -107,8 +107,6 @@ return {
       ['.gitmodules'] = { icon = git },
       ['gitconfig'] = { icon = git },
       ['.gitattributes'] = { icon = git },
-      fugitive = { icon = git },
-      GV = { icon = git },
       ['gitsigns-blame'] = { icon = git },
 
       ['vifm-rename'] = { icon = '' },

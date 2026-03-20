@@ -39,7 +39,6 @@ return {
       'toggleterm',
       'quickfix',
       'oil',
-      'fugitive',
       'mason',
       {
         sections = {
@@ -233,7 +232,7 @@ return {
             elseif context.filetype == 'codediff-explorer' then
               icon = '󰙅'
               name = 'tree'
-            elseif context.file:find('^fugitive:///') or context.file:find('^gitsigns:///') or context.file:find('^codediff:///') then
+            elseif context.file:find('^gitsigns:///') or context.file:find('^codediff:///') then
               icon = '󰕛'
               name = name .. ' 󱓉'
             end

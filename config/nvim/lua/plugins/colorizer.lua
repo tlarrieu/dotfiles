@@ -4,13 +4,11 @@ return {
     exclude_filetypes = {
       'lazy',
       'mason',
-      'fugitive',
       'NeogitStatus',
       'NeogitLogView',
       'NeogitCommitView',
       'NeogitCommitSelectView',
       'gitcommit',
-      'GV',
     },
   },
   config = function(_, opts)
