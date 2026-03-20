@@ -21,7 +21,7 @@ return {
     graph_style = 'kitty',
     use_per_project_settings = false,
     remember_settings = true,
-    kind = 'tab',
+    kind = 'auto',
     status = {
       show_head_commit_hash = true,
       recent_commit_count = 10,
@@ -48,7 +48,7 @@ return {
       },
     },
     commit_editor = {
-      kind = 'vsplit_left',
+      kind = 'vsplit',
       show_staged_diff = false,
       staged_diff_split_kind = 'split',
       spell_check = true,
@@ -65,12 +65,12 @@ return {
       neogit.action('log', 'log_current', { '--graph', '--decorate', '--max-count=100' }),
       { desc = 'Neogit log' }
     )
-    vim.keymap.set('n', '<leader>gc', neogit.action('commit', 'commit', {}), { desc = 'Neogit commit' })
-    vim.keymap.set('n', '<leader>ga', neogit.action('commit', 'extend', {}), { desc = 'Neogit commit extend' })
-    vim.keymap.set('n', '<leader>gA', neogit.action('commit', 'amend', {}), { desc = 'Neogit commit amend' })
-    vim.keymap.set('n', '<leader>gu', ':silent !git pull --rebase<cr>', { desc = 'git pull' })
-    vim.keymap.set('n', '<leader>gp', ':silent !git push --force-with-lease<cr>', { desc = 'git push' })
-    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr>', { desc = 'Git stash' })
-    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr>', { desc = 'Git stash pop' })
+    vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { desc = 'Neogit commit' })
+    vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'extend', {}), { desc = 'Neogit commit extend' })
+    vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}), { desc = 'Neogit commit amend' })
+    vim.keymap.set('n', '<leader>gu', ':silent !git pull --rebase &<cr>', { desc = 'git pull' })
+    vim.keymap.set('n', '<leader>gp', ':silent !git push --force-with-lease &<cr>', { desc = 'git push' })
+    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet &<cr>', { desc = 'Git stash' })
+    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet &<cr>', { desc = 'Git stash pop' })
   end
 }
