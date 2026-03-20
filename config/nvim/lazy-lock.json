@@ -67,5 +67,6 @@
   "vim-sniper": { "branch": "master", "commit": "31970c26ae91f5cceeb41b49e057f49bc18e428b" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vim-test": { "branch": "master", "commit": "e4d4fa7f5ce354e7df473550080d9e78207ef4a0" },
+  "webify.nvim": { "branch": "master", "commit": "69bc088e21834898477df69694ce86ee5561e20b" },
   "yaml.nvim": { "branch": "main", "commit": "43ddedd0f3b060b4475e19e762b1796fce1b23be" }
 }

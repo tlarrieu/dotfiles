@@ -9,7 +9,15 @@ local signs = {
 
 return {
   'lewis6991/gitsigns.nvim',
-
+  dependencies = {
+    {
+      'pabloariasal/webify.nvim',
+      keys = {
+        { 'yg', ':YankLineUrl +<cr>', desc = 'Git(Hub) yank URL' },
+        { 'yG', ':YankFileUrl +<cr>', desc = 'Git(Hub) yank URL' }
+      },
+    }
+  },
   event = { 'BufEnter' },
   opts = {
     signs = signs,
