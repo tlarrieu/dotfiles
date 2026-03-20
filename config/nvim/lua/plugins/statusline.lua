@@ -160,9 +160,9 @@ return {
           end,
         },
       },
-      lualine_x = {
-        'encoding',
-        { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } },
+      lualine_x = { 'progress', 'location' },
+      lualine_y = { 'encoding', { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } } },
+      lualine_z = {
         {
           'custom',
           fmt = function()
@@ -179,8 +179,6 @@ return {
           end
         },
       },
-      lualine_y = { 'lsp_status', 'progress', },
-      lualine_z = { 'location' },
     },
     tabline = {
       lualine_a = {
@@ -248,7 +246,8 @@ return {
           end
         },
       },
-      lualine_y = {
+      lualine_y = { 'lsp_status', },
+      lualine_z = {
         {
           'branch',
           fmt = function(name)
