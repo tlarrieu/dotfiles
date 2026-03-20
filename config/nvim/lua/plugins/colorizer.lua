@@ -9,6 +9,7 @@ return {
       'NeogitCommitView',
       'NeogitCommitSelectView',
       'gitcommit',
+      'gitsigns-blame',
     },
   },
   config = function(_, opts)
