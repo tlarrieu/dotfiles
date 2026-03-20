@@ -7,6 +7,8 @@ return {
       'fugitive',
       'NeogitStatus',
       'NeogitLogView',
+      'NeogitCommitView',
+      'NeogitCommitSelectView',
       'gitcommit',
       'GV',
     },

@@ -57,7 +57,7 @@ return {
           lualine_b = { projectdir },
           lualine_z = { 'location' },
         },
-        filetypes = { 'NeogitStatus', 'NeogitLogView' }
+        filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' }
       },
     },
     options = {
@@ -218,7 +218,7 @@ return {
             if ftmap[context.filetype] == 'oil' then
               icon = ''
               name = 'oil'
-            elseif context.filetype == 'NeogitCommitView' then
+            elseif context.filetype == 'NeogitCommitView' or context.filetype == 'NeogitCommitSelectView' then
               icon = ''
               name = 'commit'
             elseif context.filetype == 'NeogitLogView' then
