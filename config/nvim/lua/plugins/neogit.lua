@@ -6,7 +6,6 @@ return {
     'nvim-telescope/telescope.nvim',
     'esmuellert/codediff.nvim',
   },
-  cmd = 'Neogit',
   opts = {
     disable_hint = true,
     signs = {
@@ -15,7 +14,7 @@ return {
       section = { '', '' },
     },
     integrations = {
-      telescope = true,
+      telescope = false, -- weird, but this disables neogit custom telescope config, and uses mine instead
     },
     prompt_amend_commit = false,
     graph_style = 'kitty',
