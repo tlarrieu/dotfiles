@@ -4,7 +4,33 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
-    'esmuellert/codediff.nvim',
+    {
+      'esmuellert/codediff.nvim',
+      opts = {
+        diff = {
+          layout = 'side-by-side',
+          compute_moves = true,
+        },
+        explorer = {
+          width = 45,
+          icons = {
+            folder_closed = '',
+            folder_open = '',
+          },
+          file_filter = {
+            ignore = { '*.pdf' },
+          },
+        },
+        keymaps = {
+          view = {
+            next_hunk = 'þ',
+            prev_hunk = 'ß',
+            next_file = '<c-n>',
+            prev_file = '<c-p>',
+          },
+        },
+      },
+    }
   },
   opts = {
     disable_hint = true,
