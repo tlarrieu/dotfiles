@@ -53,6 +53,9 @@ return {
       spell_check = true,
     },
     log_view = { kind = 'vsplit' },
+    commit_view = { kind = 'vsplit' },
+    commit_select_view = { kind = 'vsplit' },
+    reflog_view = { kind = 'vsplit' },
   },
   config = function(_, opts)
     local neogit = require('neogit')
