@@ -20,7 +20,7 @@ return {
     graph_style = 'kitty',
     use_per_project_settings = false,
     remember_settings = true,
-    kind = 'auto',
+    kind = 'split',
     status = {
       show_head_commit_hash = true,
       recent_commit_count = 10,
@@ -68,8 +68,18 @@ return {
     vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { desc = 'Neogit commit' })
     vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'extend', {}), { desc = 'Neogit commit extend' })
     vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}), { desc = 'Neogit commit amend' })
-    vim.keymap.set('n', '<leader>gu', ':silent !git pull --rebase &<cr>', { desc = 'git pull' })
-    vim.keymap.set('n', '<leader>gp', ':silent !git push --force-with-lease &<cr>', { desc = 'git push' })
+    vim.keymap.set(
+      'n',
+      '<leader>gu',
+      neogit.action('pull', 'from_upstream', { '--rebase' }),
+      { desc = 'Neogit pull' }
+    )
+    vim.keymap.set(
+      'n',
+      '<leader>gp',
+      neogit.action('push', 'to_upstream', { '--force-with-lease', '-u' }),
+      { desc = 'Neogit push' }
+    )
     vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet &<cr>', { desc = 'Git stash' })
     vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet &<cr>', { desc = 'Git stash pop' })
   end
