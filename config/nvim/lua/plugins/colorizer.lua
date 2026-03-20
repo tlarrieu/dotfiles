@@ -5,6 +5,8 @@ return {
       'lazy',
       'mason',
       'fugitive',
+      'NeogitStatus',
+      'NeogitLogView',
       'gitcommit',
       'GV',
     },
