@@ -10,8 +10,7 @@ return {
   opts = {
     disable_hint = true,
     signs = {
-      -- { CLOSED, OPENED }
-      hunk = { '', '' },
+      hunk = { '', '' },
       item = { '', '' },
       section = { '', '' },
     },
