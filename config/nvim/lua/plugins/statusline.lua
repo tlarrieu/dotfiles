@@ -232,7 +232,10 @@ return {
             elseif context.filetype == 'NeogitStatus' then
               icon = ''
               name = 'status'
-            elseif context.file:find('^fugitive:///') or context.file:find('^gitsigns:///') then
+            elseif context.filetype == 'codediff-explorer' then
+              icon = '󰙅'
+              name = 'tree'
+            elseif context.file:find('^fugitive:///') or context.file:find('^gitsigns:///') or context.file:find('^codediff:///') then
               icon = '󰕛'
               name = name .. ' 󱓉'
             end

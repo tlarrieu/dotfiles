@@ -31,6 +31,7 @@ return {
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
       oil = { icon = '' },
+      ['codediff-explorer'] = { icon = '󰙅' },
 
       text = { icon = '' },
       txt = { icon = '' },
