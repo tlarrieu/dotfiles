@@ -537,6 +537,8 @@ return {
         NeogitChangeCopied = { fg = 'palette.green' },
         NeogitChangeAdded = { fg = 'palette.green' },
         NeogitChangeDeleted = { fg = 'palette.red' },
+        NeogitChangeRenamed = { fg = 'palette.fg.dimmer' },
+        NeogitChangeUntrackeduntracked = { fg = 'palette.fg.dimmer' },
         NeogitStashes = { fg = 'palette.fg.dim', style = 'bold' },
         NeogitObjectId = { fg = 'palette.magenta', style = 'italic' },
         NeogitBranch = { link = '@git.branch' },
