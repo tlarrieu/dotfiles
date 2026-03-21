@@ -2,34 +2,24 @@
 
 _rofi() { rofi -i -dmenu -a "$1" -selected-row "$1" -p "󰂰"; }
 
-connected=$(bluetoothctl info | grep '..:..:..:..:..:..' | head -n 1 | awk '{ print $2 }')
+connected=$(echo info | bluetoothctl | grep 'Device ..:..:..:..:..:..' | head -n 1 | awk '{ print $2 }')
 if [ -n "$connected" ]; then
-  preselected=$(bluetoothctl devices | grep -n "$connected" | awk -F':' '{print $1 - 1}')
+  preselected=$(echo devices | bluetoothctl | grep -n "$connected" | awk -F':' '{print $1 - 1}')
 fi
 
-selection=$(bluetoothctl devices | grep '..:..:..:..:..:..' | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
+selection=$(echo devices | bluetoothctl | grep 'Device ..:..:..:..:..:..' | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
 
 if [ -z "$selection" ]; then exit 0; fi
 
 if [ "$connected" = "$selection" ]; then
   notify-send "Bluetooth" "Disconnecting $selection..."
 
-  output=$(bluetoothctl disconnect "$selection")
-  bluetoothctl power off
-
-  case $? in
-    0) notify-send "Bluetooth: success" "$selection disconnected";;
-    *) notify-send "Bluetooth: error" "Error: $output"
-  esac
+  echo disconnect "$selection" | bluetoothctl
+  echo power off | bluetoothctl
 else
   notify-send "Bluetooth" "Connecting to $selection..."
 
-  bluetoothctl power on
-  bluetoothctl disconnect
-  output=$(bluetoothctl connect "$selection")
-
-  case $? in
-    0) notify-send "Bluetooth: success" "$selection connected";;
-    *) notify-send "Bluetooth: error" "$output"
-  esac
+  echo power on | bluetoothctl
+  echo disconnect | bluetoothctl
+  echo connect "$selection" | bluetoothctl
 fi
