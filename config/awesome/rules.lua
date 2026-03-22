@@ -32,6 +32,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'kitty-light',
         'Xephyr',
         'PureRef',
+        'Zathura',
       },
       instance = {
         'localhost',
