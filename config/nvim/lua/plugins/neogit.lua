@@ -13,21 +13,11 @@ return {
         },
         explorer = {
           width = 45,
-          icons = {
-            folder_closed = '',
-            folder_open = '',
-          },
-          file_filter = {
-            ignore = { '*.pdf' },
-          },
+          icons = { folder_closed = '', folder_open = '' },
+          file_filter = { ignore = { '*.pdf' } },
         },
         keymaps = {
-          view = {
-            next_hunk = 'þ',
-            prev_hunk = 'ß',
-            next_file = '<c-n>',
-            prev_file = '<c-p>',
-          },
+          view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = '<c-n>', prev_file = '<c-p>' },
         },
       },
     }
@@ -39,9 +29,7 @@ return {
       item = { '󰄾', '󰄼' },
       hunk = { '󰶻', '󰶹' },
     },
-    integrations = {
-      telescope = false, -- weird, but this disables neogit custom telescope config, and uses mine instead
-    },
+    integrations = { telescope = false }, -- weird, but this disables neogit custom telescope config, and uses mine instead
     prompt_amend_commit = false,
     graph_style = 'kitty',
     use_per_project_settings = false,
