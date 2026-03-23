@@ -95,11 +95,6 @@ return {
       desc = 'Telescope git diff master'
     },
     {
-      '<c-s-b>',
-      function() require('telescope.builtin').git_branches({ results_title = ' branches' }) end,
-      desc = 'Telescope git branch'
-    },
-    {
       '<leader>gt',
       function() require('telescope.builtin').git_bcommits({ results_title = ' commits' }) end,
       desc = 'Telescope git commits'
