@@ -348,9 +348,13 @@ return {
         ['@constant.rasi'] = { fg = 'palette.yellow' },
         ['@punctuation.special.rasi'] = { fg = 'palette.magenta' },
 
-        -- kitty
-        kittySt = { link = 'String' },
+        -- kitty -> links do not work here for some reason
+        kittyString = { fg = 'palette.green' },
         kittyKeyword = { fg = 'palette.fg.base' },
+        kittyMap = { fg = 'palette.fg.dimmer' },
+        kittyMapName = { fg = 'palette.fg.dimmer' },
+        kittyParameter = { fg = 'palette.fg.base' },
+        kittyKey = { fg = 'palette.pink' },
 
         -- zathurarc
         ['@variable.builtin.zathurarc'] = { link = '@variable' },
