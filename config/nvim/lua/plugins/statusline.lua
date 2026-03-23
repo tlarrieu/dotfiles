@@ -15,6 +15,65 @@ local projectdir = function()
   return ' ' .. project
 end
 
+local branch = {
+  'branch',
+  fmt = function(name)
+    local length = 40
+    if #name > length then return name:sub(0, length) .. '…' else return name end
+  end,
+  icon = { '', align = 'left' }
+}
+
+local mode = {
+  'mode',
+  icons_enabled = true,
+  fmt = function(mode, _)
+    if mode == 'NORMAL' then return ' 󰹻 ' end
+    if mode == 'O-PENDING' then return '  ' end
+    if mode == 'INSERT' then return ' 󰏪 ' end
+    if mode == 'COMMAND' then return ' 󰞷 ' end
+    if mode == 'TERMINAL' then return '  ' end
+    if mode == 'SELECT' then return ' 󰫙 ' end
+    if mode == 'VISUAL' then return ' 󰩭 ' end
+    if mode == 'V-LINE' then return ' 󰩭 ' end
+    if mode == 'V-BLOCK' then return ' 󰩭 ' end
+    return mode
+  end
+}
+
+local stashstatus = {
+  function()
+    local handle = io.popen("git stash list 2> /dev/null | wc -l")
+    if not handle then return '' end
+
+    local result = tonumber(handle:read("*a"))
+
+    if result == 0 then return '' end
+    if result == 1 then return '───  󰎤 ───' end
+    if result == 2 then return '───  󰎧 ───' end
+    if result == 3 then return '───  󰎪 ───' end
+    if result >= 4 then return '───  󰼑 ───' end
+
+    return ''
+  end,
+  color = function() return 'LualineSuccess' end,
+}
+
+local pushstatus = {
+  function()
+    local handle = io.popen("git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | paste -sd ''")
+    if not handle then return '' end
+
+    local result = handle:read("*a")
+    if result:match('><') then return '─── 󰆖 ───' end
+    if result:match('<') then return '─── 󰧖 ───' end
+    if result:match('>') then return '─── 󰧜 ───' end
+
+    return ''
+  end,
+  color = function() return 'LualineNotice' end,
+}
+
 local filenamecolor = function()
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) > 0 then return 'LualineError' end
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) > 0 then return 'LualineWarning' end
@@ -52,9 +111,11 @@ return {
       },
       {
         sections = {
-          lualine_a = { function() return 'neogit ' end },
-          lualine_b = { projectdir },
-          lualine_z = { 'location' },
+          lualine_a = { mode },
+          lualine_b = { projectdir, branch, 'searchcount' },
+          lualine_c = { stashstatus, pushstatus },
+          lualine_x = { 'location' },
+          lualine_z = { function() return 'neogit ' end },
         },
         filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' }
       },
@@ -64,58 +125,11 @@ return {
       section_separators = { left = '', right = '' },
     },
     sections = {
-      lualine_a = {
-        {
-          'mode',
-          icons_enabled = true,
-          fmt = function(mode, _)
-            if mode == 'NORMAL' then return ' 󰹻 ' end
-            if mode == 'O-PENDING' then return '  ' end
-            if mode == 'INSERT' then return ' 󰏪 ' end
-            if mode == 'COMMAND' then return ' 󰞷 ' end
-            if mode == 'TERMINAL' then return '  ' end
-            if mode == 'SELECT' then return ' 󰫙 ' end
-            if mode == 'VISUAL' then return ' 󰩭 ' end
-            if mode == 'V-LINE' then return ' 󰩭 ' end
-            if mode == 'V-BLOCK' then return ' 󰩭 ' end
-            return mode
-          end
-        }
-      },
-      lualine_b = { projectdir, 'searchcount' },
+      lualine_a = { mode },
+      lualine_b = { projectdir, branch, 'searchcount' },
       lualine_c = {
-        {
-          function()
-            local handle = io.popen("git stash list 2> /dev/null | wc -l")
-            if not handle then return '' end
-
-            local result = tonumber(handle:read("*a"))
-
-            if result == 0 then return '' end
-            -- '─── 󰆖 ───'
-            if result == 1 then return '───  󰎤 ───' end
-            if result == 2 then return '───  󰎧 ───' end
-            if result == 3 then return '───  󰎪 ───' end
-            if result >= 4 then return '───  󰼑 ───' end
-
-            return ''
-          end,
-          color = function() return 'LualineSuccess' end,
-        },
-        {
-          function()
-            local handle = io.popen("git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | paste -sd ''")
-            if not handle then return '' end
-
-            local result = handle:read("*a")
-            if result:match('><') then return '─── 󰆖 ───' end
-            if result:match('<') then return '─── 󰧖 ───' end
-            if result:match('>') then return '─── 󰧜 ───' end
-
-            return ''
-          end,
-          color = function() return 'LualineNotice' end,
-        },
+        stashstatus,
+        pushstatus,
         {
           'filename',
           path = 3,
@@ -245,17 +259,7 @@ return {
           end
         },
       },
-      lualine_y = { 'lsp_status', },
-      lualine_z = {
-        {
-          'branch',
-          fmt = function(name)
-            local length = 40
-            if #name > length then return name:sub(0, length) .. '…' else return name end
-          end,
-          icon = { '', align = 'right' }
-        },
-      }
+      lualine_z = { 'lsp_status', },
     },
     winbar = {},
   },
