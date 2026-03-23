@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd('User', {
 -- theme setting
 
 local apply_xrdb = function()
-  local theme = require('xrdb').load() or { vim = {} }
+  local theme = require('xrdb').load()
   vim.o.background = theme.variant or 'light'
   vim.cmd.colorscheme(vim.o.background == 'light' and 'dawnfox' or 'nordfox')
   for i = 0, 15 do vim.g['terminal_color_' .. i] = theme['color' .. i] or vim.g['terminal_color_' .. i] end
