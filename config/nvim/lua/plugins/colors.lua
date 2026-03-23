@@ -345,7 +345,9 @@ return {
         ['@field.rasi'] = { link = '@field.css' },
         ['@variable.rasi'] = { fg = 'palette.magenta' },
         ['@keyword.rasi'] = { fg = 'palette.pink' },
+        ['@string.special.rasi'] = { link = '@keyword.rasi' },
         ['@constant.rasi'] = { fg = 'palette.yellow' },
+        ['@character.special.rasi'] = { link = '@constant.rasi' },
         ['@punctuation.special.rasi'] = { fg = 'palette.magenta' },
 
         -- kitty -> links do not work here for some reason
