@@ -4,7 +4,7 @@ return {
   opts = {
     save_state = false,
     notifications = true,
-    exclude_filetypes = { 'help', 'man' },
+    exclude_filetypes = { 'help', 'man', 'codediff-explorer' },
   },
   config = function(_, opts)
     vim.opt.list = true
