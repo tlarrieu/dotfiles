@@ -3,4 +3,4 @@
 config="$HOME/.browser-config"
 [ -f "$config" ] && . "$config"
 
-chromium --profile-directory="$profile" "$1"
+chromium --profile-directory="$profile" "$@"
