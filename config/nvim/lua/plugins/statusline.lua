@@ -173,7 +173,7 @@ return {
           end,
         },
       },
-      lualine_x = { 'progress', 'location' },
+      lualine_x = { 'lsp_status', 'progress', 'location' },
       lualine_y = { 'encoding', { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } } },
       lualine_z = {
         {
@@ -259,7 +259,6 @@ return {
           end
         },
       },
-      lualine_z = { 'lsp_status', },
     },
     winbar = {},
   },
