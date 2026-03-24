@@ -128,7 +128,7 @@ return {
         ['p'] = 'PushPopup',
         ['P'] = 'PullPopup',
         ['r'] = 'RebasePopup',
-        ['v'] = 'RevertPopup',
+        ['R'] = 'RevertPopup',
       },
       commit_editor = {
         ['<c-p>'] = 'PrevMessage',
