@@ -26,7 +26,6 @@ vim.keymap.set('n', 'j', 'gj', { remap = true })
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
-vim.keymap.set({ 'n', 'o', 'x' }, '<leader>d', '"+d')
 vim.keymap.set('n', 'yf', "<cmd>let @+ = expand(\"%\")<cr><cmd>echo 'File name yanked.'<cr>", { silent = true })
 -- select the whole line
 vim.keymap.set('n', 'vv', '^v$h')

@@ -13,7 +13,9 @@ return {
         },
         explorer = {
           width = 45,
-          icons = { folder_closed = '', folder_open = '' },
+          icons = { folder_closed = '', folder_open = '' },
+          view_mode = 'tree',
+          flatten_dirs = true,
           file_filter = { ignore = { '*.pdf' } },
         },
         keymaps = {
@@ -186,18 +188,28 @@ return {
     local neogit = require('neogit')
     neogit.setup(opts)
     vim.keymap.set('n', '<c-y>', '<cmd>Neogit<cr>', { desc = 'neogit' })
+
     vim.keymap.set('v', '<leader>l', ':NeogitLog<cr>', { desc = 'neogit history (visual)' })
     vim.keymap.set('n', '<leader>L', ':NeogitLog<cr>', { desc = 'neogit history (file)' })
     vim.keymap.set('n', '<leader>l', neogit.action('log', 'log_current', { '--graph', '--decorate', '--max-count=100' }),
       { desc = 'neogit log' })
+
+    vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
+      { desc = 'code(diff) review (origin/master...)' })
+    vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { desc = 'code(diff) review (HEAD~)' })
+
     vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { desc = 'neogit commit' })
     vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'extend', {}), { desc = 'neogit commit extend' })
     vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}), { desc = 'neogit commit amend' })
-    vim.keymap.set('n', '<leader>b', neogit.action('branch', 'checkout_local_branch', {}),
+
+    vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}), { desc = 'neogit pull request' })
+    vim.keymap.set('n', '<leader>bb', neogit.action('branch', 'checkout_local_branch', {}),
       { desc = 'neogit branch checkout' })
+
     vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }), { desc = 'neogit pull' })
     vim.keymap.set('n', '<leader>gp', neogit.action('push', 'to_upstream', { '--force-with-lease', '-u' }),
       { desc = 'neogit push' })
+
     vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet &<cr>', { desc = 'Git stash' })
     vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet &<cr>', { desc = 'Git stash pop' })
   end
