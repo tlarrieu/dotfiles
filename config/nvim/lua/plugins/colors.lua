@@ -364,6 +364,7 @@ return {
         -- vimdoc
         ['@markup.raw.vimdoc'] = { fg = 'palette.fg.dim' },
         ['@markup.raw.block.vimdoc'] = { link = '@markup.raw.vimdoc' },
+        ['@comment.note.vimdoc'] = { fg = 'palette.bg1', bg = 'palette.magenta', style = 'NONE' },
 
         -- man pages
         manHeader = { link = 'Title' },
