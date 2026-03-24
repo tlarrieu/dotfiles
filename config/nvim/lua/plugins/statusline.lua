@@ -183,12 +183,9 @@ return {
             local name = vim.api.nvim_buf_get_name(bufnr)
             local filetype = vim.bo[bufnr].filetype
 
-            if filetype == '' then return end
+            if filetype == '' then return '󰒡 ' end
 
-            -- Icon
-            local icon = require('nvim-web-devicons').get_icon(name, filetype)
-
-            return icon .. ' ' .. filetype
+            return require('nvim-web-devicons').get_icon(name, filetype) .. ' ' .. filetype
           end
         },
       },
