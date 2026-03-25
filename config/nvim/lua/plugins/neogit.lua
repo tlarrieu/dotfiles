@@ -78,7 +78,7 @@ return {
       status = {
         ['j']      = 'MoveDown',
         ['k']      = 'MoveUp',
-        ['q']      = 'Close',
+        ['<c-s>']  = 'Close',
         ['I']      = 'InitRepo',
         ['Q']      = 'Command',
         ['x']      = 'Discard',
@@ -187,7 +187,7 @@ return {
   config = function(_, opts)
     local neogit = require('neogit')
     neogit.setup(opts)
-    vim.keymap.set('n', '<c-y>', '<cmd>Neogit<cr>', { desc = 'neogit' })
+    vim.keymap.set('n', '<c-s>', '<cmd>Neogit<cr>', { desc = 'neogit' })
 
     vim.keymap.set('v', '<leader>l', ':NeogitLog<cr>', { desc = 'neogit history (visual)' })
     vim.keymap.set('n', '<leader>L', ':NeogitLog<cr>', { desc = 'neogit history (file)' })
@@ -203,7 +203,7 @@ return {
     vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}), { desc = 'neogit commit amend' })
 
     vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}), { desc = 'neogit pull request' })
-    vim.keymap.set('n', '<leader>bb', neogit.action('branch', 'checkout_local_branch', {}),
+    vim.keymap.set('n', '<c-y>', neogit.action('branch', 'checkout_local_branch', {}),
       { desc = 'neogit branch checkout' })
 
     vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }), { desc = 'neogit pull' })

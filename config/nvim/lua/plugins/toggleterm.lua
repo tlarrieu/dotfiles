@@ -23,7 +23,7 @@ return {
         return math.max(80, vim.o.columns * factor)
       end
     end,
-    open_mapping = '<c-s>',
+    open_mapping = '<c-.>',
     hide_numbers = true,
     on_open = function(term)
       set_win_sep(THICK_SEP)
@@ -61,7 +61,7 @@ return {
   config = true,
   keys = {
     {
-      '<c-s>',
+      '<c-.>',
       function() require('toggleterm').toggle() end,
       desc = 'Toggle terminal',
       mode = { 'n', 'i', 't' }
