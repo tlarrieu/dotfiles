@@ -25,18 +25,16 @@ require('utils').autoformat({
   '.pryrc.local',
 })
 
-vim.keymap.set('n', '<c-$>', function()
-  require('alternator').alternate({
-    { pattern = "(.*)/tax_returns/consistency_checks/index.json.jbuilder", target = "%1/tax_returns/forms/show.json.jbuilder" },
-    { pattern = "(.*)/tax_returns/forms/show.json.jbuilder", target = "%1/tax_returns/consistency_checks/index.json.jbuilder" },
+require('alternator').setup({
+  { pattern = "(.*)/tax_returns/consistency_checks/index.json.jbuilder", target = "%1/tax_returns/forms/show.json.jbuilder" },
+  { pattern = "(.*)/tax_returns/forms/show.json.jbuilder", target = "%1/tax_returns/consistency_checks/index.json.jbuilder" },
 
-    { pattern = "(.*)/spec/requests/(.*)_spec%.rb", target = "%1/app/controllers/%2.rb" },
-    { pattern = "(.*)/app/controllers/(.*)%.rb", target = "%1/spec/requests/%2_spec.rb" },
+  { pattern = "(.*)/spec/requests/(.*)_spec%.rb", target = "%1/app/controllers/%2.rb" },
+  { pattern = "(.*)/app/controllers/(.*)%.rb", target = "%1/spec/requests/%2_spec.rb" },
 
-    { pattern = "(.*)/spec/(.*)_spec%.rb", target = "%1/app/%2.rb" },
-    { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
-  })
-end, { silent = true, buffer = true })
+  { pattern = "(.*)/spec/(.*)_spec%.rb", target = "%1/app/%2.rb" },
+  { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
+})
 
 local rootnode = function(bufnr)
   local parser = vim.treesitter.get_parser(bufnr, 'ruby', {})

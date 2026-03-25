@@ -182,7 +182,7 @@ vim.keymap.set('n', '<leader>R', function()
   vim.wo.cursorline = not vim.wo.cursorline
 end, { desc = 'Toggle crosshair' })
 -- Alternate file
-vim.keymap.set('n', '<c-k>', '<c-^>')
+vim.keymap.set('n', '<c-$>', '<c-^>')
 -- Quickfix list
 vim.keymap.set('n', '<leader>q', function()
   local lastwin = vim.api.nvim_get_current_win()

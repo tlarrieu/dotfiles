@@ -123,7 +123,7 @@ k.set('n', '<leader>r', function()
   ]]
 end, noremap)
 -- Alternate file
-vim.keymap.set('n', '<c-k>', '<c-^>')
+vim.keymap.set('n', '<c-$>', '<c-^>')
 -- Quickfix list
 local togglelist = function()
   local curwin = vim.api.nvim_get_current_win()
