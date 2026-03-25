@@ -83,7 +83,7 @@ return {
         ['Q']      = 'Command',
         ['x']      = 'Discard',
         ['s']      = 'Stage',
-        ['S']      = 'StageUnstaged',
+        ['S']      = 'StageAll',
         ['u']      = 'Unstage',
         ['U']      = 'UnstageStaged',
         ['K']      = 'Untrack',
