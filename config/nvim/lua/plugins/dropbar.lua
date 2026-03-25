@@ -33,6 +33,7 @@ return {
     sources = {
       path = {
         max_depth = 1,
+        min_widths = { 1000 },
         modified = function(sym)
           return sym:merge({
             -- name = sym.name .. ' 󰴓',
