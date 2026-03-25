@@ -401,9 +401,9 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
-        TreesitterContext = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'italic' },
+        TreesitterContext = { bg = 'palette.bg3', style = 'italic' },
         TreesitterContextBottom = { link = 'TreesitterContext' },
-        TreesitterContextLineNumber = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'italic' },
+        TreesitterContextLineNumber = { fg = 'palette.fg.dimmer', bg = 'palette.bg3', style = 'italic' },
         TreesitterContextSeparator = { fg = 'palette.bg3', bg = 'palette.bg3' },
 
         TelescopeNormal = { link = 'NormalFloat' },
