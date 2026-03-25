@@ -16,6 +16,20 @@ return {
         menu = { separator = ' ', indicator = ' ' },
       },
       kinds = {
+        file_icon = function(path)
+          local filename = vim.fs.basename(path)
+          local filetype = nil
+
+          ---@type integer?
+          local buf = vim.iter(vim.api.nvim_list_bufs()):find(function(buf)
+            return vim.api.nvim_buf_get_name(buf) == path
+          end)
+          if buf then filetype = vim.api.nvim_get_option_value('filetype', { buf = buf }) end
+
+          local icon = require('nvim-web-devicons').get_icon(filename, filetype, { default = false })
+
+          return icon .. ' ', 'DropBarIconKindDefault'
+        end,
         symbols = {
           Text = ' ',
           Method = '󰡱 ',
