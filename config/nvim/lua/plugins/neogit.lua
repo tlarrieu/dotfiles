@@ -206,6 +206,8 @@ return {
     vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}), { desc = 'neogit pull request' })
     vim.keymap.set('n', '<c-y>', neogit.action('branch', 'checkout_local_branch', {}),
       { desc = 'neogit branch checkout' })
+    vim.keymap.set('n', '<c-s-y>', neogit.action('branch', 'checkout_recent_branch', {}),
+      { desc = 'neogit branch checkout (recent)' })
 
     vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }), { desc = 'neogit pull' })
     vim.keymap.set('n', '<leader>gp', neogit.action('push', 'to_upstream', { '--force-with-lease', '-u' }),
