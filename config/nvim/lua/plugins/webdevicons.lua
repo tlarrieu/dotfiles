@@ -26,7 +26,7 @@ return {
       telescope = { icon = '' },
       query = { icon = '' }, -- treesitter tree view
       vim = { icon = '' },
-      harpoon = { icon = '󱡁' },
+      harpoon = { icon = '󱡅' },
       mason = { icon = '󰺾' },
       lazy = { icon = '󰘧' },
       TelescopePrompt = { icon = '', name = 'telescope' },
@@ -38,6 +38,7 @@ return {
       log = { icon = '' },
       lock = { icon = lock },
       yaml = { icon = '󰷐' },
+      edi = { icon = '󱡠' },
 
       typst = { icon = '' },
       tex = { icon = '' },
