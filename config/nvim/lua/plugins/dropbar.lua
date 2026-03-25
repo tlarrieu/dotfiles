@@ -1,8 +1,6 @@
 local excluded_ft = {
   help = true,
-  latex = true,
   gitcommit = true,
-  ledger = true,
 }
 
 return {
