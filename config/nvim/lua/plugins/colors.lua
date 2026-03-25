@@ -415,7 +415,7 @@ return {
         DropBarCurrentName = { link = 'DropBarCurrentContext' },
         DropBarCurrentHover = { link = 'DropBarCurrentContext' },
         DropBarKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
-        DropBarKindFile = { fg = 'palette.fg.base', },
+        DropBarKindFile = { fg = 'palette.fg.dim', },
         DropBarIconKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
         DropBarIconKindFunction = { fg = 'palette.blue' },
         DropBarIconKindMethod = { link = 'DropBarIconKindFunction' },
@@ -423,6 +423,7 @@ return {
         DropBarMenuCurrentContext = { bg = 'palette.sel1' },
         DropBarMenuHoverIcon = { bg = 'palette.sel0', style = 'NONE' },
         DropBarMenuHoverEntry = { link = 'DropBarMenuHoverIcon' },
+        DropBarModified = { fg = 'palette.fg.base' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
