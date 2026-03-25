@@ -69,6 +69,8 @@ return {
       },
 
       view = {
+        align = 'message',
+        reflow = 'true',
         stack_upwards = false,
         icon_separator = ' ',
         group_separator = '─── ',
@@ -85,8 +87,8 @@ return {
         max_height = 0,
         x_padding = 2,
         y_padding = 1,
-        tabstop = 2,
-        align = 'top',
+        tabstop = 4,
+        align = 'bottom',
         relative = 'editor',
       },
     },
