@@ -83,7 +83,7 @@ return {
       desc = 'Telescope help tags'
     },
     {
-      '<c-s-y>',
+      '<c-s-s>',
       function()
         return require('telescope.builtin').find_files({
           hidden = true,
