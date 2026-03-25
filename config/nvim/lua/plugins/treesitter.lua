@@ -4,7 +4,6 @@ return {
   priority = 100,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'nvim-treesitter/nvim-treesitter-context',
     'OXY2DEV/markview.nvim'
   },
   version = '*',
@@ -51,13 +50,6 @@ return {
         node_decremental = "<bs>",
       },
     },
-    context = {
-      enable = true,
-      max_lines = 8,
-      multiwindow = true,
-      mode = 'cursor',
-      separator = '-',
-    },
     textobjects = {
       enable = true,
 
@@ -96,6 +88,5 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
-    require('treesitter-context').setup(opts['context'])
   end,
 }

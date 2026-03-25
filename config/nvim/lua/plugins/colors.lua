@@ -151,7 +151,7 @@ return {
 
         ['@type.builtin'] = { link = 'Type' },
 
-        ['@module'] = { fg = 'palette.orange' },
+        ['@module'] = { fg = 'palette.yellow' },
         ['@module.builtin'] = { fg = 'palette.fg.base' },
 
         ['@property'] = { fg = 'palette.fg.dim' },
@@ -234,10 +234,12 @@ return {
         FloatTitle = { fg = 'palette.fg.dim', bg = 'palette.bg0', style = 'bold' },
         FloatFooter = { fg = 'palette.fg.base', bg = 'palette.bg1' },
 
-        -- winseparator
+        -- windows
         WinSeparator = { link = 'WinSeparatorThin' },
         WinSeparatorThin = { fg = 'palette.bg0', bg = 'none' },
         WinSeparatorThick = { fg = 'palette.bg0', bg = 'palette.bg0' },
+        WinBar = { bg = 'palette.bg3' },
+        WinBarNC = { link = 'WinBar' },
 
         -- pmenu
         Pmenu = { fg = 'palette.fg.base', bg = 'palette.bg0' },
@@ -405,6 +407,22 @@ return {
         TreesitterContextBottom = { link = 'TreesitterContext' },
         TreesitterContextLineNumber = { fg = 'palette.fg.dimmer', bg = 'palette.bg3', style = 'italic' },
         TreesitterContextSeparator = { fg = 'palette.bg3', bg = 'palette.bg3' },
+
+        DropBarIconUISeparator = { fg = 'palette.fg.dimmer' },
+        DropBarIconUIIndicator = { link = 'DropBarIconUISeparator' },
+        DropBarCurrentContext = { bg = 'palette.sel0', style = 'NONE' },
+        DropBarCurrentIcon = { link = 'DropBarCurrentContext' },
+        DropBarCurrentName = { link = 'DropBarCurrentContext' },
+        DropBarCurrentHover = { link = 'DropBarCurrentContext' },
+        DropBarKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
+        DropBarKindFile = { fg = 'palette.fg.base', },
+        DropBarIconKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
+        DropBarIconKindFunction = { fg = 'palette.blue' },
+        DropBarIconKindMethod = { link = 'DropBarIconKindFunction' },
+        DropBarMenuHoverSymbol = { fg = 'palette.fg.dim', style = 'bold' },
+        DropBarMenuCurrentContext = { bg = 'palette.sel1' },
+        DropBarMenuHoverIcon = { bg = 'palette.sel0', style = 'NONE' },
+        DropBarMenuHoverEntry = { link = 'DropBarMenuHoverIcon' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },
