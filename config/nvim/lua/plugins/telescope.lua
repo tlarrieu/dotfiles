@@ -156,9 +156,9 @@ return {
         },
 
         prompt_prefix = '   ',
-        selection_caret = ' ',
-        entry_prefix = '⠀ ',
-        multi_icon = ' ',
+        selection_caret = '󰨑  ',
+        entry_prefix = '󰜌  ',
+        multi_icon = '󰜋  ',
 
         path_display = { 'smart', 'shorten' },
 
@@ -195,13 +195,11 @@ return {
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown({
-            prompt_prefix = '  ',
+            prompt_prefix = ' 󱐁 ',
             layout_strategy = 'horizontal',
           }),
         },
-        fzf = {
-          fuzzy = false
-        },
+        fzf = { fuzzy = false },
       }
     })
 
