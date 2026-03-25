@@ -13,7 +13,7 @@ return {
         },
         explorer = {
           width = 45,
-          icons = { folder_closed = '', folder_open = '' },
+          icons = { folder_closed = '', folder_open = '' },
           view_mode = 'tree',
           flatten_dirs = true,
           file_filter = { ignore = { '*.pdf' } },
