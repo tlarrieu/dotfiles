@@ -141,6 +141,7 @@ return {
       },
       commit_view = {
         ['i'] = 'OpenFileInWorktree',
+        ['o'] = 'OpenCommitLinkInBrowser',
       },
       rebase_editor = {
         ['p']     = 'Pick',
