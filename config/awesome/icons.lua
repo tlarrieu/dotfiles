@@ -222,7 +222,7 @@ local config = {
   { icon = '', rule = { name = 'pass: ' } },
   { icon = '󰇅', rule = { class = 'VirtualBox Manager' } },
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
-  { icon = '󰢹', rule = { class = 'org.remmina.Remmina' } },
+  { icon = '󱄄', rule = { class = 'org.remmina.Remmina' } },
 
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
