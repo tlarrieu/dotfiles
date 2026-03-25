@@ -38,7 +38,7 @@ return {
       log = { icon = '' },
       lock = { icon = lock },
       yaml = { icon = '󰷐' },
-      edi = { icon = '󱡠' },
+      edifact = { icon = '󱡠' },
 
       typst = { icon = '' },
       tex = { icon = '' },
@@ -130,6 +130,7 @@ return {
       log = { icon = '' },
       yml = { icon = '󰷐' },
       pl = { icon = '' },
+      edi = { icon = '󱡠' },
 
       fish = { icon = '󰈺' },
       kitty = { icon = '󰄛' },
