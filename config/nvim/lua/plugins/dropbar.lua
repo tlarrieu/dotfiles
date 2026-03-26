@@ -53,6 +53,9 @@ return {
           'Function',
           'Object',
           'Variable',
+          'Property',
+          'Field',
+          'Array',
         },
       },
       treesitter = {
@@ -69,6 +72,7 @@ return {
           'variable',
           'field',
           'object',
+          'property',
         }
       },
     },
