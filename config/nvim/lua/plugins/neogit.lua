@@ -213,7 +213,9 @@ return {
     vim.keymap.set('n', '<leader>gp', neogit.action('push', 'to_upstream', { '--force-with-lease', '-u' }),
       { desc = 'neogit push' })
 
-    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet &<cr>', { desc = 'Git stash' })
-    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet &<cr>', { desc = 'Git stash pop' })
+    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>bufdo checktime<cr>',
+      { desc = 'Git stash' })
+    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr><cmd>bufdo checktime<cr>',
+      { desc = 'Git stash pop' })
   end
 }
