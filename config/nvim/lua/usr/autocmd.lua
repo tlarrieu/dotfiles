@@ -47,8 +47,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- refresh gitsigns
 vim.api.nvim_create_autocmd('User', {
-  pattern = { 'NeogitStatusRefreshed', 'NeogitCommitComplete', 'NeogitReset', 'NeogitStash' },
-  callback = function() require('gitsigns').refresh() end,
+  pattern = {
+    'NeogitStatusRefreshed',
+    'NeogitCommitComplete',
+    'NeogitReset',
+    'NeogitStash',
+    'NeogitBranchCheckout'
+  },
+  command = 'checktime',
   group = vim.api.nvim_create_augroup('neogit_autocmd', {}),
 })
 
