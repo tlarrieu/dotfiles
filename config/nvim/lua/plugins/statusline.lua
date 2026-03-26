@@ -8,22 +8,6 @@ local ftmap = {
   qf = 'quickfix',
   oil = 'oil',
 }
-
-local projectdir = function()
-  local project
-  for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
-  return ' ' .. project
-end
-
-local branch = {
-  'branch',
-  fmt = function(name)
-    local length = 40
-    if #name > length then return name:sub(0, length) .. '…' else return name end
-  end,
-  icon = { '', align = 'left' }
-}
-
 local mode = {
   'mode',
   icons_enabled = true,
@@ -40,6 +24,32 @@ local mode = {
     return mode
   end
 }
+
+local projectdir = function()
+  local project
+  for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
+  return ' ' .. project
+end
+
+local branch = {
+  'branch',
+  fmt = function(name)
+    local length = 40
+    if #name > length then return name:sub(0, length) .. '…' else return name end
+  end,
+  icon = { '', align = 'left' }
+}
+
+local tabs = function()
+  local tabcount = #vim.api.nvim_list_tabpages()
+
+  if tabcount <= 1 then return '' end
+
+  local tabindex = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage())
+
+  return '󰓩  ' .. tabindex .. ' / ' .. tabcount
+end
+
 
 local stashstatus = {
   function()
@@ -88,7 +98,7 @@ local plugin = function(cfg)
   return {
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, 'searchcount' },
+      lualine_b = { projectdir, branch, tabs, 'searchcount' },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
       lualine_x = { 'location' },
       lualine_z = { function() return cfg.title or '' end },
@@ -147,7 +157,7 @@ return {
     },
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, 'searchcount' },
+      lualine_b = { projectdir, branch, tabs, 'searchcount' },
       lualine_c = {
         stashstatus,
         pushstatus,
@@ -208,19 +218,6 @@ return {
 
             return require('nvim-web-devicons').get_icon(name, filetype) .. ' ' .. filetype
           end
-        },
-      },
-    },
-    tabline = {
-      lualine_a = {
-        {
-          'tabs',
-          mode = 0,
-          path = 0,
-          max_length = 1000,
-          tab_max_length = 25,
-          use_mode_colors = true,
-          show_modified_status = false,
         },
       },
     },

@@ -50,6 +50,10 @@ vim.opt.timeoutlen = 400
 vim.opt.signcolumn = 'yes:1'
 -- }}}
 
+-- {{{ ==| Tabline |============================================================
+vim.opt.showtabline = 0
+-- }}}
+
 -- {{{ ==| Statusline |=========================================================
 vim.opt.laststatus = 3
 vim.opt.showmode = false
