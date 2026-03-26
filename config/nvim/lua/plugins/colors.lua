@@ -238,7 +238,7 @@ return {
         WinSeparator = { link = 'WinSeparatorThin' },
         WinSeparatorThin = { fg = 'palette.bg0', bg = 'none' },
         WinSeparatorThick = { fg = 'palette.bg0', bg = 'palette.bg0' },
-        WinBar = { bg = 'palette.bg3' },
+        WinBar = { bg = 'palette.bg3', style = 'NONE' },
         WinBarNC = { link = 'WinBar' },
 
         -- pmenu
@@ -415,7 +415,7 @@ return {
         DropBarCurrentName = { link = 'DropBarCurrentContext' },
         DropBarCurrentHover = { link = 'DropBarCurrentContext' },
         DropBarKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
-        DropBarKindFile = { fg = 'palette.fg.dim', },
+        DropBarKindFile = { fg = 'palette.fg.dim', style = 'bold' },
         DropBarIconKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
         DropBarIconKindFunction = { fg = 'palette.blue' },
         DropBarIconKindMethod = { link = 'DropBarIconKindFunction' },
@@ -423,7 +423,7 @@ return {
         DropBarMenuCurrentContext = { bg = 'palette.sel1' },
         DropBarMenuHoverIcon = { bg = 'palette.sel0', style = 'NONE' },
         DropBarMenuHoverEntry = { link = 'DropBarMenuHoverIcon' },
-        DropBarModified = { fg = 'palette.fg.base' },
+        DropBarModified = { fg = 'palette.yellow', style = 'bold' },
 
         TelescopeNormal = { link = 'NormalFloat' },
         TelescopeBorder = { link = 'FloatBorder' },

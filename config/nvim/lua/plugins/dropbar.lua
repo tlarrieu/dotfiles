@@ -41,6 +41,36 @@ return {
           })
         end
       },
+      lsp = {
+        min_widths = { 1000, 1000 },
+        valid_symbols = {
+          'File',
+          'Module',
+          'Namespace',
+          'Class',
+          'Method',
+          'Constructor',
+          'Function',
+          'Object',
+          'Variable',
+        },
+      },
+      treesitter = {
+        min_widths = { 1000, 1000 },
+        valid_types = {
+          'class',
+          'constant',
+          'constructor',
+          'function',
+          'interface',
+          'method',
+          'namespace',
+          'package',
+          'variable',
+          'field',
+          'object',
+        }
+      },
     },
     icons = {
       ui = {
@@ -93,7 +123,7 @@ return {
           BlockMappingPair = '󰅩 ',
           Boolean = ' ',
           BreakStatement = '󰙧 ',
-          Call = '󰃷 ',
+          Call = '󰅲 ',
           CaseStatement = '󱃙 ',
           ContinueStatement = '→ ',
           Declaration = '󰙠 ',
