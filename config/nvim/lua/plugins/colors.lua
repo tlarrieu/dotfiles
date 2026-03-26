@@ -434,7 +434,7 @@ return {
         DropBarMenuHoverEntry = { link = 'DropBarMenuHoverIcon' },
         DropBarModified = { fg = 'palette.yellow', style = 'bold' },
 
-        TelescopeNormal = { link = 'NormalFloat' },
+        TelescopeNormal = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
         TelescopePreviewBorder = { link = 'FloatBorder' },
@@ -444,7 +444,7 @@ return {
         TelescopePromptTitle = { fg = 'palette.fg.base', bg = 'palette.fg.base' },
         TelescopePromptPrefix = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
-        TelescopeSelection = { bg = 'palette.sel1' },
+        TelescopeSelection = { fg = 'palette.fg.base', bg = 'palette.sel1' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { fg = 'palette.green' },
         TelescopeMultiSelection = { bg = 'palette.sel0', style = 'bold' },
