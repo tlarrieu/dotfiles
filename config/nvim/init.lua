@@ -32,7 +32,7 @@ require('lazy').setup({
       keys       = '',
       loaded     = '',
       not_loaded = '',
-      plugin     = '',
+      plugin     = ' ',
       runtime    = '',
       require    = '󰢱',
       source     = '',

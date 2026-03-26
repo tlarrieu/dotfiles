@@ -84,6 +84,19 @@ local filenamecolor = function()
   if vim.fn.executable(bufname) > 0 then return 'LualineExecutable' end
 end
 
+local plugin = function(cfg)
+  return {
+    sections = {
+      lualine_a = { mode },
+      lualine_b = { projectdir, branch, 'searchcount' },
+      lualine_c = { stashstatus, pushstatus, cfg.fn },
+      lualine_x = { 'location' },
+      lualine_z = { function() return cfg.title or '' end },
+    },
+    filetypes = cfg.filetypes or {}
+  }
+end
+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
@@ -96,8 +109,6 @@ return {
     extensions = {
       'man',
       'toggleterm',
-      'quickfix',
-      'oil',
       'mason',
       {
         sections = {
@@ -105,20 +116,29 @@ return {
           lualine_b = { function()
             return 'loaded: ' .. require('lazy').stats().loaded .. '/' .. require('lazy').stats().count
           end },
-          lualine_c = { { require('lazy.status').updates, cond = require('lazy.status').has_updates } },
+          lualine_c = {
+            {
+              require('lazy.status').updates,
+              cond = require('lazy.status').has_updates,
+            }
+          },
         },
         filetypes = { 'lazy' }
       },
-      {
-        sections = {
-          lualine_a = { mode },
-          lualine_b = { projectdir, branch, 'searchcount' },
-          lualine_c = { stashstatus, pushstatus },
-          lualine_x = { 'location' },
-          lualine_z = { function() return 'neogit ' end },
-        },
-        filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' }
-      },
+      plugin({
+        fn = function() return vim.fn.getqflist({ title = 0 }).title end,
+        title = 'quickfix ',
+        filetypes = { 'qf' },
+      }),
+      plugin({
+        fn = function() return require('oil').get_current_dir() end,
+        title = 'oil ',
+        filetypes = { 'oil' },
+      }),
+      plugin({
+        title = 'neogit  ',
+        filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' },
+      }),
     },
     options = {
       component_separators = { left = '', right = '' },
@@ -203,61 +223,6 @@ return {
           show_modified_status = false,
         },
       },
-      -- lualine_b = {
-      --   {
-      --     'windows',
-      --     windows_color = {
-      --       active = 'LualineTablineActiveAlt',
-      --       inactive = 'LualineTablineInactive',
-      --     },
-      --     icons_enabled = false,
-      --     show_modified_status = false,
-      --     disabled_buftypes = { 'nofile', 'quickfix' },
-      --     fmt = function(name, context)
-      --       -- Icon
-      --       local icon
-      --       if context.filetype ~= '' then
-      --         icon = require('nvim-web-devicons').get_icon(name, context.filetype)
-      --       end
-      --
-      --       -- Name
-      --       name = ftmap[context.filetype]
-      --           or (name == '[No Name]' and '…')
-      --           or (name == 'diffpanel_3' and 'undodiff')
-      --           or name
-      --
-      --       if ftmap[context.filetype] == 'oil' then
-      --         icon = ''
-      --         name = 'oil'
-      --       elseif context.filetype == 'NeogitCommitView' or context.filetype == 'NeogitCommitSelectView' then
-      --         icon = ''
-      --         name = 'commit'
-      --       elseif context.filetype == 'NeogitLogView' then
-      --         icon = ''
-      --         name = 'log'
-      --       elseif context.filetype == 'NeogitPopup' then
-      --         icon = ''
-      --         name = 'choose'
-      --       elseif context.filetype == 'NeogitStatus' then
-      --         icon = ''
-      --         name = 'status'
-      --       elseif context.filetype == 'codediff-explorer' then
-      --         icon = '󰙅'
-      --         name = 'tree'
-      --       elseif context.file:find('^gitsigns:///') or context.file:find('^codediff:///') then
-      --         icon = '󰕛'
-      --         name = name .. ' 󱓉'
-      --       end
-      --
-      --       -- Modifier
-      --       local modified = vim.fn.getbufvar(context.bufnr, '&mod') == 1
-      --       local modifier = (modified and not ftmap[context.filetype]) and mod_icon or nil
-      --
-      --       return (icon and icon .. ' ' or '') .. name .. (modifier and ' ' .. modifier or '')
-      --     end
-      --   },
-      -- },
     },
-    winbar = {},
   },
 }
