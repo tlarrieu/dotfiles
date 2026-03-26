@@ -124,6 +124,8 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'www.nerdfonts.com' } },
   { icon = '', rule = { class = 'Chromium', instance = 'www.flaticon.com' } },
 
+  { icon = '󱔞', rule = { class = 'Chromium', instance = 'neovimcraft.com' } },
+
   --  Drawing
   {
     icon = '󱍓',

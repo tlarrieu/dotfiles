@@ -155,7 +155,7 @@ ENGINES = {
   'th'   => Browser.new('https://www.thesaurus.com/browse/%s?s=t'),
   'trad' => Browser.new('https://translate.google.com?sl=fr&tl=en&text=%s'),
   'tw'   => Browser.new('https://www.twitch.tv/search?term=%s', profile: 'perso'),
-  'v'    => Browser.new('https://vimawesome.com/?q=%s'),
+  'v'    => Browser.new('https://neovimcraft.com/?search=%s'),
   'w'    => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),

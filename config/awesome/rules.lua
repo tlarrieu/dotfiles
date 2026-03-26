@@ -131,6 +131,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'attunement.io__search',
         'scryfall.com__search',
         'rubygems.org__search',
+        'neovimcraft.com',
         'pypi.org__search',
         'www.thesaurus.com__browse',
         'translate.google.com',
