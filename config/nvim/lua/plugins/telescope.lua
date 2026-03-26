@@ -156,7 +156,7 @@ return {
         },
 
         prompt_prefix = '   ',
-        selection_caret = '󰨑  ',
+        selection_caret = '󰜋  ',
         entry_prefix = '󰜌  ',
         multi_icon = '󰜋  ',
 
