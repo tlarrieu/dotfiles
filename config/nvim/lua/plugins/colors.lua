@@ -195,6 +195,10 @@ return {
         ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dimmer' },
         ['@keyword.repeat'] = { link = '@keyword.conditional' },
 
+        LineNr = { fg = 'palette.fg.dimmer' },
+        CursorLine = { bg = 'palette.bg3' },
+        CursorLineNr = { fg = 'palette.fg.dimmer', bg = 'palette.bg3' },
+
         -- MsgArea
         MsgArea = { link = 'MsgAreaMsg' },
         MsgAreaCmd = { fg = 'palette.fg.base', style = 'NONE' },
@@ -204,16 +208,15 @@ return {
 
         -- quickfix
         qfText = { link = '@normal' },
-        qfLineNr = { fg = 'palette.fg.dim' },
+        qfLineNr = { link = 'LineNr' },
         qfSeparator1 = { fg = 'palette.fg.dimmer' },
         qfSeparator2 = { link = 'qfSeparator1' },
         qfFileName = { fg = 'palette.blue' },
-        QuickFixLine = { bg = 'palette.sel0', style = 'bold' },
+        QuickFixLine = { bg = 'palette.sel0' },
 
         -- folds
         Folded = { fg = 'palette.fg.dim' },
         FoldColumn = { link = 'SignColumn' },
-        CursorLineNr = { link = 'CursorLine' },
 
         -- diagnostics
         DiagnosticPass = { fg = 'palette.green', bg = 'palette.green.dim' },
