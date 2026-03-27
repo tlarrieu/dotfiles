@@ -35,7 +35,7 @@ local branch = {
   'branch',
   fmt = function(name)
     local length = 40
-    if #name > length then return name:sub(0, length) .. '…' else return name end
+    if #name > length then return name:sub(0, length) .. ' ' else return name end
   end,
   icon = { '', align = 'left' }
 }
