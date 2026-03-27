@@ -63,6 +63,23 @@ local searchcount = function()
   )
 end
 
+local selectioncount = function()
+  local height = math.abs(vim.fn.line('v') - vim.fn.line('.')) + 1
+  local width = math.abs(vim.fn.col('v') - vim.fn.col('.')) + 1
+
+  local curmode = vim.fn.mode(true)
+
+  if curmode:match('') then
+    return '󰁌 ' .. string.format('%d×%d', height, width)
+  elseif curmode:match('V') or height > 1 then
+    return '󰡏 ' .. tostring(height)
+  elseif curmode:match('v') then
+    return '󰡎 ' .. tostring(width)
+  else
+    return ''
+  end
+end
+
 local stashstatus = {
   function()
     local handle = io.popen("git stash list 2> /dev/null | wc -l")
@@ -112,7 +129,7 @@ local plugin = function(cfg)
       lualine_a = { mode },
       lualine_b = { projectdir, branch, tabs, searchcount },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
-      lualine_x = { 'location' },
+      lualine_x = { selectioncount, 'location' },
       lualine_z = { function() return cfg.title or '' end },
     },
     filetypes = cfg.filetypes or {}
@@ -212,7 +229,7 @@ return {
           end,
         },
       },
-      lualine_x = { 'lsp_status', 'progress', 'location' },
+      lualine_x = { selectioncount, 'lsp_status', 'progress', 'location' },
       lualine_y = { 'encoding', { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } } },
       lualine_z = {
         {
