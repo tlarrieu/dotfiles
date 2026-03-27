@@ -47,7 +47,20 @@ local tabs = function()
 
   local tabindex = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage())
 
-  return '󰓩  ' .. tabindex .. ' / ' .. tabcount
+  return string.format('󰓩  %d / %d', tabindex, tabcount)
+end
+
+local searchcount = function()
+  if vim.v.hlsearch == 0 then return '' end
+
+  local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 250 })
+  if not ok or next(result) == nil then return '' end
+
+  return string.format(
+    '  %d / %d',
+    result.current,
+    math.min(result.total, result.maxcount)
+  )
 end
 
 
@@ -98,7 +111,7 @@ local plugin = function(cfg)
   return {
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, tabs, 'searchcount' },
+      lualine_b = { projectdir, branch, tabs, searchcount },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
       lualine_x = { 'location' },
       lualine_z = { function() return cfg.title or '' end },
@@ -157,7 +170,7 @@ return {
     },
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, tabs, 'searchcount' },
+      lualine_b = { projectdir, branch, tabs, searchcount },
       lualine_c = {
         stashstatus,
         pushstatus,
