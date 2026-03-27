@@ -52,6 +52,7 @@ vim.opt.signcolumn = 'yes:1'
 
 -- {{{ ==| Cmdline |============================================================
 vim.opt.cmdheight = 0
+require('vim._core.ui2').enable({ enable = true }) -- activate experimental feature to avoid “hit <cr> to continue” messages
 -- }}}
 
 -- {{{ ==| Tabline |============================================================
