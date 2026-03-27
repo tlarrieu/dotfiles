@@ -63,7 +63,6 @@ local searchcount = function()
   )
 end
 
-
 local stashstatus = {
   function()
     local handle = io.popen("git stash list 2> /dev/null | wc -l")
@@ -114,7 +113,7 @@ local plugin = function(cfg)
       lualine_b = { projectdir, branch, tabs, searchcount },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
       lualine_x = { 'location' },
-      lualine_z = { function() return cfg.title or '' end },
+      lualine_z = { function() return cfg.title .. ' ' or '' end },
     },
     filetypes = cfg.filetypes or {}
   }
@@ -159,8 +158,12 @@ return {
         filetypes = { 'oil' },
       }),
       plugin({
-        title = 'neogit  ',
+        title = 'neogit ',
         filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' },
+      }),
+      plugin({
+        title = 'avante ',
+        filetypes = { 'AvantePromptInput' },
       }),
     },
     options = {

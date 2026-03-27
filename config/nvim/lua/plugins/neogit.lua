@@ -188,32 +188,38 @@ return {
   config = function(_, opts)
     local neogit = require('neogit')
     neogit.setup(opts)
-    vim.keymap.set('n', '<c-s>', '<cmd>Neogit<cr>', { desc = 'neogit' })
+    vim.keymap.set('n', '<c-s>', '<cmd>Neogit<cr>', { silent = true, desc = 'neogit' })
 
-    vim.keymap.set('v', '<leader>l', ':NeogitLog<cr>', { desc = 'neogit history (visual)' })
-    vim.keymap.set('n', '<leader>L', ':NeogitLog<cr>', { desc = 'neogit history (file)' })
+    vim.keymap.set('v', '<leader>l', ':NeogitLog<cr>', { silent = true, desc = 'neogit history (visual)' })
+    vim.keymap.set('n', '<leader>L', ':NeogitLog<cr>', { silent = true, desc = 'neogit history (file)' })
     vim.keymap.set('n', '<leader>l', neogit.action('log', 'log_current', { '--graph', '--decorate', '--max-count=100' }),
-      { desc = 'neogit log' })
+      { silent = true, desc = 'neogit log' })
 
     vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
-      { desc = 'code(diff) review (origin/master...)' })
-    vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { desc = 'code(diff) review (HEAD~)' })
+      { silent = true, desc = 'code(diff) review (origin/master...)' })
+    vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
-    vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { desc = 'neogit commit' })
-    vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'extend', {}), { desc = 'neogit commit extend' })
-    vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}), { desc = 'neogit commit amend' })
+    vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { silent = true, desc = 'neogit commit' })
+    vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'extend', {}),
+      { silent = true, desc = 'neogit commit extend' })
+    vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'amend', {}),
+      { silent = true, desc = 'neogit commit amend' })
 
-    vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}), { desc = 'neogit pull request' })
+    vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}),
+      { silent = true, desc = 'neogit pull request' })
     vim.keymap.set('n', '<c-y>', neogit.action('branch', 'checkout_local_branch', {}),
-      { desc = 'neogit branch checkout' })
+      { silent = true, desc = 'neogit branch checkout' })
     vim.keymap.set('n', '<c-s-y>', neogit.action('branch', 'checkout_recent_branch', {}),
-      { desc = 'neogit branch checkout (recent)' })
+      { silent = true, desc = 'neogit branch checkout (recent)' })
 
-    vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }), { desc = 'neogit pull' })
+    vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }),
+      { silent = true, desc = 'neogit pull' })
     vim.keymap.set('n', '<leader>gp', neogit.action('push', 'to_upstream', { '--force-with-lease', '-u' }),
-      { desc = 'neogit push' })
+      { silent = true, desc = 'neogit push' })
 
-    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<cr>', { desc = 'Git stash' })
-    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr><cmd>checktime<cr>', { desc = 'Git stash pop' })
+    vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<cr>',
+      { silent = true, desc = 'Git stash' })
+    vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr><cmd>checktime<cr>',
+      { silent = true, desc = 'Git stash pop' })
   end
 }
