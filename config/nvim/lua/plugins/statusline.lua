@@ -47,7 +47,7 @@ local tabs = function()
 
   local tabindex = vim.api.nvim_tabpage_get_number(vim.api.nvim_get_current_tabpage())
 
-  return string.format('󰓩  %d / %d', tabindex, tabcount)
+  return string.format('󰓩  %d | %d', tabindex, tabcount)
 end
 
 local searchcount = function()
