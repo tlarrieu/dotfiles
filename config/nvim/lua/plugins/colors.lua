@@ -435,6 +435,7 @@ return {
         DropBarModified = { fg = 'palette.yellow', style = 'bold' },
 
         TelescopeNormal = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
+        TelescopePreviewNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         TelescopeBorder = { link = 'FloatBorder' },
         TelescopeTitle = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
         TelescopePreviewBorder = { link = 'FloatBorder' },
