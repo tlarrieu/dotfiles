@@ -142,6 +142,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'nerdfonts.com',
         'tailwindcss.com',
         'web.whatsapp.com',
+        'accounts.google.com__o_oauth2_v2_auth',
       },
       class = {
         'scratchpad',
