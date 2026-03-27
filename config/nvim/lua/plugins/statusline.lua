@@ -113,7 +113,7 @@ local plugin = function(cfg)
       lualine_b = { projectdir, branch, tabs, searchcount },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
       lualine_x = { 'location' },
-      lualine_z = { function() return cfg.title .. ' ' or '' end },
+      lualine_z = { function() return cfg.title or '' end },
     },
     filetypes = cfg.filetypes or {}
   }
@@ -134,7 +134,7 @@ return {
       'mason',
       {
         sections = {
-          lualine_a = { function() return 'lazy 󰒲' end },
+          lualine_a = { function() return '󰒲 lazy' end },
           lualine_b = { function()
             return 'loaded: ' .. require('lazy').stats().loaded .. '/' .. require('lazy').stats().count
           end },
@@ -149,21 +149,13 @@ return {
       },
       plugin({
         fn = function() return vim.fn.getqflist({ title = 0 }).title end,
-        title = 'quickfix ',
+        title = ' quickfix',
         filetypes = { 'qf' },
       }),
       plugin({
         fn = function() return require('oil').get_current_dir() end,
-        title = 'oil ',
+        title = ' oil',
         filetypes = { 'oil' },
-      }),
-      plugin({
-        title = 'neogit ',
-        filetypes = { 'NeogitStatus', 'NeogitLogView', 'NeogitCommitView', 'NeogitCommitSelectView' },
-      }),
-      plugin({
-        title = 'avante ',
-        filetypes = { 'AvantePromptInput' },
       }),
     },
     options = {
@@ -231,6 +223,15 @@ return {
             local filetype = vim.bo[bufnr].filetype
 
             if filetype == '' then return '󰒡 ' end
+            if filetype == 'NeogitStatus'
+                or filetype == 'NeogitLogView'
+                or filetype == 'NeogitCommitView'
+                or filetype == 'NeogitCommitSelectView'
+            then
+              return ' neogit'
+            end
+            if filetype == 'AvantePromptInput' then return '  avante' end
+            if filetype == 'TelescopePrompt' then return '  telescope' end
 
             return require('nvim-web-devicons').get_icon(name, filetype) .. ' ' .. filetype
           end
