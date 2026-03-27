@@ -444,7 +444,7 @@ return {
         TelescopePromptTitle = { fg = 'palette.fg.base', bg = 'palette.fg.base' },
         TelescopePromptPrefix = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
-        TelescopeSelection = { fg = 'palette.fg.base', bg = 'palette.sel1' },
+        TelescopeSelection = { bg = 'palette.sel1' },
         TelescopeSelectionCaret = { link = 'TelescopeSelection' },
         TelescopeMatching = { fg = 'palette.green' },
         TelescopeMultiSelection = { bg = 'palette.sel0', style = 'bold' },
