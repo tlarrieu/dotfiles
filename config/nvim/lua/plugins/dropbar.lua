@@ -1,8 +1,3 @@
-local excluded_ft = {
-  help = true,
-  gitcommit = true,
-}
-
 return {
   'Bekaboo/dropbar.nvim',
   dependencies = { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
@@ -15,7 +10,8 @@ return {
         if not vim.api.nvim_win_is_valid(win) then return false end
         if vim.fn.win_gettype(win) ~= '' then return false end
         if vim.wo[win].winbar ~= '' then return false end
-        if excluded_ft[vim.bo[buf].ft] then return false end
+        if vim.bo[buf].bt == 'nofile' then return false end
+        if vim.bo[buf].ft == 'gitcommit' then return false end
 
         local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
         if stat and stat.size > 1024 * 1024 then return false end
@@ -173,4 +169,16 @@ return {
       },
     },
   },
+  config = function(_, opts)
+    -- for some reason, filetype does not get set before dropbar access it
+    -- let's just disable winbar manually for filetypes we want it off
+    -- this might be a bug in neovim
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'Neogit*', 'gitcommit' },
+      callback = function() vim.opt_local.winbar = nil end,
+      group = vim.api.nvim_create_augroup('neogit_filetype_autocmd', {}),
+    })
+
+    require('dropbar').setup(opts)
+  end,
 }
