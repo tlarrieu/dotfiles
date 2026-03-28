@@ -72,7 +72,7 @@ neovim: (pending "neovim: building...") (clone "neovim/neovim" "~/git/neovim") &
   #!/usr/bin/env bash
   cd ~/git/neovim
   git fetch
-  git checkout 1eb2ca9fcf
+  git checkout f2d0b06ecb
   rm -rf build
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   if builtin type -P apt > /dev/null; then # Ubuntu
