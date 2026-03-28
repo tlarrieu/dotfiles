@@ -597,9 +597,11 @@ return {
         NeogitDiffAdditions = { fg = 'palette.green' },
         NeogitDiffDeletions = { fg = 'palette.red' },
         NeogitDiffAdd = { fg = 'palette.green', bg = 'palette.bg2' },
+        NeogitDiffAddInLine = { bg = 'palette.green.dim', style = 'italic' },
         NeogitDiffAddHighlight = { fg = 'palette.green', bg = 'palette.green.dimmer' },
         NeogitDiffAddCursor = { fg = 'palette.green', bg = 'palette.green.dimmer', style = 'bold' },
         NeogitDiffDelete = { fg = 'palette.red', bg = 'palette.bg2' },
+        NeogitDiffDeleteInLine = { bg = 'palette.red.dim', style = 'italic' },
         NeogitDiffDeleteHighlight = { fg = 'palette.red', bg = 'palette.red.dimmer' },
         NeogitDiffDeleteCursor = { fg = 'palette.red', bg = 'palette.red.dimmer', style = 'bold' },
         NeogitDiffContext = { fg = 'palette.fg.dimmer', bg = 'palette.bg2' },
@@ -630,6 +632,9 @@ return {
         NeogitGraphBoldPurple = { fg = 'palette.magenta.dim', style = 'bold' },
         NeogitGraphWhite = { fg = 'palette.white.dim' },
         NeogitGraphBoldWhite = { fg = 'palette.white.dim', style = 'bold' },
+
+        CodeDiffMoveTo = { fg = 'palette.blue' },
+        CodeDiffMoveFrom = { link = 'CodeDiffMoveTo' },
 
         ['@comment.gitcommit'] = { fg = 'palette.fg.dimmer', bg = 'none' },
         ['@markup.heading.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
