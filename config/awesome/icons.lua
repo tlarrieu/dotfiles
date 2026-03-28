@@ -205,6 +205,7 @@ local config = {
   { icon = '', rule = { class = 'Signal' } },
   { icon = '', rule = { class = 'wiki' } },
   { icon = '', rule = { class = 'Gimp' } },
+  { icon = '', rule = { class = 'krita' } },
   { icon = '', rule = { name = 'aria2c' } },
   { icon = '', rule = { class = 'download' } },
   { icon = '', rule = { class = 'Zathura' } },
