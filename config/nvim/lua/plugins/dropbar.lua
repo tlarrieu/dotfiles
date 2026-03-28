@@ -78,16 +78,14 @@ return {
       },
       kinds = {
         file_icon = function(path)
-          local filename = vim.fs.basename(path)
-          local filetype = nil
+          local buf = vim.iter(vim.api.nvim_list_bufs()):find(function(buf)
+            return vim.api.nvim_buf_get_name(buf) == path
+          end)
 
-          ---@type integer?
-          local buf = vim
-              .iter(vim.api.nvim_list_bufs())
-              :find(function(buf) return vim.api.nvim_buf_get_name(buf) == path end)
-          if buf then filetype = vim.bo[buf].ft end
-
-          local icon = require('nvim-web-devicons').get_icon(filename, filetype)
+          local icon, _ = require('helpers').icon_and_filetype(
+            vim.api.nvim_buf_get_name(buf),
+            vim.bo[buf].filetype
+          )
 
           return icon .. ' ', 'DropBarIconKindDefault'
         end,

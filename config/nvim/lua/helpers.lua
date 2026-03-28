@@ -68,4 +68,22 @@ M.strip = function(string)
   return table.concat(lines, '\n')
 end
 
+M.icon_and_filetype = function(name, filetype)
+  if filetype == '' then return '󰒡', '' end
+  if filetype == 'NeogitStatus'
+      or filetype == 'NeogitLogView'
+      or filetype == 'NeogitCommitView'
+      or filetype == 'NeogitCommitSelectView'
+  then
+    return '', 'neogit'
+  end
+  if filetype == 'AvantePromptInput' then return '', 'avante' end
+  if filetype == 'TelescopePrompt' then return '', 'telescope' end
+
+  local _filetype = nil
+  for str in string.gmatch(filetype, '([^.]+)') do _filetype = str end
+
+  return require('nvim-web-devicons').get_icon(name, _filetype), filetype
+end
+
 return M

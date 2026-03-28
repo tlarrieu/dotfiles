@@ -236,21 +236,13 @@ return {
           'custom',
           fmt = function()
             local bufnr = vim.api.nvim_get_current_buf()
-            local name = vim.api.nvim_buf_get_name(bufnr)
-            local filetype = vim.bo[bufnr].filetype
 
-            if filetype == '' then return '󰒡 ' end
-            if filetype == 'NeogitStatus'
-                or filetype == 'NeogitLogView'
-                or filetype == 'NeogitCommitView'
-                or filetype == 'NeogitCommitSelectView'
-            then
-              return ' neogit'
-            end
-            if filetype == 'AvantePromptInput' then return '  avante' end
-            if filetype == 'TelescopePrompt' then return '  telescope' end
+            local icon, filetype = require('helpers').icon_and_filetype(
+              vim.api.nvim_buf_get_name(bufnr),
+              vim.bo[bufnr].filetype
+            )
 
-            return require('nvim-web-devicons').get_icon(name, filetype) .. ' ' .. filetype
+            return icon .. ' ' .. filetype
           end
         },
       },
