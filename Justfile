@@ -72,12 +72,16 @@ neovim: (pending "neovim: building...") (clone "neovim/neovim" "~/git/neovim") &
   #!/usr/bin/env bash
   cd ~/git/neovim
   git fetch
-  git checkout nightly
-  rm -r build
-  make CMAKE_BUILD_TYPE=Release
-  cd build
-  cpack -G DEB
-  sudo dpkg -i nvim-linux-x86_64.deb
+  git checkout 1eb2ca9fcf
+  rm -rf build
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  if builtin type -P apt > /dev/null; then # Ubuntu
+    cd build
+    cpack -G DEB
+    sudo dpkg -i nvim-linux-x86_64.deb
+  else
+    sudo make install
+  fi
 
 [group("deps/sources"), doc("build awesome from sources")]
 awesome: (pending "awesome: building...") (clone "awesomewm/awesome" "~/git/awesome") && (success "awesome: done.")
