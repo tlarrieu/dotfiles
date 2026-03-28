@@ -16,6 +16,7 @@
     "root",
     "client",
     "mouse",
-    "mousegrabber"
+    "mousegrabber",
+    "vim"
   ]
 }
