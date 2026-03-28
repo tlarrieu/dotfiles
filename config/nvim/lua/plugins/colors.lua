@@ -432,7 +432,7 @@ return {
         DropBarMenuCurrentContext = { bg = 'palette.sel1' },
         DropBarMenuHoverIcon = { bg = 'palette.sel0', style = 'NONE' },
         DropBarMenuHoverEntry = { link = 'DropBarMenuHoverIcon' },
-        DropBarModified = { fg = 'palette.yellow', style = 'bold' },
+        DropBarModified = { fg = 'palette.pink', style = 'bold' },
 
         TelescopeNormal = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
         TelescopePreviewNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },

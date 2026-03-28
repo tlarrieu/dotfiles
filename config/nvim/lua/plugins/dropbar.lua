@@ -34,7 +34,6 @@ return {
         min_widths = { 1000 },
         modified = function(sym)
           return sym:merge({
-            -- name = sym.name .. ' 󰴓',
             icon = '󰴓 ',
             name_hl = 'DropbarModified',
             icon_hl = 'DropbarModified',
