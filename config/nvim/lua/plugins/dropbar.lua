@@ -28,13 +28,7 @@ return {
       path = {
         max_depth = 1,
         min_widths = { 1000 },
-        modified = function(sym)
-          return sym:merge({
-            icon = '󰴓 ',
-            name_hl = 'DropbarModified',
-            icon_hl = 'DropbarModified',
-          })
-        end
+        modified = function(sym) return sym:merge({ icon = '󰴓 ', name_hl = 'DropbarModified', icon_hl = 'DropbarModified' }) end
       },
       lsp = {
         min_widths = { 1000, 1000 },
@@ -73,7 +67,7 @@ return {
     },
     icons = {
       ui = {
-        bar = { separator = '  ', extends = '󰇘' },
+        bar = { separator = '  ', extends = '󰇘' },
         menu = { separator = ' ', indicator = ' ' },
       },
       kinds = {
