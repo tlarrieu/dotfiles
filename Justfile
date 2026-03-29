@@ -67,11 +67,12 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     exit 1
   fi
 
+alias nvim := neovim
 [group("deps/sources"), doc("build neovim from sources")]
 neovim: (pending "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && (success "neovim: done.")
   #!/usr/bin/env bash
   cd ~/git/neovim
-  git fetch
+  git fetch --tags --force
   git checkout f2d0b06ecb
   rm -rf build
   make CMAKE_BUILD_TYPE=RelWithDebInfo
