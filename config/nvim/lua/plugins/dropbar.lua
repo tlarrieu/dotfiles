@@ -68,7 +68,7 @@ return {
     },
     icons = {
       ui = {
-        bar = { separator = '  ', extends = '󰇘' },
+        bar = { separator = ' 󰅂 ', extends = ' 󰇘 ' },
         menu = { separator = ' ', indicator = ' ' },
       },
       kinds = {

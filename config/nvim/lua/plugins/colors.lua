@@ -412,6 +412,7 @@ return {
         TreesitterContextSeparator = { fg = 'palette.bg3', bg = 'palette.bg3' },
 
         DropBarIconUISeparator = { fg = 'palette.fg.dimmer' },
+        DropBarIconUISeparatorNC = { fg = 'palette.fg.dimmer' },
         DropBarIconUIIndicator = { link = 'DropBarIconUISeparator' },
         DropBarCurrentContext = { bg = 'palette.sel0', style = 'NONE' },
         DropBarCurrentIcon = { link = 'DropBarCurrentContext' },
