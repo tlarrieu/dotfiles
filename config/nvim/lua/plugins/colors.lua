@@ -502,6 +502,7 @@ return {
         FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
         FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         FidgetBorder = { link = 'FidgetNormal' },
+        FidgetGroupSeparator = { fg = 'palette.fg.dimmer' },
         NotifyDEBUGTitle = { fg = 'palette.magenta' },
         NotifyINFOTitle = { fg = 'palette.blue' },
         NotifyWARNTitle = { fg = 'palette.yellow' },

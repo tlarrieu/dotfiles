@@ -51,7 +51,7 @@ return {
       configs = {
         default = {
           name = 'messages',
-          icon = '󰂞 ',
+          icon = '󰂞  ',
           ttl = 10,
           group_style = 'FidgetGroup',
           icon_style = 'FidgetGroup',
@@ -60,21 +60,21 @@ return {
           info_style = 'NotifyINFOTitle',
           warn_style = 'NotifyWARNTitle',
           error_style = 'NotifyERRORTitle',
-          debug_annote = 'DEBUG',
-          info_annote = 'INFO',
-          warn_annote = 'WARN',
-          error_annote = 'ERROR',
+          debug_annote = 'DEBUG ',
+          info_annote = 'INFO ',
+          warn_annote = 'WARN ',
+          error_annote = 'ERROR ',
           update_hook = function(item) require('fidget.notification').set_content_key(item) end,
         }
       },
 
       view = {
         align = 'message',
-        reflow = 'true',
+        reflow = true,
         stack_upwards = false,
         icon_separator = ' ',
-        group_separator = '─── ',
-        group_separator_hl = 'Comment',
+        group_separator = '   ',
+        group_separator_hl = 'FidgetGroupSeparator',
       },
 
       window = {
@@ -83,11 +83,11 @@ return {
         winblend = 5,
         border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
         zindex = 100,
-        max_width = 0.3,
-        max_height = 0,
+        max_width = 80,
+        max_height = 20,
         x_padding = 2,
         y_padding = 1,
-        tabstop = 4,
+        tabstop = 2,
         align = 'bottom',
         relative = 'editor',
       },
