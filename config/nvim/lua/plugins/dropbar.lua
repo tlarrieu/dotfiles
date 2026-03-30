@@ -11,6 +11,7 @@ return {
         if vim.fn.win_gettype(win) ~= '' then return false end
         if vim.wo[win].winbar ~= '' then return false end
         if vim.bo[buf].bt == 'nofile' then return false end
+        if vim.bo[buf].ft == 'man' then return false end
         if vim.bo[buf].ft == 'gitcommit' then return false end
 
         local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
@@ -166,7 +167,7 @@ return {
     -- let's just disable winbar manually for filetypes we want it off
     -- this might be a bug in neovim
     vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'Neogit*', 'gitcommit' },
+      pattern = { 'Neogit*', 'gitcommit', 'man' },
       callback = function() vim.opt_local.winbar = nil end,
       group = vim.api.nvim_create_augroup('neogit_filetype_autocmd', {}),
     })
