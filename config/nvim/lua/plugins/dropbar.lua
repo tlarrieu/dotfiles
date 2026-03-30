@@ -14,7 +14,13 @@ return {
         if vim.bo[buf].ft == 'man' then return false end
         if vim.bo[buf].ft == 'gitcommit' then return false end
 
-        local stat = vim.uv.fs_stat(vim.api.nvim_buf_get_name(buf))
+        local bufname = vim.api.nvim_buf_get_name(buf)
+        if bufname:match('gitsigns://') then
+          vim.opt_local.winbar = bufname
+          return false
+        end
+
+        local stat = vim.uv.fs_stat(bufname)
         if stat and stat.size > 1024 * 1024 then return false end
 
         return vim.bo[buf].bt == 'terminal'
@@ -104,7 +110,7 @@ return {
           Color = '󰌁 ',
           Reference = ' ',
           File = '󰈔 ',
-          Folder = ' ',
+          Folder = ' ',
           Struct = ' ',
           Event = '󱐌 ',
           Operator = '󱓉 ',
