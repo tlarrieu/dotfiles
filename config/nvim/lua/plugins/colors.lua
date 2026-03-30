@@ -241,8 +241,8 @@ return {
         WinSeparator = { link = 'WinSeparatorThin' },
         WinSeparatorThin = { fg = 'palette.bg0', bg = 'none' },
         WinSeparatorThick = { fg = 'palette.bg0', bg = 'palette.bg0' },
-        WinBar = { fg = 'palette.fg.dim', bg = 'palette.bg3', style = 'NONE' },
-        WinBarNC = { fg = 'palette.fg.dimmer' },
+        WinBar = { fg = 'palette.fg.dim', bg = 'palette.bg0', style = 'NONE' },
+        WinBarNC = { fg = 'palette.fg.dimmer', bg = 'palette.bg0', style = 'NONE' },
 
         -- pmenu
         Pmenu = { fg = 'palette.fg.base', bg = 'palette.bg0' },
