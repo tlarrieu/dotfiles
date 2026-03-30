@@ -499,7 +499,7 @@ return {
         LualineError = { fg = 'palette.red', bg = 'none' },
         LualineWarning = { fg = 'palette.yellow', bg = 'none' },
 
-        FidgetGroup = { fg = 'palette.orange', bg = 'palette.bg0', style = 'bold,italic' },
+        FidgetGroup = { fg = 'palette.pink', style = 'bold' },
         FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },
         FidgetBorder = { link = 'FidgetNormal' },
         FidgetGroupSeparator = { fg = 'palette.fg.dimmer' },

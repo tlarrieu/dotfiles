@@ -85,7 +85,7 @@ return {
         zindex = 100,
         max_width = 80,
         max_height = 20,
-        x_padding = 2,
+        x_padding = 0,
         y_padding = 1,
         tabstop = 2,
         align = 'bottom',
