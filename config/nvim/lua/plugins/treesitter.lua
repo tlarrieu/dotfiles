@@ -11,11 +11,6 @@ return {
     local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
     ts_update()
   end,
-  event = { 'BufRead' },
-  keys = {
-    { '<leader>i', vim.show_pos, desc = 'Inspect' },
-    { '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end, desc = 'InspectTree' },
-  },
   opts = {
     ensure_installed = {
       'bash',
@@ -41,15 +36,6 @@ return {
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true, disable = { 'ledger' } },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<c-s-space>",
-        node_incremental = "<c-s-space>",
-        scope_incremental = false,
-        node_decremental = "<bs>",
-      },
-    },
     textobjects = {
       enable = true,
 
@@ -88,5 +74,13 @@ return {
   },
   config = function(_, opts)
     require('nvim-treesitter.configs').setup(opts)
+
+    vim.keymap.set('n', '<leader>i', vim.show_pos, { desc = 'Inspect' })
+    vim.keymap.set('n', '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end,
+      { desc = 'InspectTree' })
+
+    vim.keymap.set('n', '<c-s-space>', 'van', { desc = 'Select current TS node', remap = true })
+    vim.keymap.set('x', '<c-s-space>', 'an', { desc = 'Select parent TS node', remap = true })
+    vim.keymap.set('x', '<bs>', 'in', { desc = 'Select child TS node', remap = true })
   end,
 }
