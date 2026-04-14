@@ -300,7 +300,7 @@ vim.keymap.set('n', 'zO', 'zczO')
 -- }}}
 
 -- {{{ --| linediff |---------------------------------------
-vim.keymap.set('x', '<leader>gd', ':Linediff<cr>', { silent = true })
+vim.keymap.set('x', '<leader>d', ':Linediff<cr>', { silent = true })
 -- }}}
 
 -- {{{ --| Diff |-------------------------------------------
