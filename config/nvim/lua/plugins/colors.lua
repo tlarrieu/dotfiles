@@ -406,11 +406,6 @@ return {
 
         HarpoonLine = { link = 'QuickFixLine' },
 
-        TreesitterContext = { bg = 'palette.bg3', style = 'italic' },
-        TreesitterContextBottom = { link = 'TreesitterContext' },
-        TreesitterContextLineNumber = { fg = 'palette.fg.dimmer', bg = 'palette.bg3', style = 'italic' },
-        TreesitterContextSeparator = { fg = 'palette.bg3', bg = 'palette.bg3' },
-
         DropBarIconUISeparator = { fg = 'palette.fg.dimmer' },
         DropBarIconUISeparatorNC = { fg = 'palette.fg.dimmer' },
         DropBarIconUIIndicator = { link = 'DropBarIconUISeparator' },

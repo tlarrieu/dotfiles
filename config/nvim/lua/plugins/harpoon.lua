@@ -2,7 +2,7 @@ local list = function() return require('harpoon'):list() end
 
 return {
   'ThePrimeagen/harpoon',
-  branch = "harpoon2",
+  branch = 'harpoon2',
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
