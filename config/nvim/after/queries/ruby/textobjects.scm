@@ -11,7 +11,8 @@
 
 ; @conditional -----------------------------------------------------------------
 
-((_ condition: (_) @conditional.inner consequence: (then (_) @block.inner))?) @conditional.outer
+(_ condition: (_) @conditional.inner consequence: (then (_) @block.inner)) @conditional.outer
+(_ alternative: (else (_) @block.inner)) @conditional.outer
 (case value: (_) @conditional.inner)
 (case (when pattern: (_) @conditional.inner)) @conditional.outer
 
