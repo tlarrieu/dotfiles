@@ -1,6 +1,5 @@
 # vim:filetype=conf
 # essentials
-neovim-git
 git
 fzf
 rofi

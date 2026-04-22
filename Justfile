@@ -54,6 +54,7 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     just success "Arch Linux detected, installing packages with yay..."
     sudo pacman -S --color always --needed --noconfirm yay
     yay -S --color always --needed --noconfirm $(cat ./packages/arch.txt | grep -v "#")
+    just neovim
   elif builtin type -P apt > /dev/null; then # Ubuntu
     just success "Ubuntu detected, installing packages with apt..."
     sudo cp ./packages/sources.list /etc/apt/sources.list.d/ubuntu.sources
