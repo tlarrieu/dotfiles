@@ -83,10 +83,16 @@ return {
             return vim.api.nvim_buf_get_name(buf) == path
           end)
 
-          local icon, _ = require('helpers').icon_and_filetype(
-            vim.api.nvim_buf_get_name(buf),
-            vim.bo[buf].filetype
-          )
+          local icon
+
+          if buf then
+            icon, _ = require('helpers').icon_and_filetype(
+              vim.api.nvim_buf_get_name(buf),
+              vim.bo[buf].filetype
+            )
+          else -- HACK: if we could not find a buf number, this usually means that we are in a file coming from gitsigns or codediff
+            icon = ''
+          end
 
           return icon .. ' ', 'DropBarIconKindDefault'
         end,
