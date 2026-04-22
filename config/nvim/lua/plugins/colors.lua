@@ -312,6 +312,7 @@ return {
 
         -- ruby
         ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg1' },
+        ['@keyword.directive'] = { link = '@comment.directive' },
         ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
         ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
         ['@punctuation.special.ruby'] = { fg = 'palette.fg.dim' },

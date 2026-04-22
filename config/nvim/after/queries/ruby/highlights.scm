@@ -36,3 +36,4 @@
 (singleton_method object: (self) @keyword) ; "self" in singleton method definition
 
 ((comment) @comment.directive (#set! priority 120) (#match? @comment.directive "^# frozen_string_literal: (true|false)"))
+((comment) @keyword.directive (#set! priority 120) (#match? @keyword.directive "^#!/"))
