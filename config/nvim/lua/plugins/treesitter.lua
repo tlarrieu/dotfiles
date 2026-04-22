@@ -1,14 +1,13 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    version = '*',
-    build = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-    main = 'nvim-treesitter.configs',
-    opts = {
-      ensure_installed = {
+    lazy = false,
+    build = ':TSUpdate',
+    branch = 'main',
+    config = function()
+      local treesitter = require('nvim-treesitter')
+      treesitter.setup()
+      treesitter.install({
         'bash',
         'fish',
         'gitcommit',
@@ -16,68 +15,61 @@ return {
         'gomod',
         'haskell',
         'javascript',
+        'just',
         'lua',
         'luadoc',
         'markdown',
-        'norg',
         'ocaml',
         'query',
         'ruby',
+        'yaml',
+        'json',
         'tsx',
         'typescript',
         'ledger',
         'vim',
         'vimdoc',
-      },
-      sync_install = false,
-      auto_install = true,
-      highlight = { enable = true },
-      indent = { enable = true, disable = { 'ledger' } },
-    },
+      })
+
+      vim.api.nvim_create_autocmd('FileType', {
+        callback = function()
+          local ok, _ = pcall(vim.treesitter.start)
+          if ok then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+        end,
+      })
+    end
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    main = 'nvim-treesitter.configs',
+    branch = 'main',
+    main = 'nvim-treesitter',
     opts = {
-      textobjects = {
-        enable = true,
+      select = {
+        lookahead = true,
 
-        select = {
-          enable = true,
-          lookahead = true,
-
-          keymaps = {
-            ['if'] = '@function.inner',
-            ['af'] = '@function.outer',
-            ['ia'] = '@parameter.inner',
-            ['aa'] = '@parameter.outer',
-            ['ie'] = '@block.inner',
-            ['ae'] = '@block.outer',
-            ['ic'] = '@conditional.inner',
-            ['ac'] = '@conditional.outer',
-            ['iC'] = '@class.inner',
-            ['aC'] = '@class.outer',
-            ['il'] = '@assignment.lhs',
-            ['ir'] = '@assignment.rhs',
-          },
-
-          selection_modes = {
-            ['@block.outer'] = 'V',
-          },
+        selection_modes = {
+          ['@block.outer'] = 'V',
         },
       },
     },
-  },
-  config = function(_, opts)
-    require('nvim-treesitter.configs').setup(opts)
+    config = function(_, opts)
+      require('nvim-treesitter-textobjects').setup(opts)
 
-    vim.keymap.set('n', '<leader>i', vim.show_pos, { desc = 'Inspect' })
-    vim.keymap.set('n', '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end,
-      { desc = 'InspectTree' })
+      local select = require 'nvim-treesitter-textobjects.select'
 
-    vim.keymap.set('n', '<c-s-space>', 'van', { desc = 'Select current TS node', remap = true })
-    vim.keymap.set('x', '<c-s-space>', 'an', { desc = 'Select parent TS node', remap = true })
-    vim.keymap.set('x', '<bs>', 'in', { desc = 'Select child TS node', remap = true })
-  end,
+      vim.keymap.set({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ia', function() select.select_textobject('@parameter.inner', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'aa', function() select.select_textobject('@parameter.outer', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ie', function() select.select_textobject('@block.inner', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ae', function() select.select_textobject('@block.outer', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ic', function() select.select_textobject('@conditional.inner', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ac', function() select.select_textobject('@conditional.outer', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'iC', function() select.select_textobject('@class.inner', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'aC', function() select.select_textobject('@class.outer', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'il', function() select.select_textobject('@assignment.lhs', 'textobjects') end)
+      vim.keymap.set({ 'x', 'o' }, 'ir', function() select.select_textobject('@assignment.rhs', 'textobjects') end)
+    end
+  }
 }

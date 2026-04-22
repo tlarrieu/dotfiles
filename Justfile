@@ -67,13 +67,28 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     exit 1
   fi
 
+[group("deps/prebuilt"), doc("install tree-sitter")]
+tree-sitter: (pending "tree-sitter: downloading...") && (success "tree-sitter: done.")
+  #!/usr/bin/env bash
+  VERSION="v0.26.8"
+  TARGET="$HOME/.local/share/tree-sitter/$VERSION"
+  BIN="$TARGET/tree-sitter"
+  [ -d "$TARGET" ] && exit 0
+  mkdir -p $TARGET
+  wget https://github.com/tree-sitter/tree-sitter/releases/download/$VERSION/tree-sitter-cli-linux-x64.zip -O $TARGET/tree-sitter-cli.zip
+  cd $TARGET
+  unzip tree-sitter-cli.zip
+  rm tree-sitter-cli.zip
+  chmod +x tree-sitter
+  ln -rsfFT tree-sitter ~/bin/tree-sitter
+
 alias nvim := neovim
 [group("deps/sources"), doc("build neovim from sources")]
-neovim: (pending "neovim: building...") (clone "neovim/neovim" "~/git/neovim") && (success "neovim: done.")
+neovim: (pending "neovim: building...") tree-sitter (clone "neovim/neovim" "~/git/neovim") && (success "neovim: done.")
   #!/usr/bin/env bash
   cd ~/git/neovim
   git fetch --tags --force
-  git checkout f2d0b06ecb
+  git checkout v0.12.1
   rm -rf build
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   if builtin type -P apt > /dev/null; then # Ubuntu

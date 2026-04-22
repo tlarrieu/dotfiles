@@ -140,8 +140,8 @@ vim.keymap.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', { silent = true })
 -- }}}
 
 -- {{{ --| operations |-------------------------------------
-vim.keymap.set('o', 'ar', 'a[')
-vim.keymap.set('o', 'ir', 'i[')
+vim.keymap.set('o', 'aR', 'a[')
+vim.keymap.set('o', 'iR', 'i[')
 -- }}}
 
 -- {{{ --| quick access |-----------------------------------
