@@ -71,16 +71,19 @@ packages: (pending "packages: installing...") && (success "packages: done.")
 tree-sitter: (pending "tree-sitter: downloading...") && (success "tree-sitter: done.")
   #!/usr/bin/env bash
   VERSION="v0.26.8"
+  ZIPNAME="tree-sitter-cli-linux-x64.zip"
+  SOURCE="https://github.com/tree-sitter/tree-sitter/releases/download/$VERSION/$ZIPNAME"
   TARGET="$HOME/.local/share/tree-sitter/$VERSION"
-  BIN="$TARGET/tree-sitter"
+  BIN="tree-sitter"
   [ -d "$TARGET" ] && exit 0
   mkdir -p $TARGET
-  wget https://github.com/tree-sitter/tree-sitter/releases/download/$VERSION/tree-sitter-cli-linux-x64.zip -O $TARGET/tree-sitter-cli.zip
+  if ! wget --quiet $SOURCE -O "$TARGET/$ZIPNAME"; then
+    just error "tree-sitter: download failed."
+    rm -rf $TARGET
+    exit 1
+  fi
   cd $TARGET
-  unzip tree-sitter-cli.zip
-  rm tree-sitter-cli.zip
-  chmod +x tree-sitter
-  ln -rsfFT tree-sitter ~/bin/tree-sitter
+  unzip $ZIPNAME > /dev/null && rm $ZIPNAME && chmod +x $BIN && ln -rsfFT $BIN ~/bin/$BIN
 
 alias nvim := neovim
 [group("deps/sources"), doc("build neovim from sources")]
