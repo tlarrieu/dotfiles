@@ -7,10 +7,7 @@
 (argument_list ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
 (method_parameters ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
 (block_parameters ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-
-(pattern ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-
-(when pattern: (_) @parameter.inner)
+(when ","? . pattern: (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
 
 ; @conditional -----------------------------------------------------------------
 
