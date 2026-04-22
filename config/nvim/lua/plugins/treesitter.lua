@@ -1,71 +1,70 @@
 return {
-  'nvim-treesitter/nvim-treesitter',
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter-textobjects',
-  },
-  version = '*',
-  build = function()
-    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-    ts_update()
-  end,
-  opts = {
-    ensure_installed = {
-      'bash',
-      'fish',
-      'gitcommit',
-      'go',
-      'gomod',
-      'haskell',
-      'javascript',
-      'lua',
-      'luadoc',
-      'markdown',
-      'norg',
-      'ocaml',
-      'query',
-      'ruby',
-      'tsx',
-      'typescript',
-      'ledger',
-      'vim',
-      'vimdoc',
-    },
-    sync_install = false,
-    auto_install = true,
-    highlight = { enable = true },
-    indent = { enable = true, disable = { 'ledger' } },
-    textobjects = {
-      enable = true,
-
-      select = {
-        enable = true,
-        lookahead = true,
-
-        keymaps = {
-          ['if'] = '@function.inner',
-          ['af'] = '@function.outer',
-          ['ia'] = '@parameter.inner',
-          ['aa'] = '@parameter.outer',
-          ['ie'] = '@block.inner',
-          ['ae'] = '@block.outer',
-          ['ic'] = '@conditional.inner',
-          ['ac'] = '@conditional.outer',
-          ['iC'] = '@class.inner',
-          ['aC'] = '@class.outer',
-          ['il'] = '@assignment.lhs',
-          ['ir'] = '@assignment.rhs',
-        },
-        selection_modes = {
-          ['@block.outer'] = 'V',
-        },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    version = '*',
+    build = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+    main = 'nvim-treesitter.configs',
+    opts = {
+      ensure_installed = {
+        'bash',
+        'fish',
+        'gitcommit',
+        'go',
+        'gomod',
+        'haskell',
+        'javascript',
+        'lua',
+        'luadoc',
+        'markdown',
+        'norg',
+        'ocaml',
+        'query',
+        'ruby',
+        'tsx',
+        'typescript',
+        'ledger',
+        'vim',
+        'vimdoc',
       },
-
-      lsp_interop = {
+      sync_install = false,
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true, disable = { 'ledger' } },
+    },
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-textobjects',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    main = 'nvim-treesitter.configs',
+    opts = {
+      textobjects = {
         enable = true,
-        border = 'none',
-        floating_preview_opts = {},
-        peek_definition_code = {
-          ['go'] = '@function.outer',
+
+        select = {
+          enable = true,
+          lookahead = true,
+
+          keymaps = {
+            ['if'] = '@function.inner',
+            ['af'] = '@function.outer',
+            ['ia'] = '@parameter.inner',
+            ['aa'] = '@parameter.outer',
+            ['ie'] = '@block.inner',
+            ['ae'] = '@block.outer',
+            ['ic'] = '@conditional.inner',
+            ['ac'] = '@conditional.outer',
+            ['iC'] = '@class.inner',
+            ['aC'] = '@class.outer',
+            ['il'] = '@assignment.lhs',
+            ['ir'] = '@assignment.rhs',
+          },
+
+          selection_modes = {
+            ['@block.outer'] = 'V',
+          },
         },
       },
     },
