@@ -1,10 +1,7 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  lazy = false,
-  priority = 100,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    'OXY2DEV/markview.nvim'
   },
   version = '*',
   build = function()
@@ -20,7 +17,6 @@ return {
       'gomod',
       'haskell',
       'javascript',
-      'latex',
       'lua',
       'luadoc',
       'markdown',
@@ -31,6 +27,8 @@ return {
       'tsx',
       'typescript',
       'ledger',
+      'vim',
+      'vimdoc',
     },
     sync_install = false,
     auto_install = true,

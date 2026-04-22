@@ -219,6 +219,16 @@ vim.keymap.set('n', '<c-þ>', ']dzz', { remap = true })
 vim.keymap.set('n', '<c-ß>', '[dzz', { remap = true })
 -- }}}
 
+-- {{{ --| Treesitter |-------------------------------------
+vim.keymap.set('n', '<c-s-space>', 'van', { remap = true })
+vim.keymap.set('x', '<c-s-space>', 'an', { remap = true })
+vim.keymap.set('x', '<bs>', 'in', { remap = true })
+
+vim.keymap.set('n', '<leader>i', vim.show_pos, { desc = 'Inspect' })
+vim.keymap.set('n', '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end,
+  { desc = 'InspectTree' })
+-- }}}
+
 -- {{{ --| terminal |---------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('n', '<leader>ti', '<cmd>tabnew<bar>terminal<cr><cmd>startinsert!<cr>', { silent = true })
