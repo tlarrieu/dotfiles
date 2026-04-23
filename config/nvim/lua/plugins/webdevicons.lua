@@ -7,7 +7,8 @@ local xdefaults = ''
 
 local ruby = ''
 local css = '󰐣'
-local html = ''
+local html = '󰗀'
+local erb = '󰅴'
 local javascript = ''
 local typescript = ''
 local react = '󰜈'
@@ -63,6 +64,7 @@ return {
       make = { icon = '󱌣' },
       just = { icon = '' },
       json = { icon = '󰅩' },
+      mjml = { icon = erb },
       html = { icon = html },
       css = { icon = css },
       scss = { icon = css },
@@ -117,7 +119,7 @@ return {
       mod = { icon = '' },
       rb = { icon = ruby },
       ru = { icon = ruby },
-      erb = { icon = '' },
+      erb = { icon = erb },
       jbuilder = { icon = ruby },
       png = { icon = '' },
       jpg = { icon = '' },
