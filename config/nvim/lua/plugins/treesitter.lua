@@ -41,30 +41,22 @@ return {
           vim.wo.foldmethod = 'expr'
           vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
+          local ft = vim.bo[ev.buf].filetype
+          local lazypath = '~/.local/share/nvim/lazy'
+          local localpath = '~/git/dotfiles/config/nvim'
+
           vim.keymap.set('n', '<leader>eh',
-            function()
-              vim.cmd.vsplit('~/git/dotfiles/config/nvim/after/queries/' ..
-                vim.bo[ev.buf].filetype .. '/highlights.scm')
-            end,
+            function() vim.cmd.vsplit(localpath .. '/after/queries/' .. ft .. '/highlights.scm') end,
             { desc = 'Edit highlight queries (local)', buffer = true })
           vim.keymap.set('n', '<leader>et',
-            function()
-              vim.cmd.vsplit('~/git/dotfiles/config/nvim/after/queries/' ..
-                vim.bo[ev.buf].filetype .. '/textobjects.scm')
-            end,
+            function() vim.cmd.vsplit(localpath .. '/after/queries/' .. ft .. '/textobjects.scm') end,
             { desc = 'Edit textobject queries (local)', buffer = true })
 
           vim.keymap.set('n', '<leader>eH',
-            function()
-              vim.cmd.vsplit('~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/' ..
-                vim.bo[ev.buf].filetype .. '/highlights.scm')
-            end,
+            function() vim.cmd.vsplit(lazypath .. '/nvim-treesitter/runtime/queries/' .. ft .. '/highlights.scm') end,
             { desc = 'Edit highlight queries (global)', buffer = true })
           vim.keymap.set('n', '<leader>eT',
-            function()
-              vim.cmd.vsplit('~/.local/share/nvim/lazy/nvim-treesitter/queries/' ..
-                vim.bo[ev.buf].filetype .. '/textobjects.scm')
-            end,
+            function() vim.cmd.vsplit(lazypath .. '/nvim-treesitter-textobjects/queries/' .. ft .. '/textobjects.scm') end,
             { desc = 'Edit textobjcets queries (global)', buffer = true })
         end,
       })
