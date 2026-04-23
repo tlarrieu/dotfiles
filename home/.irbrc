@@ -19,6 +19,10 @@ IRB.conf[:PROMPT][:CUSTOM] = {
   RETURN: "=> %s\n"
 }
 
+def write(str)
+  File.open("#{Dir.home}/output.txt", 'w+') { _1.write str }
+end
+
 def so
   load "#{Dir.home}/.irbrc"
   load "#{Dir.home}/.ruby.local"
