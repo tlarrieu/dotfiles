@@ -19,6 +19,11 @@ IRB.conf[:PROMPT][:CUSTOM] = {
   RETURN: "=> %s\n"
 }
 
+def so
+  load "#{Dir.home}/.irbrc"
+  load "#{Dir.home}/.ruby.local"
+end
+
 begin
   load "#{Dir.home}/.ruby.local"
 rescue LoadError
