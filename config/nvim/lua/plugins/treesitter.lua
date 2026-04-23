@@ -32,9 +32,40 @@ return {
       })
 
       vim.api.nvim_create_autocmd('FileType', {
-        callback = function()
+        callback = function(ev)
           local ok, _ = pcall(vim.treesitter.start)
-          if ok then vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+
+          if not ok then return end
+
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.wo.foldmethod = 'expr'
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+          vim.keymap.set('n', '<leader>eh',
+            function()
+              vim.cmd.vsplit('~/git/dotfiles/config/nvim/after/queries/' ..
+                vim.bo[ev.buf].filetype .. '/highlights.scm')
+            end,
+            { desc = 'Edit highlight queries (local)', buffer = true })
+          vim.keymap.set('n', '<leader>et',
+            function()
+              vim.cmd.vsplit('~/git/dotfiles/config/nvim/after/queries/' ..
+                vim.bo[ev.buf].filetype .. '/textobjects.scm')
+            end,
+            { desc = 'Edit textobject queries (local)', buffer = true })
+
+          vim.keymap.set('n', '<leader>eH',
+            function()
+              vim.cmd.vsplit('~/.local/share/nvim/lazy/nvim-treesitter/runtime/queries/' ..
+                vim.bo[ev.buf].filetype .. '/highlights.scm')
+            end,
+            { desc = 'Edit highlight queries (global)', buffer = true })
+          vim.keymap.set('n', '<leader>eT',
+            function()
+              vim.cmd.vsplit('~/.local/share/nvim/lazy/nvim-treesitter/queries/' ..
+                vim.bo[ev.buf].filetype .. '/textobjects.scm')
+            end,
+            { desc = 'Edit textobjcets queries (global)', buffer = true })
         end,
       })
     end
