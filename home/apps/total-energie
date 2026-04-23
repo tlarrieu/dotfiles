@@ -1,3 +1,3 @@
 #!/bin/sh
 
-browser-kiosk perso "https://www.totalenergies.fr/clients/selection-compte"
+browser-kiosk perso "https://www.totalenergies.fr/clients/accueil"
