@@ -22,6 +22,13 @@ return {
           view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = '<c-n>', prev_file = '<c-p>' },
         },
       },
+      init = function()
+        vim.cmd.cnoreabbrev(
+          '<expr>',
+          'dd',
+          [[getcmdtype() == ":" && getcmdline() == ']] .. 'dd' .. [[' ? "]] .. 'CodeDiff' .. [[" : ']] .. 'dd' .. [[']]
+        )
+      end,
     }
   },
   opts = {
