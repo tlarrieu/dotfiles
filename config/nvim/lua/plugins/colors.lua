@@ -556,7 +556,8 @@ return {
         MarkviewGradient9 = { fg = '#92a0a0', bg = 'none' },
 
         NeogitNormal = { fg = 'palette.fg.dim' },
-        NeogitFloatBorder = { link = 'WinSeparator' },
+        NeogitFloatBorder = { link = 'WinSeparatorThin' },
+        NeogitWinSeparator = { link = 'WinSeparatorThin' },
         NeogitFloatHeader = { fg = 'palette.bg1', bg = 'palette.fg.base' },
         NeogitFloatHeaderHighlight = { fg = 'palette.bg1', bg = 'palette.fg.base', style = 'bold' },
         NeogitCommitViewHeader = { link = 'NeogitFloatHeader' },
