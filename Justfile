@@ -1,6 +1,16 @@
 @_usage:
   just -l
 
+[group("system"), doc("show system information")]
+@info:
+  uname -a
+  echo
+  nvim --version
+  echo
+  tree-sitter --version
+  echo
+  awesome --version
+
 alias boot := bootstrap
 [doc("bootstrap the system: install packages, link configuration files, enable services...")]
 @bootstrap: (pending "boostrapping: running...") packages fonts links templates services X11 shell crontab root && (success "bootstrapping: done.")
