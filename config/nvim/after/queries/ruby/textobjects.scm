@@ -2,12 +2,12 @@
 
 ; @parameters ------------------------------------------------------------------
 
-(array ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-(hash ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-(argument_list ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-(method_parameters ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-(block_parameters ","? . (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
-(when ","? . pattern: (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(array (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(hash (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(argument_list (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(method_parameters (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(block_parameters (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
+(when pattern: (_) @parameter.inner @parameter.outer . ","? @parameter.outer)
 
 ; @conditional -----------------------------------------------------------------
 
