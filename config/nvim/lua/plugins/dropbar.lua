@@ -72,6 +72,9 @@ return {
           'property',
         }
       },
+      terminal = {
+        name = function(buf) return 'term://' .. tostring(vim.api.nvim_buf_get_var(buf, 'terminal_job_pid')) end,
+      },
     },
     icons = {
       ui = {
@@ -168,7 +171,7 @@ return {
           String = '󰉾 ',
           SwitchStatement = '󰺟 ',
           Table = '󰅪 ',
-          Terminal = ' ',
+          Terminal = ' ',
           Type = ' ',
           WhileStatement = '󰑖 ',
         },

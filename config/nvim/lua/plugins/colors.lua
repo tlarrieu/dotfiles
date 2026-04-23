@@ -416,6 +416,7 @@ return {
         DropBarCurrentHover = { link = 'DropBarCurrentContext' },
         DropBarKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
         DropBarKindFile = { fg = 'palette.fg.dim', style = 'bold' },
+        DropBarIconKindTerminal = { link = 'DropBarIconKindDefault' },
         DropBarIconKindDefault = { fg = 'palette.fg.dim', style = 'NONE' },
         DropBarIconKindFolder = { link = 'DropBarIconKindDefault' },
         DropBarIconKindObject = { link = 'DropBarIconKindDefault' },
