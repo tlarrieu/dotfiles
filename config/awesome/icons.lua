@@ -199,6 +199,7 @@ local config = {
   { icon = '', rule = { class = 'dev' } },
   { icon = '󰭆', rule = { class = 'opencode' } },
   { icon = '', rule = { class = 'firefox' } },
+  { icon = '', rule = { class = 'thunderbird_thunderbird' } },
   { icon = '󰭠', rule = { class = 'Lxappearance' } },
   { icon = '', rule = { name = 'yay' } },
   { icon = '󱕵', rule = { class = 'Seahorse' } },
