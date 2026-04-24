@@ -102,7 +102,7 @@ neovim: (pending "neovim: building...") tree-sitter (clone "neovim/neovim" "~/gi
   #!/usr/bin/env bash
   cd ~/git/neovim
   git fetch --tags --force
-  git checkout v0.12.1
+  git checkout v0.12.2
   rm -rf build
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   if builtin type -P apt > /dev/null; then # Ubuntu
