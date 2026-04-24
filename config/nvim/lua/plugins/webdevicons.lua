@@ -1,3 +1,4 @@
+local conf = ''
 local docker = ''
 local favicon = ''
 local git = ''
@@ -53,8 +54,10 @@ return {
       xdefaults = { icon = xdefaults },
       xresources = { icon = xdefaults },
       xprofile = { icon = xdefaults },
-      conf = { icon = '' },
-      confini = { icon = '' },
+      neomuttrc = { icon = conf },
+      mailcap = { icon = conf },
+      conf = { icon = conf },
+      confini = { icon = conf },
       toml = { icon = '' },
       dir_colors = { icon = '󰌁' },
       dircolors = { icon = '󰌁' },
@@ -113,7 +116,7 @@ return {
       ['gitsigns-blame'] = { icon = git },
 
       ['vifm-rename'] = { icon = '' },
-      zathurarc = { icon = '' },
+      zathurarc = { icon = conf },
     },
     override_by_extension = {
       mod = { icon = '' },
