@@ -62,6 +62,7 @@ return {
   },
   config = function(_, opts)
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
+    vim.lsp.document_color.enable(false)
 
     vim.lsp.config('ruby_lsp', {
       init_options = {

@@ -11,6 +11,8 @@ return {
       'gitcommit',
       'gitsigns-blame',
     },
+    render = 'virtual',
+    virtual_symbol = '',
   },
   config = function(_, opts)
     require('nvim-highlight-colors').setup(opts)
