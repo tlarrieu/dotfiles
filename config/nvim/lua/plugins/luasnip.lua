@@ -1,6 +1,7 @@
 local edit_snippet = function(ft)
   require('luasnip.loaders').edit_snippet_files({
-    ft_filter = function(filetype) return filetype == ft end
+    ft_filter = function(filetype) return filetype == ft end,
+    edit = vim.cmd.vsplit,
   })
 end
 
