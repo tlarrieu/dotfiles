@@ -209,7 +209,7 @@ return {
     vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { silent = true, desc = 'neogit commit' })
     vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'extend', {}),
       { silent = true, desc = 'neogit commit extend' })
-    vim.keymap.set('n', '<leader>ec', neogit.action('commit', 'amend', {}),
+    vim.keymap.set('n', '<leader>ce', neogit.action('commit', 'amend', {}),
       { silent = true, desc = 'neogit commit amend' })
 
     vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}),
