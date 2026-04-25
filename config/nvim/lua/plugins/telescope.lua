@@ -130,8 +130,24 @@ return {
     },
     {
       '<c-q>',
-      function() require('telescope.builtin').quickfix({ results_title = '󰁨 quickfix' }) end,
+      function()
+        require('telescope.builtin').quickfix({
+          results_title = '󰁨 quickfix',
+          path_display = filename_first_and_shorten,
+          show_line = false,
+        })
+      end,
       desc = 'Telescope quickfix'
+    },
+    {
+      '<c-s-q>',
+      function()
+        require('telescope.builtin').quickfixhistory({
+          results_title = '󰋚 quickfix history',
+          layout_config = { preview_width = 0.55 },
+        })
+      end,
+      desc = 'Telescope quickfix history'
     },
     {
       'g?',
