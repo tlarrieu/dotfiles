@@ -64,6 +64,7 @@ return {
       function()
         return require('telescope.builtin').buffers({
           hidden = true,
+          ignore_current_buffer = true,
           path_display = filename_first_and_shorten,
           sort_mru = true,
           results_title = ' buffers',
