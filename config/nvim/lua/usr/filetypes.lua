@@ -8,12 +8,14 @@ vim.filetype.add({
     mjml = 'eruby',
     tex = 'tex',
     gabc = 'gabc',
+    vifm = 'vim',
   },
   filename = {
     ['~/.neorg/gtd/todo.txt'] = 'todotxt',
     ['.pryrc'] = 'ruby',
     ['.pryrc.local'] = 'ruby',
     ['.irbrc.local'] = 'ruby',
+    vifmrc = 'vim',
   }
 })
 
