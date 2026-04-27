@@ -89,8 +89,8 @@ return {
 
         MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
-        Comment = { fg = 'palette.cyan', style = 'italic' },
-        Documentation = { fg = 'palette.cyan', bg = 'palette.cyan.dimmer', style = 'italic' },
+        Comment = { fg = 'palette.blue', style = 'italic' },
+        Documentation = { fg = 'palette.blue', bg = 'palette.blue.dimmer', style = 'italic' },
 
         Constant = { fg = 'palette.fg.base' },
         String = { fg = 'palette.green', style = 'NONE' },
