@@ -16,13 +16,13 @@ function _git_branch_name
 end
 
 function _git_merge_head
-  echo -ne "\e[0;31m"
+  echo -ne (set_color -d red)
   if test (command git rev-parse -q --verify MERGE_HEAD 2> /dev/null)
     echo -n " "
   else if test (command git rev-parse -q --verify REBASE_HEAD 2> /dev/null)
     echo -n " "
   end
-  echo -ne "\e[0m"
+  echo -ne (set_color normal)
 end
 
 function _git_bisect
@@ -80,15 +80,14 @@ function _git
 
   set -l flags "$stashed$dirty$staged$ahead$new"
 
-  set -l reset "\e[0m"
   set -l color
   if [ "$dirty" ]
-    set color "\e[0;33m" # yellow
+    set color "yelow"
   else
-    set color "\e[0;32m" # green
+    set color "green"
   end
 
-  echo -nes $color(_git_branch_name)$reset(_git_merge_head)$color$flags(_git_bisect)$reset
+  echo -nes (set_color -d $color)(_git_branch_name)(set_color normal)(_git_merge_head)(set_color -d $color)$flags(_git_bisect)(set_color normal)
 end
 
 function _git_loading_indicator
@@ -103,7 +102,7 @@ function _jobs
   [ $jobs_count -gt 0 ]
     or return
 
-  echo -ns ' '(set_color brmagenta)
+  echo -ns (set_color -d magenta)
   switch $jobs_count
     case 0
     case 1
@@ -115,15 +114,15 @@ function _jobs
     case '*'
       echo -ns 󰌴
   end
-  echo -ns (set_color normal)
+  echo -ns ' '(set_color normal)
 end
 
 function _pwd
-  echo -ns (set_color -d black)' '(set_color normal)(set_color blue)(prompt_pwd)(set_color normal)' '
+  echo -ns (set_color -d black)' '(set_color normal)(set_color -d blue)(prompt_pwd)(set_color normal)' '
 end
 
 function print_blank_line --on-event fish_postexec
-  echo (set_color -d black)'---------------'(set_color normal)
+  echo
 end
 
 function fish_prompt
