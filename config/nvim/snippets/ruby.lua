@@ -61,6 +61,7 @@ return {
   rs("(.+)%.each", fmta("<>.each { <> }", { cap(1), i(1) })),
   rs("(.+)%.sel", fmta("<>.select { <> }", { cap(1), i(1) })),
   rs("(.+)%.tap", fmta("<>.tap { <> }", { cap(1), i(1) })),
+  rs("(.+)%.then", fmta("<>.then { <> }", { cap(1), i(1) })),
   rs("(.+)%.ins", fmta("<>.inspect", { cap(1) })),
 
   -- specs
