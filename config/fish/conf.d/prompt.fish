@@ -82,7 +82,7 @@ function _git
 
   set -l color
   if [ "$dirty" ]
-    set color "yelow"
+    set color "yellow"
   else
     set color "green"
   end
