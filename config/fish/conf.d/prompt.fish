@@ -119,7 +119,11 @@ function _jobs
 end
 
 function _pwd
-  echo -ns ' '(set_color blue)(prompt_pwd)(set_color normal)' '
+  echo -ns (set_color -d black)' '(set_color normal)(set_color blue)(prompt_pwd)(set_color normal)' '
+end
+
+function print_blank_line --on-event fish_postexec
+  echo (set_color -d black)'---------------'(set_color normal)
 end
 
 function fish_prompt
@@ -141,9 +145,7 @@ function fish_prompt
     set count (math "max($count, 1)")
   end
 
-  echo -ns ' '
-
-  for x in (seq $count); echo -ns "❯"; end
+  for x in (seq $count); echo -ns ""; end
 
   set_color normal
 

@@ -172,7 +172,7 @@ return {
           String = '󰉾 ',
           SwitchStatement = '󰺟 ',
           Table = '󰅪 ',
-          Terminal = ' ',
+          Terminal = '󰆍 ',
           Type = ' ',
           WhileStatement = '󰑖 ',
         },
