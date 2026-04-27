@@ -73,7 +73,7 @@ return {
       desc = 'Telescope buffers'
     },
     {
-      '<c-s-r>',
+      '<c-l>',
       function() return require('telescope.builtin').registers({ results_title = ' registers' }) end,
       desc = 'Telescope registers'
     },
@@ -118,16 +118,6 @@ return {
       '<c-w>gr',
       function() require('telescope.builtin').lsp_references({ jump_type = 'vsplit', results_title = ' LSP references' }) end,
       desc = 'Telescope LSP references (vertical split)'
-    },
-    {
-      '<c-l>',
-      function() require('telescope.builtin').lsp_document_symbols({ results_title = '󱈤 LSP document symbols' }) end,
-      desc = 'Telescope LSP document symbols'
-    },
-    {
-      '<c-s-l>',
-      function() require('telescope.builtin').lsp_workspace_symbols({ results_title = '󱈤 LSP workspace symbols' }) end,
-      desc = 'Telescope LSP document symbols'
     },
     {
       '<c-q>',
