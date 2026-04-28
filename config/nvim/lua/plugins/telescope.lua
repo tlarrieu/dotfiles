@@ -162,9 +162,9 @@ return {
         },
 
         prompt_prefix = '   ',
-        selection_caret = '󰜋 ',
-        entry_prefix = '󰜌 ',
-        multi_icon = '󰨑 ',
+        selection_caret = ' 󰫈 ',
+        entry_prefix = ' 󰋙 ',
+        multi_icon = ' 󰁘 ',
 
         path_display = { 'smart', 'shorten' },
 
