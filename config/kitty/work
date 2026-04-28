@@ -7,5 +7,3 @@ new_tab Sidekiq
 layout grid
 cd ~/dev/jeancaisse
 launch --hold=yes --title="rails server" bin/sidekiq
-
-# vim: ft=kitty
