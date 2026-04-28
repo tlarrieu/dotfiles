@@ -21,7 +21,7 @@
   "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
   "linediff.vim": { "branch": "main", "commit": "c3780609769a93f4f59421b6324355f37e0ee6c5" },
   "lua-utils.nvim": { "branch": "main", "commit": "e565749421f4bbb5d2e85e37c3cef9d56553d8bd" },
-  "lualine.nvim": { "branch": "master", "commit": "a905eeebc4e63fdc48b5135d3bf8aea5618fb21c" },
+  "lualine.nvim": { "branch": "master", "commit": "131a558e13f9f28b15cd235557150ccb23f89286" },
   "luarocks.nvim": { "branch": "main", "commit": "1db9093915eb16ba2473cfb8d343ace5ee04130a" },
   "marks.nvim": { "branch": "master", "commit": "f353e8c08c50f39e99a9ed474172df7eddd89b72" },
   "markview.nvim": { "branch": "main", "commit": "86cf4bcede58e88497f7e5214efb281d4a6f633d" },
