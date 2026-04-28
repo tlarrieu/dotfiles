@@ -19,19 +19,19 @@ return {
       dimmer = '#9d9aa5',
     },
 
-    bg0     = '#f2e9e1',     -- Dark bg (status line and float)
-    bg1     = '#faf4ed',     -- Default bg
-    bg2     = '#fffaf3',     -- Lighter bg (colorcolm folds)
-    bg3     = '#f4ede8',     -- Lighter bg (cursor line)
-    bg4     = '#bdbfc9',     -- Conceal, border fg
+    bg0     = '#f2e9e1', -- Dark bg (status line and float)
+    bg1     = '#faf4ed', -- Default bg
+    bg2     = '#fffaf3', -- Lighter bg (colorcolm folds)
+    bg3     = '#f4ede8', -- Lighter bg (cursor line)
+    bg4     = '#bdbfc9', -- Conceal, border fg
 
-    fg0     = '#797593',     -- Lighter fg
-    fg1     = '#575279',     -- Default fg
-    fg2     = '#797593',     -- Darker fg (status line)
-    fg3     = '#9d9aa5',     -- Darker fg (line numbers, fold colums)
+    fg0     = '#797593', -- Lighter fg
+    fg1     = '#575279', -- Default fg
+    fg2     = '#797593', -- Darker fg (status line)
+    fg3     = '#9d9aa5', -- Darker fg (line numbers, fold colums)
 
-    sel0    = '#dfdad9',     -- Popup bg, visual selection bg
-    sel1    = '#cecacd',     -- Popup sel bg, search bg
+    sel0    = '#dfdad9', -- Popup bg, visual selection bg
+    sel1    = '#cecacd', -- Popup sel bg, search bg
   },
   nordfox = {
     black   = { base = '#232136', dim = '#232136', dimmer = '#232136' },
@@ -53,18 +53,18 @@ return {
       dimmer = '#6e6a86',
     },
 
-    bg0     = '#393552',     -- Dark bg (status line and float)
-    bg1     = '#232136',     -- Default bg
-    bg2     = '#2a273f',     -- Lighter bg (colorcolm folds)
-    bg3     = '#2a283e',     -- Lighter bg (cursor line)
-    bg4     = '#5a657d',     -- Conceal, border fg
+    bg0     = '#393552', -- Dark bg (status line and float)
+    bg1     = '#232136', -- Default bg
+    bg2     = '#2a273f', -- Lighter bg (colorcolm folds)
+    bg3     = '#2a283e', -- Lighter bg (cursor line)
+    bg4     = '#5a657d', -- Conceal, border fg
 
-    fg0     = '#908caa',     -- Lighter fg
-    fg1     = '#c2c0d3',     -- Default fg
-    fg2     = '#908caa',     -- Darker fg (status line)
-    fg3     = '#6e6a86',     -- Darker fg (line numbers, fold colums)
+    fg0     = '#908caa', -- Lighter fg
+    fg1     = '#c2c0d3', -- Default fg
+    fg2     = '#908caa', -- Darker fg (status line)
+    fg3     = '#6e6a86', -- Darker fg (line numbers, fold colums)
 
-    sel0    = '#44415a',     -- Popup bg, visual selection bg
-    sel1    = '#56526e',     -- Popup sel bg, search bg
+    sel0    = '#44415a', -- Popup bg, visual selection bg
+    sel1    = '#56526e', -- Popup sel bg, search bg
   },
 }
