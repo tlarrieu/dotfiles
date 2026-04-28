@@ -1,8 +1,8 @@
 ---@diagnostic disable: undefined-global
 
 return {
-  s("!", fmta("#!/usr/bin/env ruby", {})),
-  s("fr", fmta("# frozen_string_literal: true", {})),
+  rs("^!", fmta("#!/usr/bin/env ruby", {})),
+  rs("^fr", fmta("# frozen_string_literal: true", {})),
 
   -- requires / includes
   s("req", fmta("require '<>'", { i(1) })),
@@ -55,6 +55,7 @@ return {
   s("-", fmta("->>(<>) { <><> }", { i(1, "i"), sel(), i(2) })),
 
   -- methods
+  rs("(.+)%.fr", fmta("<>.freeze", { cap(1) })),
   rs("(.+)%.times", fmta("<>.times { <> }", { cap(1), i(1) })),
   rs("(.+)%.red", fmta("<>.reduce { <> }", { cap(1), i(1) })),
   rs("(.+)%.map", fmta("<>.map { <> }", { cap(1), i(1) })),
