@@ -1,6 +1,7 @@
 stty -ixon 2> /dev/null
 
 set -x SUDO_ASKPASS ~/scripts/sudo-ask-pass
+set -x ESCDELAY 0 # remove delay on <esc>, used by ncurses programs
 
 set -l fzf_common_opts '
   --reverse

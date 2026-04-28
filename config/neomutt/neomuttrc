@@ -1,0 +1,15 @@
+set editor = "nvim"
+
+set folder = ~/.mail
+set spool_file = +mbox
+set mbox = +mbox
+set move = no
+set mbox_type = "mbox"
+set sort = threads
+set sort_aux = reverse-date
+set mailcap_path = "~/.config/neomutt/mailcap"
+
+mailboxes -label +inbox -notify -nopoll !
+
+source keymaps
+source colors

@@ -1,0 +1,49 @@
+set abort_key = "<esc>"
+
+bind attach <return> view-mailcap
+bind attach l view-mailcap
+bind editor <space> noop
+bind index r fetch-mail
+bind index G last-entry
+bind index g noop
+bind index gg first-entry
+bind pager,attach h exit
+bind pager j next-line
+bind pager k previous-line
+bind pager l view-attachments
+bind index d delete-message
+bind index u undelete-message
+bind index L limit
+bind index h noop
+bind index l display-message
+bind browser h goto-parent
+bind browser l select-entry
+bind pager,browser gg top-page
+bind pager,browser G bottom-page
+bind index,pager,browser \Cd next-page
+bind index,pager,browser \Cu previous-page
+bind editor <Tab> complete-query
+bind index,pager,browser è enter-command
+bind index,pager,browser é search
+bind index,pager,browser N search-opposite
+bind index,pager,browser n search-next
+unbind * <Esc>C
+unbind * <Esc><Tab>
+unbind * <Esc>P
+unbind * <Esc>V
+unbind * <Esc>b
+unbind * <Esc>c
+unbind * <Esc>d
+unbind * <Esc>e
+unbind * <Esc>i
+unbind * <Esc>k
+unbind * <Esc>l
+unbind * <Esc>n
+unbind * <Esc>p
+unbind * <Esc>r
+unbind * <Esc>s
+unbind * <Esc>t
+unbind * <Esc>u
+unbind * <Esc>v
+unbind * <Esc>?
+unbind * <Esc>/

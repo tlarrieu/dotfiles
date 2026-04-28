@@ -1,0 +1,28 @@
+# application/octet-stream; nvim %s
+# text/html; nvim %s
+# application/pdf; zathura %s
+# application/xml; nvim %s
+
+application/octet-stream; nvim %s
+application/pdf; org.pwmt.zathura %s
+application/x-bittorrent; aria2c %s
+application/x-gettext-translation; nvim %s
+application/xml; nvim %s
+application/x-wine-extension-ini; nvim %s
+audio/mpeg; mpv %s
+audio/vnd.wave; mpv %s
+audio/mp4; mpv %s
+image/gif; sxiv %s
+image/jpeg; sxiv %s
+image/png; sxiv %s
+image/webp; sxiv %s
+image/x-eps; inkscape %s
+text/plain; nvim %s
+video/vnd.avi; mpv %s
+video/mp4; mpv %s
+video/ogg; mpv %s
+video/x-flv; mpv %s
+video/x-ms-wmv; mpv %s
+video/x-ogm+ogg; mpv %s
+video/x-theora+ogg; mpv %s
+video/webm; mpv %s

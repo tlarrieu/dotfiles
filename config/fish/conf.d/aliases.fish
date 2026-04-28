@@ -23,11 +23,15 @@ abbr jctl "journalctl -xe"
 # nmcli
 abbr nmcli "nmcli --color yes"
 
-# Pass
+# just
 abbr j "just"
 
 # Pass
 abbr p "pass"
+
+# mails
+abbr f "fetchmail"
+abbr m "neomutt"
 
 # NVIM
 alias ep "nvim -R -"
