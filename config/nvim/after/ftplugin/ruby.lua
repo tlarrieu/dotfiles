@@ -25,6 +25,9 @@ require('alternator').setup({
   { pattern = "(.*)/spec/requests/(.*)_spec%.rb", target = "%1/app/controllers/%2.rb" },
   { pattern = "(.*)/app/controllers/(.*)%.rb", target = "%1/spec/requests/%2_spec.rb" },
 
+  { pattern = "(.*)/spec/config/(.*)_spec%.rb", target = "%1/config/%2.rb" },
+  { pattern = "(.*)/config/(.*)%.rb", target = "%1/spec/config/%2_spec.rb" },
+
   { pattern = "(.*)/spec/(.*)_spec%.rb", target = "%1/app/%2.rb" },
   { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
 })
