@@ -228,6 +228,7 @@ local config = {
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
   { icon = '󱄄', rule = { class = 'org.remmina.Remmina' } },
 
+  { icon = '󰛮', rule = { class = 'kitty', name = 'neomutt' } },
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
   { icon = '', rule = { class = 'kitty', name = 'sidekiq' } },

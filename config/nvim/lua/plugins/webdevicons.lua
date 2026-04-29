@@ -41,6 +41,7 @@ return {
       lock = { icon = lock },
       yaml = { icon = '󰷐' },
       edifact = { icon = '󱡠' },
+      mail = { icon = '󰇯' },
 
       typst = { icon = '' },
       tex = { icon = '' },
