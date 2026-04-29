@@ -109,8 +109,8 @@ vim.opt.shortmess:append('WIcsSa')
 -- }}}
 
 -- {{{ ==| Blend |==============================================================
--- vim.opt.pumblend = 5
--- vim.opt.winblend = 5
+vim.opt.pumblend = 10
+vim.opt.winblend = 10
 -- }}}
 
 -- {{{ ==| diagnostic |=========================================================
