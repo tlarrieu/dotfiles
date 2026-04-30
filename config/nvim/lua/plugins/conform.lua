@@ -11,7 +11,7 @@ return {
       javascript = biome,
       typescript = biome,
       yaml = prettier,
-      sql = prettier,
+      sql = { 'sql' },
       edifact = { 'edifact' },
 
       ['_'] = { 'trim_whitespace' },
@@ -21,6 +21,10 @@ return {
       async = true,
     },
     formatters = {
+      sql = {
+        command = 'pg_format',
+        args = { '-u', 1, '-U', 1, '-b', '-s', 2 },
+      },
       edifact = {
         command = 'perl',
         args = {
