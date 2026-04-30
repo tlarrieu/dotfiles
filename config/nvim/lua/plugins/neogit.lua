@@ -1,6 +1,8 @@
 return {
   'NeogitOrg/neogit',
   lazy = false,
+  -- TODO: unpin this once the issues with async have been solved (invoking actions directly is currently broken)
+  commit = '792c139da736230855e8341ebe6175bb6eb8268b',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope.nvim',
