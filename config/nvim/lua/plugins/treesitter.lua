@@ -22,6 +22,7 @@ return {
         'ocaml',
         'query',
         'ruby',
+        'sql',
         'yaml',
         'json',
         'tsx',
