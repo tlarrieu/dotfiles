@@ -1,1 +1,3 @@
-require('utils').autoformat({ '*.edi', '*.edifact' })
+require('utils').autoformat({ '*.edi', '*.edifact', '*.txt' })
+
+require('conform').format()
