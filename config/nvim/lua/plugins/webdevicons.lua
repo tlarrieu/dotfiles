@@ -81,7 +81,7 @@ return {
       markdown = { icon = '' },
       lua = { icon = '󰢱' },
       ruby = { icon = ruby },
-      eruby = { icon = html },
+      eruby = { icon = erb },
       python = { icon = '' },
       cpp = { icon = '' },
       c = { icon = '' },
