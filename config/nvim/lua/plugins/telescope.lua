@@ -173,9 +173,9 @@ return {
           prompt_position = 'top',
           anchor = 'S',
           anchor_padding = 0,
-          preview_width = 86,
+          preview_width = 0.7,
           height = 30,
-          width = 134,
+          width = 184,
         },
 
         preview = {
