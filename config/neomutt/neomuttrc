@@ -9,6 +9,8 @@ set sort = threads
 set sort_aux = reverse-date
 set mailcap_path = "~/.config/neomutt/mailcap"
 
+set flag_chars = '󱈸󰧧d󰑚ONon- '
+
 mailboxes -label +inbox -notify -nopoll !
 
 source keymaps
