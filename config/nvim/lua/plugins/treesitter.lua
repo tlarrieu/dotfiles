@@ -22,6 +22,7 @@ return {
         'ocaml',
         'query',
         'ruby',
+        'embedded_template',
         'sql',
         'yaml',
         'json',
@@ -31,6 +32,7 @@ return {
         'vim',
         'vimdoc',
         'xresources',
+        'zathurarc',
       })
 
       vim.api.nvim_create_autocmd('FileType', {

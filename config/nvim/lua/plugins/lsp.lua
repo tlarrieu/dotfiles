@@ -59,6 +59,10 @@ return {
     'yaml',
     'json',
     'css',
+    'xml',
+    'html',
+    'embedded_template',
+    'eruby',
   },
   config = function(_, opts)
     vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
