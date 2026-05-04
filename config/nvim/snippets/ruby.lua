@@ -101,7 +101,7 @@ return {
   s("let", fmta("let(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("lett", fmta("let!(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
   s("lib", fmta("let_it_be(:<>) { <><> }", { i(1, "name"), sel(), i(0) })),
-  s("it", fmta([[ it('<>') { <><> } ]], { i(1, "does something"), sel(), i(0) })),
+  s("it", fmta([[ it('<>') <> ]], { i(1, "does something"), i(0) })),
   s("ibl", fmta("it_behaves_like '<>'", { i(1, "example") })),
   s("e", fmta("expect(<>).to <>", { i(1, "subject"), i(0) })),
   s("eb", fmta("expect { <> }.to <>", { i(1, "subject"), i(0) })),
