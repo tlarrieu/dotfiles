@@ -5,8 +5,6 @@ o.concealcursor = 'cni'
 o.iskeyword = o.iskeyword + '?' + '!'
 o.spell = true
 
-local testbus = require('testbus')
-
 local warn = function(msg) vim.notify(msg, vim.log.levels.WARN) end
 local info = function(msg) vim.notify(msg, vim.log.levels.INFO) end
 
@@ -61,6 +59,8 @@ local function window()
 end
 
 local rspec = function(opts)
+  local testbus = require('testbus')
+
   opts = opts or {}
 
   local fname = vim.api.nvim_buf_get_name(0)
