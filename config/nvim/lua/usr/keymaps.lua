@@ -147,7 +147,8 @@ vim.keymap.set('o', 'iR', 'i[')
 -- {{{ --| quick access |-----------------------------------
 local quickedit = function(path)
   return function()
-    return '<cmd>' .. (require('helpers').fileexists(vim.fn.expand('%')) and 'vsplit' or 'edit') .. ' ' .. path .. '<cr>'
+    local keep_buffer = require('helpers').fileexists(vim.fn.expand('%')) or vim.bo.buftype == 'terminal'
+    return '<cmd>' .. (keep_buffer and 'vsplit' or 'edit') .. ' ' .. path .. '<cr>'
   end
 end
 
