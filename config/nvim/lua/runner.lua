@@ -36,12 +36,12 @@ M.default = function(opts)
   if opts.alt then _alt(opts.alt) end
 end
 
-M.match = function(pattern, opts)
+M.match = function(pattern, opts_or_fn)
   local group = vim.api.nvim_create_augroup(vim.inspect(pattern) .. '_runner_autocmd', {})
 
   vim.api.nvim_create_autocmd('BufEnter', {
     pattern = pattern,
-    callback = function() M.default(opts) end,
+    callback = function() M.default(type(opts_or_fn) == 'function' and opts_or_fn() or opts_or_fn) end,
     group = group,
   })
 end
