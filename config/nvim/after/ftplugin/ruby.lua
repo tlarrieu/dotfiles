@@ -7,12 +7,14 @@ o.spell = true
 
 local testbus = require('testbus')
 
+local notify = function(msg, level) vim.notify(msg, level or vim.log.levels.WARN) end
+
 local get_buffer = function()
   if not vim.g.testbuf or not vim.api.nvim_buf_is_valid(vim.g.testbuf) then
     vim.g.testbuf = vim.api.nvim_create_buf(true, true)
+    vim.keymap.set('n', '<c-.>', '<cmd>:silent close!<cr>',
+      { desc = 'Close test results', silent = true, buffer = vim.g.testbuf })
   end
-  vim.bo[vim.g.testbuf].modifiable = false
-  vim.bo[vim.g.testbuf].modified = false
   return vim.g.testbuf
 end
 
@@ -21,7 +23,7 @@ local get_win = function()
     return vim.g.testwin
   end
   vim.g.testwin = vim.api.nvim_open_win(get_buffer(), false, { split = 'right' })
-  vim.wo[vim.g.testwin].winbar = ' output'
+  vim.wo[vim.g.testwin].winbar = ' RSpec'
   return vim.g.testwin
 end
 
@@ -29,7 +31,7 @@ local run = function(cmd)
   vim.g.testcmd = cmd or vim.g.testcmd
 
   if vim.g.testcmd == nil then
-    vim.notify('No test was previously run', vim.log.levels.WARN)
+    notify('No test was previously run')
     return
   end
 
@@ -37,7 +39,7 @@ local run = function(cmd)
 
   local win = get_win()
   vim.api.nvim_win_call(win, function()
-    if vim.g.testpid then return end
+    if vim.g.testpid then return vim.notify('Test is already running', vim.log.levels.WARN) end
     vim.g.testpid = vim.fn.jobstart(vim.g.testcmd, {
       term = true,
       on_stdout = function(_, data, _) testbus.redraw(data) end,
@@ -74,8 +76,17 @@ local build_cmd = function(opts)
   return cmd
 end
 
-vim.keymap.set('n', '<leader>tr', function() run(build_cmd({ at_cursor = true })) end,
-  { desc = 'Run nearest test', buffer = true })
-vim.keymap.set('n', '<leader>tf', function() run(build_cmd({ at_cursor = false })) end,
-  { desc = 'Run test file', buffer = true })
+if vim.api.nvim_buf_get_name(0):match('.*_spec.rb') then
+  vim.keymap.set('n', '<leader>tr', function() run(build_cmd({ at_cursor = true })) end,
+    { desc = 'Run nearest test', buffer = true })
+  vim.keymap.set('n', '<leader>tf', function() run(build_cmd({ at_cursor = false })) end,
+    { desc = 'Run test file', buffer = true })
+else
+  vim.keymap.set('n', '<leader>tr', function() notify('Not a test file') end,
+    { desc = 'Run nearest test', buffer = true })
+  vim.keymap.set('n', '<leader>tf', function() notify('Not a test file') end,
+    { desc = 'Run test file', buffer = true })
+end
+vim.keymap.set('n', '<c-.>', function() notify('No test was previously run') end,
+  { desc = 'Show test results' })
 vim.keymap.set('n', '<leader>tl', run, { desc = 'Run test file' })
