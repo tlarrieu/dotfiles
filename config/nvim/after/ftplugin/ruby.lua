@@ -96,6 +96,7 @@ local run = function(config)
   config.on_stdout = config.on_stdout or function(_) end
   config.on_interrupt = config.on_interrupt or function() end
   config.on_clean = config.on_clean or function() end
+  config.on_bufenter = config.on_bufenter or function() end
 
   local opened = state.window() ~= nil
 
