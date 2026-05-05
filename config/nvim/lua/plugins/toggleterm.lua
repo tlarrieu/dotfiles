@@ -23,7 +23,7 @@ return {
         return math.max(80, vim.o.columns * factor)
       end
     end,
-    open_mapping = '<c-.>',
+    -- open_mapping = '<c-.>',
     hide_numbers = true,
     on_open = function(term)
       set_win_sep(THICK_SEP)
@@ -60,12 +60,12 @@ return {
   },
   config = true,
   keys = {
-    {
-      '<c-.>',
-      function() require('toggleterm').toggle() end,
-      desc = 'Toggle terminal',
-      mode = { 'n', 'i', 't' }
-    },
+    -- {
+    --   '<c-.>',
+    --   function() require('toggleterm').toggle() end,
+    --   desc = 'Toggle terminal',
+    --   mode = { 'n', 'i', 't' }
+    -- },
     {
       '<cr>',
       function() require('toggleterm').send_lines_to_terminal('visual_lines', true, { args = 2 }) end,
