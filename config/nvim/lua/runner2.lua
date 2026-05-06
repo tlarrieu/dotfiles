@@ -28,7 +28,6 @@ local window = function()
   if M.state.window() then return M.state.window() end
 
   M.state.window(vim.api.nvim_open_win(M.state.buffer(), false, { split = 'right' }))
-  vim.wo[M.state.window()].winbar = M.state.config().winbar
   return M.state.window()
 end
 
@@ -80,9 +79,9 @@ M.run = function(config)
   vim.api.nvim_win_call(window(), function()
     info('󰔟 Job started...')
 
+    vim.wo.winbar = config.winbar or '󱤵 run'
     vim.bo[M.state.buffer()].modified = false
     vim.bo[M.state.buffer()].modifiable = false
-
     vim.api.nvim_create_autocmd('BufEnter', { callback = config.on_bufenter, buffer = M.state.buffer() })
     vim.api.nvim_create_autocmd('BufDelete', { callback = config.on_clean, buffer = M.state.buffer() })
 
@@ -111,7 +110,10 @@ M.run = function(config)
   end)
 end
 
-M.show = function() vim.api.nvim_set_current_win(window()) end
+M.show = function()
+  if not M.state.buffer() then return warn('󱈸 Nothing to show.') end
+  vim.api.nvim_set_current_win(window())
+end
 
 -- -----------------------------------------------------------------------------
 -- setup
@@ -123,7 +125,7 @@ vim.keymap.set('n', '<leader>tf', function() warn('Not a test file') end, { desc
 vim.keymap.set('n', '<c-.>', M.show, { desc = 'Show run results' })
 vim.keymap.set('n', '<leader>ts', function()
   pcall(vim.fn.jobstop, M.state.pid())
-  M.state.config().on_clean()
+  pcall(M.state.config().on_clean)
 end, { silent = true })
 
 return M
