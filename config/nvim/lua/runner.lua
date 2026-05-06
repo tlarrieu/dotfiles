@@ -53,6 +53,10 @@ local window = function()
   if state.window() then return state.window() end
 
   state.window(vim.api.nvim_open_win(state.buffer(), false, { split = 'right' }))
+  vim.api.nvim_create_autocmd('WinClosed', {
+    pattern = { tostring(state.window()) },
+    callback = function() state.delete('window') end,
+  })
   return state.window()
 end
 
@@ -86,19 +90,18 @@ local run = function(config)
         term = true,
         on_stdout = function(_, data, _) config.on_stdout(data) end,
         on_exit = function(_, data, _)
+          -- avoid losing the buffer when closing the window after <c-d>ing a prompt (any keypress on a finished session
+          -- will destroy the buffer)
+          vim.cmd.stopinsert()
+
+          state.delete('pid')
+
           if data > 0 then
             config.on_interrupt()
-            warn('󰚎 Job stopped.')
+            warn('󰚎 Job stopped with error.')
           else
             info('󱦟 Job complete.')
           end
-
-          if state.window() ~= nil then
-            vim.api.nvim_win_close(state.window(), true)
-            state.delete('window')
-          end
-
-          state.delete('pid')
         end,
       })
     )
