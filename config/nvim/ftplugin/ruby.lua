@@ -5,20 +5,15 @@ o.concealcursor = 'cni'
 o.iskeyword = o.iskeyword + '?' + '!'
 o.spell = true
 
-local runner = require('runner2')
-
 local rspec = function(opts)
   local testbus = require('testbus')
 
   opts = opts or {}
 
-  local fname = vim.api.nvim_buf_get_name(0)
-  local line = vim.api.nvim_win_get_cursor(0)[1]
-
   local cmd = { 'bundle', 'exec', 'rspec' }
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
 
-  local location = fname .. (opts.at_cursor and (':' .. line) or '')
+  local location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
   if location then table.insert(cmd, location) end
 
   return {
@@ -30,30 +25,25 @@ local rspec = function(opts)
       testbus.clear()
     end,
     on_bufenter = function() if testbus.is_awaiting() then vim.cmd.startinsert() end end,
-    winbar = ' RSpec',
+    winbar = ' RSpec ' .. (opts.at_cursor and '(cursor)' or '(file)'),
     cmd = cmd,
   }
 end
 
-vim.keymap.set('n', '<cr>',
-  function() runner.run({ cmd = { 'ruby', vim.fn.expand('%') } }) end,
-  { desc = 'Execute with ruby', buffer = true })
-
-local bufname = vim.api.nvim_buf_get_name(0)
-if bufname:match('Gemfile') or bufname:match('*.gemspec') then
-  vim.keymap.set('n', '<cr>',
-    function() runner.run({ cmd = { 'bundle', 'install' }, winbar = ' bundle install' }) end,
-    { desc = 'Run bundler', buffer = true })
-elseif bufname:match('config/routes.rb') then
-  vim.keymap.set('n', '<cr>',
-    function() runner.run({ cmd = { 'rails', 'routes' }, winbar = '󰑪 rails routes' }) end,
-    { desc = 'Run rails routes', buffer = true })
-elseif bufname:match('.*_spec.rb') then
-  vim.keymap.set('n', '<leader>tr', function() runner.run(rspec({ at_cursor = true })) end,
-    { desc = 'Run nearest test', buffer = true })
-  vim.keymap.set('n', '<leader>tf', function() runner.run(rspec({ at_cursor = false })) end,
-    { desc = 'Run test file', buffer = true })
-end
+require('runner').setup({
+  main = { args = { cmd = { 'ruby', vim.fn.expand('%') }, winbar = ' ruby %%' }, desc = 'Execute with ruby' },
+  overrides = {
+    {
+      patterns = { 'Gemfile', '*.gemspec' },
+      main = { args = { cmd = { 'bundle', 'install' }, winbar = ' bundle install', }, desc = 'Run bundler' },
+    },
+    {
+      patterns = { '.*_spec.rb' },
+      nearest = { args = function() return rspec({ at_cursor = true }) end, desc = 'Run nearest test' },
+      file = { args = function() return rspec({ at_cursor = false }) end, desc = 'Run test file' },
+    },
+  }
+})
 
 require('utils').autoformat({ '*.json.jbuilder', '*.rake', '*.rb', '.pryrc', '.pryrc.local' })
 

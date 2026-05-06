@@ -2,5 +2,6 @@ vim.bo.softtabstop = 4
 vim.bo.tabstop = 4
 vim.bo.shiftwidth = 4
 
-local runner = require('runner')
-runner.default({ main = runner.term('python %') })
+require('runner').setup({
+  main = { args = { cmd = { 'python', vim.fn.expand('%') }, winbar = ' python %%' }, desc = 'python %' }
+})

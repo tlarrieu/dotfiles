@@ -6,9 +6,8 @@ vim.opt_local.concealcursor = 'cni'
 vim.opt_local.expandtab = false
 vim.opt_local.spell = true
 
-local runner = require('runner')
-runner.default({
-  main = runner.term('go run .'),
+require('runner').setup({
+  main = { args = { cmd = { 'go', 'run', '.' }, winbar = '󰟓 go run .' }, desc = 'go run .' },
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {

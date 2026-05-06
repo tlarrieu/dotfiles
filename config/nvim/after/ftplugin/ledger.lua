@@ -6,18 +6,7 @@ vim.opt_local.shiftround = true
 vim.opt_local.autoindent = false
 vim.opt_local.smartindent = false
 
-local runner = require('runner')
-
-runner.default({
-  main = runner.term('ft now', { open = true, direction = 'float' }),
-  alt = runner.term('ft up', { open = true, direction = 'float' }),
-})
-
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = { '*.journal' },
-  callback = function()
-    require('utils').trim_trailing_spaces()
-    runner.term('ft sum', { open = true, direction = 'vertical' })()
-  end,
-  group = vim.api.nvim_create_augroup('ledger_after_save', {})
+require('runner').setup({
+  main = { args = { cmd = { 'fish', '-c', 'ft now', }, winbar = '󰗑 ft now' }, desc = 'ft now' },
+  alt = { args = { cmd = { 'fish', '-c', 'ft up' }, winbar = '󰗑 ft up' }, desc = 'ft up' },
 })

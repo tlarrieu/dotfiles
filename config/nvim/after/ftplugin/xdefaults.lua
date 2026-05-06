@@ -1,2 +1,3 @@
-local runner = require('runner')
-runner.default({ main = runner.term("xrdb ~/.Xresources", { open = false }) })
+require('runner').setup({
+  main = { args = { cmd = { 'xrdb', vim.fn.expand('~/.Xresources') }, winbar = ' xrdb ~/.Xresources' }, desc = 'xrdb ~/.Xresources' },
+})

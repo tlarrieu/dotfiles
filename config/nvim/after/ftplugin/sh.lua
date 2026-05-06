@@ -1,5 +1,3 @@
-local runner = require('runner')
-runner.default({
-  main = runner.term('sh %', { open = false }),
-  alt = runner.term('sh %'),
+require('runner').setup({
+  main = { args = { cmd = { 'sh', vim.fn.expand('%') }, winbar = '󱆃 sh %%' }, desc = 'sh %' },
 })

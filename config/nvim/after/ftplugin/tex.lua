@@ -1,7 +1,6 @@
 require('utils').autocapitalize({ '*.tex', '*.latex' })
 
-local runner = require('runner')
-runner.default({
-  main = runner.term('just build', { open = false }),
-  alt = runner.term('just preview', { open = false }),
+require('runner').setup({
+  main = { args = { cmd = { 'just', 'build' }, winbar = '  just build' }, desc = 'Just build' },
+  alt = { args = { cmd = { 'just', 'preview' }, winbar = '  just preview' }, desc = 'Just preview' },
 })

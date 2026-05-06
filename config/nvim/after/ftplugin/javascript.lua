@@ -1,6 +1,5 @@
 vim.opt_local.spell = true
 
-local runner = require('runner')
-runner.default({
-  main = runner.term('node %'),
+require('runner').setup({
+  main = { args = { cmd = { 'node', vim.fn.expand('%') }, winbar = '󰎙 node %%' }, desc = 'node %' },
 })
