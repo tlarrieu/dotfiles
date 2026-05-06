@@ -48,4 +48,4 @@ Xft.lcdfilter: lcddefault
 
 *.variant: VARIANT
 
-! vim: ft=xdefaults
+! vim: ft=xresources
