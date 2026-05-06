@@ -216,6 +216,8 @@ return {
 
     vim.keymap.set('n', '<leader>bo', neogit.action('branch', 'open_pull_request', {}),
       { silent = true, desc = 'neogit pull request' })
+    vim.keymap.set('n', '<leader>bn', neogit.action('branch', 'checkout_create_branch', {}),
+      { silent = true, desc = 'neogit create branch' })
     vim.keymap.set('n', '<c-y>', neogit.action('branch', 'checkout_local_branch', {}),
       { silent = true, desc = 'neogit branch checkout' })
     vim.keymap.set('n', '<c-s-y>', neogit.action('branch', 'checkout_recent_branch', {}),

@@ -8,6 +8,7 @@ return {
     options = {
       disabled_filetypes = { 'TelescopePrompt' },
       disable_when_touch = true,
+      touch_regex = "[%w(%[{'\"]",
       disable_command_mode = true,
     },
   },
