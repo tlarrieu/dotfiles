@@ -1,26 +1,13 @@
 local M = {}
 
--- setup
-
-vim.keymap.set('n', '<leader>tr', function() M.warn('Not a test file') end,
-  { desc = 'Run nearest test' })
-vim.keymap.set('n', '<leader>tf', function() M.warn('Not a test file') end,
-  { desc = 'Run test file' })
-vim.keymap.set('n', '<c-.>', function() M.show() end, { desc = 'Show run results' })
-vim.keymap.set('n', '<leader>ts', function()
-  local pid = M.state.pid()
-  if pid then
-    vim.fn.jobstop(pid)
-    M.state.config().on_clean()
-  else
-    warn('No running job.')
-  end
-end, { silent = true })
-vim.keymap.set('n', '<leader>tl', function() M.run() end, { desc = 'Re-start last run' })
-
+-- -----------------------------------------------------------------------------
 -- private
+-- -----------------------------------------------------------------------------
 
 vim.g.runner = vim.g.runner or {}
+
+local warn = function(msg) vim.notify(msg, vim.log.levels.WARN) end
+local info = function(msg) vim.notify(msg, vim.log.levels.INFO) end
 
 local set = function(key, value)
   local _state = vim.g.runner
@@ -28,7 +15,6 @@ local set = function(key, value)
   vim.g.runner = _state
   return _state[key]
 end
-
 
 local window = function()
   if not M.state.buffer() then
@@ -46,7 +32,9 @@ local window = function()
   return M.state.window()
 end
 
+-- -----------------------------------------------------------------------------
 -- public
+-- -----------------------------------------------------------------------------
 
 M.state = {
   buffer = function(buf)
@@ -76,8 +64,8 @@ M.state = {
 M.run = function(config)
   if config then config = M.state.config(config) else config = M.state.config() end
 
-  if config.cmd == nil then return M.warn('󱈸 No previous job found.') end
-  if M.state.pid() then return M.warn(' Job already running...') end
+  if config.cmd == nil then return warn('󱈸 No previous job found.') end
+  if M.state.pid() then return warn(' Job already running...') end
 
   config.on_start = config.on_start or function() end
   config.on_stdout = config.on_stdout or function(_) end
@@ -90,7 +78,7 @@ M.run = function(config)
   config.on_start()
 
   vim.api.nvim_win_call(window(), function()
-    M.info('󰔟 Job started...')
+    info('󰔟 Job started...')
 
     vim.bo[M.state.buffer()].modified = false
     vim.bo[M.state.buffer()].modifiable = false
@@ -105,9 +93,9 @@ M.run = function(config)
         on_exit = function(_, data, _)
           if data > 0 then
             config.on_interrupt()
-            M.warn('󰚎 Job stopped.')
+            warn('󰚎 Job stopped.')
           else
-            M.info('󱦟 Job complete.')
+            info('󱦟 Job complete.')
           end
 
           if M.state.window() ~= nil then
@@ -125,7 +113,17 @@ end
 
 M.show = function() vim.api.nvim_set_current_win(window()) end
 
-M.warn = function(msg) vim.notify(msg, vim.log.levels.WARN) end
-M.info = function(msg) vim.notify(msg, vim.log.levels.INFO) end
+-- -----------------------------------------------------------------------------
+-- setup
+-- -----------------------------------------------------------------------------
+
+vim.keymap.set('n', '<leader>tl', M.run, { desc = 'Re-start last run' })
+vim.keymap.set('n', '<leader>tr', function() warn('Not a test file') end, { desc = 'Run nearest test' })
+vim.keymap.set('n', '<leader>tf', function() warn('Not a test file') end, { desc = 'Run test file' })
+vim.keymap.set('n', '<c-.>', M.show, { desc = 'Show run results' })
+vim.keymap.set('n', '<leader>ts', function()
+  pcall(vim.fn.jobstop, M.state.pid())
+  M.state.config().on_clean()
+end, { silent = true })
 
 return M
