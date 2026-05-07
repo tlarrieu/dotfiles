@@ -146,6 +146,7 @@ local repl = function(opts_or_fn, desc)
       vim.notify(vim.inspect(opts_or_fn))
       run(type(opts_or_fn) == 'function' and opts_or_fn() or opts_or_fn)
       show()
+      vim.cmd.startinsert()
     end,
     { desc = desc, buffer = true })
 end
