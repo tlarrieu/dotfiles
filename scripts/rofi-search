@@ -40,6 +40,22 @@ class Man < SearchEngine
 
 end
 
+class Work < SearchEngine
+
+  def initialize
+    super('work-search-engine %s')
+  end
+
+  def run(str)
+    `fish -c '#{combine(str)}'`
+  end
+
+  def escape(str)
+    str
+  end
+
+end
+
 class Browser < SearchEngine
 
   def initialize(target, fallback: nil, prefixes: [], profile: nil)
@@ -160,7 +176,8 @@ ENGINES = {
   'wiki' => Browser.new('https://en.wikipedia.org/wiki/Special:Search?search=%s'),
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
-  'yt'   => YouTube.new
+  'yt'   => YouTube.new,
+  'pl'   => Work.new,
 }.freeze
 
 words = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
