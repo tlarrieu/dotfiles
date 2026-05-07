@@ -26,8 +26,13 @@ local mode = {
 }
 
 local projectdir = function()
+  local cwd = vim.fn.getcwd()
+  if cwd == vim.fn.expand('~') then return ' ~' end
+
   local project
-  for dir in string.gmatch(vim.fn.getcwd(), "[^/]+") do project = dir end
+  for dir in string.gmatch(cwd, "[^/]+") do project = dir end
+  if cwd == vim.fn.expand('~/.neorg') then return '󰠮 ' .. project end
+  if cwd == vim.fn.expand('~/.hledger') then return '󰗑 ' .. project end
   return ' ' .. project
 end
 
@@ -146,7 +151,6 @@ return {
   lazy = false,
   opts = {
     extensions = {
-      'man',
       'toggleterm',
       'mason',
       {
