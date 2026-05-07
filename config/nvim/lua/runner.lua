@@ -1,5 +1,3 @@
-local M = {}
-
 -- -----------------------------------------------------------------------------
 -- private
 -- -----------------------------------------------------------------------------
@@ -125,11 +123,7 @@ local alt = function(...) return bind('<leader><cr>', ...) end
 local nearest = function(...) return bind('<leader>tr', ...) end
 local file = function(...) return bind('<leader>tf', ...) end
 
--- -----------------------------------------------------------------------------
--- public
--- -----------------------------------------------------------------------------
-
-M.setup = function(config)
+local setup = function(config)
   local bufname = vim.api.nvim_buf_get_name(0)
 
   local cfg = {}
@@ -176,4 +170,12 @@ vim.keymap.set('n', '<leader>ts', function()
   pcall(state.config().on_clean)
 end, { silent = true })
 
-return M
+-- -----------------------------------------------------------------------------
+-- public
+-- -----------------------------------------------------------------------------
+
+return {
+  run = run,
+  show = show,
+  setup = setup,
+}
