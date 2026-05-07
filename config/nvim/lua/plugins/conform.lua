@@ -23,7 +23,7 @@ return {
     formatters = {
       sql = {
         command = 'pg_format',
-        args = { '-u', 1, '-U', 1, '-b', '-s', 2 },
+        args = { '-u', 1, '-U', 1, '-f', 1, '-b', '-s', 2, },
       },
       edifact = {
         command = 'perl',
