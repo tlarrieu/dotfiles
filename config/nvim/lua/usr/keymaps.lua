@@ -232,9 +232,9 @@ vim.keymap.set('n', '<leader>I', function() vim.treesitter.inspect_tree({ comman
 
 -- {{{ --| terminal |---------------------------------------
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
-vim.keymap.set('n', '<leader>ti', '<cmd>tabnew<bar>terminal<cr><cmd>startinsert!<cr>', { silent = true })
-vim.keymap.set('n', '<leader>vi', '<cmd>vertical new<bar>terminal<cr><cmd>startinsert<cr>', { silent = true })
-vim.keymap.set('n', '<leader>ni', '<cmd>new<bar>terminal<cr><cmd>startinsert<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ti', '<cmd>tab terminal<cr><cmd>startinsert!<cr>', { silent = true })
+vim.keymap.set('n', '<leader>vi', '<cmd>vertical terminal<cr><cmd>startinsert!<cr>', { silent = true })
+vim.keymap.set('n', '<leader>ni', '<cmd>horizontal terminal<cr><cmd>startinsert!<cr>', { silent = true })
 -- }}}
 
 -- {{{ --| splits / tabs |----------------------------------

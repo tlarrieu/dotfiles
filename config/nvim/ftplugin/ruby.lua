@@ -61,6 +61,7 @@ require('alternator').setup({
   { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
 })
 
+vim.keymap.set('n', '<leader>vp', '<cmd>vertical terminal bin/rails console<cr><cmd>startinsert!<cr>')
 vim.keymap.set('n', '<c-s-p>', '<cmd>silent grep! Kernel.binding.pry<cr>')
 
 local params_for = function(kind, root)
