@@ -74,7 +74,8 @@ return {
         }
       },
       terminal = {
-        name = function(buf) return 'term://' .. tostring(vim.api.nvim_buf_get_var(buf, 'terminal_job_pid')) end,
+        icon = '󰆍 ',
+        name = function(buf) return 'term://' .. vim.fn.jobpid(vim.bo[buf].channel) end,
       },
     },
     icons = {
