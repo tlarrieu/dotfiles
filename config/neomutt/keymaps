@@ -4,9 +4,9 @@ bind attach <return> view-mailcap
 bind attach l view-mailcap
 bind editor <space> noop
 bind index r fetch-mail
-bind index G last-entry
-bind index g noop
-bind index gg first-entry
+bind index,pager,attach G last-entry
+bind index,pager,attach g noop
+bind index,pager,attach gg first-entry
 bind pager,attach h exit
 bind pager j next-line
 bind pager k previous-line
@@ -23,10 +23,10 @@ bind pager,browser G bottom-page
 bind index,pager,browser \Cd next-page
 bind index,pager,browser \Cu previous-page
 bind editor <Tab> complete-query
-bind index,pager,browser è enter-command
-bind index,pager,browser é search
-bind index,pager,browser N search-opposite
-bind index,pager,browser n search-next
+bind index,pager,attach,browser è enter-command
+bind index,pager,attach,browser é search
+bind index,pager,attach,browser N search-opposite
+bind index,pager,attach,browser n search-next
 unbind * <Esc>C
 unbind * <Esc><Tab>
 unbind * <Esc>P
