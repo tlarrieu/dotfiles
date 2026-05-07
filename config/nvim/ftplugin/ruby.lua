@@ -10,12 +10,24 @@ local rspec = function(opts)
 
   opts = opts or {}
 
-  local cmd = { 'bundle', 'exec', 'rspec' }
-  for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
+  local cmd
+  local location
 
-  local location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
+  if opts.all then
+    if require('helpers').fileexists('bin/rspec-auto') then
+      cmd = { 'bin/rspec-auto' }
+    else
+      cmd = { 'bundle', 'exec', 'rspec' }
+    end
+  else
+    cmd = { 'bundle', 'exec', 'rspec' }
+    location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
+  end
+
+  for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   if location then table.insert(cmd, location) end
 
+  local scope = opts.all and '(all)' or (opts.at_cursor and '(cursor)' or '(file)')
   return {
     on_start = testbus.start,
     on_stdout = testbus.redraw,
@@ -25,13 +37,14 @@ local rspec = function(opts)
       testbus.clear()
     end,
     on_bufenter = function() if testbus.is_awaiting() then vim.cmd.startinsert() end end,
-    winbar = ' RSpec ' .. (opts.at_cursor and '(cursor)' or '(file)'),
+    winbar = ' RSpec ' .. scope,
     cmd = cmd,
   }
 end
 
 require('runner').setup({
   main = { args = { cmd = { 'ruby', vim.fn.expand('%') }, winbar = ' ruby %%' }, desc = 'Execute with ruby' },
+  all = { args = function() return rspec({ all = true }) end, desc = 'Run test suite' },
   overrides = {
     {
       patterns = { 'Gemfile', '*.gemspec' },

@@ -122,6 +122,7 @@ local main = function(...) return bind('<cr>', ...) end
 local alt = function(...) return bind('<leader><cr>', ...) end
 local nearest = function(...) return bind('<leader>tr', ...) end
 local file = function(...) return bind('<leader>tf', ...) end
+local all = function(...) return bind('<leader>ta', ...) end
 
 local setup = function(config)
   local bufname = vim.api.nvim_buf_get_name(0)
@@ -144,7 +145,7 @@ local setup = function(config)
     end
   end
 
-  for _, name in ipairs({ 'main', 'alt', 'nearest', 'file' }) do
+  for _, name in ipairs({ 'main', 'alt', 'nearest', 'file', 'all' }) do
     cfg[name] = cfg[name] or config[name]
   end
 
@@ -152,6 +153,7 @@ local setup = function(config)
   if cfg.alt then alt(cfg.alt.args, cfg.alt.desc) end
   if cfg.nearest then nearest(cfg.nearest.args, cfg.nearest.desc) end
   if cfg.file then file(cfg.file.args, cfg.file.desc) end
+  if cfg.all then all(cfg.all.args, cfg.all.desc) end
 end
 
 -- -----------------------------------------------------------------------------
@@ -162,6 +164,7 @@ vim.keymap.set('n', '<cr>', function() warn('Main runner not configured') end, {
 vim.keymap.set('n', '<leader><cr>', function() warn('Alt runner not configured') end, { desc = 'Runner (alt)' })
 vim.keymap.set('n', '<leader>tr', function() warn('Nearest test runner not defined') end, { desc = 'Run nearest test' })
 vim.keymap.set('n', '<leader>tf', function() warn('File test runner not defined') end, { desc = 'Run test file' })
+vim.keymap.set('n', '<leader>ta', function() warn('Global test runner not defined') end, { desc = 'Run test suite' })
 
 vim.keymap.set('n', '<leader>tl', run, { desc = 'Re-start last run' })
 vim.keymap.set('n', '<c-.>', show, { desc = 'Show run results' })
