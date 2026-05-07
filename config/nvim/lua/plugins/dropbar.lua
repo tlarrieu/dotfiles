@@ -75,7 +75,7 @@ return {
       },
       terminal = {
         icon = '󰆍 ',
-        name = function(buf) return 'term://' .. vim.fn.jobpid(vim.bo[buf].channel) end,
+        name = function(_) return 'term://' .. vim.fn.jobpid(vim.bo.channel) end,
       },
     },
     icons = {
