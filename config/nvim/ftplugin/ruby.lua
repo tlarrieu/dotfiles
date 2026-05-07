@@ -12,22 +12,25 @@ local rspec = function(opts)
 
   local cmd
   local location
+  local scope
 
   if opts.all then
     if require('helpers').fileexists('bin/rspec-auto') then
       cmd = { 'bin/rspec-auto' }
+      scope = '(bin/rspec-auto)'
     else
       cmd = { 'bundle', 'exec', 'rspec' }
+      scope = '(all)'
     end
   else
     cmd = { 'bundle', 'exec', 'rspec' }
     location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
+    scope = opts.at_cursor and '(cursor)' or '(file)'
   end
 
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   if location then table.insert(cmd, location) end
 
-  local scope = opts.all and '(all)' or (opts.at_cursor and '(cursor)' or '(file)')
   return {
     on_start = testbus.start,
     on_stdout = testbus.redraw,
@@ -45,6 +48,17 @@ end
 require('runner').setup({
   main = { args = { cmd = { 'ruby', vim.fn.expand('%') }, winbar = ' ruby %%' }, desc = 'Execute with ruby' },
   all = { args = function() return rspec({ all = true }) end, desc = 'Run test suite' },
+  repl = {
+    args = function()
+      vim.notify('bin/rails')
+      if require('helpers').fileexists('bin/rails') then
+        return { cmd = { 'bin/rails', 'console' }, winbar = '󰫏 rails console' }
+      else
+        return { cmd = { 'pry', }, winbar = ' pry' }
+      end
+    end,
+    desc = 'Start ruby console'
+  },
   overrides = {
     {
       patterns = { 'Gemfile', '*.gemspec' },
@@ -74,7 +88,6 @@ require('alternator').setup({
   { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
 })
 
-vim.keymap.set('n', '<leader>vp', '<cmd>vertical terminal bin/rails console<cr><cmd>startinsert!<cr>')
 vim.keymap.set('n', '<c-s-p>', '<cmd>silent grep! Kernel.binding.pry<cr>')
 
 local params_for = function(kind, root)
