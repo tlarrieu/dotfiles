@@ -1,9 +1,7 @@
-local o = vim.opt_local
-
-o.conceallevel = 0
-o.concealcursor = 'cni'
-o.iskeyword = o.iskeyword + '?' + '!'
-o.spell = true
+vim.opt_local.conceallevel = 0
+vim.opt_local.concealcursor = 'cni'
+vim.opt_local.iskeyword:append({ '?', '!' })
+vim.opt_local.spell = true
 
 local rspec = function(opts)
   local testbus = require('testbus')

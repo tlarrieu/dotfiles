@@ -1,3 +1,5 @@
+local M = {}
+
 -- -----------------------------------------------------------------------------
 -- config
 -- -----------------------------------------------------------------------------
@@ -120,13 +122,16 @@ local run = function(options)
         end,
       })
     )
-    if not opened then vim.api.nvim_win_close(0, false) end
+    if not (opened or options.show) then vim.api.nvim_win_close(0, false) end
   end)
+
+  return M
 end
 
 local show = function()
   if not state.buffer() then return warn('󱈸 Nothing to show.') end
   vim.api.nvim_set_current_win(window())
+  return M
 end
 
 local bind = function(key, opts_or_fn, desc)
@@ -207,8 +212,10 @@ end, { silent = true })
 -- public
 -- -----------------------------------------------------------------------------
 
-return {
+M = {
   run = run,
   show = show,
   setup = setup,
 }
+
+return M

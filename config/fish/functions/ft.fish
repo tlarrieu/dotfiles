@@ -3,7 +3,7 @@ function now
 end
 
 function up
-  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX -w 173
+  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX -w 140
   set_color -d brblack
   echo
   hledger bal $argv -p today -C -H -N --pretty=no
