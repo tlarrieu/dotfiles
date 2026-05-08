@@ -61,8 +61,10 @@ local searchcount = function()
   local ok, result = pcall(vim.fn.searchcount, { maxcount = 999, timeout = 250 })
   if not ok or next(result) == nil then return '' end
 
+  if result.total == 0 then return '' end
+
   return string.format(
-    '  %d / %d',
+    ' %d/%d',
     result.current,
     math.min(result.total, result.maxcount)
   )
