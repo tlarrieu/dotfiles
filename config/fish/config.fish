@@ -21,11 +21,6 @@ set -x SKIM_DEFAULT_OPTIONS '--reverse --multi --color=bw --bind=ctrl-k:kill-lin
 # steam
 set -x STEAM_FORCE_DESKTOPUI_SCALING 1.5
 
-# ocaml
-if type opam > /dev/null 2>&1
-  eval (opam env)
-end
-
 # rbenv
 if type rbenv > /dev/null 2>&1
   source (rbenv init - | psub)

@@ -19,7 +19,6 @@ return {
         'lua',
         'luadoc',
         'markdown',
-        'ocaml',
         'query',
         'ruby',
         'embedded_template',
