@@ -417,6 +417,8 @@ return {
   FidgetGroup = { fg = 'palette.pink', style = 'bold' },
   FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg0' },
   FidgetBorder = { link = 'FidgetNormal' },
+  FidgetProgress = { fg = 'palette.orange' },
+  FidgetDone = { fg = 'palette.green' },
   FidgetGroupSeparator = { fg = 'palette.fg.dimmer' },
   NotifyDEBUGTitle = { fg = 'palette.magenta' },
   NotifyINFOTitle = { fg = 'palette.blue' },

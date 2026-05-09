@@ -18,17 +18,15 @@ return {
       display = {
         render_limit = 16,
         done_ttl = 5,
-        done_icon = '󰄬 ',
+        done_icon = '',
         done_style = '@diff.plus',
         progress_ttl = math.huge,
-        progress_icon = { pattern = 'moon', period = 1 },
-        progress_style = '@diff.delta',
+        progress_icon = { pattern = { '', '', '' }, period = 1 },
+        progress_style = 'FidgetProgress',
         group_style = 'FidgetGroup',
-        icon_style = '@diff.plus',
+        icon_style = 'FidgetDone',
         priority = 30,
         skip_history = true,
-        -- format_message = function(msg) require('fidget.progress.display').default_format_message(msg) end,
-        format_annote = function(msg) return msg.title .. ' ' end,
         format_group_name = function(name)
           if name == 'ruby_lsp' then return 'Ruby LSP' end
           if name == 'eslint' then return 'eslint LSP' end
@@ -51,7 +49,7 @@ return {
       configs = {
         default = {
           name = 'messages',
-          icon = '󰂞  ',
+          icon = '󰂞',
           ttl = 10,
           group_style = 'FidgetGroup',
           icon_style = 'FidgetGroup',
@@ -60,10 +58,10 @@ return {
           info_style = 'NotifyINFOTitle',
           warn_style = 'NotifyWARNTitle',
           error_style = 'NotifyERRORTitle',
-          debug_annote = 'DEBUG ',
-          info_annote = 'INFO ',
-          warn_annote = 'WARN ',
-          error_annote = 'ERROR ',
+          debug_annote = 'DEBUG ',
+          info_annote = 'INFO 󰋽',
+          warn_annote = 'WARN ',
+          error_annote = 'ERROR ',
           update_hook = function(item) require('fidget.notification').set_content_key(item) end,
         }
       },

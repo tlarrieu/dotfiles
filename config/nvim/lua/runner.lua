@@ -81,7 +81,7 @@ local run = function(options)
   if options then options = state.options(options) else options = state.options() end
 
   if options.cmd == nil then return warn('󱈸 No previous job found.') end
-  if state.pid() then return warn(' Job already running...') end
+  if state.pid() then return warn('󰲼 Job already running...') end
 
   options.on_start = options.on_start or function() end
   options.on_stdout = options.on_stdout or function(_) end
