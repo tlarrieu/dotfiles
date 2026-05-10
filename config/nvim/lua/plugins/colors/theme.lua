@@ -55,8 +55,8 @@ return {
   Title = { fg = 'palette.fg.dim', style = 'bold' },
   Whitespace = { fg = 'palette.fg.dimmer' },
 
-  SnippetTabstop = { bg = 'palette.bg0' },
-  SnippetTabstopActive = { bg = 'palette.pink.dim' },
+  SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg0' },
+  SnippetTabstopActive = { fg = 'palette.pink', bg = 'palette.pink.dim' },
 
   ['@comment'] = { link = 'Comment' },
   ['@comment.documentation'] = { link = 'Documentation' },
