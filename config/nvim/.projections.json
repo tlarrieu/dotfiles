@@ -1,5 +1,5 @@
 {
-  "snippets/*.lua": {
+  "lua/usr/snippets/*.lua": {
     "skeleton": "snippets"
   },
   "lua/plugins/*.lua": {

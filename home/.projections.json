@@ -1,8 +1,5 @@
 {
   "*_spec.rb": {
     "skeleton": "spec"
-  },
-  "*.rb": {
-    "skeleton": "skel"
   }
 }

@@ -3,7 +3,6 @@ local blank_border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
 return {
   'hrsh7th/nvim-cmp',
   dependencies = {
-    'saadparwaiz1/cmp_luasnip',
     'folke/lazydev.nvim',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-buffer',
@@ -14,7 +13,6 @@ return {
   config = function()
     require('copilot_cmp').setup()
     local cmp = require('cmp')
-    local luasnip = require('luasnip')
 
     local kind_icons = {
       Text = '',
@@ -33,7 +31,6 @@ return {
       Enum = '',
       EnumMember = '',
       Keyword = '',
-      Snippet = '󰩫',
       Color = '󰌁',
       Reference = '',
       File = '󰈔',
@@ -56,7 +53,7 @@ return {
         throttle = 250,
       },
       snippet = {
-        expand = function(args) luasnip.lsp_expand(args.body) end,
+        expand = function(args) vim.snippet.expand(args.body) end,
       },
       mapping = cmp.mapping.preset.insert({
         ['<c-n>'] = cmp.mapping(function()
@@ -70,19 +67,12 @@ return {
           end
         end),
         ['<c-y>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
-        ['<c-e>'] = cmp.mapping(function() luasnip.expand() end),
-        ['<tab>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable(1) then luasnip.jump(1) else fallback() end
-        end, { 'i', 's' }),
-        ['<S-tab>'] = cmp.mapping(function(fallback)
-          if luasnip.jumpable(-1) then luasnip.jump(-1) else fallback() end
-        end, { 'i', 's' }),
+        ['<c-e>'] = cmp.mapping(function(fallback) fallback() end),
       }),
       sources = cmp.config.sources({
         { name = 'path', priority = 1000 },
         { name = 'copilot', priority = 110 },
         { name = 'nvim_lsp', priority = 100 },
-        { name = 'luasnip', priority = 95 },
         { name = 'buffer', priority = 10, option = { get_bufnrs = vim.api.nvim_list_bufs, keyword_pattern = [[\k\+]] } },
       }),
       formatting = {
