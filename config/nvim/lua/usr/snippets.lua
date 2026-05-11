@@ -1,12 +1,36 @@
-local cword = function(cursor)
-  if cursor[2] == 0 then return end
+local vars = {
+  ['$MONTH'] = function() return os.date('%m') end,
+  ['$DAY'] = function() return os.date('%d') end,
+  ['$PASCALIZE_FNAME'] = function()
+    return require('helpers').pascalize(vim.api.nvim_buf_get_name(0):match('([^/]+)%.%w+$')) or ''
+  end
+}
 
-  local _cursor = { cursor[1], cursor[2] - 1 }
-  vim.api.nvim_win_set_cursor(0, _cursor)
-  local word = vim.fn.expand('<cword>')
+local wordsep = {
+  [' '] = true,
+  ['.'] = true,
+  ['!'] = true,
+  ['?'] = true,
+  ['('] = true,
+  [')'] = true,
+  ['{'] = true,
+  ['}'] = true,
+  ['['] = true,
+  [']'] = true,
+}
 
-  vim.api.nvim_win_set_cursor(0, cursor)
-  return word
+local function prevword(line, column)
+  local word, i = '', column
+
+  while i > 0 do
+    local char = string.sub(line, i, i)
+
+    if wordsep[char] then break end
+
+    word, i = char .. word, i - 1
+  end
+
+  return i + 1, word
 end
 
 local resolve = function(name)
@@ -19,26 +43,24 @@ local resolve = function(name)
 end
 
 local inject = function(string)
+  for var, fn in pairs(vars) do string = string:gsub(var, fn()) end
+
   return string
-      :gsub('$MONTH', os.date('%m'))
-      :gsub('$DAY', os.date('%d'))
-      :gsub('$PASCALIZE_FNAME', require('helpers').pascalize(vim.api.nvim_buf_get_name(0):match('([^/]+)%.%w+$')) or '')
 end
 
 local expand = function()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
-  local curword = cword(cursor)
-  local snippet = resolve(curword)
-  if not snippet then return end
-
   local curline = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
   if curline == '' then return end
 
-  local start, finish = curline:find(curword, cursor[2] + 1 - #curword, true)
-  if not start then return end
+  local start, trigger = prevword(curline, cursor[2])
 
-  vim.api.nvim_buf_set_text(0, cursor[1] - 1, start - 1, cursor[1] - 1, finish, { '' })
+  local snippet = resolve(trigger)
+  if not snippet then return end
+
+  vim.api.nvim_buf_set_text(0, cursor[1] - 1, start - 1, cursor[1] - 1, start + #trigger - 1, { '' })
+
   if type(snippet) == 'table' then
     curline = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
     if curline:match('^%s*$') then
