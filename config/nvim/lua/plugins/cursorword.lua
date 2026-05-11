@@ -12,8 +12,5 @@ return {
     },
     highlight = { link = 'Cursorword' },
   },
-  config = function(_, opts)
-    require('stcursorword').setup(opts)
-    vim.cmd.Cursorword('disable')
-  end
+  init = function() vim.cmd.Cursorword('disable') end,
 }

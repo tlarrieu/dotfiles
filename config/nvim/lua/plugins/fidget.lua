@@ -98,14 +98,12 @@ return {
       path = string.format('%s/fidget.nvim.log', vim.fn.stdpath('cache')),
     },
   },
-  config = function(_, opts)
-    require('fidget').setup(opts)
-
+  init = function()
     -- override print() to use vim.notify
     print = function(...)
       local args = {}
       for _, arg in ipairs({ ... }) do table.insert(args, tostring(arg)) end
       vim.notify(table.concat(args, ' '), vim.log.levels.DEBUG)
     end
-  end
+  end,
 }

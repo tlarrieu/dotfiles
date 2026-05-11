@@ -6,9 +6,8 @@ return {
     notifications = true,
     exclude_filetypes = { 'help', 'man', 'codediff-explorer' },
   },
-  config = function(_, opts)
+  init = function()
     vim.opt.list = true
     vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
-    require('nvim-listchars').setup(opts)
   end
 }
