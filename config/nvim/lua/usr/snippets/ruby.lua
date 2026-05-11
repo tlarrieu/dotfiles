@@ -37,7 +37,6 @@ return {
     c = 'class ${1:$PASCALIZE_FNAME}\n\t$0\nend',
     d = 'def ${1:name}\n\t$0\nend',
     di = 'def initialize$1\n\t$0\nend',
-    r = 'return ',
     l = '@${1:var} = $1',
     ['if'] = 'if ${1:cond}\n\t$0\nend',
     ['unless'] = 'unless ${1:cond}\n\t$0\nend',

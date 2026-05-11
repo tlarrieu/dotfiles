@@ -27,7 +27,6 @@ return {
       block = 'local $1 = function($2)\n\t$0\nend',
     },
     l = 'local $1 = ',
-    r = 'return ',
     ['for'] = 'for ${1:x} in ${2:xs} do\n\t$0\nend',
     ['if'] = 'if ${1:cond} then\n\t$0\nend',
     ['eif'] = 'elseif ${1:cond} then\n\t$0',
@@ -41,7 +40,7 @@ return {
     n = 'vim.notify(${1:arg})',
     i = 'vim.inspect(${1:arg})',
     au = au,
-    aug = "vim.api.nvim_create_augroup('${1:groupname}', {})",
+    aug = "vim.api.nvim_create_augroup('${1:groupname}', {$2})",
 
     s = snippet,
   },
