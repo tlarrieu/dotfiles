@@ -57,14 +57,19 @@ color body red default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-
 
 # Default index colors:
 color index color19 default '.*'
-color index_flags color0  default '.*'
+color index_flags color19  default '.*'
 color index_author color0  default '.*'
 color index_subject color0 default '.*'
 
 # For new mail:
 color index color19 default "~N"
-color index_flags red  default "~N"
-color index_author red  default "~N"
-color index_subject red default "~N"
+color index_flags green  default "~N"
+color index_author green  default "~N"
+color index_subject green default "~N"
+
+color index red  default "~D"
+color index_flags red  default "~D"
+color index_author red  default "~D"
+color index_subject red  default "~D"
 
 color progress black cyan
