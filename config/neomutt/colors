@@ -62,7 +62,7 @@ color index_author color0  default '.*'
 color index_subject color0 default '.*'
 
 # For new mail:
-color index color19 default "~N"
+color index green default "~N"
 color index_flags green  default "~N"
 color index_author green  default "~N"
 color index_subject green default "~N"
