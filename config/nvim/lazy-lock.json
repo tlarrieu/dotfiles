@@ -23,7 +23,7 @@
   "markview.nvim": { "branch": "main", "commit": "dbf74b6db11c1468d5128a38b26b6d99dc7316e9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "51feb0ada33d18f3c5c71ffb46005dbf8b33bef4" },
   "mason.nvim": { "branch": "main", "commit": "e54f5bf5f12c560da31c17eee5b3e1bd369f3ff9" },
-  "mini.align": { "branch": "main", "commit": "60c61c8c63dca41b5ac6bfc36b52df69b1a03e6b" },
+  "mini.align": { "branch": "main", "commit": "6f3c69cd57134ad8fbf1e85dcdc90cb37a8c75c8" },
   "neogit": { "branch": "master", "commit": "792c139da736230855e8341ebe6175bb6eb8268b" },
   "nightfox.nvim": { "branch": "main", "commit": "26b61b1f856ec37cae3cb64f5690adb955f246a1" },
   "nvim-cmp": { "branch": "main", "commit": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca" },

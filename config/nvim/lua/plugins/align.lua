@@ -1,5 +1,1 @@
-return {
-  'echasnovski/mini.align',
-  version = '*',
-  config = true,
-}
+return { 'echasnovski/mini.align', config = true }
