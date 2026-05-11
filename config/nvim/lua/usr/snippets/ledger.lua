@@ -1,30 +1,30 @@
 return {
   snippets = {
     e = [[
-${6:$MONTH/$DAY} ${7:!} ${4:payee} | ${5:desc}
-  card:ce:${2:j}  -${1:amount} €
-  ${3:from}]],
+${1:$MONTH/$DAY} ${2:!} ${6:payee} | ${7:desc}
+  card:ce:${4:j}  -${3:amount} €
+  ${5:from}]],
     r = [[
-${5:$MONTH/$DAY} ${6:!} ${3:me} | ${4:desc}
-  card:ce:${2:j}  ${1:amount} €
-  refund]],
+${1:$MONTH/$DAY} ${2:!} ${6:payee} | ${7:desc}
+  card:ce:${4:j}  ${3:amount} €
+  ${5:refund}]],
     i = [[
-${6:$MONTH/$DAY} ${7:!} ${4:me} | ${5:desc}
-  card:ce:${2:j}  ${1:amount} €
-  salary/${3:Thomas}]],
+${1:$MONTH/$DAY} ${2:!} ${6:me} | ${7:salary}
+  card:ce:${4:j}  ${3:amount} €
+  ${5:salary/Thomas}]],
     t = [[
-${6:$MONTH/$DAY} ${7:!} ${4:me} | ${5:transfert}
-  ${2:to}  ${1:amount} €
-  ${3:from}]],
+${1:$MONTH/$DAY} ${2:!} ${6:me} | ${7:transfert}
+  ${4:to}  ${3:amount} €
+  ${5:from}]],
     l = '${1:account}  ${0:amount} €',
 
     g = [[
-${5:$MONTH/$DAY} ${6:!} ${3:grandfrais} | ${4:courses}
-  card:ce:${2:j}  -${1:amount} €
+${1:$MONTH/$DAY} ${2:!} ${6:grandfrais} | ${7:courses}
+  card:ce:${4:j}  -${3:amount} €
   groceries]],
     q = [[
-${4:$MONTH/$DAY} ${5:*} ${3:église} | quête
-  ${2:cash}  -${1:amount} €
+${1:$MONTH/$DAY} ${2:*} ${6:église} | ${7:quête}
+  ${4:cash}  -${3:amount} €
   charities]],
   },
   skeletons = {}
