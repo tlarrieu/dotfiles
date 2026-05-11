@@ -35,6 +35,7 @@ return {
       Reference = '',
       File = '󰈔',
       Folder = '',
+      Snippet = '󰩫',
       Struct = '',
       Event = '󱐌',
       Operator = '󱓉',
