@@ -34,7 +34,7 @@ local function prevword(line, column)
 end
 
 local file_for = function(ft)
-  return vim.fn.expand('~/.config/nvim/lua/usr/snippets/' .. ft .. '.lua')
+  return vim.fs.joinpath(vim.fn.stdpath('config'), '/lua/usr/snippets/', ft .. '.lua')
 end
 
 local import = function(ft)
