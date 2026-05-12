@@ -39,17 +39,11 @@ end
 
 local import = function(ft)
   local loaded = loadfile(file_for(ft))
-  if not loaded then error(1) end
-  return loaded()
+  return loaded and loaded() or { snippets = {}, skeletons = {} }
 end
 
 local resolve = function(name)
-  local ok, ft = pcall(import, vim.bo.ft)
-  if ok and ft and ft.snippets[name] then return ft.snippets[name] end
-
-  local common
-  ok, common = pcall(import, 'common')
-  if ok then return common.snippets[name] end
+  return import(vim.bo.ft).snippets[name] or import('common').snippets[name]
 end
 
 local preprocess = function(string)
@@ -91,11 +85,11 @@ end, {})
 
 vim.api.nvim_create_autocmd('FileType', {
   callback = function()
-    vim.keymap.set('n', '<leader>es', function()
-      if vim.bo.ft == '' then return end
-
-      vim.cmd.vsplit(file_for(vim.bo.ft))
-    end, {})
+    vim.keymap.set(
+      'n',
+      '<leader>es',
+      function() if vim.bo.ft ~= '' then vim.cmd.vsplit(file_for(vim.bo.ft)) end end
+    )
   end,
 })
 
@@ -103,28 +97,19 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function(ev)
     local ft = vim.bo[ev.buf].ft
 
-    local ok, skeletons = pcall(import, ft)
-    if not ok then return end
+    local skeletons = import(ft).skeletons
 
-    skeletons = (skeletons or {}).skeletons or {}
+    local skelname = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
 
-    -- query projectionist
-    local skeleton = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
-
-    if skeleton and not skeletons[skeleton] then
-      vim.notify(
-        'Skeleton "' .. skeleton .. '" not found for filetype "' .. ft .. '"',
+    if skelname and not skeletons[skelname] then
+      return vim.notify(
+        'Skeleton "' .. skelname .. '" not found for filetype "' .. ft .. '"',
         vim.log.levels.WARN,
         { title = "skeleton.lua" }
       )
-      return
     end
 
-    skeleton = skeleton or "base"
-
-    if not skeletons[skeleton] then return false end
-
-    vim.snippet.expand(skeletons[skeleton])
+    pcall(vim.snippet.expand, skeletons[skelname or "base"])
   end,
   group = vim.api.nvim_create_augroup("skeletons_hooks", {})
 })

@@ -24,11 +24,13 @@ M.fileexists = function(path)
 end
 
 M.capitalize = function(str)
+  str = str or ''
   return str:gsub("^%a", string.upper, 1) or str
 end
 
 M.camelize = function(str)
-  if not (str:find("_")) then
+  str = str or ''
+  if not str:find("_") then
     return str:lower()
   end
   return str:gsub('(_)([a-z])', function(_, l) return l:upper() end) or str
