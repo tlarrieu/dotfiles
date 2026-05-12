@@ -112,3 +112,6 @@ Style/SymbolProc:
 
 Style/ItBlockParameter:
   EnforcedStyle: disallow
+
+Style/NumberedParametersLimit:
+  Max: 2
