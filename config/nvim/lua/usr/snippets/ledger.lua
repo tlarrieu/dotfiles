@@ -1,30 +1,26 @@
 return {
   snippets = {
     e = [[
-${1:$MONTH/$DAY} ${2:!} ${6:payee} | ${7:desc}
-  card:ce:${4:j}  -${3:amount} €
-  ${5:from}]],
-    r = [[
-${1:$MONTH/$DAY} ${2:!} ${6:payee} | ${7:desc}
-  card:ce:${4:j}  ${3:amount} €
-  ${5:refund}]],
+${6:$MONTH/$DAY} ${7:!} ${4:payee} | ${5:desc}
+  ${3|card:ce:j,cash|}  -${1:amount} €
+  ${2:from}]],
     i = [[
-${1:$MONTH/$DAY} ${2:!} ${6:me} | ${7:salary}
-  card:ce:${4:j}  ${3:amount} €
-  ${5:salary/Thomas}]],
-    t = [[
-${1:$MONTH/$DAY} ${2:!} ${6:me} | ${7:transfert}
-  ${4:to}  ${3:amount} €
-  ${5:from}]],
+${6:$MONTH/$DAY} ${7:*} ${4|me,miriam|} | ${5:desc}
+  ${3:card:ce:j}  ${1:amount} €
+  ${2|salary/Thomas,CPAM,refund,transfers|}]],
     l = '${1:account}  ${0:amount} €',
 
+    p = [[
+${6:$MONTH/$DAY} ${7:!} ${4|parking,péage|}
+  card:ce:j  -${1:amount} €
+  ${2|car:parking,car:toll|}]],
     g = [[
-${1:$MONTH/$DAY} ${2:!} ${6:grandfrais} | ${7:courses}
-  card:ce:${4:j}  -${3:amount} €
+${6:$MONTH/$DAY} ${7:!} ${4:grandfrais} | ${5:courses}
+  ${3|card:ce:j,cash|}  -${1:amount} €
   groceries]],
     q = [[
-${1:$MONTH/$DAY} ${2:*} ${6:église} | ${7:quête}
-  ${4:cash}  -${3:amount} €
+${6:$MONTH/$DAY} ${7:*} église | quête
+  ${3|cash,card:ce:j|}  -${1:amount} €
   charities]],
   },
   skeletons = {}
