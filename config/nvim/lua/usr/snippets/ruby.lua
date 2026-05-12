@@ -27,8 +27,6 @@ return {
       block = '# frozen_string_literal: true',
     },
 
-    pry = 'Kernel.binding.pry',
-
     req = "require '${1:module}'",
     reqr = "require_relative '${1:module}'",
     inc = 'include ${1:Module}',
@@ -77,6 +75,8 @@ return {
     eb = 'expect { $1 }.to ',
 
     p = 'puts ',
+    pry = 'Kernel.binding.pry',
+    ['.tp'] = '.tap { |o| ${1:Kernel.binding.pry} }',
 
     flip = 'Flipper.enable?(:${1:feature}, ${2:actor})',
     sentry = sentry,
