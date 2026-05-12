@@ -101,6 +101,7 @@ local run = function(options)
     vim.bo[state.buffer()].modifiable = false
     vim.api.nvim_create_autocmd('BufEnter', { callback = options.on_bufenter, buffer = state.buffer() })
     vim.api.nvim_create_autocmd('BufDelete', { callback = options.on_clean, buffer = state.buffer() })
+    vim.api.nvim_win_set_cursor(0, { 1, 0 })
 
     state.pid(
       vim.fn.jobstart(options.cmd, {
