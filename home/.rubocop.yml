@@ -1,5 +1,4 @@
 AllCops:
-  TargetRubyVersion: 2.4
   Exclude:
     - 'db/**/*'
   NewCops: enable
@@ -110,3 +109,6 @@ Style/StringLiterals:
 
 Style/SymbolProc:
   Enabled: true
+
+Style/ItBlockParameter:
+  EnforcedStyle: disallow
