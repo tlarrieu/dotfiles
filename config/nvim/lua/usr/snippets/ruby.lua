@@ -27,7 +27,7 @@ return {
       block = '# frozen_string_literal: true',
     },
 
-    pry = 'Kernal.binding.pry',
+    pry = 'Kernel.binding.pry',
 
     req = "require '${1:module}'",
     reqr = "require_relative '${1:module}'",
