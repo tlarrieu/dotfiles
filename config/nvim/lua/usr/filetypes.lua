@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     rasi = 'rasi',
     jbuilder = 'ruby',
+    rbs = 'ruby',
     mdx = 'markdown',
     zathurarc = 'zathurarc',
     edi = 'edifact',
