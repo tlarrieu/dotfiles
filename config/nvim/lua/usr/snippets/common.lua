@@ -8,7 +8,7 @@ return {
     test = 'TEST: ',
     hack = 'HACK: ',
 
-    r = 'return ',
+    r = 'return',
   },
   skeletons = {}
 }
