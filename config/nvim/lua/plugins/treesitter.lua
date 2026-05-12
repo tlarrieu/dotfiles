@@ -99,6 +99,20 @@ return {
       vim.keymap.set({ 'x', 'o' }, 'aC', function() select.select_textobject('@class.outer', 'textobjects') end)
       vim.keymap.set({ 'x', 'o' }, 'il', function() select.select_textobject('@assignment.lhs', 'textobjects') end)
       vim.keymap.set({ 'x', 'o' }, 'ir', function() select.select_textobject('@assignment.rhs', 'textobjects') end)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = { 'sql' },
+        callback = function()
+          vim.keymap.set({ 'x', 'o' }, 'ip', function() select.select_textobject('@paragraph', 'textobjects') end,
+            { buffer = true })
+          vim.keymap.set({ 'x', 'o' }, 'ap', function() select.select_textobject('@paragraph', 'textobjects') end,
+            { buffer = true })
+          vim.keymap.set({ 'x', 'o' }, 'is', function() select.select_textobject('@sentence.inner', 'textobjects') end,
+            { buffer = true })
+          vim.keymap.set({ 'x', 'o' }, 'as', function() select.select_textobject('@sentence.outer', 'textobjects') end,
+            { buffer = true })
+        end,
+      })
     end
   },
   {
