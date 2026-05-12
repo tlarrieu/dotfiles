@@ -10,7 +10,7 @@ set sort_aux = reverse-date
 set mailcap_path = "~/.config/neomutt/mailcap"
 
 set flag_chars = '󱈸d󰑚- '
-set index_format = '%4C %zs %zt %[%m/%d · %H:%M] %-15.15L (test) %s'
+set index_format = '%4C · %zs %zt · %[%m/%d %H:%M] · %-25.25L · %s'
 
 mailboxes -label +inbox -notify -nopoll !
 
