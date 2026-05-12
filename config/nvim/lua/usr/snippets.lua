@@ -33,16 +33,26 @@ local function prevword(line, column)
   return i + 1, word
 end
 
+local file_for = function(ft)
+  return vim.fn.expand('~/.config/nvim/lua/usr/snippets/' .. ft .. '.lua')
+end
+
+local import = function(ft)
+  local loaded = loadfile(file_for(ft))
+  if not loaded then error(1) end
+  return loaded()
+end
+
 local resolve = function(name)
-  local ok, ft = pcall(require, 'usr.snippets.' .. vim.bo.ft)
-  if ok and ft.snippets[name] then return ft.snippets[name] end
+  local ok, ft = pcall(import, vim.bo.ft)
+  if ok and ft and ft.snippets[name] then return ft.snippets[name] end
 
   local common
-  ok, common = pcall(require, 'usr.snippets.common')
+  ok, common = pcall(import, 'common')
   if ok then return common.snippets[name] end
 end
 
-local inject = function(string)
+local preprocess = function(string)
   for var, fn in pairs(vars) do string = string:gsub(var, fn()) end
 
   return string
@@ -70,13 +80,13 @@ local expand = function()
     end
   end
 
-  vim.snippet.expand(inject(snippet))
+  vim.snippet.expand(preprocess(snippet))
 end
 
 vim.keymap.set('i', '<c-e>', expand, {})
 
 vim.keymap.set('n', '<leader>eS', function()
-  vim.cmd.vsplit(vim.fn.expand('~/.config/nvim/lua/usr/snippets/common.lua'))
+  vim.cmd.vsplit(file_for('common'))
 end, {})
 
 vim.api.nvim_create_autocmd('FileType', {
@@ -84,7 +94,7 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<leader>es', function()
       if vim.bo.ft == '' then return end
 
-      vim.cmd.vsplit(vim.fn.expand('~/.config/nvim/lua/usr/snippets/' .. vim.bo.ft .. '.lua'))
+      vim.cmd.vsplit(file_for(vim.bo.ft))
     end, {})
   end,
 })
@@ -93,7 +103,7 @@ vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function(ev)
     local ft = vim.bo[ev.buf].ft
 
-    local ok, skeletons = pcall(require, 'usr.snippets.' .. ft)
+    local ok, skeletons = pcall(import, ft)
     if not ok then return end
 
     skeletons = (skeletons or {}).skeletons or {}
