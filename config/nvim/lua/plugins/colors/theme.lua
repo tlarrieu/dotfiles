@@ -188,6 +188,9 @@ return {
 
   -- ------------| Language specific |----------------
 
+  -- bash
+  ['@string.special.path.bash'] = { fg = 'palette.pink' },
+
   -- query
   ['@function.call.query'] = { fg = 'palette.blue' },
   ['@comment.query'] = { fg = 'palette.fg.dimmer' },
