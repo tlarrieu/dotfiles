@@ -5,6 +5,8 @@ vim.pack.add({
   'https://github.com/williamboman/mason-lspconfig.nvim',
 }, { confirm = false })
 
+---- Mason ---------------------------------------------------------------------
+
 local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
 
 require('mason').setup({
@@ -76,6 +78,8 @@ vim.lsp.config('lua_ls', {
     }
   }
 })
+
+---- Mason lspconfig -----------------------------------------------------------
 
 require('mason-lspconfig').setup({
   ensure_installed = {
