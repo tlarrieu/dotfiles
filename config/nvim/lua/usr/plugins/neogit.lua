@@ -1,5 +1,6 @@
 vim.pack.add({
   'https://github.com/esmuellert/codediff.nvim',
+  -- TODO: unpin this once the issues with async has been fixed
   { src = 'https://github.com/NeogitOrg/neogit', version = '792c139da736230855e8341ebe6175bb6eb8268b' }
 }, { confirm = false })
 

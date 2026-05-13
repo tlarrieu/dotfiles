@@ -42,7 +42,7 @@ require('todo-comments').setup({
       '--with-filename',
       '--line-number',
       '--column',
-      '--iglob=!**/snippets/all.lua',
+      '--iglob=!**/snippets/common.lua',
     },
     -- regex that will be used to match keywords.
     -- don't replace the (KEYWORDS) placeholder
