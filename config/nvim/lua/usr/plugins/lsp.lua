@@ -79,6 +79,14 @@ vim.lsp.config('lua_ls', {
   }
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'mason' },
+  callback = function()
+    vim.wo.winblend = 0
+    vim.wo.cursorline = false
+  end,
+})
+
 ---- Mason lspconfig -----------------------------------------------------------
 
 require('mason-lspconfig').setup({
