@@ -130,12 +130,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
+local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
 local notify_request = function(request)
-  local icons = { pending = '󰔟', cancel = '󰜺', complete = '' }
   local icon = icons[request.type]
-  if not icon then return end
-
-  vim.notify(icon .. ' ' .. request.method)
+  if icon then vim.notify(icon .. ' ' .. request.method) end
 end
 
 vim.api.nvim_create_autocmd('LspRequest', {
