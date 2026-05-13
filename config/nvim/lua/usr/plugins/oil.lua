@@ -98,3 +98,11 @@ oil.setup({
 })
 
 vim.keymap.set('n', '<leader>.', oil.open, { desc = 'Open Oil', silent = true })
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'oil' },
+  callback = function()
+    vim.keymap.set('n', '<leader>.', oil.close, { buffer = true, silent = true, desc = 'Close Oil split' })
+    vim.keymap.set('n', 'à', oil.close, { buffer = true, silent = true, desc = 'Close Oil split' })
+  end,
+})
