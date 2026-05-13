@@ -495,7 +495,7 @@ return {
   NeogitBranch = { link = '@git.branch' },
   NeogitRemote = { link = 'NeogitBranch' },
   NeogitBranchHead = { link = 'NeogitBranch' },
-  NeogitTagName = { link = 'NeogitBranch' },
+  NeogitTagName = { fg = 'palette.pink', bg = 'palette.pink.dim' },
   NeogitStatusHead = { fg = 'palette.fg.dimmer', bg = 'none', style = 'bold' },
   NeogitSubtleText = { fg = 'palette.fg.dim', style = 'italic' },
   NeogitFilePath = { fg = 'palette.blue', style = 'italic' },
