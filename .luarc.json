@@ -3,7 +3,7 @@
   "hint.enable": true,
   "workspace.library": [
     "/usr/share/nvim/runtime/lua",
-    "~/.local/share/nvim/lazy/**/lua",
+    "~/.local/share/nvim/site/pack/core/opt/**/lua",
     "${3rd}/luv/library",
     "${3rd}/luassert/library"
   ],

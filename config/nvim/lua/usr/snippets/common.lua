@@ -8,6 +8,8 @@ return {
     test = 'TEST: ',
     hack = 'HACK: ',
 
+    gh = 'https://github.com/',
+
     r = 'return',
   },
   skeletons = {}

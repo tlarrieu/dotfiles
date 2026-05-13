@@ -1,3 +1,5 @@
+require('usr.pack')
+
 -- Command line shorthand
 local abbr = {
   git = 'Git',
@@ -7,12 +9,14 @@ local abbr = {
   ['rm!'] = 'Delete!',
   h = 'tab h',
   hi = "lua require('telescope.builtin').highlights()",
-  lazy = 'Lazy',
   mason = 'Mason',
   map = "lua require('telescope.builtin').keymaps({lfs_filter = true })",
   ins = 'Inspect',
   ts = 'InspectTree',
   man = 'tab Man',
+  pup = 'PackUpdate',
+  pls = 'PackList',
+  purge = 'PackPurge'
 }
 
 for key, value in pairs(abbr) do

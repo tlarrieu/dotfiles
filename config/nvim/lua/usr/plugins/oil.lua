@@ -1,0 +1,100 @@
+vim.pack.add({ 'https://github.com/stevearc/oil.nvim' }, { confirm = false })
+
+local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+
+local oil = require('oil')
+
+oil.setup({
+  columns = {
+    {
+      'icon',
+      directory = '',
+      add_padding = true,
+    },
+    -- "permissions",
+    -- "size",
+    -- "mtime",
+  },
+  buf_options = {
+    buflisted = false,
+    bufhidden = 'hide',
+  },
+  win_options = {
+    wrap = false,
+    signcolumn = 'yes',
+    cursorcolumn = false,
+    foldcolumn = '0',
+    spell = false,
+    list = false,
+    conceallevel = 3,
+    concealcursor = 'n',
+  },
+  default_file_explorer = true,
+  restore_win_options = true,
+  skip_confirm_for_simple_edits = false,
+  delete_to_trash = false,
+  prompt_save_on_select_new_entry = false,
+  keymaps = {
+    ['g?'] = 'actions.show_help',
+    ['<CR>'] = 'actions.select',
+    ['<C-CR>'] = 'actions.preview',
+    ['<leader>vv'] = 'actions.select_vsplit',
+    ['<leader>ss'] = 'actions.select_split',
+    ['<C-c>'] = false,
+    ['<C-l>'] = 'actions.refresh',
+    ['<C-p>'] = false,
+    ['<C-t>'] = false,
+    ['<C-v>'] = false,
+    ['<C-s>'] = false,
+    ['s'] = function() oil.save({ confirm = true }) end,
+    ['gs'] = 'actions.change_sort',
+    ['<bs>'] = 'actions.parent',
+    ['-'] = 'actions.parent',
+    ['_'] = 'actions.open_cwd',
+    ['<leader>cd'] = 'actions.cd',
+    ['g.'] = 'actions.toggle_hidden',
+  },
+  use_default_keymaps = true,
+  view_options = {
+    show_hidden = true,
+    is_hidden_file = function(name) return vim.startswith(name, ".") end,
+    is_always_hidden = function() return false end,
+  },
+  confirmation = {
+    border = border,
+    win_options = { winblend = 5 }
+  },
+  float = {
+    padding = 2,
+    max_width = 250,
+    max_height = 80,
+    border = border,
+    win_options = {
+      winblend = 10,
+    },
+    override = function(conf) return conf end,
+  },
+  preview = {
+    max_width = 0.9,
+    min_width = { 40, 0.4 },
+    width = nil,
+    max_height = 0.9,
+    min_height = { 5, 0.1 },
+    height = nil,
+    border = border,
+    win_options = { winblend = 5 },
+  },
+  progress = {
+    max_width = 0.9,
+    min_width = { 40, 0.4 },
+    width = nil,
+    max_height = { 10, 0.9 },
+    min_height = { 5, 0.1 },
+    height = nil,
+    border = border,
+    minimized_border = 'none',
+    win_options = { winblend = 5 },
+  },
+})
+
+vim.keymap.set('n', '<leader>.', oil.open, { desc = 'Open Oil', silent = true })

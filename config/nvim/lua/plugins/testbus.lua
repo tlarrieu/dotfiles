@@ -1,4 +1,0 @@
-return {
-  'tlarrieu/testbus',
-  opts = {},
-}

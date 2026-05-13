@@ -12,15 +12,16 @@ local snippet = [[return {
   skeletons = {}
 }]]
 
-local plugin = [[return {
-  '$1',
-  $0
-}]]
+local plugin = [[
+vim.pack.add({$1}, { confirm = false })
+
+$0]]
 
 return {
   snippets = {
     e = '---@',
     req = "require('${1:module}')",
+    lreq = "local ${1:module} = require('$1')",
     m = 'local M = {}\n\n$0\n\n return M',
     d = {
       inline = 'function($1) $2 end',
@@ -41,8 +42,12 @@ return {
     i = 'vim.inspect(${1:arg})',
     au = au,
     aug = "vim.api.nvim_create_augroup('${1:groupname}', {$2})",
+    k = "vim.keymap.set('${1:n}', '${2:keys}', ${3:action})",
 
     s = snippet,
+
+    pl = "{ src = '$1', version = '$2' }",
+    pa = 'vim.pack.add({$1}, { confirm = false })'
   },
   skeletons = {
     ['snippets'] = snippet,

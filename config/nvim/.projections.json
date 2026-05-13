@@ -2,7 +2,7 @@
   "lua/usr/snippets/*.lua": {
     "skeleton": "snippets"
   },
-  "lua/plugins/*.lua": {
+  "lua/usr/plugins/*.lua": {
     "skeleton": "plugin"
   }
 }
