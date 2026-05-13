@@ -10,10 +10,10 @@ ${6:$MONTH/$DAY} ${7:*} ${4|me,miriam|} | ${5:desc}
   ${2|salary/Thomas,CPAM,refund,transfers|}]],
     l = '${1:account}  ${0:amount} €',
 
-    p = [[
-${6:$MONTH/$DAY} ${7:!} ${4|parking,péage|}
+    c = [[
+${6:$MONTH/$DAY} ${7:!} ${4:payee} | ${5|parking,essence,péage|}
   card:ce:j  -${1:amount} €
-  ${2|car:parking,car:toll|}]],
+  car:${2|parking,gas,toll|}]],
     g = [[
 ${6:$MONTH/$DAY} ${7:!} ${4:grandfrais} | ${5:courses}
   ${3|card:ce:j,cash|}  -${1:amount} €
