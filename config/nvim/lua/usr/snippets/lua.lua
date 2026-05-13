@@ -41,13 +41,13 @@ return {
     n = 'vim.notify(${1:arg})',
     i = 'vim.inspect(${1:arg})',
     au = au,
-    aug = "vim.api.nvim_create_augroup('${1:groupname}', {$2})",
+    ag = "vim.api.nvim_create_augroup('${1:groupname}', {$2})",
     k = "vim.keymap.set('${1:n}', '${2:keys}', ${3:action})",
 
     s = snippet,
 
     pl = "{ src = '$1', version = '$2' }",
-    pa = 'vim.pack.add({$1}, { confirm = false })'
+    pa = 'vim.pack.add({$1}, { confirm = false })',
   },
   skeletons = {
     ['snippets'] = snippet,
