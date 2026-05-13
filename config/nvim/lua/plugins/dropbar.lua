@@ -77,7 +77,10 @@ return {
       },
       terminal = {
         icon = '󰆍 ',
-        name = function(_) return 'term://' .. vim.fn.jobpid(vim.bo.channel) end,
+        name = function(_)
+          local ok, pid = pcall(vim.fn.jobpid, vim.bo.channel)
+          if ok then return 'term://' .. pid else return 'term://???' end
+        end,
       },
     },
     icons = {
