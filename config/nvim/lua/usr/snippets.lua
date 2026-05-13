@@ -19,18 +19,18 @@ local wordsep = {
   [']'] = true,
 }
 
-local function prevword(line, column)
-  local word, i = '', column
+local function find_trigger(line, column)
+  local start, trigger = column, ''
 
-  while i > 0 do
-    local char = string.sub(line, i, i)
+  while start > 0 do
+    local char = string.sub(line, start, start)
 
     if wordsep[char] then break end
 
-    word, i = char .. word, i - 1
+    start, trigger = start - 1, char .. trigger
   end
 
-  return i + 1, word
+  return start + 1, trigger
 end
 
 local file_for = function(ft)
@@ -40,10 +40,6 @@ end
 local import = function(ft)
   local loaded = loadfile(file_for(ft))
   return loaded and loaded() or { snippets = {}, skeletons = {} }
-end
-
-local resolve = function(name)
-  return import(vim.bo.ft).snippets[name] or import('common').snippets[name]
 end
 
 local preprocess = function(string)
@@ -58,47 +54,31 @@ local expand = function()
   local curline = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
   if curline == '' then return end
 
-  local start, trigger = prevword(curline, cursor[2])
+  local start, trigger = find_trigger(curline, cursor[2])
 
-  local snippet = resolve(trigger)
+  local snippet = import(vim.bo.ft).snippets[trigger] or import('common').snippets[trigger]
   if not snippet then return end
 
   vim.api.nvim_buf_set_text(0, cursor[1] - 1, start - 1, cursor[1] - 1, start + #trigger - 1, { '' })
 
   if type(snippet) == 'table' then
     curline = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
-    if curline:match('^%s*$') then
-      snippet = snippet.block
-    else
-      snippet = snippet.inline
-    end
+    snippet = snippet[curline:match('^%s*$') and 'block' or 'inline']
   end
 
   vim.snippet.expand(preprocess(snippet))
 end
 
-vim.keymap.set('i', '<c-e>', expand, {})
-
-vim.keymap.set('n', '<leader>eS', function()
-  vim.cmd.vsplit(file_for('common'))
-end, {})
-
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    vim.keymap.set(
-      'n',
-      '<leader>es',
-      function() if vim.bo.ft ~= '' then vim.cmd.vsplit(file_for(vim.bo.ft)) end end
-    )
-  end,
-})
+local edit = function(ft) return function() if ft ~= '' then vim.cmd.vsplit(file_for(ft)) end end end
+vim.keymap.set('i', '<c-e>', expand, { desc = 'Expand snippet' })
+vim.keymap.set('n', '<leader>eS', edit('common'), { desc = 'Edit common snippets' })
+vim.keymap.set('n', '<leader>es', function() edit(vim.bo.ft)() end, { desc = 'Edit ft snippets' })
 
 vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function(ev)
     local ft = vim.bo[ev.buf].ft
 
     local skeletons = import(ft).skeletons
-
     local skelname = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
 
     if skelname and not skeletons[skelname] then
