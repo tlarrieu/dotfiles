@@ -1,5 +1,5 @@
 require('usr.options')
-require('usr.vimpack')
+require('usr.plugins')
 require('usr.filetypes')
 require('usr.keymaps')
 require('usr.abbrev')
