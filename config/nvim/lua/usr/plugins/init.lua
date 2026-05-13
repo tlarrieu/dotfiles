@@ -48,7 +48,7 @@ require('usr.plugins.copilot')
 require('usr.plugins.completion')
 require('usr.plugins.treesitter')
 require('usr.plugins.lsp')
-require('usr.plugins.conform')
+require('usr.plugins.format')
 
 require('usr.plugins.testbus')
 require('usr.plugins.fidget')
