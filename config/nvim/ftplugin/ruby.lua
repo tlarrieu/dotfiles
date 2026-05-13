@@ -4,8 +4,6 @@ vim.opt_local.iskeyword:append({ '?', '!' })
 vim.opt_local.spell = true
 
 local rspec = function(opts)
-  local testbus = require('testbus')
-
   opts = opts or {}
 
   local cmd
@@ -25,6 +23,8 @@ local rspec = function(opts)
     location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
     scope = opts.at_cursor and '(cursor)' or '(file)'
   end
+
+  local testbus = require('testbus')
 
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   if location then table.insert(cmd, location) end
@@ -88,36 +88,25 @@ require('alternator').setup({
 
 vim.keymap.set('n', '<c-s-p>', '<cmd>silent grep! Kernel.binding.pry<cr>')
 
-local params_for = function(kind, root)
-  return {
+local find_files = function(kind, root)
+  local params = {
     hidden = true,
     path_display = { 'filename_first', shorten = { len = 1, exclude = { 1, -3, -2, -1 } } },
     find_command = { 'fd', '-tf', '--hidden', '-p', (root or 'app') .. '/' .. kind },
     results_title = ' ' .. kind,
   }
+  return function() require('telescope.builtin').find_files(params) end
 end
 
-vim.keymap.set('n', '<a-c>', function()
-  return require('telescope.builtin').find_files(params_for('controllers'))
-end, { desc = 'Telescope controllers lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-m>', function()
-  return require('telescope.builtin').find_files(params_for('models'))
-end, { desc = 'Telescope models lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-v>', function()
-  return require('telescope.builtin').find_files(params_for('views'))
-end, { desc = 'Telescope views lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-s>', function()
-  return require('telescope.builtin').find_files(params_for('services'))
-end, { desc = 'Telescope services lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-j>', function()
-  return require('telescope.builtin').find_files(params_for('jobs'))
-end, { desc = 'Telescope jobs lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-d>', function()
-  return require('telescope.builtin').find_files(params_for('lib'))
-end, { desc = 'Telescope POROs lookup (Ruby on Rails)' })
-vim.keymap.set('n', '<a-f>', function()
-  return require('telescope.builtin').find_files(params_for('fixtures', 'spec'))
-end, { desc = 'Telescope fixtures lookup (Ruby on Rails)' })
+local lookup = function(kind) return 'Telescope ' .. kind .. ' lookup (Ruby on Rails)' end
+
+vim.keymap.set('n', '<a-c>', find_files('controller'), { desc = lookup('controllers') })
+vim.keymap.set('n', '<a-m>', find_files('models'), { desc = lookup('models') })
+vim.keymap.set('n', '<a-v>', find_files('views'), { desc = lookup('views') })
+vim.keymap.set('n', '<a-s>', find_files('services'), { desc = lookup('services') })
+vim.keymap.set('n', '<a-j>', find_files('jobs'), { desc = lookup('jobs') })
+vim.keymap.set('n', '<a-d>', find_files('lib'), { desc = lookup('POROs') })
+vim.keymap.set('n', '<a-f>', find_files('fixtures', 'spec'), { desc = lookup('fixtures') })
 
 local rootnode = function(bufnr)
   local parser = vim.treesitter.get_parser(bufnr, 'ruby', {})
