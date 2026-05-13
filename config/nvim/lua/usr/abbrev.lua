@@ -14,9 +14,9 @@ local abbr = {
   ins = 'Inspect',
   ts = 'InspectTree',
   man = 'tab Man',
-  pup = 'PackUpdate',
-  pls = 'PackList',
-  purge = 'PackPurge'
+  up = 'PackUpdate',
+  ls = 'PackList',
+  pur = 'PackPurge'
 }
 
 for key, value in pairs(abbr) do

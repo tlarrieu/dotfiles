@@ -194,8 +194,17 @@ end
 -- setup
 -- -----------------------------------------------------------------------------
 
-vim.keymap.set('n', config.main.keys, function() warn('Main runner not configured') end, { desc = 'Runner (main)' })
-vim.keymap.set('n', config.alt.keys, function() warn('Alt runner not configured') end, { desc = 'Runner (alt)' })
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(ev)
+    if ev.match == 'qf' then return end
+
+    vim.keymap.set('n', config.main.keys, function() warn('Main runner not configured') end,
+      { desc = 'Runner (main)', buffer = true })
+    vim.keymap.set('n', config.alt.keys, function() warn('Alt runner not configured') end,
+      { desc = 'Runner (alt)', buffer = true })
+  end,
+})
+
 vim.keymap.set('n', config.nearest.keys, function() warn('Nearest test runner not defined') end,
   { desc = 'Run nearest test' })
 vim.keymap.set('n', config.file.keys, function() warn('File test runner not defined') end, { desc = 'Run test file' })
