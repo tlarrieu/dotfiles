@@ -10,6 +10,10 @@ require('nvim-highlight-colors').setup({
     'gitcommit',
     'gitsigns-blame',
   },
+  exclude_buffer = function(buf)
+    -- somehow, it does not get excluded by exclude_filetypes, so we need to exclude it by buffer name
+    return vim.api.nvim_buf_get_name(buf):match('nvim%-pack')
+  end,
   render = 'virtual',
   virtual_symbol = '',
 })
