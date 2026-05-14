@@ -6,9 +6,10 @@ require('autoclose').setup({
     ['<'] = { escape = true, close = true, pair = '<>', enabled_filetypes = { 'html', 'embedded_template', 'xml' } },
   },
   options = {
-    disabled_filetypes = { 'TelescopePrompt', 'ledger', 'gitcommit' },
+    disabled_filetypes = { 'TelescopePrompt', 'ledger', 'gitcommit', 'markdown' },
     disable_when_touch = true,
     touch_regex = "[%w(%[{%%'\"]",
     disable_command_mode = true,
+    pair_spaces = true,
   },
 })
