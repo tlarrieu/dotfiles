@@ -10,6 +10,7 @@ vim.filetype.add({
     tex = 'tex',
     gabc = 'gabc',
     vifm = 'vim',
+    tsx = 'typescript',
     txt = function(_, bufnr, _)
       local content = vim.api.nvim_buf_get_lines(bufnr, 0, 1, false)[1] or ''
       if content:match('^UNA.... \'') then return 'edifact' end

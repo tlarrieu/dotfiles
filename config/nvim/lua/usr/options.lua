@@ -69,11 +69,6 @@ vim.opt.splitright = true
 vim.opt.splitbelow = true
 -- }}}
 
--- {{{ ==| Fillchars |==========================================================
-vim.opt.fillchars:append('eob: ')
-vim.opt.fillchars:append('msgsep:-')
--- }}}
-
 -- {{{ ==| Scrolling |==========================================================
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 3
@@ -81,7 +76,8 @@ vim.opt.sidescroll = 15
 -- }}}
 
 -- {{{ ==| Indent |=============================================================
-vim.opt.smartindent = true
+vim.opt.smartindent = false
+vim.opt.autoindent = false
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true

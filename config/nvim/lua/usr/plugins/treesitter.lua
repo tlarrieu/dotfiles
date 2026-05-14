@@ -35,15 +35,23 @@ treesitter.install({
   'zathurarc',
 })
 
+local excluded_filetypes = {
+  ledger = true,
+}
+
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     local ok, _ = pcall(vim.treesitter.start)
 
     if not ok then return end
 
-    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-    vim.wo.foldmethod = 'expr'
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    local ft = vim.bo[ev.buf].filetype
+
+    if not excluded_filetypes[ft] then
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldmethod = 'expr'
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
 
     local map = function(keys, kind, scope)
       local basepath
@@ -58,9 +66,9 @@ vim.api.nvim_create_autocmd('FileType', {
         basepath = vim.fs.joinpath(globalpath, 'nvim-treesitter', 'runtime', 'queries')
       end
 
-      vim.keymap.set('n', keys,
-        function() vim.cmd.vsplit(vim.fs.joinpath(basepath, vim.bo[ev.buf].filetype, kind .. '.scm')) end,
-        { desc = 'Edit ' .. kind .. ' queries (' .. scope .. ')', buffer = true })
+      vim.keymap.set('n', keys, function()
+        vim.cmd.vsplit(vim.fs.joinpath(basepath, ft, kind .. '.scm'))
+      end, { desc = 'Edit ' .. kind .. ' queries (' .. scope .. ')', buffer = true })
     end
 
     map('<leader>eh', 'highlights', 'local')
@@ -70,17 +78,9 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
-require('nvim-treesitter-textobjects').setup({
-  select = {
-    lookahead = true,
-
-    selection_modes = {
-      ['@block.outer'] = 'V',
-    },
-  },
-})
-
 ---- TS text-objects -----------------------------------------------------------
+
+require('nvim-treesitter-textobjects').setup({ select = { lookahead = true, selection_modes = { ['@block.outer'] = 'V' } } })
 
 local select = require 'nvim-treesitter-textobjects.select'
 
