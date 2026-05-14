@@ -134,7 +134,5 @@ end, { desc = 'Telescope quickfix history' })
 
 vim.keymap.set('n', 'g?', function() builtin.spell_suggest() end, { desc = 'Telescope spell suggest' })
 
-vim.schedule(function()
-  telescope.load_extension('ui-select')
-  telescope.load_extension('fzf')
-end)
+pcall(telescope.load_extension, 'ui-select')
+pcall(telescope.load_extension, 'fzf')
