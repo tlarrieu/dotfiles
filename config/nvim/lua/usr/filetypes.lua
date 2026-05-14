@@ -20,8 +20,7 @@ vim.filetype.add({
   filename = {
     ['~/.neorg/gtd/todo.txt'] = 'todotxt',
     ['.pryrc'] = 'ruby',
-    ['.pryrc.local'] = 'ruby',
-    ['.irbrc.local'] = 'ruby',
+    ['.ruby.local'] = 'ruby',
     vifmrc = 'vim',
   },
   pattern = {

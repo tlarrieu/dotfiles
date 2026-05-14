@@ -14,7 +14,7 @@ end
 
 M.autoformat = function(pattern)
   vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = pattern,
+    buffer = 0,
     callback = function() require('conform').format() end,
     group = vim.api.nvim_create_augroup('autoformat_' .. vim.inspect(pattern), {})
   })

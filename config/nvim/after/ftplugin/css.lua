@@ -1,3 +1,1 @@
-require('utils').autoformat({
-  '*.css',
-})
+require('utils').autoformat()

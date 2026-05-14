@@ -70,7 +70,7 @@ require('runner').setup({
   }
 })
 
-require('utils').autoformat({ '*.json.jbuilder', '*.rake', '*.rb', '.pryrc', '.pryrc.local' })
+require('utils').autoformat()
 
 require('alternator').setup({
   { pattern = "(.*)/tax_returns/consistency_checks/index.json.jbuilder", target = "%1/tax_returns/forms/show.json.jbuilder" },

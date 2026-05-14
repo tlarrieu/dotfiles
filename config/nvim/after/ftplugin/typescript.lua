@@ -1,10 +1,8 @@
-local o = vim.opt_local
+vim.opt_local.conceallevel = 0
+vim.opt_local.concealcursor = 'cni'
+vim.opt_local.formatprg = 'prettier'
 
-o.conceallevel = 0
-o.concealcursor = 'cni'
-o.formatprg = 'prettier'
-
-require('utils').autoformat({ '*.ts', '*.tsx' })
+require('utils').autoformat()
 
 require('alternator').setup({
   { pattern = "(.*)/(.*)%.spec%.ts", target = "%1/%2.ts" },

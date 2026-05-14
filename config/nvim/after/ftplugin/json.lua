@@ -1,1 +1,1 @@
-require('utils').autoformat('*.json')
+require('utils').autoformat()
