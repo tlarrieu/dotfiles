@@ -4,5 +4,3 @@ vim.opt_local.spell = vim.bo.buftype ~= 'nofile'
 vim.keymap.set('v', '<leader>b', 'S*gvS*eee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>i', 'S_ee', { buffer = true, remap = true })
 vim.keymap.set('v', '<leader>s', 'S~gvS~eee', { buffer = true, remap = true })
-
-require('utils').autocapitalize('*.md')

@@ -1,5 +1,3 @@
-require('utils').autoformat()
-
 require('runner').setup({
   main = { args = { cmd = { 'lua', vim.fn.expand('%') } } },
   repl = { args = { cmd = 'lua', winbar = ' REPL' }, desc = 'Lua REPL' },

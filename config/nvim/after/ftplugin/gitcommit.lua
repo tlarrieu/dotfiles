@@ -10,8 +10,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
   group = vim.api.nvim_create_augroup('GIT_AUTOCMD', {})
 })
 
-require('utils').autocapitalize('COMMIT_EDITMSG')
-
 vim.keymap.set('n', 's', vim.cmd.x, { silent = true, buffer = 0 })
 
 vim.opt_local.spell = true

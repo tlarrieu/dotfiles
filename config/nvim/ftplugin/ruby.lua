@@ -70,8 +70,6 @@ require('runner').setup({
   }
 })
 
-require('utils').autoformat()
-
 require('alternator').setup({
   { pattern = "(.*)/tax_returns/consistency_checks/index.json.jbuilder", target = "%1/tax_returns/forms/show.json.jbuilder" },
   { pattern = "(.*)/tax_returns/forms/show.json.jbuilder", target = "%1/tax_returns/consistency_checks/index.json.jbuilder" },

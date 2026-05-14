@@ -31,3 +31,29 @@ vim.filetype.add({
 
 -- mjml <-> eruby
 vim.treesitter.language.register('embedded_template', 'mjml')
+
+-- Auto formatting
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'lua', 'ruby', 'edifact', 'json', 'typescript', 'sql', 'css' },
+  callback = function(ev)
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      buffer = ev.buf,
+      callback = function() require('conform').format() end,
+    })
+  end,
+})
+
+-- Auto capitalization
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'tex', 'markdown', 'gitcommit' },
+  callback = function(ev)
+    vim.api.nvim_create_autocmd('InsertCharPre', {
+      buffer = ev.buf,
+      callback = function()
+        if vim.fn.search("\\v(%^|[.!?]\\_s|\\n\\n)\\_s*%#", 'bcnw') ~= 0 then
+          vim.cmd([[let v:char = toupper(v:char)]])
+        end
+      end,
+    })
+  end,
+})

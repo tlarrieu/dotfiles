@@ -168,8 +168,17 @@ vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit outp
 -- Uppercase current word
 vim.keymap.set('n', '<c-g>', 'gUiw')
 vim.keymap.set('i', '<c-g>', '<esc>gUiwea')
-vim.keymap.set('n', '<leader>k', require('utils').trim_trailing_spaces,
-  { silent = true, desc = 'Remove trailing spaces' })
+local trim_trailing_spaces = function()
+  vim.cmd [[
+    normal! m`
+    let _s=@/
+    %substitute/\v(^\s+$|[\\]\s\zs\s+$|[^\\]\zs\s+$)//e
+    let @/=_s
+    nohl
+    normal! g``
+  ]]
+end
+vim.keymap.set('n', '<leader>k', trim_trailing_spaces, { silent = true, desc = 'Remove trailing spaces' })
 -- Cursorline / Cursorcolumn
 vim.keymap.set('n', '<leader>r', function()
   vim.cmd [[
