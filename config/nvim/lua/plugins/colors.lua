@@ -1,4 +1,4 @@
-vim.pack.add({ 'https://github.com/EdenEast/nightfox.nvim' }, { confirm = false })
+vim.pack.add({ 'https://github.com/edeneast/nightfox.nvim' }, { confirm = false })
 
 require('nightfox').setup({
   options = {

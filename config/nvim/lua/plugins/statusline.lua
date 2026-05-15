@@ -71,6 +71,27 @@ local searchcount = function()
   )
 end
 
+local rec_msg = ''
+vim.api.nvim_create_autocmd({ 'RecordingEnter', 'RecordingLeave' }, {
+  group = vim.api.nvim_create_augroup('LualineRecordingSection', { clear = true }),
+  callback = function(e)
+    rec_msg = e.event == 'RecordingEnter' and ' REC @' .. vim.fn.reg_recording() or ''
+  end,
+})
+
+local macrorecording = {
+  function() return rec_msg end,
+  color = function()
+    -- FIXME: extract palette selection to a dedicated helper
+    if not vim.g.colors_name then return { fg = 'red' } end
+
+    local ok, palette = pcall(require, 'nightfox.palette')
+    if not ok then return { fg = 'red' } end
+
+    return { fg = palette.load(vim.g.colors_name).red.base }
+  end,
+}
+
 local selectioncount = function()
   local height = math.abs(vim.fn.line('v') - vim.fn.line('.')) + 1
   local width = math.abs(vim.fn.col('v') - vim.fn.col('.')) + 1
@@ -135,7 +156,7 @@ local plugin = function(cfg)
   return {
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, tabs, searchcount },
+      lualine_b = { projectdir, branch, tabs, searchcount, macrorecording },
       lualine_c = { stashstatus, pushstatus, cfg.fn },
       lualine_x = { selectioncount, 'location' },
       lualine_z = { function() return cfg.title or '' end },
@@ -165,7 +186,7 @@ require('lualine').setup({
   },
   sections = {
     lualine_a = { mode },
-    lualine_b = { projectdir, branch, tabs, searchcount },
+    lualine_b = { projectdir, branch, tabs, searchcount, macrorecording },
     lualine_c = {
       stashstatus,
       pushstatus,
