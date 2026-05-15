@@ -5,45 +5,26 @@ vim.api.nvim_create_autocmd('BufWritePost', {
     vim.secure.trust({ action = 'allow', bufnr = 0 })
     vim.cmd.source('.nvim.lua')
   end,
-  group = vim.api.nvim_create_augroup('resource_local_nvim', {})
 })
 
 -- Balance splits size upon changing host window size
-vim.api.nvim_create_autocmd('VimResized', {
-  callback = function() vim.api.nvim_input('<esc><c-w>=') end,
-  group = vim.api.nvim_create_augroup('dimensions', {})
-})
+vim.api.nvim_create_autocmd('VimResized', { callback = function() vim.api.nvim_input('<esc><c-w>=') end })
 
 -- Do not insert comments upon <cr> or o/O
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end,
-  group = vim.api.nvim_create_augroup('no_incremental_comments', {})
-})
+vim.api.nvim_create_autocmd('FileType', { callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end })
 
 -- Deactivate spell checking on RO files
-vim.api.nvim_create_autocmd('BufReadPost', {
-  callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end,
-  group = vim.api.nvim_create_augroup('restore_position', {})
-})
+vim.api.nvim_create_autocmd('BufReadPost',
+  { callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end })
 
--- Set relativenumber only in active window
-local number_group = vim.api.nvim_create_augroup('autonumber_group', {})
-
-vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' }, {
-  callback = function() if vim.wo.number then vim.wo.relativenumber = true end end,
-  group = number_group
-})
-
-vim.api.nvim_create_autocmd('WinLeave', {
-  callback = function() vim.wo.relativenumber = false end,
-  group = number_group
-})
+-- Toggle relative numbering for active window only
+vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' },
+  { callback = function() if vim.wo.number then vim.wo.relativenumber = true end end })
+vim.api.nvim_create_autocmd('WinLeave', { callback = function() vim.wo.relativenumber = false end })
 
 -- highlight yank
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200 }) end,
-  group = vim.api.nvim_create_augroup("text_yank", {})
-})
+vim.api.nvim_create_autocmd('TextYankPost',
+  { callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200, on_visual = false }) end })
 
 -- refresh gitsigns
 vim.api.nvim_create_autocmd('User', {
@@ -55,7 +36,6 @@ vim.api.nvim_create_autocmd('User', {
     'NeogitBranchCheckout'
   },
   command = 'checktime',
-  group = vim.api.nvim_create_augroup('neogit_autocmd', {}),
 })
 
 -- theme setting
@@ -69,12 +49,7 @@ end
 
 apply_xrdb()
 
-vim.api.nvim_create_autocmd('Signal', {
-  pattern = { 'SIGUSR1' },
-  callback = apply_xrdb,
-  nested = true,
-  group = vim.api.nvim_create_augroup('update_background', {}),
-})
+vim.api.nvim_create_autocmd('Signal', { pattern = { 'SIGUSR1' }, callback = apply_xrdb, nested = true })
 
 local cmdline_group = vim.api.nvim_create_augroup('msg_area_hl', {})
 
