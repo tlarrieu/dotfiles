@@ -22,16 +22,12 @@ telescope.setup({
     borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
     dynamic_preview_title = true,
 
-    file_ignore_patterns = {
-      '^%.git/',
-      '%.png',
-      '%.jpg'
-    },
+    file_ignore_patterns = { '^%.git/', '%.png', '%.jpg' },
 
     prompt_prefix = '   ',
-    selection_caret = ' 󰫈 ',
-    entry_prefix = ' 󰋙 ',
-    multi_icon = ' 󰁘 ',
+    selection_caret = ' 󰫈  ',
+    entry_prefix = ' 󰋙  ',
+    multi_icon = ' 󰁘  ',
 
     path_display = filename_first_and_shorten,
 
