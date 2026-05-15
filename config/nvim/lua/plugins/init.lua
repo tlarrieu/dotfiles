@@ -17,7 +17,11 @@ vim.api.nvim_create_autocmd('PackChanged', {
     if data.cmd then
       info('running post-install cmd')
       if not ev.data.active then vim.cmd.packadd(name) end
-      vim.cmd(data.cmd)
+      if type(data.cmd) == 'function' then
+        data.cmd()
+      elseif type(data.cmd) == 'string' then
+        vim.cmd(data.cmd)
+      end
       info('done')
     end
   end
