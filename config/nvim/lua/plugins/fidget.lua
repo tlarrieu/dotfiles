@@ -79,9 +79,9 @@ require('fidget').setup({
       normal_hl = 'FidgetNormal',
       border_hl = 'FidgetBorder',
       winblend = 5,
-      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' },   -- we add padding to the bottom to compensate the empty line on top
+      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
       zindex = 100,
-      max_width = 80,
+      max_width = 85,
       max_height = 20,
       x_padding = 0,
       y_padding = 1,
