@@ -35,10 +35,6 @@ treesitter.install({
   'zathurarc',
 })
 
-local excluded_filetypes = {
-  ledger = true,
-}
-
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     local ok, _ = pcall(vim.treesitter.start)
@@ -47,7 +43,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
     local ft = vim.bo[ev.buf].filetype
 
-    if not excluded_filetypes[ft] then
+    if not vim.b.to_treesitter_options then
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
       vim.wo.foldmethod = 'expr'
       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"

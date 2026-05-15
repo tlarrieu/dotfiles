@@ -1,6 +1,8 @@
 vim.opt_local.commentstring = '; %s'
 vim.opt_local.iskeyword:append({ ':', '/', '.' })
 
+vim.b.to_treesitter_options = true
+
 local runner = require('runner')
 
 local ftnow = { cmd = { 'fish', '-c', 'ft now', }, winbar = '󰗑 ft now', show = true }

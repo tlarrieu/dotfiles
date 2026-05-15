@@ -21,8 +21,6 @@ require('pretty-fold').setup(opts)
 vim.opt.foldcolumn = '0'
 vim.opt.foldclose = ''
 vim.opt.fillchars:append('fold:' .. opts.fill_char)
-vim.opt.foldmethod = 'expr'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldnestmax = 3
 vim.opt.foldlevelstart = 10
 vim.opt.foldminlines = 2
