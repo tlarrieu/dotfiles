@@ -36,7 +36,7 @@ local function find_trigger(line, column)
 end
 
 local file_for = function(ft)
-  return vim.fs.joinpath(vim.fn.stdpath('config'), '/lua/usr/snippets/', ft .. '.lua')
+  return vim.fs.joinpath(vim.fn.stdpath('config'), '/lua/snippets/', ft .. '.lua')
 end
 
 local import = function(ft)

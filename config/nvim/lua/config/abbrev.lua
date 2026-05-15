@@ -1,4 +1,4 @@
-require('usr.pack')
+require('pack')
 
 -- Command line shorthand
 local abbr = {
