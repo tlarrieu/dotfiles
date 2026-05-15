@@ -1,9 +1,9 @@
 function now
-  hledger bal --empty --pretty=no -N $argv
+  hledger bal --pager=N --empty --pretty=no -N $argv | sed -E 's/(assets|assets:check|expenses|assets:savings)://'
 end
 
 function up
-  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX -w 140
+  hledger areg $argv 'expr:tag:generated-transaction OR status:!' --fore=tomorrow..14days type:LCX -w 116
   set_color -d brblack
   echo
   hledger bal $argv -p today -C -H -N --pretty=no
