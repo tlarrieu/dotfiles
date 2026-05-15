@@ -45,3 +45,11 @@ vim.keymap.set('n', "<c-,>",
   end,
   { desc = 'Harpoon: edit list' }
 )
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'harpoon' },
+  callback = function()
+    vim.wo.cursorline = true
+    vim.wo.relativenumber = false
+  end,
+})
