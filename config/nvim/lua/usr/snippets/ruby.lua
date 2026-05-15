@@ -69,7 +69,7 @@ return {
     let = 'let(:${1:name}) { $0 }',
     lett = 'let!(:${1:name}) { $0 }',
     lib = 'let_it_be(:${1:name}) { $0 }',
-    it = "it '${1:does something}' { $0 }",
+    it = "it('${1:does something}') { $0 }",
     ibl = "it_behaves_like '${1:name}'",
     e = 'expect($1).to ',
     eb = 'expect { $1 }.to ',

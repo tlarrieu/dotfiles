@@ -194,9 +194,14 @@ end
 -- setup
 -- -----------------------------------------------------------------------------
 
+local excluded_filetypes = {
+  qf = true,
+  oil = true,
+}
+
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
-    if ev.match == 'qf' then return end
+    if excluded_filetypes[ev.match] then return end
 
     vim.keymap.set('n', config.main.keys, function() warn('Main runner not configured') end,
       { desc = 'Runner (main)', buffer = true })

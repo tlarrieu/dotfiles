@@ -3,10 +3,21 @@ vim.opt_local.concealcursor = 'cni'
 vim.opt_local.iskeyword:append({ '?', '!' })
 vim.opt_local.spell = true
 
+local helpers = require('helpers')
+
 local rspec = function(opts)
   opts = opts or {}
 
   local cmd
+
+  if helpers.fileexists('bin/rspec') then
+    cmd = { 'bin/rspec' }
+  elseif helpers.fileexists('Gemfile') then
+    cmd = { 'bundle', 'exec', 'rspec' }
+  else
+    cmd = { 'rspec' }
+  end
+
   local location
   local scope
 
@@ -15,11 +26,9 @@ local rspec = function(opts)
       cmd = { 'bin/rspec-auto' }
       scope = '(bin/rspec-auto)'
     else
-      cmd = { 'bundle', 'exec', 'rspec' }
       scope = '(all)'
     end
   else
-    cmd = { 'bundle', 'exec', 'rspec' }
     location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
     scope = opts.at_cursor and '(cursor)' or '(file)'
   end
