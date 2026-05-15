@@ -82,32 +82,30 @@ vim.api.nvim_create_autocmd('FileType', {
 
 require('nvim-treesitter-textobjects').setup({ select = { lookahead = true, selection_modes = { ['@block.outer'] = 'V' } } })
 
-local select = require 'nvim-treesitter-textobjects.select'
+local select = function(x)
+  return function() require 'nvim-treesitter-textobjects.select'.select_textobject(x, 'textobjects') end
+end
 
-vim.keymap.set({ 'x', 'o' }, 'if', function() select.select_textobject('@function.inner', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'af', function() select.select_textobject('@function.outer', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ia', function() select.select_textobject('@parameter.inner', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'aa', function() select.select_textobject('@parameter.outer', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ie', function() select.select_textobject('@block.inner', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ae', function() select.select_textobject('@block.outer', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ic', function() select.select_textobject('@conditional.inner', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ac', function() select.select_textobject('@conditional.outer', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'iC', function() select.select_textobject('@class.inner', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'aC', function() select.select_textobject('@class.outer', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'il', function() select.select_textobject('@assignment.lhs', 'textobjects') end)
-vim.keymap.set({ 'x', 'o' }, 'ir', function() select.select_textobject('@assignment.rhs', 'textobjects') end)
+vim.keymap.set({ 'x', 'o' }, 'if', select('@function.inner'))
+vim.keymap.set({ 'x', 'o' }, 'af', select('@function.outer'))
+vim.keymap.set({ 'x', 'o' }, 'ia', select('@parameter.inner'))
+vim.keymap.set({ 'x', 'o' }, 'aa', select('@parameter.outer'))
+vim.keymap.set({ 'x', 'o' }, 'ie', select('@block.inner'))
+vim.keymap.set({ 'x', 'o' }, 'ae', select('textobjects'))
+vim.keymap.set({ 'x', 'o' }, 'ic', select('@conditional.inner'))
+vim.keymap.set({ 'x', 'o' }, 'ac', select('@conditional.outer'))
+vim.keymap.set({ 'x', 'o' }, 'iC', select('@class.inner'))
+vim.keymap.set({ 'x', 'o' }, 'aC', select('textobjects'))
+vim.keymap.set({ 'x', 'o' }, 'il', select('@assignment.lhs'))
+vim.keymap.set({ 'x', 'o' }, 'ir', select('@assignment.rhs'))
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'sql' },
   callback = function()
-    vim.keymap.set({ 'x', 'o' }, 'ip', function() select.select_textobject('@paragraph', 'textobjects') end,
-      { buffer = true })
-    vim.keymap.set({ 'x', 'o' }, 'ap', function() select.select_textobject('@paragraph', 'textobjects') end,
-      { buffer = true })
-    vim.keymap.set({ 'x', 'o' }, 'is', function() select.select_textobject('@sentence.inner', 'textobjects') end,
-      { buffer = true })
-    vim.keymap.set({ 'x', 'o' }, 'as', function() select.select_textobject('@sentence.outer', 'textobjects') end,
-      { buffer = true })
+    vim.keymap.set({ 'x', 'o' }, 'ip', select('@paragraph'), { buffer = true })
+    vim.keymap.set({ 'x', 'o' }, 'ap', select('@paragraph'), { buffer = true })
+    vim.keymap.set({ 'x', 'o' }, 'is', select('@sentence.inner'), { buffer = true })
+    vim.keymap.set({ 'x', 'o' }, 'as', select('@sentence.outer'), { buffer = true })
   end,
 })
 
