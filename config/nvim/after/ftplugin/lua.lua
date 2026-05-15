@@ -3,7 +3,7 @@ require('runner').setup({
   repl = { args = { cmd = 'lua', winbar = ' REPL' }, desc = 'Lua REPL' },
   overrides = {
     {
-      patterns = { 'config/awesome/.*.*/.*.lua', 'config/awesome/.*.lua' },
+      patterns = { 'config/awesome/.*.lua' },
       main = { args = { cmd = { 'sh', vim.fn.expand('~/scripts/awesome-test') }, winbar = '  awesome test' }, desc = 'Awesome test' }
     },
   },

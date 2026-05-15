@@ -199,16 +199,15 @@ local excluded_filetypes = {
   oil = true,
 }
 
-vim.api.nvim_create_autocmd('FileType', {
-  callback = function(ev)
-    if excluded_filetypes[ev.match] then return end
+vim.keymap.set('n', config.main.keys, function()
+  if excluded_filetypes[vim.bo.filetype] then return config.main.keys end
+  warn('Main runner not configured')
+end, { desc = 'Runner (main)', expr = true })
 
-    vim.keymap.set('n', config.main.keys, function() warn('Main runner not configured') end,
-      { desc = 'Runner (main)', buffer = true })
-    vim.keymap.set('n', config.alt.keys, function() warn('Alt runner not configured') end,
-      { desc = 'Runner (alt)', buffer = true })
-  end,
-})
+vim.keymap.set('n', config.alt.keys, function()
+  if excluded_filetypes[vim.bo.filetype] then return config.alt.keys end
+  warn('Alt runner not configured')
+end, { desc = 'Runner (alt)', expr = true })
 
 vim.keymap.set('n', config.nearest.keys, function() warn('Nearest test runner not defined') end,
   { desc = 'Run nearest test' })
