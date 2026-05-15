@@ -12,9 +12,7 @@ M.alternate = function(mapping)
 end
 
 M.setup = function(mapping)
-  vim.keymap.set('n', '<c-k>', function()
-    require('alternator').alternate(mapping)
-  end, { silent = true, buffer = true })
+  vim.keymap.set('n', '<c-k>', function() M.alternate(mapping) end, { silent = true, buffer = true })
 end
 
 return M
