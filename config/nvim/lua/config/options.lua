@@ -1,6 +1,7 @@
 vim.g.mapleader = ' '
 
--- {{{ ==| General options |====================================================
+-- ======| General options |====================================================
+
 vim.opt.shell = '/usr/bin/fish'
 -- allow project specific .nvim.lua
 vim.opt.exrc = true
@@ -48,43 +49,42 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 400
 -- signcolumn
 vim.opt.signcolumn = 'yes:1'
--- }}}
+-- shortmess
+vim.opt.shortmess:append('WIcsSa')
 
--- {{{ ==| Cmdline |============================================================
-vim.opt.cmdheight = 0
-require('vim._core.ui2').enable({ enable = true })
--- }}}
+-- ======| Cmdline & statusline |===============================================
 
--- {{{ ==| Tabline |============================================================
-vim.opt.showtabline = 0
--- }}}
-
--- {{{ ==| Statusline |=========================================================
 vim.opt.laststatus = 3
 vim.opt.showmode = false
--- }}}
+vim.opt.cmdheight = 0
+require('vim._core.ui2').enable({ enable = true })
 
--- {{{ ==| Splits |=============================================================
+-- ======| Tabline |============================================================
+
+vim.opt.showtabline = 0
+
+-- ======| Splits |=============================================================
+
 vim.opt.splitright = true
 vim.opt.splitbelow = true
--- }}}
 
--- {{{ ==| Scrolling |==========================================================
+-- ======| Scrolling |==========================================================
+
 vim.opt.scrolloff = 8
 vim.opt.sidescrolloff = 3
 vim.opt.sidescroll = 15
--- }}}
 
--- {{{ ==| Indent |=============================================================
+-- ======| Indent |=============================================================
+
 vim.opt.smartindent = false
 vim.opt.autoindent = false
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.shiftround = true
--- }}}
 
--- {{{ ==| Searching |==========================================================
+-- ======| Searching |==========================================================
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.gdefault = true
@@ -94,17 +94,13 @@ if file then
 else
   vim.opt.grepprg = "rg --smart-case --vimgrep --hidden '$*'"
 end
--- }}}
 
--- {{{ ==| Spell checking |=====================================================
+-- ======| Spell checking |=====================================================
+
 vim.opt.spelllang = 'en,fr'
--- }}}
 
--- {{{ ==| Short message |======================================================
-vim.opt.shortmess:append('WIcsSa')
--- }}}
+-- ======| diagnostic |=========================================================
 
--- {{{ ==| diagnostic |=========================================================
 vim.diagnostic.config({
   virtual_text = {
     prefix = function(_, i, _) return i == 1 and ' ▰' or '▰' end,
@@ -118,4 +114,3 @@ vim.diagnostic.config({
   signs = false,
   underline = true,
 })
--- }}}
