@@ -155,8 +155,8 @@ local plugin = function(cfg)
   return {
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, tabs, searchcount, macrorecording },
-      lualine_c = { stashstatus, pushstatus, cfg.fn },
+      lualine_b = { projectdir, branch, tabs, searchcount },
+      lualine_c = { macrorecording, stashstatus, pushstatus, cfg.fn },
       lualine_x = { selectioncount, 'location' },
       lualine_z = { function() return cfg.title or '' end },
     },
@@ -185,8 +185,9 @@ require('lualine').setup({
   },
   sections = {
     lualine_a = { mode },
-    lualine_b = { projectdir, branch, tabs, searchcount, macrorecording },
+    lualine_b = { projectdir, branch, tabs, searchcount },
     lualine_c = {
+      macrorecording,
       stashstatus,
       pushstatus,
       {
@@ -236,8 +237,7 @@ require('lualine').setup({
     lualine_y = { 'encoding', { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } } },
     lualine_z = {
       {
-        'custom',
-        fmt = function()
+        function()
           local bufnr = vim.api.nvim_get_current_buf()
 
           local icon, filetype = require('helpers').icon_and_filetype(
