@@ -38,8 +38,8 @@ vim.pack.add({
   'https://github.com/vim-scripts/edifact.vim',
 }, { confirm = false })
 
-require('plugins.colors')
 require('plugins.devicons')
+require('plugins.nightfox')
 
 require('plugins.oil')
 require('plugins.telescope')

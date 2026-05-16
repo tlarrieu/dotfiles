@@ -82,13 +82,9 @@ vim.api.nvim_create_autocmd({ 'RecordingEnter', 'RecordingLeave' }, {
 local macrorecording = {
   function() return rec_msg end,
   color = function()
-    -- FIXME: extract palette selection to a dedicated helper
-    if not vim.g.colors_name then return { fg = 'red' } end
-
-    local ok, palette = pcall(require, 'nightfox.palette')
-    if not ok then return { fg = 'red' } end
-
-    return { fg = palette.load(vim.g.colors_name).red.base }
+    local palette = require('colors').palette()
+    if not palette then return { fg = 'red' } end
+    return { fg = palette.red.base }
   end,
 }
 
