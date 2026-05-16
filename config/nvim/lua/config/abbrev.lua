@@ -17,6 +17,7 @@ local abbr = {
   ls = 'PackUpdate',
   pur = 'PackPurge',
   del = 'PackDel',
+  dd = 'CodeDiff',
 }
 
 for key, value in pairs(abbr) do

@@ -23,12 +23,6 @@ require('codediff').setup({
   },
 })
 
-vim.cmd.cnoreabbrev(
-  '<expr>',
-  'dd',
-  [[getcmdtype() == ":" && getcmdline() == ']] .. 'dd' .. [[' ? "]] .. 'CodeDiff' .. [[" : ']] .. 'dd' .. [[']]
-)
-
 ---- neogit --------------------------------------------------------------------
 
 local neogit = require('neogit')
@@ -229,3 +223,19 @@ vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<
   { silent = true, desc = 'Git stash' })
 vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr><cmd>checktime<cr>',
   { silent = true, desc = 'Git stash pop' })
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = {
+    'NeogitBranchCheckout',
+    'NeogitBranchReset',
+    'NeogitCherryPick',
+    'NeogitCommitComplete',
+    'NeogitDiffLoaded',
+    'NeogitFetchComplete',
+    'NeogitPullComplete',
+    'NeogitReset',
+    'NeogitStash',
+    'NeogitStatusRefreshed',
+  },
+  command = 'checktime',
+})

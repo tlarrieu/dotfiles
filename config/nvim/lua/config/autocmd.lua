@@ -26,20 +26,7 @@ vim.api.nvim_create_autocmd('WinLeave', { callback = function() vim.wo.relativen
 vim.api.nvim_create_autocmd('TextYankPost',
   { callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200, on_visual = false }) end })
 
--- refresh gitsigns
-vim.api.nvim_create_autocmd('User', {
-  pattern = {
-    'NeogitStatusRefreshed',
-    'NeogitCommitComplete',
-    'NeogitReset',
-    'NeogitStash',
-    'NeogitBranchCheckout'
-  },
-  command = 'checktime',
-})
-
 -- theme setting
-
 local apply_xrdb = function()
   local theme = require('xrdb').load()
   vim.o.background = theme.variant or 'light'
