@@ -38,6 +38,8 @@ vim.pack.add({
   'https://github.com/vim-scripts/edifact.vim',
 }, { confirm = false })
 
+require('plugins.fidget')
+
 require('plugins.devicons')
 require('plugins.nightfox')
 
@@ -55,7 +57,6 @@ require('plugins.lsp')
 require('plugins.format')
 
 require('plugins.testbus')
-require('plugins.fidget')
 require('plugins.dropbar')
 require('plugins.statusline')
 

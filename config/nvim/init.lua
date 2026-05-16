@@ -1,6 +1,3 @@
--- Monkey patch to prevent deprecation warnings from plugins
-vim.deprecate = function() end
-
 -- Send all print statements as notifications
 print = function(...)
   local args = {}
