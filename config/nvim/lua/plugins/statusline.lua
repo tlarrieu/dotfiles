@@ -115,6 +115,7 @@ local stashstatus = {
     if not handle then return '' end
 
     local result = tonumber(handle:read("*a"))
+    handle:close()
 
     if result == 0 then return '' end
     if result == 1 then return '───  󰎤 ───' end
@@ -133,6 +134,8 @@ local pushstatus = {
     if not handle then return '' end
 
     local result = handle:read("*a")
+    handle:close()
+
     if result:match('><') then return '─── 󰆖 ───' end
     if result:match('<') then return '─── 󰧖 ───' end
     if result:match('>') then return '─── 󰧜 ───' end
