@@ -2,11 +2,9 @@ vim.pack.add({
   { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' }
 }, { confirm = false })
 
-local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
-local list = function() return require('harpoon'):list() end
-
 local harpoon = require('harpoon')
 harpoon.setup()
+
 harpoon:extend({
   UI_CREATE = function(cx)
     local select = function(mode) harpoon.ui:select_menu_item({ [mode] = true }) end
@@ -26,6 +24,8 @@ harpoon:extend({
   end,
 })
 
+local list = function() return harpoon:list() end
+
 vim.keymap.set('n', '<c-s-,>', function() list():add() end, { desc = 'Harpoon: add file' })
 
 local select = function(i)
@@ -44,7 +44,13 @@ vim.keymap.set('n', '<c-)>', select(5), { desc = 'Harpoon: open #5' })
 vim.keymap.set('n', '<c-@>', select(6), { desc = 'Harpoon: open #6' })
 
 vim.keymap.set('n', "<c-,>",
-  function() harpoon.ui:toggle_quick_menu(list(), { title = '󱡅 Harpoon', title_pos = 'center', border = border }) end,
+  function()
+    harpoon.ui:toggle_quick_menu(list(), {
+      title = '󱡅 Harpoon',
+      title_pos = 'center',
+      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    })
+  end,
   { desc = 'Harpoon: edit list' }
 )
 
