@@ -1,5 +1,11 @@
 {
   "*_spec.rb": {
     "skeleton": "spec"
+  },
+  "**/lua/snippets/*.lua": {
+    "skeleton": "snippets"
+  },
+  "**/lua/plugins/*.lua": {
+    "skeleton": "plugin"
   }
 }
