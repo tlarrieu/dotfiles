@@ -32,8 +32,9 @@ local projectdir = function()
 
   local project
   for dir in string.gmatch(cwd, "[^/]+") do project = dir end
-  if cwd == vim.fn.expand('~/.neorg') then return '󰠮 ' .. project end
-  if cwd == vim.fn.expand('~/.hledger') then return '󰗑 ' .. project end
+  if project == '.neorg' then return '󰠮 wiki' end
+  if project == 'accounting' then return '󰗑 accounting' end
+  if project == 'dotfiles' then return ' dotfiles' end
   return ' ' .. project
 end
 
