@@ -133,11 +133,15 @@ abbr ,w "cd ~/Pictures/wallpapers"
 abbr - "cd -"
 
 # eza (ls)
+alias eza="eza --group-directories-first"
 abbr l "eza"
 abbr ls "eza"
 abbr la "eza --icons -A"
 abbr ll "eza --icons -lAh"
 abbr tree "eza --tree --icons"
+
+# mkdir
+alias mkdir="mkdir -p"
 
 # SSH
 abbr sa "ssh-add"
