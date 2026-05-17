@@ -1,5 +1,5 @@
 vim.pack.add({
-  { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' }
+  { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' }
 }, { confirm = false })
 
 local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
@@ -28,12 +28,20 @@ harpoon:extend({
 
 vim.keymap.set('n', '<c-s-,>', function() list():add() end, { desc = 'Harpoon: add file' })
 
-vim.keymap.set('n', '<c-">', function() list():select(1) end, { desc = 'Harpoon: open #1' })
-vim.keymap.set('n', '<c-«>', function() list():select(2) end, { desc = 'Harpoon: open #2' })
-vim.keymap.set('n', '<c-»>', function() list():select(3) end, { desc = 'Harpoon: open #3' })
-vim.keymap.set('n', '<c-(>', function() list():select(4) end, { desc = 'Harpoon: open #4' })
-vim.keymap.set('n', '<c-)>', function() list():select(5) end, { desc = 'Harpoon: open #5' })
-vim.keymap.set('n', '<c-@>', function() list():select(6) end, { desc = 'Harpoon: open #6' })
+local select = function(i)
+  return function()
+    local prevbuf = vim.api.nvim_get_current_buf()
+    list():select(i)
+    if vim.api.nvim_buf_get_name(prevbuf) == '' then vim.api.nvim_buf_delete(prevbuf, {}) end
+  end
+end
+
+vim.keymap.set('n', '<c-">', select(1), { desc = 'Harpoon: open #1' })
+vim.keymap.set('n', '<c-«>', select(2), { desc = 'Harpoon: open #2' })
+vim.keymap.set('n', '<c-»>', select(3), { desc = 'Harpoon: open #3' })
+vim.keymap.set('n', '<c-(>', select(4), { desc = 'Harpoon: open #4' })
+vim.keymap.set('n', '<c-)>', select(5), { desc = 'Harpoon: open #5' })
+vim.keymap.set('n', '<c-@>', select(6), { desc = 'Harpoon: open #6' })
 
 vim.keymap.set('n', "<c-,>",
   function() harpoon.ui:toggle_quick_menu(list(), { title = '󱡅 Harpoon', title_pos = 'center', border = border }) end,

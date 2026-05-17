@@ -62,7 +62,7 @@
     },
     "harpoon": {
       "rev": "87b1a3506211538f460786c23f98ec63ad9af4e5",
-      "src": "https://github.com/ThePrimeagen/harpoon",
+      "src": "https://github.com/theprimeagen/harpoon",
       "version": "'harpoon2'"
     },
     "lazydev.nvim": {
