@@ -91,6 +91,9 @@ require('alternator').setup({
 
   { pattern = "(.*)/spec/(.*)_spec%.rb", target = "%1/app/%2.rb" },
   { pattern = "(.*)/app/(.*)%.rb", target = "%1/spec/%2_spec.rb" },
+
+  { pattern = "(.*)_spec%.rb", target = "%1.rb" },
+  { pattern = "(.*)%.rb", target = "%1_spec.rb" },
 })
 
 vim.keymap.set('n', '<c-s-p>', '<cmd>silent grep! Kernel.binding.pry<cr>')

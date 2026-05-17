@@ -1,0 +1,5 @@
+{
+  "**/lsp/*.lua": {
+    "skeleton": "return"
+  }
+}

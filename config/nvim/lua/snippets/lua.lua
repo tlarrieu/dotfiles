@@ -12,11 +12,6 @@ local snippet = [[return {
   skeletons = {}
 }]]
 
-local plugin = [[
-vim.pack.add({$1}, { confirm = false })
-
-$0]]
-
 return {
   snippets = {
     e = '---@',
@@ -51,6 +46,7 @@ return {
   },
   skeletons = {
     ['snippets'] = snippet,
-    ['plugin'] = plugin,
+    ['plugin'] = 'vim.pack.add({$1}, { confirm = false })\n\n$0',
+    ['return'] = 'return {\n\t$0\n}',
   }
 }
