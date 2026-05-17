@@ -107,17 +107,15 @@ end
 
 local stashstatus = {
   function()
-    local handle = io.popen("git stash list 2> /dev/null | wc -l")
-    if not handle then return '' end
+    local stdout = vim.system({ 'git', 'stash', 'list' }):wait().stdout
+    local i = 0
+    for _ in string.gmatch(stdout, '([^\n]+)') do i = i + 1 end
 
-    local result = tonumber(handle:read("*a"))
-    handle:close()
-
-    if result == 0 then return '' end
-    if result == 1 then return '───  󰎤 ───' end
-    if result == 2 then return '───  󰎧 ───' end
-    if result == 3 then return '───  󰎪 ───' end
-    if result >= 4 then return '───  󰼑 ───' end
+    if i == 0 then return '' end
+    if i == 1 then return '───  󰎤 ───' end
+    if i == 2 then return '───  󰎧 ───' end
+    if i == 3 then return '───  󰎪 ───' end
+    if i >= 4 then return '───  󰼑 ───' end
 
     return ''
   end,
@@ -126,15 +124,13 @@ local stashstatus = {
 
 local pushstatus = {
   function()
-    local handle = io.popen("git rev-list @{u}...HEAD --left-right 2> /dev/null | cut -c1 | paste -sd ''")
-    if not handle then return '' end
+    local pushstr = ''
+    local stdout = vim.system({ 'git', 'rev-list', '@{u}...HEAD', '--left-right' }):wait().stdout
+    for line in string.gmatch(stdout, '([^\n]+)') do pushstr = pushstr .. line:sub(1, 1) end
 
-    local result = handle:read("*a")
-    handle:close()
-
-    if result:match('><') then return '─── 󰆖 ───' end
-    if result:match('<') then return '─── 󰧖 ───' end
-    if result:match('>') then return '─── 󰧜 ───' end
+    if pushstr:match('><') then return '─── 󰆖 ───' end
+    if pushstr:match('<') then return '─── 󰧖 ───' end
+    if pushstr:match('>') then return '─── 󰧜 ───' end
 
     return ''
   end,
