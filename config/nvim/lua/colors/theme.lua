@@ -318,8 +318,14 @@ return {
   -- -------------------| plugins |----------------------
 
   Directory = { fg = 'palette.blue', bg = 'none' },
-  OilDir = { link = 'Directory' },
-  OilDirHidden = { link = 'OilDir' },
+  OilLink = { fg = 'palette.yellow' },
+  OilFileHidden = { fg = 'palette.fg.dimmer', style = 'italic' },
+  OilLinkHidden = { fg = 'palette.yellow', style = 'italic' },
+  OilLinkTarget = { fg = 'palette.fg.dimmer' },
+  OilLinkTargetHidden = { fg = 'palette.fg.dimmer', style = 'italic' },
+  OilOrphanLinkTargetHidden = { fg = 'palette.red', style = 'italic' },
+  OilDir = { fg = 'palette.blue' },
+  OilDirHidden = { fg = 'palette.blue', style = 'italic' },
   OilDirIcon = { link = 'OilDir' },
   OilCreate = { link = 'Added' },
   OilDelete = { link = 'Removed' },
