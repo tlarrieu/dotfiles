@@ -1,23 +1,3 @@
-local base = [[
-# frozen_string_literal: true
-
-]]
-
-local spec = [[
-# frozen_string_literal: true
-
-describe ${1:topic} do
-  $0
-end]]
-
-local sentry = [[
-Sentry.capture_exception(
-  $1,
-  level: ${2::info},
-  extra: ${3:{\}},
-)
-]]
-
 return {
   snippets = {
     ['!'] = '#!/usr/bin/env ruby',
@@ -34,7 +14,7 @@ return {
     gem = "gem '${1:name}'",
 
     m = 'module ${1:Name}\n\t$0\nend',
-    c = 'class ${1:$PASCALIZE_FNAME}\n\t$0\nend',
+    c = 'class ${1:$RB_CLASS_NAME}\n\t$0\nend',
     d = 'def ${1:name}\n\t$0\nend',
     di = 'def initialize$1\n\t$0\nend',
     l = '@${1:var} = $1',
@@ -79,10 +59,38 @@ return {
     ['.tp'] = '.tap { |o| ${1:Kernel.binding.pry} }',
 
     flip = 'Flipper.enable?(:${1:feature}, ${2:actor})',
-    sentry = sentry,
+    sentry = [[
+Sentry.capture_exception(
+  $1,
+  level: ${2::info},
+  extra: ${3:{\}},
+)]],
   },
   skeletons = {
-    ['base'] = base,
-    ['spec'] = spec,
+    ['base'] = '# frozen_string_literal: true\n\n',
+    ['spec'] = [[
+# frozen_string_literal: true
+
+describe ${1:$RB_SPEC_NAME} do
+  $0
+end]],
+    ['controller'] = [[
+# frozen_string_literal: true
+
+class $RB_CLASS_NAME < ApplicationController
+  $0
+end]],
+    ['model'] = [[
+# frozen_string_literal: true
+
+class $RB_CLASS_NAME < ApplicationRecord
+  $0
+end]],
+    ['mailer'] = [[
+# frozen_string_literal: true
+
+class $RB_CLASS_NAME < ApplicationMailer
+  $0
+end]]
   }
 }

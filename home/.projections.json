@@ -7,5 +7,14 @@
   },
   "**/lua/plugins/*.lua": {
     "skeleton": "plugin"
+  },
+  "**/app/models/*.rb": {
+    "skeleton": "model"
+  },
+  "**/app/controllers/*.rb": {
+    "skeleton": "controller"
+  },
+  "**/app/mailers/*.rb": {
+    "skeleton": "mailer"
   }
 }

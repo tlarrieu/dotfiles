@@ -1,9 +1,10 @@
+local buffname = function() return vim.api.nvim_buf_get_name(0):match('([^/]+)%.%w+$') end
+
 local vars = {
   ['$MONTH'] = function() return os.date('%m') end,
   ['$DAY'] = function() return os.date('%d') end,
-  ['$PASCALIZE_FNAME'] = function()
-    return require('helpers').pascalize(vim.api.nvim_buf_get_name(0):match('([^/]+)%.%w+$')) or ''
-  end
+  ['$RB_CLASS_NAME'] = function() return require('helpers').pascalize(buffname()) or '' end,
+  ['$RB_SPEC_NAME'] = function() return require('helpers').pascalize(buffname():gsub('_spec', '')) or '' end,
 }
 
 local wordsep = {
@@ -44,13 +45,13 @@ local import = function(ft)
   return loaded and loaded() or { snippets = {}, skeletons = {} }
 end
 
-local preprocess = function(string)
+local expand = function(string)
   for var, fn in pairs(vars) do string = string:gsub(var, fn()) end
 
-  return string
+  vim.snippet.expand(string)
 end
 
-local expand = function()
+local find_and_expand = function()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
   local curline = vim.api.nvim_buf_get_lines(0, cursor[1] - 1, cursor[1], true)[1]
@@ -68,11 +69,11 @@ local expand = function()
     snippet = snippet[curline:match('^%s*$') and 'block' or 'inline']
   end
 
-  vim.snippet.expand(preprocess(snippet))
+  expand(snippet)
 end
 
 local edit = function(ft) return function() if ft ~= '' then vim.cmd.vsplit(file_for(ft)) end end end
-vim.keymap.set('i', '<c-e>', expand, { desc = 'Expand snippet' })
+vim.keymap.set('i', '<c-e>', find_and_expand, { desc = 'Expand snippet' })
 vim.keymap.set('n', '<leader>eS', edit('common'), { desc = 'Edit common snippets' })
 vim.keymap.set('n', '<leader>es', function() edit(vim.bo.ft)() end, { desc = 'Edit ft snippets' })
 
@@ -91,7 +92,9 @@ vim.api.nvim_create_autocmd('BufNewFile', {
       )
     end
 
-    pcall(vim.snippet.expand, skeletons[skelname or "base"])
+    local skeleton = skeletons[skelname or "base"]
+    if not skeleton then return end
+    expand(skeleton)
   end,
   group = vim.api.nvim_create_augroup("skeletons_hooks", {})
 })
