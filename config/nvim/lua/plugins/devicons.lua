@@ -9,6 +9,7 @@ local lock = '󰈡'
 local xdefaults = ''
 
 local ruby = ''
+local sh = '󱆃'
 local css = '󰐣'
 local html = '󰗀'
 local erb = '󰅴'
@@ -63,7 +64,9 @@ require('nvim-web-devicons').setup({
     dircolors = { icon = '󰌁' },
     desktop = { icon = '󱕷' },
 
-    bashrc = { icon = '󱆃' },
+    bashrc = { icon = sh },
+    bash = { icon = sh },
+    sh = { icon = sh },
     make = { icon = '󱌣' },
     just = { icon = '' },
     json = { icon = '󰅩' },
