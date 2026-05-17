@@ -26,6 +26,20 @@ vim.api.nvim_create_autocmd('WinLeave', { callback = function() vim.wo.relativen
 vim.api.nvim_create_autocmd('TextYankPost',
   { callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200, on_visual = false }) end })
 
+-- set git root directory as local working directory (useful when editing snippets on the fly for instance)
+vim.api.nvim_create_autocmd('BufWinEnter', {
+  callback = function()
+    local path = vim.system({
+      'git',
+      '-C',
+      vim.fn.expand('%:h'),
+      'rev-parse',
+      '--show-toplevel',
+    }):wait().stdout:gsub('\n', '')
+    if path ~= '' then vim.cmd.lcd(path) end
+  end,
+})
+
 -- theme setting
 local apply_xrdb = function()
   local theme = require('xrdb').load()
