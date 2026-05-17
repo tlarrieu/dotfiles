@@ -8,7 +8,7 @@ highlight StatusLine cterm=none              ctermfg=blue    ctermbg=none
 highlight Border     cterm=none              ctermfg=blue    ctermbg=none
 
 highlight Selected   cterm=bold              ctermfg=magenta ctermbg=default
-highlight CurrLine   cterm=bold              ctermfg=white   ctermbg=blue
+highlight CurrLine   cterm=bold              ctermfg=default   ctermbg=18
 
 highlight WildMenu   cterm=underline,reverse ctermfg=white   ctermbg=black
 highlight CmdLine    cterm=none              ctermfg=default ctermbg=default
