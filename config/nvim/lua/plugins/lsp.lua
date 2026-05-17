@@ -37,56 +37,6 @@ require('mason').setup({
 vim.lsp.config('*', { capabilities = require('cmp_nvim_lsp').default_capabilities() })
 vim.lsp.document_color.enable(false)
 
-vim.lsp.config('ruby_lsp', {
-  init_options = {
-    addonSettings = {
-      ['Ruby LSP Rails'] = {
-        enablePendingMigrationsPrompt = false,
-      },
-    }
-  },
-})
-
-vim.lsp.config('gopls', {
-  settings = {
-    gopls = {
-      gofumpt = true,
-      completeUnimported = true,
-      usePlaceholders = true,
-      analyses = {
-        unusedparams = true,
-        staticcheck = true,
-        unreachable = true,
-      }
-    }
-  }
-})
-
-vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      format = {
-        defaultConfig = {
-          indent_style = 'space',
-          indent_size = '2',
-          align_array_table = 'false',
-        },
-      },
-      diagnostics = {
-        neededFileStatus = { ['codestyle-check'] = 'Any' },
-      },
-    }
-  }
-})
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'mason' },
-  callback = function()
-    vim.wo.winblend = 0
-    vim.wo.cursorline = false
-  end,
-})
-
 ---- Mason lspconfig -----------------------------------------------------------
 
 require('mason-lspconfig').setup({
