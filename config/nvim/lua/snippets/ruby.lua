@@ -86,6 +86,12 @@ end]],
 class $RB_CLASS_NAME < ApplicationRecord
   $0
 end]],
+    ['service'] = [[
+# frozen_string_literal: true
+
+class $RB_CLASS_NAME < ApplicationService
+  $0
+end]],
     ['mailer'] = [[
 # frozen_string_literal: true
 

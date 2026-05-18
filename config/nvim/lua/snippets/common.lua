@@ -8,6 +8,10 @@ return {
     test = 'TEST: ',
     hack = 'HACK: ',
 
+    ok = '✔',
+    ko = '✘',
+    st = '󰔟',
+
     gh = 'https://github.com/',
 
     r = 'return',
