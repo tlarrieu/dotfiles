@@ -419,7 +419,7 @@ return {
   NotifyWARNTitle = { fg = 'palette.yellow' },
   NotifyERRORTitle = { fg = 'palette.red' },
 
-  MarkSignHL = { fg = 'palette.fg.dim', bg = 'palette.bg0' },
+  MarkSignHL = { fg = 'palette.bg1', bg = 'palette.pink' },
   MarkSignNumHL = { link = 'MarkSignHL' },
 
   MarkviewCode = { fg = 'none', bg = 'palette.bg3' },
