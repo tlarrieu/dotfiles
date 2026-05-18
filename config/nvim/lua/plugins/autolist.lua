@@ -1,7 +1,32 @@
 vim.pack.add({ 'https://github.com/gaodean/autolist.nvim' }, { confirm = false })
 local autolist = require('autolist')
 
-autolist.setup()
+local list_patterns = {
+  unordered = '[-+*]', -- - + *
+  digit = '%d+[.)]',   -- 1. 2. 3.
+  ascii = '%a[.)]',    -- a) b) c)
+  roman = '%u*[.)]',   -- I. II. III.
+}
+
+local lists = {
+  list_patterns.unordered,
+  list_patterns.digit,
+  list_patterns.ascii,
+  list_patterns.roman,
+}
+
+autolist.setup({
+  colon = {            -- if a line ends in a colon
+    indent = true,     -- if in list and line ends in `:` then create list
+    indent_raw = true, -- above, but doesn't need to be in a list to work
+    preferred = '-',   -- what the new list starts with (can be `1.` etc)
+  },
+  lists = {
+    markdown = lists,
+    gitcommit = lists,
+    text = lists,
+  },
+})
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'gitcommit', 'text' },
@@ -20,6 +45,8 @@ vim.api.nvim_create_autocmd('FileType', {
     -- functions to recalculate list on edit
     vim.keymap.set('n', '>>', '>><cmd>AutolistRecalculate<cr>', { buffer = true })
     vim.keymap.set('n', '<<', '<<<cmd>AutolistRecalculate<cr>', { buffer = true })
+    vim.keymap.set('x', '3', '><cmd>AutolistRecalculate<cr>gv', { buffer = true })
+    vim.keymap.set('x', '2', '<<cmd>AutolistRecalculate<cr>gv', { buffer = true })
     vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>', { buffer = true })
     vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>', { buffer = true })
   end,
