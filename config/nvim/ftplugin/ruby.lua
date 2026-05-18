@@ -176,10 +176,10 @@ vim.keymap.set('n', 'gd', function()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
   local shared_examples = label_for(bufnr, cursor, 'shared_examples')
-  if shared_examples then return vim.cmd.grep { 'shared_examples[\\( ].' .. shared_examples, mods = { silent = true } } end
+  if shared_examples then return vim.cmd.lgrep { 'shared_examples[\\( ].' .. shared_examples, mods = { silent = true } } end
 
   local shared_context = label_for(bufnr, cursor, 'shared_context')
-  if shared_context then return vim.cmd.grep { 'shared_context[\\( ].' .. shared_context, mods = { silent = true } } end
+  if shared_context then return vim.cmd.lgrep { 'shared_context[\\( ].' .. shared_context, mods = { silent = true } } end
 
   require('telescope.builtin').lsp_definitions()
 end, { silent = true, buffer = true })
