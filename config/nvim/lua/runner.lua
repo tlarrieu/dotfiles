@@ -44,14 +44,10 @@ local state = {
     if _win and vim.api.nvim_win_is_valid(_win) then return _win end
     return nil
   end,
-  cmd = function(cmd) return set('cmd', cmd) end,
   pid = function(id) return set('pid', id) end,
   options = function(cfg) return set('options', cfg) or {} end,
   delete = function(key)
-    assert(
-      key == 'buffer' or key == 'window' or key == 'cmd' or key == 'pid' or key == 'options',
-      'Invalid state key: ' .. key
-    )
+    assert(key == 'buffer' or key == 'window' or key == 'pid' or key == 'options', 'Invalid state key: ' .. key)
     local _state = vim.g.runner
     _state[key] = nil
     vim.g.runner = _state
@@ -149,7 +145,6 @@ local all = function(...) bind(config.all.keys, ...) end
 local repl = function(opts_or_fn, desc)
   vim.keymap.set('n', config.repl.keys,
     function()
-      vim.notify(vim.inspect(opts_or_fn))
       run(type(opts_or_fn) == 'function' and opts_or_fn() or opts_or_fn)
       show()
       vim.cmd.startinsert()

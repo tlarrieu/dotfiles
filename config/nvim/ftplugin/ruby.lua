@@ -57,7 +57,6 @@ require('runner').setup({
   all = { args = function() return rspec({ all = true }) end, desc = 'Run test suite' },
   repl = {
     args = function()
-      vim.notify('bin/rails')
       if require('helpers').fileexists('bin/rails') then
         return { cmd = { 'bin/rails', 'console' }, winbar = '󰫏 rails console' }
       else
