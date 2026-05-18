@@ -1,4 +1,4 @@
-local au = [[vim.api.nvim_create_autocmd('${1:event}', {
+local au = [[vim.api.nvim_create_autocmd('${1:FileType}', {
   pattern = { ${2:pattern} },
   callback = function()
     $3
