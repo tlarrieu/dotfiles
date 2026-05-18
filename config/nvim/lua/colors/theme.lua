@@ -419,8 +419,9 @@ return {
   NotifyWARNTitle = { fg = 'palette.yellow' },
   NotifyERRORTitle = { fg = 'palette.red' },
 
-  MarkSignHL = { fg = 'palette.bg1', bg = 'palette.pink' },
-  MarkSignNumHL = { link = 'MarkSignHL' },
+  MarkSignHL = { fg = 'palette.pink', bg = 'palette.pink.dim' },
+  MarkSignNumHL = { fg = 'palette.fg.dim', bg = 'palette.pink.dim' },
+  MarkVirtTextHL = { fg = 'palette.pink', bg = 'palette.pink.dim' },
 
   MarkviewCode = { fg = 'none', bg = 'palette.bg3' },
   MarkviewCodeLabel = { fg = 'palette.bg3', bg = 'palette.yellow', style = 'bold' },
