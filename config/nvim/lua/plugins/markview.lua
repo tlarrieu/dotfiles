@@ -119,7 +119,7 @@ require('markview').setup({
     list_items = {
       enable = true,
       wrap = true,
-      shift_width = 0,
+      shift_width = 2,
 
       marker_minus = {
         add_padding = true,
@@ -143,12 +143,12 @@ require('markview').setup({
 
       marker_dot = {
         add_padding = true,
-        conceal_on_checkboxes = true
+        conceal_on_checkboxes = false
       },
 
       marker_parenthesis = {
         add_padding = true,
-        conceal_on_checkboxes = true
+        conceal_on_checkboxes = false
       }
     },
     horizontal_rules = {
