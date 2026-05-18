@@ -33,6 +33,7 @@ treesitter.install({
   'vimdoc',
   'xresources',
   'zathurarc',
+  'xml'
 })
 
 vim.api.nvim_create_autocmd('FileType', {
