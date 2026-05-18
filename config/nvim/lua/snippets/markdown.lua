@@ -37,6 +37,9 @@ return {
     I = callout('info'),
     q = callout('question'),
     Q = callout('question'),
+
+    ['='] = '===',
+    ['-'] = '---',
   },
   skeletons = {}
 }

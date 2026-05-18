@@ -90,7 +90,7 @@ require('markview').setup({
     headings = {
       enable = true,
 
-      heading_1 = { style = 'icon', icon = '󰎤 ', hl = 'MarkviewHeading1', sign = '', },
+      heading_1 = { style = 'icon', icon = '󰎤 ', hl = 'MarkviewHeading1', sign = '' },
       heading_2 = { style = 'icon', icon = '󰎧 ', hl = 'MarkviewHeading2', sign = '' },
       heading_3 = { style = 'icon', icon = '󰎪 ', hl = 'MarkviewHeading3' },
       heading_4 = { style = 'icon', icon = '󰎭 ', hl = 'MarkviewHeading4' },
@@ -100,15 +100,14 @@ require('markview').setup({
       setext_1 = {
         style = 'decorated',
         sign = '',
-        icon = '  ',
+        icon = ' ',
         hl = 'MarkviewHeading1',
         border = '▂'
       },
       setext_2 = {
         style = 'decorated',
         sign = '',
-        sign_hl = 'MarkviewHeading2Sign',
-        icon = '  ',
+        icon = ' ',
         hl = 'MarkviewHeading2',
         border = '▁'
       },
