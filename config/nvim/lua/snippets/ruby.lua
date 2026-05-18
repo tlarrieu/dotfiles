@@ -69,8 +69,9 @@ return {
     lib = 'let_it_be(:${1:name}) { $0 }',
     it = "it('${1:does something}') { $0 }",
     ibl = "it_behaves_like '${1:name}'",
-    e = 'expect($1).to ',
-    eb = 'expect { $1 }.to ',
+    e = 'expect($1).${2|to,not_to|} ',
+    eb = 'expect { $1 }.${2|to,not_to|} ',
+    dc = 'described_class ',
 
     p = 'puts ',
     pry = 'Kernel.binding.pry',
