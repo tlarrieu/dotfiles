@@ -1,3 +1,21 @@
+local base = function(template) return '# frozen_string_literal: true\n\n' .. template end
+
+local class = function(ancestor)
+  return base('class $RB_CLASS_NAME < ' .. ancestor .. [[
+
+  $0
+end]])
+end
+
+local modclass = function(ancestor)
+  return base([[module $RB_MODULE_NAME
+  class $RB_CLASS_NAME < ]] .. ancestor .. [[
+
+    $0
+  end
+end]])
+end
+
 return {
   snippets = {
     ['!'] = '#!/usr/bin/env ruby',
@@ -65,38 +83,21 @@ Sentry.capture_exception(
   level: ${2::info},
   extra: ${3:{\}},
 )]],
+    so = 'SENTRY_OWNER = Constants::SentryOwners::TAX_CONNECT'
   },
   skeletons = {
-    ['base'] = '# frozen_string_literal: true\n\n',
-    ['spec'] = [[
-# frozen_string_literal: true
+    { pattern = 'packs/.*/app/models/.*%.rb', template = modclass('ShardedRecord') },
+    { pattern = 'packs/.*/app/services/.*%.rb', template = modclass('ApplicationService') },
+    { pattern = 'packs/.*/app/controllers/.*%.rb', template = modclass('ApplicationController') },
+    { pattern = 'packs/.*/app/mailer/.*%.rb', template = modclass('ApplicationMailer') },
 
-describe ${1:$RB_SPEC_NAME} do
-  $0
-end]],
-    ['controller'] = [[
-# frozen_string_literal: true
+    { pattern = '.*/app/models/.*%.rb', template = class('ApplicationRecord') },
+    { pattern = '.*/app/services/.*%.rb', template = class('ApplicationService') },
+    { pattern = '.*/app/controllers/.*%.rb', template = class('ApplicationController') },
+    { pattern = '.*/app/mailer/.*%.rb', template = class('ApplicationMailer') },
+    { pattern = '.*/app/tasks/maintenance/.*%.rb', template = class('MaintenanceTasks::Task') },
 
-class $RB_CLASS_NAME < ApplicationController
-  $0
-end]],
-    ['model'] = [[
-# frozen_string_literal: true
-
-class $RB_CLASS_NAME < ApplicationRecord
-  $0
-end]],
-    ['service'] = [[
-# frozen_string_literal: true
-
-class $RB_CLASS_NAME < ApplicationService
-  $0
-end]],
-    ['mailer'] = [[
-# frozen_string_literal: true
-
-class $RB_CLASS_NAME < ApplicationMailer
-  $0
-end]]
+    { pattern = '.*_spec%.rb', template = base('describe ${1:$RB_SPEC_NAME} do\n\t$0\nend') },
+    { pattern = '.*', template = '# frozen_string_literal: true\n\n' },
   }
 }

@@ -19,6 +19,6 @@ return {
     case = case,
   },
   skeletons = {
-    base = shebang .. '\n\n',
+    { pattern = '.*', template = shebang .. '\n\n' },
   }
 }

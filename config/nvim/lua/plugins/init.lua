@@ -33,7 +33,6 @@ vim.pack.add({
   'https://github.com/AndrewRadev/linediff.vim',
   'https://github.com/tommcdo/vim-exchange',
   'https://github.com/tpope/vim-eunuch',
-  'https://github.com/tpope/vim-projectionist',
   'https://github.com/tpope/vim-repeat',
   'https://github.com/vim-scripts/edifact.vim',
 }, { confirm = false })

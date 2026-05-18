@@ -1,6 +1,6 @@
 return {
   snippets = {},
   skeletons = {
-    base = '; extends\n\n',
+    { pattern = '.*', template = '; extends\n\n' }
   }
 }

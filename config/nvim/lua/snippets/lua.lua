@@ -45,8 +45,11 @@ return {
     pa = 'vim.pack.add({$1}, { confirm = false })',
   },
   skeletons = {
-    ['snippets'] = snippet,
-    ['plugin'] = 'vim.pack.add({$1}, { confirm = false })\n\n$0',
+    { pattern = '.*/lsp/.*%.lua', template = 'return {\n\t$0\n}' },
+
+    { pattern = '.*/lua/snippets/.*%.lua', template = snippet },
+    { pattern = '.*/lua/plugins/.*%.lua', template = 'vim.pack.add({$1}, { confirm = false })\n\n$0' },
+
     ['return'] = 'return {\n\t$0\n}',
   }
 }

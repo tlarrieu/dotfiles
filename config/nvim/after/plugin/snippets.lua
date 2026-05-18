@@ -1,10 +1,12 @@
-local buffname = function() return vim.api.nvim_buf_get_name(0):match('([^/]+)%.%w+$') end
+local filename = function() return vim.fn.expand('%:t:r') end
+local dirname = function() return vim.fn.expand('%:h:t') end
 
 local vars = {
   ['$MONTH'] = function() return os.date('%m') end,
   ['$DAY'] = function() return os.date('%d') end,
-  ['$RB_CLASS_NAME'] = function() return require('helpers').pascalize(buffname()) or '' end,
-  ['$RB_SPEC_NAME'] = function() return require('helpers').pascalize(buffname():gsub('_spec', '')) or '' end,
+  ['$RB_CLASS_NAME'] = function() return require('helpers').pascalize(filename()) or '' end,
+  ['$RB_SPEC_NAME'] = function() return require('helpers').pascalize(filename():gsub('_spec', '')) or '' end,
+  ['$RB_MODULE_NAME'] = function() return require('helpers').pascalize(dirname()) or '' end,
 }
 
 local wordsep = {
@@ -79,22 +81,9 @@ vim.keymap.set('n', '<leader>es', function() edit(vim.bo.ft)() end, { desc = 'Ed
 
 vim.api.nvim_create_autocmd('BufNewFile', {
   callback = function(ev)
-    local ft = vim.bo[ev.buf].ft
-
-    local skeletons = import(ft).skeletons
-    local skelname = (vim.fn['projectionist#query']('skeleton')[1] or {})[2]
-
-    if skelname and not skeletons[skelname] then
-      return vim.notify(
-        'Skeleton "' .. skelname .. '" not found for filetype "' .. ft .. '"',
-        vim.log.levels.WARN,
-        { title = "skeleton.lua" }
-      )
+    local path = vim.api.nvim_buf_get_name(ev.buf)
+    for _, cfg in ipairs(import(vim.bo[ev.buf].ft).skeletons) do
+      if path:match(cfg.pattern) then return expand(cfg.template) end
     end
-
-    local skeleton = skeletons[skelname or "base"]
-    if not skeleton then return end
-    expand(skeleton)
   end,
-  group = vim.api.nvim_create_augroup("skeletons_hooks", {})
 })
