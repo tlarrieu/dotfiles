@@ -36,27 +36,6 @@ abbr m "neomutt"
 # NVIM
 alias ep "nvim -R -"
 abbr e "nvim"
-abbr se "sudo nvim"
-function scr
-  set -l file "$HOME/git/dotfiles/scripts/$argv"
-
-  test -e $file
-  and nvim $file
-  or echo -e 'i#!/bin/sh\n' | nvim -c 'setf sh' -s - -- $file
-
-  chmod 700 $file ^ /dev/null
-end
-
-function app
-  set -l file "$HOME/git/dotfiles/apps/$argv"
-
-  test -e $file
-  and nvim $file
-  or echo -ne 'i#!/bin/sh\n\nbrowser-kiosk $1 "https://"i' \
-    | nvim -c 'setf sh' -s - -- $file
-
-  chmod 700 $file ^ /dev/null
-end
 
 # vifm
 abbr v vifm
@@ -78,8 +57,8 @@ abbr cc "curl (xsel --clipboard -o)"
 abbr cco "curl -O (xsel --clipboard -o)"
 
 # youtube-dl
-abbr yv "yt-dlp --no-playlist (xsel --clipboard -o)"
-abbr ym "yt-dlp -fbestaudio --no-playlist (xsel --clipboard -o)"
+abbr yv "yt-dlp -fbestvideo (xsel --clipboard -o)"
+abbr ym "yt-dlp -fbestaudio (xsel --clipboard -o)"
 
 # Various CLI utils
 abbr less "less -R"
