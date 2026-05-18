@@ -10,30 +10,31 @@ local treesitter = require('nvim-treesitter')
 
 treesitter.install({
   'bash',
+  'embedded_template',
   'fish',
   'gitcommit',
+  'gitignore',
   'go',
   'gomod',
-  'haskell',
   'javascript',
+  'json',
   'just',
+  'ledger',
   'lua',
   'luadoc',
   'markdown',
+  'muttrc',
   'query',
   'ruby',
-  'embedded_template',
   'sql',
-  'yaml',
-  'json',
   'tsx',
   'typescript',
-  'ledger',
   'vim',
   'vimdoc',
+  'xml',
   'xresources',
+  'yaml',
   'zathurarc',
-  'xml'
 })
 
 vim.api.nvim_create_autocmd('FileType', {
