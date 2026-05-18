@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     local path = vim.system({
       'git',
       '-C',
-      vim.fn.expand('%:h'),
+      vim.fs.dirname(vim.fn.resolve(vim.fn.expand('%'))),
       'rev-parse',
       '--show-toplevel',
     }):wait().stdout:gsub('\n', '')
