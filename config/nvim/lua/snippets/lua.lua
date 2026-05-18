@@ -45,11 +45,8 @@ return {
     pa = 'vim.pack.add({$1}, { confirm = false })',
   },
   skeletons = {
-    { pattern = '.*/lsp/.*%.lua', template = 'return {\n\t$0\n}' },
-
-    { pattern = '.*/lua/snippets/.*%.lua', template = snippet },
-    { pattern = '.*/lua/plugins/.*%.lua', template = 'vim.pack.add({$1}, { confirm = false })\n\n$0' },
-
-    ['return'] = 'return {\n\t$0\n}',
+    { pattern = '.*/nvim/lsp/.*%.lua', template = 'return {\n\t$0\n}' },
+    { pattern = '.*/nvim/lua/snippets/.*%.lua', template = snippet },
+    { pattern = '.*/nvim/lua/plugins/.*%.lua', template = 'vim.pack.add({$1}, { confirm = false })\n\n$0' },
   }
 }
