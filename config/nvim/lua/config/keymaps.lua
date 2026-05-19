@@ -1,7 +1,7 @@
+-- ====| Essentials |===========================================================
+
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
-
--- {{{ --| basics |-----------------------------------------
 -- undo
 vim.keymap.set('n', 'U', '<c-r>')
 -- Marks
@@ -11,6 +11,10 @@ vim.keymap.set('n', 'Þ', "m]", { remap = true })
 vim.keymap.set('n', 'ẞ', "m[", { remap = true })
 -- file navigation
 vim.keymap.set('n', 'gf', 'gF')
+vim.keymap.set('n', '<c-w>gf', function()
+  vim.cmd.vsplit()
+  vim.cmd.normal('gF')
+end)
 vim.keymap.set('n', 'gF', 'gf')
 -- Split lines
 vim.keymap.set('n', '<c-j>', 'i<cr><esc>')
@@ -40,8 +44,6 @@ vim.keymap.set({ 'n', 'x' }, 'é', '/')
 vim.keymap.set('n', '<c-é>', ':silent grep! ')
 vim.keymap.set('n', '<leader>é', ':silent grep! <c-r><c-w><cr>', { silent = true })
 vim.keymap.set('x', '<leader>é', '"by:silent grep! <c-r>b<cr>', { silent = true })
--- call snipe from visual mode
-vim.keymap.set('x', '<leader>s', '<esc><cmd>call Snipe("new")<cr>')
 -- replace occurrences of word under cursor
 vim.keymap.set('n', 'cié', '*N<cmd>redraw!<cr>:%s/<c-r><c-w>//I<left><left>')
 -- move all lines matching pattern after cursor
@@ -144,12 +146,8 @@ vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
 vim.keymap.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', { silent = true })
 -- }}}
 
--- {{{ --| operations |-------------------------------------
-vim.keymap.set('o', 'aR', 'a[')
-vim.keymap.set('o', 'iR', 'i[')
--- }}}
+-- ====| Quick access |=========================================================
 
--- {{{ --| quick access |-----------------------------------
 local quickedit = function(path)
   return function()
     local keep_buffer = require('helpers').fileexists(vim.fn.expand('%')) or vim.bo.buftype == 'terminal'
@@ -165,9 +163,9 @@ vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit loc
 vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt', expr = true })
--- }}}
 
--- {{{ --| togglers |---------------------------------------
+-- ====| Togglers |=============================================================
+
 -- Uppercase current word
 vim.keymap.set('n', '<c-g>', 'gUiw')
 vim.keymap.set('i', '<c-g>', '<esc>gUiwea')
@@ -210,12 +208,13 @@ vim.keymap.set('n', '<leader>q', function()
 end, { desc = 'Toggle quickfix list' })
 -- }}}
 
--- {{{ --| Spelling |---------------------------------------
+-- ====| Spelling |=============================================================
+
 vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next spelling error' })
 vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Previous spelling error' })
--- }}}
 
--- {{{ --| Quickfix list |----------------------------------
+-- ====| Quickfix |=============================================================
+
 vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>zz', { silent = true })
 vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>zz', { silent = true })
@@ -223,19 +222,19 @@ vim.keymap.set('n', '<leader>«', '<cmd>cc2<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>»', '<cmd>cc3<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>zz', { silent = true })
--- }}}
 
--- {{{ --| Jumps |------------------------------------------
+-- ====| Jumps |================================================================
+
 vim.keymap.set('n', '<c-i>', '<c-i>zz')
 vim.keymap.set('n', '<c-o>', '<c-o>zz')
--- }}}
 
--- {{{ --| Diagnostics |------------------------------------
+-- ====| Diagnostics |==========================================================
+
 vim.keymap.set('n', '<c-þ>', ']dzz', { remap = true })
 vim.keymap.set('n', '<c-ß>', '[dzz', { remap = true })
--- }}}
 
--- {{{ --| Treesitter |-------------------------------------
+-- ====| Treesitter |===========================================================
+
 vim.keymap.set('n', '<c-s-space>', 'van', { remap = true })
 vim.keymap.set('x', '<c-s-space>', 'an', { remap = true })
 vim.keymap.set('x', '<bs>', 'in', { remap = true })
@@ -243,16 +242,16 @@ vim.keymap.set('x', '<bs>', 'in', { remap = true })
 vim.keymap.set('n', '<leader>i', vim.show_pos, { desc = 'Inspect' })
 vim.keymap.set('n', '<leader>I', function() vim.treesitter.inspect_tree({ command = 'vnew' }) end,
   { desc = 'InspectTree' })
--- }}}
 
--- {{{ --| terminal |---------------------------------------
+-- ====| Terminal |=============================================================
+
 vim.keymap.set('t', '<esc>', '<c-\\><c-n>')
 vim.keymap.set('n', '<leader>ti', '<cmd>tab terminal<cr><cmd>startinsert!<cr>', { silent = true })
 vim.keymap.set('n', '<leader>vi', '<cmd>vertical terminal<cr><cmd>startinsert!<cr>', { silent = true })
 vim.keymap.set('n', '<leader>ni', '<cmd>horizontal terminal<cr><cmd>startinsert!<cr>', { silent = true })
--- }}}
 
--- {{{ --| splits / tabs |----------------------------------
+-- ====| Windows |==============================================================
+
 vim.keymap.set('n', '<left>', '<c-w>5<')
 vim.keymap.set('n', '<right>', '<c-w>5>')
 vim.keymap.set('n', '<up>', '<c-w>+')
@@ -260,27 +259,17 @@ vim.keymap.set('n', '<down>', '<c-w>-')
 vim.keymap.set('n', 'co', ':tabo<cr><c-w>o')
 vim.keymap.set('n', 'cO', '<c-w>o')
 -- Hack to make <c-w><c-c> mapping work
-vim.keymap.set('', '<c-c>', '<nop>')
+vim.keymap.set('n', '<c-c>', '<nop>')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-r>', '<c-w>L')
 vim.keymap.set({ 'n', 'o', 'x' }, ' ', '<c-w>r')
 
-local edit_path = function(cmd)
-  return function() return ':' .. cmd .. ' ' .. vim.fn.escape(vim.fn.expand('%:p:h'), ' ') .. '/' end
-end
--- In place edition
-vim.keymap.set('n', '<leader>ee', edit_path('edit'), { expr = true, desc = 'Edit path in current split' })
--- Horizontal Split
-vim.keymap.set('n', '<leader>ss', '<c-w>s', { silent = true })
-vim.keymap.set('n', '<leader>se', edit_path('new'), { expr = true, desc = 'Edit path in a new horizontal split' })
--- Vertical split
-vim.keymap.set('n', '<leader>vv', '<c-w>v', { silent = true })
-vim.keymap.set('n', '<leader>ve', edit_path('vnew'), { expr = true, desc = 'Edit path in a new vertical split' })
--- Tabs
-vim.keymap.set('n', '<leader>tt', '<cmd>tabe<cr>', { silent = true })
-vim.keymap.set('n', '<leader>te', edit_path('tabe'), { expr = true, desc = 'Edit path in a new tab' })
+-- Splits
+vim.keymap.set('n', '<leader>ss', vim.cmd.split, { silent = true })
+vim.keymap.set('n', '<leader>vv', vim.cmd.vsplit, { silent = true })
+vim.keymap.set('n', '<leader>tt', function() vim.cmd('tab split') end, { silent = true })
 -- Dimensions
 vim.keymap.set('n', '<leader>=', '<c-w>=')
 vim.keymap.set('n', '<leader>%', '<cmd>res<cr><cmd>vertical res<cr>', { silent = true })
@@ -319,21 +308,17 @@ vim.keymap.set('n', '<leader>u', function()
 end, { desc = 'Merge current window into previous tab' })
 -- }}}
 
--- {{{ --| folds management |-------------------------------
+-- ====| Folds |================================================================
+
 vim.keymap.set('n', '<leader>z', 'zMzv')
 vim.keymap.set('n', '<leader>Z', 'zR')
 vim.keymap.set('n', 'zO', 'zczO')
--- }}}
 
--- {{{ --| linediff |---------------------------------------
-vim.keymap.set('x', '<leader>d', ':Linediff<cr>', { silent = true })
--- }}}
+-- ====| Diff |=================================================================
 
--- {{{ --| Diff |-------------------------------------------
 vim.keymap.set(
   'n',
   '<leader>D',
   function() if vim.wo.diff then vim.cmd.diffoff({ bang = true }) else vim.cmd.diffthis() end end,
   { silent = true }
 )
--- }}}

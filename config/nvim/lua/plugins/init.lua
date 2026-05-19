@@ -30,7 +30,6 @@ vim.api.nvim_create_autocmd('PackChanged', {
 vim.pack.add({
   'https://github.com/nvim-lua/plenary.nvim',
 
-  'https://github.com/AndrewRadev/linediff.vim',
   'https://github.com/tommcdo/vim-exchange',
   'https://github.com/tpope/vim-eunuch',
   'https://github.com/tpope/vim-repeat',
@@ -59,6 +58,7 @@ require('plugins.testbus')
 require('plugins.dropbar')
 require('plugins.statusline')
 
+require('plugins.diff')
 require('plugins.surround')
 require('plugins.marks')
 require('plugins.indent')

@@ -71,7 +71,7 @@
     },
     "linediff.vim": {
       "rev": "c3780609769a93f4f59421b6324355f37e0ee6c5",
-      "src": "https://github.com/AndrewRadev/linediff.vim"
+      "src": "https://github.com/andrewradev/linediff.vim"
     },
     "lualine.nvim": {
       "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
