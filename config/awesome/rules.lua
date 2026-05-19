@@ -149,6 +149,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'wiki',
         'postgres',
         'gtd',
+        'vifm',
         'newsboat',
         'man',
         'quake',
@@ -188,6 +189,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'dev',
         'opencode',
         'config',
+        'vifm',
       },
       instance = {
         'web.whatsapp.com',
@@ -207,9 +209,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'github.com__pulls',
       },
     },
-    properties = {
-      immortal = true,
-    },
+    properties = { immortal = true },
   },
 
   -- [[ Kitty ]] ---------------------------------------------------------------

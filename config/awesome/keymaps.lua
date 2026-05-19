@@ -235,7 +235,11 @@ local keyboard = {
     spawner.key({}, 'XF86AudioNext', 'mpc next'),
     spawner.key({}, 'XF86AudioPrev', 'mpc prev'),
     spawner.key({ super }, 'BackSpace', 'mpc toggle'),
-    spawner.key({ super }, 'o', spawner.terminal('vifm', { class = 'vifm' })),
+    spawner.key({ super }, 'o', {
+      app = spawner.terminal('vifm', { class = 'vifm' }),
+      props = { class = 'vifm' },
+      signal = spawner.actions.MOVE,
+    }),
     spawner.key({ super, shift }, 'o', 'thunar'),
     spawner.key({ super, shift }, 'q', 'wallpaper'),
     spawner.key({ super }, 'h', {
