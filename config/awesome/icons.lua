@@ -175,7 +175,9 @@ local config = {
   { icon = '󰨈', rule = { class = 'Chromium', instance = 'pratebay' } },
 
   --  Misc
-  { icon = '', rule = { class = 'Chromium', instance = 'doctolib' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'doctolib' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'alan' } },
+  { icon = '', rule = { class = 'Chromium', instance = 'ameli' } },
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' } },
   { icon = '󰌓', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
 
