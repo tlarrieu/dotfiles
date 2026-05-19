@@ -45,5 +45,6 @@
 	sp = stash pop
 	sync = fetch --all --prune --tags --force
 	wip = commit -m "WIP" --no-verify
+	ls-status = "!git status --porcelain 2> /dev/null | awk '{print $2}'"
 
 # vim: ft=gitconfig

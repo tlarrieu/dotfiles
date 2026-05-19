@@ -87,6 +87,18 @@ vim.keymap.set('n', '<c-s-t>', function()
   builtin.find_files({ hidden = true, find_command = find_directories, results_title = '󰙅 directories' })
 end, { desc = 'Telescope directories finder' })
 
+vim.keymap.set('n', '<c-y>', function()
+  builtin.find_files({ hidden = true, find_command = { 'git', 'ls-status' }, results_title = '󰊢 status' })
+end, { desc = 'Telescope directories finder' })
+
+vim.keymap.set('n', '<c-s-y>', function()
+  builtin.find_files({
+    hidden = true,
+    find_command = { 'git', 'diff', 'master...', '--name-only' },
+    results_title = '󰊢 diff master...',
+  })
+end, { desc = 'Telescope git diff master' })
+
 vim.keymap.set('n', '<c-b>', function()
   builtin.buffers({ hidden = true, ignore_current_buffer = true, sort_mru = true, results_title = ' buffers' })
 end, { desc = 'Telescope buffers' })
@@ -98,14 +110,6 @@ end, { desc = 'Telescope registers' })
 vim.keymap.set('n', '<c-h>', function()
   builtin.help_tags({ results_title = ' documentation' })
 end, { desc = 'Telescope help tags' })
-
-vim.keymap.set('n', '<c-s-s>', function()
-  builtin.find_files({
-    hidden = true,
-    find_command = { 'git', 'diff', 'master...', '--name-only' },
-    results_title = '󰕜 master...',
-  })
-end, { desc = 'Telescope git diff master' })
 
 vim.keymap.set('n', 'gd', function()
   builtin.lsp_definitions({ results_title = ' LSP definitions' })
