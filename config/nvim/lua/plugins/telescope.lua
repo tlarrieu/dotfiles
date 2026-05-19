@@ -63,7 +63,7 @@ telescope.setup({
 
   extensions = {
     ['ui-select'] = { require('telescope.themes').get_dropdown({ prompt_prefix = ' 󱐁 ', layout_strategy = 'horizontal' }) },
-    fzf = { fuzzy = true },
+    fzf = { fuzzy = false },
   }
 })
 
