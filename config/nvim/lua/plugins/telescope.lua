@@ -38,9 +38,9 @@ telescope.setup({
       prompt_position = 'top',
       anchor = 'S',
       anchor_padding = 0,
-      preview_width = 0.7,
+      preview_width = 0.65,
       height = 30,
-      width = 184,
+      width = 174,
     },
 
     preview = {
