@@ -177,14 +177,14 @@ ENGINES = {
   'wp'   => Browser.new('https://wallhaven.cc/search?q=%s&atleast=3440x1440', profile: 'perso'),
   'ym'   => Browser.new('https://music.youtube.com/search?q=%s', profile: 'perso'),
   'yt'   => YouTube.new,
-  'pl'   => Work.new,
+  'pl'   => Work.new
 }.freeze
 
 words = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
   .tap { exit if _1.empty? }
   .strip
   .tap { BrowserWithContext.new('').run.then { exit } if _1.empty? }
-  .then { _1.split }
+  .then(&:split)
   .tap { Browser.new(_1.join).run.then { exit } if _1[0].match('http.?://.*') }
 
 ENGINES[words[0]]

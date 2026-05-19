@@ -62,19 +62,14 @@ telescope.setup({
   },
 
   extensions = {
-    ['ui-select'] = {
-      require('telescope.themes').get_dropdown({
-        prompt_prefix = ' 󱐁 ',
-        layout_strategy = 'horizontal',
-      }),
-    },
-    fzf = { fuzzy = false },
+    ['ui-select'] = { require('telescope.themes').get_dropdown({ prompt_prefix = ' 󱐁 ', layout_strategy = 'horizontal' }) },
+    fzf = { fuzzy = true },
   }
 })
 
 local builtin = require('telescope.builtin')
 
-vim.keymap.set('n', '<c-è>', '<cmd>Telescope resume<cr>', { desc = 'Telescope resume' })
+vim.keymap.set('n', '<c-è>', builtin.resume, { desc = 'Telescope resume' })
 
 vim.keymap.set('n', '<c-t>', function()
   builtin.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
@@ -128,7 +123,9 @@ vim.keymap.set('n', '<c-s-q>', function()
   builtin.quickfixhistory({ results_title = '󰋚 quickfix history', layout_config = { preview_width = 0.55 } })
 end, { desc = 'Telescope quickfix history' })
 
-vim.keymap.set('n', 'g?', function() builtin.spell_suggest() end, { desc = 'Telescope spell suggest' })
+vim.keymap.set('n', 'g?', function()
+  builtin.spell_suggest()
+end, { desc = 'Telescope spell suggest' })
 
 pcall(telescope.load_extension, 'ui-select')
 pcall(telescope.load_extension, 'fzf')

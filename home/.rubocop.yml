@@ -65,6 +65,9 @@ Naming/ConstantName:
 
 # -- [[ Style ]] ---------------------------------------------------------------
 
+Style/OneClassPerFile:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
