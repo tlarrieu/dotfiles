@@ -213,6 +213,8 @@ vim.keymap.set('n', '<leader>bb', neogit.action('branch', 'checkout_local_branch
   { silent = true, desc = 'neogit branch checkout' })
 vim.keymap.set('n', '<leader>br', neogit.action('branch', 'checkout_recent_branch', {}),
   { silent = true, desc = 'neogit branch checkout (recent)' })
+vim.keymap.set('n', '<leader>bd', neogit.action('branch', 'delete_branch', {}),
+  { silent = true, desc = 'neogit branch delete' })
 
 vim.keymap.set('n', '<leader>gu', neogit.action('pull', 'from_upstream', { '--rebase' }),
   { silent = true, desc = 'neogit pull' })
