@@ -4,6 +4,8 @@ vim.pack.add({
   { src = 'https://github.com/nvim-telescope/telescope-fzf-native.nvim', data = { build = 'make' } },
 }, { confirm = false })
 
+local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+
 local filename_first_and_shorten = { 'filename_first', shorten = { len = 1, exclude = { 1, -3, -2, -1 } } }
 local find_files = { 'fd', '-tf', '--hidden' }
 local find_directories = { 'fd', '-td' }
@@ -19,7 +21,7 @@ local actions = require('telescope.actions')
 telescope.setup({
   defaults = {
     border = true,
-    borderchars = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },
+    borderchars = border,
     dynamic_preview_title = true,
 
     file_ignore_patterns = { '^%.git/', '%.png', '%.jpg' },
@@ -62,7 +64,13 @@ telescope.setup({
   },
 
   extensions = {
-    ['ui-select'] = { require('telescope.themes').get_dropdown({ prompt_prefix = ' 󱐁 ', layout_strategy = 'horizontal' }) },
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown({
+        prompt_prefix = ' 󱐁 ',
+        borderchars = border,
+        layout_strategy = 'horizontal',
+      })
+    },
     fzf = { fuzzy = false },
   }
 })
