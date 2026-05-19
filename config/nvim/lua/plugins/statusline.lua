@@ -230,7 +230,20 @@ require('lualine').setup({
         end,
       },
     },
-    lualine_x = { selectioncount, 'lsp_status', 'progress', 'location' },
+    lualine_x = {
+      selectioncount,
+      {
+        'lsp_status',
+        icon = ' ',
+        symbols = {
+          spinner = { '', '', '' },
+          done = '',
+          separator = ' • ',
+        },
+      },
+      'progress',
+      'location',
+    },
     lualine_y = { 'encoding', { 'fileformat', symbols = { unix = '󰻀', dos = '󰖳', mac = '' } } },
     lualine_z = {
       {
