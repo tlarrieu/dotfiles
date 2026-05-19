@@ -18,25 +18,33 @@ local rspec = function(opts)
     cmd = { 'rspec' }
   end
 
-  local location
+  local locations = {}
   local scope
 
   if opts.all then
     if require('helpers').fileexists('bin/rspec-auto') then
-      cmd = { 'bin/rspec-auto' }
       scope = '(bin/rspec-auto)'
+      cmd = { 'bundle', 'exec', 'rspec' }
+
+      local handle = io.popen("bin/rspec-auto --list 2> /dev/null | grep -E '^- .' | awk '{ print $2 }'")
+      if handle then
+        for line in string.gmatch(handle:read("*a"), '([^\n]+)') do table.insert(locations, line) end
+        handle:close()
+      else
+        cmd = { 'echo', "couldn't not run bin/rspec-auto" }
+      end
     else
       scope = '(all)'
     end
   else
-    location = vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '')
+    locations = { vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '') }
     scope = opts.at_cursor and '(cursor)' or '(file)'
   end
 
   local testbus = require('testbus')
 
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
-  if location then table.insert(cmd, location) end
+  for _, location in ipairs(locations) do table.insert(cmd, location) end
 
   return {
     on_start = testbus.start,
