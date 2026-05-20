@@ -37,13 +37,30 @@ treesitter.install({
   'zathurarc',
 })
 
+
+local map = function(ft, keys, kind, scope)
+  local basepath
+
+  local globalpath = vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt')
+
+  if scope == 'local' then
+    basepath = '~/git/dotfiles/config/nvim/after/queries/'
+  elseif kind == 'textobjects' then
+    basepath = vim.fs.joinpath(globalpath, 'nvim-treesitter-textobjects', 'queries')
+  else
+    basepath = vim.fs.joinpath(globalpath, 'nvim-treesitter', 'runtime', 'queries')
+  end
+
+  vim.keymap.set('n', keys, function()
+    vim.cmd.vsplit(vim.fs.joinpath(basepath, ft, kind .. '.scm'))
+  end, { desc = 'Edit ' .. kind .. ' queries (' .. scope .. ')', buffer = true })
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   callback = function(ev)
     local ok, _ = pcall(vim.treesitter.start)
 
     if not ok then return end
-
-    local ft = vim.bo[ev.buf].filetype
 
     if not vim.b.to_treesitter_options then
       vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
@@ -51,28 +68,10 @@ vim.api.nvim_create_autocmd('FileType', {
       vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
     end
 
-    local map = function(keys, kind, scope)
-      local basepath
-
-      local globalpath = vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt')
-
-      if scope == 'local' then
-        basepath = '~/git/dotfiles/config/nvim/after/queries/'
-      elseif kind == 'textobjects' then
-        basepath = vim.fs.joinpath(globalpath, 'nvim-treesitter-textobjects', 'queries')
-      else
-        basepath = vim.fs.joinpath(globalpath, 'nvim-treesitter', 'runtime', 'queries')
-      end
-
-      vim.keymap.set('n', keys, function()
-        vim.cmd.vsplit(vim.fs.joinpath(basepath, ft, kind .. '.scm'))
-      end, { desc = 'Edit ' .. kind .. ' queries (' .. scope .. ')', buffer = true })
-    end
-
-    map('<leader>eh', 'highlights', 'local')
-    map('<leader>et', 'textobjects', 'local')
-    map('<leader>eH', 'highlights', 'global')
-    map('<leader>eT', 'textobjects', 'global')
+    map(vim.bo[ev.buf].filetype, '<leader>eh', 'highlights', 'local')
+    map(vim.bo[ev.buf].filetype, '<leader>et', 'textobjects', 'local')
+    map(vim.bo[ev.buf].filetype, '<leader>eH', 'highlights', 'global')
+    map(vim.bo[ev.buf].filetype, '<leader>eT', 'textobjects', 'global')
   end,
 })
 
