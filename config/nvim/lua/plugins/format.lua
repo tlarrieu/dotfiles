@@ -11,7 +11,7 @@ conform.setup({
     javascript = biome,
     typescript = biome,
     yaml = prettier,
-    sql = { 'sql' },
+    sql = { 'sql', lsp_format = 'never' },
     edifact = { 'edifact' },
 
     ['_'] = { 'trim_whitespace' },
@@ -23,7 +23,7 @@ conform.setup({
   formatters = {
     sql = {
       command = 'pg_format',
-      args = { '-u', 1, '-U', 1, '-f', 1, '-b', '-s', 2, },
+      args = { '-u', 1, '-U', 1, '-f', 1, '-b', '-s', 2, '-L' },
     },
     edifact = {
       command = 'perl',
