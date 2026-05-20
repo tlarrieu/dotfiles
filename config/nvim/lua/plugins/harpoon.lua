@@ -6,6 +6,14 @@ local harpoon = require('harpoon')
 harpoon.setup()
 
 harpoon:extend({
+  NAVIGATE = function()
+    -- force FileType autocmd to run
+    vim.cmd('let &filetype=&filetype')
+    -- drop dangling empty buffer
+    local prevbuf = vim.fn.bufnr('#')
+    if vim.api.nvim_buf_get_name(prevbuf) == '' then vim.api.nvim_buf_delete(prevbuf, {}) end
+  end,
+
   UI_CREATE = function(cx)
     local select = function(mode) harpoon.ui:select_menu_item({ [mode] = true }) end
 
@@ -24,28 +32,21 @@ harpoon:extend({
   end,
 })
 
-local list = function() return harpoon:list() end
+vim.keymap.set('n', '<c-s-,>', function() harpoon:list():add() end, { desc = 'Harpoon: add file' })
 
-vim.keymap.set('n', '<c-s-,>', function() list():add() end, { desc = 'Harpoon: add file' })
+vim.keymap.set('n', '<c-">', function() harpoon:list():select(1) end, { desc = 'Harpoon: open #1' })
+vim.keymap.set('n', '<c-«>', function() harpoon:list():select(2) end, { desc = 'Harpoon: open #2' })
+vim.keymap.set('n', '<c-»>', function() harpoon:list():select(3) end, { desc = 'Harpoon: open #3' })
+vim.keymap.set('n', '<c-(>', function() harpoon:list():select(4) end, { desc = 'Harpoon: open #4' })
+vim.keymap.set('n', '<c-)>', function() harpoon:list():select(5) end, { desc = 'Harpoon: open #5' })
+vim.keymap.set('n', '<c-@>', function() harpoon:list():select(6) end, { desc = 'Harpoon: open #6' })
 
-local select = function(i)
-  return function()
-    local prevbuf = vim.api.nvim_get_current_buf()
-    list():select(i)
-    if vim.api.nvim_buf_get_name(prevbuf) == '' then vim.api.nvim_buf_delete(prevbuf, {}) end
-  end
-end
-
-vim.keymap.set('n', '<c-">', select(1), { desc = 'Harpoon: open #1' })
-vim.keymap.set('n', '<c-«>', select(2), { desc = 'Harpoon: open #2' })
-vim.keymap.set('n', '<c-»>', select(3), { desc = 'Harpoon: open #3' })
-vim.keymap.set('n', '<c-(>', select(4), { desc = 'Harpoon: open #4' })
-vim.keymap.set('n', '<c-)>', select(5), { desc = 'Harpoon: open #5' })
-vim.keymap.set('n', '<c-@>', select(6), { desc = 'Harpoon: open #6' })
+vim.keymap.set('n', '<c-s-t>', function() harpoon:list():next() end, { desc = 'Harpoon: open #6' })
+vim.keymap.set('n', '<c-s-s>', function() harpoon:list():prev() end, { desc = 'Harpoon: open #6' })
 
 vim.keymap.set('n', "<c-,>",
   function()
-    harpoon.ui:toggle_quick_menu(list(), {
+    harpoon.ui:toggle_quick_menu(harpoon:list(), {
       title = '󱡅 Harpoon',
       title_pos = 'center',
       border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' },

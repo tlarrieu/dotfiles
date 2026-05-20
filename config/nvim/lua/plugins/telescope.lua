@@ -83,7 +83,7 @@ vim.keymap.set('n', '<c-t>', function()
   builtin.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
 end, { desc = 'Telescope file finder' })
 
-vim.keymap.set('n', '<c-s-t>', function()
+vim.keymap.set('n', '<a-t>', function()
   builtin.find_files({ hidden = true, find_command = find_directories, results_title = '󰙅 directories' })
 end, { desc = 'Telescope directories finder' })
 
