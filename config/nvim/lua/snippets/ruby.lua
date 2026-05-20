@@ -87,18 +87,18 @@ Sentry.capture_exception(
     so = 'SENTRY_OWNER = Constants::SentryOwners::TAX_CONNECT'
   },
   skeletons = {
-    { pattern = 'packs/.*/app/models/.*%.rb', template = modclass('ShardedRecord') },
-    { pattern = 'packs/.*/app/services/.*%.rb', template = modclass('ApplicationService') },
-    { pattern = 'packs/.*/app/controllers/.*%.rb', template = modclass('ApplicationController') },
-    { pattern = 'packs/.*/app/mailer/.*%.rb', template = modclass('ApplicationMailer') },
+    { pattern = 'app/models/.+/.*%.rb', template = modclass('ShardedRecord') },
+    { pattern = 'app/services/.+/.*%.rb', template = modclass('ApplicationService') },
+    { pattern = 'app/controllers/.+/.*%.rb', template = modclass('ApplicationController') },
+    { pattern = 'app/mailer/.+/.*%.rb', template = modclass('ApplicationMailer') },
 
-    { pattern = '.*/app/models/.*%.rb', template = class('ApplicationRecord') },
-    { pattern = '.*/app/services/.*%.rb', template = class('ApplicationService') },
-    { pattern = '.*/app/controllers/.*%.rb', template = class('ApplicationController') },
-    { pattern = '.*/app/mailer/.*%.rb', template = class('ApplicationMailer') },
-    { pattern = '.*/app/tasks/maintenance/.*%.rb', template = class('MaintenanceTasks::Task') },
+    { pattern = 'app/models/.*%.rb', template = class('ApplicationRecord') },
+    { pattern = 'app/services/.*%.rb', template = class('ApplicationService') },
+    { pattern = 'app/controllers/.*%.rb', template = class('ApplicationController') },
+    { pattern = 'app/mailer/.*%.rb', template = class('ApplicationMailer') },
+    { pattern = 'app/tasks/maintenance/.*%.rb', template = class('MaintenanceTasks::Task') },
 
-    { pattern = '.*_spec%.rb', template = base('describe ${1:$RB_SPEC_NAME} do\n\t$0\nend') },
+    { pattern = '_spec%.rb$', template = base('describe ${1:$RB_SPEC_NAME} do\n\t$0\nend') },
     { pattern = '.*', template = '# frozen_string_literal: true\n\n' },
   }
 }
