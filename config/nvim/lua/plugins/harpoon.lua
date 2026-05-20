@@ -8,10 +8,13 @@ harpoon.setup()
 harpoon:extend({
   NAVIGATE = function()
     -- force FileType autocmd to run
-    vim.cmd('let &filetype=&filetype')
+    vim.cmd.let('&filetype=&filetype')
+
     -- drop dangling empty buffer
     local prevbuf = vim.fn.bufnr('#')
-    if vim.api.nvim_buf_get_name(prevbuf) == '' then vim.api.nvim_buf_delete(prevbuf, {}) end
+    if prevbuf == -1 then return end
+    if vim.api.nvim_buf_get_name(prevbuf) ~= '' then return end
+    vim.api.nvim_buf_delete(prevbuf, {})
   end,
 
   UI_CREATE = function(cx)

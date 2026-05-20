@@ -67,6 +67,7 @@ local window = function()
 
   state.window(vim.api.nvim_open_win(state.buffer(), false, { split = 'right' }))
   vim.api.nvim_create_autocmd('WinClosed', {
+    once = true,
     pattern = { tostring(state.window()) },
     callback = function() state.delete('window') end,
   })

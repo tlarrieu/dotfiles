@@ -13,10 +13,6 @@ vim.api.nvim_create_autocmd('VimResized', { callback = function() vim.api.nvim_i
 -- Do not insert comments upon <cr> or o/O
 vim.api.nvim_create_autocmd('FileType', { callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end })
 
--- Deactivate spell checking on RO files
-vim.api.nvim_create_autocmd('BufReadPost',
-  { callback = function() if vim.bo.readonly then vim.opt_local.spell = false end end })
-
 -- Toggle relative numbering for active window only
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' },
   { callback = function() if vim.wo.number then vim.wo.relativenumber = true end end })
@@ -56,7 +52,7 @@ local cmdline_group = vim.api.nvim_create_augroup('msg_area_hl', {})
 
 local set_msg_area_hl = function(link)
   vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
-  vim.cmd.redraw()
+  vim.cmd.redrawstatus()
 end
 
 vim.api.nvim_create_autocmd('CmdlineEnter',

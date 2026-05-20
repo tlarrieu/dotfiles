@@ -215,13 +215,13 @@ vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Prev
 
 -- ====| Quickfix |=============================================================
 
-vim.keymap.set('n', '<c-n>', '<cmd>cnext<cr>zz', { silent = true })
-vim.keymap.set('n', '<c-p>', '<cmd>cprev<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>"', '<cmd>cc1<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>«', '<cmd>cc2<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>»', '<cmd>cc3<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>(', '<cmd>cc4<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>)', '<cmd>cc5<cr>zz', { silent = true })
+vim.keymap.set('n', '<c-n>', '<cmd>silent cnext<cr>zz', { silent = true })
+vim.keymap.set('n', '<c-p>', '<cmd>silent cprev<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>"', '<cmd>silent cc1<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>«', '<cmd>silent cc2<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>»', '<cmd>silent cc3<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>(', '<cmd>silent cc4<cr>zz', { silent = true })
+vim.keymap.set('n', '<leader>)', '<cmd>silent cc5<cr>zz', { silent = true })
 
 -- ====| Jumps |================================================================
 
@@ -256,7 +256,7 @@ vim.keymap.set('n', '<left>', '<c-w>5<')
 vim.keymap.set('n', '<right>', '<c-w>5>')
 vim.keymap.set('n', '<up>', '<c-w>+')
 vim.keymap.set('n', '<down>', '<c-w>-')
-vim.keymap.set('n', 'co', ':tabo<cr><c-w>o')
+vim.keymap.set('n', 'co', '<cmd>silent tabo<cr><c-w>o')
 vim.keymap.set('n', 'cO', '<c-w>o')
 -- Hack to make <c-w><c-c> mapping work
 vim.keymap.set('n', '<c-c>', '<nop>')
