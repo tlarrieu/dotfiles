@@ -11,7 +11,7 @@ local clock = wibox.widget({
 })
 local utcclock = wibox.widget({
   widget = wibox.widget.textclock,
-  format = '(UTC %H)',
+  format = '(󱉊 %H:%M)',
   opacity = 0.5,
   timezone = 'Z',
 })
