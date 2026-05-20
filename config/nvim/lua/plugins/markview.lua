@@ -101,14 +101,14 @@ require('markview').setup({
         style = 'decorated',
         sign = '',
         icon = ' ',
-        hl = 'MarkviewHeading1',
+        hl = 'MarkviewFatHeading1',
         border = '▂'
       },
       setext_2 = {
         style = 'decorated',
         sign = '',
         icon = ' ',
-        hl = 'MarkviewHeading2',
+        hl = 'MarkviewFatHeading2',
         border = '▁'
       },
 

@@ -434,6 +434,8 @@ return {
   MarkviewBlockQuoteOk = { fg = 'palette.green', bg = 'none', style = 'NONE' },
   MarkviewBlockQuoteSpecial = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
   MarkviewBlockQuoteWarn = { fg = 'palette.yellow', bg = 'none', style = 'NONE' },
+  MarkviewFatHeading1 = { fg = 'palette.pink', bg = 'palette.pink.dim' },
+  MarkviewFatHeading2 = { fg = 'palette.green', bg = 'palette.green.dim' },
   MarkviewHeading1 = { fg = 'palette.pink', bg = 'palette.pink.dim' },
   MarkviewHeading2 = { fg = 'palette.green', bg = 'none' },
   MarkviewHeading3 = { fg = 'palette.blue', bg = 'none' },
