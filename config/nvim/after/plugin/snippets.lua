@@ -74,7 +74,7 @@ local find_and_expand = function()
   expand(snippet)
 end
 
-local edit = function(ft) return function() if ft ~= '' then vim.cmd.vsplit(file_for(ft)) end end end
+local edit = function(ft) return function() vim.cmd.vsplit(file_for(ft == '' and 'common' or ft)) end end
 vim.keymap.set('i', '<c-e>', find_and_expand, { desc = 'Expand snippet' })
 vim.keymap.set('n', '<leader>eS', edit('common'), { desc = 'Edit common snippets' })
 vim.keymap.set('n', '<leader>es', function() edit(vim.bo.ft)() end, { desc = 'Edit ft snippets' })
