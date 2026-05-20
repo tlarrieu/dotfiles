@@ -208,6 +208,9 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'www.github.com',
         'github.com__pulls',
       },
+      name = {
+        'neomutt',
+      }
     },
     properties = { immortal = true },
   },

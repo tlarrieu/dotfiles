@@ -94,6 +94,11 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super, shift }, 'w', spawner.shell('work restart')),
+    spawner.key({ super, ctrl }, 'm', {
+      app = spawner.shell('email'),
+      props = { name = 'neomutt' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ super }, 'x', {
       app = spawner.terminal('nvim', { class = 'dev', directory = dev }),
       props = { class = 'dev' },

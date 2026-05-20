@@ -1,0 +1,6 @@
+new_tab email
+layout tall:bias=70;full_size=1;mirrored=true
+cd ~/dev/jedeclare
+
+launch --hold=yes --var window=first --title="neomutt" neomutt
+launch --hold=yes --title="fetchmail" watch -n 15 fetchmail
