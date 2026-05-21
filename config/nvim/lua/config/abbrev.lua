@@ -2,21 +2,20 @@ require('pack')
 
 -- Command line shorthand
 local abbr = {
-  git = 'Git',
   mkdir = 'Mkdir',
   mv = 'Rename',
   rm = 'Delete',
   ['rm!'] = 'Delete!',
   h = 'tab h',
   hi = "lua require('telescope.builtin').highlights()",
-  mason = 'Mason',
   map = "lua require('telescope.builtin').keymaps({lfs_filter = true })",
+  mason = 'Mason',
+  fid = 'Fidget',
   ins = 'Inspect',
   ts = 'InspectTree',
   man = 'tab Man',
   ls = 'PackUpdate',
-  pur = 'PackPurge',
-  del = 'PackDel',
+  pp = 'PackPurge',
   dd = 'CodeDiff',
 }
 
