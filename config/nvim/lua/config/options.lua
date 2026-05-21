@@ -88,12 +88,8 @@ vim.opt.shiftround = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.gdefault = true
-local file = io.open('.ignore', 'r')
-if file then
-  vim.opt.grepprg = "rg --smart-case --vimgrep --hidden --no-ignore-vcs '$*'"
-else
-  vim.opt.grepprg = "rg --smart-case --vimgrep --hidden '$*'"
-end
+vim.opt.grepprg = ("rg --smart-case --vimgrep --hidden %s $*"):format(require('helpers').fileexists('.ignore') and
+  '--no-ignore-vcs' or '')
 
 -- ======| Spell checking |=====================================================
 
