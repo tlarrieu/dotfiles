@@ -58,7 +58,7 @@ oil.setup({
   view_options = {
     show_hidden = true,
     is_hidden_file = function(name) return vim.startswith(name, ".") end,
-    is_always_hidden = function() return false end,
+    is_always_hidden = function(name) return name == '..' end,
   },
   confirmation = {
     border = border,
