@@ -155,6 +155,13 @@ local quickedit = function(path)
   end
 end
 
+local quicksave = function(path)
+  return function()
+    vim.notify('Writing to "' .. path .. '"')
+    return '<cmd>silent w! ' .. path .. '<cr>'
+  end
+end
+
 local builder = require('helpers').fileexists('Makefile') and 'Makefile' or 'Justfile'
 vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builder, expr = true })
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefile', expr = true })
@@ -163,6 +170,8 @@ vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit loc
 vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt', expr = true })
+vim.keymap.set('n', '<leader>so', quicksave('~/output.txt'), { desc = 'Save to output.txt', expr = true })
+vim.keymap.set('n', '<leader>si', quicksave('~/input.txt'), { desc = 'Save to input.txt', expr = true })
 
 -- ====| Togglers |=============================================================
 
