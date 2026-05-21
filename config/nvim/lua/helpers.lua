@@ -86,7 +86,11 @@ M.icon_and_filetype = function(name, filetype)
   local _filetype = nil
   for str in string.gmatch(filetype, '([^.]+)') do _filetype = str end
 
-  return require('nvim-web-devicons').get_icon(name, _filetype), filetype
+  if name == '' then
+    return require('nvim-web-devicons').get_icon_by_filetype(_filetype), filetype
+  else
+    return require('nvim-web-devicons').get_icon(name, _filetype), filetype
+  end
 end
 
 return M
