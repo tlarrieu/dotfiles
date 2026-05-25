@@ -35,7 +35,7 @@ harpoon:extend({
   end,
 })
 
-vim.keymap.set('n', '<c-s-,>', function() harpoon:list():add() end, { desc = 'Harpoon: add file' })
+vim.keymap.set('n', '<c-,>', function() harpoon:list():add() end, { desc = 'Harpoon: add file' })
 
 vim.keymap.set('n', '<c-">', function() harpoon:list():select(1) end, { desc = 'Harpoon: open #1' })
 vim.keymap.set('n', '<c-«>', function() harpoon:list():select(2) end, { desc = 'Harpoon: open #2' })
@@ -47,7 +47,7 @@ vim.keymap.set('n', '<c-@>', function() harpoon:list():select(6) end, { desc = '
 vim.keymap.set('n', '<c-s-t>', function() harpoon:list():next() end, { desc = 'Harpoon: open #6' })
 vim.keymap.set('n', '<c-s-s>', function() harpoon:list():prev() end, { desc = 'Harpoon: open #6' })
 
-vim.keymap.set('n', "<c-,>",
+vim.keymap.set('n', "<c-e>",
   function()
     harpoon.ui:toggle_quick_menu(harpoon:list(), {
       title = '󱡅 Harpoon',
