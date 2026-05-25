@@ -1,5 +1,8 @@
 ; extends
 
+(subject) @git.subject
+(message) @git.message
+
 (branch) @git.branch
 
 ((title) @git.title (#eq? @git.title "Changes to be committed:")) @git.title.committed
