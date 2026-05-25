@@ -5,6 +5,8 @@ function resource
   source ~/.config/fish/conf.d/aliases.fish
 end
 
+alias so="resource"
+
 # kittens
 alias icat="kitten icat"
 
@@ -144,6 +146,7 @@ abbr gi "git init"
 abbr gl "git lg"
 abbr gll "git llg"
 abbr glo "git lg origin.."
+abbr gf "git fetch --tags --force"
 abbr gu "git pull --rebase"
 abbr gp "git push --force-with-lease"
 abbr gm "git merge"
