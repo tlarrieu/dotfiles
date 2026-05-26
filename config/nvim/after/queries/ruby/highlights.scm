@@ -31,6 +31,7 @@
 (module name: (scope_resolution name: (constant)) @class (#set! priority 120))
 
 ; constants
+((constant) @type) (#set! priority 120)
 (assignment left: (constant) @constant.assignment)
 
 (singleton_method object: (self) @keyword) ; "self" in singleton method definition
