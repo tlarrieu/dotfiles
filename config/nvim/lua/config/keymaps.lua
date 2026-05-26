@@ -227,24 +227,23 @@ vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Prev
 
 local cgo = function(cmd)
   return function()
-    local ok, _ = pcall(vim.cmd, cmd)
+    local qflist = vim.fn.getqflist({ idx = 0, items = {} })
+    local fn = (qflist.idx == 1 and qflist.items[1].bufnr ~= vim.api.nvim_get_current_buf())
+        and vim.cmd.cc
+        or function() vim.cmd('silent ' .. cmd) end
+    local ok, _ = pcall(fn)
     if ok then vim.cmd.normal('zz') end
   end
 end
 
 vim.keymap.set('n', '<c-n>', cgo('cnext!'), { silent = true })
 vim.keymap.set('n', '<c-p>', cgo('cprev!'), { silent = true })
-vim.keymap.set('n', '<leader>"', '<cmd>silent cc1<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>«', '<cmd>silent cc2<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>»', '<cmd>silent cc3<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>(', '<cmd>silent cc4<cr>zz', { silent = true })
-vim.keymap.set('n', '<leader>)', '<cmd>silent cc5<cr>zz', { silent = true })
+vim.keymap.set('n', '<c-c>', cgo('crewind!'), { silent = true })
 
 vim.keymap.set('n', '<leader>q', function()
+  if vim.fn.getqflist({ winid = 0 }).winid > 0 then return vim.cmd.cclose() end
+
   local lastwin = vim.api.nvim_get_current_win()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == 'quickfix' and vim.fn.bufwinnr(buf) ~= -1 then return vim.cmd.cclose() end
-  end
   vim.cmd('below copen')
   vim.api.nvim_set_current_win(lastwin)
 end, { desc = 'Toggle quickfix list' })
@@ -284,8 +283,6 @@ vim.keymap.set('n', '<up>', '<c-w>+')
 vim.keymap.set('n', '<down>', '<c-w>-')
 vim.keymap.set('n', 'co', '<cmd>silent tabo<cr><c-w>o')
 vim.keymap.set('n', 'cO', '<c-w>o')
--- Hack to make <c-w><c-c> mapping work
-vim.keymap.set('n', '<c-c>', '<nop>')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-c>', '<c-w>H')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-t>', '<c-w>J')
 vim.keymap.set({ 'n', 'o', 'x' }, '<c-w><c-s>', '<c-w>K')
