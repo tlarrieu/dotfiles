@@ -169,7 +169,6 @@ end
 local builder = require('helpers').fileexists('Makefile') and 'Makefile' or 'Justfile'
 vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builder, expr = true })
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefile', expr = true })
-vim.keymap.set('n', '<leader>ep', quickedit('.projections.json'), { desc = 'Edit projections', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit local (irb/pry)rc', expr = true })
 vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
