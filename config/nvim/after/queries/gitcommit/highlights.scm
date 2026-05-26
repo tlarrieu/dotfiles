@@ -9,6 +9,8 @@
 ((title) @git.title (#eq? @git.title "Changes not staged for commit:")) @git.title.not_committed
 ((title) @git.title (#eq? @git.title "Untracked files:")) @git.title.untracked
 
+(generated_comment) @comment.git
+
 (change kind: (deleted)) @git.change.deleted
 (generated_comment (change kind: (deleted)) (filepath) @git.change.deleted.filepath)
 
