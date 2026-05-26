@@ -79,6 +79,15 @@ local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<c-è>', builtin.resume, { desc = 'Telescope resume' })
 
+vim.keymap.set('n', '<leader>ep', function()
+  builtin.find_files({
+    hidden = true,
+    find_command = { 'fd', '-td', '.', vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt'), '-d', '1' },
+    results_title =
+    '󱏒 files'
+  })
+end, { desc = 'Telescope file finder' })
+
 vim.keymap.set('n', '<c-t>', function()
   builtin.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
 end, { desc = 'Telescope file finder' })
