@@ -115,7 +115,7 @@ vim.keymap.set({ 'n', 'x' }, '<leader>à',
   end,
   { silent = true })
 -- Save
-vim.keymap.set('n', 's', '<cmd>silent update ++p<cr>')
+vim.keymap.set('n', 's', function() vim.cmd('silent update ++p') end)
 -- Reselect pasted lines
 vim.keymap.set('n', 'gV', '`[v`]')
 -- center after go to bottom

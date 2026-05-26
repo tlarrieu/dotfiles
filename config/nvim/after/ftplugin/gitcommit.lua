@@ -10,6 +10,6 @@ vim.api.nvim_create_autocmd('BufEnter', {
   group = vim.api.nvim_create_augroup('GIT_AUTOCMD', {})
 })
 
-vim.keymap.set('n', 's', vim.cmd.x, { silent = true, buffer = 0 })
+vim.keymap.set('n', 's', function() vim.cmd('silent x') end, { silent = true, buffer = 0 })
 
 vim.opt_local.spell = true
