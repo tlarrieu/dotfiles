@@ -47,7 +47,18 @@ local rspec = function(opts)
   for _, location in ipairs(locations) do table.insert(cmd, location) end
 
   return {
-    on_start = testbus.start,
+    on_start = function()
+      vim.notify('Running rspec on:', vim.log.levels.INFO)
+      for _, location in ipairs(locations) do
+        local short_location = location:gsub('^' .. vim.uv.cwd() .. '/', '')
+        local length = #short_location
+        if length > 77 then
+          short_location = '  ' .. short_location:sub(length - 71, length)
+        end
+        vim.notify(short_location, vim.log.levels.INFO)
+      end
+      testbus.start()
+    end,
     on_stdout = testbus.redraw,
     on_interrupt = testbus.interrupt,
     on_clean = function()
