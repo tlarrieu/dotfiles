@@ -1,5 +1,5 @@
 return {
-  dawnfox = {
+  light = {
     black   = { base = '#575279', dim = '#cec8cd', dimmer = '#ebe5e2' },
     blue    = { base = '#3385a5', dim = '#c4d6d9', dimmer = '#e8eae6' },
     cyan    = { base = '#56949f', dim = '#cddad8', dimmer = '#ebebe6' },
@@ -11,29 +11,26 @@ return {
     white   = { base = '#faf4ed', dim = '#faf4ed', dimmer = '#faf4ed' },
     yellow  = { base = '#d3a634', dim = '#efdfbb', dimmer = '#f6eddc' },
 
-    comment = '#797593',
-
     fg      = {
       base   = '#575279',
       dim    = '#797593',
       dimmer = '#9d9aa5',
     },
 
-    bg0     = '#f2e9e1', -- Dark bg (status line and float)
-    bg1     = '#faf4ed', -- Default bg
-    bg2     = '#fffaf3', -- Lighter bg (colorcolm folds)
-    bg3     = '#f4ede8', -- Lighter bg (cursor line)
-    bg4     = '#bdbfc9', -- Conceal, border fg
+    bg      = {
+      dark   = '#f2e9e1',
+      base   = '#faf4ed',
+      dim    = '#fffaf3',
+      dimmer = '#f4ede8',
+      border = '#bdbfc9',
+    },
 
-    fg0     = '#797593', -- Lighter fg
-    fg1     = '#575279', -- Default fg
-    fg2     = '#797593', -- Darker fg (status line)
-    fg3     = '#9d9aa5', -- Darker fg (line numbers, fold colums)
-
-    sel0    = '#dfdad9', -- Popup bg, visual selection bg
-    sel1    = '#cecacd', -- Popup sel bg, search bg
+    sel     = {
+      base = '#dfdad9',
+      dim = '#cecacd',
+    }
   },
-  nordfox = {
+  dark = {
     black   = { base = '#232136', dim = '#232136', dimmer = '#232136' },
     blue    = { base = '#69a6bf', dim = '#36455b', dimmer = '#292d42' },
     cyan    = { base = '#8fb8bf', dim = '#404a5b', dimmer = '#2d2f42' },
@@ -45,26 +42,23 @@ return {
     white   = { base = '#c2c0d3', dim = '#4e4c61', dimmer = '#312f44' },
     yellow  = { base = '#ebcb8b', dim = '#5a4f4d', dimmer = '#35303e' },
 
-    comment = '#908caa',
-
     fg      = {
       base   = '#c2c0d3',
       dim    = '#908caa',
       dimmer = '#6e6a86',
     },
 
-    bg0     = '#393552', -- Dark bg (status line and float)
-    bg1     = '#232136', -- Default bg
-    bg2     = '#2a273f', -- Lighter bg (colorcolm folds)
-    bg3     = '#2a283e', -- Lighter bg (cursor line)
-    bg4     = '#5a657d', -- Conceal, border fg
+    bg      = {
+      dark   = '#393552',
+      base   = '#232136',
+      dim    = '#2a273f',
+      dimmer = '#2a283e',
+      border = '#5a657d',
+    },
 
-    fg0     = '#908caa', -- Lighter fg
-    fg1     = '#c2c0d3', -- Default fg
-    fg2     = '#908caa', -- Darker fg (status line)
-    fg3     = '#6e6a86', -- Darker fg (line numbers, fold colums)
-
-    sel0    = '#44415a', -- Popup bg, visual selection bg
-    sel1    = '#56526e', -- Popup sel bg, search bg
+    sel     = {
+      base = '#44415a',
+      dim = '#56526e',
+    },
   },
 }
