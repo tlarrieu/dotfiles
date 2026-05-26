@@ -198,6 +198,7 @@ local trim_trailing_spaces = function()
   ]]
 end
 vim.keymap.set('n', '<leader>k', trim_trailing_spaces, { silent = true, desc = 'Remove trailing spaces' })
+
 -- Cursorline / Cursorcolumn
 vim.keymap.set('n', '<leader>r', function()
   vim.cmd [[
@@ -213,18 +214,9 @@ end, { desc = 'Toggle crosshair' })
 vim.keymap.set('n', '<leader>R', function()
   vim.wo.cursorline = not vim.wo.cursorline
 end, { desc = 'Toggle crosshair' })
+
 -- Alternate file
 vim.keymap.set('n', '<c-$>', '<c-^>')
--- Quickfix list
-vim.keymap.set('n', '<leader>q', function()
-  local lastwin = vim.api.nvim_get_current_win()
-  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.bo[buf].buftype == 'quickfix' and vim.fn.bufwinnr(buf) ~= -1 then return vim.cmd.cclose() end
-  end
-  vim.cmd('below copen')
-  vim.api.nvim_set_current_win(lastwin)
-end, { desc = 'Toggle quickfix list' })
--- }}}
 
 -- ====| Spelling |=============================================================
 
@@ -236,7 +228,6 @@ vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Prev
 local cgo = function(cmd)
   return function()
     local ok, _ = pcall(vim.cmd, cmd)
-    if not ok then ok, _ = pcall(vim.cmd, 'silent cc1') end
     if ok then vim.cmd.normal('zz') end
   end
 end
@@ -248,6 +239,15 @@ vim.keymap.set('n', '<leader>«', '<cmd>silent cc2<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>»', '<cmd>silent cc3<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>(', '<cmd>silent cc4<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>)', '<cmd>silent cc5<cr>zz', { silent = true })
+
+vim.keymap.set('n', '<leader>q', function()
+  local lastwin = vim.api.nvim_get_current_win()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.bo[buf].buftype == 'quickfix' and vim.fn.bufwinnr(buf) ~= -1 then return vim.cmd.cclose() end
+  end
+  vim.cmd('below copen')
+  vim.api.nvim_set_current_win(lastwin)
+end, { desc = 'Toggle quickfix list' })
 
 -- ====| Jumps |================================================================
 
