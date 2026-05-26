@@ -41,7 +41,7 @@
       "src": "https://github.com/zbirenbaum/copilot-cmp"
     },
     "copilot.lua": {
-      "rev": "7b89909d0647c89298de880255b287b01b7e5d34",
+      "rev": "393fd009c39b24dfc4cb4bf6f632288c64b13258",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dropbar.nvim": {
