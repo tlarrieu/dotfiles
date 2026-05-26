@@ -106,7 +106,13 @@ vim.keymap.set({ 'n', 'x' }, 'à', '<cmd>confirm quit<cr>', { silent = true })
 vim.keymap.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', { silent = true })
 -- Restart
 vim.keymap.set({ 'n', 'x' }, '<leader>à',
-  '<cmd>mksession! /tmp/session.nvim<bar>confirm restart source /tmp/session.nvim<cr>',
+  function()
+    for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.bo[bufnr].buftype == 'terminal' then vim.cmd.bd { args = { bufnr }, bang = true } end
+    end
+    vim.cmd.mksession { args = { '/tmp/session.nvim' }, bang = true }
+    vim.cmd('confirm restart source /tmp/session.nvim')
+  end,
   { silent = true })
 -- Save
 vim.keymap.set('n', 's', '<cmd>silent update ++p<cr>')
