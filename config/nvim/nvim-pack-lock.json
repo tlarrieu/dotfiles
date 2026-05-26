@@ -165,7 +165,7 @@
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "testbus": {
-      "rev": "a5a8a6e6c7bd06ad52eac0960066964bc0081c18",
+      "rev": "22dfbecaac1cf296c17a808cb2772c406001c8f5",
       "src": "https://github.com/tlarrieu/testbus"
     },
     "todo-comments.nvim": {
