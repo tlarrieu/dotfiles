@@ -227,8 +227,16 @@ vim.keymap.set('n', '<a-p>', '[szz', { silent = true, remap = true, desc = 'Prev
 
 -- ====| Quickfix |=============================================================
 
-vim.keymap.set('n', '<c-n>', '<cmd>silent cnext<cr>zz', { silent = true })
-vim.keymap.set('n', '<c-p>', '<cmd>silent cprev<cr>zz', { silent = true })
+local cgo = function(cmd)
+  return function()
+    local ok, _ = pcall(vim.cmd, cmd)
+    if not ok then ok, _ = pcall(vim.cmd, 'silent cc1') end
+    if ok then vim.cmd.normal('zz') end
+  end
+end
+
+vim.keymap.set('n', '<c-n>', cgo('cnext!'), { silent = true })
+vim.keymap.set('n', '<c-p>', cgo('cprev!'), { silent = true })
 vim.keymap.set('n', '<leader>"', '<cmd>silent cc1<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>«', '<cmd>silent cc2<cr>zz', { silent = true })
 vim.keymap.set('n', '<leader>»', '<cmd>silent cc3<cr>zz', { silent = true })
