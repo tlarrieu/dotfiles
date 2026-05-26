@@ -1,10 +1,3 @@
--- Send all print statements as notifications
-print = function(...)
-  local args = {}
-  for _, arg in ipairs({ ... }) do table.insert(args, tostring(arg)) end
-  vim.notify(table.concat(args, ' '), vim.log.levels.DEBUG)
-end
-
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name, kind = ev.data.spec.name, ev.data.kind
