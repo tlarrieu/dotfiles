@@ -14,8 +14,8 @@ return {
 
     gh = 'https://github.com/',
 
-    sh = '#!/bin/bin/env sh',
-    bs = '#!/bin/bin/env bash',
+    sh = '#!/usr/bin/env sh',
+    bs = '#!/usr/bin/env bash',
     rb = '#!/usr/bin/env ruby',
     fs = '#!/usr/bin/env fish',
 
