@@ -106,11 +106,6 @@ local keyboard = {
     }),
     spawner.key({ super }, 'g', {
       app = spawner.shell('github'),
-      props = { instance = 'www.github.com' },
-      signal = spawner.actions.JUMP,
-    }),
-    spawner.key({ super, shift }, 'g', {
-      app = spawner.shell('code-review'),
       props = { instance = 'github.com__pulls' },
       signal = spawner.actions.JUMP,
     }),
