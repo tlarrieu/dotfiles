@@ -4,7 +4,7 @@ return {
     l = '\t${1:account}  ${0:amount} €',
 
     e = [[
-$MONTH/${6:$DAY} ${7:!} ${4|intermarché,grandfrais,leclerc,kazidomi|} | ${5:courses}
+$MONTH/${6:$DAY} ${7:!} ${4|intermarché,grandfrais,jardin du lupin,leclerc,kazidomi|} | ${5:courses}
   ${3|card:ce:j,cash|}  -${1:amount} €
   ${2:groceries}]],
     i = [[
