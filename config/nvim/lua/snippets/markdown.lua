@@ -7,8 +7,8 @@ end
 
 local callout = function(label)
   return [[
-  > [!]] .. label .. [[]
-  > $0]]
+> [!]] .. label .. [[]
+> $0]]
 end
 
 return {
