@@ -80,14 +80,7 @@ vim.api.nvim_create_autocmd({ 'RecordingEnter', 'RecordingLeave' }, {
   end,
 })
 
-local macrorecording = {
-  function() return rec_msg end,
-  color = function()
-    local palette = require('colors').palette()
-    if not palette then return { fg = 'red' } end
-    return { fg = palette.red.base }
-  end,
-}
+local macrorecording = { function() return rec_msg end, color = 'LualineMacroRecording' }
 
 local selectioncount = function()
   local height = math.abs(vim.fn.line('v') - vim.fn.line('.')) + 1

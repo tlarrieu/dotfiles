@@ -407,6 +407,7 @@ return {
   LualineNotice = { fg = 'palette.fg.dimmer', bg = 'none' },
   LualineError = { fg = 'palette.red', bg = 'none' },
   LualineWarning = { fg = 'palette.yellow', bg = 'none' },
+  LualineMacroRecording = { fg = 'palette.red', bg = 'none' },
 
   FidgetGroup = { fg = 'palette.pink', style = 'bold' },
   FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg.dark' },
