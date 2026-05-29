@@ -213,6 +213,12 @@ local keyboard = {
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
 
+    spawner.key({ super, ctrl }, 'b', {
+      app = 'browser-with-context',
+      props = { class = 'Chromium', role = 'browser' },
+      signal = spawner.actions.JUMP,
+    }),
+
     spawner.key({ super, shift }, 'u', {
       app = spawner.terminal('pulsemixer', { class = 'mixer' }),
       props = { class = 'mixer' },
