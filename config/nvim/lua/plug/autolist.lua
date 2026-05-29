@@ -28,6 +28,18 @@ autolist.setup({
   },
 })
 
+local check = function(char)
+  return function()
+    local line = vim.api.nvim_get_current_line():gsub('- %[.%]', '- [' .. char .. ']')
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    -- toggling markview off to avoid screen flicker
+    pcall(vim.cmd.Markview, 'toggle')
+    vim.api.nvim_buf_set_lines(0, cursor[1] - 1, cursor[1], false, { line })
+    -- turn it back on
+    pcall(vim.cmd.Markview, 'toggle')
+  end
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'markdown', 'gitcommit', 'text' },
   callback = function()
@@ -37,7 +49,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<c-cr>', 'o', { buffer = true })
     vim.keymap.set('i', '<c-cr>', '<c-o>o', { buffer = true })
     vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>', { buffer = true })
-    vim.keymap.set('n', '<leader>x', '<cmd>AutolistToggleCheckbox<cr>', { buffer = true })
     vim.keymap.set('n', '<c-r>', '<cmd>AutolistRecalculate<cr>', { buffer = true })
 
     -- cycle list types with dot-repeat
@@ -51,5 +62,11 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('x', '2', '<<cmd>AutolistRecalculate<cr>gv', { buffer = true })
     vim.keymap.set('n', 'dd', 'dd<cmd>AutolistRecalculate<cr>', { buffer = true })
     vim.keymap.set('v', 'd', 'd<cmd>AutolistRecalculate<cr>', { buffer = true })
+
+    -- checkbox manipulation
+    vim.keymap.set('n', '<leader>tr', check(' '), { buffer = true })
+    vim.keymap.set('n', '<leader>td', check('x'), { buffer = true })
+    vim.keymap.set('n', '<leader>ts', check('/'), { buffer = true })
+    vim.keymap.set('n', '<leader>tc', check('-'), { buffer = true })
   end,
 })
