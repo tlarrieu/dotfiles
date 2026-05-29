@@ -30,7 +30,7 @@ autolist.setup({
 
 local check = function(char)
   return function()
-    local line = vim.api.nvim_get_current_line():gsub('- %[.%]', '- [' .. char .. ']')
+    local line = vim.api.nvim_get_current_line():gsub('^(%s*)- %[.%]', '%1- [' .. char .. ']')
     local cursor = vim.api.nvim_win_get_cursor(0)
     -- toggling markview off to avoid screen flicker
     pcall(vim.cmd.Markview, 'toggle')
