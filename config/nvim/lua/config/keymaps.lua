@@ -218,6 +218,9 @@ end, { desc = 'Toggle crosshair' })
 -- Alternate file
 vim.keymap.set('n', '<c-$>', '<c-^>')
 
+-- Wrap
+vim.keymap.set('n', '<leader>w', function() vim.cmd.set('wrap!') end)
+
 -- ====| Spelling |=============================================================
 
 vim.keymap.set('n', '<a-n>', ']szz', { silent = true, remap = true, desc = 'Next spelling error' })
