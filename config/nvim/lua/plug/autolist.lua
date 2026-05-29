@@ -49,7 +49,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', '<c-cr>', 'o', { buffer = true })
     vim.keymap.set('i', '<c-cr>', '<c-o>o', { buffer = true })
     vim.keymap.set('n', 'o', 'o<cmd>AutolistNewBullet<cr>', { buffer = true })
-    vim.keymap.set('n', '<c-r>', '<cmd>AutolistRecalculate<cr>', { buffer = true })
 
     -- cycle list types with dot-repeat
     vim.keymap.set('n', 'gs', autolist.cycle_next_dr, { expr = true, buffer = true })
