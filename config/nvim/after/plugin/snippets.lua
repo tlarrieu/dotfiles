@@ -10,18 +10,19 @@ local vars = {
 }
 
 local wordsep = {
-  [' '] = true,
-  ['.'] = true,
-  ['!'] = true,
-  ['?'] = true,
-  ['('] = true,
-  [')'] = true,
-  ['{'] = true,
-  ['}'] = true,
-  ['['] = true,
-  [']'] = true,
-  ["'"] = true,
-  ['"'] = true,
+  ['\t'] = true,
+  [' ']  = true,
+  ['.']  = true,
+  ['!']  = true,
+  ['?']  = true,
+  ['(']  = true,
+  [')']  = true,
+  ['{']  = true,
+  ['}']  = true,
+  ['[']  = true,
+  [']']  = true,
+  ["'"]  = true,
+  ['"']  = true,
 }
 
 local function find_trigger(line, column)
