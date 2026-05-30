@@ -76,7 +76,7 @@ require('nvim-web-devicons').setup({
     scss = { icon = css },
     go = { icon = '󰟓' },
     templ = { icon = html },
-    gomod = { icon = '' },
+    gomod = { icon = '󰐱' },
     gosum = { icon = '󰎠' },
     ocaml = { icon = '' },
     dune = { icon = '' },
@@ -170,7 +170,7 @@ require('nvim-web-devicons').setup({
     ['.rubocop.yml'] = { icon = '' },
 
     ['go.sum'] = { icon = '󰎠' },
-    ['go.mod'] = { icon = '' },
+    ['go.mod'] = { icon = '󰐱' },
 
     ['package.json'] = { icon = '' },
     ['package-lock.json'] = { icon = lock },
