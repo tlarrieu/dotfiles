@@ -14,7 +14,7 @@ local snippet = [[return {
 
 return {
   snippets = {
-    e = '---@',
+    e = '--- @',
     req = "require('${1:module}')",
     lreq = "local ${1:module} = require('$1')",
     m = 'local M = {}\n\n$0\n\n return M',
