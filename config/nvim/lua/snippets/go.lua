@@ -7,5 +7,7 @@ return {
     ['if'] = 'if ${1:condition} {\n\t$0\n}',
     ['else'] = '} else {\n\t$0\n',
   },
-  skeletons = {}
+  skeletons = {
+    { pattern = '.*', template = "package $GO_MODULE_NAME\n\n$0" },
+  }
 }

@@ -7,6 +7,7 @@ local vars = {
   ['$RB_CLASS_NAME'] = function() return require('helpers').pascalize(filename()) or '' end,
   ['$RB_SPEC_NAME'] = function() return require('helpers').pascalize(filename():gsub('_spec', '')) or '' end,
   ['$RB_MODULE_NAME'] = function() return require('helpers').pascalize(dirname()) or '' end,
+  ['$GO_MODULE_NAME'] = dirname,
 }
 
 local wordsep = {
