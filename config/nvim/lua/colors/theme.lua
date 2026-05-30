@@ -9,17 +9,17 @@ return {
   Comment = { fg = 'palette.blue', style = 'italic' },
   Documentation = { fg = 'palette.blue', bg = 'palette.blue.dimmer', style = 'italic' },
 
-  Constant = { fg = 'palette.fg.base' },
+  Constant = { fg = 'palette.fg' },
   String = { fg = 'palette.green', style = 'NONE' },
   Character = { link = 'String' },
   Boolean = { link = 'String' },
   Number = { link = 'String' },
   Float = { link = 'Number' },
 
-  Identifier = { fg = 'palette.fg.base' },
+  Identifier = { fg = 'palette.fg' },
   Function = { link = 'Identifier', },
 
-  Statement = { fg = 'palette.fg.base' },
+  Statement = { fg = 'palette.fg' },
   Keyword = { fg = 'palette.fg.dimmer' },
   Exception = { link = 'Keyword' },
   Conditional = { link = 'Keyword' },
@@ -46,7 +46,7 @@ return {
   Debug = { link = 'Special' },
 
   Error = { fg = 'palette.red' },
-  Todo = { fg = 'palette.bg.base', bg = 'palette.yellow', style = 'bold' },
+  Todo = { fg = 'palette.bg', bg = 'palette.yellow', style = 'bold' },
 
   Added = { fg = 'palette.green' },
   Changed = { fg = 'palette.yellow' },
@@ -72,26 +72,26 @@ return {
   ['@type.builtin'] = { link = 'Type' },
 
   ['@module'] = { fg = 'palette.yellow' },
-  ['@module.builtin'] = { fg = 'palette.fg.base' },
+  ['@module.builtin'] = { fg = 'palette.fg' },
 
   ['@property'] = { fg = 'palette.fg.dim' },
-  ['@variable'] = { fg = 'palette.fg.base' },
+  ['@variable'] = { fg = 'palette.fg' },
   ['@variable.key'] = { fg = 'palette.fg.dim', style = 'italic' },
   ['@variable.parameter'] = { link = '@variable' },
   ['@variable.member'] = { link = '@variable' },
   ['@variable.builtin'] = { fg = 'palette.pink' },
 
   ['@function'] = { fg = 'palette.fg.dim', style = 'underline,bold' },
-  ['@function.call'] = { fg = 'palette.fg.base', style = 'NONE' },
+  ['@function.call'] = { fg = 'palette.fg', style = 'NONE' },
   ['@function.method.call'] = { link = '@function.call' },
   ['@function.method.call.class'] = { style = 'italic' },
   ['@function.method.call.flow'] = { fg = 'palette.magenta' },
   ['@function.builtin'] = { link = '@function.call' },
 
   ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
-  ['@constant'] = { fg = 'palette.fg.base', },
+  ['@constant'] = { fg = 'palette.fg', },
   ['@constant.builtin'] = { link = '@variable.builtin' },
-  ['@constant.assignment'] = { fg = 'palette.fg.base', style = 'underline' },
+  ['@constant.assignment'] = { fg = 'palette.fg', style = 'underline' },
 
   ['@operator'] = { fg = 'palette.fg.dimmer' },
 
@@ -121,7 +121,7 @@ return {
 
   -- MsgArea
   MsgArea = { link = 'MsgAreaMsg' },
-  MsgAreaCmd = { fg = 'palette.fg.base', style = 'NONE' },
+  MsgAreaCmd = { fg = 'palette.fg', style = 'NONE' },
   MsgAreaMsg = { fg = 'palette.fg.dimmer' },
   MsgSeparator = { link = 'WinSeparator' },
   MoreMsg = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
@@ -155,7 +155,7 @@ return {
   NormalFloat = { fg = 'none', bg = 'palette.bg.dark' },
   FloatBorder = { fg = 'palette.bg.dark', bg = 'palette.bg.dark' },
   FloatTitle = { fg = 'palette.fg.dim', bg = 'palette.bg.dark', style = 'bold' },
-  FloatFooter = { fg = 'palette.fg.base', bg = 'palette.bg.base' },
+  FloatFooter = { fg = 'palette.fg', bg = 'palette.bg' },
 
   -- windows
   WinSeparator = { link = 'WinSeparatorThin' },
@@ -165,7 +165,7 @@ return {
   WinBarNC = { fg = 'palette.fg.dimmer', style = 'NONE' },
 
   -- pmenu
-  Pmenu = { fg = 'palette.fg.base', bg = 'palette.bg.dark' },
+  Pmenu = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   PmenuSel = { bg = 'palette.sel1' },
 
   -- markup
@@ -219,7 +219,7 @@ return {
   ['@function.make'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
   ['@operator.make'] = { fg = 'palette.fg.dim', bg = 'none' },
   ['makeSpecial'] = { fg = 'palette.fg.dimmer' },
-  ['makeCommands'] = { fg = 'palette.fg.base' },
+  ['makeCommands'] = { fg = 'palette.fg' },
   ['makeTarget'] = { fg = 'palette.blue' },
   ['makeSpecTarget'] = { fg = 'palette.fg.dimmer' },
   ['makePreCondit'] = { link = '@keyword.conditional' },
@@ -234,7 +234,7 @@ return {
   ['@variable.just'] = { fg = 'palette.magenta' },
 
   -- ruby
-  ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg.base' },
+  ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg' },
   ['@keyword.directive'] = { link = '@comment.directive' },
   ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
   ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
@@ -266,7 +266,7 @@ return {
   ['@character.special.xresources'] = { link = '@variable' },
   ['@constant.macro.xresources'] = { link = '@variable' },
   ['@markup.raw.xresources'] = { link = 'String' },
-  ['@keyword.import.xresources'] = { fg = 'palette.fg.base' },
+  ['@keyword.import.xresources'] = { fg = 'palette.fg' },
   ['@keyword.directive.define.xresources'] = { link = '@keyword.import.xresources' },
 
   -- rasi
@@ -281,10 +281,10 @@ return {
 
   -- kitty -> links do not work here for some reason
   kittyString = { fg = 'palette.green' },
-  kittyKeyword = { fg = 'palette.fg.base' },
+  kittyKeyword = { fg = 'palette.fg' },
   kittyMap = { fg = 'palette.fg.dimmer' },
   kittyMapName = { fg = 'palette.fg.dimmer' },
-  kittyParameter = { fg = 'palette.fg.base' },
+  kittyParameter = { fg = 'palette.fg' },
   kittyKey = { fg = 'palette.pink' },
 
   -- zathurarc
@@ -293,7 +293,7 @@ return {
   -- vimdoc
   ['@markup.raw.vimdoc'] = { fg = 'palette.fg.dim' },
   ['@markup.raw.block.vimdoc'] = { link = '@markup.raw.vimdoc' },
-  ['@comment.note.vimdoc'] = { fg = 'palette.bg.base', bg = 'palette.magenta', style = 'NONE' },
+  ['@comment.note.vimdoc'] = { fg = 'palette.bg', bg = 'palette.magenta', style = 'NONE' },
 
   -- man pages
   manHeader = { link = 'Title' },
@@ -369,15 +369,15 @@ return {
   DropBarModified = { fg = 'palette.pink', style = 'bold' },
 
   TelescopeNormal = { fg = 'palette.fg.dim', bg = 'palette.bg.dark' },
-  TelescopePreviewNormal = { fg = 'palette.fg.base', bg = 'palette.bg.dark' },
+  TelescopePreviewNormal = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   TelescopeBorder = { link = 'FloatBorder' },
   TelescopeTitle = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
   TelescopePreviewBorder = { link = 'FloatBorder' },
   TelescopePreviewTitle = { fg = 'palette.fg.dim', style = 'bold' },
-  TelescopePromptNormal = { fg = 'palette.bg.base', bg = 'palette.fg.base' },
+  TelescopePromptNormal = { fg = 'palette.bg', bg = 'palette.fg' },
   TelescopePromptBorder = { link = 'TelescopePromptTitle' },
-  TelescopePromptTitle = { fg = 'palette.fg.base', bg = 'palette.fg.base' },
-  TelescopePromptPrefix = { fg = 'palette.bg.base', bg = 'palette.fg.base' },
+  TelescopePromptTitle = { fg = 'palette.fg', bg = 'palette.fg' },
+  TelescopePromptPrefix = { fg = 'palette.bg', bg = 'palette.fg' },
   TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
   TelescopeSelection = { bg = 'palette.sel1' },
   TelescopeSelectionCaret = { link = 'TelescopeSelection' },
@@ -392,16 +392,16 @@ return {
 
   MasonHeader = { fg = 'palette.green', bg = 'palette.green.dim' },
   MasonHighlight = { fg = 'palette.green', bg = 'none' },
-  MasonHighlightBlock = { fg = 'palette.bg.base', bg = 'palette.green.bright' },
+  MasonHighlightBlock = { fg = 'palette.bg', bg = 'palette.green.bright' },
   MasonHighlightBlockBold = { link = 'MasonHeader' },
-  MasonMutedBlock = { fg = 'palette.fg.dimmer', bg = 'palette.bg.base' },
+  MasonMutedBlock = { fg = 'palette.fg.dimmer', bg = 'palette.bg' },
 
   LualineAdded = { fg = 'palette.green' },
   LualineRemoved = { fg = 'palette.red' },
   LualineModified = { fg = 'palette.yellow' },
-  LualineTablineActive = { fg = 'palette.bg.base', bg = 'palette.blue' },
-  LualineTablineActiveAlt = { fg = 'palette.fg.base', bg = 'palette.bg.base', style = 'bold,underline' },
-  LualineTablineInactive = { fg = 'palette.fg.base', bg = 'palette.bg.dark' },
+  LualineTablineActive = { fg = 'palette.bg', bg = 'palette.blue' },
+  LualineTablineActiveAlt = { fg = 'palette.fg', bg = 'palette.bg', style = 'bold,underline' },
+  LualineTablineInactive = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   LualineExecutable = { fg = 'palette.green', bg = 'none' },
   LualineSuccess = { fg = 'palette.green', bg = 'none' },
   LualineNotice = { fg = 'palette.fg.dimmer', bg = 'none' },
@@ -410,7 +410,7 @@ return {
   LualineMacroRecording = { fg = 'palette.red', bg = 'none' },
 
   FidgetGroup = { fg = 'palette.pink', style = 'bold' },
-  FidgetNormal = { fg = 'palette.fg.base', bg = 'palette.bg.dark' },
+  FidgetNormal = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   FidgetBorder = { link = 'FidgetNormal' },
   FidgetProgress = { fg = 'palette.orange' },
   FidgetDone = { fg = 'palette.green' },
@@ -447,12 +447,12 @@ return {
   MarkviewListItemStar = { fg = 'palette.green.dim', bg = 'none' },
   MarkviewListItemPlus = { fg = 'palette.cyan.dim', bg = 'none' },
   MarkviewPalette0 = { fg = 'none', bg = 'palette.bg.dark' },
-  MarkviewPalette1 = { fg = 'palette.bg.base', bg = 'palette.pink' },
-  MarkviewPalette2 = { fg = 'palette.bg.base', bg = 'palette.green' },
-  MarkviewPalette3 = { fg = 'palette.bg.base', bg = 'palette.blue' },
-  MarkviewPalette4 = { fg = 'palette.bg.base', bg = 'palette.yellow' },
-  MarkviewPalette5 = { fg = 'palette.bg.base', bg = 'palette.cyan' },
-  MarkviewPalette6 = { fg = 'palette.bg.base', bg = 'palette.magenta' },
+  MarkviewPalette1 = { fg = 'palette.bg', bg = 'palette.pink' },
+  MarkviewPalette2 = { fg = 'palette.bg', bg = 'palette.green' },
+  MarkviewPalette3 = { fg = 'palette.bg', bg = 'palette.blue' },
+  MarkviewPalette4 = { fg = 'palette.bg', bg = 'palette.yellow' },
+  MarkviewPalette5 = { fg = 'palette.bg', bg = 'palette.cyan' },
+  MarkviewPalette6 = { fg = 'palette.bg', bg = 'palette.magenta' },
   MarkviewPalette1Sign = { fg = 'palette.pink', bg = 'none' },
   MarkviewPalette2Sign = { fg = 'palette.green', bg = 'none' },
   MarkviewPalette3Sign = { fg = 'palette.blue', bg = 'none' },
@@ -476,8 +476,8 @@ return {
   NeogitNormal = { fg = 'palette.fg.dim' },
   NeogitFloatBorder = { link = 'WinSeparatorThin' },
   NeogitWinSeparator = { link = 'WinSeparatorThin' },
-  NeogitFloatHeader = { fg = 'palette.bg.base', bg = 'palette.fg.base' },
-  NeogitFloatHeaderHighlight = { fg = 'palette.bg.base', bg = 'palette.fg.base', style = 'bold' },
+  NeogitFloatHeader = { fg = 'palette.bg', bg = 'palette.fg' },
+  NeogitFloatHeaderHighlight = { fg = 'palette.bg', bg = 'palette.fg', style = 'bold' },
   NeogitCommitViewHeader = { link = 'NeogitFloatHeader' },
   NeogitActiveItem = { bg = 'palette.sel.base' },
   NeogitPopupBranchName = { link = 'NeogitBranch' },
@@ -516,8 +516,8 @@ return {
   NeogitUntrackedfiles = { fg = 'palette.red', bg = 'palette.red.dimmer', style = 'bold' },
   NeogitMerging = { fg = 'palette.pink', bg = 'palette.pink.dimmer', style = 'bold' },
   NeogitRebasing = { link = 'NeogitMerging' },
-  NeogitDiffHeader = { fg = 'palette.fg.base', style = 'bold' },
-  NeogitDiffHeaderHighlight = { fg = 'palette.fg.base', style = 'bold' },
+  NeogitDiffHeader = { fg = 'palette.fg', style = 'bold' },
+  NeogitDiffHeaderHighlight = { fg = 'palette.fg', style = 'bold' },
   NeogitDiffAdditions = { fg = 'palette.green' },
   NeogitDiffDeletions = { fg = 'palette.red' },
   NeogitDiffAdd = { fg = 'palette.green', bg = 'palette.bg.dim' },
@@ -561,15 +561,15 @@ return {
   CodeDiffMoveFrom = { link = 'CodeDiffMoveTo' },
 
   ['@comment.gitcommit'] = { fg = 'palette.fg.dimmer', bg = 'none' },
-  ['@markup.heading.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
+  ['@markup.heading.gitcommit'] = { fg = 'palette.fg', bg = 'none' },
   ['@text.reference.gitcommit'] = { link = '@markup.link.gitcommit' },
-  ['@text.uri.gitcommit'] = { fg = 'palette.fg.base', bg = 'none' },
+  ['@text.uri.gitcommit'] = { fg = 'palette.fg', bg = 'none' },
   ['@string.special.path.gitcommit'] = { fg = 'palette.magenta', bg = 'none' },
   ['@keyword.gitcommit'] = { fg = 'palette.orange', bg = 'none' },
   ['@markup.heading.git_config'] = { fg = 'palette.yellow' },
   ['@string.special.path.git_config'] = { link = '@string' },
   ['@comment.git'] = { fg = 'palette.fg.dimmer' },
-  ['@git.subject'] = { fg = 'palette.pink', style = 'bold' },
+  ['@git.subject'] = { fg = 'palette.fg', style = 'bold' },
   ['@git.message'] = { fg = 'palette.fg.dim' },
   ['@git.branch'] = { fg = 'palette.magenta', bg = 'palette.magenta.dimmer' },
   ['@git.title.committed'] = { fg = 'palette.green', bg = 'none', style = 'bold' },
@@ -629,14 +629,14 @@ return {
   GitSignsChangeDelete = { fg = 'palette.magenta', bg = 'palette.magenta.dim' },
   GitSignsChangeDeleteNr = { link = 'GitSignsChangeDelete' },
   GitSignsChangeDeleteLn = { fg = 'none', },
-  GitSignsStagedAdd = { fg = 'palette.fg.dim', bg = 'palette.bg.base' },
+  GitSignsStagedAdd = { fg = 'palette.fg.dim', bg = 'palette.bg' },
   GitSignsStagedAddNr = { link = 'GitSignsStagedAdd' },
-  GitSignsStagedAddLn = { fg = 'none', bg = 'palette.bg.base' },
-  GitSignsStagedDelete = { fg = 'palette.fg.dim', bg = 'palette.bg.base' },
+  GitSignsStagedAddLn = { fg = 'none', bg = 'palette.bg' },
+  GitSignsStagedDelete = { fg = 'palette.fg.dim', bg = 'palette.bg' },
   GitSignsStagedDeleteNr = { link = 'GitSignsStagedDelete' },
   GitSignsStagedTopDelete = { link = 'GitSignsStagedDelete' },
   GitSignsStagedTopDeleteNr = { link = 'GitSignsStagedDeleteNr' },
-  GitSignsStagedChange = { fg = 'palette.fg.dim', bg = 'palette.bg.base' },
+  GitSignsStagedChange = { fg = 'palette.fg.dim', bg = 'palette.bg' },
   GitSignsStagedChangeNr = { link = 'GitSignsStagedChange' },
   GitSignsStagedChangeLn = { fg = 'none', bg = 'palette.bg.dark' },
   GitSignsStagedChangeDelete = { link = 'GitSignsStagedChange' },
@@ -645,7 +645,7 @@ return {
   GitSignsCurrentLineBlame = { fg = 'palette.fg.dim', bg = 'palette.bg.dark', style = 'italic' },
 
   CmpGhostText = { fg = 'palette.fg.dimmer' },
-  CmpItemAbbr = { fg = 'palette.fg.base' },
+  CmpItemAbbr = { fg = 'palette.fg' },
   CmpItemAbbrMatch = { fg = 'palette.green' },
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
   CmpItemKind = { fg = 'palette.fg.dim' },
@@ -671,22 +671,22 @@ return {
   ['@markup.raw.ledger'] = { fg = 'palette.fg.dimmer' },
   ['@string.special.ledger'] = { fg = 'palette.pink', style = 'bold' },
 
-  TodoBgFIX = { fg = 'palette.bg.base', bg = 'palette.red' },
+  TodoBgFIX = { fg = 'palette.bg', bg = 'palette.red' },
   TodoFgFIX = { fg = 'palette.red' },
-  TodoBgTODO = { fg = 'palette.bg.base', bg = 'palette.magenta' },
+  TodoBgTODO = { fg = 'palette.bg', bg = 'palette.magenta' },
   TodoFgTODO = { fg = 'palette.magenta' },
-  TodoBgHACK = { fg = 'palette.bg.base', bg = 'palette.red' },
+  TodoBgHACK = { fg = 'palette.bg', bg = 'palette.red' },
   TodoFgHACK = { fg = 'palette.red', bg = 'none' },
-  TodoBgWARN = { fg = 'palette.bg.base', bg = 'palette.yellow' },
+  TodoBgWARN = { fg = 'palette.bg', bg = 'palette.yellow' },
   TodoFgWARN = { fg = 'palette.yellow' },
-  TodoBgPERF = { fg = 'palette.bg.base', bg = 'palette.cyan' },
+  TodoBgPERF = { fg = 'palette.bg', bg = 'palette.cyan' },
   TodoFgPERF = { fg = 'palette.cyan' },
-  TodoBgNOTE = { fg = 'palette.bg.base', bg = 'palette.magenta' },
+  TodoBgNOTE = { fg = 'palette.bg', bg = 'palette.magenta' },
   TodoFgNOTE = { fg = 'palette.magenta' },
-  TodoBgTEST = { fg = 'palette.bg.base', bg = 'palette.cyan' },
+  TodoBgTEST = { fg = 'palette.bg', bg = 'palette.cyan' },
   TodoFgTEST = { fg = 'palette.cyan' },
 
-  ExchangeRegion = { fg = 'palette.bg.base', bg = 'palette.orange' },
+  ExchangeRegion = { fg = 'palette.bg', bg = 'palette.orange' },
 
-  Cursorword = { fg = 'palette.bg.base', bg = 'palette.pink' },
+  Cursorword = { fg = 'palette.bg', bg = 'palette.pink' },
 }
