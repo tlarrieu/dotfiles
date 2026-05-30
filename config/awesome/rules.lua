@@ -4,6 +4,8 @@ local gears = require('gears')
 
 local helpers = require('helpers')
 
+local opacity = 0.8
+
 awful.rules.rules = gears.table.join(awful.rules.rules, {
   -- [[ Common rules ]] --------------------------------------------------------
   {
@@ -87,7 +89,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'github.com__pulls',
       },
     },
-    properties = { opacity = 0.90 },
+    properties = { opacity = opacity },
   },
 
   -- [[ gtgf ]] ----------------------------------------------------------------
@@ -108,7 +110,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       fullscreen = false,
       floating = false,
       placement = awful.placement.centered,
-      opacity = 0.80,
+      opacity = opacity * 0.9,
       callback = function(client) helpers.create_tag_and_attach_to(client) end
     },
   },
