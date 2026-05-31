@@ -149,6 +149,7 @@ return {
   DiagnosticUnderlineHint = { sp = 'palette.fg.dim' },
 
   -- LSP
+  LspReferenceText = { fg = 'palette.pink', bg = 'palette.pink.dimmer' },
   LspSignatureActiveParameter = { fg = 'none', bg = 'palette.sel1', sp = 'palette.blue', style = 'underline' },
 
   -- floats
