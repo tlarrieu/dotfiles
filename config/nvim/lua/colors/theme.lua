@@ -234,6 +234,11 @@ return {
   ['@variable.parameter.just'] = { fg = 'palette.fg.dim', style = 'italic' },
   ['@variable.just'] = { fg = 'palette.magenta' },
 
+  -- go
+  ['@function.gotmpl'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
+  ['@function.builtin.gotmpl'] = { fg = 'palette.red', bg = 'none', style = 'NONE' },
+  ['@variable.member.gotmpl'] = { fg = 'palette.fg.dim', bg = 'none', style = 'NONE' },
+
   -- ruby
   ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg' },
   ['@keyword.directive'] = { link = '@comment.directive' },

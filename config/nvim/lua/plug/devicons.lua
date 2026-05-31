@@ -76,6 +76,7 @@ require('nvim-web-devicons').setup({
     scss = { icon = css },
     go = { icon = '󰟓' },
     templ = { icon = html },
+    gotmpl = { icon = html },
     gomod = { icon = '󰐱' },
     gosum = { icon = '󰎠' },
     ocaml = { icon = '' },
