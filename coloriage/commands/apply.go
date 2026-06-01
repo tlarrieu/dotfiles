@@ -82,7 +82,6 @@ func build(name string) (err error) {
 }
 
 func Apply() {
-
 	fmt.Println("applying '" + os.Args[2] + "'...")
 	if err := build(os.Args[2]); err != nil {
 		fmt.Println(err)

@@ -25,6 +25,12 @@ if [ "$1" = "light" ]; then
   set_light
 elif [ "$1" = "dark" ]; then
   set_dark
+elif [ "$1" = "current" ]; then
+  if [ "$current" = "dark" ]; then
+    set_dark
+  else
+    set_light
+  fi
 elif [ "$current" = "dark" ]; then
   set_light
 else
