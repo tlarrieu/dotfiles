@@ -32,9 +32,6 @@ links: (pending "configuration: linking files...") && (success "configuration: d
   mkdir -p ~/scripts
   for name in scripts/*; do ln -rsfFT "$name" ~/"$name"; done
 
-  mkdir -p ~/.Xresources.d
-  for name in Xresources.d/*; do ln -rsfFT "$name" ~/."$name"; done
-
   git config --global core.excludesFile ~/.gitignore
   [ -f ~/.profile ] && rm ~/.profile || /bin/true
 

@@ -39,5 +39,7 @@ home/.newsboat/urls
 home/.newsboat/queue
 !home/.projections.json
 
+home/.Xresources.d/local
+
 home/apps/ignore
 !home/apps/*.com
