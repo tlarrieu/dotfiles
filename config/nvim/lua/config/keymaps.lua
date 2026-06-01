@@ -88,8 +88,11 @@ vim.keymap.set('x', 'É', '<esc>:%s/\\%V')
 vim.keymap.set(
   'n',
   '<esc>',
-  '<esc>cxc<cmd>nohlsearch<bar>Cursorword disable<cr>', -- cxc clears exchange
-  { silent = true, remap = true }
+  function()
+    vim.cmd.normal('cxc') -- cxc clears exchange
+    vim.cmd.nohlsearch()
+    vim.cmd.Cursorword('disable')
+  end
 )
 -- Find character
 vim.keymap.set({ 'n', 'x' }, ',', ';')
