@@ -26,7 +26,12 @@ local rspec = function(opts)
       scope = '(bin/rspec-auto)'
       cmd = { 'bundle', 'exec', 'rspec' }
 
-      local handle = io.popen("bin/rspec-auto --list 2> /dev/null | grep -E '^- .' | awk '{ print $2 }'")
+      local handle = io.popen([[
+        bin/rspec-auto --list 2> /dev/null |
+          grep 'Specs related to your changes' -A 100 |
+          sed 1d |
+          awk '{print $2}'
+      ]])
       if handle then
         for line in string.gmatch(handle:read("*a"), '([^\n]+)') do table.insert(locations, line) end
         handle:close()
