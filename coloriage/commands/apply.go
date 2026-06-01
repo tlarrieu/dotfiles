@@ -60,7 +60,7 @@ func build(name string) (err error) {
 		{app: "nvim", dir: []string{config, "nvim", "lua", "colors"}, extension: ".lua"},
 		{app: "awesome", dir: []string{config, "awesome", "colors"}, extension: ".lua"},
 		{app: "kitty", dir: []string{config, "kitty", "themes"}, extension: ".conf"},
-		{app: "fish", dir: []string{config, "fish", "theme"}, extension: ".theme"},
+		{app: "fish", dir: []string{config, "fish", "themes"}, extension: ".theme"},
 		{app: "rofi", dir: []string{config, "rofi"}, extension: ".rasi"},
 		{app: "zathura", dir: []string{config, "zathura"}},
 	}
