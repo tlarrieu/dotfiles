@@ -19,8 +19,6 @@ help="<b>Return</b>   <i>Play selected</i>
 ----
 <b>Tab</b>      <i>Mark</i>"
 
-folder=$(xrdb -get color4)
-
 selection=$(\
   find \
     "$path"* \
@@ -28,7 +26,7 @@ selection=$(\
     -printf "<span foreground='%y'> " \
     -exec sh -c '[ $(find "{}"/* -maxdepth 0 -type d 2> /dev/null | wc -l) -gt 0 ] && echo -n "*" || echo -n " "' \; \
     -printf " %f</span>\n" \
-  | sed -e "s/<span foreground='d'>/<span foreground='$folder'>/" \
+  | sed -e "s/<span foreground='d'>/<span>/" \
   | sed -e "s/<span foreground='f'>/<span>/" \
   | sed -e "s/&/&amp;/g" \
   | rofi \

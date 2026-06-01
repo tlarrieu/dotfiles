@@ -18,7 +18,6 @@ sleep 0.05
 
 # Run awesome
 export DISPLAY=:1.0
-xrdb -merge ~/.Xresources
 ~/.fehbg
 awesome
 

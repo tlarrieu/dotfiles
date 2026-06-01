@@ -11,7 +11,8 @@ clean:
   -rm -rf theme/
 
 alias l := list
-@list: build
+@list:
+  if [ ! -x ./coloriage ]; then just build; fi
   ./coloriage list
 
 alias a := apply

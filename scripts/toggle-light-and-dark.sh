@@ -36,10 +36,6 @@ sed -e $gtk_expr -i ~/.xsettingsd
 xsettingsd 1>/dev/null 2>&1 &
 gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
-# Xresources
-sed -e $expr -i ~/.Xresources.d/local
-xrdb -merge ~/.Xresources
-
 # nvim
 pkill --signal USR1 nvim || /bin/true
 

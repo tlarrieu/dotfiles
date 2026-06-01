@@ -4,18 +4,7 @@ local naughty = require('naughty')
 
 return {
   config = function()
-    local output = io.popen([[
-      gsettings get org.gnome.desktop.interface color-scheme |
-        grep -Eo "light|dark"
-    ]])
-    local mode = ''
-    if output then
-      mode = output:read('*a'):gsub('%s+', '')
-      if mode ~= 'light' and mode ~= 'dark' then mode = 'light' end
-      output:close()
-    end
-
-    local _, colors = pcall(require, "colors." .. mode)
+    local colors = loadfile(os.getenv('HOME') .. '/.config/awesome/colors/' .. require('mode').current() .. '.lua')()
 
     local theme = {}
 

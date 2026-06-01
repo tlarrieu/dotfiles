@@ -64,7 +64,6 @@ ffmpegthumbnailer
 
 # xorg
 xorg-xev
-xorg-xrdb
 xorg-server-xephyr
 xorg-xwininfo
 xorg-xrandr

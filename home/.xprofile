@@ -6,8 +6,6 @@ export PATH="$HOME/apps:$PATH"
 
 [ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
-xrdb ~/.Xresources
-
 if [ "$(date +%H)" -gt 19 ] || [ "$(date +%H)" -lt 8 ]; then
   ~/scripts/toggle-light-and-dark.sh dark
 else
