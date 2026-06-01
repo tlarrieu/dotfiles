@@ -1,0 +1,20 @@
+@_usage:
+  just -l
+
+alias b := build
+build:
+  go build .
+
+alias c := clean
+clean:
+  -rm -f ./coloriage
+  -rm -rf theme/
+
+alias l := list
+@list: build
+  ./coloriage list
+
+alias a := apply
+@apply palette:
+  if [ ! -x ./coloriage ]; then just build; fi
+  ./coloriage apply {{palette}}

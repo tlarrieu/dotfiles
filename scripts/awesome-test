@@ -27,7 +27,6 @@ ZEPHYR_PID=$!
 sleep 0.2
 
 export DISPLAY=:1.0
-xrdb -merge ~/.Xresources
 ~/.fehbg
 awesome
 

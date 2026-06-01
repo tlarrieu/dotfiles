@@ -6,17 +6,17 @@ envfile="$HOME/.browser.env"
 current=$(gsettings get org.gnome.desktop.interface color-scheme | sed -E "s/'prefer-(\w+)'/\1/")
 
 set_dark() {
-  expr='s/dawnfox/nordfox/'
+  expr='s/light/dark/'
   gtk_expr='s/Nightfox-Light/Nordic/'
-  fish_theme='nordfox'
+  fish_theme='dark'
   mode='dark'
   chrome_colors='35,33,54'
 }
 
 set_light() {
-  expr='s/nordfox/dawnfox/'
+  expr='s/dark/light/'
   gtk_expr='s/Nordic/Nightfox-Light/'
-  fish_theme='dawnfox'
+  fish_theme='light'
   mode='light'
   chrome_colors='250,244,237'
 }
@@ -30,6 +30,11 @@ elif [ "$current" = "dark" ]; then
 else
   set_dark
 fi
+
+# GTK
+sed -e $gtk_expr -i ~/.xsettingsd
+xsettingsd 1>/dev/null 2>&1 &
+gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # Xresources
 sed -e $expr -i ~/.Xresources.d/local
@@ -56,11 +61,6 @@ awesome-client > /dev/null 2>&1 <<- LUA
   require('theme').config()
   require('panel').reset()
 LUA
-
-# GTK
-sed -e $gtk_expr -i ~/.xsettingsd
-xsettingsd 1>/dev/null 2>&1 &
-gsettings set org.gnome.desktop.interface color-scheme prefer-$mode
 
 # chromium
 chromium --no-startup-window --profile-directory="$BROWSER_WORK" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &

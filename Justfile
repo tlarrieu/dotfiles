@@ -13,7 +13,18 @@
 
 alias boot := bootstrap
 [doc("bootstrap the system: install packages, link configuration files, enable services...")]
-@bootstrap: (pending "boostrapping: running...") packages fonts links templates services X11 shell crontab root && (success "bootstrapping: done.")
+@bootstrap: (pending "boostrapping: running...") \
+  packages \
+  fonts \
+  links \
+  templates \
+  services \
+  X11 \
+  shell \
+  crontab \
+  root \
+  coloriage \
+  && (success "bootstrapping: done.")
 
 alias ln := links
 [group("config/links"), doc("link configuration files into ~/.config/ (and override)")]
@@ -38,6 +49,10 @@ links: (pending "configuration: linking files...") && (success "configuration: d
 [group("config/links"), doc("link X11 configuration files into /etc/X11/ (and override)")]
 @X11: (pending "X11: linking files...") && (success "X11: done.")
   for name in xorg.conf.d/*; do sudo ln -rsfFT $name /etc/X11/$name; done
+
+[group("config/links"), doc("build coloriage tool")]
+@coloriage: (pending "coloriage: applying...") && (success "coloriage: done.")
+  cd coloriage && just build && just apply rosepine
 
 alias cp := templates
 [group("config/templates"), doc("deploy templates (but don't override)")]

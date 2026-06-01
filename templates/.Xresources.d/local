@@ -1,4 +1,4 @@
-#include "/home/tlarrieu/.Xresources.d/dawnfox"
+#include "/home/tlarrieu/.Xresources.d/light"
 
 #define DPI 96
 #define FONT CaskaydiaCove Nerd Font

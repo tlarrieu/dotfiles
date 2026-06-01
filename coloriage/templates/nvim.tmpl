@@ -1,0 +1,40 @@
+{{- define "color" -}}{ base = '{{ .Base }}', dim = '{{ .Dim }}', dimmer = '{{ .Dimmer }}' }{{- end -}}
+
+return {
+  black = {{template "color" .Black}},
+  blue = {{template "color" .Blue}},
+  cyan = {{template "color" .Cyan}},
+  green = {{template "color" .Green}},
+  magenta = {{template "color" .Magenta}},
+  orange = {{template "color" .Orange}},
+  pink = {{template "color" .Pink}},
+  red = {{template "color" .Red}},
+  white = {{template "color" .White}},
+  yellow = {{template "color" .Yellow}},
+
+  fg = {{template "color" .Fg}},
+  fg0 = '{{ .Fg.Dim }}',
+  fg1 = '{{ .Fg.Base }}',
+  fg2 = '{{ .Fg.Dim }}',
+  fg3 = '{{ .Fg.Dimmer }}',
+
+  bg = {
+    dark = '{{ .Bg.Dark }}',
+    base = '{{ .Bg.Base }}',
+    dim = '{{ .Bg.Dim }}',
+    dimmer = '{{ .Bg.Dimmer }}',
+    border = '{{ .Bg.Border }}',
+  },
+  bg0 = '{{ .Bg.Dark }}',
+  bg1 = '{{ .Bg.Base }}',
+  bg2 = '{{ .Bg.Dim }}',
+  bg3 = '{{ .Bg.Dimmer }}',
+  bg4 = '{{ .Bg.Border }}',
+
+  sel = {
+    base = '{{ .Sel.Base }}',
+    dim = '{{ .Sel.Dim }}',
+  },
+  sel0 = '{{ .Sel.Base }}',
+  sel1 = '{{ .Sel.Dim }}',
+}
