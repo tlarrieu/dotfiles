@@ -6,6 +6,8 @@ return {
     p = 'fmt.Println(${1:args})',
     ['if'] = 'if ${1:condition} {\n\t$0\n}',
     ['else'] = '} else {\n\t$0\n',
+
+    err = 'if err != nil {\n\t$0\n}',
   },
   skeletons = {
     { pattern = '.*', template = "package $GO_MODULE_NAME\n\n$0" },

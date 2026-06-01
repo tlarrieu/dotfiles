@@ -111,7 +111,8 @@ vim.keymap.set({ 'n', 'x' }, 'À', '<cmd>confirm quitall<cr>', { silent = true }
 vim.keymap.set({ 'n', 'x' }, '<leader>à',
   function()
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-      if vim.bo[bufnr].buftype == 'terminal' then vim.cmd.bd { args = { bufnr }, bang = true } end
+      local bt = vim.bo[bufnr].buftype
+      if bt == 'terminal' or bt == 'nofile' then vim.cmd.bd { args = { bufnr }, bang = true } end
     end
     vim.cmd.mksession { args = { '/tmp/session.nvim' }, bang = true }
     vim.cmd('confirm restart source /tmp/session.nvim')

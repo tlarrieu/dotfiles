@@ -236,7 +236,7 @@ return {
 
   -- go
   ['@function.gotmpl'] = { fg = 'palette.blue', bg = 'none', style = 'NONE' },
-  ['@function.builtin.gotmpl'] = { fg = 'palette.red', bg = 'none', style = 'NONE' },
+  ['@function.builtin.gotmpl'] = { fg = 'palette.fg.dim', bg = 'none', style = 'NONE' },
   ['@variable.member.gotmpl'] = { fg = 'palette.fg.dim', bg = 'none', style = 'NONE' },
 
   -- ruby
