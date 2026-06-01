@@ -10,6 +10,7 @@ set_dark() {
   gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='dark'
   mode='dark'
+  # FIXME: make this depend on the actual theme (not hardcoded rosepine values)
   chrome_colors='35,33,54'
 }
 
