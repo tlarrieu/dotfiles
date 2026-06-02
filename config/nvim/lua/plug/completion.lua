@@ -61,7 +61,7 @@ cmp.setup({
   },
   preselect = cmp.PreselectMode.None,
   performance = {
-    max_view_entries = 8,
+    max_view_entries = 100,
     debounce = 250,
     throttle = 250,
   },
