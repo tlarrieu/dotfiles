@@ -36,10 +36,10 @@
     "orange": "#FFA659",
     "pink": "#F29E74",
     "red": "#F28779",
-    "white": "#CCCAC2",
+    "white": "#d8d6cd",
     "yellow": "#FFCD66",
     "fg": {
-      "base": "#CCCAC2",
+      "base": "#d8d6cd",
       "dim": "#707A8C",
       "dimmer": "#474d59"
     },
