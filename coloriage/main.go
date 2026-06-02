@@ -2,20 +2,18 @@ package main
 
 import (
 	"os"
-	"os/exec"
 
 	"github.com/tlarrieu/coloriage/commands"
 )
 
 func main() {
 	switch os.Args[1] {
-	case "list":
+	case "l", "list":
 		commands.List()
-	case "apply":
+	case "a", "apply":
 		commands.Apply()
 		commands.Toggle("current")
-		// FIX: fix remove this line once we understand why it does not work through the bash script
-		exec.Command("pkill", "--signal", "USR1", "nvim").Run()
+		commands.Refresh()
 	default:
 		panic("Unrecognized command")
 	}
