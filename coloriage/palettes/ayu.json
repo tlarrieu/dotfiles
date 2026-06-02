@@ -3,7 +3,7 @@
     "black": "#5C6166",
     "blue": "#478ACC",
     "cyan": "#4CBF99",
-    "green": "#86B300",
+    "green": "#82a518",
     "magenta": "#A37ACC",
     "orange": "#FA8532",
     "pink": "#F2A191",
@@ -16,9 +16,9 @@
       "dimmer": "#AEB6C1"
     },
     "bg": {
-      "dark": "#EBEEF0",
-      "base": "#F8F9FA",
-      "dim": "#EBEEF0",
+      "dark": "#e0e3e5",
+      "base": "#eff1f2",
+      "dim": "#e0e3e5",
       "dimmer": "#FCFCFC",
       "border": "#6B7D8F"
     },
