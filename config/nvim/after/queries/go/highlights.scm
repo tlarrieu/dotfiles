@@ -1,3 +1,4 @@
 ; extends
 
 ((break_statement) @keyword.break (#set! priority 110))
+"default" @keyword.conditional

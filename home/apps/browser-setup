@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+envfile="$HOME/.browser.env"
+[ -f "$envfile" ] && . "$envfile"
+
+color=$(cat -s "$HOME/.chrome_colors/$1")
+apply() { chromium --no-startup-window --profile-directory="$1" --set-color-scheme=$2 --set-theme-color="$color" > /dev/null 2>&1 & }
+apply $BROWSER_WORK $1
+apply $BROWSER_PERSONAL $1

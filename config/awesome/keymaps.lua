@@ -79,7 +79,7 @@ local keyboard = {
     -- [[ Togglers ]] ----------------------------------------------------------
 
     spawner.key({ super, shift }, 't', require('context').toggle),
-    spawner.key({ super, shift }, 'Return', 'toggle-light-and-dark.sh'),
+    spawner.key({ super, shift }, 'Return', spawner.shell(string.format('%s/coloriage/coloriage toggle', dotfiles))),
 
     -- [[ Applications ]] ------------------------------------------------------
 

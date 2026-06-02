@@ -15,35 +15,13 @@ type Mapping struct {
 	extension string
 }
 
-func apply(palette colors.Palette, dir []string, software, out string) (err error) {
-	var raw []byte
-	path := filepath.Join("templates", software+".tmpl")
-	raw, err = os.ReadFile(path)
-	tmpl, err := template.New(path).Funcs(template.FuncMap{
-		"bare": func(c colors.Color) string {
-			return colors.ToHex(c)[1:]
-		},
-		"rgb": func(c colors.Color) string {
-			return colors.ToRGB(c)
-		},
-	}).Parse(string(raw))
-
-	if err != nil {
-		return
+func Apply() {
+	fmt.Println("applying '" + os.Args[2] + "'...")
+	if err := build(os.Args[2]); err != nil {
+		fmt.Println(err)
+		fmt.Println("run `coloriage list` to see available palettes")
+		os.Exit(1)
 	}
-
-	themedir := filepath.Join(dir...)
-	if err = os.MkdirAll(themedir, os.ModePerm); err != nil {
-		return
-	}
-
-	f, err := os.Create(filepath.Join(themedir, out))
-	if err != nil {
-		return
-	}
-	defer f.Close()
-
-	return tmpl.Execute(f, palette)
 }
 
 func build(name string) (err error) {
@@ -85,11 +63,33 @@ func build(name string) (err error) {
 	return
 }
 
-func Apply() {
-	fmt.Println("applying '" + os.Args[2] + "'...")
-	if err := build(os.Args[2]); err != nil {
-		fmt.Println(err)
-		fmt.Println("run `coloriage list` to see available palettes")
-		os.Exit(1)
+func apply(palette colors.Palette, dir []string, software, out string) (err error) {
+	var raw []byte
+	path := filepath.Join("templates", software+".tmpl")
+	raw, err = os.ReadFile(path)
+	tmpl, err := template.New(path).Funcs(template.FuncMap{
+		"bare": func(c colors.Color) string {
+			return colors.ToHex(c)[1:]
+		},
+		"rgb": func(c colors.Color) string {
+			return colors.ToRGB(c)
+		},
+	}).Parse(string(raw))
+
+	if err != nil {
+		return
 	}
+
+	themedir := filepath.Join(dir...)
+	if err = os.MkdirAll(themedir, os.ModePerm); err != nil {
+		return
+	}
+
+	f, err := os.Create(filepath.Join(themedir, out))
+	if err != nil {
+		return
+	}
+	defer f.Close()
+
+	return tmpl.Execute(f, palette)
 }

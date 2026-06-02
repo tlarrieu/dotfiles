@@ -12,10 +12,9 @@ func main() {
 		commands.List()
 	case "a", "apply":
 		commands.Apply()
-		commands.Toggle("current")
 		commands.Refresh()
 	case "t", "toggle":
-		commands.Test()
+		commands.Toggle()
 	default:
 		panic("Unrecognized command")
 	}

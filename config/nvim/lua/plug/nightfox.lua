@@ -1,10 +1,5 @@
 vim.pack.add({ 'https://github.com/edeneast/nightfox.nvim' }, { confirm = false })
 
-local apply_mode = function()
-  vim.o.background = require('mode').current()
-  vim.cmd.colorscheme(vim.o.background == 'light' and 'dawnfox' or 'nordfox')
-end
-
 local file_for = function(mode)
   return vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'colors', mode .. '.lua')
 end
@@ -21,6 +16,12 @@ local setup = function()
     },
     groups = { all = require('colors.theme') },
   })
+end
+
+local apply_mode = function()
+  vim.o.background = require('mode').current()
+  setup()
+  vim.cmd.colorscheme(vim.o.background == 'light' and 'dawnfox' or 'nordfox')
 end
 
 vim.api.nvim_create_autocmd('ColorScheme', {
@@ -42,5 +43,4 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 })
 vim.api.nvim_create_autocmd('Signal', { pattern = { 'SIGUSR1' }, callback = apply_mode, nested = true })
 
-setup()
 apply_mode()
