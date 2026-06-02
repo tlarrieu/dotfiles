@@ -23,6 +23,9 @@ func apply(palette colors.Palette, dir []string, software, out string) (err erro
 		"bare": func(c colors.Color) string {
 			return colors.ToHex(c)[1:]
 		},
+		"rgb": func(c colors.Color) string {
+			return colors.ToRGB(c)
+		},
 	}).Parse(string(raw))
 
 	if err != nil {
@@ -63,6 +66,7 @@ func build(name string) (err error) {
 		{app: "fish", dir: []string{config, "fish", "themes"}, extension: ".theme"},
 		{app: "rofi", dir: []string{config, "rofi"}, extension: ".rasi"},
 		{app: "zathura", dir: []string{config, "zathura"}},
+		{app: "chrome", dir: []string{homedir, ".chrome_colors"}},
 	}
 
 	if err = os.RemoveAll("theme"); err != nil {

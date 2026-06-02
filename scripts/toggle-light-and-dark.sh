@@ -10,8 +10,6 @@ set_dark() {
   gtk_expr='s/Nightfox-Light/Nordic/'
   fish_theme='dark'
   mode='dark'
-  # FIXME: make this depend on the actual theme (not hardcoded rosepine values)
-  chrome_colors='35,33,54'
 }
 
 set_light() {
@@ -19,7 +17,6 @@ set_light() {
   gtk_expr='s/Nordic/Nightfox-Light/'
   fish_theme='light'
   mode='light'
-  chrome_colors='250,244,237'
 }
 
 if [ "$1" = "light" ]; then
@@ -66,6 +63,7 @@ awesome-client > /dev/null 2>&1 <<- LUA
 LUA
 
 # chromium
+chrome_colors=$(cat -s "$HOME/.chrome_colors/$mode")
 chromium --no-startup-window --profile-directory="$BROWSER_WORK" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
 chromium --no-startup-window --profile-directory="$BROWSER_PERSONAL" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
 

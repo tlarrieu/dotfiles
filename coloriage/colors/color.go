@@ -50,6 +50,10 @@ func ToHex(c Color) string {
 	}
 }
 
+func ToRGB(c Color) string {
+	return fmt.Sprintf("%d,%d,%d", c.red, c.green, c.blue)
+}
+
 func scale(x uint8) float32 {
 	return float32(x) / 0xff
 }
