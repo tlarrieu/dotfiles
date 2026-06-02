@@ -3,4 +3,4 @@
 config="$HOME/.browser-config"
 [ -f "$config" ] && . "$config"
 
-chromium --profile-directory="$profile" "$@"
+chromium --set-color-scheme=$mode --set-theme-color="$color" --profile-directory="$profile" "$@"

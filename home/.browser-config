@@ -26,4 +26,7 @@ case "$1" in
     esac
 esac
 
+mode=$(gsettings get org.gnome.desktop.interface color-scheme | sed -E "s/'prefer-(\w+)'/\1/")
+color=$(cat -s "$HOME/.chrome_colors/$mode")
+
 # vim: ft=sh

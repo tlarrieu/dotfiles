@@ -4,11 +4,11 @@ config="$HOME/.browser-config"
 [ -f "$config" ] && . "$config"
 
 _browser() {
-  chromium --app="$1" --profile-directory="$profile"
+  chromium --set-color-scheme=$mode --set-theme-color="$color" --app="$1" --profile-directory="$profile"
 }
 
 _github() {
-  chromium --app="https://github.com/$1" --profile-directory="$profile"
+  chromium --set-color-scheme=$mode --set-theme-color="$color" --app="https://github.com/$1" --profile-directory="$profile"
 }
 
 # some videos can't be launched in mpv, such as subscribers only feeds

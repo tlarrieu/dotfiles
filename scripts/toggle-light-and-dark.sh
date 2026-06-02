@@ -63,9 +63,10 @@ awesome-client > /dev/null 2>&1 <<- LUA
 LUA
 
 # chromium
-chrome_colors=$(cat -s "$HOME/.chrome_colors/$mode")
-chromium --no-startup-window --profile-directory="$BROWSER_WORK" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
-chromium --no-startup-window --profile-directory="$BROWSER_PERSONAL" --set-color-scheme=$mode --set-theme-color="$chrome_colors" > /dev/null 2>&1 &
+color=$(cat -s "$HOME/.chrome_colors/$mode")
+apply() { chromium --no-startup-window --profile-directory="$1" --set-color-scheme=$mode --set-theme-color="$color" > /dev/null 2>&1 & }
+apply $BROWSER_WORK
+apply $BROWSER_PERSONAL
 
 # wallpaper
 [ -f ~/Pictures/wallpapers/wallpaper-$mode ] \
