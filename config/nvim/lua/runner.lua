@@ -85,6 +85,7 @@ local run = function(options)
   options.on_interrupt = options.on_interrupt or function() end
   options.on_clean = options.on_clean or function() end
   options.on_bufenter = options.on_bufenter or function() end
+  options.cwd = (type(options.cwd) == 'function' and options.cwd() or options.cwd) or '.'
 
   local opened = state.window() ~= nil
 
@@ -103,6 +104,7 @@ local run = function(options)
     state.pid(
       vim.fn.jobstart(options.cmd, {
         term = true,
+        cwd = options.cwd or '.',
         on_stdout = function(_, data, _) options.on_stdout(data) end,
         on_exit = function(_, data, _)
           -- avoid losing the buffer when closing the window after <c-d>ing a prompt (any keypress on a finished session
