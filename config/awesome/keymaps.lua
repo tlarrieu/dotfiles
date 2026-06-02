@@ -212,6 +212,7 @@ local keyboard = {
     spawner.key({ super }, 'y', 'pulseaudio-ctl mute-input'),
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
+    spawner.key({ super, ctrl }, 'Return', spawner.shell('rofi-theme')),
 
     spawner.key({ super, ctrl }, 'b', {
       app = 'browser-with-context',

@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+cd ~/git/dotfiles/coloriage || exit 1
+
+./coloriage list \
+  | rofi -dmenu -p 󰸌 \
+  | xargs ./coloriage apply
