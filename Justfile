@@ -56,8 +56,7 @@ links: (pending "configuration: linking files...") && (success "configuration: d
 
 alias cp := templates
 [group("config/templates"), doc("deploy templates (but don't override)")]
-templates: (template ".Xresources.d/local") \
-  (template ".xsettingsd") \
+templates: (template ".xsettingsd") \
   (template ".config/kitty/theme.conf") \
   (template ".config/zathura/theme") \
   (template ".config/rofi/variant.rasi")

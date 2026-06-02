@@ -1,7 +1,0 @@
-#include "/home/tlarrieu/.Xresources.d/light"
-
-#define DPI 96
-#define FONT CaskaydiaCove Nerd Font
-#define FONTSIZE 12
-
-! vim: ft=xdefaults
