@@ -7,9 +7,9 @@ export PATH="$HOME/apps:$PATH"
 [ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
 if [ "$(date +%H)" -gt 19 ] || [ "$(date +%H)" -lt 8 ]; then
-  ~/scripts/toggle-light-and-dark.sh dark
+  ~/git/dotfiles/coloriage/coloriage set dark
 else
-  ~/scripts/toggle-light-and-dark.sh light
+  ~/git/dotfiles/coloriage/coloriage set light
 fi
 
 pgrep unclutter || unclutter -root -idle 2 2>/dev/null &

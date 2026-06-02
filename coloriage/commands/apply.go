@@ -15,9 +15,8 @@ type Mapping struct {
 	extension string
 }
 
-func Apply() {
-	fmt.Println("applying '" + os.Args[2] + "'...")
-	if err := build(os.Args[2]); err != nil {
+func Apply(name string) {
+	if err := build(name); err != nil {
 		fmt.Println(err)
 		fmt.Println("run `coloriage list` to see available palettes")
 		os.Exit(1)
