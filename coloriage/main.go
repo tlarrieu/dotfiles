@@ -14,6 +14,8 @@ func main() {
 		commands.Apply()
 		commands.Toggle("current")
 		commands.Refresh()
+	case "t", "toggle":
+		commands.Test()
 	default:
 		panic("Unrecognized command")
 	}
