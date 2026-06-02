@@ -8,7 +8,7 @@ require('marks').setup({
   force_write_shada = true,
   refresh_interval = 150,
   sign_priority = { lower = 0, upper = 15, builtin = 100, bookmark = 20 },
-  excluded_filetypes = { 'harpoon', '', 'notify', 'TelescopePrompt' },
+  excluded_filetypes = { 'harpoon', 'notify', 'TelescopePrompt' },
   bookmark_0 = {
     sign = '󰉀',
     virt_text = ' 󰁎 investigate ',
