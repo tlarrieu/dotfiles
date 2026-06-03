@@ -36,14 +36,7 @@ func SetMode(mode string) {
 	}
 	configdir := filepath.Join(homedir, ".config")
 
-	// ---- GTK ----
-	var gtktheme string
-	if mode == "light" {
-		gtktheme = "Nightfox-Light"
-	} else {
-		gtktheme = "Nordic"
-	}
-	writeMode(`Net/ThemeName "`+gtktheme+`"`, homedir, ".xsettingsd")
+	writeMode(`Net/ThemeName "`+gtkTheme(mode)+`"`, homedir, ".xsettingsd")
 	exec.Command("xsettingsd").Start()
 	exec.Command("gsettings", "set", "org.gnome.desktop.interface", "color-scheme", "prefer-"+mode).Run()
 
@@ -74,6 +67,13 @@ func getMode() (str string, err error) {
 	res = res[8 : len(res)-2]
 	str = string(res)
 	return
+}
+
+func gtkTheme(mode string) string {
+	if mode == "dark" {
+		return "Nordic"
+	}
+	return "Nightfox-Light"
 }
 
 func invert(mode string) string {
