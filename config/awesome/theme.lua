@@ -42,7 +42,7 @@ return {
     theme.progressbar_fg = colors.background
     theme.progressbar_paddings = dpi(1)
 
-    theme.notification_font = theme.font_name
+    theme.notification_font = theme.font
 
     beautiful.init(theme)
 
