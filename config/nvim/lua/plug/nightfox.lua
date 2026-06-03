@@ -8,26 +8,25 @@ local import = function(mode)
   return loadfile(file_for(mode))()
 end
 
-local setup = function()
-  require('nightfox').setup({
-    palettes = {
-      dawnfox = import('light'),
-      nordfox = import('dark'),
-    },
-    groups = { all = require('colors.theme') },
-  })
-end
-
 local apply_mode = function()
   local background = require('mode').current()
-  if vim.o.background == background then setup() end
+  if vim.o.background == background then
+    -- if the background has not changed, it means that we are applying a different
+    -- colorscheme, so we need to re-setup the palettes
+    require('nightfox').setup({
+      palettes = {
+        dawnfox = import('light'),
+        nordfox = import('dark'),
+      },
+      groups = { all = require('colors.theme') },
+    })
+  end
   vim.o.background = background
   vim.cmd.colorscheme(background == 'light' and 'dawnfox' or 'nordfox')
 end
 
 vim.api.nvim_create_autocmd('ColorScheme', {
   callback = function()
-    setup()
     if not vim.g.colors_name then return end
 
     local ok, palette = pcall(require, 'nightfox.palette')
@@ -42,6 +41,11 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     devicons.set_default_icon('', palette.fg.dim, 0)
   end,
 })
-vim.api.nvim_create_autocmd('Signal', { pattern = { 'SIGUSR1' }, callback = apply_mode, nested = true })
+
+vim.api.nvim_create_autocmd('Signal', {
+  pattern = { 'SIGUSR1' },
+  callback = apply_mode,
+  nested = true,
+})
 
 apply_mode()
