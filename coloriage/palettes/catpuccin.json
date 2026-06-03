@@ -12,8 +12,8 @@
     "yellow": "#df8e1d",
     "fg": {
       "base": "#4c4f69",
-      "dim": "#5c5f77",
-      "dimmer": "#6c6f85"
+      "dim": "#6f7391",
+      "dimmer": "#80839e"
     },
     "bg": {
       "dark": "#ccd0da",
