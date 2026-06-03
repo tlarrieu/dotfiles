@@ -25,47 +25,41 @@ func Refresh() {
 	SetMode(mode)
 }
 
+func writeMode(data string, path ...string) {
+	os.WriteFile(filepath.Join(path...), []byte(data), 0644)
+}
+
 func SetMode(mode string) {
 	homedir, err := os.UserHomeDir()
 	if err != nil {
 		panic(err)
 	}
+	configdir := filepath.Join(homedir, ".config")
 
 	// ---- GTK ----
 	var gtktheme string
 	if mode == "light" {
-		gtktheme = `Net/ThemeName "Nightfox-Light"`
+		gtktheme = "Nightfox-Light"
 	} else {
-		gtktheme = `Net/ThemeName "Nordic"`
+		gtktheme = "Nordic"
 	}
-	os.WriteFile(filepath.Join(homedir, ".xsettingsd"), []byte(gtktheme), 0644)
+	writeMode(`Net/ThemeName "`+gtktheme+`"`, homedir, ".xsettingsd")
 	exec.Command("xsettingsd").Start()
-	exec.Command("gsettings", "set", "org.gnome.desktop.interface", "color-scheme", "prefer-"+mode).Start()
+	exec.Command("gsettings", "set", "org.gnome.desktop.interface", "color-scheme", "prefer-"+mode).Run()
 
-	// ---- kitty ----
-	os.WriteFile(filepath.Join(homedir, ".config", "kitty", "theme.conf"), []byte("include themes/"+mode+".conf"), 0644)
+	go writeMode("include themes/"+mode+".conf", configdir, "kitty", "theme.conf")
 
-	// ---- fish ----
-	cmd := exec.Command("fish", "-c", "fish_config theme save "+mode)
-	cmd.Stdin = strings.NewReader("y")
-	if err = cmd.Run(); err != nil {
-		panic(err)
-	}
-
-	// ---- rofi ----
-	os.WriteFile(filepath.Join(homedir, ".config", "rofi", "variant.rasi"), []byte(`@import "`+mode+`"`), 0644)
-
-	// ---- zathura ----
-	os.WriteFile(filepath.Join(homedir, ".config", "zathura", "theme"), []byte("include "+mode), 0644)
-
-	// ---- chromium ----
-	exec.Command("browser-setup", mode).Start()
-
-	exec.Command("awesome-client", "require('theme').config(); require('panel').reset()").Start()
 	exec.Command("pkill", "--signal", "USR1", "kitty").Start()
 	exec.Command("pkill", "--signal", "USR1", "nvim").Start()
+	cmd := exec.Command("fish", "-c", "fish_config theme save "+mode)
+	cmd.Stdin = strings.NewReader("y")
 
-	// ---- wallpaper ----
+	exec.Command("awesome-client", "require('theme').config(); require('panel').reset()").Start()
+	exec.Command("browser-setup", mode).Start()
+
+	go writeMode(`@import "`+mode+`"`, configdir, "rofi", "variant.rasi")
+	go writeMode("include "+mode, configdir, "zathura", "theme")
+
 	wallpaper := filepath.Join(homedir, "Pictures", "wallpapers", "wallpaper-"+mode)
 	fehbg := filepath.Join(homedir, ".fehbg")
 	if _, err := os.Stat(wallpaper); err == nil {
