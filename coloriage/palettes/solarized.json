@@ -1,0 +1,58 @@
+{
+  "light": {
+    "black": "#586e75",
+    "white": "#fdf6e3",
+    "blue": "#268bd2",
+    "cyan": "#2aa198",
+    "green": "#859900",
+    "magenta": "#6c71c4",
+    "orange": "#cb4b16",
+    "pink": "#d33682",
+    "red": "#dc322f",
+    "yellow": "#b58900",
+    "fg": {
+      "base": "#586e75",
+      "dim": "#657b83",
+      "dimmer": "#93a1a1"
+    },
+    "bg": {
+      "dark": "#eee8d5",
+      "base": "#fdf6e3",
+      "dim": "#eee8d5",
+      "dimmer": "#ccc6b5",
+      "border": "#7f7c71"
+    },
+    "sel": {
+      "base": "#bebfb5",
+      "dim": "#CCCDC2"
+    }
+  },
+  "dark": {
+    "black": "#586e75",
+    "white": "#fdf6e3",
+    "blue": "#268bd2",
+    "cyan": "#2aa198",
+    "green": "#859900",
+    "magenta": "#6c71c4",
+    "orange": "#cb4b16",
+    "pink": "#d33682",
+    "red": "#dc322f",
+    "yellow": "#b58900",
+    "fg": {
+      "base": "#93a1a1",
+      "dim": "#839496",
+      "dimmer": "#657b83"
+    },
+    "bg": {
+      "dark": "#002b36",
+      "base": "#073642",
+      "dim": "#002b36",
+      "dimmer": "#005368",
+      "border": "#006882"
+    },
+    "sel": {
+      "base": "#345c66",
+      "dim": "#2C4E56"
+    }
+  }
+}
