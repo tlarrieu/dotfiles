@@ -24,7 +24,7 @@
     },
     "sel": {
       "base": "#bebfb5",
-      "dim": "#CCCDC2"
+      "dim": "#cccdc2"
     }
   },
   "dark": {
@@ -52,7 +52,7 @@
     },
     "sel": {
       "base": "#345c66",
-      "dim": "#2C4E56"
+      "dim": "#2c4e56"
     }
   }
 }
