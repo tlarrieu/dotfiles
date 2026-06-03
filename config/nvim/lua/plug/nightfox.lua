@@ -19,9 +19,10 @@ local setup = function()
 end
 
 local apply_mode = function()
-  vim.o.background = require('mode').current()
-  setup()
-  vim.cmd.colorscheme(vim.o.background == 'light' and 'dawnfox' or 'nordfox')
+  local background = require('mode').current()
+  if vim.o.background == background then setup() end
+  vim.o.background = background
+  vim.cmd.colorscheme(background == 'light' and 'dawnfox' or 'nordfox')
 end
 
 vim.api.nvim_create_autocmd('ColorScheme', {

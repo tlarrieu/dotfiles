@@ -8,21 +8,11 @@ import (
 )
 
 func Toggle() {
-	mode, err := getMode()
-	if err != nil {
-		panic(err)
-	}
-
-	SetMode(invert(mode))
+	SetMode(invert(getMode()))
 }
 
 func Refresh() {
-	mode, err := getMode()
-	if err != nil {
-		panic(err)
-	}
-
-	SetMode(mode)
+	SetMode(getMode())
 }
 
 func writeMode(data string, path ...string) {
@@ -62,11 +52,13 @@ func SetMode(mode string) {
 	}
 }
 
-func getMode() (str string, err error) {
+func getMode() string {
 	res, err := exec.Command("gsettings", "get", "org.gnome.desktop.interface", "color-scheme").Output()
+	if err != nil {
+		return "light"
+	}
 	res = res[8 : len(res)-2]
-	str = string(res)
-	return
+	return string(res)
 }
 
 func gtkTheme(mode string) string {
