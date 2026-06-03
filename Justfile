@@ -50,9 +50,10 @@ links: (pending "configuration: linking files...") && (success "configuration: d
 @X11: (pending "X11: linking files...") && (success "X11: done.")
   for name in xorg.conf.d/*; do sudo ln -rsfFT $name /etc/X11/$name; done
 
+alias c := coloriage
 [group("config/links"), doc("build coloriage tool")]
 @coloriage: (pending "coloriage: applying...") && (success "coloriage: done.")
-  cd coloriage && just build && just apply rosepine
+  cd coloriage && just build && just apply
 
 alias cp := templates
 [group("config/templates"), doc("deploy templates (but don't override)")]

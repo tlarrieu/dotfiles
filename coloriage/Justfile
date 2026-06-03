@@ -16,6 +16,6 @@ alias l := list
   ./coloriage list
 
 alias a := apply
-@apply palette:
+@apply palette='':
   if [ ! -x ./coloriage ]; then just build; fi
   ./coloriage apply {{palette}}
