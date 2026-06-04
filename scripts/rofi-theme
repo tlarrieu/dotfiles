@@ -2,6 +2,5 @@
 
 cd ~/git/dotfiles/coloriage || exit 1
 
-./coloriage list \
-  | rofi -dmenu -p 󰸌 \
-  | xargs ./coloriage apply
+theme=$(./coloriage list | rofi -dmenu -p 󰸌)
+[ -n "$theme" ] && ./coloriage apply "$theme"
