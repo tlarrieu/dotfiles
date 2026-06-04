@@ -1,57 +1,57 @@
 {
   "light": {
-    "black": "#546E7A",
-    "blue": "#6182B8",
-    "cyan": "#39ADB5",
-    "green": "#91B859",
-    "magenta": "#7C4DFF",
-    "orange": "#F76D47",
-    "pink": "#FF5370",
-    "red": "#E53935",
-    "white": "#FAFAFA",
-    "yellow": "#F6A434",
+    "black": "#546e7a",
+    "blue": "#6182b8",
+    "cyan": "#39adb5",
+    "green": "#91b859",
+    "magenta": "#7c4dff",
+    "orange": "#f76d47",
+    "pink": "#ff5370",
+    "red": "#e53935",
+    "white": "#fafafa",
+    "yellow": "#f6a434",
     "fg": {
-      "base": "#546E7A",
-      "dim": "#94A7B0",
-      "dimmer": "#AABFC9"
+      "base": "#546e7a",
+      "dim": "#94a7b0",
+      "dimmer": "#aabfc9"
     },
     "bg": {
-      "dark": "#EEEEEE",
-      "base": "#FAFAFA",
-      "dim": "#EEEEEE",
-      "dimmer": "#E7E7E8",
-      "border": "#D3E1E8"
+      "dark": "#eeeeee",
+      "base": "#fafafa",
+      "dim": "#eeeeee",
+      "dimmer": "#e7e7e8",
+      "border": "#d3e1e8"
     },
     "sel": {
-      "base": "#B6BFC3",
-      "dim": "#CFD8DC"
+      "base": "#cbd6db",
+      "dim": "#cfd8dc"
     }
   },
   "dark": {
-    "black": "#25363B",
-    "blue": "#82AAFF",
-    "cyan": "#89DDFF",
-    "green": "#C3E88D",
-    "magenta": "#C792EA",
-    "orange": "#F78C6C",
-    "pink": "#FF9CAC",
-    "red": "#F07178",
-    "white": "#B0BEC5",
-    "yellow": "#FFCB6B",
+    "black": "#25363b",
+    "blue": "#82aaff",
+    "cyan": "#89ddff",
+    "green": "#c3e88d",
+    "magenta": "#c792ea",
+    "orange": "#f78c6c",
+    "pink": "#ff9cac",
+    "red": "#f07178",
+    "white": "#b0bec5",
+    "yellow": "#ffcb6b",
     "fg": {
-      "base": "#B0BEC5",
-      "dim": "#7C9EAD",
-      "dimmer": "#546E7A"
+      "base": "#b0bec5",
+      "dim": "#7c9ead",
+      "dimmer": "#546e7a"
     },
     "bg": {
-      "dark": "#1C2C30",
-      "base": "#25363B",
-      "dim": "#1C2C30",
-      "dimmer": "#1F2233",
+      "dark": "#1c2c30",
+      "base": "#25363b",
+      "dim": "#1c2c30",
+      "dimmer": "#1f2233",
       "border": "#232637"
     },
     "sel": {
-      "base": "#3B3F51",
+      "base": "#3b3f51",
       "dim": "#426367"
     }
   }
