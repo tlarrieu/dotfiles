@@ -13,7 +13,7 @@
     "fg": {
       "base": "#586e75",
       "dim": "#93a1a1",
-      "dimmer": "#adbaba"
+      "dimmer": "#95a5a5"
     },
     "bg": {
       "dark": "#eee8d5",
@@ -23,7 +23,7 @@
       "border": "#7f7c71"
     },
     "sel": {
-      "base": "#bebfb5",
+      "base": "#d7d8cd",
       "dim": "#cccdc2"
     }
   },
