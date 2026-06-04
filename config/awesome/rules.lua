@@ -4,7 +4,7 @@ local gears = require('gears')
 
 local helpers = require('helpers')
 
-local opacity = 0.8
+local opacity = 0.85
 
 awful.rules.rules = gears.table.join(awful.rules.rules, {
   -- [[ Common rules ]] --------------------------------------------------------
