@@ -16,11 +16,11 @@
       "dimmer": "#afb1c6"
     },
     "bg": {
-      "dark": "#ccd0da",
+      "dark": "#e6e9ef",
       "base": "#eff1f5",
-      "dim": "#ccd0da",
-      "dimmer": "#bcc0cc",
-      "border": "#acb0be"
+      "dim": "#e6e9ef",
+      "dimmer": "#dce0e8",
+      "border": "#ccd0da"
     },
     "sel": {
       "base": "#cacdd5",
@@ -40,19 +40,19 @@
     "yellow": "#f9e2af",
     "fg": {
       "base": "#cdd6f4",
-      "dim": "#9aa0b7",
-      "dimmer": "#7a7f93"
+      "dim": "#808599",
+      "dimmer": "#696e7f"
     },
     "bg": {
-      "dark": "#313244",
-      "base": "#24273a",
-      "dim": "#313244",
-      "dimmer": "#45475a",
-      "border": "#585b70"
+      "dark": "#181825",
+      "base": "#1e1e2e",
+      "dim": "#181825",
+      "dimmer": "#11111b",
+      "border": "#313244"
     },
     "sel": {
-      "base": "#4b4b64",
-      "dim": "#3f3e57"
+      "base": "#454558",
+      "dim": "#383749"
     }
   }
 }
