@@ -23,8 +23,8 @@
       "border": "#acb0be"
     },
     "sel": {
-      "base": "#c3c6e5",
-      "dim": "#abafcc"
+      "base": "#cacdd5",
+      "dim": "#d7dae0"
     }
   },
   "dark": {
@@ -51,8 +51,8 @@
       "border": "#585b70"
     },
     "sel": {
-      "base": "#a9b0cc",
-      "dim": "#bec6e5"
+      "base": "#4b4b64",
+      "dim": "#3f3e57"
     }
   }
 }
