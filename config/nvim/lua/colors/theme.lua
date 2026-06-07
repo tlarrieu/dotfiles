@@ -55,6 +55,8 @@ return {
   Title = { fg = 'palette.fg.dim', style = 'bold' },
   Whitespace = { fg = 'palette.fg.dimmer' },
 
+  IncSearch = { fg = 'palette.fg', bg = 'palette.accent.dim' },
+
   SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dark', style = 'italic' },
   SnippetTabstopActive = { fg = 'palette.pink', bg = 'palette.pink.dim', style = 'bold' },
 
@@ -387,7 +389,7 @@ return {
   TelescopePromptCounter = { link = 'TelescopePromptPrefix' },
   TelescopeSelection = { bg = 'palette.sel1' },
   TelescopeSelectionCaret = { link = 'TelescopeSelection' },
-  TelescopeMatching = { fg = 'palette.green' },
+  TelescopeMatching = { fg = 'palette.accent' },
   TelescopeMultiSelection = { bg = 'palette.sel.base', style = 'bold' },
   TelescopeMultiIcon = { link = 'TelescopeMultiSelection' },
   TelescopeResultsComment = { fg = 'palette.fg.dimmer', style = 'italic' },

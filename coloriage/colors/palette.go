@@ -31,6 +31,8 @@ type Palette struct {
 	White   CompositeColor
 	Yellow  CompositeColor
 
+	Accent CompositeColor
+
 	Fg  Foreground
 	Bg  Background
 	Sel Sel

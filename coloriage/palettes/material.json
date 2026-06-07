@@ -10,6 +10,7 @@
     "red": "#e53935",
     "white": "#fafafa",
     "yellow": "#f6a434",
+    "accent": "#ff5370",
     "fg": {
       "base": "#546e7a",
       "dim": "#94a7b0",
@@ -38,6 +39,7 @@
     "red": "#f07178",
     "white": "#b0bec5",
     "yellow": "#ffcb6b",
+    "accent": "#ff9cac",
     "fg": {
       "base": "#b0bec5",
       "dim": "#7c9ead",
