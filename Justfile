@@ -23,12 +23,11 @@ alias boot := bootstrap
   shell \
   crontab \
   root \
-  coloriage \
   && (success "bootstrapping: done.")
 
 alias ln := links
 [group("config/links"), doc("link configuration files into ~/.config/ (and override)")]
-links: (pending "configuration: linking files...") && (success "configuration: done.")
+links: (pending "configuration: linking files...") && (success "configuration: done.") coloriage
   #!/usr/bin/env bash
   shopt -s dotglob # include hidden files in globbing
 
