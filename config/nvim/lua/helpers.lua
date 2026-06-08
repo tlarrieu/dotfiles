@@ -71,7 +71,7 @@ M.strip = function(string)
 end
 
 M.icon_and_filetype = function(name, filetype)
-  if filetype == '' then return '󰒡 ', '' end
+  if filetype == '' then return '󰒡', '' end
   if filetype == 'NeogitStatus'
       or filetype == 'NeogitConsole'
       or filetype == 'NeogitLogView'

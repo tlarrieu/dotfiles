@@ -100,7 +100,7 @@ require('dropbar').setup({
             vim.api.nvim_buf_get_name(buf),
             vim.bo[buf].filetype
           )
-        else   -- HACK: if we could not find a buf number, this usually means that we are in a file coming from gitsigns or codediff
+        else -- HACK: if we could not find a buf number, this usually means that we are in a file coming from gitsigns or codediff
           icon = ''
         end
 
