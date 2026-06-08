@@ -29,7 +29,7 @@
       "src": "https://github.com/hrsh7th/cmp-path"
     },
     "codediff.nvim": {
-      "rev": "29b06f37251f2e010f53a0892573b2ec03d165e2",
+      "rev": "5d6aa753797a0ebda14dd769ed03d12a320d689b",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -41,7 +41,7 @@
       "src": "https://github.com/zbirenbaum/copilot-cmp"
     },
     "copilot.lua": {
-      "rev": "1d457ad5f267b8ef855a6b8b3fe152403cb00947",
+      "rev": "0415bd625c3076a6a5ee445be484574d55b4fbfc",
       "src": "https://github.com/zbirenbaum/copilot.lua"
     },
     "dropbar.nvim": {
@@ -57,7 +57,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
+      "rev": "25050e4ed39e628282831d4cbecb1850454ce915",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "markview.nvim": {
-      "rev": "a55e91f25994617a477d4a0e0b326f9dfa648f80",
+      "rev": "fbe5ec7d127ab3435ffd62740a7b27e7fabf42dc",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
@@ -94,7 +94,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.align": {
-      "rev": "c701192658ddac4e3b20956a964c2b03157b5e51",
+      "rev": "a7cd9465ac72c65d726f8fdc8b71ceb63ce8c0fd",
       "src": "https://github.com/echasnovski/mini.align"
     },
     "neogit": {
@@ -115,7 +115,7 @@
       "src": "https://github.com/0xfraso/nvim-listchars"
     },
     "nvim-lspconfig": {
-      "rev": "9573948c38bfabeec353ae7dd7d3ffec4c506a6b",
+      "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -133,7 +133,7 @@
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
-      "rev": "b91ee5a77a6a9605d9c1aaf4fda74b66082c8297",
+      "rev": "b73018b75affd13fa38e2fc94ef753b465f770d7",
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
