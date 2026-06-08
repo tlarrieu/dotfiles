@@ -55,13 +55,6 @@ return {
   Title = { fg = 'palette.fg.dim', style = 'bold' },
   Whitespace = { fg = 'palette.fg.dimmer' },
 
-  Search = { fg = 'palette.fg', bg = 'palette.sel.dim' },
-  IncSearch = { fg = 'palette.fg', bg = 'palette.accent.dim' },
-  Substitute = { link = 'IncSearch' },
-
-  SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dark', style = 'italic' },
-  SnippetTabstopActive = { fg = 'palette.pink', bg = 'palette.pink.dim', style = 'bold' },
-
   ['@comment'] = { link = 'Comment' },
   ['@comment.documentation'] = { link = 'Documentation' },
 
@@ -119,6 +112,33 @@ return {
   ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dimmer' },
   ['@keyword.repeat'] = { link = '@keyword.conditional' },
 
+  ['@markup.strong'] = { fg = 'none', style = 'bold' },
+  ['@markup.italic'] = { fg = 'none', style = 'italic' },
+  ['@markup.underline'] = { fg = 'none', style = 'underline' },
+  ['@markup.quote'] = { fg = 'palette.fg.dim', style = 'italic' },
+  ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
+  ['@markup.link.url'] = { link = '@markup.link' },
+  ['@markup.link.label'] = { link = '@markup.link' },
+  ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
+  ['@markup.raw.block'] = { fg = 'palette.yellow', bg = 'none' },
+  ['@markup.heading.1'] = { fg = 'palette.pink' },
+  ['@markup.heading.2'] = { fg = 'palette.green' },
+  ['@markup.heading.3'] = { fg = 'palette.blue' },
+  ['@markup.heading.4'] = { fg = 'palette.yellow' },
+  ['@markup.heading.5'] = { fg = 'palette.cyan' },
+  ['@markup.heading.6'] = { fg = 'palette.magenta' },
+  ['@markup.list'] = { fg = 'palette.cyan.dim' },
+
+  -- search
+  Search = { fg = 'palette.fg', bg = 'palette.sel.dim' },
+  IncSearch = { fg = 'palette.fg', bg = 'palette.accent.dim' },
+  Substitute = { link = 'IncSearch' },
+
+  -- snippets
+  SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dark', style = 'italic' },
+  SnippetTabstopActive = { fg = 'palette.pink', bg = 'palette.pink.dim', style = 'bold' },
+
+  -- Lines
   LineNr = { fg = 'palette.fg.dimmer' },
   CursorLine = { bg = 'palette.bg.dimmer' },
   CursorLineNr = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dimmer' },
@@ -172,24 +192,6 @@ return {
   -- pmenu
   Pmenu = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   PmenuSel = { bg = 'palette.sel1' },
-
-  -- markup
-  ['@markup.strong'] = { fg = 'none', style = 'bold' },
-  ['@markup.italic'] = { fg = 'none', style = 'italic' },
-  ['@markup.underline'] = { fg = 'none', style = 'underline' },
-  ['@markup.quote'] = { fg = 'palette.fg.dim', style = 'italic' },
-  ['@markup.link'] = { fg = 'palette.magenta', style = 'italic' },
-  ['@markup.link.url'] = { link = '@markup.link' },
-  ['@markup.link.label'] = { link = '@markup.link' },
-  ['@markup.raw.markdown_inline'] = { fg = 'none', bg = 'none' },
-  ['@markup.raw.block'] = { fg = 'palette.yellow', bg = 'none' },
-  ['@markup.heading.1'] = { fg = 'palette.pink' },
-  ['@markup.heading.2'] = { fg = 'palette.green' },
-  ['@markup.heading.3'] = { fg = 'palette.blue' },
-  ['@markup.heading.4'] = { fg = 'palette.yellow' },
-  ['@markup.heading.5'] = { fg = 'palette.cyan' },
-  ['@markup.heading.6'] = { fg = 'palette.magenta' },
-  ['@markup.list'] = { fg = 'palette.cyan.dim' },
 
   -- ------------| Language specific |----------------
 
