@@ -102,10 +102,6 @@
       "src": "https://github.com/NeogitOrg/neogit",
       "version": "'792c139da736230855e8341ebe6175bb6eb8268b'"
     },
-    "nightfox.nvim": {
-      "rev": "26b61b1f856ec37cae3cb64f5690adb955f246a1",
-      "src": "https://github.com/edeneast/nightfox.nvim"
-    },
     "nvim-cmp": {
       "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
       "src": "https://github.com/hrsh7th/nvim-cmp"

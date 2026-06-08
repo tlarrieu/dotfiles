@@ -38,11 +38,8 @@ vim.pack.add({
   'https://github.com/vim-scripts/edifact.vim',
 }, { confirm = false })
 
-require('plug.fidget')
-
 require('plug.devicons')
-require('plug.nightfox')
-
+require('plug.fidget')
 require('plug.oil')
 require('plug.telescope')
 require('plug.harpoon')
@@ -80,3 +77,5 @@ require('config.filetypes')
 require('config.keymaps')
 require('config.abbrev')
 require('config.autocmd')
+
+vim.cmd.colorscheme('system')
