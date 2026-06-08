@@ -31,13 +31,24 @@ require('dropbar').setup({
             method = 'textDocument/documentSymbol',
           }))
     end,
+    update_events = {
+      buf = {
+        -- 0.13.x
+        { event = 'OptionSet', pattern = 'modified' },
+        -- 0.12.x
+        'BufModifiedSet',
+        'FileChangedShellPost',
+        'TextChanged',
+        'ModeChanged',
+      },
+    },
   },
   sources = {
     path = {
       max_depth = 1,
       min_widths = { 1000 },
       modified = function(sym)
-        return sym and sym:merge({ icon = '󰴓 ', name_hl = 'DropbarModified', icon_hl = 'DropbarModified' }) or {}
+        return sym:merge({ icon = '󰴓 ', name_hl = 'DropbarModified', icon_hl = 'DropbarModified' })
       end
     },
     lsp = {
