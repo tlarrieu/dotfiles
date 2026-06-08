@@ -55,7 +55,9 @@ return {
   Title = { fg = 'palette.fg.dim', style = 'bold' },
   Whitespace = { fg = 'palette.fg.dimmer' },
 
+  Search = { fg = 'palette.fg', bg = 'palette.sel.dim' },
   IncSearch = { fg = 'palette.fg', bg = 'palette.accent.dim' },
+  Substitute = { link = 'IncSearch' },
 
   SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dark', style = 'italic' },
   SnippetTabstopActive = { fg = 'palette.pink', bg = 'palette.pink.dim', style = 'bold' },
