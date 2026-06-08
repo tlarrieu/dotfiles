@@ -9,7 +9,7 @@ local import = function(mode)
   return loadfile(vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'colors', 'palettes', mode .. '.lua'))()
 end
 
-vim.cmd('highlight clear')
+vim.cmd.highlight('clear')
 vim.o.background = require('mode').current()
 local p, hl = import(vim.o.background), vim.api.nvim_set_hl
 
