@@ -17,7 +17,6 @@
       "dimmer": "#95a5a5"
     },
     "bg": {
-      "dark": "#eee8d5",
       "base": "#fdf6e3",
       "dim": "#eee8d5",
       "dimmer": "#ccc6b5",
@@ -46,7 +45,6 @@
       "dimmer": "#657b83"
     },
     "bg": {
-      "dark": "#002b36",
       "base": "#073642",
       "dim": "#002b36",
       "dimmer": "#005368",
