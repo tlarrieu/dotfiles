@@ -24,7 +24,7 @@ require('fidget').setup({
       progress_icon = { pattern = { '', '', '' }, period = 1 },
       progress_style = 'FidgetProgress',
       group_style = 'FidgetGroup',
-      icon_style = 'FidgetDone',
+      icon_style = 'FidgetGroup',
       priority = 30,
       skip_history = true,
       format_group_name = function(name)

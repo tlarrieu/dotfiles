@@ -547,7 +547,7 @@ hl(0, 'LualineMacroRecording', { fg = p.red.base, bg = 'none' })
 
 hl(0, 'FidgetTitle', { link = 'Title' })
 hl(0, 'FidgetTask', { link = 'LineNr' })
-hl(0, 'FidgetGroup', { fg = p.pink.base, bold = true })
+hl(0, 'FidgetGroup', { fg = p.accent.base, bold = true })
 hl(0, 'FidgetNormal', { fg = p.fg.base, bg = p.bg.dark })
 hl(0, 'FidgetBorder', { link = 'FidgetNormal' })
 hl(0, 'FidgetProgress', { fg = p.orange.base })
