@@ -1,5 +1,10 @@
-vim.cmd('highlight clear')
 vim.g.colors_name = 'system'
+
+vim.api.nvim_create_autocmd('Signal', {
+  pattern = { 'SIGUSR1' },
+  callback = function() vim.cmd.colorscheme('system') end,
+  nested = true,
+})
 
 local file_for = function(mode)
   return vim.fs.joinpath(
@@ -13,32 +18,9 @@ end
 
 local import = function(mode) return loadfile(file_for(mode))() end
 
-local mode = require('mode').current()
-
-local palette, hl = import(mode), vim.api.nvim_set_hl
-
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = function()
-    if not vim.g.colors_name then return end
-
-    local ok, devicons = pcall(require, 'nvim-web-devicons')
-    if not ok then return end
-
-    devicons.set_default_icon('', palette.fg.dim, 0)
-  end,
-})
-
-local apply_mode = function()
-  vim.o.background = require('mode').current()
-  palette = import(vim.o.background)
-  vim.cmd.colorscheme('system')
-end
-
-vim.api.nvim_create_autocmd('Signal', {
-  pattern = { 'SIGUSR1' },
-  callback = apply_mode,
-  nested = true,
-})
+vim.cmd('highlight clear')
+vim.o.background = require('mode').current()
+local palette, hl = import(vim.o.background), vim.api.nvim_set_hl
 
 ------------------| base |-----------------------
 
@@ -894,8 +876,8 @@ hl(0, 'ExchangeRegion', { fg = palette.bg.base, bg = palette.orange.base })
 
 hl(0, 'Cursorword', { fg = palette.bg.base, bg = palette.pink.base })
 
-local ok, lualine = pcall(require, 'lualine')
-if ok then
+local _, lualine = pcall(require, 'lualine')
+if lualine then
   lualine.setup({
     options = {
       theme = {
@@ -938,3 +920,6 @@ if ok then
     }
   })
 end
+
+local _, devicons = pcall(require, 'nvim-web-devicons')
+if devicons then devicons.set_default_icon('', palette.fg.dim, 0) end
