@@ -19,7 +19,7 @@ require('fidget').setup({
       render_limit = 16,
       done_ttl = 5,
       done_icon = '',
-      done_style = '@diff.plus',
+      done_style = 'FidgetDone',
       progress_ttl = math.huge,
       progress_icon = { pattern = { '', '', '' }, period = 1 },
       progress_style = 'FidgetProgress',

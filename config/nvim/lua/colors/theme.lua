@@ -1,8 +1,30 @@
 return {
   -- ------------------| base |-----------------------
 
+  Normal = { fg = 'palette.fg', bg = 'palette.bg' },
+  NormalNC = { link = 'Normal' },
+  NonText = { fg = 'palette.bg.border' },
+  EndOfBuffer = { fg = 'palette.bg' },
+  Conceal = { fg = 'palette.bg.border' },
+  SpecialKey = { link = 'NonText' },    -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
+
+  Underlined = { style = 'underline' }, -- (preferred) text that stands out, HTML links
+  Bold = { style = 'bold' },
+  Italic = { style = 'italic' },
+
+  Visual = { bg = 'palette.sel' }, -- Visual mode selection
+  VisualNOS = { link = 'Visual' }, -- Visual mode selection when vim is "Not Owning the Selection".
+
+  Cursor = { fg = 'palette.bg', bg = 'palette.accent' },
+  lCursor = { link = 'Cursor' },
+  CursorIM = { link = 'Cursor' },
+  TermCursor = { link = 'Cursor' },
+  TermCursorNC = { link = 'Cursor' },
+
   SpellRare = { style = 'NONE' },
   SpellLocal = { style = 'NONE' },
+  SpellBad = { sp = 'palette.red', style = 'undercurl' },
+  SpellCap = { sp = 'palette.yellow', style = 'undercurl' },
 
   MatchParen = { fg = 'palette.blue', bg = 'palette.blue.dim' },
 
@@ -57,21 +79,37 @@ return {
 
   ['@comment'] = { link = 'Comment' },
   ['@comment.documentation'] = { link = 'Documentation' },
+  ['@comment.error'] = { fg = 'palette.bg', bg = 'palette.red' },
+  ['@comment.warning'] = { fg = 'palette.bg', bg = 'palette.yellow' },
+  ['@comment.todo'] = { fg = 'palette.bg', bg = 'palette.blue' },
+  ['@comment.note'] = { fg = 'palette.bg', bg = 'palette.magenta' },
 
+  ['@boolean'] = { link = 'Boolean' },
+
+  ['@number'] = { link = 'Number' },
+  ['@number.float'] = { link = 'Float' },
+
+  ['@string'] = { link = 'String' },
+  ['@string.special'] = { link = 'Special' },
   ['@string.special.url'] = { link = '@markup.link' },
-
-  ['@character.special'] = { fg = 'palette.fg.dim' },
-
+  ['@string.special.symbol'] = { link = 'Special' },
+  ['@string.special.path'] = { fg = 'palette.blue' },
   ['@string.escape'] = { fg = 'palette.magenta.bright', style = 'bold' },
   ['@string.regexp'] = { fg = 'palette.green', style = 'NONE' },
   ['@operator.regex'] = { fg = 'palette.green.dim', style = 'bold' },
+  ['@string.documentation'] = { link = 'Documentation' },
 
-  ['@type.builtin'] = { link = 'Type' },
+  ['@character'] = { link = 'Character' },
+  ['@character.special'] = { fg = 'palette.fg.dim' },
+
+  ['@type'] = { link = 'Type' },
+  ['@type.builtin'] = { link = '@type' },
 
   ['@module'] = { fg = 'palette.yellow' },
   ['@module.builtin'] = { fg = 'palette.fg' },
 
   ['@property'] = { fg = 'palette.fg.dim' },
+  ['@attribute'] = { link = '@property' },
   ['@variable'] = { fg = 'palette.fg' },
   ['@variable.key'] = { fg = 'palette.fg.dim', style = 'italic' },
   ['@variable.parameter'] = { link = '@variable' },
@@ -79,19 +117,26 @@ return {
   ['@variable.builtin'] = { fg = 'palette.pink' },
 
   ['@function'] = { fg = 'palette.fg.dim', style = 'underline,bold' },
+  ['@function.macro'] = { link = '@function' },
   ['@function.call'] = { fg = 'palette.fg', style = 'NONE' },
+  ['@function.method'] = { link = '@function' },
   ['@function.method.call'] = { link = '@function.call' },
   ['@function.method.call.class'] = { style = 'italic' },
   ['@function.method.call.flow'] = { fg = 'palette.magenta' },
   ['@function.builtin'] = { link = '@function.call' },
+  ['@constructor'] = { link = '@function' },
 
   ['@class'] = { fg = 'palette.yellow', style = 'underline,bold' },
   ['@constant'] = { fg = 'palette.fg', },
   ['@constant.builtin'] = { link = '@variable.builtin' },
   ['@constant.assignment'] = { fg = 'palette.fg', style = 'underline' },
+  ['@constant.macro'] = { link = 'Macro' },
 
   ['@operator'] = { fg = 'palette.fg.dimmer' },
 
+  ['@label'] = { link = 'Label' }, -- GOTO and other labels (e.g. `label:` in C), including heredoc labels
+
+  ['@tag'] = { fg = 'palette.fg.dimmer' },
   ['@tag.attribute'] = { fg = 'palette.fg.dim' },
   ['@tag.delimiter'] = { link = '@operator' },
 
@@ -110,8 +155,13 @@ return {
   ['@keyword.raise'] = { link = '@keyword.return' },
   ['@keyword.exit'] = { link = '@keyword.return' },
   ['@keyword.conditional'] = { fg = 'palette.magenta', bg = 'palette.magenta.dimmer' },
+  ['@keyword.conditional.ternary'] = { link = '@keyword.conditional' },
   ['@keyword.repeat'] = { link = '@keyword.conditional' },
+  -- ['@keyword.coroutine'] = {},
+  ['@keyword.storage'] = { link = 'StorageClass' },
+  ['@keyword.debug'] = { fg = 'palette.bg', bg = 'palette.red' },
 
+  ['@markup'] = { fg = 'palette.fg' },
   ['@markup.strong'] = { fg = 'none', style = 'bold' },
   ['@markup.italic'] = { fg = 'none', style = 'italic' },
   ['@markup.underline'] = { fg = 'none', style = 'underline' },
@@ -128,11 +178,22 @@ return {
   ['@markup.heading.5'] = { fg = 'palette.cyan' },
   ['@markup.heading.6'] = { fg = 'palette.magenta' },
   ['@markup.list'] = { fg = 'palette.cyan.dim' },
+  ['@markup.list.checked'] = { fg = 'palette.green' },
+  ['@markup.list.unchecked'] = { fg = 'palette.yellow' },
+  ['@markup.strikethrough'] = { fg = 'palette.fg', style = "strikethrough" },
+  ['@markup.heading'] = { link = 'Title' },
+  -- ['@markup.math'] = { fg = 'palette.fg.dim' },
+  -- ['@markup.environment'] = {}, -- environments (e.g. in LaTeX)
+  ['@markup.raw'] = { fg = 'palette.fg', bg = 'palette.bg.dim', style = 'italic' },
+  ['@diff.plus'] = { link = "diffAdded" },
+  ['@diff.minus'] = { link = "diffRemoved" },
+  ['@diff.delta'] = { link = "diffChanged" },
 
   -- search
   Search = { fg = 'palette.fg', bg = 'palette.sel.dim' },
   IncSearch = { fg = 'palette.fg', bg = 'palette.accent.dim' },
   Substitute = { link = 'IncSearch' },
+  CurSearch = { link = 'IncSearch' },
 
   -- snippets
   SnippetTabstop = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dark', style = 'italic' },
@@ -143,12 +204,33 @@ return {
   CursorLine = { bg = 'palette.bg.dimmer' },
   CursorLineNr = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dimmer' },
 
+  -- signcolumn
+  SignColumn = { fg = 'palette.fg.dimmer' },
+  SignColumnSB = { link = 'SignColumn' },
+
+  -- color column
+  ColorColumn = { bg = 'palette.bg.dimmer' },
+  CursorColumn = { link = 'CursorLine' },
+
+  -- tabline
+  TabLine = { fg = 'palette.fg.dimmer', bg = 'palette.bg.dim' }, -- tab pages line, not active tab page label
+  TabLineFill = { bg = 'palette.bg.dark' },                      -- tab pages line, where there are no labels
+  TabLineSel = { fg = 'palette.fg', bg = 'palette.bg.dimmer' },  -- tab pages line, active tab page label
+
+  -- statusline
+  StatusLine = { fg = 'palette.fg.dim', bg = 'palette.bg.dark' },
+  StatusLineNC = { link = 'StatusLine' },
+
   -- MsgArea
   MsgArea = { link = 'MsgAreaMsg' },
   MsgAreaCmd = { fg = 'palette.fg', style = 'NONE' },
   MsgAreaMsg = { fg = 'palette.fg.dimmer' },
   MsgSeparator = { link = 'WinSeparator' },
   MoreMsg = { fg = 'palette.fg.dim', bg = 'none', style = 'bold' },
+  Question = { link = 'MoreMsg' },
+  ErrorMsg = { fg = 'palette.red' },
+  WarningMsg = { fg = 'palette.yellow' },
+  ModeMsg = { fg = 'palette.yellow', style = 'bold' },
 
   -- quickfix
   qfText = { link = '@normal' },
@@ -175,6 +257,11 @@ return {
   -- LSP
   LspReferenceText = { fg = 'palette.pink', bg = 'palette.pink.dimmer' },
   LspSignatureActiveParameter = { fg = 'none', bg = 'palette.sel1', sp = 'palette.blue', style = 'underline' },
+  LspReferenceRead = { bg = 'palette.sel.dim' },
+  LspReferenceWrite = { bg = 'palette.sel.dim' },
+  LspCodeLens = { fg = 'palette.fg.dim' },
+  LspCodeLensSeparator = { fg = 'palette.fg.dimmer' },
+  LspInlayHint = { fg = 'palette.blue', bg = 'NONE' },
 
   -- floats
   NormalFloat = { fg = 'none', bg = 'palette.bg.dark' },
@@ -188,10 +275,14 @@ return {
   WinSeparatorThick = { fg = 'palette.bg.dark', bg = 'palette.bg.dark' },
   WinBar = { fg = 'palette.fg.dim', style = 'NONE' },
   WinBarNC = { fg = 'palette.fg.dimmer', style = 'NONE' },
+  VertSplit = { link = 'WinSeparator' }, -- the column separating vertically split windows
 
   -- pmenu
   Pmenu = { fg = 'palette.fg', bg = 'palette.bg.dark' },
-  PmenuSel = { bg = 'palette.sel1' },
+  PmenuSel = { bg = 'palette.sel.dim' },
+  PmenuSbar = { link = 'Pmenu' },      -- Popup menu: scrollbar.
+  PmenuThumb = { bg = 'palette.sel' }, -- Popup menu: Thumb of the scrollbar.
+  WildMenu = { link = 'Pmenu' },       -- current match in 'wildmenu' completion
 
   -- ------------| Language specific |----------------
 
@@ -247,6 +338,7 @@ return {
 
   -- ruby
   ['@comment.directive'] = { fg = 'palette.fg.dimmer', bg = 'palette.bg' },
+  ['@keyword.directive.define'] = {}, -- preprocessor definition directives
   ['@keyword.directive'] = { link = '@comment.directive' },
   ['@string.special.symbol.ruby'] = { link = '@string.ruby' },
   ['@operator.ternary.ruby'] = { link = '@keyword.conditional.ruby' },
@@ -260,6 +352,7 @@ return {
 
   -- yaml
   ['@property.yaml'] = { link = '@variable.key' },
+  ['@variable.member.yaml'] = { fg = 'palette.green' }, -- For fields.
 
   -- CSS
   ['@attribute.css'] = { fg = 'palette.fg.dim' },
@@ -421,6 +514,8 @@ return {
   LualineWarning = { fg = 'palette.yellow', bg = 'none' },
   LualineMacroRecording = { fg = 'palette.red', bg = 'none' },
 
+  FidgetTitle = { link = 'Title' },
+  FidgetTask = { link = 'LineNr' },
   FidgetGroup = { fg = 'palette.pink', style = 'bold' },
   FidgetNormal = { fg = 'palette.fg', bg = 'palette.bg.dark' },
   FidgetBorder = { link = 'FidgetNormal' },
@@ -431,6 +526,18 @@ return {
   NotifyINFOTitle = { fg = 'palette.blue' },
   NotifyWARNTitle = { fg = 'palette.yellow' },
   NotifyERRORTitle = { fg = 'palette.red' },
+  NotifyTRACETitle = { fg = 'palette.fg.dim' },
+  NotifyERRORBorder = { fg = 'palette.red' },
+  NotifyWARNBorder = { fg = 'palette.yellow' },
+  NotifyINFOBorder = { fg = 'palette.blue' },
+  NotifyDEBUGBorder = { fg = 'palette.cyan' },
+  NotifyTRACEBorder = { fg = 'palette.bg.border' },
+  NotifyERRORIcon = { link = 'NotifyERRORTitle' },
+  NotifyWARNIcon = { link = 'NotifyWARNTitle' },
+  NotifyINFOIcon = { link = 'NotifyINFOTitle' },
+  NotifyDEBUGIcon = { link = 'NotifyDEBUGTitle' },
+  NotifyTRACEIcon = { link = 'NotifyTRACETitle' },
+  NotifyBackground = { link = 'NormalFloat' },
 
   MarkSignHL = { fg = 'palette.pink', bg = 'palette.pink.dim' },
   MarkSignNumHL = { fg = 'palette.fg.dim', bg = 'palette.pink.dim' },
@@ -486,6 +593,9 @@ return {
   MarkviewGradient9 = { fg = '#92a0a0', bg = 'none' },
 
   NeogitNormal = { fg = 'palette.fg.dim' },
+  NeogitNotificationInfo = { fg = 'palette.blue' },
+  NeogitNotificationWarning = { fg = 'palette.yellow' },
+  NeogitNotificationError = { fg = 'palette.red' },
   NeogitFloatBorder = { link = 'WinSeparatorThin' },
   NeogitWinSeparator = { link = 'WinSeparatorThin' },
   NeogitFloatHeader = { fg = 'palette.bg', bg = 'palette.fg' },
@@ -618,6 +728,14 @@ return {
   DiffDelete = { fg = 'palette.red.dim', bg = 'palette.red.dim' },
   DiffChange = { bg = 'palette.yellow.dim' },
   DiffText = { bg = 'palette.blue.dim' },
+  diffAdded = { link = 'DiffAdd' },        -- Added lines ("^+.*" | "^>.*")
+  diffRemoved = { link = 'DiffDelete' },   -- Removed lines ("^-.*" | "^<.*")
+  diffChanged = { link = 'DiffChange' },   -- Changed lines ("^! .*")
+  diffOldFile = { fg = 'palette.yellow' }, -- Old file that is being diff against
+  diffNewFile = { fg = 'palette.blue' },   -- New file that is being compared to the old file
+  diffFile = { fg = 'palette.blue' },      -- The filename of the diff ("diff --git a/readme.md b/readme.md")
+  diffLine = { link = 'DiffText' },        -- Line information ("@@ -169,6 +169,9 @@")
+  diffIndexLine = { link = 'DiffText' },   -- Index line of diff ("index bf3763d..94f0f62 100644")
 
   GitSignsAdd = { fg = 'palette.green', bg = 'palette.green.dim' },
   GitSignsAddNr = { link = 'GitSignsAdd' },
@@ -657,9 +775,13 @@ return {
   GitSignsCurrentLineBlame = { fg = 'palette.fg.dim', bg = 'palette.bg.dark', style = 'italic' },
 
   CmpGhostText = { fg = 'palette.fg.dimmer' },
+  CmpDocumentation = { fg = 'palette.fg', bg = 'palette.bg.dark' },
+  CmpDocumentationBorder = { fg = 'palette.sel.dim', bg = 'palette.bg.dark' },
+  CmpItemMenu = { link = 'Comment' },
   CmpItemAbbr = { fg = 'palette.fg' },
   CmpItemAbbrMatch = { fg = 'palette.green' },
   CmpItemAbbrMatchFuzzy = { link = 'CmpItemAbbrMatch' },
+  CmpItemAbbrDeprecated = { fg = 'palette.fg.dim', style = 'strikethrough' },
   CmpItemKind = { fg = 'palette.fg.dim' },
   CmpItemKindText = { fg = 'palette.fg.dimmer' },
   CmpItemKindSnippet = { link = 'CmpItemKind' },
@@ -676,6 +798,18 @@ return {
   CmpItemKindKeyword = { link = 'CmpItemKind' },
   CmpItemKindFunction = { link = 'CmpItemKind' },
   CmpItemKindMethod = { link = 'CmpItemKind' },
+  CmpItemKindConstant = { link = "Constant" },
+  CmpItemKindReference = { link = "Keyword" },
+  CmpItemKindValue = { link = "Keyword" },
+  CmpItemKindConstructor = { link = "Function" },
+  CmpItemKindInterface = { link = "Constant" },
+  CmpItemKindEvent = { link = "Constant" },
+  CmpItemKindUnit = { link = "Constant" },
+  CmpItemKindClass = { link = "Type" },
+  CmpItemKindStruct = { link = "Type" },
+  CmpItemKindTypeParameter = { link = "Identifier" },
+  CmpItemKindOperator = { link = "Operator" },
+  CmpItemKindDefault = { link = 'CmpItemKind' },
 
   ['@variable.member.ledger'] = { link = '@property' },
   ['@number.ledger'] = { fg = 'palette.green' },
