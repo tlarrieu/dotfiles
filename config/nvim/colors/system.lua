@@ -869,24 +869,27 @@ hl(0, 'Cursorword', { fg = p.bg.base, bg = p.pink.base })
 
 local _, lualine = pcall(require, 'lualine')
 if lualine then
+  local normal = {
+    a = { fg = p.bg.base, bg = p.fg.base },
+    b = { fg = p.bg.base, bg = p.fg.dim },
+    c = { fg = p.fg.dim, bg = p.bg.dim },
+  }
+  local command = {
+    a = { fg = p.bg.base, bg = p.pink.base },
+    b = { fg = p.fg.base, bg = p.pink.dim },
+    c = { fg = p.fg.dim, bg = p.bg.dim },
+  }
+
   lualine.setup({
     options = {
       theme = {
-        normal = {
-          a = { fg = p.bg.base, bg = p.accent.base },
-          b = { fg = p.fg.base, bg = p.accent.dim },
-          c = { fg = p.fg.dim, bg = p.bg.dim },
-        },
+        normal = normal,
         insert = {
           a = { fg = p.bg.base, bg = p.green.base },
           b = { fg = p.fg.base, bg = p.green.dim },
           c = { fg = p.fg.dim, bg = p.bg.dim },
         },
-        command = {
-          a = { fg = p.bg.base, bg = p.fg.base },
-          b = { fg = p.fg.base, bg = p.fg.dim },
-          c = { fg = p.fg.dim, bg = p.bg.dim },
-        },
+        command = command,
         visual = {
           a = { fg = p.bg.base, bg = p.blue.base },
           b = { fg = p.fg.base, bg = p.blue.dim },
@@ -897,16 +900,8 @@ if lualine then
           b = { fg = p.fg.base, bg = p.red.dim },
           c = { fg = p.fg.dim, bg = p.bg.dim },
         },
-        terminal = {
-          a = { fg = p.bg.base, bg = p.fg.base },
-          b = { fg = p.fg.base, bg = p.fg.dim },
-          c = { fg = p.fg.dim, bg = p.bg.dim },
-        },
-        inactive = {
-          a = { fg = p.bg.base, bg = p.accent.base },
-          b = { fg = p.fg.base, bg = p.accent.dim },
-          c = { fg = p.fg.dim, bg = p.bg.dim },
-        }
+        terminal = command,
+        inactive = normal,
       }
     }
   })
