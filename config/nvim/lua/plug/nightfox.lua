@@ -1,7 +1,7 @@
 vim.pack.add({ 'https://github.com/edeneast/nightfox.nvim' }, { confirm = false })
 
 local file_for = function(mode)
-  return vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'colors', mode .. '.lua')
+  return vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'colors', 'palettes', mode .. '.lua')
 end
 
 local import = function(mode)

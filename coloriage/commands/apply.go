@@ -37,7 +37,7 @@ func build(name string) (err error) {
 	config := filepath.Join(homedir, ".config")
 
 	mappings := []Mapping{
-		{app: "nvim", dir: []string{config, "nvim", "lua", "colors"}, extension: ".lua"},
+		{app: "nvim", dir: []string{config, "nvim", "lua", "colors", "palettes"}, extension: ".lua"},
 		{app: "awesome", dir: []string{config, "awesome", "colors"}, extension: ".lua"},
 		{app: "kitty", dir: []string{config, "kitty", "themes"}, extension: ".conf"},
 		{app: "fish", dir: []string{config, "fish", "themes"}, extension: ".theme"},

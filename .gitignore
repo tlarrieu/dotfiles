@@ -48,8 +48,8 @@ config/fish/themes/light.theme
 config/fish/themes/dark.theme
 config/kitty/themes/light.conf
 config/kitty/themes/dark.conf
-config/nvim/lua/colors/light.lua
-config/nvim/lua/colors/dark.lua
+config/nvim/lua/colors/palettes/light.lua
+config/nvim/lua/colors/palettes/dark.lua
 config/rofi/light.rasi
 config/rofi/dark.rasi
 config/zathura/light
