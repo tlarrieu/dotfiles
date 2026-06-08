@@ -13,13 +13,13 @@
     "accent": "#b4637a",
     "fg": {
       "base": "#575279",
-      "dim": "#797593",
-      "dimmer": "#9d9aa5"
+      "dim": "#a39eb1",
+      "dimmer": "#b6b1bf"
     },
     "bg": {
-      "base": "#faf4ed",
-      "dim": "#fffaf3",
-      "dimmer": "#f4ede8",
+      "base": "#fffaf3",
+      "dim": "#faf4ed",
+      "dimmer": "#f2e9e1",
       "border": "#bdbfc9"
     },
     "sel": {
@@ -41,8 +41,8 @@
     "accent": "#eb6f92",
     "fg": {
       "base": "#c2c0d3",
-      "dim": "#908caa",
-      "dimmer": "#6e6a86"
+      "dim": "#7a788f",
+      "dimmer": "#68667e"
     },
     "bg": {
       "base": "#232136",
