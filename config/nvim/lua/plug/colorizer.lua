@@ -17,8 +17,3 @@ require('nvim-highlight-colors').setup({
   render = 'virtual',
   virtual_symbol = '',
 })
-
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = require('nvim-highlight-colors').turnOn,
-  group = vim.api.nvim_create_augroup('colorizer_group', {})
-})
