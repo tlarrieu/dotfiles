@@ -33,14 +33,11 @@ require('dropbar').setup({
     end,
     update_events = {
       buf = {
-        -- 0.13.x
-        { event = 'OptionSet', pattern = 'modified' },
-        -- 0.12.x
-        'BufModifiedSet',
+        vim.version().minor >= 13 and { event = 'OptionSet', pattern = 'modified' } or 'BufModifiedSet',
         'FileChangedShellPost',
         'TextChanged',
         'ModeChanged',
-      },
+      }
     },
   },
   sources = {
