@@ -25,8 +25,9 @@ vim.filetype.add({
     vifmrc = 'vim',
   },
   pattern = {
-    ['config/kitty/.*'] = { 'kitty', { priority = -math.huge } },
-    ['config/neomutt/.*'] = { 'neomuttrc', { priority = -math.huge } },
+    ['.*/config/kitty/.*'] = { 'kitty', { priority = -math.huge } },
+    ['.*/config/neomutt/.*'] = { 'neomuttrc', { priority = -math.huge } },
+    ['.*/config/zathura/.*'] = { 'zathurarc', { priority = -math.huge } },
   },
 })
 

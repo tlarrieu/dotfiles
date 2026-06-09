@@ -6,9 +6,12 @@ set completion-highlight-bg "{{ .Bg.Base }}"
 set completion-highlight-fg "{{ .Accent.Base }}"
 set inputbar-bg "{{ .Bg.Base }}"
 set inputbar-fg "{{ .Fg.Base }}"
-set default-bg "{{ .Bg.Dark }}"
+set default-bg "{{ .Bg.Dim }}"
 set default-fg "{{ .Fg.Base }}"
 set recolor-lightcolor "{{ .Bg.Base }}"
 set recolor-darkcolor "{{ .Fg.Base }}"
-
-# vim:ft=zathurarc
+set highlight-active-color rgba({{ .Accent.Base | rgb }},0.7)
+set highlight-color rgba({{ .Accent.Dim | rgb }},0.7)
+set highlight-fg "{{ .Fg.Base }}"
+set guioptions ""
+set font "CaskaydiaCove Nerd Font 14.5"
