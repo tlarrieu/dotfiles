@@ -571,9 +571,9 @@ hl(0, 'NotifyDEBUGIcon', { link = 'NotifyDEBUGTitle' })
 hl(0, 'NotifyTRACEIcon', { link = 'NotifyTRACETitle' })
 hl(0, 'NotifyBackground', { link = 'NormalFloat' })
 
-hl(0, 'MarkSignHL', { fg = p.pink.base, bg = p.pink.dim })
-hl(0, 'MarkSignNumHL', { fg = p.fg.dim, bg = p.pink.dim })
-hl(0, 'MarkVirtTextHL', { fg = p.pink.base, bg = p.pink.dim })
+hl(0, 'MarkSignHL', { fg = p.accent.base, bg = p.accent.dim })
+hl(0, 'MarkSignNumHL', { fg = p.fg.dim, bg = p.accent.dim })
+hl(0, 'MarkVirtTextHL', { fg = p.accent.base, bg = p.accent.dim })
 
 hl(0, 'MarkviewCode', { fg = 'none', bg = p.bg.dimmer })
 hl(0, 'MarkviewCodeLabel', { fg = p.bg.dimmer, bg = p.yellow.base, bold = true })
