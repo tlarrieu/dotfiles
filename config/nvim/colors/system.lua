@@ -212,7 +212,7 @@ hl(0, 'CurSearch', { link = 'IncSearch' })
 
 -- snippets
 hl(0, 'SnippetTabstop', { fg = p.fg.dimmer, bg = p.bg.dim, italic = true })
-hl(0, 'SnippetTabstopActive', { fg = p.pink.base, bg = p.pink.dim, bold = true })
+hl(0, 'SnippetTabstopActive', { fg = p.accent.base, bg = p.accent.dim, bold = true })
 
 -- Lines
 hl(0, 'LineNr', { fg = p.fg.dimmer })
@@ -287,7 +287,7 @@ hl(0, 'DiagnosticUnderlineHint', { undercurl = true, sp = p.fg.dim })
 hl(0, 'DiagnosticUnderlineOk', { undercurl = true, sp = p.green.base })
 
 -- LSP
-hl(0, 'LspReferenceText', { fg = p.pink.base, bg = p.pink.dimmer })
+hl(0, 'LspReferenceText', { fg = p.accent.base, bg = p.accent.dimmer })
 hl(0, 'LspSignatureActiveParameter', { fg = 'none', bg = p.sel.base, sp = p.blue.base, underline = true })
 hl(0, 'LspReferenceRead', { bg = p.sel.dim })
 hl(0, 'LspReferenceWrite', { bg = p.sel.dim })
@@ -866,7 +866,7 @@ hl(0, 'TodoFgTEST', { fg = p.cyan.base })
 
 hl(0, 'ExchangeRegion', { fg = p.bg.base, bg = p.orange.base })
 
-hl(0, 'Cursorword', { fg = p.bg.base, bg = p.pink.base })
+hl(0, 'Cursorword', { fg = p.bg.base, bg = p.accent.base })
 
 local _, lualine = pcall(require, 'lualine')
 if lualine then
