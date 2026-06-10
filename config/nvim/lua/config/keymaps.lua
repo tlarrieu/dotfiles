@@ -244,7 +244,9 @@ local cgo = function(cmd)
 end
 
 vim.keymap.set('n', '<c-n>', cgo('cnext!'), { silent = true })
+vim.keymap.set('n', '<c-s-n>', ':silent cnewer<cr>', { silent = true })
 vim.keymap.set('n', '<c-p>', cgo('cprev!'), { silent = true })
+vim.keymap.set('n', '<c-s-p>', ':silent colder<cr>', { silent = true })
 vim.keymap.set('n', '<c-c>', cgo('crewind!'), { silent = true })
 
 vim.keymap.set('n', '<leader>q', function()

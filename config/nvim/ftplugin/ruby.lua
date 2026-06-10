@@ -5,6 +5,13 @@ vim.opt_local.spell = true
 
 local helpers = require('helpers')
 
+local telescope = require('telescope.builtin')
+local grep = function(pattern, bang)
+  vim.cmd.grep { pattern, bang = bang, mods = { silent = true } }
+  telescope.quickfix({ results_title = '󰁨 quickfix', show_line = false })
+end
+local lgrep = function(pattern, bang) vim.cmd.lgrep { pattern, bang = bang, mods = { silent = true } } end
+
 local rspec = function(opts)
   opts = opts or {}
 
@@ -119,7 +126,9 @@ require('alternator').setup({
   { pattern = "(.*)%.rb", target = "%1_spec.rb" },
 })
 
-vim.keymap.set('n', '<c-s-p>', '<cmd>silent grep! Kernel.binding.pry<cr>')
+vim.keymap.set('n', '<c-s-é>', function()
+  grep('Kernel.binding.pry')
+end)
 
 local find_files = function(kind, root)
   local params = {
@@ -128,9 +137,8 @@ local find_files = function(kind, root)
     find_command = { 'fd', '-tf', '--hidden', '-p', (root or 'app') .. '/' .. kind },
     results_title = ' ' .. kind,
   }
-  return function() require('telescope.builtin').find_files(params) end
+  return function() telescope.find_files(params) end
 end
-
 local lookup = function(kind) return 'Telescope ' .. kind .. ' lookup (Ruby on Rails)' end
 
 vim.keymap.set('n', '<a-c>', find_files('controller'), { desc = lookup('controllers') })
@@ -195,12 +203,9 @@ local label_for = function(bufnr, cursor, qname)
   end
 end
 
-local t = require('telescope.builtin')
 local globs = '-g "*.{rb,erb,rake}" -g "bin/*"'
-local def_pattern = '(def( self.)?|module|class)'
-local cword = function() return vim.fn.expand('<cword>') .. '([ :(]|\\$)' end
-local grep = function(pattern, bang) vim.cmd.grep { pattern, bang = bang, mods = { silent = true } } end
-local lgrep = function(pattern, bang) vim.cmd.lgrep { pattern, bang = bang, mods = { silent = true } } end
+local def_expression = '(def( self.)?|module|class)'
+local cword = function() return vim.fn.expand('<cword>') .. '([ :(.,]|\\$)' end
 
 vim.keymap.set('n', 'gd', function()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -212,11 +217,8 @@ vim.keymap.set('n', 'gd', function()
   local shared_context = label_for(bufnr, cursor, 'shared_context')
   if shared_context then return lgrep(('"shared_context[\\( ].%s"'):format(shared_context)) end
 
-  grep(('-s "%s %s" %s'):format(def_pattern, cword(), globs))
-  t.quickfix { results_title = '  definition(s)', show_line = false }
+  grep(('-s "%s %s" %s'):format(def_expression, cword(), globs), true)
 end, { silent = true, buffer = true })
 
-vim.keymap.set('n', 'gr', function()
-  grep(('-s "%s" %s'):format(cword(), globs))
-  t.quickfix { results_title = '  reference(s)', show_line = false }
-end, { silent = true, buffer = true })
+vim.keymap.set('n', 'gr', function() grep(('-s "%s" %s'):format(cword(), globs), true) end,
+  { silent = true, buffer = true })
