@@ -161,13 +161,9 @@ local cursor_in_region = function(cursor, region)
   local start_row, start_col, end_row, end_col = region[1], region[2], region[3], region[4]
 
   if start_row + 1 <= currow and currow <= end_row + 1 then
-    if start_row + 1 == currow then
-      return start_col <= curcol
-    elseif end_row + 1 == currow then
-      return end_col - 1 >= curcol
-    else
-      return true
-    end
+    if start_row + 1 == currow then return start_col <= curcol end
+    if end_row + 1 == currow then return end_col - 1 >= curcol end
+    return true
   end
 
   return false
