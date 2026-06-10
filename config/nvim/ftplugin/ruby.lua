@@ -195,15 +195,28 @@ local label_for = function(bufnr, cursor, qname)
   end
 end
 
+local t = require('telescope.builtin')
+local globs = '-g "*.{rb,erb,rake}" -g "bin/*"'
+local def_pattern = '(def( self.)?|module|class)'
+local cword = function() return vim.fn.expand('<cword>') .. '([ :(]|\\$)' end
+local grep = function(pattern, bang) vim.cmd.grep { pattern, bang = bang, mods = { silent = true } } end
+local lgrep = function(pattern, bang) vim.cmd.lgrep { pattern, bang = bang, mods = { silent = true } } end
+
 vim.keymap.set('n', 'gd', function()
   local bufnr = vim.api.nvim_get_current_buf()
   local cursor = vim.api.nvim_win_get_cursor(0)
 
   local shared_examples = label_for(bufnr, cursor, 'shared_examples')
-  if shared_examples then return vim.cmd.lgrep { '"shared_examples[\\( ].' .. shared_examples .. '"', mods = { silent = true } } end
+  if shared_examples then return lgrep(('"shared_examples[\\( ].%s"'):format(shared_examples)) end
 
   local shared_context = label_for(bufnr, cursor, 'shared_context')
-  if shared_context then return vim.cmd.lgrep { '"shared_context[\\( ].' .. shared_context .. '"', mods = { silent = true } } end
+  if shared_context then return lgrep(('"shared_context[\\( ].%s"'):format(shared_context)) end
 
-  require('telescope.builtin').lsp_definitions()
+  grep(('-s "%s %s" %s'):format(def_pattern, cword(), globs))
+  t.quickfix { results_title = '  definition(s)', show_line = false }
+end, { silent = true, buffer = true })
+
+vim.keymap.set('n', 'gr', function()
+  grep(('-s "%s" %s'):format(cword(), globs))
+  t.quickfix { results_title = '  reference(s)', show_line = false }
 end, { silent = true, buffer = true })

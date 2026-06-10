@@ -120,22 +120,6 @@ vim.keymap.set('n', '<c-h>', function()
   builtin.help_tags({ results_title = ' documentation' })
 end, { desc = 'Telescope help tags' })
 
-vim.keymap.set('n', 'gd', function()
-  builtin.lsp_definitions({ results_title = ' LSP definitions' })
-end, { desc = 'Telescope LSP definitions' })
-
-vim.keymap.set('n', '<c-w>gd', function()
-  builtin.lsp_definitions({ jump_type = 'vsplit', results_title = ' LSP definitions' })
-end, { desc = 'Telescope LSP definitions (vertical split)' })
-
-vim.keymap.set('n', 'gr', function()
-  builtin.lsp_references({ results_title = ' LSP references' })
-end, { desc = 'Telescope LSP references' })
-
-vim.keymap.set('n', '<c-w>gr', function()
-  builtin.lsp_references({ jump_type = 'vsplit', results_title = ' LSP references' })
-end, { desc = 'Telescope LSP references (vertical split)' })
-
 vim.keymap.set('n', '<c-q>', function()
   builtin.quickfix({ results_title = '󰁨 quickfix', show_line = false })
 end, { desc = 'Telescope quickfix' })

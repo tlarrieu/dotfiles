@@ -1,5 +1,7 @@
+-- Configurations for LSPs can be found here :
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lsp
+
 vim.pack.add({
-  'https://github.com/neovim/nvim-lspconfig',
   'https://github.com/hrsh7th/cmp-nvim-lsp',
   'https://github.com/williamboman/mason.nvim',
   'https://github.com/williamboman/mason-lspconfig.nvim',
@@ -41,11 +43,11 @@ vim.lsp.document_color.enable(false)
 
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'ruby_lsp', -- ruby
-    'lua_ls',   -- lua
-    'gopls',    -- golang
-    'bashls',   -- bash
-    'jsonls',   -- json
+    'rubocop', -- lua
+    'lua_ls',  -- lua
+    'gopls',   -- golang
+    'bashls',  -- bash
+    'jsonls',  -- json
   },
 })
 
@@ -73,6 +75,28 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
     if client:supports_method('textDocument/rename', ev.buf) then
       vim.keymap.set('n', 'cé', vim.lsp.buf.rename, conf)
+    end
+
+    local t = require('telescope.builtin')
+
+    if client:supports_method('textDocument/definition', ev.buf) then
+      local results_title = ' LSP definitions'
+      vim.keymap.set('n', 'gd',
+        function() t.lsp_definitions({ results_title = results_title }) end,
+        { desc = 'Telescope LSP definitions' })
+      vim.keymap.set('n', '<c-w>gd',
+        function() t.lsp_definitions({ jump_type = 'vsplit', results_title = results_title }) end,
+        { desc = 'Telescope LSP definitions (vertical split)' })
+    end
+
+    if client:supports_method('textDocument/references', ev.buf) then
+      local results_title = ' LSP references'
+      vim.keymap.set('n', 'gr',
+        function() t.lsp_references({ results_title = results_title }) end,
+        { desc = 'Telescope LSP references' })
+      vim.keymap.set('n', '<c-w>gr',
+        function() t.lsp_references({ jump_type = 'vsplit', results_title = results_title }) end,
+        { desc = 'Telescope LSP references (vertical split)' })
     end
 
     vim.keymap.set('n', '<leader>h', vim.lsp.buf.signature_help, require('helpers').merge({ remap = false }, conf))
