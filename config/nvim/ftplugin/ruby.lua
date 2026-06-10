@@ -204,7 +204,7 @@ local label_for = function(bufnr, cursor, qname)
 end
 
 local globs = '-g "*.{rb,erb,rake}" -g "bin/*"'
-local def_expression = '(def( self.)?|module|class)'
+local def_expression = '(def (self.)?|module |class )'
 local cword = function() return vim.fn.expand('<cword>') .. '([ :(.,]|\\$)' end
 
 vim.keymap.set('n', 'gd', function()
@@ -217,7 +217,7 @@ vim.keymap.set('n', 'gd', function()
   local shared_context = label_for(bufnr, cursor, 'shared_context')
   if shared_context then return lgrep(('"shared_context[\\( ].%s"'):format(shared_context)) end
 
-  grep(('-s "%s %s" %s'):format(def_expression, cword(), globs), true)
+  grep(('-s "%s%s" %s'):format(def_expression, cword(), globs), true)
 end, { silent = true, buffer = true })
 
 vim.keymap.set('n', 'gr', function() grep(('-s "%s" %s'):format(cword(), globs), true) end,
