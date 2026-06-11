@@ -17,7 +17,7 @@ return {
     e = '--- @',
     req = "require('${1:module}')",
     lreq = "local ${1:module} = require('$1')",
-    m = 'local M = {}\n\n$0\n\n return M',
+    m = 'local M = {}\n\n$0\n\nreturn M',
     d = {
       inline = 'function($1) $2 end',
       block = 'local $1 = function($2)\n\t$0\nend',
