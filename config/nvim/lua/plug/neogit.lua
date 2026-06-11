@@ -10,6 +10,7 @@ require('codediff').setup({
   diff = {
     layout = 'inline',
     compute_moves = true,
+    cycle_hunks_across_files = true,
   },
   explorer = {
     width = 45,
