@@ -36,14 +36,6 @@
       "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
-    "copilot-cmp": {
-      "rev": "15fc12af3d0109fa76b60b5cffa1373697e261d1",
-      "src": "https://github.com/zbirenbaum/copilot-cmp"
-    },
-    "copilot.lua": {
-      "rev": "0415bd625c3076a6a5ee445be484574d55b4fbfc",
-      "src": "https://github.com/zbirenbaum/copilot.lua"
-    },
     "dropbar.nvim": {
       "rev": "808ba31cde89aec8833e9789f5e04557cd31c9e1",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
@@ -113,10 +105,6 @@
     "nvim-listchars": {
       "rev": "694349b66418cbe37a9300aae0331408249e52dc",
       "src": "https://github.com/0xfraso/nvim-listchars"
-    },
-    "nvim-lspconfig": {
-      "rev": "ed19590a3a9792901553c388d1aadafce012f80d",
-      "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",

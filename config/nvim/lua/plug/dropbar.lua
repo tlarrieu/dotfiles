@@ -139,7 +139,6 @@ require('dropbar').setup({
         Event = '󱐌 ',
         Operator = '󱓉 ',
         TypeParameter = ' ',
-        Copilot = '󱨚 ',
 
         Array = '󰅪 ',
         BlockMappingPair = '󰅩 ',

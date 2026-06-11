@@ -47,7 +47,6 @@ require('plug.neogit')
 require('plug.gitsigns')
 require('plug.webify')
 
-require('plug.copilot')
 require('plug.completion')
 require('plug.treesitter')
 require('plug.lsp')

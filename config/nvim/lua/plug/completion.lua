@@ -3,27 +3,11 @@ vim.pack.add({
   'https://github.com/hrsh7th/cmp-path',
   'https://github.com/hrsh7th/cmp-buffer',
   'https://github.com/hrsh7th/cmp-cmdline',
-  'https://github.com/zbirenbaum/copilot-cmp',
   'https://github.com/hrsh7th/nvim-cmp',
 }, { confirm = false })
 
 local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
 
-if vim.pack.get({ 'copilot-cmp' })[1].rev == '15fc12af3d0109fa76b60b5cffa1373697e261d1' then
-  -- get rid of deprecation warnings (client.is_stopped vs client:is_stopped) from copilot-cmp
-  require("copilot_cmp.source").is_available = function(self)
-    if self.client:is_stopped() or not self.client.name == "copilot" then return false end
-
-    return next(vim.lsp.get_clients({
-      bufnr = vim.api.nvim_get_current_buf(),
-      id = self.client.id,
-    })) ~= nil
-  end
-else
-  vim.notify('copilot-cmp has been updated, check whether the monkey patch is still useful', vim.log.levels.WARN)
-end
-
-require('copilot_cmp').setup()
 local cmp = require('cmp')
 
 local kind_icons = {
@@ -52,7 +36,6 @@ local kind_icons = {
   Event = '󱐌',
   Operator = '󱓉',
   TypeParameter = '',
-  Copilot = '󱨚',
 }
 
 cmp.setup({
@@ -84,7 +67,6 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'path', priority = 1000 },
-    { name = 'copilot', priority = 110 },
     { name = 'nvim_lsp', priority = 100 },
     { name = 'buffer', priority = 10, option = { get_bufnrs = vim.api.nvim_list_bufs, keyword_pattern = [[\k\+]] } },
   }),
