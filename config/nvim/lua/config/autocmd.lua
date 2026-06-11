@@ -35,15 +35,3 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     if path ~= '' then vim.cmd.lcd(path) end
   end,
 })
-
-local cmdline_group = vim.api.nvim_create_augroup('msg_area_hl', {})
-
-local set_msg_area_hl = function(link)
-  vim.api.nvim_set_hl(0, 'MsgArea', { link = link })
-  vim.cmd.redrawstatus()
-end
-
-vim.api.nvim_create_autocmd('CmdlineEnter',
-  { callback = function() set_msg_area_hl('MsgAreaCmd') end, group = cmdline_group })
-vim.api.nvim_create_autocmd('CmdlineLeave',
-  { callback = function() set_msg_area_hl('MsgAreaMsg') end, group = cmdline_group })

@@ -6,13 +6,9 @@ vim.api.nvim_create_autocmd('Signal', {
   group = vim.api.nvim_create_augroup('refresh_colorscheme', {})
 })
 
-local import = function(mode)
-  return loadfile(vim.fs.joinpath(vim.fn.stdpath('config'), 'lua', 'colors', 'palettes', mode .. '.lua'))()
-end
-
 vim.cmd.highlight('clear')
 vim.o.background = require('mode').current()
-local p, hl = import(vim.o.background), vim.api.nvim_set_hl
+local p, hl = require('colors.palettes').load(vim.o.background), vim.api.nvim_set_hl
 
 ------------------| base |-----------------------
 
@@ -237,15 +233,14 @@ hl(0, 'StatusLine', { fg = p.fg.dim, bg = p.bg.dim })
 hl(0, 'StatusLineNC', { link = 'StatusLine' })
 
 -- MsgArea
-hl(0, 'MsgArea', { link = 'MsgAreaMsg' })
-hl(0, 'MsgAreaCmd', { fg = p.fg.base })
-hl(0, 'MsgAreaMsg', { fg = p.fg.dimmer })
+hl(0, 'MsgArea', { fg = p.fg.base, bg = p.bg.dim })
 hl(0, 'MsgSeparator', { link = 'WinSeparator' })
-hl(0, 'MoreMsg', { fg = p.fg.dim, bg = 'none', bold = true })
-hl(0, 'Question', { link = 'MoreMsg' })
+hl(0, 'MoreMsg', { fg = p.fg.base, bg = p.bg.dim, bold = true })
+hl(0, 'ModeMsg', { fg = p.yellow.base, bold = true })
+hl(0, 'Question', { fg = p.fg.base })
+hl(0, 'OkMsg', { fg = p.green.base })
 hl(0, 'ErrorMsg', { fg = p.red.base })
 hl(0, 'WarningMsg', { fg = p.yellow.base })
-hl(0, 'ModeMsg', { fg = p.yellow.base, bold = true })
 
 -- quickfix
 hl(0, 'qfText', { link = '@normal' })
