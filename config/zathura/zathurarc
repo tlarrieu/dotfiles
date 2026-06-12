@@ -1,4 +1,6 @@
 include theme
+set guioptions ""
+set font "CaskaydiaCove Nerd Font 14.5"
 set recolor true
 set selection-clipboard clipboard
 map f follow
