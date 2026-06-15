@@ -8,7 +8,19 @@ local helpers = require('helpers')
 local telescope = require('telescope.builtin')
 local grep = function(pattern, bang)
   vim.cmd.grep { pattern, bang = bang, mods = { silent = true } }
-  telescope.quickfix({ results_title = '󰁨 quickfix', show_line = false })
+
+  local qflist = vim.fn.getqflist({ size = 0, items = {} })
+  local size = tonumber(qflist.size)
+
+  if size > 1 then
+    telescope.quickfix({ results_title = '󰁨 quickfix', show_line = false })
+  elseif size == 1 then
+    local item = qflist.items[1]
+    vim.cmd.buffer(item.bufnr)
+    vim.api.nvim_win_set_cursor(0, { item.lnum, item.col - 1 })
+  else
+    vim.notify('No result', vim.log.levels.WARN)
+  end
 end
 local lgrep = function(pattern, bang) vim.cmd.lgrep { pattern, bang = bang, mods = { silent = true } } end
 
