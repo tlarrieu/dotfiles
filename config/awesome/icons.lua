@@ -258,6 +258,7 @@ local config = {
   },
   { icon = '󱞊', rule = { class = 'Thunar' } },
   { icon = '', rule = { class = 'vifm' } },
+  { icon = '󰋊', rule = { class = 'GParted' } },
   { icon = '󰆍', rule = { class = 'kitty' } },
   { icon = '󱐋', rule = { class = 'quake' } },
 }
