@@ -212,7 +212,7 @@ local label_for = function(bufnr, cursor, qname)
 end
 
 local globs = '-g "*.{rb,erb,rake}" -g "bin/*"'
-local def_expression = '(def (self.)?|module |class )'
+local def_expression = '(def (self.)?|attr_reader.*:|attr_writer.*:|attr_accessor.*:|Data.define.*:|module |class )'
 local cword = function() return vim.fn.expand('<cword>') .. '([ :(.,]|\\$)' end
 
 vim.keymap.set('n', 'gd', function()
