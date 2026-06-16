@@ -35,3 +35,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
     if path ~= '' then vim.cmd.lcd(path) end
   end,
 })
+
+-- auto hide statusline when entering command line
+vim.api.nvim_create_autocmd('CmdlineEnter', { callback = function() vim.opt.laststatus = 0 end })
+vim.api.nvim_create_autocmd('CmdlineLeavePre', { callback = function() vim.opt.laststatus = 3 end })
