@@ -86,7 +86,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.align": {
-      "rev": "a7cd9465ac72c65d726f8fdc8b71ceb63ce8c0fd",
+      "rev": "8e78aef46e1c4ca25fb12316196bc3105da74ce4",
       "src": "https://github.com/echasnovski/mini.align"
     },
     "neogit": {
@@ -145,7 +145,7 @@
       "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
     },
     "telescope.nvim": {
-      "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
+      "rev": "9377230aa5305d9e9aca4ed8dadf1070fb4aa9fc",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "testbus": {
