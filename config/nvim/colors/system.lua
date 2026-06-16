@@ -122,7 +122,7 @@ hl(0, '@module.builtin', { fg = p.fg.base })
 hl(0, '@property', { fg = p.fg.dim })
 hl(0, '@attribute', { link = '@property' })
 hl(0, '@variable', { fg = p.fg.base })
-hl(0, '@variable.key', { fg = p.fg.dim, italic = true })
+hl(0, '@variable.key', { fg = p.fg.dim })
 hl(0, '@variable.parameter', { link = '@variable' })
 hl(0, '@variable.member', { link = '@variable' })
 hl(0, '@variable.builtin', { fg = p.pink.base })
@@ -378,7 +378,7 @@ hl(0, '@keyword.operator.sql', { link = '@keyword.sql' })
 hl(0, '@variable.member.sql', { link = '@variable' })
 
 -- yaml
-hl(0, '@property.yaml', { link = '@variable.key' })
+hl(0, '@property.yaml', { fg = p.fg.dim, italic = true })
 hl(0, '@variable.member.yaml', { fg = p.green.base })
 
 -- CSS
