@@ -39,9 +39,12 @@ local projectdir = function()
 end
 
 local branch = {
-  'branch',
-  fmt = function(name)
+  function()
+    local ok, status = pcall(vim.api.nvim_buf_get_var, 0, 'gitsigns_status_dict')
+    if not ok then return '' end
+
     local length = 40
+    local name = status.head
     if #name > length then return name:sub(0, length) .. ' ' else return name end
   end,
   icon = { '', align = 'left' }
@@ -99,38 +102,6 @@ local selectioncount = function()
   end
 end
 
-local stashstatus = {
-  function()
-    local stdout = vim.system({ 'git', 'stash', 'list' }):wait().stdout
-    local i = 0
-    for _ in string.gmatch(stdout, '([^\n]+)') do i = i + 1 end
-
-    if i == 0 then return '' end
-    if i == 1 then return '───  󰎤 ───' end
-    if i == 2 then return '───  󰎧 ───' end
-    if i == 3 then return '───  󰎪 ───' end
-    if i >= 4 then return '───  󰼑 ───' end
-
-    return ''
-  end,
-  color = function() return 'LualineSuccess' end,
-}
-
-local pushstatus = {
-  function()
-    local pushstr = ''
-    local stdout = vim.system({ 'git', 'rev-list', '@{u}...HEAD', '--left-right' }):wait().stdout
-    for line in string.gmatch(stdout, '([^\n]+)') do pushstr = pushstr .. line:sub(1, 1) end
-
-    if pushstr:match('><') then return '─── 󰆖 ───' end
-    if pushstr:match('<') then return '─── 󰧖 ───' end
-    if pushstr:match('>') then return '─── 󰧜 ───' end
-
-    return ''
-  end,
-  color = function() return 'LualineNotice' end,
-}
-
 local filenamecolor = function()
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) > 0 then return 'LualineError' end
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) > 0 then return 'LualineWarning' end
@@ -146,7 +117,7 @@ local plugin = function(cfg)
     sections = {
       lualine_a = { mode },
       lualine_b = { projectdir, branch, tabs, searchcount },
-      lualine_c = { macrorecording, stashstatus, pushstatus, cfg.fn },
+      lualine_c = { macrorecording, cfg.fn },
       lualine_x = { selectioncount, 'location' },
       lualine_z = { function() return cfg.title or '' end },
     },
@@ -178,8 +149,6 @@ require('lualine').setup({
     lualine_b = { projectdir, branch, tabs, searchcount },
     lualine_c = {
       macrorecording,
-      stashstatus,
-      pushstatus,
       {
         'filename',
         path = 3,
