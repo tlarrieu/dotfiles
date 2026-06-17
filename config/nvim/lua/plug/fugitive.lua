@@ -64,6 +64,6 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'floggraph' },
   callback = function()
     vim.keymap.del('n', '<tab>', { buffer = true })
-    vim.opt.listchars = {}
+    vim.opt_local.listchars = {}
   end,
 })
