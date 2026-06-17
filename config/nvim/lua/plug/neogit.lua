@@ -1,33 +1,7 @@
 vim.pack.add({
-  'https://github.com/esmuellert/codediff.nvim',
   -- TODO: unpin this once the issues with async has been fixed
   { src = 'https://github.com/NeogitOrg/neogit', version = '792c139da736230855e8341ebe6175bb6eb8268b' }
 }, { confirm = false })
-
----- Codediff ------------------------------------------------------------------
-
-require('codediff').setup({
-  diff = {
-    layout = 'inline',
-    compute_moves = true,
-    cycle_hunks_across_files = true,
-  },
-  explorer = {
-    width = 45,
-    icons = { folder_closed = '', folder_open = '' },
-    view_mode = 'tree',
-    flatten_dirs = true,
-    file_filter = { ignore = { '*.pdf' } },
-  },
-  keymaps = {
-    view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = '<c-n>', prev_file = '<c-p>' },
-  },
-  highlights = {
-    line_move = 'DiffMove',
-  }
-})
-
----- neogit --------------------------------------------------------------------
 
 local neogit = require('neogit')
 neogit.setup({
@@ -198,10 +172,6 @@ vim.keymap.set('v', '<leader>l', ':NeogitLog<cr>', { silent = true, desc = 'neog
 vim.keymap.set('n', '<leader>L', ':NeogitLog<cr>', { silent = true, desc = 'neogit history (file)' })
 vim.keymap.set('n', '<leader>l', neogit.action('log', 'log_current', { '--graph', '--decorate', '--max-count=100' }),
   { silent = true, desc = 'neogit log' })
-
-vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
-  { silent = true, desc = 'code(diff) review (origin/master...)' })
-vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
 vim.keymap.set('n', '<leader>cc', neogit.action('commit', 'commit', {}), { silent = true, desc = 'neogit commit' })
 vim.keymap.set('n', '<leader>ca', neogit.action('commit', 'extend', {}),

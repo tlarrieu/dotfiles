@@ -1,4 +1,5 @@
 vim.pack.add({ 'https://github.com/gaodean/autolist.nvim' }, { confirm = false })
+
 local autolist = require('autolist')
 
 local list_patterns = {

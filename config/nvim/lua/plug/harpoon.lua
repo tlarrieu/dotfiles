@@ -1,6 +1,4 @@
-vim.pack.add({
-  { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' }
-}, { confirm = false })
+vim.pack.add({ { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' } }, { confirm = false })
 
 local harpoon = require('harpoon')
 harpoon.setup()
