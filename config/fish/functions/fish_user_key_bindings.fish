@@ -54,11 +54,6 @@ function fish_user_key_bindings
     [ (command git rev-parse --git-dir 2> /dev/null) ]
       and return 0
 
-    tput setaf 1
-    echo "Not a git repository"
-    tput sgr0
-
-    commandline -f repaint
     return 1
   end
 
