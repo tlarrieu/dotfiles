@@ -138,6 +138,8 @@ require('lualine').setup({
       title = ' oil',
       filetypes = { 'oil' },
     }),
+    plugin({ title = ' fugitive', filetypes = { 'fugitive' } }),
+    plugin({ title = ' log', filetypes = { 'floggraph' } }),
   },
   options = {
     component_separators = { left = '', right = '' },

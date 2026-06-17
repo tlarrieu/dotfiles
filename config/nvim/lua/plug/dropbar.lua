@@ -14,6 +14,8 @@ require('dropbar').setup({
       if vim.bo[buf].ft == 'gitcommit' then return false end
       if vim.bo[buf].ft == 'toggleterm' then return false end
       if vim.bo[buf].ft == 'qf' then return false end
+      if vim.bo[buf].ft == 'oil' then return false end
+      if vim.bo[buf].ft == 'fugitive' then return false end
 
       local bufname = vim.api.nvim_buf_get_name(buf)
       if bufname:match('gitsigns://') then
@@ -195,8 +197,15 @@ require('dropbar').setup({
 -- for some reason, filetype does not get set before dropbar access it
 -- let's just disable winbar manually for filetypes we want it off
 -- this might be a bug in neovim
+local group = vim.api.nvim_create_augroup('dropbar_filetype_autocmd', {})
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'Neogit*', 'gitcommit', 'man', 'toggleterm', 'qf' },
+  pattern = { 'gitcommit', 'man', 'toggleterm', 'qf', 'oil', 'fugitive' },
   callback = function() vim.opt_local.winbar = nil end,
-  group = vim.api.nvim_create_augroup('neogit_filetype_autocmd', {}),
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'floggraph' },
+  callback = function() vim.opt_local.winbar = ' flog' end,
+  group = group,
 })

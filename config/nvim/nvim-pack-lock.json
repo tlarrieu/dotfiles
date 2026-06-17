@@ -89,11 +89,6 @@
       "rev": "8e78aef46e1c4ca25fb12316196bc3105da74ce4",
       "src": "https://github.com/echasnovski/mini.align"
     },
-    "neogit": {
-      "rev": "792c139da736230855e8341ebe6175bb6eb8268b",
-      "src": "https://github.com/NeogitOrg/neogit",
-      "version": "'792c139da736230855e8341ebe6175bb6eb8268b'"
-    },
     "nvim-cmp": {
       "rev": "a1d504892f2bc56c2e79b65c6faded2fd21f3eca",
       "src": "https://github.com/hrsh7th/nvim-cmp"
@@ -168,6 +163,14 @@
       "rev": "d6c1e9790bcb8df27c483a37167459bbebe0112e",
       "src": "https://github.com/tommcdo/vim-exchange"
     },
+    "vim-flog": {
+      "rev": "665b16ac8915f746bc43c9572b4581a5e9047216",
+      "src": "https://github.com/rbong/vim-flog"
+    },
+    "vim-fugitive": {
+      "rev": "3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0",
+      "src": "https://github.com/tpope/vim-fugitive"
+    },
     "vim-indentobject": {
       "rev": "740e067a34cfd805af2d3a3fbe29d65def03b40f",
       "src": "https://github.com/austintaylor/vim-indentobject"
@@ -176,13 +179,13 @@
       "rev": "65846025c15494983dafe5e3b46c8f88ab2e9635",
       "src": "https://github.com/tpope/vim-repeat"
     },
+    "vim-rhubarb": {
+      "rev": "5496d7c94581c4c9ad7430357449bb57fc59f501",
+      "src": "https://github.com/tpope/vim-rhubarb"
+    },
     "vim-surround": {
       "rev": "3d188ed2113431cf8dac77be61b842acb64433d9",
       "src": "https://github.com/tpope/vim-surround"
-    },
-    "webify.nvim": {
-      "rev": "69bc088e21834898477df69694ce86ee5561e20b",
-      "src": "https://github.com/pabloariasal/webify.nvim"
     },
     "yaml.nvim": {
       "rev": "43ddedd0f3b060b4475e19e762b1796fce1b23be",
