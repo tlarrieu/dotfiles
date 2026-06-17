@@ -706,8 +706,9 @@ hl(0, 'NeogitGraphBoldPurple', { fg = p.magenta.dim, bold = true })
 hl(0, 'NeogitGraphWhite', { fg = p.white.dim })
 hl(0, 'NeogitGraphBoldWhite', { fg = p.white.dim, bold = true })
 
-hl(0, 'CodeDiffMoveTo', { fg = p.blue.base })
+hl(0, 'CodeDiffMoveTo', { fg = p.fg.dim, bg = p.bg.dim, italic = true })
 hl(0, 'CodeDiffMoveFrom', { link = 'CodeDiffMoveTo' })
+hl(0, 'CodeDiffLineMove', { bg = p.bg.dim, italic = true, nocombine = true })
 
 hl(0, '@comment.gitcommit', { fg = p.fg.dimmer, bg = 'none' })
 hl(0, '@markup.heading.gitcommit', { fg = p.fg.base, bg = 'none' })
@@ -754,6 +755,7 @@ hl(0, '@character.special.gitignore', { link = '@normal' })
 hl(0, 'DiffAdd', { bg = p.green.dim })
 hl(0, 'DiffDelete', { fg = p.red.dim, bg = p.red.dim })
 hl(0, 'DiffChange', { bg = p.yellow.dim })
+hl(0, 'DiffMove', { bg = p.bg.dimmer }) -- codediff related
 hl(0, 'DiffText', { bg = p.blue.dim })
 hl(0, 'diffAdded', { link = 'DiffAdd' })
 hl(0, 'diffRemoved', { link = 'DiffDelete' })

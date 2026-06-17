@@ -22,6 +22,9 @@ require('codediff').setup({
   keymaps = {
     view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = '<c-n>', prev_file = '<c-p>' },
   },
+  highlights = {
+    line_move = 'DiffMove',
+  }
 })
 
 ---- neogit --------------------------------------------------------------------
