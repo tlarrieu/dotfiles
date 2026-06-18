@@ -31,7 +31,7 @@ local async_run = function(cmd)
     vim.notify('Running `' .. table.concat(cmd, ' ') .. '`...', vim.log.levels.INFO)
     vim.system(cmd, {},
       function(obj)
-        if obj.code == 0 then return vim.notify(obj.stdout, vim.log.levels.INFO) end
+        if obj.code == 0 then return vim.notify(obj.stdout == '' and 'done.' or obj.stdout, vim.log.levels.INFO) end
         vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
       end)
   end
@@ -39,7 +39,7 @@ end
 
 vim.keymap.set('n', '<leader>gu', async_run({ 'git', 'pull', '--rebase' }),
   { silent = true, desc = 'Git pull' })
-vim.keymap.set('n', '<leader>gp', async_run({ 'git', 'push', '--force-with-lease' }),
+vim.keymap.set('n', '<leader>gp', async_run({ 'git', 'push', '--force-with-lease', '--quiet' }),
   { silent = true, desc = 'Git pull' })
 
 vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<cr>',
