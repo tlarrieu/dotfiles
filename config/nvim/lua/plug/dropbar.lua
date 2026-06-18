@@ -10,12 +10,6 @@ require('dropbar').setup({
       if vim.fn.win_gettype(win) ~= '' then return false end
       if vim.wo[win].winbar ~= '' then return false end
       if vim.bo[buf].bt == 'nofile' then return false end
-      if vim.bo[buf].ft == 'man' then return false end
-      if vim.bo[buf].ft == 'gitcommit' then return false end
-      if vim.bo[buf].ft == 'toggleterm' then return false end
-      if vim.bo[buf].ft == 'qf' then return false end
-      if vim.bo[buf].ft == 'oil' then return false end
-      if vim.bo[buf].ft == 'fugitive' then return false end
 
       local bufname = vim.api.nvim_buf_get_name(buf)
       if bufname:match('gitsigns://') then
@@ -194,18 +188,46 @@ require('dropbar').setup({
   },
 })
 
--- for some reason, filetype does not get set before dropbar access it
--- let's just disable winbar manually for filetypes we want it off
--- this might be a bug in neovim
 local group = vim.api.nvim_create_augroup('dropbar_filetype_autocmd', {})
+
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'gitcommit', 'man', 'toggleterm', 'qf', 'oil', 'fugitive' },
-  callback = function() vim.opt_local.winbar = nil end,
+  pattern = { 'man', },
+  callback = function() vim.opt_local.winbar = '󰭣  man' end,
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'gitcommit' },
+  callback = function() vim.opt_local.winbar = ' commit message' end,
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'gitcommit' },
+  callback = function() vim.opt_local.winbar = ' commit message' end,
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'fugitive' },
+  callback = function() vim.opt_local.winbar = ' fugitive' end,
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'qf' },
+  callback = function() vim.opt_local.winbar = ' quickfix' end,
+  group = group,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'oil' },
+  callback = function() vim.opt_local.winbar = ' ' .. require('oil').get_current_dir():gsub('/home/%w+/', '~/') end,
   group = group,
 })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'floggraph' },
-  callback = function() vim.opt_local.winbar = ' flog' end,
+  callback = function() vim.opt_local.winbar = ' logs' end,
   group = group,
 })

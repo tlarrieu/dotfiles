@@ -133,7 +133,7 @@ require('lualine').setup({
       filetypes = { 'qf' },
     }),
     plugin({
-      fn = function() return require('oil').get_current_dir() end,
+      fn = function() return require('oil').get_current_dir():gsub('/home/%w+/', '~/') end,
       title = ' oil',
       filetypes = { 'oil' },
     }),
