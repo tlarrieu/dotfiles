@@ -20,6 +20,7 @@ local abbr = {
   mv = 'Rename',
   rm = 'Delete',
   ['rm!'] = 'Delete!',
+  g = 'Git',
   h = 'tab h',
   hi = "lua require('telescope.builtin').highlights()",
   map = "lua require('telescope.builtin').keymaps({lfs_filter = true })",

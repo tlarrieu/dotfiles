@@ -40,7 +40,7 @@ end
 
 local branch = {
   function()
-    local ok, name = pcall(vim.fn.FugitiveHead)
+    local ok, name = pcall(vim.fn.FugitiveHead, 8)
     if not ok then return '' end
 
     local length = 40
