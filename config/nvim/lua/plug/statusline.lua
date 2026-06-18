@@ -40,11 +40,10 @@ end
 
 local branch = {
   function()
-    local ok, status = pcall(vim.api.nvim_buf_get_var, 0, 'gitsigns_status_dict')
+    local ok, name = pcall(vim.fn.FugitiveHead)
     if not ok then return '' end
 
     local length = 40
-    local name = status.head
     if #name > length then return name:sub(0, length) .. ' ' else return name end
   end,
   icon = { '', align = 'left' }

@@ -4,4 +4,4 @@ github_url=$(git remote -v | awk '/fetch/{print $2}' | sed -Ee 's#(git@|git://)#
 branch_name=$(git symbolic-ref HEAD | cut -d"/" -f 3,4)
 main_branch=$(git branch | grep -q master && echo master || echo main)
 pr_url="$github_url/compare/$main_branch...$branch_name"
-open "$pr_url"
+xdg-open "$pr_url"
