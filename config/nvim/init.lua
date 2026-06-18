@@ -41,6 +41,7 @@ vim.pack.add({
 require('plug.devicons')
 require('plug.fidget')
 require('plug.oil')
+require('plug.harpoon')
 require('plug.telescope')
 require('plug.git')
 
