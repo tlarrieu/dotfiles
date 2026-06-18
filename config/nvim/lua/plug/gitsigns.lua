@@ -9,7 +9,9 @@ local signs = {
   untracked    = { text = '╏󰐕' },
 }
 
-require('gitsigns').setup({
+local gitsigns = require('gitsigns')
+
+gitsigns.setup({
   signs = signs,
   signs_staged = signs,
   signs_staged_enable = true,
@@ -44,8 +46,6 @@ require('gitsigns').setup({
     col = 1
   },
   on_attach = function()
-    local gitsigns = require('gitsigns')
-
     local nav_hunk = function(dir)
       if vim.wo.diff then return vim.cmd.normal({ dir == 'prev' and '[c' or ']c', bang = true }) end
       gitsigns.nav_hunk(dir, { wrap = false, target = 'all' })

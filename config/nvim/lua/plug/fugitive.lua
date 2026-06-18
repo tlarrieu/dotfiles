@@ -1,5 +1,5 @@
 vim.g.flog_enable_extended_chars = true
-vim.g.flog_default_opts = { format = '[%h]%d %s' }
+vim.g.flog_default_opts = { format = '[%h]%d %s', max_count = 200, skip = 0 }
 
 vim.pack.add({
   'https://github.com/tpope/vim-fugitive',
@@ -7,11 +7,9 @@ vim.pack.add({
   'https://github.com/rbong/vim-flog',
 }, { confirm = false })
 
-vim.keymap.set('n', '<c-s>', '<cmd>below Git<cr>', { silent = true, desc = 'neogit' })
+-------------------------- Fugitive --------------------------
 
-vim.keymap.set('n', '<leader>l', ':vertical Flogsplit<cr>', { silent = true, desc = 'Git log' })
-vim.keymap.set('n', '<leader>L', ':vertical 0Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (file)' })
-vim.keymap.set('v', '<leader>l', ':vertical Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (visual)' })
+vim.keymap.set('n', '<c-s>', '<cmd>below Git<cr>', { silent = true, desc = 'neogit' })
 
 vim.keymap.set('n', '<leader>cc', '<cmd>below Git commit<cr>',
   { silent = true, desc = 'Git commit (new)' })
@@ -61,10 +59,18 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+---------------------------- Flog ----------------------------
+
+vim.keymap.set('n', '<leader>l', ':vertical Flogsplit<cr>', { silent = true, desc = 'Git log' })
+vim.keymap.set('n', '<leader>L', ':vertical 0Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (file)' })
+vim.keymap.set('v', '<leader>l', ':vertical Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (visual)' })
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'floggraph' },
   callback = function()
     vim.keymap.del('n', '<tab>', { buffer = true })
+    vim.keymap.set('n', 'þ', ']]', { remap = true, buffer = true })
+    vim.keymap.set('n', 'ß', '[[gg', { remap = true, buffer = true })
     vim.opt_local.listchars = {}
   end,
 })
