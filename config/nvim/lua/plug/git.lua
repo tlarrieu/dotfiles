@@ -39,7 +39,7 @@ local async_run = function(cmd)
   end
 end
 
-vim.keymap.set('n', '<leader>gu', async_run({ 'git', 'pull', '--rebase' }),
+vim.keymap.set('n', '<leader>gu', async_run({ 'git', 'pull', '--rebase', '--quiet' }),
   { silent = true, desc = 'Git pull' })
 vim.keymap.set('n', '<leader>gp', async_run({ 'git', 'push', '--force-with-lease', '--quiet' }),
   { silent = true, desc = 'Git pull' })
