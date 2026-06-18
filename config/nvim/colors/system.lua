@@ -711,7 +711,7 @@ hl(0, 'diffFile', { fg = p.bg.base })
 hl(0, 'diffIndexLine', { fg = p.blue.base, italic = true })
 hl(0, 'diffOldFile', { fg = p.yellow.base, italic = true })
 hl(0, 'diffNewFile', { fg = p.green.base, italic = true })
-hl(0, 'diffLine', { fg = p.fg.dimmer, bg = p.bg.dimmer, italic = true })
+hl(0, 'diffLine', { fg = p.blue.base, bg = p.blue.dim, bold = true })
 hl(0, 'diffSubname', { fg = p.fg.dimmer })
 
 hl(0, 'GitSignsAdd', { fg = p.green.base, bg = p.green.dim })
