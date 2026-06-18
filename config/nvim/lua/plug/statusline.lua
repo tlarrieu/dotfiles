@@ -137,8 +137,16 @@ require('lualine').setup({
       title = ' oil',
       filetypes = { 'oil' },
     }),
-    plugin({ title = ' fugitive', filetypes = { 'fugitive' } }),
-    plugin({ title = ' log', filetypes = { 'floggraph' } }),
+    plugin({
+      fn = function() return vim.fn.FugitiveGitDir():gsub('/.git', '') end,
+      title = ' fugitive',
+      filetypes = { 'fugitive' },
+    }),
+    plugin({
+      fn = function() return vim.fn.FugitiveGitDir():gsub('/.git', '') end,
+      title = ' logs',
+      filetypes = { 'floggraph' },
+    }),
   },
   options = {
     component_separators = { left = '', right = '' },
