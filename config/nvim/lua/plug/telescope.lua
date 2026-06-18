@@ -6,14 +6,10 @@ vim.pack.add({
 
 local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
 
-local filename_first_and_shorten = { 'filename_first', shorten = { len = 1, exclude = { 1, -3, -2, -1 } } }
-local find_files = { 'fd', '-tf', '--hidden' }
-local find_directories = { 'fd', '-td' }
+local h = require('helpers')
 
-if require('helpers').fileexists('.ignore') then
-  vim.list_extend(find_files, { '--no-ignore-vcs' })
-  vim.list_extend(find_directories, { '--no-ignore-vcs' })
-end
+local find_files = function() return { 'fd', '-tf', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
+local find_directories = function() return { 'fd', '-td', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
 
 local telescope = require('telescope')
 local actions = require('telescope.actions')
@@ -31,7 +27,7 @@ telescope.setup({
     entry_prefix = ' 󰋙  ',
     multi_icon = ' 󰁘  ',
 
-    path_display = filename_first_and_shorten,
+    path_display = { 'filename_first', shorten = { len = 1, exclude = { 1, -3, -2, -1 } } },
 
     sorting_strategy = 'ascending',
     layout_config = {
@@ -75,12 +71,12 @@ telescope.setup({
   }
 })
 
-local builtin = require('telescope.builtin')
+local t = require('telescope.builtin')
 
-vim.keymap.set('n', '<c-è>', builtin.resume, { desc = 'Telescope resume' })
+vim.keymap.set('n', '<c-è>', t.resume, { desc = 'Telescope resume' })
 
 vim.keymap.set('n', '<leader>ep', function()
-  builtin.find_files({
+  t.find_files({
     hidden = true,
     find_command = { 'fd', '-td', '.', vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt'), '-d', '1' },
     results_title =
@@ -89,48 +85,44 @@ vim.keymap.set('n', '<leader>ep', function()
 end, { desc = 'Telescope file finder' })
 
 vim.keymap.set('n', '<c-t>', function()
-  builtin.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
+  t.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
 end, { desc = 'Telescope file finder' })
 
 vim.keymap.set('n', '<a-t>', function()
-  builtin.find_files({ hidden = true, find_command = find_directories, results_title = '󰙅 directories' })
+  t.find_files({ hidden = true, find_command = find_directories, results_title = '󰙅 directories' })
 end, { desc = 'Telescope directories finder' })
 
 vim.keymap.set('n', '<c-y>', function()
-  builtin.find_files({ hidden = true, find_command = { 'git', 'ls-status' }, results_title = '󰊢 status' })
+  t.find_files({ hidden = true, find_command = { 'git', 'ls-status' }, results_title = '󰊢 status' })
 end, { desc = 'Telescope directories finder' })
 
 vim.keymap.set('n', '<c-s-y>', function()
-  builtin.find_files({
+  t.find_files({
     hidden = true,
     find_command = { 'git', 'diff', 'master...', '--name-only' },
     results_title = '󰊢 diff master...',
   })
 end, { desc = 'Telescope git diff master' })
 
-vim.keymap.set('n', '<c-b>', function()
-  builtin.buffers({ hidden = true, ignore_current_buffer = true, sort_mru = true, results_title = ' buffers' })
-end, { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<c-b>',
+  function() t.buffers({ hidden = true, ignore_current_buffer = true, sort_mru = true, results_title = ' buffers' }) end,
+  { desc = 'Telescope buffers' })
 
-vim.keymap.set('n', '<c-l>', function()
-  builtin.registers({ results_title = ' registers' })
-end, { desc = 'Telescope registers' })
+vim.keymap.set('n', '<c-l>', function() t.registers({ results_title = ' registers' }) end,
+  { desc = 'Telescope registers' })
 
-vim.keymap.set('n', '<c-h>', function()
-  builtin.help_tags({ results_title = ' documentation' })
-end, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<c-h>', function() t.help_tags({ results_title = ' documentation' }) end,
+  { desc = 'Telescope help tags' })
 
 vim.keymap.set('n', '<c-q>', function()
-  builtin.quickfix({ results_title = '󰁨 quickfix', show_line = false })
+  t.quickfix({ results_title = '󰁨 quickfix', show_line = false })
 end, { desc = 'Telescope quickfix' })
 
-vim.keymap.set('n', '<c-s-q>', function()
-  builtin.quickfixhistory({ results_title = '󰋚 quickfix history', layout_config = { preview_width = 0.55 } })
-end, { desc = 'Telescope quickfix history' })
+vim.keymap.set('n', '<c-s-q>',
+  function() t.quickfixhistory({ results_title = '󰋚 quickfix history', layout_config = { preview_width = 0.55 } }) end,
+  { desc = 'Telescope quickfix history' })
 
-vim.keymap.set('n', 'g?', function()
-  builtin.spell_suggest()
-end, { desc = 'Telescope spell suggest' })
+vim.keymap.set('n', 'g?', function() t.spell_suggest() end, { desc = 'Telescope spell suggest' })
 
 pcall(telescope.load_extension, 'ui-select')
 pcall(telescope.load_extension, 'fzf')
