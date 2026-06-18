@@ -71,17 +71,17 @@ require('fidget').setup({
       reflow = true,
       stack_upwards = false,
       icon_separator = ' ',
-      group_separator = '   ',
+      group_separator = '  ',
       group_separator_hl = 'FidgetGroupSeparator',
     },
 
     window = {
       normal_hl = 'FidgetNormal',
       border_hl = 'FidgetBorder',
-      winblend = 5,
-      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' }, -- we add padding to the bottom to compensate the empty line on top
+      winblend = 0,
+      border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', '' },
       zindex = 100,
-      max_width = 85,
+      max_width = 120,
       max_height = 20,
       x_padding = 0,
       y_padding = 1,
