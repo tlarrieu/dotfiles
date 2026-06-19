@@ -28,28 +28,28 @@ vim.keymap.set('n', '<leader>bl',
   function() require('telescope.builtin').git_branches({ show_remote_tracking_branches = false }) end,
   { desc = 'Git branch (local)' })
 
-local async_run = function(cmd)
+local async_git = function(cmd)
   return function()
-    vim.notify('Running `' .. table.concat(cmd, ' ') .. '`...', vim.log.levels.INFO)
+    table.insert(cmd, 1, 'git')
+    vim.notify(table.concat(cmd, ' '), vim.log.levels.INFO)
+    table.insert(cmd, '--quiet')
     vim.system(cmd, {},
       function(obj)
-        if obj.code == 0 then return vim.notify(obj.stdout == '' and 'done.' or obj.stdout, vim.log.levels.INFO) end
-        vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
+        if obj.code == 0 then
+          vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
+        else
+          vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
+        end
+        vim.schedule(vim.cmd.checktime)
       end)
   end
 end
 
-vim.keymap.set('n', '<leader>gu', async_run({ 'git', 'pull', '--rebase', '--quiet' }),
-  { silent = true, desc = 'Git pull' })
-vim.keymap.set('n', '<leader>gp', async_run({ 'git', 'push', '--force-with-lease', '--quiet' }),
-  { silent = true, desc = 'Git pull' })
-vim.keymap.set('n', '<leader>gf', async_run({ 'git', 'fetch', '--tags', '--force' }),
-  { silent = true, desc = 'Git pull' })
-
-vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<cr>',
-  { silent = true, desc = 'Git stash' })
-vim.keymap.set('n', '<leader>gS', ':silent !git stash pop --quiet<cr><cmd>checktime<cr>',
-  { silent = true, desc = 'Git stash pop' })
+vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase', }), { desc = 'Git pull' })
+vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease', }), { desc = 'Git pull' })
+vim.keymap.set('n', '<leader>gf', async_git({ 'fetch', '--tags', '--force', }), { desc = 'Git fetch' })
+vim.keymap.set('n', '<leader>gs', async_git({ 'stash', }), { desc = 'Git stash' })
+vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop', }), { desc = 'Git stash pop' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive' },
