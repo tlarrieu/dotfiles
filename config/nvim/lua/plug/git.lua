@@ -29,19 +29,23 @@ vim.keymap.set('n', '<leader>bl',
   { desc = 'Git branch (local)' })
 
 local async_git = function(cmd)
+  local _cmd = {}
+
+  table.insert(_cmd, 1, 'git')
+  for _, c in ipairs(cmd) do table.insert(_cmd, c) end
+  local cmdstr = table.concat(_cmd, ' ')
+  table.insert(_cmd, '--quiet')
+
   return function()
-    table.insert(cmd, 1, 'git')
-    vim.notify(table.concat(cmd, ' '), vim.log.levels.INFO)
-    table.insert(cmd, '--quiet')
-    vim.system(cmd, {},
-      function(obj)
-        if obj.code == 0 then
-          vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
-        else
-          vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
-        end
-        vim.schedule(vim.cmd.checktime)
-      end)
+    vim.notify(cmdstr, vim.log.levels.INFO)
+    vim.system(_cmd, {}, function(obj)
+      if obj.code == 0 then
+        vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
+      else
+        vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
+      end
+      vim.schedule(vim.cmd.checktime)
+    end)
   end
 end
 
