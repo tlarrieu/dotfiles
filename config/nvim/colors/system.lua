@@ -17,7 +17,7 @@ hl(0, 'NormalNC', { link = 'Normal' })
 hl(0, 'NonText', { fg = p.bg.border })
 hl(0, 'EndOfBuffer', { fg = p.bg.base })
 hl(0, 'Conceal', { fg = p.bg.border })
-hl(0, 'SpecialKey', { link = 'Normal' })
+hl(0, 'SpecialKey', { fg = p.fg.dimmer })
 
 hl(0, 'Underlined', { underline = true })
 hl(0, 'Bold', { bold = true })
