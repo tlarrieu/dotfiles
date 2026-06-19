@@ -191,13 +191,7 @@ require('lualine').setup({
         source = function()
           local success, source = pcall(vim.api.nvim_buf_get_var, 0, 'gitsigns_status_dict')
 
-          if not success then return end
-
-          return {
-            modified = source.changed,
-            added = source.added,
-            removed = source.removed
-          }
+          return success and source or nil
         end,
       },
     },
