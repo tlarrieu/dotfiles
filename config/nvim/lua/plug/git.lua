@@ -43,6 +43,8 @@ vim.keymap.set('n', '<leader>gu', async_run({ 'git', 'pull', '--rebase', '--quie
   { silent = true, desc = 'Git pull' })
 vim.keymap.set('n', '<leader>gp', async_run({ 'git', 'push', '--force-with-lease', '--quiet' }),
   { silent = true, desc = 'Git pull' })
+vim.keymap.set('n', '<leader>gf', async_run({ 'git', 'fetch', '--tags', '--force' }),
+  { silent = true, desc = 'Git pull' })
 
 vim.keymap.set('n', '<leader>gs', ':silent !git stash --quiet<cr><cmd>checktime<cr>',
   { silent = true, desc = 'Git stash' })
