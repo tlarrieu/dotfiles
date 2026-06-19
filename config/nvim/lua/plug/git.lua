@@ -22,10 +22,12 @@ vim.keymap.set('n', '<leader>ce', '<cmd>below Git commit --amend<cr>',
 
 vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { silent = true, desc = 'Git(Hub) yank file/line URL' })
 
-vim.keymap.set('n', '<leader>bo', ':Git pr<cr>', { silent = true, desc = 'Git pull request' })
-vim.keymap.set('n', '<leader>bb', '<cmd>Telescope git_branches<cr>', { desc = 'Git branch' })
-vim.keymap.set('n', '<leader>bl',
-  function() require('telescope.builtin').git_branches({ show_remote_tracking_branches = false }) end,
+vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { silent = true, desc = 'Git pull request' })
+
+local t = require('telescope.builtin')
+vim.keymap.set('n', '<leader>bb', t.git_branches,
+  { desc = 'Git branch' })
+vim.keymap.set('n', '<leader>bl', function() t.git_branches({ show_remote_tracking_branches = false }) end,
   { desc = 'Git branch (local)' })
 
 local async_git = function(cmd)
