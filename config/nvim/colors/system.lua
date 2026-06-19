@@ -331,7 +331,6 @@ hl(0, '@function.linebreak.latex', { link = '@operator' })
 -- lua
 hl(0, '@constructor.lua', { link = '@punctuation.bracket' })
 hl(0, '@keyword.operator.lua', { link = '@keyword' })
-hl(0, '@comment.documentation.lua', { fg = p.fg.dimmer, bg = p.bg.dimmer })
 
 hl(0, '@comment.luadoc', { link = '@comment.documentation.lua' })
 hl(0, '@keyword.luadoc', { fg = p.fg.dim, bold = true })
@@ -444,7 +443,7 @@ hl(0, 'edifactApostrophe', { fg = p.fg.dimmer })
 hl(0, 'edifactEscape', { link = 'Special' })
 hl(0, 'edifactError', { link = 'Error' })
 hl(0, 'edifactTagUNA', { fg = p.fg.dimmer })
-hl(0, 'edifactTagSEQ', { fg = p.fg.dim, bg = p.bg.dimmer, bold = true })
+hl(0, 'edifactTagSEQ', { fg = p.red.base, bg = p.red.dimmer, bold = true })
 hl(0, 'edifactTagIND', { fg = p.fg.dimmer })
 
 -- -------------------| plugins |----------------------
