@@ -45,9 +45,14 @@ local async_git = function(cmd)
       vim.schedule(function()
         vim.cmd.mode()
         vim.cmd.checktime()
-        local curbuf = vim.api.nvim_get_current_buf()
-        vim.cmd.Git()
-        if curbuf ~= vim.api.nvim_get_current_buf() then vim.fn.feedkeys('') end
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.bo[buf].filetype == 'fugitive' then
+            local curbuf = vim.api.nvim_get_current_buf()
+            vim.cmd.Git()
+            if curbuf ~= vim.api.nvim_get_current_buf() then vim.fn.feedkeys('') end
+            break
+          end
+        end
       end)
     end)
   end
