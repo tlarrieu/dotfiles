@@ -104,6 +104,8 @@ vim.keymap.set('n', '<c-s-y>', function()
   })
 end, { desc = 'Telescope git diff master' })
 
+vim.keymap.set('n', '<c-s-e>', t.diagnostics, { desc = 'Telescope buffers' })
+
 vim.keymap.set('n', '<c-b>',
   function() t.buffers({ hidden = true, ignore_current_buffer = true, sort_mru = true, results_title = ' buffers' }) end,
   { desc = 'Telescope buffers' })
