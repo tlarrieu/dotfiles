@@ -38,6 +38,7 @@ local async_git = function(cmd)
 
   return function()
     vim.notify(cmdstr, vim.log.levels.INFO)
+    for i, c in ipairs(_cmd) do _cmd[i] = vim.fn.expand(c) end
     vim.system(_cmd, {}, function(obj)
       if obj.code == 0 then
         vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
@@ -195,8 +196,8 @@ gitsigns.setup({
     vim.keymap.set(modes, '<leader>gb', gitsigns.blame, { desc = 'Blame (buffer)' })
     vim.keymap.set(modes, '<leader>gB', gitsigns.toggle_current_line_blame, { desc = 'Blame (line)' })
     vim.keymap.set(modes, '<leader>gw', gitsigns.stage_buffer, { desc = 'Stage all hunks' })
-    vim.keymap.set(modes, '<leader>gr', ':silent !git checkout %<cr>', { remap = true, desc = 'Git checkout' })
-    vim.keymap.set(modes, '<leader>gR', gitsigns.reset_buffer_index, { remap = true, desc = 'Git reset buffer' })
+    vim.keymap.set(modes, '<leader>gr', async_git({ 'checkout', '%' }), { desc = 'Git checkout' })
+    vim.keymap.set(modes, '<leader>gR', gitsigns.reset_buffer_index, { desc = 'Git reset buffer' })
     vim.keymap.set(modes, '<leader>gq', function()
       gitsigns.setqflist('all')
     end, { remap = true, desc = 'Git reset' })
