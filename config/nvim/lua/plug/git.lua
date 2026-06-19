@@ -29,9 +29,7 @@ vim.keymap.set('n', '<leader>bl',
   { desc = 'Git branch (local)' })
 
 local async_git = function(cmd)
-  local _cmd = {}
-
-  table.insert(_cmd, 1, 'git')
+  local _cmd = { 'git' }
   for _, c in ipairs(cmd) do table.insert(_cmd, c) end
   local cmdstr = table.concat(_cmd, ' ')
   table.insert(_cmd, '--quiet')
