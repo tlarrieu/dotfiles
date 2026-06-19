@@ -20,6 +20,10 @@ return {
     fs = '#!/usr/bin/env fish',
 
     r = 'return',
+
+    date = '$MONTH/$DAY',
+    Date = '$MONTH/$DAY',
+    time = '$TIME',
   },
   skeletons = {}
 }

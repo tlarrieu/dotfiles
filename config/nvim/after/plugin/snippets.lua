@@ -4,6 +4,7 @@ local dirname = function() return vim.fn.expand('%:h:t') end
 local vars = {
   ['$MONTH'] = function() return os.date('%m') end,
   ['$DAY'] = function() return os.date('%d') end,
+  ['$TIME'] = function() return os.date('%H:%M') end,
   ['$RB_CLASS_NAME'] = function() return require('helpers').pascalize(filename()) or '' end,
   ['$RB_SPEC_NAME'] = function() return require('helpers').pascalize(filename():gsub('_spec', '')) or '' end,
   ['$RB_MODULE_NAME'] = function() return require('helpers').pascalize(dirname()) or '' end,
