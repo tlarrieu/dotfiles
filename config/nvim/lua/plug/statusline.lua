@@ -124,6 +124,8 @@ local plugin = function(cfg)
   }
 end
 
+local compact = function(str) return str:gsub('/home/%w+/', '~/') end
+
 require('lualine').setup({
   extensions = {
     'mason',
@@ -133,17 +135,17 @@ require('lualine').setup({
       filetypes = { 'qf' },
     }),
     plugin({
-      fn = function() return require('oil').get_current_dir():gsub('/home/%w+/', '~/') end,
+      fn = function() return compact(require('oil').get_current_dir()) end,
       title = ' oil',
       filetypes = { 'oil' },
     }),
     plugin({
-      fn = function() return vim.fn.FugitiveGitDir():gsub('/.git', '') end,
+      fn = function() return compact(vim.fn.FugitiveGitDir():gsub('/.git', '')) end,
       title = ' fugitive',
       filetypes = { 'fugitive' },
     }),
     plugin({
-      fn = function() return vim.fn.FugitiveGitDir():gsub('/.git', '') end,
+      fn = function() return compact(vim.fn.FugitiveGitDir():gsub('/.git', '')) end,
       title = ' logs',
       filetypes = { 'floggraph' },
     }),

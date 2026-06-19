@@ -11,24 +11,9 @@ vim.pack.add({
 
 -------------------------------------------------- Fugitive --------------------------------------------------
 
-vim.keymap.set('n', '<c-s>', '<cmd>below Git<cr>', { silent = true, desc = 'neogit' })
-
-vim.keymap.set('n', '<leader>cc', '<cmd>below Git commit<cr>',
-  { silent = true, desc = 'Git commit (new)' })
-vim.keymap.set('n', '<leader>ca', '<cmd>below Git commit --amend --no-edit<cr>',
-  { silent = true, desc = 'Git commit (amend)' })
-vim.keymap.set('n', '<leader>ce', '<cmd>below Git commit --amend<cr>',
-  { silent = true, desc = 'Git commit (edit)' })
-
-vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { silent = true, desc = 'Git(Hub) yank file/line URL' })
-
-vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { silent = true, desc = 'Git pull request' })
-
-local t = require('telescope.builtin')
-vim.keymap.set('n', '<leader>bb', t.git_branches,
-  { desc = 'Git branch' })
-vim.keymap.set('n', '<leader>bl', function() t.git_branches({ show_remote_tracking_branches = false }) end,
-  { desc = 'Git branch (local)' })
+local git = function(args)
+  return function() vim.cmd('below Git ' .. table.concat(args or {}, ' ')) end
+end
 
 local async_git = function(cmd)
   local _cmd = { 'git' }
@@ -45,6 +30,7 @@ local async_git = function(cmd)
       else
         vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
       end
+
       vim.schedule(function()
         vim.cmd.mode()
         vim.cmd.checktime()
@@ -60,6 +46,26 @@ local async_git = function(cmd)
     end)
   end
 end
+
+
+vim.keymap.set('n', '<c-s>', git(), { silent = true, desc = 'neogit' })
+
+vim.keymap.set('n', '<leader>cc', git({ 'commit' }),
+  { silent = true, desc = 'Git commit (new)' })
+vim.keymap.set('n', '<leader>ca', git({ 'commit', '--amend', '--no-edit' }),
+  { silent = true, desc = 'Git commit (amend)' })
+vim.keymap.set('n', '<leader>ce', git({ 'commit', '--amend' }),
+  { silent = true, desc = 'Git commit (edit)' })
+
+vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { silent = true, desc = 'Git(Hub) yank file/line URL' })
+
+vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { silent = true, desc = 'Git pull request' })
+
+local t = require('telescope.builtin')
+vim.keymap.set('n', '<leader>bb', t.git_branches,
+  { desc = 'Git branch' })
+vim.keymap.set('n', '<leader>bl', function() t.git_branches({ show_remote_tracking_branches = false }) end,
+  { desc = 'Git branch (local)' })
 
 vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase', }), { desc = 'Git pull' })
 vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease', }), { desc = 'Git pull' })
