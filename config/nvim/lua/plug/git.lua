@@ -42,7 +42,13 @@ local async_git = function(cmd)
       else
         vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
       end
-      vim.schedule(vim.cmd.checktime)
+      vim.schedule(function()
+        vim.cmd.mode()
+        vim.cmd.checktime()
+        local curbuf = vim.api.nvim_get_current_buf()
+        vim.cmd.Git()
+        if curbuf ~= vim.api.nvim_get_current_buf() then vim.fn.feedkeys('') end
+      end)
     end)
   end
 end
