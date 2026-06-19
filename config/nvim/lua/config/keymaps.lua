@@ -1,5 +1,16 @@
 -- ====| Essentials |===========================================================
 
+-- supercharge <esc>
+vim.keymap.set(
+  'n',
+  '<esc>',
+  function()
+    vim.cmd.normal('cxc') -- cxc clears exchange
+    vim.cmd.nohlsearch()
+    vim.cmd.Cursorword('disable')
+  end
+)
+
 -- Avoiding moving cursor when hitting <leader> followed by nothing
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>', '<nop>', { silent = true })
 -- undo
@@ -84,16 +95,6 @@ end, { desc = 'move matching lines after cursor' })
 -- find & replace
 vim.keymap.set('n', 'É', ':%s/')
 vim.keymap.set('x', 'É', '<esc>:%s/\\%V')
--- hide search matches
-vim.keymap.set(
-  'n',
-  '<esc>',
-  function()
-    vim.cmd.normal('cxc') -- cxc clears exchange
-    vim.cmd.nohlsearch()
-    vim.cmd.Cursorword('disable')
-  end
-)
 -- Find character
 vim.keymap.set({ 'n', 'x' }, ',', ';')
 vim.keymap.set({ 'n', 'x' }, ';', ',')
