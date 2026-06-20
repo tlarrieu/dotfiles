@@ -47,7 +47,6 @@ local async_git = function(cmd)
   end
 end
 
-
 vim.keymap.set('n', '<c-s>', git(), { silent = true, desc = 'neogit' })
 
 vim.keymap.set('n', '<leader>cc', git({ 'commit' }),
