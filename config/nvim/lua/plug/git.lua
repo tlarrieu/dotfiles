@@ -9,7 +9,7 @@ vim.pack.add({
   'https://github.com/lewis6991/gitsigns.nvim',
 }, { confirm = false })
 
--------------------------------------------------- Fugitive --------------------------------------------------
+------------------------------------------------------| Fugitive |------------------------------------------------------
 
 local git = function(args)
   return function() vim.cmd('below Git ' .. table.concat(args or {}, ' ')) end
@@ -85,7 +85,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
----------------------------------------------------- Flog ----------------------------------------------------
+--------------------------------------------------------| Flog |--------------------------------------------------------
 
 vim.keymap.set('n', '<leader>l', ':vertical Flogsplit<cr>', { silent = true, desc = 'Git log' })
 vim.keymap.set('n', '<leader>L', ':vertical 0Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (file)' })
@@ -101,7 +101,7 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
--------------------------------------------------- Codediff --------------------------------------------------
+------------------------------------------------------| Codediff |------------------------------------------------------
 
 require('codediff').setup({
   diff = {
@@ -128,7 +128,7 @@ vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
   { silent = true, desc = 'code(diff) review (origin/master...)' })
 vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
--------------------------------------------------- Gitsigns --------------------------------------------------
+------------------------------------------------------| Gitsigns |------------------------------------------------------
 
 local signs = {
   add          = { text = '┃󰐕' },
