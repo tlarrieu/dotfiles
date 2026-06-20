@@ -49,16 +49,13 @@ end
 
 vim.keymap.set('n', '<c-s>', git(), { silent = true, desc = 'neogit' })
 
-vim.keymap.set('n', '<leader>cc', git({ 'commit' }),
-  { silent = true, desc = 'Git commit (new)' })
-vim.keymap.set('n', '<leader>ca', git({ 'commit', '--amend', '--no-edit' }),
-  { silent = true, desc = 'Git commit (amend)' })
-vim.keymap.set('n', '<leader>ce', git({ 'commit', '--amend' }),
-  { silent = true, desc = 'Git commit (edit)' })
+vim.keymap.set('n', '<leader>cc', git({ 'commit' }), { desc = 'Git commit (new)' })
+vim.keymap.set('n', '<leader>ca', git({ 'commit', '--amend', '--no-edit' }), { desc = 'Git commit (amend)' })
+vim.keymap.set('n', '<leader>ce', git({ 'commit', '--amend' }), { desc = 'Git commit (edit)' })
 
-vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { silent = true, desc = 'Git(Hub) yank file/line URL' })
+vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { desc = 'Git(Hub) yank file/line URL' })
 
-vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { silent = true, desc = 'Git pull request' })
+vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { desc = 'Git pull request' })
 
 local t = require('telescope.builtin')
 vim.keymap.set('n', '<leader>bb', t.git_branches,
@@ -66,11 +63,11 @@ vim.keymap.set('n', '<leader>bb', t.git_branches,
 vim.keymap.set('n', '<leader>bl', function() t.git_branches({ show_remote_tracking_branches = false }) end,
   { desc = 'Git branch (local)' })
 
-vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase', }), { desc = 'Git pull' })
-vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease', }), { desc = 'Git pull' })
-vim.keymap.set('n', '<leader>gf', async_git({ 'fetch', '--tags', '--force', }), { desc = 'Git fetch' })
-vim.keymap.set('n', '<leader>gs', async_git({ 'stash', }), { desc = 'Git stash' })
-vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop', }), { desc = 'Git stash pop' })
+vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase' }), { desc = 'Git pull' })
+vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease' }), { desc = 'Git push' })
+vim.keymap.set('n', '<leader>gf', async_git({ 'fetch', '--tags', '--force' }), { desc = 'Git fetch' })
+vim.keymap.set('n', '<leader>gs', async_git({ 'stash' }), { desc = 'Git stash' })
+vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop' }), { desc = 'Git stash pop' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive' },
