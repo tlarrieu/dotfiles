@@ -19,8 +19,8 @@ progress() {
 }
 
 echo "$(tput setaf 9) TOP MEM$(tput sgr0)"
-progress "$(awk '/MemTotal|MemFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 - $2) / $1) * 100 }')"
-progress "$(awk '/SwapTotal|SwapFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 - $2) / $1) * 100 }')"
+progress "$(awk '/MemTotal|MemFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 > 0) ? ($1 - $2) / $1 : 0) * 100 }')"
+progress "$(awk '/SwapTotal|SwapFree/ { print $2 }' /proc/meminfo | paste -sd " " - | awk '{ printf "%.0f", (($1 > 0) ? ($1 - $2) / $1 : 0) * 100 }')"
 topmem
 echo
 echo "$(tput setaf 9) TOP CPU$(tput sgr0)"
