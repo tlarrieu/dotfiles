@@ -11,7 +11,16 @@ vim.pack.add({
 
 ------------------------------------------------------| Fugitive |------------------------------------------------------
 
-local git = function(args) return function() vim.cmd('below Git ' .. table.concat(args or {}, ' ')) end end
+local git = function(args)
+  return function()
+    if args == nil then
+      vim.cmd('below Git')
+      vim.cmd.normal(']/')
+    else
+      vim.cmd('below Git ' .. table.concat(args or {}, ' '))
+    end
+  end
+end
 
 local async_git = function(cmd)
   local _cmd = { 'git' }
