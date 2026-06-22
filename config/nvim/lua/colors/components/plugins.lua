@@ -177,6 +177,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'gitDate', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'gitDiff', { fg = palette.fg.dim })
 
+  vim.api.nvim_set_hl(0, 'fugitiveHeader', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'fugitiveHunk', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'fugitiveHash', { link = 'gitHash' })
   vim.api.nvim_set_hl(0, 'fugitiveSymbolicRef', { link = '@git.branch' })
