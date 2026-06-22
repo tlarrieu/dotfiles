@@ -75,4 +75,4 @@ require('config.keymaps')
 require('config.abbrev')
 require('config.autocmd')
 
-vim.cmd.colorscheme('system')
+vim.cmd.colorscheme('chromatic')
