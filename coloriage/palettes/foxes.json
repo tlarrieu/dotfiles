@@ -13,8 +13,8 @@
     "accent": "#286983",
     "fg": {
       "base": "#575279",
-      "dim": "#625c87",
-      "dimmer": "#a8a3b3"
+      "dim": "#8d88a0",
+      "dimmer": "#9f9aad"
     },
     "bg": {
       "base": "#faf4ed",
@@ -41,8 +41,8 @@
     "accent": "#81a1c1",
     "fg": {
       "base": "#cdcecf",
-      "dim": "#abb1bb",
-      "dimmer": "#7e8188"
+      "dim": "#979b9f",
+      "dimmer": "#858a8f"
     },
     "bg": {
       "base": "#2e3440",
