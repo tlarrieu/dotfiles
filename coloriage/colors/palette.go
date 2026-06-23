@@ -1,10 +1,5 @@
 package colors
 
-type Sel struct {
-	Base Color
-	Dim  Color
-}
-
 type Palette struct {
 	Black   CompositeColor
 	Blue    CompositeColor
@@ -21,7 +16,7 @@ type Palette struct {
 
 	Fg  CompositeColor
 	Bg  CompositeColor
-	Sel Sel
+	Sel CompositeColor
 }
 
 type Theme struct {

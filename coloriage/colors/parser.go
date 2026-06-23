@@ -21,9 +21,9 @@ type JsonPalette struct {
 
 	Accent Color
 
-	Fg  CompositeColor
-	Bg  CompositeColor
-	Sel Sel
+	Fg  Color
+	Bg  Color
+	Sel Color
 }
 
 type JsonTheme struct {
@@ -32,20 +32,20 @@ type JsonTheme struct {
 }
 
 func from(jsonPalette JsonPalette) (pal Palette) {
-	pal.Black = Compose(jsonPalette.Black, jsonPalette.Bg.Base)
-	pal.Blue = Compose(jsonPalette.Blue, jsonPalette.Bg.Base)
-	pal.Cyan = Compose(jsonPalette.Cyan, jsonPalette.Bg.Base)
-	pal.Green = Compose(jsonPalette.Green, jsonPalette.Bg.Base)
-	pal.Magenta = Compose(jsonPalette.Magenta, jsonPalette.Bg.Base)
-	pal.Orange = Compose(jsonPalette.Orange, jsonPalette.Bg.Base)
-	pal.Pink = Compose(jsonPalette.Pink, jsonPalette.Bg.Base)
-	pal.Red = Compose(jsonPalette.Red, jsonPalette.Bg.Base)
-	pal.White = Compose(jsonPalette.White, jsonPalette.Bg.Base)
-	pal.Yellow = Compose(jsonPalette.Yellow, jsonPalette.Bg.Base)
-	pal.Accent = Compose(jsonPalette.Accent, jsonPalette.Bg.Base)
-	pal.Fg = jsonPalette.Fg
-	pal.Bg = jsonPalette.Bg
-	pal.Sel = jsonPalette.Sel
+	pal.Black = Compose(jsonPalette.Black, jsonPalette.Bg, 0.2, 0.15)
+	pal.Blue = Compose(jsonPalette.Blue, jsonPalette.Bg, 0.2, 0.15)
+	pal.Cyan = Compose(jsonPalette.Cyan, jsonPalette.Bg, 0.2, 0.15)
+	pal.Green = Compose(jsonPalette.Green, jsonPalette.Bg, 0.2, 0.15)
+	pal.Magenta = Compose(jsonPalette.Magenta, jsonPalette.Bg, 0.2, 0.15)
+	pal.Orange = Compose(jsonPalette.Orange, jsonPalette.Bg, 0.2, 0.15)
+	pal.Pink = Compose(jsonPalette.Pink, jsonPalette.Bg, 0.2, 0.15)
+	pal.Red = Compose(jsonPalette.Red, jsonPalette.Bg, 0.2, 0.15)
+	pal.White = Compose(jsonPalette.White, jsonPalette.Bg, 0.2, 0.15)
+	pal.Yellow = Compose(jsonPalette.Yellow, jsonPalette.Bg, 0.2, 0.15)
+	pal.Accent = Compose(jsonPalette.Accent, jsonPalette.Bg, 0.2, 0.15)
+	pal.Fg = Compose(jsonPalette.Fg, jsonPalette.Bg, 0.6, 0.35)
+	pal.Bg = Fan(jsonPalette.Bg)
+	pal.Sel = Compose(jsonPalette.Sel, jsonPalette.Bg, 0.6, 0.7)
 	return
 }
 

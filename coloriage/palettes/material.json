@@ -11,20 +11,9 @@
     "white": "#fafafa",
     "yellow": "#f6a434",
     "accent": "#ff5370",
-    "fg": {
-      "base": "#546e7a",
-      "dim": "#94a7b0",
-      "dimmer": "#aabfc9"
-    },
-    "bg": {
-      "base": "#fafafa",
-      "dim": "#eeeeee",
-      "dimmer": "#e7e7e8"
-    },
-    "sel": {
-      "base": "#cbd6db",
-      "dim": "#cfd8dc"
-    }
+    "fg": "#546e7a",
+    "bg": "#fafafa",
+    "sel": "#cbd6db"
   },
   "dark": {
     "black": "#25363b",
@@ -38,19 +27,8 @@
     "white": "#b0bec5",
     "yellow": "#ffcb6b",
     "accent": "#ff9cac",
-    "fg": {
-      "base": "#b0bec5",
-      "dim": "#7c9ead",
-      "dimmer": "#546e7a"
-    },
-    "bg": {
-      "base": "#25363b",
-      "dim": "#1c2c30",
-      "dimmer": "#1f2233"
-    },
-    "sel": {
-      "base": "#3b3f51",
-      "dim": "#426367"
-    }
+    "fg": "#b0bec5",
+    "bg": "#25363b",
+    "sel": "#3b3f51"
   }
 }
