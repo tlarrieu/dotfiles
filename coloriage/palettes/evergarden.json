@@ -19,8 +19,7 @@
     "bg": {
       "base": "#f5efe6",
       "dim": "#f2eae1",
-      "dimmer": "#f2eae1",
-      "border": "#ede8dd"
+      "dimmer": "#f2eae1"
     },
     "sel": {
       "base": "#ceccbd",
@@ -47,8 +46,7 @@
     "bg": {
       "base": "#2b3438",
       "dim": "#232a2e",
-      "dimmer": "#1c2225",
-      "border": "#343e43"
+      "dimmer": "#1c2225"
     },
     "sel": {
       "base": "#4a585c",

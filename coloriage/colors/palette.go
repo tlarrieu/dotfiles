@@ -7,11 +7,9 @@ type Foreground struct {
 }
 
 type Background struct {
-	Dark   Color
 	Base   Color
 	Dim    Color
 	Dimmer Color
-	Border Color
 }
 
 type Sel struct {

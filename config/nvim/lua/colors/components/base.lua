@@ -1,9 +1,9 @@
 return function(palette)
   vim.api.nvim_set_hl(0, 'Normal', { fg = palette.fg.base })
   vim.api.nvim_set_hl(0, 'NormalNC', { link = 'Normal' })
-  vim.api.nvim_set_hl(0, 'NonText', { fg = palette.bg.border })
+  vim.api.nvim_set_hl(0, 'NonText', { fg = palette.bg.dimmer })
   vim.api.nvim_set_hl(0, 'EndOfBuffer', { fg = palette.bg.base })
-  vim.api.nvim_set_hl(0, 'Conceal', { fg = palette.bg.border })
+  vim.api.nvim_set_hl(0, 'Conceal', { link = 'NonText' })
   vim.api.nvim_set_hl(0, 'SpecialKey', { fg = palette.fg.dimmer })
 
   vim.api.nvim_set_hl(0, 'Underlined', { underline = true })
