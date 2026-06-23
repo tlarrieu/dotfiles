@@ -1,17 +1,5 @@
 package colors
 
-type Foreground struct {
-	Base   Color
-	Dim    Color
-	Dimmer Color
-}
-
-type Background struct {
-	Base   Color
-	Dim    Color
-	Dimmer Color
-}
-
 type Sel struct {
 	Base Color
 	Dim  Color
@@ -31,8 +19,8 @@ type Palette struct {
 
 	Accent CompositeColor
 
-	Fg  Foreground
-	Bg  Background
+	Fg  CompositeColor
+	Bg  CompositeColor
 	Sel Sel
 }
 

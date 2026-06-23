@@ -21,8 +21,8 @@ type JsonPalette struct {
 
 	Accent Color
 
-	Fg  Foreground
-	Bg  Background
+	Fg  CompositeColor
+	Bg  CompositeColor
 	Sel Sel
 }
 

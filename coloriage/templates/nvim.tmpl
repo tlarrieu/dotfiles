@@ -11,19 +11,8 @@ return {
   red = {{template "color" .Red}},
   white = {{template "color" .White}},
   yellow = {{template "color" .Yellow}},
-
   accent = {{template "color" .Accent}},
-
   fg = {{template "color" .Fg}},
-
-  bg = {
-    base = '{{ .Bg.Base }}',
-    dim = '{{ .Bg.Dim }}',
-    dimmer = '{{ .Bg.Dimmer }}',
-  },
-
-  sel = {
-    base = '{{ .Sel.Base }}',
-    dim = '{{ .Sel.Dim }}',
-  },
+  bg = {{template "color" .Bg}},
+  sel = { base = '{{ .Sel.Base }}', dim = '{{ .Sel.Dim }}' },
 }
