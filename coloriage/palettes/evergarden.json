@@ -1,6 +1,6 @@
 {
   "light": {
-    "black": "#2b3034",
+    "black": "#4a5259",
     "blue": "#8294ad",
     "cyan": "#74a48b",
     "green": "#91a77a",
@@ -11,7 +11,7 @@
     "white": "#f5efe6",
     "yellow": "#c4aa80",
     "accent": "#abb182",
-    "fg": "#2b3034",
+    "fg": "#4a5259",
     "bg": "#f5efe6",
     "sel": "#ceccbd"
   },
