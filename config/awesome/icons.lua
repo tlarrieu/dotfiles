@@ -50,6 +50,7 @@ local config = {
   --   Work
   { icon = '󰙨', rule = { class = 'kitty', name = 'technical%-tests' } },
   { icon = '󰙃', rule = { class = 'Chromium', instance = 'lucca' } },
+  { icon = '󰙃', rule = { class = 'Chromium', instance = 'wd116.myworkday' } },
   { icon = '', rule = { class = 'Chromium', instance = 'docusign' } },
   { icon = '󰒱', rule = { class = 'Chromium', instance = 'slack' } },
   { icon = '󱞟', rule = { class = 'Chromium', instance = 'metroretro.io' } },

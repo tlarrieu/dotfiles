@@ -1,0 +1,3 @@
+#!/bin/sh
+
+browser-kiosk pro "https://wd116.myworkday.com/pennylane/"
