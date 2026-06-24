@@ -365,7 +365,7 @@ return function(palette)
 
   vim.api.nvim_set_hl(0, 'ExchangeRegion', { fg = palette.bg.base, bg = palette.orange.base })
 
-  vim.api.nvim_set_hl(0, 'Cursorword', { bg = palette.green.dim })
+  vim.api.nvim_set_hl(0, 'Cursorword', { fg = palette.green.base, bg = palette.green.dim })
 
   local _, lualine = pcall(require, 'lualine')
   if lualine then

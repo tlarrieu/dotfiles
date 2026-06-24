@@ -189,7 +189,7 @@ return function(palette)
 
   -- search
   vim.api.nvim_set_hl(0, 'Search', { fg = palette.fg.base, bg = palette.sel.dim })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = palette.fg.base, bg = palette.sel.base })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = palette.accent.base, bg = palette.accent.dim })
   vim.api.nvim_set_hl(0, 'Substitute', { link = 'IncSearch' })
   vim.api.nvim_set_hl(0, 'CurSearch', { link = 'IncSearch' })
 
