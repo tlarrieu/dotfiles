@@ -83,6 +83,8 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'o', '=', { remap = true, buffer = true })
     vim.keymap.set('n', 'þ', ']/', { remap = true, buffer = true })
     vim.keymap.set('n', 'ß', '[/', { remap = true, buffer = true })
+    vim.keymap.set('n', 'ca', git({ 'commit', '--amend', '--no-edit' }), { buffer = true, desc = 'Git commit (amend)' })
+    vim.keymap.set('n', 'ce', git({ 'commit', '--amend' }), { buffer = true, desc = 'Git commit (edit)' })
     vim.keymap.set('n', 'S', '<cmd>Git add .<cr>', { buffer = true })
     vim.keymap.set('n', '<c-s>', '<cmd>q<cr>', { buffer = true })
   end,

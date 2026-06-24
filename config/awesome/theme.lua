@@ -12,13 +12,14 @@ return {
     theme.useless_gap = dpi(3)
 
     theme.font = "CaskaydiaCove Nerd Font 12"
-    theme.taglist_bg_focus = colors.accent.base .. '00'
 
-    theme.fg_normal = colors.fg.dim
+    theme.fg_normal = colors.fg.base
     theme.fg_focus = colors.fg.base
-    theme.fg_urgent = colors.white.dim
+    theme.fg_urgent = colors.bg.dim
 
-    theme.tasklist_fg_focus = colors.black.dim
+    -- hack to change taglist default color (since all our tags are volatile anyways)
+    theme.taglist_fg_volatile = colors.fg.dim
+    theme.taglist_fg_focus = colors.fg.base
 
     theme.bg_normal = colors.bg.base
     theme.bg_focus = colors.bg.base
@@ -26,8 +27,6 @@ return {
     theme.bg_systray = colors.bg_normal
 
     theme.border_width = 0
-    theme.border_normal = colors.white.base
-    theme.border_focus = colors.green.base
 
     theme.notification_bg = colors.fg.base
     theme.notification_fg = colors.bg.base
@@ -46,7 +45,8 @@ return {
 
     naughty.config.padding = dpi(18)
     naughty.config.spacing = dpi(10)
-    naughty.config.presets.critical.bg = colors.red.base
-    naughty.config.presets.critical.fg = colors.white.dim
+    naughty.config.presets.critical.border_width = 0
+    naughty.config.presets.critical.bg = colors.red.dim
+    naughty.config.presets.critical.fg = colors.red.base
   end
 }

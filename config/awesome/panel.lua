@@ -38,7 +38,7 @@ local earbuds = wibox.widget({
 
 local buds_widget = wibox.widget({
   {
-    markup = '<span size="large" color="' .. beautiful.colors.fg.base .. '">󰥈 </span>',
+    markup = string.format('<span size="large" color="%s">󰥈 </span>', beautiful.colors.fg.base),
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox,
@@ -97,7 +97,7 @@ local battery = wibox.widget({
 
 local bat_widget = wibox.widget({
   {
-    markup = '<span size="large" color="' .. beautiful.colors.fg.base .. '">󰁹 </span>',
+    markup = string.format('<span size="large" color="%s">󰁹 </span>', beautiful.colors.fg.base),
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox,
@@ -139,12 +139,19 @@ local init = function(screen)
   earbuds_callback()
 
   local dpi = function(n) return apply_dpi(n, screen) end
+  local colors = beautiful.colors
 
   local taglist = awful.widget.taglist({
     screen = screen,
     filter = function(tag) return #tag:clients() > 1 or #tag.screen.tags > 1 end,
     style = { spacing = dpi(10) },
-    layout = { spacing_widget = wibox.widget.textbox('•'), layout = wibox.layout.fixed.horizontal },
+    layout = {
+      spacing_widget = {
+        markup = string.format('<span color="%s">•</span>', colors.fg.dim),
+        widget = wibox.widget.textbox,
+      },
+      layout = wibox.layout.fixed.horizontal,
+    },
     widget_template = {
       {
         {
@@ -163,9 +170,8 @@ local init = function(screen)
     },
   })
 
-  local colors = beautiful.colors
   local glyph = require('glyphs').number(screen.index)
-  local markup = '<span color="' .. colors.fg.base .. '" size="large">󰍹 ' .. glyph .. ' </span>'
+  local markup = string.format('<span color="%s" size="large">󰍹 %s </span>', colors.fg.base, glyph)
   local screennum = wibox.widget({
     markup = markup,
     align  = 'center',
@@ -181,7 +187,7 @@ local init = function(screen)
         and colors.red.base
         or colors.green.base
 
-    context.markup = '<span color="' .. context_color .. '"><b>@' .. out .. '</b></span>'
+    context.markup = string.format('<span color="%s"><b>@%s</b></span>', context_color, out)
   end)
 
   local left = wibox.widget({
