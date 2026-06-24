@@ -73,17 +73,21 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'TelescopeResultsIdentifier', { fg = palette.magenta.base, italic = true })
 
   vim.api.nvim_set_hl(0, 'MasonHeader', { fg = palette.green.base, bg = palette.green.dim })
-  vim.api.nvim_set_hl(0, 'MasonHigvim.api.nvim_set_hlight', { fg = palette.green.base, bg = 'none' })
-  vim.api.nvim_set_hl(0, 'MasonHigvim.api.nvim_set_hlightBlock', { fg = palette.bg.base, bg = palette.green.bright })
-  vim.api.nvim_set_hl(0, 'MasonHigvim.api.nvim_set_hlightBlockBold', { link = 'MasonHeader' })
+  vim.api.nvim_set_hl(0, 'MasonHighlight', { fg = palette.green.base, bg = 'none' })
+  vim.api.nvim_set_hl(0, 'MasonHighlightBlock', { fg = palette.bg.base, bg = palette.green.bright })
+  vim.api.nvim_set_hl(0, 'MasonHighlightBlockBold', { link = 'MasonHeader' })
   vim.api.nvim_set_hl(0, 'MasonMutedBlock', { fg = palette.fg.dimmer, bg = palette.bg.base })
 
   vim.api.nvim_set_hl(0, 'LualineAdded', { fg = palette.green.base })
   vim.api.nvim_set_hl(0, 'LualineRemoved', { fg = palette.red.base })
   vim.api.nvim_set_hl(0, 'LualineModified', { fg = palette.yellow.base })
   vim.api.nvim_set_hl(0, 'LualineTablineActive', { fg = palette.bg.base, bg = palette.blue.base })
-  vim.api.nvim_set_hl(0, 'LualineTablineActiveAlt',
-    { fg = palette.fg.base, bg = palette.bg.base, bold = true, underline = true })
+  vim.api.nvim_set_hl(0, 'LualineTablineActiveAlt', {
+    fg = palette.fg.base,
+    bg = palette.bg.base,
+    bold = true,
+    underline = true,
+  })
   vim.api.nvim_set_hl(0, 'LualineTablineInactive', { fg = palette.fg.base, bg = palette.bg.dim })
   vim.api.nvim_set_hl(0, 'LualineExecutable', { fg = palette.green.base, bg = 'none' })
   vim.api.nvim_set_hl(0, 'LualineSuccess', { fg = palette.green.base, bg = 'none' })
@@ -116,9 +120,9 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'NotifyTRACEIcon', { link = 'NotifyTRACETitle' })
   vim.api.nvim_set_hl(0, 'NotifyBackground', { link = 'NormalFloat' })
 
-  vim.api.nvim_set_hl(0, 'MarkSignvim.api.nvim_set_hl', { fg = palette.accent.base, bg = palette.accent.dim })
-  vim.api.nvim_set_hl(0, 'MarkSignNumvim.api.nvim_set_hl', { fg = palette.fg.dim, bg = palette.accent.dim })
-  vim.api.nvim_set_hl(0, 'MarkVirtTextvim.api.nvim_set_hl', { fg = palette.accent.base, bg = palette.accent.dim })
+  vim.api.nvim_set_hl(0, 'MarkSignHL', { fg = palette.accent.base, bg = palette.accent.dim })
+  vim.api.nvim_set_hl(0, 'MarkSignNumHL', { fg = palette.fg.dim, bg = palette.accent.dim })
+  vim.api.nvim_set_hl(0, 'MarkVirtTextHL', { fg = palette.accent.base, bg = palette.accent.dim })
 
   vim.api.nvim_set_hl(0, 'MarkviewCode', { fg = 'none', bg = palette.bg.dimmer })
   vim.api.nvim_set_hl(0, 'MarkviewCodeLabel', { fg = palette.bg.dimmer, bg = palette.yellow.base, bold = true })
