@@ -108,7 +108,6 @@ vim.api.nvim_create_autocmd('FileType', {
 
 require('codediff').setup({
   diff = {
-    layout = 'inline',
     compute_moves = true,
     cycle_hunks_across_files = true,
   },
@@ -125,6 +124,15 @@ require('codediff').setup({
   highlights = {
     line_move = 'DiffMove',
   }
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'CodeDiffOpen',
+  callback = function()
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      vim.wo[win].cursorline = false
+    end
+  end,
 })
 
 vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
