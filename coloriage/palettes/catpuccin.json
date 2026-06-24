@@ -21,11 +21,11 @@
     "green": "#a6e3a1",
     "magenta": "#cba6f7",
     "orange": "#fab387",
-    "pink": "#f5c2e7",
+    "pink": "#f2cdcd",
     "red": "#f38ba8",
     "white": "#cad3f5",
     "yellow": "#f9e2af",
-    "accent": "#f5c2e7",
+    "accent": "#f2cdcd",
     "fg": "#cdd6f4",
     "bg": "#1e1e2e"
   }

@@ -22,7 +22,7 @@ return {
     theme.taglist_fg_focus = colors.fg.base
 
     theme.bg_normal = colors.bg.base
-    theme.bg_focus = colors.bg.base
+    theme.bg_focus = nil
     theme.bg_urgent = colors.red.base
     theme.bg_systray = colors.bg_normal
 
