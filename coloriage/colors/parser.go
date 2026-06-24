@@ -45,7 +45,8 @@ func from(jsonPalette JsonPalette) (pal Palette) {
 	pal.Accent = Compose(jsonPalette.Accent, jsonPalette.Bg, 0.2, 0.15)
 	pal.Fg = Compose(jsonPalette.Fg, jsonPalette.Bg, 0.6, 0.5)
 	pal.Bg = Fan(jsonPalette.Bg)
-	pal.Sel = Compose(jsonPalette.Sel, jsonPalette.Bg, 0.6, 0.7)
+	sel := Compose(jsonPalette.Accent, jsonPalette.Bg, 0.3, 0.18)
+	pal.Sel = CompositeColor{sel.Dim, sel.Dimmer, sel.Dimmer}
 	return
 }
 

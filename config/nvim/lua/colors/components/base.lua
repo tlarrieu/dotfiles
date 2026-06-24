@@ -189,7 +189,7 @@ return function(palette)
 
   -- search
   vim.api.nvim_set_hl(0, 'Search', { fg = palette.fg.base, bg = palette.sel.dim })
-  vim.api.nvim_set_hl(0, 'IncSearch', { fg = palette.fg.base, bg = palette.accent.dim })
+  vim.api.nvim_set_hl(0, 'IncSearch', { fg = palette.fg.base, bg = palette.sel.base })
   vim.api.nvim_set_hl(0, 'Substitute', { link = 'IncSearch' })
   vim.api.nvim_set_hl(0, 'CurSearch', { link = 'IncSearch' })
 
@@ -293,8 +293,8 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'VertSplit', { link = 'WinSeparator' })
 
   -- pmenu
-  vim.api.nvim_set_hl(0, 'Pmenu', { fg = palette.fg.base, bg = palette.bg.dimmer })
-  vim.api.nvim_set_hl(0, 'PmenuSel', { bg = palette.sel.dim })
+  vim.api.nvim_set_hl(0, 'Pmenu', { fg = palette.fg.base, bg = palette.bg.dim })
+  vim.api.nvim_set_hl(0, 'PmenuSel', { bg = palette.sel.base })
   vim.api.nvim_set_hl(0, 'PmenuSbar', { link = 'Pmenu' })
   vim.api.nvim_set_hl(0, 'PmenuThumb', { bg = palette.sel.dim })
   vim.api.nvim_set_hl(0, 'WildMenu', { link = 'Pmenu' })

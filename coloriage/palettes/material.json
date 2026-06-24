@@ -12,8 +12,7 @@
     "yellow": "#f6a434",
     "accent": "#ff5370",
     "fg": "#546e7a",
-    "bg": "#fafafa",
-    "sel": "#cbd6db"
+    "bg": "#fafafa"
   },
   "dark": {
     "black": "#25363b",
@@ -28,7 +27,6 @@
     "yellow": "#ffcb6b",
     "accent": "#ff9cac",
     "fg": "#b0bec5",
-    "bg": "#25363b",
-    "sel": "#3b3f51"
+    "bg": "#25363b"
   }
 }
