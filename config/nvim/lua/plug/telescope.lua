@@ -36,7 +36,7 @@ telescope.setup({
       anchor_padding = 0,
       preview_width = 0.65,
       height = 30,
-      width = 174,
+      width = 164,
     },
 
     preview = {

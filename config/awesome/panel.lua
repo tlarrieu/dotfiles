@@ -33,7 +33,6 @@ local earbuds = wibox.widget({
   paddings     = 1,
   border_width = 0,
   visible      = false,
-  border_color = beautiful.colors.fg.base,
 })
 
 local buds_widget = wibox.widget({
@@ -69,7 +68,6 @@ local earbuds_callback = function()
     earbuds.visible = true
 
     local colors = beautiful.colors
-    earbuds.border_color = colors.fg.base
     earbuds.value = value
     if value <= 10 then
       earbuds.color = colors.red.base
@@ -92,12 +90,11 @@ local battery = wibox.widget({
   paddings     = 1,
   border_width = 0,
   visible      = false,
-  border_color = beautiful.colors.fg.base,
 })
 
 local bat_widget = wibox.widget({
   {
-    markup = string.format('<span size="large" color="%s">󰁹 </span>', beautiful.colors.fg.base),
+    markup = '<span size="large">󰁹 </span>',
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox,
@@ -120,7 +117,6 @@ local battery_callback = function()
     battery.visible = true
 
     local colors = beautiful.colors
-    battery.border_color = colors.fg.base
     battery.value = value
     if value <= 10 then
       battery.color = colors.red.base
@@ -171,9 +167,8 @@ local init = function(screen)
   })
 
   local glyph = require('glyphs').number(screen.index)
-  local markup = string.format('<span color="%s" size="large">󰍹 %s </span>', colors.fg.base, glyph)
   local screennum = wibox.widget({
-    markup = markup,
+    markup = string.format('<span size="large">󰍹 %s </span>', glyph),
     align  = 'center',
     valign = 'center',
     widget = wibox.widget.textbox
@@ -224,7 +219,7 @@ local init = function(screen)
     height = dpi(32),
     screen = screen,
     margins = { top = dpi(6), bottom = dpi(0), left = dpi(6), right = dpi(6) },
-    bg = colors.bg.base .. "e6",
+    bg = colors.bg.dim .. "e6",
     widget = barwidget
   })
 end
