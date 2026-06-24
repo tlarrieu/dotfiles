@@ -11,35 +11,33 @@ return {
     theme.colors = colors
     theme.useless_gap = dpi(3)
 
-    local accent = colors.accent
-
     theme.font = "CaskaydiaCove Nerd Font 12"
-    theme.taglist_bg_focus = accent.dark .. '00'
+    theme.taglist_bg_focus = colors.accent.base .. '00'
 
-    theme.fg_normal = colors.foreground
-    theme.fg_focus = accent.dark
-    theme.fg_urgent = colors.white.light
+    theme.fg_normal = colors.fg.dim
+    theme.fg_focus = colors.fg.base
+    theme.fg_urgent = colors.white.dim
 
-    theme.tasklist_fg_focus = colors.black.light
+    theme.tasklist_fg_focus = colors.black.dim
 
-    theme.bg_normal = colors.background
-    theme.bg_focus = colors.background
-    theme.bg_urgent = colors.red.dark
+    theme.bg_normal = colors.bg.base
+    theme.bg_focus = colors.bg.base
+    theme.bg_urgent = colors.red.base
     theme.bg_systray = colors.bg_normal
 
     theme.border_width = 0
-    theme.border_normal = colors.white.dark
-    theme.border_focus = colors.green.dark
+    theme.border_normal = colors.white.base
+    theme.border_focus = colors.green.base
 
-    theme.notification_bg = colors.foreground
-    theme.notification_fg = colors.background
+    theme.notification_bg = colors.fg.base
+    theme.notification_fg = colors.bg.base
     theme.notification_margin = dpi(12)
-    theme.notification_border_color = colors.foreground
+    theme.notification_border_color = colors.fg.base
     theme.notification_border_width = 0
     theme.notification_icon_size = dpi(32)
 
-    theme.progressbar_bg = colors.foreground
-    theme.progressbar_fg = colors.background
+    theme.progressbar_bg = colors.fg.base
+    theme.progressbar_fg = colors.bg.base
     theme.progressbar_paddings = dpi(1)
 
     theme.notification_font = theme.font
@@ -48,7 +46,7 @@ return {
 
     naughty.config.padding = dpi(18)
     naughty.config.spacing = dpi(10)
-    naughty.config.presets.critical.bg = colors.red.dark
-    naughty.config.presets.critical.fg = colors.white.light
+    naughty.config.presets.critical.bg = colors.red.base
+    naughty.config.presets.critical.fg = colors.white.dim
   end
 }
