@@ -199,8 +199,8 @@ return function(palette)
 
   -- Lines
   vim.api.nvim_set_hl(0, 'LineNr', { fg = palette.fg.dimmer })
-  vim.api.nvim_set_hl(0, 'CursorLine', { bg = palette.bg.dimmer })
-  vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = palette.fg.dimmer, bg = palette.bg.dimmer })
+  vim.api.nvim_set_hl(0, 'CursorLine', { bg = palette.sel.dim })
+  vim.api.nvim_set_hl(0, 'CursorLineNr', { fg = palette.fg.dimmer, bg = palette.sel.dim })
 
   -- signcolumn
   vim.api.nvim_set_hl(0, 'SignColumn', { fg = palette.fg.dimmer })
