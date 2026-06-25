@@ -28,40 +28,43 @@ func (color *Color) UnmarshalJSON(data []byte) (err error) {
 func (c Color) String() string { return ToHex(c) }
 
 func FromHex(s string) (c Color, err error) {
-	c.alpha = 0xff
 	switch len(s) {
+	case 9:
+		_, err = fmt.Sscanf(s, "#%02x%02x%02x%02x", &c.red, &c.green, &c.blue, &c.alpha)
 	case 7:
 		_, err = fmt.Sscanf(s, "#%02x%02x%02x", &c.red, &c.green, &c.blue)
+		c.alpha = 0xff
 	case 4:
 		_, err = fmt.Sscanf(s, "#%1x%1x%1x", &c.red, &c.green, &c.blue)
 		// Double the hex digits:
 		c.red *= 17
 		c.green *= 17
 		c.blue *= 17
+		c.alpha = 0xff
 	default:
-		err = fmt.Errorf("invalid length, must be 7 or 4")
+		err = fmt.Errorf("invalid length, must be 9, 7 or 4")
 	}
 	return
 }
 
 func ToHex(c Color) string {
-	if c.alpha != 0xff {
-		return fmt.Sprintf("#%02x%02x%02x%02x", c.red, c.green, c.blue, c.alpha)
-	} else {
-		return fmt.Sprintf("#%02x%02x%02x", c.red, c.green, c.blue)
-	}
+	return fmt.Sprintf("#%02x%02x%02x", c.red, c.green, c.blue)
+}
+
+func ToHexA(c Color) string {
+	return fmt.Sprintf("#%02x%02x%02x%02x", c.red, c.green, c.blue, c.alpha)
 }
 
 func ToRGB(c Color) string {
 	return fmt.Sprintf("%d,%d,%d", c.red, c.green, c.blue)
 }
 
-func scale(x uint8) float32 {
-	return float32(x) / 0xff
+func ToRGBA(c Color) string {
+	return fmt.Sprintf("%d,%d,%d,%d", c.red, c.green, c.blue, c.alpha)
 }
 
 func blend(a, b uint8, f float32) uint8 {
-	return uint8(((scale(a)-scale(b))*f + scale(b)) * 0xff)
+	return uint8(((float32(a)/0xff-float32(b)/0xff)*f + float32(b)/0xff) * 0xff)
 }
 
 func Blend(c1, c2 Color, f float32) Color {
