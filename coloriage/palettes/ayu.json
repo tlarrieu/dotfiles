@@ -1,32 +1,32 @@
 {
   "light": {
     "black": "#5c6166",
-    "blue": "#478acc",
+    "blue": "#22a4e6",
     "cyan": "#4cbf99",
-    "green": "#789916",
+    "green": "#86b300",
     "magenta": "#a37acc",
     "orange": "#fa8532",
     "pink": "#f2a191",
-    "red": "#e56b6b",
-    "white": "#f8f9fa",
-    "yellow": "#e0aa16",
-    "accent": "#f2a191",
+    "red": "#f07171",
+    "white": "#fcfcfc",
+    "yellow": "#eba400",
+    "accent": "#035bd6",
     "fg": "#5c6166",
-    "bg": "#f8f9fa"
+    "bg": "#fcfcfc"
   },
   "dark": {
-    "black": "#1f2430",
-    "blue": "#69bfea",
-    "cyan": "#95e6cb",
-    "green": "#9bc645",
-    "magenta": "#dfbfff",
-    "orange": "#ffa659",
+    "black": "#10141c",
+    "blue": "#17acf2",
+    "cyan": "#84ceb5",
+    "green": "#aad94c",
+    "magenta": "#c385fe",
+    "orange": "#e89d37",
     "pink": "#f29e74",
-    "red": "#f28779",
-    "white": "#c6c5bc",
+    "red": "#f07178",
+    "white": "#bfbdb6",
     "yellow": "#ffcd66",
-    "accent": "#f29e74",
-    "fg": "#c6c5bc",
-    "bg": "#1f2430"
+    "accent": "#3388ff",
+    "fg": "#bfbdb6",
+    "bg": "#10141c"
   }
 }
