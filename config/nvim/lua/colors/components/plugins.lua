@@ -48,7 +48,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'DropBarMenuCurrentContext', { bg = palette.sel.base })
   vim.api.nvim_set_hl(0, 'DropBarMenuHoverIcon', { bg = palette.sel.base })
   vim.api.nvim_set_hl(0, 'DropBarMenuHoverEntry', { link = 'DropBarMenuHoverIcon' })
-  vim.api.nvim_set_hl(0, 'DropBarModified', { fg = palette.pink.base, bold = true })
+  vim.api.nvim_set_hl(0, 'DropBarModified', { fg = palette.accent.base, bold = true })
 
   vim.api.nvim_set_hl(0, 'TelescopeNormal', { fg = palette.fg.dim, bg = palette.bg.dim })
   vim.api.nvim_set_hl(0, 'TelescopePreviewNormal', { fg = palette.fg.base, bg = palette.bg.dim })
