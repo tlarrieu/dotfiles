@@ -65,10 +65,11 @@ vim.keymap.set({ 'n', 'v' }, 'gy', ':GBrowse!<cr>', { desc = 'Git(Hub) yank file
 vim.keymap.set('n', '<leader>bo', '<cmd>Git pr<cr>', { desc = 'Git pull request' })
 
 local t = require('telescope.builtin')
-vim.keymap.set('n', '<leader>bb', t.git_branches,
-  { desc = 'Git branch' })
-vim.keymap.set('n', '<leader>bl', function() t.git_branches({ show_remote_tracking_branches = false }) end,
-  { desc = 'Git branch (local)' })
+vim.keymap.set('n', '<leader>bb', t.git_branches, { desc = 'Git branch' })
+vim.keymap.set('n', '<leader>bl', function()
+  t.git_branches({ show_remote_tracking_branches = false })
+end, { desc = 'Git branch (local)' })
+vim.keymap.set('n', '<leader>ba', async_git({ 'checkout', '-' }), { desc = 'Git checkout last branch' })
 
 vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase' }), { desc = 'Git pull' })
 vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease' }), { desc = 'Git push' })
