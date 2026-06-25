@@ -10,7 +10,7 @@
     "red": "#e53935",
     "white": "#fafafa",
     "yellow": "#f6a434",
-    "accent": "#ff5370",
+    "accent": "#546e7a",
     "fg": "#546e7a",
     "bg": "#fafafa"
   },
@@ -25,7 +25,7 @@
     "red": "#f07178",
     "white": "#b0bec5",
     "yellow": "#ffcb6b",
-    "accent": "#ff9cac",
+    "accent": "#b0bec5",
     "fg": "#b0bec5",
     "bg": "#25363b"
   }
