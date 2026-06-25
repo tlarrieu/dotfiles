@@ -37,7 +37,7 @@ local earbuds = wibox.widget({
 
 local buds_widget = wibox.widget({
   {
-    markup = string.format('<span size="large" color="%s">󰥈 </span>', beautiful.colors.fg.base),
+    markup = '<span size="large">󰥈 </span>',
     align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox,
