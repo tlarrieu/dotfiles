@@ -103,6 +103,6 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'oil' },
   callback = function()
     vim.keymap.set('n', '<leader>.', oil.close, { buffer = true, silent = true, desc = 'Close oil' })
-    vim.wo.cursorline = true
+    vim.opt_local.cursorline = true
   end,
 })
