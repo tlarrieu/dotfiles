@@ -109,10 +109,10 @@ element normal urgent {
   text-color: @urgent;
 }
 
-// element normal active {
-//   background-color: transparent;
-//   text-color: @accent;
-// }
+element normal active {
+  background-color: transparent;
+  text-color: @accent;
+}
 
 // Alternate -------------------------------------------------------------------
 
@@ -126,10 +126,10 @@ element alternate urgent {
   text-color: @urgent;
 }
 
-// element alternate active {
-//   background-color: transparent;
-//   text-color: @accent;
-// }
+element alternate active {
+  background-color: transparent;
+  text-color: @accent;
+}
 
 // Selected --------------------------------------------------------------------
 
@@ -145,8 +145,7 @@ element selected urgent {
   text-color: @urgent;
 }
 
-// element selected active {
-//   background-color: @bg-accent;
-//   border-color: @magenta;
-//   text-color: @accent;
-// }
+element selected active {
+  background-color: @bg-accent;
+  text-color: @accent;
+}
