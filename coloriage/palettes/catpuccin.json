@@ -10,12 +10,12 @@
     "red": "#d20f39",
     "white": "#eff1f5",
     "yellow": "#df8e1d",
-    "accent": "#dc8a78",
+    "accent": "#1e66f5",
     "fg": "#4c4f69",
     "bg": "#eff1f5"
   },
   "dark": {
-    "black": "#303446",
+    "black": "#1e1e2e",
     "blue": "#89b4fa",
     "cyan": "#74c7ec",
     "green": "#a6e3a1",
@@ -25,7 +25,7 @@
     "red": "#f38ba8",
     "white": "#cad3f5",
     "yellow": "#f9e2af",
-    "accent": "#f2cdcd",
+    "accent": "#89b4fa",
     "fg": "#cdd6f4",
     "bg": "#1e1e2e"
   }
