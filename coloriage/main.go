@@ -19,6 +19,8 @@ func main() {
 		commands.Toggle()
 	case "s", "set":
 		commands.SetMode(os.Args[2])
+	case "r", "random":
+		commands.Random()
 	default:
 		panic("Unrecognized command")
 	}

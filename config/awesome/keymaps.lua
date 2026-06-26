@@ -80,6 +80,8 @@ local keyboard = {
 
     spawner.key({ super, shift }, 't', require('context').toggle),
     spawner.key({ super, shift }, 'Return', spawner.shell(string.format('%s/coloriage/coloriage toggle', dotfiles))),
+    spawner.key({ super, ctrl, shift }, 'Return',
+      spawner.shell(string.format('cd %s/coloriage && ./coloriage random', dotfiles))),
 
     -- [[ Applications ]] ------------------------------------------------------
 
