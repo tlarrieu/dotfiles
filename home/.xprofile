@@ -12,7 +12,7 @@ else
   ~/git/dotfiles/coloriage/coloriage set light
 fi
 
-cd ~/git/dotfiles/coloriage && ./coloriage random
+cd ~/git/dotfiles/coloriage && ./coloriage random 2>/dev/null &
 
 pgrep unclutter || unclutter -root -idle 2 2>/dev/null &
 pgrep picom || picom 2>/dev/null &
