@@ -13,6 +13,7 @@ func main() {
 	case "a", "apply":
 		if len(os.Args) > 2 {
 			commands.Apply(os.Args[2])
+			commands.Notify("󱨍 " + os.Args[2])
 		} else {
 			commands.Refresh()
 		}
@@ -21,7 +22,8 @@ func main() {
 	case "s", "set":
 		commands.SetMode(os.Args[2])
 	case "r", "random":
-		commands.Random()
+		name := commands.Random()
+		commands.Notify("  " + name)
 	default:
 		panic("Unrecognized command")
 	}

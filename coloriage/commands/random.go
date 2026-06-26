@@ -3,11 +3,10 @@ package commands
 import (
 	"math/rand/v2"
 	"os"
-	"os/exec"
 	"strings"
 )
 
-func Random() {
+func Random() string {
 	files, err := os.ReadDir("palettes")
 	if err != nil {
 		panic(err)
@@ -15,5 +14,5 @@ func Random() {
 	file := files[rand.IntN(len(files))]
 	name, _ := strings.CutSuffix(file.Name(), ".json")
 	Apply(name)
-	exec.Command("/usr/bin/notify-send", "  "+name).Run()
+	return name
 }
