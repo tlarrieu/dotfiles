@@ -162,6 +162,7 @@ vim.keymap.set('x', 's', ':sort<cr>', { silent = true })
 -- macro
 vim.keymap.set({ 'n', 'o' }, '<leader><leader>', '@q')
 vim.keymap.set('x', '<leader><leader>', '<cmd>normal 6q<cr>', { silent = true })
+vim.keymap.set('n', '<leader>è', '@:')
 -- }}}
 
 -- ====| Quick access |=========================================================
