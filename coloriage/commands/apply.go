@@ -21,6 +21,7 @@ func Apply(name string) {
 		fmt.Println("run `coloriage list` to see available palettes")
 		os.Exit(1)
 	}
+	Refresh()
 }
 
 func build(name string) (err error) {

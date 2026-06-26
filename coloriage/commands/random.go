@@ -15,6 +15,5 @@ func Random() {
 	file := files[rand.IntN(len(files))]
 	name, _ := strings.CutSuffix(file.Name(), ".json")
 	Apply(name)
-	Refresh()
-	exec.Command("/usr/bin/notify-send", "  You rolled "+name+"!").Run()
+	exec.Command("/usr/bin/notify-send", "  "+name).Run()
 }

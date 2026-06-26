@@ -13,8 +13,9 @@ func main() {
 	case "a", "apply":
 		if len(os.Args) > 2 {
 			commands.Apply(os.Args[2])
+		} else {
+			commands.Refresh()
 		}
-		commands.Refresh()
 	case "t", "toggle":
 		commands.Toggle()
 	case "s", "set":
