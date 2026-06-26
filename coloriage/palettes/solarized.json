@@ -1,7 +1,5 @@
 {
   "light": {
-    "black": "#586e75",
-    "white": "#fdf6e3",
     "blue": "#268bd2",
     "cyan": "#2aa198",
     "green": "#859900",
@@ -15,8 +13,6 @@
     "bg": "#fdf6e3"
   },
   "dark": {
-    "black": "#586e75",
-    "white": "#fdf6e3",
     "blue": "#268bd2",
     "cyan": "#2aa198",
     "green": "#859900",

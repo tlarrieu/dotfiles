@@ -31,8 +31,25 @@ type JsonTheme struct {
 	Dark  JsonPalette
 }
 
-func from(jsonPalette JsonPalette) (pal Palette) {
-	pal.Black = Compose(jsonPalette.Black, jsonPalette.Bg, 0.2, 0.15)
+type Variant int
+
+const (
+	Light Variant = iota
+	Dark
+)
+
+func from(jsonPalette JsonPalette, variant Variant) (pal Palette) {
+	pal.Fg = Compose(jsonPalette.Fg, jsonPalette.Bg, 0.6, 0.5)
+	pal.Bg = Compose(jsonPalette.Bg, jsonPalette.Fg, 0.95, 0.90)
+
+	if variant == Light {
+		pal.Black = pal.Fg
+		pal.White = pal.Bg
+	} else {
+		pal.Black = pal.Bg
+		pal.White = pal.Fg
+	}
+
 	pal.Blue = Compose(jsonPalette.Blue, jsonPalette.Bg, 0.2, 0.15)
 	pal.Cyan = Compose(jsonPalette.Cyan, jsonPalette.Bg, 0.2, 0.15)
 	pal.Green = Compose(jsonPalette.Green, jsonPalette.Bg, 0.2, 0.15)
@@ -40,11 +57,10 @@ func from(jsonPalette JsonPalette) (pal Palette) {
 	pal.Orange = Compose(jsonPalette.Orange, jsonPalette.Bg, 0.2, 0.15)
 	pal.Pink = Compose(jsonPalette.Pink, jsonPalette.Bg, 0.2, 0.15)
 	pal.Red = Compose(jsonPalette.Red, jsonPalette.Bg, 0.2, 0.15)
-	pal.White = Compose(jsonPalette.White, jsonPalette.Bg, 0.2, 0.15)
 	pal.Yellow = Compose(jsonPalette.Yellow, jsonPalette.Bg, 0.2, 0.15)
+
 	pal.Accent = Compose(jsonPalette.Accent, jsonPalette.Bg, 0.2, 0.15)
-	pal.Fg = Compose(jsonPalette.Fg, jsonPalette.Bg, 0.6, 0.5)
-	pal.Bg = Compose(jsonPalette.Bg, jsonPalette.Fg, 0.95, 0.90)
+
 	sel := Compose(jsonPalette.Accent, jsonPalette.Bg, 0.2, 0.15)
 	pal.Sel = CompositeColor{sel.Dim, sel.Dimmer, sel.Dimmer}
 	return
@@ -63,8 +79,8 @@ func LoadTheme(name string) (t Theme, err error) {
 	var jsonTheme JsonTheme
 	err = json.Unmarshal(rawJson, &jsonTheme)
 
-	t.Light = from(jsonTheme.Light)
-	t.Dark = from(jsonTheme.Dark)
+	t.Light = from(jsonTheme.Light, Light)
+	t.Dark = from(jsonTheme.Dark, Dark)
 
 	return
 }

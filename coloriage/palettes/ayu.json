@@ -1,6 +1,5 @@
 {
   "light": {
-    "black": "#5c6166",
     "blue": "#22a4e6",
     "cyan": "#4cbf99",
     "green": "#86b300",
@@ -8,14 +7,12 @@
     "orange": "#fa8532",
     "pink": "#f2a191",
     "red": "#f07171",
-    "white": "#fcfcfc",
     "yellow": "#eba400",
     "accent": "#035bd6",
     "fg": "#5c6166",
     "bg": "#fcfcfc"
   },
   "dark": {
-    "black": "#10141c",
     "blue": "#17acf2",
     "cyan": "#84ceb5",
     "green": "#aad94c",
@@ -23,7 +20,6 @@
     "orange": "#e89d37",
     "pink": "#f29e74",
     "red": "#f07178",
-    "white": "#bfbdb6",
     "yellow": "#ffcd66",
     "accent": "#3388ff",
     "fg": "#bfbdb6",

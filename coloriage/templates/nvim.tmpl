@@ -1,7 +1,6 @@
 {{- define "color" -}}{ base = '{{ .Base }}', dim = '{{ .Dim }}', dimmer = '{{ .Dimmer }}' }{{- end -}}
 
 return {
-  black = {{template "color" .Black}},
   blue = {{template "color" .Blue}},
   cyan = {{template "color" .Cyan}},
   green = {{template "color" .Green}},
@@ -9,7 +8,6 @@ return {
   orange = {{template "color" .Orange}},
   pink = {{template "color" .Pink}},
   red = {{template "color" .Red}},
-  white = {{template "color" .White}},
   yellow = {{template "color" .Yellow}},
   accent = {{template "color" .Accent}},
   fg = {{template "color" .Fg}},
