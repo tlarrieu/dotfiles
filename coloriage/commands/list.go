@@ -16,5 +16,4 @@ func List() {
 		name, _ := strings.CutSuffix(file.Name(), ".json")
 		fmt.Println(name)
 	}
-
 }
