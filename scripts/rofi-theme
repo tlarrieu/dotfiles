@@ -2,5 +2,5 @@
 
 cd ~/git/dotfiles/coloriage || exit 1
 
-theme=$(./coloriage list | rofi -dmenu -p 󰸌)
+theme=$(./coloriage list | rofi -theme-str 'listview {columns: 3; lines: 7;} window { width: 30em; }' -dmenu -p 󰸌)
 [ -n "$theme" ] && ./coloriage apply "$theme"
