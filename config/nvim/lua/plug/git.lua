@@ -81,10 +81,38 @@ vim.keymap.set('n', '<leader>gf', async_git({ 'fetch', '--tags', '--force' }), {
 vim.keymap.set('n', '<leader>gs', async_git({ 'stash' }), { desc = 'Git stash' })
 vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop' }), { desc = 'Git stash pop' })
 
+local gitclear = function(file)
+  local cmds = {}
+
+  vim.notify(file)
+  if file ~= '' then
+    cmds = {
+      { 'git', 'reset', '--', file },
+      { 'git', 'checkout', '--', file },
+      { 'git', 'clean', '--force', '--', file }
+    }
+  else
+    cmds = {
+      { 'git', 'reset', },
+      { 'git', 'checkout', },
+      { 'git', 'clean', '--force' },
+    }
+  end
+
+  for _, cmd in ipairs(cmds) do vim.system(cmd):wait() end
+
+  pcall(git())
+end
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive' },
   callback = function()
-    vim.keymap.set('n', 'x', 'X', { remap = true, buffer = true })
+    vim.keymap.set('n', 'x', function()
+      vim.cmd.normal('$')
+      gitclear(vim.fn.expand('<cfile>'))
+      vim.cmd.normal('^')
+    end, { buffer = true })
+    vim.keymap.set('n', 'X', gitclear, { buffer = true })
     vim.keymap.set('n', 'o', '=', { remap = true, buffer = true })
     vim.keymap.set('n', 'þ', ']/', { remap = true, buffer = true })
     vim.keymap.set('n', 'ß', '[/', { remap = true, buffer = true })
