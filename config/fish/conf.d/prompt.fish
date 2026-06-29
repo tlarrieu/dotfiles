@@ -118,7 +118,7 @@ function _jobs
 end
 
 function _pwd
-  echo -ns (set_color -d black)' '(set_color normal)(set_color -d blue)(prompt_pwd)(set_color normal)' '
+  echo -ns (set_color -d normal)' '(set_color normal)(set_color -d blue)(prompt_pwd)(set_color normal)' '
 end
 
 function print_blank_line --on-event fish_postexec
