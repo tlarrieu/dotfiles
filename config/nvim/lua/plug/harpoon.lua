@@ -1,7 +1,16 @@
 vim.pack.add({ { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' } }, { confirm = false })
 
+local normalize = function(str)
+  local substr, count = str:gsub('oil://', '')
+  return vim.fs.relpath(vim.fn.getcwd(), substr, {}) .. (count > 0 and ' *' or '')
+end
+
 local harpoon = require('harpoon')
-harpoon.setup()
+harpoon.setup({
+  default = {
+    display = function(item) return normalize(item.value) end,
+  },
+})
 
 harpoon:extend({
   NAVIGATE = function()
@@ -24,7 +33,7 @@ harpoon:extend({
 
     -- highlight current buffer
     for line_number, file in pairs(cx.contents) do
-      if string.find(cx.current_file, file, 1, true) then
+      if normalize(cx.current_file) == normalize(file) then
         local ns = vim.api.nvim_create_namespace('Harpoon')
         vim.hl.range(cx.bufnr, ns, "HarpoonLine", { line_number - 1, 0 }, { line_number - 1, -1 })
         vim.api.nvim_win_set_cursor(cx.win_id, { line_number, 0 })
