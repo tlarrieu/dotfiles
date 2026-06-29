@@ -14,6 +14,8 @@ treesitter.install({
   'fish',
   'gitcommit',
   'gitignore',
+  'git_config',
+  'git_rebase',
   'go',
   'gomod',
   'javascript',
