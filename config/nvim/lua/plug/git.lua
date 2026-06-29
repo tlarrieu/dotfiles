@@ -13,12 +13,15 @@ vim.pack.add({
 
 local git = function(args)
   return function()
+    local ok = nil
     if args == nil then
-      vim.cmd('below Git')
-      vim.cmd.normal(']/')
+      ok, _ = pcall(vim.cmd, 'below Git')
+      if ok then vim.cmd.normal(']/') end
     else
-      vim.cmd('below Git ' .. table.concat(args or {}, ' '))
+      ok, _ = pcall(vim.cmd, 'below Git ' .. table.concat(args or {}, ' '))
     end
+
+    if not ok then vim.notify('Not a git repository', vim.log.levels.ERROR) end
   end
 end
 
