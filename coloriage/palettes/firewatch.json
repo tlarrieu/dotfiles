@@ -1,6 +1,6 @@
 {
   "light": {
-    "blue": "#61afef",
+    "blue": "#4d8abc",
     "cyan": "#56b6c2",
     "green": "#7ea85f",
     "magenta": "#c678dd",
@@ -13,7 +13,7 @@
     "bg": "#faf8f5"
   },
   "dark": {
-    "blue": "#61afef",
+    "blue": "#4d8abc",
     "cyan": "#56b6c2",
     "green": "#7ea85f",
     "magenta": "#c678dd",
