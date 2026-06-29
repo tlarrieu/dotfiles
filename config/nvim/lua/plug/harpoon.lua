@@ -2,7 +2,8 @@ vim.pack.add({ { src = 'https://github.com/theprimeagen/harpoon', version = 'har
 
 local normalize = function(str)
   local substr, count = str:gsub('oil://', '')
-  return vim.fs.relpath(vim.fn.getcwd(), substr, {}) .. (count > 0 and ' *' or '')
+  local rel = vim.fs.relpath(vim.fn.getcwd(), substr, {})
+  return (rel or substr) .. (count > 0 and ' *' or '')
 end
 
 local harpoon = require('harpoon')
