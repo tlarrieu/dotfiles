@@ -1,14 +1,16 @@
 {{- define "color" -}}{ base = '{{ .Base }}', dim = '{{ .Dim }}', dimmer = '{{ .Dimmer }}' }{{- end -}}
 
 return {
-  blue = {{template "color" .Blue}},
-  cyan = {{template "color" .Cyan}},
-  green = {{template "color" .Green}},
-  magenta = {{template "color" .Magenta}},
-  red = {{template "color" .Red}},
-  yellow = {{template "color" .Yellow}},
-  accent = {{template "color" .Accent}},
   fg = {{template "color" .Fg}},
   bg = {{template "color" .Bg}},
+
+  red = {{template "color" .Red}},
+  green = {{template "color" .Green}},
+  yellow = {{template "color" .Yellow}},
+  blue = {{template "color" .Blue}},
+  magenta = {{template "color" .Magenta}},
+  cyan = {{template "color" .Cyan}},
+
+  accent = {{template "color" .Accent}},
   sel = { base = '{{ .Sel.Base }}', dim = '{{ .Sel.Dim }}' },
 }
