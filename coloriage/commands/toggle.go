@@ -36,6 +36,7 @@ func SetMode(mode string) {
 	exec.Command("pkill", "--signal", "USR1", "nvim").Start()
 	cmd := exec.Command("fish", "-c", "fish_config theme save "+mode)
 	cmd.Stdin = strings.NewReader("y")
+	cmd.Start()
 
 	exec.Command("awesome-client", "require('theme').config(); require('panel').reset()").Start()
 	exec.Command("browser-setup", mode).Start()
