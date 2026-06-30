@@ -5,7 +5,7 @@
     "green": "#858162",
     "magenta": "#b48ead",
     "red": "#be100e",
-    "yellow": "#eaa549",
+    "yellow": "#cc8f3f",
     "accent": "#426a79",
     "fg": "#45373c",
     "bg": "#d5ccba"
@@ -18,7 +18,7 @@
     "red": "#be100e",
     "yellow": "#eaa549",
     "accent": "#426a79",
-    "fg": "#968c83",
-    "bg": "#20111b"
+    "fg": "#ccbdb1",
+    "bg": "#4c3946"
   }
 }
