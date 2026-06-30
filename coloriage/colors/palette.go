@@ -6,8 +6,6 @@ type Palette struct {
 	Cyan    CompositeColor
 	Green   CompositeColor
 	Magenta CompositeColor
-	Orange  CompositeColor
-	Pink    CompositeColor
 	Red     CompositeColor
 	White   CompositeColor
 	Yellow  CompositeColor

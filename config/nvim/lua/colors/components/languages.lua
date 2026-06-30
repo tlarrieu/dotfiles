@@ -1,17 +1,17 @@
 return function(palette)
   -- bash
-  vim.api.nvim_set_hl(0, '@string.special.path.bash', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, '@string.special.path.bash', { fg = palette.magenta.base })
 
   -- query
   vim.api.nvim_set_hl(0, '@function.call.query', { fg = palette.blue.base })
   vim.api.nvim_set_hl(0, '@comment.query', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, '@keyword.directive.query', { fg = palette.fg.dim })
-  vim.api.nvim_set_hl(0, '@variable.query', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, '@variable.query', { fg = palette.magenta.base })
 
   -- latex
   vim.api.nvim_set_hl(0, '@string.special.path.latex', { fg = palette.blue.base })
   vim.api.nvim_set_hl(0, '@markup.math.latex', { fg = palette.magenta.base })
-  vim.api.nvim_set_hl(0, '@function.latex', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, '@function.latex', { fg = palette.magenta.base })
   vim.api.nvim_set_hl(0, '@function.linebreak.latex', { link = '@operator' })
 
   -- lua
@@ -39,7 +39,7 @@ return function(palette)
   -- just
   vim.api.nvim_set_hl(0, '@function.just', { fg = palette.blue.base })
   vim.api.nvim_set_hl(0, '@attribute.builtin.just', { fg = palette.fg.dimmer })
-  vim.api.nvim_set_hl(0, '@attribute.default', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, '@attribute.default', { fg = palette.magenta.base })
   vim.api.nvim_set_hl(0, '@variable.parameter.just', { fg = palette.fg.dim, italic = true })
   vim.api.nvim_set_hl(0, '@variable.just', { fg = palette.magenta.base })
 
@@ -73,7 +73,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, '@property.css', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, '@character.special.css', { fg = palette.fg.dim })
   vim.api.nvim_set_hl(0, '@keyword.directive.css', { fg = palette.blue.base })
-  vim.api.nvim_set_hl(0, '@constructor.css', { fg = palette.orange.base })
+  vim.api.nvim_set_hl(0, '@constructor.css', { fg = palette.yellow.base })
   vim.api.nvim_set_hl(0, '@tag.css', { link = '@type' })
   vim.api.nvim_set_hl(0, '@type.css', { fg = palette.magenta.base })
   vim.api.nvim_set_hl(0, '@constant.css', { link = '@type.css' })
@@ -90,7 +90,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, '@namespace.rasi', { link = '@constructor.css' })
   vim.api.nvim_set_hl(0, '@field.rasi', { link = '@field.css' })
   vim.api.nvim_set_hl(0, '@variable.rasi', { fg = palette.magenta.base })
-  vim.api.nvim_set_hl(0, '@keyword.rasi', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, '@keyword.rasi', { fg = palette.magenta.base })
   vim.api.nvim_set_hl(0, '@string.special.rasi', { link = '@keyword.rasi' })
   vim.api.nvim_set_hl(0, '@constant.rasi', { fg = palette.yellow.base })
   vim.api.nvim_set_hl(0, '@character.special.rasi', { link = '@constant.rasi' })
@@ -102,7 +102,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'kittyMap', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'kittyMapName', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'kittyParameter', { fg = palette.fg.base })
-  vim.api.nvim_set_hl(0, 'kittyKey', { fg = palette.pink.base })
+  vim.api.nvim_set_hl(0, 'kittyKey', { fg = palette.magenta.base })
 
   -- zathurarc
   vim.api.nvim_set_hl(0, '@variable.builtin.zathurarc', { link = '@variable' })

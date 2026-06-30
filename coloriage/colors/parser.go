@@ -13,8 +13,6 @@ type JsonPalette struct {
 	Cyan    Color
 	Green   Color
 	Magenta Color
-	Orange  Color
-	Pink    Color
 	Red     Color
 	White   Color
 	Yellow  Color
@@ -54,8 +52,6 @@ func from(jsonPalette JsonPalette, variant Variant) (pal Palette) {
 	pal.Cyan = Compose(jsonPalette.Cyan, jsonPalette.Bg, 0.2, 0.15)
 	pal.Green = Compose(jsonPalette.Green, jsonPalette.Bg, 0.2, 0.15)
 	pal.Magenta = Compose(jsonPalette.Magenta, jsonPalette.Bg, 0.2, 0.15)
-	pal.Orange = Compose(jsonPalette.Orange, jsonPalette.Bg, 0.2, 0.15)
-	pal.Pink = Compose(jsonPalette.Pink, jsonPalette.Bg, 0.2, 0.15)
 	pal.Red = Compose(jsonPalette.Red, jsonPalette.Bg, 0.2, 0.15)
 	pal.Yellow = Compose(jsonPalette.Yellow, jsonPalette.Bg, 0.2, 0.15)
 
