@@ -29,7 +29,7 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm,*.webp
 filetype *.pdf
   \ {view} zathura %f 2>/dev/null &,
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm,*.webp,*.pdf,*.xcf
-  \ {edit} gimp-3.0 %f 2>/dev/null &,
+  \ {edit} gimp %f 2>/dev/null &,
 filetype *.avi,*.mp4,*.mkv
   \ {view}
   \ mpv %f 2>/dev/null &
