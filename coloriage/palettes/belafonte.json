@@ -1,0 +1,24 @@
+{
+  "light": {
+    "blue": "#426a79",
+    "cyan": "#989a9c",
+    "green": "#858162",
+    "magenta": "#b48ead",
+    "red": "#be100e",
+    "yellow": "#eaa549",
+    "accent": "#426a79",
+    "fg": "#45373c",
+    "bg": "#d5ccba"
+  },
+  "dark": {
+    "blue": "#426a79",
+    "cyan": "#989a9c",
+    "green": "#858162",
+    "magenta": "#b48ead",
+    "red": "#be100e",
+    "yellow": "#eaa549",
+    "accent": "#426a79",
+    "fg": "#968c83",
+    "bg": "#20111b"
+  }
+}
