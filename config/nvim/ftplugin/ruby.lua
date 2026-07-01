@@ -4,8 +4,8 @@ vim.opt_local.iskeyword:append({ '?', '!' })
 vim.opt_local.spell = true
 
 local helpers = require('helpers')
-
 local telescope = require('telescope.builtin')
+
 local grep = function(pattern, bang, prefill)
   vim.cmd.grep { pattern, bang = bang, mods = { silent = true } }
 
