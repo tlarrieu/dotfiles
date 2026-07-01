@@ -6,14 +6,14 @@ vim.opt_local.spell = true
 local helpers = require('helpers')
 
 local telescope = require('telescope.builtin')
-local grep = function(pattern, bang)
+local grep = function(pattern, bang, prefill)
   vim.cmd.grep { pattern, bang = bang, mods = { silent = true } }
 
   local qflist = vim.fn.getqflist({ size = 0, items = {} })
   local size = tonumber(qflist.size)
 
   if size > 1 then
-    telescope.quickfix({ results_title = '󰁨 quickfix', show_line = false })
+    telescope.quickfix({ results_title = '󰁨 quickfix', show_line = false, default_text = prefill })
   elseif size == 1 then
     local item = qflist.items[1]
     vim.cmd.buffer(item.bufnr)
@@ -213,8 +213,49 @@ local label_for = function(bufnr, cursor, qname)
   end
 end
 
-local globs = '-g "*.{rb,erb,rake}" -g "bin/*"'
-local cword = function() return vim.fn.expand('<cword>') .. '([ :(.,]|\\$)' end
+local locate = function(expression, scope)
+  grep(('-s "%s" -g "*.{rb,erb,rake}" -g "bin/*"'):format(expression), true, scope)
+end
+
+local locate_usage = function()
+  locate(vim.fn.expand('<cword>') .. '([ :(.,]|\\$)')
+end
+
+local locate_definition = function()
+  local cword = vim.fn.expand('<cword>')
+
+  local query = vim.treesitter.query.parse('ruby', ([[
+    ((call
+      receiver: (scope_resolution
+        scope: (_)
+        name: (constant) @scope)?
+      method: (identifier) @target) (#eq? @target "%s")) @range
+  ]]):format(cword))
+
+  if cword == 'new' then cword = 'initialize' end
+
+  local attr_expression = '(attr_reader|attr_writer|attr_accessor|has_one|belongs_to|has_many|Data.define).*:'
+  local def_expression = '(def (self.)?|' .. attr_expression .. '|(module|class) )' .. cword .. '([ :(.,]|\\$)'
+  local assign_expression = cword .. ' ?= ?'
+  local full_expression = '(' .. def_expression .. ')|(' .. assign_expression .. ')'
+
+  local cursor = vim.api.nvim_win_get_cursor(0)
+
+  local scope, range
+  for id, node in query:iter_captures(rootnode(0), 0, 0, -1) do
+    if query.captures[id] == 'range' then range = { node:range() } end
+    if query.captures[id] == 'scope' then scope = vim.treesitter.get_node_text(node, 0) end
+
+    if scope and range then
+      if cursor_in_region(cursor, range) then break end
+      scope, range = nil, nil
+    end
+  end
+
+  if scope then scope = helpers.snakify(scope) end
+
+  locate(full_expression, scope)
+end
 
 vim.keymap.set('n', 'gd', function()
   local bufnr = vim.api.nvim_get_current_buf()
@@ -226,13 +267,7 @@ vim.keymap.set('n', 'gd', function()
   local shared_context = label_for(bufnr, cursor, 'shared_context')
   if shared_context then return lgrep(('"shared_context[\\( ].%s"'):format(shared_context)) end
 
-  local attr_expression = '(attr_reader|attr_writer|attr_accessor|has_one|belongs_to|has_many|Data.define).*:'
-  local def_expression = '(def (self.)?|' .. attr_expression .. '|(module|class) )' .. cword()
-  local assign_expression = vim.fn.expand('<cword>') .. ' ?= ?'
-  local full_expression = '(' .. def_expression .. '|' .. assign_expression .. ')'
-
-  grep(('-s "%s" %s'):format(full_expression, globs), true)
+  locate_definition()
 end, { silent = true, buffer = true })
 
-vim.keymap.set('n', 'gr', function() grep(('-s "%s" %s'):format(cword(), globs), true) end,
-  { silent = true, buffer = true })
+vim.keymap.set('n', 'gr', locate_usage, { silent = true, buffer = true })
