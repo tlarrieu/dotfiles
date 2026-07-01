@@ -98,3 +98,5 @@ require('fidget').setup({
     path = string.format('%s/fidget.nvim.log', vim.fn.stdpath('cache')),
   },
 })
+
+vim.keymap.set('n', '<leader>E', '<cmd>Fidget history<cr>g<')
