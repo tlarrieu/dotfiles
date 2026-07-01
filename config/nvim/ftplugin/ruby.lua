@@ -68,6 +68,7 @@ local rspec = function(opts)
 
   local testbus = require('testbus')
 
+  table.insert(cmd, '--fail-fast')
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   for _, location in ipairs(locations) do table.insert(cmd, location) end
 
