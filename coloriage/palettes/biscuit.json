@@ -14,10 +14,10 @@
     "blue": "#517894",
     "cyan": "#629386",
     "green": "#989f56",
-    "magenta": "#c45497",
-    "red": "#ca3f3f",
+    "magenta": "#ca6485",
+    "red": "#cd4940",
     "yellow": "#e39c45",
-    "accent": "#978787",
+    "accent": "#ac8d75",
     "fg": "#ffe9c7",
     "bg": "#181515"
   }
