@@ -84,7 +84,7 @@ Sentry.capture_exception(
   level: ${2::info},
   extra: ${3:{\}},
 )]],
-    so = 'SENTRY_OWNER = Constants::SentryOwners::TAX_CONNECT'
+    so = 'SENTRY_OWNER = Constants::SentryOwners::TAX_CONNECT',
   },
   skeletons = {
     { pattern = 'app/models/.+/.*%.rb', template = modclass('ShardedRecord') },
