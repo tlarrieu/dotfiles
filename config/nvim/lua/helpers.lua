@@ -41,7 +41,7 @@ M.pascalize = function(str)
 end
 
 M.snakify = function(str)
-  return str:gsub('([a-z])([A-Z])', '%1_%2'):lower() or str
+  return str:gsub('([a-z0-9])([A-Z])', '%1_%2'):lower() or str
 end
 
 M.coerce = function(str, width)
