@@ -240,7 +240,11 @@ local find_scope = function(cword)
         scope: (_)
         name: (constant) @scope)
       name: (constant) @target) (#eq? @target "%s")) @range
-  ]]):format(cword, cword, cword))
+
+    ((scope_resolution
+      scope: (constant) @scope
+      name: (constant) @target) (#eq? @target "%s")) @range
+  ]]):format(cword, cword, cword, cword))
 
   local scope, range
   for id, node in query:iter_captures(rootnode(0), 0, 0, -1) do
