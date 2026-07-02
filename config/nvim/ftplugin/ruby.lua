@@ -172,11 +172,11 @@ end
 ---@param region table<integer>
 local cursor_in_region = function(cursor, region)
   local currow, curcol = cursor[1], cursor[2]
-  local start_row, start_col, end_row, end_col = region[1], region[2], region[3], region[4]
+  local start_row, start_col, end_row, end_col = region[1] + 1, region[2], region[3] + 1, region[4]
 
-  if start_row + 1 <= currow and currow <= end_row + 1 then
-    if start_row + 1 == currow then return start_col <= curcol end
-    if end_row + 1 == currow then return end_col - 1 >= curcol end
+  if start_row <= currow and currow <= end_row then
+    if start_row == currow then return start_col <= curcol end
+    if end_row == currow then return end_col - 1 >= curcol end
     return true
   end
 
@@ -221,8 +221,8 @@ local locate_usage = function()
   locate(vim.fn.expand('<cword>') .. '([ :(.,]|\\$)')
 end
 
-local locate_definition = function()
-  local cword = vim.fn.expand('<cword>')
+local find_scope = function(cword)
+  local cursor = vim.api.nvim_win_get_cursor(0)
 
   local query = vim.treesitter.query.parse('ruby', ([[
     ((call
@@ -230,16 +230,17 @@ local locate_definition = function()
         scope: (_)
         name: (constant) @scope)?
       method: (identifier) @target) (#eq? @target "%s")) @range
-  ]]):format(cword))
 
-  if cword == 'new' then cword = 'initialize' end
+    ((call
+      receiver: ((constant) @scope)?
+      method: (identifier) @target) (#eq? @target "%s")) @range
 
-  local attr_expression = '(attr_reader|attr_writer|attr_accessor|has_one|belongs_to|has_many|Data.define).*:'
-  local def_expression = '(def (self.)?|' .. attr_expression .. '|(module|class) )' .. cword .. '([ :(.,]|\\$)'
-  local assign_expression = cword .. ' ?= ?'
-  local full_expression = '(' .. def_expression .. ')|(' .. assign_expression .. ')'
-
-  local cursor = vim.api.nvim_win_get_cursor(0)
+    ((scope_resolution
+      scope: (scope_resolution
+        scope: (_)
+        name: (constant) @scope)
+      name: (constant) @target) (#eq? @target "%s")) @range
+  ]]):format(cword, cword, cword))
 
   local scope, range
   for id, node in query:iter_captures(rootnode(0), 0, 0, -1) do
@@ -252,7 +253,20 @@ local locate_definition = function()
     end
   end
 
-  if scope then scope = helpers.snakify(scope) end
+  if scope then return helpers.snakify(scope) end
+end
+
+local locate_definition = function()
+  local cword = vim.fn.expand('<cword>')
+
+  local scope = find_scope(cword)
+
+  if cword == 'new' then cword = 'initialize' end
+
+  local attr_expression = '(attr_reader|attr_writer|attr_accessor|has_one|belongs_to|has_many|Data.define).*:'
+  local def_expression = '(def (self.)?|' .. attr_expression .. '|(module|class) )' .. cword .. '([ :(.,]|\\$)'
+  local assign_expression = cword .. ' ?= ?'
+  local full_expression = '(' .. def_expression .. ')|(' .. assign_expression .. ')'
 
   locate(full_expression, scope)
 end
