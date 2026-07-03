@@ -125,9 +125,9 @@ vim.api.nvim_create_autocmd('FileType', {
 
 --------------------------------------------------------| Flog |--------------------------------------------------------
 
-vim.keymap.set('n', '<leader>l', ':vertical Flogsplit<cr>', { silent = true, desc = 'Git log' })
-vim.keymap.set('n', '<leader>L', ':vertical 0Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (file)' })
-vim.keymap.set('v', '<leader>l', ':vertical Flogsplit -no-patch<cr>', { silent = true, desc = 'Git history (visual)' })
+vim.keymap.set('n', '<leader>l', ':vertical Flog<cr>', { silent = true, desc = 'Git log' })
+vim.keymap.set('n', '<leader>L', ':vertical 0Flog -no-patch<cr>', { silent = true, desc = 'Git history (file)' })
+vim.keymap.set('v', '<leader>l', ':vertical Flog -no-patch<cr>', { silent = true, desc = 'Git history (visual)' })
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'floggraph' },
@@ -144,7 +144,7 @@ vim.api.nvim_create_autocmd('FileType', {
 require('codediff').setup({
   diff = {
     compute_moves = true,
-    cycle_hunks_across_files = true,
+    cycle_hunks_across_files = false,
   },
   explorer = {
     width = 45,
