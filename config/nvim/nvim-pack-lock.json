@@ -97,10 +97,6 @@
       "rev": "e4c7af0211866162d999ce0bdd6a029302e19139",
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
-    "nvim-listchars": {
-      "rev": "694349b66418cbe37a9300aae0331408249e52dc",
-      "src": "https://github.com/0xfraso/nvim-listchars"
-    },
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",

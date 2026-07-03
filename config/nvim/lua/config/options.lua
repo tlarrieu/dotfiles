@@ -51,6 +51,9 @@ vim.opt.timeoutlen = 400
 vim.opt.signcolumn = 'yes:1'
 -- shortmess
 vim.opt.shortmess:append('WIcsSa')
+-- listchars
+vim.opt.list = true
+vim.opt.listchars = { tab = '› ', trail = '·', nbsp = '⎵', extends = '»', precedes = '«' }
 
 -- ======| Cmdline & statusline |===============================================
 

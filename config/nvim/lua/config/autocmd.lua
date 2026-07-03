@@ -10,8 +10,17 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- Balance splits size upon changing host window size
 vim.api.nvim_create_autocmd('VimResized', { callback = function() vim.api.nvim_input('<esc><c-w>=') end })
 
--- Do not insert comments upon <cr> or o/O
-vim.api.nvim_create_autocmd('FileType', { callback = function() vim.opt_local.formatoptions:remove({ 'o', 'r' }) end })
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(ctx)
+    -- Do not insert comments upon <cr> or o/O
+    vim.opt_local.formatoptions:remove({ 'o', 'r' })
+
+    -- do not show listchars on certain filetypes
+    for _, ft in ipairs({ 'help', 'man', 'codediff-explorer', 'floggraph' }) do
+      if ctx.match == ft then vim.opt.list = false end
+    end
+  end
+})
 
 -- Toggle relative numbering for active window only
 vim.api.nvim_create_autocmd({ 'WinEnter', 'BufEnter' },
