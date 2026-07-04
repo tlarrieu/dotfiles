@@ -34,8 +34,8 @@ end
 local keyboard = {
   clients = gears.table.join(
     spawner.key({ super }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
-    spawner.key({ super }, 'eacute', spawner.soft_kill),
-    spawner.key({ super, shift }, 'eacute', function(c) c:kill() end),
+    spawner.key({ super }, 'é', spawner.soft_kill),
+    spawner.key({ super, shift }, 'é', function(c) c:kill() end),
     spawner.key({ super, ctrl }, 'c', function(c)
       awful.tag.viewprev()
       c:move_to_tag(c.screen.selected_tag)
@@ -56,8 +56,8 @@ local keyboard = {
     spawner.key({ super }, 'r', awful.tag.viewnext),
 
     spawner.key({ super }, '"', function() view_tag(1) end),
-    spawner.key({ super }, 'guillemotleft', function() view_tag(2) end),
-    spawner.key({ super }, 'guillemotright', function() view_tag(3) end),
+    spawner.key({ super }, '«', function() view_tag(2) end),
+    spawner.key({ super }, '»', function() view_tag(3) end),
     spawner.key({ super }, '(', function() view_tag(4) end),
     spawner.key({ super }, ')', function() view_tag(5) end),
     spawner.key({ super }, '@', function() view_tag(6) end),
@@ -256,8 +256,8 @@ local keyboard = {
       props = { class = 'gtgf' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ super }, 'percent', spawner.terminal('ytdl', { class = 'download' })),
-    spawner.key({ super }, 'ccedilla', spawner.shell('open (xsel --clipboard -o)')),
+    spawner.key({ super }, '%', spawner.terminal('ytdl', { class = 'download' })),
+    spawner.key({ super }, 'ç', spawner.shell('open (xsel --clipboard -o)')),
     spawner.key({ super }, "'", spawner.terminal()),
     spawner.key({ super, shift }, "'", spawner.terminal(nil, { class = 'kitty-light' })),
     spawner.key({ super }, 'p', 'screenshot.sh gui'),
@@ -300,10 +300,7 @@ return {
     awful.rules.rules = gears.table.join(awful.rules.rules, {
       {
         rule = {},
-        properties = {
-          keys = keyboard.clients,
-          buttons = mouse.clients,
-        }
+        properties = { keys = keyboard.clients, buttons = mouse.clients }
       }
     })
   end
