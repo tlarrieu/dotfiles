@@ -106,6 +106,19 @@ local keyboard = {
       props = { class = 'dev' },
       signal = spawner.actions.JUMP,
     }),
+    spawner.key({ super }, 'à', {
+      app = spawner.terminal('ollama launch claude --model "qwen3.5:9b"', {
+        class = 'code-assistant',
+        directory = dev,
+      }),
+      props = { class = 'code-assistant' },
+      signal = spawner.actions.JUMP,
+    }),
+    spawner.key({ super, shift }, 'à', {
+      app = spawner.shell('notebooklm'),
+      props = { instance = 'notebooklm.google.com' },
+      signal = spawner.actions.JUMP,
+    }),
     spawner.key({ super }, 'g', {
       app = spawner.shell('github'),
       props = { instance = 'github.com__pulls' },
@@ -176,11 +189,6 @@ local keyboard = {
       props = { class = 'wiki' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ super, shift }, 'x', {
-      app = spawner.shell('notebooklm'),
-      props = { instance = 'notebooklm.google.com' },
-      signal = spawner.actions.JUMP,
-    }),
     spawner.key({ super, shift }, 'a', {
       app = spawner.terminal('ft edit', { class = 'accounting', directory = accounting }),
       props = { class = 'accounting' },
@@ -210,7 +218,7 @@ local keyboard = {
     spawner.key({}, 'F12', 'rofi-wifi'),
     spawner.key({ super }, 'k', 'rofi-emojis'),
     spawner.key({ super }, 'f', 'rofi-nerdfont'),
-    spawner.key({ super }, 'à', 'rofi-bluetooth'),
+    spawner.key({ super, shift }, 'Escape', 'rofi-bluetooth'),
     spawner.key({ super }, 'y', 'pulseaudio-ctl mute-input'),
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
