@@ -207,7 +207,7 @@ local config = {
   { icon = '', rule = { class = 'Nemo' } },
   { icon = '', rule = { class = 'config' } },
   { icon = '', rule = { class = 'dev' } },
-  { icon = '󰭆', rule = { class = 'opencode' } },
+  { icon = '󰭆', rule = { class = 'code%-assistant' } },
   { icon = '', rule = { class = 'firefox' } },
   { icon = '', rule = { class = 'thunderbird_thunderbird' } },
   { icon = '󰭠', rule = { class = 'Lxappearance' } },

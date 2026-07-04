@@ -46,6 +46,7 @@ func build(name string) (err error) {
 		{app: "zathura", dir: []string{config, "zathura"}},
 		{app: "chrome", dir: []string{homedir, ".chrome_colors"}},
 		{app: "sxiv", dir: []string{homedir, ".Xresources.d", "sxiv"}},
+		{app: "claude", dir: []string{homedir, ".claude", "themes"}, extension: ".json"},
 	}
 
 	if err = os.RemoveAll("theme"); err != nil {
@@ -53,10 +54,10 @@ func build(name string) (err error) {
 	}
 
 	for _, mapping := range mappings {
-		if err = apply(theme.Light, mapping.dir, mapping.app, "light"+mapping.extension); err != nil {
+		if err = apply("light", theme.Light, mapping.dir, mapping.app, "light"+mapping.extension); err != nil {
 			return
 		}
-		if err = apply(theme.Dark, mapping.dir, mapping.app, "dark"+mapping.extension); err != nil {
+		if err = apply("dark", theme.Dark, mapping.dir, mapping.app, "dark"+mapping.extension); err != nil {
 			return
 		}
 	}
@@ -64,7 +65,7 @@ func build(name string) (err error) {
 	return
 }
 
-func apply(palette colors.Palette, dir []string, software, out string) (err error) {
+func apply(variant string, palette colors.Palette, dir []string, software, out string) (err error) {
 	var raw []byte
 	path := filepath.Join("templates", software+".tmpl")
 	raw, err = os.ReadFile(path)
@@ -74,6 +75,9 @@ func apply(palette colors.Palette, dir []string, software, out string) (err erro
 		},
 		"rgb": func(c colors.Color) string {
 			return colors.ToRGB(c)
+		},
+		"variant": func() string {
+			return variant
 		},
 	}).Parse(string(raw))
 
