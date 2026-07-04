@@ -189,7 +189,7 @@ if [ ${#option} -gt 0 ]; then
       fi
       ;;
     12)
-      kitty -- fish -c "pass edit '$option'"
+      EDITOR="kitty -- nvim" pass edit "$option"
       edit_status
       ;;
     13)
