@@ -46,7 +46,7 @@ func build(name string) (err error) {
 		{app: "zathura", dir: []string{config, "zathura"}},
 		{app: "chrome", dir: []string{homedir, ".chrome_colors"}},
 		{app: "sxiv", dir: []string{homedir, ".Xresources.d", "sxiv"}},
-		{app: "claude", dir: []string{homedir, ".claude", "themes"}, extension: ".json"},
+		{app: "claude", dir: []string{homedir, ".claude", "colors"}, extension: ".json"},
 	}
 
 	if err = os.RemoveAll("theme"); err != nil {

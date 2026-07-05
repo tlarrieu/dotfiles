@@ -41,6 +41,12 @@ func SetMode(mode string) {
 	exec.Command("awesome-client", "require('theme').config(); require('panel').reset()").Start()
 	exec.Command("browser-setup", mode).Start()
 
+	claudedir := filepath.Join(homedir, ".claude")
+	exec.Command("ln", "-sf",
+		filepath.Join(claudedir, "colors", mode+".json"),
+		filepath.Join(claudedir, "themes", "system.json"),
+	).Start()
+
 	go writeMode(`@import "`+mode+`"`, configdir, "rofi", "variant.rasi")
 	go writeMode("include "+mode, configdir, "zathura", "theme")
 	go writeMode("#include \"sxiv/"+mode+"\"", homedir, ".Xresources.d", "sxiv.xresources")
