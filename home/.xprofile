@@ -6,7 +6,7 @@ export PATH="$HOME/apps:$PATH"
 
 [ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
-if [ "$(date +%H)" -gt 19 ] || [ "$(date +%H)" -lt 8 ]; then
+if [ "$(date +%H)" -gt 18 ] || [ "$(date +%H)" -lt 7 ]; then
   ~/git/dotfiles/coloriage/coloriage set dark
 else
   ~/git/dotfiles/coloriage/coloriage set light
