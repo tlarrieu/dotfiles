@@ -55,7 +55,7 @@ func SetMode(mode string) {
 	wallpaper := filepath.Join(homedir, "Pictures", "wallpapers", "wallpaper-"+mode)
 	fehbg := filepath.Join(homedir, ".fehbg")
 	if _, err := os.Stat(wallpaper); err == nil {
-		exec.Command("feh", "--bg-scale", wallpaper).Start()
+		exec.Command("feh", "--bg-fill", wallpaper).Start()
 	} else if _, err := os.Stat(fehbg); err == nil {
 		exec.Command(fehbg).Start()
 	}
