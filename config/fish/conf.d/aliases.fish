@@ -39,9 +39,6 @@ abbr m "neomutt"
 alias ep "nvim -R -"
 abbr e "nvim"
 
-# claude
-alias cl "ollama launch claude"
-
 # vifm
 abbr v vifm
 

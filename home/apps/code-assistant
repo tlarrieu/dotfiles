@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+envfile="$HOME/.context.env"
+[ -f "$envfile" ] && . "$envfile"
+
+case "$CONTEXT" in
+  work)
+    opencode
+    ;;
+  *)
+    ollama launch claude --model "qwen3.5:9b"
+esac

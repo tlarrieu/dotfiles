@@ -107,7 +107,7 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super }, 'à', {
-      app = spawner.terminal('ollama launch claude --model "qwen3.5:9b"', {
+      app = spawner.terminal('code-assistant', {
         class = 'code-assistant',
         directory = dev,
       }),
