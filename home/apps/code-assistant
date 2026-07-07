@@ -3,10 +3,13 @@
 envfile="$HOME/.context.env"
 [ -f "$envfile" ] && . "$envfile"
 
+envfile="$HOME/.env"
+[ -f "$envfile" ] && . "$envfile"
+
 case "$CONTEXT" in
   work)
     claude
     ;;
   *)
-    ollama launch claude --model "qwen3.5:9b"
+    ollama launch claude --model "$CLAUDE_MODEL"
 esac
