@@ -58,11 +58,11 @@ require('fidget').setup({
         info_style = 'NotifyINFOTitle',
         warn_style = 'NotifyWARNTitle',
         error_style = 'NotifyERRORTitle',
-        debug_annote = 'DEBUG ',
-        info_annote = 'INFO 󰋽',
-        warn_annote = 'WARN ',
-        error_annote = 'ERROR ',
-        update_hook = function(item) require('fidget.notification').set_content_key(item) end,
+        debug_annote = ' DEBUG',
+        info_annote = '󰋽  INFO',
+        warn_annote = '  WARN',
+        error_annote = ' ERROR',
+        update_hook = false, -- do not deduplicate messages
       }
     },
 
@@ -73,6 +73,7 @@ require('fidget').setup({
       icon_separator = ' ',
       group_separator = '  ',
       group_separator_hl = 'FidgetGroupSeparator',
+      render_message = function(msg, cnt) return cnt == 1 and msg or string.format("%s (%dx)", msg, cnt) end,
     },
 
     window = {
