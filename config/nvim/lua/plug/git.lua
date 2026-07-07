@@ -21,7 +21,7 @@ local git = function(args)
       ok, _ = pcall(vim.cmd, 'below Git ' .. table.concat(args or {}, ' '))
     end
 
-    if not ok then vim.notify('Not a git repository', vim.log.levels.ERROR) end
+    if ok then vim.cmd.checktime() else vim.notify('Not a git repository', vim.log.levels.ERROR) end
   end
 end
 
