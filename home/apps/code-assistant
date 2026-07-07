@@ -5,7 +5,7 @@ envfile="$HOME/.context.env"
 
 case "$CONTEXT" in
   work)
-    opencode
+    claude
     ;;
   *)
     ollama launch claude --model "qwen3.5:9b"
