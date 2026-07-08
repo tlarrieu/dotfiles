@@ -170,7 +170,7 @@ vim.keymap.set('n', '<leader>è', '@:')
 local quickedit = function(path)
   return function()
     local keep_buffer = require('helpers').fileexists(vim.fn.expand('%')) or vim.bo.buftype == 'terminal'
-    vim.cmd({ cmd = keep_buffer and 'vsplit' or 'edit', args = { path } })
+    return '<cmd>' .. (keep_buffer and 'vsplit' or 'edit') .. ' ' .. path .. '<cr>'
   end
 end
 
@@ -186,8 +186,8 @@ vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builde
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit Makefile', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit local (irb/pry)rc', expr = true })
 vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
-vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt' })
-vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt' })
+vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
+vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt', expr = true })
 vim.keymap.set('n', '<leader>so', quicksave('~/output.txt'), { desc = 'Save to output.txt' })
 vim.keymap.set('n', '<leader>si', quicksave('~/input.txt'), { desc = 'Save to input.txt' })
 
