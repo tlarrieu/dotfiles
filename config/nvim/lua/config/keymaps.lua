@@ -188,6 +188,14 @@ vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit loc
 vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt', expr = true })
+vim.keymap.set('n', '<leader>ec', quickedit('.claude/settings.json'), {
+  desc = 'Edit local Claude config',
+  expr = true,
+})
+vim.keymap.set('n', '<leader>eC', quickedit('~/.claude/settings.json'), {
+  desc = 'Edit global Claude config',
+  expr = true,
+})
 vim.keymap.set('n', '<leader>so', quicksave('~/output.txt'), { desc = 'Save to output.txt' })
 vim.keymap.set('n', '<leader>si', quicksave('~/input.txt'), { desc = 'Save to input.txt' })
 

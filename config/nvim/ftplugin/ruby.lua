@@ -48,6 +48,7 @@ local rspec = function(opts)
       local handle = io.popen([[
         bin/rspec-auto --list 2> /dev/null |
           grep 'Specs related to your changes' -A 100 |
+          grep -v './packs/devtools/pdf' |
           sed 1d |
           awk '{print $2}' |
           LC_ALL=C.UTF8 sed -E "s/\x1B\[[\x30-\x3F]*[\x20-\x20F]*[\x40-\x7E]//g"
