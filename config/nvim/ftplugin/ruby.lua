@@ -43,22 +43,7 @@ local rspec = function(opts)
   if opts.all then
     if require('helpers').fileexists('bin/rspec-auto') then
       scope = '(bin/rspec-auto)'
-      cmd = { 'bundle', 'exec', 'rspec' }
-
-      local handle = io.popen([[
-        bin/rspec-auto --list 2> /dev/null |
-          grep 'Specs related to your changes' -A 100 |
-          grep -v './packs/devtools/pdf' |
-          sed 1d |
-          awk '{print $2}' |
-          LC_ALL=C.UTF8 sed -E "s/\x1B\[[\x30-\x3F]*[\x20-\x20F]*[\x40-\x7E]//g"
-      ]])
-      if handle then
-        for line in string.gmatch(handle:read("*a"), '([^\n]+)') do table.insert(locations, line) end
-        handle:close()
-      else
-        cmd = { 'echo', "couldn't not run bin/rspec-auto" }
-      end
+      cmd = { os.getenv('HOME') .. '/scripts/rspec-auto' }
     else
       scope = '(all)'
     end
@@ -75,14 +60,18 @@ local rspec = function(opts)
 
   return {
     on_start = function()
-      vim.notify('Running rspec on:', vim.log.levels.INFO)
-      for _, location in ipairs(locations) do
-        local short_location = location:gsub('^' .. vim.uv.cwd() .. '/', '')
-        local length = #short_location
-        if length > 77 then
-          short_location = '  ' .. short_location:sub(length - 71, length)
+      if #locations > 0 then
+        vim.notify('Running rspec on:', vim.log.levels.INFO)
+        for _, location in ipairs(locations) do
+          local short_location = location:gsub('^' .. vim.uv.cwd() .. '/', '')
+          local length = #short_location
+          if length > 77 then
+            short_location = '  ' .. short_location:sub(length - 71, length)
+          end
+          vim.notify(short_location, vim.log.levels.INFO)
         end
-        vim.notify(short_location, vim.log.levels.INFO)
+      else
+        vim.notify('Running rspec (all)', vim.log.levels.INFO)
       end
       testbus.start()
     end,
