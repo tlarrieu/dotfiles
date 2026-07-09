@@ -39,6 +39,9 @@ abbr m "neomutt"
 alias ep "nvim -R -"
 abbr e "nvim"
 
+# ollama
+abbr ol ollama
+
 # vifm
 abbr v vifm
 
