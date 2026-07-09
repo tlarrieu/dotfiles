@@ -11,5 +11,5 @@ case "$CONTEXT" in
     claude
     ;;
   *)
-    ollama launch claude --model "$CLAUDE_MODEL"
+    ollama launch opencode --model "$CLAUDE_MODEL"
 esac
