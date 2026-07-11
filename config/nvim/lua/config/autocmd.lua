@@ -32,8 +32,13 @@ vim.api.nvim_create_autocmd('TextYankPost',
   { callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 200, on_visual = false }) end })
 
 -- set git root directory as local working directory (useful when editing snippets on the fly for instance)
-vim.api.nvim_create_autocmd('BufWinEnter', {
+vim.api.nvim_create_autocmd('BufEnter', {
   callback = function()
+    if vim.bo.filetype == 'oil' then
+      vim.cmd.lcd(require('oil').get_current_dir())
+      return
+    end
+
     local path = vim.system({
       'git',
       '-C',

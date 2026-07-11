@@ -199,6 +199,15 @@ vim.keymap.set('n', '<leader>eC', quickedit('~/.claude/settings.json'), {
 vim.keymap.set('n', '<leader>so', quicksave('~/output.txt'), { desc = 'Save to output.txt' })
 vim.keymap.set('n', '<leader>si', quicksave('~/input.txt'), { desc = 'Save to input.txt' })
 
+vim.keymap.set('n', '<leader>sp', function()
+  local cwd = vim.fn.getcwd()
+  local f = io.open(string.format('%s/.project', os.getenv('HOME')), 'w')
+  if not f then return end
+  f:write(cwd)
+  f:close()
+  vim.notify(("Set '%s' as project"):format(cwd))
+end, { desc = 'Set current CWD as project directory' })
+
 -- ====| Togglers |=============================================================
 
 -- Uppercase current word

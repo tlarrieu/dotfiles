@@ -6,7 +6,13 @@ local spawner = require('spawner')
 
 local home = os.getenv('HOME')
 local dotfiles = string.format('%s/git/dotfiles', home)
-local dev = os.getenv('DEVDIR') or home
+local dev = function()
+  local f = io.open(string.format('%s/.project', home), 'r')
+  if not f then return home end
+  local value = f:read('*a'):gsub('~', home)
+  f:close()
+  return value
+end
 local accounting = string.format('%s/git/accounting', home)
 local neorg = string.format('%s/.neorg', home)
 
@@ -102,15 +108,22 @@ local keyboard = {
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super }, 'x', {
-      app = spawner.terminal('nvim', { class = 'dev', directory = dev }),
+      app = function()
+        return spawner.terminal('nvim', {
+          class = 'dev',
+          directory = dev(),
+        })
+      end,
       props = { class = 'dev' },
       signal = spawner.actions.JUMP,
     }),
     spawner.key({ super }, 'à', {
-      app = spawner.terminal('code-assistant', {
-        class = 'code-assistant',
-        directory = dev,
-      }),
+      app = function()
+        return spawner.terminal('code-assistant', {
+          class = 'code-assistant',
+          directory = dev(),
+        })
+      end,
       props = { class = 'code-assistant' },
       signal = spawner.actions.JUMP,
     }),
