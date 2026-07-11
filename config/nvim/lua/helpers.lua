@@ -1,36 +1,36 @@
 local M = {}
 
 M.basename = function()
-  local filename = vim.api.nvim_buf_get_name(0):match("^.+/(.+)$")
-  local basename = (filename or ''):match("(.+)[.].+")
-  return basename or filename or ""
+  local filename = vim.api.nvim_buf_get_name(0):match('^.+/(.+)$')
+  local basename = (filename or ''):match('(.+)[.].+')
+  return basename or filename or ''
 end
 
 M.dirname = function()
   local filename = vim.api.nvim_buf_get_name(0)
-  local dirname = filename:match("^(.+)/.+$")
+  local dirname = filename:match('^(.+)/.+$')
 
   if vim.fn.isdirectory(filename) == 1 then
-    return filename:match("^.+/(.+)$")
+    return filename:match('^.+/(.+)$')
   end
 
-  return dirname:match("^.+/(.+)$")
+  return dirname:match('^.+/(.+)$')
 end
 
 M.fileexists = function(path)
-  local f = io.open(path, "rb")
+  local f = io.open(path, 'rb')
   if f then f:close() end
   return f ~= nil
 end
 
 M.capitalize = function(str)
   str = str or ''
-  return str:gsub("^%a", string.upper, 1) or str
+  return str:gsub('^%a', string.upper, 1) or str
 end
 
 M.camelize = function(str)
   str = str or ''
-  if not str:find("_") then
+  if not str:find('_') then
     return str:lower()
   end
   return str:gsub('(_)([a-z])', function(_, l) return l:upper() end) or str
@@ -49,7 +49,7 @@ M.coerce = function(str, width)
   for word in str:gmatch('%S+') do
     count = count + #word
     if count >= width then
-      res = res .. "\n"
+      res = res .. '\n'
       count = 0
     end
     res = res .. word .. ' '
