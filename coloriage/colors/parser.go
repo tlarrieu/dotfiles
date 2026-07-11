@@ -8,13 +8,11 @@ import (
 )
 
 type JsonPalette struct {
-	Black   Color
 	Blue    Color
 	Cyan    Color
 	Green   Color
 	Magenta Color
 	Red     Color
-	White   Color
 	Yellow  Color
 
 	Accent Color
@@ -31,22 +29,9 @@ type JsonTheme struct {
 
 type Variant int
 
-const (
-	Light Variant = iota
-	Dark
-)
-
-func from(jsonPalette JsonPalette, variant Variant) (pal Palette) {
+func from(jsonPalette JsonPalette) (pal Palette) {
 	pal.Fg = Compose(jsonPalette.Fg, jsonPalette.Bg, 0.6, 0.5)
 	pal.Bg = Compose(jsonPalette.Bg, jsonPalette.Fg, 0.95, 0.90)
-
-	if variant == Light {
-		pal.Black = pal.Fg
-		pal.White = pal.Bg
-	} else {
-		pal.Black = pal.Bg
-		pal.White = pal.Fg
-	}
 
 	pal.Blue = Compose(jsonPalette.Blue, jsonPalette.Bg, 0.2, 0.15)
 	pal.Cyan = Compose(jsonPalette.Cyan, jsonPalette.Bg, 0.2, 0.15)
@@ -75,8 +60,8 @@ func LoadTheme(name string) (t Theme, err error) {
 	var jsonTheme JsonTheme
 	err = json.Unmarshal(rawJson, &jsonTheme)
 
-	t.Light = from(jsonTheme.Light, Light)
-	t.Dark = from(jsonTheme.Dark, Dark)
+	t.Light = from(jsonTheme.Light)
+	t.Dark = from(jsonTheme.Dark)
 
 	return
 }
