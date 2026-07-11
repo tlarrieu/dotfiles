@@ -10,6 +10,21 @@ local h = require('helpers')
 
 local find_files = function() return { 'fd', '-tf', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
 local find_directories = function() return { 'fd', '-td', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
+local find_projects = function()
+  local home = os.getenv('HOME')
+  return {
+    'fd',
+    '-td',
+    '--search-path',
+    ('~/Documents'):gsub('~', home),
+    '--search-path',
+    ('~/git'):gsub('~', home),
+    '--search-path',
+    ('~/dev'):gsub('~', home),
+    '-d',
+    '1',
+  }
+end
 
 local telescope = require('telescope')
 local actions = require('telescope.actions')
@@ -85,12 +100,16 @@ vim.keymap.set('n', '<leader>ep', function()
 end, { desc = 'Telescope file finder' })
 
 vim.keymap.set('n', '<c-t>', function()
-  t.find_files({ hidden = true, find_command = find_files, results_title = '󱏒 files' })
+  t.find_files({ find_command = find_files, results_title = '󱏒 files' })
 end, { desc = 'Telescope file finder' })
 
 vim.keymap.set('n', '<a-t>', function()
-  t.find_files({ hidden = true, find_command = find_directories, results_title = '󰙅 directories' })
+  t.find_files({ find_command = find_directories, results_title = '󰙅 directories' })
 end, { desc = 'Telescope directories finder' })
+
+vim.keymap.set('n', '<c-s-x>', function()
+  t.find_files({ find_command = find_projects, results_title = '󰙅 projects' })
+end, { desc = 'Telescope projects finder' })
 
 vim.keymap.set('n', '<c-y>', function()
   t.find_files({ hidden = true, find_command = { 'git', 'ls-status' }, results_title = '󰊢 status' })
