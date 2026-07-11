@@ -34,6 +34,7 @@ local projectdir = function()
   for dir in string.gmatch(cwd, "[^/]+") do project = dir end
   if project == '.neorg' then return '󰠮 wiki' end
   if project == 'accounting' then return '󰗑 accounting' end
+  if project == 'completorium' then return '󰅄 completorium' end
   if project == 'dotfiles' then return ' dotfiles' end
   return ' ' .. project
 end
