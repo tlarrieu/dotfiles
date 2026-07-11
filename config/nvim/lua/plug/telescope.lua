@@ -90,7 +90,7 @@ local t = require('telescope.builtin')
 
 vim.keymap.set('n', '<c-è>', t.resume, { desc = 'Telescope resume' })
 
-vim.keymap.set('n', '<leader>ep', function()
+vim.keymap.set('n', '<leader>eP', function()
   t.find_files({
     hidden = true,
     find_command = { 'fd', '-td', '.', vim.fs.joinpath(vim.fn.stdpath('data'), 'site', 'pack', 'core', 'opt'), '-d', '1' },
@@ -107,7 +107,7 @@ vim.keymap.set('n', '<a-t>', function()
   t.find_files({ find_command = find_directories, results_title = '󰙅 directories' })
 end, { desc = 'Telescope directories finder' })
 
-vim.keymap.set('n', '<c-s-x>', function()
+vim.keymap.set('n', '<leader>ep', function()
   t.find_files({ find_command = find_projects, results_title = '󰙅 projects' })
 end, { desc = 'Telescope projects finder' })
 
