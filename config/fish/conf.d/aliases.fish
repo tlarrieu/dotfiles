@@ -99,6 +99,7 @@ abbr yrc "yay -Rsc"
 alias lspkg "awk 'BEGIN{while ((\"pacman -Qi\" |getline) > 0){ if (\$0 ~ /Name/) {name=\$3};{if (\$0 ~ /Size/) {size=\$4/1024;print name\": \",size,\"Mb\"|\"sort -k2 -n|column -t\"}}}}'"
 
 # cd
+abbr ,, "cd (cat ~/.project)"
 abbr ,a "cd ~/apps"
 abbr ,b "cd ~/sandbox"
 abbr ,c "cd ~/git/dotfiles"
