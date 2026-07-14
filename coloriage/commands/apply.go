@@ -40,7 +40,7 @@ func build(name string) (err error) {
 	mappings := []Mapping{
 		{app: "nvim", dir: []string{config, "nvim", "lua", "colors", "palettes"}, extension: ".lua"},
 		{app: "awesome", dir: []string{config, "awesome", "colors"}, extension: ".lua"},
-		{app: "kitty", dir: []string{config, "kitty", "themes"}, extension: ".conf"},
+		{app: "kitty", dir: []string{config, "kitty"}, extension: "-theme.auto.conf"},
 		{app: "fish", dir: []string{config, "fish", "themes"}, extension: ".theme"},
 		{app: "rofi", dir: []string{config, "rofi"}, extension: ".rasi"},
 		{app: "zathura", dir: []string{config, "zathura"}},

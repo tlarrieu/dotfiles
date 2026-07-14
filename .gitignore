@@ -14,7 +14,6 @@ config/fish/fish_history
 config/fish/fish_variables
 config/fish/fishd.*
 config/fish/fundle
-config/kitty/theme.conf
 config/rofi/variant.rasi
 
 config/btop/themes/current.theme
@@ -46,8 +45,8 @@ config/awesome/colors/light.lua
 config/awesome/colors/dark.lua
 config/fish/themes/light.theme
 config/fish/themes/dark.theme
-config/kitty/themes/light.conf
-config/kitty/themes/dark.conf
+config/kitty/light-theme.auto.conf
+config/kitty/dark-theme.auto.conf
 config/nvim/lua/colors/palettes/light.lua
 config/nvim/lua/colors/palettes/dark.lua
 config/rofi/light.rasi
