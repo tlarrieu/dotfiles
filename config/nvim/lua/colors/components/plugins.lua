@@ -342,12 +342,6 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'CmpItemKindOperator', { link = 'Operator' })
   vim.api.nvim_set_hl(0, 'CmpItemKindDefault', { link = 'CmpItemKind' })
 
-  vim.api.nvim_set_hl(0, '@variable.member.ledger', { link = '@property' })
-  vim.api.nvim_set_hl(0, '@number.ledger', { fg = palette.green.base })
-  vim.api.nvim_set_hl(0, '@number.negative.ledger', { fg = palette.red.base })
-  vim.api.nvim_set_hl(0, '@markup.raw.ledger', { fg = palette.fg.dimmer })
-  vim.api.nvim_set_hl(0, '@string.special.ledger', { fg = palette.magenta.base, bold = true })
-
   vim.api.nvim_set_hl(0, 'TodoBgFIX', { fg = palette.bg.base, bg = palette.red.base })
   vim.api.nvim_set_hl(0, 'TodoFgFIX', { fg = palette.red.base })
   vim.api.nvim_set_hl(0, 'TodoBgTODO', { fg = palette.bg.base, bg = palette.magenta.base })

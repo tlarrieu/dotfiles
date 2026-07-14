@@ -14,6 +14,13 @@ return function(palette)
   vim.api.nvim_set_hl(0, '@function.latex', { fg = palette.magenta.base })
   vim.api.nvim_set_hl(0, '@function.linebreak.latex', { link = '@operator' })
 
+  -- ledger
+  vim.api.nvim_set_hl(0, '@variable.member.ledger', { link = '@property' })
+  vim.api.nvim_set_hl(0, '@number.ledger', { fg = palette.green.base })
+  vim.api.nvim_set_hl(0, '@number.negative.ledger', { fg = palette.red.base })
+  vim.api.nvim_set_hl(0, '@markup.raw.ledger', { fg = palette.fg.dimmer })
+  vim.api.nvim_set_hl(0, '@string.special.ledger', { fg = palette.magenta.base, bold = true })
+
   -- lua
   vim.api.nvim_set_hl(0, '@constructor.lua', { link = '@punctuation.bracket' })
   vim.api.nvim_set_hl(0, '@keyword.operator.lua', { link = '@keyword' })
