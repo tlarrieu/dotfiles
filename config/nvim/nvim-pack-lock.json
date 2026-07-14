@@ -74,11 +74,11 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "markview.nvim": {
-      "rev": "41ecde17c96941fb5b7c97995a10712738e85efe",
+      "rev": "2471f4097f8561a6880a0fe05ee0f21cbc82b374",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "47059d71b42d74b0a1e9f61c1d99d301039c3b5b",
+      "rev": "a4068c3ebd4cb335b25239e5ea35c22ee6007962",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -108,7 +108,7 @@
       "version": "'main'"
     },
     "nvim-web-devicons": {
-      "rev": "dad71387de386a946b123079d0e53f23028f3abd",
+      "rev": "0ca28b61a04fe7426cefbdd52c2647ef0e335b5f",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -160,7 +160,7 @@
       "src": "https://github.com/tommcdo/vim-exchange"
     },
     "vim-flog": {
-      "rev": "665b16ac8915f746bc43c9572b4581a5e9047216",
+      "rev": "c8a573b5a829d0a3ed1b72c87dd62d832b665e87",
       "src": "https://github.com/rbong/vim-flog"
     },
     "vim-fugitive": {
