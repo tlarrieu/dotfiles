@@ -5,13 +5,13 @@ vim.pack.add({
 }, { confirm = false })
 
 local border = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' }
+local home = os.getenv('HOME')
 
 local h = require('helpers')
 
 local find_files = function() return { 'fd', '-tf', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
 local find_directories = function() return { 'fd', '-td', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
 local find_projects = function()
-  local home = os.getenv('HOME')
   return {
     'fd',
     '-td',
@@ -99,20 +99,27 @@ vim.keymap.set('n', '<leader>eP', function()
   })
 end, { desc = 'Telescope file finder' })
 
-vim.keymap.set('n', '<c-t>', function()
-  t.find_files({ find_command = find_files, results_title = '󱏒 files' })
-end, { desc = 'Telescope file finder' })
+vim.keymap.set('n', '<c-t>', function() t.find_files({ find_command = find_files, results_title = '󱏒 files' }) end,
+  { desc = 'Telescope file finder' })
 
-vim.keymap.set('n', '<a-t>', function()
-  t.find_files({ find_command = find_directories, results_title = '󰙅 directories' })
-end, { desc = 'Telescope directories finder' })
+vim.keymap.set('n', '<a-t>',
+  function() t.find_files({ find_command = find_directories, results_title = '󰙅 directories' }) end,
+  { desc = 'Telescope directories finder' })
 
 vim.keymap.set('n', '<leader>ep', function()
-  t.find_files({ find_command = find_projects, results_title = '󰙅 projects' })
+  t.find_files({
+    find_command = find_projects,
+    cwd = home,
+    results_title = '󰙅 projects',
+  })
 end, { desc = 'Telescope projects finder' })
 
 vim.keymap.set('n', '<c-y>', function()
-  t.find_files({ hidden = true, find_command = { 'git', 'ls-status' }, results_title = '󰊢 status' })
+  t.find_files({
+    hidden = true,
+    find_command = { 'git', 'ls-status' },
+    results_title = '󰊢 status',
+  })
 end, { desc = 'Telescope directories finder' })
 
 vim.keymap.set('n', '<c-s-y>', function()
@@ -125,9 +132,14 @@ end, { desc = 'Telescope git diff master' })
 
 vim.keymap.set('n', '<c-s-e>', t.diagnostics, { desc = 'Telescope buffers' })
 
-vim.keymap.set('n', '<c-b>',
-  function() t.buffers({ hidden = true, ignore_current_buffer = true, sort_mru = true, results_title = ' buffers' }) end,
-  { desc = 'Telescope buffers' })
+vim.keymap.set('n', '<c-b>', function()
+  t.buffers({
+    hidden = true,
+    ignore_current_buffer = true,
+    sort_mru = true,
+    results_title = ' buffers',
+  })
+end, { desc = 'Telescope buffers' })
 
 vim.keymap.set('n', '<c-l>', function() t.registers({ results_title = ' registers' }) end,
   { desc = 'Telescope registers' })
