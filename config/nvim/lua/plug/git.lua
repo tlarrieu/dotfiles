@@ -84,7 +84,6 @@ vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop' }), { desc = 'Git s
 local gitclear = function(file)
   local cmds = {}
 
-  vim.notify(file)
   if file ~= '' then
     cmds = {
       { 'git', 'reset', '--', file },
