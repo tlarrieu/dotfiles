@@ -30,6 +30,7 @@ func SetMode(mode string) {
 	exec.Command("xsettingsd").Start()
 	exec.Command("gsettings", "set", "org.gnome.desktop.interface", "color-scheme", "prefer-"+mode).Run()
 
+	exec.Command("pkill", "--signal", "USR1", "kitty").Start()
 	exec.Command("pkill", "--signal", "USR1", "nvim").Start()
 	cmd := exec.Command("fish", "-c", "fish_config theme save "+mode)
 	cmd.Stdin = strings.NewReader("y")
