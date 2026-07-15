@@ -4,6 +4,7 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/scripts:$PATH"
 export PATH="$HOME/apps:$PATH"
 
+# shellcheck disable=SC1090
 [ -f ~/.xprofile.local ] && . ~/.xprofile.local
 
 if [ "$(date +%H)" -gt 18 ] || [ "$(date +%H)" -lt 7 ]; then
@@ -18,7 +19,5 @@ pgrep picom || picom 2>/dev/null &
 setxkbmap -option ctrl:nocaps -model pc105 -layout "fr" -variant "bepo"
 xcape -e 'Control_L=Escape'
 
-# NOTE: Disable screen saving / blanking
-xset s off -dpms
-# make key repeat faster
-xset r rate 210 35
+xset s off -dpms # disable screen saving / blanking
+xset r rate 210 35 # make key repeat faster
