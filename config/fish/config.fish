@@ -9,6 +9,7 @@ set -l fzf_common_opts '
   --bind=ctrl-k:kill-line
   --border=none
   --no-scrollbar
+  --prompt=" "
 '
 
 set -x FZF_DEFAULT_COMMAND "fd --hidden --follow --exclude '.git'"
