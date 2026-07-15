@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd('FileType', {
 
     -- do not show listchars on certain filetypes
     for _, ft in ipairs({ 'help', 'man', 'codediff-explorer', 'floggraph' }) do
-      if ctx.match == ft then vim.opt.list = false end
+      if ctx.match == ft then vim.opt_local.list = false end
     end
   end
 })

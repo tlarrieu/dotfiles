@@ -74,7 +74,7 @@ return function(palette)
 
   vim.api.nvim_set_hl(0, 'MasonHeader', { fg = palette.green.base, bg = palette.green.dim })
   vim.api.nvim_set_hl(0, 'MasonHighlight', { fg = palette.green.base, bg = 'none' })
-  vim.api.nvim_set_hl(0, 'MasonHighlightBlock', { fg = palette.bg.base, bg = palette.green.bright })
+  vim.api.nvim_set_hl(0, 'MasonHighlightBlock', { fg = palette.bg.base, bg = palette.green.base })
   vim.api.nvim_set_hl(0, 'MasonHighlightBlockBold', { link = 'MasonHeader' })
   vim.api.nvim_set_hl(0, 'MasonMutedBlock', { fg = palette.fg.dimmer, bg = palette.bg.base })
 
@@ -361,8 +361,8 @@ return function(palette)
 
   vim.api.nvim_set_hl(0, 'Cursorword', { fg = palette.green.base, bg = palette.green.dim })
 
-  local _, lualine = pcall(require, 'lualine')
-  if lualine then
+  local lualine_ok, lualine = pcall(require, 'lualine')
+  if lualine_ok then
     local normal = {
       a = { fg = palette.bg.base, bg = palette.fg.base },
       b = { fg = palette.bg.base, bg = palette.fg.dim },
@@ -401,6 +401,6 @@ return function(palette)
     })
   end
 
-  local _, devicons = pcall(require, 'nvim-web-devicons')
-  if devicons then devicons.set_default_icon('', palette.fg.dim, 0) end
+  local devicons_ok, devicons = pcall(require, 'nvim-web-devicons')
+  if devicons_ok then devicons.set_default_icon('', palette.fg.dim, 0) end
 end

@@ -43,7 +43,7 @@ vim.keymap.set('n', '<leader>f', conform.format, { desc = 'Format (conform)' })
 vim.keymap.set('x', '<leader>f', conform.format, { desc = 'Format (conform)' })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'ruby', 'edifact', 'json', 'typescript', 'sql', 'css', 'go' },
+  pattern = { 'lua', 'ruby', 'edifact', 'json', 'javascript', 'typescript', 'sql', 'css', 'go' },
   callback = function(ev)
     vim.api.nvim_create_autocmd('BufWritePre', {
       buffer = ev.buf,

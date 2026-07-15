@@ -84,7 +84,7 @@ vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop' }), { desc = 'Git s
 local gitclear = function(file)
   local cmds = {}
 
-  if file ~= '' then
+  if file ~= nil then
     cmds = {
       { 'git', 'reset', '--', file },
       { 'git', 'checkout', '--', file },
@@ -93,7 +93,7 @@ local gitclear = function(file)
   else
     cmds = {
       { 'git', 'reset', },
-      { 'git', 'checkout', },
+      { 'git', 'checkout', '.' },
       { 'git', 'clean', '--force' },
     }
   end

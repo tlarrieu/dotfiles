@@ -8,13 +8,13 @@ end
 
 M.dirname = function()
   local filename = vim.api.nvim_buf_get_name(0)
-  local dirname = filename:match('^(.+)/.+$')
 
   if vim.fn.isdirectory(filename) == 1 then
     return filename:match('^.+/(.+)$')
   end
 
-  return dirname:match('^.+/(.+)$')
+  local dirname = filename:match('^(.+)/.+$')
+  return dirname and dirname:match('^.+/(.+)$') or dirname
 end
 
 M.fileexists = function(path)

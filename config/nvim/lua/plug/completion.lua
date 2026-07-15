@@ -83,7 +83,7 @@ cmp.setup({
   },
 })
 
-cmp.setup.filetype('gitcommit', { sources = cmp.config.sources({ { name = 'git' }, { name = 'path' } }) })
+cmp.setup.filetype('gitcommit', { sources = cmp.config.sources({ { name = 'path' } }) })
 cmp.setup.cmdline({ '/', '?', '@' }, { mapping = nil, sources = {} })
 cmp.setup.cmdline({ ':' }, {
   mapping = cmp.mapping.preset.cmdline(),

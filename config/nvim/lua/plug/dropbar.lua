@@ -203,12 +203,6 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'gitcommit' },
-  callback = function() vim.opt_local.winbar = ' commit message' end,
-  group = group,
-})
-
-vim.api.nvim_create_autocmd('FileType', {
   pattern = { 'fugitive' },
   callback = function() vim.opt_local.winbar = ' fugitive' end,
   group = group,
