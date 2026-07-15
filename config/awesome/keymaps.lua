@@ -117,17 +117,7 @@ local keyboard = {
       props = { class = 'dev' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super }, 'à', {
-      app = function()
-        return spawner.terminal('code-assistant', {
-          class = 'code-assistant',
-          directory = dev(),
-        })
-      end,
-      props = { class = 'code-assistant' },
-      signal = spawner.actions.JUMP,
-    }),
-    spawner.key({ super, shift }, 'à', {
+    spawner.key({ super, shift }, 'x', {
       app = spawner.shell('notebooklm'),
       props = { instance = 'notebooklm.google.com' },
       signal = spawner.actions.JUMP,
@@ -147,8 +137,13 @@ local keyboard = {
       },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super, shift }, 'm', {
+    spawner.key({ super }, 'à', {
       app = 'meet',
+      props = { instance = 'meet' },
+      signal = spawner.actions.JUMP,
+    }),
+    spawner.key({ super, shift }, 'à', {
+      app = 'meet.new',
       props = { instance = 'meet' },
       signal = spawner.actions.JUMP,
     }),
