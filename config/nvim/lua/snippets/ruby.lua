@@ -71,11 +71,11 @@ return {
     ibl = "it_behaves_like '${1:name}'",
     e = 'expect($1).${2|to,not_to|} ',
     eb = 'expect { $1 }.${2|to,not_to|} ',
-    dc = 'described_class ',
+    dc = 'described_class',
 
     p = 'puts ',
     pry = 'Kernel.binding.pry',
-    ['.tp'] = '.tap { |o| ${1:Kernel.binding.pry} }',
+    tp = 'tap { |o| ${1:Kernel.binding.pry} }',
 
     flip = 'Flipper.enable?(:${1:feature}, ${2:actor})',
     sentry = [[
