@@ -57,7 +57,6 @@ alias c := coloriage
 alias cp := templates
 [group("config/templates"), doc("deploy templates (but don't override)")]
 templates: (template ".xsettingsd") \
-  (template ".config/kitty/theme.conf") \
   (template ".config/zathura/theme") \
   (template ".config/rofi/variant.rasi")
 
@@ -80,7 +79,7 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     just success "Ubuntu detected, installing packages with apt..."
     sudo cp ./packages/sources.list /etc/apt/sources.list.d/ubuntu.sources
     sudo apt update
-    sudo apt install -y $(cat packages-ubuntu.txt | grep -v "#")
+    sudo apt install -y $(cat ./packages/ubuntu.txt | grep -v "#")
     mkdir -p ~/bin
     ln -sfFT /usr/bin/fdfind ~/bin/fd
     just neovim awesome picom kitty
