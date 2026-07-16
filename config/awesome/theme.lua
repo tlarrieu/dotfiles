@@ -1,5 +1,4 @@
 local beautiful = require('beautiful')
-local dpi = beautiful.xresources.apply_dpi
 local naughty = require('naughty')
 
 return {
@@ -9,7 +8,7 @@ return {
     local theme = {}
 
     theme.colors = colors
-    theme.useless_gap = dpi(3)
+    theme.useless_gap = 3
 
     local font_name = 'CaskaydiaCove Nerd Font'
     theme.font = ('%s 10.5'):format(font_name)
@@ -33,21 +32,21 @@ return {
 
     theme.notification_bg = colors.fg.base
     theme.notification_fg = colors.bg.base
-    theme.notification_margin = dpi(12)
+    theme.notification_margin = 12
     theme.notification_border_color = colors.fg.base
     theme.notification_border_width = 0
-    theme.notification_icon_size = dpi(32)
+    theme.notification_icon_size = 32
 
     theme.progressbar_bg = colors.fg.base
     theme.progressbar_fg = colors.bg.base
-    theme.progressbar_paddings = dpi(1)
+    theme.progressbar_paddings = 1
 
     theme.notification_font = theme.font
 
     beautiful.init(theme)
 
-    naughty.config.padding = dpi(18)
-    naughty.config.spacing = dpi(10)
+    naughty.config.padding = 18
+    naughty.config.spacing = 10
     naughty.config.presets.critical.border_width = 0
     naughty.config.presets.critical.bg = colors.red.dim
     naughty.config.presets.critical.fg = colors.red.base

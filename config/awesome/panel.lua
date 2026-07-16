@@ -1,7 +1,6 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
-local apply_dpi = require('beautiful.xresources').apply_dpi
 local gears = require('gears')
 
 -- [[ Clock ]] -----------------------------------------------------------------
@@ -81,7 +80,6 @@ M.init = function(screen)
   battery_callback()
   earbuds_callback()
 
-  local dpi = function(n) return apply_dpi(n, screen) end
   local colors = beautiful.colors
 
   local highlight_id = 'highlight'
@@ -102,15 +100,15 @@ M.init = function(screen)
             id = 'text_role',
             widget = wibox.widget.textbox,
           },
-          top = dpi(8),
-          bottom = dpi(3),
-          left = dpi(8),
-          right = dpi(3),
+          top = 8,
+          bottom = 3,
+          left = 8,
+          right = 3,
           layout = wibox.container.margin,
         },
         {
           id = highlight_id,
-          widget = wibox.container.background
+          widget = wibox.container.background,
         },
         widget = wibox.layout.align.vertical,
       },
@@ -140,21 +138,21 @@ M.init = function(screen)
   })
 
   local left = wibox.widget({
-    wibox.container.margin(screennum, dpi(10), dpi(0), dpi(5), dpi(5), nil, false),
-    wibox.container.margin(battery_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
-    wibox.container.margin(earbuds_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
+    wibox.container.margin(screennum, 10, 0, 5, 5, nil, false),
+    wibox.container.margin(battery_widget, 10, 5, 8, 8, nil, false),
+    wibox.container.margin(earbuds_widget, 10, 5, 8, 8, nil, false),
     layout = wibox.layout.fixed.horizontal
   })
 
   local middle = wibox.widget({
-    wibox.container.margin(taglist, dpi(0), dpi(0), dpi(0), dpi(0), nil, false),
+    wibox.container.margin(taglist, 0, 0, 0, 0, nil, false),
     layout = wibox.layout.fixed.horizontal
   })
 
   local right = wibox.widget({
-    wibox.container.margin(context, dpi(10), dpi(0), dpi(0), dpi(0)),
-    wibox.container.margin(clock, dpi(10), dpi(0), dpi(0), dpi(0)),
-    wibox.container.margin(utcclock, dpi(10), dpi(10), dpi(0), dpi(0)),
+    wibox.container.margin(context, 10, 0, 0, 0),
+    wibox.container.margin(clock, 10, 0, 0, 0),
+    wibox.container.margin(utcclock, 10, 10, 0, 0),
     layout = wibox.layout.fixed.horizontal
   })
 
@@ -170,9 +168,9 @@ M.init = function(screen)
 
   screen.wibar = awful.wibar({
     position = 'top',
-    height = dpi(32),
+    height = 32,
     screen = screen,
-    margins = { top = dpi(6), bottom = dpi(0), left = dpi(6), right = dpi(6) },
+    margins = { top = 6, bottom = 0, left = 6, right = 6 },
     bg = colors.bg.base,
     widget = barwidget
   })
