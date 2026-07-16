@@ -5,6 +5,7 @@ local apply_dpi = require('beautiful.xresources').apply_dpi
 local gears = require('gears')
 
 -- [[ Clock ]] -----------------------------------------------------------------
+
 local clock = wibox.widget({
   widget = wibox.widget.textclock,
   format = '• %b %d • %H:%M',
@@ -16,20 +17,7 @@ local utcclock = wibox.widget({
   timezone = 'Z',
 })
 
--- [[ Context ]] ---------------------------------------------------------------
-local context = wibox.widget({
-  markup = 'context',
-  align  = 'center',
-  valign = 'center',
-  widget = wibox.widget.textbox
-})
-
 -- [[ Gauges (battery / earbuds power) ]] --------------------------------------
-local threshold_color = function(colors, value)
-  if value <= 10 then return colors.red.base end
-  if value <= 20 then return colors.yellow.base end
-  return colors.bg.base
-end
 
 local make_gauge = function(icon, shell_cmd)
   local bar = wibox.widget({
@@ -62,10 +50,13 @@ local make_gauge = function(icon, shell_cmd)
         return
       end
 
+      local colors = beautiful.colors
       widget.visible = true
       bar.visible = true
       bar.value = value
-      bar.color = threshold_color(beautiful.colors, value)
+      bar.color = value <= 10 and colors.red.base
+          or (value <= 20 and colors.yellow)
+          or colors.bg.base
     end)
   end
 
@@ -138,16 +129,15 @@ M.init = function(screen)
     widget = wibox.widget.textbox
   })
 
-  local cmd = "sh -c '. " .. require('context').path .. " && echo $CONTEXT'"
-  awful.spawn.easy_async_with_shell(cmd, function(out)
-    out = out:gsub("[\n\r]", '')
 
-    local context_color = out == 'work'
-        and colors.red.base
-        or colors.green.base
-
-    context.markup = string.format('<span color="%s"><b>@%s</b></span>', context_color, out)
-  end)
+  local ctx = require('context').get()
+  local ctx_color = ctx == 'work' and colors.red.base or colors.green.base
+  local context = wibox.widget({
+    markup = string.format('<span color="%s"><b>@%s</b></span>', ctx_color, ctx),
+    align  = 'center',
+    valign = 'center',
+    widget = wibox.widget.textbox
+  })
 
   local left = wibox.widget({
     wibox.container.margin(screennum, dpi(10), dpi(0), dpi(5), dpi(5), nil, false),
