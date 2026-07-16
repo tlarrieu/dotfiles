@@ -11,7 +11,9 @@ return {
     theme.colors = colors
     theme.useless_gap = dpi(3)
 
-    theme.font = 'CaskaydiaCove Nerd Font 12'
+    local font_name = 'CaskaydiaCove Nerd Font'
+    theme.font = ('%s 10.5'):format(font_name)
+    theme.taglist_font = ('%s 12'):format(font_name)
 
     theme.fg_normal = colors.fg.base
     theme.fg_focus = colors.fg.base
