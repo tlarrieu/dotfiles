@@ -268,7 +268,7 @@ local config = {
   { icon = '󰋊', rule = { class = 'GParted' } },
   { icon = '󰽉', rule = { class = 'balenaEtcher' } },
   { icon = '󰆍', rule = { class = 'kitty' } },
-  { icon = '󱐋', rule = { class = 'quake' } },
+  { icon = '󰞷', rule = { class = 'quake' } },
 }
 
 local match = function(client, rule)

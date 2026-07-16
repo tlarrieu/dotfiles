@@ -3,40 +3,32 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
 
+-- [[ Spacer ]] ----------------------------------------------------------------
+
+local spacer = wibox.widget({ text = '•', widget = wibox.widget.textbox, })
+
 -- [[ Clock ]] -----------------------------------------------------------------
 
-local clock = wibox.widget({
-  widget = wibox.widget.textclock,
-  format = '• %b %d • %H:%M',
-})
-local utcclock = wibox.widget({
-  widget = wibox.widget.textclock,
-  format = '(󱉊 %H:%M)',
-  opacity = 0.5,
-  timezone = 'Z',
-})
+local date = wibox.widget({ format = '%b %d', widget = wibox.widget.textclock })
+local time = wibox.widget({ format = '%H:%M', widget = wibox.widget.textclock, })
+local utcclock = wibox.widget({ format = '(󱉊 %H:%M)', opacity = 0.5, timezone = 'Z', widget = wibox.widget.textclock })
 
 -- [[ Gauges (battery / earbuds power) ]] --------------------------------------
 
 local make_gauge = function(icon, shell_cmd)
   local bar = wibox.widget({
-    widget       = wibox.widget.progressbar,
     min_value    = 0,
     max_value    = 100,
     forced_width = 80,
     paddings     = 1,
     border_width = 0,
     visible      = false,
+    widget       = wibox.widget.progressbar,
   })
 
   local widget = wibox.widget({
-    {
-      markup = ('<span size="large">%s</span>'):format(icon),
-      align = 'center',
-      valign = 'center',
-      widget = wibox.widget.textbox,
-    },
-    bar,
+    { markup = ('<span size="large">%s</span>'):format(icon), widget = wibox.widget.textbox },
+    { bar, top = 10, bottom = 10, layout = wibox.container.margin },
     layout = wibox.layout.fixed.horizontal,
   })
 
@@ -64,6 +56,7 @@ local make_gauge = function(icon, shell_cmd)
   return widget, callback
 end
 
+local battery_widget, battery_callback = make_gauge('󰁹 ', [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]])
 local earbuds_widget, earbuds_callback = make_gauge('󰥈 ', [[
   upower --enumerate |
     grep headset -m 1 |
@@ -71,7 +64,6 @@ local earbuds_widget, earbuds_callback = make_gauge('󰥈 ', [[
     awk '/percentage/ { print $2 }' |
     tr -d %
 ]])
-local battery_widget, battery_callback = make_gauge('󰁹 ', [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]])
 
 -- [[ Public interface ]] ------------------------------------------------------
 local M = {}
@@ -96,73 +88,34 @@ M.init = function(screen)
     widget_template = {
       {
         {
-          {
-            id = 'text_role',
-            widget = wibox.widget.textbox,
-          },
-          top = 8,
-          bottom = 3,
+          { id = 'text_role', forced_height = 24, widget = wibox.widget.textbox },
+          top = 4,
           left = 8,
-          right = 3,
+          right = 4,
           layout = wibox.container.margin,
         },
-        {
-          id = highlight_id,
-          widget = wibox.container.background,
-        },
+        { id = highlight_id, widget = wibox.container.background },
         widget = wibox.layout.align.vertical,
       },
       id = 'background_role',
-      widget = wibox.container.background,
       create_callback = highlight_current_tag,
       update_callback = highlight_current_tag,
+      widget = wibox.container.background,
     },
   })
 
   local glyph = require('glyphs').number(screen.index)
-  local screennum = wibox.widget({
-    markup = string.format('<span size="large">󰍹 %s </span>', glyph),
-    align  = 'center',
-    valign = 'center',
+  local screennum = {
+    markup = ('<span size="large">󰍹 %s </span>'):format(glyph),
     widget = wibox.widget.textbox
-  })
+  }
 
 
   local ctx = require('context').get()
-  local ctx_color = ctx == 'work' and colors.red.base or colors.green.base
-  local context = wibox.widget({
-    markup = string.format('<span color="%s"><b>@%s</b></span>', ctx_color, ctx),
-    align  = 'center',
-    valign = 'center',
+  local context = {
+    markup = ('<span color="%s"><b>@%s</b></span>'):format(ctx == 'work' and colors.red.base or colors.green.base, ctx),
     widget = wibox.widget.textbox
-  })
-
-  local left = wibox.widget({
-    wibox.container.margin(screennum, 10, 0, 5, 5, nil, false),
-    wibox.container.margin(battery_widget, 10, 5, 8, 8, nil, false),
-    wibox.container.margin(earbuds_widget, 10, 5, 8, 8, nil, false),
-    layout = wibox.layout.fixed.horizontal
-  })
-
-  local middle = wibox.widget({
-    wibox.container.margin(taglist, 0, 0, 0, 0, nil, false),
-    layout = wibox.layout.fixed.horizontal
-  })
-
-  local right = wibox.widget({
-    wibox.container.margin(context, 10, 0, 0, 0),
-    wibox.container.margin(clock, 10, 0, 0, 0),
-    wibox.container.margin(utcclock, 10, 10, 0, 0),
-    layout = wibox.layout.fixed.horizontal
-  })
-
-  local barwidget = wibox.widget({
-    left,
-    middle,
-    right,
-    layout = wibox.layout.align.horizontal,
-    expand = 'none'
-  })
+  }
 
   if screen.wibar then screen.wibar:remove() end
 
@@ -172,7 +125,26 @@ M.init = function(screen)
     screen = screen,
     margins = { top = 6, bottom = 0, left = 6, right = 6 },
     bg = colors.bg.base,
-    widget = barwidget
+    widget = {
+      {
+        { screennum, left = 10, layout = wibox.container.margin },
+        { battery_widget, left = 6, layout = wibox.container.margin },
+        { earbuds_widget, left = 6, layout = wibox.container.margin },
+        layout = wibox.layout.fixed.horizontal
+      },
+      taglist,
+      {
+        { context, layout = wibox.container.margin },
+        { spacer, left = 10, right = 10, layout = wibox.container.margin },
+        { date, layout = wibox.container.margin },
+        { spacer, left = 10, right = 10, layout = wibox.container.margin },
+        { time, layout = wibox.container.margin },
+        { utcclock, left = 10, right = 10, layout = wibox.container.margin },
+        layout = wibox.layout.fixed.horizontal
+      },
+      expand = 'none',
+      layout = wibox.layout.align.horizontal,
+    }
   })
 end
 
