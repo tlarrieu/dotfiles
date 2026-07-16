@@ -93,17 +93,17 @@ M.init = function(screen)
   local dpi = function(n) return apply_dpi(n, screen) end
   local colors = beautiful.colors
 
+  local highlight_id = 'highlight'
+  local highlight_current_tag = function(self, tag, _, _)
+    self:get_children_by_id(highlight_id)[1].bg =
+        tag.selected
+        and colors.accent.base
+        or colors.bg.base
+  end
+
   local taglist = awful.widget.taglist({
     screen = screen,
     filter = function(tag) return #tag:clients() > 1 or #tag.screen.tags > 1 end,
-    style = { spacing = dpi(10) },
-    layout = {
-      spacing_widget = {
-        markup = string.format('<span color="%s">•</span>', colors.fg.dim),
-        widget = wibox.widget.textbox,
-      },
-      layout = wibox.layout.fixed.horizontal,
-    },
     widget_template = {
       {
         {
@@ -111,14 +111,22 @@ M.init = function(screen)
             id = 'text_role',
             widget = wibox.widget.textbox,
           },
-          layout = wibox.layout.align.horizontal,
+          top = dpi(8),
+          bottom = dpi(3),
+          left = dpi(8),
+          right = dpi(3),
+          layout = wibox.container.margin,
         },
-        left = dpi(10),
-        right = dpi(5),
-        widget = wibox.container.margin
+        {
+          id = highlight_id,
+          widget = wibox.container.background
+        },
+        widget = wibox.layout.align.vertical,
       },
       id = 'background_role',
       widget = wibox.container.background,
+      create_callback = highlight_current_tag,
+      update_callback = highlight_current_tag,
     },
   })
 
@@ -149,7 +157,7 @@ M.init = function(screen)
   })
 
   local middle = wibox.widget({
-    wibox.container.margin(taglist, dpi(0), dpi(0), dpi(5), dpi(5), nil, false),
+    wibox.container.margin(taglist, dpi(0), dpi(0), dpi(0), dpi(0), nil, false),
     layout = wibox.layout.fixed.horizontal
   })
 

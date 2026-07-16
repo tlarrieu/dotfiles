@@ -20,6 +20,7 @@ return {
     -- hack to change taglist default color (since all our tags are volatile anyways)
     theme.taglist_fg_volatile = colors.fg.dim
     theme.taglist_fg_focus = colors.fg.base
+    theme.taglist_bg_focus = colors.bg.dimmer
 
     theme.bg_normal = colors.bg.base
     theme.bg_focus = nil
