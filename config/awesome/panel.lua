@@ -31,7 +31,7 @@ local threshold_color = function(colors, value)
   return colors.bg.base
 end
 
-local make_gauge = function(icon_markup, shell_cmd)
+local make_gauge = function(icon, shell_cmd)
   local bar = wibox.widget({
     widget       = wibox.widget.progressbar,
     min_value    = 0,
@@ -44,7 +44,7 @@ local make_gauge = function(icon_markup, shell_cmd)
 
   local widget = wibox.widget({
     {
-      markup = icon_markup,
+      markup = ('<span size="large">%s</span>'):format(icon),
       align = 'center',
       valign = 'center',
       widget = wibox.widget.textbox,
@@ -69,25 +69,19 @@ local make_gauge = function(icon_markup, shell_cmd)
     end)
   end
 
+  gears.timer({ callback = callback, timeout = 10, call_now = true, autostart = true })
+
   return widget, callback
 end
 
-local earbuds_widget, earbuds_callback = make_gauge('<span size="large">󰥈 </span>', [[
-      upower --enumerate |
-        grep headset |
-        head -n 1 |
-        xargs upower -i |
-        grep percentage |
-        awk '{ print $2 }' |
-        sed 's/%//'
-    ]])
-gears.timer({ callback = earbuds_callback, timeout = 10, call_now = true, autostart = true })
-
-local battery_widget, battery_callback = make_gauge(
-  '<span size="large">󰁹 </span>',
-  [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]]
-)
-gears.timer({ callback = battery_callback, timeout = 10, call_now = true, autostart = true })
+local earbuds_widget, earbuds_callback = make_gauge('󰥈 ', [[
+  upower --enumerate |
+    grep headset -m 1 |
+    xargs upower -i |
+    awk '/percentage/ { print $2 }' |
+    tr -d %
+]])
+local battery_widget, battery_callback = make_gauge('󰁹 ', [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]])
 
 -- [[ Public interface ]] ------------------------------------------------------
 local M = {}
