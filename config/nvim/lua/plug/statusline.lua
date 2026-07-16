@@ -88,28 +88,19 @@ local macrorecording = { function() return rec_msg end, color = 'LualineMacroRec
 local selectioncount = function()
   local height = math.abs(vim.fn.line('v') - vim.fn.line('.')) + 1
   local width = math.abs(vim.fn.col('v') - vim.fn.col('.')) + 1
+  local vmode = vim.fn.mode(true)
 
-  local curmode = vim.fn.mode(true)
+  if vmode:match('') then return '󰁌 ' .. string.format('%d×%d', height, width) end
+  if vmode:match('V') or height > 1 then return '󰡏 ' .. tostring(height) end
+  if vmode:match('v') then return '󰡎 ' .. tostring(width) end
 
-  if curmode:match('') then
-    return '󰁌 ' .. string.format('%d×%d', height, width)
-  elseif curmode:match('V') or height > 1 then
-    return '󰡏 ' .. tostring(height)
-  elseif curmode:match('v') then
-    return '󰡎 ' .. tostring(width)
-  else
-    return ''
-  end
+  return ''
 end
 
 local filenamecolor = function()
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }) > 0 then return 'LualineError' end
   if #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }) > 0 then return 'LualineWarning' end
-
-  local bufname = vim.api.nvim_buf_get_name(0)
-  if bufname == '' then return end
-
-  if vim.fn.executable(bufname) > 0 then return 'LualineExecutable' end
+  if vim.fn.executable(vim.api.nvim_buf_get_name(0)) == 1 then return 'LualineExecutable' end
 end
 
 local plugin = function(cfg)
