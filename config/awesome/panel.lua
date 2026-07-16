@@ -219,7 +219,7 @@ local init = function(screen)
     height = dpi(32),
     screen = screen,
     margins = { top = dpi(6), bottom = dpi(0), left = dpi(6), right = dpi(6) },
-    bg = colors.bg.dim .. "e6",
+    bg = colors.bg.dim .. 'e6',
     widget = barwidget
   })
 end

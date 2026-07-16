@@ -72,15 +72,6 @@ end
 
 M.icon_and_filetype = function(name, filetype)
   if filetype == '' then return '󰒡', '' end
-  if filetype == 'NeogitStatus'
-      or filetype == 'NeogitConsole'
-      or filetype == 'NeogitLogView'
-      or filetype == 'NeogitCommitView'
-      or filetype == 'NeogitCommitSelectView'
-  then
-    return '', 'neogit'
-  end
-  if filetype == 'AvantePromptInput' then return '', 'avante' end
   if filetype == 'TelescopePrompt' then return '', 'telescope' end
 
   local _filetype = nil

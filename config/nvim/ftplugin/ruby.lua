@@ -41,7 +41,7 @@ local rspec = function(opts)
   local scope
 
   if opts.all then
-    if require('helpers').fileexists('bin/rspec-auto') then
+    if helpers.fileexists('bin/rspec-auto') then
       scope = '(bin/rspec-auto)'
       cmd = { os.getenv('HOME') .. '/scripts/rspec-auto' }
     else
@@ -92,10 +92,10 @@ require('runner').setup({
   all = { args = function() return rspec({ all = true }) end, desc = 'Run test suite' },
   repl = {
     args = function()
-      if require('helpers').fileexists('bin/rails') then
+      if helpers.fileexists('bin/rails') then
         return { cmd = { 'bin/rails', 'console' }, winbar = '󰫏 rails console' }
       else
-        return { cmd = { 'pry', }, winbar = ' pry' }
+        return { cmd = { 'pry' }, winbar = ' pry' }
       end
     end,
     desc = 'Start ruby console'

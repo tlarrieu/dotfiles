@@ -57,7 +57,7 @@ local async_git = function(cmd)
   end
 end
 
-vim.keymap.set('n', '<c-s>', git(), { silent = true, desc = 'neogit' })
+vim.keymap.set('n', '<c-s>', git(), { silent = true, desc = 'fugitive' })
 
 vim.keymap.set('n', '<leader>cc', git({ 'commit' }), { desc = 'Git commit (new)' })
 vim.keymap.set('n', '<leader>ca', git({ 'commit', '--amend', '--no-edit' }), { desc = 'Git commit (amend)' })
@@ -82,21 +82,12 @@ vim.keymap.set('n', '<leader>gs', async_git({ 'stash' }), { desc = 'Git stash' }
 vim.keymap.set('n', '<leader>gS', async_git({ 'stash', 'pop' }), { desc = 'Git stash pop' })
 
 local gitclear = function(file)
-  local cmds = {}
-
-  if file ~= nil then
-    cmds = {
-      { 'git', 'reset', '--', file },
-      { 'git', 'checkout', '--', file },
-      { 'git', 'clean', '--force', '--', file }
-    }
-  else
-    cmds = {
-      { 'git', 'reset', },
-      { 'git', 'checkout', '.' },
-      { 'git', 'clean', '--force' },
-    }
-  end
+  local target = file and { '--', file } or {}
+  local cmds = {
+    vim.list_extend({ 'git', 'reset' }, target),
+    vim.list_extend({ 'git', 'checkout' }, file and target or { '.' }),
+    vim.list_extend({ 'git', 'clean', '--force' }, target),
+  }
 
   for _, cmd in ipairs(cmds) do vim.system(cmd):wait() end
 

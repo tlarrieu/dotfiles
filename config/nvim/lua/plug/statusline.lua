@@ -1,7 +1,7 @@
 vim.pack.add({ 'https://github.com/nvim-lualine/lualine.nvim' }, { confirm = false })
 
 local ro_icon = '󱆠'
-local mod_icon = '󰴓 '
+local modified_icon = '󰴓 '
 local ftmap = {
   harpoon = 'harpoon',
   mason = 'mason',
@@ -9,22 +9,19 @@ local ftmap = {
   qf = 'quickfix',
   oil = 'oil',
 }
-local mode = {
-  'mode',
-  icons_enabled = true,
-  fmt = function(mode, _)
-    if mode == 'NORMAL' then return ' 󰹻 ' end
-    if mode == 'O-PENDING' then return '  ' end
-    if mode == 'INSERT' then return ' 󰏪 ' end
-    if mode == 'COMMAND' then return ' 󰞷 ' end
-    if mode == 'TERMINAL' then return '  ' end
-    if mode == 'SELECT' then return ' 󰫙 ' end
-    if mode == 'VISUAL' then return ' 󰩭 ' end
-    if mode == 'V-LINE' then return ' 󰩭 ' end
-    if mode == 'V-BLOCK' then return ' 󰩭 ' end
-    return mode
-  end
+
+local mode_icons = {
+  NORMAL = ' 󰹻 ',
+  ['O-PENDING'] = '  ',
+  INSERT = ' 󰏪 ',
+  COMMAND = ' 󰞷 ',
+  TERMINAL = '  ',
+  SELECT = ' 󰫙 ',
+  VISUAL = ' 󰩭 ',
+  ['V-LINE'] = ' 󰩭 ',
+  ['V-BLOCK'] = ' 󰩭 ',
 }
+local mode = { 'mode', icons_enabled = true, fmt = function(mode) return mode_icons[mode] or mode end }
 
 local projectdir = function()
   local cwd = vim.fn.getcwd()
@@ -163,7 +160,7 @@ require('lualine').setup({
         end,
         color = filenamecolor,
         symbols = {
-          modified = mod_icon,
+          modified = modified_icon,
           readonly = ro_icon,
           unnamed = '',
           -- newfile = '󰎔',

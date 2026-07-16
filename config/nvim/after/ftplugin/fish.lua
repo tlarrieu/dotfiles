@@ -4,6 +4,5 @@ vim.opt_local.commentstring = '# %s'
 vim.api.nvim_create_autocmd('BufWritePost', {
   pattern = '/tmp/tmp.*.fish',
   callback = function() vim.cmd.quit() end,
-  group = vim.api.nvim_create_augroup('fish_autocmd', {})
-
+  group = vim.api.nvim_create_augroup('fish_autocmd', {}),
 })

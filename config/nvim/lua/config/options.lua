@@ -15,9 +15,9 @@ vim.opt.termguicolors = true
 -- encoding and filetype
 vim.opt.fileformats = 'unix,dos,mac'
 -- undo, backup and swap files
-vim.opt.undodir = { os.getenv("HOME") .. '/.tmp//' }
-vim.opt.backupdir = { os.getenv("HOME") .. '/.tmp//' }
-vim.opt.directory = { os.getenv("HOME") .. '/.tmp//' }
+vim.opt.undodir = { os.getenv('HOME') .. '/.tmp//' }
+vim.opt.backupdir = { os.getenv('HOME') .. '/.tmp//' }
+vim.opt.directory = { os.getenv('HOME') .. '/.tmp//' }
 -- activate undofile, that holds undo history
 vim.opt.undofile = true
 -- deactive swapfiles

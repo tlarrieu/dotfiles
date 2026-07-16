@@ -39,16 +39,16 @@ end
 
 local keyboard = {
   clients = gears.table.join(
-    spawner.key({ super }, 'Return', function(c) c.fullscreen = not c.fullscreen end),
+    spawner.key({ super }, 'Return', function(client) client.fullscreen = not client.fullscreen end),
     spawner.key({ super }, 'é', spawner.soft_kill),
-    spawner.key({ super, shift }, 'é', function(c) c:kill() end),
-    spawner.key({ super, ctrl }, 'c', function(c)
+    spawner.key({ super, shift }, 'é', function(client) client:kill() end),
+    spawner.key({ super, ctrl }, 'c', function(client)
       awful.tag.viewprev()
-      c:move_to_tag(c.screen.selected_tag)
+      client:move_to_tag(client.screen.selected_tag)
     end),
-    spawner.key({ super, ctrl }, 'r', function(c)
+    spawner.key({ super, ctrl }, 'r', function(client)
       awful.tag.viewnext()
-      c:move_to_tag(c.screen.selected_tag)
+      client:move_to_tag(client.screen.selected_tag)
     end),
     spawner.key({ super }, 'n', function(client) helpers.create_tag_and_attach_to(client, true) end),
     spawner.key({ super, ctrl }, 'e', function(client) move_to_screen(client, 1) end),

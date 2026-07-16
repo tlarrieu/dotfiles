@@ -1,6 +1,6 @@
 local o = vim.opt_local
 
-o.formatoptions = o.formatoptions + 't'
+o.formatoptions:append('t')
 o.conceallevel = 2
 o.spell = true
 

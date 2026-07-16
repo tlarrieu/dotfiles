@@ -9,8 +9,9 @@ local home = os.getenv('HOME')
 
 local h = require('helpers')
 
-local find_files = function() return { 'fd', '-tf', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
-local find_directories = function() return { 'fd', '-td', '--hidden', h.fileexists('.ignore') and '--no-ignore-vcs' or '' } end
+local no_ignore_vcs = function() return h.fileexists('.ignore') and '--no-ignore-vcs' or '' end
+local find_files = function() return { 'fd', '-tf', '--hidden', no_ignore_vcs() } end
+local find_directories = function() return { 'fd', '-td', '--hidden', no_ignore_vcs() } end
 local find_projects = function()
   return {
     'fd',

@@ -187,7 +187,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'alan' } },
   { icon = '', rule = { class = 'Chromium', instance = 'ameli' } },
   { icon = '󱌣', rule = { class = 'Chromium', instance = 'yoojo' } },
-  { icon = '󰌓', rule = { class = 'Chromium', instance = 'monkeytype.com', } },
+  { icon = '󰌓', rule = { class = 'Chromium', instance = 'monkeytype.com' } },
 
   --  Default browser
   { icon = '󰖟', rule = { class = 'Chromium', instance = 'localhost' } },

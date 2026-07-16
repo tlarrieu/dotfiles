@@ -11,7 +11,7 @@ return {
     theme.colors = colors
     theme.useless_gap = dpi(3)
 
-    theme.font = "CaskaydiaCove Nerd Font 12"
+    theme.font = 'CaskaydiaCove Nerd Font 12'
 
     theme.fg_normal = colors.fg.base
     theme.fg_focus = colors.fg.base

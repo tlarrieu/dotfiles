@@ -1,6 +1,6 @@
 local M = {}
 
-M.path = string.format("%s/.context.env", os.getenv('HOME'))
+M.path = string.format('%s/.context.env', os.getenv('HOME'))
 
 M.get = function()
   local file, context = io.open(M.path, 'r'), nil

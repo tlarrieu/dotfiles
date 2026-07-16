@@ -39,7 +39,6 @@ treesitter.install({
   'zathurarc',
 })
 
-
 local map = function(ft, keys, kind, scope)
   local basepath
 
