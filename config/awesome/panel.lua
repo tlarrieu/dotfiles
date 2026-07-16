@@ -16,7 +16,7 @@ local utcclock = wibox.widget({
   timezone = 'Z',
 })
 
--- [[ Context ]] -----------------------------------------------------------------
+-- [[ Context ]] ---------------------------------------------------------------
 local context = wibox.widget({
   markup = 'context',
   align  = 'center',
@@ -24,30 +24,55 @@ local context = wibox.widget({
   widget = wibox.widget.textbox
 })
 
--- [[ earbuds power ]] -------------------------------------------------------
-local earbuds = wibox.widget({
-  widget       = wibox.widget.progressbar,
-  min_value    = 0,
-  max_value    = 100,
-  forced_width = 70,
-  paddings     = 1,
-  border_width = 0,
-  visible      = false,
-})
+-- [[ Gauges (battery / earbuds power) ]] --------------------------------------
+local threshold_color = function(colors, value)
+  if value <= 10 then return colors.red.base end
+  if value <= 20 then return colors.yellow.base end
+  return colors.bg.base
+end
 
-local buds_widget = wibox.widget({
-  {
-    markup = '<span size="large">󰥈 </span>',
-    align = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox,
-  },
-  earbuds,
-  layout = wibox.layout.fixed.horizontal,
-})
+local make_gauge = function(icon_markup, shell_cmd)
+  local bar = wibox.widget({
+    widget       = wibox.widget.progressbar,
+    min_value    = 0,
+    max_value    = 100,
+    forced_width = 80,
+    paddings     = 1,
+    border_width = 0,
+    visible      = false,
+  })
 
-local earbuds_callback = function()
-  local cmd = [[
+  local widget = wibox.widget({
+    {
+      markup = icon_markup,
+      align = 'center',
+      valign = 'center',
+      widget = wibox.widget.textbox,
+    },
+    bar,
+    layout = wibox.layout.fixed.horizontal,
+  })
+
+  local callback = function()
+    awful.spawn.easy_async_with_shell(shell_cmd, function(out)
+      local value = tonumber(out)
+
+      if not value then
+        widget.visible = false
+        return
+      end
+
+      widget.visible = true
+      bar.visible = true
+      bar.value = value
+      bar.color = threshold_color(beautiful.colors, value)
+    end)
+  end
+
+  return widget, callback
+end
+
+local earbuds_widget, earbuds_callback = make_gauge('<span size="large">󰥈 </span>', [[
       upower --enumerate |
         grep headset |
         head -n 1 |
@@ -55,82 +80,19 @@ local earbuds_callback = function()
         grep percentage |
         awk '{ print $2 }' |
         sed 's/%//'
-    ]]
-  awful.spawn.easy_async_with_shell(cmd, function(out)
-    local value = tonumber(out)
-
-    if not value then
-      buds_widget.visible = false
-      return
-    end
-
-    buds_widget.visible = true
-    earbuds.visible = true
-
-    local colors = beautiful.colors
-    earbuds.value = value
-    if value <= 10 then
-      earbuds.color = colors.red.base
-    elseif value <= 20 then
-      earbuds.color = colors.yellow.base
-    else
-      earbuds.color = colors.bg.base
-    end
-  end)
-end
-
+    ]])
 gears.timer({ callback = earbuds_callback, timeout = 10, call_now = true, autostart = true })
 
--- [[ Battery ]] ---------------------------------------------------------------
-local battery = wibox.widget({
-  widget       = wibox.widget.progressbar,
-  min_value    = 0,
-  max_value    = 100,
-  forced_width = 70,
-  paddings     = 1,
-  border_width = 0,
-  visible      = false,
-})
-
-local bat_widget = wibox.widget({
-  {
-    markup = '<span size="large">󰁹 </span>',
-    align = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox,
-  },
-  battery,
-  layout = wibox.layout.fixed.horizontal,
-})
-
-local battery_callback = function()
-  local cmd = [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]]
-  awful.spawn.easy_async_with_shell(cmd, function(out)
-    local value = tonumber(out)
-
-    if not value then
-      bat_widget.visible = false
-      return
-    end
-
-    bat_widget.visible = true
-    battery.visible = true
-
-    local colors = beautiful.colors
-    battery.value = value
-    if value <= 10 then
-      battery.color = colors.red.base
-    elseif value <= 20 then
-      battery.color = colors.yellow.base
-    else
-      battery.color = colors.bg.base
-    end
-  end)
-end
-
+local battery_widget, battery_callback = make_gauge(
+  '<span size="large">󰁹 </span>',
+  [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]]
+)
 gears.timer({ callback = battery_callback, timeout = 10, call_now = true, autostart = true })
 
-local init = function(screen)
+-- [[ Public interface ]] ------------------------------------------------------
+local M = {}
+
+M.init = function(screen)
   battery_callback()
   earbuds_callback()
 
@@ -187,8 +149,8 @@ local init = function(screen)
 
   local left = wibox.widget({
     wibox.container.margin(screennum, dpi(10), dpi(0), dpi(5), dpi(5), nil, false),
-    wibox.container.margin(bat_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
-    wibox.container.margin(buds_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
+    wibox.container.margin(battery_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
+    wibox.container.margin(earbuds_widget, dpi(10), dpi(5), dpi(8), dpi(8), nil, false),
     layout = wibox.layout.fixed.horizontal
   })
 
@@ -224,9 +186,6 @@ local init = function(screen)
   })
 end
 
-local reset = function() for s in screen do init(s) end end
+M.reset = function() for s in screen do M.init(s) end end
 
-return {
-  reset = reset,
-  init = init
-}
+return M

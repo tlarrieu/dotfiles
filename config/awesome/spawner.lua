@@ -77,33 +77,17 @@ M.spawn = function(cmd, props, action)
   end)
 end
 
-M.key = function(mods, key, target)
-  if type(target) == 'function' then
-    return awful.key(
-      mods,
-      key,
-      target
-    )
-  elseif type(target) == 'table' then
-    return awful.key(
-      mods,
-      key,
-      function() M.spawn(target.app, target.props, target.signal) end
-    )
-  elseif type(target) == 'string' then
-    return awful.key(
-      mods,
-      key,
-      function() M.spawn(target) end
-    )
-  else
-    error(
-      'type of "'
-      .. target
-      .. '" is not supported. Must be one of function, table or string'
-    )
-  end
+local action_for = function(target)
+  local t_target = type(target)
+
+  if t_target == 'function' then return target end
+  if t_target == 'table' then return function() M.spawn(target.app, target.props, target.signal) end end
+  if t_target == 'string' then return function() M.spawn(target) end end
+
+  error('type of "' .. t_target .. '" is not supported. Must be one of function, table or string')
 end
+
+M.key = function(mods, key, target) return awful.key(mods, key, action_for(target)) end
 
 M.button = awful.button
 
