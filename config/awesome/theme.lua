@@ -24,7 +24,7 @@ return {
     theme.bg_normal = colors.bg.base
     theme.bg_focus = nil
     theme.bg_urgent = colors.red.base
-    theme.bg_systray = colors.bg_normal
+    theme.bg_systray = colors.bg.base
 
     theme.border_width = 0
 

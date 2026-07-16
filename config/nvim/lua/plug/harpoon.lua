@@ -52,8 +52,8 @@ vim.keymap.set('n', '<c-(>', function() harpoon:list():select(4) end, { desc = '
 vim.keymap.set('n', '<c-)>', function() harpoon:list():select(5) end, { desc = 'Harpoon: open #5' })
 vim.keymap.set('n', '<c-@>', function() harpoon:list():select(6) end, { desc = 'Harpoon: open #6' })
 
-vim.keymap.set('n', '<c-s-t>', function() harpoon:list():next() end, { desc = 'Harpoon: open #6' })
-vim.keymap.set('n', '<c-s-s>', function() harpoon:list():prev() end, { desc = 'Harpoon: open #6' })
+vim.keymap.set('n', '<c-s-t>', function() harpoon:list():next() end, { desc = 'Harpoon: next item' })
+vim.keymap.set('n', '<c-s-s>', function() harpoon:list():prev() end, { desc = 'Harpoon: previous item' })
 
 vim.keymap.set('n', "<c-e>",
   function()

@@ -41,7 +41,7 @@ require('dropbar').setup({
       max_depth = 1,
       min_widths = { 1000 },
       modified = function(sym)
-        return sym:merge({ icon = '󰴓 ', name_hl = 'DropbarModified', icon_hl = 'DropbarModified' })
+        return sym:merge({ icon = '󰴓 ', name_hl = 'DropBarModified', icon_hl = 'DropBarModified' })
       end
     },
     lsp = {

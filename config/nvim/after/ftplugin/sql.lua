@@ -21,6 +21,6 @@ end
 
 require('runner').setup({
   main = { args = function() return wrap(select('vip')) end, desc = 'psql -f %' },
-  alt = { args = function() return wrap('\\d ' .. select('viw')) end, desc = 'psql -f %' },
+  alt = { args = function() return wrap('\\d ' .. select('viw')) end, desc = 'psql \\d' },
   repl = { args = { cmd = 'psql', winbar = ' psql' } },
 })

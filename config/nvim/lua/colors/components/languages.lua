@@ -123,8 +123,8 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'manHeader', { link = 'Title' })
   vim.api.nvim_set_hl(0, 'manFooter', { link = 'manHeader' })
   vim.api.nvim_set_hl(0, 'manOptionDesc', { fg = palette.magenta.base })
-  vim.api.nvim_set_hl(0, 'manSectionHeading', { link = 'MarkViewHeading1' })
-  vim.api.nvim_set_hl(0, 'manSubHeading', { link = 'MarkViewHeading2' })
+  vim.api.nvim_set_hl(0, 'manSectionHeading', { link = 'MarkviewHeading1' })
+  vim.api.nvim_set_hl(0, 'manSubHeading', { link = 'MarkviewHeading2' })
 
   -- edifact
   vim.api.nvim_set_hl(0, 'edifactTag', { fg = palette.accent.base })

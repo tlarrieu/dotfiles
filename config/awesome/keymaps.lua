@@ -227,7 +227,6 @@ local keyboard = {
     spawner.key({ super }, 'k', 'rofi-emojis'),
     spawner.key({ super }, 'f', 'rofi-nerdfont'),
     spawner.key({ super, shift }, 'Escape', 'rofi-bluetooth'),
-    spawner.key({ super }, 'y', 'pulseaudio-ctl mute-input'),
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
     spawner.key({ super, ctrl }, 'Return', spawner.shell('rofi-theme')),

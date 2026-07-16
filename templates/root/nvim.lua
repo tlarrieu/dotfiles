@@ -194,7 +194,7 @@ k.set('n', '<leader>u', function()
     prevtab = num
   end
 
-  if curtab == 0 then return end
+  if prevtab == 0 then return end
 
   local buf = vim.api.nvim_get_current_buf()
 
