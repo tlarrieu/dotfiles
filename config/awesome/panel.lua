@@ -42,7 +42,7 @@ local make_gauge = function(icon, shell_cmd)
       bar.visible = true
       bar.value = value
       bar.color = value <= 10 and colors.red.base
-          or (value <= 20 and colors.yellow)
+          or (value <= 20 and colors.yellow.base)
           or colors.bg.base
     end)
   end
