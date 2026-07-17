@@ -16,6 +16,7 @@ vim.api.nvim_create_user_command('PackDel', function(opts) del(opts.args) end, {
 
 -- Command line shorthand
 local abbr = {
+  chmod = 'Chmod',
   mkdir = 'Mkdir',
   mv = 'Rename',
   rm = 'Delete',
