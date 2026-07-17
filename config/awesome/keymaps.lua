@@ -127,22 +127,17 @@ local keyboard = {
       props = { instance = 'github.com__pulls' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super, shift }, 's', {
+    spawner.key({ super }, 'à', {
       app = spawner.shell('slack-or-whatsapp'),
-      props = {
-        any_of = {
-          { instance = 'app.slack.com' },
-          { instance = 'web.whatsapp.com' },
-        },
-      },
+      props = { any_of = { { instance = 'app.slack.com' }, { instance = 'web.whatsapp.com' } } },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super }, 'à', {
+    spawner.key({ super }, 'b', {
       app = 'meet',
       props = { instance = 'meet' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super, shift }, 'à', {
+    spawner.key({ super, shift }, 'b', {
       app = 'meet.new',
       props = { instance = 'meet' },
       signal = spawner.actions.JUMP,
@@ -242,8 +237,8 @@ local keyboard = {
       props = { class = 'mixer' },
       signal = spawner.actions.MOVE,
     }),
-    spawner.key({ super }, 'b', 'mpc-library'),
-    spawner.key({ super, shift }, 'b', 'mpc-playlist'),
+    spawner.key({ super, shift }, 's', 'mpc-library'),
+    spawner.key({ super, ctrl, shift }, 's', 'mpc-playlist'),
     spawner.key({ super }, 'm', {
       app = 'music',
       props = { instance = 'music.youtube.com' },
