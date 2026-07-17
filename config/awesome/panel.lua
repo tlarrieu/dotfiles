@@ -3,10 +3,6 @@ local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
 
--- [[ Spacer ]] ----------------------------------------------------------------
-
-local spacer = wibox.widget({ text = '•', widget = wibox.widget.textbox, })
-
 -- [[ Clock ]] -----------------------------------------------------------------
 
 local date = wibox.widget({ format = '%b %d', widget = wibox.widget.textclock })
@@ -118,6 +114,11 @@ M.init = function(screen)
   }
 
   if screen.wibar then screen.wibar:remove() end
+
+  local spacer = wibox.widget({
+    markup = ('<span color="%s">•</span>'):format(beautiful.colors.fg.dimmer),
+    widget = wibox.widget.textbox,
+  })
 
   screen.wibar = awful.wibar({
     position = 'top',
