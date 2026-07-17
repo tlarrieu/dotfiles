@@ -38,7 +38,7 @@ end
 -- [[ Keyboard ]] ==============================================================
 
 local keyboard = {
-  clients = gears.table.join(
+  clients = {
     spawner.key({ super }, 'Return', function(client) client.fullscreen = not client.fullscreen end),
     spawner.key({ super }, 'é', spawner.soft_kill),
     spawner.key({ super, shift }, 'é', function(client) client:kill() end),
@@ -54,9 +54,9 @@ local keyboard = {
     spawner.key({ super, ctrl }, 'e', function(client) move_to_screen(client, 1) end),
     spawner.key({ super, ctrl }, 'i', function(client) move_to_screen(client, 2) end),
     spawner.key({ super, ctrl }, 'u', function(client) move_to_screen(client, 3) end)
-  ),
+  },
 
-  root = gears.table.join(
+  root = {
     spawner.key({ super }, 'Tab', awful.tag.history.restore),
     spawner.key({ super }, 'c', awful.tag.viewprev),
     spawner.key({ super }, 'r', awful.tag.viewnext),
@@ -272,13 +272,13 @@ local keyboard = {
     spawner.key({ super, shift }, "'", spawner.terminal(nil, { class = 'kitty-light' })),
     spawner.key({ super }, 'p', 'screenshot.sh gui'),
     spawner.key({ super, shift }, 'p', 'screenshot.sh screen')
-  )
+  }
 }
 
 -- [[ Mouse ]] =================================================================
 
 local mouse = {
-  clients = gears.table.join(
+  clients = {
     spawner.button({}, 1, function(client)
       client:emit_signal('request::activate', 'mouse_click', { raise = true })
     end),
@@ -294,12 +294,12 @@ local mouse = {
       spawner.grab_mouse_until_released()
       awful.tag.viewprev()
     end)
-  ),
+  },
 
-  root = gears.table.join(
+  root = {
     spawner.button({ super }, 4, awful.tag.viewnext),
-    spawner.button({ super }, 5, awful.tag.viewprev)
-  )
+    spawner.button({ super }, 5, awful.tag.viewprev),
+  }
 }
 
 return {
