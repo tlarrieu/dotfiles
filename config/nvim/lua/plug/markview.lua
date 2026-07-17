@@ -29,6 +29,14 @@ require('markview').setup({
   markdown = {
     enable = true,
 
+    metadata_minus = {
+      enable = true,
+      border_bottom = ' ',
+      border_top = ' ',
+      border_hl = 'MarkviewMetadataBorder',
+      hl = 'MarkviewMetadata',
+    },
+
     code_blocks = {
       enable = true,
 
