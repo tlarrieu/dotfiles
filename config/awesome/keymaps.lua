@@ -98,10 +98,15 @@ local keyboard = {
     }),
     spawner.key({ super }, 'w', {
       app = spawner.shell('work'),
-      props = { name = 'rails server' },
+      props = { class = 'work' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super, shift }, 'w', spawner.shell('work restart')),
+    spawner.key({ super, shift }, 'w', {
+      app = spawner.shell('work'),
+      props = { class = 'work' },
+      signal = spawner.actions.JUMP,
+      callback = spawner.shell('work restart'),
+    }),
     spawner.key({ super, ctrl }, 'm', {
       app = spawner.shell('email'),
       props = { name = 'neomutt' },

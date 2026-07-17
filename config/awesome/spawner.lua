@@ -53,7 +53,9 @@ M.actions = {
 
 M.soft_kill = function(client) if client.immortal then client:tags({}) else client:kill() end end
 
-M.spawn = function(cmd, props, action)
+M.spawn = function(cmd, props, action, callback)
+  if callback then awful.spawn(type(callback) == 'function' and callback() or callback) end
+
   if action then
     local _client = find_client(props)
 
@@ -81,7 +83,7 @@ local action_for = function(target)
   local t_target = type(target)
 
   if t_target == 'function' then return target end
-  if t_target == 'table' then return function() M.spawn(target.app, target.props, target.signal) end end
+  if t_target == 'table' then return function() M.spawn(target.app, target.props, target.signal, target.callback) end end
   if t_target == 'string' then return function() M.spawn(target) end end
 
   error('type of "' .. t_target .. '" is not supported. Must be one of function, table or string')

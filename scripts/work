@@ -1,10 +1,11 @@
 #!/bin/sh
 
-if [ "$1" = 'restart' ]; then pkill -USR2 -f '^puma'; fi
+if [ "$1" = 'restart' ]; then
+  pkill -USR2 -f '^puma'
+  exit 0
+fi
 
-if wmctrl -x -l | grep 'rails server' | grep -q kitty.kitty; then exit 0; fi
-
-kitty --session work &
+kitty --session work --class work &
 sleep 0.5
 browser-kiosk http://localhost:3000 &
 

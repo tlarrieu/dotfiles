@@ -240,7 +240,7 @@ local config = {
 
   { icon = '󰛮', rule = { class = 'kitty', name = 'neomutt' } },
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
-  { icon = '󰫏', rule = { class = 'kitty', name = 'rails' } },
+  { icon = '󰫏', rule = { class = 'work' } },
   { icon = '', rule = { class = 'kitty', name = 'sidekiq' } },
   { icon = '', rule = { class = 'kitty', name = 'yarn' } },
   { icon = '', rule = { class = 'kitty', name = 'redis%-server' } },
