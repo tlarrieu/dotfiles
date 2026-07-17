@@ -1,5 +1,6 @@
 vim.g.flog_enable_extended_chars = true
-vim.g.flog_default_opts = { format = '[%h]%d %s', max_count = 200, skip = 0 }
+vim.g.flog_enable_dynamic_commit_hl = true
+vim.g.flog_default_opts = { format = '%h • %ah •%d %s [%an]', max_count = 200, skip = 0 }
 
 vim.pack.add({
   'https://github.com/tpope/vim-fugitive',
