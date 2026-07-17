@@ -66,6 +66,7 @@ local earbuds_widget, earbuds_callback = make_gauge('󰥈 ', [[
 ]])
 
 -- [[ Public interface ]] ------------------------------------------------------
+
 local M = {}
 
 M.init = function(screen)
@@ -74,9 +75,8 @@ M.init = function(screen)
 
   local colors = beautiful.colors
 
-  local highlight_id = 'highlight'
   local highlight_current_tag = function(self, tag, _, _)
-    self:get_children_by_id(highlight_id)[1].bg =
+    self:get_children_by_id('highlight')[1].bg =
         tag.selected
         and colors.accent.base
         or colors.bg.base
@@ -87,14 +87,14 @@ M.init = function(screen)
     filter = function(tag) return #tag:clients() > 1 or #tag.screen.tags > 1 end,
     widget_template = {
       {
+        { id = 'highlight', forced_height = 3, widget = wibox.container.background },
         {
-          { id = 'text_role', forced_height = 24, widget = wibox.widget.textbox },
-          top = 4,
+          { id = 'text_role', widget = wibox.widget.textbox },
+          bottom = 3,
           left = 8,
           right = 4,
           layout = wibox.container.margin,
         },
-        { id = highlight_id, widget = wibox.container.background },
         widget = wibox.layout.align.vertical,
       },
       id = 'background_role',
@@ -128,8 +128,8 @@ M.init = function(screen)
     widget = {
       {
         { screennum, left = 10, layout = wibox.container.margin },
-        { battery_widget, left = 6, layout = wibox.container.margin },
-        { earbuds_widget, left = 6, layout = wibox.container.margin },
+        { battery_widget, left = 6, right = 6, layout = wibox.container.margin },
+        { earbuds_widget, left = 6, right = 6, layout = wibox.container.margin },
         layout = wibox.layout.fixed.horizontal
       },
       taglist,
