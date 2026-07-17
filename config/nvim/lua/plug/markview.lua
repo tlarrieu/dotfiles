@@ -18,6 +18,7 @@ require('markview').setup({
     enable = true,
     icon_provider = 'devicons',
   },
+  yaml = { enable = false },
   markdown_inline = {
     inline_codes = {
       enable = true,
