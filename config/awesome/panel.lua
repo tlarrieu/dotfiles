@@ -87,8 +87,8 @@ M.init = function(screen)
         {
           { id = 'text_role', widget = wibox.widget.textbox },
           bottom = 3,
-          left = 8,
-          right = 4,
+          left = 10,
+          right = 6,
           layout = wibox.container.margin,
         },
         widget = wibox.layout.align.vertical,
