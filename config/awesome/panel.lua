@@ -80,7 +80,7 @@ M.init = function(screen)
 
   local taglist = awful.widget.taglist({
     screen = screen,
-    filter = function(tag) return #tag:clients() > 1 or #tag.screen.tags > 1 end,
+    filter = function(tag) return #tag:clients() > 1 or #screen.tags > 1 end,
     widget_template = {
       {
         { id = 'highlight', forced_height = 3, widget = wibox.container.background },
