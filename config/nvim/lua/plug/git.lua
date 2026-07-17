@@ -126,7 +126,6 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.del('n', '<tab>', { buffer = true })
     vim.keymap.set('n', 'þ', ']]', { remap = true, buffer = true })
     vim.keymap.set('n', 'ß', '[[gg', { remap = true, buffer = true })
-    vim.opt_local.listchars = {}
   end,
 })
 
