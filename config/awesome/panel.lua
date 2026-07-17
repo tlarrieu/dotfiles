@@ -2,6 +2,8 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
+local glyphs = require('glyphs')
+local context = require('context')
 
 -- [[ Clock ]] -----------------------------------------------------------------
 
@@ -23,9 +25,14 @@ local make_gauge = function(icon, shell_cmd)
   })
 
   local widget = wibox.widget({
-    { markup = ('<span size="large">%s</span>'):format(icon), widget = wibox.widget.textbox },
-    { bar, top = 10, bottom = 10, layout = wibox.container.margin },
-    layout = wibox.layout.fixed.horizontal,
+    {
+      { markup = ('<span size="large">%s</span>'):format(icon), widget = wibox.widget.textbox },
+      { bar, top = 10, bottom = 10, layout = wibox.container.margin },
+      layout = wibox.layout.fixed.horizontal,
+    },
+    left = 6,
+    right = 6,
+    layout = wibox.container.margin
   })
 
   local callback = function()
@@ -100,15 +107,13 @@ M.init = function(screen)
     },
   })
 
-  local glyph = require('glyphs').number(screen.index)
-  local screennum = {
-    markup = ('<span size="large">󰍹 %s </span>'):format(glyph),
+  local screen_number = {
+    markup = ('<span size="large">󰍹 %s </span>'):format(glyphs.number(screen.index)),
     widget = wibox.widget.textbox
   }
 
-
-  local ctx = require('context').get()
-  local context = {
+  local ctx = context.get()
+  local current_context = {
     markup = ('<span color="%s"><b>@%s</b></span>'):format(ctx == 'work' and colors.red.base or colors.green.base, ctx),
     widget = wibox.widget.textbox
   }
@@ -128,14 +133,14 @@ M.init = function(screen)
     bg = colors.bg.base,
     widget = {
       {
-        { screennum, left = 10, layout = wibox.container.margin },
-        { battery_widget, left = 6, right = 6, layout = wibox.container.margin },
-        { earbuds_widget, left = 6, right = 6, layout = wibox.container.margin },
+        { screen_number, left = 10, layout = wibox.container.margin },
+        battery_widget,
+        earbuds_widget,
         layout = wibox.layout.fixed.horizontal
       },
       taglist,
       {
-        { context, layout = wibox.container.margin },
+        current_context,
         { spacer, left = 10, right = 10, layout = wibox.container.margin },
         { date, layout = wibox.container.margin },
         { spacer, left = 10, right = 10, layout = wibox.container.margin },
