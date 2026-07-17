@@ -48,9 +48,9 @@ local make_gauge = function(icon, shell_cmd)
       widget.visible = true
       bar.visible = true
       bar.value = value
-      bar.color = value <= 10 and colors.red.base
+      bar.background_color = value <= 10 and colors.red.base
           or (value <= 20 and colors.yellow.base)
-          or colors.bg.base
+          or colors.fg.base
     end)
   end
 
