@@ -130,7 +130,7 @@ M.init = function(screen)
     height = 32,
     screen = screen,
     margins = { top = 6, bottom = 0, left = 6, right = 6 },
-    bg = colors.bg.base,
+    bg = colors.bg.base .. 'e4',
     widget = {
       {
         { screen_number, left = 10, layout = wibox.container.margin },
