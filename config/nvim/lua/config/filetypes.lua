@@ -17,6 +17,7 @@ vim.filetype.add({
       if content:match('^UNA.... \'') then return 'edifact' end
       return 'text'
     end,
+    xresources = 'xdefaults',
   },
   filename = {
     ['~/.neorg/gtd/todo.txt'] = 'todotxt',
