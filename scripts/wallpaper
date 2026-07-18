@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-cd ${1:-$HOME/Pictures/wallpapers}
+cd "${1:-$HOME/Pictures/wallpapers}" || exit 1
 
 mode=$(gsettings get org.gnome.desktop.interface color-scheme | grep -Eo "light|dark")
 
 target="$HOME/Pictures/wallpapers/wallpaper-$mode"
-sxiv -tor . 2>/dev/null | xargs -I{} ln -sf {} $target
-feh --bg-fill $target
+sxiv -tor . 2>/dev/null | xargs -I{} ln -sf {} "$target"
+feh --bg-fill "$target"
