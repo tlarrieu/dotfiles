@@ -5,7 +5,9 @@ only
 set shell=/usr/bin/fish
 set vicmd=nvim
 set dotdirs=treeleafsparent
+set tuioptions=psvu
 
+set title
 set incsearch
 set ignorecase
 set smartcase
@@ -13,6 +15,8 @@ set nohlsearch
 set trash
 set number
 set rnu
+set wildmenu
+set wildstyle=popup
 
 set grepprg='rg -n %a %i %s'
 
