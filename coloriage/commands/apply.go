@@ -46,6 +46,7 @@ func build(name string) (err error) {
 		{app: "zathura", dir: []string{config, "zathura"}},
 		{app: "chrome", dir: []string{homedir, ".chrome_colors"}},
 		{app: "sxiv", dir: []string{homedir, ".Xresources.d", "sxiv"}},
+		{app: "nsxiv", dir: []string{homedir, ".Xresources.d", "nsxiv"}},
 		{app: "claude", dir: []string{homedir, ".claude", "colors"}, extension: ".json"},
 	}
 
