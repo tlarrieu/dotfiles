@@ -25,7 +25,6 @@ treesitter.install({
   'lua',
   'luadoc',
   'markdown',
-  'muttrc',
   'query',
   'ruby',
   'sql',
@@ -36,7 +35,6 @@ treesitter.install({
   'xml',
   'xresources',
   'yaml',
-  'zathurarc',
 })
 
 local map = function(ft, keys, kind, scope)
