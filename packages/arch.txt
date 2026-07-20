@@ -95,7 +95,6 @@ mpd
 mpv
 yt-dlp
 yt-dlp-ejs
-sxiv
 feh
 viewnior
 imagemagick

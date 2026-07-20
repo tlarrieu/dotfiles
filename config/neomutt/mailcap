@@ -5,10 +5,10 @@ text/plain; nvim %s
 audio/mpeg; mpv %s
 audio/vnd.wave; mpv %s
 audio/mp4; mpv %s
-image/gif; sxiv %s
-image/jpeg; sxiv %s
-image/png; sxiv %s
-image/webp; sxiv %s
+image/gif; nsxiv %s
+image/jpeg; nsxiv %s
+image/png; nsxiv %s
+image/webp; nsxiv %s
 image/x-eps; inkscape %s
 video/vnd.avi; mpv %s
 video/mp4; mpv %s

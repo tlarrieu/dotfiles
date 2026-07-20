@@ -74,7 +74,7 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     just success "Arch Linux detected, installing packages with yay..."
     sudo pacman -S --color always --needed --noconfirm yay
     yay -S --color always --needed --noconfirm $(cat ./packages/arch.txt | grep -v "#")
-    just neovim
+    just neovim nsxiv
   elif builtin type -P apt > /dev/null; then # Ubuntu
     just success "Ubuntu detected, installing packages with apt..."
     sudo cp ./packages/sources.list /etc/apt/sources.list.d/ubuntu.sources
@@ -82,7 +82,7 @@ packages: (pending "packages: installing...") && (success "packages: done.")
     sudo apt install -y $(cat ./packages/ubuntu.txt | grep -v "#")
     mkdir -p ~/bin
     ln -sfFT /usr/bin/fdfind ~/bin/fd
-    just neovim awesome picom kitty
+    just neovim awesome picom kitty nsxiv
   else
     echo "{{RED}}Unsupported distribution.{{NORMAL}}"
     exit 1
@@ -149,6 +149,14 @@ kitty: (pending "kitty: building...") (clone "kovidgoyal/kitty" "~/git/kitty") &
   ./dev.sh build
   ln -sf ~/git/kitty/kitty/launcher/kitty ~/bin/kitty
   ln -sf ~/git/kitty/kitty/launcher/kitten ~/bin/kitten
+
+[group("deps/sources"), doc("build nsxiv from sources")]
+nsxiv: (pending "nsxiv: building...") (clone "nsxiv/nsxiv" "~/git/nsxiv") && (success "nsxiv: done.")
+  #!/usr/bin/env bash
+  cd ~/git/nsxiv
+  ln -sf ~/git/dotfiles/build/nsxiv/config.h ~/git/nsxiv/config.h
+  make
+  ln -sf ~/git/nsxiv/nsxiv ~/bin/nsxiv
 
 [group("system"), doc("install fonts (Caskaydia Cove)")]
 fonts:

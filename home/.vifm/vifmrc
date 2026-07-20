@@ -29,7 +29,7 @@ fileviewer */ eza --color=always --icons=always --tree --level 1
 filetype *.zip,*.gzip,*.tar,*.tar.gz,*.tgz,*.bz2,*.xz
   \ {unzip} aunpack %f 2>/dev/null &,
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm,*.webp
-  \ {view} sxiv %f 2>/dev/null &,
+  \ {view} nsxiv %f 2>/dev/null &,
 filetype *.pdf
   \ {view} zathura %f 2>/dev/null &,
 filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,*.webm,*.webp,*.pdf,*.xcf

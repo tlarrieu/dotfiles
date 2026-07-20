@@ -161,7 +161,7 @@ local config = {
     icon = '',
     rules = {
       { class = 'feh' },
-      { class = 'Sxiv' },
+      { class = 'Nsxiv' },
       { class = 'Viewnior' },
       { class = 'Chromium', instance = 'wallhaven.cc' },
     }

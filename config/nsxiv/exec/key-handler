@@ -2,6 +2,6 @@
 
 case "$1" in
   "b")
-    feh --bg-scale $(</dev/stdin)
+    feh --bg-fill $(</dev/stdin)
     ;;
 esac
