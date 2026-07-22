@@ -9,7 +9,7 @@ require('autoclose').setup({
   options = {
     disabled_filetypes = { 'TelescopePrompt', 'ledger', 'gitcommit', 'markdown' },
     disable_when_touch = true,
-    touch_regex = "[%w(%[{%%'\"]",
+    touch_regex = "[%w([{%'\"]",
     disable_command_mode = true,
     pair_spaces = true,
   },
