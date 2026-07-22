@@ -15,6 +15,7 @@
 window {
   border: @window-border;
   border-color: @fg;
+  anchor: north;
 }
 
 mainbox {
