@@ -29,7 +29,7 @@
       "src": "https://github.com/hrsh7th/cmp-path"
     },
     "codediff.nvim": {
-      "rev": "7608f3b436ce1f84a4888f75e53079caa981a2e9",
+      "rev": "46727b842e6315cc3586c2ea9051a0ac6abce6c8",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
