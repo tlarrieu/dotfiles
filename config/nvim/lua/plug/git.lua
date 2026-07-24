@@ -137,6 +137,7 @@ require('codediff').setup({
   diff = {
     compute_moves = true,
     cycle_hunks_across_files = false,
+    filler_text = '╳'
   },
   explorer = {
     width = 45,
