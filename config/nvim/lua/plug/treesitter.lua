@@ -77,19 +77,12 @@ vim.api.nvim_create_autocmd('FileType', {
 
 ---- TS text-objects -----------------------------------------------------------
 
-require('nvim-treesitter-textobjects').setup({
-  select = {
-    lookahead = true,
-    selection_modes = {
-      ['@block.outer'] = 'V',
-      ['@function.outer'] = 'V',
-    }
-  }
-})
+local textobjects = require('nvim-treesitter-textobjects')
+local ts_select = require('nvim-treesitter-textobjects.select')
 
-local select = function(x)
-  return function() require 'nvim-treesitter-textobjects.select'.select_textobject(x, 'textobjects') end
-end
+textobjects.setup({ select = { lookahead = true, selection_modes = { ['@block.outer'] = 'V', ['@function.outer'] = 'V' } } })
+
+local select = function(x) return function() ts_select.select_textobject(x, 'textobjects') end end
 
 vim.keymap.set({ 'x', 'o' }, 'if', select('@function.inner'))
 vim.keymap.set({ 'x', 'o' }, 'af', select('@function.outer'))
