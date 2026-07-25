@@ -12,15 +12,16 @@ treesitter.install({
   'bash',
   'embedded_template',
   'fish',
-  'gitcommit',
-  'gitignore',
   'git_config',
   'git_rebase',
+  'gitcommit',
+  'gitignore',
   'go',
   'gomod',
   'javascript',
   'json',
   'just',
+  'kitty',
   'ledger',
   'lua',
   'luadoc',
@@ -35,7 +36,6 @@ treesitter.install({
   'xml',
   'xresources',
   'yaml',
-  'kitty',
 })
 
 local map = function(ft, keys, kind, scope)
