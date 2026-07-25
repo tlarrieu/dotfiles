@@ -35,6 +35,7 @@ treesitter.install({
   'xml',
   'xresources',
   'yaml',
+  'kitty',
 })
 
 local map = function(ft, keys, kind, scope)
