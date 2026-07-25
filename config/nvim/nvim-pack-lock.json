@@ -29,7 +29,7 @@
       "src": "https://github.com/hrsh7th/cmp-path"
     },
     "codediff.nvim": {
-      "rev": "2253030fc17c8356a2ff1026f25cb9b570bdd91f",
+      "rev": "8bd120d5e02172852e788adde2abc94383cae741",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -98,7 +98,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "a03c6283b079df3ec55705d4702d515ab2072267",
+      "rev": "0153df68b44fa97a3e11696ca55cbdd7a6d42398",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -160,7 +160,7 @@
       "src": "https://github.com/tommcdo/vim-exchange"
     },
     "vim-flog": {
-      "rev": "c8a573b5a829d0a3ed1b72c87dd62d832b665e87",
+      "rev": "676198e8d43b3eef380b01aea2535826574fba28",
       "src": "https://github.com/rbong/vim-flog"
     },
     "vim-fugitive": {
