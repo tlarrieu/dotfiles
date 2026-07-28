@@ -10,7 +10,7 @@ $MONTH/${6:$DAY} ${7:!} ${4:payee} | ${5:description}
     i = [[
 $MONTH/${6:$DAY} ${7:*} ${4|me,miriam|} | ${5:desc}
   ${3:card:ce:j}  ${1:amount} €
-  ${2|salary/Thomas,CPAM,refund,transfers|}]],
+  ${2|salary/Thomas,CPAM,alan,mercer,refund,transfers|}]],
 
     c = [[
 $MONTH/${6:$DAY} ${7:!} ${4:payee} | ${5|parking,essence,lavage,péage|}
