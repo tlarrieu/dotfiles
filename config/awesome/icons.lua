@@ -150,6 +150,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'app.envoituresimone.com' } },
 
   --  Money
+  { icon = '', rule = { class = 'Chromium', instance = 'www.impots.gouv.fr__portail' } },
   { icon = '', rule = { class = 'Chromium', name = ', espace client,' } },
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' } },
   { icon = '', rule = { class = 'Chromium', instance = 'swile' } },
