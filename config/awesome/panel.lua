@@ -82,7 +82,7 @@ M.init = function(screen)
     self:get_children_by_id('highlight')[1].bg =
         tag.selected
         and colors.accent.base
-        or colors.bg.base
+        or nil
   end
 
   local taglist = awful.widget.taglist({
@@ -90,14 +90,15 @@ M.init = function(screen)
     filter = function(tag) return #tag:clients() > 1 or #screen.tags > 1 end,
     widget_template = {
       {
-        { id = 'highlight', forced_height = 3, widget = wibox.container.background },
         {
           { id = 'text_role', widget = wibox.widget.textbox },
-          bottom = 3,
+          top = 4,
           left = 10,
           right = 6,
+          forced_height = 28,
           layout = wibox.container.margin,
         },
+        { id = 'highlight', widget = wibox.container.background },
         widget = wibox.layout.align.vertical,
       },
       id = 'background_role',
