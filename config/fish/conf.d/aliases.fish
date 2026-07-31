@@ -117,6 +117,9 @@ abbr ,v "cd ~/Videos"
 abbr ,w "cd ~/Pictures/wallpapers"
 abbr - "cd -"
 
+# mkdir
+abbr ns "nsxiv"
+
 # eza (ls)
 alias eza="eza --group-directories-first"
 abbr l "eza"
