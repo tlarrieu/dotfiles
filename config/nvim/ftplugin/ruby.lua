@@ -50,11 +50,11 @@ local rspec = function(opts)
   else
     locations = { vim.api.nvim_buf_get_name(0) .. (opts.at_cursor and (':' .. vim.api.nvim_win_get_cursor(0)[1]) or '') }
     scope = opts.at_cursor and '(cursor)' or '(file)'
+    table.insert(cmd, '--fail-fast')
   end
 
   local testbus = require('testbus')
 
-  table.insert(cmd, '--fail-fast')
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   for _, location in ipairs(locations) do table.insert(cmd, location) end
 
