@@ -93,6 +93,7 @@ M.init = function(screen)
         {
           { id = 'text_role', widget = wibox.widget.textbox },
           top = 4,
+          bottom = 6,
           left = 10,
           right = 6,
           forced_height = 28,
@@ -115,7 +116,10 @@ M.init = function(screen)
 
   local ctx = context.get()
   local current_context = {
-    markup = ('<span color="%s"><b>@%s</b></span>'):format(ctx == 'work' and colors.red.base or colors.green.base, ctx),
+    markup = ('<span color="%s">%s</span>'):format(
+      ctx == 'work' and colors.red.base or colors.green.base,
+      ctx == 'work' and '󰹻' or ''
+    ),
     widget = wibox.widget.textbox
   }
 
