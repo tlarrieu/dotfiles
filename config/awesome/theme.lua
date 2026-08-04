@@ -10,7 +10,7 @@ return {
     theme.colors = colors
     theme.useless_gap = 3
 
-    local font_name = 'NotoSerif NF Black'
+    local font_name = 'CaskaydiaCove Nerd Font'
     theme.font = ('%s 10.5'):format(font_name)
     theme.taglist_font = ('%s 12'):format(font_name)
 
