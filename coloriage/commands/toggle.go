@@ -48,7 +48,7 @@ func SetMode(mode string) {
 	go writeMode(`@import "`+mode+`"`, configdir, "rofi", "variant.rasi")
 	go writeMode("include "+mode, configdir, "zathura", "theme")
 	go writeMode("#include \"nsxiv/"+mode+"\"", homedir, ".Xresources.d", "nsxiv.xresources")
-	exec.Command("xrdb", homedir, ".Xresources").Start()
+	exec.Command("xrdb", filepath.Join(homedir, ".Xresources")).Start()
 
 	wallpaper := filepath.Join(homedir, "Pictures", "wallpapers", "wallpaper-"+mode)
 	fehbg := filepath.Join(homedir, ".fehbg")
