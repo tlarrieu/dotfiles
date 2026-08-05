@@ -214,6 +214,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'CodeDiffMoveTo', { fg = palette.fg.dim, bg = palette.bg.dim, italic = true })
   vim.api.nvim_set_hl(0, 'CodeDiffMoveFrom', { link = 'CodeDiffMoveTo' })
   vim.api.nvim_set_hl(0, 'CodeDiffLineMove', { bg = palette.bg.dim, italic = true, nocombine = true })
+  vim.api.nvim_set_hl(0, 'CodeDiffFiller', { fg = palette.fg.dimmer })
 
   vim.api.nvim_set_hl(0, '@comment.gitcommit', { fg = palette.fg.dimmer, bg = 'none' })
   vim.api.nvim_set_hl(0, '@markup.heading.gitcommit', { fg = palette.fg.base, bg = 'none' })
