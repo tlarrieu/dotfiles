@@ -10,6 +10,8 @@
   tree-sitter --version
   echo
   awesome --version
+  echo
+  kitty --version
 
 alias boot := bootstrap
 [doc("bootstrap the system: install packages, link configuration files, enable services...")]
