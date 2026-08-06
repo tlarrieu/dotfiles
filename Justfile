@@ -146,6 +146,8 @@ picom: (pending "picom: building...") (clone "yshui/picom" "~/git/picom") && (su
 kitty: (pending "kitty: building...") (clone "kovidgoyal/kitty" "~/git/kitty") && (success "kitty: done.")
   #!/usr/bin/env bash
   cd ~/git/kitty
+  git fetch --tags --force
+  git checkout v0.48.2
   ./dev.sh build
   ln -sf ~/git/kitty/kitty/launcher/kitty ~/bin/kitty
   ln -sf ~/git/kitty/kitty/launcher/kitten ~/bin/kitten
