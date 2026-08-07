@@ -185,7 +185,7 @@ local builder = require('helpers').fileexists('Makefile') and 'Makefile' or 'Jus
 vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builder, expr = true })
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit local nvim config', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit local (irb/pry)rc', expr = true })
-vim.keymap.set('n', '<leader>eR', quickedit('~/.pryrc'), { desc = 'Edit pryrc', expr = true })
+vim.keymap.set('n', '<leader>eR', quickedit('~/.ruby.global'), { desc = 'Edit pryrc', expr = true })
 vim.keymap.set('n', '<leader>eo', quickedit('~/output.txt'), { desc = 'Edit output.txt', expr = true })
 vim.keymap.set('n', '<leader>ei', quickedit('~/input.txt'), { desc = 'Edit input.txt', expr = true })
 vim.keymap.set('n', '<leader>ec', quickedit('.claude/settings.json'), {

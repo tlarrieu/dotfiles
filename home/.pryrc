@@ -22,16 +22,14 @@ Pry.config.prompt = Pry::Prompt.new(
   [proc { "#{prompt.call(_2, _3)} \e[32m󰄾\e[0m " }, proc { "#{prompt.call(_2, _3)}\e[33m󰄼\e[0m " }]
 )
 
-def write(str)
-  File.open("#{Dir.home}/output.txt", 'w+') { _1.write str }
-end
-
 def so
   load "#{Dir.home}/.pryrc"
+  load "#{Dir.home}/.ruby.global"
   load "#{Dir.home}/.ruby.local"
 end
 
 begin
+  load "#{Dir.home}/.ruby.global"
   load "#{Dir.home}/.ruby.local"
 rescue LoadError
   nil

@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+def write(str)
+  File.open("#{Dir.home}/output.txt", 'w+') { _1.write str }
+end
+
+def safe_transaction
+  result = nil
+  ActiveRecord::Base.transaction do
+    result = yield
+
+    raise ActiveRecord::Rollback
+  end
+  result
+end
