@@ -14,3 +14,15 @@ def safe_transaction
   end
   result
 end
+
+def safe_json_parse(body)
+  JSON.parse(body)
+rescue TypeError, JSON::ParserError
+  body
+end
+
+def safe_unzip(data)
+  ActiveSupport::Gzip.decompress(data)
+rescue Zlib::GzipFile::Error
+  data
+end
