@@ -11,12 +11,12 @@
     "bg": "#fffcf0"
   },
   "dark": {
-    "blue": "#205ea6",
-    "cyan": "#24837b",
-    "green": "#66800b",
-    "magenta": "#a02f6f",
-    "red": "#af3029",
-    "yellow": "#ad8301",
+    "blue": "#4385be",
+    "cyan": "#3aa99f",
+    "green": "#879a39",
+    "magenta": "#ce5d97",
+    "red": "#d14d41",
+    "yellow": "#d0a215",
     "accent": "#cecdc3",
     "fg": "#cecdc3",
     "bg": "#100f0f"
