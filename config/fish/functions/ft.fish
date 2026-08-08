@@ -50,6 +50,8 @@ function ft
     echo -e "• Pending transfers balance --------------------------------"
     tput setaf 0
     now -p today -H -P equity:transfers
+    echo -e "\e[31m• Current mortgage balance ------------------------------------------------\e[0m"
+    now -p today..15days -N -H liabilities:loans:house
     echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
     now -p today..15days -H assets:savings
     echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
