@@ -38,6 +38,8 @@ function ft
     now -p today..15days -N -H assets:cash assets:check assets:swile
     echo -e "\e[34m• Current savings balance -------------------------------------------------\e[0m"
     now -p today..15days -N -H assets:savings
+    echo -e "\e[31m• Current mortgage balance ------------------------------------------------\e[0m"
+    now -p today..15days -N -H liabilities:loans:house
     return
   case now
     echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
