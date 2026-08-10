@@ -6,7 +6,7 @@
     "magenta": "#ce5d97",
     "red": "#d14d41",
     "yellow": "#d0a215",
-    "accent": "#ce5d97",
+    "accent": "#d0a215",
     "fg": "#100f0f",
     "bg": "#fffcf0"
   },
@@ -17,7 +17,7 @@
     "magenta": "#ce5d97",
     "red": "#d14d41",
     "yellow": "#d0a215",
-    "accent": "#ce5d97",
+    "accent": "#d0a215",
     "fg": "#cecdc3",
     "bg": "#100f0f"
   }
