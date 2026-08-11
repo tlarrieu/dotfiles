@@ -3,9 +3,6 @@
 * {
   font: "CaskaydiaCove Nerd Font 14.5";
 
-  urgent: @red;
-  match: @accent;
-
   mesg-gutter: 1em 1em 0.5em 1em;
   list-gutter: 0;
   window-border: 0;
@@ -98,36 +95,23 @@ element-text {
   highlight: @match;
 }
 
+element-text active {
+  text-transform: bold;
+}
+
 // Normal ----------------------------------------------------------------------
 
-element normal normal {
+element normal {
   background-color: transparent;
   text-color: @fg;
 }
 
-element normal urgent {
+element urgent {
   background-color: transparent;
   text-color: @urgent;
 }
 
-element normal active {
-  background-color: transparent;
-  text-color: @accent;
-}
-
-// Alternate -------------------------------------------------------------------
-
-element alternate normal {
-  background-color: transparent;
-  text-color: @fg;
-}
-
-element alternate urgent {
-  background-color: transparent;
-  text-color: @urgent;
-}
-
-element alternate active {
+element active {
   background-color: transparent;
   text-color: @accent;
 }
