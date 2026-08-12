@@ -95,7 +95,7 @@ M.init = function(screen)
           top = 4,
           left = 10,
           right = 6,
-          forced_height = 28,
+          forced_height = 29,
           layout = wibox.container.margin,
         },
         { id = 'highlight', widget = wibox.container.background },
