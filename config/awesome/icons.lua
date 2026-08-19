@@ -198,6 +198,7 @@ local config = {
   -- 󰺶 Games
   { icon = '󰚤', rule = { name = 'Sir, We Have an Orc Problem' } },
   { icon = '󰆥', rule = { class = 'Tiny Kingdom' } },
+  { icon = '󰓥', rule = { class = 'LootBound.x86_64' } },
   { icon = '󰓥', rule = { class = 'steam_app_3410180' } }, -- Overlooting
   { icon = '󰓥', rule = { class = 'steam_app_1086940' } }, -- Baldur's gate III
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
