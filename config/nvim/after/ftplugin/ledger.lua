@@ -5,8 +5,6 @@ vim.b.to_treesitter_options = true
 
 local runner = require('runner')
 
-local ftnow = { cmd = { 'fish', '-c', 'ft now' }, winbar = '󰗑 ft now', show = true }
-
 local ft = function(cmd)
   return {
     cmd = { 'fish', '-c', ('ft %s'):format(cmd) },

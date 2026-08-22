@@ -19,6 +19,12 @@ vim.api.nvim_create_autocmd('FileType', {
     for _, ft in ipairs({ 'help', 'man', 'codediff-explorer', 'floggraph' }) do
       if ctx.match == ft then vim.opt_local.list = false end
     end
+
+    local ft_after_path = vim.fs.joinpath(vim.fn.stdpath('config'), 'after', 'ftplugin', ctx.match .. '.lua')
+    local ft_path = vim.fs.joinpath(vim.fn.stdpath('config'), 'ftplugin', ctx.match .. '.lua')
+    local edit = function(path) return function() vim.cmd.vsplit(path) end end
+    vim.keymap.set('n', '<leader>ef', edit(ft_after_path), { buffer = ctx.buf })
+    vim.keymap.set('n', '<leader>eF', edit(ft_path), { buffer = ctx.buf })
   end
 })
 
