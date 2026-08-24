@@ -1,0 +1,24 @@
+{
+  "light": {
+    "blue": "#1f5fa8",
+    "cyan": "#0e8f92",
+    "green": "#0aa057",
+    "magenta": "#d65cad",
+    "red": "#c1272d",
+    "yellow": "#e69500",
+    "accent": "#29579e",
+    "fg": "#221f1b",
+    "bg": "#f4efe4"
+  },
+  "dark": {
+    "blue": "#4c8bf5",
+    "cyan": "#29c4c6",
+    "green": "#3fbf6f",
+    "magenta": "#ef6cc3",
+    "red": "#ff5a3c",
+    "yellow": "#ffb648",
+    "accent": "#5ea1ff",
+    "fg": "#d8d2c4",
+    "bg": "#141414"
+  }
+}
