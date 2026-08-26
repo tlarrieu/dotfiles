@@ -43,7 +43,7 @@ vim.lsp.document_color.enable(false)
 
 require('mason-lspconfig').setup({
   ensure_installed = {
-    'rubocop', -- lua
+    'rubocop', -- ruby
     'lua_ls',  -- lua
     'gopls',   -- golang
     'bashls',  -- bash
