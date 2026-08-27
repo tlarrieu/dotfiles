@@ -39,7 +39,7 @@ end
 
 local keyboard = {
   clients = {
-    spawner.key({ super }, 'Return', function(client) client.fullscreen = not client.fullscreen end),
+    spawner.key({ alt }, 'Return', function(client) client.fullscreen = not client.fullscreen end),
     spawner.key({ super }, 'é', spawner.soft_kill),
     spawner.key({ super, shift }, 'é', function(client) client:kill() end),
     spawner.key({ super, ctrl }, 'c', function(client)
@@ -229,7 +229,7 @@ local keyboard = {
     spawner.key({ super, shift }, 'Escape', 'rofi-bluetooth'),
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
-    spawner.key({ super, ctrl }, 'Return', spawner.shell('rofi-theme')),
+    spawner.key({ super }, 'Return', spawner.shell('rofi-theme')),
 
     spawner.key({ super, ctrl }, 'b', {
       app = 'browser-with-context',
