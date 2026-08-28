@@ -202,9 +202,10 @@ local config = {
   { icon = '󰓥', rule = { class = 'steam_app_3410180' } }, -- Overlooting
   { icon = '󰓥', rule = { class = 'steam_app_1086940' } }, -- Baldur's gate III
   { icon = '󰸓', rule = { class = 'Backpack Battles' } },
+  { icon = '󰌣', rule = { class = 'Brotato' } },
+  { icon = '󱉵', rule = { class = 'Slay the Spire 2' } },
   { icon = '', rules = { { class = 'steam' }, { name = 'Steam' } } },
   { icon = '', rule = { class = 'Cockatrice' } },
-  { icon = '󱉵', rule = { class = 'Slay the Spire 2' } },
 
   { icon = '', rule = { class = 'man' } },
   { icon = '', rule = { class = 'dungeondraft.exe' } },
