@@ -25,7 +25,7 @@
 [branch]
 	committerdate = true
 [alias]
-	bclean = "!git branch --no-contains master --format='%(refname:short)' --merged master | xargs --no-run-if-empty git branch -d"
+	bwipe = "!git branch --format='%(refname:short)' | grep -vE '(master|main)' | xargs --no-run-if-empty git branch -D"
 	br = branch
 	ci = commit
 	co = checkout
