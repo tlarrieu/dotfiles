@@ -25,7 +25,7 @@
 [branch]
 	committerdate = true
 [alias]
-	bwipe = "!git branch --format='%(refname:short)' | grep -vE '(master|main)' | xargs --no-run-if-empty git branch -D"
+	bw = "!git branch --format='%(refname:short)' | grep -vE '(master|main)' | xargs --no-run-if-empty git branch -D"
 	br = branch
 	ci = commit
 	co = checkout
