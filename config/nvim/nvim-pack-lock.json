@@ -29,7 +29,7 @@
       "src": "https://github.com/hrsh7th/cmp-path"
     },
     "codediff.nvim": {
-      "rev": "a9b716fb9aa70002cf7a7583148ad31cc7c5fa90",
+      "rev": "1c8cc7b6785ec2508dd88ae12302de25afa57656",
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "conform.nvim": {
@@ -98,7 +98,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "427e9222363d07c32d6db6169e4049c28d58d141",
+      "rev": "41416e81a6c7f4af4984395bfe0cd8d174e70976",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
