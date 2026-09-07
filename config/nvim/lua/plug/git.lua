@@ -75,6 +75,7 @@ vim.keymap.set('n', '<leader>bl', function()
 end, { desc = 'Git branch (local)' })
 vim.keymap.set('n', '<leader>ba', async_git({ 'checkout', '-' }), { desc = 'Git checkout -' })
 vim.keymap.set('n', '<leader>bm', async_git({ 'checkout', 'master' }), { desc = 'Git checkout master' })
+vim.keymap.set('n', '<leader>bw', async_git({ 'bw' }), { desc = 'Git branch wipe' })
 
 vim.keymap.set('n', '<leader>gu', async_git({ 'pull', '--rebase' }), { desc = 'Git pull' })
 vim.keymap.set('n', '<leader>gp', async_git({ 'push', '--force-with-lease' }), { desc = 'Git push' })
