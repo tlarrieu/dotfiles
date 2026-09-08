@@ -50,7 +50,6 @@ require('plug.treesitter')
 require('plug.lsp')
 require('plug.format')
 
-require('plug.testbus')
 require('plug.dropbar')
 require('plug.statusline')
 
