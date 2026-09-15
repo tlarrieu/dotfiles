@@ -49,7 +49,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "ce30431d9722fd6451f2794433843fcd40adbcf1",
+      "rev": "46f40be1302b32945b6f67d2c6c29a38a4724ac8",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
