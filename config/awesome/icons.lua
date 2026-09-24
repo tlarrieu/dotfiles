@@ -87,7 +87,7 @@ local config = {
       { class = 'Chromium', name = 'Datadog' }
     }
   },
-  { icon = '󰢁', rule = { class = '1password' } },
+  { icon = '󰢁', rule = { class = 'com.onepassword.OnePassword' } },
   { icon = '󰳴', rule = { class = 'Chromium', instance = 'app.pennylane.com' } },
 
   --  music
