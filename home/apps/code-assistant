@@ -9,7 +9,7 @@ envfile="$HOME/.env"
 
 case "$CONTEXT" in
   work)
-    fish -c claude
+    fish -c "claude --model '$CLAUDE_MODEL'"
     ;;
   *)
     ollama launch opencode --model "$CLAUDE_MODEL"
