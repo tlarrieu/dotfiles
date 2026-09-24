@@ -148,7 +148,7 @@
       "src": "https://github.com/folke/todo-comments.nvim"
     },
     "treesj": {
-      "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
+      "rev": "9f349ba62c524f065d6f43254d731ddf8319b9bf",
       "src": "https://github.com/Wansmer/treesj"
     },
     "vim-eunuch": {
