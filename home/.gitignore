@@ -47,6 +47,7 @@ dump.rdb
 
 # Misc
 tmp
+**/.local/
 
 # Tags
 tags
