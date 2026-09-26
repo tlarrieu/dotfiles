@@ -37,7 +37,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "dropbar.nvim": {
-      "rev": "808ba31cde89aec8833e9789f5e04557cd31c9e1",
+      "rev": "f7c6fa21e2a7c32576e7a1791774a3736987f467",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
     "edifact.vim": {
