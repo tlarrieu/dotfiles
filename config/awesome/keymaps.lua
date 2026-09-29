@@ -127,7 +127,7 @@ local keyboard = {
       props = { instance = 'notebooklm.google.com' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super }, 'g', {
+    spawner.key({ super }, 'a', {
       app = spawner.shell('github'),
       props = { instance = 'github.com__pulls' },
       signal = spawner.actions.JUMP,
@@ -162,7 +162,7 @@ local keyboard = {
       props = { instance = 'calendar.google.com' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super }, 'a', {
+    spawner.key({ super }, 'g', {
       app = spawner.shell('gmail'),
       props = { instance = 'www.gmail.com' },
       signal = spawner.actions.JUMP,
