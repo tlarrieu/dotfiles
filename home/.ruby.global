@@ -5,6 +5,10 @@ def write(str)
   File.open("#{Dir.home}/output.txt", 'w+') { _1.write str }
 end
 
+def read
+  File.read("#{Dir.home}/input.txt")
+end
+
 def safe_transaction
   result = nil
   ActiveRecord::Base.transaction do
