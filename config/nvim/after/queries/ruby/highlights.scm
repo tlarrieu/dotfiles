@@ -1,5 +1,11 @@
 ; extends
 
+; documentation
+(body_statement
+  (comment)+ @comment.documentation
+  .
+  (singleton_method))
+
 ; variables
 (keyword_parameter name: (_) @variable.key)
 (pair key: (_) @variable.key)
