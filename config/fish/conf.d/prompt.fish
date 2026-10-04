@@ -139,7 +139,7 @@ function fish_prompt
     or set_color red
 
   set -l count $SHLVL
-  if set -q NVIM
+  if set -q NVIM || set -q HERDR_ENV
     set count (math $count-1)
     set count (math "max($count, 1)")
   end
