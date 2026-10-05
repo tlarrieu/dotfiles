@@ -2,5 +2,10 @@
 
 cd ~/git/dotfiles/coloriage || exit 1
 
-theme=$(./coloriage list | rofi -theme-str 'listview {columns: 4; lines: 7;} window { width: 30em; }' -dmenu -p 󰸌)
+columns=4
+themes=$(./coloriage list)
+count=$(printf '%s\n' "$themes" | wc -l)
+lines=$(( (count + columns - 1) / columns ))
+
+theme=$(printf '%s\n' "$themes" | rofi -theme-str "listview {columns: $columns; lines: $lines;} window { width: 30em; }" -dmenu -p 󰸌)
 [ -n "$theme" ] && ./coloriage apply "$theme"
