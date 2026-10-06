@@ -5,6 +5,8 @@ local file = require('testbus.file')
 ---@field has_run fun(): boolean
 ---@field is_done fun(): boolean
 ---@field start fun(fun: fun(), path: string) notify start
+---@field track fun(bufnr: integer) remember a buffer holding marks or diagnostics
+---@field clear fun() reset marks and diagnostics of tracked buffers
 ---@field cmdline fun() notify interactive mode
 ---@field stop fun() notify normal end
 ---@field panic fun() notify panic
@@ -55,11 +57,16 @@ M.start = function(fun, path)
   vim.g.testbus_failures = nil
   if fun then fun() end
 end
+local tracked = {}
+M.track = function(bufnr) tracked[bufnr] = true end
 M.clear = function()
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    vim.diagnostic.set(M.namespace(), bufnr, {}, {})
-    vim.api.nvim_buf_clear_namespace(bufnr, M.namespace(), 0, -1)
+  for bufnr in pairs(tracked) do
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      vim.diagnostic.reset(M.namespace(), bufnr)
+      vim.api.nvim_buf_clear_namespace(bufnr, M.namespace(), 0, -1)
+    end
   end
+  tracked = {}
 end
 M.cmdline = function() vim.g.testbus_status = Status.CMDLINE end
 M.stop = function() vim.g.testbus_status = Status.STOPPED end

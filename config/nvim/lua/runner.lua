@@ -98,8 +98,9 @@ local run = function(options)
     vim.wo.winbar = options.winbar or '󱤵 run'
     vim.bo[state.buffer()].modified = false
     vim.bo[state.buffer()].modifiable = false
-    vim.api.nvim_create_autocmd('BufEnter', { callback = options.on_bufenter, buffer = state.buffer() })
-    vim.api.nvim_create_autocmd('BufDelete', { callback = options.on_clean, buffer = state.buffer() })
+    local group = vim.api.nvim_create_augroup('testbus_group', {})
+    vim.api.nvim_create_autocmd('BufEnter', { callback = options.on_bufenter, buffer = state.buffer(), group = group })
+    vim.api.nvim_create_autocmd('BufDelete', { callback = options.on_clean, buffer = state.buffer(), group = group })
     vim.api.nvim_win_set_cursor(0, { 1, 0 })
 
     state.pid(

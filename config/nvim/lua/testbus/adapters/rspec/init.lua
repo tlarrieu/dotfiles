@@ -28,6 +28,17 @@ local create_diagnostic = function(bufnr, lnum, message, severity)
   }
 end
 
+---@param path string path relative to the working directory
+---@param create boolean whether to add the buffer when none exists for this path
+---@return integer?
+local find_buffer = function(path, create)
+  local fullpath = vim.fn.fnamemodify(path, ':p')
+  if not create and vim.fn.bufexists(fullpath) == 0 then return nil end
+  local bufnr = vim.fn.bufadd(fullpath)
+  if create then vim.bo[bufnr].buflisted = true end
+  return bufnr
+end
+
 local simplify_message = function(str)
   return str
       :gsub(' for class .*$', '')
@@ -73,76 +84,77 @@ M.handle = function(data, path)
   end
 
   local reports = {}
+  local report_for = function(bufnr)
+    reports[bufnr] = reports[bufnr] or { outcomes = {}, diag = {} }
+    return reports[bufnr]
+  end
+
+  local buffers = {}
+  local buffer_for = function(path, create)
+    if buffers[path] == nil then
+      buffers[path] = find_buffer(path, create) or false
+    end
+    return buffers[path] or nil
+  end
+
+  for _, message in ipairs(json.messages or {}) do
+    local error, errname
+    local anchored = {}
+    for line in ansi.strip(message):gmatch('[^\n]+') do
+      if errname and not error then                     -- the error is located right after the error name
+        error = simplify_message(line):match('%s*(.*)') -- strip leading blank spaces
+      end
+
+      local _errname = line:match('.*[^/]Error:') -- we don't want to match the `Failure/Error: …` line
+      if _errname and not errname then errname = _errname end
+
+      -- anchor the diagnostic to the first line number mentioned for each file
+      local errpath, lnum = line:match('# ./(.*):(%d+)')
+      if errpath and lnum and not anchored[errpath] then
+        anchored[errpath] = true
+        local bufnr = buffer_for(errpath, false)
+        if bufnr and error then
+          table.insert(
+            report_for(bufnr).diag,
+            create_diagnostic(bufnr, tonumber(lnum) - 1, errname .. ' ' .. error, vim.diagnostic.severity.ERROR)
+          )
+        end
+      end
+    end
+  end
 
   for _, example in ipairs(json.examples) do
     local file_path = example.included_from.file_path or example.file_path
-    if vim.fn.bufname('^' .. file_path .. '$') == '' then vim.cmd.badd(file_path) end
-  end
+    local bufnr = buffer_for(file_path, true)
+    local report = report_for(bufnr)
+    local lnum = (example.included_from.line_number or example.line_number) - 1
 
-  for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
-    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    report.outcomes[lnum] = (report.outcomes[lnum] == nil or report.outcomes[lnum] == example.status)
+        and example.status
+        or Outcome.MIXED
 
-    local diag = {}
-    local outcomes = {}
-
-    for _, message in ipairs(json.messages or {}) do
-      local errpath, lnum, error, errname
-      for line in ansi.strip(message):gmatch('[^\n]+') do
-        if errname and not error then                     -- the error is located right after the error name
-          error = simplify_message(line):match('%s*(.*)') -- strip leading blank spaces
-        end
-
-        local _errname = line:match('.*[^/]Error:') -- we don't want to match the `Failure/Error: …` line
-        if _errname and not errname then errname = _errname end
-
-        -- locate the line number to anchor the diagnostic to
-        local _errpath, _lnum = line:match('# ./(.*):(%d+)')
-        if _errpath and _lnum then
-          if bufname:find(vim.fs.normalize(_errpath)) then
-            errpath, lnum = _errpath, tonumber(_lnum) - 1
-            break
+    if example.status == 'failed' then
+      local anchor = lnum
+      if not example.included_from.line_number then
+        for _, line in ipairs(example.exception.backtrace) do
+          local match = line:match(vim.pesc(file_path) .. ':(%d+)')
+          if match then
+            anchor = tonumber(match) - 1
           end
         end
       end
-      if error and errpath and lnum then
-        table.insert(diag, create_diagnostic(bufnr, lnum, errname .. ' ' .. error, vim.diagnostic.severity.ERROR))
-      end
+
+      local message = simplify_message(ansi.strip(example.exception.message))
+      table.insert(report.diag, create_diagnostic(bufnr, anchor, message, vim.diagnostic.severity.ERROR))
+    elseif example.status == 'pending' then
+      table.insert(report.diag,
+        create_diagnostic(
+          bufnr,
+          lnum,
+          simplify_message(ansi.strip(example.pending_message)),
+          vim.diagnostic.severity.INFO
+        ))
     end
-
-    for _, example in ipairs(json.examples) do
-      local file_path = example.included_from.file_path or example.file_path
-      if bufname:find(vim.fs.normalize(file_path)) then
-        local lnum = (example.included_from.line_number or example.line_number) - 1
-
-        outcomes[lnum] = (outcomes[lnum] == nil or outcomes[lnum] == example.status)
-            and example.status
-            or Outcome.MIXED
-
-        if example.status == 'failed' then
-          local anchor = lnum
-          if not example.included_from.line_number then
-            for _, line in ipairs(example.exception.backtrace) do
-              local match = line:match(file_path .. ':(%d+)')
-              if match then
-                anchor = tonumber(match) - 1
-              end
-            end
-          end
-
-          local message = simplify_message(ansi.strip(example.exception.message))
-          table.insert(diag, create_diagnostic(bufnr, anchor, message, vim.diagnostic.severity.ERROR))
-        elseif example.status == 'pending' then
-          table.insert(diag,
-            create_diagnostic(
-              bufnr,
-              lnum,
-              simplify_message(ansi.strip(example.pending_message)),
-              vim.diagnostic.severity.INFO
-            ))
-        end
-      end
-    end
-    reports[bufnr] = { outcomes = outcomes, diag = diag }
   end
 
   return true, reports

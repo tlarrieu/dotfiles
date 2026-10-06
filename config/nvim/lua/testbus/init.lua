@@ -28,8 +28,9 @@ Outcome = {
 
 ---@param reports Reports the state to be drawn
 local draw = function(reports)
+  state.clear()
   for bufnr, report in pairs(reports) do
-    vim.api.nvim_buf_clear_namespace(bufnr, state.namespace(), 0, -1)
+    state.track(bufnr)
     for lnum, outcome in pairs(report.outcomes) do
       local ok, lines = pcall(vim.api.nvim_buf_get_lines, bufnr, lnum, lnum + 1, true)
       if not ok then lines = { '' } end
@@ -39,8 +40,8 @@ local draw = function(reports)
     end
 
     pcall(vim.diagnostic.set, state.namespace(), bufnr, report.diag, config.diagnostics)
-    pcall(vim.diagnostic.setqflist, { title = ' tests results', namespace = state.namespace(), open = false })
   end
+  pcall(vim.diagnostic.setqflist, { title = ' tests results', namespace = state.namespace(), open = false })
 end
 --------------------------------------------------------------------------------
 
