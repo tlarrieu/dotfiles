@@ -1,3 +1,4 @@
+local buffer = require('testbus.buffer')
 local glyphs = require('testbus.glyphs')
 local adapters = require('testbus.adapters')
 local state = require('testbus.state')
@@ -21,7 +22,7 @@ Outcome = {
 
 ---@class Report
 ---@field bufnr integer buffer number
----@field outcomes table<integer, table<integer,Outcome>> list of outcomes, indexed by line number
+---@field outcomes table<integer, string> outcome (passed, failed, pending or mixed), indexed by line number
 ---@field diag table<vim.Diagnostic> list of diagnostics with errors
 
 ---@alias Reports table<bufnr, Report>
@@ -32,11 +33,8 @@ local draw = function(reports)
   for bufnr, report in pairs(reports) do
     state.track(bufnr)
     for lnum, outcome in pairs(report.outcomes) do
-      local ok, lines = pcall(vim.api.nvim_buf_get_lines, bufnr, lnum, lnum + 1, true)
-      if not ok then lines = { '' } end
-      local _, col = (lines[1] or ''):find('^%s*')
       local mark = { id = lnum, virt_text_pos = 'inline', virt_text = { assert(config.markers[outcome]), { ' ', 'Normal' } } }
-      pcall(vim.api.nvim_buf_set_extmark, bufnr, state.namespace(), lnum, col or 0, mark)
+      pcall(vim.api.nvim_buf_set_extmark, bufnr, state.namespace(), lnum, buffer.indent(bufnr, lnum), mark)
     end
 
     pcall(vim.diagnostic.set, state.namespace(), bufnr, report.diag, config.diagnostics)
