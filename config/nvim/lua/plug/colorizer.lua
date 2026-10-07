@@ -8,6 +8,7 @@ require('nvim-highlight-colors').setup({
     'fugitive',
     'floggraph',
     'git',
+    'markdown',
   },
   exclude_buffer = function(buf)
     -- somehow, it does not get excluded by exclude_filetypes, so we need to exclude it by buffer name
