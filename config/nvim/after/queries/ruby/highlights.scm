@@ -27,6 +27,8 @@
 (case "end" @keyword.conditional)
 ((_) . "?" @operator.ternary.ruby (_) ":"  @operator.ternary.ruby (_))
 
+(method body: (body_statement (else "else" @keyword)))
+
 ; class
 (class name: (constant) @class (#set! priority 120))
 (class name: (scope_resolution name: (constant)) @class (#set! priority 120))
