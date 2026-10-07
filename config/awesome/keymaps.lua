@@ -152,7 +152,7 @@ local keyboard = {
       props = { instance = 'documentation' },
       signal = spawner.actions.JUMP,
     }),
-    spawner.key({ super, shift }, 'l', {
+    spawner.key({ super, ctrl }, 'a', {
       app = spawner.shell('linear'),
       props = { instance = 'linear.app' },
       signal = spawner.actions.JUMP,
