@@ -62,7 +62,7 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "linediff.vim": {
-      "rev": "c3780609769a93f4f59421b6324355f37e0ee6c5",
+      "rev": "5ed585de3af720f86e895590ad30694145879e2b",
       "src": "https://github.com/andrewradev/linediff.vim"
     },
     "lualine.nvim": {
@@ -78,7 +78,7 @@
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "b3298993d55fa194279b5eb9dbfb3a43da65cadf",
+      "rev": "e17625cdc8c2650787467398e02c5d63a2cde966",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason.nvim": {
