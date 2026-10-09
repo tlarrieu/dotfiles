@@ -40,7 +40,7 @@ return function(palette)
   vim.api.nvim_set_hl(0, 'Function', { link = 'Identifier' })
 
   vim.api.nvim_set_hl(0, 'Statement', { fg = palette.fg.base })
-  vim.api.nvim_set_hl(0, 'Keyword', { fg = palette.fg.dimmer, bg = palette.bg.base })
+  vim.api.nvim_set_hl(0, 'Keyword', { fg = palette.fg.dimmer })
   vim.api.nvim_set_hl(0, 'Exception', { link = 'Keyword' })
   vim.api.nvim_set_hl(0, 'Conditional', { link = 'Keyword' })
   vim.api.nvim_set_hl(0, 'Repeat', { link = 'Conditional' })
