@@ -81,7 +81,7 @@ M.init = function(screen)
   local highlight_current_tag = function(self, tag, _, _)
     self:get_children_by_id('highlight')[1].bg =
         tag.selected
-        and colors.accent.base
+        and colors.accent.base .. 'aa'
         or nil
   end
 
@@ -92,10 +92,10 @@ M.init = function(screen)
       {
         {
           { id = 'text_role', widget = wibox.widget.textbox },
-          top = 4,
+          top = 5,
           left = 10,
           right = 6,
-          forced_height = 29,
+          forced_height = 28,
           layout = wibox.container.margin,
         },
         { id = 'highlight', widget = wibox.container.background },
