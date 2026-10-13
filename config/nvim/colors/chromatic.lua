@@ -2,7 +2,10 @@ vim.g.colors_name = 'chromatic'
 
 vim.api.nvim_create_autocmd('Signal', {
   pattern = { 'SIGUSR1' },
-  callback = function() vim.cmd.colorscheme('chromatic') end,
+  callback = function()
+    vim.cmd.colorscheme('chromatic')
+    require('codediff').setup()
+  end,
   group = vim.api.nvim_create_augroup('refresh_colorscheme', {})
 })
 
