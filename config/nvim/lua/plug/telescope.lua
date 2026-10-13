@@ -126,7 +126,7 @@ end, { desc = 'Telescope directories finder' })
 vim.keymap.set('n', '<c-s-y>', function()
   t.find_files({
     hidden = true,
-    find_command = { 'git', 'diff', 'master...', '--name-only' },
+    find_command = { 'git', 'diff', 'origin/master...', '--name-only' },
     results_title = '󰊢 diff master...',
   })
 end, { desc = 'Telescope git diff master' })
