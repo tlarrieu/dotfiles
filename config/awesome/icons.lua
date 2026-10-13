@@ -230,7 +230,7 @@ local config = {
   { icon = '', rule = { class = 'krita' } },
   { icon = '', rule = { name = 'aria2c' } },
   { icon = '', rule = { class = 'download' } },
-  { icon = '', rule = { class = 'org.pwmt.zathura' } },
+  { icon = '', rule = { instance = 'org.pwmt.zathura' } },
   { icon = '󰤽', rule = { class = 'Flowblade' } },
   { icon = '󰌓', rule = { class = 'gtgf' } },
   { icon = '󰙯', rule = { class = 'discord' } },
