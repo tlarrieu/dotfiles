@@ -20,10 +20,10 @@
 ---@field failed MarkerConfig virtual text for failed tests
 
 ---@class Config
----@field status StatusesConfig
----@field markers MarkersConfig
----@field diagnostics vim.diagnostics.Opts
----@field json_path string path to the JSON output by tests
+---@field status? StatusesConfig
+---@field markers? MarkersConfig
+---@field diagnostics? vim.diagnostic.Opts
+---@field json_path? string path to the JSON output by tests
 return {
   status = {
     running = { icon = '󰐌', color = nil }, -- white
