@@ -218,7 +218,12 @@ vim.api.nvim_create_autocmd({ 'FileType', 'BufFilePost' }, {
   pattern = { 'fyler_finder', 'fyler-file://*' },
   callback = function(ev)
     if ev.buf ~= vim.api.nvim_get_current_buf() then return end
-    vim.opt_local.winbar = ' ' .. vim.api.nvim_buf_get_name(ev.buf):gsub('^fyler%-file://', ''):gsub('/home/%w+/', '~/')
+    local path = vim.api.nvim_buf_get_name(ev.buf)
+        :gsub('^fyler%-file://', '')
+        :gsub('/home/%w+/', '~/')
+        :gsub('%%', '%%%%')
+        :gsub("'", "''")
+    vim.opt_local.winbar = ("%%{%%&modified ? '%%#DropBarModified#󰴓 %s' : ' %s'%%}"):format(path, path)
   end,
   group = group,
 })
