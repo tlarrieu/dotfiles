@@ -25,7 +25,7 @@ fyler.setup({
   auto_confirm_simple_mutation = false,
   follow_root_dir = false,
   use_as_default_explorer = true,
-  extensions = { git = { enabled = true } },
+  extensions = { git = { enabled = true }, watcher = { enabled = true } },
   integrations = { icon = 'nvim_web_devicons' },
   win_opts = {
     wrap = false,
