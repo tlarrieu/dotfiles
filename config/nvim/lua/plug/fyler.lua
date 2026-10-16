@@ -70,6 +70,8 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.keymap.set('n', '<leader>.', fyler.close, { buffer = true, silent = true, desc = 'Close fyler' })
     vim.opt_local.autoindent = true
+    local inst = require('fyler.finder').instance_get_or_nil()
+    if inst then apply_hidden(inst) end
     local win = vim.api.nvim_get_current_win()
     vim.schedule(function()
       vim.wo[win][0].signcolumn = 'yes:2'
