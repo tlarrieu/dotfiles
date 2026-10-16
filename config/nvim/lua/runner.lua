@@ -196,7 +196,7 @@ end
 
 local excluded_filetypes = {
   qf = true,
-  oil = true,
+  fyler_finder = true,
 }
 
 vim.keymap.set('n', config.main.keys, function()

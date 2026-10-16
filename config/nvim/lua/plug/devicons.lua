@@ -32,7 +32,7 @@ require('nvim-web-devicons').setup({
     harpoon = { icon = '󱡅' },
     mason = { icon = '󰺾' },
     TelescopePrompt = { icon = '', name = 'telescope' },
-    oil = { icon = '' },
+    fyler_finder = { icon = '' },
     ['codediff-explorer'] = { icon = '󰙅' },
 
     text = { icon = '' },

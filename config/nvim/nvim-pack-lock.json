@@ -48,6 +48,10 @@
       "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
+    "fyler.nvim": {
+      "rev": "e1626ff3815a7ebd15698fd6c6d1188a079993d6",
+      "src": "https://github.com/FylerOrg/fyler.nvim"
+    },
     "gitsigns.nvim": {
       "rev": "fd780920613e541cbdfac41bf711583ed49f9249",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
@@ -110,14 +114,6 @@
     "nvim-web-devicons": {
       "rev": "ec309a0eaff6ea967e58c275996155ab5c16938d",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
-    },
-    "oil-git-status.nvim": {
-      "rev": "a3e2ccb00cb8822115e28a9a1791eda051d940c9",
-      "src": "https://github.com/refractalize/oil-git-status.nvim"
-    },
-    "oil.nvim": {
-      "rev": "d3733d933833a0e59b813ecec99341527adf0c28",
-      "src": "https://github.com/stevearc/oil.nvim"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",

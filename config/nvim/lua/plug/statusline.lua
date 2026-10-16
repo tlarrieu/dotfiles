@@ -7,7 +7,7 @@ local ftmap = {
   mason = 'mason',
   TelescopePrompt = 'telescope',
   qf = 'quickfix',
-  oil = 'oil',
+  fyler_finder = 'fyler',
 }
 
 local mode_icons = {
@@ -124,9 +124,9 @@ require('lualine').setup({
       filetypes = { 'qf' },
     }),
     plugin({
-      fn = function() return compact(require('oil').get_current_dir()) end,
-      title = ' oil',
-      filetypes = { 'oil' },
+      fn = function() return compact(Fyler.getcwd()) end,
+      title = ' fyler',
+      filetypes = { 'fyler_finder' },
     }),
     plugin({
       fn = function() return compact(vim.fn.FugitiveGitDir():gsub('/.git', '')) end,

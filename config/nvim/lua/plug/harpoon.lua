@@ -1,7 +1,7 @@
 vim.pack.add({ { src = 'https://github.com/theprimeagen/harpoon', version = 'harpoon2' } }, { confirm = false })
 
 local normalize = function(str)
-  local substr, count = str:gsub('oil://', '')
+  local substr, count = str:gsub('fyler%-file://', '')
   local rel = vim.fs.relpath(vim.fn.getcwd(), substr, {})
   return (rel or substr) .. (count > 0 and ' *' or '')
 end

@@ -214,9 +214,12 @@ vim.api.nvim_create_autocmd('FileType', {
   group = group,
 })
 
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'oil' },
-  callback = function() vim.opt_local.winbar = ' ' .. require('oil').get_current_dir():gsub('/home/%w+/', '~/') end,
+vim.api.nvim_create_autocmd({ 'FileType', 'BufFilePost' }, {
+  pattern = { 'fyler_finder', 'fyler-file://*' },
+  callback = function(ev)
+    if ev.buf ~= vim.api.nvim_get_current_buf() then return end
+    vim.opt_local.winbar = ' ' .. vim.api.nvim_buf_get_name(ev.buf):gsub('^fyler%-file://', ''):gsub('/home/%w+/', '~/')
+  end,
   group = group,
 })
 

@@ -49,7 +49,7 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
 vim.keymap.set('n', 'yf', function()
-  vim.fn.setreg('+', vim.fn.expand('%'):gsub('oil://', ''))
+  vim.fn.setreg('+', (vim.fn.expand('%'):gsub('fyler%-file://', '')))
   vim.notify('File name yanked.')
 end, { silent = true })
 -- select the whole line
