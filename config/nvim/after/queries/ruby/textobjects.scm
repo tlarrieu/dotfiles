@@ -18,6 +18,6 @@
 
 ; @assignment ------------------------------------------------------------------
 
-(pair key: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment
-(assignment left: (_) @assignment.lhs right: (_) @assignment.rhs) @assignment
-(keyword_parameter name: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment
+(pair key: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment.outer
+(assignment left: (_) @assignment.lhs right: (_) @assignment.rhs) @assignment.outer
+(keyword_parameter name: (_) @assignment.lhs value: (_) @assignment.rhs) @assignment.outer
