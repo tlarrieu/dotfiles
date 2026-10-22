@@ -11,8 +11,8 @@ require('nvim-highlight-colors').setup({
     'markdown',
   },
   exclude_buffer = function(buf)
-    -- somehow, it does not get excluded by exclude_filetypes, so we need to exclude it by buffer name
-    return vim.api.nvim_buf_get_name(buf):match('nvim%-pack')
+    return vim.api.nvim_buf_get_name(buf):match('nvim%-pack') or
+        vim.api.nvim_buf_get_name(buf):match('consistency_checks')
   end,
   render = 'virtual',
   virtual_symbol = '',
