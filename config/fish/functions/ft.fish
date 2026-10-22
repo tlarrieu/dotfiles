@@ -59,6 +59,10 @@ function ft
     echo -e "\e[35m• Yearly envelopes -----------------------------------------\e[0m"
     now -p thisyear --depth 2 expenses:clothing expenses:gifts expenses:groceries expenses:restaurant expenses:books expenses:home expenses:car
     return
+  case inv
+    echo -e "\e[33mInvestigate\e[0m"
+    ft print tag:investigate
+    return
   case up upcoming
     echo -e "\e[33mUpcoming transactions (forecasted OR pending)\e[0m"
     up assets:check:caisse-epargne:joint
