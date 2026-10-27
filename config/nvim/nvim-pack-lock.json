@@ -90,7 +90,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.align": {
-      "rev": "b4b402d0455e022b878c30971e02e0d7780e6d9e",
+      "rev": "a7f24f57e68a72fd6c19e442288ab835a9c40cdd",
       "src": "https://github.com/echasnovski/mini.align"
     },
     "nvim-cmp": {
