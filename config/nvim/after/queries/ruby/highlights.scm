@@ -12,6 +12,7 @@
 
 ; functions
 (call method: (identifier) @keyword.function.ruby (#eq? @keyword.function.ruby "private_class_method"))
+(call method: (identifier) @keyword.function.ruby (#eq? @keyword.function.ruby "private_constant"))
 (_ method: ((identifier)) @type @function.method.call.class (#eq? @type "class"))
 (_ method: ((identifier)) @function.method.call.flow (#eq? @function.method.call.flow "then"))
 (_ method: ((identifier)) @function.method.call.flow (#eq? @function.method.call.flow "tap"))
