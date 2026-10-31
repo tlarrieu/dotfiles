@@ -78,7 +78,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "markview.nvim": {
-      "rev": "ecc5a8867daa1856f8bcc5fdbceca8f5a5ce5f5d",
+      "rev": "aadb6d817577d553bbef61e8b9073f1bf4b87e08",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "a2f694478be07f89c2d03cc17858a8745a400c4b",
+      "rev": "a9c4e1457e2e59f1b82c8f78dcdb3b2517555200",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
