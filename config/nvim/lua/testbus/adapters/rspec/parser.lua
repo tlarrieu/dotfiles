@@ -47,7 +47,7 @@ _M.load_error = function(message)
 
   for line in ansi.strip(message):gmatch('[^\n]+') do
     if name and not details then details = simplify(line):match('%s*(.*)') end -- details follow the error name
-    name = name or line:match('.*[^/]Error:')                                   -- skips the `Failure/Error: …` line
+    name = name or line:match('^.*[^/]Error:')                                 -- skips the `Failure/Error: …` line
 
     local path, lnum = line:match('# ./(.*):(%d+)')
     if path and not seen[path] then
