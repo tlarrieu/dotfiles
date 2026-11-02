@@ -1,3 +1,5 @@
+local helpers = require('helpers')
+
 -- ====| Essentials |===========================================================
 
 -- supercharge <esc>
@@ -49,9 +51,14 @@ vim.keymap.set({ 'n', 'o', 'x' }, '<leader>p', '"+p')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>P', '"+P')
 vim.keymap.set({ 'n', 'o', 'x' }, '<leader>y', '"+y')
 vim.keymap.set('n', 'yf', function()
-  vim.fn.setreg('+', (vim.fn.expand('%'):gsub('fyler%-file://', '')))
-  vim.notify('File name yanked.')
-end, { silent = true })
+  local path = vim.api.nvim_buf_get_name(0)
+  if path == '' or vim.bo.buftype ~= '' then return vim.notify('No file in current buffer', vim.log.levels.WARN) end
+  helpers.yank(vim.fs.abspath(path))
+end, { silent = true, desc = 'Yank file path' })
+vim.keymap.set('n', 'yd', function()
+  local path = vim.api.nvim_buf_get_name(0)
+  helpers.yank((path == '' or vim.bo.buftype ~= '') and vim.fn.getcwd() or vim.fs.dirname(vim.fs.abspath(path)))
+end, { silent = true, desc = 'Yank directory path' })
 -- select the whole line
 vim.keymap.set('n', 'vv', '^v$h')
 -- Command line
@@ -169,7 +176,7 @@ vim.keymap.set('n', '<leader>è', '@:')
 
 local quickedit = function(path)
   return function()
-    local keep_buffer = require('helpers').fileexists(vim.fn.expand('%')) or vim.bo.buftype == 'terminal'
+    local keep_buffer = helpers.fileexists(vim.fn.expand('%')) or vim.bo.buftype == 'terminal'
     return '<cmd>' .. (keep_buffer and 'vsplit' or 'edit') .. ' ' .. path .. '<cr>'
   end
 end
@@ -181,7 +188,7 @@ local quicksave = function(path)
   end
 end
 
-local builder = require('helpers').fileexists('Makefile') and 'Makefile' or 'Justfile'
+local builder = helpers.fileexists('Makefile') and 'Makefile' or 'Justfile'
 vim.keymap.set('n', '<leader>em', quickedit(builder), { desc = 'Edit ' .. builder, expr = true })
 vim.keymap.set('n', '<leader>en', quickedit('.nvim.lua'), { desc = 'Edit local nvim config', expr = true })
 vim.keymap.set('n', '<leader>er', quickedit('~/.ruby.local'), { desc = 'Edit local (irb/pry)rc', expr = true })

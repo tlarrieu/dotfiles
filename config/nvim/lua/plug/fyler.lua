@@ -21,6 +21,15 @@ local show_help = function(inst)
   vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO, { title = 'Fyler' })
 end
 
+local path_under_cursor = function(inst)
+  local entry = require('fyler.finder').parse_cursor_line(inst)
+  return entry and entry.path or inst.state.pseudo_root_path
+end
+
+local yank_file_path = function(inst) require('helpers').yank(path_under_cursor(inst)) end
+
+local yank_directory_path = function(inst) require('helpers').yank(vim.fs.dirname(path_under_cursor(inst))) end
+
 fyler.setup({
   auto_confirm_simple_mutation = false,
   follow_root_dir = false,
@@ -52,6 +61,8 @@ fyler.setup({
         desc = 'Change cwd to current directory',
       },
       ['g.'] = { action = toggle_hidden, desc = 'Toggle hidden files' },
+      ['yf'] = { action = yank_file_path, desc = 'Yank path under cursor' },
+      ['yd'] = { action = yank_directory_path, desc = 'Yank parent directory path' },
       ['.'] = { disabled = true },
       ['='] = { disabled = true },
       ['q'] = { disabled = true },
