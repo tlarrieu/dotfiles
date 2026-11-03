@@ -26,6 +26,15 @@ local git = function(args)
   end
 end
 
+local pending_jobs = {}
+local next_job_id = 0
+
+local set_pending = function(id, label)
+  pending_jobs[id] = label
+  vim.g.git_pending = vim.tbl_values(pending_jobs)
+  pcall(function() require('lualine').refresh({ place = { 'statusline' } }) end)
+end
+
 local async_git = function(cmd)
   local _cmd = { 'git' }
   for _, c in ipairs(cmd) do table.insert(_cmd, c) end
@@ -35,7 +44,10 @@ local async_git = function(cmd)
   return function()
     vim.notify(cmdstr, vim.log.levels.INFO)
     for i, c in ipairs(_cmd) do _cmd[i] = vim.fn.expand(c) end
-    vim.system(_cmd, {}, function(obj)
+    next_job_id = next_job_id + 1
+    local job_id = next_job_id
+    set_pending(job_id, cmd[1])
+    local ok, err = pcall(vim.system, _cmd, {}, function(obj)
       if obj.code == 0 then
         vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
       else
@@ -43,6 +55,7 @@ local async_git = function(cmd)
       end
 
       vim.schedule(function()
+        set_pending(job_id, nil)
         vim.cmd.mode()
         vim.cmd.checktime()
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -55,6 +68,11 @@ local async_git = function(cmd)
         end
       end)
     end)
+
+    if not ok then
+      set_pending(job_id, nil)
+      vim.notify(err, vim.log.levels.ERROR)
+    end
   end
 end
 

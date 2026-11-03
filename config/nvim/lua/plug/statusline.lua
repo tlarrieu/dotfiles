@@ -47,6 +47,13 @@ local branch = {
   icon = { '', align = 'left' }
 }
 
+local gitpending = function()
+  local jobs = vim.g.git_pending or {}
+  if #jobs == 0 then return '' end
+
+  return '󰓦 ' .. table.concat(jobs, ' ')
+end
+
 local tabs = function()
   local tabcount = #vim.api.nvim_list_tabpages()
 
@@ -104,7 +111,7 @@ local plugin = function(cfg)
   return {
     sections = {
       lualine_a = { mode },
-      lualine_b = { projectdir, branch, tabs, searchcount },
+      lualine_b = { projectdir, branch, gitpending, tabs, searchcount },
       lualine_c = { macrorecording, cfg.fn },
       lualine_x = { selectioncount, 'location' },
       lualine_z = { function() return cfg.title or '' end },
@@ -146,7 +153,7 @@ require('lualine').setup({
   },
   sections = {
     lualine_a = { mode },
-    lualine_b = { projectdir, branch, tabs, searchcount },
+    lualine_b = { projectdir, branch, gitpending, tabs, searchcount },
     lualine_c = {
       macrorecording,
       {
