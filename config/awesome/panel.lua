@@ -1,7 +1,6 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
-local gears = require('gears')
 local glyphs = require('glyphs')
 local context = require('context')
 
@@ -13,7 +12,7 @@ local utcclock = wibox.widget({ format = '(󱉊 %H:%M)', opacity = 0.5, timezone
 
 -- [[ Gauges (battery / earbuds power) ]] --------------------------------------
 
-local make_gauge = function(icon, shell_cmd)
+local make_gauge = function(icon, device_pattern)
   local bar = wibox.widget({
     min_value    = 0,
     max_value    = 100,
@@ -35,6 +34,14 @@ local make_gauge = function(icon, shell_cmd)
     layout = wibox.container.margin
   })
 
+  local shell_cmd = ([[
+    upower --enumerate |
+      grep %s -m 1 |
+      xargs upower -i |
+      awk '/percentage/ { print $2 }' |
+      tr -d %%
+  ]]):format(device_pattern)
+
   local callback = function()
     awful.spawn.easy_async_with_shell(shell_cmd, function(out)
       local value = tonumber(out)
@@ -54,27 +61,30 @@ local make_gauge = function(icon, shell_cmd)
     end)
   end
 
-  gears.timer({ callback = callback, timeout = 10, call_now = true, autostart = true })
-
-  return widget, callback
+  return { widget = widget, callback = callback }
 end
 
-local battery_widget, battery_callback = make_gauge('󰁹 ', [[ acpi | awk -F, '{ print $2 }' | tr -d ' %\n' ]])
-local earbuds_widget, earbuds_callback = make_gauge('󰥈 ', [[
-  upower --enumerate |
-    grep headset -m 1 |
-    xargs upower -i |
-    awk '/percentage/ { print $2 }' |
-    tr -d %
-]])
+local battery = make_gauge('󰁹 ', 'battery_')
+local earbuds = make_gauge('󰥈 ', 'headset_')
+
+local upower_monitor_pid = awful.spawn.with_line_callback('upower --monitor', {
+  stdout = function(line)
+    if line:find('battery_') then battery.callback() end
+    if line:find('headset_') then earbuds.callback() end
+  end,
+})
+
+awesome.connect_signal('exit', function()
+  if type(upower_monitor_pid) == 'number' then awesome.kill(upower_monitor_pid, awesome.unix_signal.SIGTERM) end
+end)
 
 -- [[ Public interface ]] ------------------------------------------------------
 
 local M = {}
 
 M.init = function(screen)
-  battery_callback()
-  earbuds_callback()
+  battery.callback()
+  earbuds.callback()
 
   local colors = beautiful.colors
 
@@ -138,8 +148,8 @@ M.init = function(screen)
     widget = {
       {
         { screen_number, left = 10, layout = wibox.container.margin },
-        battery_widget,
-        earbuds_widget,
+        battery.widget,
+        earbuds.widget,
         layout = wibox.layout.fixed.horizontal
       },
       taglist,
