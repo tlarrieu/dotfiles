@@ -1,6 +1,7 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
+local gears = require('gears')
 local glyphs = require('glyphs')
 local context = require('context')
 
@@ -42,7 +43,7 @@ local make_gauge = function(icon, device_pattern)
       tr -d %%
   ]]):format(device_pattern)
 
-  local callback = function()
+  local update = function()
     awful.spawn.easy_async_with_shell(shell_cmd, function(out)
       local value = tonumber(out)
 
@@ -61,7 +62,7 @@ local make_gauge = function(icon, device_pattern)
     end)
   end
 
-  return { widget = widget, callback = callback }
+  return { widget = widget, update = update }
 end
 
 local battery = make_gauge('󰁹 ', 'battery_')
@@ -69,8 +70,8 @@ local earbuds = make_gauge('󰥈 ', 'headset_')
 
 local upower_monitor_pid = awful.spawn.with_line_callback('upower --monitor', {
   stdout = function(line)
-    if line:find('battery_') then battery.callback() end
-    if line:find('headset_') then earbuds.callback() end
+    if line:find('battery_') then battery.update() end
+    if line:find('headset_') then earbuds.update() end
   end,
 })
 
@@ -78,13 +79,85 @@ awesome.connect_signal('exit', function()
   if type(upower_monitor_pid) == 'number' then awesome.kill(upower_monitor_pid, awesome.unix_signal.SIGTERM) end
 end)
 
+-- [[ Claude agents (fed by ~/scripts/claude-agent-state hooks) ]] -------------
+
+local agents = (function()
+  local textbox = wibox.widget({ widget = wibox.widget.textbox })
+  local widget = wibox.widget({
+    textbox,
+    left = 0,
+    right = 0,
+    visible = false,
+    layout = wibox.container.margin,
+  })
+
+  -- Lists live agents ordered by start time, pruning sessions whose process died.
+  -- Interrupts (rejected question/permission, Esc) fire no hook, so a busy
+  -- session whose transcript ends with an interrupt marker is reported as done.
+  local shell_cmd = [[
+    interrupted() {
+      [ -f "$1" ] && tail -n 50 "$1" | jq -se '
+        [.[] | select(.type == "user" or .type == "assistant")] | last | .message.content
+        | (if type == "array" then .[0].text // "" else . end)
+        | startswith("[Request interrupted by user")
+      ' >/dev/null 2>&1
+    }
+    for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
+      [ -f "$f" ] || continue
+      read -r state pid started transcript < "$f"
+      if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
+      [ "$state" != done ] && interrupted "$transcript" && state=done
+      echo "$started $state"
+    done | sort -n
+  ]]
+
+  -- Poll while an agent is busy, since interrupts don't signal us
+  local poll = gears.timer({ timeout = 3 })
+
+  local update = function()
+    awful.spawn.easy_async({ 'sh', '-c', shell_cmd }, function(out)
+      local colors = beautiful.colors
+      local palette = { running = colors.fg.dim, done = colors.green.base, attention = colors.yellow.base }
+      local faces = { running = '󱚣', done = '󱜙', attention = '󱚟', fallback = '󰚩' }
+      local icons = {}
+      local busy = false
+
+      for state in out:gmatch('%d+ (%S+)') do
+        busy = busy or state ~= 'done'
+        -- Mono variant keeps the glyph within a single cell
+        table.insert(icons, ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(
+          palette[state] or colors.fg.dimmer,
+          faces[state] or faces.fallback
+        ))
+      end
+
+      widget.visible = #icons > 0
+      textbox.markup = table.concat(icons, ' ')
+
+      if busy and not poll.started then
+        poll:start()
+      elseif not busy and poll.started then
+        poll:stop()
+      end
+    end)
+  end
+
+  poll:connect_signal('timeout', update)
+
+  awesome.connect_signal('claude::update', update)
+  gears.timer({ timeout = 30, autostart = true, callback = update }) -- catch crashed sessions
+
+  return { widget = widget, update = update }
+end)()
+
 -- [[ Public interface ]] ------------------------------------------------------
 
 local M = {}
 
 M.init = function(screen)
-  battery.callback()
-  earbuds.callback()
+  battery.update()
+  earbuds.update()
+  agents.update()
 
   local colors = beautiful.colors
 
@@ -154,7 +227,9 @@ M.init = function(screen)
       },
       taglist,
       {
-        current_context,
+        { agents.widget, layout = wibox.container.margin },
+        { spacer, left = 10, right = 10, layout = wibox.container.margin },
+        { current_context, layout = wibox.container.margin },
         { spacer, left = 10, right = 10, layout = wibox.container.margin },
         { date, layout = wibox.container.margin },
         { spacer, left = 10, right = 10, layout = wibox.container.margin },

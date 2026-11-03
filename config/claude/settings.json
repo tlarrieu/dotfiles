@@ -1,0 +1,98 @@
+{
+  "statusLine": {
+    "type": "command",
+    "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name'); effort=$(echo \"$input\" | jq -r '.effort.level // empty'); dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); shortdir=$(basename \"$dir\"); branch=$(cd \"$dir\" 2>/dev/null && git --no-optional-locks rev-parse --abbrev-ref HEAD 2>/dev/null); used=$(echo \"$input\" | jq -r '.context_window.used_percentage // empty'); sep='\\033[2m · \\033[0m'; [ -n \"$model\" ] && printf '\\033[2;36m%s\\033[0m' \"$model\"; if [ -n \"$effort\" ]; then [ -n \"$model\" ] && printf '%b' \"$sep\"; ecolor='\\033[2m'; case \"$effort\" in medium) ecolor='\\033[2;32m';; high) ecolor='\\033[2;33m';; xhigh) ecolor='\\033[2;31m';; esac; printf '%b%s\\033[0m' \"$ecolor\" \"$effort\"; fi; [ -n \"$model\" ] || [ -n \"$effort\" ] && printf '%b' \"$sep\"; printf '\\033[2;34m%s\\033[0m' \"$shortdir\"; [ -n \"$branch\" ] && printf '%b\\033[2;32m%s\\033[0m' \"$sep\" \"$branch\"; if [ -n \"$used\" ]; then used_int=$(printf '%.0f' \"$used\"); color='\\033[2m'; [ \"$used_int\" -ge 90 ] && color='\\033[2;31m'; [ \"$used_int\" -ge 75 ] && [ \"$used_int\" -lt 90 ] && color='\\033[2;33m'; filled=$((used_int / 10)); bar=''; for i in $(seq 1 10); do if [ $i -le $filled ]; then bar=\"${bar}▰\"; else bar=\"${bar}▱\"; fi; done; printf '%b%b%s %d%%\\033[0m' \"$sep\" \"$color\" \"$bar\" \"$used_int\"; fi"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "^(startup)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state done",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state running",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state running",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state done",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state attention",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state end",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "AskUserQuestion|ExitPlanMode",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state attention",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state attention",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
