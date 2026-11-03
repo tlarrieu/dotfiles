@@ -107,7 +107,7 @@ local keyboard = {
       signal = spawner.actions.JUMP,
       callback = spawner.shell('work restart'),
     }),
-    spawner.key({ super, ctrl }, 'm', {
+    spawner.key({ super, ctrl }, 'g', {
       app = spawner.shell('email'),
       props = { name = 'neomutt' },
       signal = spawner.actions.JUMP,
