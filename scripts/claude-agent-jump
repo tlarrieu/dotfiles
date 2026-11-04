@@ -2,7 +2,8 @@
 # Focuses the terminal of a Claude agent: its awesome client, then its kitty tab.
 # Usage: claude-agent-jump [session_id]
 # Without a session, picks the agent that wants us the most: the oldest one
-# needing attention, else the oldest done one. Fails when there is none.
+# needing attention, else the oldest done one, else the one we last focused
+# (else the newest one). Fails when there is no agent.
 
 assets=$(dirname "$(readlink -f "$0")")
 dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
@@ -14,6 +15,25 @@ if [ -z "$session" ]; then
     session=$(awk -v s="$wanted" '$2 == s { print $4; exit }' <<<"$agents")
     [ -n "$session" ] && break
   done
+fi
+
+if [ -z "$session" ]; then
+  declare -A sessions=() # by window
+  while read -r _ _ _ id _; do
+    read -r _ _ _ window _ <"$dir/$id"
+    case "$window" in "" | *[!0-9]*) ;; *) sessions[$window]=$id ;; esac
+  done <<<"$agents"
+  if [ ${#sessions[@]} -gt 0 ]; then
+    windows=$(printf '[%s]=true,' "${!sessions[@]}")
+    window=$(awesome-client "
+      local agents = { $windows }
+      for _, c in ipairs(require('awful').client.focus.history.list) do
+        if c.valid and agents[c.window] then return tostring(c.window) end
+      end
+    " 2>/dev/null | awk -F'"' '{ print $2 }')
+    session=${sessions[$window]:-}
+  fi
+  [ -n "$session" ] || session=$(awk '{ print $1, $4 }' <<<"$agents" | sort -n | awk 'END { print $2 }')
 fi
 
 [ -n "$session" ] && [ -f "$dir/$session" ] || exit 1
