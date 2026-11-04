@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Claude Code hook: tracks agent state for the awesome panel widget.
 # Usage (from hooks): claude-agent-state <running|done|attention|end>
-# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> => "<state> <pid> <started> <transcript>"
+# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> => "<state> <pid> <started> <project> <transcript>"
 
 state="$1"
 input=$(cat)
@@ -41,7 +41,13 @@ read -r previous _ started _ 2>/dev/null <"$file"
 [ "$previous" = "$state" ] && exit 0 # nothing changed, avoid pinging awesome
 
 transcript=$(jq -r '.transcript_path // empty' <<<"$input")
-echo "$state $pid ${started:-$(date +%s)} $transcript" >"$file"
+# Project: name of the git repository holding the session's cwd, else the cwd itself
+cwd=$(jq -r '.cwd // empty' <<<"$input")
+cwd=${cwd:-$PWD}
+root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
+project=$(basename "$root")
+project=${project//[[:space:]]/_}
+echo "$state $pid ${started:-$(date +%s)} $project $transcript" >"$file"
 refresh_panel
 
 # Whether the session's terminal is on screen: its kitty window is visible in

@@ -82,9 +82,9 @@ end)
 -- [[ Claude agents (fed by ~/scripts/claude-agent-state hooks) ]] -------------
 
 local agents = (function()
-  local textbox = wibox.widget({ widget = wibox.widget.textbox })
+  local list = wibox.widget({ spacing = 16, layout = wibox.layout.fixed.horizontal })
   local widget = wibox.widget({
-    textbox,
+    list,
     left = 0,
     right = 0,
     visible = false,
@@ -104,10 +104,10 @@ local agents = (function()
     }
     for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
       [ -f "$f" ] || continue
-      read -r state pid started transcript < "$f"
+      read -r state pid started project transcript < "$f"
       if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
       [ "$state" != done ] && interrupted "$transcript" && state=done
-      echo "$started $state"
+      echo "$started $state $project"
     done | sort -n
   ]]
 
@@ -119,20 +119,35 @@ local agents = (function()
       local colors = beautiful.colors
       local palette = { running = colors.fg.dim, done = colors.green.base, attention = colors.yellow.base }
       local faces = { running = '󱚣', done = '󱜙', attention = '󱚟', fallback = '󰚩' }
-      local icons = {}
+      local entries = {}
       local busy = false
 
-      for state in out:gmatch('%d+ (%S+)') do
+      for state, project in out:gmatch('%d+ (%S+) (%S+)') do
         busy = busy or state ~= 'done'
-        -- Mono variant keeps the glyph within a single cell
-        table.insert(icons, ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(
-          palette[state] or colors.fg.dimmer,
-          faces[state] or faces.fallback
-        ))
+        local color = palette[state] or colors.fg.dimmer
+        -- Separate textboxes so the big face and the label are both centered
+        table.insert(entries, wibox.widget({
+          {
+            -- Mono variant keeps the glyph within a single cell
+            markup = ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(
+              color,
+              faces[state] or faces.fallback
+            ),
+            valign = 'center',
+            widget = wibox.widget.textbox,
+          },
+          {
+            markup = ('<span color="%s">%s</span>'):format(color, gears.string.xml_escape(project)),
+            valign = 'center',
+            widget = wibox.widget.textbox,
+          },
+          spacing = 6,
+          layout = wibox.layout.fixed.horizontal,
+        }))
       end
 
-      widget.visible = #icons > 0
-      textbox.markup = table.concat(icons, ' ')
+      widget.visible = #entries > 0
+      list:set_children(entries)
 
       if busy and not poll.started then
         poll:start()
