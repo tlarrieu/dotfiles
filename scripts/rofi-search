@@ -124,6 +124,16 @@ class YouTube < Browser
 
 end
 
+# Spawns a background Claude agent in the current project, the rest of the query
+# being its prompt (none: interactive session)
+class Claude
+
+  def run(str)
+    system(File.expand_path('~/scripts/claude-agent-spawn'), *([str] unless str.empty?))
+  end
+
+end
+
 class Dictionary
 
   def initialize(dictionaries={})
@@ -143,6 +153,7 @@ end
 
 ENGINES = {
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
+  'cl'   => Claude.new,
   'aw'   => Browser.new(
     'https://duckduckgo.com/?ia=web&q=%s',
     prefixes: ['site:https://awesomewm.org/doc'],

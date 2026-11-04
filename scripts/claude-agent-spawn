@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Spawns a Claude agent in the current project (~/.project), in a kitty window
+# kept in the background (see the claude-agent rule in awesome), with a neovim
+# tab next to the agent to inspect what it produces.
+# Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
+
+# Same current project as awesome's dev window (it may hold a ~)
+project=$(cat ~/.project 2>/dev/null)
+project=${project/#\~/$HOME}
+if [ ! -d "$project" ]; then
+  notify-send --app-name=claude Claude "No project to spawn an agent in (see ~/.project)"
+  exit 1
+fi
+
+prompt="$*"
+
+# One kitty window holding two tabs: the agent (focused), then neovim. The
+# prompt goes through a file to dodge session quoting; the agent tab removes
+# it, along with the session file, once started.
+spawn_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents-spawn"
+mkdir -p "$spawn_dir"
+session_file=$(mktemp "$spawn_dir/session.XXXXXX")
+
+# Fish loads the claude function, which brings the settings from my dotfiles
+if [ -n "$prompt" ]; then
+  prompt_file=$(mktemp "$spawn_dir/prompt.XXXXXX")
+  printf '%s' "$prompt" >"$prompt_file"
+  agent="set -l prompt (string collect < $prompt_file); rm -f $prompt_file $session_file; claude \$prompt"
+else
+  agent="rm -f $session_file; claude"
+fi
+
+cat >"$session_file" <<SESSION
+new_tab
+cd $project
+launch fish -c '$agent'
+new_tab
+cd $project
+launch fish -c nvim
+SESSION
+
+setsid -f kitty --single-instance --name claude-agent --session "$session_file" >/dev/null 2>&1
