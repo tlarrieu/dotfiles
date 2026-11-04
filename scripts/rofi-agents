@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Rofi hub for Claude agents: jump to a live session, or spawn a new one in
-# the current project (~/.project, with an optional initial prompt) in its own
-# kitty window.
+# the current project (~/.project, with an optional initial prompt) in a kitty
+# window kept in the background (see the claude-agent rule in awesome).
 
 assets=$(dirname "$(readlink -f "$0")")
 dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
@@ -40,9 +40,9 @@ spawn() {
   if [ -n "$prompt" ]; then
     # $argv is for fish to expand: it passes the prompt through without quoting issues
     # shellcheck disable=SC2016
-    setsid -f kitty --single-instance --directory "$project" fish -c 'claude $argv' "$prompt" >/dev/null 2>&1
+    setsid -f kitty --single-instance --name claude-agent --directory "$project" fish -c 'claude $argv' "$prompt" >/dev/null 2>&1
   else
-    setsid -f kitty --single-instance --directory "$project" fish -c claude >/dev/null 2>&1
+    setsid -f kitty --single-instance --name claude-agent --directory "$project" fish -c claude >/dev/null 2>&1
   fi
 }
 

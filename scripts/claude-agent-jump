@@ -19,10 +19,6 @@ fi
 [ -n "$session" ] && [ -f "$dir/$session" ] || exit 1
 read -r _ _ _ window listen_on kitty_window _ <"$dir/$session"
 
-if [ "$listen_on" != - ] && [ "$kitty_window" != - ]; then
-  kitty @ --to "$listen_on" focus-window --match "id:$kitty_window" 2>/dev/null
-fi
-
 case "$window" in "" | *[!0-9]*) exit 1 ;; esac
 awesome-client "
   for _, c in ipairs(client.get()) do
@@ -33,6 +29,12 @@ awesome-client "
     end
   end
 " >/dev/null
+
+# Kitty comes second: background agents must have a tag by the time it asks
+# awesome to activate their window (see signals.lua)
+if [ "$listen_on" != - ] && [ "$kitty_window" != - ]; then
+  kitty @ --to "$listen_on" focus-window --match "id:$kitty_window" 2>/dev/null
+fi
 
 # The panel turns the done agent we just displayed into an idle one
 awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1

@@ -1,5 +1,6 @@
 local awful = require('awful')
 local beautiful = require('beautiful')
+local gears = require('gears')
 
 local helpers = require('helpers')
 local icons = require('icons')
@@ -22,6 +23,21 @@ client.connect_signal('request::activate', function(client, context)
   if skip then return end
 
   helpers.center_mouse_in_client(client)
+end)
+
+-- Background Claude agents (see rules.lua) ask to be activated once mapped.
+-- We deny it, yet kitty flags them as focused, which leaves the focused kitty
+-- window with an unfocused cursor: bouncing the focus sends it a fresh focus event.
+client.connect_signal('request::activate', function(c, context)
+  if context ~= 'ewmh' or c.instance ~= 'claude-agent' or #c:tags() > 0 then return end
+
+  local focused = client.focus
+  if not focused then return end
+
+  client.focus = nil
+  gears.timer.start_new(0.05, function()
+    if focused.valid and not client.focus then client.focus = focused end
+  end)
 end)
 
 -- [[ Dynamic tag names ]] -----------------------------------------------------

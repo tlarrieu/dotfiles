@@ -39,6 +39,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
       },
       instance = {
         'localhost',
+        'claude%-agent',
       },
       name = {
         'DevTools'
@@ -219,6 +220,21 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   {
     rule = { class = 'kitty' },
     properties = { size_hints_honor = false },
+  },
+
+  -- [[ Background Claude agents (spawned by ~/scripts/rofi-agents) ]] --------
+  -- Kept off every tag, like soft-killed clients, until we jump to them.
+  -- Untagging is deferred: once rules ran, awesome puts tagless clients back
+  -- on the current tag.
+  -- See signals.lua for the focus glitch kitty causes when spawning them.
+
+  {
+    rule = { instance = 'claude%-agent' },
+    properties = {
+      focus = false,
+      immortal = true, -- soft kill sends them back to the background
+      callback = function(c) gears.timer.delayed_call(function() c:tags({}) end) end,
+    },
   },
 
   -- [[ Audacity ]] --------------------------------------------------------
