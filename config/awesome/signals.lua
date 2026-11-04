@@ -7,7 +7,11 @@ local spawner = require('spawner')
 
 -- [[ Focus ]] -----------------------------------------------------------------
 
-client.connect_signal('focus', function(client) client.border_color = beautiful.border_focus end)
+client.connect_signal('focus', function(client)
+  client.border_color = beautiful.border_focus
+  -- Never leave the focused client behind another one (e.g. floating ones after a restart)
+  client:raise()
+end)
 client.connect_signal('unfocus', function(client) client.border_color = beautiful.border_normal end)
 
 client.connect_signal('request::activate', function(client, context)
