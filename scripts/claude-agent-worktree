@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Creates an isolated git worktree for a Claude agent, on its own branch, and
+# reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
+# their own test databases. A slot stays taken as long as its worktree exists.
+# Usage: claude-agent-worktree <repository>
+# Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
+
+first_slot=11 last_slot=19
+
+root=$(git -C "$1" rev-parse --show-toplevel 2>/dev/null) || exit 1
+repo=$(basename "$root")
+agents_dir="$(dirname "$root")/$repo-agents"
+slots_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots/$repo"
+mkdir -p "$agents_dir" "$slots_dir"
+
+# Serialize spawns, so two of them can't grab the same slot
+exec 9>"$slots_dir/.lock"
+flock 9
+
+slot=''
+for n in $(seq "$first_slot" "$last_slot"); do
+  taken=$(cat "$slots_dir/$n" 2>/dev/null)
+  if [ -z "$taken" ] || [ ! -d "$taken" ]; then slot=$n; break; fi
+done
+[ -n "$slot" ] || { echo "All $repo agent slots are taken (remove some worktrees in $agents_dir)" >&2; exit 1; }
+
+worktree="$agents_dir/$repo-$slot"
+branch="agent/$repo-$slot-$(date +%m%d-%H%M)"
+git -C "$root" worktree prune
+git -C "$root" worktree add --quiet -b "$branch" "$worktree" HEAD >&2 || exit 1
+
+echo "$worktree" >"$slots_dir/$slot"
+echo "$slot $worktree"

@@ -1,42 +1,73 @@
 #!/usr/bin/env bash
-# Spawns a Claude agent in the current project (~/.project), in a kitty window
+# Spawns a Claude agent for the current project (~/.project), in a kitty window
 # kept in the background (see the claude-agent rule in awesome), with a neovim
 # tab next to the agent to inspect what it produces.
+# In a git repository, the agent works in its own worktree and branch, with its
+# own TEST_ENV_NUMBER (see claude-agent-worktree), so neither its changes nor
+# its specs get in the way of ours. claude-agent-setup/<repository> prepares
+# the worktree when it exists.
 # Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
+
+assets=$(dirname "$(readlink -f "$0")")
+fail() { notify-send --app-name=claude Claude "$1"; exit 1; }
 
 # Same current project as awesome's dev window (it may hold a ~)
 project=$(cat ~/.project 2>/dev/null)
 project=${project/#\~/$HOME}
-if [ ! -d "$project" ]; then
-  notify-send --app-name=claude Claude "No project to spawn an agent in (see ~/.project)"
-  exit 1
-fi
+[ -d "$project" ] || fail "No project to spawn an agent in (see ~/.project)"
 
 prompt="$*"
 
-# One kitty window holding two tabs: the agent (focused), then neovim. The
-# prompt goes through a file to dodge session quoting; the agent tab removes
-# it, along with the session file, once started.
+# The prompt and the agent's context go through files to dodge session
+# quoting: the agent tab reads them, then removes them along with the session
+# file, before anything else
 spawn_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents-spawn"
 mkdir -p "$spawn_dir"
 session_file=$(mktemp "$spawn_dir/session.XXXXXX")
+files=$session_file reads='' setup='' claude_args='' env='' directory=$project
 
-# Fish loads the claude function, which brings the settings from my dotfiles
 if [ -n "$prompt" ]; then
   prompt_file=$(mktemp "$spawn_dir/prompt.XXXXXX")
   printf '%s' "$prompt" >"$prompt_file"
-  agent="set -l prompt (string collect < $prompt_file); rm -f $prompt_file $session_file; claude \$prompt"
-else
-  agent="rm -f $session_file; claude"
+  reads+="set -l prompt (string collect < $prompt_file); "
+  files+=" $prompt_file"
 fi
+
+if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
+  error_file=$(mktemp "$spawn_dir/error.XXXXXX")
+  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" 2>"$error_file")
+  error=$(cat "$error_file")
+  rm -f "$error_file"
+  [ -n "$slot" ] || fail "Could not create the agent's worktree: $error"
+  branch=$(git -C "$directory" branch --show-current)
+  env="--env TEST_ENV_NUMBER=$slot"
+
+  hook="$assets/claude-agent-setup/$(basename "$primary")"
+  [ -x "$hook" ] && setup="$hook $primary; or echo \"Worktree setup failed, carrying on\"; "
+
+  context_file=$(mktemp "$spawn_dir/context.XXXXXX")
+  cat >"$context_file" <<CONTEXT
+You work in a git worktree of your own, $directory, on branch $branch, apart from
+the user's checkout ($primary), which you must leave alone: make your changes
+and run your commands here. TEST_ENV_NUMBER=$slot gives your specs their own
+test databases and Redis: keep it as is.
+CONTEXT
+  reads+="set -l context (string collect < $context_file); "
+  files+=" $context_file"
+  claude_args="--append-system-prompt \$context "
+fi
+
+# Fish loads the claude function, which brings the settings from my dotfiles
+agent="${reads}rm -f $files; ${setup}claude $claude_args"
+[ -n "$prompt" ] && agent+="\$prompt"
 
 cat >"$session_file" <<SESSION
 new_tab
-cd $project
-launch fish -c '$agent'
+cd $directory
+launch $env fish -c '$agent'
 new_tab
-cd $project
-launch fish -c nvim
+cd $directory
+launch $env fish -c nvim
 SESSION
 
 setsid -f kitty --single-instance --name claude-agent --session "$session_file" >/dev/null 2>&1
