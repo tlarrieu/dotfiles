@@ -94,7 +94,8 @@ local agents = (function()
 
   -- Lists live agents ordered by start time, pruning sessions whose process died.
   -- Interrupts (rejected question/permission, Esc) fire no hook, so a busy
-  -- session whose transcript ends with an interrupt marker is reported as done.
+  -- session whose transcript ends with an interrupt marker is reported as idle.
+  -- Done sessions become idle (and stay so) once their terminal gets displayed.
   local shell_cmd = [[
     interrupted() {
       [ -f "$1" ] && tail -n 50 "$1" | jq -se '
@@ -105,26 +106,40 @@ local agents = (function()
     }
     for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
       [ -f "$f" ] || continue
-      read -r state pid started project transcript < "$f"
+      read -r state pid started window listen_on kitty_window project transcript < "$f"
       if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
-      [ "$state" != done ] && interrupted "$transcript" && state=done
+      case "$state" in
+      running | attention) interrupted "$transcript" && state=idle ;;
+      done)
+        if ~/scripts/claude-agent-displayed "$window" "$listen_on" "$kitty_window"; then
+          state=idle
+          sed -i '1s/^done /idle /' "$f"
+        fi
+        ;;
+      esac
       echo "$started $state $project"
     done | sort -n
   ]]
 
-  -- Poll while an agent is busy, since interrupts don't signal us
+  -- Poll while an agent is not idle, since neither interrupts nor kitty tab
+  -- switches signal us
   local poll = gears.timer({ timeout = 3 })
 
   local update = function()
     awful.spawn.easy_async({ 'sh', '-c', shell_cmd }, function(out)
       local colors = beautiful.colors
-      local palette = { running = colors.fg.dim, done = colors.green.base, attention = colors.yellow.base }
-      local faces = { running = '󱚣', done = '󱜙', attention = '󱚟', fallback = '󰚩' }
+      local palette = {
+        running = colors.blue.base,
+        done = colors.green.base,
+        idle = colors.fg.dim,
+        attention = colors.yellow.base,
+      }
+      local faces = { running = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
       local entries = {}
       local busy = false
 
       for state, project in out:gmatch('%d+ (%S+) (%S+)') do
-        busy = busy or state ~= 'done'
+        busy = busy or state ~= 'idle'
         local color = palette[state] or colors.fg.dimmer
         -- Separate textboxes so the big face and the label are both centered
         table.insert(entries, wibox.widget({

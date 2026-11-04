@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Claude Code hook: tracks agent state for the awesome panel widget.
 # Usage (from hooks): claude-agent-state <running|done|attention|end>
-# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> => "<state> <pid> <started> <project> <transcript>"
+# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> =>
+#   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript>"
+# A "done" session whose terminal is on screen is stored as "idle" (already seen);
+# the panel turns the remaining "done" ones into "idle" once they get displayed.
 
 state="$1"
 input=$(cat)
@@ -37,6 +40,15 @@ while [ "$pid" -gt 1 ] && [ "$(cat /proc/"$pid"/comm 2>/dev/null)" != claude ]; 
   pid=$(awk '{ print $4 }' /proc/"$pid"/stat 2>/dev/null || echo 1)
 done
 
+assets=$(dirname "$(readlink -f "$0")")
+window=${WINDOWID:--} listen_on=${KITTY_LISTEN_ON:--} kitty_window=${KITTY_WINDOW_ID:--}
+
+displayed=false
+case "$state" in
+attention | done) "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
+esac
+[ "$state" = done ] && $displayed && state=idle
+
 read -r previous _ started _ 2>/dev/null <"$file"
 [ "$previous" = "$state" ] && exit 0 # nothing changed, avoid pinging awesome
 
@@ -47,27 +59,8 @@ cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
-echo "$state $pid ${started:-$(date +%s)} $project $transcript" >"$file"
+echo "$state $pid ${started:-$(date +%s)} $window $listen_on $kitty_window $project $transcript" >"$file"
 refresh_panel
-
-# Whether the session's terminal is on screen: its kitty window is visible in
-# awesome and, when kitty remote control is reachable, its tab is active
-displayed() {
-  case "$WINDOWID" in "" | *[!0-9]*) return 1 ;; esac
-  awesome-client "
-    for _, c in ipairs(client.get()) do
-      if c.window == $WINDOWID then return c:isvisible() end
-    end
-    return false
-  " | grep -q true || return 1
-
-  [ -n "$KITTY_LISTEN_ON" ] && [ -n "$KITTY_WINDOW_ID" ] || return 0
-  kitty @ --to "$KITTY_LISTEN_ON" ls 2>/dev/null |
-    jq -e --argjson id "$KITTY_WINDOW_ID" \
-      'any(.[].tabs[]; .is_active and any(.windows[]; .id == $id))' >/dev/null
-}
-
-assets=$(dirname "$(readlink -f "$0")")
 
 if [ "$state" = attention ]; then
   message=$(jq -r '
@@ -78,5 +71,5 @@ if [ "$state" = attention ]; then
 fi
 
 case "$state" in
-attention | done) displayed || setsid -f paplay "$assets/claude.ogg" >/dev/null 2>&1 ;;
+attention | done) $displayed || setsid -f paplay "$assets/claude.ogg" >/dev/null 2>&1 ;;
 esac

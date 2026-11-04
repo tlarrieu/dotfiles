@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Whether a Claude session's terminal is on screen: its kitty window is visible
+# in awesome and, when kitty remote control is reachable, its tab is active.
+# Usage: claude-agent-displayed <x_window_id> [kitty_listen_on] [kitty_window_id]
+# ("-" stands for an unknown value)
+
+window="$1" listen_on="${2:--}" kitty_window="${3:--}"
+
+case "$window" in "" | *[!0-9]*) exit 1 ;; esac
+awesome-client "
+  for _, c in ipairs(client.get()) do
+    if c.window == $window then return c:isvisible() end
+  end
+  return false
+" | grep -q true || exit 1
+
+[ "$listen_on" != - ] && [ "$kitty_window" != - ] || exit 0
+kitty @ --to "$listen_on" ls 2>/dev/null |
+  jq -e --argjson id "$kitty_window" \
+    'any(.[].tabs[]; .is_active and any(.windows[]; .id == $id))' >/dev/null
