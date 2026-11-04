@@ -20,8 +20,10 @@ local in_x = vim.env.DISPLAY ~= nil and vim.fn.executable('notify-send') == 1
 local slots = {} -- progress key => { id, busy, pending }
 
 -- Awesome does not look icon names up in the icon theme: it needs a path
-local icon = '/usr/share/icons/hicolor/128x128/apps/nvim.png'
-if vim.fn.filereadable(icon) == 0 then icon = 'nvim' end
+local maybe_icon = function(path) if vim.fn.filereadable(path) == 0 then return nil else return path end end
+local icon = maybe_icon('/usr/share/icons/hicolor/128x128/apps/nvim.png')
+    or maybe_icon('/usr/local/share/icons/hicolor/128x128/apps/nvim.png')
+    or 'nvim'
 
 local send
 send = function(key, args, done)
