@@ -93,34 +93,15 @@ local agents = (function()
     layout = wibox.layout.fixed.horizontal,
   })
 
-  -- Lists live agents ordered by start time, pruning sessions whose process died.
-  -- Interrupts (rejected question/permission, Esc) fire no hook, so a busy
-  -- session whose transcript ends with an interrupt marker is reported as idle.
-  -- Done sessions become idle (and stay so) once their terminal gets displayed.
-  local shell_cmd = [[
-    interrupted() {
-      [ -f "$1" ] && tail -n 50 "$1" | jq -se '
-        [.[] | select(.type == "user" or .type == "assistant")] | last | .message.content
-        | (if type == "array" then .[0].text // "" else . end)
-        | startswith("[Request interrupted by user")
-      ' >/dev/null 2>&1
-    }
-    for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
-      [ -f "$f" ] || continue
-      read -r state pid started window listen_on kitty_window project transcript < "$f"
-      if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
-      case "$state" in
-      running | attention) interrupted "$transcript" && state=idle ;;
-      done)
-        if ~/scripts/claude-agent-displayed "$window" "$listen_on" "$kitty_window"; then
-          state=idle
-          sed -i '1s/^done /idle /' "$f"
-        fi
-        ;;
-      esac
-      echo "$started $state $project"
-    done | sort -n
-  ]]
+  local scripts = os.getenv('HOME') .. '/scripts'
+
+  -- Turn duration, compact enough for the panel: 42s, 4m, 1h05
+  local elapsed = function(since)
+    local seconds = math.max(0, os.time() - since)
+    if seconds < 60 then return seconds .. 's' end
+    if seconds < 3600 then return math.floor(seconds / 60) .. 'm' end
+    return ('%dh%02d'):format(math.floor(seconds / 3600), math.floor(seconds % 3600 / 60))
+  end
 
   -- Poll while an agent is not idle, since neither interrupts nor kitty tab
   -- switches signal us
@@ -153,7 +134,7 @@ local agents = (function()
   end)
 
   local update = function()
-    awful.spawn.easy_async({ 'sh', '-c', shell_cmd }, function(out)
+    awful.spawn.easy_async({ scripts .. '/claude-agent-list' }, function(out)
       local colors = beautiful.colors
       local palette = {
         running = pulse(),
@@ -166,7 +147,7 @@ local agents = (function()
       local busy = false
       blinking = {}
 
-      for state, project in out:gmatch('%d+ (%S+) (%S+)') do
+      for state, since, _, project in out:gmatch('%d+ (%S+) (%S+) (%S+) (%S+)') do
         busy = busy or state ~= 'idle'
 
         local face = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
@@ -174,10 +155,16 @@ local agents = (function()
         local glyph = faces[state] or faces.fallback
         local name = gears.string.xml_escape(project)
 
+        since = tonumber(since)
+
         local paint = function(color)
           -- Mono variant keeps the glyph within a single cell
           face.markup = ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(color, glyph)
-          label.markup = ('<span color="%s">%s</span>'):format(color, name)
+          local text = name
+          if state == 'running' and since then
+            text = ('%s <span fgalpha="60%%">%s</span>'):format(name, elapsed(since))
+          end
+          label.markup = ('<span color="%s">%s</span>'):format(color, text)
         end
 
         paint(palette[state] or colors.fg.dimmer)

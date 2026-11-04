@@ -2,7 +2,8 @@
 # Claude Code hook: tracks agent state for the awesome panel widget.
 # Usage (from hooks): claude-agent-state <running|done|attention|end>
 # State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> =>
-#   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript>"
+#   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript> <since>"
+# where <since> is when the current turn started (last prompt submission).
 # A "done" session whose terminal is on screen is stored as "idle" (already seen);
 # the panel turns the remaining "done" ones into "idle" once they get displayed.
 
@@ -47,10 +48,16 @@ displayed=false
 case "$state" in
 attention | done) "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
 esac
-[ "$state" = done ] && $displayed && state=idle
+[ "$state" = "done" ] && $displayed && state=idle
 
-read -r previous _ started _ 2>/dev/null <"$file"
-[ "$previous" = "$state" ] && exit 0 # nothing changed, avoid pinging awesome
+read -r previous _ started _ _ _ _ _ since 2>/dev/null <"$file"
+# A prompt starts a new turn, even when an interrupt (which fires no hook) left
+# the session as running
+if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = UserPromptSubmit ]; then
+  since=$(date +%s)
+elif [ "$previous" = "$state" ]; then
+  exit 0 # nothing changed, avoid pinging awesome
+fi
 
 transcript=$(jq -r '.transcript_path // empty' <<<"$input")
 # Project: name of the git repository holding the session's cwd, else the cwd itself
@@ -59,7 +66,7 @@ cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
-echo "$state $pid ${started:-$(date +%s)} $window $listen_on $kitty_window $project $transcript" >"$file"
+echo "$state $pid ${started:-$(date +%s)} $window $listen_on $kitty_window $project ${transcript:--} ${since:-$(date +%s)}" >"$file"
 refresh_panel
 
 if [ "$state" = attention ]; then

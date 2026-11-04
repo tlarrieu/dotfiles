@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# Lists live Claude agents (fed by claude-agent-state hooks), ordered by start time:
+#   <started> <state> <since> <session> <project>
+# <since> is when the current turn started ("-" when unknown).
+# Prunes sessions whose process died.
+# Interrupts (rejected question/permission, Esc) fire no hook, so a busy
+# session whose transcript ends with an interrupt marker is reported as idle.
+# Done sessions become idle (and stay so) once their terminal gets displayed.
+
+assets=$(dirname "$(readlink -f "$0")")
+
+interrupted() {
+  [ -f "$1" ] && tail -n 50 "$1" | jq -se '
+    [.[] | select(.type == "user" or .type == "assistant")] | last | .message.content
+    | (if type == "array" then .[0].text // "" else . end)
+    | startswith("[Request interrupted by user")
+  ' >/dev/null 2>&1
+}
+
+for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
+  [ -f "$f" ] || continue
+  read -r state pid started window listen_on kitty_window project transcript since <"$f"
+  if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
+  case "$state" in
+  running | attention) interrupted "$transcript" && state=idle ;;
+  done)
+    if "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window"; then
+      state=idle
+      sed -i '1s/^done /idle /' "$f"
+    fi
+    ;;
+  esac
+  echo "$started $state ${since:--} $(basename "$f") $project"
+done | sort -n
