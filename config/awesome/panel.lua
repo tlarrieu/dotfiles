@@ -2,6 +2,7 @@ local awful = require('awful')
 local beautiful = require('beautiful')
 local wibox = require('wibox')
 local gears = require('gears')
+local GLib = require('lgi').GLib
 local glyphs = require('glyphs')
 local context = require('context')
 
@@ -125,22 +126,37 @@ local agents = (function()
   -- switches signal us
   local poll = gears.timer({ timeout = 3 })
 
-  -- Running agents blink between blue and grey
-  local blink = gears.timer({ timeout = 0.6 })
+  -- Running agents pulse between blue and grey, eased with a cosine
+  local period = 1.2  -- seconds for a full grey → blue → grey cycle
+  local blink = gears.timer({ timeout = 1 / 20 })
   local blinking = {} -- paint functions of the running agents
-  local lit = true
+
+  local mix = function(from, to, ratio)
+    local channel = function(i)
+      local a, b = tonumber(from:sub(i, i + 1), 16), tonumber(to:sub(i, i + 1), 16)
+      return math.floor(a + (b - a) * ratio + 0.5)
+    end
+    return ('#%02x%02x%02x'):format(channel(2), channel(4), channel(6))
+  end
+
+  -- Phase follows the monotonic clock, so rebuilding the widgets doesn't reset it
+  local pulse = function()
+    local colors = beautiful.colors
+    local seconds = GLib.get_monotonic_time() / 1e6
+    local ratio = (1 - math.cos(2 * math.pi * seconds / period)) / 2
+    return mix(colors.fg.dim, colors.blue.base, ratio)
+  end
 
   blink:connect_signal('timeout', function()
-    lit = not lit
-    local colors = beautiful.colors
-    for _, paint in ipairs(blinking) do paint(lit and colors.blue.base or colors.fg.dim) end
+    local color = pulse()
+    for _, paint in ipairs(blinking) do paint(color) end
   end)
 
   local update = function()
     awful.spawn.easy_async({ 'sh', '-c', shell_cmd }, function(out)
       local colors = beautiful.colors
       local palette = {
-        running = lit and colors.blue.base or colors.fg.dim,
+        running = pulse(),
         done = colors.green.base,
         idle = colors.fg.dim,
         attention = colors.yellow.base,
@@ -184,7 +200,6 @@ local agents = (function()
         blink:start()
       elseif #blinking == 0 and blink.started then
         blink:stop()
-        lit = true
       end
     end)
   end
