@@ -14,15 +14,14 @@ elapsed() {
   else printf '%dh%02d' $((seconds / 3600)) $((seconds % 3600 / 60)); fi
 }
 
-# What the agent last said, or the tool it last reached for
-last_message() {
+# The session title: the one given with /rename (or --name), else Claude's own
+title() {
   [ -f "$1" ] || return
-  tail -n 100 "$1" | jq -rs '
-    [.[] | select(.type == "assistant") | .message.content[]?] | last
-    | if .type == "text" then .text
-      elif .type == "tool_use" then "󰒓 \(.name)"
-      else "" end
-  ' 2>/dev/null | tr '\n' ' ' | awk '{ print substr($0, 1, 90) }' # multibyte-safe
+  grep -E '"type":"(custom-title|agent-name|ai-title)"' "$1" | jq -rs '
+    (map(select(.type == "custom-title")) | last | .customTitle)
+    // (map(select(.type == "agent-name")) | last | .agentName)
+    // (map(select(.type == "ai-title")) | last | .aiTitle) // empty
+  ' 2>/dev/null | awk '{ print substr($0, 1, 90) }' # multibyte-safe
 }
 
 sessions=()
@@ -32,7 +31,7 @@ while read -r _ state since session project; do
   duration=''
   [ "$state" = running ] && [ "$since" != - ] && duration=$(elapsed "$since")
   sessions+=("$session")
-  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(last_message "$transcript")")")
+  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(title "$transcript")")")
 done < <("$assets/claude-agent-list")
 
 if [ ${#sessions[@]} -eq 0 ]; then
