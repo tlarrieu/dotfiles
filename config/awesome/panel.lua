@@ -125,11 +125,22 @@ local agents = (function()
   -- switches signal us
   local poll = gears.timer({ timeout = 3 })
 
+  -- Running agents blink between blue and grey
+  local blink = gears.timer({ timeout = 0.6 })
+  local blinking = {} -- paint functions of the running agents
+  local lit = true
+
+  blink:connect_signal('timeout', function()
+    lit = not lit
+    local colors = beautiful.colors
+    for _, paint in ipairs(blinking) do paint(lit and colors.blue.base or colors.fg.dim) end
+  end)
+
   local update = function()
     awful.spawn.easy_async({ 'sh', '-c', shell_cmd }, function(out)
       local colors = beautiful.colors
       local palette = {
-        running = colors.blue.base,
+        running = lit and colors.blue.base or colors.fg.dim,
         done = colors.green.base,
         idle = colors.fg.dim,
         attention = colors.yellow.base,
@@ -137,29 +148,26 @@ local agents = (function()
       local faces = { running = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
       local entries = {}
       local busy = false
+      blinking = {}
 
       for state, project in out:gmatch('%d+ (%S+) (%S+)') do
         busy = busy or state ~= 'idle'
-        local color = palette[state] or colors.fg.dimmer
-        -- Separate textboxes so the big face and the label are both centered
-        table.insert(entries, wibox.widget({
-          {
-            -- Mono variant keeps the glyph within a single cell
-            markup = ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(
-              color,
-              faces[state] or faces.fallback
-            ),
-            valign = 'center',
-            widget = wibox.widget.textbox,
-          },
-          {
-            markup = ('<span color="%s">%s</span>'):format(color, gears.string.xml_escape(project)),
-            valign = 'center',
-            widget = wibox.widget.textbox,
-          },
-          spacing = 6,
-          layout = wibox.layout.fixed.horizontal,
-        }))
+
+        local face = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
+        local label = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
+        local glyph = faces[state] or faces.fallback
+        local name = gears.string.xml_escape(project)
+
+        local paint = function(color)
+          -- Mono variant keeps the glyph within a single cell
+          face.markup = ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(color, glyph)
+          label.markup = ('<span color="%s">%s</span>'):format(color, name)
+        end
+
+        paint(palette[state] or colors.fg.dimmer)
+        if state == 'running' then table.insert(blinking, paint) end
+
+        table.insert(entries, wibox.widget({ face, label, spacing = 6, layout = wibox.layout.fixed.horizontal }))
       end
 
       widget.visible = #entries > 0
@@ -170,6 +178,13 @@ local agents = (function()
         poll:start()
       elseif not busy and poll.started then
         poll:stop()
+      end
+
+      if #blinking > 0 and not blink.started then
+        blink:start()
+      elseif #blinking == 0 and blink.started then
+        blink:stop()
+        lit = true
       end
     end)
   end
