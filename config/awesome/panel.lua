@@ -83,12 +83,13 @@ end)
 
 local agents = (function()
   local list = wibox.widget({ spacing = 16, layout = wibox.layout.fixed.horizontal })
+  -- Trailing separator lives here so it hides along with the agents
+  local separator = wibox.widget({ widget = wibox.widget.textbox })
   local widget = wibox.widget({
     list,
-    left = 0,
-    right = 0,
+    { separator, left = 10, right = 10, layout = wibox.container.margin },
     visible = false,
-    layout = wibox.container.margin,
+    layout = wibox.layout.fixed.horizontal,
   })
 
   -- Lists live agents ordered by start time, pruning sessions whose process died.
@@ -148,6 +149,7 @@ local agents = (function()
 
       widget.visible = #entries > 0
       list:set_children(entries)
+      separator.markup = ('<span color="%s">•</span>'):format(colors.fg.dimmer)
 
       if busy and not poll.started then
         poll:start()
@@ -242,8 +244,7 @@ M.init = function(screen)
       },
       taglist,
       {
-        { agents.widget, layout = wibox.container.margin },
-        { spacer, left = 10, right = 10, layout = wibox.container.margin },
+        agents.widget,
         { current_context, layout = wibox.container.margin },
         { spacer, left = 10, right = 10, layout = wibox.container.margin },
         { date, layout = wibox.container.margin },
