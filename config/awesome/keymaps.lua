@@ -228,8 +228,8 @@ local keyboard = {
     spawner.key({ super }, 'Escape', 'rofi-pass'),
     spawner.key({ super }, 'q', 'rofi-power'),
     -- Jump to the agent that wants us the most, or open the hub when none does
-    spawner.key({ super }, 'u', spawner.shell('~/scripts/claude-agent-jump; or ~/scripts/rofi-agents')),
-    spawner.key({ super, ctrl }, 'u', 'rofi-agents'),
+    spawner.key({ super }, 'u', 'claude-agent-jump'),
+    spawner.key({ super, shift }, ' ', 'rofi-agents'),
     spawner.key({ super }, 'Return', spawner.shell('rofi-theme')),
 
     spawner.key({ super, ctrl }, 'b', {
