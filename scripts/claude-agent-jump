@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Focuses the terminal of a Claude agent: its awesome client, then its kitty tab.
+# Usage: claude-agent-jump [session_id]
+# Without a session, picks the agent that wants us the most: the oldest one
+# needing attention, else the oldest done one. Fails when there is none.
+
+assets=$(dirname "$(readlink -f "$0")")
+dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+session="$1"
+
+if [ -z "$session" ]; then
+  agents=$("$assets/claude-agent-list")
+  for wanted in "attention" "done"; do
+    session=$(awk -v s="$wanted" '$2 == s { print $4; exit }' <<<"$agents")
+    [ -n "$session" ] && break
+  done
+fi
+
+[ -n "$session" ] && [ -f "$dir/$session" ] || exit 1
+read -r _ _ _ window listen_on kitty_window _ <"$dir/$session"
+
+if [ "$listen_on" != - ] && [ "$kitty_window" != - ]; then
+  kitty @ --to "$listen_on" focus-window --match "id:$kitty_window" 2>/dev/null
+fi
+
+case "$window" in "" | *[!0-9]*) exit 1 ;; esac
+awesome-client "
+  for _, c in ipairs(client.get()) do
+    if c.window == $window then
+      if #c:tags() == 0 then require('helpers').create_tag_and_attach_to(c, false) end
+      c:jump_to()
+      return
+    end
+  end
+" >/dev/null
+
+# The panel turns the done agent we just displayed into an idle one
+awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1

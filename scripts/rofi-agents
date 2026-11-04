@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Rofi hub for Claude agents: jump to a live session, or spawn a new one in
+# the current project (~/.project, with an optional initial prompt) in its own
+# kitty window.
+
+assets=$(dirname "$(readlink -f "$0")")
+dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+
+declare -A faces=([running]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
+
+elapsed() {
+  local seconds=$(($(date +%s) - $1))
+  if [ "$seconds" -lt 60 ]; then echo "${seconds}s"
+  elif [ "$seconds" -lt 3600 ]; then echo "$((seconds / 60))m"
+  else printf '%dh%02d' $((seconds / 3600)) $((seconds % 3600 / 60)); fi
+}
+
+# What the agent last said, or the tool it last reached for
+last_message() {
+  [ -f "$1" ] || return
+  tail -n 100 "$1" | jq -rs '
+    [.[] | select(.type == "assistant") | .message.content[]?] | last
+    | if .type == "text" then .text
+      elif .type == "tool_use" then "󰒓 \(.name)"
+      else "" end
+  ' 2>/dev/null | tr '\n' ' ' | awk '{ print substr($0, 1, 90) }' # multibyte-safe
+}
+
+spawn() {
+  # Same current project as awesome's dev window (it may hold a ~)
+  local project prompt
+  project=$(cat ~/.project 2>/dev/null)
+  project=${project/#\~/$HOME}
+  [ -d "$project" ] || exit 1
+
+  # Empty prompt (just Enter) starts an interactive session, Escape cancels
+  prompt=$(rofi -dmenu -p "󰚩 $(basename "$project")" -l 0 </dev/null) || exit 0
+
+  # Fish loads the claude function, which brings the settings from my dotfiles
+  if [ -n "$prompt" ]; then
+    # $argv is for fish to expand: it passes the prompt through without quoting issues
+    # shellcheck disable=SC2016
+    setsid -f kitty --single-instance --directory "$project" fish -c 'claude $argv' "$prompt" >/dev/null 2>&1
+  else
+    setsid -f kitty --single-instance --directory "$project" fish -c claude >/dev/null 2>&1
+  fi
+}
+
+sessions=()
+lines=('󰐕  New agent')
+while read -r _ state since session project; do
+  read -r _ _ _ _ _ _ _ transcript _ <"$dir/$session"
+  duration=''
+  [ "$state" = running ] && [ "$since" != - ] && duration=$(elapsed "$since")
+  sessions+=("$session")
+  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(last_message "$transcript")")")
+done < <("$assets/claude-agent-list")
+
+choice=$(printf '%s\n' "${lines[@]}" | rofi -dmenu -i -p '󰚩' -format i) || exit 0
+[ -n "$choice" ] || exit 0
+
+if [ "$choice" -eq 0 ]; then
+  spawn
+else
+  "$assets/claude-agent-jump" "${sessions[$((choice - 1))]}"
+fi
