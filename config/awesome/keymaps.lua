@@ -53,7 +53,6 @@ local keyboard = {
     spawner.key({ super }, 'n', function(client) helpers.create_tag_and_attach_to(client, true) end),
     spawner.key({ super, ctrl }, 'e', function(client) move_to_screen(client, 1) end),
     spawner.key({ super, ctrl }, 'i', function(client) move_to_screen(client, 2) end),
-    spawner.key({ super, ctrl }, 'u', function(client) move_to_screen(client, 3) end)
   },
 
   root = {
@@ -79,7 +78,6 @@ local keyboard = {
     spawner.key({ super }, 'v', function() awful.tag.incmwfact(-increment) end),
     spawner.key({ super }, 'e', function() awful.screen.focus(1) end),
     spawner.key({ super }, 'i', function() awful.screen.focus(2) end),
-    spawner.key({ super }, 'u', function() awful.screen.focus(3) end),
     spawner.key({ super, shift }, 'r', awesome.restart),
 
     -- [[ Togglers ]] ----------------------------------------------------------
