@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Closes the kitty OS window holding the calling kitty window (all its tabs),
+# e.g. once an agent stopped, so that its neovim tab does not keep it around.
+
+[ -n "$KITTY_LISTEN_ON" ] && [ -n "$KITTY_WINDOW_ID" ] || exit 1
+
+kitty @ ls | jq -r --argjson self "$KITTY_WINDOW_ID" '
+  .[] | select(any(.tabs[].windows[]; .id == $self)) | .tabs[].windows[].id | select(. != $self)
+' | while read -r window; do
+  kitty @ close-window --match "id:$window"
+done
+# The calling window closes along with the command it runs

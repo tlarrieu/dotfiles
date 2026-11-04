@@ -25,25 +25,6 @@ client.connect_signal('request::activate', function(client, context)
   helpers.center_mouse_in_client(client)
 end)
 
--- Background Claude agents (see rules.lua) ask to be activated once mapped.
--- We deny it, yet kitty flags them as focused, which leaves the focused kitty
--- window with an unfocused cursor: bouncing the focus sends it a fresh focus event.
--- Focus may still be in flux at that point (e.g. no client focused while the rofi
--- that spawned the agent closes), so we bounce once it settled.
-client.connect_signal('request::activate', function(c, context)
-  if context ~= 'ewmh' or c.instance ~= 'claude-agent' or #c:tags() > 0 then return end
-
-  gears.timer.start_new(0.05, function()
-    local focused = client.focus or awful.client.focus.history.get(awful.screen.focused(), 0)
-    if not (focused and focused.valid) then return end
-
-    client.focus = nil
-    gears.timer.start_new(0.05, function()
-      if focused.valid and not client.focus then client.focus = focused end
-    end)
-  end)
-end)
-
 -- [[ Dynamic tag names ]] -----------------------------------------------------
 
 local update_icon = function(tag)
@@ -108,4 +89,32 @@ client.connect_signal('client::custom', function(client, action)
 
   client:jump_to()
   client:emit_signal('request::activate')
+end)
+
+-- [[ Claude ]] ----------------------------------------------------------------
+
+-- Background Claude agents (see rules.lua) ask to be activated once mapped.
+-- We deny it, yet kitty flags them as focused, which leaves the focused kitty
+-- window with an unfocused cursor: bouncing the focus sends it a fresh focus event.
+-- Focus may still be in flux at that point (e.g. no client focused while the rofi
+-- that spawned the agent closes), so we bounce once it settled.
+client.connect_signal('request::activate', function(c, context)
+  if context ~= 'ewmh' or c.instance ~= 'claude-agent' or #c:tags() > 0 then return end
+
+  gears.timer.start_new(0.05, function()
+    local focused = client.focus or awful.client.focus.history.get(awful.screen.focused(), 0)
+    if not (focused and focused.valid) then return end
+
+    client.focus = nil
+    gears.timer.start_new(0.05, function()
+      if focused.valid and not client.focus then client.focus = focused end
+    end)
+  end)
+end)
+
+-- A Claude agent window going away (closed by hand, or once the agent stopped)
+-- leaves its worktree behind: drop it once its processes exited
+client.connect_signal('unmanage', function(c)
+  if c.instance ~= 'claude-agent' then return end
+  awful.spawn({ os.getenv('HOME') .. '/scripts/claude-agent-sweep', '--wait', '10' })
 end)

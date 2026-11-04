@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Drops the worktrees of stopped Claude agents (see claude-agent-worktree), the
+# ones no process runs in anymore. Those holding uncommitted changes are kept
+# (we get told once), as are the branches the agent committed on.
+# Usage: claude-agent-sweep [--wait <seconds>]
+# --wait gives processes time to exit, e.g. right after closing an agent window.
+
+wait=0
+[ "$1" = --wait ] && wait=$2
+deadline=$(($(date +%s) + wait))
+slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
+assets=$(dirname "$(readlink -f "$0")")
+
+# Whether a process runs within the worktree $1
+busy() {
+  local proc cwd
+  for proc in /proc/[0-9]*; do
+    cwd=$(readlink "$proc/cwd" 2>/dev/null) || continue
+    case "$cwd/" in "$1"/*) return 0 ;; esac
+  done
+  return 1
+}
+
+idle() {
+  while busy "$1"; do
+    [ "$(date +%s)" -lt "$deadline" ] || return 1
+    sleep 0.5
+  done
+}
+
+for repository in "$slots"/*/; do
+  [ -d "$repository" ] || continue
+  for slot_file in "$repository"[0-9]*; do
+    [[ $(basename "$slot_file") =~ ^[0-9]+$ ]] || continue # not the .kept markers
+    read -r worktree base <"$slot_file"
+    if [ ! -d "$worktree" ]; then
+      rm -f "$slot_file" "$slot_file.kept"
+      continue
+    fi
+    idle "$worktree" || continue
+
+    primary=$(dirname "$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir)")
+    if [ -n "$(git -C "$worktree" status --porcelain)" ]; then
+      if [ ! -e "$slot_file.kept" ]; then
+        notify-send --app-name=claude --icon="$assets/claude.png" Claude \
+          "Kept the worktree of a stopped agent, as it holds uncommitted changes: $worktree"
+        touch "$slot_file.kept"
+      fi
+      continue
+    fi
+
+    # Spawns must not grab the slot while we free it
+    (
+      flock 9
+      busy "$worktree" && exit
+      branch=$(git -C "$worktree" branch --show-current)
+      git -C "$primary" worktree remove "$worktree" || exit
+      rm -f "$slot_file" "$slot_file.kept"
+      # Slots older than the base recording: compare to the primary's HEAD
+      base=${base:-$(git -C "$primary" rev-parse HEAD)}
+      if [ -n "$branch" ] && [ "$(git -C "$primary" rev-list --count "$base..$branch")" = 0 ]; then
+        git -C "$primary" branch --quiet -D "$branch"
+      fi
+    ) 9>"$repository/.lock"
+  done
+done

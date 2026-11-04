@@ -4,6 +4,8 @@
 # their own test databases. A slot stays taken as long as its worktree exists.
 # Usage: claude-agent-worktree <repository>
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
+# Slot files hold "<worktree> <base commit>", for claude-agent-sweep to tell
+# whether the agent committed anything.
 
 first_slot=11 last_slot=19
 
@@ -13,13 +15,17 @@ agents_dir="$(dirname "$root")/$repo-agents"
 slots_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots/$repo"
 mkdir -p "$agents_dir" "$slots_dir"
 
+# Free the slots of agents stopped without us noticing
+"$(dirname "$(readlink -f "$0")")/claude-agent-sweep"
+
 # Serialize spawns, so two of them can't grab the same slot
 exec 9>"$slots_dir/.lock"
 flock 9
 
 slot=''
 for n in $(seq "$first_slot" "$last_slot"); do
-  taken=$(cat "$slots_dir/$n" 2>/dev/null)
+  taken=''
+  [ -f "$slots_dir/$n" ] && read -r taken _ <"$slots_dir/$n"
   if [ -z "$taken" ] || [ ! -d "$taken" ]; then slot=$n; break; fi
 done
 [ -n "$slot" ] || { echo "All $repo agent slots are taken (remove some worktrees in $agents_dir)" >&2; exit 1; }
@@ -27,7 +33,8 @@ done
 worktree="$agents_dir/$repo-$slot"
 branch="agent/$repo-$slot-$(date +%m%d-%H%M)"
 git -C "$root" worktree prune
-git -C "$root" worktree add --quiet -b "$branch" "$worktree" HEAD >&2 || exit 1
+base=$(git -C "$root" rev-parse HEAD)
+git -C "$root" worktree add --quiet -b "$branch" "$worktree" "$base" >&2 || exit 1
 
-echo "$worktree" >"$slots_dir/$slot"
+echo "$worktree $base" >"$slots_dir/$slot"
 echo "$slot $worktree"

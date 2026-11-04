@@ -58,8 +58,10 @@ CONTEXT
 fi
 
 # Fish loads the claude function, which brings the settings from my dotfiles
+# Once the agent stops, its whole window goes (see claude-agent-sweep for its worktree)
 agent="${reads}rm -f $files; ${setup}claude $claude_args"
 [ -n "$prompt" ] && agent+="\$prompt"
+agent+="; $assets/claude-agent-close-window"
 
 cat >"$session_file" <<SESSION
 new_tab
