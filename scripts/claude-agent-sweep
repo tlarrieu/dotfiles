@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Drops the worktrees of stopped Claude agents (see claude-agent-worktree), the
 # ones no process runs in anymore. Those holding uncommitted changes are kept
-# (we get told once), as are the branches the agent committed on.
+# (we get told once), as are the branches the agent committed on, and the
+# worktrees holding commits on no branch (made on the detached HEAD).
 # Usage: claude-agent-sweep [--wait <seconds>]
 # --wait gives processes time to exit, e.g. right after closing an agent window.
 
@@ -40,10 +41,17 @@ for repository in "$slots"/*/; do
     idle "$worktree" || continue
 
     primary=$(dirname "$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir)")
+    kept=''
     if [ -n "$(git -C "$worktree" status --porcelain)" ]; then
+      kept='uncommitted changes'
+    elif [ -z "$(git -C "$worktree" branch --show-current)" ] &&
+      [ "$(git -C "$worktree" rev-list --count HEAD ${base:+"^$base"} --not --branches)" != 0 ]; then
+      kept='commits on no branch'
+    fi
+    if [ -n "$kept" ]; then
       if [ ! -e "$slot_file.kept" ]; then
         notify-send --app-name=claude --icon="$assets/claude.png" Claude \
-          "Kept the worktree of a stopped agent, as it holds uncommitted changes: $worktree"
+          "Kept the worktree of a stopped agent, as it holds $kept: $worktree"
         touch "$slot_file.kept"
       fi
       continue

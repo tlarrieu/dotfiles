@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Creates an isolated git worktree for a Claude agent, on its own branch, and
-# reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
+# Creates an isolated git worktree for a Claude agent, on a detached HEAD at the
+# repository's current commit (the agent creates its branch when it first needs
+# to commit: the checked out branch can't be shared with the primary worktree,
+# whose files would fall out of sync on commits), and reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
 # their own test databases. A slot stays taken as long as its worktree exists.
 # Usage: claude-agent-worktree <repository>
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
@@ -31,10 +33,9 @@ done
 [ -n "$slot" ] || { echo "All $repo agent slots are taken (remove some worktrees in $agents_dir)" >&2; exit 1; }
 
 worktree="$agents_dir/$repo-$slot"
-branch="agent/$repo-$slot-$(date +%m%d-%H%M)"
 git -C "$root" worktree prune
 base=$(git -C "$root" rev-parse HEAD)
-git -C "$root" worktree add --quiet -b "$branch" "$worktree" "$base" >&2 || exit 1
+git -C "$root" worktree add --quiet --detach "$worktree" "$base" >&2 || exit 1
 
 echo "$worktree $base" >"$slots_dir/$slot"
 echo "$slot $worktree"

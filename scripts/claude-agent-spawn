@@ -2,7 +2,7 @@
 # Spawns a Claude agent for the current project (~/.project), in a kitty window
 # kept in the background (see the claude-agent rule in awesome), with a neovim
 # tab next to the agent to inspect what it produces.
-# In a git repository, the agent works in its own worktree and branch, with its
+# In a git repository, the agent works in its own worktree, with its
 # own TEST_ENV_NUMBER (see claude-agent-worktree), so neither its changes nor
 # its specs get in the way of ours. claude-agent-setup/<repository> prepares
 # the worktree when it exists.
@@ -39,7 +39,8 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error=$(cat "$error_file")
   rm -f "$error_file"
   [ -n "$slot" ] || fail "Could not create the agent's worktree: $error"
-  branch=$(git -C "$directory" branch --show-current)
+  base=$(git -C "$primary" branch --show-current)
+  base="${base:+$base, }$(git -C "$directory" rev-parse --short HEAD)"
   env="--env TEST_ENV_NUMBER=$slot"
 
   hook="$assets/claude-agent-setup/$(basename "$primary")"
@@ -47,9 +48,11 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
 
   context_file=$(mktemp "$spawn_dir/context.XXXXXX")
   cat >"$context_file" <<CONTEXT
-You work in a git worktree of your own, $directory, on branch $branch, apart from
-the user's checkout ($primary), which you must leave alone: make your changes
-and run your commands here. TEST_ENV_NUMBER=$slot gives your specs their own
+You work in a git worktree of your own, $directory, apart from the user's
+checkout ($primary), which you must leave alone: make your changes and run your
+commands here. It sits on a detached HEAD, at the user's current commit
+($base): before your first commit, create a branch named after your work
+(git switch -c <name>), and never commit on the detached HEAD. TEST_ENV_NUMBER=$slot gives your specs their own
 test databases and Redis: keep it as is.
 CONTEXT
   reads+="set -l context (string collect < $context_file); "
