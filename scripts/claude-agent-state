@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Claude Code hook: tracks agent state for the awesome panel widget.
-# Usage (from hooks): claude-agent-state <running|done|attention|end|subagent>
+# Usage (from hooks): claude-agent-state <idle|running|done|attention|end|subagent>
+# (idle: a session just started, resumed or cleared: tracked, but nothing to tell)
 # State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> =>
 #   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript> <since>"
 # where <since> is when the current turn started (last prompt submission).

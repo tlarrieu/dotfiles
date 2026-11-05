@@ -6,11 +6,11 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "^(startup)$",
+        "matcher": "^(startup|resume|clear)$",
         "hooks": [
           {
             "type": "command",
-            "command": "~/scripts/claude-agent-state done",
+            "command": "~/scripts/claude-agent-state idle",
             "timeout": 5
           }
         ]
