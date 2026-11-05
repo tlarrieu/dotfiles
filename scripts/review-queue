@@ -35,9 +35,10 @@ rm -f "$state/.misconfigured"
 
 [ "$1" = --cached ] && { cat "$queue"; exit 0; }
 
-# Timer runs and manual refreshes must not notify twice
+# Timer runs and manual refreshes must not notify twice. One already
+# running? It will refresh the panel when done: show what we have
 exec 9>"$state/.lock"
-flock 9
+flock -n 9 || { cat "$queue"; exit 0; }
 
 read -r -d '' query <<'GRAPHQL'
 query($q: String!) {
@@ -60,7 +61,7 @@ GRAPHQL
 # Requested at: my latest (re-)request, so being added late or re-requested
 # restarts the clock
 # shellcheck disable=SC2016 # $me and $at are jq variables
-fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
   .data.viewer.login as $me
   | .data.search.nodes[]
   | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $at

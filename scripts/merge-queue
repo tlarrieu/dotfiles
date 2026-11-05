@@ -40,9 +40,10 @@ rm -f "$state/.misconfigured"
 
 [ "$1" = --cached ] && { cat "$cache"; exit 0; }
 
-# Timer runs and manual refreshes must not notify twice
+# Timer runs and manual refreshes must not notify twice. One already
+# running? It will refresh the panel when done: show what we have
 exec 9>"$state/.lock"
-flock 9
+flock -n 9 || { cat "$cache"; exit 0; }
 
 read -r -d '' query <<'GRAPHQL'
 query($q: String!) {
@@ -69,7 +70,7 @@ GRAPHQL
 # GitHub computes it: not ready yet, next time maybe).
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
 # shellcheck disable=SC2016 # $e, $c, $auto, $title, $queue and $blocker are jq variables
-fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
   ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
   | [ .data.search.nodes[]
       | (.title | gsub("[\t\n]"; " ")) as $title
@@ -165,7 +166,7 @@ while IFS=$'\t' read -r repo number enqueued; do
   [ -n "$repo" ] || continue
   grep -qxF "$repo"$'\t'"$number"$'\t'"$enqueued" <<<"$current" && continue
 
-  left=$(gh api graphql -f query="$left_query" -f owner="${repo%/*}" -f name="${repo#*/}" -F number="$number" --jq '
+  left=$(timeout 60 gh api graphql -f query="$left_query" -f owner="${repo%/*}" -f name="${repo#*/}" -F number="$number" --jq '
     .data.repository.pullRequest
     | [(if .merged then "merged" else (.timelineItems.nodes[0].reason // (.state | ascii_downcase)) end),
        .url, (.title | gsub("[\t\n]"; " "))]
