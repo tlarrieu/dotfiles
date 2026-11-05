@@ -94,7 +94,8 @@ local rebuild = function(out)
   local busy = false
   blinking = {}
 
-  for state, since, _, project in out:gmatch('%d+ (%S+) (%S+) (%S+) (%S+)') do
+  for _, agent in ipairs(require('records').parse(out)) do
+    local state, since, project = agent.state, agent.since, agent.project
     ---@cast state AgentState
     busy = busy or state ~= 'idle'
 

@@ -2,9 +2,9 @@
 # Claude Code hook: tracks agent state for the awesome panel widget.
 # Usage (from hooks): claude-agent-state <idle|running|done|attention|end|subagent>
 # (idle: a session just started, resumed or cleared: tracked, but nothing to tell)
-# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> =>
-#   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript> <since>"
-# where <since> is when the current turn started (last prompt submission).
+# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id>, see
+# lib/claude-agents.sh for their fields (<since>: when the current turn
+# started, i.e. the last prompt submission).
 # A "done" session whose terminal is on screen is stored as "idle" (already seen);
 # the panel turns the remaining "done" ones into "idle" once they get displayed.
 # Live subagents are tracked as $XDG_RUNTIME_DIR/claude-agents/<session_id>.subagents/<agent_id>
@@ -18,10 +18,13 @@ input=$(cat)
 session=$(jq -r '.session_id // empty' <<<"$input")
 [ -n "$session" ] || exit 0
 
-dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
-file="$dir/$session"
+assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh"
+
+file="$agents_dir/$session"
 subagents="$file.subagents"
-mkdir -p "$dir"
+mkdir -p "$agents_dir"
 
 refresh_panel() { awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1 & }
 
@@ -76,7 +79,6 @@ while [ "$pid" -gt 1 ] && [ "$(cat /proc/"$pid"/comm 2>/dev/null)" != claude ]; 
   pid=$(awk '{ print $4 }' /proc/"$pid"/stat 2>/dev/null || echo 1)
 done
 
-assets=$(dirname "$(readlink -f "$0")")
 window=${WINDOWID:--} listen_on=${KITTY_LISTEN_ON:--} kitty_window=${KITTY_WINDOW_ID:--}
 
 displayed=false
@@ -85,15 +87,19 @@ attention | done) "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitt
 esac
 [ "$state" = "done" ] && $displayed && state=idle
 
-read -r previous _ started _ _ _ _ _ since 2>/dev/null <"$file"
+read_agent "$file" previous_
+# shellcheck disable=SC2034 # these fields are written by name (write_agent)
+started=${previous_started:-$(date +%s)} since=${previous_since:-$(date +%s)}
 # A prompt starts a new turn, even when an interrupt (which fires no hook) left
 # the session as running
+# shellcheck disable=SC2034,SC2154 # since is written by write_agent, previous_state set by read_agent
 if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = UserPromptSubmit ]; then
   since=$(date +%s)
-elif [ "$previous" = "$state" ]; then
+elif [ "$previous_state" = "$state" ]; then
   exit 0 # nothing changed, avoid pinging awesome
 fi
 
+# shellcheck disable=SC2034 # written by write_agent
 transcript=$(jq -r '.transcript_path // empty' <<<"$input")
 # Project: name of the git repository holding the session's cwd, else the cwd itself
 cwd=$(jq -r '.cwd // empty' <<<"$input")
@@ -101,7 +107,7 @@ cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
-echo "$state $pid ${started:-$(date +%s)} $window $listen_on $kitty_window $project ${transcript:--} ${since:-$(date +%s)}" >"$file"
+write_agent "$file"
 refresh_panel
 
 if [ "$state" = attention ]; then

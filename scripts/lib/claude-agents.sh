@@ -1,0 +1,47 @@
+# shellcheck shell=bash
+# Shared by the Claude agent scripts. Source it: . "$assets/lib/claude-agents.sh"
+
+# Live sessions, one state file each, named after the session id (see
+# claude-agent-state, which writes them; dot files are temporary)
+agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+
+# A state file holds one line: these fields, space separated
+#   state         running, done, idle or attention
+#   pid           the claude process
+#   started       when the session started (epoch)
+#   window        its terminal's X window id
+#   listen_on     its kitty's remote control socket
+#   kitty_window  its kitty window id
+#   project       the git repository (or directory) it runs in
+#   transcript    its transcript path
+#   since         when the current turn started (epoch)
+# Missing values are written as -.
+agent_fields=(state pid started window listen_on kitty_window project transcript since)
+
+# Sets the fields of state file <file> as variables, each name prefixed with
+# [prefix] (all empty when the file is missing)
+# Usage: read_agent <file> [prefix]
+read_agent() {
+  local -a names=("${agent_fields[@]/#/$2}")
+  local name
+  for name in "${names[@]}"; do printf -v "$name" ''; done
+  [ -f "$1" ] && read -r "${names[@]}" <"$1"
+  return 0
+}
+
+# Writes the field variables to state file <file> at once (through a rename),
+# so that readers never see it half written
+# Usage: write_agent <file>
+write_agent() {
+  local name tmp
+  local -a values=()
+  for name in "${agent_fields[@]}"; do values+=("${!name:--}"); done
+  tmp=$(mktemp "$agents_dir/.write.XXXXXX") || return 1
+  echo "${values[*]}" >"$tmp" && mv "$tmp" "$1"
+}
+
+# Whether <pid> is a live claude process (not a dead one's reused pid)
+alive() {
+  case "$1" in "" | *[!0-9]*) return 1 ;; esac
+  [ "$(cat "/proc/$1/comm" 2>/dev/null)" = claude ]
+}

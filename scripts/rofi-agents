@@ -3,7 +3,10 @@
 # New agents are spawned from rofi-search ('cl' keyword, see claude-agent-spawn).
 
 assets=$(dirname "$(readlink -f "$0")")
-dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/records.sh
+. "$assets/lib/records.sh"
 
 declare -A faces=([running]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
 
@@ -26,13 +29,16 @@ title() {
 
 sessions=()
 lines=()
-while read -r _ state since session project; do
-  read -r _ _ _ _ _ _ _ transcript _ <"$dir/$session"
-  duration=''
+# Adds a claude-agent-list record
+# shellcheck disable=SC2154 # record and state file fields, set by each_record and read_agent
+agent() {
+  local duration=''
+  read_agent "$agents_dir/$session" agent_
   [ "$state" = running ] && [ "$since" != - ] && duration=$(elapsed "$since")
   sessions+=("$session")
-  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(title "$transcript")")")
-done < <("$assets/claude-agent-list")
+  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(title "$agent_transcript")")")
+}
+each_record agent < <("$assets/claude-agent-list")
 
 if [ ${#sessions[@]} -eq 0 ]; then
   notify-send --app-name=claude Claude "No agent running (spawn one with 'cl' in rofi-search)"

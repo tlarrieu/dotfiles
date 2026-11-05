@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Lists live Claude agents (fed by claude-agent-state hooks):
-#   <started> <state> <since> <session> <project>
+# Lists live Claude agents (fed by claude-agent-state hooks), as records (see
+# lib/records.sh) of fields started, state, since, session and project.
 # Ordered by project (main jeancaisse, main dotfiles, jeancaisse agent worktrees
 # by slot, then the others by name), then by start time.
 # <since> is when the current turn started ("-" when unknown).
-# Prunes sessions whose process died.
+# Prunes sessions whose process died (or whose pid a new process took).
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
 # session whose transcript ends with an interrupt marker is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
@@ -13,6 +13,8 @@
 # unless they wait for us.
 
 assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh"
 
 interrupted() {
   [ -f "$1" ] && tail -n 50 "$1" | jq -se '
@@ -22,20 +24,23 @@ interrupted() {
   ' >/dev/null 2>&1
 }
 
-for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
+printf '#started\tstate\tsince\tsession\tproject\n'
+# shellcheck disable=SC2154 # state file fields, set by read_agent
+for f in "$agents_dir"/*; do
   if [ -d "$f" ]; then
     [ -f "${f%.subagents}" ] || rm -rf "$f" # session gone
     continue
   fi
   [ -f "$f" ] || continue
-  read -r state pid started window listen_on kitty_window project transcript since <"$f"
-  if ! kill -0 "$pid" 2>/dev/null; then rm -rf "$f" "$f.subagents"; continue; fi
+  read_agent "$f"
+  # Never half written (write_agent renames them into place): no pid means none
+  if ! alive "$pid"; then rm -rf "$f" "$f.subagents"; continue; fi
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
     if "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window"; then
       state=idle
-      sed -i '1s/^done /idle /' "$f"
+      write_agent "$f"
     fi
     ;;
   esac
@@ -44,11 +49,11 @@ for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
-  echo "$started $state ${since:--} $(basename "$f") $project"
-done | awk '{
+  printf '%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project"
+done | awk -F'\t' -v OFS='\t' '{
   rank = 3; slot = 0
   if ($5 == "jeancaisse") rank = 0
   else if ($5 == "dotfiles") rank = 1
   else if ($5 ~ /^jeancaisse-[0-9]+$/) { rank = 2; slot = substr($5, 12) }
   print rank, slot, $5, $0
-}' | sort -k1,1n -k2,2n -k3,3 -k4,4n | cut -d' ' -f4-
+}' | sort -t$'\t' -k1,1n -k2,2n -k3,3 -k4,4n | cut -f4-
