@@ -10,7 +10,7 @@
 # Done sessions become idle (and stay so) once their terminal gets displayed.
 # Sessions with live subagents are reported as running. Subagents silent for
 # 10 minutes are deemed gone (in case their SubagentStop hook never fired),
-# unless they wait for us.
+# even those that were waiting for us: an Esc on their prompt fires no hook.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
@@ -45,7 +45,7 @@ for f in "$agents_dir"/*; do
     ;;
   esac
   if [ -d "$f.subagents" ]; then
-    find "$f.subagents" -type f -empty -mmin +10 -delete
+    find "$f.subagents" -type f -mmin +10 -delete
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
