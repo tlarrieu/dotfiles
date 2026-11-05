@@ -55,7 +55,7 @@ while :; do
   code=$?
 
   case $code in
-    0) [ -n "$choice" ] && exec browser-with-context "${urls[$choice]}"; exit 0 ;;
+    0) [ -n "$choice" ] && exec browser-kiosk "${urls[$choice]}"; exit 0 ;;
     10) mode='' ;;
     *) exit 0 ;;
   esac

@@ -75,10 +75,7 @@ notify() { # <urgency> <title> <body> <url>
   # Clicking the notification opens the pull request; waiting for that click
   # happens detached, so that we don't hold our caller's output open
   # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
-  setsid -f sh -c '
-    [ "$(notify-send --app-name=reviews --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] \
-      && exec browser-with-context "$4"
-  ' sh "$@" >/dev/null 2>&1
+  setsid -f sh -c '[ "$(notify-send --app-name=reviews --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1
 }
 
 first_run=''
