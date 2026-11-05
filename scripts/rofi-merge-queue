@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# Rofi hub for my pull requests in the merge queue, and those ready to join it
+# (see merge-queue). Enter: open in the browser. Alt+r: refresh from GitHub.
+# Alt+q: open the merge queue page of the selected pull request's repository.
+
+assets=$(dirname "$(readlink -f "$0")")
+mode=--cached
+
+declare -A faces=(
+  [QUEUED]='󰔟'
+  [AWAITING_CHECKS]='󰦖'
+  [MERGEABLE]='󰄬'
+  [UNMERGEABLE]='󰀦'
+  [LOCKED]='󰌾'
+  [READY]='󰐕'
+)
+
+escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
+
+while :; do
+  queue=$("$assets/merge-queue" $mode 2>&1)
+  status=$?
+  mode=--cached
+
+  if [ "$status" -eq 2 ]; then
+    notify-send --app-name=merge-queue --urgency=critical "Merge queue not watched" "${queue#merge-queue: }"
+    exit 1
+  fi
+
+  if [ -z "$queue" ]; then
+    notify-send --app-name=merge-queue "Merge queue" "Nothing queued, nothing ready to enqueue"
+    exit 0
+  fi
+
+  urls=()
+  queues=()
+  lines=()
+  while IFS=$'\t' read -r kind _ number position state eta url queue_url title; do
+    [ -n "$url" ] || continue # a GitHub failure message, past the (stale) queue
+    if [ "$kind" = ready ]; then
+      where='ready' when=''
+    else
+      where="#$position"
+      if [ "$eta" = - ]; then when='?'
+      elif [ "$eta" -lt 3600 ]; then when="$(((eta + 59) / 60))m"
+      else when=$(printf '%dh%02d' $((eta / 3600)) $((eta % 3600 / 60))); fi
+    fi
+    urls+=("$url")
+    queues+=("$queue_url")
+    lines+=("$(printf '%s %6s %6s  #%-7s %s' "${faces[$state]:-?}" "$where" "$when" "$number" "$(escape "$title")")")
+  done <<<"$queue"
+
+  choice=$(printf '%s\n' "${lines[@]}" | rofi -dmenu -i -markup-rows -p '' -format i \
+    -kb-custom-1 'Alt+r' -kb-custom-2 'Alt+q' -mesg 'Enter: open  •  Alt+r: refresh  •  Alt+q: queue page')
+  code=$?
+
+  case $code in
+    0) [ -n "$choice" ] && exec browser-kiosk "${urls[$choice]}"; exit 0 ;;
+    10) mode='' ;;
+    11) [ -n "$choice" ] && exec browser-kiosk "${queues[$choice]}"; exit 0 ;;
+    *) exit 0 ;;
+  esac
+done

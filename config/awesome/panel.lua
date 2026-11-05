@@ -6,6 +6,7 @@ local context = require('context')
 
 local agents = require('widgets.agents')
 local reviews = require('widgets.reviews')
+local merge_queue = require('widgets.merge_queue')
 
 -- [[ Clock ]] -----------------------------------------------------------------
 
@@ -27,6 +28,7 @@ M.init = function(screen)
   earbuds.update()
   agents.update()
   reviews.update()
+  merge_queue.update()
 
   local colors = beautiful.colors
 
@@ -97,6 +99,7 @@ M.init = function(screen)
       taglist,
       {
         reviews.widget,
+        merge_queue.widget,
         agents.widget,
         { current_context, layout = wibox.container.margin },
         { spacer, left = 10, right = 10, layout = wibox.container.margin },

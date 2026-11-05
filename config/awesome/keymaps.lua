@@ -231,6 +231,7 @@ local keyboard = {
     spawner.key({ super }, 'u', 'claude-agent-jump'),
     spawner.key({ super, shift }, ' ', 'rofi-agents'),
     spawner.key({ super, ctrl }, ' ', 'rofi-reviews'),
+    spawner.key({ super, ctrl, shift }, ' ', 'rofi-merge-queue'),
     spawner.key({ super }, 'Return', spawner.shell('rofi-theme')),
 
     spawner.key({ super, ctrl }, 'b', {

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pull requests waiting on my review, in the repositories listed in
-# ~/.config/reviews/repos (direct requests only: team ones are left out).
+# ~/.config/github/repos (direct requests only: team ones are left out).
 # Refreshes the cache, notifies new requests (and re-requests), reminds once
 # for those waiting more than a day, then prints the queue, oldest first.
 # Usage: review-queue [--cached]  (--cached: print the cache, skip GitHub)
@@ -10,8 +10,8 @@
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2. That list is private, so it stays out of the dotfiles (gitignored).
 
-config="${XDG_CONFIG_HOME:-$HOME/.config}/reviews/repos"
-state="${XDG_STATE_HOME:-$HOME/.local/state}/reviews"
+config="${XDG_CONFIG_HOME:-$HOME/.config}/github/repos"
+state="${XDG_STATE_HOME:-$HOME/.local/state}/github/reviews"
 queue="$state/queue.tsv"
 seen="$state/seen" # notified keys: <repo>#<number>@<requested at>[:stale]
 remind_after=$((24 * 3600))

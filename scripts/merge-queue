@@ -1,0 +1,166 @@
+#!/usr/bin/env bash
+# My pull requests in the merge queue, and those ready to join it (approved,
+# checks green, mergeable, not queued yet), in the repositories listed in
+# ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
+# started on an entry, merge expected within 15 minutes, merged, kicked out of
+# the queue (with GitHub's reason), ready to enqueue. Then prints the cache.
+# Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
+# Output (tab separated): <kind: queued|ready> <repo> <number> <position>
+#   <state> <estimated seconds to merge> <url> <queue url> <title>
+#   (- when not applicable)
+# On a GitHub failure, prints the cache (stale) and exits 1.
+# Without repositories to watch, complains (notifying once, until fixed) and
+# exits 2.
+
+config="${XDG_CONFIG_HOME:-$HOME/.config}/github/repos"
+state="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue"
+cache="$state/queue.tsv"
+queued="$state/queued" # entries seen in the queue last time: <repo> <number> <enqueued at>
+seen="$state/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event>, <repo>#<number>:ready
+near=$((15 * 60))
+
+mkdir -p "$state"
+touch "$cache" "$queued" "$seen"
+
+repos=$(grep -vE '^\s*(#|$)' "$config" 2>/dev/null | sed 's/^/repo:/' | tr '\n' ' ')
+if [ -z "$repos" ]; then
+  reason="$config is missing"
+  [ -f "$config" ] && reason="$config lists no repository"
+  message="$reason: list the repositories to watch there, one owner/repo per line"
+  echo "merge-queue: $message" >&2
+  if [ ! -f "$state/.misconfigured" ]; then
+    touch "$state/.misconfigured"
+    notify-send --app-name=merge-queue --urgency=critical "Merge queue not watched" "$message"
+  fi
+  exit 2
+fi
+rm -f "$state/.misconfigured"
+
+[ "$1" = --cached ] && { cat "$cache"; exit 0; }
+
+# Timer runs and manual refreshes must not notify twice
+exec 9>"$state/.lock"
+flock 9
+
+read -r -d '' query <<'GRAPHQL'
+query($q: String!) {
+  search(type: ISSUE, first: 100, query: $q) {
+    nodes {
+      ... on PullRequest {
+        number title url baseRefName isInMergeQueue reviewDecision mergeable
+        repository { nameWithOwner }
+        mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
+        commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
+      }
+    }
+  }
+}
+GRAPHQL
+
+# Lines: <kind> <repo> <number> <position> <state> <eta> <url> <queue url> <title> <enqueued at>
+# (mergeable is UNKNOWN until GitHub computes it: not ready yet, next time maybe)
+# shellcheck disable=SC2016 # $e, $title and $queue are jq variables
+fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open draft:false author:@me $repos" --jq '
+  .data.search.nodes[]
+  | (.title | gsub("[\t\n]"; " ")) as $title
+  | "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)" as $queue
+  | if .mergeQueueEntry then
+      .mergeQueueEntry as $e
+      | ["queued", .repository.nameWithOwner, .number, $e.position, $e.state,
+         ($e.estimatedTimeToMerge // "-"), .url, $queue, $title, $e.enqueuedAt]
+    elif .reviewDecision == "APPROVED" and .mergeable == "MERGEABLE"
+         and .commits.nodes[0].commit.statusCheckRollup.state == "SUCCESS" then
+      ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .url, $queue, $title, "-"]
+    else empty end
+  | @tsv
+' 2>/dev/null) || { cat "$cache"; exit 1; }
+
+fresh=$(sed '/^$/d' <<<"$fresh" | sort -t$'\t' -k1,1 -k4,4n)
+
+notify() { # <urgency> <title> <body> <url>
+  # Clicking the notification opens the url; waiting for that click happens
+  # detached, so that we don't hold our caller's output open
+  # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
+  setsid -f sh -c '[ "$(notify-send --app-name=merge-queue --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1
+}
+
+once() { # <key>: true the first time a key is seen (and remembers it)
+  grep -qxF "$1" "$seen" && return 1
+  echo "$1" >>"$seen"
+  # First run: remember silently, no flood for what's already there
+  [ -f "$state/.initialized" ]
+}
+
+keys=()
+current=''
+
+while IFS=$'\t' read -r kind repo number position status eta url _ title enqueued; do
+  if [ "$kind" = ready ]; then
+    keys+=("$repo#$number:ready")
+    once "$repo#$number:ready" && notify normal "Ready to enqueue" "$title"$'\n'"$repo#$number" "$url"
+    continue
+  fi
+
+  current+="$repo"$'\t'"$number"$'\t'"$enqueued"$'\n'
+  entry="$repo#$number@$enqueued"
+  keys+=("$entry:checks" "$entry:near")
+
+  # Being tested in a merge group (MERGEABLE: already passed, between polls)
+  if [ "$status" = AWAITING_CHECKS ] || [ "$status" = MERGEABLE ]; then
+    once "$entry:checks" && notify normal "Merge queue checks started" "$title"$'\n'"$repo#$number, position $position" "$url"
+  fi
+
+  if [ "$eta" != - ] && [ "$eta" -le "$near" ]; then
+    once "$entry:near" && notify normal "Merging in about $(((eta + 59) / 60)) min" "$title"$'\n'"$repo#$number, position $position" "$url"
+  fi
+done <<<"$fresh"
+
+# Entries gone from the queue: merged, or kicked out (GitHub tells us why)
+read -r -d '' left_query <<'GRAPHQL'
+query($owner: String!, $name: String!, $number: Int!) {
+  repository(owner: $owner, name: $name) {
+    pullRequest(number: $number) {
+      merged state title url
+      timelineItems(itemTypes: [REMOVED_FROM_MERGE_QUEUE_EVENT], last: 1) {
+        nodes { ... on RemovedFromMergeQueueEvent { reason } }
+      }
+    }
+  }
+}
+GRAPHQL
+
+while IFS=$'\t' read -r repo number enqueued; do
+  [ -n "$repo" ] || continue
+  grep -qxF "$repo"$'\t'"$number"$'\t'"$enqueued" <<<"$current" && continue
+
+  left=$(gh api graphql -f query="$left_query" -f owner="${repo%/*}" -f name="${repo#*/}" -F number="$number" --jq '
+    .data.repository.pullRequest
+    | [(if .merged then "merged" else (.timelineItems.nodes[0].reason // (.state | ascii_downcase)) end),
+       .url, (.title | gsub("[\t\n]"; " "))]
+    | @tsv
+  ' 2>/dev/null) || { current+="$repo"$'\t'"$number"$'\t'"$enqueued"$'\n'; continue; } # retry next time
+  IFS=$'\t' read -r reason url title <<<"$left"
+
+  [ -f "$state/.initialized" ] || continue
+  case $reason in
+    merged) notify normal "Merged" "$title"$'\n'"$repo#$number" "$url" ;;
+    manual) notify normal "Removed from the merge queue" "$title"$'\n'"$repo#$number" "$url" ;;
+    *) notify critical "Kicked out of the merge queue: ${reason//_/ }" "$title"$'\n'"$repo#$number" "$url/checks" ;;
+  esac
+done <"$queued"
+
+printf '%s' "$current" >"$queued"
+
+# Forget what's gone, so that a new entry (or readiness) notifies again
+if [ ${#keys[@]} -gt 0 ]; then
+  grep -xF -f <(printf '%s\n' "${keys[@]}") "$seen" >"$seen.tmp"
+else
+  : >"$seen.tmp"
+fi
+mv "$seen.tmp" "$seen"
+touch "$state/.initialized"
+
+cut -f1-9 <<<"$fresh" | sed '/^$/d' >"$cache.tmp" && mv "$cache.tmp" "$cache"
+# Whoever refreshed, the panel follows (it rereads the cache)
+awesome-client 'awesome.emit_signal("merge-queue::changed")' >/dev/null 2>&1
+cat "$cache"

@@ -19,6 +19,8 @@
 
 ---@class Timer A gears.timer
 ---@field started boolean
+---@field timeout number Seconds between callbacks
+---@field again fun(self: Timer) Restart, with the current timeout
 ---@field start fun(self: Timer)
 ---@field stop fun(self: Timer)
 ---@field connect_signal fun(self: Timer, name: string, callback: fun())

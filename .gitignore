@@ -53,7 +53,7 @@ config/rofi/light.rasi
 config/rofi/dark.rasi
 config/zathura/light
 config/zathura/dark
-config/reviews/repos
+config/github/repos
 
 config/herdr/*
 !config/herdr/config.toml
