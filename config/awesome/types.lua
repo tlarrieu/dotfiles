@@ -28,6 +28,13 @@
 ---@class Tooltip An awful.tooltip
 ---@field text string
 ---@field markup string
+---@field get_wibox fun(self: Tooltip): Wibox The window it shows in
+
+---@class Wibox A wibox (window), e.g. a tooltip's
+---@field x number
+---@field width number
+---@field screen Screen
+---@field connect_signal fun(self: Wibox, name: string, callback: fun())
 
 ---@alias SpawnCallback fun(stdout: string, stderr: string, reason: 'exit'|'signal', code: integer)
 
@@ -40,6 +47,7 @@
 ---@field tags table[]
 ---@field selected_tag table?
 ---@field wibar table? The panel (see panel.lua)
+---@field geometry { x: number, y: number, width: number, height: number }
 
 ---@class Client An awesome client (window); only the fields read off typed values
 ---@field valid boolean

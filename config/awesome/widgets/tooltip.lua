@@ -2,6 +2,7 @@
 --- Colors and font come from the theme (theme.lua: tooltip_*).
 
 local awful = require('awful')
+local beautiful = require('beautiful')
 
 local M = {}
 
@@ -10,7 +11,8 @@ local M = {}
 ---@param object Widget The widget hovering shows the tooltip for
 ---@return Tooltip
 M.make = function(object)
-  return awful.tooltip({
+  ---@type Tooltip
+  local tooltip = awful.tooltip({
     objects = { object },
     mode = 'outside',
     preferred_alignments = { 'middle' },
@@ -18,6 +20,19 @@ M.make = function(object)
     margin_topbottom = 12,
     gaps = { top = 6, bottom = 6, left = 0, right = 0 },
   })
+
+  -- Keep off the screen's right edge, in line with the tiled clients (two
+  -- useless gaps in): awesome only keeps tooltips on screen, flush with the
+  -- edge. Placed on every show and content change; moving it signals
+  -- again, then it's already in place
+  local window = tooltip:get_wibox()
+  window:connect_signal('property::geometry', function()
+    local screen_geometry = window.screen.geometry
+    local right = screen_geometry.x + screen_geometry.width - 2 * beautiful.useless_gap
+    if window.x + window.width > right then window.x = right - window.width end
+  end)
+
+  return tooltip
 end
 
 return M
