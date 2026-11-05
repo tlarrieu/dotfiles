@@ -43,6 +43,11 @@ return {
 
     theme.notification_font = theme.font
 
+    theme.tooltip_bg = theme.notification_bg
+    theme.tooltip_fg = theme.notification_fg
+    theme.tooltip_border_width = 0
+    theme.tooltip_font = ('%s 12'):format(font_name)
+
     beautiful.init(theme)
 
     naughty.config.padding = 18
