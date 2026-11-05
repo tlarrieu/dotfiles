@@ -50,10 +50,19 @@ M.make = function(icon, device_pattern)
     widget       = wibox.widget.progressbar,
   })
 
+  -- Room for the icon, whatever its glyph: two cells of the panel font at
+  -- the icon's size, so that the bars line up
+  ---@type number
+  local icon_width = wibox.widget.textbox.get_markup_geometry('<span size="large">00</span>', screen.primary).width
+
   ---@type Widget
   local widget = wibox.widget({
     {
-      { markup = ('<span size="large">%s</span>'):format(icon), widget = wibox.widget.textbox },
+      {
+        markup = ('<span size="large">%s</span>'):format(icon),
+        forced_width = icon_width,
+        widget = wibox.widget.textbox,
+      },
       { bar, top = 10, bottom = 10, layout = wibox.container.margin },
       layout = wibox.layout.fixed.horizontal,
     },

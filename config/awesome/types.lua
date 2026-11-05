@@ -82,6 +82,7 @@ root = {}
 ---@field run fun(callback: MousegrabberCallback, cursor: string)
 mousegrabber = {}
 
---- The screen global, iterated with `for s in screen do`
----@type fun(): Screen?
-screen = nil
+---@class ScreenGlobal The screen global, iterated with `for s in screen do`
+---@field primary Screen
+---@overload fun(): Screen?
+screen = {}
