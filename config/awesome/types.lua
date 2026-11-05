@@ -13,6 +13,10 @@
 ---@field buttons fun(self: Widget, buttons: table)
 ---@field set_children fun(self: Widget, children: Widget[])
 
+---@class ProgressBar: Widget A wibox.widget.progressbar
+---@field value number
+---@field background_color string #rrggbb (the filled part, with our theme)
+
 ---@class Timer A gears.timer
 ---@field started boolean
 ---@field start fun(self: Timer)
