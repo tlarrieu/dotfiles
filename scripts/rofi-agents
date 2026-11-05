@@ -32,7 +32,7 @@ agent() {
 each_record agent < <("$assets/claude-agent-list")
 
 if [ ${#sessions[@]} -eq 0 ]; then
-  notify-send --app-name=claude Claude "No agent running (spawn one with 'cl' in rofi-search)"
+  notify-send --app-name=claude --icon="$assets/claude.png" Claude "No agent running (spawn one with 'cl' in rofi-search)"
   exit 0
 fi
 
