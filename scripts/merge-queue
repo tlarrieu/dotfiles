@@ -4,7 +4,8 @@
 # blocks them), in the repositories listed in
 # ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
 # started on an entry, merge expected within 15 minutes, merged, kicked out of
-# the queue (with GitHub's reason), ready to enqueue. Then prints the cache.
+# the queue (with GitHub's reason), ready to enqueue (unless auto-merge is
+# on). Then prints the cache.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output (tab separated): <kind: queued|ready|other> <repo> <number> <position>
 #   <state> <time> <additions> <deletions> <auto merge: auto|-> <url>
@@ -124,11 +125,12 @@ once() { # <key>: true the first time a key is seen (and remembers it)
 keys=()
 current=''
 
-while IFS=$'\t' read -r kind repo number position status eta _ _ _ url _ title enqueued; do
+while IFS=$'\t' read -r kind repo number position status eta _ _ auto url _ title enqueued; do
   [ -n "$repo" ] || continue # no pull request: <<< still feeds one empty line
   [ "$kind" = other ] && continue # nothing to tell until it's ready
 
   if [ "$kind" = ready ]; then
+    [ "$auto" = auto ] && continue # GitHub enqueues it by itself
     keys+=("$repo#$number:ready")
     once "$repo#$number:ready" && notify normal "Ready to enqueue" "$title"$'\n'"$repo#$number" "$url"
     continue

@@ -92,7 +92,9 @@ local render = function(out, _, _, code)
       '^(%a+)\t([^\t]+)\t(%d+)\t[^\t]+\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t([^\t]*)\t[^\t]*\t[^\t]*\t(.*)$')
     if kind == 'ready' or kind == 'other' then
       local info = states[state] or { label = state:lower(), urgency = 'waiting' }
-      urgencies[info.urgency] = true
+      -- Ready with auto-merge on: GitHub enqueues it, nothing for me to do
+      local urgency = (info.urgency == 'ready' and auto == 'auto') and 'waiting' or info.urgency
+      urgencies[urgency] = true
       local since = tonumber(time)
       table.insert(rows, ('<b>%8s</b>  %3s %s %s#%s  %s'):format(
         info.label, since and age(now - since --[[@as integer]]) or '', auto_mark(auto),
