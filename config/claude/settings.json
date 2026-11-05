@@ -93,6 +93,28 @@
           }
         ]
       }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state subagent",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/scripts/claude-agent-state subagent",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   }
 }

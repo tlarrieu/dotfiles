@@ -1,17 +1,28 @@
 #!/usr/bin/env bash
 # Claude Code hook: tracks agent state for the awesome panel widget.
-# Usage (from hooks): claude-agent-state <running|done|attention|end>
+# Usage (from hooks): claude-agent-state <running|done|attention|end|subagent>
 # State files: $XDG_RUNTIME_DIR/claude-agents/<session_id> =>
 #   "<state> <pid> <started> <x_window> <kitty_listen_on> <kitty_window> <project> <transcript> <since>"
 # where <since> is when the current turn started (last prompt submission).
 # A "done" session whose terminal is on screen is stored as "idle" (already seen);
 # the panel turns the remaining "done" ones into "idle" once they get displayed.
+# Live subagents are tracked as $XDG_RUNTIME_DIR/claude-agents/<session_id>.subagents/<agent_id>
+# markers (touched on each of their tool uses), so that a session whose main
+# agent is done still shows as running while subagents work. Subagents needing
+# us mark the session for attention, as the main agent does.
 
 state="$1"
 input=$(cat)
 
-# Skip subagents: only the main agent matters
-[ -n "$(jq -r '.agent_id // empty' <<<"$input")" ] && exit 0
+session=$(jq -r '.session_id // empty' <<<"$input")
+[ -n "$session" ] || exit 0
+
+dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+file="$dir/$session"
+subagents="$file.subagents"
+mkdir -p "$dir"
+
+refresh_panel() { awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1 & }
 
 # Only idle reminders and auth notices do not require attention
 if [ "$state" = attention ]; then
@@ -20,17 +31,40 @@ if [ "$state" = attention ]; then
   esac
 fi
 
-session=$(jq -r '.session_id // empty' <<<"$input")
-[ -n "$session" ] || exit 0
-
-dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
-file="$dir/$session"
-mkdir -p "$dir"
-
-refresh_panel() { awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1 & }
+# Subagents keep their session marked as running, and surface their requests
+# for attention on it. A marker holding "attention" is a subagent waiting for us:
+# its next tool use (or its end) puts the session back to running.
+agent=$(jq -r '.agent_id // empty' <<<"$input")
+if [ -n "$agent" ]; then
+  marker="$subagents/$agent"
+  waiting=false
+  [ "$(cat "$marker" 2>/dev/null)" = attention ] && waiting=true
+  case "$state" in
+  subagent)
+    if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = SubagentStop ]; then
+      rm -f "$marker"
+      rmdir "$subagents" 2>/dev/null
+      $waiting || { refresh_panel; exit 0; }
+      state=running
+    else
+      mkdir -p "$subagents" && touch "$marker"
+      refresh_panel
+      exit 0
+    fi
+    ;;
+  running)
+    [ -f "$marker" ] || exit 0
+    : >"$marker" # empties it, and refreshes its mtime
+    $waiting || exit 0
+    ;;
+  attention) mkdir -p "$subagents" && echo attention >"$marker" ;;
+  *) exit 0 ;;
+  esac
+fi
+[ "$state" = subagent ] && exit 0
 
 if [ "$state" = end ]; then
-  rm -f "$file"
+  rm -rf "$file" "$subagents"
   refresh_panel
   exit 0
 fi

@@ -8,6 +8,9 @@
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
 # session whose transcript ends with an interrupt marker is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
+# Sessions with live subagents are reported as running. Subagents silent for
+# 10 minutes are deemed gone (in case their SubagentStop hook never fired),
+# unless they wait for us.
 
 assets=$(dirname "$(readlink -f "$0")")
 
@@ -20,9 +23,13 @@ interrupted() {
 }
 
 for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
+  if [ -d "$f" ]; then
+    [ -f "${f%.subagents}" ] || rm -rf "$f" # session gone
+    continue
+  fi
   [ -f "$f" ] || continue
   read -r state pid started window listen_on kitty_window project transcript since <"$f"
-  if ! kill -0 "$pid" 2>/dev/null; then rm -f "$f"; continue; fi
+  if ! kill -0 "$pid" 2>/dev/null; then rm -rf "$f" "$f.subagents"; continue; fi
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
@@ -32,6 +39,11 @@ for f in "${XDG_RUNTIME_DIR:-/tmp}"/claude-agents/*; do
     fi
     ;;
   esac
+  if [ -d "$f.subagents" ]; then
+    find "$f.subagents" -type f -empty -mmin +10 -delete
+    rmdir "$f.subagents" 2>/dev/null
+    case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
+  fi
   echo "$started $state ${since:--} $(basename "$f") $project"
 done | awk '{
   rank = 3; slot = 0
