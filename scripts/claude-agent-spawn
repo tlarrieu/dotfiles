@@ -9,7 +9,12 @@
 # Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
 
 assets=$(dirname "$(readlink -f "$0")")
-fail() { notify-send --app-name=claude Claude "$1"; exit 1; }
+fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
+
+# The agent tab removes the files passing it the prompt and context: until it
+# is launched, they're ours to clean up
+files='' launched=''
+trap '[ -n "$launched" ] || rm -f $files' EXIT
 
 # Same current project as awesome's dev window (it may hold a ~)
 project=$(cat ~/.project 2>/dev/null)
@@ -35,6 +40,7 @@ fi
 
 if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error_file=$(mktemp "$spawn_dir/error.XXXXXX")
+  files+=" $error_file"
   read -r slot directory < <("$assets/claude-agent-worktree" "$primary" 2>"$error_file")
   error=$(cat "$error_file")
   rm -f "$error_file"
@@ -80,3 +86,4 @@ launch $env fish -c nvim
 SESSION
 
 setsid -f kitty --single-instance --name claude-agent --session "$session_file" >/dev/null 2>&1
+launched=1
