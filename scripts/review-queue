@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+# Pull requests waiting on my review, in the repositories listed in
+# ~/.config/reviews/repos (direct requests only: team ones are left out).
+# Refreshes the cache, notifies new requests (and re-requests), reminds once
+# for those waiting more than a day, then prints the queue, oldest first.
+# Usage: review-queue [--cached]  (--cached: print the cache, skip GitHub)
+# Output (tab separated): <requested at, epoch> <repo> <number> <author>
+#   <additions> <deletions> <url> <title>
+# On a GitHub failure, prints the cache (stale) and exits 1.
+# Without repositories to watch, complains (notifying once, until fixed) and
+# exits 2. That list is private, so it stays out of the dotfiles (gitignored).
+
+config="${XDG_CONFIG_HOME:-$HOME/.config}/reviews/repos"
+state="${XDG_STATE_HOME:-$HOME/.local/state}/reviews"
+queue="$state/queue.tsv"
+seen="$state/seen" # notified keys: <repo>#<number>@<requested at>[:stale]
+remind_after=$((24 * 3600))
+
+mkdir -p "$state"
+touch "$queue" "$seen"
+
+repos=$(grep -vE '^\s*(#|$)' "$config" 2>/dev/null | sed 's/^/repo:/' | tr '\n' ' ')
+if [ -z "$repos" ]; then
+  reason="$config is missing"
+  [ -f "$config" ] && reason="$config lists no repository"
+  message="$reason: list the repositories to watch there, one owner/repo per line"
+  echo "review-queue: $message" >&2
+  if [ ! -f "$state/.misconfigured" ]; then
+    touch "$state/.misconfigured"
+    notify-send --app-name=reviews --urgency=critical "Reviews not watched" "$message"
+  fi
+  exit 2
+fi
+rm -f "$state/.misconfigured"
+
+[ "$1" = --cached ] && { cat "$queue"; exit 0; }
+
+# Timer runs and manual refreshes must not notify twice
+exec 9>"$state/.lock"
+flock 9
+
+read -r -d '' query <<'GRAPHQL'
+query($q: String!) {
+  viewer { login }
+  search(type: ISSUE, first: 100, query: $q) {
+    nodes {
+      ... on PullRequest {
+        number title url additions deletions createdAt
+        repository { nameWithOwner }
+        author { login }
+        timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT], last: 50) {
+          nodes { ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } } }
+        }
+      }
+    }
+  }
+}
+GRAPHQL
+
+# Requested at: my latest (re-)request, so being added late or re-requested
+# restarts the clock
+# shellcheck disable=SC2016 # $me and $at are jq variables
+fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
+  .data.viewer.login as $me
+  | .data.search.nodes[]
+  | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $at
+  | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
+     .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]
+  | @tsv
+' 2>/dev/null) || { cat "$queue"; exit 1; }
+
+fresh=$(sort -n <<<"$fresh" | sed '/^$/d')
+
+notify() { # <urgency> <title> <body> <url>
+  # Clicking the notification opens the pull request; waiting for that click
+  # happens detached, so that we don't hold our caller's output open
+  # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
+  setsid -f sh -c '
+    [ "$(notify-send --app-name=reviews --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] \
+      && exec browser-with-context "$4"
+  ' sh "$@" >/dev/null 2>&1
+}
+
+first_run=''
+[ -f "$state/.initialized" ] || first_run=1
+now=$(date +%s)
+keys=()
+
+while IFS=$'\t' read -r at repo number author additions deletions url title; do
+  key="$repo#$number@$at"
+  keys+=("$key")
+  waited=$((now - at))
+
+  if ! grep -qxF "$key" "$seen"; then
+    echo "$key" >>"$seen"
+    # First run: no flood for the backlog, the summary below covers it
+    [ -z "$first_run" ] && [ "$waited" -lt "$remind_after" ] \
+      && notify normal "Review requested by $author" "$title"$'\n'"$repo#$number  +$additions −$deletions" "$url"
+  fi
+
+  if [ "$waited" -ge "$remind_after" ] && ! grep -qxF "$key:stale" "$seen"; then
+    echo "$key:stale" >>"$seen"
+    [ -z "$first_run" ] \
+      && notify critical "Review waiting for $((waited / 3600))h" "$title"$'\n'"$repo#$number by $author" "$url"
+  fi
+done <<<"$fresh"
+
+if [ -n "$first_run" ]; then
+  touch "$state/.initialized"
+  count=$(sed '/^$/d' <<<"$fresh" | wc -l)
+  [ "$count" -gt 0 ] && notify normal "$count review(s) pending" "Click the panel icon to browse them" \
+    "https://github.com/pulls/review-requested"
+fi
+
+# Forget what left the queue, so that a re-request notifies again
+if [ ${#keys[@]} -gt 0 ]; then
+  grep -E "^($(printf '%s\n' "${keys[@]}" | sed 's/[][\.*^$+?(){}|/]/\\&/g' | paste -sd'|'))(:stale)?$" "$seen" >"$seen.tmp"
+else
+  : >"$seen.tmp"
+fi
+mv "$seen.tmp" "$seen"
+
+printf '%s\n' "$fresh" | sed '/^$/d' >"$queue.tmp" && mv "$queue.tmp" "$queue"
+# Whoever refreshed, the panel follows (it rereads the cache)
+awesome-client 'awesome.emit_signal("reviews::changed")' >/dev/null 2>&1
+cat "$queue"

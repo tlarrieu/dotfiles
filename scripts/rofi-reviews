@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Rofi hub for pull requests waiting on my review (see review-queue).
+# Enter: open in the browser. Alt+r: refresh from GitHub.
+
+assets=$(dirname "$(readlink -f "$0")")
+mode=--cached
+
+# Additions and deletions take the green and red of the current rofi palette
+rofi_dir=~/.config/rofi
+variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/dev/null)
+color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${variant:-dark}.rasi" 2>/dev/null | head -1; }
+green=$(color green) red=$(color red)
+green=${green:-green} red=${red:-red}
+
+escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
+
+while :; do
+  queue=$("$assets/review-queue" $mode 2>&1)
+  status=$?
+  mode=--cached
+
+  if [ "$status" -eq 2 ]; then
+    notify-send --app-name=reviews --urgency=critical "Reviews not watched" "${queue#review-queue: }"
+    exit 1
+  fi
+
+  if [ -z "$queue" ]; then
+    notify-send --app-name=reviews Reviews "Nothing waiting on your review 🎉"
+    exit 0
+  fi
+
+  now=$(date +%s)
+  urls=()
+  lines=()
+  while IFS=$'\t' read -r at _ number author additions deletions url title; do
+    [ -n "$url" ] || continue # a GitHub failure message, past the (stale) queue
+    waited=$((now - at))
+    if [ "$waited" -ge 86400 ]; then face='󰀦'
+    elif [ "$waited" -ge 14400 ]; then face='󰔟'
+    else face='󰄬'; fi
+    if [ "$waited" -lt 3600 ]; then age="$((waited / 60))m"
+    elif [ "$waited" -lt 86400 ]; then age="$((waited / 3600))h"
+    else age="$((waited / 86400))d$((waited % 86400 / 3600))h"; fi
+    # Pad before adding markup, which would otherwise count towards the widths
+    plus=$(printf '%7s' "+$additions") minus=$(printf '%-7s' "−$deletions")
+    who=$(printf '%-20s' "${author:0:20}")
+    urls+=("$url")
+    lines+=("$(printf '%s %6s  #%-7s <span color="%s">%s</span> <span color="%s">%s</span>  %s  %s' \
+      "$face" "$age" "$number" "$green" "$plus" "$red" "$minus" \
+      "$(escape "$who")" "$(escape "$title")")")
+  done <<<"$queue"
+
+  choice=$(printf '%s\n' "${lines[@]}" | rofi -dmenu -i -markup-rows -p '' -format i \
+    -kb-custom-1 'Alt+r' -mesg 'Enter: open  •  Alt+r: refresh')
+  code=$?
+
+  case $code in
+    0) [ -n "$choice" ] && exec browser-with-context "${urls[$choice]}"; exit 0 ;;
+    10) mode='' ;;
+    *) exit 0 ;;
+  esac
+done
