@@ -12,14 +12,10 @@ deadline=$(($(date +%s) + wait))
 slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
 assets=$(dirname "$(readlink -f "$0")")
 
-# Whether a process runs within the worktree $1
+# Whether a process runs within the worktree $1 (one find for all of them:
+# a readlink each took over half a second)
 busy() {
-  local proc cwd
-  for proc in /proc/[0-9]*; do
-    cwd=$(readlink "$proc/cwd" 2>/dev/null) || continue
-    case "$cwd/" in "$1"/*) return 0 ;; esac
-  done
-  return 1
+  [ -n "$(find /proc/[0-9]*/cwd -maxdepth 0 \( -lname "$1" -o -lname "$1/*" \) -print -quit 2>/dev/null)" ]
 }
 
 # Whether slot file $1 was written within the last minute: its agent may not
