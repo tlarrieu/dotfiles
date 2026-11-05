@@ -33,12 +33,14 @@ github_repos() {
 }
 
 # One refresh at a time, so that timer runs and clicked ones don't notify
-# twice. One already running? It refreshes the panel when done: print the
-# cache and leave. Holds fd 9 (see github_notify).
+# twice. One already running? Wait for it, a bounded time (gh calls time out):
+# a stalled GitHub can't pile runs up, and a clicked refresh still reports
+# what GitHub said. Past that, print the (stale) cache and exit 1, as when
+# GitHub can't be reached. Holds fd 9 (see github_notify).
 # Usage: github_lock <state dir> <cache>
 github_lock() {
   exec 9>"$1/.lock"
-  flock -n 9 || { cat "$2"; exit 0; }
+  flock -w 90 9 || { cat "$2"; exit 1; }
 }
 
 # A notification which, clicked, opens <url>. Waiting for that click happens
