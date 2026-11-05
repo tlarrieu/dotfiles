@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Rofi hub for my GitHub pull requests (see merge-queue: drafts, blocked, ready,
-# queued) and those waiting on my review (see review-queue), last.
+# Rofi hub for my GitHub pull requests (see merge-queue: drafts, blocked, ready),
+# those waiting on my review (see review-queue), then mine in the merge queue.
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued or :review)
 # Enter: open in the browser. Alt+r: refresh from GitHub. Alt+q: open the merge
@@ -64,6 +64,28 @@ row() {
     "$face" "$2" "$3" "$4" "$green" "$plus" "$red" "$minus" "$(escape "$who")" "$(escape "$8")"
 }
 
+# Add my pull requests, read from merge-queue lines
+# A line without url is a GitHub failure message, past the (stale) cache
+add_mine() {
+  while IFS=$'\t' read -r kind _ number position state time additions deletions url queue_url title; do
+    [ -n "$url" ] || continue
+    case $kind in
+      queued)
+        where="#$position" tag=:queued
+        if [ "$time" = - ]; then when='?'
+        elif [ $(((time + 59) / 60)) -lt 60 ]; then when=$(duration "$time") # not "60m"
+        else when=$(printf '%dh%02d' $((time / 3600)) $((time % 3600 / 60))); fi
+        ;;
+      ready) where='ready' when='' tag=:open ;;
+      *) where=${blockers[$state]:-$state} when=$(duration $((now - time))) tag=:open ;; # since last update
+    esac
+    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title")
+    # Queued ones stay in the background: they move on their own
+    [ "$kind" = queued ] && line="<span fgalpha=\"60%\">$line</span>"
+    urls+=("$url") queues+=("$queue_url") tags+=("$tag") lines+=("$line")
+  done
+}
+
 while :; do
   mine=$("$assets/merge-queue" $mode 2>&1)
   mine_status=$?
@@ -84,24 +106,7 @@ while :; do
   lines=()
   now=$(date +%s)
 
-  # A line without url is a GitHub failure message, past the (stale) cache
-  while IFS=$'\t' read -r kind _ number position state time additions deletions url queue_url title; do
-    [ -n "$url" ] || continue
-    case $kind in
-      queued)
-        where="#$position" tag=:queued
-        if [ "$time" = - ]; then when='?'
-        elif [ $(((time + 59) / 60)) -lt 60 ]; then when=$(duration "$time") # not "60m"
-        else when=$(printf '%dh%02d' $((time / 3600)) $((time % 3600 / 60))); fi
-        ;;
-      ready) where='ready' when='' tag=:open ;;
-      *) where=${blockers[$state]:-$state} when=$(duration $((now - time))) tag=:open ;; # since last update
-    esac
-    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title")
-    # Blocked ones stay in the background: they're here for the overview
-    [ "$kind" = other ] && line="<span fgalpha=\"60%\">$line</span>"
-    urls+=("$url") queues+=("$queue_url") tags+=("$tag") lines+=("$line")
-  done <<<"$mine"
+  add_mine < <(grep -v '^queued' <<<"$mine")
 
   while IFS=$'\t' read -r at _ number author additions deletions url title; do
     [ -n "$url" ] || continue
@@ -116,6 +121,9 @@ while :; do
     line=$(row "${faces[REVIEW_REQUIRED]}" review "$age" "$number" "$additions" "$deletions" "$author" "$title" "$tint")
     urls+=("$url") queues+=('') tags+=(:review) lines+=("$line")
   done <<<"$reviews"
+
+  # Last: they need nothing from me
+  add_mine < <(grep '^queued' <<<"$mine")
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
