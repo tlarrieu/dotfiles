@@ -103,9 +103,10 @@ fresh=$(sed '/^$/d' <<<"$fresh")
 
 notify() { # <urgency> <title> <body> <url>
   # Clicking the notification opens the url; waiting for that click happens
-  # detached, so that we don't hold our caller's output open
+  # detached, so that we don't hold our caller's output open (nor
+  # our lock: fd 9)
   # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
-  setsid -f sh -c '[ "$(notify-send --app-name=merge-queue --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1
+  setsid -f sh -c '[ "$(notify-send --app-name=merge-queue --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1 9>&-
 }
 
 once() { # <key>: true the first time a key is seen (and remembers it)
