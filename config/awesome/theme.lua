@@ -13,6 +13,8 @@ return {
     local font_name = 'CaskaydiaCove Nerd Font'
     theme.font = ('%s 11'):format(font_name)
     theme.taglist_font = ('%s 12'):format(font_name)
+    -- Glyphs: the Mono variant keeps them within a single cell
+    theme.icon_font = ('%s Mono'):format(font_name)
 
     theme.fg_normal = colors.fg.base
     theme.fg_focus = colors.fg.base

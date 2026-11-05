@@ -9,7 +9,10 @@
 # Slot files hold "<worktree> <base commit>", for claude-agent-sweep to tell
 # whether the agent committed anything.
 
-first_slot=11 last_slot=19
+# Slots, a range of TEST_ENV_NUMBER values clear of ours (CLAUDE_AGENT_SLOTS
+# overrides it, e.g. 11-19)
+slots=${CLAUDE_AGENT_SLOTS:-11-19}
+first_slot=${slots%-*} last_slot=${slots#*-}
 
 root=$(git -C "$1" rev-parse --show-toplevel 2>/dev/null) || exit 1
 repo=$(basename "$root")

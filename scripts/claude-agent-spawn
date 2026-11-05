@@ -5,7 +5,8 @@
 # In a git repository, the agent works in its own worktree, with its
 # own TEST_ENV_NUMBER (see claude-agent-worktree), so neither its changes nor
 # its specs get in the way of ours. claude-agent-setup/<repository> prepares
-# the worktree when it exists.
+# the worktree when it exists (<repository>: the name of its origin, else of
+# its folder).
 # Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
 
 assets=$(dirname "$(readlink -f "$0")")
@@ -49,7 +50,9 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   base="${base:+$base, }$(git -C "$directory" rev-parse --short HEAD)"
   env="--env TEST_ENV_NUMBER=$slot"
 
-  hook="$assets/claude-agent-setup/$(basename "$primary")"
+  origin=$(git -C "$primary" remote get-url origin 2>/dev/null)
+  hook="$assets/claude-agent-setup/$(basename "${origin:-$primary}" .git)"
+  [ -x "$hook" ] || hook="$assets/claude-agent-setup/$(basename "$primary")"
   [ -x "$hook" ] && setup="$hook $primary; or echo \"Worktree setup failed, carrying on\"; "
 
   context_file=$(mktemp "$spawn_dir/context.XXXXXX")

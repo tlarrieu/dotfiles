@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Lists live Claude agents (fed by claude-agent-state hooks), as records (see
 # lib/records.sh) of fields started, state, since, session and project.
-# Ordered by project (main jeancaisse, main dotfiles, jeancaisse agent worktrees
-# by slot, then the others by name), then by start time.
+# Ordered by project: those listed in ~/.config/claude/agent-projects, in its
+# order, then their agent worktrees (<project>-<slot>, by slot), then the
+# others by name; then by start time.
 # <since> is when the current turn started ("-" when unknown).
 # Prunes sessions whose process died (or whose pid a new process took).
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
@@ -23,6 +24,9 @@ interrupted() {
     | startswith("[Request interrupted by user")
   ' >/dev/null 2>&1
 }
+
+order="${XDG_CONFIG_HOME:-$HOME/.config}/claude/agent-projects"
+[ -f "$order" ] || order=/dev/null
 
 printf '#started\tstate\tsince\tsession\tproject\n'
 # shellcheck disable=SC2154 # state file fields, set by read_agent
@@ -50,10 +54,14 @@ for f in "$agents_dir"/*; do
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
   printf '%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project"
-done | awk -F'\t' -v OFS='\t' '{
-  rank = 3; slot = 0
-  if ($5 == "jeancaisse") rank = 0
-  else if ($5 == "dotfiles") rank = 1
-  else if ($5 ~ /^jeancaisse-[0-9]+$/) { rank = 2; slot = substr($5, 12) }
-  print rank, slot, $5, $0
-}' | sort -t$'\t' -k1,1n -k2,2n -k3,3 -k4,4n | cut -f4-
+done | awk -F'\t' -v OFS='\t' '
+  NR == FNR { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
+  {
+    project = $5; rank = 2 * n + 1; slot = 0
+    if (project in order) rank = order[project]
+    else if (match(project, /-[0-9]+$/) && substr(project, 1, RSTART - 1) in order) {
+      rank = n + order[substr(project, 1, RSTART - 1)]; slot = substr(project, RSTART + 1)
+    }
+    print rank, slot, project, $0
+  }
+' "$order" - | sort -t$'\t' -k1,1n -k2,2n -k3,3 -k4,4n | cut -f4-

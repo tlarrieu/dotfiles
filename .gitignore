@@ -54,6 +54,7 @@ config/rofi/dark.rasi
 config/zathura/light
 config/zathura/dark
 config/github/repos
+config/claude/agent-projects
 
 config/herdr/*
 !config/herdr/config.toml

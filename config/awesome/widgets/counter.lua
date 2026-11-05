@@ -61,8 +61,8 @@ M.make = function(options)
   ---@param color string #rrggbb
   ---@param text string
   local paint = function(color, text)
-    icon.markup = ('<span font="CaskaydiaCove Nerd Font Mono %d" color="%s">%s</span>'):format(
-      options.icon_size, color, options.icon)
+    icon.markup = ('<span font="%s %d" color="%s">%s</span>'):format(
+      beautiful.icon_font, options.icon_size, color, options.icon)
     count.markup = ('<span color="%s">%s</span>'):format(color, text)
   end
 

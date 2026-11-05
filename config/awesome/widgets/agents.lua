@@ -110,7 +110,7 @@ local rebuild = function(out)
     ---@type Paint
     local paint = function(color)
       -- Mono variant keeps the glyph within a single cell
-      face.markup = ('<span font="CaskaydiaCove Nerd Font Mono 20" color="%s">%s</span>'):format(color, glyph)
+      face.markup = ('<span font="%s 20" color="%s">%s</span>'):format(beautiful.icon_font, color, glyph)
       local text = name
       if state == 'running' and started then
         text = ('%s <span fgalpha="60%%">%s</span>'):format(name, elapsed(started))
