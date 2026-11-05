@@ -3,8 +3,8 @@
 # Usage: claude-agent-jump [session_id]
 # Without a session, picks the agent that wants us the most: the first one
 # needing attention (in claude-agent-list's order), else the first done one,
-# else the one we last focused (else the newest one). Fails when there is no
-# agent.
+# else the one we last focused (else the newest one). Fails (and says so) when
+# there is no such agent.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
@@ -40,10 +40,13 @@ if [ -z "$target" ]; then
   target=${target:-$newest}
 fi
 
-[ -n "$target" ] && [ -f "$agents_dir/$target" ] || exit 1
+fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
+
+if [ -z "$target" ]; then fail "No agent to jump to (spawn one with 'cl' in rofi-search)"; fi
+[ -f "$agents_dir/$target" ] || fail "This agent is gone"
 read_agent "$agents_dir/$target"
 
-case "$window" in "" | *[!0-9]*) exit 1 ;; esac
+case "$window" in "" | *[!0-9]*) fail "Can't find this agent's terminal" ;; esac
 awesome-client "
   for _, c in ipairs(client.get()) do
     if c.window == $window then

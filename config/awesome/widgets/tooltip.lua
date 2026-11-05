@@ -7,7 +7,7 @@ local beautiful = require('beautiful')
 local M = {}
 
 -- A tooltip shown below `object`, roomy, with its top aligned with the tiled
--- clients: the panel's bottom edge sits two useless gaps (3px each) above them
+-- clients: the panel's bottom edge sits two useless gaps above them
 ---@param object Widget The widget hovering shows the tooltip for
 ---@return Tooltip
 M.make = function(object)
@@ -18,7 +18,7 @@ M.make = function(object)
     preferred_alignments = { 'middle' },
     margin_leftright = 12,
     margin_topbottom = 12,
-    gaps = { top = 6, bottom = 6, left = 0, right = 0 },
+    gaps = { top = 2 * beautiful.useless_gap, bottom = 2 * beautiful.useless_gap, left = 0, right = 0 },
   })
 
   -- Keep off the screen's right edge, in line with the tiled clients (two
