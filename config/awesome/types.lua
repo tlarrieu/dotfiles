@@ -1,6 +1,7 @@
 ---@meta
--- Type definitions for the panel widgets, for lua-language-server only (never
--- required). Awesome ships no annotations, so its objects get minimal shapes.
+-- Type definitions for the awesome config (panel and widgets), for
+-- lua-language-server only (never required). Awesome ships no annotations, so
+-- its objects get minimal shapes.
 
 ---@class Widget A wibox widget (textbox, layout, container…)
 ---@field visible boolean
@@ -24,9 +25,20 @@
 ---@field widget Widget The widget to place in the wibar
 ---@field update fun() Repaint it from its source
 
----@class Awesome The awesome global (only what the widgets use)
+---@class Awesome The awesome global (only what the config uses)
 ---@field connect_signal fun(name: string, callback: fun(...))
 ---@field emit_signal fun(name: string, ...)
+---@field kill fun(pid: integer, signal: integer): boolean
+---@field unix_signal table<string, integer> Signal numbers by name (SIGTERM…)
 ---@type Awesome
 ---@diagnostic disable-next-line: missing-fields
 awesome = {}
+
+---@class Screen An awesome screen
+---@field index integer
+---@field tags table[]
+---@field wibar table? The panel (see panel.lua)
+
+-- The screen global, iterated with `for s in screen do`
+---@type fun(): Screen?
+screen = nil
