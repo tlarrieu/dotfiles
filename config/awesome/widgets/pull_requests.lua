@@ -50,6 +50,12 @@ end
 
 ---@alias Urgency 'mine'|'ready'|'waiting' Needs me / to enqueue / on others (or a draft)
 
+-- A merge glyph when auto-merge is on, a space otherwise (the glyph takes
+-- one cell, like a space, so that the rows stay aligned)
+---@param auto string 'auto' or '-'
+---@return string
+local auto_mark = function(auto) return auto == 'auto' and '󰘬' or ' ' end
+
 -- What blocks a pull request, in a word, and whether it's on me
 ---@type table<string, { label: string, urgency: Urgency }>
 local states = {
@@ -65,7 +71,8 @@ local states = {
 
 -- Paint the non-queued pull requests printed by merge-queue --cached (already
 -- in picker order: drafts, blocked, ready)
--- Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <url> <queue url> <title>
+-- Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <auto>
+--   <url> <queue url> <title>
 ---@type SpawnCallback
 local render = function(out, _, _, code)
   local colors = beautiful.colors
@@ -81,14 +88,14 @@ local render = function(out, _, _, code)
   local now, urgencies, rows = os.time(), {}, {}
 
   for line in out:gmatch('[^\n]+') do
-    local kind, repo, number, state, time, title = line:match(
-      '^(%a+)\t([^\t]+)\t(%d+)\t[^\t]+\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t[^\t]*\t[^\t]*\t(.*)$')
+    local kind, repo, number, state, time, auto, title = line:match(
+      '^(%a+)\t([^\t]+)\t(%d+)\t[^\t]+\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t([^\t]*)\t[^\t]*\t[^\t]*\t(.*)$')
     if kind == 'ready' or kind == 'other' then
       local info = states[state] or { label = state:lower(), urgency = 'waiting' }
       urgencies[info.urgency] = true
       local since = tonumber(time)
-      table.insert(rows, ('<b>%8s</b>  %3s  %s#%s  %s'):format(
-        info.label, since and age(now - since --[[@as integer]]) or '',
+      table.insert(rows, ('<b>%8s</b>  %3s %s %s#%s  %s'):format(
+        info.label, since and age(now - since --[[@as integer]]) or '', auto_mark(auto),
         gears.string.xml_escape((repo:gsub('^.*/', ''))), number, gears.string.xml_escape(title)))
     end
   end

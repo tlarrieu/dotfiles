@@ -49,6 +49,12 @@ local eta = function(seconds)
   return ('%dh%02d'):format(math.floor(seconds / 3600), math.floor(seconds % 3600 / 60))
 end
 
+-- A merge glyph when auto-merge is on, a space otherwise (the glyph takes
+-- one cell, like a space, so that the rows stay aligned)
+---@param auto string 'auto' or '-'
+---@return string
+local auto_mark = function(auto) return auto == 'auto' and '󰘬' or ' ' end
+
 ---@type table<string, string>
 local states = {
   QUEUED = 'queued',
@@ -62,7 +68,8 @@ local states = {
 local poller
 
 -- Paint the queue printed by merge-queue --cached
--- Lines: <kind> <repo> <number> <position> <state> <eta> <additions> <deletions> <url> <queue url> <title>
+-- Lines: <kind> <repo> <number> <position> <state> <eta> <additions> <deletions> <auto>
+--   <url> <queue url> <title>
 ---@type SpawnCallback
 local render = function(out, err, _, code)
   local colors = beautiful.colors
@@ -80,10 +87,10 @@ local render = function(out, err, _, code)
   local queued, testing, rows = 0, false, {}
 
   for line in out:gmatch('[^\n]+') do
-    local kind, repo, number, position, state, seconds, title = line:match(
-      '^(%a+)\t([^\t]+)\t(%d+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t[^\t]*\t[^\t]*\t(.*)$')
+    local kind, repo, number, position, state, seconds, auto, title = line:match(
+      '^(%a+)\t([^\t]+)\t(%d+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t([^\t]*)\t[^\t]*\t[^\t]*\t(.*)$')
     if kind then
-      local name = ('%s#%s  %s'):format(
+      local name = ('%s %s#%s  %s'):format(auto_mark(auto),
         gears.string.xml_escape((repo:gsub('^.*/', ''))), number, gears.string.xml_escape(title))
       if kind == 'queued' then
         queued = queued + 1

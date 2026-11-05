@@ -3,6 +3,8 @@
 # those waiting on my review (see review-queue), then mine in the merge queue.
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued or :review)
+# A merge glyph before the number: auto-merge is on (it joins the queue once
+# ready).
 # Enter: open in the browser. Alt+r: refresh from GitHub. Alt+q: open the merge
 # queue page of the selected pull request's repository (mine only).
 
@@ -33,6 +35,8 @@ declare -A faces=(
   [DRAFT]='󰈤'
 )
 
+auto_glyph='󰘬' # auto-merge on
+
 # What blocks my other pull requests, in a word
 declare -A blockers=(
   [CONFLICT]=conflict
@@ -54,20 +58,23 @@ duration() {
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
 # Rows: <face> <status> <time> <number> <+> <−> <author> <title> [<face color>]
+#   [<auto merge: auto>]
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local face plus minus who
+  local face plus minus who auto=' ' # the glyph takes one cell, like a space
+  [ "${10}" = auto ] && auto=$auto_glyph
   face=$(printf '%-5s' "$1")
   [ -n "$9" ] && face="<span color=\"$9\">$face</span>"
   plus=$(printf '%7s' "+$5") minus=$(printf '%-7s' "−$6") who=$(printf '%-20s' "${7:0:20}")
-  printf '%s %-8s %-6s  #%-7s <span color="%s">%s</span> <span color="%s">%s</span>  %s  %s' \
-    "$face" "$2" "$3" "$4" "$green" "$plus" "$red" "$minus" "$(escape "$who")" "$(escape "$8")"
+  printf '%s %-8s %-6s %s #%-7s <span color="%s">%s</span> <span color="%s">%s</span>  %s  %s' \
+    "$face" "$2" "$3" "$auto" "$4" "$green" "$plus" "$red" "$minus" "$(escape "$who")" "$(escape "$8")"
 }
+
 
 # Add my pull requests, read from merge-queue lines
 # A line without url is a GitHub failure message, past the (stale) cache
 add_mine() {
-  while IFS=$'\t' read -r kind _ number position state time additions deletions url queue_url title; do
+  while IFS=$'\t' read -r kind _ number position state time additions deletions auto url queue_url title; do
     [ -n "$url" ] || continue
     case $kind in
       queued)
@@ -79,7 +86,7 @@ add_mine() {
       ready) where='ready' when='' tag=:open ;;
       *) where=${blockers[$state]:-$state} when=$(duration $((now - time))) tag=:open ;; # since last update
     esac
-    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title")
+    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto")
     # Queued ones stay in the background: they move on their own
     [ "$kind" = queued ] && line="<span fgalpha=\"60%\">$line</span>"
     urls+=("$url") queues+=("$queue_url") tags+=("$tag") lines+=("$line")

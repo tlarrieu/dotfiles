@@ -7,7 +7,8 @@
 # the queue (with GitHub's reason), ready to enqueue. Then prints the cache.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output (tab separated): <kind: queued|ready|other> <repo> <number> <position>
-#   <state> <time> <additions> <deletions> <url> <queue url> <title>  (- when not applicable; see
+#   <state> <time> <additions> <deletions> <auto merge: auto|-> <url>
+#   <queue url> <title>  (- when not applicable; see
 #   "Lines" below for states and time)
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
@@ -49,6 +50,7 @@ query($q: String!) {
     nodes {
       ... on PullRequest {
         number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
+        autoMergeRequest { enabledAt }
         repository { nameWithOwner }
         mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
         commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
@@ -58,25 +60,27 @@ query($q: String!) {
 }
 GRAPHQL
 
-# Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <url> <queue url> <title> <enqueued at>
+# Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <auto>
+#   <url> <queue url> <title> <enqueued at>
 # In lifecycle order: drafts, other PRs that can't join the queue yet (by
 # blocker), ready, then queued (by position). An other PR's state is its
 # first blocker: DRAFT, CONFLICT, CHECKS_FAILING, CHANGES_REQUESTED,
 # CHECKS_PENDING, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
 # GitHub computes it: not ready yet, next time maybe).
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
-# shellcheck disable=SC2016 # $e, $c, $title, $queue and $blocker are jq variables
+# shellcheck disable=SC2016 # $e, $c, $auto, $title, $queue and $blocker are jq variables
 fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
   ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
   | [ .data.search.nodes[]
       | (.title | gsub("[\t\n]"; " ")) as $title
       | "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)" as $queue
       | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
+      | (if .autoMergeRequest then "auto" else "-" end) as $auto
       | if .mergeQueueEntry then
           .mergeQueueEntry as $e
           | { rank: [2, $e.position],
               row: ["queued", .repository.nameWithOwner, .number, $e.position, $e.state,
-                    ($e.estimatedTimeToMerge // "-"), .additions, .deletions, .url, $queue, $title, $e.enqueuedAt] }
+                    ($e.estimatedTimeToMerge // "-"), .additions, .deletions, $auto, .url, $queue, $title, $e.enqueuedAt] }
         else
           (if .isDraft then "DRAFT"
            elif .mergeable == "CONFLICTING" then "CONFLICT"
@@ -88,11 +92,11 @@ fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" 
            else "READY" end) as $blocker
           | if $blocker == "READY" then
               { rank: [1, .number],
-                row: ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .additions, .deletions, .url, $queue, $title, "-"] }
+                row: ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .additions, .deletions, $auto, .url, $queue, $title, "-"] }
             else
               { rank: [0, ($blockers | index($blocker)), -(.updatedAt | fromdateiso8601)],
                 row: ["other", .repository.nameWithOwner, .number, "-", $blocker,
-                      (.updatedAt | fromdateiso8601), .additions, .deletions, .url, $queue, $title, "-"] }
+                      (.updatedAt | fromdateiso8601), .additions, .deletions, $auto, .url, $queue, $title, "-"] }
             end
         end ]
   | sort_by(.rank) | .[].row
@@ -119,7 +123,7 @@ once() { # <key>: true the first time a key is seen (and remembers it)
 keys=()
 current=''
 
-while IFS=$'\t' read -r kind repo number position status eta _ _ url _ title enqueued; do
+while IFS=$'\t' read -r kind repo number position status eta _ _ _ url _ title enqueued; do
   [ -n "$repo" ] || continue # no pull request: <<< still feeds one empty line
   [ "$kind" = other ] && continue # nothing to tell until it's ready
 
@@ -188,7 +192,7 @@ fi
 mv "$seen.tmp" "$seen"
 touch "$state/.initialized"
 
-cut -f1-11 <<<"$fresh" | sed '/^$/d' >"$cache.tmp" && mv "$cache.tmp" "$cache"
+cut -f1-12 <<<"$fresh" | sed '/^$/d' >"$cache.tmp" && mv "$cache.tmp" "$cache"
 # Whoever refreshed, the panel follows (it rereads the cache)
 awesome-client 'awesome.emit_signal("merge-queue::changed")' >/dev/null 2>&1
 cat "$cache"
