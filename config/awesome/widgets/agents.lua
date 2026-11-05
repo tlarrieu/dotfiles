@@ -25,7 +25,8 @@ local widget = wibox.widget({
 
 local scripts = os.getenv('HOME') .. '/scripts'
 
--- Turn duration, compact enough for the panel: 42s, 4m, 1h05
+-- Turn duration, compact enough for the panel: 42s, 4m, 1h05 (mirrors elapsed
+-- in ~/scripts/lib/claude-agents.sh)
 ---@param since integer When the turn started (epoch seconds)
 ---@return string
 local elapsed = function(since)
@@ -88,6 +89,7 @@ local rebuild = function(out)
     idle = colors.fg.dim,
     attention = colors.yellow.base,
   }
+  -- (mirrors faces in ~/scripts/lib/claude-agents.sh)
   local faces = { running = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
   ---@type Widget[]
   local entries = {}

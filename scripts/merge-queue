@@ -8,8 +8,8 @@
 # on). Then prints the cache.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output: tab separated records under a header naming their fields (see
-#   lib/github.sh, and "header" below for what they hold): kind (queued,
-#   ready or other), repo, number, position, state, time, additions,
+#   lib/github.sh, and "fields" below for what they hold): kind (queued,
+#   ready or other), repo, number, position, state, label, time, additions,
 #   deletions, auto, url, queue_url, title, enqueued_at (- when not
 #   applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
@@ -58,20 +58,30 @@ GRAPHQL
 # GitHub computes it: not ready yet, next time maybe).
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
 # Auto: auto when auto-merge is on, else -.
-header=$'#kind\trepo\tnumber\tposition\tstate\ttime\tadditions\tdeletions\tauto\turl\tqueue_url\ttitle\tenqueued_at'
-# shellcheck disable=SC2016 # $e, $c, $auto, $title, $queue and $blocker are jq variables
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
-  ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
+# Label: the state in a word or two, for the picker and the panel.
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at)
+header="#$(IFS=$'\t'; echo "${fields[*]}")"
+# Rows are objects, printed in the order of $fields (- for what they lack)
+# shellcheck disable=SC2016 # $e, $c, $pr, $blocker… are jq variables
+program='
+  FIELDS as $fields
+  | {QUEUED: "queued", AWAITING_CHECKS: "checks running", MERGEABLE: "checks passed",
+     UNMERGEABLE: "checks failed", LOCKED: "merging"} as $queue_labels
+  | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
+     CHECKS_PENDING: "running", REVIEW_REQUIRED: "approval", UNKNOWN: "unknown"} as $labels
+  | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
   | [ .data.search.nodes[]
-      | (.title | gsub("[\t\n]"; " ")) as $title
-      | "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)" as $queue
       | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
-      | (if .autoMergeRequest then "auto" else "-" end) as $auto
+      | { repo: .repository.nameWithOwner, number, additions, deletions, url,
+          auto: (if .autoMergeRequest then "auto" else "-" end),
+          queue_url: "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)",
+          title: (.title | gsub("[\t\n]"; " ")) } as $pr
       | if .mergeQueueEntry then
           .mergeQueueEntry as $e
           | { rank: [2, $e.position],
-              row: ["queued", .repository.nameWithOwner, .number, $e.position, $e.state,
-                    ($e.estimatedTimeToMerge // "-"), .additions, .deletions, $auto, .url, $queue, $title, $e.enqueuedAt] }
+              row: ($pr + { kind: "queued", position: $e.position, state: $e.state,
+                            label: ($queue_labels[$e.state] // ($e.state | ascii_downcase)),
+                            time: $e.estimatedTimeToMerge, enqueued_at: $e.enqueuedAt }) }
         else
           (if .isDraft then "DRAFT"
            elif .mergeable == "CONFLICTING" then "CONFLICT"
@@ -82,17 +92,19 @@ fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@
            elif .mergeable != "MERGEABLE" then "UNKNOWN"
            else "READY" end) as $blocker
           | if $blocker == "READY" then
-              { rank: [1, .number],
-                row: ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .additions, .deletions, $auto, .url, $queue, $title, "-"] }
+              { rank: [1, .number], row: ($pr + { kind: "ready", state: "READY", label: "ready" }) }
             else
               { rank: [0, ($blockers | index($blocker)), -(.updatedAt | fromdateiso8601)],
-                row: ["other", .repository.nameWithOwner, .number, "-", $blocker,
-                      (.updatedAt | fromdateiso8601), .additions, .deletions, $auto, .url, $queue, $title, "-"] }
+                row: ($pr + { kind: "other", state: $blocker, label: $labels[$blocker],
+                              time: (.updatedAt | fromdateiso8601) }) }
             end
         end ]
   | sort_by(.rank) | .[].row
+  | [$fields[] as $f | .[$f] // "-"]
   | @tsv
-' 2>/dev/null) || { cat "$cache"; exit 1; }
+'
+program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$program" 2>/dev/null) || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 

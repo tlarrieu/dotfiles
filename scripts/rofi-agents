@@ -8,15 +8,6 @@ assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/records.sh
 . "$assets/lib/records.sh"
 
-declare -A faces=([running]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
-
-elapsed() {
-  local seconds=$(($(date +%s) - $1))
-  if [ "$seconds" -lt 60 ]; then echo "${seconds}s"
-  elif [ "$seconds" -lt 3600 ]; then echo "$((seconds / 60))m"
-  else printf '%dh%02d' $((seconds / 3600)) $((seconds % 3600 / 60)); fi
-}
-
 # The session title: the one given with /rename (or --name), else Claude's own
 title() {
   [ -f "$1" ] || return
@@ -36,7 +27,7 @@ agent() {
   read_agent "$agents_dir/$session" agent_
   [ "$state" = running ] && [ "$since" != - ] && duration=$(elapsed "$since")
   sessions+=("$session")
-  lines+=("$(printf '%s  %-16s %5s   %s' "${faces[$state]:-󰚩}" "$project" "$duration" "$(title "$agent_transcript")")")
+  lines+=("$(printf '%s  %-16s %5s   %s' "${agent_faces[$state]:-󰚩}" "$project" "$duration" "$(title "$agent_transcript")")")
 }
 each_record agent < <("$assets/claude-agent-list")
 

@@ -7,17 +7,14 @@ local github = require('github')
 
 ---@alias Urgency 'mine'|'ready'|'waiting' Needs me / to enqueue / on others (or a draft)
 
--- What blocks a pull request, in a word, and whether it's on me
----@type table<string, { label: string, urgency: Urgency }>
-local states = {
-  CONFLICT = { label = 'conflict', urgency = 'mine' },
-  CHECKS_FAILING = { label = 'checks', urgency = 'mine' },
-  CHANGES_REQUESTED = { label = 'changes', urgency = 'mine' },
-  READY = { label = 'ready', urgency = 'ready' },
-  CHECKS_PENDING = { label = 'running', urgency = 'waiting' },
-  REVIEW_REQUIRED = { label = 'approval', urgency = 'waiting' },
-  UNKNOWN = { label = 'unknown', urgency = 'waiting' },
-  DRAFT = { label = 'draft', urgency = 'waiting' },
+-- Whether what blocks a pull request is on me (the others, drafts included,
+-- wait on someone else); merge-queue labels them
+---@type table<string, Urgency>
+local urgencies = {
+  CONFLICT = 'mine',
+  CHECKS_FAILING = 'mine',
+  CHANGES_REQUESTED = 'mine',
+  READY = 'ready',
 }
 
 return require('widgets.counter').make({
@@ -39,23 +36,22 @@ return require('widgets.counter').make({
   -- rofi-github's order: those with auto-merge on (on their way) last
   render = function(records, colors)
     ---@type integer, table<Urgency, boolean>, string[], string[]
-    local now, urgencies, rows, on_their_way = os.time(), {}, {}, {}
+    local now, found, rows, on_their_way = os.time(), {}, {}, {}
     for _, pull_request in ipairs(records) do
       if pull_request.kind ~= 'queued' then
-        local state = pull_request.state
-        local info = states[state] or { label = state:lower(), urgency = 'waiting' }
+        local urgency = urgencies[pull_request.state] or 'waiting'
         local auto = pull_request.auto == 'auto'
         -- Ready with auto-merge on: GitHub enqueues it, nothing for me to do
-        urgencies[(info.urgency == 'ready' and auto) and 'waiting' or info.urgency] = true
+        found[(urgency == 'ready' and auto) and 'waiting' or urgency] = true
         local since = tonumber(pull_request.time)
         table.insert(auto and on_their_way or rows, ('<b>%8s</b>  %5s %s %s'):format(
-          info.label, since and github.ago(now - since --[[@as integer]]) or '',
+          pull_request.label, since and github.ago(now - since --[[@as integer]]) or '',
           github.auto_mark(pull_request), github.pull_request(pull_request)))
       end
     end
     for _, row in ipairs(on_their_way) do table.insert(rows, row) end
     return {
-      color = urgencies.mine and colors.red.base or urgencies.ready and colors.yellow.base or colors.fg.dim,
+      color = found.mine and colors.red.base or found.ready and colors.yellow.base or colors.fg.dim,
       count = #rows,
       rows = rows,
     }

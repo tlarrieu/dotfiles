@@ -40,17 +40,6 @@ declare -A faces=(
 
 auto_glyph='󰘬' # auto-merge on
 
-# What blocks my other pull requests, in a word
-declare -A blockers=(
-  [CONFLICT]=conflict
-  [CHECKS_FAILING]=checks
-  [CHANGES_REQUESTED]=changes
-  [CHECKS_PENDING]=running
-  [REVIEW_REQUIRED]=approval
-  [UNKNOWN]=unknown
-  [DRAFT]=draft
-)
-
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
 # Rows: <face> <status> <time> <number> <+> <−> <author> <title> [<face color>]
@@ -103,7 +92,7 @@ mine() {
   case $kind in
     queued) where="#$position" tag=:queued when='?'; [ "$time" = - ] || when=$(eta "$time") ;;
     ready) where='ready' when='' tag=:open ;;
-    *) where=${blockers[$state]:-$state} when=$(ago $((now - time))) tag=:open ;; # since last update
+    *) where=$label when=$(ago $((now - time))) tag=:open ;; # since last update
   esac
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain

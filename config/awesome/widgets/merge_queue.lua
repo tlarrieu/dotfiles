@@ -4,15 +4,6 @@
 
 local github = require('github')
 
----@type table<string, string>
-local states = {
-  QUEUED = 'queued',
-  AWAITING_CHECKS = 'checks running',
-  MERGEABLE = 'checks passed',
-  UNMERGEABLE = 'checks failed',
-  LOCKED = 'merging',
-}
-
 return require('widgets.counter').make({
   script = 'merge-queue',
   signal = 'merge-queue::changed',
@@ -40,7 +31,7 @@ return require('widgets.counter').make({
         local seconds = tonumber(pull_request.time)
         table.insert(rows, ('<b>%4s</b>  %5s  %s %s <span fgalpha="60%%">(%s)</span>'):format(
           '#' .. pull_request.position, seconds and github.eta(seconds --[[@as integer]]) or '?',
-          github.auto_mark(pull_request), github.pull_request(pull_request), states[state] or state:lower()))
+          github.auto_mark(pull_request), github.pull_request(pull_request), pull_request.label))
       end
     end
     return { color = testing and colors.green.base or colors.fg.dim, count = #rows, rows = rows, busy = #rows > 0 }
