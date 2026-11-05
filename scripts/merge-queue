@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# My pull requests in the merge queue, and those ready to join it (approved,
-# checks green, mergeable, not queued yet), in the repositories listed in
+# My pull requests in the merge queue, those ready to join it (approved,
+# checks green, mergeable, not queued yet) and my other open ones (with what
+# blocks them), in the repositories listed in
 # ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
 # started on an entry, merge expected within 15 minutes, merged, kicked out of
 # the queue (with GitHub's reason), ready to enqueue. Then prints the cache.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
-# Output (tab separated): <kind: queued|ready> <repo> <number> <position>
-#   <state> <estimated seconds to merge> <url> <queue url> <title>
-#   (- when not applicable)
+# Output (tab separated): <kind: queued|ready|other> <repo> <number> <position>
+#   <state> <time> <url> <queue url> <title>  (- when not applicable; see
+#   "Lines" below for states and time)
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
@@ -47,7 +48,7 @@ query($q: String!) {
   search(type: ISSUE, first: 100, query: $q) {
     nodes {
       ... on PullRequest {
-        number title url baseRefName isInMergeQueue reviewDecision mergeable
+        number title url baseRefName isDraft updatedAt reviewDecision mergeable
         repository { nameWithOwner }
         mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
         commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
@@ -57,25 +58,48 @@ query($q: String!) {
 }
 GRAPHQL
 
-# Lines: <kind> <repo> <number> <position> <state> <eta> <url> <queue url> <title> <enqueued at>
-# (mergeable is UNKNOWN until GitHub computes it: not ready yet, next time maybe)
-# shellcheck disable=SC2016 # $e, $title and $queue are jq variables
-fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open draft:false author:@me $repos" --jq '
-  .data.search.nodes[]
-  | (.title | gsub("[\t\n]"; " ")) as $title
-  | "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)" as $queue
-  | if .mergeQueueEntry then
-      .mergeQueueEntry as $e
-      | ["queued", .repository.nameWithOwner, .number, $e.position, $e.state,
-         ($e.estimatedTimeToMerge // "-"), .url, $queue, $title, $e.enqueuedAt]
-    elif .reviewDecision == "APPROVED" and .mergeable == "MERGEABLE"
-         and .commits.nodes[0].commit.statusCheckRollup.state == "SUCCESS" then
-      ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .url, $queue, $title, "-"]
-    else empty end
+# Lines: <kind> <repo> <number> <position> <state> <time> <url> <queue url> <title> <enqueued at>
+# In lifecycle order: drafts, other PRs that can't join the queue yet (by
+# blocker), ready, then queued (by position). An other PR's state is its
+# first blocker: DRAFT, CONFLICT, CHECKS_FAILING, CHANGES_REQUESTED,
+# CHECKS_PENDING, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
+# GitHub computes it: not ready yet, next time maybe).
+# Time: estimated seconds to merge (queued), last update epoch (other), or -.
+# shellcheck disable=SC2016 # $e, $c, $title, $queue and $blocker are jq variables
+fresh=$(gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
+  ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
+  | [ .data.search.nodes[]
+      | (.title | gsub("[\t\n]"; " ")) as $title
+      | "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)" as $queue
+      | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
+      | if .mergeQueueEntry then
+          .mergeQueueEntry as $e
+          | { rank: [2, $e.position],
+              row: ["queued", .repository.nameWithOwner, .number, $e.position, $e.state,
+                    ($e.estimatedTimeToMerge // "-"), .url, $queue, $title, $e.enqueuedAt] }
+        else
+          (if .isDraft then "DRAFT"
+           elif .mergeable == "CONFLICTING" then "CONFLICT"
+           elif $c == "FAILURE" or $c == "ERROR" then "CHECKS_FAILING"
+           elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
+           elif $c != "SUCCESS" then "CHECKS_PENDING"
+           elif .reviewDecision != "APPROVED" then "REVIEW_REQUIRED"
+           elif .mergeable != "MERGEABLE" then "UNKNOWN"
+           else "READY" end) as $blocker
+          | if $blocker == "READY" then
+              { rank: [1, .number],
+                row: ["ready", .repository.nameWithOwner, .number, "-", "READY", "-", .url, $queue, $title, "-"] }
+            else
+              { rank: [0, ($blockers | index($blocker)), -(.updatedAt | fromdateiso8601)],
+                row: ["other", .repository.nameWithOwner, .number, "-", $blocker,
+                      (.updatedAt | fromdateiso8601), .url, $queue, $title, "-"] }
+            end
+        end ]
+  | sort_by(.rank) | .[].row
   | @tsv
 ' 2>/dev/null) || { cat "$cache"; exit 1; }
 
-fresh=$(sed '/^$/d' <<<"$fresh" | sort -t$'\t' -k1,1 -k4,4n)
+fresh=$(sed '/^$/d' <<<"$fresh")
 
 notify() { # <urgency> <title> <body> <url>
   # Clicking the notification opens the url; waiting for that click happens
@@ -95,6 +119,8 @@ keys=()
 current=''
 
 while IFS=$'\t' read -r kind repo number position status eta url _ title enqueued; do
+  [ "$kind" = other ] && continue # nothing to tell until it's ready
+
   if [ "$kind" = ready ]; then
     keys+=("$repo#$number:ready")
     once "$repo#$number:ready" && notify normal "Ready to enqueue" "$title"$'\n'"$repo#$number" "$url"

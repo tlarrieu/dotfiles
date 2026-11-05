@@ -1,4 +1,5 @@
--- Merge queue (my pull requests in it, or ready to join it, see ~/scripts/merge-queue)
+-- Merge queue (my pull requests in it, see ~/scripts/merge-queue; the others
+-- are in widgets/pull_requests.lua)
 -- Panel widget, see panel.lua: returns { widget, update }
 
 local awful = require('awful')
@@ -24,7 +25,7 @@ local label = wibox.widget({ icon, count, spacing = 6, layout = wibox.layout.fix
 ---@param color string #rrggbb
 ---@param text string Markup
 local paint = function(color, text)
-  icon.markup = ('<span font="CaskaydiaCove Nerd Font Mono 16" color="%s"></span>'):format(color)
+  icon.markup = ('<span font="CaskaydiaCove Nerd Font Mono 16" color="%s"></span>'):format(color)
   count.markup = ('<span color="%s">%s</span>'):format(color, text)
 end
 
@@ -75,8 +76,8 @@ local render = function(out, err, _, code)
     return
   end
 
-  ---@type integer, integer, boolean, string[]
-  local queued, ready, testing, rows = 0, 0, false, {}
+  ---@type integer, boolean, string[]
+  local queued, testing, rows = 0, false, {}
 
   for line in out:gmatch('[^\n]+') do
     local kind, repo, number, position, state, seconds, title = line:match(
@@ -90,19 +91,11 @@ local render = function(out, err, _, code)
         local when = tonumber(seconds) and eta(tonumber(seconds) --[[@as integer]]) or '?'
         table.insert(rows, ('<b>%4s</b>  %5s  %s <span fgalpha="60%%">(%s)</span>'):format(
           '#' .. position, when, name, states[state] or state:lower()))
-      else
-        ready = ready + 1
-        table.insert(rows, ('<b>%4s</b>  %5s  %s <span fgalpha="60%%">(ready to enqueue)</span>'):format('+', '', name))
       end
     end
   end
 
-  local color = testing and colors.green.base or colors.fg.dim
-  local text = queued > 0 and tostring(queued) or ''
-  if ready > 0 then
-    text = text .. ('%s<span color="%s">+%d</span>'):format(queued > 0 and ' ' or '', colors.yellow.base, ready)
-  end
-  paint(color, text)
+  paint(testing and colors.green.base or colors.fg.dim, tostring(queued))
   tooltip.markup = table.concat(rows, '\n')
   widget.visible = #rows > 0
 
@@ -124,14 +117,14 @@ local reload = function() awful.spawn.easy_async({ scripts .. '/merge-queue', '-
 ---@type SpawnCallback
 local report = function(out, err, _, code)
   ---@type integer
-  local entries = select(2, out:gsub('[^\n]+', ''))
+  local entries = select(2, ('\n' .. out):gsub('\nqueued\t', ''))
   local naughty = require('naughty')
   if code == 0 then
     naughty.notify({
       app_name = 'merge-queue',
       title = 'Merge queue refreshed',
-      text = entries == 0 and 'Nothing queued, nothing ready to enqueue'
-          or ('%d pull request%s queued or ready'):format(entries, entries > 1 and 's' or ''),
+      text = entries == 0 and 'Nothing queued'
+          or ('%d pull request%s queued'):format(entries, entries > 1 and 's' or ''),
     })
   else
     naughty.notify({

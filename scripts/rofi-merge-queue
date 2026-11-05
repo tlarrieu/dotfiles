@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Rofi hub for my pull requests in the merge queue, and those ready to join it
-# (see merge-queue). Enter: open in the browser. Alt+r: refresh from GitHub.
+# Rofi hub for my pull requests in the merge queue, those ready to join it, and
+# my other open ones, with what blocks them (see merge-queue). Enter: open in the browser. Alt+r: refresh from GitHub.
 # Alt+q: open the merge queue page of the selected pull request's repository.
 
 assets=$(dirname "$(readlink -f "$0")")
@@ -13,7 +13,27 @@ declare -A faces=(
   [UNMERGEABLE]='󰀦'
   [LOCKED]='󰌾'
   [READY]='󰐕'
+  [CONFLICT]='󰀩'
+  [CHECKS_FAILING]='󰅙'
+  [CHANGES_REQUESTED]='󰏫'
+  [CHECKS_PENDING]='󰦖'
+  [REVIEW_REQUIRED]='󰈈'
+  [UNKNOWN]='󰋗'
+  [DRAFT]='󰈤'
 )
+
+# What blocks my other pull requests, in a word
+declare -A blockers=(
+  [CONFLICT]=conflict [CHECKS_FAILING]=checks [CHANGES_REQUESTED]=changes
+  [CHECKS_PENDING]=running [REVIEW_REQUIRED]=review [UNKNOWN]=unknown [DRAFT]=draft
+)
+
+# Compact durations: 42m, 3h, 2d (minutes rounded up, for ETAs)
+duration() {
+  if [ "$1" -lt 3600 ]; then echo "$((($1 + 59) / 60))m"
+  elif [ "$1" -lt 86400 ]; then echo "$(($1 / 3600))h"
+  else echo "$(($1 / 86400))d"; fi
+}
 
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
@@ -28,26 +48,32 @@ while :; do
   fi
 
   if [ -z "$queue" ]; then
-    notify-send --app-name=merge-queue "Merge queue" "Nothing queued, nothing ready to enqueue"
+    notify-send --app-name=merge-queue "Merge queue" "No open pull request"
     exit 0
   fi
 
   urls=()
   queues=()
   lines=()
-  while IFS=$'\t' read -r kind _ number position state eta url queue_url title; do
+  now=$(date +%s)
+  while IFS=$'\t' read -r kind _ number position state time url queue_url title; do
     [ -n "$url" ] || continue # a GitHub failure message, past the (stale) queue
-    if [ "$kind" = ready ]; then
-      where='ready' when=''
-    else
-      where="#$position"
-      if [ "$eta" = - ]; then when='?'
-      elif [ "$eta" -lt 3600 ]; then when="$(((eta + 59) / 60))m"
-      else when=$(printf '%dh%02d' $((eta / 3600)) $((eta % 3600 / 60))); fi
-    fi
+    case $kind in
+      queued)
+        where="#$position"
+        if [ "$time" = - ]; then when='?'
+        elif [ $(((time + 59) / 60)) -lt 60 ]; then when=$(duration "$time") # not "60m"
+        else when=$(printf '%dh%02d' $((time / 3600)) $((time % 3600 / 60))); fi
+        ;;
+      ready) where='ready' when='' ;;
+      *) where=${blockers[$state]:-$state} when=$(duration $((now - time))) ;; # since last update
+    esac
+    line=$(printf '%-2s %-8s %-6s  #%-7s %s' "${faces[$state]:-?}" "$where" "$when" "$number" "$(escape "$title")")
+    # Blocked ones stay in the background: they're here for the overview
+    [ "$kind" = other ] && line="<span fgalpha=\"60%\">$line</span>"
     urls+=("$url")
     queues+=("$queue_url")
-    lines+=("$(printf '%s %6s %6s  #%-7s %s' "${faces[$state]:-?}" "$where" "$when" "$number" "$(escape "$title")")")
+    lines+=("$line")
   done <<<"$queue"
 
   choice=$(printf '%s\n' "${lines[@]}" | rofi -dmenu -i -markup-rows -p '' -format i \

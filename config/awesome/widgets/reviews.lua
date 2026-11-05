@@ -21,7 +21,7 @@ local label = wibox.widget({ icon, count, spacing = 6, layout = wibox.layout.fix
 ---@param color string #rrggbb
 ---@param text string|integer
 local paint = function(color, text)
-  icon.markup = ('<span font="CaskaydiaCove Nerd Font Mono 16" color="%s"></span>'):format(color)
+  icon.markup = ('<span font="CaskaydiaCove Nerd Font Mono 19" color="%s"></span>'):format(color)
   count.markup = ('<span color="%s">%s</span>'):format(color, text)
 end
 
