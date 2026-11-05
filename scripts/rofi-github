@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Rofi hub for my GitHub pull requests (see merge-queue: drafts, blocked, ready),
-# those waiting on my review (see review-queue), then mine in the merge queue.
+# those waiting on my review (see review-queue), then mine with auto-merge on
+# and mine in the merge queue.
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued or :review)
 # A merge glyph before the number: auto-merge is on (it joins the queue once
@@ -58,7 +59,7 @@ duration() {
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
 # Rows: <face> <status> <time> <number> <+> <−> <author> <title> [<face color>]
-#   [<auto merge: auto>]
+#   [<auto merge: auto>] [<diff: plain>]
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
   local face plus minus who auto=' ' # the glyph takes one cell, like a space
@@ -66,8 +67,11 @@ row() {
   face=$(printf '%-5s' "$1")
   [ -n "$9" ] && face="<span color=\"$9\">$face</span>"
   plus=$(printf '%7s' "+$5") minus=$(printf '%-7s' "−$6") who=$(printf '%-20s' "${7:0:20}")
-  printf '%s %-8s %-6s %s #%-7s <span color="%s">%s</span> <span color="%s">%s</span>  %s  %s' \
-    "$face" "$2" "$3" "$auto" "$4" "$green" "$plus" "$red" "$minus" "$(escape "$who")" "$(escape "$8")"
+  if [ "${11}" != plain ]; then
+    plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
+  fi
+  printf '%s %-8s %-6s %s #%-7s %s %s  %s  %s' \
+    "$face" "$2" "$3" "$auto" "$4" "$plus" "$minus" "$(escape "$who")" "$(escape "$8")"
 }
 
 
@@ -86,9 +90,14 @@ add_mine() {
       ready) where='ready' when='' tag=:open ;;
       *) where=${blockers[$state]:-$state} when=$(duration $((now - time))) tag=:open ;; # since last update
     esac
-    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto")
-    # Queued ones stay in the background: they move on their own
-    [ "$kind" = queued ] && line="<span fgalpha=\"60%\">$line</span>"
+    # On their way (auto-merge on) or in the queue: the diff in the fade too
+    diff=''
+    [ "$kind" = queued ] || [ "$auto" = auto ] && diff=plain
+    line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff")
+    # Queued ones stay in the background: they move on their own; those
+    # with auto-merge on, a bit less (they will join the queue by themselves)
+    if [ "$kind" = queued ]; then line="<span fgalpha=\"60%\">$line</span>"
+    elif [ "$auto" = auto ]; then line="<span fgalpha=\"80%\">$line</span>"; fi
     urls+=("$url") queues+=("$queue_url") tags+=("$tag") lines+=("$line")
   done
 }
@@ -113,7 +122,8 @@ while :; do
   lines=()
   now=$(date +%s)
 
-  add_mine < <(grep -v '^queued' <<<"$mine")
+  # Columns: 1 kind, 9 auto merge (see merge-queue)
+  add_mine < <(awk -F'\t' '$1 != "queued" && $9 != "auto"' <<<"$mine")
 
   while IFS=$'\t' read -r at _ number author additions deletions url title; do
     [ -n "$url" ] || continue
@@ -129,8 +139,9 @@ while :; do
     urls+=("$url") queues+=('') tags+=(:review) lines+=("$line")
   done <<<"$reviews"
 
-  # Last: they need nothing from me
-  add_mine < <(grep '^queued' <<<"$mine")
+  # Last, as they need nothing from me: on their way to the queue, then in it
+  add_mine < <(awk -F'\t' '$1 != "queued" && $9 == "auto"' <<<"$mine")
+  add_mine < <(awk -F'\t' '$1 == "queued"' <<<"$mine")
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
