@@ -4,41 +4,30 @@
 # Refreshes the cache, notifies new requests (and re-requests), reminds once
 # for those waiting more than a day, then prints the queue, oldest first.
 # Usage: review-queue [--cached]  (--cached: print the cache, skip GitHub)
-# Output (tab separated): <requested at, epoch> <repo> <number> <author>
-#   <additions> <deletions> <url> <title>
+# Output: tab separated records under a header naming their fields (see
+#   lib/github.sh and "header" below): requested at (epoch), repo, number,
+#   author, additions, deletions, url, title.
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2. That list is private, so it stays out of the dotfiles (gitignored).
 
-config="${XDG_CONFIG_HOME:-$HOME/.config}/github/repos"
-state="${XDG_STATE_HOME:-$HOME/.local/state}/github/reviews"
-queue="$state/queue.tsv"
-seen="$state/seen" # notified keys: <repo>#<number>@<requested at>[:stale]
+assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/github.sh
+. "$assets/lib/github.sh"
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/reviews"
+queue="$state_dir/queue.tsv"
+seen="$state_dir/seen" # notified keys: <repo>#<number>@<requested at>[:stale]
 remind_after=$((24 * 3600))
 
-mkdir -p "$state"
+mkdir -p "$state_dir"
 touch "$queue" "$seen"
 
-repos=$(grep -vE '^\s*(#|$)' "$config" 2>/dev/null | sed 's/^/repo:/' | tr '\n' ' ')
-if [ -z "$repos" ]; then
-  reason="$config is missing"
-  [ -f "$config" ] && reason="$config lists no repository"
-  message="$reason: list the repositories to watch there, one owner/repo per line"
-  echo "review-queue: $message" >&2
-  if [ ! -f "$state/.misconfigured" ]; then
-    touch "$state/.misconfigured"
-    notify-send --app-name=reviews --urgency=critical "Reviews not watched" "$message"
-  fi
-  exit 2
-fi
-rm -f "$state/.misconfigured"
+github_repos review-queue reviews "Reviews not watched" "$state_dir"
 
 [ "$1" = --cached ] && { cat "$queue"; exit 0; }
 
-# Timer runs and manual refreshes must not notify twice. One already
-# running? It will refresh the panel when done: show what we have
-exec 9>"$state/.lock"
-flock -n 9 || { cat "$queue"; exit 0; }
+github_lock "$state_dir" "$queue"
 
 read -r -d '' query <<'GRAPHQL'
 query($q: String!) {
@@ -58,8 +47,9 @@ query($q: String!) {
 }
 GRAPHQL
 
-# Requested at: my latest (re-)request, so being added late or re-requested
-# restarts the clock
+# Records, under this header (see lib/github.sh). Requested at (epoch): my
+# latest (re-)request, so being added late or re-requested restarts the clock
+header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle'
 # shellcheck disable=SC2016 # $me and $at are jq variables
 fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
   .data.viewer.login as $me
@@ -70,23 +60,17 @@ fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:fa
   | @tsv
 ' 2>/dev/null) || { cat "$queue"; exit 1; }
 
-fresh=$(sort -n <<<"$fresh" | sed '/^$/d')
+fresh=$header$'\n'$(sort -n <<<"$fresh" | sed '/^$/d')
 
-notify() { # <urgency> <title> <body> <url>
-  # Clicking the notification opens the pull request; waiting for that click
-  # happens detached, so that we don't hold our caller's output open (nor
-  # our lock: fd 9)
-  # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
-  setsid -f sh -c '[ "$(notify-send --app-name=reviews --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1 9>&-
-}
+notify() { github_notify reviews "$@"; } # <urgency> <title> <body> <url>
 
 first_run=''
-[ -f "$state/.initialized" ] || first_run=1
+[ -f "$state_dir/.initialized" ] || first_run=1
 now=$(date +%s)
 keys=()
 
-while IFS=$'\t' read -r at repo number author additions deletions url title; do
-  [ -n "$repo" ] || continue # nothing waiting: <<< still feeds one empty line
+# shellcheck disable=SC2154 # record fields, set by each_record
+review() {
   key="$repo#$number@$at"
   keys+=("$key")
   waited=$((now - at))
@@ -103,11 +87,12 @@ while IFS=$'\t' read -r at repo number author additions deletions url title; do
     [ -z "$first_run" ] \
       && notify critical "Review waiting for $((waited / 3600))h" "$title"$'\n'"$repo#$number by $author" "$url"
   fi
-done <<<"$fresh"
+}
+each_record review <<<"$fresh"
 
 if [ -n "$first_run" ]; then
-  touch "$state/.initialized"
-  count=$(sed '/^$/d' <<<"$fresh" | wc -l)
+  touch "$state_dir/.initialized"
+  count=${#keys[@]}
   [ "$count" -gt 0 ] && notify normal "$count review(s) pending" "Click the panel icon to browse them" \
     "https://github.com/pulls/review-requested"
 fi

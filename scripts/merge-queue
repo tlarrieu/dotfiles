@@ -7,44 +7,33 @@
 # the queue (with GitHub's reason), ready to enqueue (unless auto-merge is
 # on). Then prints the cache.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
-# Output (tab separated): <kind: queued|ready|other> <repo> <number> <position>
-#   <state> <time> <additions> <deletions> <auto merge: auto|-> <url>
-#   <queue url> <title>  (- when not applicable; see
-#   "Lines" below for states and time)
+# Output: tab separated records under a header naming their fields (see
+#   lib/github.sh, and "header" below for what they hold): kind (queued,
+#   ready or other), repo, number, position, state, time, additions,
+#   deletions, auto, url, queue_url, title, enqueued_at (- when not
+#   applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
 
-config="${XDG_CONFIG_HOME:-$HOME/.config}/github/repos"
-state="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue"
-cache="$state/queue.tsv"
-queued="$state/queued" # entries seen in the queue last time: <repo> <number> <enqueued at>
-seen="$state/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event>, <repo>#<number>:ready
+assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/github.sh
+. "$assets/lib/github.sh"
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue"
+cache="$state_dir/queue.tsv"
+queued="$state_dir/queued" # entries seen in the queue last time: <repo> <number> <enqueued at>
+seen="$state_dir/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event>, <repo>#<number>:ready
 near=$((15 * 60))
 
-mkdir -p "$state"
+mkdir -p "$state_dir"
 touch "$cache" "$queued" "$seen"
 
-repos=$(grep -vE '^\s*(#|$)' "$config" 2>/dev/null | sed 's/^/repo:/' | tr '\n' ' ')
-if [ -z "$repos" ]; then
-  reason="$config is missing"
-  [ -f "$config" ] && reason="$config lists no repository"
-  message="$reason: list the repositories to watch there, one owner/repo per line"
-  echo "merge-queue: $message" >&2
-  if [ ! -f "$state/.misconfigured" ]; then
-    touch "$state/.misconfigured"
-    notify-send --app-name=merge-queue --urgency=critical "Merge queue not watched" "$message"
-  fi
-  exit 2
-fi
-rm -f "$state/.misconfigured"
+github_repos merge-queue merge-queue "Merge queue not watched" "$state_dir"
 
 [ "$1" = --cached ] && { cat "$cache"; exit 0; }
 
-# Timer runs and manual refreshes must not notify twice. One already
-# running? It will refresh the panel when done: show what we have
-exec 9>"$state/.lock"
-flock -n 9 || { cat "$cache"; exit 0; }
+github_lock "$state_dir" "$cache"
 
 read -r -d '' query <<'GRAPHQL'
 query($q: String!) {
@@ -62,14 +51,14 @@ query($q: String!) {
 }
 GRAPHQL
 
-# Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <auto>
-#   <url> <queue url> <title> <enqueued at>
-# In lifecycle order: drafts, other PRs that can't join the queue yet (by
+# Records, under this header (see lib/github.sh), in lifecycle order: drafts, other PRs that can't join the queue yet (by
 # blocker), ready, then queued (by position). An other PR's state is its
 # first blocker: DRAFT, CONFLICT, CHECKS_FAILING, CHANGES_REQUESTED,
 # CHECKS_PENDING, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
 # GitHub computes it: not ready yet, next time maybe).
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
+# Auto: auto when auto-merge is on, else -.
+header=$'#kind\trepo\tnumber\tposition\tstate\ttime\tadditions\tdeletions\tauto\turl\tqueue_url\ttitle\tenqueued_at'
 # shellcheck disable=SC2016 # $e, $c, $auto, $title, $queue and $blocker are jq variables
 fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq '
   ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
@@ -105,50 +94,45 @@ fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@
   | @tsv
 ' 2>/dev/null) || { cat "$cache"; exit 1; }
 
-fresh=$(sed '/^$/d' <<<"$fresh")
+fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
-notify() { # <urgency> <title> <body> <url>
-  # Clicking the notification opens the url; waiting for that click happens
-  # detached, so that we don't hold our caller's output open (nor
-  # our lock: fd 9)
-  # shellcheck disable=SC2016 # $1..$4 belong to the inner sh
-  setsid -f sh -c '[ "$(notify-send --app-name=merge-queue --urgency="$1" --action=default=Open --wait "$2" "$3")" = default ] && exec browser-kiosk "$4"' sh "$@" >/dev/null 2>&1 9>&-
-}
+notify() { github_notify merge-queue "$@"; } # <urgency> <title> <body> <url>
 
 once() { # <key>: true the first time a key is seen (and remembers it)
   grep -qxF "$1" "$seen" && return 1
   echo "$1" >>"$seen"
   # First run: remember silently, no flood for what's already there
-  [ -f "$state/.initialized" ]
+  [ -f "$state_dir/.initialized" ]
 }
 
 keys=()
 current=''
 
-while IFS=$'\t' read -r kind repo number position status eta _ _ auto url _ title enqueued; do
-  [ -n "$repo" ] || continue # no pull request: <<< still feeds one empty line
-  [ "$kind" = other ] && continue # nothing to tell until it's ready
+# shellcheck disable=SC2154 # record fields, set by each_record
+pull_request() {
+  [ "$kind" = other ] && return # nothing to tell until it's ready
 
   if [ "$kind" = ready ]; then
-    [ "$auto" = auto ] && continue # GitHub enqueues it by itself
+    [ "$auto" = auto ] && return # GitHub enqueues it by itself
     keys+=("$repo#$number:ready")
     once "$repo#$number:ready" && notify normal "Ready to enqueue" "$title"$'\n'"$repo#$number" "$url"
-    continue
+    return
   fi
 
-  current+="$repo"$'\t'"$number"$'\t'"$enqueued"$'\n'
-  entry="$repo#$number@$enqueued"
+  current+="$repo"$'\t'"$number"$'\t'"$enqueued_at"$'\n'
+  entry="$repo#$number@$enqueued_at"
   keys+=("$entry:checks" "$entry:near")
 
   # Being tested in a merge group (MERGEABLE: already passed, between polls)
-  if [ "$status" = AWAITING_CHECKS ] || [ "$status" = MERGEABLE ]; then
+  if [ "$state" = AWAITING_CHECKS ] || [ "$state" = MERGEABLE ]; then
     once "$entry:checks" && notify normal "Merge queue checks started" "$title"$'\n'"$repo#$number, position $position" "$url"
   fi
 
-  if [ "$eta" != - ] && [ "$eta" -le "$near" ]; then
-    once "$entry:near" && notify normal "Merging in about $(((eta + 59) / 60)) min" "$title"$'\n'"$repo#$number, position $position" "$url"
+  if [ "$time" != - ] && [ "$time" -le "$near" ]; then
+    once "$entry:near" && notify normal "Merging in about $(((time + 59) / 60)) min" "$title"$'\n'"$repo#$number, position $position" "$url"
   fi
-done <<<"$fresh"
+}
+each_record pull_request <<<"$fresh"
 
 # Entries gone from the queue: merged, or kicked out (GitHub tells us why)
 read -r -d '' left_query <<'GRAPHQL'
@@ -176,7 +160,7 @@ while IFS=$'\t' read -r repo number enqueued; do
   ' 2>/dev/null) || { current+="$repo"$'\t'"$number"$'\t'"$enqueued"$'\n'; continue; } # retry next time
   IFS=$'\t' read -r reason url title <<<"$left"
 
-  [ -f "$state/.initialized" ] || continue
+  [ -f "$state_dir/.initialized" ] || continue
   case $reason in
     merged) notify normal "Merged" "$title"$'\n'"$repo#$number" "$url" ;;
     manual) notify normal "Removed from the merge queue" "$title"$'\n'"$repo#$number" "$url" ;;
@@ -193,9 +177,9 @@ else
   : >"$seen.tmp"
 fi
 mv "$seen.tmp" "$seen"
-touch "$state/.initialized"
+touch "$state_dir/.initialized"
 
-cut -f1-12 <<<"$fresh" | sed '/^$/d' >"$cache.tmp" && mv "$cache.tmp" "$cache"
+printf '%s\n' "$fresh" >"$cache.tmp" && mv "$cache.tmp" "$cache"
 # Whoever refreshed, the panel follows (it rereads the cache)
 awesome-client 'awesome.emit_signal("merge-queue::changed")' >/dev/null 2>&1
 cat "$cache"
