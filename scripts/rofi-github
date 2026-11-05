@@ -74,6 +74,28 @@ row() {
     "$face" "$2" "$3" "$auto" "$4" "$plus" "$minus" "$(escape "$who")" "$(escape "$8")"
 }
 
+# Icons and their meaning, under the keys: a grid filled column by column,
+# <rows> high (the text is ASCII: padding in bytes is padding in cells)
+legend() {
+  local rows=$1 i key text glyph cell
+  shift
+  local -a lines=()
+  for ((i = 1; i <= $#; i++)); do
+    key=${!i%%=*} text=${!i#*=}
+    [ "$key" = AUTO ] && glyph=$auto_glyph || glyph=${faces[$key]}
+    cell="$glyph $(printf '%-20s' "$text")"
+    lines[(i - 1) % rows]+="${lines[(i - 1) % rows]:+  }$cell"
+  done
+  printf '%s\n' "${lines[@]}" | sed 's/ *$//'
+}
+mesg="Enter: open  •  Alt+r: refresh  •  Alt+q: queue page"
+# In lifecycle order: what blocks a pull request, getting it ready, the queue
+mesg+=$'\n'$(legend 3 \
+  DRAFT=draft CONFLICT=conflict CHECKS_FAILING='checks failed' \
+  CHANGES_REQUESTED='changes requested' CHECKS_PENDING='checks running' REVIEW_REQUIRED='approval / review' \
+  UNKNOWN='mergeability unknown' READY='ready to enqueue' AUTO=auto-merge \
+  QUEUED=queued AWAITING_CHECKS='queue checks running' MERGEABLE='queue checks passed' \
+  UNMERGEABLE='queue checks failed' LOCKED=merging)
 
 # Add my pull requests, read from merge-queue lines
 # A line without url is a GitHub failure message, past the (stale) cache
@@ -151,7 +173,7 @@ while :; do
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -p '' -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Alt+r' -kb-custom-2 'Alt+q' -mesg 'Enter: open  •  Alt+r: refresh  •  Alt+q: queue page')
+      -kb-custom-1 'Alt+r' -kb-custom-2 'Alt+q' -mesg "$mesg")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''
