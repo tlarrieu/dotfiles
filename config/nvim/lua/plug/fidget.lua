@@ -10,9 +10,11 @@ end
 -- [[ System notifications ]] --------------------------------------------------
 -- Under X, fidget's window stays closed and everything it receives (messages
 -- and LSP progress) goes to the system notifications instead. Fidget still
--- records it all, so its history keeps working.
+-- records it all, so its history keeps working. A headless nvim does not redirect
+-- either.
 
-local in_x = vim.env.DISPLAY ~= nil and vim.fn.executable('notify-send') == 1
+local headless = vim.list_contains(vim.v.argv, '--headless')
+local in_x = not headless and vim.env.DISPLAY ~= nil and vim.fn.executable('notify-send') == 1
 
 -- LSP progress updates replace their notification instead of stacking new
 -- ones. As notify-send prints the id to replace asynchronously, updates arriving
