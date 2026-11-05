@@ -85,5 +85,8 @@ cd $directory
 launch $env fish -c nvim
 SESSION
 
-setsid -f kitty --single-instance --name claude-agent --session "$session_file" >/dev/null 2>&1
+# A kitty of their own: opening an agent window in ours would make it draw
+# its focused window as unfocused (kitty deems the new one focused)
+setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
+  --session "$session_file" >/dev/null 2>&1
 launched=1
