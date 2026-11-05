@@ -58,14 +58,14 @@ local states = {
   CHANGES_REQUESTED = { label = 'changes', urgency = 'mine' },
   READY = { label = 'ready', urgency = 'ready' },
   CHECKS_PENDING = { label = 'running', urgency = 'waiting' },
-  REVIEW_REQUIRED = { label = 'review', urgency = 'waiting' },
+  REVIEW_REQUIRED = { label = 'approval', urgency = 'waiting' },
   UNKNOWN = { label = 'unknown', urgency = 'waiting' },
   DRAFT = { label = 'draft', urgency = 'waiting' },
 }
 
 -- Paint the non-queued pull requests printed by merge-queue --cached (already
 -- in picker order: drafts, blocked, ready)
--- Lines: <kind> <repo> <number> <position> <state> <time> <url> <queue url> <title>
+-- Lines: <kind> <repo> <number> <position> <state> <time> <additions> <deletions> <url> <queue url> <title>
 ---@type SpawnCallback
 local render = function(out, _, _, code)
   local colors = beautiful.colors
@@ -82,7 +82,7 @@ local render = function(out, _, _, code)
 
   for line in out:gmatch('[^\n]+') do
     local kind, repo, number, state, time, title = line:match(
-      '^(%a+)\t([^\t]+)\t(%d+)\t[^\t]+\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t(.*)$')
+      '^(%a+)\t([^\t]+)\t(%d+)\t[^\t]+\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t[^\t]*\t[^\t]*\t(.*)$')
     if kind == 'ready' or kind == 'other' then
       local info = states[state] or { label = state:lower(), urgency = 'waiting' }
       urgencies[info.urgency] = true
@@ -133,7 +133,7 @@ end
 local refresh_and_report = function() awful.spawn.easy_async({ scripts .. '/merge-queue' }, report) end
 
 label:buttons(gears.table.join(
-  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-merge-queue' }) end),
+  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-github', ':open' }) end),
   awful.button({}, 3, refresh_and_report)
 ))
 

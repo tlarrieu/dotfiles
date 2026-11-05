@@ -120,7 +120,7 @@ end
 local refresh_and_report = function() awful.spawn.easy_async({ scripts .. '/review-queue' }, report) end
 
 label:buttons(gears.table.join(
-  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-reviews' }) end),
+  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-github', ':review' }) end),
   awful.button({}, 3, refresh_and_report)
 ))
 

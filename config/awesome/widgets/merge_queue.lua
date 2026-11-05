@@ -62,7 +62,7 @@ local states = {
 local poller
 
 -- Paint the queue printed by merge-queue --cached
--- Lines: <kind> <repo> <number> <position> <state> <eta> <url> <queue url> <title>
+-- Lines: <kind> <repo> <number> <position> <state> <eta> <additions> <deletions> <url> <queue url> <title>
 ---@type SpawnCallback
 local render = function(out, err, _, code)
   local colors = beautiful.colors
@@ -81,7 +81,7 @@ local render = function(out, err, _, code)
 
   for line in out:gmatch('[^\n]+') do
     local kind, repo, number, position, state, seconds, title = line:match(
-      '^(%a+)\t([^\t]+)\t(%d+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t(.*)$')
+      '^(%a+)\t([^\t]+)\t(%d+)\t([^\t]+)\t([^\t]+)\t([^\t]+)\t[^\t]*\t[^\t]*\t[^\t]*\t[^\t]*\t(.*)$')
     if kind then
       local name = ('%s#%s  %s'):format(
         gears.string.xml_escape((repo:gsub('^.*/', ''))), number, gears.string.xml_escape(title))
@@ -141,7 +141,7 @@ end
 local refresh_and_report = function() awful.spawn.easy_async({ scripts .. '/merge-queue' }, report) end
 
 label:buttons(gears.table.join(
-  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-merge-queue' }) end),
+  awful.button({}, 1, function() awful.spawn({ scripts .. '/rofi-github', ':queued' }) end),
   awful.button({}, 3, refresh_and_report)
 ))
 
