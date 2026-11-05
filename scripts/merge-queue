@@ -119,6 +119,7 @@ keys=()
 current=''
 
 while IFS=$'\t' read -r kind repo number position status eta _ _ url _ title enqueued; do
+  [ -n "$repo" ] || continue # no pull request: <<< still feeds one empty line
   [ "$kind" = other ] && continue # nothing to tell until it's ready
 
   if [ "$kind" = ready ]; then

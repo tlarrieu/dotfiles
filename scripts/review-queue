@@ -84,6 +84,7 @@ now=$(date +%s)
 keys=()
 
 while IFS=$'\t' read -r at repo number author additions deletions url title; do
+  [ -n "$repo" ] || continue # nothing waiting: <<< still feeds one empty line
   key="$repo#$number@$at"
   keys+=("$key")
   waited=$((now - at))
