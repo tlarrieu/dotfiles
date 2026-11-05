@@ -19,10 +19,11 @@ ignored | grep -E '(^|/)node_modules/$' | while read -r dir; do
 done
 
 # Specs only regenerate stale generated files, so start from the primary's.
-# Copies, not hard links: generators rewrite files in place.
+# Copies, not hard links: generators rewrite files in place. Not what
+# wt-link shares (.cursor/plans): a copy would replace its link.
 ignored |
   grep -vE '(^|/)node_modules/|^(tmp|log|storage|coverage|docker_data|public/assets)/' |
-  grep -vE '^\.(yarn/cache|turbo|swc|ruby-lsp|crush|claude|explain_queries)/|/\.swc/|^CLAUDE|^\.env$' |
+  grep -vE '^\.(yarn/cache|turbo|swc|ruby-lsp|crush|claude|explain_queries|cursor/plans)/|/\.swc/|^CLAUDE|^\.env$' |
   rsync -a -r --files-from=- "$primary/" ./
 
 # Each slot has its own test databases (see config/database.yml), created on
