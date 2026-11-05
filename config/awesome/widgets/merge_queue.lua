@@ -39,7 +39,7 @@ local widget = wibox.widget({
   layout = wibox.layout.fixed.horizontal,
 })
 ---@type Tooltip
-local tooltip = awful.tooltip({ objects = { label }, mode = 'outside', preferred_alignments = { 'middle' } })
+local tooltip = require('widgets.tooltip').make(label)
 
 -- Time to merge: 4m, 1h26
 ---@param seconds integer

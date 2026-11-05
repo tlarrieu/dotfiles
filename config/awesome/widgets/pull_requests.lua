@@ -37,7 +37,7 @@ local widget = wibox.widget({
   layout = wibox.layout.fixed.horizontal,
 })
 ---@type Tooltip
-local tooltip = awful.tooltip({ objects = { label }, mode = 'outside', preferred_alignments = { 'middle' } })
+local tooltip = require('widgets.tooltip').make(label)
 
 -- Time since the last update: 42m, 3h, 2d
 ---@param seconds integer
