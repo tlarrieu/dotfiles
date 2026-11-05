@@ -1,12 +1,19 @@
 #!/usr/bin/env bash
 # Closes the kitty OS window holding the calling kitty window (all its tabs),
 # e.g. once an agent stopped, so that its neovim tab does not keep it around.
+# Neovim is asked to quit rather than killed: with unsaved changes, it asks
+# what to do with them, and its tab stays until we answer.
 
 [ -n "$KITTY_LISTEN_ON" ] && [ -n "$KITTY_WINDOW_ID" ] || exit 1
 
 kitty @ ls | jq -r --argjson self "$KITTY_WINDOW_ID" '
-  .[] | select(any(.tabs[].windows[]; .id == $self)) | .tabs[].windows[].id | select(. != $self)
-' | while read -r window; do
-  kitty @ close-window --match "id:$window"
+  .[] | select(any(.tabs[].windows[]; .id == $self)) | .tabs[].windows[] | select(.id != $self)
+  | "\(.id) \(any(.foreground_processes[]?; (.cmdline[0] // "") | test("(^|/)nvim$")))"
+' | while read -r window nvim; do
+  if [ "$nvim" = true ]; then
+    kitty @ send-text --match "id:$window" $'\e:confirm qa\r'
+  else
+    kitty @ close-window --match "id:$window"
+  fi
 done
 # The calling window closes along with the command it runs

@@ -60,10 +60,14 @@ CONTEXT
   claude_args="--append-system-prompt \$context "
 fi
 
-# Fish loads the claude function, which brings the settings from my dotfiles
-# Once the agent stops, its whole window goes (see claude-agent-sweep for its worktree)
+# Fish loads the claude function, which brings the settings from my dotfiles.
+# Once the agent stops, its whole window goes (see claude-agent-sweep for its
+# worktree), unless claude failed: then it waits, so that we can read why.
+# "--" ends claude's options: a prompt may start with a dash.
 agent="${reads}rm -f $files; ${setup}claude $claude_args"
-[ -n "$prompt" ] && agent+="\$prompt"
+[ -n "$prompt" ] && agent+="-- \$prompt"
+agent+="; set -l code \$status"
+agent+="; if test \$code -ne 0; echo; echo \"claude exited with status \$code: press Enter to close\"; read; end"
 agent+="; $assets/claude-agent-close-window"
 
 cat >"$session_file" <<SESSION
