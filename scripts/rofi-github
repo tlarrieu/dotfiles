@@ -13,21 +13,16 @@
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
 . "$assets/lib/github.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
+. "$assets/lib/rofi.sh"
 mode=--cached
 filter=$1
 
-# Colors from the current rofi palette: additions, deletions, review waits
-rofi_dir=~/.config/rofi
-variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/dev/null)
-color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${variant:-dark}.rasi" 2>/dev/null | head -1; }
-green=$(color green) red=$(color red) yellow=$(color yellow) blue=$(color blue)
-green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue}
-# Pango attributes for each face's glyph (the palette has no gray: awaiting
-# review is the foreground, faded)
+# Pango attributes for each face's glyph (see lib/rofi.sh for $dim)
 declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
-  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]='fgalpha="45%"'
+  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim
 )
 
 declare -A faces=(
@@ -45,7 +40,6 @@ declare -A faces=(
 
 auto_glyph='󰘬' # auto-merge on
 
-escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
 # Rows: <CI> <review> <status> <time> <number> <+> <−> <author> <title>
 #   [<review color>] [<auto merge: auto>] [<diff: plain>]
