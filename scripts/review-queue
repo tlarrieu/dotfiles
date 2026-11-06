@@ -42,8 +42,12 @@ query($q: String!) {
         author { login }
         CI_FIELDS
         reviewThreads(first: 100) { nodes { isResolved } }
-        timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT], last: 50) {
-          nodes { ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } } }
+        timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last: 50) {
+          nodes {
+            __typename
+            ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } }
+            ... on ReadyForReviewEvent { createdAt }
+          }
         }
       }
     }
@@ -53,13 +57,16 @@ GRAPHQL
 query=${query//CI_FIELDS/$github_ci_query}
 
 # Records, under this header (see lib/github.sh). Requested at (epoch): my
-# latest (re-)request, so being added late or re-requested restarts the clock
+# latest (re-)request, so being added late or re-requested restarts the clock,
+# or its latest exit from draft when later: the wait starts once it's ready
 header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads'
 # shellcheck disable=SC2016 # $me and $at are jq variables
 fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq "$github_ci_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
-  | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $at
+  | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $requested
+  | ([.timelineItems.nodes[] | select(.__typename == "ReadyForReviewEvent") | .createdAt] | last) as $ready
+  | ([$requested, $ready] | max) as $at
   | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
      .additions, .deletions, .url, (.title | gsub("[\t\n]"; " ")),
      ci,
