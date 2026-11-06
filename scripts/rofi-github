@@ -5,7 +5,8 @@
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued or :review)
 # Columns: CI (the last commit's checks), then review (conflict, draft,
-# changes requested, approved, or waiting for one). A merge glyph before the
+# changes requested, approved, or waiting for one; in the merge queue
+# instead, for queued ones). A merge glyph before the
 # number: auto-merge is on (it joins the queue once ready).
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only).
@@ -22,7 +23,7 @@ filter=$1
 declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
-  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim
+  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [QUEUED]=$dim
 )
 
 declare -A faces=(
@@ -36,6 +37,8 @@ declare -A faces=(
   [CHANGES_REQUESTED]='󰏫'
   [APPROVED]='󰔓'
   [REVIEW_REQUIRED]='󰈈'
+  # Merge queue
+  [QUEUED]=''
 )
 
 auto_glyph='󰘬' # auto-merge on
@@ -85,6 +88,7 @@ mine() {
   esac
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
+  [ "$in" = queued ] && review=QUEUED
   line=$(row "$ci" "$review" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff")
   # Queued ones stay in the background: they move on their own; those
   # with auto-merge on, a bit less (they will join the queue by themselves)
