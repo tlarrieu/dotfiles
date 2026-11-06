@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+# Spawns a Claude agent (see claude-agent-spawn) on a pull request, in a
+# worktree at its latest commit, for one of these tasks:
+#   threads  address its unresolved review threads (mine): it leaves its
+#            changes uncommitted for me to review, and asks in the session
+#            when it disagrees with a comment
+#   review   review it (someone else's), critically: design and naming first,
+#            bugs on the side; in the session only, changing nothing
+# Either way, it posts nothing on GitHub unless asked.
+# The repository's clone: the one in ~/dev or ~/git whose origin it is.
+# Usage: claude-agent-pr <threads|review> <owner/repo> <number>
+
+assets=$(dirname "$(readlink -f "$0")")
+fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
+
+task=$1 repo=$2 number=$3
+case $task in threads | review) ;; *) task='' ;; esac
+[ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
+  || { echo "Usage: claude-agent-pr <threads|review> <owner/repo> <number>" >&2; exit 2; }
+
+# Any remote URL form: git@github.com:owner/repo(.git), https://github.com/owner/repo(.git)
+clone=''
+for dir in ~/dev/*/ ~/git/*/; do
+  origin=$(git -C "$dir" remote get-url origin 2>/dev/null) || continue
+  origin=${origin%.git} origin=${origin%/}
+  if [[ ${origin,,} == *[:/]"${repo,,}" ]]; then
+    clone=${dir%/}
+    break
+  fi
+done
+[ -n "$clone" ] || fail "No clone of $repo in ~/dev or ~/git"
+
+# The pull request's latest commit, whichever fork its branch lives in
+timeout 60 git -C "$clone" fetch --quiet origin "refs/pull/$number/head" 2>/dev/null \
+  || fail "Could not fetch $repo#$number"
+head=$(git -C "$clone" rev-parse FETCH_HEAD)
+
+url="https://github.com/$repo/pull/$number"
+about="You work on pull request #$number of $repo ($url), at its latest commit."
+
+if [ "$task" = threads ]; then
+  read -r -d '' rules <<RULES
+$about
+Don't commit, nor push: leave your changes uncommitted, for the user to review.
+Don't reply to, nor resolve, any review thread on GitHub unless the user asks
+you to. When you disagree with a reviewer's comment, or can't tell what it
+asks, ask the user here before changing anything for it.
+RULES
+
+  read -r -d '' prompt <<PROMPT
+Address the unresolved review threads of $url. Fetch them with gh api graphql
+(the pull request's reviewThreads, keeping those whose isResolved is false,
+with their path, line and comments). For each, make the change asked for, then
+run the specs covering what you changed. Finish with a summary, thread by
+thread: what you changed, or why you didn't.
+PROMPT
+else
+  read -r -d '' rules <<RULES
+$about
+You review it for the user: change no file, commit nothing, and post nothing
+on GitHub (no comment, no review) unless the user asks you to. Your review
+goes here, in the session.
+Be a demanding, skeptical reviewer: no praise, no filler, no softening. What
+matters most is design (responsibilities, coupling, wrong or premature
+abstractions, code that belongs elsewhere in the codebase, consistency with
+its existing patterns) and naming (misleading, vague or inconsistent names,
+ones off the codebase's or the domain's vocabulary). Judge against the
+surrounding code, not the diff alone.
+RULES
+
+  read -r -d '' prompt <<PROMPT
+Review $url. Read its description and base branch with gh pr view, fetch that
+base, then review the changes against its merge base with HEAD (so that what
+landed on the base since stays out).
+Report design and naming issues, the most severe first. For each: the file
+and line, what is wrong and why, and a concrete alternative.
+Then, in a short separate section, bugs you noticed along the way (same
+format). Leave out style nitpicks a linter would catch.
+PROMPT
+fi
+
+CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_CONTEXT=$rules \
+  exec "$assets/claude-agent-spawn" "$prompt"

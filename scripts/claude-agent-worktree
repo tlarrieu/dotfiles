@@ -4,7 +4,7 @@
 # to commit: the checked out branch can't be shared with the primary worktree,
 # whose files would fall out of sync on commits), and reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
 # their own test databases. A slot stays taken as long as its worktree exists.
-# Usage: claude-agent-worktree <repository>
+# Usage: claude-agent-worktree <repository> [<commit>]  (default: its HEAD)
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
 # Slot files hold "<worktree> <base commit>", for claude-agent-sweep to tell
 # whether the agent committed anything.
@@ -37,7 +37,7 @@ done
 
 worktree="$agents_dir/$repo-$slot"
 git -C "$root" worktree prune
-base=$(git -C "$root" rev-parse HEAD)
+base=$(git -C "$root" rev-parse --verify "${2:-HEAD}^{commit}") || exit 1
 git -C "$root" worktree add --quiet --detach "$worktree" "$base" >&2 || exit 1
 
 echo "$worktree $base" >"$slots_dir/$slot"

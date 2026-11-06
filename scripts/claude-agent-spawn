@@ -8,6 +8,11 @@
 # the worktree when it exists (<repository>: the name of its origin, else of
 # its folder).
 # Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
+# Environment, for scripts spawning agents (see claude-agent-pr):
+#   CLAUDE_AGENT_DIR      where to spawn it, instead of the current project
+#   CLAUDE_AGENT_AT       the commit its worktree starts at, instead of the
+#                         current one (the agent then gets no branch rule)
+#   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
 
 assets=$(dirname "$(readlink -f "$0")")
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
@@ -18,7 +23,7 @@ files='' launched=''
 trap '[ -n "$launched" ] || rm -f $files' EXIT
 
 # Same current project as awesome's dev window (it may hold a ~)
-project=$(cat ~/.project 2>/dev/null)
+project=${CLAUDE_AGENT_DIR:-$(cat ~/.project 2>/dev/null)}
 project=${project/#\~/$HOME}
 [ -d "$project" ] || fail "No project to spawn an agent in (see ~/.project)"
 
@@ -42,7 +47,7 @@ fi
 if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error_file=$(mktemp "$spawn_dir/error.XXXXXX")
   files+=" $error_file"
-  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" 2>"$error_file")
+  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" ${CLAUDE_AGENT_AT:+"$CLAUDE_AGENT_AT"} 2>"$error_file")
   error=$(cat "$error_file")
   rm -f "$error_file"
   [ -n "$slot" ] || fail "Could not create the agent's worktree: $error"
@@ -55,15 +60,18 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   [ -x "$hook" ] || hook="$assets/claude-agent-setup/$(basename "$primary")"
   [ -x "$hook" ] && setup="$hook $primary; or echo \"Worktree setup failed, carrying on\"; "
 
+  head="It sits on a detached HEAD, at the user's current commit ($base): before
+your first commit, create a branch named after your work (git switch -c
+<name>), and never commit on the detached HEAD."
+  [ -n "$CLAUDE_AGENT_AT" ] && head="It sits on a detached HEAD, at $(git -C "$directory" rev-parse --short HEAD)."
   context_file=$(mktemp "$spawn_dir/context.XXXXXX")
   cat >"$context_file" <<CONTEXT
 You work in a git worktree of your own, $directory, apart from the user's
 checkout ($primary), which you must leave alone: make your changes and run your
-commands here. It sits on a detached HEAD, at the user's current commit
-($base): before your first commit, create a branch named after your work
-(git switch -c <name>), and never commit on the detached HEAD. TEST_ENV_NUMBER=$slot gives your specs their own
+commands here. $head TEST_ENV_NUMBER=$slot gives your specs their own
 test databases and Redis: keep it as is.
 CONTEXT
+  [ -n "$CLAUDE_AGENT_CONTEXT" ] && printf '\n%s\n' "$CLAUDE_AGENT_CONTEXT" >>"$context_file"
   reads+="set -l context (string collect < $context_file); "
   files+=" $context_file"
   claude_args="--append-system-prompt \$context "
