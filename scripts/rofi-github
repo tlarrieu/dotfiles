@@ -49,20 +49,22 @@ auto_glyph='󰘬' # auto-merge on
 row() {
   local ci review plus minus who auto=' ' # the glyph takes one cell, like a space
   [ "${11}" = auto ] && auto=$auto_glyph
-  ci=$(printf '%-5s' "${1:+${faces[$1]:-?}}") review=$(printf '%-5s' "${2:+${faces[$2]:-?}}")
-  # Style the glyphs only, not their padding (a review color wins over the
-  # review face's own style)
+  # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
+  # spaces. Style the glyphs only (a review color wins over the review face's
+  # own style)
   local style
-  [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>${ci% }</span> "
+  ci=${1:+${faces[$1]:-?}} review=${2:+${faces[$2]:-?}}
+  [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
   style=''
   [ -n "$2" ] && style=${styles[$2]}
   [ -n "${10}" ] && style="color=\"${10}\""
-  [ -n "$style" ] && review="<span $style>${review% }</span> "
+  [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
+  ci="${ci:- }  " review="${review:- }  "
   plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7") who=$(printf '%-20s' "${8:0:20}")
   if [ "${12}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s%s %-8s %-6s %s #%-7s %s %s  %s  %s' \
+  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s' \
     "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$(escape "$who")" "$(escape "$9")"
 }
 
