@@ -72,8 +72,13 @@ RULES
 Review $url. Read its description and base branch with gh pr view, fetch that
 base, then review the changes against its merge base with HEAD (so that what
 landed on the base since stays out).
-Report design and naming issues, the most severe first. For each: the file
-and line, what is wrong and why, and a concrete alternative.
+Report design and naming issues, the most severe first. For each:
+- the file and line range,
+- the part of the diff it is about, as a diff code block: only the lines
+  concerned, with a few lines of context (not the whole hunk); when the issue
+  recurs, the most telling excerpt, then the other places it occurs,
+- what is wrong and why,
+- a concrete alternative (as code when it helps).
 Then, in a short separate section, bugs you noticed along the way (same
 format). Leave out style nitpicks a linter would catch.
 PROMPT
