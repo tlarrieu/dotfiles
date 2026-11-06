@@ -40,7 +40,7 @@ query($q: String!) {
         number title url additions deletions createdAt
         repository { nameWithOwner }
         author { login }
-        commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
+        CI_FIELDS
         reviewThreads(first: 100) { nodes { isResolved } }
         timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT], last: 50) {
           nodes { ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } } }
@@ -50,19 +50,19 @@ query($q: String!) {
   }
 }
 GRAPHQL
+query=${query//CI_FIELDS/$github_ci_query}
 
 # Records, under this header (see lib/github.sh). Requested at (epoch): my
 # latest (re-)request, so being added late or re-requested restarts the clock
 header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads'
 # shellcheck disable=SC2016 # $me and $at are jq variables
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq "$github_ci_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
   | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $at
-  | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
   | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
      .additions, .deletions, .url, (.title | gsub("[\t\n]"; " ")),
-     (if $c == "SUCCESS" then "SUCCESS" elif $c == "FAILURE" or $c == "ERROR" then "FAILURE" else "PENDING" end),
+     ci,
      ([.reviewThreads.nodes[] | select(.isResolved | not)] | length)]
   | @tsv
 ' 2>/dev/null) || { cat "$queue"; exit 1; }

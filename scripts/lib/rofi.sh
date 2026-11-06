@@ -11,6 +11,7 @@ rofi_variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/d
 rofi_color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${rofi_variant:-dark}.rasi" 2>/dev/null | head -1; }
 green=$(rofi_color green) red=$(rofi_color red) yellow=$(rofi_color yellow) blue=$(rofi_color blue)
 green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue}
+# shellcheck disable=SC2034 # for the scripts sourcing this
 dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
 # Text made safe for rows with markup (-markup-rows)

@@ -44,7 +44,7 @@ query($q: String!) {
         autoMergeRequest { enabledAt }
         repository { nameWithOwner }
         mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
-        commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
+        CI_FIELDS
         reviewThreads(first: 100) { nodes { isResolved } }
       }
     }
@@ -60,10 +60,11 @@ GRAPHQL
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
 # Auto: auto when auto-merge is on, else -.
 # Label: the state in a word or two, for the picker and the panel.
-# CI: the last commit's checks, SUCCESS, FAILURE or PENDING.
+# CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
 # Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, APPROVED or
 # REVIEW_REQUIRED.
 # Threads: how many review threads are unresolved (out of the first 100).
+query=${query//CI_FIELDS/$github_ci_query}
 fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # Rows are objects, printed in the order of $fields (- for what they lack)
@@ -76,10 +77,9 @@ program='
      CHECKS_PENDING: "running", REVIEW_REQUIRED: "approval", UNKNOWN: "unknown"} as $labels
   | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
   | [ .data.search.nodes[]
-      | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
+      | ci as $c
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
-          ci: (if $c == "SUCCESS" then "SUCCESS" elif $c == "FAILURE" or $c == "ERROR" then "FAILURE"
-               else "PENDING" end),
+          ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
           review: (if .mergeable == "CONFLICTING" then "CONFLICT"
                    elif .isDraft then "DRAFT"
@@ -98,7 +98,7 @@ program='
         else
           (if .isDraft then "DRAFT"
            elif .mergeable == "CONFLICTING" then "CONFLICT"
-           elif $c == "FAILURE" or $c == "ERROR" then "CHECKS_FAILING"
+           elif $c == "FAILURE" then "CHECKS_FAILING"
            elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
            elif $c != "SUCCESS" then "CHECKS_PENDING"
            elif .reviewDecision != "APPROVED" then "REVIEW_REQUIRED"
@@ -117,7 +117,7 @@ program='
   | @tsv
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$program" 2>/dev/null) || { cat "$cache"; exit 1; }
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$github_ci_jq$program" 2>/dev/null) || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 

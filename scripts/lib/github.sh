@@ -51,6 +51,34 @@ github_notify() {
   setsid -f sh -c '[ "$(notify-send --app-name="$1" --urgency="$2" --action=default=Open --wait "$3" "$4")" = default ] && exec browser-kiosk "$5"' sh "$@" >/dev/null 2>&1 9>&-
 }
 
+# A pull request's CI, from its last commit's checks: FAILURE when one fails,
+# else PENDING when one runs (or is expected), else SUCCESS (no check too).
+# The required reviewers check is left out: it fails until approvals come in,
+# which the review state tells already.
+# github_ci_query: the GraphQL selection to put in a PullRequest's fields
+# github_ci_jq: a jq definition, ci, reading it from such a PullRequest
+github_ignored_check='Check required reviewers approvals'
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_ci_query="commits(last: 1) { nodes { commit {
+          statusCheckRollup { contexts { checkRunCountsByState { state count } statusContextCountsByState { state count } } }
+          checkSuites(first: 50) { nodes { checkRuns(first: 5, filterBy: {checkName: \"$github_ignored_check\"}) { nodes { status conclusion } } } }
+        } } }"
+# shellcheck disable=SC2016,SC2034 # jq variables; for the scripts sourcing this
+github_ci_jq='
+  def ci:
+    .commits.nodes[0].commit as $commit
+    | ["FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
+    | ["PENDING", "EXPECTED", "QUEUED", "IN_PROGRESS", "WAITING", "REQUESTED"] as $running
+    | ($commit.statusCheckRollup.contexts // {}) as $contexts
+    | [$contexts.checkRunCountsByState[]?, $contexts.statusContextCountsByState[]?] as $counts
+    | [$commit.checkSuites.nodes[]?.checkRuns.nodes[]] as $ignored
+    | (([$counts[] | select(.state | IN($failing[])) | .count] | add // 0)
+       - ([$ignored[] | select(.status == "COMPLETED" and (.conclusion | IN($failing[])))] | length)) as $failed
+    | (([$counts[] | select(.state | IN($running[])) | .count] | add // 0)
+       - ([$ignored[] | select(.status != "COMPLETED")] | length)) as $pending
+    | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
+'
+
 # Time since something: 42m, 5h, 1d3h (see config/awesome/github.lua, which
 # mirrors it)
 ago() {
