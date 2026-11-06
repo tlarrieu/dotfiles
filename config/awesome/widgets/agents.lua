@@ -93,13 +93,20 @@ local rebuild = function(out)
   local faces = { running = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
   ---@type Widget[]
   local entries = {}
-  local busy = false
   blinking = {}
 
+  -- Idle agents stay out: nothing to tell (rofi-agents lists them all)
+  ---@type table[]
+  local shown = {}
   for _, agent in ipairs(require('records').parse(out)) do
+    if agent.state ~= 'idle' then table.insert(shown, agent) end
+  end
+  -- Something to follow: poll
+  local busy = #shown > 0
+
+  for _, agent in ipairs(shown) do
     local state, since, project = agent.state, agent.since, agent.project
     ---@cast state AgentState
-    busy = busy or state ~= 'idle'
 
     local face = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
     local label = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
