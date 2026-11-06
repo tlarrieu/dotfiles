@@ -7,7 +7,8 @@
 # Columns: CI (the last commit's checks), then review (conflict, draft,
 # changes requested, approved, or waiting for one; in the merge queue
 # instead, for queued ones). A merge glyph before the
-# number: auto-merge is on (it joins the queue once ready).
+# number: auto-merge is on (it joins the queue once ready). A speech bubble
+# before the title: unresolved review threads, how many.
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only).
 
@@ -42,15 +43,16 @@ declare -A faces=(
 )
 
 auto_glyph='󰘬' # auto-merge on
+thread_glyph='󰵅' # unresolved review threads
 
 
 # Rows: <CI> <review> <status> <time> <number> <+> <−> <author> <title>
-#   [<review color>] [<auto merge: auto>] [<diff: plain>]
+#   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
 # (the review color, for reviews waiting on me: overrides the review style)
 # CI and review are faces keys (unknown ones show as ?, missing ones as blank)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local ci review plus minus who auto=' ' # the glyph takes one cell, like a space
+  local ci review plus minus who threads auto=' ' # the glyph takes one cell, like a space
   [ "${11}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a review color wins over the review face's
@@ -64,11 +66,17 @@ row() {
   [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   ci="${ci:- }  " review="${review:- }  "
   plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7") who=$(printf '%-20s' "${8:0:20}")
+  # 4 cells: glyph, space, count, dim (blank without any unresolved)
+  threads='    '
+  if [ "${13:-0}" -gt 0 ] 2>/dev/null; then
+    threads="<span $dim>$thread_glyph ${13}</span>"
+    [ ${#13} -lt 2 ] && threads+=' ' # wider counts push the title instead
+  fi
   if [ "${12}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s' \
-    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$(escape "$who")" "$(escape "$9")"
+  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s  %s' \
+    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$(escape "$who")" "$threads" "$(escape "$9")"
 }
 
 mesg="Enter: open  •  Ctrl+r: refresh  •  Ctrl+q: queue page"
@@ -89,7 +97,7 @@ mine() {
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
   [ "$in" = queued ] && review=QUEUED
-  line=$(row "$ci" "$review" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff")
+  line=$(row "$ci" "$review" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads")
   # Queued ones stay in the background: they move on their own; those
   # with auto-merge on, a bit less (they will join the queue by themselves)
   case $in in
@@ -107,7 +115,7 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') tags+=(:review)
-  lines+=("$(row "$ci" REVIEW_REQUIRED review "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint")")
+  lines+=("$(row "$ci" REVIEW_REQUIRED review "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
 }
 
 while :; do
@@ -130,12 +138,12 @@ while :; do
   lines=()
   now=$(date +%s)
 
-  # ci and review blank: a cache from before these fields keeps them so
-  ci='' review='' group=open each_record mine <<<"$mine"
-  ci='' each_record review <<<"$reviews"
+  # ci, review and threads blank: a cache from before these fields keeps them so
+  ci='' review='' threads='' group=open each_record mine <<<"$mine"
+  ci='' threads='' each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, then in it
-  ci='' review='' group=auto each_record mine <<<"$mine"
-  ci='' review='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' group=auto each_record mine <<<"$mine"
+  ci='' review='' threads='' group=queued each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
