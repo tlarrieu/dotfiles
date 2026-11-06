@@ -45,16 +45,31 @@ declare -A faces=(
 )
 
 auto_glyph='󰘬' # auto-merge on
+# Titles followed by an author (see row) share this many characters with
+# it (and the two spaces between): the title gets what the longest author
+# leaves, at least min_title_width
+title_and_author=92 min_title_width=70
+
+# Sets title_width from the review-queue records on stdin
+# shellcheck disable=SC2154 # record fields, set by each_record
+measure_authors() {
+  local longest=0
+  longest_author() { [ ${#author} -gt "$longest" ] && longest=${#author}; }
+  each_record longest_author
+  title_width=$((title_and_author - 2 - longest))
+  [ "$title_width" -ge "$min_title_width" ] || title_width=$min_title_width
+}
 thread_glyph='󰵅' # unresolved review threads
 
 
 # Rows: <CI> <review> <status> <time> <number> <+> <−> <author> <title>
+#   (shown in another order: the author goes last)
 #   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
 # (the review color, for reviews waiting on me: overrides the review style)
 # CI and review are faces keys (unknown ones show as ?, missing ones as blank)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local ci review plus minus who threads auto=' ' # the glyph takes one cell, like a space
+  local ci review plus minus who='' title=$9 threads auto=' ' # the glyph takes one cell, like a space
   [ "${11}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a review color wins over the review face's
@@ -67,7 +82,15 @@ row() {
   [ -n "${10}" ] && style="color=\"${10}\""
   [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   ci="${ci:- }  " review="${review:- }  "
-  plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7") who=$(printf '%-20s' "${8:0:20}")
+  plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7")
+  # Last, fainter than dim. The title before it gets a fixed width (in
+  # characters, as they are cells), so that a long one can't push it out of
+  # the window
+  if [ -n "$8" ]; then
+    who="  <span fgalpha=\"40%\">$(escape "$8")</span>"
+    [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
+    title+=$(printf '%*s' $((title_width - ${#title})) '')
+  fi
   # 4 cells: glyph, space, count, dim (blank without any unresolved)
   threads='    '
   if [ "${13:-0}" -gt 0 ] 2>/dev/null; then
@@ -77,8 +100,8 @@ row() {
   if [ "${12}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s  %s' \
-    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$(escape "$who")" "$threads" "$(escape "$9")"
+  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s%s' \
+    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$threads" "$(escape "$title")" "$who"
 }
 
 mesg="Enter: open  •  Ctrl+r: refresh  •  Ctrl+q: queue page  •  Ctrl+s: agent"
@@ -140,6 +163,7 @@ while :; do
   tags=()
   lines=()
   now=$(date +%s)
+  measure_authors <<<"$reviews"
 
   # ci, review and threads blank: a cache from before these fields keeps them so
   ci='' review='' threads='' group=open each_record mine <<<"$mine"
