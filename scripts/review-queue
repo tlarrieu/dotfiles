@@ -6,7 +6,8 @@
 # Usage: review-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output: tab separated records under a header naming their fields (see
 #   lib/github.sh and "header" below): requested at (epoch), repo, number,
-#   author, additions, deletions, url, title.
+#   author, additions, deletions, url, title, ci (the last commit's checks:
+#   SUCCESS, FAILURE or PENDING).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2. That list is private, so it stays out of the dotfiles (gitignored).
@@ -38,6 +39,7 @@ query($q: String!) {
         number title url additions deletions createdAt
         repository { nameWithOwner }
         author { login }
+        commits(last: 1) { nodes { commit { statusCheckRollup { state } } } }
         timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT], last: 50) {
           nodes { ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } } }
         }
@@ -49,14 +51,16 @@ GRAPHQL
 
 # Records, under this header (see lib/github.sh). Requested at (epoch): my
 # latest (re-)request, so being added late or re-requested restarts the clock
-header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle'
+header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci'
 # shellcheck disable=SC2016 # $me and $at are jq variables
 fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq '
   .data.viewer.login as $me
   | .data.search.nodes[]
   | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $at
+  | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
   | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
-     .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]
+     .additions, .deletions, .url, (.title | gsub("[\t\n]"; " ")),
+     (if $c == "SUCCESS" then "SUCCESS" elif $c == "FAILURE" or $c == "ERROR" then "FAILURE" else "PENDING" end)]
   | @tsv
 ' 2>/dev/null) || { cat "$queue"; exit 1; }
 

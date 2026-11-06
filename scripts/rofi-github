@@ -4,9 +4,10 @@
 # and mine in the merge queue.
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued or :review)
-# A merge glyph before the number: auto-merge is on (it joins the queue once
-# ready).
-# Enter: open in the browser. Alt+r: refresh from GitHub. Alt+q: open the merge
+# Columns: CI (the last commit's checks), then review (conflict, draft,
+# changes requested, approved, or waiting for one). A merge glyph before the
+# number: auto-merge is on (it joins the queue once ready).
+# Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only).
 
 assets=$(dirname "$(readlink -f "$0")")
@@ -19,67 +20,59 @@ filter=$1
 rofi_dir=~/.config/rofi
 variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/dev/null)
 color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${variant:-dark}.rasi" 2>/dev/null | head -1; }
-green=$(color green) red=$(color red) yellow=$(color yellow)
-green=${green:-green} red=${red:-red} yellow=${yellow:-yellow}
+green=$(color green) red=$(color red) yellow=$(color yellow) blue=$(color blue)
+green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue}
+# Pango attributes for each face's glyph (the palette has no gray: awaiting
+# review is the foreground, faded)
+declare -A styles=(
+  [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
+  [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
+  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]='fgalpha="45%"'
+)
 
 declare -A faces=(
-  [QUEUED]='󰔟'
-  [AWAITING_CHECKS]='󰦖'
-  [MERGEABLE]='󰄬'
-  [UNMERGEABLE]='󰀦'
-  [LOCKED]='󰌾'
-  [READY]='󰐕'
+  # CI
+  [SUCCESS]='󰗠'
+  [FAILURE]='󰅙'
+  [PENDING]='󰦖'
+  # Review
   [CONFLICT]='󰀩'
-  [CHECKS_FAILING]='󰅙'
-  [CHANGES_REQUESTED]='󰏫'
-  [CHECKS_PENDING]='󰦖'
-  [REVIEW_REQUIRED]='󰈈'
-  [UNKNOWN]='󰋗'
   [DRAFT]='󰈤'
+  [CHANGES_REQUESTED]='󰏫'
+  [APPROVED]='󰔓'
+  [REVIEW_REQUIRED]='󰈈'
 )
 
 auto_glyph='󰘬' # auto-merge on
 
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 
-# Rows: <face> <status> <time> <number> <+> <−> <author> <title> [<face color>]
-#   [<auto merge: auto>] [<diff: plain>]
+# Rows: <CI> <review> <status> <time> <number> <+> <−> <author> <title>
+#   [<review color>] [<auto merge: auto>] [<diff: plain>]
+# (the review color, for reviews waiting on me: overrides the review style)
+# CI and review are faces keys (unknown ones show as ?, missing ones as blank)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local face plus minus who auto=' ' # the glyph takes one cell, like a space
-  [ "${10}" = auto ] && auto=$auto_glyph
-  face=$(printf '%-5s' "$1")
-  [ -n "$9" ] && face="<span color=\"$9\">$face</span>"
-  plus=$(printf '%7s' "+$5") minus=$(printf '%-7s' "−$6") who=$(printf '%-20s' "${7:0:20}")
-  if [ "${11}" != plain ]; then
+  local ci review plus minus who auto=' ' # the glyph takes one cell, like a space
+  [ "${11}" = auto ] && auto=$auto_glyph
+  ci=$(printf '%-5s' "${1:+${faces[$1]:-?}}") review=$(printf '%-5s' "${2:+${faces[$2]:-?}}")
+  # Style the glyphs only, not their padding (a review color wins over the
+  # review face's own style)
+  local style
+  [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>${ci% }</span> "
+  style=''
+  [ -n "$2" ] && style=${styles[$2]}
+  [ -n "${10}" ] && style="color=\"${10}\""
+  [ -n "$style" ] && review="<span $style>${review% }</span> "
+  plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7") who=$(printf '%-20s' "${8:0:20}")
+  if [ "${12}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s %-8s %-6s %s #%-7s %s %s  %s  %s' \
-    "$face" "$2" "$3" "$auto" "$4" "$plus" "$minus" "$(escape "$who")" "$(escape "$8")"
+  printf '%s%s %-8s %-6s %s #%-7s %s %s  %s  %s' \
+    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$(escape "$who")" "$(escape "$9")"
 }
 
-# Icons and their meaning, under the keys: a grid filled column by column,
-# <rows> high (the text is ASCII: padding in bytes is padding in cells)
-legend() {
-  local rows=$1 i key text glyph cell
-  shift
-  local -a lines=()
-  for ((i = 1; i <= $#; i++)); do
-    key=${!i%%=*} text=${!i#*=}
-    [ "$key" = AUTO ] && glyph=$auto_glyph || glyph=${faces[$key]}
-    cell="$glyph $(printf '%-20s' "$text")"
-    lines[(i - 1) % rows]+="${lines[(i - 1) % rows]:+  }$cell"
-  done
-  printf '%s\n' "${lines[@]}" | sed 's/ *$//'
-}
-mesg="Enter: open  •  Alt+r: refresh  •  Alt+q: queue page"
-# In lifecycle order: what blocks a pull request, getting it ready, the queue
-mesg+=$'\n'$(legend 3 \
-  DRAFT=draft CONFLICT=conflict CHECKS_FAILING='checks failed' \
-  CHANGES_REQUESTED='changes requested' CHECKS_PENDING='checks running' REVIEW_REQUIRED='approval / review' \
-  UNKNOWN='mergeability unknown' READY='ready to enqueue' AUTO=auto-merge \
-  QUEUED=queued AWAITING_CHECKS='queue checks running' MERGEABLE='queue checks passed' \
-  UNMERGEABLE='queue checks failed' LOCKED=merging)
+mesg="Enter: open  •  Ctrl+r: refresh  •  Ctrl+q: queue page"
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it
 # belongs to $group: open (needs me, or someone else), auto (auto-merge on:
@@ -96,7 +89,7 @@ mine() {
   esac
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
-  line=$(row "${faces[$state]:-?}" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff")
+  line=$(row "$ci" "$review" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff")
   # Queued ones stay in the background: they move on their own; those
   # with auto-merge on, a bit less (they will join the queue by themselves)
   case $in in
@@ -114,7 +107,7 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') tags+=(:review)
-  lines+=("$(row "${faces[REVIEW_REQUIRED]}" review "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint")")
+  lines+=("$(row "$ci" REVIEW_REQUIRED review "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint")")
 }
 
 while :; do
@@ -137,11 +130,12 @@ while :; do
   lines=()
   now=$(date +%s)
 
-  group=open each_record mine <<<"$mine"
-  each_record review <<<"$reviews"
+  # ci and review blank: a cache from before these fields keeps them so
+  ci='' review='' group=open each_record mine <<<"$mine"
+  ci='' each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, then in it
-  group=auto each_record mine <<<"$mine"
-  group=queued each_record mine <<<"$mine"
+  ci='' review='' group=auto each_record mine <<<"$mine"
+  ci='' review='' group=queued each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
@@ -157,7 +151,7 @@ while :; do
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -p '' -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Alt+r' -kb-custom-2 'Alt+q' -mesg "$mesg$status_line")
+      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -mesg "$mesg$status_line")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''

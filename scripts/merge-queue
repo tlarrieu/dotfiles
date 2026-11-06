@@ -10,8 +10,8 @@
 # Output: tab separated records under a header naming their fields (see
 #   lib/github.sh, and "fields" below for what they hold): kind (queued,
 #   ready or other), repo, number, position, state, label, time, additions,
-#   deletions, auto, url, queue_url, title, enqueued_at (- when not
-#   applicable).
+#   deletions, auto, url, queue_url, title, enqueued_at, ci, review (- when
+#   not applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
@@ -59,7 +59,10 @@ GRAPHQL
 # Time: estimated seconds to merge (queued), last update epoch (other), or -.
 # Auto: auto when auto-merge is on, else -.
 # Label: the state in a word or two, for the picker and the panel.
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at)
+# CI: the last commit's checks, SUCCESS, FAILURE or PENDING.
+# Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, APPROVED or
+# REVIEW_REQUIRED.
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # Rows are objects, printed in the order of $fields (- for what they lack)
 # shellcheck disable=SC2016 # $e, $c, $pr, $blocker… are jq variables
@@ -73,6 +76,13 @@ program='
   | [ .data.search.nodes[]
       | (.commits.nodes[0].commit.statusCheckRollup.state // "SUCCESS") as $c
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
+          ci: (if $c == "SUCCESS" then "SUCCESS" elif $c == "FAILURE" or $c == "ERROR" then "FAILURE"
+               else "PENDING" end),
+          review: (if .mergeable == "CONFLICTING" then "CONFLICT"
+                   elif .isDraft then "DRAFT"
+                   elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
+                   elif .reviewDecision == "APPROVED" then "APPROVED"
+                   else "REVIEW_REQUIRED" end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
           queue_url: "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)",
           title: (.title | gsub("[\t\n]"; " ")) } as $pr
