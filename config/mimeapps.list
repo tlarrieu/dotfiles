@@ -14,6 +14,7 @@ image/png=nsxiv.desktop;gimp.desktop
 image/webp=nsxiv.desktop;gimp.desktop
 image/x-eps=org.inkscape.Inkscape.desktop
 text/plain=nvim.desktop
+text/html=browser-kiosk.desktop
 video/vnd.avi=mpv.desktop
 video/mp4=mpv.desktop
 video/ogg=mpv.desktop
