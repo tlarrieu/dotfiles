@@ -54,10 +54,6 @@ set -x PATH $PATH $HOME/.local/bin
 set -x PATH $PATH $GOPATH/bin
 set -x PATH $PATH $HOME/.cargo/bin
 
-set -x ANTHROPIC_BASE_URL https://localhost:11434
-set -x ANTHROPIC_AUTH_TOKEN ollama
-set -x ANTHROPIC_API_KEY ""
-
 # dircolors
 eval (dircolors -c ~/.dir_colors)
 
