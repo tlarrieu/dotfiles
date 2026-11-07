@@ -29,31 +29,31 @@ function ft
     set flags $flags -w (math "min $COLUMNS,100")
   case sum
     echo -e "\e[32m• Current checking balance (checked transactions only) --------------------\e[0m"
-    now -p today -N -C -H assets:check assets:cash assets:swile assets:amazon
+    now -p today -N -C -H assets:check:societe-generale assets:cash assets:swile assets:amazon
     tput setaf 9
     echo -e "• Pending transfers balance -----------------------------------------------"
     tput setaf 0
     now -p today -N -H -P equity:transfers
     echo -e "\e[33m• Pending checking balance (all transactions) -----------------------------\e[0m"
-    now -p today..15days -N -H assets:cash assets:check assets:swile
+    now -p today..15days -N -H assets:cash assets:check:societe-generale assets:swile
     echo -e "\e[34m• Current savings balance -------------------------------------------------\e[0m"
-    now -p today..15days -N -H assets:savings
+    now -p today..15days -N -H assets:savings:societe-generale
     echo -e "\e[31m• Current mortgage balance ------------------------------------------------\e[0m"
     now -p today..15days -N -H liabilities:loans:house
     return
   case now
     echo -e "\e[32m• Current checking balance (checked transactions only) -----\e[0m"
-    now -p today -C -H assets:check assets:cash assets:swile assets:amazon
+    now -p today -C -H assets:check:societe-generale assets:cash assets:swile assets:amazon
     echo -e "\e[33m• Pending checking balance (all transactions) --------------\e[0m"
-    now -p today..15days -H assets:cash assets:check assets:swile
+    now -p today..15days -H assets:cash assets:check:societe-generale assets:swile
     tput setaf 9
     echo -e "• Pending transfers balance --------------------------------"
     tput setaf 0
     now -p today -H -P equity:transfers
-    echo -e "\e[31m• Current mortgage balance ------------------------------------------------\e[0m"
+    echo -e "\e[31m• Current mortgage balance ---------------------------------\e[0m"
     now -p today..15days -N -H liabilities:loans:house
     echo -e "\e[34m• Current savings balance ----------------------------------\e[0m"
-    now -p today..15days -H assets:savings
+    now -p today..15days -H assets:savings:societe-generale
     echo -e "\e[35m• Monthly envelopes ----------------------------------------\e[0m"
     now -p thismonth expenses:groceries expenses:restaurant expenses:leisure expenses:books expenses:car
     echo -e "\e[35m• Yearly envelopes -----------------------------------------\e[0m"
@@ -65,7 +65,7 @@ function ft
     return
   case up upcoming
     echo -e "\e[33mUpcoming transactions (forecasted OR pending)\e[0m"
-    up assets:check:caisse-epargne:joint
+    up assets:check:societe-generale:joint
     return
   case bud budget
     ft bal expenses --budget --empty -p 2monthago..nextmonth -M
