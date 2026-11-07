@@ -55,7 +55,7 @@ for f in "$agents_dir"/*; do
   fi
   printf '%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project"
 done | awk -F'\t' -v OFS='\t' '
-  NR == FNR { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
+  FILENAME == ARGV[1] { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
   {
     project = $5; rank = 2 * n + 1; slot = 0
     if (project in order) rank = order[project]
