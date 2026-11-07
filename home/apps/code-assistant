@@ -7,10 +7,4 @@ envfile="$HOME/.context.env"
 envfile="$HOME/.env"
 [ -f "$envfile" ] && . "$envfile"
 
-case "$CONTEXT" in
-  work)
-    fish -c "claude --model '$CLAUDE_MODEL'"
-    ;;
-  *)
-    ollama launch opencode --model "$CLAUDE_MODEL"
-esac
+fish -c "claude --model '$CLAUDE_MODEL'"
