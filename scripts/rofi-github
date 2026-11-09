@@ -31,7 +31,7 @@ declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
   [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [QUEUED]=$dim
-  [MERGED]=$dim [DEPLOYING]="color=\"$blue\""
+  [MERGED]="color=\"$magenta\"" [DEPLOYING]="color=\"$blue\""
 )
 
 declare -A faces=(
