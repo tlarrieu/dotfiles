@@ -6,9 +6,12 @@
 # invisible tag: :open, :queued or :review)
 # Columns: CI (the last commit's checks), then review (conflict, draft,
 # changes requested, approved, or waiting for one; in the merge queue
-# instead, for queued ones). A merge glyph before the
-# number: auto-merge is on (it joins the queue once ready). A speech bubble
-# before the title: unresolved review threads, how many.
+# instead, for queued ones), then time: since the last update, waiting on my
+# review for how long, or for queued ones, the position and when it should
+# merge (#37 (1h14)). A merge glyph before the number: auto-merge is on (it
+# joins the queue once ready). A speech bubble before the title: unresolved
+# review threads, how many. All red: GitHub can't tell whether it's
+# mergeable, see on GitHub why.
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
 # spawn an agent on it (see claude-agent-pr): addressing its unresolved review
@@ -62,46 +65,53 @@ measure_authors() {
 thread_glyph='󰵅' # unresolved review threads
 
 
-# Rows: <CI> <review> <status> <time> <number> <+> <−> <author> <title>
+# Rows: <CI> <review> <time> <number> <+> <−> <author> <title>
 #   (shown in another order: the author goes last)
 #   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
-# (the review color, for reviews waiting on me: overrides the review style)
+#   [<line color>]
+# (the review color, for reviews waiting on me: overrides the review style;
+# the line color overrides every color in the row)
 # CI and review are faces keys (unknown ones show as ?, missing ones as blank)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local ci review plus minus who='' title=$9 threads auto=' ' # the glyph takes one cell, like a space
-  [ "${11}" = auto ] && auto=$auto_glyph
+  local ci review plus minus who='' title=$8 threads auto=' ' line # the glyph takes one cell, like a space
+  [ "${10}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a review color wins over the review face's
-  # own style)
+  # own style), unless the line color does it all
   local style
   ci=${1:+${faces[$1]:-?}} review=${2:+${faces[$2]:-?}}
-  [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
-  style=''
-  [ -n "$2" ] && style=${styles[$2]}
-  [ -n "${10}" ] && style="color=\"${10}\""
-  [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
+  if [ -z "${13}" ]; then
+    [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
+    style=''
+    [ -n "$2" ] && style=${styles[$2]}
+    [ -n "$9" ] && style="color=\"$9\""
+    [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
+  fi
   ci="${ci:- }  " review="${review:- }  "
-  plus=$(printf '%7s' "+$6") minus=$(printf '%-7s' "−$7")
+  plus=$(printf '%7s' "+$5") minus=$(printf '%-7s' "−$6")
   # Last, fainter than dim. The title before it gets a fixed width (in
   # characters, as they are cells), so that a long one can't push it out of
   # the window
-  if [ -n "$8" ]; then
-    who="  <span fgalpha=\"40%\">$(escape "$8")</span>"
+  if [ -n "$7" ]; then
+    who="  <span fgalpha=\"40%\">$(escape "$7")</span>"
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
     title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
   # 4 cells: glyph, space, count, dim (blank without any unresolved)
   threads='    '
-  if [ "${13:-0}" -gt 0 ] 2>/dev/null; then
-    threads="<span $dim>$thread_glyph ${13}</span>"
-    [ ${#13} -lt 2 ] && threads+=' ' # wider counts push the title instead
+  if [ "${12:-0}" -gt 0 ] 2>/dev/null; then
+    threads="<span $dim>$thread_glyph ${12}</span>"
+    [ ${#12} -lt 2 ] && threads+=' ' # wider counts push the title instead
   fi
-  if [ "${12}" != plain ]; then
+  if [ "${11}" != plain ] && [ -z "${13}" ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s%s%-12s %-6s %s #%-7s %s %s  %s  %s%s' \
-    "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$threads" "$(escape "$title")" "$who"
+  # Time: 10 cells, as a queued one's "#37 (1h14)"
+  line=$(printf '%s%s%-10s %s #%-7s %s %s  %s  %s%s' \
+    "$ci" "$review" "$3" "$auto" "$4" "$plus" "$minus" "$threads" "$(escape "$title")" "$who")
+  [ -n "${13}" ] && line="<span color=\"${13}\">$line</span>"
+  printf '%s' "$line"
 }
 
 # Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
@@ -125,18 +135,20 @@ mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent)
 # on its way to the queue) or queued
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine() {
-  local in=open where when tag diff='' line
+  local in=open when tag diff='' color='' line
   if [ "$kind" = queued ]; then in=queued; elif [ "$auto" = auto ]; then in=auto; fi
   [ "$in" = "$group" ] || return 0
   case $kind in
-    queued) where="#$position" tag=:queued when='?'; [ "$time" = - ] || when=$(eta "$time") ;;
-    ready) where='ready' when='' tag=:open ;;
-    *) where=$label when=$(ago $((now - time))) tag=:open ;; # since last update
+    queued) when="#$position" tag=:queued; [ "$time" = - ] || when+=" ($(eta "$time"))" ;;
+    ready) when='' tag=:open ;;
+    *) when=$(ago $((now - time))) tag=:open ;; # since last update
   esac
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
   [ "$in" = queued ] && review=QUEUED
-  line=$(row "$ci" "$review" "$where" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads")
+  # GitHub can't tell whether it's mergeable (the icons alone would read ready)
+  [ "$state" = UNKNOWN ] && color=$red
+  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color")
   # Queued ones stay in the background: they move on their own; those
   # with auto-merge on, a bit less (they will join the queue by themselves)
   case $in in
@@ -154,7 +166,7 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') prs+=("review $repo $number") tags+=(:review)
-  lines+=("$(row "$ci" REVIEW_REQUIRED review "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
+  lines+=("$(row "$ci" REVIEW_REQUIRED "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
 }
 
 while :; do
