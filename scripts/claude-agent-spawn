@@ -12,6 +12,8 @@
 #   CLAUDE_AGENT_DIR      where to spawn it, instead of the current project
 #   CLAUDE_AGENT_AT       the commit its worktree starts at, instead of the
 #                         current one (the agent then gets no branch rule)
+#   CLAUDE_AGENT_BRANCH   with CLAUDE_AGENT_AT, a branch at that commit for its
+#                         worktree to check out, instead of a detached HEAD
 #   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
 #   CLAUDE_AGENT_PR       the pull request it works on (<owner/repo>#<number>),
 #                         passed on to the agent: its state (see
@@ -50,7 +52,7 @@ fi
 if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error_file=$(mktemp "$spawn_dir/error.XXXXXX")
   files+=" $error_file"
-  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" ${CLAUDE_AGENT_AT:+"$CLAUDE_AGENT_AT"} 2>"$error_file")
+  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" ${CLAUDE_AGENT_AT:+"$CLAUDE_AGENT_AT"} ${CLAUDE_AGENT_AT:+${CLAUDE_AGENT_BRANCH:+"$CLAUDE_AGENT_BRANCH"}} 2>"$error_file")
   error=$(cat "$error_file")
   rm -f "$error_file"
   [ -n "$slot" ] || fail "Could not create the agent's worktree: $error"
@@ -67,6 +69,8 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
 your first commit, create a branch named after your work (git switch -c
 <name>), and never commit on the detached HEAD."
   [ -n "$CLAUDE_AGENT_AT" ] && head="It sits on a detached HEAD, at $(git -C "$directory" rev-parse --short HEAD)."
+  [ -n "$CLAUDE_AGENT_AT" ] && [ -n "$CLAUDE_AGENT_BRANCH" ] &&
+    head="It sits on the branch $CLAUDE_AGENT_BRANCH, at $(git -C "$directory" rev-parse --short HEAD)."
   context_file=$(mktemp "$spawn_dir/context.XXXXXX")
   cat >"$context_file" <<CONTEXT
 You work in a git worktree of your own, $directory, apart from the user's

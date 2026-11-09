@@ -4,10 +4,13 @@
 # to commit: the checked out branch can't be shared with the primary worktree,
 # whose files would fall out of sync on commits), and reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
 # their own test databases. A slot stays taken as long as its worktree exists.
-# Usage: claude-agent-worktree <repository> [<commit>]  (default: its HEAD)
+# Given a branch (checked out nowhere else, at <commit>), the worktree checks
+# it out instead of detaching (see claude-agent-pr).
+# Usage: claude-agent-worktree <repository> [<commit> [<branch>]]  (default: its HEAD)
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
-# Slot files hold "<worktree> <base commit>", for claude-agent-sweep to tell
-# whether the agent committed anything.
+# Slot files hold "<worktree> <base commit> [<branch>]", for claude-agent-sweep
+# to tell whether the agent committed anything, and which branch was there
+# before it (not the agent's to delete).
 
 # Slots, a range of TEST_ENV_NUMBER values clear of ours (CLAUDE_AGENT_SLOTS
 # overrides it, e.g. 11-19)
@@ -38,7 +41,14 @@ done
 worktree="$agents_dir/$repo-$slot"
 git -C "$root" worktree prune
 base=$(git -C "$root" rev-parse --verify "${2:-HEAD}^{commit}") || exit 1
-git -C "$root" worktree add --quiet --detach "$worktree" "$base" >&2 || exit 1
+branch=$3
+if [ -n "$branch" ]; then
+  [ "$(git -C "$root" rev-parse --verify --quiet "refs/heads/$branch")" = "$base" ] \
+    || { echo "Branch $branch is not at $base" >&2; exit 1; }
+  git -C "$root" worktree add --quiet "$worktree" "$branch" >&2 || exit 1
+else
+  git -C "$root" worktree add --quiet --detach "$worktree" "$base" >&2 || exit 1
+fi
 
-echo "$worktree $base" >"$slots_dir/$slot"
+echo "$worktree $base${branch:+ $branch}" >"$slots_dir/$slot"
 echo "$slot $worktree"

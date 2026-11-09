@@ -2,7 +2,8 @@
 # Spawns a Claude agent (see claude-agent-spawn) on a pull request, in a
 # worktree at its latest commit, for one of these tasks:
 #   fix      fix it (mine): resolve its conflicts with its base branch (merging
-#            it in, committed on a local branch), address its unresolved
+#            it in, committed on my local copy of its branch, which its worktree
+#            checks out when it can), address its unresolved
 #            review threads, and its failing CI checks; it leaves those other
 #            changes uncommitted for me to review, asks in the session when it
 #            disagrees with a comment, and re-runs the jobs that failed for
@@ -48,12 +49,53 @@ if [ "$task" = fix ]; then
   # Its branches, for the merge (left to the agent to find out without them)
   IFS=$'\t' read -r branch base < <(timeout 30 gh pr view "$number" -R "$repo" \
     --json headRefName,baseRefName --jq '[.headRefName, .baseRefName] | @tsv' 2>/dev/null)
+
+  # The agent's worktree checks out my local copy of its head branch,
+  # fast-forwarded to its latest commit (created there when missing), so that
+  # its commits land on the branch I push from; not when another worktree (my
+  # clone's included) has it checked out, or it holds commits the pull request
+  # doesn't: then the agent asks me where to commit
+  local_branch='' unusable=''
+  if [ -z "$branch" ]; then
+    unusable='its head branch is unknown (gh pr view failed)'
+  elif git -C "$clone" worktree list --porcelain | grep -qxF "branch refs/heads/$branch"; then
+    unusable="$branch is checked out in another worktree"
+  elif ! git -C "$clone" show-ref --verify --quiet "refs/heads/$branch"; then
+    git -C "$clone" branch --quiet "$branch" "$head" && local_branch=$branch
+    git -C "$clone" show-ref --verify --quiet "refs/remotes/origin/$branch" &&
+      git -C "$clone" branch --quiet --set-upstream-to="origin/$branch" "$branch"
+  elif git -C "$clone" merge-base --is-ancestor "refs/heads/$branch" "$head"; then
+    git -C "$clone" branch --quiet --force "$branch" "$head" && local_branch=$branch
+  else
+    unusable="the local $branch holds commits the pull request doesn't"
+  fi
+  [ -n "$local_branch" ] || [ -n "$unusable" ] || unusable="$branch could not be moved to its latest commit"
   branch=${branch:-<its head branch, see gh pr view>} base=${base:-<its base branch, see gh pr view>}
+
+  if [ -n "$local_branch" ]; then
+    read -r -d '' where <<WHERE
+Your worktree is on $branch, the user's local copy of its head branch,
+fast-forwarded to its latest commit: make any commit there, and never create
+another branch.
+WHERE
+    push="git push origin $branch"
+  else
+    read -r -d '' where <<WHERE
+Your worktree is on a detached HEAD, as it could not be put on its head branch:
+$unusable. Before your first commit, tell the user so, and ask them which
+branch to make it on.
+WHERE
+    push="git push origin <the branch you committed on>:$branch"
+  fi
 
   read -r -d '' rules <<RULES
 $about
-Never push. Commit only the merge resolving its conflicts (see the task), on
-a local branch: leave every other change uncommitted, for the user to review.
+$where
+Never push. Commit only the merge resolving its conflicts (see the task),
+unless the user asks for more: leave every other change uncommitted, for the
+user to review. Whenever you commit, give the user the command to push it
+from their clone, $clone (your worktree goes once you stop; the branch stays,
+as worktrees share their clone's branches): $push.
 Don't reply to, nor resolve, any review thread on GitHub unless the user asks
 you to. Re-run a CI job only when it failed for an infrastructure reason, and
 once (see the task); no other one unless the user asks. When you disagree
@@ -65,19 +107,15 @@ RULES
 Fix $url: its conflicts with its base branch, its unresolved review threads,
 and its failing CI checks.
 0. Conflicts: check whether it has any with gh pr view $number -R $repo
-   --json mergeable (CONFLICTING). If so, first create a local branch for it:
-   git switch -c $branch (when that name is taken, $branch-conflicts). Then
-   git fetch origin $base and git merge origin/$base, as GitHub's "Update
+   --json mergeable (CONFLICTING). If so, git fetch origin $base and
+   git merge origin/$base, as GitHub's "Update
    branch" would (a merge, not a rebase: the pull request's branch then only
    moves forward). Resolve each conflict from what both sides meant: read the
    pull request's change and what $base changed there since (git log -p
    --merge, for each conflicting file). When the right resolution isn't
    clear, ask the user before settling it. Run the specs covering the
-   conflicting files, then commit the merge (git commit --no-edit). Don't push
-   it: in your summary, give the user the command to push it from their
-   clone, $clone (your worktree goes once you stop; the branch stays, as
-   worktrees share their clone's branches): git push origin
-   <your local branch>:$branch.
+   conflicting files, then commit the merge (git commit --no-edit), and give
+   the push command in your summary.
 1. Review threads: fetch them with gh api graphql (the pull request's
    reviewThreads, keeping those whose isResolved is false, with their path,
    line and comments). For each, make the change asked for.
@@ -133,5 +171,5 @@ format). Leave out style nitpicks a linter would catch.
 PROMPT
 fi
 
-CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_CONTEXT=$rules CLAUDE_AGENT_PR="$repo#$number" \
+CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_BRANCH=$local_branch CLAUDE_AGENT_CONTEXT=$rules CLAUDE_AGENT_PR="$repo#$number" \
   exec "$assets/claude-agent-spawn" "$prompt"
