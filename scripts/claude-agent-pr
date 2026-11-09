@@ -1,22 +1,25 @@
 #!/usr/bin/env bash
 # Spawns a Claude agent (see claude-agent-spawn) on a pull request, in a
 # worktree at its latest commit, for one of these tasks:
-#   threads  address its unresolved review threads (mine): it leaves its
-#            changes uncommitted for me to review, and asks in the session
-#            when it disagrees with a comment
+#   fix      fix it (mine): address its unresolved review threads, and its
+#            failing CI checks; it leaves its changes uncommitted for me to
+#            review, asks in the session when it disagrees with a comment,
+#            and re-runs the jobs that failed for infrastructure reasons
 #   review   review it (someone else's), critically: design and naming first,
 #            bugs on the side; in the session only, changing nothing
-# Either way, it posts nothing on GitHub unless asked.
+# Either way, it posts nothing on GitHub unless asked (re-runs aside).
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
-# Usage: claude-agent-pr <threads|review> <owner/repo> <number>
+# Usage: claude-agent-pr <fix|review> <owner/repo> <number>
 
 assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/github.sh
+. "$assets/lib/github.sh" # github_ignored_check
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
 
 task=$1 repo=$2 number=$3
-case $task in threads | review) ;; *) task='' ;; esac
+case $task in fix | review) ;; *) task='' ;; esac
 [ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
-  || { echo "Usage: claude-agent-pr <threads|review> <owner/repo> <number>" >&2; exit 2; }
+  || { echo "Usage: claude-agent-pr <fix|review> <owner/repo> <number>" >&2; exit 2; }
 
 # Any remote URL form: git@github.com:owner/repo(.git), https://github.com/owner/repo(.git)
 clone=''
@@ -38,21 +41,42 @@ head=$(git -C "$clone" rev-parse FETCH_HEAD)
 url="https://github.com/$repo/pull/$number"
 about="You work on pull request #$number of $repo ($url), at its latest commit."
 
-if [ "$task" = threads ]; then
+if [ "$task" = fix ]; then
   read -r -d '' rules <<RULES
 $about
 Don't commit, nor push: leave your changes uncommitted, for the user to review.
 Don't reply to, nor resolve, any review thread on GitHub unless the user asks
-you to. When you disagree with a reviewer's comment, or can't tell what it
-asks, ask the user here before changing anything for it.
+you to. Re-run a CI job only when it failed for an infrastructure reason, and
+once (see the task); no other one unless the user asks. When you disagree
+with a reviewer's comment, or can't tell what it asks, ask the user here
+before changing anything for it.
 RULES
 
   read -r -d '' prompt <<PROMPT
-Address the unresolved review threads of $url. Fetch them with gh api graphql
-(the pull request's reviewThreads, keeping those whose isResolved is false,
-with their path, line and comments). For each, make the change asked for, then
-run the specs covering what you changed. Finish with a summary, thread by
-thread: what you changed, or why you didn't.
+Fix $url: its unresolved review threads, and its failing CI checks.
+1. Review threads: fetch them with gh api graphql (the pull request's
+   reviewThreads, keeping those whose isResolved is false, with their path,
+   line and comments). For each, make the change asked for.
+2. CI: list the checks of its latest commit with gh pr checks $number -R $repo
+   (tab separated: name, state, duration, link), keeping those whose state is
+   fail; skip "$github_ignored_check", which only waits for approvals, and
+   summaries of the others (such as "CI Summary"). For a GitHub Actions job
+   (its link ends with /job/<job id>), read its log with
+   gh api repos/$repo/actions/jobs/<job id>/logs (gh run view --log-failed
+   prints nothing here): look for ##[error] lines and the test failures above
+   them. Fix what the pull request broke. A failure it didn't cause is not
+   yours to fix: tell it apart, and say so instead of changing code for it.
+   When it's the infrastructure's (the runner shut down or lost, a timeout
+   fetching dependencies or images, a service that didn't start: nothing the
+   code did), re-run that job, once, with
+   gh api -X POST repos/$repo/actions/jobs/<job id>/rerun (the id from its
+   link; not gh run rerun --job, which wants another one): if it fails again,
+   report it instead. One re-run already (its run_attempt, in
+   gh api repos/$repo/actions/jobs/<job id>, is above 1): report it too. A
+   flaky spec, or one failing on the base branch too: report it only.
+Either may have nothing to do: say so and move on. Then run the specs covering
+what you changed. Finish with a summary: thread by thread, then check by
+check, what you changed, re-ran, or why you did neither.
 PROMPT
 else
   read -r -d '' rules <<RULES

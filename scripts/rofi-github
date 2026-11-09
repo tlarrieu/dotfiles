@@ -15,8 +15,8 @@
 # mergeable, see on GitHub why.
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
-# spawn an agent on it (see claude-agent-pr): addressing its unresolved review
-# threads (mine), or reviewing it (others').
+# spawn an agent on it (see claude-agent-pr): fixing its unresolved review
+# threads and failing CI (mine), or reviewing it (others').
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -153,7 +153,7 @@ mine() {
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
   [ "$in" = queued ] && review=QUEUED
-  # MERGED or DEPLOYING; no queue to open, no thread to address (Ctrl+s)
+  # MERGED or DEPLOYING; no queue to open, nothing for an agent to fix (Ctrl+s)
   [ "$in" = deploying ] && review=$state ci='' queue_url='' threads=0
   # GitHub can't tell whether it's mergeable (the icons alone would read ready)
   [ "$state" = UNKNOWN ] && color=$red
@@ -165,7 +165,7 @@ mine() {
     queued | deploying) line="<span fgalpha=\"60%\">$line</span>" ;;
     auto) line="<span fgalpha=\"80%\">$line</span>" ;;
   esac
-  urls+=("$url") queues+=("$queue_url") prs+=("threads $repo $number ${threads:-0}") tags+=("$tag") lines+=("$line")
+  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--}") tags+=("$tag") lines+=("$line")
 }
 
 # Adds a pull request waiting on my review (a review-queue record)
@@ -195,7 +195,7 @@ while :; do
 
   urls=()
   queues=()
-  prs=() # <agent task> <repo> <number> [<unresolved threads>]
+  prs=() # <agent task> <repo> <number> [<unresolved threads> <CI>] (the last two: mine)
   tags=()
   lines=()
   now=$(date +%s)
@@ -235,10 +235,10 @@ while :; do
     11) [ -n "$choice" ] && [ -n "${queues[$choice]}" ] && exec browser-kiosk "${queues[$choice]}" ;; # reviews: stay
     12)
       if [ -n "$choice" ]; then
-        read -r pr_task pr_repo pr_number pr_threads <<<"${prs[$choice]}"
-        # The cache may lag: Ctrl+r first when threads came in since
-        if [ "$pr_task" = threads ] && [ "$pr_threads" -eq 0 ] 2>/dev/null; then
-          notify-send --app-name=github GitHub "No unresolved review thread on $pr_repo#$pr_number"
+        read -r pr_task pr_repo pr_number pr_threads pr_ci <<<"${prs[$choice]}"
+        # The cache may lag: Ctrl+r first when threads came in (or CI failed) since
+        if [ "$pr_task" = fix ] && [ "$pr_threads" -eq 0 ] 2>/dev/null && [ "$pr_ci" != FAILURE ]; then
+          notify-send --app-name=github GitHub "Nothing to fix on $pr_repo#$pr_number: no unresolved review thread, no failing CI"
         else
           exec "$assets/claude-agent-pr" "$pr_task" "$pr_repo" "$pr_number"
         fi
