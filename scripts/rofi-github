@@ -82,9 +82,10 @@ thread_glyph='󰵅' # unresolved review threads
 # Rows: <CI> <review> <time> <number> <+> <−> <author> <title>
 #   (shown in another order: the author goes last)
 #   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
-#   [<line color>]
+#   [<line color>] [<verdicts>]
 # (the review color, for reviews waiting on me: overrides the review style;
-# the line color overrides every color in the row)
+# the line color overrides every color in the row; verdicts, as merge-queue
+# prints them, go under the title, one line each, see verdict_lines)
 # CI and review are faces keys (unknown ones show as ?, missing ones as blank)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
@@ -132,10 +133,28 @@ row() {
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
   # Time and number: as wide as the widest shown (see measure_columns)
-  line=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s%s' \
-    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads" "$(escape "$title")" "$who")
+  local before
+  before=$(printf '%s%s%-*s %s #%-*s %s %s  %s' \
+    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads")
+  line="$before$(escape "$title")$who"
   [ -n "${13}" ] && line="<span color=\"${13}\">$line</span>"
-  printf '%s' "$line"
+  printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${14}")"
+}
+
+# The lines under a title (from a column <indent> cells in) telling the
+# verdicts reviewers left a message with: the face of their verdict, then
+# who, and the message's first line, in italics, dim, cut to fit max_width
+# Usage: verdict_lines <indent> <verdicts, as merge-queue prints them>
+verdict_lines() {
+  local indent=$1 login state message room out=''
+  [ -n "$2" ] && [ "$2" != - ] || return 0
+  while IFS=$'\x1f' read -r -d $'\x1d' login state message; do
+    room=$((max_width - indent - ${#login} - 4)) # glyph, space, colon, space
+    [ ${#message} -gt "$room" ] && message="${message:0:room-1}…"
+    out+=$'\n'"$(printf '%*s' "$indent" '')<span ${styles[$state]}>${faces[$state]}</span> "
+    out+="<span $dim><i>$(escape "$login"): $(escape "$message")</i></span>"
+  done <<<"$2"$'\x1d'
+  printf '%s' "$out"
 }
 
 # Adds a pull request to the merge queue (GitHub's "Merge when ready": it
@@ -228,9 +247,13 @@ mine() {
   [ "$in" = queued ] && review=QUEUED
   # MERGED or DEPLOYING; no queue to open, nothing for an agent to fix (Ctrl+s)
   [ "$in" = deploying ] && review=$state ci='' queue_url='' threads=0
+  # Reviewers' messages: on those about to join the queue (Ctrl+m), to check
+  # before. Not once they're in it, or merged
+  local shown_verdicts=''
+  case $in in open | auto) shown_verdicts=$verdicts ;; esac
   # GitHub can't tell whether it's mergeable (the icons alone would read ready)
   [ "$state" = UNKNOWN ] && color=$red
-  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color")
+  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color" "$shown_verdicts")
   # Queued and deploying ones stay in the background: they move on their
   # own; those with auto-merge on, a bit less (they will join the queue by
   # themselves)
@@ -280,14 +303,15 @@ while :; do
   measure_authors <<<"$reviews"
   threads='' measure_columns "$mine" "$reviews" # threads blank, as below
 
-  # ci, review and threads blank: a cache from before these fields keeps them so
-  ci='' review='' threads='' group=open each_record mine <<<"$mine"
+  # ci, review, threads and verdicts blank: a cache from before these fields
+  # keeps them so
+  ci='' review='' threads='' verdicts='' group=open each_record mine <<<"$mine"
   ci='' threads='' each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, in it,
   # then merged
-  ci='' review='' threads='' group=auto each_record mine <<<"$mine"
-  ci='' review='' threads='' group=queued each_record mine <<<"$mine"
-  ci='' review='' threads='' group=deploying each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' group=auto each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' group=deploying each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
@@ -311,9 +335,18 @@ while :; do
   [ "$widest" -gt "$max_width" ] && widest=$max_width
   window="window { width: calc(${widest}ch + 2em min 100%); }"
 
-  # Tags go in each row's invisible search terms (meta)
-  selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
-    rofi -dmenu -i -markup-rows -p '' -format 'i f' -filter "$filter" \
+  # Rows are as tall as the tallest (verdicts under a title make them so):
+  # rofi can't size them each
+  height=1
+  for line in "${lines[@]}"; do
+    rows=${line//[!$'\n']/}
+    [ $((${#rows} + 1)) -gt "$height" ] && height=$((${#rows} + 1))
+  done
+
+  # Tags go in each row's invisible search terms (meta). Rows end with a
+  # record separator: they may hold several lines
+  selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\x1e' "${lines[$i]}" "${tags[$i]}"; done |
+    rofi -dmenu -i -markup-rows -sep $'\x1e' -eh "$height" -p '' -format 'i f' -filter "$filter" \
       -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' \
       -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?

@@ -16,8 +16,8 @@
 # Output: tab separated records under a header naming their fields (see
 #   lib/github.sh, and "fields" below for what they hold): kind (queued,
 #   ready, other or deploying), repo, number, position, state, label, time, additions,
-#   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads
-#   (- when not applicable).
+#   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads,
+#   verdicts (- when not applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
@@ -55,6 +55,7 @@ query($q: String!) {
         mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
         CI_FIELDS
         reviewThreads(first: 100) { nodes { isResolved } }
+        latestReviews(first: 20) { nodes { state body author { login } } }
       }
     }
   }
@@ -76,9 +77,24 @@ GRAPHQL
 # Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, APPROVED or
 # REVIEW_REQUIRED.
 # Threads: how many review threads are unresolved (out of the first 100).
+# Verdicts: the approvals and change requests that came with a message, each
+# reviewer's latest: <login> US <APPROVED or CHANGES_REQUESTED> US <its first
+# line, … when more follow>, separated by GS (US and GS: the ASCII unit and
+# group separators), or - without any.
 query=${query//CI_FIELDS/$github_ci_query}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads)
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
+# A pull request's verdicts (see above), from its latestReviews
+# shellcheck disable=SC2016 # jq variables
+verdicts_jq='
+  def verdicts:
+    [.latestReviews.nodes[]
+     | select(.state == "APPROVED" or .state == "CHANGES_REQUESTED")
+     | [.body | gsub("\t"; " ") | split("\n")[] | gsub("^\\s+|\\s+$"; "") | select(length > 0)] as $lines
+     | select($lines | length > 0)
+     | "\(.author.login // "ghost")\u001f\(.state)\u001f\($lines[0])\(if ($lines | length) > 1 then " …" else "" end)"]
+    | if length > 0 then join("\u001d") else "-" end;
+'
 # Rows are objects, printed in the order of $fields (- for what they lack)
 # shellcheck disable=SC2016 # $e, $c, $pr, $blocker… are jq variables
 program='
@@ -93,6 +109,7 @@ program='
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
+          verdicts: verdicts,
           review: (if .mergeable == "CONFLICTING" then "CONFLICT"
                    elif .isDraft then "DRAFT"
                    elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
@@ -129,7 +146,7 @@ program='
   | @tsv
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$github_ci_jq$program" 2>/dev/null) || { cat "$cache"; exit 1; }
+fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$github_ci_jq$verdicts_jq$program" 2>/dev/null) || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
@@ -232,7 +249,7 @@ deploy_once() { # <key>: once, but quiet until deploys were tracked once
 # Records of the deploying ones (see fields)
 deploying=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-' \
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
 
