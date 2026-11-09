@@ -49,7 +49,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "fyler.nvim": {
-      "rev": "e1626ff3815a7ebd15698fd6c6d1188a079993d6",
+      "rev": "8fe34a34fdd307ee762a2099be90b259fce39d21",
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "gitsigns.nvim": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "3a5cd6d562a01f6829a35ae761dc383264ea452b",
+      "rev": "55eceab8975036ac43a4176cbfe0d4bf1ddae93f",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "915f2bd3d4e2a33704bfc476b5137e9befa82f3d",
+      "rev": "19bdfc04f40ed2ccb3340591d125f759b0406875",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
@@ -136,7 +136,7 @@
       "src": "https://github.com/nvim-telescope/telescope-ui-select.nvim"
     },
     "telescope.nvim": {
-      "rev": "40aedd8a68c78a656a10a8d62d80c54af59420fb",
+      "rev": "1e1bab730218eaf97fce743be3f56e51075928ac",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "todo-comments.nvim": {
