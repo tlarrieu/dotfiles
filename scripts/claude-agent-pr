@@ -74,8 +74,10 @@ and its failing CI checks.
    --merge, for each conflicting file). When the right resolution isn't
    clear, ask the user before settling it. Run the specs covering the
    conflicting files, then commit the merge (git commit --no-edit). Don't push
-   it: in your summary, give the user the command to push it, run from your
-   worktree: git push origin HEAD:$branch.
+   it: in your summary, give the user the command to push it from their
+   clone, $clone (your worktree goes once you stop; the branch stays, as
+   worktrees share their clone's branches): git push origin
+   <your local branch>:$branch.
 1. Review threads: fetch them with gh api graphql (the pull request's
    reviewThreads, keeping those whose isResolved is false, with their path,
    line and comments). For each, make the change asked for.
