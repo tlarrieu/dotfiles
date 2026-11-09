@@ -16,7 +16,11 @@
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
 # spawn an agent on it (see claude-agent-pr): fixing its unresolved review
-# threads and failing CI (mine), or reviewing it (others').
+# threads and failing CI (mine), or reviewing it (others'). Ctrl+m: toggle it
+# in the merge queue (mine): "Merge when ready" on GitHub (it waits there for
+# its checks), or "Remove from queue", then refresh. (Not auto-merge: a merge
+# queue repository may not allow it, and gh pr merge falls back on it while
+# checks run.)
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -134,6 +138,23 @@ row() {
   printf '%s' "$line"
 }
 
+# Adds a pull request to the merge queue (GitHub's "Merge when ready": it
+# waits there for its checks), printing where it stands, or removes it
+# Usage: toggle_queue <owner/repo> <number> <out (add it) or in (remove it)>
+# shellcheck disable=SC2016 # GraphQL variables
+toggle_queue() {
+  local id
+  id=$(timeout 30 gh pr view "$2" -R "$1" --json id --jq .id) || return 1
+  if [ "$3" = in ]; then
+    timeout 30 gh api graphql -f id="$id" --jq 'empty' -f query='
+      mutation($id: ID!) { dequeuePullRequest(input: {id: $id}) { clientMutationId } }'
+  else
+    timeout 30 gh api graphql -f id="$id" -f query='
+      mutation($id: ID!) { enqueuePullRequest(input: {pullRequestId: $id}) { mergeQueueEntry { position state } } }' \
+      --jq '.data.enqueuePullRequest.mergeQueueEntry | "In the merge queue, position \(.position) (\(.state | ascii_downcase | gsub("_"; " ")))"'
+  fi
+}
+
 # Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
 # separators dimmer still
 hints() {
@@ -148,7 +169,7 @@ hints() {
 layout='content { children: [inputbar, listview, message]; }
   message { margin: 0.5em 1em 1em 1em; }
   textbox { horizontal-align: 0.5; }'
-mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent)
+mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='merge queue')
 
 # The time column of one of my pull requests (a merge-queue record): its
 # position and when it should merge (queued), nothing (ready), else since the
@@ -217,7 +238,11 @@ mine() {
     queued | deploying) line="<span fgalpha=\"60%\">$line</span>" ;;
     auto) line="<span fgalpha=\"80%\">$line</span>" ;;
   esac
-  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--}") tags+=("$tag") lines+=("$line")
+  # The merge queue: can join it (open ones), can leave it (queued), or neither (merged)
+  local merge=''
+  case $in in open | auto) merge="$repo $number out" ;; queued) merge="$repo $number in" ;; esac
+  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--}") merges+=("$merge")
+  tags+=("$tag") lines+=("$line")
 }
 
 # Adds a pull request waiting on my review (a review-queue record)
@@ -227,7 +252,7 @@ review() {
   # The review face, warmer as the wait grows: 4h, then a day
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
-  urls+=("$url") queues+=('') prs+=("review $repo $number") tags+=(:review)
+  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') tags+=(:review)
   lines+=("$(row "$ci" REVIEW_REQUIRED "$(review_when)" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
 }
 
@@ -247,6 +272,7 @@ while :; do
 
   urls=()
   queues=()
+  merges=() # <repo> <number> <in the merge queue: in or out> (mine, unless merged)
   prs=() # <agent task> <repo> <number> [<unresolved threads> <CI>] (the last two: mine)
   tags=()
   lines=()
@@ -288,7 +314,8 @@ while :; do
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -p '' -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
+      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' \
+      -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''
@@ -305,6 +332,21 @@ while :; do
           notify-send --app-name=github GitHub "Nothing to fix on $pr_repo#$pr_number: no unresolved review thread, no failing CI"
         else
           exec "$assets/claude-agent-pr" "$pr_task" "$pr_repo" "$pr_number"
+        fi
+      fi ;;
+    13)
+      if [ -n "$choice" ]; then
+        read -r merge_repo merge_number merge_queue <<<"${merges[$choice]}"
+        if [ -z "$merge_repo" ]; then
+          notify-send --app-name=github GitHub "The merge queue is for my open pull requests"
+        elif result=$(toggle_queue "$merge_repo" "$merge_number" "$merge_queue" 2>&1); then
+          # Leaving it: merge-queue tells, refreshing
+          [ "$merge_queue" = out ] && notify-send --app-name=github "Merge when ready" "$merge_repo#$merge_number"$'\n'"$result"
+          mode='' # show where it stands
+        else
+          notify-send --app-name=github --urgency=critical \
+            "$([ "$merge_queue" = out ] && echo "Not added to" || echo "Not removed from") the merge queue" \
+            "$merge_repo#$merge_number"$'\n'"$result"
         fi
       fi ;;
     *) exit 0 ;;
