@@ -5,7 +5,8 @@
 # ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
 # started on an entry, merge expected within 15 minutes, merged, kicked out of
 # the queue (with GitHub's reason), ready to enqueue (unless auto-merge is
-# on), being deployed to production, deployed. Then prints the cache.
+# on), being deployed to production, deployed. Then prints the cache. Once
+# deployed, a pull request stays listed for $recent_window seconds.
 # Deploys: a repository's latest GitHub release is what production runs (its
 # deploy workflow publishes one once deployed). While a run of
 # $deploy_workflow is in progress, it deploys the last commit of master
@@ -15,7 +16,7 @@
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output: tab separated records under a header naming their fields (see
 #   lib/github.sh, and "fields" below for what they hold): kind (queued,
-#   ready, other or deploying), repo, number, position, state, label, time, additions,
+#   ready, other, deploying or deployed), repo, number, position, state, label, time, additions,
 #   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads,
 #   verdicts (- when not applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
@@ -34,9 +35,11 @@ seen="$state_dir/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event
 near=$((15 * 60))
 deploy_workflow=eks_deployment.yml tested_workflow=specs.yml
 deploy_window=7 # days after merging to see it deployed (weekends, freezes): older ones are dropped
+recent_window=$((2 * 3600)) # seconds a deployed one stays listed, once in production
+deployed_at="$state_dir/deployed" # deployed ones, while listed: <repo>#<number> <epoch it reached production>
 
 mkdir -p "$state_dir"
-touch "$cache" "$queued" "$seen"
+touch "$cache" "$queued" "$seen" "$deployed_at"
 
 github_repos merge-queue merge-queue "Merge queue not watched" "$state_dir"
 
@@ -68,9 +71,10 @@ GRAPHQL
 # CHECKS_PENDING, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
 # GitHub computes it: not ready yet, next time maybe).
 # Deploying ones (merged, not in production yet), last, by merge: state
-# MERGED, or DEPLOYING while a deploy run ships it.
+# MERGED, or DEPLOYING while a deploy run ships it. Then deployed ones, in
+# production for less than $recent_window seconds: state DEPLOYED.
 # Time: estimated seconds to merge (queued), last update epoch (other), merge
-# epoch (deploying), or -.
+# epoch (deploying), when it reached production (deployed), or -.
 # Auto: auto when auto-merge is on, else -.
 # Label: the state in a word or two, for the picker and the panel.
 # CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
@@ -246,12 +250,19 @@ deploy_once() { # <key>: once, but quiet until deploys were tracked once
   [ -f "$state_dir/.deploys_initialized" ]
 }
 
-# Records of the deploying ones (see fields)
-deploying=''
+# Records of the deploying and deployed ones (see fields)
+deploying='' deployed=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
   deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
+# A deployed one, while it reached production less than $recent_window seconds ago
+deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
+  [ $((now - $3)) -lt "$recent_window" ] || return 0
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-' \
+    "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
+}
+now=$(date +%s)
 
 # A repository's deploying ones: <number> <merge commit> <merged at> <additions> <deletions> <url> <title> on stdin
 # shellcheck disable=SC2016 # GraphQL variables
@@ -281,7 +292,7 @@ track_deploys() { # <repo>
   [ -n "$deploy_sha" ] && deploy_alias="deploy: compare(headRef: \"$deploy_sha\") { status behindBy }"
   answer=$(timeout 60 gh api graphql -f owner="${repo%/*}" -f name="${repo#*/}" -f query='
     query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) {
-      latestRelease { tag { '"$aliases"' } }
+      latestRelease { publishedAt tag { '"$aliases"' } }
       master: ref(qualifiedName: "refs/heads/master") { '"$aliases $deploy_alias"' }
     } }' --jq '
     .data.repository
@@ -289,22 +300,30 @@ track_deploys() { # <repo>
         . as $r
         | ["BEHIND", "IDENTICAL"] as $in
         | ($r.master.deploy // null) as $deploy
+        | ($r.latestRelease.publishedAt | fromdateiso8601) as $published
         | ($r.latestRelease.tag | keys[]) as $key
         | [($key | ltrimstr("p")),
            (if ($r.latestRelease.tag[$key].status | IN($in[])) then "deployed"
             elif $deploy != null and ($deploy.status | IN($in[])) and ($r.master[$key].status | IN($in[]))
                  and $deploy.behindBy <= $r.master[$key].behindBy then "deploying"
-            else "merged" end)]
+            else "merged" end),
+           $published]
         | @tsv
       end' 2>/dev/null) || answer='' # GitHub unreachable: as before, next time maybe
 
-  local index status number sha at additions deletions url title
-  while IFS=$'\t' read -r index status; do
+  local index status published number sha at additions deletions url title
+  while IFS=$'\t' read -r index status published; do
     IFS=$'\t' read -r number sha at additions deletions url title <<<"${prs[$index]}"
     case $status in
       deployed)
         keys+=("$repo#$number:deployed")
-        deploy_once "$repo#$number:deployed" && notify normal "Deployed to production" "$title"$'\n'"$repo#$number" "$url" ;;
+        # Seen in production just now: in the latest release (one per poll or
+        # so, while it waits). Not those already there the first time
+        if deploy_once "$repo#$number:deployed"; then
+          notify normal "Deployed to production" "$title"$'\n'"$repo#$number" "$url"
+          printf '%s\t%s\n' "$repo#$number" "$published" >>"$deployed_at"
+          deployed_row "$repo" "$number" "$published" "$additions" "$deletions" "$url" "$title"
+        fi ;;
       deploying)
         keys+=("$repo#$number:deploying@$run_id")
         deploy_once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
@@ -320,11 +339,20 @@ if merged=$(timeout 60 gh api graphql -f query="$merged_query" \
      | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
         .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
     | sort_by(.[3]) | .[] | @tsv' 2>/dev/null); then
-  # Deployed already: nothing more to tell (keep remembering it, while merged lately)
+  # Deployed already: nothing more to tell (keep remembering it, while merged
+  # lately), listed while recent
   pending=''
   while IFS=$'\t' read -r repo number rest; do
     [ -n "$repo" ] || continue
-    if grep -qxF "$repo#$number:deployed" "$seen"; then keys+=("$repo#$number:deployed"); continue; fi
+    if grep -qxF "$repo#$number:deployed" "$seen"; then
+      keys+=("$repo#$number:deployed")
+      reached=$(awk -F'\t' -v pr="$repo#$number" '$1 == pr { print $2 }' "$deployed_at")
+      if [ -n "$reached" ]; then
+        IFS=$'\t' read -r _ _ additions deletions url title <<<"$rest"
+        deployed_row "$repo" "$number" "$reached" "$additions" "$deletions" "$url" "$title"
+      fi
+      continue
+    fi
     mapfile -t -O "${#keys[@]}" keys < <(grep -F "$repo#$number:deploying@" "$seen") # told already
     pending+="$repo"$'\t'"$number"$'\t'"$rest"$'\n'
   done <<<"$merged"
@@ -334,10 +362,15 @@ if merged=$(timeout 60 gh api graphql -f query="$merged_query" \
   done < <(cut -f1 <<<"$pending" | sort -u)
   touch "$state_dir/.deploys_initialized"
   [ -n "$deploying" ] && fresh+=$'\n'${deploying%$'\n'}
+  [ -n "$deployed" ] && fresh+=$'\n'${deployed%$'\n'}
+  # No longer listed: forgotten
+  awk -F'\t' -v now="$now" -v window="$recent_window" 'now - $2 < window' "$deployed_at" >"$deployed_at.tmp" \
+    && mv "$deployed_at.tmp" "$deployed_at"
 else
-  # GitHub unreachable: keep what we told, and the deploying ones we knew of
+  # GitHub unreachable: keep what we told, and the deploying (and deployed)
+  # ones we knew of
   mapfile -t -O "${#keys[@]}" keys < <(grep -E ':deploy(ed|ing@)' "$seen")
-  stale=$(grep -P '^deploying\t' "$cache")
+  stale=$(grep -P '^deploy(ing|ed)\t' "$cache")
   [ -n "$stale" ] && fresh+=$'\n'$stale
 fi
 
