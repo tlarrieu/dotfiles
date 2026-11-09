@@ -44,7 +44,7 @@ return require('widgets.counter').make({
         -- Ready with auto-merge on: GitHub enqueues it, nothing for me to do
         found[(urgency == 'ready' and auto) and 'waiting' or urgency] = true
         local since = tonumber(pull_request.time)
-        table.insert(auto and on_their_way or rows, ('<b>%8s</b>  %5s %s %s'):format(
+        table.insert(auto and on_their_way or rows, ('<b>%12s</b>  %5s %s %s'):format(
           pull_request.label, since and github.ago(now - since --[[@as integer]]) or '',
           github.auto_mark(pull_request), github.pull_request(pull_request)))
       end

@@ -74,7 +74,7 @@ program='
   | {QUEUED: "queued", AWAITING_CHECKS: "checks running", MERGEABLE: "checks passed",
      UNMERGEABLE: "checks failed", LOCKED: "merging"} as $queue_labels
   | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
-     CHECKS_PENDING: "running", REVIEW_REQUIRED: "approval", UNKNOWN: "unknown"} as $labels
+     CHECKS_PENDING: "running", REVIEW_REQUIRED: "needs review", UNKNOWN: "unknown"} as $labels
   | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
   | [ .data.search.nodes[]
       | ci as $c

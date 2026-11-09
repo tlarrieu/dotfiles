@@ -36,7 +36,7 @@ declare -A faces=(
   [PENDING]='󰦖'
   # Review
   [CONFLICT]='󰀩'
-  [DRAFT]='󰈤'
+  [DRAFT]=''
   [CHANGES_REQUESTED]='󰏫'
   [APPROVED]='󰔓'
   [REVIEW_REQUIRED]='󰈈'
@@ -100,7 +100,7 @@ row() {
   if [ "${12}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  printf '%s%s%-8s %-6s %s #%-7s %s %s  %s  %s%s' \
+  printf '%s%s%-12s %-6s %s #%-7s %s %s  %s  %s%s' \
     "$ci" "$review" "$3" "$4" "$auto" "$5" "$plus" "$minus" "$threads" "$(escape "$title")" "$who"
 }
 
