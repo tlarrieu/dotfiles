@@ -15,7 +15,11 @@ M.make = function(object)
   local tooltip = awful.tooltip({
     objects = { object },
     mode = 'outside',
-    preferred_alignments = { 'middle' },
+    preferred_positions = { 'bottom' },
+    -- Centered under the widget, else flush with its right edge (or its left
+    -- one): awesome places it nowhere when none of these fits, leaving it
+    -- wherever it last was
+    preferred_alignments = { 'middle', 'back', 'front' },
     margin_leftright = 12,
     margin_topbottom = 12,
     gaps = { top = 2 * beautiful.useless_gap, bottom = 2 * beautiful.useless_gap, left = 0, right = 0 },
