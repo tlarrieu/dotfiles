@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Spawns a Claude agent (see claude-agent-spawn) on a pull request, in a
 # worktree at its latest commit, for one of these tasks:
-#   fix      fix it (mine): address its unresolved review threads, and its
-#            failing CI checks; it leaves its changes uncommitted for me to
-#            review, asks in the session when it disagrees with a comment,
-#            and re-runs the jobs that failed for infrastructure reasons
+#   fix      fix it (mine): resolve its conflicts with its base branch (merging
+#            it in, committed on a local branch), address its unresolved
+#            review threads, and its failing CI checks; it leaves those other
+#            changes uncommitted for me to review, asks in the session when it
+#            disagrees with a comment, and re-runs the jobs that failed for
+#            infrastructure reasons
 #   review   review it (someone else's), critically: design and naming first,
 #            bugs on the side; in the session only, changing nothing
-# Either way, it posts nothing on GitHub unless asked (re-runs aside).
+# Either way, it pushes nothing, and posts nothing on GitHub unless asked
+# (re-runs aside).
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
 # Usage: claude-agent-pr <fix|review> <owner/repo> <number>
 
@@ -42,9 +45,15 @@ url="https://github.com/$repo/pull/$number"
 about="You work on pull request #$number of $repo ($url), at its latest commit."
 
 if [ "$task" = fix ]; then
+  # Its branches, for the merge (left to the agent to find out without them)
+  IFS=$'\t' read -r branch base < <(timeout 30 gh pr view "$number" -R "$repo" \
+    --json headRefName,baseRefName --jq '[.headRefName, .baseRefName] | @tsv' 2>/dev/null)
+  branch=${branch:-<its head branch, see gh pr view>} base=${base:-<its base branch, see gh pr view>}
+
   read -r -d '' rules <<RULES
 $about
-Don't commit, nor push: leave your changes uncommitted, for the user to review.
+Never push. Commit only the merge resolving its conflicts (see the task), on
+a local branch: leave every other change uncommitted, for the user to review.
 Don't reply to, nor resolve, any review thread on GitHub unless the user asks
 you to. Re-run a CI job only when it failed for an infrastructure reason, and
 once (see the task); no other one unless the user asks. When you disagree
@@ -53,7 +62,20 @@ before changing anything for it.
 RULES
 
   read -r -d '' prompt <<PROMPT
-Fix $url: its unresolved review threads, and its failing CI checks.
+Fix $url: its conflicts with its base branch, its unresolved review threads,
+and its failing CI checks.
+0. Conflicts: check whether it has any with gh pr view $number -R $repo
+   --json mergeable (CONFLICTING). If so, first create a local branch for it:
+   git switch -c $branch (when that name is taken, $branch-conflicts). Then
+   git fetch origin $base and git merge origin/$base, as GitHub's "Update
+   branch" would (a merge, not a rebase: the pull request's branch then only
+   moves forward). Resolve each conflict from what both sides meant: read the
+   pull request's change and what $base changed there since (git log -p
+   --merge, for each conflicting file). When the right resolution isn't
+   clear, ask the user before settling it. Run the specs covering the
+   conflicting files, then commit the merge (git commit --no-edit). Don't push
+   it: in your summary, give the user the command to push it, run from your
+   worktree: git push origin HEAD:$branch.
 1. Review threads: fetch them with gh api graphql (the pull request's
    reviewThreads, keeping those whose isResolved is false, with their path,
    line and comments). For each, make the change asked for.
@@ -74,9 +96,10 @@ Fix $url: its unresolved review threads, and its failing CI checks.
    report it instead. One re-run already (its run_attempt, in
    gh api repos/$repo/actions/jobs/<job id>, is above 1): report it too. A
    flaky spec, or one failing on the base branch too: report it only.
-Either may have nothing to do: say so and move on. Then run the specs covering
-what you changed. Finish with a summary: thread by thread, then check by
-check, what you changed, re-ran, or why you did neither.
+Any of them may have nothing to do: say so and move on. Then run the specs
+covering what you changed. Finish with a summary: the conflicts (how you
+resolved each), then thread by thread, then check by check, what you changed,
+re-ran, or why you did neither.
 PROMPT
 else
   read -r -d '' rules <<RULES
