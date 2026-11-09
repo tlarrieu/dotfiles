@@ -16,6 +16,18 @@ green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue
 # shellcheck disable=SC2034 # for the scripts sourcing this
 dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
+# Pango attributes for each Claude agent state's face (see
+# lib/claude-agents.sh), for the pickers showing agents (rofi-agents,
+# rofi-github): the panel's colors (see config/awesome/widgets/agents.lua),
+# running steady instead of pulsing; agent_fallback_style for unknown states
+# shellcheck disable=SC2034 # for the scripts sourcing this
+declare -A agent_styles=(
+  [running]="color=\"$blue\"" [done]="color=\"$green\"" [attention]="color=\"$yellow\""
+  [idle]=$dim
+)
+# shellcheck disable=SC2034 # for the scripts sourcing this
+agent_fallback_style=$dimmer
+
 # Text made safe for rows with markup (-markup-rows)
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
 

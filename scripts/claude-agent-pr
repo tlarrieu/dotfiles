@@ -131,5 +131,5 @@ format). Leave out style nitpicks a linter would catch.
 PROMPT
 fi
 
-CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_CONTEXT=$rules \
+CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_CONTEXT=$rules CLAUDE_AGENT_PR="$repo#$number" \
   exec "$assets/claude-agent-spawn" "$prompt"

@@ -15,8 +15,11 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 #   project       the git repository (or directory) it runs in
 #   transcript    its transcript path
 #   since         when the current turn started (epoch)
+#   pr            the pull request it works on, as <owner/repo>#<number>
+#                 (see claude-agent-pr, and agent_pr for agents started
+#                 before it recorded it)
 # Missing values are written as -.
-agent_fields=(state pid started window listen_on kitty_window project transcript since)
+agent_fields=(state pid started window listen_on kitty_window project transcript since pr)
 
 # Sets the fields of state file <file> as variables, each name prefixed with
 # [prefix] (all empty when the file is missing)
@@ -38,6 +41,20 @@ write_agent() {
   for name in "${agent_fields[@]}"; do values+=("${!name:--}"); done
   tmp=$(mktemp "$agents_dir/.write.XXXXXX") || return 1
   echo "${values[*]}" >"$tmp" && mv "$tmp" "$1"
+}
+
+# The pull request an agent works on, from its transcript: claude-agent-pr's
+# agents open with "Fix <its URL>" or "Review <its URL>" (an agent merely
+# mentioning one doesn't count). Prints <owner/repo>#<number>, or nothing.
+# Reads up to the first prompt only.
+# Usage: agent_pr <transcript>
+agent_pr() {
+  [ -f "$1" ] || return 0
+  jq -nr 'first(inputs | select(.type == "user")
+    | .message.content | if type == "array" then (.[0].text // "") else . end
+    | select(length > 0))
+    | capture("^(Fix|Review) https://github\\.com/(?<repo>[^/\\s]+/[^/\\s]+)/pull/(?<number>[0-9]+)")
+    | "\(.repo)#\(.number)"' "$1" 2>/dev/null
 }
 
 # Whether <pid> is a live claude process (not a dead one's reused pid)

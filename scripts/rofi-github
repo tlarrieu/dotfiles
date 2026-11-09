@@ -14,11 +14,13 @@
 # production. A merge glyph before the number: auto-merge is on (it
 # joins the queue once ready). A speech bubble before the title: unresolved
 # review threads, how many. All red: GitHub can't tell whether it's
-# mergeable, see on GitHub why.
+# mergeable, see on GitHub why. Before the title, an agent's face (as in
+# rofi-agents): one works on it (see Ctrl+s), in its state.
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
-# spawn an agent on it (see claude-agent-pr): fixing its conflicts,
-# unresolved review threads and failing CI (mine), or reviewing it (others'). Ctrl+m: toggle it
+# back to the agent working on it (the one wanting me the most), else spawn
+# one (see claude-agent-pr): fixing its conflicts, unresolved review threads
+# and failing CI (mine), or reviewing it (others'). Ctrl+m: toggle it
 # in the merge queue (mine): "Merge when ready" on GitHub (it waits there for
 # its checks), or "Remove from queue", then refresh. (Not auto-merge: a merge
 # queue repository may not allow it, and gh pr merge falls back on it while
@@ -29,6 +31,8 @@ assets=$(dirname "$(readlink -f "$0")")
 . "$assets/lib/github.sh"
 # shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
 . "$assets/lib/rofi.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh" # agent_faces
 mode=--cached
 filter=$1
 
@@ -85,7 +89,7 @@ thread_glyph='󰵅' # unresolved review threads
 # Rows: <CI> <review> <time> <number> <+> <−> <author> <title>
 #   (shown in another order: the author goes last)
 #   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
-#   [<line color>] [<verdicts>]
+#   [<line color>] [<verdicts>] [<agent state>]
 # (the review color, for reviews waiting on me: overrides the review style;
 # the line color overrides every color in the row; verdicts, as merge-queue
 # prints them, go under the title, one line each, see verdict_lines)
@@ -135,10 +139,16 @@ row() {
   if [ "${11}" != plain ] && [ -z "${13}" ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
+  # The agent's face, then two spaces; none at all when no row has one
+  local agent=''
+  if [ "$agents_width" -gt 0 ]; then
+    agent='   '
+    [ -n "${15}" ] && agent="<span ${agent_styles[${15}]:-$agent_fallback_style}>${agent_faces[${15}]:-󰚩}</span>  "
+  fi
   # Time and number: as wide as the widest shown (see measure_columns)
   local before
-  before=$(printf '%s%s%-*s %s #%-*s %s %s  %s' \
-    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads")
+  before=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s' \
+    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads" "$agent")
   line="$before$(escape "$title")$who"
   [ -n "${13}" ] && line="<span color=\"${13}\">$line</span>"
   printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${14}")"
@@ -175,6 +185,22 @@ toggle_queue() {
       mutation($id: ID!) { enqueuePullRequest(input: {pullRequestId: $id}) { mergeQueueEntry { position state } } }' \
       --jq '.data.enqueuePullRequest.mergeQueueEntry | "In the merge queue, position \(.position) (\(.state | ascii_downcase | gsub("_"; " ")))"'
   fi
+}
+
+# Sets agents and agent_sessions: the state and session of the agent working
+# on each pull request (<owner/repo>#<number>, see claude-agent-pr), the one
+# wanting me the most when there are several
+# shellcheck disable=SC2154 # record fields, set by each_record
+find_agents() {
+  declare -gA agents=() agent_sessions=()
+  local -A rank=([attention]=4 [done]=3 [running]=2 [idle]=1)
+  rank_agent() {
+    [ "$pr" != - ] && [ -n "$pr" ] || return 0
+    local current=${agents[$pr]:-none}
+    [ "${rank[$state]:-0}" -gt "${rank[$current]:-0}" ] && agents[$pr]=$state agent_sessions[$pr]=$session
+    return 0
+  }
+  each_record rank_agent < <("$assets/claude-agent-list")
 }
 
 # Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
@@ -215,11 +241,12 @@ review_when() { ago $((now - at)); }
 # included) and unresolved threads (glyph, space and count; 0 when none has
 # any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
-# one's "#37 (1h14)")
+# one's "#37 (1h14)"). And agents_width: 3 when an agent works on one (see
+# agents), else 0
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0
+  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 agents_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
@@ -228,6 +255,7 @@ measure_columns() {
     if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
       threads_width=$((${#threads} + 2))
     fi
+    [ -n "${agents[$repo#$number]}" ] && agents_width=3
   }
   widest_mine() { when=$(mine_when); widest "$when"; }
   widest_review() { when=$(review_when); widest "$when"; }
@@ -258,7 +286,7 @@ mine() {
   case $in in open | auto) shown_verdicts=$verdicts ;; esac
   # GitHub can't tell whether it's mergeable (the icons alone would read ready)
   [ "$state" = UNKNOWN ] && color=$red
-  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color" "$shown_verdicts")
+  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color" "$shown_verdicts" "${agents[$repo#$number]}")
   # Queued and deploying ones stay in the background: they move on their
   # own; those with auto-merge on, a bit less (they will join the queue by
   # themselves)
@@ -281,7 +309,7 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') tags+=(:review)
-  lines+=("$(row "$ci" REVIEW_REQUIRED "$(review_when)" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
+  lines+=("$(row "$ci" REVIEW_REQUIRED "$(review_when)" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads" '' '' "${agents[$repo#$number]}")")
 }
 
 while :; do
@@ -305,6 +333,7 @@ while :; do
   tags=()
   lines=()
   now=$(date +%s)
+  find_agents
   measure_authors <<<"$reviews"
   threads='' measure_columns "$mine" "$reviews" # threads blank, as below
 
@@ -366,6 +395,9 @@ while :; do
     12)
       if [ -n "$choice" ]; then
         read -r pr_task pr_repo pr_number pr_threads pr_ci pr_review <<<"${prs[$choice]}"
+        # An agent on it already: back to it, rather than another one
+        pr_session=${agent_sessions[$pr_repo#$pr_number]}
+        [ -n "$pr_session" ] && exec "$assets/claude-agent-jump" "$pr_session"
         # The cache may lag: Ctrl+r first when threads came in (CI failed, or
         # a conflict arose) since
         if [ "$pr_task" = fix ] && [ "$pr_threads" -eq 0 ] 2>/dev/null && [ "$pr_ci" != FAILURE ] && [ "$pr_review" != CONFLICT ]; then

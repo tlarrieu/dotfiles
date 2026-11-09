@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Lists live Claude agents (fed by claude-agent-state hooks), as records (see
-# lib/records.sh) of fields started, state, since, session and project.
+# lib/records.sh) of fields started, state, since, session, project and pr
+# (the pull request it works on, see lib/claude-agents.sh).
 # Ordered by project: those listed in ~/.config/claude/agent-projects, in its
 # order, then their agent worktrees (<project>-<slot>, by slot), then the
 # others by name; then by start time.
@@ -28,7 +29,7 @@ interrupted() {
 order="${XDG_CONFIG_HOME:-$HOME/.config}/claude/agent-projects"
 [ -f "$order" ] || order=/dev/null
 
-printf '#started\tstate\tsince\tsession\tproject\n'
+printf '#started\tstate\tsince\tsession\tproject\tpr\n'
 # shellcheck disable=SC2154 # state file fields, set by read_agent
 for f in "$agents_dir"/*; do
   if [ -d "$f" ]; then
@@ -53,7 +54,10 @@ for f in "$agents_dir"/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
-  printf '%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project"
+  # Started before agents recorded it: from the transcript (the agent's next
+  # hook saves it)
+  [ "${pr:--}" = - ] && pr=$(agent_pr "$transcript")
+  printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
   FILENAME == ARGV[1] { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
   {

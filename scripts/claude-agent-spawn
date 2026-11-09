@@ -13,6 +13,9 @@
 #   CLAUDE_AGENT_AT       the commit its worktree starts at, instead of the
 #                         current one (the agent then gets no branch rule)
 #   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
+#   CLAUDE_AGENT_PR       the pull request it works on (<owner/repo>#<number>),
+#                         passed on to the agent: its state (see
+#                         claude-agent-state) records it, for rofi-github
 
 assets=$(dirname "$(readlink -f "$0")")
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
@@ -77,6 +80,10 @@ CONTEXT
   claude_args="--append-system-prompt \$context "
 fi
 
+# The agent's pull request goes in its environment, for its hooks
+agent_env=$env
+[ -n "$CLAUDE_AGENT_PR" ] && agent_env+=" --env 'CLAUDE_AGENT_PR=$CLAUDE_AGENT_PR'" # quoted: kitty may read # as a comment
+
 # Fish loads the claude function, which brings the settings from my dotfiles.
 # Once the agent stops, its whole window goes (see claude-agent-sweep for its
 # worktree), unless claude failed: then it waits, so that we can read why.
@@ -90,7 +97,7 @@ agent+="; $assets/claude-agent-close-window"
 cat >"$session_file" <<SESSION
 new_tab
 cd $directory
-launch $env fish -c '$agent'
+launch $agent_env fish -c '$agent'
 new_tab
 cd $directory
 launch $env fish -c nvim

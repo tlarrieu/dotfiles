@@ -10,14 +10,6 @@ assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
 . "$assets/lib/rofi.sh"
 
-# Pango attributes for each state's face: the panel's colors (see
-# config/awesome/widgets/agents.lua), running steady instead of pulsing
-declare -A styles=(
-  [running]="color=\"$blue\"" [done]="color=\"$green\"" [attention]="color=\"$yellow\""
-  [idle]=$dim
-)
-fallback_style=$dimmer
-
 # The session title: the one given with /rename (or --name), else Claude's own
 title() {
   [ -f "$1" ] || return
@@ -38,7 +30,7 @@ agent() {
   [ "$state" = running ] && [ "$since" != - ] && duration=$(elapsed "$since")
   sessions+=("$session")
   # Pad before adding markup, which would otherwise count towards the widths
-  lines+=("$(printf '<span %s>%s</span>  %s %5s   %s' "${styles[$state]:-$fallback_style}" "${agent_faces[$state]:-󰚩}" \
+  lines+=("$(printf '<span %s>%s</span>  %s %5s   %s' "${agent_styles[$state]:-$agent_fallback_style}" "${agent_faces[$state]:-󰚩}" \
     "$(escape "$(printf '%-16s' "$project")")" "$duration" "$(escape "$(title "$agent_transcript")")")")
 }
 each_record agent < <("$assets/claude-agent-list")

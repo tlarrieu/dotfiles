@@ -107,6 +107,12 @@ cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
+# The pull request it works on: set by claude-agent-spawn for
+# claude-agent-pr's agents, else (started before it was) found once from the
+# transcript
+# shellcheck disable=SC2034,SC2154 # written by write_agent; previous_pr set by read_agent
+pr=${CLAUDE_AGENT_PR:-${previous_pr:--}}
+[ "$pr" = - ] && pr=$(agent_pr "$transcript") && pr=${pr:--}
 write_agent "$file"
 refresh_panel
 
