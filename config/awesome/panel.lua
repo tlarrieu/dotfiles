@@ -8,6 +8,7 @@ local agents = require('widgets.agents')
 local reviews = require('widgets.reviews')
 local merge_queue = require('widgets.merge_queue')
 local pull_requests = require('widgets.pull_requests')
+local deploys = require('widgets.deploys')
 
 -- [[ Clock ]] -----------------------------------------------------------------
 
@@ -31,6 +32,7 @@ M.init = function(screen)
   reviews.update()
   merge_queue.update()
   pull_requests.update()
+  deploys.update()
 
   local colors = beautiful.colors
 
@@ -102,6 +104,7 @@ M.init = function(screen)
       {
         pull_requests.widget,
         merge_queue.widget,
+        deploys.widget,
         reviews.widget,
         agents.widget,
         { current_context, layout = wibox.container.margin },

@@ -38,7 +38,7 @@ return require('widgets.counter').make({
     ---@type integer, table<Urgency, boolean>, string[], string[]
     local now, found, rows, on_their_way = os.time(), {}, {}, {}
     for _, pull_request in ipairs(records) do
-      if pull_request.kind ~= 'queued' then
+      if pull_request.kind == 'other' or pull_request.kind == 'ready' then
         local urgency = urgencies[pull_request.state] or 'waiting'
         local auto = pull_request.auto == 'auto'
         -- Ready with auto-merge on: GitHub enqueues it, nothing for me to do

@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Rofi hub for my GitHub pull requests (see merge-queue: drafts, blocked, ready),
-# those waiting on my review (see review-queue), then mine with auto-merge on
-# and mine in the merge queue.
+# those waiting on my review (see review-queue), then mine with auto-merge on,
+# mine in the merge queue, and mine merged but not in production yet.
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
-# invisible tag: :open, :queued or :review)
+# invisible tag: :open, :queued, :deploying or :review)
 # Columns: CI (the last commit's checks), then review (conflict, draft,
 # changes requested, approved, or waiting for one; in the merge queue
-# instead, for queued ones), then time: since the last update, waiting on my
-# review for how long, or for queued ones, the position and when it should
-# merge (#37 (1h14)). A merge glyph before the number: auto-merge is on (it
+# instead, for queued ones; merged, or being deployed, for deploying ones),
+# then time: since the last update, waiting on my review for how long, for
+# queued ones the position and when it should merge (#37 (1h14)), for
+# deploying ones since the merge. A merge glyph before the number: auto-merge is on (it
 # joins the queue once ready). A speech bubble before the title: unresolved
 # review threads, how many. All red: GitHub can't tell whether it's
 # mergeable, see on GitHub why.
@@ -30,6 +31,7 @@ declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
   [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [QUEUED]=$dim
+  [MERGED]=$dim [DEPLOYING]="color=\"$blue\""
 )
 
 declare -A faces=(
@@ -45,6 +47,9 @@ declare -A faces=(
   [REVIEW_REQUIRED]='󰈈'
   # Merge queue
   [QUEUED]=''
+  # Deploy
+  [MERGED]=''
+  [DEPLOYING]='󱓞'
 )
 
 auto_glyph='󰘬' # auto-merge on
@@ -132,27 +137,32 @@ mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent)
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it
 # belongs to $group: open (needs me, or someone else), auto (auto-merge on:
-# on its way to the queue) or queued
+# on its way to the queue), queued or deploying (merged, not in production
+# yet)
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine() {
   local in=open when tag diff='' color='' line
-  if [ "$kind" = queued ]; then in=queued; elif [ "$auto" = auto ]; then in=auto; fi
+  if [ "$kind" = queued ] || [ "$kind" = deploying ]; then in=$kind; elif [ "$auto" = auto ]; then in=auto; fi
   [ "$in" = "$group" ] || return 0
   case $kind in
     queued) when="#$position" tag=:queued; [ "$time" = - ] || when+=" ($(eta "$time"))" ;;
     ready) when='' tag=:open ;;
+    deploying) when=$(ago $((now - time))) tag=:deploying ;; # since the merge
     *) when=$(ago $((now - time))) tag=:open ;; # since last update
   esac
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
   [ "$in" = queued ] && review=QUEUED
+  # MERGED or DEPLOYING; no queue to open, no thread to address (Ctrl+s)
+  [ "$in" = deploying ] && review=$state ci='' queue_url='' threads=0
   # GitHub can't tell whether it's mergeable (the icons alone would read ready)
   [ "$state" = UNKNOWN ] && color=$red
   line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color")
-  # Queued ones stay in the background: they move on their own; those
-  # with auto-merge on, a bit less (they will join the queue by themselves)
+  # Queued and deploying ones stay in the background: they move on their
+  # own; those with auto-merge on, a bit less (they will join the queue by
+  # themselves)
   case $in in
-    queued) line="<span fgalpha=\"60%\">$line</span>" ;;
+    queued | deploying) line="<span fgalpha=\"60%\">$line</span>" ;;
     auto) line="<span fgalpha=\"80%\">$line</span>" ;;
   esac
   urls+=("$url") queues+=("$queue_url") prs+=("threads $repo $number ${threads:-0}") tags+=("$tag") lines+=("$line")
@@ -194,9 +204,11 @@ while :; do
   # ci, review and threads blank: a cache from before these fields keeps them so
   ci='' review='' threads='' group=open each_record mine <<<"$mine"
   ci='' threads='' each_record review <<<"$reviews"
-  # Last, as they need nothing from me: on their way to the queue, then in it
+  # Last, as they need nothing from me: on their way to the queue, in it,
+  # then merged
   ci='' review='' threads='' group=auto each_record mine <<<"$mine"
   ci='' review='' threads='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' group=deploying each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"

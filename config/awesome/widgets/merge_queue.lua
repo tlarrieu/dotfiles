@@ -12,7 +12,8 @@ return require('widgets.counter').make({
   icon_size = 16,
   filter = ':queued',
   title = 'Merge queue',
-  -- Fast while something is queued (it moves), slowly otherwise
+  -- Fast while something is queued or waits for its deploy (it moves; a
+  -- deploy run takes a few minutes), slowly otherwise
   poll = { idle = 300, busy = 60 },
 
   describe = function(count)
@@ -22,9 +23,10 @@ return require('widgets.counter').make({
 
   -- Green while one of mine is being tested in a merge group
   render = function(records, colors)
-    ---@type boolean, string[]
-    local testing, rows = false, {}
+    ---@type boolean, boolean, string[]
+    local testing, deploying, rows = false, false, {}
     for _, pull_request in ipairs(records) do
+      deploying = deploying or pull_request.kind == 'deploying'
       if pull_request.kind == 'queued' then
         local state = pull_request.state
         testing = testing or state == 'AWAITING_CHECKS' or state == 'MERGEABLE'
@@ -34,6 +36,6 @@ return require('widgets.counter').make({
           github.auto_mark(pull_request), github.pull_request(pull_request), pull_request.label))
       end
     end
-    return { color = testing and colors.green.base or colors.fg.dim, count = #rows, rows = rows, busy = #rows > 0 }
+    return { color = testing and colors.green.base or colors.fg.dim, count = #rows, rows = rows, busy = #rows > 0 or deploying }
   end,
 })
