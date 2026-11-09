@@ -53,29 +53,47 @@ github_notify() {
 
 # A pull request's CI, from its last commit's checks: FAILURE when one fails,
 # else PENDING when one runs (or is expected), else SUCCESS (no check too).
+# Of each workflow, only its latest run counts, as on GitHub's pull request
+# page: a newer one (marking it ready for review, say) cancels and replaces
+# it, its cancelled checks are no failure. Commit statuses, and checks from
+# other apps, all count.
 # The required reviewers check is left out: it fails until approvals come in,
 # which the review state tells already.
+# Reads the checks themselves, 100 from each end of the list (counting them
+# by state per workflow run instead costs GitHub more: it then refuses a
+# search for more than a few pull requests). Past 200, those in the middle
+# are missed.
 # github_ci_query: the GraphQL selection to put in a PullRequest's fields
 # github_ci_jq: a jq definition, ci, reading it from such a PullRequest
 github_ignored_check='Check required reviewers approvals'
+github_ci_checks='nodes {
+            ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId } } } }
+            ... on StatusContext { id state }
+          }'
 # shellcheck disable=SC2034 # for the scripts sourcing this
-github_ci_query="commits(last: 1) { nodes { commit {
-          statusCheckRollup { contexts { checkRunCountsByState { state count } statusContextCountsByState { state count } } }
-          checkSuites(first: 50) { nodes { checkRuns(first: 5, filterBy: {checkName: \"$github_ignored_check\"}) { nodes { status conclusion } } } }
-        } } }"
+github_ci_query="commits(last: 1) { nodes { commit { statusCheckRollup {
+          head: contexts(first: 100) { $github_ci_checks }
+          tail: contexts(last: 100) { $github_ci_checks }
+        } } } }"
 # shellcheck disable=SC2016,SC2034 # jq variables; for the scripts sourcing this
 github_ci_jq='
   def ci:
-    .commits.nodes[0].commit as $commit
-    | ["FAILURE", "ERROR", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
-    | ["PENDING", "EXPECTED", "QUEUED", "IN_PROGRESS", "WAITING", "REQUESTED"] as $running
-    | ($commit.statusCheckRollup.contexts // {}) as $contexts
-    | [$contexts.checkRunCountsByState[]?, $contexts.statusContextCountsByState[]?] as $counts
-    | [$commit.checkSuites.nodes[]?.checkRuns.nodes[]] as $ignored
-    | (([$counts[] | select(.state | IN($failing[])) | .count] | add // 0)
-       - ([$ignored[] | select(.status == "COMPLETED" and (.conclusion | IN($failing[])))] | length)) as $failed
-    | (([$counts[] | select(.state | IN($running[])) | .count] | add // 0)
-       - ([$ignored[] | select(.status != "COMPLETED")] | length)) as $pending
+    .commits.nodes[0].commit.statusCheckRollup as $rollup
+    | ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
+    | ([$rollup.head.nodes[]?, $rollup.tail.nodes[]?] | unique_by(.id)) as $all
+    | [$all[] | select(.status != null)] as $checks
+    | [$all[] | select(.state != null)] as $statuses
+    | ($checks | map(.checkSuite.workflowRun | select(.)) | group_by(.workflow.databaseId)
+       | map({key: (.[0].workflow.databaseId | tostring), value: (map(.createdAt) | max)})
+       | from_entries) as $newest
+    | [$checks[]
+       | select(.name != "'"$github_ignored_check"'")
+       | .checkSuite.workflowRun as $run
+       | select($run == null or $run.createdAt == $newest[$run.workflow.databaseId | tostring])] as $counted
+    | (([$counted[] | select(.status == "COMPLETED" and (.conclusion | IN($failing[])))] | length)
+       + ([$statuses[] | select(.state | IN("FAILURE", "ERROR"))] | length)) as $failed
+    | (([$counted[] | select(.status != "COMPLETED")] | length)
+       + ([$statuses[] | select(.state | IN("PENDING", "EXPECTED"))] | length)) as $pending
     | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
 '
 
