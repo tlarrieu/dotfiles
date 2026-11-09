@@ -47,22 +47,15 @@ github_repos merge-queue merge-queue "Merge queue not watched" "$state_dir"
 
 github_lock "$state_dir" "$cache"
 
-read -r -d '' query <<'GRAPHQL'
-query($q: String!) {
-  search(type: ISSUE, first: 100, query: $q) {
-    nodes {
-      ... on PullRequest {
-        number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
-        autoMergeRequest { enabledAt }
-        repository { nameWithOwner }
-        mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
-        CI_FIELDS
-        reviewThreads(first: 100) { nodes { isResolved } }
-        latestReviews(first: 20) { nodes { state body author { login } } }
-      }
-    }
-  }
-}
+# What we read of each pull request (see github_search_prs)
+read -r -d '' selection <<'GRAPHQL'
+number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
+repository { nameWithOwner }
+autoMergeRequest { enabledAt }
+mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
+CI_FIELDS
+reviewThreads(first: 100) { nodes { isResolved } }
+latestReviews(first: 20) { nodes { state body author { login } } }
 GRAPHQL
 
 # Records, under this header (see lib/github.sh), in lifecycle order: drafts, other PRs that can't join the queue yet (by
@@ -85,7 +78,7 @@ GRAPHQL
 # reviewer's latest: <login> US <APPROVED or CHANGES_REQUESTED> US <its first
 # line, … when more follow>, separated by GS (US and GS: the ASCII unit and
 # group separators), or - without any.
-query=${query//CI_FIELDS/$github_ci_query}
+selection=${selection//CI_FIELDS/$github_ci_query}
 fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # A pull request's verdicts (see above), from its latestReviews
@@ -150,7 +143,8 @@ program='
   | @tsv
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open author:@me $repos" --jq "$github_ci_jq$verdicts_jq$program" 2>/dev/null) || { cat "$cache"; exit 1; }
+answer=$(github_search_prs "is:pr is:open author:@me $repos" "$selection") || { cat "$cache"; exit 1; }
+fresh=$(jq -r "$github_ci_jq$verdicts_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 

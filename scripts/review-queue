@@ -31,37 +31,30 @@ github_repos review-queue reviews "Reviews not watched" "$state_dir"
 
 github_lock "$state_dir" "$queue"
 
-read -r -d '' query <<'GRAPHQL'
-query($q: String!) {
-  viewer { login }
-  search(type: ISSUE, first: 100, query: $q) {
-    nodes {
-      ... on PullRequest {
-        number title url additions deletions createdAt
-        repository { nameWithOwner }
-        author { login }
-        CI_FIELDS
-        reviewThreads(first: 100) { nodes { isResolved } }
-        timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last: 50) {
-          nodes {
-            __typename
-            ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } }
-            ... on ReadyForReviewEvent { createdAt }
-          }
-        }
-      }
-    }
+# What we read of each pull request (see github_search_prs)
+read -r -d '' selection <<'GRAPHQL'
+number title url additions deletions createdAt
+repository { nameWithOwner }
+author { login }
+CI_FIELDS
+reviewThreads(first: 100) { nodes { isResolved } }
+timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last: 50) {
+  nodes {
+    __typename
+    ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } }
+    ... on ReadyForReviewEvent { createdAt }
   }
 }
 GRAPHQL
-query=${query//CI_FIELDS/$github_ci_query}
+selection=${selection//CI_FIELDS/$github_ci_query}
 
 # Records, under this header (see lib/github.sh). Requested at (epoch): my
 # latest (re-)request, so being added late or re-requested restarts the clock,
 # or its latest exit from draft when later: the wait starts once it's ready
 header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads'
 # shellcheck disable=SC2016 # $me and $at are jq variables
-fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:false user-review-requested:@me $repos" --jq "$github_ci_jq"'
+answer=$(github_search_prs "is:pr is:open draft:false user-review-requested:@me $repos" "$selection") || { cat "$queue"; exit 1; }
+fresh=$(jq -r "$github_ci_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
   | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $requested
@@ -72,7 +65,7 @@ fresh=$(timeout 60 gh api graphql -f query="$query" -f q="is:pr is:open draft:fa
      ci,
      ([.reviewThreads.nodes[] | select(.isResolved | not)] | length)]
   | @tsv
-' 2>/dev/null) || { cat "$queue"; exit 1; }
+' <<<"$answer" 2>/dev/null) || { cat "$queue"; exit 1; }
 
 fresh=$header$'\n'$(sort -n <<<"$fresh" | sed '/^$/d')
 
