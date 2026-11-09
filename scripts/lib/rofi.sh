@@ -16,3 +16,12 @@ dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
 # Text made safe for rows with markup (-markup-rows)
 escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
+
+# How many characters a row with markup shows (its longest line): the tags
+# left out, the entities (see escape) counted as one
+shown_width() {
+  local plain line widest=0
+  plain=$(sed 's/<[^>]*>//g; s/&lt;/</g; s/&gt;/>/g; s/&amp;/\&/g' <<<"$1")
+  while IFS= read -r line; do [ ${#line} -gt "$widest" ] && widest=${#line}; done <<<"$plain"
+  echo "$widest"
+}

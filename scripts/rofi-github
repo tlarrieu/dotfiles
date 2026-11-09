@@ -52,6 +52,11 @@ declare -A faces=(
   [DEPLOYING]='󱓞'
 )
 
+# The window's widest, in characters (then its padding): half of my main
+# monitor (3440 px) at theme.rasi's font. In characters rather than a share of
+# the monitor, as rofi's default half of the screen leaves too little on
+# a narrower one (the laptop's 1920 px)
+max_width=152
 auto_glyph='󰘬' # auto-merge on
 # Titles followed by an author (see row) share this many characters with
 # it (and the two spaces between): the title gets what the longest author
@@ -94,7 +99,11 @@ row() {
     [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   fi
   ci="${ci:- }  " review="${review:- }  "
-  plus=$(printf '%7s' "+$5") minus=$(printf '%-7s' "−$6")
+  # As wide as the widest shown (see measure_columns): additions to the
+  # right, deletions to the left, around a space. Padded by hand, as printf
+  # counts the minus sign's bytes
+  plus=$(printf '%*s' "$plus_width" "+$5") minus="−$6"
+  minus+=$(printf '%*s' $((minus_width - ${#minus})) '')
   # Last, fainter than dim. The title before it gets a fixed width (in
   # characters, as they are cells), so that a long one can't push it out of
   # the window
@@ -103,18 +112,24 @@ row() {
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
     title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
-  # 4 cells: glyph, space, count, dim (blank without any unresolved)
-  threads='    '
-  if [ "${12:-0}" -gt 0 ] 2>/dev/null; then
-    threads="<span $dim>$thread_glyph ${12}</span>"
-    [ ${#12} -lt 2 ] && threads+=' ' # wider counts push the title instead
+  # Glyph, space, count, dim (blank without any unresolved), as wide as the
+  # widest shown (see measure_columns), then two spaces; none at all when no
+  # row has any
+  threads=''
+  if [ "$threads_width" -gt 0 ]; then
+    if [ "${12:-0}" -gt 0 ] 2>/dev/null; then
+      threads="<span $dim>$thread_glyph ${12}</span>$(printf '%*s' $((threads_width - 2 - ${#12})) '')"
+    else
+      threads=$(printf '%*s' "$threads_width" '')
+    fi
+    threads+='  '
   fi
   if [ "${11}" != plain ] && [ -z "${13}" ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
-  # Time: 10 cells, as a queued one's "#37 (1h14)"
-  line=$(printf '%s%s%-10s %s #%-7s %s %s  %s  %s%s' \
-    "$ci" "$review" "$3" "$auto" "$4" "$plus" "$minus" "$threads" "$(escape "$title")" "$who")
+  # Time and number: as wide as the widest shown (see measure_columns)
+  line=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s%s' \
+    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads" "$(escape "$title")" "$who")
   [ -n "${13}" ] && line="<span color=\"${13}\">$line</span>"
   printf '%s' "$line"
 }
@@ -135,21 +150,58 @@ layout='content { children: [inputbar, listview, message]; }
   textbox { horizontal-align: 0.5; }'
 mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent)
 
+# The time column of one of my pull requests (a merge-queue record): its
+# position and when it should merge (queued), nothing (ready), else since the
+# merge (deploying) or the last update
+# shellcheck disable=SC2154 # record fields, set by each_record
+mine_when() {
+  case $kind in
+    queued) printf '#%s' "$position"; [ "$time" = - ] || printf ' (%s)' "$(eta "$time")" ;;
+    ready) ;;
+    *) ago $((now - time)) ;;
+  esac
+}
+
+# The time column of a pull request waiting on my review: for how long
+# shellcheck disable=SC2154 # record fields, set by each_record
+review_when() { ago $((now - at)); }
+
+# Sets time_width, number_width, plus_width, minus_width and threads_width:
+# the widest time, pull request number, additions and deletions (their sign
+# included) and unresolved threads (glyph, space and count; 0 when none has
+# any) of the merge-queue records ($1) and the review-queue ones ($2), so that
+# columns line up without padding them all for the widest possible (a queued
+# one's "#37 (1h14)")
+# shellcheck disable=SC2154 # record fields, set by each_record
+measure_columns() {
+  local when
+  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0
+  widest() { # <time>
+    [ ${#1} -gt "$time_width" ] && time_width=${#1}
+    [ ${#number} -gt "$number_width" ] && number_width=${#number}
+    [ $((${#additions} + 1)) -gt "$plus_width" ] && plus_width=$((${#additions} + 1))
+    [ $((${#deletions} + 1)) -gt "$minus_width" ] && minus_width=$((${#deletions} + 1))
+    if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
+      threads_width=$((${#threads} + 2))
+    fi
+  }
+  widest_mine() { when=$(mine_when); widest "$when"; }
+  widest_review() { when=$(review_when); widest "$when"; }
+  each_record widest_mine <<<"$1"
+  each_record widest_review <<<"$2"
+}
+
 # Adds one of my pull requests (a merge-queue record, see each_record) if it
 # belongs to $group: open (needs me, or someone else), auto (auto-merge on:
 # on its way to the queue), queued or deploying (merged, not in production
 # yet)
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine() {
-  local in=open when tag diff='' color='' line
+  local in=open when tag=:open diff='' color='' line
   if [ "$kind" = queued ] || [ "$kind" = deploying ]; then in=$kind; elif [ "$auto" = auto ]; then in=auto; fi
   [ "$in" = "$group" ] || return 0
-  case $kind in
-    queued) when="#$position" tag=:queued; [ "$time" = - ] || when+=" ($(eta "$time"))" ;;
-    ready) when='' tag=:open ;;
-    deploying) when=$(ago $((now - time))) tag=:deploying ;; # since the merge
-    *) when=$(ago $((now - time))) tag=:open ;; # since last update
-  esac
+  case $kind in queued | deploying) tag=:$kind ;; esac
+  when=$(mine_when)
   # On their way (auto-merge on) or in the queue: the diff in the fade too
   [ "$in" = open ] || diff=plain
   [ "$in" = queued ] && review=QUEUED
@@ -176,7 +228,7 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') prs+=("review $repo $number") tags+=(:review)
-  lines+=("$(row "$ci" REVIEW_REQUIRED "$(ago "$waited")" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
+  lines+=("$(row "$ci" REVIEW_REQUIRED "$(review_when)" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads")")
 }
 
 while :; do
@@ -200,6 +252,7 @@ while :; do
   lines=()
   now=$(date +%s)
   measure_authors <<<"$reviews"
+  threads='' measure_columns "$mine" "$reviews" # threads blank, as below
 
   # ci, review and threads blank: a cache from before these fields keeps them so
   ci='' review='' threads='' group=open each_record mine <<<"$mine"
@@ -221,10 +274,21 @@ while :; do
     status_line=$'\n'"<span color=\"$red\">Could not reach GitHub: showing the last known state</span>"
   fi
 
+  # The window: as wide as the widest row, or the message bar (in its 90%
+  # font), with their padding (theme.rasi's elem-gutter, the message's
+  # margin: 1em on each side), up to max_width, and the monitor
+  widest=$(( ($(shown_width "$mesg$status_line") * 9 + 9) / 10 ))
+  for line in "${lines[@]}"; do
+    width=$(shown_width "$line")
+    [ "$width" -gt "$widest" ] && widest=$width
+  done
+  [ "$widest" -gt "$max_width" ] && widest=$max_width
+  window="window { width: calc(${widest}ch + 2em min 100%); }"
+
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -p '' -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -theme-str "$layout" -mesg "<span size=\"90%\">$mesg$status_line</span>")
+      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''
