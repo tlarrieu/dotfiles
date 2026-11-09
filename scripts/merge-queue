@@ -47,6 +47,31 @@ github_repos merge-queue merge-queue "Merge queue not watched" "$state_dir"
 
 github_lock "$state_dir" "$cache"
 
+# My pull requests merged lately (for deploys, see below), searched for while
+# the main query runs: neither waits on the other
+read -r -d '' merged_query <<'GRAPHQL'
+query($q: String!) {
+  search(type: ISSUE, first: 100, query: $q) {
+    nodes {
+      ... on PullRequest {
+        number title url additions deletions mergedAt
+        mergeCommit { oid }
+        repository { nameWithOwner }
+      }
+    }
+  }
+}
+GRAPHQL
+merged_search=$(mktemp)
+trap 'rm -f "$merged_search"' EXIT
+timeout 60 gh api graphql -f query="$merged_query" \
+  -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
+    [.data.search.nodes[] | select(.mergeCommit)
+     | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
+        .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
+    | sort_by(.[3]) | .[] | @tsv' >"$merged_search" 2>/dev/null 9>&- &
+merged_pid=$!
+
 # What we read of each pull request (see github_search_prs)
 read -r -d '' selection <<'GRAPHQL'
 number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
@@ -222,20 +247,8 @@ done <"$queued"
 
 printf '%s' "$current" >"$queued"
 
-# Deploys: my pull requests merged lately, until production runs them
-read -r -d '' merged_query <<'GRAPHQL'
-query($q: String!) {
-  search(type: ISSUE, first: 100, query: $q) {
-    nodes {
-      ... on PullRequest {
-        number title url additions deletions mergedAt
-        mergeCommit { oid }
-        repository { nameWithOwner }
-      }
-    }
-  }
-}
-GRAPHQL
+# Deploys: my pull requests merged lately, until production runs them (see
+# merged_search)
 
 # The first time: remember what's deployed already, silently
 deploy_once() { # <key>: once, but quiet until deploys were tracked once
@@ -327,12 +340,8 @@ track_deploys() { # <repo>
   done <<<"$answer"
 }
 
-if merged=$(timeout 60 gh api graphql -f query="$merged_query" \
-  -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
-    [.data.search.nodes[] | select(.mergeCommit)
-     | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
-        .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
-    | sort_by(.[3]) | .[] | @tsv' 2>/dev/null); then
+if wait "$merged_pid"; then
+  merged=$(<"$merged_search")
   # Deployed already: nothing more to tell (keep remembering it, while merged
   # lately), listed while recent
   pending=''

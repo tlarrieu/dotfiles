@@ -371,10 +371,17 @@ review() {
 }
 
 while :; do
-  mine=$("$assets/merge-queue" $mode 2>&1)
-  mine_status=$?
-  reviews=$("$assets/review-queue" $mode 2>&1)
-  reviews_status=$?
+  # The trackers side by side (their output in files meanwhile: gone before
+  # anything else, as we may exec away)
+  outputs=$(mktemp -d)
+  "$assets/merge-queue" $mode >"$outputs/mine" 2>&1 &
+  mine_pid=$!
+  "$assets/review-queue" $mode >"$outputs/reviews" 2>&1 &
+  reviews_pid=$!
+  wait "$mine_pid"; mine_status=$?
+  wait "$reviews_pid"; reviews_status=$?
+  mine=$(<"$outputs/mine") reviews=$(<"$outputs/reviews")
+  rm -r "$outputs"
   mode=--cached
 
   # Both read the same repository list: one complaint is enough

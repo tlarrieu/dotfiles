@@ -97,30 +97,44 @@ github_ci_jq='
     | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
 '
 
-# Searches pull requests (<query>: as in GitHub's search box), then fetches
+# Searches pull requests (<query>: as in GitHub's search box), fetching
 # <selection> (a PullRequest's fields) for them, github_search_batch at a
 # time: in one search, a heavy selection (the CI's checks) runs into GitHub's
-# resource limits past 15 pull requests or so. Prints what one search would
-# have, {data: {viewer: {login}, search: {nodes}}}, in the search's order
-# (the first 100). Fails when GitHub does (or can't be reached).
+# resource limits past 15 pull requests or so. The first batch comes with the
+# search itself (the usual handful: one call); past it, the others are found
+# by id, then fetched by batch. Prints what one search would have,
+# {data: {viewer: {login}, search: {nodes}}}, in the search's order (the
+# first 100). Fails when GitHub does (or can't be reached).
 # Usage: github_search_prs <query> <selection>
 github_search_batch=10
 github_search_prs() {
-  local found answer i batch
+  local first found answer i batch
   local -a ids answers=()
   # shellcheck disable=SC2016 # GraphQL variables
-  found=$(timeout 60 gh api graphql -f q="$1" -f query='query($q: String!) {
+  first=$(timeout 60 gh api graphql -f q="$1" -f query='query($q: String!) {
     viewer { login }
-    search(type: ISSUE, first: 100, query: $q) { nodes { ... on PullRequest { id } } }
+    search(type: ISSUE, first: '"$github_search_batch"', query: $q) {
+      issueCount
+      nodes { ... on PullRequest { id '"$2"' } }
+    }
   }' 2>/dev/null) || return 1
-  mapfile -t ids < <(jq -r '.data.search.nodes[].id // empty' <<<"$found")
-  for ((i = 0; i < ${#ids[@]}; i += github_search_batch)); do
-    batch=$(printf '"%s", ' "${ids[@]:i:github_search_batch}")
-    answer=$(timeout 60 gh api graphql -f query="query { nodes(ids: [${batch%, }]) { ... on PullRequest { $2 } } }" 2>/dev/null) || return 1
-    answers+=("$answer")
-  done
-  printf '%s\n' "$found" "${answers[@]}" |
-    jq -sc '{data: {viewer: .[0].data.viewer, search: {nodes: [.[1:][].data.nodes[]]}}}'
+  if [ "$(jq '.data.search.issueCount' <<<"$first")" -gt "$github_search_batch" ]; then
+    # shellcheck disable=SC2016 # GraphQL variables
+    found=$(timeout 60 gh api graphql -f q="$1" -f query='query($q: String!) {
+      search(type: ISSUE, first: 100, query: $q) { nodes { ... on PullRequest { id } } }
+    }' 2>/dev/null) || return 1
+    mapfile -t ids < <(jq -r --argjson skip "$github_search_batch" '.data.search.nodes[$skip:][].id // empty' <<<"$found")
+    for ((i = 0; i < ${#ids[@]}; i += github_search_batch)); do
+      batch=$(printf '"%s", ' "${ids[@]:i:github_search_batch}")
+      answer=$(timeout 60 gh api graphql -f query="query { nodes(ids: [${batch%, }]) { ... on PullRequest { id $2 } } }" 2>/dev/null) || return 1
+      answers+=("$answer")
+    done
+  fi
+  # Each once, should the search have changed in between
+  printf '%s\n' "$first" "${answers[@]}" | jq -sc '
+    {data: {viewer: .[0].data.viewer,
+            search: {nodes: ([.[0].data.search.nodes[], (.[1:][].data.nodes[])]
+                             | reduce .[] as $n ([]; if any(.[]; .id == $n.id) then . else . + [$n] end))}}}'
 }
 
 # Time since something: 42m, 5h, 1d3h (see config/awesome/github.lua, which
