@@ -20,11 +20,12 @@
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
 # back to the agent working on it (the one wanting me the most), else spawn
 # one (see claude-agent-pr): fixing its conflicts, unresolved review threads
-# and failing CI (mine), or reviewing it (others'). Ctrl+m: toggle it
-# in the merge queue (mine): "Merge when ready" on GitHub (it waits there for
-# its checks), or "Remove from queue", then refresh. (Not auto-merge: a merge
-# queue repository may not allow it, and gh pr merge falls back on it while
-# checks run.)
+# and failing CI (mine), or reviewing it (others'). Ctrl+m: the merge queue
+# (mine): add a ready one to it (asking first when something looks off, see
+# queue_concerns), remove a queued one, then refresh; for the others, open
+# their page at the merge box, to use "Merge when ready" there. (GitHub's API
+# can't: it only queues ready ones, and a repository forbidding auto-merge,
+# as the button sets it when checks still run, refuses it to the API.)
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -69,6 +70,7 @@ declare -A faces=(
 # a narrower one (the laptop's 1920 px)
 max_width=152
 auto_glyph='󰘬' # auto-merge on
+prompt='' # rofi's, for the list and the dialogs
 # Titles followed by an author (see row) share this many characters with
 # it (and the two spaces between): the title gets what the longest author
 # leaves, at least min_title_width
@@ -86,41 +88,55 @@ measure_authors() {
 thread_glyph='󰵅' # unresolved review threads
 
 
-# Rows: <CI> <review> <time> <number> <+> <−> <author> <title>
-#   (shown in another order: the author goes last)
-#   [<review color>] [<auto merge: auto>] [<diff: plain>] [<unresolved threads>]
-#   [<line color>] [<verdicts>] [<agent state>]
-# (the review color, for reviews waiting on me: overrides the review style;
-# the line color overrides every color in the row; verdicts, as merge-queue
-# prints them, go under the title, one line each, see verdict_lines)
-# CI and review are faces keys (unknown ones show as ?, missing ones as blank)
+# A row, from named cells (<name>=<value> arguments, all optional):
+#   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
+#   time, number, additions, deletions, title
+#   author         goes last, after the title (which then gets a fixed width)
+#   tint           the review face's color, instead of its style (reviews
+#                  waiting on me)
+#   auto           auto: auto-merge is on
+#   diff           plain: the additions and deletions uncolored
+#   threads        how many review threads are unresolved
+#   color          the whole row's color, overriding every other
+#   verdicts       as merge-queue prints them, under the title (see
+#                  verdict_lines)
+#   agent          the state of the agent working on it (see find_agents)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
-  local ci review plus minus who='' title=$8 threads auto=' ' line # the glyph takes one cell, like a space
-  [ "${10}" = auto ] && auto=$auto_glyph
+  local -A c=()
+  local arg
+  for arg; do
+    case ${arg%%=*} in
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | color | verdicts | agent)
+        c[${arg%%=*}]=${arg#*=} ;;
+      *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
+    esac
+  done
+  local ci review plus minus who='' title=${c[title]} threads auto=' ' line # the glyph takes one cell, like a space
+  [ "${c[auto]}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
-  # spaces. Style the glyphs only (a review color wins over the review face's
-  # own style), unless the line color does it all
+  # spaces. Style the glyphs only (a tint wins over the review face's own
+  # style), unless the row's color does it all
   local style
-  ci=${1:+${faces[$1]:-?}} review=${2:+${faces[$2]:-?}}
-  if [ -z "${13}" ]; then
-    [ -n "$1" ] && style=${styles[$1]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
+  ci=${c[ci]:+${faces[${c[ci]}]:-?}} review=${c[review]:+${faces[${c[review]}]:-?}}
+  if [ -z "${c[color]}" ]; then
+    [ -n "${c[ci]}" ] && style=${styles[${c[ci]}]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
     style=''
-    [ -n "$2" ] && style=${styles[$2]}
-    [ -n "$9" ] && style="color=\"$9\""
+    [ -n "${c[review]}" ] && style=${styles[${c[review]}]}
+    [ -n "${c[tint]}" ] && style="color=\"${c[tint]}\""
     [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   fi
   ci="${ci:- }  " review="${review:- }  "
   # As wide as the widest shown (see measure_columns): additions to the
   # right, deletions to the left, around a space. Padded by hand, as printf
   # counts the minus sign's bytes
-  plus=$(printf '%*s' "$plus_width" "+$5") minus="−$6"
+  plus=$(printf '%*s' "$plus_width" "+${c[additions]}") minus="−${c[deletions]}"
   minus+=$(printf '%*s' $((minus_width - ${#minus})) '')
   # Last, fainter than dim. The title before it gets a fixed width (in
   # characters, as they are cells), so that a long one can't push it out of
   # the window
-  if [ -n "$7" ]; then
-    who="  <span fgalpha=\"40%\">$(escape "$7")</span>"
+  if [ -n "${c[author]}" ]; then
+    who="  <span fgalpha=\"40%\">$(escape "${c[author]}")</span>"
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
     title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
@@ -129,29 +145,29 @@ row() {
   # row has any
   threads=''
   if [ "$threads_width" -gt 0 ]; then
-    if [ "${12:-0}" -gt 0 ] 2>/dev/null; then
-      threads="<span $dim>$thread_glyph ${12}</span>$(printf '%*s' $((threads_width - 2 - ${#12})) '')"
+    if [ "${c[threads]:-0}" -gt 0 ] 2>/dev/null; then
+      threads="<span $dim>$thread_glyph ${c[threads]}</span>$(printf '%*s' $((threads_width - 2 - ${#c[threads]})) '')"
     else
       threads=$(printf '%*s' "$threads_width" '')
     fi
     threads+='  '
   fi
-  if [ "${11}" != plain ] && [ -z "${13}" ]; then
+  if [ "${c[diff]}" != plain ] && [ -z "${c[color]}" ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
   # The agent's face, then two spaces; none at all when no row has one
   local agent=''
   if [ "$agents_width" -gt 0 ]; then
     agent='   '
-    [ -n "${15}" ] && agent="<span ${agent_styles[${15}]:-$agent_fallback_style}>${agent_faces[${15}]:-󰚩}</span>  "
+    [ -n "${c[agent]}" ] && agent="<span ${agent_styles[${c[agent]}]:-$agent_fallback_style}>${agent_faces[${c[agent]}]:-󰚩}</span>  "
   fi
   # Time and number: as wide as the widest shown (see measure_columns)
   local before
   before=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s' \
-    "$ci" "$review" "$time_width" "$3" "$auto" "$number_width" "$4" "$plus" "$minus" "$threads" "$agent")
+    "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$number_width" "${c[number]}" "$plus" "$minus" "$threads" "$agent")
   line="$before$(escape "$title")$who"
-  [ -n "${13}" ] && line="<span color=\"${13}\">$line</span>"
-  printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${14}")"
+  [ -n "${c[color]}" ] && line="<span color=\"${c[color]}\">$line</span>"
+  printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
 }
 
 # The lines under a title (from a column <indent> cells in) telling the
@@ -185,6 +201,33 @@ toggle_queue() {
       mutation($id: ID!) { enqueuePullRequest(input: {pullRequestId: $id}) { mergeQueueEntry { position state } } }' \
       --jq '.data.enqueuePullRequest.mergeQueueEntry | "In the merge queue, position \(.position) (\(.state | ascii_downcase | gsub("_"; " ")))"'
   fi
+}
+
+# What to check before queueing one of my pull requests, one per line
+# (nothing: go ahead). Running checks are fine: the queue waits for them
+# Usage: queue_concerns <CI> <review> <state> <unresolved threads>
+queue_concerns() {
+  [ "$1" = FAILURE ] && echo "Its CI fails"
+  case $2 in
+    CONFLICT) echo "It conflicts with its base branch" ;;
+    DRAFT) echo "It's a draft" ;;
+    CHANGES_REQUESTED) echo "Changes were requested" ;;
+    REVIEW_REQUIRED) echo "It isn't approved yet" ;;
+  esac
+  [ "$3" = UNKNOWN ] && echo "GitHub can't tell whether it's mergeable"
+  [ "${4:-0}" -gt 0 ] 2>/dev/null && echo "$4 review thread$([ "$4" -gt 1 ] && echo s) unresolved"
+  return 0
+}
+
+# Whether to queue it anyway, given its concerns (a rofi dialog: Escape, or
+# Cancel, says no; Cancel comes first, so that a quick Enter doesn't queue it)
+# Usage: confirm_queue <owner/repo>#<number> <concerns>
+confirm_queue() {
+  local mesg
+  mesg="<b>$(escape "$1")</b>"$'\n'"$(escape "$2")"
+  [ "$(printf '%s\n' Cancel 'Add to the merge queue anyway' |
+    rofi -dmenu -i -no-custom -p "$prompt" -format i -theme-str "$layout window { width: calc(48ch + 2em min 100%); }" \
+      -mesg "$mesg")" = 1 ]
 }
 
 # Sets agents and agent_sessions: the state and session of the agent working
@@ -274,9 +317,12 @@ mine() {
   [ "$in" = "$group" ] || return 0
   case $kind in queued | deploying | deployed) tag=:$kind ;; esac
   when=$(mine_when)
-  # On their way (auto-merge on) or in the queue: the diff in the fade too
+  # On their way (auto-merge on), in the queue or merged: the diff in the
+  # fade too
   [ "$in" = open ] || diff=plain
-  [ "$in" = queued ] && review=QUEUED
+  # In the queue, its required checks passed: a failing one is optional (and
+  # the queue's own run is the one that matters now)
+  [ "$in" = queued ] && review=QUEUED ci=SUCCESS
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
   # fix (Ctrl+s)
   case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 ;; esac
@@ -286,17 +332,27 @@ mine() {
   case $in in open | auto) shown_verdicts=$verdicts ;; esac
   # GitHub can't tell whether it's mergeable (the icons alone would read ready)
   [ "$state" = UNKNOWN ] && color=$red
-  line=$(row "$ci" "$review" "$when" "$number" "$additions" "$deletions" '' "$title" '' "$auto" "$diff" "$threads" "$color" "$shown_verdicts" "${agents[$repo#$number]}")
-  # Queued and deploying ones stay in the background: they move on their
-  # own; those with auto-merge on, a bit less (they will join the queue by
+  line=$(row ci="$ci" review="$review" time="$when" number="$number" additions="$additions" deletions="$deletions" \
+    title="$title" auto="$auto" diff="$diff" threads="$threads" color="$color" verdicts="$shown_verdicts" \
+    agent="${agents[$repo#$number]}")
+  # Queued and merged ones stay in the background: they move on their own;
+  # those with auto-merge on, a bit less (they will join the queue by
   # themselves)
   case $in in
-    queued | deploying | deployed) line="<span fgalpha=\"60%\">$line</span>" ;;
+    open) ;;
     auto) line="<span fgalpha=\"80%\">$line</span>" ;;
+    *) line="<span fgalpha=\"60%\">$line</span>" ;;
   esac
-  # The merge queue: can join it (open ones), can leave it (queued), or neither (merged)
+  # The merge queue: can join it (ready ones; and what Ctrl+m checks first),
+  # waits for GitHub's page (other open ones), can leave it (queued), or
+  # neither (merged)
   local merge=''
-  case $in in open | auto) merge="$repo $number out" ;; queued) merge="$repo $number in" ;; esac
+  case $in in
+    open | auto)
+      if [ "$kind" = ready ]; then merge="$repo $number out ${ci:--} ${review:--} ${state:--} ${threads:-0}"
+      else merge="$repo $number page"; fi ;;
+    queued) merge="$repo $number in" ;;
+  esac
   urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--} ${review:--}") merges+=("$merge")
   tags+=("$tag") lines+=("$line")
 }
@@ -309,7 +365,9 @@ review() {
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') tags+=(:review)
-  lines+=("$(row "$ci" REVIEW_REQUIRED "$(review_when)" "$number" "$additions" "$deletions" "$author" "$title" "$tint" '' '' "$threads" '' '' "${agents[$repo#$number]}")")
+  lines+=("$(row ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions" \
+    deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" \
+    agent="${agents[$repo#$number]}")")
 }
 
 while :; do
@@ -328,7 +386,7 @@ while :; do
 
   urls=()
   queues=()
-  merges=() # <repo> <number> <in the merge queue: in or out> (mine, unless merged)
+  merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads>] (mine, unless merged)
   prs=() # <agent task> <repo> <number> [<unresolved threads> <CI> <review>] (the last three: mine)
   tags=()
   lines=()
@@ -381,7 +439,7 @@ while :; do
   # Tags go in each row's invisible search terms (meta). Rows end with a
   # record separator: they may hold several lines
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\x1e' "${lines[$i]}" "${tags[$i]}"; done |
-    rofi -dmenu -i -markup-rows -sep $'\x1e' -eh "$height" -p '' -format 'i f' -filter "$filter" \
+    rofi -dmenu -i -markup-rows -sep $'\x1e' -eh "$height" -p "$prompt" -format 'i f' -filter "$filter" \
       -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' \
       -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
@@ -408,9 +466,17 @@ while :; do
       fi ;;
     13)
       if [ -n "$choice" ]; then
-        read -r merge_repo merge_number merge_queue <<<"${merges[$choice]}"
+        read -r merge_repo merge_number merge_queue merge_ci merge_review merge_state merge_threads <<<"${merges[$choice]}"
+        concerns=''
+        [ "$merge_queue" = out ] && concerns=$(queue_concerns "$merge_ci" "$merge_review" "$merge_state" "$merge_threads")
         if [ -z "$merge_repo" ]; then
           notify-send --app-name=github GitHub "The merge queue is for my open pull requests"
+        elif [ "$merge_queue" = page ]; then
+          # "Merge when ready" there: the merge box sits right above the
+          # comment box (it has no anchor of its own showing logged out)
+          exec browser-kiosk "${urls[$choice]}#issue-comment-box"
+        elif [ -n "$concerns" ] && ! confirm_queue "$merge_repo#$merge_number" "$concerns"; then
+          : # back to the list
         elif result=$(toggle_queue "$merge_repo" "$merge_number" "$merge_queue" 2>&1); then
           # Leaving it: merge-queue tells, refreshing
           [ "$merge_queue" = out ] && notify-send --app-name=github "Merge when ready" "$merge_repo#$merge_number"$'\n'"$result"
