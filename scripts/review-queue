@@ -33,7 +33,7 @@ github_lock "$state_dir" "$queue"
 
 # What we read of each pull request (see github_search_prs)
 read -r -d '' selection <<'GRAPHQL'
-number title url additions deletions createdAt
+state number title url additions deletions createdAt
 repository { nameWithOwner }
 author { login }
 CI_FIELDS
@@ -57,6 +57,7 @@ answer=$(github_search_prs "is:pr is:open draft:false user-review-requested:@me 
 fresh=$(jq -r "$github_ci_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
+  | select(.state == "OPEN") # the search lags behind, listing one merged (or closed) moments ago
   | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $requested
   | ([.timelineItems.nodes[] | select(.__typename == "ReadyForReviewEvent") | .createdAt] | last) as $ready
   | ([$requested, $ready] | max) as $at

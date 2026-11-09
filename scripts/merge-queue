@@ -74,7 +74,7 @@ merged_pid=$!
 
 # What we read of each pull request (see github_search_prs)
 read -r -d '' selection <<'GRAPHQL'
-number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
+state number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
 repository { nameWithOwner }
 autoMergeRequest { enabledAt }
 mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
@@ -126,7 +126,10 @@ program='
   | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
      CHECKS_PENDING: "running", REVIEW_REQUIRED: "needs review", UNKNOWN: "unknown"} as $labels
   | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
+  # Open ones only: the search lags behind, listing one merged (or closed)
+  # moments ago, whose mergeability GitHub no longer tells (UNKNOWN)
   | [ .data.search.nodes[]
+      | select(.state == "OPEN")
       | ci as $c
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
