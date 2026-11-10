@@ -13,9 +13,11 @@
 # deploying ones since the merge, for deployed ones since they reached
 # production. A merge glyph before the number: auto-merge is on (it
 # joins the queue once ready). A speech bubble before the title: unresolved
-# review threads, how many. All red: GitHub can't tell whether it's
-# mergeable, see on GitHub why. Before the title, an agent's face (as in
-# rofi-agents): one works on it (see Ctrl+s), in its state.
+# review threads, how many. A blue hourglass for review, the row in
+# italics: GitHub hasn't told yet whether it's mergeable (it works it out
+# lazily, after its base moves): ready, likely, at a later refresh. Before
+# the title, an agent's face (as in rofi-agents): one works on it (see
+# Ctrl+s), in its state.
 # Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
 # queue page of the selected pull request's repository (mine only). Ctrl+s:
 # back to the agent working on it (the one wanting me the most), else spawn
@@ -41,7 +43,7 @@ filter=$1
 declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
-  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [QUEUED]=$dim
+  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [UNKNOWN]="color=\"$blue\"" [QUEUED]=$dim
   [MERGED]="color=\"$magenta\"" [DEPLOYING]="color=\"$blue\"" [DEPLOYED]="color=\"$green\""
 )
 
@@ -56,6 +58,7 @@ declare -A faces=(
   [CHANGES_REQUESTED]='󰏫'
   [APPROVED]='󰔓'
   [REVIEW_REQUIRED]='󰈈'
+  [UNKNOWN]='󰔟' # mergeability: GitHub hasn't worked it out yet
   # Merge queue
   [QUEUED]=''
   # Deploy
@@ -97,7 +100,7 @@ thread_glyph='󰵅' # unresolved review threads
 #   auto           auto: auto-merge is on
 #   diff           plain: the additions and deletions uncolored
 #   threads        how many review threads are unresolved
-#   color          the whole row's color, overriding every other
+#   italic         italic: the whole row in italics
 #   verdicts       as merge-queue prints them, under the title (see
 #                  verdict_lines)
 #   agent          the state of the agent working on it (see find_agents)
@@ -107,7 +110,7 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | color | verdicts | agent)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | italic | verdicts | agent)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
@@ -116,16 +119,14 @@ row() {
   [ "${c[auto]}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a tint wins over the review face's own
-  # style), unless the row's color does it all
+  # style)
   local style
   ci=${c[ci]:+${faces[${c[ci]}]:-?}} review=${c[review]:+${faces[${c[review]}]:-?}}
-  if [ -z "${c[color]}" ]; then
-    [ -n "${c[ci]}" ] && style=${styles[${c[ci]}]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
-    style=''
-    [ -n "${c[review]}" ] && style=${styles[${c[review]}]}
-    [ -n "${c[tint]}" ] && style="color=\"${c[tint]}\""
-    [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
-  fi
+  [ -n "${c[ci]}" ] && style=${styles[${c[ci]}]} && [ -n "$style" ] && ci="<span $style>$ci</span>"
+  style=''
+  [ -n "${c[review]}" ] && style=${styles[${c[review]}]}
+  [ -n "${c[tint]}" ] && style="color=\"${c[tint]}\""
+  [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   ci="${ci:- }  " review="${review:- }  "
   # As wide as the widest shown (see measure_columns): additions to the
   # right, deletions to the left, around a space. Padded by hand, as printf
@@ -152,7 +153,7 @@ row() {
     fi
     threads+='  '
   fi
-  if [ "${c[diff]}" != plain ] && [ -z "${c[color]}" ]; then
+  if [ "${c[diff]}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
   # The agent's face, then two spaces; none at all when no row has one
@@ -166,7 +167,7 @@ row() {
   before=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s' \
     "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$number_width" "${c[number]}" "$plus" "$minus" "$threads" "$agent")
   line="$before$(escape "$title")$who"
-  [ -n "${c[color]}" ] && line="<span color=\"${c[color]}\">$line</span>"
+  [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
 }
 
@@ -312,7 +313,7 @@ measure_columns() {
 # yet) or deployed (in production lately)
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine() {
-  local in=open when tag=:open diff='' color='' line
+  local in=open when tag=:open diff='' face italic='' line
   case $kind in queued | deploying | deployed) in=$kind ;; *) [ "$auto" = auto ] && in=auto ;; esac
   [ "$in" = "$group" ] || return 0
   case $kind in queued | deploying | deployed) tag=:$kind ;; esac
@@ -330,10 +331,13 @@ mine() {
   # before. Not once they're in it, or merged
   local shown_verdicts=''
   case $in in open | auto) shown_verdicts=$verdicts ;; esac
-  # GitHub can't tell whether it's mergeable (the icons alone would read ready)
-  [ "$state" = UNKNOWN ] && color=$red
-  line=$(row ci="$ci" review="$review" time="$when" number="$number" additions="$additions" deletions="$deletions" \
-    title="$title" auto="$auto" diff="$diff" threads="$threads" color="$color" verdicts="$shown_verdicts" \
+  # GitHub hasn't worked out whether it's mergeable yet (the approved face
+  # would read ready): the review face says so, the row too. In the face
+  # only, as the merge and the agent want the review itself
+  face=$review
+  [ "$state" = UNKNOWN ] && face=UNKNOWN italic=italic
+  line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
+    title="$title" auto="$auto" diff="$diff" threads="$threads" italic="$italic" verdicts="$shown_verdicts" \
     agent="${agents[$repo#$number]}")
   # Queued and merged ones stay in the background: they move on their own;
   # those with auto-merge on, a bit less (they will join the queue by
