@@ -61,15 +61,17 @@ local rspec = function(opts)
   return {
     on_start = function()
       if #locations > 0 then
-        vim.notify('Running rspec on:', vim.log.levels.INFO)
+        -- One notification: the header, then a location per line
+        local lines = { 'Running rspec on:' }
         for _, location in ipairs(locations) do
-          local short_location = location:gsub('^' .. vim.uv.cwd() .. '/', '')
+          local short_location = location:gsub('^' .. vim.pesc(vim.uv.cwd() .. '/'), '')
           local length = #short_location
           if length > 77 then
             short_location = '  ' .. short_location:sub(length - 71, length)
           end
-          vim.notify(short_location, vim.log.levels.INFO)
+          table.insert(lines, short_location)
         end
+        vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO)
       else
         vim.notify('Running rspec (all)', vim.log.levels.INFO)
       end
