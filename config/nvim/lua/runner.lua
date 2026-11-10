@@ -81,6 +81,9 @@ local run = function(options)
   if options.cmd == nil then return warn('󱈸 No previous job found.') end
   if state.pid() then return warn('󰲼 Job already running...') end
 
+  -- A job with its own on_start announces itself (see ftplugin/ruby.lua): no
+  -- generic notification on top
+  local announce = options.on_start == nil
   options.on_start = options.on_start or function() end
   options.on_stdout = options.on_stdout or function(_) end
   options.on_interrupt = options.on_interrupt or function() end
@@ -93,7 +96,7 @@ local run = function(options)
   options.on_start()
 
   vim.api.nvim_win_call(window(), function()
-    info('󰔟 Job started...')
+    if announce then info('󰔟 Job started...') end
 
     vim.wo.winbar = options.winbar or '󱤵 run'
     vim.bo[state.buffer()].modified = false
