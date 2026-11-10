@@ -37,11 +37,32 @@ send = function(key, args, done)
     return
   end
 
-  local cmd = { 'notify-send', '--app-name=nvim', '--icon=' .. icon, '--print-id' }
+  -- The look (urgency, app name) comes from awesome's rules, which a replaced notification keeps.
+  -- So when it changes, the previous notification is closed and this one is posted fresh.
+  local look = table.concat(vim.tbl_filter(function(arg)
+    return vim.startswith(arg, '--urgency=') or vim.startswith(arg, '--app-name=')
+  end, args), ' ')
+  if slot and slot.id and slot.look ~= look then
+    vim.system({
+      'gdbus',
+      'call',
+      '--session',
+      '--dest=org.freedesktop.Notifications',
+      '--object-path=/org/freedesktop/Notifications',
+      '--method=org.freedesktop.Notifications.CloseNotification',
+      tostring(slot.id),
+    })
+    slot.id = nil
+  end
+
+  local cmd = { 'notify-send', '--icon=' .. icon, '--print-id' }
   if slot and slot.id then table.insert(cmd, '--replace-id=' .. slot.id) end
   vim.list_extend(cmd, args)
 
-  if slot then slot.busy = true end
+  if slot then
+    slot.busy = true
+    slot.look = look
+  end
   vim.system(cmd, { text = true }, vim.schedule_wrap(function(out)
     if not slot then return end
     slot.id = tonumber(out.stdout) or slot.id
@@ -70,7 +91,7 @@ local urgencies = {
 local redirect = function(msg, level, opts)
   opts = opts or {}
   local progress = opts.key ~= nil and type(opts.data) == 'boolean'
-  local body = msg or ''
+  local body = vim.trim(msg or '') -- git's output ends in a newline
   if progress and opts.annote then
     body = body == '' and opts.annote or ('%s: %s'):format(opts.annote, body)
   end
@@ -78,13 +99,16 @@ local redirect = function(msg, level, opts)
 
   local summary = progress and format_group_name(opts.group) or opts.title or opts.group or 'Neovim'
   local urgency = urgencies[level] or 'low'
-  local args = { '--urgency=' .. urgency }
+  -- The app name is what awesome matches to pick a look (see config/awesome/theme.lua)
+  local args = { '--app-name=' .. (opts.appname or 'nvim'), '--urgency=' .. urgency }
 
-  if progress then
+  if urgency == 'critical' then
+    table.insert(args, '--expire-time=0') -- errors (red) stay until dismissed
+  elseif progress then
     -- Done tasks linger as long as in fidget, running ones until their next update
     table.insert(args, '--expire-time=' .. (opts.data and 5000 or 30000))
-  elseif urgency ~= 'critical' then
-    table.insert(args, '--expire-time=10000') -- errors stay until dismissed
+  else
+    table.insert(args, '--expire-time=10000')
   end
 
   vim.list_extend(args, { tostring(summary), escape(body) })

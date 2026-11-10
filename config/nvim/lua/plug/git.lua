@@ -35,6 +35,14 @@ local set_pending = function(id, label)
   pcall(function() require('lualine').refresh({ place = { 'statusline' } }) end)
 end
 
+-- Each job's start and result share a key: the result replaces the start notification
+-- (fidget's system notifications update in place) instead of stacking a second one.
+-- The group is the notification's title (the git command), `done` is the progress flag fidget expects in `data`,
+-- `appname` picks the notification's color in awesome (see config/awesome/theme.lua).
+local notify_job = function(job_id, title, msg, level, done, appname)
+  vim.notify(msg, level, { key = job_id, group = title, data = done, appname = appname })
+end
+
 local async_git = function(cmd)
   local _cmd = { 'git' }
   for _, c in ipairs(cmd) do table.insert(_cmd, c) end
@@ -42,16 +50,16 @@ local async_git = function(cmd)
   table.insert(_cmd, '--quiet')
 
   return function()
-    vim.notify(cmdstr, vim.log.levels.INFO)
-    for i, c in ipairs(_cmd) do _cmd[i] = vim.fn.expand(c) end
     next_job_id = next_job_id + 1
     local job_id = next_job_id
+    notify_job(job_id, cmdstr, 'started...', vim.log.levels.INFO, false, 'nvim.git.started')
+    for i, c in ipairs(_cmd) do _cmd[i] = vim.fn.expand(c) end
     set_pending(job_id, cmd[1])
     local ok, err = pcall(vim.system, _cmd, {}, function(obj)
       if obj.code == 0 then
-        vim.notify(obj.stdout == '' and 'done' or obj.stdout, vim.log.levels.INFO)
+        notify_job(job_id, cmdstr, 'done!', vim.log.levels.INFO, true, 'nvim.git.done')
       else
-        vim.notify(obj.stderr:gsub('error: ', ''), vim.log.levels.ERROR)
+        notify_job(job_id, cmdstr, (obj.stderr:gsub('error: ', '')), vim.log.levels.ERROR, true)
       end
 
       vim.schedule(function()
@@ -71,7 +79,7 @@ local async_git = function(cmd)
 
     if not ok then
       set_pending(job_id, nil)
-      vim.notify(err, vim.log.levels.ERROR)
+      notify_job(job_id, cmdstr, err, vim.log.levels.ERROR, true)
     end
   end
 end

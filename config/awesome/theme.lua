@@ -57,5 +57,15 @@ return {
     naughty.config.presets.critical.border_width = 0
     naughty.config.presets.critical.bg = colors.red.dim
     naughty.config.presets.critical.fg = colors.red.base
+
+    -- Git job notifications from nvim (see config/nvim/lua/plug/git.lua): blue when started, green when done.
+    -- Awesome matches on the app name, not on the category hint.
+    local git_presets = {
+      ['nvim.git.started'] = colors.blue,
+      ['nvim.git.done'] = colors.green,
+    }
+    for appname, color in pairs(git_presets) do
+      table.insert(require('naughty.dbus').config.mapping, { { appname = appname }, { border_width = 0, bg = color.dim, fg = color.base } })
+    end
   end
 }
