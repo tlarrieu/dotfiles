@@ -6,7 +6,8 @@
 # order, then their agent worktrees (<project>-<slot>, by slot), then the
 # others by name; then by start time.
 # <since> is when the current turn started ("-" when unknown).
-# Prunes sessions whose process died (or whose pid a new process took).
+# Prunes sessions whose process died (or whose pid a new process took), and
+# those continued in another session (backgrounded).
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
 # session whose transcript ends with an interrupt marker is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
@@ -26,6 +27,12 @@ interrupted() {
   ' >/dev/null 2>&1
 }
 
+# Backgrounding a session hands it over to a new one (in claude's daemon), while
+# the original process lives on, showing the new session
+continued() {
+  [ -f "$1" ] && tail -n 20 "$1" | grep -q '"type":"continued-in"'
+}
+
 order="${XDG_CONFIG_HOME:-$HOME/.config}/claude/agent-projects"
 [ -f "$order" ] || order=/dev/null
 
@@ -39,7 +46,7 @@ for f in "$agents_dir"/*; do
   [ -f "$f" ] || continue
   read_agent "$f"
   # Never half written (write_agent renames them into place): no pid means none
-  if ! alive "$pid"; then rm -rf "$f" "$f.subagents"; continue; fi
+  if ! alive "$pid" || continued "$transcript"; then rm -rf "$f" "$f.subagents"; continue; fi
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
