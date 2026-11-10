@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# Shared by the rofi pickers (rofi-github, rofi-agents). Source it:
+# Shared by the rofi pickers (rofi-github). Source it:
 # . "$assets/lib/rofi.sh"
 
 # Colors from the current rofi palette (see ~/.config/rofi/variant.rasi), in
@@ -17,8 +17,8 @@ green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue
 dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
 # Pango attributes for each Claude agent state's face (see
-# lib/claude-agents.sh), for the pickers showing agents (rofi-agents,
-# rofi-github): the panel's colors (see config/awesome/widgets/agents.lua),
+# lib/claude-agents.sh), for the pickers showing agents (rofi-github): the
+# panel's colors (see config/awesome/widgets/agents.lua),
 # running steady instead of pulsing; agent_fallback_style for unknown states
 # shellcheck disable=SC2034 # for the scripts sourcing this
 declare -A agent_styles=(

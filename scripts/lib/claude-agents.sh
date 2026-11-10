@@ -57,6 +57,18 @@ agent_pr() {
     | "\(.repo)#\(.number)"' "$1" 2>/dev/null
 }
 
+# A session's title, from its transcript: the one given with /rename (or
+# --name), else Claude's own; cut to 90 characters
+# Usage: agent_title <transcript>
+agent_title() {
+  [ -f "$1" ] || return 0
+  grep -E '"type":"(custom-title|agent-name|ai-title)"' "$1" | jq -rs '
+    (map(select(.type == "custom-title")) | last | .customTitle)
+    // (map(select(.type == "agent-name")) | last | .agentName)
+    // (map(select(.type == "ai-title")) | last | .aiTitle) // empty
+  ' 2>/dev/null | awk '{ print substr($0, 1, 90) }' # multibyte-safe
+}
+
 # Whether <pid> is a live claude process (not a dead one's reused pid)
 alive() {
   case "$1" in "" | *[!0-9]*) return 1 ;; esac

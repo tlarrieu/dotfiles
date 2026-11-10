@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
-# Rofi hub for my GitHub pull requests (see merge-queue: drafts, blocked, ready),
-# those waiting on my review (see review-queue), then mine with auto-merge on,
+# Rofi hub for my Claude agents and GitHub pull requests: first the agents
+# working on none listed below (see find_loose_agents), then my pull
+# requests (see merge-queue: drafts, blocked, ready), those waiting on my
+# review (see review-queue), then mine with auto-merge on,
 # mine in the merge queue, mine merged but not in production yet, and mine
 # in production lately (see merge-queue's recent_window).
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
-# invisible tag: :open, :queued, :deploying, :deployed or :review)
+# invisible tag: :open, :queued, :deploying, :deployed or :review; and :agent,
+# agents' rows and those an agent works on)
 # Columns: CI (the last commit's checks), then review (conflict, draft,
 # changes requested, approved, or waiting for one; in the merge queue
 # instead, for queued ones; merged, or being deployed, for deploying ones),
@@ -16,12 +19,16 @@
 # review threads, how many. A blue hourglass for review, the row in
 # italics: GitHub hasn't told yet whether it's mergeable (it works it out
 # lazily, after its base moves): ready, likely, at a later refresh. Before
-# the title, an agent's face (as in rofi-agents): one works on it (see
-# Ctrl+s), in its state.
-# Enter: open in the browser. Ctrl+r: refresh from GitHub. Ctrl+q: open the merge
-# queue page of the selected pull request's repository (mine only). Ctrl+s:
-# back to the agent working on it (the one wanting me the most), else spawn
-# one (see claude-agent-pr): fixing its conflicts, unresolved review threads
+# the title, an agent's face (as in the panel): one works on it (see
+# Ctrl+s), in its state. An agent's row: its face there too, how long its
+# turn has run (running ones), its project, its session's title.
+# New agents are spawned from rofi-search ('cl' keyword, see
+# claude-agent-spawn), or on a pull request (Ctrl+s).
+# Enter: open in the browser (an agent's row: back to it). Ctrl+r: refresh
+# from GitHub. Ctrl+q: open the merge queue page of the selected pull
+# request's repository (mine only). Ctrl+s: back to the agent (its row), or
+# the one working on it (the one wanting me the most), else spawn one (see
+# claude-agent-pr): fixing its conflicts, unresolved review threads
 # and failing CI (mine), or reviewing it (others'). Ctrl+m: the merge queue
 # (mine): add a ready one to it (asking first when something looks off, see
 # queue_concerns), remove a queued one, then refresh; for the others, open
@@ -94,6 +101,7 @@ thread_glyph='󰵅' # unresolved review threads
 # A row, from named cells (<name>=<value> arguments, all optional):
 #   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
 #   time, number, additions, deletions, title
+#   project        an agent's project, instead of the number and the diff
 #   author         goes last, after the title (which then gets a fixed width)
 #   tint           the review face's color, instead of its style (reviews
 #                  waiting on me)
@@ -110,7 +118,7 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | italic | verdicts | agent)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | italic | verdicts | agent | project)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
@@ -162,10 +170,17 @@ row() {
     agent='   '
     [ -n "${c[agent]}" ] && agent="<span ${agent_styles[${c[agent]}]:-$agent_fallback_style}>${agent_faces[${c[agent]}]:-󰚩}</span>  "
   fi
-  # Time and number: as wide as the widest shown (see measure_columns)
+  # Time and number: as wide as the widest shown (see measure_columns). The
+  # project takes the number's and the diff's place (measure_columns
+  # widens the number for the longest)
+  local middle
+  if [ -n "${c[project]}" ]; then
+    middle=$(escape "$(printf '%-*s' $((number_width + plus_width + minus_width + 3)) "${c[project]}")")
+  else
+    middle=$(printf '#%-*s %s %s' "$number_width" "${c[number]}" "$plus" "$minus")
+  fi
   local before
-  before=$(printf '%s%s%-*s %s #%-*s %s %s  %s%s' \
-    "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$number_width" "${c[number]}" "$plus" "$minus" "$threads" "$agent")
+  before=$(printf '%s%s%-*s %s %s  %s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
@@ -233,10 +248,12 @@ confirm_queue() {
 
 # Sets agents and agent_sessions: the state and session of the agent working
 # on each pull request (<owner/repo>#<number>, see claude-agent-pr), the one
-# wanting me the most when there are several
+# wanting me the most when there are several. And agent_list: all of them
+# (claude-agent-list's records)
 # shellcheck disable=SC2154 # record fields, set by each_record
 find_agents() {
   declare -gA agents=() agent_sessions=()
+  agent_list=$("$assets/claude-agent-list")
   local -A rank=([attention]=4 [done]=3 [running]=2 [idle]=1)
   rank_agent() {
     [ "$pr" != - ] && [ -n "$pr" ] || return 0
@@ -244,7 +261,31 @@ find_agents() {
     [ "${rank[$state]:-0}" -gt "${rank[$current]:-0}" ] && agents[$pr]=$state agent_sessions[$pr]=$session
     return 0
   }
-  each_record rank_agent < <("$assets/claude-agent-list")
+  each_record rank_agent <<<"$agent_list"
+}
+
+# Sets loose_agents: claude-agent-list's records ($agent_list) of the agents
+# working on no pull request among the merge-queue records ($1) and the
+# review-queue ones ($2) (one gone from them: merged long ago, reviewed; or
+# none, in an agent worktree, <project>-<slot>), so that they get a row. Not
+# those on none in a main checkout: the sessions I keep open there
+# (super+u, or the panel, reach them)
+# shellcheck disable=SC2154 # record fields, set by each_record
+find_loose_agents() {
+  local -A listed=()
+  list_pr() { listed[$repo#$number]=1; }
+  each_record list_pr <<<"$1"
+  each_record list_pr <<<"$2"
+  loose_agents=$(head -n1 <<<"$agent_list")
+  keep_loose() {
+    if [ "$pr" != - ] && [ -n "$pr" ]; then
+      [ -n "${listed[$pr]}" ] && return 0
+    else
+      [[ $project =~ -[0-9]+$ ]] || return 0
+    fi
+    loose_agents+=$'\n'"$started"$'\t'"$state"$'\t'"$since"$'\t'"$session"$'\t'"$project"$'\t'"$pr"
+  }
+  each_record keep_loose <<<"$agent_list"
 }
 
 # Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
@@ -286,7 +327,9 @@ review_when() { ago $((now - at)); }
 # any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
 # one's "#37 (1h14)"). And agents_width: 3 when an agent works on one (see
-# agents), else 0
+# agents), else 0. The loose agents' rows too ($3, see find_loose_agents):
+# their turn's duration, their face, their project (the number widened for
+# the longest)
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
@@ -305,6 +348,30 @@ measure_columns() {
   widest_review() { when=$(review_when); widest "$when"; }
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
+  local project_width=0
+  widest_agent() {
+    agents_width=3
+    when=$(agent_when); [ ${#when} -gt "$time_width" ] && time_width=${#when}
+    [ ${#project} -gt "$project_width" ] && project_width=${#project}
+  }
+  each_record widest_agent <<<"$3"
+  local room=$((number_width + plus_width + minus_width + 3))
+  [ "$project_width" -gt "$room" ] && number_width=$((number_width + project_width - room))
+  return 0
+}
+
+# The time column of an agent (a claude-agent-list record): how long its turn
+# has run, when running
+# shellcheck disable=SC2154 # record fields, set by each_record
+agent_when() { [ "$state" = running ] && [ "$since" != - ] && elapsed "$since"; return 0; }
+
+# Adds an agent (a claude-agent-list record): Enter and Ctrl+s go back to it
+# shellcheck disable=SC2154 # record fields, set by each_record
+agent() {
+  local transcript
+  transcript=$(read_agent "$agents_dir/$session" agent_; echo "$agent_transcript")
+  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") tags+=(:agent)
+  lines+=("$(row time="$(agent_when)" project="$project" title="$(agent_title "$transcript")" agent="$state")")
 }
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it
@@ -358,7 +425,7 @@ mine() {
     queued) merge="$repo $number in" ;;
   esac
   urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--} ${review:--}") merges+=("$merge")
-  tags+=("$tag") lines+=("$line")
+  tags+=("$tag${agents[$repo#$number]:+ :agent}") sessions+=('') lines+=("$line")
 }
 
 # Adds a pull request waiting on my review (a review-queue record)
@@ -368,7 +435,7 @@ review() {
   # The review face, warmer as the wait grows: 4h, then a day
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
-  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') tags+=(:review)
+  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') tags+=(":review${agents[$repo#$number]:+ :agent}")
   lines+=("$(row ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions" \
     deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" \
     agent="${agents[$repo#$number]}")")
@@ -399,13 +466,17 @@ while :; do
   queues=()
   merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads>] (mine, unless merged)
   prs=() # <agent task> <repo> <number> [<unresolved threads> <CI> <review>] (the last three: mine)
+  sessions=() # the agent (an agent's row), else empty
   tags=()
   lines=()
   now=$(date +%s)
   find_agents
+  find_loose_agents "$mine" "$reviews"
   measure_authors <<<"$reviews"
-  threads='' measure_columns "$mine" "$reviews" # threads blank, as below
+  threads='' measure_columns "$mine" "$reviews" "$loose_agents" # threads blank, as below
 
+  # First, the agents: one waiting on me is the most urgent
+  each_record agent <<<"$loose_agents"
   # ci, review, threads and verdicts blank: a cache from before these fields
   # keeps them so
   ci='' review='' threads='' verdicts='' group=open each_record mine <<<"$mine"
@@ -418,7 +489,7 @@ while :; do
   ci='' review='' threads='' verdicts='' group=deployed each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
-    notify-send --app-name=github GitHub "No open pull request, nothing waiting on your review 🎉"
+    notify-send --app-name=github GitHub "No agent, no open pull request, nothing waiting on your review 🎉"
     exit 0
   fi
 
@@ -458,11 +529,16 @@ while :; do
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''
 
   case $code in
-    0) [ -n "$choice" ] && exec browser-kiosk "${urls[$choice]}"; exit 0 ;;
+    0)
+      [ -n "$choice" ] || exit 0
+      [ -n "${sessions[$choice]}" ] && exec "$assets/claude-agent-jump" "${sessions[$choice]}"
+      exec browser-kiosk "${urls[$choice]}" ;;
     10) mode='' ;;
     11) [ -n "$choice" ] && [ -n "${queues[$choice]}" ] && exec browser-kiosk "${queues[$choice]}" ;; # reviews: stay
     12)
-      if [ -n "$choice" ]; then
+      if [ -n "$choice" ] && [ -n "${sessions[$choice]}" ]; then
+        exec "$assets/claude-agent-jump" "${sessions[$choice]}"
+      elif [ -n "$choice" ]; then
         read -r pr_task pr_repo pr_number pr_threads pr_ci pr_review <<<"${prs[$choice]}"
         # An agent on it already: back to it, rather than another one
         pr_session=${agent_sessions[$pr_repo#$pr_number]}

@@ -95,7 +95,7 @@ local rebuild = function(out)
   local entries = {}
   blinking = {}
 
-  -- Idle agents stay out: nothing to tell (rofi-agents lists them all)
+  -- Idle agents stay out: nothing to tell (rofi-github lists them all)
   ---@type table[]
   local shown = {}
   for _, agent in ipairs(require('records').parse(out)) do
