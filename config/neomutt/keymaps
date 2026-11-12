@@ -4,6 +4,9 @@ bind attach <return> view-mailcap
 bind attach l view-mailcap
 bind editor <space> noop
 bind index r fetch-mail
+bind index,pager S sync-mailbox
+bind index,pager $ noop
+macro index R "<tag-pattern>~U<enter><tag-prefix><clear-flag>N<untag-pattern>~T<enter>" "mark all messages as read"
 bind index,pager,attach G last-entry
 bind index,pager,attach g noop
 bind index,pager,attach gg first-entry
