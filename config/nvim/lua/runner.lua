@@ -81,9 +81,13 @@ local run = function(options)
   if options.cmd == nil then return warn('󱈸 No previous job found.') end
   if state.pid() then return warn('󰲼 Job already running...') end
 
-  -- A job with its own on_start announces itself (see ftplugin/ruby.lua): no
-  -- generic notification on top
+  -- A job with its own on_start announces itself, and one with its own
+  -- on_finish(code) reports its end (see ftplugin/ruby.lua): no generic
+  -- notification on top
   local announce = options.on_start == nil
+  local on_finish = options.on_finish or function(code)
+    if code > 0 then warn('󰚎 Job stopped with error.') else info('󱦟 Job complete.') end
+  end
   options.on_start = options.on_start or function() end
   options.on_stdout = options.on_stdout or function(_) end
   options.on_interrupt = options.on_interrupt or function() end
@@ -118,12 +122,8 @@ local run = function(options)
 
           state.delete('pid')
 
-          if data > 0 then
-            options.on_interrupt()
-            warn('󰚎 Job stopped with error.')
-          else
-            info('󱦟 Job complete.')
-          end
+          if data > 0 then options.on_interrupt() end
+          on_finish(data)
         end,
       })
     )

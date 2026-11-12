@@ -52,12 +52,12 @@ local async_git = function(cmd)
   return function()
     next_job_id = next_job_id + 1
     local job_id = next_job_id
-    notify_job(job_id, cmdstr, 'started...', vim.log.levels.INFO, false, 'nvim.git.started')
+    notify_job(job_id, cmdstr, 'started...', vim.log.levels.INFO, false, 'nvim.job.started')
     for i, c in ipairs(_cmd) do _cmd[i] = vim.fn.expand(c) end
     set_pending(job_id, cmd[1])
     local ok, err = pcall(vim.system, _cmd, {}, function(obj)
       if obj.code == 0 then
-        notify_job(job_id, cmdstr, 'done!', vim.log.levels.INFO, true, 'nvim.git.done')
+        notify_job(job_id, cmdstr, 'done!', vim.log.levels.INFO, true, 'nvim.job.done')
       else
         notify_job(job_id, cmdstr, (obj.stderr:gsub('error: ', '')), vim.log.levels.ERROR, true)
       end

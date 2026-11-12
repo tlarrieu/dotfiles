@@ -58,24 +58,33 @@ local rspec = function(opts)
   for _, option in ipairs(testbus.adapters.rspec.options) do table.insert(cmd, option) end
   for _, location in ipairs(locations) do table.insert(cmd, location) end
 
+  local shown = {}
+  for _, location in ipairs(locations) do
+    local short_location = location:gsub('^' .. vim.pesc(vim.uv.cwd() .. '/'), '')
+    local length = #short_location
+    if length > 77 then
+      short_location = '  ' .. short_location:sub(length - 71, length)
+    end
+    table.insert(shown, short_location)
+  end
+  local key -- a run's own: re-running these options (runner's last) gets a new one
+  local notify = function(status, level, done, appname)
+    local body = #shown > 0 and ('%s on:\n%s'):format(status, table.concat(shown, '\n')) or ('%s (all)'):format(status)
+    vim.notify(body, level, { key = key, group = 'rspec', data = done, appname = appname })
+  end
+
   return {
     on_start = function()
-      if #locations > 0 then
-        -- One notification: the header, then a location per line
-        local lines = { 'Running rspec on:' }
-        for _, location in ipairs(locations) do
-          local short_location = location:gsub('^' .. vim.pesc(vim.uv.cwd() .. '/'), '')
-          local length = #short_location
-          if length > 77 then
-            short_location = '  ' .. short_location:sub(length - 71, length)
-          end
-          table.insert(lines, short_location)
-        end
-        vim.notify(table.concat(lines, '\n'), vim.log.levels.INFO)
-      else
-        vim.notify('Running rspec (all)', vim.log.levels.INFO)
-      end
+      key = vim.uv.hrtime()
+      notify('Running', vim.log.levels.INFO, false, 'nvim.job.started')
       testbus.start()
+    end,
+    on_finish = function(code)
+      if code > 0 then
+        notify('Failed', vim.log.levels.WARN, true, 'nvim.job.failed')
+      else
+        notify('Passed', vim.log.levels.INFO, true, 'nvim.job.done')
+      end
     end,
     on_stdout = testbus.redraw,
     on_interrupt = testbus.interrupt,
