@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 require 'cgi'
+require 'fileutils'
 
 class SearchEngine
 
@@ -191,7 +192,87 @@ ENGINES = {
   'pl'   => Work.new
 }.freeze
 
-words = `rofi -dmenu -p "" -theme-str "#listview { enabled: false; }"`
+# The prompt: Escape keeps what was typed for next time (the draft), Control+p
+# and Control+n go through the queries run before (newest first), like a
+# shell's history, with the edited query back at the bottom.
+# rofi can't do either itself: these keys are custom ones, quitting it with the
+# typed text (exit code 10 and up), for this to open it again, filled in.
+class Prompt
+
+  DIR = File.join(ENV.fetch('XDG_STATE_HOME', File.expand_path('~/.local/state')), 'rofi-search')
+  HISTORY = File.join(DIR, 'history')
+  DRAFT = File.join(DIR, 'draft')
+  HISTORY_SIZE = 500
+
+  CANCEL = 10
+  OLDER = 11
+  NEWER = 12
+
+  # What rofi printed for the query typed ('' when canceled)
+  def initialize
+    @history = lines(HISTORY).reverse
+    @edited = File.exist?(DRAFT) ? File.read(DRAFT).chomp : ''
+    @position = -1 # in history, -1 being the edited query
+  end
+
+  def read
+    loop do
+      output, status = rofi(@position.negative? ? @edited : @history[@position])
+
+      case status
+      when 0 then return accept(output)
+      when CANCEL then return save_draft(output.chomp)
+      when OLDER then move(1, output.chomp)
+      when NEWER then move(-1, output.chomp)
+      else return '' # rofi failed, or was closed otherwise: the draft stays
+      end
+    end
+  end
+
+  private
+
+  def move(step, typed)
+    @edited = typed if @position.negative?
+    @position = (@position + step).clamp(-1, @history.size - 1)
+  end
+
+  def rofi(text)
+    command = [
+      'rofi', '-dmenu', '-p', '', '-theme-str', '#listview { enabled: false; }', '-filter', text,
+      '-kb-cancel', 'Control+g,Control+bracketleft', '-kb-row-up', 'Up', '-kb-row-down', 'Down',
+      '-kb-custom-1', 'Escape', '-kb-custom-2', 'Control+p', '-kb-custom-3', 'Control+n'
+    ]
+    output = IO.popen(command, &:read)
+    [output, $?.exitstatus]
+  end
+
+  def accept(output)
+    save_draft('')
+    query = output.strip
+    unless query.empty?
+      history = lines(HISTORY).reject { _1 == query }.push(query).last(HISTORY_SIZE)
+      write(HISTORY, history.map { "#{_1}\n" }.join)
+    end
+    output
+  end
+
+  def save_draft(text)
+    text.strip.empty? ? FileUtils.rm_f(DRAFT) : write(DRAFT, "#{text}\n")
+    ''
+  end
+
+  def lines(path)
+    File.exist?(path) ? File.readlines(path, chomp: true).reject(&:empty?) : []
+  end
+
+  def write(path, content)
+    FileUtils.mkdir_p(DIR)
+    File.write(path, content)
+  end
+
+end
+
+words = Prompt.new.read
   .tap { exit if _1.empty? }
   .strip
   .tap { BrowserWithContext.new('').run.then { exit } if _1.empty? }
