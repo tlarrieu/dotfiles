@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Drops the worktrees of stopped Claude agents (see claude-agent-worktree), the
-# ones no process runs in anymore. Those holding uncommitted changes are kept
+# ones no claude runs in anymore (whatever else does, left behind by them or
+# us, a rubocop server, an nvim, is stopped with them). Those holding uncommitted changes are kept
 # (we get told once), as are the branches the agent committed on, the one its
 # worktree started on (see claude-agent-worktree), and the worktrees holding
 # commits on no branch (made on the detached HEAD).
@@ -13,10 +14,46 @@ deadline=$(($(date +%s) + wait))
 slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
 assets=$(dirname "$(readlink -f "$0")")
 
-# Whether a process runs within the worktree $1 (one find for all of them:
-# a readlink each took over half a second)
+# This sweep and what runs it (a shell within a worktree, say): not ours to stop
+ours=" $$ " pid=$PPID
+while [ "${pid:-1}" -gt 1 ]; do
+  ours+="$pid "
+  pid=$(ps -o ppid= -p "$pid" | tr -d ' ')
+done
+
+# The processes running within the worktree $1, one pid a line, but ours (one
+# find for all of them: a readlink each took over half a second)
+processes() {
+  local pid
+  for pid in $(find /proc/[0-9]*/cwd -maxdepth 0 \( -lname "$1" -o -lname "$1/*" \) 2>/dev/null \
+    | sed 's|^/proc/\([0-9]*\)/cwd$|\1|'); do
+    [[ $ours == *" $pid "* ]] || echo "$pid"
+  done
+}
+
+# Whether a claude runs within the worktree $1, working or waiting
 busy() {
-  [ -n "$(find /proc/[0-9]*/cwd -maxdepth 0 \( -lname "$1" -o -lname "$1/*" \) -print -quit 2>/dev/null)" ]
+  local pid comm
+  for pid in $(processes "$1"); do
+    read -r comm 2>/dev/null </proc/"$pid"/comm && [ "$comm" = claude ] && return 0
+  done
+  return 1
+}
+
+# Stops what else runs within the worktree $1 (killed if still there after
+# 2 seconds)
+stop() {
+  local pids ours="$ours$BASHPID " # run from a subshell: that one's ours too
+  pids=$(processes "$1")
+  [ -n "$pids" ] || return 0
+  # shellcheck disable=SC2086 # one pid a word
+  kill $pids 2>/dev/null
+  for _ in 1 2 3 4; do
+    [ -n "$(processes "$1")" ] || return 0
+    sleep 0.5
+  done
+  # shellcheck disable=SC2046 # one pid a word
+  kill -9 $(processes "$1") 2>/dev/null
 }
 
 # Whether slot file $1 was written within the last minute: its agent may not
@@ -65,6 +102,7 @@ for repository in "$slots"/*/; do
       fresh "$slot_file" && exit # taken again while we waited
       busy "$worktree" && exit
       branch=$(git -C "$worktree" branch --show-current)
+      stop "$worktree"
       git -C "$primary" worktree remove "$worktree" || exit
       rm -f "$slot_file" "$slot_file.kept"
       # Slots older than the base recording: compare to the primary's HEAD
