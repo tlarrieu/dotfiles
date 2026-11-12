@@ -57,15 +57,19 @@ github_notify() {
 # page: a newer one (marking it ready for review, say) cancels and replaces
 # it, its cancelled checks are no failure. Commit statuses, and checks from
 # other apps, all count.
-# The required reviewers check is left out: it fails until approvals come in,
-# which the review state tells already.
+# Some checks are left out (github_ignored_checks): the required reviewers
+# one, failing until approvals come in, which the review state tells already;
+# and the optional ones, whose failure doesn't block merging.
 # Reads the checks themselves, 100 from each end of the list (counting them
 # by state per workflow run instead costs GitHub more: it then refuses a
 # search for more than a few pull requests). Past 200, those in the middle
 # are missed.
 # github_ci_query: the GraphQL selection to put in a PullRequest's fields
 # github_ci_jq: a jq definition, ci, reading it from such a PullRequest
-github_ignored_check='Check required reviewers approvals'
+github_ignored_checks=(
+  'Check required reviewers approvals'
+  'Check CI breaking changes'
+)
 github_ci_checks='nodes {
             ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId } } } }
             ... on StatusContext { id state }
@@ -80,6 +84,7 @@ github_ci_jq='
   def ci:
     .commits.nodes[0].commit.statusCheckRollup as $rollup
     | ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
+    | ['"$(printf '"%s",' "${github_ignored_checks[@]}" | sed 's/,$//')"'] as $ignored
     | ([$rollup.head.nodes[]?, $rollup.tail.nodes[]?] | unique_by(.id)) as $all
     | [$all[] | select(.status != null)] as $checks
     | [$all[] | select(.state != null)] as $statuses
@@ -87,7 +92,7 @@ github_ci_jq='
        | map({key: (.[0].workflow.databaseId | tostring), value: (map(.createdAt) | max)})
        | from_entries) as $newest
     | [$checks[]
-       | select(.name != "'"$github_ignored_check"'")
+       | select(.name | IN($ignored[]) | not)
        | .checkSuite.workflowRun as $run
        | select($run == null or $run.createdAt == $newest[$run.workflow.databaseId | tostring])] as $counted
     | (([$counted[] | select(.status == "COMPLETED" and (.conclusion | IN($failing[])))] | length)

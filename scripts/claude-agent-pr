@@ -17,7 +17,7 @@
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
-. "$assets/lib/github.sh" # github_ignored_check
+. "$assets/lib/github.sh" # github_ignored_checks
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
 
 task=$1 repo=$2 number=$3
@@ -121,8 +121,9 @@ and its failing CI checks.
    line and comments). For each, make the change asked for.
 2. CI: list the checks of its latest commit with gh pr checks $number -R $repo
    (tab separated: name, state, duration, link), keeping those whose state is
-   fail; skip "$github_ignored_check", which only waits for approvals, and
-   summaries of the others (such as "CI Summary"). For a GitHub Actions job
+   fail; skip ${github_ignored_checks[*]@Q} (one only waits for approvals,
+   the others are optional), and summaries of the others (such as
+   "CI Summary"). For a GitHub Actions job
    (its link ends with /job/<job id>), read its log with
    gh api repos/$repo/actions/jobs/<job id>/logs (gh run view --log-failed
    prints nothing here): look for ##[error] lines and the test failures above
