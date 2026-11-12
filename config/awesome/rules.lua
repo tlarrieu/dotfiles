@@ -36,6 +36,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
         'PureRef',
         'org.pwmt.zathura',
         'zenity',
+        'Finances',
       },
       instance = {
         'localhost',

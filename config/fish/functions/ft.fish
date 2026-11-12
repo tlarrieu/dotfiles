@@ -18,6 +18,11 @@ function ft
   set -l flags
   switch $argv[1]
   case edit
+    # Start the finances dashboard unless it is already running, detached from this terminal.
+    set -l finances ~/dev/finances/finances
+    if not pgrep -x finances >/dev/null; and test -x $finances
+      setsid -f $finances >/dev/null 2>&1 </dev/null
+    end
     nvim -p (readlink -f ~/.hledger/current.journal)
     return
   case bal bs bse is cf roi
