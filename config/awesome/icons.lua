@@ -161,6 +161,7 @@ local config = {
   { icon = '', rule = { class = 'Chromium', instance = 'paypal' } },
   { icon = '', rule = { class = 'Chromium', instance = 'swile' } },
   { icon = '󰗑', rule = { class = 'accounting' } },
+  { icon = '󰗑', rule = { class = 'Finances' } },
 
   --  Pictures
   { icon = '', rule = { class = 'Chromium', instance = 'pinterest.com' } },
