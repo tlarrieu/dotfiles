@@ -52,7 +52,7 @@ branch=$(cd "$dir" 2>/dev/null && git --no-optional-locks rev-parse --abbrev-ref
 [ -n "$branch" ] && append "\033[2;32m${branch}\033[0m"
 
 [ -n "$context" ] && append "$(gauge "$context" 10)"
-[ -n "$session" ] && append "$(gauge "$session" 5 session)"
-[ -n "$week" ] && append "$(gauge "$week" 5 week)"
+[ -n "$session" ] && append "$(gauge "$session" 10 session)"
+[ -n "$week" ] && append "$(gauge "$week" 10 week)"
 
 printf '%b' "$out"
