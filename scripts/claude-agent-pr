@@ -228,5 +228,5 @@ review only they see until they submit it, by saying "post" (all of them) or
 PROMPT
 fi
 
-CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_BRANCH=$local_branch CLAUDE_AGENT_CONTEXT=$rules CLAUDE_AGENT_PR="$repo#$number" \
+CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_BRANCH=$local_branch CLAUDE_AGENT_CONTEXT=$rules \
   exec "$assets/claude-agent-spawn" "$prompt"

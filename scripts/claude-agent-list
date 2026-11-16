@@ -66,9 +66,9 @@ for f in "$agents_dir"/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
-  # Started before agents recorded it: from the transcript; else from its
-  # branch, which may have got a pull request since its last hook (the
-  # agent's next hook saves either)
+  # None as of its last hook: its branch may have got a pull request since
+  # (its next hook saves it); from the transcript too, for state files
+  # written before hooks recorded it
   [ "${pr:--}" = - ] && pr=$(agent_pr "$transcript")
   [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"

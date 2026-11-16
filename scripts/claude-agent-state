@@ -109,14 +109,15 @@ root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
 [[ $root == *[[:space:]]* ]] && root=- # fields are space separated
-# The pull request it works on: set by claude-agent-spawn for
-# claude-agent-pr's agents, else (started before it was) found once from the
-# transcript, else from the branch it's on (one of my pull requests'): until
-# found, at each hook, as it may open one
-# shellcheck disable=SC2034,SC2154 # written by write_agent; previous_pr set by read_agent
-pr=${CLAUDE_AGENT_PR:-${previous_pr:--}}
-[ "$pr" = - ] && pr=$(agent_pr "$transcript") && pr=${pr:--}
-[ "$pr" = - ] && pr=$(branch_pr "$root") && pr=${pr:--}
+# The pull request it works on, from what it is, at each hook (it may open
+# one, or switch branches): claude-agent-pr's agents by their first prompt,
+# the others by the branch they're on (one of my pull requests'). Not from
+# the environment: agents' windows inherit their kitty's, whichever agent
+# started it (see claude-agent-spawn)
+# shellcheck disable=SC2034 # written by write_agent
+pr=$(agent_pr "$transcript")
+[ -n "$pr" ] || pr=$(branch_pr "$root")
+pr=${pr:--}
 write_agent "$file"
 refresh_panel
 

@@ -15,9 +15,6 @@
 #   CLAUDE_AGENT_BRANCH   with CLAUDE_AGENT_AT, a branch at that commit for its
 #                         worktree to check out, instead of a detached HEAD
 #   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
-#   CLAUDE_AGENT_PR       the pull request it works on (<owner/repo>#<number>),
-#                         passed on to the agent: its state (see
-#                         claude-agent-state) records it, for rofi-github
 
 assets=$(dirname "$(readlink -f "$0")")
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
@@ -84,12 +81,6 @@ CONTEXT
   claude_args="--append-system-prompt \$context "
 fi
 
-# The agent's pull request goes in its environment, for its hooks: empty when
-# none, as its windows would otherwise inherit the one of the agent which
-# started our kitty (see below)
-agent_env=$env
-agent_env+=" --env 'CLAUDE_AGENT_PR=${CLAUDE_AGENT_PR:-}'" # quoted: kitty may read # as a comment
-
 # Fish loads the claude function, which brings the settings from my dotfiles.
 # Once the agent stops, its whole window goes (see claude-agent-sweep for its
 # worktree), unless claude failed: then it waits, so that we can read why.
@@ -103,7 +94,7 @@ agent+="; $assets/claude-agent-close-window"
 cat >"$session_file" <<SESSION
 new_tab
 cd $directory
-launch $agent_env fish -c '$agent'
+launch $env fish -c '$agent'
 new_tab
 cd $directory
 launch $env fish -c nvim
@@ -113,7 +104,7 @@ SESSION
 # its focused window as unfocused (kitty deems the new one focused)
 # Its windows get its environment: not this spawn's settings, which are this
 # agent's only (the first spawn starts that kitty, the others hand it theirs)
-env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT -u CLAUDE_AGENT_PR \
+env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT \
   setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
   --session "$session_file" >/dev/null 2>&1
 launched=1
