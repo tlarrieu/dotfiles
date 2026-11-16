@@ -89,7 +89,7 @@ GRAPHQL
 # Records, under this header (see lib/github.sh), in lifecycle order: drafts, other PRs that can't join the queue yet (by
 # blocker), ready, then queued (by position). An other PR's state is its
 # first blocker: DRAFT, CONFLICT, CHECKS_FAILING, CHANGES_REQUESTED,
-# CHECKS_PENDING, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
+# CHECKS_PENDING, BOT_REVIEWING, BOT_REVIEW_FAILED, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
 # GitHub computes it: not ready yet, next time maybe).
 # Deploying ones (merged, not in production yet), last, by merge: state
 # MERGED, or DEPLOYING while a deploy run ships it. Then deployed ones, in
@@ -100,8 +100,8 @@ GRAPHQL
 # Label: the state in a word or two, for the picker and the panel.
 # CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
 # Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, BOT_REVIEWING (a
-# review workflow runs, see github_review_workflows), APPROVED or
-# REVIEW_REQUIRED.
+# review workflow runs, see github_review_workflows), BOT_REVIEW_FAILED (one
+# failed), APPROVED or REVIEW_REQUIRED.
 # Threads: how many review threads are unresolved (out of the first 100).
 # Verdicts: the approvals and change requests that came with a message, each
 # reviewer's latest: <login> US <APPROVED or CHANGES_REQUESTED> US <its first
@@ -128,9 +128,11 @@ program='
   | {QUEUED: "queued", AWAITING_CHECKS: "checks running", MERGEABLE: "checks passed",
      UNMERGEABLE: "checks failed", LOCKED: "merging"} as $queue_labels
   | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
-     CHECKS_PENDING: "running", BOT_REVIEWING: "bot review", REVIEW_REQUIRED: "needs review",
+     CHECKS_PENDING: "running", BOT_REVIEWING: "bot review", BOT_REVIEW_FAILED: "bot review failed",
+     REVIEW_REQUIRED: "needs review",
      UNKNOWN: "unknown"} as $labels
-  | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "BOT_REVIEWING", "REVIEW_REQUIRED",
+  | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "BOT_REVIEWING", "BOT_REVIEW_FAILED",
+     "REVIEW_REQUIRED",
      "UNKNOWN"] as $blockers
   # Open ones only: the search lags behind, listing one merged (or closed)
   # moments ago, whose mergeability GitHub no longer tells (UNKNOWN)
@@ -138,6 +140,7 @@ program='
       | select(.state == "OPEN")
       | ci as $c
       | bot_reviewing as $bot
+      | bot_review_failed as $bot_failed
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
@@ -146,6 +149,7 @@ program='
                    elif .isDraft then "DRAFT"
                    elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
                    elif $bot then "BOT_REVIEWING"
+                   elif $bot_failed then "BOT_REVIEW_FAILED"
                    elif .reviewDecision == "APPROVED" then "APPROVED"
                    else "REVIEW_REQUIRED" end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
@@ -165,6 +169,7 @@ program='
            elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
            elif $c != "SUCCESS" then "CHECKS_PENDING"
            elif $bot then "BOT_REVIEWING"
+           elif $bot_failed then "BOT_REVIEW_FAILED"
            elif .reviewDecision != "APPROVED" then "REVIEW_REQUIRED"
            elif .mergeable != "MERGEABLE" then "UNKNOWN"
            else "READY" end) as $blocker

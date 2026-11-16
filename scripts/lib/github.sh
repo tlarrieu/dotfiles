@@ -85,7 +85,8 @@ github_notify() {
 # are missed.
 # github_ci_query: the GraphQL selection to put in a PullRequest's fields
 # github_ci_jq: jq definitions reading it from such a PullRequest: ci, and
-# bot_reviewing (true while a review workflow's check runs)
+# bot_reviewing (true while a review workflow's check runs), bot_review_failed
+# (true when one failed, none running)
 github_ignored_checks=(
   'Check required reviewers approvals'
   'Check CI breaking changes'
@@ -118,10 +119,16 @@ github_ci_jq='
                | . + {review: ($run != null and ($run.workflow.name as $name
                                                  | any($reviewing[]; . as $prefix | $name | startswith($prefix))))}],
        statuses: [$all[] | select(.state != null)]};
+  def failing_conclusions: ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"];
   def bot_reviewing:
     any(latest_checks.checks[]; .review and .status != "COMPLETED");
+  def bot_review_failed:
+    failing_conclusions as $failing
+    | latest_checks.checks as $checks
+    | (any($checks[]; .review and .status != "COMPLETED") | not)
+      and any($checks[]; .review and .status == "COMPLETED" and (.conclusion | IN($failing[])));
   def ci:
-    ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
+    failing_conclusions as $failing
     | ['"$(printf '"%s",' "${github_ignored_checks[@]}" | sed 's/,$//')"'] as $ignored
     | latest_checks as $latest
     | [$latest.checks[] | select((.review | not) and (.name | IN($ignored[]) | not))] as $counted

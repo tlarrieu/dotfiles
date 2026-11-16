@@ -14,6 +14,7 @@ local urgencies = {
   CONFLICT = 'mine',
   CHECKS_FAILING = 'mine',
   CHANGES_REQUESTED = 'mine',
+  BOT_REVIEW_FAILED = 'mine',
   READY = 'ready',
 }
 
