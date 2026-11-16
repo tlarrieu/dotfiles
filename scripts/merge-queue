@@ -96,7 +96,8 @@ GRAPHQL
 # Auto: auto when auto-merge is on, else -.
 # Label: the state in a word or two, for the picker and the panel.
 # CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
-# Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, APPROVED or
+# Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, BOT_REVIEWING (a
+# review workflow runs, see github_review_workflows), APPROVED or
 # REVIEW_REQUIRED.
 # Threads: how many review threads are unresolved (out of the first 100).
 # Verdicts: the approvals and change requests that came with a message, each
@@ -124,13 +125,16 @@ program='
   | {QUEUED: "queued", AWAITING_CHECKS: "checks running", MERGEABLE: "checks passed",
      UNMERGEABLE: "checks failed", LOCKED: "merging"} as $queue_labels
   | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
-     CHECKS_PENDING: "running", REVIEW_REQUIRED: "needs review", UNKNOWN: "unknown"} as $labels
-  | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "REVIEW_REQUIRED", "UNKNOWN"] as $blockers
+     CHECKS_PENDING: "running", BOT_REVIEWING: "bot review", REVIEW_REQUIRED: "needs review",
+     UNKNOWN: "unknown"} as $labels
+  | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "BOT_REVIEWING", "REVIEW_REQUIRED",
+     "UNKNOWN"] as $blockers
   # Open ones only: the search lags behind, listing one merged (or closed)
   # moments ago, whose mergeability GitHub no longer tells (UNKNOWN)
   | [ .data.search.nodes[]
       | select(.state == "OPEN")
       | ci as $c
+      | bot_reviewing as $bot
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
@@ -138,6 +142,7 @@ program='
           review: (if .mergeable == "CONFLICTING" then "CONFLICT"
                    elif .isDraft then "DRAFT"
                    elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
+                   elif $bot then "BOT_REVIEWING"
                    elif .reviewDecision == "APPROVED" then "APPROVED"
                    else "REVIEW_REQUIRED" end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
@@ -155,6 +160,7 @@ program='
            elif $c == "FAILURE" then "CHECKS_FAILING"
            elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
            elif $c != "SUCCESS" then "CHECKS_PENDING"
+           elif $bot then "BOT_REVIEWING"
            elif .reviewDecision != "APPROVED" then "REVIEW_REQUIRED"
            elif .mergeable != "MERGEABLE" then "UNKNOWN"
            else "READY" end) as $blocker

@@ -8,8 +8,9 @@
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
 # invisible tag: :open, :queued, :deploying, :deployed or :review; and :agent,
 # agents' rows and those an agent works on)
-# Columns: CI (the last commit's checks), then review (conflict, draft,
-# changes requested, approved, or waiting for one; in the merge queue
+# Columns: CI (the last commit's checks, bots' reviews aside), then review
+# (conflict, draft, changes requested, a bot reviewing it (hubot), approved,
+# or waiting for one; in the merge queue
 # instead, for queued ones; merged, or being deployed, for deploying ones),
 # then time: since the last update, waiting on my review for how long, for
 # queued ones the position and when it should merge (#37 (1h14)), for
@@ -50,7 +51,7 @@ filter=$1
 declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
-  [APPROVED]="color=\"$green\"" [REVIEW_REQUIRED]=$dim [UNKNOWN]="color=\"$blue\"" [QUEUED]=$dim
+  [APPROVED]="color=\"$green\"" [BOT_REVIEWING]="color=\"$blue\"" [REVIEW_REQUIRED]=$dim [UNKNOWN]="color=\"$blue\"" [QUEUED]=$dim
   [MERGED]="color=\"$magenta\"" [DEPLOYING]="color=\"$blue\"" [DEPLOYED]="color=\"$green\""
 )
 
@@ -63,6 +64,7 @@ declare -A faces=(
   [CONFLICT]='󰀩'
   [DRAFT]=''
   [CHANGES_REQUESTED]='󰏫'
+  [BOT_REVIEWING]=''
   [APPROVED]='󰔓'
   [REVIEW_REQUIRED]='󰈈'
   [UNKNOWN]='󰔟' # mergeability: GitHub hasn't worked it out yet
@@ -228,6 +230,7 @@ queue_concerns() {
     CONFLICT) echo "It conflicts with its base branch" ;;
     DRAFT) echo "It's a draft" ;;
     CHANGES_REQUESTED) echo "Changes were requested" ;;
+    BOT_REVIEWING) echo "A bot is still reviewing it" ;;
     REVIEW_REQUIRED) echo "It isn't approved yet" ;;
   esac
   [ "$3" = UNKNOWN ] && echo "GitHub can't tell whether it's mergeable"

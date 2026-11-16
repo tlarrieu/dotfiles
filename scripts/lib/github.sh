@@ -59,19 +59,25 @@ github_notify() {
 # other apps, all count.
 # Some checks are left out (github_ignored_checks): the required reviewers
 # one, failing until approvals come in, which the review state tells already;
-# and the optional ones, whose failure doesn't block merging.
+# and the optional ones, whose failure doesn't block merging. So are the
+# review workflows' (github_review_workflows, prefixes of their names): a bot
+# reviewing the pull request is no CI, bot_reviewing tells it instead.
 # Reads the checks themselves, 100 from each end of the list (counting them
 # by state per workflow run instead costs GitHub more: it then refuses a
 # search for more than a few pull requests). Past 200, those in the middle
 # are missed.
 # github_ci_query: the GraphQL selection to put in a PullRequest's fields
-# github_ci_jq: a jq definition, ci, reading it from such a PullRequest
+# github_ci_jq: jq definitions reading it from such a PullRequest: ci, and
+# bot_reviewing (true while a review workflow's check runs)
 github_ignored_checks=(
   'Check required reviewers approvals'
   'Check CI breaking changes'
 )
+github_review_workflows=(
+  'Claude Code Review'
+)
 github_ci_checks='nodes {
-            ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId } } } }
+            ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId name } } } }
             ... on StatusContext { id state }
           }'
 # shellcheck disable=SC2034 # for the scripts sourcing this
@@ -81,20 +87,28 @@ github_ci_query="commits(last: 1) { nodes { commit { statusCheckRollup {
         } } } }"
 # shellcheck disable=SC2016,SC2034 # jq variables; for the scripts sourcing this
 github_ci_jq='
-  def ci:
-    .commits.nodes[0].commit.statusCheckRollup as $rollup
-    | ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
-    | ['"$(printf '"%s",' "${github_ignored_checks[@]}" | sed 's/,$//')"'] as $ignored
+  def latest_checks:
+    ['"$(printf '"%s",' "${github_review_workflows[@]}" | sed 's/,$//')"'] as $reviewing
+    | .commits.nodes[0].commit.statusCheckRollup as $rollup
     | ([$rollup.head.nodes[]?, $rollup.tail.nodes[]?] | unique_by(.id)) as $all
     | [$all[] | select(.status != null)] as $checks
-    | [$all[] | select(.state != null)] as $statuses
     | ($checks | map(.checkSuite.workflowRun | select(.)) | group_by(.workflow.databaseId)
        | map({key: (.[0].workflow.databaseId | tostring), value: (map(.createdAt) | max)})
        | from_entries) as $newest
-    | [$checks[]
-       | select(.name | IN($ignored[]) | not)
-       | .checkSuite.workflowRun as $run
-       | select($run == null or $run.createdAt == $newest[$run.workflow.databaseId | tostring])] as $counted
+    | {checks: [$checks[]
+               | .checkSuite.workflowRun as $run
+               | select($run == null or $run.createdAt == $newest[$run.workflow.databaseId | tostring])
+               | . + {review: ($run != null and ($run.workflow.name as $name
+                                                 | any($reviewing[]; . as $prefix | $name | startswith($prefix))))}],
+       statuses: [$all[] | select(.state != null)]};
+  def bot_reviewing:
+    any(latest_checks.checks[]; .review and .status != "COMPLETED");
+  def ci:
+    ["FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"] as $failing
+    | ['"$(printf '"%s",' "${github_ignored_checks[@]}" | sed 's/,$//')"'] as $ignored
+    | latest_checks as $latest
+    | [$latest.checks[] | select((.review | not) and (.name | IN($ignored[]) | not))] as $counted
+    | $latest.statuses as $statuses
     | (([$counted[] | select(.status == "COMPLETED" and (.conclusion | IN($failing[])))] | length)
        + ([$statuses[] | select(.state | IN("FAILURE", "ERROR"))] | length)) as $failed
     | (([$counted[] | select(.status != "COMPLETED")] | length)
