@@ -136,6 +136,22 @@ agent_notify() {
     }' sh "$assets" "$1" "$2" "$3" "$4" "$id" "$file" >/dev/null 2>&1
 }
 
+# A spawn's progress (see claude-agent-pr and claude-agent-spawn), in one
+# notification shown at once, before the slow parts: each call replaces the
+# previous one, its id kept in CLAUDE_AGENT_NOTIFICATION (exported: a spawn
+# started by claude-agent-pr carries on with its notification). Its app name
+# tells its state, which awesome colors (see its theme): blue when started,
+# green when launched, red when failed (critical: it stays). Needs $assets.
+# Usage: spawn_notify <started|launched|failed> <body>
+spawn_notify() {
+  local id urgency=normal
+  [ "$1" = failed ] && urgency=critical
+  id=$(notify-send --app-name="claude.spawn.$1" --icon="$assets/claude.png" --urgency="$urgency" --print-id \
+    ${CLAUDE_AGENT_NOTIFICATION:+--replace-id="$CLAUDE_AGENT_NOTIFICATION"} Claude "$2" 2>/dev/null)
+  [ -n "$id" ] && export CLAUDE_AGENT_NOTIFICATION=$id
+  return 0
+}
+
 # Closes an agent's notification (see agent_notify), once outdated: it moved on
 # Usage: agent_unnotify <session>
 agent_unnotify() {

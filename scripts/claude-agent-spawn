@@ -15,9 +15,27 @@
 #   CLAUDE_AGENT_BRANCH   with CLAUDE_AGENT_AT, a branch at that commit for its
 #                         worktree to check out, instead of a detached HEAD
 #   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
+#   CLAUDE_AGENT_NOTIFICATION  the notification telling of this spawn, to
+#                         carry on with (see spawn_notify), instead of a new one
+# It tells how the spawn goes in a notification, at once: launched, or why not.
 
 assets=$(dirname "$(readlink -f "$0")")
-fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh" # spawn_notify
+fail() { spawn_notify failed "Agent not started: $1"; exit 1; }
+
+prompt="$*"
+
+# What it's about, for its notifications: its prompt's first line (markup
+# escaped: notifications take some)
+about=${prompt%%$'\n'*}
+[ "${#about}" -gt 80 ] && about="${about:0:79}…"
+about=${about//'&'/'&amp;'} about=${about//'<'/'&lt;'} about=${about//'>'/'&gt;'}
+about=${about:-interactive session}
+
+# Spawning takes a while (the worktree, then claude): say so now, unless
+# claude-agent-pr did
+[ -n "$CLAUDE_AGENT_NOTIFICATION" ] || spawn_notify started "Starting an agent: $about"
 
 # The agent tab removes the files passing it the prompt and context: until it
 # is launched, they're ours to clean up
@@ -27,9 +45,7 @@ trap '[ -n "$launched" ] || rm -f $files' EXIT
 # Same current project as awesome's dev window (it may hold a ~)
 project=${CLAUDE_AGENT_DIR:-$(cat ~/.project 2>/dev/null)}
 project=${project/#\~/$HOME}
-[ -d "$project" ] || fail "No project to spawn an agent in (see ~/.project)"
-
-prompt="$*"
+[ -d "$project" ] || fail "no project to spawn it in (see ~/.project)"
 
 # The prompt and the agent's context go through files to dodge session
 # quoting: the agent tab reads them, then removes them along with the session
@@ -52,7 +68,7 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   read -r slot directory < <("$assets/claude-agent-worktree" "$primary" ${CLAUDE_AGENT_AT:+"$CLAUDE_AGENT_AT"} ${CLAUDE_AGENT_AT:+${CLAUDE_AGENT_BRANCH:+"$CLAUDE_AGENT_BRANCH"}} 2>"$error_file")
   error=$(cat "$error_file")
   rm -f "$error_file"
-  [ -n "$slot" ] || fail "Could not create the agent's worktree: $error"
+  [ -n "$slot" ] || fail "could not create its worktree: $error"
   base=$(git -C "$primary" branch --show-current)
   base="${base:+$base, }$(git -C "$directory" rev-parse --short HEAD)"
   env="--env TEST_ENV_NUMBER=$slot"
@@ -88,7 +104,9 @@ fi
 agent="${reads}rm -f $files; ${setup}claude $claude_args"
 [ -n "$prompt" ] && agent+="-- \$prompt"
 agent+="; set -l code \$status"
-agent+="; if test \$code -ne 0; echo; echo \"claude exited with status \$code: press Enter to close\"; read; end"
+agent+="; if test \$code -ne 0"
+agent+="; notify-send --app-name=claude.spawn.failed --icon=$assets/claude.png --urgency=critical ${CLAUDE_AGENT_NOTIFICATION:+--replace-id=$CLAUDE_AGENT_NOTIFICATION} Claude \"Agent stopped: claude exited with status \$code, in $(basename "$directory") (its window tells why)\""
+agent+="; echo; echo \"claude exited with status \$code: press Enter to close\"; read; end"
 agent+="; $assets/claude-agent-close-window"
 
 cat >"$session_file" <<SESSION
@@ -104,7 +122,8 @@ SESSION
 # its focused window as unfocused (kitty deems the new one focused)
 # Its windows get its environment: not this spawn's settings, which are this
 # agent's only (the first spawn starts that kitty, the others hand it theirs)
-env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT \
+env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT -u CLAUDE_AGENT_NOTIFICATION \
   setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
-  --session "$session_file" >/dev/null 2>&1
+  --session "$session_file" >/dev/null 2>&1 || fail "could not start its kitty"
 launched=1
+spawn_notify launched "Agent launched in $(basename "$directory"), showing up in the panel once claude is up: $about"

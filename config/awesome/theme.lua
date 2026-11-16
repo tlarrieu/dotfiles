@@ -60,11 +60,15 @@ return {
 
     -- Job notifications from nvim (git, see config/nvim/lua/plug/git.lua; rspec, see config/nvim/ftplugin/ruby.lua):
     -- blue when started, green when done, red when failed (still expiring, unlike errors).
+    -- Claude agents' spawns alike (see spawn_notify in scripts/lib/claude-agents.sh; their failures are critical).
     -- Awesome matches on the app name, not on the category hint.
     local job_presets = {
       ['nvim.job.started'] = colors.blue,
       ['nvim.job.done'] = colors.green,
       ['nvim.job.failed'] = colors.red,
+      ['claude.spawn.started'] = colors.blue,
+      ['claude.spawn.launched'] = colors.green,
+      ['claude.spawn.failed'] = colors.red,
     }
     for appname, color in pairs(job_presets) do
       table.insert(require('naughty.dbus').config.mapping, { { appname = appname }, { border_width = 0, bg = color.dim, fg = color.base } })
