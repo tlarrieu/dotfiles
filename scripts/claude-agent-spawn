@@ -84,9 +84,11 @@ CONTEXT
   claude_args="--append-system-prompt \$context "
 fi
 
-# The agent's pull request goes in its environment, for its hooks
+# The agent's pull request goes in its environment, for its hooks: empty when
+# none, as its windows would otherwise inherit the one of the agent which
+# started our kitty (see below)
 agent_env=$env
-[ -n "$CLAUDE_AGENT_PR" ] && agent_env+=" --env 'CLAUDE_AGENT_PR=$CLAUDE_AGENT_PR'" # quoted: kitty may read # as a comment
+agent_env+=" --env 'CLAUDE_AGENT_PR=${CLAUDE_AGENT_PR:-}'" # quoted: kitty may read # as a comment
 
 # Fish loads the claude function, which brings the settings from my dotfiles.
 # Once the agent stops, its whole window goes (see claude-agent-sweep for its
@@ -109,6 +111,9 @@ SESSION
 
 # A kitty of their own: opening an agent window in ours would make it draw
 # its focused window as unfocused (kitty deems the new one focused)
-setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
+# Its windows get its environment: not this spawn's settings, which are this
+# agent's only (the first spawn starts that kitty, the others hand it theirs)
+env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT -u CLAUDE_AGENT_PR \
+  setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
   --session "$session_file" >/dev/null 2>&1
 launched=1
