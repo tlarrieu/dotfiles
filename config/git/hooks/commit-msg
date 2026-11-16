@@ -1,0 +1,10 @@
+#!/bin/sh
+if grep -qiE '^co-authored-by:.*(claude|anthropic)' "$1"; then
+  echo "commit-msg: remove the Claude/Anthropic Co-authored-by trailer, AI co-authoring is not allowed" >&2
+  exit 1
+fi
+repo_hook="$(git rev-parse --git-common-dir)/hooks/commit-msg"
+if [ -x "$repo_hook" ]; then
+  exec "$repo_hook" "$@"
+fi
+exit 0

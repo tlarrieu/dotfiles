@@ -20,6 +20,7 @@
 	editor = nvim
 	excludesFile = /home/tlarrieu/.gitignore
 	ignorecase = false
+	hooksPath = ~/.config/git/hooks # config/git/hooks: commit-msg refuses AI co-authors, the others forward to the repository's own
 [pull]
 	ff = only
 [branch]

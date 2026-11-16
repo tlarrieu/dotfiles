@@ -1,0 +1,7 @@
+#!/bin/sh
+hook_name=$(basename "$0")
+repo_hook="$(git rev-parse --git-common-dir)/hooks/$hook_name"
+if [ -x "$repo_hook" ]; then
+  exec "$repo_hook" "$@"
+fi
+exit 0
