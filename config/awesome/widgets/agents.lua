@@ -111,7 +111,10 @@ local rebuild = function(out)
     local face = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
     local label = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
     local glyph = faces[state] or faces.fallback
-    local name = gears.string.xml_escape(project)
+    -- On a pull request: its number, the project without the worktree's
+    -- slot (jeancaisse-11 → jeancaisse #182343), telling agents apart
+    local number = (agent.pr or '-'):match('#(%d+)$')
+    local name = gears.string.xml_escape(number and ('%s #%s'):format((project:gsub('%-%d+$', '')), number) or project)
 
     ---@type integer?
     local started = tonumber(since) -- nil when not running (-)

@@ -5,7 +5,9 @@
 # ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
 # started on an entry, merge expected within 15 minutes, merged, kicked out of
 # the queue (with GitHub's reason), ready to enqueue (unless auto-merge is
-# on), being deployed to production, deployed. Then prints the cache. Once
+# on), blocked on me (conflicts, CI failing, changes requested: with a Fix
+# with Claude action, see claude-agent-pr), being deployed to production,
+# deployed. Then prints the cache. Once
 # deployed, a pull request stays listed for $recent_window seconds.
 # Deploys: a repository's latest GitHub release is what production runs (its
 # deploy workflow publishes one once deployed). While a run of
@@ -18,7 +20,7 @@
 #   lib/github.sh, and "fields" below for what they hold): kind (queued,
 #   ready, other, deploying or deployed), repo, number, position, state, label, time, additions,
 #   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads,
-#   verdicts (- when not applicable).
+#   verdicts, branch (its head branch) (- when not applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
@@ -31,6 +33,7 @@ state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue"
 cache="$state_dir/queue.tsv"
 queued="$state_dir/queued" # entries seen in the queue last time: <repo> <number> <enqueued at>
 seen="$state_dir/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event>, <repo>#<number>:ready,
+                           # <repo>#<number>:blocked:<CONFLICT, CHECKS_FAILING or CHANGES_REQUESTED>,
                            # <repo>#<number>:deploying@<run id>, <repo>#<number>:deployed
 near=$((15 * 60))
 deploy_workflow=eks_deployment.yml tested_workflow=specs.yml
@@ -74,7 +77,7 @@ merged_pid=$!
 
 # What we read of each pull request (see github_search_prs)
 read -r -d '' selection <<'GRAPHQL'
-state number title url baseRefName isDraft updatedAt reviewDecision mergeable additions deletions
+state number title url baseRefName headRefName isDraft updatedAt reviewDecision mergeable additions deletions
 repository { nameWithOwner }
 autoMergeRequest { enabledAt }
 mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
@@ -105,7 +108,7 @@ GRAPHQL
 # line, … when more follow>, separated by GS (US and GS: the ASCII unit and
 # group separators), or - without any.
 selection=${selection//CI_FIELDS/$github_ci_query}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts)
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts branch)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # A pull request's verdicts (see above), from its latestReviews
 # shellcheck disable=SC2016 # jq variables
@@ -146,6 +149,7 @@ program='
                    elif .reviewDecision == "APPROVED" then "APPROVED"
                    else "REVIEW_REQUIRED" end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
+          branch: .headRefName,
           queue_url: "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)",
           title: (.title | gsub("[\t\n]"; " ")) } as $pr
       | if .mergeQueueEntry then
@@ -183,6 +187,7 @@ fresh=$(jq -r "$github_ci_jq$verdicts_jq$program" <<<"$answer") || { cat "$cache
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
 notify() { github_notify merge-queue "$@"; } # <urgency> <title> <body> <url>
+notify_fix() { github_notify_fix merge-queue "$@"; } # <urgency> <title> <body> <url> <owner/repo> <number>
 
 once() { # <key>: true the first time a key is seen (and remembers it)
   grep -qxF "$1" "$seen" && return 1
@@ -196,7 +201,21 @@ current=''
 
 # shellcheck disable=SC2154 # record fields, set by each_record
 pull_request() {
-  [ "$kind" = other ] && return # nothing to tell until it's ready
+  # Blocked on me: tell it once, each time it gets so, a fix a click away
+  if [ "$kind" = other ]; then
+    local why=''
+    case $state in
+      CONFLICT) why='Conflicts with its base branch' ;;
+      CHECKS_FAILING) why='CI failing' ;;
+      CHANGES_REQUESTED) why='Changes requested' ;;
+    esac
+    if [ -n "$why" ]; then
+      keys+=("$repo#$number:blocked:$state")
+      once "$repo#$number:blocked:$state" &&
+        notify_fix normal "$why" "$title"$'\n'"$repo#$number" "$url$([ "$state" = CHECKS_FAILING ] && echo /checks)" "$repo" "$number"
+    fi
+    return
+  fi
 
   if [ "$kind" = ready ]; then
     [ "$auto" = auto ] && return # GitHub enqueues it by itself
@@ -269,13 +288,13 @@ deploy_once() { # <key>: once, but quiet until deploys were tracked once
 # Records of the deploying and deployed ones (see fields)
 deploying='' deployed=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-' \
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
 # A deployed one, while it reached production less than $recent_window seconds ago
 deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
   [ $((now - $3)) -lt "$recent_window" ] || return 0
-  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-' \
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-' \
     "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
 }
 now=$(date +%s)

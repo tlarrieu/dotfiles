@@ -32,6 +32,23 @@ github_repos() {
   exit 2
 }
 
+# The clone of <owner/repo>: the one in ~/dev or ~/git whose origin it is
+# (any remote URL form: git@github.com:owner/repo(.git),
+# https://github.com/owner/repo(.git)). Prints its path, or fails.
+# Usage: github_clone <owner/repo>
+github_clone() {
+  local dir origin
+  for dir in ~/dev/*/ ~/git/*/; do
+    origin=$(git -C "$dir" remote get-url origin 2>/dev/null) || continue
+    origin=${origin%.git} origin=${origin%/}
+    if [[ ${origin,,} == *[:/]"${1,,}" ]]; then
+      echo "${dir%/}"
+      return 0
+    fi
+  done
+  return 1
+}
+
 # One refresh at a time, so that timer runs and clicked ones don't notify
 # twice. One already running? Wait for it, a bounded time (gh calls time out):
 # a stalled GitHub can't pile runs up, and a clicked refresh still reports
@@ -115,6 +132,18 @@ github_ci_jq='
        + ([$statuses[] | select(.state | IN("PENDING", "EXPECTED"))] | length)) as $pending
     | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
 '
+
+# The same, about one of my pull requests needing a fix, with a second action:
+# Fix with Claude (see claude-agent-pr: back to the agent already on it, else
+# one fixing it)
+# Usage: github_notify_fix <app name> <urgency> <title> <body> <url> <owner/repo> <number>
+github_notify_fix() {
+  # shellcheck disable=SC2016 # $1..$8 belong to the inner sh
+  setsid -f sh -c 'case "$(notify-send --app-name="$1" --urgency="$2" --action=default=Open --action=fix="Fix with Claude" --wait "$3" "$4")" in
+      default) exec browser-kiosk "$5" ;;
+      fix) exec "$8/claude-agent-pr" fix "$6" "$7" ;;
+    esac' sh "$@" "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1 9>&-
+}
 
 # Searches pull requests (<query>: as in GitHub's search box), fetching
 # <selection> (a PullRequest's fields) for them, github_search_batch at a

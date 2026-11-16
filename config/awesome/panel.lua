@@ -9,6 +9,7 @@ local reviews = require('widgets.reviews')
 local merge_queue = require('widgets.merge_queue')
 local pull_requests = require('widgets.pull_requests')
 local deploys = require('widgets.deploys')
+local local_work = require('widgets.local_work')
 
 -- [[ Clock ]] -----------------------------------------------------------------
 
@@ -33,6 +34,7 @@ M.init = function(screen)
   merge_queue.update()
   pull_requests.update()
   deploys.update()
+  local_work.update()
 
   local colors = beautiful.colors
 
@@ -102,6 +104,7 @@ M.init = function(screen)
       },
       taglist,
       {
+        local_work.widget,
         pull_requests.widget,
         merge_queue.widget,
         deploys.widget,

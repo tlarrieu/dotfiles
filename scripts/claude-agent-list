@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Lists live Claude agents (fed by claude-agent-state hooks), as records (see
 # lib/records.sh) of fields started, state, since, session, project and pr
-# (the pull request it works on, see lib/claude-agents.sh).
+# (the pull request it works on, see lib/claude-agents.sh: by its prompt, or
+# its branch).
 # Ordered by project: those listed in ~/.config/claude/agent-projects, in its
 # order, then their agent worktrees (<project>-<slot>, by slot), then the
 # others by name; then by start time.
@@ -46,13 +47,17 @@ for f in "$agents_dir"/*; do
   [ -f "$f" ] || continue
   read_agent "$f"
   # Never half written (write_agent renames them into place): no pid means none
-  if ! alive "$pid" || continued "$transcript"; then rm -rf "$f" "$f.subagents"; continue; fi
+  if ! alive "$pid" || continued "$transcript"; then
+    rm -rf "$f" "$f.subagents" "$(agent_notification "$(basename "$f")")"
+    continue
+  fi
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
     if "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window"; then
       state=idle
       write_agent "$f"
+      agent_unnotify "$(basename "$f")" # seen
     fi
     ;;
   esac
@@ -61,9 +66,11 @@ for f in "$agents_dir"/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
-  # Started before agents recorded it: from the transcript (the agent's next
-  # hook saves it)
+  # Started before agents recorded it: from the transcript; else from its
+  # branch, which may have got a pull request since its last hook (the
+  # agent's next hook saves either)
   [ "${pr:--}" = - ] && pr=$(agent_pr "$transcript")
+  [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
   FILENAME == ARGV[1] { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }

@@ -105,6 +105,8 @@ for repository in "$slots"/*/; do
       stop "$worktree"
       git -C "$primary" worktree remove "$worktree" || exit
       rm -f "$slot_file" "$slot_file.kept"
+      # What it held is gone: local work's cache too (see local-work)
+      setsid -f "$assets/local-work" >/dev/null 2>&1 9>&-
       # Slots older than the base recording: compare to the primary's HEAD
       base=${base:-$(git -C "$primary" rev-parse HEAD)}
       if [ -n "$branch" ] && [ "$branch" != "$started" ] && [ "$(git -C "$primary" rev-list --count "$base..$branch")" = 0 ]; then

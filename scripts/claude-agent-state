@@ -68,6 +68,7 @@ fi
 [ "$state" = subagent ] && exit 0
 
 if [ "$state" = end ]; then
+  agent_unnotify "$session"
   rm -rf "$file" "$subagents"
   refresh_panel
   exit 0
@@ -107,23 +108,41 @@ cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
 project=${project//[[:space:]]/_}
+[[ $root == *[[:space:]]* ]] && root=- # fields are space separated
 # The pull request it works on: set by claude-agent-spawn for
 # claude-agent-pr's agents, else (started before it was) found once from the
-# transcript
+# transcript, else from the branch it's on (one of my pull requests'): until
+# found, at each hook, as it may open one
 # shellcheck disable=SC2034,SC2154 # written by write_agent; previous_pr set by read_agent
 pr=${CLAUDE_AGENT_PR:-${previous_pr:--}}
 [ "$pr" = - ] && pr=$(agent_pr "$transcript") && pr=${pr:--}
+[ "$pr" = - ] && pr=$(branch_pr "$root") && pr=${pr:--}
 write_agent "$file"
 refresh_panel
 
-if [ "$state" = attention ]; then
+# Its notification is outdated once it moves on (or got seen, as idle)
+case "$state" in running | idle) agent_unnotify "$session" ;; esac
+
+# Off screen, or wanting us: tell which agent, a click away (see agent_notify)
+case "$state" in
+attention)
   message=$(jq -r '
     .message // .tool_input.questions[0].question //
     (.tool_name | select(.) | "Wants to use \(.)") // "Needs your attention"
   ' <<<"$input")
-  notify-send --app-name=claude --icon="$assets/claude.png" Claude "$message"
-fi
+  agent_notify "$session" normal "$(agent_name "$project" "$pr" "$transcript")" "$message"
+  ;;
+done)
+  # (a displayed one is idle by now: seen)
+  message=$(jq -r '.last_assistant_message // empty' <<<"$input" | awk 'NF { print substr($0, 1, 200); exit }')
+  [ -n "$message" ] || message=$(agent_last_words "$transcript")
+  agent_notify "$session" low "Done: $(agent_name "$project" "$pr" "$transcript")" "${message:-Its turn is over}"
+  ;;
+esac
 
 case "$state" in
 attention | done) $displayed || setsid -f paplay "$assets/claude.ogg" >/dev/null 2>&1 ;;
 esac
+
+# A turn's end: what it left in its worktree, for local work (see local-work)
+case "$state" in "done" | idle) setsid -f "$assets/local-work" >/dev/null 2>&1 ;; esac

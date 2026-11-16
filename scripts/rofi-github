@@ -1,12 +1,16 @@
 #!/usr/bin/env bash
 # Rofi hub for my Claude agents and GitHub pull requests: first the agents
 # working on none listed below (see find_loose_agents), then my pull
-# requests (see merge-queue: drafts, blocked, ready), those waiting on my
+# requests (see merge-queue: drafts, blocked, ready), work lying on this
+# machine that none of them holds (see local-work: branches with commits to
+# push, worktrees with changes, kept agent worktrees), those waiting on my
 # review (see review-queue), then mine with auto-merge on,
 # mine in the merge queue, mine merged but not in production yet, and mine
 # in production lately (see merge-queue's recent_window).
 # Usage: rofi-github [filter]  (prefilled search; each row also matches an
-# invisible tag: :open, :queued, :deploying, :deployed or :review; and :agent,
+# invisible tag: :open, :queued, :deploying, :deployed or :review; :local,
+# local work's rows and those of mine holding some (:unpushed, those with
+# commits to push); and :agent,
 # agents' rows and those an agent works on)
 # Columns: CI (the last commit's checks, bots' reviews aside), then review
 # (conflict, draft, changes requested, a bot reviewing it (hubot), approved,
@@ -17,7 +21,9 @@
 # deploying ones since the merge, for deployed ones since they reached
 # production. A merge glyph before the number: auto-merge is on (it
 # joins the queue once ready). A speech bubble before the title: unresolved
-# review threads, how many. A blue hourglass for review, the row in
+# review threads, how many. Then local work (see local-work): a cloud, in
+# yellow, commits to push, how many; a file being edited, uncommitted changes
+# in a worktree, how many files (yellow when no agent works there anymore). A blue hourglass for review, the row in
 # italics: GitHub hasn't told yet whether it's mergeable (it works it out
 # lazily, after its base moves): ready, likely, at a later refresh. Before
 # the title, an agent's face (as in the panel): one works on it (see
@@ -25,7 +31,10 @@
 # turn has run (running ones), its project, its session's title.
 # New agents are spawned from rofi-search ('cl' keyword, see
 # claude-agent-spawn), or on a pull request (Ctrl+s).
-# Enter: open in the browser (an agent's row: back to it). Ctrl+r: refresh
+# Enter: open in the browser (an agent's row: back to it; local work: neovim
+# in its worktree, else GitHub's page to open a pull request for it, once
+# pushed). Ctrl+o: push the row's branch (mine, or local work), asking
+# first. Ctrl+r: refresh
 # from GitHub. Ctrl+q: open the merge queue page of the selected pull
 # request's repository (mine only). Ctrl+s: back to the agent (its row), or
 # the one working on it (the one wanting me the most), else spawn one (see
@@ -43,7 +52,7 @@ assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
 . "$assets/lib/rofi.sh"
 # shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh" # agent_faces
+. "$assets/lib/claude-agents.sh" # agent_faces, agent_wants
 mode=--cached
 filter=$1
 
@@ -98,7 +107,18 @@ measure_authors() {
   [ "$title_width" -ge "$min_title_width" ] || title_width=$min_title_width
 }
 thread_glyph='󰵅' # unresolved review threads
+unpushed_glyph='󰅧' changes_glyph='󱇧' # local work: commits to push, uncommitted changes
 
+
+# Local work, unstyled: <glyph> <commits to push>, <glyph> <changed files>,
+# each when there are any (see row)
+# Usage: work_text <commits to push> <changed files>
+work_text() {
+  local out=''
+  [ "${1:-0}" -gt 0 ] 2>/dev/null && out="$unpushed_glyph $1"
+  [ "${2:-0}" -gt 0 ] 2>/dev/null && out+="${out:+ }$changes_glyph $2"
+  printf '%s' "$out"
+}
 
 # A row, from named cells (<name>=<value> arguments, all optional):
 #   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
@@ -110,6 +130,8 @@ thread_glyph='󰵅' # unresolved review threads
 #   auto           auto: auto-merge is on
 #   diff           plain: the additions and deletions uncolored
 #   threads        how many review threads are unresolved
+#   work           local work (see local-work): <commits to push> <changed
+#                  files> <yes when an agent works in its worktree, else ->
 #   italic         italic: the whole row in italics
 #   verdicts       as merge-queue prints them, under the title (see
 #                  verdict_lines)
@@ -120,7 +142,7 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | italic | verdicts | agent | project)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | work | italic | verdicts | agent | project)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
@@ -163,6 +185,22 @@ row() {
     fi
     threads+='  '
   fi
+  # Local work, as wide as the widest shown (see measure_columns), then two
+  # spaces; none at all when no row has any
+  local work=''
+  if [ "$work_width" -gt 0 ]; then
+    local ahead changed tended shown
+    read -r ahead changed tended <<<"${c[work]:-0 0 -}"
+    work=$(work_text "$ahead" "$changed")
+    shown=${#work}
+    [ "${ahead:-0}" -gt 0 ] && work=${work/"$unpushed_glyph $ahead"/"<span color=\"$yellow\">$unpushed_glyph $ahead</span>"}
+    if [ "${changed:-0}" -gt 0 ]; then
+      local tone=$dim
+      [ "$tended" = yes ] || tone="color=\"$yellow\""
+      work=${work/"$changes_glyph $changed"/"<span $tone>$changes_glyph $changed</span>"}
+    fi
+    work+="$(printf '%*s' $((work_width - shown)) '')  "
+  fi
   if [ "${c[diff]}" != plain ]; then
     plus="<span color=\"$green\">$plus</span>" minus="<span color=\"$red\">$minus</span>"
   fi
@@ -182,7 +220,7 @@ row() {
     middle=$(printf '#%-*s %s %s' "$number_width" "${c[number]}" "$plus" "$minus")
   fi
   local before
-  before=$(printf '%s%s%-*s %s %s  %s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$agent")
+  before=$(printf '%s%s%-*s %s %s  %s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
@@ -251,17 +289,18 @@ confirm_queue() {
 
 # Sets agents and agent_sessions: the state and session of the agent working
 # on each pull request (<owner/repo>#<number>, see claude-agent-pr), the one
-# wanting me the most when there are several. And agent_list: all of them
-# (claude-agent-list's records)
+# wanting me the most when there are several; agent_states: each agent's
+# state, by session. And agent_list: all of them (claude-agent-list's
+# records)
 # shellcheck disable=SC2154 # record fields, set by each_record
 find_agents() {
-  declare -gA agents=() agent_sessions=()
+  declare -gA agents=() agent_sessions=() agent_states=()
   agent_list=$("$assets/claude-agent-list")
-  local -A rank=([attention]=4 [done]=3 [running]=2 [idle]=1)
   rank_agent() {
+    agent_states[$session]=$state
     [ "$pr" != - ] && [ -n "$pr" ] || return 0
     local current=${agents[$pr]:-none}
-    [ "${rank[$state]:-0}" -gt "${rank[$current]:-0}" ] && agents[$pr]=$state agent_sessions[$pr]=$session
+    [ "${agent_wants[$state]:-0}" -gt "${agent_wants[$current]:-0}" ] && agents[$pr]=$state agent_sessions[$pr]=$session
     return 0
   }
   each_record rank_agent <<<"$agent_list"
@@ -291,6 +330,55 @@ find_loose_agents() {
   each_record keep_loose <<<"$agent_list"
 }
 
+# Sets work_of and push_of, for the local work (local-work's records, $1) on
+# the head branch of one of my pull requests (merge-queue's records, $2), by
+# <owner/repo>#<branch>: its row's work cell (see row), and what Ctrl+o
+# pushes (see pushes, when there's something to). And local_work: the other
+# records, which get rows of their own
+# shellcheck disable=SC2154 # record fields, set by each_record
+find_local_work() {
+  declare -gA work_of=() push_of=()
+  local -A heads=()
+  list_head() { [ -n "$branch" ] && [ "$branch" != - ] && heads[$repo#$branch]=1; return 0; }
+  each_record list_head <<<"$2"
+  local_work=$(head -n1 <<<"$1")
+  sort_work() {
+    if [ "$branch" != - ] && [ -n "${heads[$repo#$branch]}" ]; then
+      work_of[$repo#$branch]="$ahead $changes $([ "$agent" != - ] && echo yes || echo -)"
+      [ "$ahead" -gt 0 ] && push_of[$repo#$branch]="$clone $branch $upstream $ahead"
+    else
+      local_work+=$'\n'"$repo"$'\t'"$clone"$'\t'"$branch"$'\t'"$worktree"$'\t'"$upstream"$'\t'"$ahead"$'\t'"$changes"$'\t'"$agent"$'\t'"$kept"$'\t'"$time"
+    fi
+    return 0
+  }
+  each_record sort_work <<<"$1"
+}
+
+# A local work row's name (a local-work record): its worktree's directory,
+# else its clone's
+# shellcheck disable=SC2154 # record fields, set by each_record
+local_name() { if [ "$worktree" != - ]; then basename "$worktree"; else basename "$clone"; fi; }
+
+# Asks before pushing (a rofi dialog, as confirm_queue)
+# Usage: confirm_push <branch> <commits> <upstream: yes, none or gone>
+confirm_push() {
+  local mesg what="Push"
+  mesg="<b>$(escape "$1")</b>"$'\n'"$2 commit$([ "$2" -gt 1 ] && echo s) to push"
+  [ "$3" = yes ] || mesg+=", on a new remote branch"
+  [ "$(printf '%s\n' Cancel "$what to origin" |
+    rofi -dmenu -i -no-custom -p "$prompt" -format i -theme-str "$layout window { width: calc(48ch + 2em min 100%); }" \
+      -mesg "$mesg")" = 1 ]
+}
+
+# Pushes <branch> of <clone> to origin, under the same name (tracking it
+# when it never was). Prints git's complaint when it refuses
+# Usage: push_branch <clone> <branch> <upstream: yes, none or gone>
+push_branch() {
+  local track=()
+  [ "$2" = yes ] || track=(--set-upstream)
+  timeout 60 git -C "$1" push --quiet "${track[@]}" origin "refs/heads/$2:refs/heads/$2" 2>&1
+}
+
 # Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
 # separators dimmer still
 hints() {
@@ -305,7 +393,7 @@ hints() {
 layout='content { children: [inputbar, listview, message]; }
   message { margin: 0.5em 1em 1em 1em; }
   textbox { horizontal-align: 0.5; }'
-mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='merge queue')
+mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='merge queue' ctrl+o=push)
 
 # The time column of one of my pull requests (a merge-queue record): its
 # position and when it should merge (queued), nothing (ready), else since the
@@ -330,13 +418,15 @@ review_when() { ago $((now - at)); }
 # any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
 # one's "#37 (1h14)"). And agents_width: 3 when an agent works on one (see
-# agents), else 0. The loose agents' rows too ($3, see find_loose_agents):
-# their turn's duration, their face, their project (the number widened for
-# the longest)
+# agents), else 0; work_width: the widest local work (see row), 0 when none.
+# The loose agents' rows too ($3, see find_loose_agents): their turn's
+# duration, their face, their project (the number widened for the longest).
+# And the local work's rows ($4, see find_local_work): alike, their name
+# (see local_name) as the project
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 agents_width=0
+  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 agents_width=0 work_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
@@ -346,9 +436,17 @@ measure_columns() {
       threads_width=$((${#threads} + 2))
     fi
     [ -n "${agents[$repo#$number]}" ] && agents_width=3
+    widest_work "${work_of[$repo#$branch]}"
+  }
+  widest_work() { # <work cell>
+    local ahead changed text
+    read -r ahead changed _ <<<"$1"
+    text=$(work_text "$ahead" "$changed")
+    [ ${#text} -gt "$work_width" ] && work_width=${#text}
+    return 0
   }
   widest_mine() { when=$(mine_when); widest "$when"; }
-  widest_review() { when=$(review_when); widest "$when"; }
+  widest_review() { local branch=''; when=$(review_when); widest "$when"; } # (no branch field)
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
   local project_width=0
@@ -358,6 +456,16 @@ measure_columns() {
     [ ${#project} -gt "$project_width" ] && project_width=${#project}
   }
   each_record widest_agent <<<"$3"
+  widest_local() {
+    when=$(ago $((now - time))); [ ${#when} -gt "$time_width" ] && time_width=${#when}
+    [ ${#name} -gt "$project_width" ] && project_width=${#name}
+    widest_work "$ahead $changes"
+    [ "$agent" != - ] && agents_width=3
+    return 0
+  }
+  local name
+  each_local() { name=$(local_name); widest_local; }
+  each_record each_local <<<"$4"
   local room=$((number_width + plus_width + minus_width + 3))
   [ "$project_width" -gt "$room" ] && number_width=$((number_width + project_width - room))
   return 0
@@ -373,7 +481,7 @@ agent_when() { [ "$state" = running ] && [ "$since" != - ] && elapsed "$since"; 
 agent() {
   local transcript
   transcript=$(read_agent "$agents_dir/$session" agent_; echo "$agent_transcript")
-  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") tags+=(:agent)
+  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent)
   lines+=("$(row time="$(agent_when)" project="$project" title="$(agent_title "$transcript")" agent="$state")")
 }
 
@@ -408,7 +516,7 @@ mine() {
   [ "$state" = UNKNOWN ] && face=UNKNOWN italic=italic
   line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
     title="$title" auto="$auto" diff="$diff" threads="$threads" italic="$italic" verdicts="$shown_verdicts" \
-    agent="${agents[$repo#$number]}")
+    work="${work_of[$repo#$branch]}" agent="${agents[$repo#$number]}")
   # Queued and merged ones stay in the background: they move on their own;
   # those with auto-merge on, a bit less (they will join the queue by
   # themselves)
@@ -427,8 +535,31 @@ mine() {
       else merge="$repo $number page"; fi ;;
     queued) merge="$repo $number in" ;;
   esac
+  # Deployed: nothing left to push (squashed, its commits are on no remote
+  # branch)
+  local push=${push_of[$repo#$branch]}
+  case $in in deploying | deployed) push='' ;; esac
   urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--} ${review:--}") merges+=("$merge")
-  tags+=("$tag${agents[$repo#$number]:+ :agent}") sessions+=('') lines+=("$line")
+  tags+=("$tag${agents[$repo#$number]:+ :agent}${work_of[$repo#$branch]:+ :local}${push:+ :unpushed}") sessions+=('') dirs+=('') pushes+=("$push") lines+=("$line")
+}
+
+# Adds local work no pull request of mine holds (a local-work record, see
+# find_local_work): Enter goes to the agent working there, else neovim in its
+# worktree, else GitHub's page to open a pull request for it (pushed)
+# shellcheck disable=SC2154 # record fields, set by each_record
+local_row() {
+  local title state='' url='' push='' tended=-
+  if [ "$branch" = - ]; then title='detached HEAD'; else title=$branch; fi
+  [ "$branch" != - ] && [ "$upstream" = none ] && title+=' (never pushed)'
+  [ "$kept" = yes ] && title+=" (a stopped agent's, kept)"
+  if [ "$agent" != - ]; then state=${agent_states[$agent]} tended=yes; fi
+  [ "$branch" != - ] && [ "$upstream" = yes ] && url="https://github.com/$repo/compare/$branch?expand=1"
+  [ "$branch" != - ] && [ "$ahead" -gt 0 ] && push="$clone $branch $upstream $ahead"
+  urls+=("$url") queues+=('') prs+=('') merges+=('') sessions+=("$([ "$agent" != - ] && echo "$agent")")
+  dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push")
+  tags+=(":local${push:+ :unpushed}${state:+ :agent}")
+  lines+=("$(row time="$(ago $((now - time)))" project="$(local_name)" title="$title" \
+    work="$ahead $changes $tended" agent="$state")")
 }
 
 # Adds a pull request waiting on my review (a review-queue record)
@@ -438,7 +569,8 @@ review() {
   # The review face, warmer as the wait grows: 4h, then a day
   if [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
-  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') tags+=(":review${agents[$repo#$number]:+ :agent}")
+  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') dirs+=('') pushes+=('')
+  tags+=(":review${agents[$repo#$number]:+ :agent}")
   lines+=("$(row ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions" \
     deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" \
     agent="${agents[$repo#$number]}")")
@@ -452,9 +584,17 @@ while :; do
   mine_pid=$!
   "$assets/review-queue" $mode >"$outputs/reviews" 2>&1 &
   reviews_pid=$!
+  # Local work: its cache, refreshed behind us for the next time (computing
+  # it takes a while, see local-work), unless asked for now (Ctrl+r, a push)
+  work_mode=$mode
+  [ -n "$work_now" ] && work_mode='' work_now=''
+  "$assets/local-work" $work_mode >"$outputs/local" 2>/dev/null & # the same list: they complain
+  local_pid=$!
+  [ "$work_mode" = --cached ] && setsid -f "$assets/local-work" >/dev/null 2>&1
   wait "$mine_pid"; mine_status=$?
   wait "$reviews_pid"; reviews_status=$?
-  mine=$(<"$outputs/mine") reviews=$(<"$outputs/reviews")
+  wait "$local_pid"
+  mine=$(<"$outputs/mine") reviews=$(<"$outputs/reviews") work=$(<"$outputs/local")
   rm -r "$outputs"
   mode=--cached
 
@@ -470,29 +610,34 @@ while :; do
   merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads>] (mine, unless merged)
   prs=() # <agent task> <repo> <number> [<unresolved threads> <CI> <review>] (the last three: mine)
   sessions=() # the agent (an agent's row), else empty
+  dirs=() # the worktree to open (local work, without an agent), else empty
+  pushes=() # <clone> <branch> <upstream> <commits> to push (Ctrl+o), else empty
   tags=()
   lines=()
   now=$(date +%s)
   find_agents
   find_loose_agents "$mine" "$reviews"
+  find_local_work "$work" "$mine"
   measure_authors <<<"$reviews"
-  threads='' measure_columns "$mine" "$reviews" "$loose_agents" # threads blank, as below
+  threads='' branch='' measure_columns "$mine" "$reviews" "$loose_agents" "$local_work" # threads blank, as below
 
   # First, the agents: one waiting on me is the most urgent
   each_record agent <<<"$loose_agents"
   # ci, review, threads and verdicts blank: a cache from before these fields
   # keeps them so
-  ci='' review='' threads='' verdicts='' group=open each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' group=open each_record mine <<<"$mine"
+  # Then what lies here, unpublished, or left behind
+  each_record local_row <<<"$local_work"
   ci='' threads='' each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, in it,
   # merged, then in production
-  ci='' review='' threads='' verdicts='' group=auto each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' group=queued each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' group=deploying each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' group=deployed each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' group=auto each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' group=deploying each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' group=deployed each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
-    notify-send --app-name=github GitHub "No agent, no open pull request, nothing waiting on your review 🎉"
+    notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"
     exit 0
   fi
 
@@ -525,7 +670,7 @@ while :; do
   # record separator: they may hold several lines
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\x1e' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -sep $'\x1e' -eh "$height" -p "$prompt" -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' \
+      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' -kb-custom-5 'Control+o' \
       -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
@@ -535,7 +680,10 @@ while :; do
     0)
       [ -n "$choice" ] || exit 0
       [ -n "${sessions[$choice]}" ] && exec "$assets/claude-agent-jump" "${sessions[$choice]}"
-      exec browser-kiosk "${urls[$choice]}" ;;
+      [ -n "${dirs[$choice]}" ] && exec setsid -f kitty --directory "${dirs[$choice]}" nvim >/dev/null 2>&1
+      [ -n "${urls[$choice]}" ] && exec browser-kiosk "${urls[$choice]}"
+      notify-send --app-name=github GitHub "Nothing to open yet: push it first (Ctrl+o)"
+      exit 0 ;;
     10) mode='' ;;
     11) [ -n "$choice" ] && [ -n "${queues[$choice]}" ] && exec browser-kiosk "${queues[$choice]}" ;; # reviews: stay
     12)
@@ -576,6 +724,20 @@ while :; do
             "$([ "$merge_queue" = out ] && echo "Not added to" || echo "Not removed from") the merge queue" \
             "$merge_repo#$merge_number"$'\n'"$result"
         fi
+      fi ;;
+    14)
+      if [ -n "$choice" ] && [ -n "${pushes[$choice]}" ]; then
+        read -r push_clone push_branch push_upstream push_commits <<<"${pushes[$choice]}"
+        if confirm_push "$push_branch" "$push_commits" "$push_upstream"; then
+          if result=$(push_branch "$push_clone" "$push_branch" "$push_upstream"); then
+            work_now=yes # its row goes
+            notify-send --app-name=github "Pushed" "$push_branch ($(basename "$push_clone"))"
+          else
+            notify-send --app-name=github --urgency=critical "Not pushed" "$push_branch ($(basename "$push_clone"))"$'\n'"$result"
+          fi
+        fi
+      elif [ -n "$choice" ]; then
+        notify-send --app-name=github GitHub "Nothing to push there"
       fi ;;
     *) exit 0 ;;
   esac

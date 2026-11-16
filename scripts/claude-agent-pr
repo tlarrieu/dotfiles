@@ -9,15 +9,20 @@
 #            disagrees with a comment, and re-runs the jobs that failed for
 #            infrastructure reasons
 #   review   review it (someone else's), critically: design and naming first,
-#            bugs on the side; in the session only, changing nothing
+#            bugs on the side; in the session, changing nothing. Asked to
+#            ("post", or "post 1 3"), it drafts its points as a pending
+#            review on GitHub, inline on their lines, for me to go over and
+#            submit (it never submits it)
 # Either way, it pushes nothing, and posts nothing on GitHub unless asked
-# (re-runs aside).
+# (re-runs aside; reviews drafted are pending, mine to submit). An agent on it already: jumps back to it instead.
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
 # Usage: claude-agent-pr <fix|review> <owner/repo> <number>
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
-. "$assets/lib/github.sh" # github_ignored_checks
+. "$assets/lib/github.sh" # github_clone, github_ignored_checks (and records.sh)
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh" # pr_agent
 fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
 
 task=$1 repo=$2 number=$3
@@ -25,16 +30,12 @@ case $task in fix | review) ;; *) task='' ;; esac
 [ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
   || { echo "Usage: claude-agent-pr <fix|review> <owner/repo> <number>" >&2; exit 2; }
 
-# Any remote URL form: git@github.com:owner/repo(.git), https://github.com/owner/repo(.git)
-clone=''
-for dir in ~/dev/*/ ~/git/*/; do
-  origin=$(git -C "$dir" remote get-url origin 2>/dev/null) || continue
-  origin=${origin%.git} origin=${origin%/}
-  if [[ ${origin,,} == *[:/]"${repo,,}" ]]; then
-    clone=${dir%/}
-    break
-  fi
-done
+# An agent on it already (from rofi-github, or a notification): back to it,
+# rather than another one
+session=$(pr_agent "$repo#$number")
+[ -n "$session" ] && exec "$assets/claude-agent-jump" "$session"
+
+clone=$(github_clone "$repo")
 [ -n "$clone" ] || fail "No clone of $repo in ~/dev or ~/git"
 
 # The pull request's latest commit, whichever fork its branch lives in
@@ -154,13 +155,39 @@ abstractions, code that belongs elsewhere in the codebase, consistency with
 its existing patterns) and naming (misleading, vague or inconsistent names,
 ones off the codebase's or the domain's vocabulary). Judge against the
 surrounding code, not the diff alone.
+When the user asks you to post your points (all of them, or the ones they
+name by number), draft them as a pending review on GitHub: only they see it,
+until they submit it, which is theirs to do: never submit it, never give it
+an event.
+1. One inline comment per point, on the lines it is about in the pull
+   request's diff at $head: path, line (its last line), start_line when it
+   spans several, side RIGHT (LEFT for removed lines; start_side alike). Only
+   lines within the diff's hunks can carry one (see the patch of each file in
+   gh api repos/$repo/pulls/$number/files): a point about other lines goes in
+   the review's body instead, with its file and lines.
+2. Each comment says what is wrong and why, then the alternative: as a
+   suggestion block (\`\`\`suggestion) when it rewrites those very lines,
+   else as a code block when code helps. No diff excerpt (GitHub shows the
+   lines), no number, no severity label. Write plainly, as the user would,
+   in the language of the pull request's description.
+3. Create it in one call, without an event (which leaves it pending):
+   gh api repos/$repo/pulls/$number/reviews -X POST --input - fed
+   {"commit_id": "$head", "body": <empty, or the points that could not be
+   anchored>, "comments": [...]}.
+4. GitHub keeps one pending review per person and pull request: when it
+   refuses, as the user has one already, add your comments to theirs: its id
+   from gh api graphql (the pull request's reviews(states: PENDING, first: 1)),
+   then one addPullRequestReviewThread mutation per comment
+   (pullRequestReviewId, path, line, side, startLine, startSide, body).
+5. Then give the user its page, to go over and submit it: $url/files.
 RULES
 
   read -r -d '' prompt <<PROMPT
 Review $url. Read its description and base branch with gh pr view, fetch that
 base, then review the changes against its merge base with HEAD (so that what
 landed on the base since stays out).
-Report design and naming issues, the most severe first. For each:
+Report design and naming issues, the most severe first, numbered (one
+numbering across both sections below). For each:
 - the file and line range,
 - the part of the diff it is about, as a diff code block: only the lines
   concerned, with a few lines of context (not the whole hunk); when the issue
@@ -169,6 +196,9 @@ Report design and naming issues, the most severe first. For each:
 - a concrete alternative (as code when it helps).
 Then, in a short separate section, bugs you noticed along the way (same
 format). Leave out style nitpicks a linter would catch.
+End with one line: the user can have you draft them on GitHub, as a pending
+review only they see until they submit it, by saying "post" (all of them) or
+"post" and their numbers.
 PROMPT
 fi
 

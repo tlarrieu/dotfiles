@@ -16,10 +16,11 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 #   transcript    its transcript path
 #   since         when the current turn started (epoch)
 #   pr            the pull request it works on, as <owner/repo>#<number>
-#                 (see claude-agent-pr, and agent_pr for agents started
-#                 before it recorded it)
+#                 (see claude-agent-pr, agent_pr for agents started before
+#                 it recorded it, and branch_pr for the others)
+#   root          the top of its worktree (- when it holds a space)
 # Missing values are written as -.
-agent_fields=(state pid started window listen_on kitty_window project transcript since pr)
+agent_fields=(state pid started window listen_on kitty_window project transcript since pr root)
 
 # Sets the fields of state file <file> as variables, each name prefixed with
 # [prefix] (all empty when the file is missing)
@@ -57,6 +58,28 @@ agent_pr() {
     | "\(.repo)#\(.number)"' "$1" 2>/dev/null
 }
 
+# The pull request of mine (merge-queue's cache) whose head branch the
+# worktree at <root> is on, in the repository its origin is: an agent working
+# there works on it, whoever spawned it. Prints <owner/repo>#<number>, or
+# nothing.
+# Usage: branch_pr <root>
+branch_pr() {
+  local branch origin cache="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue/queue.tsv"
+  [ -n "$1" ] && [ "$1" != - ] && [ -f "$cache" ] || return 0
+  branch=$(git -C "$1" branch --show-current 2>/dev/null)
+  [ -n "$branch" ] || return 0
+  origin=$(git -C "$1" remote get-url origin 2>/dev/null) || return 0
+  origin=${origin%.git} origin=${origin%/}
+  awk -F'\t' -v branch="$branch" -v origin="${origin,,}" '
+    NR == 1 { sub(/^#/, ""); for (i = 1; i <= NF; i++) column[$i] = i; next }
+    $(column["branch"]) == branch && $(column["kind"]) ~ /^(other|ready|queued)$/ {
+      repo = tolower($(column["repo"]))
+      if (substr(origin, length(origin) - length(repo)) ~ "^[:/]" && substr(origin, length(origin) - length(repo) + 1) == repo) {
+        print $(column["repo"]) "#" $(column["number"]); exit
+      }
+    }' "$cache"
+}
+
 # A session's title, from its transcript: the one given with /rename (or
 # --name), else Claude's own; cut to 90 characters
 # Usage: agent_title <transcript>
@@ -69,10 +92,86 @@ agent_title() {
   ' 2>/dev/null | awk '{ print substr($0, 1, 90) }' # multibyte-safe
 }
 
+# An agent's name, for notifications: its project, then its pull request
+# (<owner/repo>#<number>: #<number>) or its session's title
+# Usage: agent_name <project> <pr or -> <transcript>
+agent_name() {
+  local name=$1 title
+  if [ -n "$2" ] && [ "$2" != - ]; then
+    name+=" #${2##*#}"
+  else
+    title=$(agent_title "$3")
+    [ -n "$title" ] && name+=" · $title"
+  fi
+  echo "$name"
+}
+
+# What an agent said last (the first line of its last text), from its
+# transcript; cut to 200 characters
+# Usage: agent_last_words <transcript>
+agent_last_words() {
+  [ -f "$1" ] || return 0
+  tail -n 200 "$1" | jq -rs '
+    [.[] | select(.type == "assistant") | .message.content | arrays | .[] | select(.type == "text") | .text]
+    | last // empty | split("\n") | map(select(test("\\S"))) | first // empty
+  ' 2>/dev/null | awk '{ print substr($0, 1, 200) }'
+}
+
+# A notification about an agent which, clicked, jumps to it (see
+# claude-agent-jump). One per agent: a newer one replaces it (its id kept in
+# agent_notification <session>). Waiting for the click happens detached, so
+# that hooks return at once. Needs $assets (the scripts' directory).
+# Usage: agent_notify <session> <urgency> <title> <body>
+agent_notification() { echo "$agents_dir/.$1.notification"; } # a dot file: no session's
+agent_notify() {
+  local id file
+  file=$(agent_notification "$1")
+  id=$(cat "$file" 2>/dev/null)
+  # shellcheck disable=SC2016,SC2154 # $1..$7 belong to the inner sh; $assets: the caller's
+  setsid -f sh -c '
+    notify-send --app-name=claude --icon="$1/claude.png" --urgency="$3" ${6:+--replace-id="$6"} \
+      --action=default=Jump --print-id --wait "$4" "$5" | {
+      read -r id && echo "$id" >"$7"
+      read -r action && [ "$action" = default ] && exec "$1/claude-agent-jump" "$2"
+    }' sh "$assets" "$1" "$2" "$3" "$4" "$id" "$file" >/dev/null 2>&1
+}
+
+# Closes an agent's notification (see agent_notify), once outdated: it moved on
+# Usage: agent_unnotify <session>
+agent_unnotify() {
+  local id file
+  file=$(agent_notification "$1")
+  id=$(cat "$file" 2>/dev/null) || return 0
+  rm -f "$file"
+  gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications \
+    --method org.freedesktop.Notifications.CloseNotification "$id" >/dev/null 2>&1 &
+}
+
 # Whether <pid> is a live claude process (not a dead one's reused pid)
 alive() {
   case "$1" in "" | *[!0-9]*) return 1 ;; esac
   [ "$(cat "/proc/$1/comm" 2>/dev/null)" = claude ]
+}
+
+# How much an agent in each state wants me: attention, then done (to read),
+# running, idle. For when several qualify (see pr_agent)
+# shellcheck disable=SC2034 # for the scripts sourcing us
+declare -A agent_wants=([attention]=4 [done]=3 [running]=2 [idle]=1)
+
+# The session of the agent working on pull request <owner/repo>#<number>
+# (see claude-agent-pr), the one wanting me the most when there are several;
+# nothing when none does. Needs $assets (the scripts' directory) and
+# records.sh.
+# Usage: pr_agent <owner/repo>#<number>
+pr_agent() {
+  local wanted=$1 best='' best_rank=0
+  # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
+  pick() {
+    [ "$pr" = "$wanted" ] && [ "${agent_wants[$state]:-0}" -gt "$best_rank" ] && best=$session best_rank=${agent_wants[$state]:-0}
+    return 0
+  }
+  each_record pick < <("$assets/claude-agent-list")
+  echo "$best"
 }
 
 # The face of each state (mirrored in config/awesome/widgets/agents.lua)
