@@ -37,7 +37,7 @@
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "dropbar.nvim": {
-      "rev": "f7c6fa21e2a7c32576e7a1791774a3736987f467",
+      "rev": "75df03973f3a06a85300bc8ca1f9f68e935cb78e",
       "src": "https://github.com/Bekaboo/dropbar.nvim"
     },
     "edifact.vim": {
@@ -78,7 +78,7 @@
       "src": "https://github.com/chentoast/marks.nvim"
     },
     "markview.nvim": {
-      "rev": "aadb6d817577d553bbef61e8b9073f1bf4b87e08",
+      "rev": "9cd60a0ea05217e390126a5c29e0d2e323cc537f",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "60c0f468de3e636fa660a419d537e8033aca4e39",
+      "rev": "04f17886f75416dfdc25374c950a52c63f0e98fe",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
