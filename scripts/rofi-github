@@ -287,20 +287,20 @@ confirm_queue() {
       -mesg "$mesg")" = 1 ]
 }
 
-# Sets agents and agent_sessions: the state and session of the agent working
-# on each pull request (<owner/repo>#<number>, see claude-agent-pr), the one
-# wanting me the most when there are several; agent_states: each agent's
+# Sets agents: the state of the agent working on each pull request
+# (<owner/repo>#<number>, see claude-agent-pr), the one wanting me the most
+# when there are several; agent_states: each agent's
 # state, by session. And agent_list: all of them (claude-agent-list's
 # records)
 # shellcheck disable=SC2154 # record fields, set by each_record
 find_agents() {
-  declare -gA agents=() agent_sessions=() agent_states=()
+  declare -gA agents=() agent_states=()
   agent_list=$("$assets/claude-agent-list")
   rank_agent() {
     agent_states[$session]=$state
     [ "$pr" != - ] && [ -n "$pr" ] || return 0
     local current=${agents[$pr]:-none}
-    [ "${agent_wants[$state]:-0}" -gt "${agent_wants[$current]:-0}" ] && agents[$pr]=$state agent_sessions[$pr]=$session
+    [ "${agent_wants[$state]:-0}" -gt "${agent_wants[$current]:-0}" ] && agents[$pr]=$state
     return 0
   }
   each_record rank_agent <<<"$agent_list"
@@ -539,7 +539,7 @@ mine() {
   # branch)
   local push=${push_of[$repo#$branch]}
   case $in in deploying | deployed) push='' ;; esac
-  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number ${threads:-0} ${ci:--} ${review:--}") merges+=("$merge")
+  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number") merges+=("$merge")
   tags+=("$tag${agents[$repo#$number]:+ :agent}${work_of[$repo#$branch]:+ :local}${push:+ :unpushed}") sessions+=('') dirs+=('') pushes+=("$push") lines+=("$line")
 }
 
@@ -608,7 +608,7 @@ while :; do
   urls=()
   queues=()
   merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads>] (mine, unless merged)
-  prs=() # <agent task> <repo> <number> [<unresolved threads> <CI> <review>] (the last three: mine)
+  prs=() # <agent task> <repo> <number>
   sessions=() # the agent (an agent's row), else empty
   dirs=() # the worktree to open (local work, without an agent), else empty
   pushes=() # <clone> <branch> <upstream> <commits> to push (Ctrl+o), else empty
@@ -690,17 +690,10 @@ while :; do
       if [ -n "$choice" ] && [ -n "${sessions[$choice]}" ]; then
         exec "$assets/claude-agent-jump" "${sessions[$choice]}"
       elif [ -n "$choice" ]; then
-        read -r pr_task pr_repo pr_number pr_threads pr_ci pr_review <<<"${prs[$choice]}"
-        # An agent on it already: back to it, rather than another one
-        pr_session=${agent_sessions[$pr_repo#$pr_number]}
-        [ -n "$pr_session" ] && exec "$assets/claude-agent-jump" "$pr_session"
-        # The cache may lag: Ctrl+r first when threads came in (CI failed, or
-        # a conflict arose) since
-        if [ "$pr_task" = fix ] && [ "$pr_threads" -eq 0 ] 2>/dev/null && [ "$pr_ci" != FAILURE ] && [ "$pr_review" != CONFLICT ]; then
-          notify-send --app-name=github GitHub "Nothing to fix on $pr_repo#$pr_number: no conflict, no unresolved review thread, no failing CI"
-        else
-          exec "$assets/claude-agent-pr" "$pr_task" "$pr_repo" "$pr_number"
-        fi
+        # Back to the agent on it, if any; nothing to fix: says so (see
+        # claude-agent-pr)
+        read -r pr_task pr_repo pr_number <<<"${prs[$choice]}"
+        [ -n "$pr_task" ] && exec "$assets/claude-agent-pr" "$pr_task" "$pr_repo" "$pr_number"
       fi ;;
     13)
       if [ -n "$choice" ]; then

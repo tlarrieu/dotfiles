@@ -126,11 +126,47 @@ class YouTube < Browser
 end
 
 # Spawns a background Claude agent in the current project, the rest of the query
-# being its prompt (none: interactive session)
+# being its prompt (none: interactive session). "fix <PR>" or "review <PR>" (the
+# whole query) spawns one on that pull request instead, as rofi-github's
+# Ctrl+s does (see claude-agent-pr: back to the agent already on it, if any).
+# <PR>: 1234 or #1234 (the current project's repository), owner/repo#1234, or
+# its URL
 class Claude
 
+  TASK = %r{\A(fix|review)\s+(?:https://github\.com/([^/\s]+/[^/\s]+)/pull/|([^/\s#]+/[^/\s#]+)#|#)?(\d+)/?\s*\z}
+
   def run(str)
-    system(File.expand_path('~/scripts/claude-agent-spawn'), *([str] unless str.empty?))
+    match = TASK.match(str)
+    return spawn(str) unless match
+
+    task, url_repo, repo, number = match.captures
+    repo ||= url_repo || project_repo
+    return notify('No repository for this pull request: not in a GitHub project (see ~/.project)') unless repo
+
+    system(script('claude-agent-pr'), task, repo, number)
+  end
+
+  private
+
+  def spawn(str)
+    system(script('claude-agent-spawn'), *([str] unless str.empty?))
+  end
+
+  # The current project's repository (owner/repo), from its origin
+  def project_repo
+    project = File.expand_path(File.read(File.expand_path('~/.project')).strip)
+    origin = IO.popen(['git', '-C', project, 'remote', 'get-url', 'origin'], err: File::NULL, &:read).strip
+    origin[%r{github\.com[:/]([^/]+/[^/]+?)(?:\.git)?/?\z}, 1]
+  rescue SystemCallError
+    nil
+  end
+
+  def notify(message)
+    system('notify-send', '--app-name=claude', "--icon=#{script('claude.png')}", 'Claude', message)
+  end
+
+  def script(name)
+    File.expand_path("~/scripts/#{name}")
   end
 
 end

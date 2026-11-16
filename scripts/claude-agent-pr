@@ -14,7 +14,12 @@
 #            review on GitHub, inline on their lines, for me to go over and
 #            submit (it never submits it)
 # Either way, it pushes nothing, and posts nothing on GitHub unless asked
-# (re-runs aside; reviews drafted are pending, mine to submit). An agent on it already: jumps back to it instead.
+# (re-runs aside; reviews drafted are pending, mine to submit).
+# An agent on it already: jumps back to it instead. To fix one of mine with
+# nothing to fix (no conflict, unresolved review thread or failing CI, as
+# merge-queue's cache tells, which may lag): says so instead. Used by
+# rofi-github (Ctrl+s), rofi-search (cl fix|review <PR>) and merge-queue's
+# notifications.
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
 # Usage: claude-agent-pr <fix|review> <owner/repo> <number>
 
@@ -34,6 +39,27 @@ case $task in fix | review) ;; *) task='' ;; esac
 # rather than another one
 session=$(pr_agent "$repo#$number")
 [ -n "$session" ] && exec "$assets/claude-agent-jump" "$session"
+
+# Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
+# else's or in no watched repository: no telling, go ahead). Merged ones
+# (threads -) have nothing either
+if [ "$task" = fix ]; then
+  found='' known_threads='' known_ci='' known_review=''
+  # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
+  find_pr() {
+    [ "$repo" = "$wanted_repo" ] && [ "$number" = "$wanted_number" ] || return 0
+    found=yes known_threads=$threads known_ci=$ci known_review=$review
+  }
+  wanted_repo=$repo wanted_number=$number
+  each_record find_pr < <("$assets/merge-queue" --cached 2>/dev/null)
+  repo=$wanted_repo number=$wanted_number # each_record set them, record by record
+  if [ -n "$found" ] && [ "${known_threads/#-/0}" -eq 0 ] 2>/dev/null &&
+    [ "$known_ci" != FAILURE ] && [ "$known_review" != CONFLICT ]; then
+    notify-send --app-name=github GitHub \
+      "Nothing to fix on $repo#$number: no conflict, no unresolved review thread, no failing CI (refresh with Ctrl+r in rofi-github if that just changed)"
+    exit 0
+  fi
+fi
 
 clone=$(github_clone "$repo")
 [ -n "$clone" ] || fail "No clone of $repo in ~/dev or ~/git"
