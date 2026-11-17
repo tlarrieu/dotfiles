@@ -44,7 +44,7 @@ return {
     theme.progressbar_paddings = 1
 
     theme.notification_font = ('%s 13'):format(font_name)
-    theme.notification_max_width = 600
+    theme.notification_max_width = 800
 
     theme.tooltip_bg = theme.notification_bg
     theme.tooltip_fg = theme.notification_fg
@@ -53,7 +53,8 @@ return {
 
     beautiful.init(theme)
 
-    naughty.config.padding = 18
+    naughty.config.defaults.position = 'bottom_middle'
+    naughty.config.padding = 48
     naughty.config.spacing = 10
     naughty.config.presets.critical.border_width = 0
     naughty.config.presets.critical.bg = colors.red.dim
