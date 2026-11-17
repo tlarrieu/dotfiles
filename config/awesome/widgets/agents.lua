@@ -7,7 +7,7 @@ local wibox = require('wibox')
 local gears = require('gears')
 local GLib = require('lgi').GLib
 
----@alias AgentState 'running'|'done'|'idle'|'attention'
+---@alias AgentState 'running'|'monitoring'|'done'|'idle'|'attention'
 ---@alias Paint fun(color: string) Repaint an agent entry in the given color
 
 ---@type Widget
@@ -41,13 +41,15 @@ end
 ---@type Timer
 local poll = gears.timer({ timeout = 3 })
 
--- Running agents pulse between blue and grey, eased with a cosine
+-- Running agents pulse between blue and grey, eased with a cosine; monitoring
+-- ones (their turn over, on a Monitor or a background shell) between teal
+-- and grey
 ---@type number
-local period = 1.2  -- seconds for a full grey → blue → grey cycle
+local period = 1.2  -- seconds for a full grey → color → grey cycle
 ---@type Timer
 local blink = gears.timer({ timeout = 1 / 20 })
----@type Paint[]
-local blinking = {} -- paint functions of the running agents
+---@type table<Paint, string>
+local blinking = {} -- paint functions of the pulsing agents, each to its color's name
 
 -- Blend two colors
 ---@param from string #rrggbb
@@ -65,17 +67,21 @@ local mix = function(from, to, ratio)
 end
 
 -- Phase follows the monotonic clock, so rebuilding the widgets doesn't reset it
+---@param name string The color pulsed towards, in beautiful.colors
 ---@return string color #rrggbb
-local pulse = function()
+local pulse = function(name)
   local colors = beautiful.colors
   local seconds = GLib.get_monotonic_time() / 1e6
   local ratio = (1 - math.cos(2 * math.pi * seconds / period)) / 2
-  return mix(colors.fg.dim, colors.blue.base, ratio)
+  return mix(colors.fg.dim, colors[name].base, ratio)
 end
 
+-- The states pulsing, each towards its color
+---@type table<AgentState, string>
+local pulsing = { running = 'blue', monitoring = 'cyan' }
+
 blink:connect_signal('timeout', function()
-  local color = pulse()
-  for _, paint in ipairs(blinking) do paint(color) end
+  for paint, name in pairs(blinking) do paint(pulse(name)) end
 end)
 
 -- Rebuild the entries from claude-agent-list, and (un)schedule polling/blinking
@@ -84,13 +90,14 @@ local rebuild = function(out)
   local colors = beautiful.colors
   ---@type table<AgentState, string>
   local palette = {
-    running = pulse(),
+    running = pulse(pulsing.running),
+    monitoring = pulse(pulsing.monitoring),
     done = colors.green.base,
     idle = colors.fg.dim,
     attention = colors.yellow.base,
   }
   -- (mirrors faces in ~/scripts/lib/claude-agents.sh)
-  local faces = { running = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
+  local faces = { running = '󱚣', monitoring = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
   ---@type Widget[]
   local entries = {}
   blinking = {}
@@ -124,14 +131,14 @@ local rebuild = function(out)
       -- Mono variant keeps the glyph within a single cell
       face.markup = ('<span font="%s 20" color="%s">%s</span>'):format(beautiful.icon_font, color, glyph)
       local text = name
-      if state == 'running' and started then
+      if pulsing[state] and started then
         text = ('%s <span fgalpha="60%%">%s</span>'):format(name, elapsed(started))
       end
       label.markup = ('<span color="%s">%s</span>'):format(color, text)
     end
 
     paint(palette[state] or colors.fg.dimmer)
-    if state == 'running' then table.insert(blinking, paint) end
+    if pulsing[state] then blinking[paint] = pulsing[state] end
 
     table.insert(entries, wibox.widget({ face, label, spacing = 6, layout = wibox.layout.fixed.horizontal }))
   end
@@ -146,9 +153,9 @@ local rebuild = function(out)
     poll:stop()
   end
 
-  if #blinking > 0 and not blink.started then
+  if next(blinking) and not blink.started then
     blink:start()
-  elseif #blinking == 0 and blink.started then
+  elseif not next(blinking) and blink.started then
     blink:stop()
   end
 end

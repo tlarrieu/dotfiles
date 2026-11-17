@@ -12,7 +12,9 @@
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
 # session whose transcript ends with an interrupt marker is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
-# Sessions with live subagents are reported as running. Subagents silent for
+# Sessions with live subagents are reported as running. Done (or idle) ones
+# whose turn left a Monitor or a background shell running, as monitoring
+# (see monitoring in lib/claude-agents.sh). Subagents silent for
 # 10 minutes are deemed gone (in case their SubagentStop hook never fired),
 # even those that were waiting for us: an Esc on their prompt fires no hook.
 
@@ -66,6 +68,7 @@ for f in "$agents_dir"/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
+  case "$state" in done | idle) monitoring "$pid" && state=monitoring ;; esac
   # None as of its last hook: its branch may have got a pull request since
   # (its next hook saves it); from the transcript too, for state files
   # written before hooks recorded it

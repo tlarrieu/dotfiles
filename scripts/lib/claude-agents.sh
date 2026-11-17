@@ -6,7 +6,8 @@
 agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 
 # A state file holds one line: these fields, space separated
-#   state         running, done, idle or attention
+#   state         running, done, idle or attention (claude-agent-list
+#                 tells monitoring too, see monitoring)
 #   pid           the claude process
 #   started       when the session started (epoch)
 #   window        its terminal's X window id
@@ -169,10 +170,28 @@ alive() {
   [ "$(cat "/proc/$1/comm" 2>/dev/null)" = claude ]
 }
 
+# Whether claude process <pid>'s turn left something running: a tool's shell
+# (they source claude's shell snapshot), a Monitor's or a background Bash's.
+# Its own hooks (our callers) aside
+# Usage: monitoring <pid>
+monitoring() {
+  local child self=$$
+  local -A ancestors=()
+  while [ "$self" -gt 1 ] 2>/dev/null; do
+    ancestors[$self]=1
+    self=$(awk '{ print $4 }' "/proc/$self/stat" 2>/dev/null) || break
+  done
+  for child in $(pgrep -P "$1" -f '/\.claude/shell-snapshots/' 2>/dev/null); do
+    [ -z "${ancestors[$child]}" ] && return 0
+  done
+  return 1
+}
+
 # How much an agent in each state wants me: attention, then done (to read),
-# running, idle. For when several qualify (see pr_agent)
+# running and monitoring (working, its turn over, on what it left running),
+# idle. For when several qualify (see pr_agent)
 # shellcheck disable=SC2034 # for the scripts sourcing us
-declare -A agent_wants=([attention]=4 [done]=3 [running]=2 [idle]=1)
+declare -A agent_wants=([attention]=4 [done]=3 [running]=2 [monitoring]=2 [idle]=1)
 
 # The session of the agent working on pull request <owner/repo>#<number>
 # (see claude-agent-pr), the one wanting me the most when there are several;
@@ -192,7 +211,7 @@ pr_agent() {
 
 # The face of each state (mirrored in config/awesome/widgets/agents.lua)
 # shellcheck disable=SC2034 # for the scripts sourcing us
-declare -A agent_faces=([running]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
+declare -A agent_faces=([running]='󱚣' [monitoring]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
 
 # How long since <epoch>, for turns: 42s, 4m, 1h05 (mirrored in
 # config/awesome/widgets/agents.lua)

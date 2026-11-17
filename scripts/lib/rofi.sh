@@ -3,26 +3,27 @@
 # . "$assets/lib/rofi.sh"
 
 # Colors from the current rofi palette (see ~/.config/rofi/variant.rasi), in
-# $green, $red, $yellow, $blue and $magenta (named colors when the palette
-# lacks them).
+# $green, $red, $yellow, $blue, $magenta and $cyan (named colors when the
+# palette lacks them).
 # The palette has no gray: $dim and $dimmer are Pango attributes fading the
 # foreground, close to the panel's fg.dim and fg.dimmer (config/awesome/colors)
 rofi_dir=~/.config/rofi
 rofi_variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/dev/null)
 rofi_color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${rofi_variant:-dark}.rasi" 2>/dev/null | head -1; }
 green=$(rofi_color green) red=$(rofi_color red) yellow=$(rofi_color yellow) blue=$(rofi_color blue)
-magenta=$(rofi_color magenta)
+magenta=$(rofi_color magenta) cyan=$(rofi_color cyan)
 green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue} magenta=${magenta:-magenta}
+cyan=${cyan:-cyan}
 # shellcheck disable=SC2034 # for the scripts sourcing this
 dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
 # Pango attributes for each Claude agent state's face (see
 # lib/claude-agents.sh), for the pickers showing agents (rofi-github): the
 # panel's colors (see config/awesome/widgets/agents.lua),
-# running steady instead of pulsing; agent_fallback_style for unknown states
+# running and monitoring steady instead of pulsing; agent_fallback_style for unknown states
 # shellcheck disable=SC2034 # for the scripts sourcing this
 declare -A agent_styles=(
-  [running]="color=\"$blue\"" [done]="color=\"$green\"" [attention]="color=\"$yellow\""
+  [running]="color=\"$blue\"" [monitoring]="color=\"$cyan\"" [done]="color=\"$green\"" [attention]="color=\"$yellow\""
   [idle]=$dim
 )
 # shellcheck disable=SC2034 # for the scripts sourcing this

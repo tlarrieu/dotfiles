@@ -87,6 +87,10 @@ case "$state" in
 attention | done) "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
 esac
 [ "$state" = "done" ] && $displayed && state=idle
+# Its turn over, on a Monitor or a background shell still running: still at
+# work (claude-agent-list tells it monitoring), no "Done" to tell yet
+watching=false
+[ "$state" = "done" ] && monitoring "$pid" && watching=true
 
 read_agent "$file" previous_
 # shellcheck disable=SC2034 # these fields are written by name (write_agent)
@@ -134,6 +138,7 @@ attention)
   agent_notify "$session" normal "$(agent_name "$project" "$pr" "$transcript")" "$message"
   ;;
 done)
+  $watching && exit 0
   # (a displayed one is idle by now: seen)
   message=$(jq -r '.last_assistant_message // empty' <<<"$input" | awk 'NF { print substr($0, 1, 200); exit }')
   [ -n "$message" ] || message=$(agent_last_words "$transcript")

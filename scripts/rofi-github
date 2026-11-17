@@ -487,9 +487,9 @@ measure_columns() {
 }
 
 # The time column of an agent (a claude-agent-list record): how long its turn
-# has run, when running
+# has run, when running (or monitoring)
 # shellcheck disable=SC2154 # record fields, set by each_record
-agent_when() { [ "$state" = running ] && [ "$since" != - ] && elapsed "$since"; return 0; }
+agent_when() { case $state in running | monitoring) [ "$since" != - ] && elapsed "$since" ;; esac; return 0; }
 
 # Adds an agent (a claude-agent-list record): Enter and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
