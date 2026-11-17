@@ -44,6 +44,7 @@ return {
     theme.progressbar_paddings = 1
 
     theme.notification_font = ('%s 13'):format(font_name)
+    theme.notification_max_width = 600
 
     theme.tooltip_bg = theme.notification_bg
     theme.tooltip_fg = theme.notification_fg
@@ -71,7 +72,10 @@ return {
       ['claude.spawn.failed'] = colors.red,
     }
     for appname, color in pairs(job_presets) do
-      table.insert(require('naughty.dbus').config.mapping, { { appname = appname }, { border_width = 0, bg = color.dim, fg = color.base } })
+      table.insert(require('naughty.dbus').config.mapping, {
+        { appname = appname },
+        { border_width = 0, bg = color.dim, fg = color.base },
+      })
     end
   end
 }
