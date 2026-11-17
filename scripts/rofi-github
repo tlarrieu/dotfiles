@@ -324,15 +324,20 @@ find_agents() {
 # review-queue ones ($2) (one gone from them: merged long ago, reviewed; or
 # none, in an agent worktree, <project>-<slot>), so that they get a row. Not
 # those on none in a main checkout: the sessions I keep open there
-# (super+u, or the panel, reach them)
+# (super+u, or the panel, reach them). Nor those working where some local
+# work lies (find_local_work's records, $3): its row tells their state
 # shellcheck disable=SC2154 # record fields, set by each_record
 find_loose_agents() {
   local -A listed=()
   list_pr() { listed[$repo#$number]=1; }
   each_record list_pr <<<"$1"
   each_record list_pr <<<"$2"
+  local -A on_work=()
+  list_work() { [ "$agent" != - ] && on_work[$agent]=1; return 0; }
+  each_record list_work <<<"$3"
   loose_agents=$(head -n1 <<<"$agent_list")
   keep_loose() {
+    [ -n "${on_work[$session]}" ] && return 0
     if [ "$pr" != - ] && [ -n "$pr" ]; then
       [ -n "${listed[$pr]}" ] && return 0
     else
@@ -631,8 +636,8 @@ while :; do
   lines=()
   now=$(date +%s)
   find_agents
-  find_loose_agents "$mine" "$reviews"
   find_local_work "$work" "$mine"
+  find_loose_agents "$mine" "$reviews" "$local_work"
   measure_authors <<<"$reviews"
   threads='' branch='' approvals='' measure_columns "$mine" "$reviews" "$loose_agents" "$local_work" # threads blank, as below
 
