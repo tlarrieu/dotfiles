@@ -15,7 +15,8 @@
 # Columns: CI (the last commit's checks, bots' reviews aside), then review
 # (conflict, draft, changes requested, a bot reviewing it (hubot; red: its
 # review failed), approved,
-# or waiting for one; in the merge queue
+# or waiting for one (then, dimmer, how many approvals it has out of how many
+# its base requires: 1/2); in the merge queue
 # instead, for queued ones; merged, or being deployed, for deploying ones),
 # then time: since the last update, waiting on my review for how long, for
 # queued ones the position and when it should merge (#37 (1h14)), for
@@ -132,6 +133,8 @@ work_text() {
 #   auto           auto: auto-merge is on
 #   diff           plain: the additions and deletions uncolored
 #   threads        how many review threads are unresolved
+#   approvals      <approvals>/<required>, as merge-queue prints them (- or
+#                  missing: blank)
 #   work           local work (see local-work): <commits to push> <changed
 #                  files> <yes when an agent works in its worktree, else ->
 #   italic         italic: the whole row in italics
@@ -144,7 +147,7 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | work | italic | verdicts | agent | project)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | approvals | work | italic | verdicts | agent | project)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
@@ -162,6 +165,13 @@ row() {
   [ -n "${c[tint]}" ] && style="color=\"${c[tint]}\""
   [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   ci="${ci:- }  " review="${review:- }  "
+  # Approvals, dimmer than dim, as wide as the widest shown (see
+  # measure_columns), then a space; none at all when no row has any
+  local approvals=''
+  if [ "$approvals_width" -gt 0 ]; then
+    local count=${c[approvals]#-}
+    approvals="${count:+<span $dimmer>$count</span>}$(printf '%*s' $((approvals_width - ${#count})) '') "
+  fi
   # As wide as the widest shown (see measure_columns): additions to the
   # right, deletions to the left, around a space. Padded by hand, as printf
   # counts the minus sign's bytes
@@ -222,7 +232,7 @@ row() {
     middle=$(printf '#%-*s %s %s' "$number_width" "${c[number]}" "$plus" "$minus")
   fi
   local before
-  before=$(printf '%s%s%-*s %s %s  %s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$work" "$agent")
+  before=$(printf '%s%s%s%-*s %s %s  %s%s%s' "$ci" "$review" "$approvals" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
@@ -415,7 +425,8 @@ mine_when() {
 # shellcheck disable=SC2154 # record fields, set by each_record
 review_when() { ago $((now - at)); }
 
-# Sets time_width, number_width, plus_width, minus_width and threads_width:
+# Sets time_width, number_width, plus_width, minus_width, threads_width and
+# approvals_width (0 when none has any):
 # the widest time, pull request number, additions and deletions (their sign
 # included) and unresolved threads (glyph, space and count; 0 when none has
 # any) of the merge-queue records ($1) and the review-queue ones ($2), so that
@@ -429,7 +440,7 @@ review_when() { ago $((now - at)); }
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 agents_width=0 work_width=0
+  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 approvals_width=0 agents_width=0 work_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
@@ -438,6 +449,7 @@ measure_columns() {
     if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
       threads_width=$((${#threads} + 2))
     fi
+    [ "${approvals:--}" != - ] && [ ${#approvals} -gt "$approvals_width" ] && approvals_width=${#approvals}
     [ -n "${agents[$repo#$number]}" ] && agents_width=3
     widest_work "${work_of[$repo#$branch]}"
   }
@@ -449,7 +461,7 @@ measure_columns() {
     return 0
   }
   widest_mine() { when=$(mine_when); widest "$when"; }
-  widest_review() { local branch=''; when=$(review_when); widest "$when"; } # (no branch field)
+  widest_review() { local branch='' approvals=''; when=$(review_when); widest "$when"; } # (no branch field)
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
   local project_width=0
@@ -504,7 +516,7 @@ mine() {
   [ "$in" = open ] || diff=plain
   # In the queue, its required checks passed: a failing one is optional (and
   # the queue's own run is the one that matters now)
-  [ "$in" = queued ] && review=QUEUED ci=SUCCESS
+  [ "$in" = queued ] && review=QUEUED ci=SUCCESS approvals=-
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
   # fix (Ctrl+s)
   case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 ;; esac
@@ -518,7 +530,7 @@ mine() {
   face=$review
   [ "$state" = UNKNOWN ] && face=UNKNOWN italic=italic
   line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
-    title="$title" auto="$auto" diff="$diff" threads="$threads" italic="$italic" verdicts="$shown_verdicts" \
+    title="$title" auto="$auto" diff="$diff" threads="$threads" approvals="$approvals" italic="$italic" verdicts="$shown_verdicts" \
     work="${work_of[$repo#$branch]}" agent="${agents[$repo#$number]}")
   # Queued and merged ones stay in the background: they move on their own;
   # those with auto-merge on, a bit less (they will join the queue by
@@ -622,22 +634,22 @@ while :; do
   find_loose_agents "$mine" "$reviews"
   find_local_work "$work" "$mine"
   measure_authors <<<"$reviews"
-  threads='' branch='' measure_columns "$mine" "$reviews" "$loose_agents" "$local_work" # threads blank, as below
+  threads='' branch='' approvals='' measure_columns "$mine" "$reviews" "$loose_agents" "$local_work" # threads blank, as below
 
   # First, the agents: one waiting on me is the most urgent
   each_record agent <<<"$loose_agents"
   # ci, review, threads and verdicts blank: a cache from before these fields
   # keeps them so
-  ci='' review='' threads='' verdicts='' branch='' group=open each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' group=open each_record mine <<<"$mine"
   # Then what lies here, unpublished, or left behind
   each_record local_row <<<"$local_work"
   ci='' threads='' each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, in it,
   # merged, then in production
-  ci='' review='' threads='' verdicts='' branch='' group=auto each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' group=queued each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' group=deploying each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' group=deployed each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' group=auto each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' group=deploying each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' group=deployed each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"

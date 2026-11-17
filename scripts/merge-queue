@@ -20,7 +20,7 @@
 #   lib/github.sh, and "fields" below for what they hold): kind (queued,
 #   ready, other, deploying or deployed), repo, number, position, state, label, time, additions,
 #   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads,
-#   verdicts, branch (its head branch) (- when not applicable).
+#   verdicts, branch (its head branch), approvals (- when not applicable).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2.
@@ -84,6 +84,11 @@ mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt }
 CI_FIELDS
 reviewThreads(first: 100) { nodes { isResolved } }
 latestReviews(first: 20) { nodes { state body author { login } } }
+latestOpinionatedReviews(first: 50) { nodes { state } }
+baseRef {
+  branchProtectionRule { requiredApprovingReviewCount }
+  rules(first: 50) { nodes { type parameters { ... on PullRequestParameters { requiredApprovingReviewCount } } } }
+}
 GRAPHQL
 
 # Records, under this header (see lib/github.sh), in lifecycle order: drafts, other PRs that can't join the queue yet (by
@@ -97,7 +102,8 @@ GRAPHQL
 # Time: estimated seconds to merge (queued), last update epoch (other), merge
 # epoch (deploying), when it reached production (deployed), or -.
 # Auto: auto when auto-merge is on, else -.
-# Label: the state in a word or two, for the picker and the panel.
+# Label: the state in a word or two, for the picker and the panel (waiting
+# for reviews: "review <approvals>", see below, when its base requires some).
 # CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
 # Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, BOT_REVIEWING (a
 # review workflow runs, see github_review_workflows), BOT_REVIEW_FAILED (one
@@ -107,8 +113,11 @@ GRAPHQL
 # reviewer's latest: <login> US <APPROVED or CHANGES_REQUESTED> US <its first
 # line, … when more follow>, separated by GS (US and GS: the ASCII unit and
 # group separators), or - without any.
+# Approvals: while it waits for reviews (review REQUIRED), how many it has
+# out of how many its base branch requires: <approvals>/<required>, each
+# reviewer's latest review counting (see approvals_jq); else -.
 selection=${selection//CI_FIELDS/$github_ci_query}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts branch)
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts branch approvals)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # A pull request's verdicts (see above), from its latestReviews
 # shellcheck disable=SC2016 # jq variables
@@ -120,6 +129,20 @@ verdicts_jq='
      | select($lines | length > 0)
      | "\(.author.login // "ghost")\u001f\(.state)\u001f\($lines[0])\(if ($lines | length) > 1 then " …" else "" end)"]
     | if length > 0 then join("\u001d") else "-" end;
+'
+# A pull request's approvals (see above): the approvals its base branch
+# requires are the most any of its rulesets' pull request rules asks, else
+# its branch protection's; none required: null
+# shellcheck disable=SC2016 # jq variables
+approvals_jq='
+  def required_approvals:
+    ([.baseRef.rules.nodes[]? | select(.type == "PULL_REQUEST") | .parameters.requiredApprovingReviewCount // 0]
+     + [.baseRef.branchProtectionRule.requiredApprovingReviewCount // 0] | max) as $required
+    | if $required > 0 then $required else null end;
+  def approvals:
+    required_approvals as $required
+    | if $required == null then null
+      else "\([.latestOpinionatedReviews.nodes[] | select(.state == "APPROVED")] | length)/\($required)" end;
 '
 # Rows are objects, printed in the order of $fields (- for what they lack)
 # shellcheck disable=SC2016 # $e, $c, $pr, $blocker… are jq variables
@@ -141,6 +164,7 @@ program='
       | ci as $c
       | bot_reviewing as $bot
       | bot_review_failed as $bot_failed
+      | approvals as $approvals
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
@@ -152,6 +176,7 @@ program='
                    elif $bot_failed then "BOT_REVIEW_FAILED"
                    elif .reviewDecision == "APPROVED" then "APPROVED"
                    else "REVIEW_REQUIRED" end),
+          approvals: (if .reviewDecision == "REVIEW_REQUIRED" and (.isDraft | not) then $approvals else null end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
           branch: .headRefName,
           queue_url: "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)",
@@ -177,7 +202,9 @@ program='
               { rank: [1, .number], row: ($pr + { kind: "ready", state: "READY", label: "ready" }) }
             else
               { rank: [0, ($blockers | index($blocker)), -(.updatedAt | fromdateiso8601)],
-                row: ($pr + { kind: "other", state: $blocker, label: $labels[$blocker],
+                row: ($pr + { kind: "other", state: $blocker,
+                              label: (if $blocker == "REVIEW_REQUIRED" and $pr.approvals then "review \($pr.approvals)"
+                                      else $labels[$blocker] end),
                               time: (.updatedAt | fromdateiso8601) }) }
             end
         end ]
@@ -187,7 +214,7 @@ program='
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
 answer=$(github_search_prs "is:pr is:open author:@me $repos" "$selection") || { cat "$cache"; exit 1; }
-fresh=$(jq -r "$github_ci_jq$verdicts_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
+fresh=$(jq -r "$github_ci_jq$verdicts_jq$approvals_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
@@ -293,13 +320,13 @@ deploy_once() { # <key>: once, but quiet until deploys were tracked once
 # Records of the deploying and deployed ones (see fields)
 deploying='' deployed=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-' \
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
 # A deployed one, while it reached production less than $recent_window seconds ago
 deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
   [ $((now - $3)) -lt "$recent_window" ] || return 0
-  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-' \
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-' \
     "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
 }
 now=$(date +%s)
