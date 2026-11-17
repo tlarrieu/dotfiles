@@ -43,7 +43,7 @@ return {
     theme.progressbar_fg = colors.bg.base
     theme.progressbar_paddings = 1
 
-    theme.notification_font = theme.font
+    theme.notification_font = ('%s 13'):format(font_name)
 
     theme.tooltip_bg = theme.notification_bg
     theme.tooltip_fg = theme.notification_fg
