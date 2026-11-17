@@ -7,14 +7,17 @@
 #            review threads, and its failing CI checks; it leaves those other
 #            changes uncommitted for me to review, asks in the session when it
 #            disagrees with a comment, and re-runs the jobs that failed for
-#            infrastructure reasons
+#            infrastructure reasons; on a flaky spec, it re-runs its job once,
+#            then merges the base branch in and pushes, then asks me
+#            (the only push it makes unasked)
 #   review   review it (someone else's), critically: design and naming first,
 #            bugs on the side; in the session, changing nothing. Asked to
 #            ("post", or "post 1 3"), it drafts its points as a pending
 #            review on GitHub, inline on their lines, for me to go over and
 #            submit (it never submits it)
 # Either way, it pushes nothing, and posts nothing on GitHub unless asked
-# (re-runs aside; reviews drafted are pending, mine to submit).
+# (re-runs and the flaky spec's merge aside; reviews drafted are pending, mine
+# to submit).
 # An agent on it already: jumps back to it instead. To fix one of mine with
 # nothing to fix (no conflict, unresolved review thread or failing CI, as
 # merge-queue's cache tells, which may lag): says so instead. Used by
@@ -122,16 +125,17 @@ WHERE
   read -r -d '' rules <<RULES
 $about
 $where
-Never push. Commit only the merge resolving its conflicts (see the task),
+Never push, but for the merge of the base branch a flaky spec calls for (see
+the task). Commit only the merges resolving its conflicts or a flaky spec,
 unless the user asks for more: leave every other change uncommitted, for the
-user to review. Whenever you commit, give the user the command to push it
-from their clone, $clone (your worktree goes once you stop; the branch stays,
-as worktrees share their clone's branches): $push.
+user to review. Whenever you commit and don't push, give the user the command
+to push it from their clone, $clone (your worktree goes once you stop; the
+branch stays, as worktrees share their clone's branches): $push.
 Don't reply to, nor resolve, any review thread on GitHub unless the user asks
-you to. Re-run a CI job only when it failed for an infrastructure reason, and
-once (see the task); no other one unless the user asks. When you disagree
-with a reviewer's comment, or can't tell what it asks, ask the user here
-before changing anything for it.
+you to. Re-run a CI job only when it failed for an infrastructure reason or
+on a flaky spec, and once (see the task); no other one unless the user asks.
+When you disagree with a reviewer's comment, or can't tell what it asks, ask
+the user here before changing anything for it.
 RULES
 
   read -r -d '' prompt <<PROMPT
@@ -167,11 +171,24 @@ and its failing CI checks.
    link; not gh run rerun --job, which wants another one): if it fails again,
    report it instead. One re-run already (its run_attempt, in
    gh api repos/$repo/actions/jobs/<job id>, is above 1): report it too. A
-   flaky spec, or one failing on the base branch too: report it only.
+   spec failing on the base branch too: report it only. A flaky spec (one the
+   pull request didn't touch nor affect, failing from test order, shared
+   state, time or randomness, not on the base branch):
+   a. re-run its job, once, as above (unless already re-run), then watch it
+      until it ends: its new job id from gh pr checks (the re-run gets
+      another one), polled in the background (Monitor, or Bash with
+      run_in_background and an until loop), not with sleep in the foreground;
+   b. if it fails again, git fetch origin $base and git merge origin/$base
+      (resolving any conflict as in 0), commit it (git commit --no-edit),
+      then push it, with $push from your worktree, and watch
+      the job of the new commit's run the same way; nothing to merge (the
+      branch has $base already): skip to c;
+   c. if it still fails, stop and ask the user what to do.
+   Report each step in your summary.
 Any of them may have nothing to do: say so and move on. Then run the specs
 covering what you changed. Finish with a summary: the conflicts (how you
 resolved each), then thread by thread, then check by check, what you changed,
-re-ran, or why you did neither.
+re-ran, merged and pushed, or why you did none of it.
 PROMPT
 else
   read -r -d '' rules <<RULES
