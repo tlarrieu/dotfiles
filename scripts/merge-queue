@@ -23,7 +23,7 @@ state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/merge-queue"
 cache="$state_dir/queue.tsv"
 queued="$state_dir/queued" # entries seen in the queue last time: <repo> <number> <enqueued at>
 seen="$state_dir/seen"     # notified keys: <repo>#<number>@<enqueued at>:<event>, <repo>#<number>:ready,
-                           # <repo>#<number>:blocked:<CONFLICT, CHECKS_FAILING or CHANGES_REQUESTED>,
+                           # <repo>#<number>:blocked:<CONFLICT, CHECKS_FAILING or CHANGES_REQUESTED>@<head commit>,
                            # <repo>#<number>:deploying@<run id>, <repo>#<number>:deployed
 near=$((15 * 60))
 deploy_workflow=eks_deployment.yml tested_workflow=specs.yml
@@ -67,7 +67,7 @@ merged_pid=$!
 
 # What we read of each pull request (see github_search_prs)
 read -r -d '' selection <<'GRAPHQL'
-state number title url baseRefName headRefName isDraft updatedAt reviewDecision mergeable additions deletions
+state number title url baseRefName headRefName headRefOid isDraft updatedAt reviewDecision mergeable additions deletions
 repository { nameWithOwner }
 autoMergeRequest { enabledAt }
 mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt headCommit { oid CI_ROLLUP } }
@@ -104,10 +104,10 @@ GRAPHQL
 # Queue CI: a queued one's merge group checks (the tests run on it merged
 # with those ahead), as CI (FAILURE too once GitHub says it can't merge,
 # UNMERGEABLE), or - before GitHub builds its merge group. Queue commit: that
-# merge group's commit, or -.
+# merge group's commit, or -. Head: its head commit.
 selection=${selection//CI_FIELDS/$github_ci_query}
 selection=${selection//CI_ROLLUP/$github_ci_rollup}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads branch approvals queue_ci queue_commit)
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads branch approvals queue_ci queue_commit head)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # A pull request's approvals (see above): the approvals its base branch
 # requires are the most any of its rulesets' pull request rules asks, else
@@ -156,7 +156,7 @@ program='
                    else "REVIEW_REQUIRED" end),
           approvals: (if .reviewDecision == "REVIEW_REQUIRED" and (.isDraft | not) then $approvals else null end),
           auto: (if .autoMergeRequest then "auto" else "-" end),
-          branch: .headRefName,
+          branch: .headRefName, head: .headRefOid,
           queue_url: "https://github.com/\(.repository.nameWithOwner)/queue/\(.baseRefName)",
           title: (.title | gsub("[\t\n]"; " ")) } as $pr
       | if .mergeQueueEntry then
@@ -214,7 +214,10 @@ current=''
 
 # shellcheck disable=SC2154 # record fields, set by each_record
 pull_request() {
-  # Blocked on me: tell it once, each time it gets so, a fix a click away
+  # Blocked on me: tell it once per blocker and head commit (until I push), a
+  # fix a click away. Remembered while it's open, whatever its state: it flaps
+  # (GitHub tells mergeable UNKNOWN for a while each time its base moves)
+  mapfile -t -O "${#keys[@]}" keys < <(grep -F "$repo#$number:blocked:" "$seen" | grep -F "@$head")
   if [ "$kind" = other ]; then
     local why=''
     case $state in
@@ -223,8 +226,8 @@ pull_request() {
       CHANGES_REQUESTED) why='Changes requested' ;;
     esac
     if [ -n "$why" ]; then
-      keys+=("$repo#$number:blocked:$state")
-      once "$repo#$number:blocked:$state" &&
+      keys+=("$repo#$number:blocked:$state@$head")
+      once "$repo#$number:blocked:$state@$head" &&
         notify normal "$why" "$title"$'\n'"$repo#$number" "$url$([ "$state" = CHECKS_FAILING ] && echo /checks)" "$repo" "$number"
     fi
     return
@@ -303,13 +306,13 @@ printf '%s' "$current" >"$queued"
 # Records of the deploying and deployed ones (see fields)
 deploying='' deployed=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-' \
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
 # A deployed one, while it reached production less than $recent_window seconds ago
 deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
   [ $((now - $3)) -lt "$recent_window" ] || return 0
-  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-' \
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
     "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
 }
 now=$(date +%s)
