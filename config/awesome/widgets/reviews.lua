@@ -1,4 +1,5 @@
--- Reviews: pull requests waiting on me (see ~/scripts/review-queue)
+-- Reviews: pull requests waiting on me (see ~/scripts/review-queue), not
+-- those requested from my teams only (rofi-github lists them)
 -- Panel widget, see panel.lua: returns { widget, update }
 
 local gears = require('gears')
@@ -26,10 +27,12 @@ return require('widgets.counter').make({
     ---@type integer, integer, string[]
     local now, oldest, rows = os.time(), 0, {}
     for _, review in ipairs(records) do
-      local waited = now - (tonumber(review.at) or now)
-      oldest = math.max(oldest, waited)
-      table.insert(rows, ('<b>%5s</b>  %s <span fgalpha="60%%">(%s)</span>'):format(
-        github.ago(waited), github.pull_request(review), gears.string.xml_escape(review.author)))
+      if (review.team or '-') == '-' then
+        local waited = now - (tonumber(review.at) or now)
+        oldest = math.max(oldest, waited)
+        table.insert(rows, ('<b>%5s</b>  %s <span fgalpha="60%%">(%s)</span>'):format(
+          github.ago(waited), github.pull_request(review), gears.string.xml_escape(review.author)))
+      end
     end
     return {
       color = oldest >= alert_after and colors.red.base or oldest >= warn_after and colors.yellow.base or colors.fg.dim,

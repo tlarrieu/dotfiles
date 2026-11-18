@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 # Pull requests waiting on my review, in the repositories listed in
-# ~/.config/github/repos (direct requests only: team ones are left out).
-# Refreshes the cache, notifies new requests (and re-requests), reminds once
-# for those waiting more than a day, then prints the queue, oldest first.
+# ~/.config/github/repos: requested from me, or from one of my teams (not
+# mine, team: their slugs). Refreshes the cache, notifies new requests from
+# me (and re-requests), reminds once for those waiting more than a day (team
+# ones: neither), then prints the queue, oldest first.
 # Usage: review-queue [--cached]  (--cached: print the cache, skip GitHub)
 # Output: tab separated records under a header naming their fields (see
 #   lib/github.sh and "header" below): requested at (epoch), repo, number,
 #   author, additions, deletions, url, title, ci (the last commit's checks:
 #   SUCCESS, FAILURE or PENDING), threads (unresolved review threads, out of
-#   the first 100).
+#   the first 100), team (the teams it's requested from, comma separated,
+#   when not from me; else -).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
 # exits 2. That list is private, so it stays out of the dotfiles (gitignored).
@@ -38,33 +40,43 @@ repository { nameWithOwner }
 author { login }
 CI_FIELDS
 reviewThreads(first: 100) { nodes { isResolved } }
+reviewRequests(first: 20) { nodes { requestedReviewer { ... on User { login } ... on Team { slug } } } }
 timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last: 50) {
   nodes {
     __typename
-    ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } } }
+    ... on ReviewRequestedEvent { createdAt requestedReviewer { ... on User { login } ... on Team { slug } } }
     ... on ReadyForReviewEvent { createdAt }
   }
 }
 GRAPHQL
 selection=${selection//CI_FIELDS/$github_ci_query}
 
-# Records, under this header (see lib/github.sh). Requested at (epoch): my
-# latest (re-)request, so being added late or re-requested restarts the clock,
-# or its latest exit from draft when later: the wait starts once it's ready
-header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads'
+# Records, under this header (see lib/records.sh). Requested at (epoch): my
+# latest (re-)request (a team's, for team ones), so being added late or
+# re-requested restarts the clock, or its latest exit from draft when later:
+# the wait starts once it's ready
+header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads\tteam'
 # shellcheck disable=SC2016 # $me and $at are jq variables
-answer=$(github_search_prs "is:pr is:open draft:false user-review-requested:@me $repos" "$selection") || { cat "$queue"; exit 1; }
-fresh=$(jq -r "$github_ci_jq"'
+answer=$(github_search_prs "is:pr is:open draft:false review-requested:@me -author:@me $repos" "$selection") || { cat "$queue"; exit 1; }
+# My teams' slugs (the search matches theirs, but a pull request lists all
+# those requested)
+teams=$(timeout 30 gh api user/teams --paginate --jq '[.[].slug]' 2>/dev/null | jq -sc add) || { cat "$queue"; exit 1; }
+fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
   | select(.state == "OPEN") # the search lags behind, listing one merged (or closed) moments ago
-  | ([.timelineItems.nodes[] | select(.requestedReviewer.login == $me) | .createdAt] | last // .createdAt) as $requested
+  | (if any(.reviewRequests.nodes[]; .requestedReviewer.login == $me) then null
+     else [.reviewRequests.nodes[].requestedReviewer.slug | select(. != null and IN($teams[]))] | join(",") end) as $team
+  | ([.timelineItems.nodes[]
+      | select(if $team then (.requestedReviewer.slug // "" | IN($teams[])) else .requestedReviewer.login == $me end)
+      | .createdAt] | last // .createdAt) as $requested
   | ([.timelineItems.nodes[] | select(.__typename == "ReadyForReviewEvent") | .createdAt] | last) as $ready
   | ([$requested, $ready] | max) as $at
   | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
      .additions, .deletions, .url, (.title | gsub("[\t\n]"; " ")),
      ci,
-     ([.reviewThreads.nodes[] | select(.isResolved | not)] | length)]
+     ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
+     (if $team == null then "-" elif $team == "" then "team" else $team end)]
   | @tsv
 ' <<<"$answer" 2>/dev/null) || { cat "$queue"; exit 1; }
 
@@ -79,6 +91,7 @@ keys=()
 
 # shellcheck disable=SC2154 # record fields, set by each_record
 review() {
+  [ "$team" = - ] || return 0 # team ones: listed, no more
   key="$repo#$number@$at"
   keys+=("$key")
   waited=$((now - at))
