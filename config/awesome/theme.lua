@@ -54,6 +54,7 @@ return {
     beautiful.init(theme)
 
     naughty.config.defaults.position = 'bottom_middle'
+    naughty.config.defaults.timeout = 7
     naughty.config.padding = 48
     naughty.config.spacing = 10
     naughty.config.presets.critical.border_width = 0
