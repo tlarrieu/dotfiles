@@ -70,8 +70,11 @@ for f in "$agents_dir"/*; do
   fi
   case "$state" in done | idle) monitoring "$pid" && state=monitoring ;; esac
   # None as of its last hook: its branch may have got a pull request since
-  # (its next hook saves it)
-  [ "${pr:--}" = - ] && pr=$(branch_pr "$root")
+  # (its next hook saves it). And its prompt may name one: the first hooks
+  # (SessionStart, UserPromptSubmit) run before the prompt lands in the
+  # transcript, and the next ones save nothing while its state stays the same
+  [ "${pr:--}" = - ] && pr=$(agent_pr "$transcript")
+  [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
   FILENAME == ARGV[1] { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
