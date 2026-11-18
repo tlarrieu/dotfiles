@@ -12,7 +12,9 @@
 # local work's rows and those of mine holding some (:unpushed, those with
 # commits to push); and :agent,
 # agents' rows and those an agent works on)
-# Columns: CI (the last commit's checks, bots' reviews aside), then review
+# Columns: CI (the last commit's checks, bots' reviews aside; for queued ones,
+# their merge group's: red when its tests fail),
+# then review
 # (conflict, draft, changes requested, a bot reviewing it (hubot; red: its
 # review failed), approved,
 # or waiting for one (then, dimmer, how many approvals it has out of how many
@@ -537,9 +539,13 @@ mine() {
   # On their way (auto-merge on), in the queue or merged: the diff in the
   # fade too
   [ "$in" = open ] || diff=plain
-  # In the queue, its required checks passed: a failing one is optional (and
-  # the queue's own run is the one that matters now)
-  [ "$in" = queued ] && review=QUEUED ci=SUCCESS approvals=-
+  # In the queue, its required checks passed (a failing one is optional): the
+  # CI face tells its merge group's instead, the run that matters now
+  # (passed, before GitHub builds one)
+  if [ "$in" = queued ]; then
+    review=QUEUED approvals=- ci=SUCCESS
+    case $queue_ci in FAILURE | PENDING) ci=$queue_ci ;; esac
+  fi
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
   # fix (Ctrl+s)
   case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 ;; esac
@@ -670,7 +676,7 @@ while :; do
   # Last, as they need nothing from me: on their way to the queue, in it,
   # merged, then in production
   ci='' review='' threads='' verdicts='' branch='' approvals='' group=auto each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' approvals='' group=queued each_record mine <<<"$mine"
+  ci='' review='' threads='' verdicts='' branch='' approvals='' queue_ci='' group=queued each_record mine <<<"$mine"
   ci='' review='' threads='' verdicts='' branch='' approvals='' group=deploying each_record mine <<<"$mine"
   ci='' review='' threads='' verdicts='' branch='' approvals='' group=deployed each_record mine <<<"$mine"
 

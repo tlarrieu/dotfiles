@@ -98,11 +98,15 @@ github_ci_checks='nodes {
             ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId name } } } }
             ... on StatusContext { id state }
           }'
+# github_ci_rollup: the same, in a Commit's fields (a merge queue entry's
+# merge group commit, say: ci reads it from {commits: {nodes: [{commit: …}]}})
 # shellcheck disable=SC2034 # for the scripts sourcing this
-github_ci_query="commits(last: 1) { nodes { commit { statusCheckRollup {
+github_ci_rollup="statusCheckRollup {
           head: contexts(first: 100) { $github_ci_checks }
           tail: contexts(last: 100) { $github_ci_checks }
-        } } } }"
+        }"
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_ci_query="commits(last: 1) { nodes { commit { $github_ci_rollup } } }"
 # shellcheck disable=SC2016,SC2034 # jq variables; for the scripts sourcing this
 github_ci_jq='
   def latest_checks:
