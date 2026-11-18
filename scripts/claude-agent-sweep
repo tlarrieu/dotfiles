@@ -84,7 +84,7 @@ for repository in "$slots"/*/; do
     if [ -n "$(git -C "$worktree" status --porcelain)" ]; then
       kept='uncommitted changes'
     elif [ -z "$(git -C "$worktree" branch --show-current)" ] &&
-      [ "$(git -C "$worktree" rev-list --count HEAD ${base:+"^$base"} --not --branches)" != 0 ]; then
+      [ "$(git -C "$worktree" rev-list --count HEAD "^$base" --not --branches)" != 0 ]; then
       kept='commits on no branch'
     fi
     if [ -n "$kept" ]; then
@@ -107,8 +107,6 @@ for repository in "$slots"/*/; do
       rm -f "$slot_file" "$slot_file.kept"
       # What it held is gone: local work's cache too (see local-work)
       setsid -f "$assets/local-work" >/dev/null 2>&1 9>&-
-      # Slots older than the base recording: compare to the primary's HEAD
-      base=${base:-$(git -C "$primary" rev-parse HEAD)}
       if [ -n "$branch" ] && [ "$branch" != "$started" ] && [ "$(git -C "$primary" rev-list --count "$base..$branch")" = 0 ]; then
         git -C "$primary" branch --quiet -D "$branch"
       fi

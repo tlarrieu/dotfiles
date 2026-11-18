@@ -1,16 +1,9 @@
 #!/usr/bin/env bash
-# My pull requests in the merge queue, those ready to join it (approved,
-# checks green, mergeable, not queued yet) and my other open ones (with what
-# blocks them), in the repositories listed in
-# ~/.config/github/repos. Refreshes the cache and notifies, once each: checks
-# started on an entry, merge expected within 15 minutes, merged, kicked out of
-# the queue (with GitHub's reason), its merge group's checks failing (each
-# merge group: GitHub rebuilds them as the queue moves; critical, before it
-# gets kicked out), ready to enqueue (unless auto-merge is
-# on), blocked on me (conflicts, CI failing, changes requested: with a Fix
-# with Claude action, see claude-agent-pr), being deployed to production,
-# deployed. Then prints the cache. Once
-# deployed, a pull request stays listed for $recent_window seconds.
+# My open pull requests (queued, ready to join the queue, or blocked: on
+# what), and those merged lately until deployed, in the repositories listed
+# in ~/.config/github/repos. Refreshes the cache, notifies each event once
+# (see pull_request, "Entries gone from the queue" and track_deploys), then
+# prints it.
 # Deploys: a repository's latest GitHub release is what production runs (its
 # deploy workflow publishes one once deployed). While a run of
 # $deploy_workflow is in progress, it deploys the last commit of master
@@ -18,15 +11,9 @@
 # it). Repositories without releases aren't tracked; without those
 # workflows, they only tell deployed.
 # Usage: merge-queue [--cached]  (--cached: print the cache, skip GitHub)
-# Output: tab separated records under a header naming their fields (see
-#   lib/github.sh, and "fields" below for what they hold): kind (queued,
-#   ready, other, deploying or deployed), repo, number, position, state, label, time, additions,
-#   deletions, auto, url, queue_url, title, enqueued_at, ci, review, threads,
-#   verdicts, branch (its head branch), approvals, queue_ci, queue_commit
-#   (- when not applicable).
-# On a GitHub failure, prints the cache (stale) and exits 1.
-# Without repositories to watch, complains (notifying once, until fixed) and
-# exits 2.
+# Output: records (see lib/records.sh), their fields in $fields (what they
+# hold: above it). On a GitHub failure, prints the cache (stale) and exits 1;
+# without repositories to watch, complains (notifying once) and exits 2.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -86,7 +73,6 @@ autoMergeRequest { enabledAt }
 mergeQueueEntry { position state estimatedTimeToMerge enqueuedAt headCommit { oid CI_ROLLUP } }
 CI_FIELDS
 reviewThreads(first: 100) { nodes { isResolved } }
-latestReviews(first: 20) { nodes { state body author { login } } }
 latestOpinionatedReviews(first: 50) { nodes { state } }
 baseRef {
   branchProtectionRule { requiredApprovingReviewCount }
@@ -94,7 +80,7 @@ baseRef {
 }
 GRAPHQL
 
-# Records, under this header (see lib/github.sh), in lifecycle order: drafts, other PRs that can't join the queue yet (by
+# Records, in lifecycle order: drafts, other PRs that can't join the queue yet (by
 # blocker), ready, then queued (by position). An other PR's state is its
 # first blocker: DRAFT, CONFLICT, CHECKS_FAILING, CHANGES_REQUESTED,
 # CHECKS_PENDING, BOT_REVIEWING, BOT_REVIEW_FAILED, REVIEW_REQUIRED, or UNKNOWN (mergeable is UNKNOWN until
@@ -112,10 +98,6 @@ GRAPHQL
 # review workflow runs, see github_review_workflows), BOT_REVIEW_FAILED (one
 # failed), APPROVED or REVIEW_REQUIRED.
 # Threads: how many review threads are unresolved (out of the first 100).
-# Verdicts: the approvals and change requests that came with a message, each
-# reviewer's latest: <login> US <APPROVED or CHANGES_REQUESTED> US <its first
-# line, … when more follow>, separated by GS (US and GS: the ASCII unit and
-# group separators), or - without any.
 # Approvals: while it waits for reviews (review REQUIRED), how many it has
 # out of how many its base branch requires: <approvals>/<required>, each
 # reviewer's latest review counting (see approvals_jq); else -.
@@ -125,19 +107,8 @@ GRAPHQL
 # merge group's commit, or -.
 selection=${selection//CI_FIELDS/$github_ci_query}
 selection=${selection//CI_ROLLUP/$github_ci_rollup}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads verdicts branch approvals queue_ci queue_commit)
+fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads branch approvals queue_ci queue_commit)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
-# A pull request's verdicts (see above), from its latestReviews
-# shellcheck disable=SC2016 # jq variables
-verdicts_jq='
-  def verdicts:
-    [.latestReviews.nodes[]
-     | select(.state == "APPROVED" or .state == "CHANGES_REQUESTED")
-     | [.body | gsub("\t"; " ") | split("\n")[] | gsub("^\\s+|\\s+$"; "") | select(length > 0)] as $lines
-     | select($lines | length > 0)
-     | "\(.author.login // "ghost")\u001f\(.state)\u001f\($lines[0])\(if ($lines | length) > 1 then " …" else "" end)"]
-    | if length > 0 then join("\u001d") else "-" end;
-'
 # A pull request's approvals (see above): the approvals its base branch
 # requires are the most any of its rulesets' pull request rules asks, else
 # its branch protection's; none required: null
@@ -176,7 +147,6 @@ program='
       | { repo: .repository.nameWithOwner, number, additions, deletions, url,
           ci: $c,
           threads: ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
-          verdicts: verdicts,
           review: (if .mergeable == "CONFLICTING" then "CONFLICT"
                    elif .isDraft then "DRAFT"
                    elif .reviewDecision == "CHANGES_REQUESTED" then "CHANGES_REQUESTED"
@@ -226,12 +196,11 @@ program='
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
 answer=$(github_search_prs "is:pr is:open author:@me $repos" "$selection") || { cat "$cache"; exit 1; }
-fresh=$(jq -r "$github_ci_jq$verdicts_jq$approvals_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
+fresh=$(jq -r "$github_ci_jq$approvals_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
-notify() { github_notify merge-queue "$@"; } # <urgency> <title> <body> <url>
-notify_fix() { github_notify_fix merge-queue "$@"; } # <urgency> <title> <body> <url> <owner/repo> <number>
+notify() { github_notify merge-queue "$@"; } # <urgency> <title> <body> <url> [<owner/repo> <number>]
 
 once() { # <key>: true the first time a key is seen (and remembers it)
   grep -qxF "$1" "$seen" && return 1
@@ -256,7 +225,7 @@ pull_request() {
     if [ -n "$why" ]; then
       keys+=("$repo#$number:blocked:$state")
       once "$repo#$number:blocked:$state" &&
-        notify_fix normal "$why" "$title"$'\n'"$repo#$number" "$url$([ "$state" = CHECKS_FAILING ] && echo /checks)" "$repo" "$number"
+        notify normal "$why" "$title"$'\n'"$repo#$number" "$url$([ "$state" = CHECKS_FAILING ] && echo /checks)" "$repo" "$number"
     fi
     return
   fi
@@ -331,23 +300,16 @@ printf '%s' "$current" >"$queued"
 # Deploys: my pull requests merged lately, until production runs them (see
 # merged_search)
 
-# The first time: remember what's deployed already, silently
-deploy_once() { # <key>: once, but quiet until deploys were tracked once
-  grep -qxF "$1" "$seen" && return 1
-  echo "$1" >>"$seen"
-  [ -f "$state_dir/.deploys_initialized" ]
-}
-
 # Records of the deploying and deployed ones (see fields)
 deploying='' deployed=''
 deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-' \
     "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
 }
 # A deployed one, while it reached production less than $recent_window seconds ago
 deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
   [ $((now - $3)) -lt "$recent_window" ] || return 0
-  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-' \
     "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
 }
 now=$(date +%s)
@@ -407,14 +369,14 @@ track_deploys() { # <repo>
         keys+=("$repo#$number:deployed")
         # Seen in production just now: in the latest release (one per poll or
         # so, while it waits). Not those already there the first time
-        if deploy_once "$repo#$number:deployed"; then
+        if once "$repo#$number:deployed"; then
           notify normal "Deployed to production" "$title"$'\n'"$repo#$number" "$url"
           printf '%s\t%s\n' "$repo#$number" "$published" >>"$deployed_at"
           deployed_row "$repo" "$number" "$published" "$additions" "$deletions" "$url" "$title"
         fi ;;
       deploying)
         keys+=("$repo#$number:deploying@$run_id")
-        deploy_once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
+        once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
         deploying_row DEPLOYING deploying "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
       *) deploying_row MERGED merged "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
     esac
@@ -444,7 +406,6 @@ if wait "$merged_pid"; then
   while read -r repo; do
     [ -n "$repo" ] && track_deploys "$repo" < <(awk -F'\t' -v repo="$repo" '$1 == repo' <<<"$pending" | cut -f2-)
   done < <(cut -f1 <<<"$pending" | sort -u)
-  touch "$state_dir/.deploys_initialized"
   [ -n "$deploying" ] && fresh+=$'\n'${deploying%$'\n'}
   [ -n "$deployed" ] && fresh+=$'\n'${deployed%$'\n'}
   # No longer listed: forgotten

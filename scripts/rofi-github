@@ -1,54 +1,19 @@
 #!/usr/bin/env bash
-# Rofi hub for my Claude agents and GitHub pull requests: first the agents
-# working on none listed below (see find_loose_agents), then my pull
-# requests (see merge-queue: drafts, blocked, ready), work lying on this
-# machine that none of them holds (see local-work: branches with commits to
-# push, worktrees with changes, kept agent worktrees), those waiting on my
-# review (see review-queue), then mine with auto-merge on,
-# mine in the merge queue, mine merged but not in production yet, and mine
-# in production lately (see merge-queue's recent_window).
-# Usage: rofi-github [filter]  (prefilled search; each row also matches an
-# invisible tag: :open, :queued, :deploying, :deployed or :review; :local,
-# local work's rows and those of mine holding some (:unpushed, those with
-# commits to push); and :agent,
-# agents' rows and those an agent works on)
-# Columns: CI (the last commit's checks, bots' reviews aside; for queued ones,
-# their merge group's: red when its tests fail),
-# then review
-# (conflict, draft, changes requested, a bot reviewing it (hubot; red: its
-# review failed), approved,
-# or waiting for one (then, dimmer, how many approvals it has out of how many
-# its base requires: 1/2); in the merge queue
-# instead, for queued ones; merged, or being deployed, for deploying ones),
-# then time: since the last update, waiting on my review for how long, for
-# queued ones the position and when it should merge (#37 (1h14)), for
-# deploying ones since the merge, for deployed ones since they reached
-# production. A merge glyph before the number: auto-merge is on (it
-# joins the queue once ready). A speech bubble before the title: unresolved
-# review threads, how many. Then local work (see local-work): a cloud, in
-# yellow, commits to push, how many; a file being edited, uncommitted changes
-# in a worktree, how many files (yellow when no agent works there anymore). A blue hourglass for review, the row in
-# italics: GitHub hasn't told yet whether it's mergeable (it works it out
-# lazily, after its base moves): ready, likely, at a later refresh. Before
-# the title, an agent's face (as in the panel): one works on it (see
-# Ctrl+s), in its state. An agent's row: its face there too, how long its
-# turn has run (running ones), its project, its session's title.
-# New agents are spawned from rofi-search ('cl' keyword, see
-# claude-agent-spawn), or on a pull request (Ctrl+s).
-# Enter: open in the browser (an agent's row: back to it; local work: neovim
-# in its worktree, else GitHub's page to open a pull request for it, once
-# pushed). Ctrl+o: push the row's branch (mine, or local work), asking
-# first. Ctrl+r: refresh
-# from GitHub. Ctrl+q: open the merge queue page of the selected pull
-# request's repository (mine only). Ctrl+s: back to the agent (its row), or
-# the one working on it (the one wanting me the most), else spawn one (see
-# claude-agent-pr): fixing its conflicts, unresolved review threads
-# and failing CI (mine), or reviewing it (others'). Ctrl+m: the merge queue
-# (mine): add a ready one to it (asking first when something looks off, see
-# queue_concerns), remove a queued one, then refresh; for the others, open
-# their page at the merge box, to use "Merge when ready" there. (GitHub's API
-# can't: it only queues ready ones, and a repository forbidding auto-merge,
-# as the button sets it when checks still run, refuses it to the API.)
+# Rofi hub for my Claude agents and GitHub pull requests, in this order:
+# agents on none of the rows below (find_loose_agents), my open pull requests
+# (merge-queue), local work none of them holds (local-work), those waiting on
+# my review (review-queue), then mine with auto-merge on, queued, deploying,
+# deployed. Columns: see row (and faces for the glyphs).
+# Usage: rofi-github [filter]  (prefilled search; rows also match invisible
+# tags: :open, :queued, :deploying, :deployed, :review, :local, :unpushed,
+# :agent)
+# Enter: open (browser; an agent's row: jump to it; local work: neovim in its
+# worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
+# page. Ctrl+s: the agent on it, else spawn one (claude-agent-pr). Ctrl+m:
+# enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
+# it; for the others, their page at the merge box: GitHub's API only queues
+# ready ones, and a repository forbidding auto-merge refuses "Merge when
+# ready" to it. Ctrl+o: push the row's branch, asking first.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -140,8 +105,6 @@ work_text() {
 #   work           local work (see local-work): <commits to push> <changed
 #                  files> <yes when an agent works in its worktree, else ->
 #   italic         italic: the whole row in italics
-#   verdicts       as merge-queue prints them, under the title (see
-#                  verdict_lines)
 #   agent          the state of the agent working on it (see find_agents)
 # Pad before adding markup, which would otherwise count towards the widths
 row() {
@@ -149,7 +112,7 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | approvals | work | italic | verdicts | agent | project)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | approvals | work | italic | agent | project)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
@@ -237,23 +200,7 @@ row() {
   before=$(printf '%s%s%s%-*s %s %s  %s%s%s' "$ci" "$review" "$approvals" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
-  printf '%s%s' "$line" "$(verdict_lines "$(shown_width "$before")" "${c[verdicts]}")"
-}
-
-# The lines under a title (from a column <indent> cells in) telling the
-# verdicts reviewers left a message with: the face of their verdict, then
-# who, and the message's first line, in italics, dim, cut to fit max_width
-# Usage: verdict_lines <indent> <verdicts, as merge-queue prints them>
-verdict_lines() {
-  local indent=$1 login state message room out=''
-  [ -n "$2" ] && [ "$2" != - ] || return 0
-  while IFS=$'\x1f' read -r -d $'\x1d' login state message; do
-    room=$((max_width - indent - ${#login} - 4)) # glyph, space, colon, space
-    [ ${#message} -gt "$room" ] && message="${message:0:room-1}…"
-    out+=$'\n'"$(printf '%*s' "$indent" '')<span ${styles[$state]}>${faces[$state]}</span> "
-    out+="<span $dim><i>$(escape "$login"): $(escape "$message")</i></span>"
-  done <<<"$2"$'\x1d'
-  printf '%s' "$out"
+  printf '%s' "$line"
 }
 
 # Adds a pull request to the merge queue (GitHub's "Merge when ready": it
@@ -549,17 +496,13 @@ mine() {
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
   # fix (Ctrl+s)
   case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 ;; esac
-  # Reviewers' messages: on those about to join the queue (Ctrl+m), to check
-  # before. Not once they're in it, or merged
-  local shown_verdicts=''
-  case $in in open | auto) shown_verdicts=$verdicts ;; esac
   # GitHub hasn't worked out whether it's mergeable yet (the approved face
   # would read ready): the review face says so, the row too. In the face
   # only, as the merge and the agent want the review itself
   face=$review
   [ "$state" = UNKNOWN ] && face=UNKNOWN italic=italic
   line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
-    title="$title" auto="$auto" diff="$diff" threads="$threads" approvals="$approvals" italic="$italic" verdicts="$shown_verdicts" \
+    title="$title" auto="$auto" diff="$diff" threads="$threads" approvals="$approvals" italic="$italic" \
     work="${work_of[$repo#$branch]:-${pr_work[$repo#$number]}}" agent="${agents[$repo#$number]}")
   # Queued and merged ones stay in the background: they move on their own;
   # those with auto-merge on, a bit less (they will join the queue by
@@ -663,22 +606,20 @@ while :; do
   find_local_work "$work" "$mine" "$reviews"
   find_loose_agents "$mine" "$reviews" "$local_work"
   measure_authors <<<"$reviews"
-  threads='' branch='' approvals='' measure_columns "$mine" "$reviews" "$loose_agents" "$local_work" # threads blank, as below
+  measure_columns "$mine" "$reviews" "$loose_agents" "$local_work"
 
   # First, the agents: one waiting on me is the most urgent
   each_record agent <<<"$loose_agents"
-  # ci, review, threads and verdicts blank: a cache from before these fields
-  # keeps them so
-  ci='' review='' threads='' verdicts='' branch='' approvals='' group=open each_record mine <<<"$mine"
+  group=open each_record mine <<<"$mine"
   # Then what lies here, unpublished, or left behind
   each_record local_row <<<"$local_work"
-  ci='' threads='' each_record review <<<"$reviews"
+  each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, in it,
   # merged, then in production
-  ci='' review='' threads='' verdicts='' branch='' approvals='' group=auto each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' approvals='' queue_ci='' group=queued each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' approvals='' group=deploying each_record mine <<<"$mine"
-  ci='' review='' threads='' verdicts='' branch='' approvals='' group=deployed each_record mine <<<"$mine"
+  group=auto each_record mine <<<"$mine"
+  group=queued each_record mine <<<"$mine"
+  group=deploying each_record mine <<<"$mine"
+  group=deployed each_record mine <<<"$mine"
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"
@@ -702,18 +643,9 @@ while :; do
   [ "$widest" -gt "$max_width" ] && widest=$max_width
   window="window { width: calc(${widest}ch + 2em min 100%); }"
 
-  # Rows are as tall as the tallest (verdicts under a title make them so):
-  # rofi can't size them each
-  height=1
-  for line in "${lines[@]}"; do
-    rows=${line//[!$'\n']/}
-    [ $((${#rows} + 1)) -gt "$height" ] && height=$((${#rows} + 1))
-  done
-
-  # Tags go in each row's invisible search terms (meta). Rows end with a
-  # record separator: they may hold several lines
-  selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\x1e' "${lines[$i]}" "${tags[$i]}"; done |
-    rofi -dmenu -i -markup-rows -sep $'\x1e' -eh "$height" -p "$prompt" -format 'i f' -filter "$filter" \
+  # Tags go in each row's invisible search terms (meta)
+  selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
+    rofi -dmenu -i -markup-rows -p "$prompt" -format 'i f' -filter "$filter" \
       -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' -kb-custom-5 'Control+o' \
       -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?

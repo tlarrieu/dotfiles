@@ -60,12 +60,21 @@ github_lock() {
   flock -w 90 9 || { cat "$2"; exit 1; }
 }
 
-# A notification which, clicked, opens <url>. Waiting for that click happens
-# detached, so that we don't hold our caller's output open (nor our lock)
-# Usage: github_notify <app name> <urgency> <title> <body> <url>
+# A notification which, clicked, opens <url>. Given one of my pull requests
+# needing a fix, a second action: Fix with Claude (see claude-agent-pr: back
+# to the agent already on it, else one fixing it). Waiting for that click
+# happens detached, so that we don't hold our caller's output open (nor our
+# lock)
+# Usage: github_notify <app name> <urgency> <title> <body> <url> [<owner/repo> <number>]
 github_notify() {
-  # shellcheck disable=SC2016 # $1..$5 belong to the inner sh
-  setsid -f sh -c '[ "$(notify-send --app-name="$1" --urgency="$2" --action=default=Open --wait "$3" "$4")" = default ] && exec browser-kiosk "$5"' sh "$@" >/dev/null 2>&1 9>&-
+  local fix=()
+  [ -n "$7" ] && fix=(--action=fix="Fix with Claude")
+  # shellcheck disable=SC2016 # $1..$8 belong to the inner sh
+  setsid -f sh -c 'app=$1 urgency=$2 title=$3 body=$4 url=$5 repo=$6 number=$7 assets=$8; shift 8
+    case "$(notify-send --app-name="$app" --urgency="$urgency" --action=default=Open "$@" --wait "$title" "$body")" in
+      default) exec browser-kiosk "$url" ;;
+      fix) exec "$assets/claude-agent-pr" fix "$repo" "$number" ;;
+    esac' sh "$1" "$2" "$3" "$4" "$5" "${6:--}" "${7:--}" "$(dirname "${BASH_SOURCE[0]}")/.." "${fix[@]}" >/dev/null 2>&1 9>&-
 }
 
 # A pull request's CI, from its last commit's checks: FAILURE when one fails,
@@ -143,18 +152,6 @@ github_ci_jq='
        + ([$statuses[] | select(.state | IN("PENDING", "EXPECTED"))] | length)) as $pending
     | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
 '
-
-# The same, about one of my pull requests needing a fix, with a second action:
-# Fix with Claude (see claude-agent-pr: back to the agent already on it, else
-# one fixing it)
-# Usage: github_notify_fix <app name> <urgency> <title> <body> <url> <owner/repo> <number>
-github_notify_fix() {
-  # shellcheck disable=SC2016 # $1..$8 belong to the inner sh
-  setsid -f sh -c 'case "$(notify-send --app-name="$1" --urgency="$2" --action=default=Open --action=fix="Fix with Claude" --wait "$3" "$4")" in
-      default) exec browser-kiosk "$5" ;;
-      fix) exec "$8/claude-agent-pr" fix "$6" "$7" ;;
-    esac' sh "$@" "$(dirname "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1 9>&-
-}
 
 # Searches pull requests (<query>: as in GitHub's search box), fetching
 # <selection> (a PullRequest's fields) for them, github_search_batch at a
