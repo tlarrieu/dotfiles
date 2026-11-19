@@ -53,7 +53,7 @@
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "dc7698f932792a764d3db95fedee26c38e728355",
+      "rev": "c0862d382a35b7b45757d8d151a6a634c09bf3ce",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
@@ -82,7 +82,7 @@
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "97ccf96bb2e7adb5f82975068bd4c7307d2afa8a",
+      "rev": "761d376b5fbe6b21f659432ffadc1205c660176c",
       "src": "https://github.com/williamboman/mason-lspconfig.nvim"
     },
     "mason.nvim": {
@@ -90,7 +90,7 @@
       "src": "https://github.com/williamboman/mason.nvim"
     },
     "mini.align": {
-      "rev": "757136ffeb168450f0a854aef987b621f37500f5",
+      "rev": "7b52efc663139c498e5aa7de1dd54cdafa6a5ee0",
       "src": "https://github.com/echasnovski/mini.align"
     },
     "nvim-cmp": {
@@ -102,7 +102,7 @@
       "src": "https://github.com/brenoprata10/nvim-highlight-colors"
     },
     "nvim-treesitter": {
-      "rev": "b706d642dd20d0922e7e92365dc73617f0fdb4ea",
+      "rev": "37e52c733ada9d8d544d53a763140ef1ba404353",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter",
       "version": "'main'"
     },
