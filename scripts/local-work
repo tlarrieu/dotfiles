@@ -27,7 +27,7 @@
 #             pushed) or gone (its remote branch was deleted)
 #   ahead     commits to push: ahead of its upstream (yes), on no remote
 #             branch (none), 0 (gone); for a detached worktree, its commits on
-#             no branch at all
+#             no branch at all (an agent's: past the commit it started at)
 #   changes   uncommitted changes in its worktree (files), 0 when none
 #   agent     the session of the live Claude agent working in its worktree,
 #             or -
@@ -56,11 +56,16 @@ declare -A agent_in=()
 note_agent() { agent_in[$project]=$session; }
 each_record note_agent < <("$assets/claude-agent-list")
 
-# Kept agent worktrees (claude-agent-sweep marks their slot)
-declare -A kept=()
-for marker in "$slots"/*/[0-9]*.kept; do
-  [ -f "$marker" ] || continue
-  read -r worktree _ <"${marker%.kept}" && kept[$worktree]=yes
+# Agent worktrees' base commits (what claude-agent-worktree started them at:
+# a pull request's latest commit, fetched into no ref, for a review), from
+# their slot; and the kept ones (claude-agent-sweep marks their slot)
+declare -A base_of=() kept=()
+for slot in "$slots"/*/[0-9]*; do
+  [ -f "$slot" ] || continue
+  case $slot in
+    *.kept) read -r worktree _ <"${slot%.kept}" && kept[$worktree]=yes ;;
+    *) read -r worktree base _ <"$slot" && base_of[$worktree]=$base ;;
+  esac
 done
 
 rows=()
@@ -133,8 +138,10 @@ while read -r repo; do
   done < <(git -C "$clone" for-each-ref refs/heads \
     --format='%(refname:short)%1f%(upstream)%1f%(upstream:track)%1f%(committerdate:unix)')
 
+  # (not counting an agent's base commit: not the agent's, and on a remote
+  # branch, likely, just not one we track)
   for where in "${detached[@]}"; do
-    stray=$(git -C "$where" rev-list --count HEAD --not --branches --remotes)
+    stray=$(git -C "$where" rev-list --count HEAD --not --branches --remotes ${base_of[$where]:+"${base_of[$where]}"})
     count=$(changes "$where")
     [ "$stray" -gt 0 ] || [ "$count" -gt 0 ] || [ -n "${kept[$where]}" ] || continue
     add "$repo" "$clone" - "$where" none "$stray" "$count" "$(git -C "$where" log -1 --format=%ct)"
