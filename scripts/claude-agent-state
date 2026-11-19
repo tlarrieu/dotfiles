@@ -76,11 +76,17 @@ fi
 
 # Find the claude process owning this hook (used to prune crashed sessions)
 pid=$PPID
-while [ "$pid" -gt 1 ] && [ "$(cat /proc/"$pid"/comm 2>/dev/null)" != claude ]; do
+while [ "$pid" -gt 1 ] && ! alive "$pid"; do
   pid=$(awk '{ print $4 }' /proc/"$pid"/stat 2>/dev/null || echo 1)
 done
 
-window=${WINDOWID:--} listen_on=${KITTY_LISTEN_ON:--} kitty_window=${KITTY_WINDOW_ID:--}
+# A background session has no terminal: what it inherited is the one it left
+# (or the one that started it), not its
+if background "$pid"; then
+  window=- listen_on=- kitty_window=-
+else
+  window=${WINDOWID:--} listen_on=${KITTY_LISTEN_ON:--} kitty_window=${KITTY_WINDOW_ID:--}
+fi
 
 displayed=false
 case "$state" in

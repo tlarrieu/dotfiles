@@ -13,6 +13,8 @@ wait=0
 deadline=$(($(date +%s) + wait))
 slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
 assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
+. "$assets/lib/claude-agents.sh" # alive
 
 # This sweep and what runs it (a shell within a worktree, say): not ours to stop
 ours=" $$ " pid=$PPID
@@ -31,11 +33,12 @@ processes() {
   done
 }
 
-# Whether a claude runs within the worktree $1, working or waiting
+# Whether a claude runs within the worktree $1, working or waiting (in a
+# terminal or in the background, see alive)
 busy() {
-  local pid comm
+  local pid
   for pid in $(processes "$1"); do
-    read -r comm 2>/dev/null </proc/"$pid"/comm && [ "$comm" = claude ] && return 0
+    alive "$pid" && return 0
   done
   return 1
 }

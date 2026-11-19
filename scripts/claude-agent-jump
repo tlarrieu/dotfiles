@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Focuses the terminal of a Claude agent: its awesome client, then its kitty tab.
+# Focuses the terminal of a Claude agent: its awesome client, then its kitty tab
+# (a background session: the terminal attached to it, else a new one).
 # Usage: claude-agent-jump [session_id]
 # Without a session, picks the agent that wants us the most: the first one
 # needing attention (in claude-agent-list's order), else the first done one,
@@ -46,16 +47,43 @@ if [ -z "$target" ]; then fail "No agent to jump to (spawn one with 'cl' in rofi
 [ -f "$agents_dir/$target" ] || fail "This agent is gone"
 read_agent "$agents_dir/$target"
 
-case "$window" in "" | *[!0-9]*) fail "Can't find this agent's terminal" ;; esac
-awesome-client "
-  for _, c in ipairs(client.get()) do
-    if c.window == $window then
-      if #c:tags() == 0 then require('helpers').create_tag_and_attach_to(c, false) end
-      c:jump_to()
-      return
+# Focuses X window <window> (giving it a tag, if it has none); fails when it
+# is gone
+focus() {
+  awesome-client "
+    for _, c in ipairs(client.get()) do
+      if c.window == $1 then
+        if #c:tags() == 0 then require('helpers').create_tag_and_attach_to(c, false) end
+        c:jump_to()
+        return true
+      end
     end
-  end
-" >/dev/null
+    return false
+  " 2>/dev/null | grep -q true
+}
+
+# A background session (see background in lib/claude-agents.sh): the terminal
+# already attached to it, else a new one, in the agents' kitty (see
+# claude-agent-spawn)
+if [ "$window" = - ] && background "$pid"; then
+  id=${target:0:8} # claude's short ids
+  for client in $(pgrep -x claude); do
+    args=" $(tr '\0' ' ' <"/proc/$client/cmdline" 2>/dev/null)"
+    [[ $args == *" attach $id "* || $args == *" attach $target "* ]] || continue
+    attached=$(tr '\0' '\n' <"/proc/$client/environ" 2>/dev/null | sed -n 's/^WINDOWID=//p')
+    case "$attached" in "" | *[!0-9]*) continue ;; esac
+    focus "$attached" && exit 0
+  done
+  directory=$HOME
+  # shellcheck disable=SC2154 # set by read_agent
+  [ -d "$root" ] && directory=$root # (its worktree may be gone)
+  setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
+    --directory "$directory" fish -c "claude attach $id" >/dev/null 2>&1 || fail "Could not open a terminal on this agent"
+  exit 0
+fi
+
+case "$window" in "" | *[!0-9]*) fail "Can't find this agent's terminal" ;; esac
+focus "$window" || fail "This agent's terminal is gone"
 
 # Kitty comes second: background agents must have a tag by the time it asks
 # awesome to activate their window (see signals.lua)

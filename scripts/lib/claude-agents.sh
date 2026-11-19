@@ -164,10 +164,32 @@ agent_unnotify() {
     --method org.freedesktop.Notifications.CloseNotification "$id" >/dev/null 2>&1 &
 }
 
-# Whether <pid> is a live claude process (not a dead one's reused pid)
+# Whether <pid> is a live claude process running a session (not a dead one's
+# reused pid): one in a terminal, or a background one (in claude's daemon,
+# whose workers go by claude's version, e.g. 2.1.327). Not the daemon itself,
+# nor its pty hosts: they outlive their sessions
 alive() {
   case "$1" in "" | *[!0-9]*) return 1 ;; esac
-  [ "$(cat "/proc/$1/comm" 2>/dev/null)" = claude ]
+  local comm argv=()
+  read -r comm 2>/dev/null <"/proc/$1/comm" || return 1
+  [[ $comm == claude || $comm =~ ^[0-9]+(\.[0-9]+)+$ ]] || return 1
+  mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$1/cmdline"
+  case "${argv[1]}" in daemon | --bg-pty-host) return 1 ;; esac
+}
+
+# Whether claude process <pid> runs a background session: under claude's
+# daemon (moved there with ←, or started with --bg). It has no terminal of
+# its own: `claude attach` shows it (see claude-agent-jump)
+# Usage: background <pid>
+background() {
+  local pid=$1 argv
+  while [ "$pid" -gt 1 ] 2>/dev/null; do
+    argv=()
+    mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$pid/cmdline"
+    [ "${argv[1]}" = daemon ] && return 0
+    pid=$(awk '{ print $4 }' "/proc/$pid/stat" 2>/dev/null) || return 1
+  done
+  return 1
 }
 
 # Whether claude process <pid>'s turn left something running: a tool's shell
