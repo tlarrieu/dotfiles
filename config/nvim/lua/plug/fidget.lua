@@ -8,16 +8,15 @@ local format_group_name = function(name)
 end
 
 -- [[ System notifications ]] --------------------------------------------------
--- Under X, fidget's window stays closed and everything it receives (messages
--- and LSP progress) goes to the system notifications instead. Fidget still
--- records it all, so its history keeps working. A headless nvim does not redirect
--- either.
+-- Under X, fidget's window stays closed and everything it receives goes to the
+-- system notifications instead. Fidget still records it all, so its history keeps
+-- working. A headless nvim does not redirect either.
 
 local headless = vim.list_contains(vim.v.argv, '--headless')
 local in_x = not headless and vim.env.DISPLAY ~= nil and vim.fn.executable('notify-send') == 1
 
--- LSP progress updates replace their notification instead of stacking new
--- ones. As notify-send prints the id to replace asynchronously, updates arriving
+-- Progress updates (e.g. rspec runs) replace their notification instead of
+-- stacking new ones. As notify-send prints the id to replace asynchronously, updates arriving
 -- in the meantime are coalesced into the latest one.
 local slots = {} -- progress key => { id, busy, pending }
 
@@ -118,7 +117,7 @@ end
 
 require('fidget').setup({
   progress = {
-    poll_rate = 0,
+    poll_rate = false,
     suppress_on_insert = false,
     ignore_done_already = false,
     ignore_empty_message = false,
