@@ -76,8 +76,8 @@ measure_authors() {
   title_width=$((title_and_author - 2 - longest))
   [ "$title_width" -ge "$min_title_width" ] || title_width=$min_title_width
 }
-thread_glyph='󰵅' # unresolved review threads
-unpushed_glyph='󰅧' changes_glyph='󱇧' # local work: commits to push, uncommitted changes
+thread_glyph='󰨺' # unresolved review threads
+unpushed_glyph='' changes_glyph='' # local work: commits to push, uncommitted changes
 
 
 # Local work, unstyled: <glyph> <commits to push>, <glyph> <changed files>,
