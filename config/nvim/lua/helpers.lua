@@ -1,9 +1,6 @@
 local M = {}
 
-M.yank = function(path)
-  vim.fn.setreg('+', path)
-  vim.notify('Yanked ' .. path, vim.log.levels.INFO)
-end
+M.yank = function(path) vim.fn.setreg('+', path) end
 
 M.basename = function()
   local filename = vim.api.nvim_buf_get_name(0):match('^.+/(.+)$')
