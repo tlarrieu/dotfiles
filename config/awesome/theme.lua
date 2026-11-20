@@ -34,7 +34,7 @@ return {
 
     theme.notification_bg = colors.fg.base
     theme.notification_fg = colors.bg.base
-    theme.notification_margin = 12
+    theme.notification_margin = 16
     theme.notification_border_color = colors.fg.base
     theme.notification_border_width = 0
     theme.notification_icon_size = 32
