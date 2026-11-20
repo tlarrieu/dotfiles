@@ -21,11 +21,7 @@ conform.setup({
     lsp_format = 'prefer',
     async = true,
   },
-  -- RuboCop can take over a second on large files (more than the timeout of a synchronous format):
-  -- ruby is formatted in the background once saved, then written again.
-  format_after_save = function(bufnr)
-    if vim.bo[bufnr].filetype == 'ruby' then return { undojoin = true } end
-  end,
+  format_after_save = { undojoin = true },
   formatters = {
     sql = {
       command = 'pg_format',
@@ -45,13 +41,3 @@ conform.setup({
 })
 
 vim.keymap.set({ 'n', 'x' }, '<leader>f', function() conform.format({ async = true }) end, { desc = 'Format (conform)' })
-
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'lua', 'edifact', 'json', 'javascript', 'typescript', 'sql', 'css', 'go' },
-  callback = function(ev)
-    vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = ev.buf,
-      callback = function() conform.format({ undojoin = true }) end,
-    })
-  end,
-})
