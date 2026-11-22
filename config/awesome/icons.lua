@@ -276,6 +276,7 @@ local config = {
       { class = 'monitor' },
     }
   },
+  { icon = '', rule = { class = 'Gcr%-prompter' } },
   { icon = '󱞊', rule = { class = 'Thunar' } },
   { icon = '', rule = { class = 'vifm' } },
   { icon = '󰋊', rule = { class = 'GParted' } },
