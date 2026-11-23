@@ -197,34 +197,57 @@ vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
 vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
 -- Diff against the local branch this one was forked from, guessed as the one whose merge base is the fewest commits
--- behind HEAD. Prints the remote default branch, the current branch, then "<commits HEAD is ahead> <branch>" for every
--- local branch.
+-- behind HEAD (then the one with the fewest commits of its own, then the default branch). Prints the remote default
+-- branch, the current branch, the git common dir, then "<commits ahead of HEAD> <commits HEAD is ahead> <branch>" for
+-- every local branch.
 local base_candidates = [[
   git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo
   git branch --show-current
-  git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads | cut -d' ' -f2-
+  git rev-parse --path-format=absolute --git-common-dir
+  git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads
 ]]
+
+-- A branch's oldest reflog entry: its time, and whether it is the branch's creation (older ones may have expired)
+local first_reflog_entry = function(git_dir, branch)
+  local file = io.open(git_dir .. '/logs/refs/heads/' .. branch)
+  if not file then return end
+  local line = file:read('l') or ''
+  file:close()
+  return tonumber(line:match('^[^>]*> (%d+) ')), line:find('\tbranch: Created from', 1, true) ~= nil
+end
 
 vim.keymap.set('n', '<leader>db', function()
   vim.system({ 'sh', '-c', base_candidates }, { text = true }, function(res)
     local lines = vim.split(res.stdout or '', '\n', { trimempty = false })
     local remote_default = lines[1] ~= '' and lines[1] or nil
     local default = remote_default and remote_default:gsub('^origin/', '')
-    if lines[2] == default then
+    local current, git_dir = lines[2], lines[3]
+    if current == default then
       return vim.schedule(function()
         vim.notify(default .. ' is the default branch, nothing to show', vim.log.levels.WARN, { title = 'CodeDiff' })
       end)
     end
-    local base, best
-    for i = 3, #lines do
-      local count, ref = lines[i]:match('^(%d+) (.+)$')
-      count = tonumber(count)
-      -- count == 0 means the branch contains HEAD (the current branch, or one stacked on top of it)
-      if count and count > 0 and (not best or count < best or (count == best and ref == default)) then
-        base, best = ref, count
+    -- A branch created after this one can't be its base: it was forked from it, and has diverged since
+    local since = first_reflog_entry(git_dir, current)
+    local younger = function(branch)
+      local time, creation = first_reflog_entry(git_dir, branch)
+      return since and time and creation and time > since
+    end
+    local closer = function(a, b)
+      if a.distance ~= b.distance then return a.distance < b.distance end
+      if a.own ~= b.own then return a.own < b.own end
+      return a.ref == default
+    end
+    local base
+    for i = 4, #lines do
+      local own, distance, ref = lines[i]:match('^(%d+) (%d+) (.+)$')
+      local candidate = { own = tonumber(own), distance = tonumber(distance), ref = ref }
+      -- A distance of 0 means the branch contains HEAD (the current branch, or one stacked on top of it)
+      if ref and candidate.distance > 0 and not younger(ref) and (not base or closer(candidate, base)) then
+        base = candidate
       end
     end
-    base = base or remote_default
+    base = base and base.ref or remote_default
     vim.schedule(function()
       if not base then
         return vim.notify('Could not determine base branch', vim.log.levels.WARN, { title = 'CodeDiff' })
