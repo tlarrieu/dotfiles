@@ -5,10 +5,12 @@
 # Branches (but the default one) holding commits not pushed, worktrees holding
 # uncommitted changes, detached worktrees holding commits on no branch, and
 # the worktrees of stopped agents the sweep kept (see claude-agent-sweep).
-# Branches pushed as they are, and clean, are left out (their pull request,
-# if any, tells the rest); so are those whose upstream is gone (merged,
-# likely: squashed, their commits are on no remote branch, so there's no
-# telling what's left to push), unless checked out with changes, or kept.
+# Branches pushed as they are, and clean, are in too, for rofi-github to show
+# those no pull request of mine holds (its rows tell the rest), but for those
+# merged into the default branch already. Those whose upstream is gone are
+# left out (merged, likely: squashed, their commits are on no remote branch,
+# so there's no telling what's left to push), unless checked out with
+# changes, or kept.
 # Local only (as of the last fetch), but not free: a git status takes a
 # quarter of a second in a large worktree (finding untracked files), so they
 # run side by side, and the result is cached for rofi-github to open at
@@ -116,6 +118,12 @@ while read -r repo; do
   done
   count_changes "${wanted[@]}"
 
+  # Pushed as it is, and not merged into the default branch (as of the last
+  # fetch): a pull request to open, or one rofi-github shows already
+  pushed_unmerged() {
+    [ "$state" = yes ] && ! git -C "$clone" merge-base --is-ancestor "refs/heads/$branch" "refs/remotes/origin/$default"
+  }
+
   # (unit separators between fields: tabs are whitespace to read, which would
   # merge an empty upstream away)
   while IFS=$'\x1f' read -r branch upstream track time; do
@@ -133,7 +141,7 @@ while read -r repo; do
     fi
     count=0
     [ "$where" != - ] && count=$(changes "$where")
-    [ "$ahead" -gt 0 ] || [ "$count" -gt 0 ] || [ -n "${kept[$where]}" ] || continue
+    [ "$ahead" -gt 0 ] || [ "$count" -gt 0 ] || [ -n "${kept[$where]}" ] || pushed_unmerged || continue
     add "$repo" "$clone" "$branch" "$where" "$state" "$ahead" "$count" "$time"
   done < <(git -C "$clone" for-each-ref refs/heads \
     --format='%(refname:short)%1f%(upstream)%1f%(upstream:track)%1f%(committerdate:unix)')
