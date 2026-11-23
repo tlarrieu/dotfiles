@@ -196,6 +196,39 @@ vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
   { silent = true, desc = 'code(diff) review (origin/master...)' })
 vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
+-- Diff against the local branch this one was forked from, guessed as the one whose merge base is the fewest commits
+-- behind HEAD. Prints the remote default branch first, then "<commits HEAD is ahead> <branch>" for every local branch.
+local base_candidates = [[
+  git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo
+  git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads | cut -d' ' -f2-
+]]
+
+vim.keymap.set('n', '<leader>db', function()
+  vim.system({ 'sh', '-c', base_candidates }, { text = true }, function(res)
+    local lines = vim.split(res.stdout or '', '\n', { trimempty = false })
+    local remote_default = lines[1] ~= '' and lines[1] or nil
+    local default = remote_default and remote_default:gsub('^origin/', '')
+    local base, best
+    for i = 2, #lines do
+      local count, ref = lines[i]:match('^(%d+) (.+)$')
+      count = tonumber(count)
+      -- count == 0 means the branch contains HEAD (the current branch, or one stacked on top of it)
+      if count and count > 0 and (not best or count < best or (count == best and ref == default)) then
+        base, best = ref, count
+      end
+    end
+    base = base or remote_default
+    vim.schedule(function()
+      if not base then
+        vim.notify('Could not determine base branch', vim.log.levels.WARN)
+        return
+      end
+      vim.notify('Diffing against ' .. base)
+      vim.cmd('CodeDiff ' .. base .. '...')
+    end)
+  end)
+end, { desc = 'code(diff) review (base branch...)' })
+
 ------------------------------------------------------| Gitsigns |------------------------------------------------------
 
 local signs = {
