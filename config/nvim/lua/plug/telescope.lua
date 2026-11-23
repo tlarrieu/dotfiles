@@ -30,6 +30,13 @@ end
 local telescope = require('telescope')
 local actions = require('telescope.actions')
 
+-- Same as telescope's own, minus the "[telescope.<funname>]: " prefix on every message
+require('telescope.utils').notify = function(_, opts)
+  local level = vim.log.levels[opts.level]
+  if not level then error('Invalid error level', 2) end
+  (opts.once and vim.notify_once or vim.notify)(opts.msg, level, { title = 'telescope.nvim' })
+end
+
 telescope.setup({
   defaults = {
     border = true,
