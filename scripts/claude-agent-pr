@@ -11,7 +11,10 @@
 #            then merges the base branch in and pushes, then asks me
 #            (the only push it makes unasked)
 #   review   review it (someone else's), critically: design and naming first,
-#            bugs on the side; in the session, changing nothing. Asked to
+#            bugs on the side; in the session, changing nothing. It first
+#            goes over what I said on it already, telling whether each point
+#            was addressed, and never contradicts me: it flags that for me to
+#            settle instead (neither is ever posted). Asked to
 #            ("post", or "post 1 3"), it drafts its points as a pending
 #            review on GitHub, inline on their lines, for me to go over and
 #            submit (it never submits it)
@@ -202,8 +205,14 @@ abstractions, code that belongs elsewhere in the codebase, consistency with
 its existing patterns) and naming (misleading, vague or inconsistent names,
 ones off the codebase's or the domain's vocabulary). Judge against the
 surrounding code, not the diff alone.
+Stay consistent with what the user said on it already (see the task): never
+report as a point something going against an earlier comment of theirs (a
+change they asked for, an approach they agreed to or turned down in a reply).
+When you think one of theirs was wrong, or a point of yours would go against
+it, say so in its own section instead, for them to settle.
 When the user asks you to post your points (all of them, or the ones they
-name by number), draft them as a pending review on GitHub: only they see it,
+name by number), draft them as a pending review on GitHub: only the numbered
+points, never the earlier ones' status nor the conflicts. Only they see it,
 until they submit it, which is theirs to do: never submit it, never give it
 an event.
 1. One inline comment per point, on the lines it is about in the pull
@@ -233,7 +242,22 @@ RULES
 Review $url. Read its description and base branch with gh pr view, fetch that
 base, then review the changes against its merge base with HEAD (so that what
 landed on the base since stays out).
-Report design and naming issues, the most severe first, numbered (one
+Before reviewing, go over what the user (gh api user --jq .login) said on it
+already, leaving other people's comments out: their review threads (gh api
+graphql: the pull request's reviewThreads, with isResolved, isOutdated, path,
+line and every comment, replies from others included), their reviews' bodies
+(gh api repos/$repo/pulls/$number/reviews) and their comments on its
+conversation (gh api repos/$repo/issues/$number/comments). Comments of a
+pending review of theirs are drafts: keep consistent with them, but they
+have no status. For every other point they made, tell from the code at HEAD
+(not from its thread being resolved or outdated alone) whether it was
+addressed, partly addressed, not addressed, or no longer applies (the code it
+was about is gone), weighing any reply the author made.
+Start your report with those earlier points, oldest first, unnumbered (none:
+say so in one line): for each, its link, what it asked in a few words, its
+status and why. Don't raise
+again, as a new point, what an earlier one covers already.
+Then report design and naming issues, the most severe first, numbered (one
 numbering across both sections below). For each:
 - the file and line range,
 - the part of the diff it is about, as a diff code block: only the lines
@@ -243,6 +267,8 @@ numbering across both sections below). For each:
 - a concrete alternative (as code when it helps).
 Then, in a short separate section, bugs you noticed along the way (same
 format). Leave out style nitpicks a linter would catch.
+Then, if any, the conflicts with the user's earlier comments, unnumbered: what
+they said (with its link), what you think now, and why.
 End with one line: the user can have you draft them on GitHub, as a pending
 review only they see until they submit it, by saying "post" (all of them) or
 "post" and their numbers.
