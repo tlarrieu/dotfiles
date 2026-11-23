@@ -197,9 +197,11 @@ vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
 vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
 -- Diff against the local branch this one was forked from, guessed as the one whose merge base is the fewest commits
--- behind HEAD. Prints the remote default branch first, then "<commits HEAD is ahead> <branch>" for every local branch.
+-- behind HEAD. Prints the remote default branch, the current branch, then "<commits HEAD is ahead> <branch>" for every
+-- local branch.
 local base_candidates = [[
   git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo
+  git branch --show-current
   git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads | cut -d' ' -f2-
 ]]
 
@@ -208,8 +210,14 @@ vim.keymap.set('n', '<leader>db', function()
     local lines = vim.split(res.stdout or '', '\n', { trimempty = false })
     local remote_default = lines[1] ~= '' and lines[1] or nil
     local default = remote_default and remote_default:gsub('^origin/', '')
+    if lines[2] == default then
+      vim.schedule(function()
+        vim.notify(default .. ' is the default branch, nothing to show', vim.log.levels.WARN)
+      end)
+      return
+    end
     local base, best
-    for i = 2, #lines do
+    for i = 3, #lines do
       local count, ref = lines[i]:match('^(%d+) (.+)$')
       count = tonumber(count)
       -- count == 0 means the branch contains HEAD (the current branch, or one stacked on top of it)
