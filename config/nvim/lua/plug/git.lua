@@ -183,6 +183,25 @@ require('codediff').setup({
   }
 })
 
+-- No "First/Last hunk", "First/Last file" (or commit) warning when hitting either end. codediff echoes them, as
+-- WarningMsg, with no option to turn that off: swallow those echoes while navigating. Its keymaps bind these
+-- functions when a view opens, so they get ours.
+local navigation = require('codediff.ui.view.navigation')
+for _, name in ipairs({ 'next_hunk', 'prev_hunk', 'next_file', 'prev_file' }) do
+  local navigate = navigation[name]
+  navigation[name] = function(...)
+    local echo = vim.api.nvim_echo
+    vim.api.nvim_echo = function(chunks, ...)
+      if chunks[1] and chunks[1][2] == 'WarningMsg' then return end
+      return echo(chunks, ...)
+    end
+    local result = { pcall(navigate, ...) }
+    vim.api.nvim_echo = echo
+    if not result[1] then error(result[2], 0) end
+    return unpack(result, 2)
+  end
+end
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'CodeDiffOpen',
   callback = function()
