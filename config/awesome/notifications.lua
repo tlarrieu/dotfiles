@@ -91,11 +91,13 @@ local content = function(n)
 end
 
 return {
-  -- padding: distance to the screen's edges, by side ({ top, bottom, left, right }), overridden by position
-  -- (e.g. bottom_right = { bottom = 12 }); spacing: between notifications
+  -- padding: distance to the screen's edges, by side ({ top, bottom, left, right }): base for every position,
+  -- overridden by position (e.g. bottom_right = { bottom = 12 }); spacing: between notifications
   config = function(options)
     local spacing = options.spacing
-    local padding = function(position) return setmetatable(options.padding[position] or {}, { __index = options.padding }) end
+    local padding = function(position)
+      return setmetatable(options.padding[position] or {}, { __index = options.padding.base })
+    end
 
     -- Shown popups, per screen then position, from the edge inwards
     local stacks = setmetatable({}, { __mode = 'k' })

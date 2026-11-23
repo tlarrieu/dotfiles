@@ -56,7 +56,10 @@ return {
     naughty.config.defaults.position = 'top_right'
     naughty.config.defaults.timeout = 7
     require('notifications').config({
-      padding = { top = 12, bottom = 12, left = 12, right = 12, bottom_middle = { bottom = 96 } },
+      padding = {
+        base = { top = 12, bottom = 12, left = 12, right = 12 },
+        bottom_middle = { bottom = 96 },
+      },
       spacing = 10,
     })
     naughty.config.presets.critical.border_width = 0
