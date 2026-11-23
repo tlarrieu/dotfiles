@@ -1,35 +1,6 @@
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
--- Notifications keep naughty.config.padding off the screen's edges, the same both ways: shrink it horizontally for the
--- right aligned ones. Naughty's (legacy) layout has no setting for it, so we wrap the local function placing them,
--- reached through the upvalues of the notification handler.
-local pad_right_aligned = function(padding)
-  require('naughty.layout.legacy')
-  local seen = {}
-  local function find(fn)
-    if seen[fn] then return end
-    seen[fn] = true
-    for i = 1, math.huge do
-      local name, value = debug.getupvalue(fn, i)
-      if not name then return end
-      if name == 'get_offset' then return fn, i, value end
-      if type(value) == 'function' then
-        local owner, index, found = find(value)
-        if owner then return owner, index, found end
-      end
-    end
-  end
-
-  local owner, index, get_offset = find(naughty.default_notification_handler)
-  if not owner then return end
-  debug.setupvalue(owner, index, function(s, position, ...)
-    local offset = get_offset(s, position, ...)
-    if position:match('right') then offset.x = offset.x + naughty.config.padding - padding end
-    return offset
-  end)
-end
-
 return {
   config = function()
     local colors = loadfile(os.getenv('HOME') .. '/.config/awesome/colors/' .. require('mode').current() .. '.lua')()
@@ -84,9 +55,7 @@ return {
 
     naughty.config.defaults.position = 'bottom_right'
     naughty.config.defaults.timeout = 7
-    naughty.config.padding = 48
-    pad_right_aligned(12)
-    naughty.config.spacing = 10
+    require('notifications').config({ padding = { top = 48, bottom = 48, left = 48, right = 12 }, spacing = 10 })
     naughty.config.presets.critical.border_width = 0
     naughty.config.presets.critical.bg = colors.red.dim
     naughty.config.presets.critical.fg = colors.red.base
