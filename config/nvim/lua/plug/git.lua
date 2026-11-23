@@ -211,10 +211,9 @@ vim.keymap.set('n', '<leader>db', function()
     local remote_default = lines[1] ~= '' and lines[1] or nil
     local default = remote_default and remote_default:gsub('^origin/', '')
     if lines[2] == default then
-      vim.schedule(function()
-        vim.notify(default .. ' is the default branch, nothing to show', vim.log.levels.WARN)
+      return vim.schedule(function()
+        vim.notify(default .. ' is the default branch, nothing to show', vim.log.levels.WARN, { title = 'CodeDiff' })
       end)
-      return
     end
     local base, best
     for i = 3, #lines do
@@ -228,10 +227,9 @@ vim.keymap.set('n', '<leader>db', function()
     base = base or remote_default
     vim.schedule(function()
       if not base then
-        vim.notify('Could not determine base branch', vim.log.levels.WARN)
-        return
+        return vim.notify('Could not determine base branch', vim.log.levels.WARN, { title = 'CodeDiff' })
       end
-      vim.notify('Diffing against ' .. base)
+      vim.notify('Diffing against ' .. base, vim.log.levels.INFO, { title = 'CodeDiff' })
       vim.cmd('CodeDiff ' .. base .. '...')
     end)
   end)

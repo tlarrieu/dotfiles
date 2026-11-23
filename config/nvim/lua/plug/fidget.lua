@@ -86,6 +86,18 @@ local urgencies = {
   [vim.log.levels.WARN] = 'normal',
 }
 
+-- Plugins whose notifications get titled after them, keyed by a pattern on their source path
+local plugin_titles = { ['/lua/codediff/'] = 'CodeDiff' }
+
+-- Name the plugin that called vim.notify, if any, by walking up the call stack
+local plugin_title = function()
+  for depth = 3, 20 do
+    local info = debug.getinfo(depth, 'S')
+    if not info then return end
+    for pattern, title in pairs(plugin_titles) do if info.source:find(pattern, 1, true) then return title end end
+  end
+end
+
 -- Tap on every notification: mirror it to the system, then let fidget record it
 local redirect = function(msg, level, opts)
   opts = opts or {}
@@ -96,7 +108,7 @@ local redirect = function(msg, level, opts)
   end
   if body == '' then return false end
 
-  local summary = progress and format_group_name(opts.group) or opts.title or opts.group or 'Neovim'
+  local summary = progress and format_group_name(opts.group) or opts.title or opts.group or plugin_title() or 'Neovim'
   local urgency = urgencies[level] or 'low'
   -- The app name is what awesome matches to pick a look (see config/awesome/theme.lua)
   local args = { '--app-name=' .. (opts.appname or 'nvim'), '--urgency=' .. urgency }
