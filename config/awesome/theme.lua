@@ -1,6 +1,35 @@
 local beautiful = require('beautiful')
 local naughty = require('naughty')
 
+-- Notifications keep naughty.config.padding off the screen's edges, the same both ways: shrink it horizontally for the
+-- right aligned ones. Naughty's (legacy) layout has no setting for it, so we wrap the local function placing them,
+-- reached through the upvalues of the notification handler.
+local pad_right_aligned = function(padding)
+  require('naughty.layout.legacy')
+  local seen = {}
+  local function find(fn)
+    if seen[fn] then return end
+    seen[fn] = true
+    for i = 1, math.huge do
+      local name, value = debug.getupvalue(fn, i)
+      if not name then return end
+      if name == 'get_offset' then return fn, i, value end
+      if type(value) == 'function' then
+        local owner, index, found = find(value)
+        if owner then return owner, index, found end
+      end
+    end
+  end
+
+  local owner, index, get_offset = find(naughty.default_notification_handler)
+  if not owner then return end
+  debug.setupvalue(owner, index, function(s, position, ...)
+    local offset = get_offset(s, position, ...)
+    if position:match('right') then offset.x = offset.x + naughty.config.padding - padding end
+    return offset
+  end)
+end
+
 return {
   config = function()
     local colors = loadfile(os.getenv('HOME') .. '/.config/awesome/colors/' .. require('mode').current() .. '.lua')()
@@ -56,37 +85,32 @@ return {
     naughty.config.defaults.position = 'bottom_right'
     naughty.config.defaults.timeout = 7
     naughty.config.padding = 48
+    pad_right_aligned(12)
     naughty.config.spacing = 10
     naughty.config.presets.critical.border_width = 0
     naughty.config.presets.critical.bg = colors.red.dim
     naughty.config.presets.critical.fg = colors.red.base
 
-    -- Job notifications from nvim (git, see config/nvim/lua/plug/git.lua; rspec, see config/nvim/ftplugin/ruby.lua):
-    -- blue when started, green when done, red when failed (still expiring, unlike errors).
-    -- Claude agents' spawns alike (see spawn_notify in scripts/lib/claude-agents.sh; their failures are critical).
-    -- Awesome matches on the app name, not on the category hint.
-    local job_presets = {
-      ['nvim.job.started'] = colors.blue,
-      ['nvim.job.done'] = colors.green,
-      ['nvim.job.failed'] = colors.red,
-      ['claude.spawn.started'] = colors.blue,
-      ['claude.spawn.launched'] = colors.green,
-      ['claude.spawn.failed'] = colors.red,
+    -- Notification looks, by app name (awesome matches on it, not on the category hint):
+    -- - job notifications from nvim (git, see config/nvim/lua/plug/git.lua; rspec, see config/nvim/ftplugin/ruby.lua):
+    --   blue when started, green when done, red when failed (still expiring, unlike errors);
+    -- - Claude agents' alike for their spawns (see spawn_notify in scripts/lib/claude-agents.sh; their failures are
+    --   critical), and all of theirs show at the bottom center, apart from the rest (see scripts/claude-agent-*).
+    local notifications = {
+      ['nvim.job.started'] = { color = colors.blue },
+      ['nvim.job.done'] = { color = colors.green },
+      ['nvim.job.failed'] = { color = colors.red },
+      ['claude'] = { position = 'bottom_middle' },
+      ['claude.spawn.started'] = { color = colors.blue, position = 'bottom_middle' },
+      ['claude.spawn.launched'] = { color = colors.green, position = 'bottom_middle' },
+      ['claude.spawn.failed'] = { color = colors.red, position = 'bottom_middle' },
     }
-    for appname, color in pairs(job_presets) do
-      table.insert(require('naughty.dbus').config.mapping, {
-        { appname = appname },
-        { border_width = 0, bg = color.dim, fg = color.base },
-      })
-    end
-
-    -- Claude agents' notifications show at the bottom center, apart from the rest (see scripts/lib/claude-agents.sh,
-    -- scripts/claude-agent-*). Mapped presets add up, so spawns keep their color.
-    for _, appname in ipairs({ 'claude', 'claude.spawn.started', 'claude.spawn.launched', 'claude.spawn.failed' }) do
-      table.insert(require('naughty.dbus').config.mapping, {
-        { appname = appname },
-        { position = 'bottom_middle' },
-      })
+    for appname, settings in pairs(notifications) do
+      local preset = { position = settings.position }
+      if settings.color then
+        preset.border_width, preset.bg, preset.fg = 0, settings.color.dim, settings.color.base
+      end
+      table.insert(require('naughty.dbus').config.mapping, { { appname = appname }, preset })
     end
   end
 }
