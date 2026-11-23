@@ -164,6 +164,8 @@ require('codediff').setup({
   diff = {
     compute_moves = true,
     cycle_hunks_across_files = false,
+    cycle_next_hunk = false,
+    cycle_next_file = false,
     filler_text = '╳'
   },
   explorer = {
@@ -174,7 +176,7 @@ require('codediff').setup({
     file_filter = { ignore = { '*.pdf' } },
   },
   keymaps = {
-    view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = '<c-n>', prev_file = '<c-p>' },
+    view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = 'Þ', prev_file = 'ẞ' },
   },
   highlights = {
     line_move = 'DiffMove',
