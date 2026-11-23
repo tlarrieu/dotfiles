@@ -1,5 +1,5 @@
 #!/bin/sh
 
- rofi -theme-str 'listview {columns: 4;}' -dmenu -p  < "$(dirname "$0")"/nerdfont.input \
-  | awk '{ printf "%s", $1 }' \
-  | xsel -b -i
+choice=$(rofi -theme-str 'listview {columns: 4;}' -dmenu -p  < "$(dirname "$0")"/nerdfont.input | awk '{ printf "%s", $1 }')
+# Canceled: leave the clipboard as it was
+[ -z "$choice" ] || printf '%s' "$choice" | xsel -b -i
