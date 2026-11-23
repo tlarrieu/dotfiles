@@ -91,9 +91,11 @@ local content = function(n)
 end
 
 return {
-  -- padding: distance to the screen's edges, by side ({ top, bottom, left, right }); spacing: between notifications
+  -- padding: distance to the screen's edges, by side ({ top, bottom, left, right }), overridden by position
+  -- (e.g. bottom_right = { bottom = 12 }); spacing: between notifications
   config = function(options)
-    local padding, spacing = options.padding, options.spacing
+    local spacing = options.spacing
+    local padding = function(position) return setmetatable(options.padding[position] or {}, { __index = options.padding }) end
 
     -- Shown popups, per screen then position, from the edge inwards
     local stacks = setmetatable({}, { __mode = 'k' })
@@ -106,21 +108,22 @@ return {
     local restack = function(s, position)
       if not s.valid then return end
       local area = s.workarea
+      local pad = padding(position)
       local offset = 0
       for _, popup in ipairs(stack(s, position)) do
         local border = 2 * (popup.border_width or 0)
         local width, height = popup.width + border, popup.height + border
         local x
         if position:match('left') then
-          x = area.x + padding.left
+          x = area.x + pad.left
         elseif position:match('right') then
-          x = area.x + area.width - width - padding.right
+          x = area.x + area.width - width - pad.right
         else
           x = area.x + math.floor((area.width - width) / 2)
         end
         local y = position:match('top')
-            and area.y + padding.top + offset
-            or area.y + area.height - padding.bottom - offset - height
+            and area.y + pad.top + offset
+            or area.y + area.height - pad.bottom - offset - height
         if popup.x ~= x or popup.y ~= y then popup:geometry({ x = x, y = y }) end
         offset = offset + height + spacing
       end
