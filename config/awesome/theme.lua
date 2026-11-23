@@ -53,7 +53,7 @@ return {
 
     beautiful.init(theme)
 
-    naughty.config.defaults.position = 'bottom_middle'
+    naughty.config.defaults.position = 'bottom_right'
     naughty.config.defaults.timeout = 7
     naughty.config.padding = 48
     naughty.config.spacing = 10
@@ -77,6 +77,15 @@ return {
       table.insert(require('naughty.dbus').config.mapping, {
         { appname = appname },
         { border_width = 0, bg = color.dim, fg = color.base },
+      })
+    end
+
+    -- Claude agents' notifications show at the bottom center, apart from the rest (see scripts/lib/claude-agents.sh,
+    -- scripts/claude-agent-*). Mapped presets add up, so spawns keep their color.
+    for _, appname in ipairs({ 'claude', 'claude.spawn.started', 'claude.spawn.launched', 'claude.spawn.failed' }) do
+      table.insert(require('naughty.dbus').config.mapping, {
+        { appname = appname },
+        { position = 'bottom_middle' },
       })
     end
   end
