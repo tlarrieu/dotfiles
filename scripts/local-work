@@ -111,11 +111,12 @@ add() {
 # Uncommitted changes, by worktree: how many files. Counted side by side
 # (see count_changes), then read (changes). No optional locks: an agent may
 # be committing there, and a status refreshing the index would hold its lock.
-# But in an agent worktree whose agent is gone, done or idle (not monitoring:
-# what it left running may use git), nobody is: there the status writes the
-# index it refreshed back (when its lock is free, else it skips that), lest
-# every run pay the refresh again. A stale index takes seconds to refresh in
-# a large worktree, and agents' edits leave theirs stale
+# But in an agent worktree whose agent is done or idle (not monitoring: what
+# it left running may use git), nobody is: there the status writes the index
+# it refreshed back (when its lock is free, else it skips that), lest every
+# run pay the refresh again. A stale index takes seconds to refresh in a
+# large worktree, and agents' edits leave theirs stale. Not once the agent is
+# gone: rofi-github opens those for me to work in
 counts=$(mktemp -d)
 trap 'rm -rf "$counts"' EXIT
 declare -A count_file=()
@@ -125,7 +126,7 @@ count_changes() { # <worktree>...
     count_file[$where]="$counts/${#count_file[@]}"
     locks=(--no-optional-locks)
     if [ -n "${agent_worktree[$where]}" ]; then
-      case ${agent_state_in[$(basename "$where")]:-gone} in gone | done | idle) locks=() ;; esac
+      case ${agent_state_in[$(basename "$where")]} in done | idle) locks=() ;; esac
     fi
     git "${locks[@]}" -C "$where" status --porcelain 2>/dev/null | wc -l >"${count_file[$where]}" &
   done
