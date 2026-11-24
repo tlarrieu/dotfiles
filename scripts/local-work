@@ -54,20 +54,20 @@ flock -w 30 9 || { cat "$cache" 2>/dev/null; exit 0; }
 
 # Agents by the project they run in: a worktree's directory name (see
 # claude-agent-list)
-declare -A agent_in=()
+declare -A agent_in=() agent_state_in=()
 # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
-note_agent() { agent_in[$project]=$session; }
+note_agent() { agent_in[$project]=$session agent_state_in[$project]=$state; }
 each_record note_agent < <("$assets/claude-agent-list")
 
 # Agent worktrees' base commits (what claude-agent-worktree started them at:
 # a pull request's latest commit, fetched into no ref, for a review), from
 # their slot; and the kept ones (claude-agent-sweep marks their slot)
-declare -A base_of=() kept=()
+declare -A base_of=() kept=() agent_worktree=()
 for slot in "$slots"/*/[0-9]*; do
   [ -f "$slot" ] || continue
   case $slot in
     *.kept) read -r worktree _ <"${slot%.kept}" && kept[$worktree]=yes ;;
-    *) read -r worktree base _ <"$slot" && base_of[$worktree]=$base ;;
+    *) read -r worktree base _ <"$slot" && base_of[$worktree]=$base agent_worktree[$worktree]=yes ;;
   esac
 done
 
@@ -110,15 +110,24 @@ add() {
 
 # Uncommitted changes, by worktree: how many files. Counted side by side
 # (see count_changes), then read (changes). No optional locks: an agent may
-# be committing there, and a status refreshing the index would hold its lock
+# be committing there, and a status refreshing the index would hold its lock.
+# But in an agent worktree whose agent is gone, done or idle (not monitoring:
+# what it left running may use git), nobody is: there the status writes the
+# index it refreshed back (when its lock is free, else it skips that), lest
+# every run pay the refresh again. A stale index takes seconds to refresh in
+# a large worktree, and agents' edits leave theirs stale
 counts=$(mktemp -d)
 trap 'rm -rf "$counts"' EXIT
 declare -A count_file=()
 count_changes() { # <worktree>...
-  local where
+  local where locks=()
   for where; do
     count_file[$where]="$counts/${#count_file[@]}"
-    git --no-optional-locks -C "$where" status --porcelain 2>/dev/null | wc -l >"${count_file[$where]}" &
+    locks=(--no-optional-locks)
+    if [ -n "${agent_worktree[$where]}" ]; then
+      case ${agent_state_in[$(basename "$where")]:-gone} in gone | done | idle) locks=() ;; esac
+    fi
+    git "${locks[@]}" -C "$where" status --porcelain 2>/dev/null | wc -l >"${count_file[$where]}" &
   done
   wait
 }
