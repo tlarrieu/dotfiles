@@ -34,6 +34,7 @@
 ---@field x number
 ---@field width number
 ---@field screen Screen
+---@field instance string? Its WM_CLASS instance (browser-kiosk apps: their URL, e.g. github.com__pulls)
 ---@field connect_signal fun(self: Wibox, name: string, callback: fun())
 
 ---@alias SpawnCallback fun(stdout: string, stderr: string, reason: 'exit'|'signal', code: integer)
@@ -52,6 +53,7 @@
 ---@class Client An awesome client (window); only the fields read off typed values
 ---@field valid boolean
 ---@field screen Screen
+---@field instance string? Its WM_CLASS instance (browser-kiosk apps: their URL, e.g. github.com__pulls)
 ---@field immortal boolean? Ours: hidden instead of killed (see spawner.soft_kill)
 ---@field raise fun(self: Client)
 ---@field emit_signal fun(self: Client, name: string, ...)

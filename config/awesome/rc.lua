@@ -5,4 +5,5 @@ require('theme').config()
 require('keymaps').config()
 
 require('signals')
+require('github_refresh')
 require('rules')
