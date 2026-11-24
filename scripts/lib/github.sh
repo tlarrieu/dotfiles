@@ -50,14 +50,30 @@ github_clone() {
 }
 
 # One refresh at a time, so that timer runs and clicked ones don't notify
-# twice. One already running? Wait for it, a bounded time (gh calls time out):
-# a stalled GitHub can't pile runs up, and a clicked refresh still reports
-# what GitHub said. Past that, print the (stale) cache and exit 1, as when
-# GitHub can't be reached. Holds fd 9 (see github_notify).
+# twice. One already running? It may have asked GitHub before what we were
+# called for (a push, say): queue behind it, to run next. Another one queued
+# already? It starts after we were called, so it is ours too: wait for it,
+# then print the cache it wrote and exit (bursts of refreshes, pushes and
+# polls coalesce into one more run). Waits are bounded (gh calls time out): a
+# stalled GitHub can't pile runs up, and a clicked refresh still reports what
+# GitHub said. Past that, print the (stale) cache and exit 1, as when GitHub
+# can't be reached. Holds fd 9 (see github_notify).
 # Usage: github_lock <state dir> <cache>
 github_lock() {
   exec 9>"$1/.lock"
-  flock -w 90 9 || { cat "$2"; exit 1; }
+  flock -n 9 && return
+  exec 8>"$1/.next"
+  if flock -n 8; then
+    # Next: once running, the next one to come queues behind us
+    flock -w 90 9 || { cat "$2"; exit 1; }
+    flock -u 8
+    exec 8>&-
+    return
+  fi
+  # The queued one takes the lock once it starts, then holds it until done
+  if ! { flock -w 90 8 && flock -u 8 && flock -w 90 9; }; then cat "$2"; exit 1; fi
+  cat "$2"
+  exit 0
 }
 
 # A notification which, clicked, opens <url>. Given one of my pull requests
