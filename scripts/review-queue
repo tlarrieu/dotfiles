@@ -9,7 +9,8 @@
 #   lib/github.sh and "header" below): requested at (epoch), repo, number,
 #   author, additions, deletions, url, title, ci (the last commit's checks:
 #   SUCCESS, FAILURE or PENDING), threads (unresolved review threads, out of
-#   the first 100), team (the teams it's requested from, comma separated,
+#   the first 100), comments (open review comments, see
+#   github_comments_jq), team (the teams it's requested from, comma separated,
 #   when not from me; else -).
 # On a GitHub failure, prints the cache (stale) and exits 1.
 # Without repositories to watch, complains (notifying once, until fixed) and
@@ -40,6 +41,7 @@ repository { nameWithOwner }
 author { login }
 CI_FIELDS
 reviewThreads(first: 100) { nodes { isResolved } }
+COMMENTS_FIELDS
 reviewRequests(first: 20) { nodes { requestedReviewer { ... on User { login } ... on Team { slug } } } }
 timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last: 50) {
   nodes {
@@ -50,18 +52,19 @@ timelineItems(itemTypes: [REVIEW_REQUESTED_EVENT, READY_FOR_REVIEW_EVENT], last:
 }
 GRAPHQL
 selection=${selection//CI_FIELDS/$github_ci_query}
+selection=${selection//COMMENTS_FIELDS/$github_comments_query}
 
 # Records, under this header (see lib/records.sh). Requested at (epoch): my
 # latest (re-)request (a team's, for team ones), so being added late or
 # re-requested restarts the clock, or its latest exit from draft when later:
 # the wait starts once it's ready
-header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads\tteam'
+header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthreads\tcomments\tteam'
 # shellcheck disable=SC2016 # $me and $at are jq variables
 answer=$(github_search_prs "is:pr is:open draft:false review-requested:@me -author:@me $repos" "$selection") || { cat "$queue"; exit 1; }
 # My teams' slugs (the search matches theirs, but a pull request lists all
 # those requested)
 teams=$(timeout 30 gh api user/teams --paginate --jq '[.[].slug]' 2>/dev/null | jq -sc add) || { cat "$queue"; exit 1; }
-fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq"'
+fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq$github_comments_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
   | select(.state == "OPEN") # the search lags behind, listing one merged (or closed) moments ago
@@ -76,6 +79,7 @@ fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq"'
      .additions, .deletions, .url, (.title | gsub("[\t\n]"; " ")),
      ci,
      ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
+     open_comments,
      (if $team == null then "-" elif $team == "" then "team" else $team end)]
   | @tsv
 ' <<<"$answer" 2>/dev/null) || { cat "$queue"; exit 1; }

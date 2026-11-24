@@ -76,8 +76,8 @@ measure_authors() {
   title_width=$((title_and_author - 2 - longest))
   [ "$title_width" -ge "$min_title_width" ] || title_width=$min_title_width
 }
-thread_glyph='󰨺' # unresolved review threads
-unpushed_glyph='' changes_glyph='' # local work: commits to push, uncommitted changes
+thread_glyph='' comment_glyph='' # unresolved review threads, open review comments
+unpushed_glyph='󰄝' changes_glyph='󰴓' # local work: commits to push, uncommitted changes
 
 
 # Local work, unstyled: <glyph> <commits to push>, <glyph> <changed files>,
@@ -90,6 +90,19 @@ work_text() {
   printf '%s' "$out"
 }
 
+# A count column of row (threads, comments): glyph, space, count, dim (blank
+# without any), as wide as the widest shown (see measure_columns), then two
+# spaces; none at all when no row has any (width 0)
+# Usage: count_cell <glyph> <count> <width>
+count_cell() {
+  [ "$3" -gt 0 ] || return 0
+  if [ "${2:-0}" -gt 0 ] 2>/dev/null; then
+    printf '<span %s>%s %s</span>%*s  ' "$dim" "$1" "$2" $(($3 - 2 - ${#2})) ''
+  else
+    printf '%*s  ' "$3" ''
+  fi
+}
+
 # A row, from named cells (<name>=<value> arguments, all optional):
 #   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
 #   time, number, additions, deletions, title
@@ -100,6 +113,7 @@ work_text() {
 #   auto           auto: auto-merge is on
 #   diff           plain: the additions and deletions uncolored
 #   threads        how many review threads are unresolved
+#   comments       how many review comments are open (see github_comments_jq)
 #   approvals      <approvals>/<required>, as merge-queue prints them (- or
 #                  missing: blank)
 #   work           local work (see local-work): <commits to push> <changed
@@ -112,12 +126,12 @@ row() {
   local arg
   for arg; do
     case ${arg%%=*} in
-      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | approvals | work | italic | agent | project)
+      ci | review | time | number | additions | deletions | title | author | tint | auto | diff | threads | comments | approvals | work | italic | agent | project)
         c[${arg%%=*}]=${arg#*=} ;;
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
   done
-  local ci review plus minus who='' title=${c[title]} threads auto=' ' line # the glyph takes one cell, like a space
+  local ci review plus minus who='' title=${c[title]} threads comments auto=' ' line # the glyph takes one cell, like a space
   [ "${c[auto]}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a tint wins over the review face's own
@@ -150,18 +164,8 @@ row() {
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
     title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
-  # Glyph, space, count, dim (blank without any unresolved), as wide as the
-  # widest shown (see measure_columns), then two spaces; none at all when no
-  # row has any
-  threads=''
-  if [ "$threads_width" -gt 0 ]; then
-    if [ "${c[threads]:-0}" -gt 0 ] 2>/dev/null; then
-      threads="<span $dim>$thread_glyph ${c[threads]}</span>$(printf '%*s' $((threads_width - 2 - ${#c[threads]})) '')"
-    else
-      threads=$(printf '%*s' "$threads_width" '')
-    fi
-    threads+='  '
-  fi
+  threads=$(count_cell "$thread_glyph" "${c[threads]}" "$threads_width")
+  comments=$(count_cell "$comment_glyph" "${c[comments]}" "$comments_width")
   # Local work, as wide as the widest shown (see measure_columns), then two
   # spaces; none at all when no row has any
   local work=''
@@ -197,7 +201,7 @@ row() {
     middle=$(printf '#%-*s %s %s' "$number_width" "${c[number]}" "$plus" "$minus")
   fi
   local before
-  before=$(printf '%s%s%s%-*s %s %s  %s%s%s' "$ci" "$review" "$approvals" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$work" "$agent")
+  before=$(printf '%s%s%s%-*s %s %s  %s%s%s%s' "$ci" "$review" "$approvals" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$comments" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
@@ -220,9 +224,26 @@ toggle_queue() {
   fi
 }
 
+# The open review comments of a pull request (see github_comments_jq), one
+# oldest first: its author, then, on the next line, its start (markdown
+# stripped) cut to fit the dialog (see confirm_queue). Nothing when GitHub can't tell
+# Usage: comment_excerpts <owner/repo> <number>
+# shellcheck disable=SC2016 # GraphQL and jq variables
+comment_excerpts() {
+  timeout 30 gh api graphql -f owner="${1%%/*}" -f name="${1#*/}" -F number="$2" -f query='
+    query($owner: String!, $name: String!, $number: Int!) {
+      repository(owner: $owner, name: $name) { pullRequest(number: $number) { '"$github_comments_query"' } }
+    }' 2>/dev/null | jq -r "$github_comments_jq"'
+    .data.repository.pullRequest | open_comment_nodes[]
+    | "  \((.author.login // "ghost") | sub("\\[bot\\]$"; ""))",
+      ("    " + (.body | gsub("<[^>]*>|-{3,}|[*`#_>~]"; "") | gsub("\\s+"; " ") | ltrimstr(" ") | ltrimstr("- "))
+       | if length > 46 then .[:45] + "…" else . end)' 2>/dev/null
+  return 0
+}
+
 # What to check before queueing one of my pull requests, one per line
 # (nothing: go ahead). Running checks are fine: the queue waits for them
-# Usage: queue_concerns <CI> <review> <state> <unresolved threads>
+# Usage: queue_concerns <CI> <review> <state> <unresolved threads> <open comments> <owner/repo> <number>
 queue_concerns() {
   [ "$1" = FAILURE ] && echo "Its CI fails"
   case $2 in
@@ -235,6 +256,10 @@ queue_concerns() {
   esac
   [ "$3" = UNKNOWN ] && echo "GitHub can't tell whether it's mergeable"
   [ "${4:-0}" -gt 0 ] 2>/dev/null && echo "$4 review thread$([ "$4" -gt 1 ] && echo s) unresolved"
+  if [ "${5:-0}" -gt 0 ] 2>/dev/null; then
+    echo "$5 review comment$([ "$5" -gt 1 ] && echo s) not hidden"
+    comment_excerpts "$6" "$7"
+  fi
   return 0
 }
 
@@ -397,11 +422,11 @@ mine_when() {
 # shellcheck disable=SC2154 # record fields, set by each_record
 review_when() { ago $((now - at)); }
 
-# Sets time_width, number_width, plus_width, minus_width, threads_width and
-# approvals_width (0 when none has any):
+# Sets time_width, number_width, plus_width, minus_width, threads_width,
+# comments_width and approvals_width (0 when none has any):
 # the widest time, pull request number, additions and deletions (their sign
-# included) and unresolved threads (glyph, space and count; 0 when none has
-# any) of the merge-queue records ($1) and the review-queue ones ($2), so that
+# included), unresolved threads and open comments (glyph, space and count; 0
+# when none has any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
 # one's "#37 (1h14)"). And agents_width: 3 when an agent works on one (see
 # agents), else 0; work_width: the widest local work (see row), 0 when none.
@@ -412,7 +437,7 @@ review_when() { ago $((now - at)); }
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 approvals_width=0 agents_width=0 work_width=0
+  time_width=0 number_width=0 plus_width=0 minus_width=0 threads_width=0 comments_width=0 approvals_width=0 agents_width=0 work_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
@@ -420,6 +445,9 @@ measure_columns() {
     [ $((${#deletions} + 1)) -gt "$minus_width" ] && minus_width=$((${#deletions} + 1))
     if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
       threads_width=$((${#threads} + 2))
+    fi
+    if [ "${comments:-0}" -gt 0 ] 2>/dev/null && [ $((${#comments} + 2)) -gt "$comments_width" ]; then
+      comments_width=$((${#comments} + 2))
     fi
     [ "${approvals:--}" != - ] && [ ${#approvals} -gt "$approvals_width" ] && approvals_width=${#approvals}
     [ -n "${agents[$repo#$number]}" ] && agents_width=3
@@ -495,14 +523,14 @@ mine() {
   fi
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
   # fix (Ctrl+s)
-  case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 ;; esac
+  case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 comments=0 ;; esac
   # GitHub hasn't worked out whether it's mergeable yet (the approved face
   # would read ready): the review face says so, the row too. In the face
   # only, as the merge and the agent want the review itself
   face=$review
   [ "$state" = UNKNOWN ] && face=UNKNOWN italic=italic
   line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
-    title="$title" auto="$auto" diff="$diff" threads="$threads" approvals="$approvals" italic="$italic" \
+    title="$title" auto="$auto" diff="$diff" threads="$threads" comments="$comments" approvals="$approvals" italic="$italic" \
     work="${work_of[$repo#$branch]:-${pr_work[$repo#$number]}}" agent="${agents[$repo#$number]}")
   # Queued and merged ones stay in the background: they move on their own;
   # those with auto-merge on, a bit less (they will join the queue by
@@ -518,7 +546,7 @@ mine() {
   local merge=''
   case $in in
     open | auto)
-      if [ "$kind" = ready ]; then merge="$repo $number out ${ci:--} ${review:--} ${state:--} ${threads:-0}"
+      if [ "$kind" = ready ]; then merge="$repo $number out ${ci:--} ${review:--} ${state:--} ${threads:-0} ${comments:-0}"
       else merge="$repo $number page"; fi ;;
     queued) merge="$repo $number in" ;;
   esac
@@ -562,7 +590,7 @@ review() {
   elif [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
   line=$(row ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions" \
-    deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" \
+    deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" comments="$comments" \
     work="${pr_work[$repo#$number]}" agent="${agents[$repo#$number]}")
   # My teams': in the background, as those with auto-merge on
   [ "$in" = team ] && line="<span fgalpha=\"80%\">$line</span>"
@@ -602,7 +630,7 @@ while :; do
 
   urls=()
   queues=()
-  merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads>] (mine, unless merged)
+  merges=() # <repo> <number> <in (the merge queue), out (ready to join it) or page (not ready)> [<CI> <review> <state> <threads> <comments>] (mine, unless merged)
   prs=() # <agent task> <repo> <number>
   sessions=() # the agent (an agent's row), else empty
   dirs=() # the worktree to open (local work, without an agent), else empty
@@ -682,9 +710,9 @@ while :; do
       fi ;;
     13)
       if [ -n "$choice" ]; then
-        read -r merge_repo merge_number merge_queue merge_ci merge_review merge_state merge_threads <<<"${merges[$choice]}"
+        read -r merge_repo merge_number merge_queue merge_ci merge_review merge_state merge_threads merge_comments <<<"${merges[$choice]}"
         concerns=''
-        [ "$merge_queue" = out ] && concerns=$(queue_concerns "$merge_ci" "$merge_review" "$merge_state" "$merge_threads")
+        [ "$merge_queue" = out ] && concerns=$(queue_concerns "$merge_ci" "$merge_review" "$merge_state" "$merge_threads" "$merge_comments" "$merge_repo" "$merge_number")
         if [ -z "$merge_repo" ]; then
           notify-send --app-name=github GitHub "The merge queue is for my open pull requests"
         elif [ "$merge_queue" = page ]; then

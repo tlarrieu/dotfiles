@@ -4,7 +4,8 @@
 #   fix      fix it (mine): resolve its conflicts with its base branch (merging
 #            it in, committed on my local copy of its branch, which its worktree
 #            checks out when it can), address its unresolved
-#            review threads, and its failing CI checks; it leaves those other
+#            review threads, its open review comments (see
+#            github_comments_jq) and its failing CI checks; it leaves those other
 #            changes uncommitted for me to review, asks in the session when it
 #            disagrees with a comment, and re-runs the jobs that failed for
 #            infrastructure reasons; on a flaky spec, it re-runs its job once,
@@ -22,7 +23,8 @@
 # (re-runs and the flaky spec's merge aside; reviews drafted are pending, mine
 # to submit).
 # An agent on it already: jumps back to it instead. To fix one of mine with
-# nothing to fix (no conflict, unresolved review thread or failing CI, as
+# nothing to fix (no conflict, unresolved review thread, open review comment
+# or failing CI, as
 # merge-queue's cache tells, which may lag): says so instead. Used by
 # rofi-github (Ctrl+s), rofi-search (cl fix|review <PR>) and merge-queue's
 # notifications.
@@ -48,21 +50,22 @@ session=$(pr_agent "$repo#$number")
 
 # Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
 # else's or in no watched repository: no telling, go ahead). Merged ones
-# (threads -) have nothing either
+# (threads and comments -) have nothing either
 if [ "$task" = fix ]; then
-  found='' known_threads='' known_ci='' known_review=''
+  found='' known_threads='' known_comments='' known_ci='' known_review=''
   # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
   find_pr() {
     [ "$repo" = "$wanted_repo" ] && [ "$number" = "$wanted_number" ] || return 0
-    found=yes known_threads=$threads known_ci=$ci known_review=$review
+    found=yes known_threads=$threads known_comments=$comments known_ci=$ci known_review=$review
   }
   wanted_repo=$repo wanted_number=$number
   each_record find_pr < <("$assets/merge-queue" --cached 2>/dev/null)
   repo=$wanted_repo number=$wanted_number # each_record set them, record by record
   if [ -n "$found" ] && [ "${known_threads/#-/0}" -eq 0 ] 2>/dev/null &&
+    [ "${known_comments/#-/0}" -eq 0 ] 2>/dev/null &&
     [ "$known_ci" != FAILURE ] && [ "$known_review" != CONFLICT ]; then
     notify-send --app-name=github GitHub \
-      "Nothing to fix on $repo#$number: no conflict, no unresolved review thread, no failing CI (refresh with Ctrl+r in rofi-github if that just changed)"
+      "Nothing to fix on $repo#$number: no conflict, no unresolved review thread, no open review comment, no failing CI (refresh with Ctrl+r in rofi-github if that just changed)"
     exit 0
   fi
 fi
@@ -134,8 +137,8 @@ unless the user asks for more: leave every other change uncommitted, for the
 user to review. Whenever you commit and don't push, give the user the command
 to push it from their clone, $clone (your worktree goes once you stop; the
 branch stays, as worktrees share their clone's branches): $push.
-Don't reply to, nor resolve, any review thread on GitHub unless the user asks
-you to. Re-run a CI job only when it failed for an infrastructure reason or
+Don't reply to, nor resolve, any review thread on GitHub, nor hide any review
+comment, unless the user asks you to. Re-run a CI job only when it failed for an infrastructure reason or
 on a flaky spec, and once (see the task); no other one unless the user asks.
 When you disagree with a reviewer's comment, or can't tell what it asks, ask
 the user here before changing anything for it.
@@ -143,7 +146,7 @@ RULES
 
   read -r -d '' prompt <<PROMPT
 Fix $url: its conflicts with its base branch, its unresolved review threads,
-and its failing CI checks.
+its open review comments, and its failing CI checks.
 0. Conflicts: check whether it has any with gh pr view $number -R $repo
    --json mergeable (CONFLICTING). If so, git fetch origin $base and
    git merge origin/$base, as GitHub's "Update
@@ -157,6 +160,14 @@ and its failing CI checks.
 1. Review threads: fetch them with gh api graphql (the pull request's
    reviewThreads, keeping those whose isResolved is false, with their path,
    line and comments). For each, make the change asked for.
+   Review comments: the bodies of its reviews (gh api graphql: the pull
+   request's reviews, with author, state, body, isMinimized and
+   viewerDidAuthor), keeping those not hidden (isMinimized false), not
+   empty, not the user's (viewerDidAuthor false), neither DISMISSED nor
+   PENDING: points a reviewer made outside any line (one a bot couldn't
+   anchor, say). For each point they make, as for a thread; one only
+   summing up the threads (or saying there is nothing to fix) has nothing
+   more. A reviewer repeating a point across reviews: one change.
 2. CI: list the checks of its latest commit with gh pr checks $number -R $repo
    (tab separated: name, state, duration, link), keeping those whose state is
    fail; skip ${github_ignored_checks[*]@Q} (one only waits for approvals,
@@ -190,7 +201,8 @@ and its failing CI checks.
    Report each step in your summary.
 Any of them may have nothing to do: say so and move on. Then run the specs
 covering what you changed. Finish with a summary: the conflicts (how you
-resolved each), then thread by thread, then check by check, what you changed,
+resolved each), then thread by thread, then review comment by review comment,
+then check by check, what you changed,
 re-ran, merged and pushed, or why you did none of it.
 PROMPT
 else

@@ -153,6 +153,26 @@ github_ci_jq='
     | if $failed > 0 then "FAILURE" elif $pending > 0 then "PENDING" else "SUCCESS" end;
 '
 
+# Open review comments: the bodies of a pull request's reviews (their
+# top-level comment, the one with no line, as a bot leaves for findings it
+# can't anchor), out of the last 50 reviews. They have no resolved state,
+# hiding one is how it gets settled: those counted aren't hidden, nor empty,
+# nor mine, nor dismissed (nor pending, which only their author sees)
+# github_comments_query: the GraphQL selection to put in a PullRequest's fields
+# github_comments_jq: jq definitions reading it from such a PullRequest:
+# open_comment_nodes (the reviews they are, oldest first), open_comments (how
+# many there are)
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_comments_query='reviews(last: 50) { nodes { author { login } state body isMinimized viewerDidAuthor } }'
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_comments_jq='
+  def open_comment_nodes:
+    [.reviews.nodes[]
+     | select((.body | test("\\S")) and (.isMinimized | not) and (.viewerDidAuthor | not)
+              and (.state | IN("DISMISSED", "PENDING") | not))];
+  def open_comments: open_comment_nodes | length;
+'
+
 # Searches pull requests (<query>: as in GitHub's search box), fetching
 # <selection> (a PullRequest's fields) for them, github_search_batch at a
 # time: in one search, a heavy selection (the CI's checks) runs into GitHub's
