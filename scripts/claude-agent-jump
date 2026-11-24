@@ -84,19 +84,30 @@ kitty_focus() { kitty @ --to "$1" focus-window --match "id:$2" 2>/dev/null; }
 # showing it (see background_terminals), else a new one, in the agents'
 # kitty (see claude-agent-spawn)
 if [ "$window" = - ] && background "$pid"; then
-  # shellcheck disable=SC2154 # set by read_agent
-  while read -r shown_window shown_socket shown_id; do
-    focus "$shown_window" || continue
-    [ "$shown_socket" != - ] && [ "$shown_id" != - ] && kitty_focus "$shown_socket" "$shown_id"
-    exit 0
-  done < <(background_terminals "$target" "$transcript")
+  # Focuses a terminal showing it (exits), if any
+  focus_shown() {
+    local shown_window shown_socket shown_id
+    # shellcheck disable=SC2154 # set by read_agent
+    while read -r shown_window shown_socket shown_id; do
+      focus "$shown_window" || continue
+      [ "$shown_socket" != - ] && [ "$shown_id" != - ] && kitty_focus "$shown_socket" "$shown_id"
+      exit 0
+    done < <(background_terminals "$target" "$transcript")
+  }
+  focus_shown
   id=${target:0:8} # claude's short ids
   directory=$HOME
   # shellcheck disable=SC2154 # set by read_agent
   [ -d "$root" ] && directory=$root # (its worktree may be gone)
   setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
     --directory "$directory" fish -c "claude attach $id" >/dev/null 2>&1 || fail "Could not open a terminal on this agent"
-  exit 0
+  # Hidden, without a tag, as all claude-agent windows (see rules.lua): shown
+  # once there (awesome manages it), as an attached one
+  for _ in {1..50}; do
+    sleep 0.1
+    focus_shown
+  done
+  fail "The terminal on this agent didn't show up"
 fi
 
 case "$window" in "" | *[!0-9]*) fail "Can't find this agent's terminal" ;; esac
