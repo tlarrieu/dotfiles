@@ -90,7 +90,7 @@ fi
 
 displayed=false
 case "$state" in
-attention | done) "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
+attention | done) agent_displayed "$session" "$(jq -r '.transcript_path // empty' <<<"$input")" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
 esac
 [ "$state" = "done" ] && $displayed && state=idle
 # Its turn over, on a Monitor or a background shell still running: still at

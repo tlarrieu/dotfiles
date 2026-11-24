@@ -233,6 +233,67 @@ monitoring() {
   return 1
 }
 
+# The terminals showing background session <session> (see background), one
+# per line: <X window> <kitty socket> <kitty window> (- when unknown). Claude's
+# agent view showing it (← in a session, before typing anything: it hands its
+# first prompt over to a background session, then shows those; a session
+# without a transcript, in a kitty window), by its terminal's title (the
+# session's, after a status glyph); then those attached to it (claude
+# attach). Needs $assets
+# Usage: background_terminals <session> <transcript>
+# shellcheck disable=SC2154 # state file fields, set by read_agent
+background_terminals() {
+  local session=$1 title='' shown f client argv i found var window socket id
+  local "${agent_fields[@]/#/view_}"
+  for f in "$agents_dir"/*; do
+    [ -f "$f" ] || continue
+    read_agent "$f" view_
+    [ -f "$view_transcript" ] && continue
+    alive "$view_pid" || continue
+    case "$view_window" in "" | *[!0-9]*) continue ;; esac
+    [ "$view_listen_on" != - ] && [ "$view_kitty_window" != - ] || continue
+    shown=$(kitty @ --to "$view_listen_on" ls --match "id:$view_kitty_window" 2>/dev/null |
+      jq -r '.[0].tabs[0].windows[0].title // empty' 2>/dev/null)
+    [[ $shown == *' '* ]] || continue
+    shown=${shown#* }
+    [ -n "$title" ] || title=$(agent_title "$2")
+    [ -n "$title" ] || break
+    # (agent_title cuts it)
+    [ "$shown" = "$title" ] || { [ ${#title} -ge 90 ] && [[ $shown == "$title"* ]]; } || continue
+    echo "$view_window $view_listen_on $view_kitty_window"
+  done
+  for client in $(pgrep -x claude); do
+    argv=() found=''
+    mapfile -d '' argv 2>/dev/null <"/proc/$client/cmdline"
+    for i in "${!argv[@]}"; do
+      [ "${argv[$i]}" = attach ] && [ "${argv[$((i + 1))]:0:8}" = "${session:0:8}" ] && found=yes # claude's short ids
+    done
+    [ -n "$found" ] || continue
+    window='' socket=- id=-
+    while IFS= read -r -d '' var; do
+      case $var in
+        WINDOWID=*) window=${var#*=} ;;
+        KITTY_LISTEN_ON=*) socket=${var#*=} ;;
+        KITTY_WINDOW_ID=*) id=${var#*=} ;;
+      esac
+    done 2>/dev/null <"/proc/$client/environ"
+    case "$window" in "" | *[!0-9]*) ;; *) echo "$window $socket $id" ;; esac
+  done
+}
+
+# Whether an agent's terminal is on screen (see claude-agent-displayed); a
+# background one's (no window of its own): one showing it (see
+# background_terminals). Needs $assets
+# Usage: agent_displayed <session> <transcript> <X window> <kitty socket> <kitty window>
+agent_displayed() {
+  local window socket id
+  [ "$3" != - ] && { "$assets/claude-agent-displayed" "$3" "$4" "$5"; return; }
+  while read -r window socket id; do
+    "$assets/claude-agent-displayed" "$window" "$socket" "$id" && return 0
+  done < <(background_terminals "$1" "$2")
+  return 1
+}
+
 # How much an agent in each state wants me: attention, then done (to read),
 # running and monitoring (working, its turn over, on what it left running),
 # idle. For when several qualify (see pr_agent)

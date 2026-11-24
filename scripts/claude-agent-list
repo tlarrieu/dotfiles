@@ -56,7 +56,7 @@ for f in "$agents_dir"/*; do
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
-    if "$assets/claude-agent-displayed" "$window" "$listen_on" "$kitty_window"; then
+    if agent_displayed "$(basename "$f")" "$transcript" "$window" "$listen_on" "$kitty_window"; then
       state=idle
       write_agent "$f"
       agent_unnotify "$(basename "$f")" # seen
