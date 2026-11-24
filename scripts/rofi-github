@@ -339,6 +339,8 @@ find_local_work() {
   each_record list_reviewed <<<"$3"
   local_work=$(head -n1 <<<"$1")
   sort_work() {
+    # Gone since local-work's cache was made: none (its rows would jump to it)
+    [ -n "${agent_states[${agent:--}]}" ] || agent=-
     local pr=${agent_prs[$agent]}
     if [ "$branch" != - ] && [ -n "${heads[$repo#$branch]}" ]; then
       work_of[$repo#$branch]="$ahead $changes $([ "$agent" != - ] && echo yes || echo -)"
