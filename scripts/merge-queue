@@ -55,14 +55,100 @@ query($q: String!) {
   }
 }
 GRAPHQL
-merged_search=$(mktemp)
-trap 'rm -f "$merged_search"' EXIT
-timeout 60 gh api graphql -f query="$merged_query" \
-  -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
-    [.data.search.nodes[] | select(.mergeCommit)
-     | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
-        .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
-    | sort_by(.[3]) | .[] | @tsv' >"$merged_search" 2>/dev/null 9>&- &
+deploys=$(mktemp -d)
+trap 'rm -rf "$deploys"' EXIT
+merged_search=$deploys/merged
+
+# Those merged ones not deployed already, as of what we told (in $seen)
+# Usage: pending_deploys <merged search records>
+pending_deploys() {
+  local repo number rest
+  while IFS=$'\t' read -r repo number rest; do
+    [ -n "$repo" ] || continue
+    grep -qxF "$repo#$number:deployed" "$seen" || printf '%s\t%s\t%s\n' "$repo" "$number" "$rest"
+  done <<<"$1"
+}
+
+# Where a repository's deploying ones stand, from GitHub (track_deploys
+# reads it, telling what it means): a "run <deploy run id>" line (blank
+# without one in progress), then one per pull request, <number> <deployed,
+# deploying or merged> <latest release's publication>. None at all when
+# GitHub can't tell
+# Usage: fetch_deploys <repo>, its deploying ones on stdin (<number> <merge
+# commit> <merged at> <additions> <deletions> <url> <title>)
+# shellcheck disable=SC2016 # GraphQL variables
+fetch_deploys() {
+  local repo=$1 run run_id='' run_at deploy_sha='' prs=() i number sha aliases='' deploy_alias='' answer index status published
+  mapfile -t prs
+  [ ${#prs[@]} -gt 0 ] || return 0
+
+  # A deploy run in progress: what it ships (none: not this repository's way)
+  run=$(timeout 30 gh api "repos/$repo/actions/workflows/$deploy_workflow/runs?status=in_progress&per_page=1" \
+    --jq '.workflow_runs[0] // empty | [.id, .created_at] | @tsv' 2>/dev/null)
+  if [ -n "$run" ]; then
+    IFS=$'\t' read -r run_id run_at <<<"$run"
+    # Passed by then: a run may succeed after it started (it then lists them)
+    deploy_sha=$(timeout 30 gh api "repos/$repo/actions/workflows/$tested_workflow/runs?branch=master&status=success&per_page=30&created=%3C%3D$run_at" \
+      --jq "[.workflow_runs[] | select(.updated_at <= \"$run_at\")] | max_by(.created_at) | .head_sha // empty" 2>/dev/null)
+  fi
+
+  # In the release: the merge commit behind (or at) its tag. Being deployed:
+  # at least as far behind master as what's deployed (both are on master's
+  # line, so the further behind is the older one)
+  for i in "${!prs[@]}"; do
+    IFS=$'\t' read -r _ sha _ <<<"${prs[$i]}"
+    aliases+="p$i: compare(headRef: \"$sha\") { status behindBy } "
+  done
+  [ -n "$deploy_sha" ] && deploy_alias="deploy: compare(headRef: \"$deploy_sha\") { status behindBy }"
+  answer=$(timeout 60 gh api graphql -f owner="${repo%/*}" -f name="${repo#*/}" -f query='
+    query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) {
+      latestRelease { publishedAt tag { '"$aliases"' } }
+      master: ref(qualifiedName: "refs/heads/master") { '"$aliases $deploy_alias"' }
+    } }' --jq '
+    .data.repository
+    | if .latestRelease.tag == null then empty else
+        . as $r
+        | ["BEHIND", "IDENTICAL"] as $in
+        | ($r.master.deploy // null) as $deploy
+        | ($r.latestRelease.publishedAt | fromdateiso8601) as $published
+        | ($r.latestRelease.tag | keys[]) as $key
+        | [($key | ltrimstr("p")),
+           (if ($r.latestRelease.tag[$key].status | IN($in[])) then "deployed"
+            elif $deploy != null and ($deploy.status | IN($in[])) and ($r.master[$key].status | IN($in[]))
+                 and $deploy.behindBy <= $r.master[$key].behindBy then "deploying"
+            else "merged" end),
+           $published]
+        | @tsv
+      end' 2>/dev/null) || return 0 # GitHub unreachable: as before, next time maybe
+
+  printf 'run\t%s\n' "$run_id"
+  while IFS=$'\t' read -r index status published; do
+    [ -n "$index" ] || continue
+    IFS=$'\t' read -r number _ <<<"${prs[$index]}"
+    printf '%s\t%s\t%s\n' "$number" "$status" "$published"
+  done <<<"$answer"
+}
+
+# A file per repository, for fetch_deploys' answer
+deploys_file() { echo "$deploys/deploys.${1//\//_}"; } # <repo>
+
+# Side by side with the main query: the merged search, then (each repository
+# side by side) where their deploys stand. Fails as the merged search does
+{
+  timeout 60 gh api graphql -f query="$merged_query" \
+    -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
+      [.data.search.nodes[] | select(.mergeCommit)
+       | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
+          .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
+      | sort_by(.[3]) | .[] | @tsv' >"$merged_search" 2>/dev/null || exit 1
+  pending=$(pending_deploys "$(<"$merged_search")")
+  while read -r deploy_repo; do
+    [ -n "$deploy_repo" ] || continue
+    awk -F'\t' -v repo="$deploy_repo" '$1 == repo' <<<"$pending" | cut -f2- |
+      fetch_deploys "$deploy_repo" >"$(deploys_file "$deploy_repo")" &
+  done < <(cut -f1 <<<"$pending" | sort -u)
+  wait
+} 9>&- &
 merged_pid=$!
 
 # What we read of each pull request (see github_search_prs)
@@ -321,73 +407,41 @@ deployed_row() { # <repo> <number> <reached production at> <additions> <deletion
 }
 now=$(date +%s)
 
-# A repository's deploying ones: <number> <merge commit> <merged at> <additions> <deletions> <url> <title> on stdin
-# shellcheck disable=SC2016 # GraphQL variables
+# A repository's deploying ones (<number> <merge commit> <merged at>
+# <additions> <deletions> <url> <title> on stdin): what fetch_deploys found
+# of them
 track_deploys() { # <repo>
-  local repo=$1 run run_id='' run_at deploy_sha='' prs=() i aliases='' answer
-  mapfile -t prs
-  [ ${#prs[@]} -gt 0 ] || return 0
-
-  # A deploy run in progress: what it ships (none: not this repository's way)
-  run=$(timeout 30 gh api "repos/$repo/actions/workflows/$deploy_workflow/runs?status=in_progress&per_page=1" \
-    --jq '.workflow_runs[0] // empty | [.id, .created_at] | @tsv' 2>/dev/null)
-  if [ -n "$run" ]; then
-    IFS=$'\t' read -r run_id run_at <<<"$run"
-    # Passed by then: a run may succeed after it started (it then lists them)
-    deploy_sha=$(timeout 30 gh api "repos/$repo/actions/workflows/$tested_workflow/runs?branch=master&status=success&per_page=30&created=%3C%3D$run_at" \
-      --jq "[.workflow_runs[] | select(.updated_at <= \"$run_at\")] | max_by(.created_at) | .head_sha // empty" 2>/dev/null)
-  fi
-
-  # In the release: the merge commit behind (or at) its tag. Being deployed:
-  # at least as far behind master as what's deployed (both are on master's
-  # line, so the further behind is the older one)
-  for i in "${!prs[@]}"; do
-    IFS=$'\t' read -r _ sha _ <<<"${prs[$i]}"
-    aliases+="p$i: compare(headRef: \"$sha\") { status behindBy } "
-  done
-  local deploy_alias=''
-  [ -n "$deploy_sha" ] && deploy_alias="deploy: compare(headRef: \"$deploy_sha\") { status behindBy }"
-  answer=$(timeout 60 gh api graphql -f owner="${repo%/*}" -f name="${repo#*/}" -f query='
-    query($owner: String!, $name: String!) { repository(owner: $owner, name: $name) {
-      latestRelease { publishedAt tag { '"$aliases"' } }
-      master: ref(qualifiedName: "refs/heads/master") { '"$aliases $deploy_alias"' }
-    } }' --jq '
-    .data.repository
-    | if .latestRelease.tag == null then empty else
-        . as $r
-        | ["BEHIND", "IDENTICAL"] as $in
-        | ($r.master.deploy // null) as $deploy
-        | ($r.latestRelease.publishedAt | fromdateiso8601) as $published
-        | ($r.latestRelease.tag | keys[]) as $key
-        | [($key | ltrimstr("p")),
-           (if ($r.latestRelease.tag[$key].status | IN($in[])) then "deployed"
-            elif $deploy != null and ($deploy.status | IN($in[])) and ($r.master[$key].status | IN($in[]))
-                 and $deploy.behindBy <= $r.master[$key].behindBy then "deploying"
-            else "merged" end),
-           $published]
-        | @tsv
-      end' 2>/dev/null) || answer='' # GitHub unreachable: as before, next time maybe
-
-  local index status published number sha at additions deletions url title
-  while IFS=$'\t' read -r index status published; do
-    IFS=$'\t' read -r number sha at additions deletions url title <<<"${prs[$index]}"
-    case $status in
-      deployed)
-        keys+=("$repo#$number:deployed")
-        # Seen in production just now: in the latest release (one per poll or
-        # so, while it waits). Not those already there the first time
-        if once "$repo#$number:deployed"; then
-          notify normal "Deployed to production" "$title"$'\n'"$repo#$number" "$url"
-          printf '%s\t%s\n' "$repo#$number" "$published" >>"$deployed_at"
-          deployed_row "$repo" "$number" "$published" "$additions" "$deletions" "$url" "$title"
-        fi ;;
-      deploying)
-        keys+=("$repo#$number:deploying@$run_id")
-        once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
-        deploying_row DEPLOYING deploying "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
-      *) deploying_row MERGED merged "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
-    esac
-  done <<<"$answer"
+  local repo=$1 run_id='' line
+  local -A pr_of=()
+  while IFS= read -r line; do [ -n "$line" ] && pr_of[${line%%$'\t'*}]=$line; done
+  [ ${#pr_of[@]} -gt 0 ] || return 0
+  local file key status published number at additions deletions url title
+  file=$(deploys_file "$repo")
+  [ -s "$file" ] || return 0
+  # Not in a pipeline: it adds to keys and deploying
+  {
+    IFS=$'\t' read -r _ run_id
+    while IFS=$'\t' read -r key status published; do
+      IFS=$'\t' read -r number _ at additions deletions url title <<<"${pr_of[$key]}"
+      [ -n "$number" ] || continue
+      case $status in
+        deployed)
+          keys+=("$repo#$number:deployed")
+          # Seen in production just now: in the latest release (one per poll or
+          # so, while it waits). Not those already there the first time
+          if once "$repo#$number:deployed"; then
+            notify normal "Deployed to production" "$title"$'\n'"$repo#$number" "$url"
+            printf '%s\t%s\n' "$repo#$number" "$published" >>"$deployed_at"
+            deployed_row "$repo" "$number" "$published" "$additions" "$deletions" "$url" "$title"
+          fi ;;
+        deploying)
+          keys+=("$repo#$number:deploying@$run_id")
+          once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
+          deploying_row DEPLOYING deploying "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
+        *) deploying_row MERGED merged "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
+      esac
+    done
+  } <"$file"
 }
 
 if wait "$merged_pid"; then
