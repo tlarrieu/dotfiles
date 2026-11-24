@@ -553,6 +553,15 @@ mine() {
 # Adds local work no pull request of mine holds (a local-work record, see
 # find_local_work): Enter goes to the agent working there, else neovim in its
 # worktree, else GitHub's page to open a pull request for it (pushed)
+# <path> encoded for a URL's path: what git allows in a branch name, and a
+# URL reads otherwise (% first, as the others bring theirs)
+# Usage: url_path <path>
+url_path() {
+  local path=${1//"%"/"%25"}
+  path=${path//"#"/"%23"} path=${path//"?"/"%3F"} path=${path//"&"/"%26"} path=${path//"+"/"%2B"}
+  echo "$path"
+}
+
 # shellcheck disable=SC2154 # record fields, set by each_record
 local_row() {
   local title state='' url='' push='' tended=-
@@ -560,7 +569,7 @@ local_row() {
   [ "$branch" != - ] && [ "$upstream" = none ] && title+=' (never pushed)'
   [ "$kept" = yes ] && title+=" (a stopped agent's, kept)"
   if [ "$agent" != - ]; then state=${agent_states[$agent]} tended=yes; fi
-  [ "$branch" != - ] && [ "$upstream" = yes ] && url="https://github.com/$repo/compare/$branch?expand=1"
+  [ "$branch" != - ] && [ "$upstream" = yes ] && url="https://github.com/$repo/compare/$(url_path "$branch")?expand=1"
   [ "$branch" != - ] && [ "$ahead" -gt 0 ] && push="$clone $branch $upstream $ahead"
   urls+=("$url") queues+=('') prs+=('') merges+=('') sessions+=("$([ "$agent" != - ] && echo "$agent")")
   dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push")
