@@ -376,7 +376,7 @@ confirm_push() {
 # Usage: push_branch <clone> <branch> <upstream: yes, none or gone>
 push_branch() {
   local track=()
-  [ "$2" = yes ] || track=(--set-upstream)
+  [ "$3" = yes ] || track=(--set-upstream)
   timeout 60 git -C "$1" push --quiet "${track[@]}" origin "refs/heads/$2:refs/heads/$2" 2>&1
 }
 
