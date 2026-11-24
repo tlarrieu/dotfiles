@@ -186,7 +186,7 @@ while read -r repo; do
     [ "$ahead" -gt 0 ] || [ "$count" -gt 0 ] || [ -n "${kept[$where]}" ] || pushed_unmerged || continue
     add "$repo" "$clone" "$branch" "$where" "$state" "$ahead" "$count" "$time"
   done < <(git -C "$clone" for-each-ref refs/heads \
-    --format='%(refname:short)%1f%(upstream)%1f%(upstream:track)%1f%(committerdate:unix)')
+    --format='%(refname:lstrip=2)%1f%(upstream)%1f%(upstream:track)%1f%(committerdate:unix)')
 
   # (not counting an agent's base commit: not the agent's, and on a remote
   # branch, likely, just not one we track)
