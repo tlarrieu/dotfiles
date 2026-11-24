@@ -133,7 +133,9 @@ fetch_deploys() {
 deploys_file() { echo "$deploys/deploys.${1//\//_}"; } # <repo>
 
 # Side by side with the main query: the merged search, then (each repository
-# side by side) where their deploys stand. Fails as the merged search does
+# side by side) where their deploys stand. Fails as the merged search does.
+# Writes files only: not our output, which would keep whoever reads it
+# waiting for the job, when the main query fails (we exit at once)
 {
   timeout 60 gh api graphql -f query="$merged_query" \
     -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
@@ -148,7 +150,7 @@ deploys_file() { echo "$deploys/deploys.${1//\//_}"; } # <repo>
       fetch_deploys "$deploy_repo" >"$(deploys_file "$deploy_repo")" &
   done < <(cut -f1 <<<"$pending" | sort -u)
   wait
-} 9>&- &
+} 9>&- >/dev/null 2>&1 &
 merged_pid=$!
 
 # What we read of each pull request (see github_search_prs)
