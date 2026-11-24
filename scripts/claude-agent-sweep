@@ -63,6 +63,14 @@ stop() {
 # run in the worktree yet (kitty takes a moment to start in it)
 fresh() { [ -n "$(find "$1" -mmin -1 -print -quit 2>/dev/null)" ]; }
 
+# Whether the worktree $1 is being set up for its agent, claude not started
+# yet (it can take minutes: claude-agent-spawn holds this lock the while)
+setting_up() {
+  local lock
+  lock="$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null)/claude-agent-setup.lock"
+  [ -e "$lock" ] && ! flock -n "$lock" true
+}
+
 idle() {
   while busy "$1"; do
     [ "$(date +%s)" -lt "$deadline" ] || return 1
@@ -80,6 +88,7 @@ for repository in "$slots"/*/; do
       continue
     fi
     fresh "$slot_file" && continue
+    setting_up "$worktree" && continue
     idle "$worktree" || continue
 
     primary=$(dirname "$(git -C "$worktree" rev-parse --path-format=absolute --git-common-dir)")
@@ -103,6 +112,7 @@ for repository in "$slots"/*/; do
     (
       flock 9
       fresh "$slot_file" && exit # taken again while we waited
+      setting_up "$worktree" && exit
       busy "$worktree" && exit
       branch=$(git -C "$worktree" branch --show-current)
       stop "$worktree"

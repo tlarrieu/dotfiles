@@ -76,7 +76,10 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   origin=$(git -C "$primary" remote get-url origin 2>/dev/null)
   hook="$assets/claude-agent-setup/$(basename "${origin:-$primary}" .git)"
   [ -x "$hook" ] || hook="$assets/claude-agent-setup/$(basename "$primary")"
-  [ -x "$hook" ] && setup="$hook $primary; or echo \"Worktree setup failed, carrying on\"; "
+  # Holding a lock the while (see setting_up in claude-agent-sweep): no
+  # claude runs in the worktree yet
+  setup_lock="$(git -C "$directory" rev-parse --absolute-git-dir)/claude-agent-setup.lock"
+  [ -x "$hook" ] && setup="flock $setup_lock $hook $primary; or echo \"Worktree setup failed, carrying on\"; "
 
   head="It sits on a detached HEAD, at the user's current commit ($base): before
 your first commit, create a branch named after your work (git switch -c
