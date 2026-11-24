@@ -68,9 +68,15 @@ for f in "$agents_dir"/*; do
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
     if agent_displayed "$(basename "$f")" "$transcript" "$window" "$listen_on" "$kitty_window"; then
-      state=idle
-      write_agent "$f"
-      agent_unnotify "$(basename "$f")" # seen
+      # Read again: a hook may have written it while we looked (a prompt
+      # coming), or removed it (the session ending)
+      read_agent "$f"
+      [ -n "$pid" ] || continue
+      if [ "$state" = "done" ]; then
+        state=idle
+        write_agent "$f"
+        agent_unnotify "$(basename "$f")" # seen
+      fi
     fi
     ;;
   esac
