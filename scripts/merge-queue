@@ -138,11 +138,11 @@ deploys_file() { echo "$deploys/deploys.${1//\//_}"; } # <repo>
 # waiting for the job, when the main query fails (we exit at once)
 {
   timeout 60 gh api graphql -f query="$merged_query" \
-    -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq '
+    -f q="is:pr is:merged author:@me merged:>=$(date -d "$deploy_window days ago" +%F) $repos" --jq "$github_tsv_jq"'
       [.data.search.nodes[] | select(.mergeCommit)
        | [.repository.nameWithOwner, .number, .mergeCommit.oid, (.mergedAt | fromdateiso8601),
           .additions, .deletions, .url, (.title | gsub("[\t\n]"; " "))]]
-      | sort_by(.[3]) | .[] | @tsv' >"$merged_search" 2>/dev/null || exit 1
+      | sort_by(.[3]) | .[] | tsv' >"$merged_search" 2>/dev/null || exit 1
   pending=$(pending_deploys "$(<"$merged_search")")
   while read -r deploy_repo; do
     [ -n "$deploy_repo" ] || continue
@@ -284,11 +284,11 @@ program='
         end ]
   | sort_by(.rank) | .[].row
   | [$fields[] as $f | .[$f] // "-"]
-  | @tsv
+  | tsv
 '
 program=${program//FIELDS/$(printf '%s\n' "${fields[@]}" | jq -R . | jq -sc .)}
 answer=$(github_search_prs "is:pr is:open author:@me $repos" "$selection") || { cat "$cache"; exit 1; }
-fresh=$(jq -r "$github_ci_jq$github_comments_jq$approvals_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
+fresh=$(jq -r "$github_tsv_jq$github_ci_jq$github_comments_jq$approvals_jq$program" <<<"$answer") || { cat "$cache"; exit 1; }
 
 fresh=$header$'\n'$(sed '/^$/d' <<<"$fresh")
 
@@ -377,11 +377,11 @@ while IFS=$'\t' read -r repo number enqueued; do
   [ -n "$repo" ] || continue
   grep -qxF "$repo"$'\t'"$number"$'\t'"$enqueued" <<<"$current" && continue
 
-  left=$(timeout 60 gh api graphql -f query="$left_query" -f owner="${repo%/*}" -f name="${repo#*/}" -F number="$number" --jq '
+  left=$(timeout 60 gh api graphql -f query="$left_query" -f owner="${repo%/*}" -f name="${repo#*/}" -F number="$number" --jq "$github_tsv_jq"'
     .data.repository.pullRequest
     | [(if .merged then "merged" else (.timelineItems.nodes[0].reason // (.state | ascii_downcase)) end),
        .url, (.title | gsub("[\t\n]"; " "))]
-    | @tsv
+    | tsv
   ' 2>/dev/null) || { current+="$repo"$'\t'"$number"$'\t'"$enqueued"$'\n'; continue; } # retry next time
   IFS=$'\t' read -r reason url title <<<"$left"
 

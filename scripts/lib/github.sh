@@ -132,6 +132,14 @@ github_ci_rollup="statusCheckRollup {
         }"
 # shellcheck disable=SC2034 # for the scripts sourcing this
 github_ci_query="commits(last: 1) { nodes { commit { $github_ci_rollup } } }"
+# jq: an array as a record's line (see records.sh), its fields tab
+# separated. Not @tsv, which escapes backslashes (and readers don't undo
+# that: a title's backslash showed doubled); tabs and line breaks within a
+# field (titles) become spaces, nulls empty fields, as there
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_tsv_jq='
+  def tsv: map(if . == null then "" else tostring | gsub("[\t\n\r]"; " ") end) | join("\t");
+'
 # shellcheck disable=SC2016,SC2034 # jq variables; for the scripts sourcing this
 github_ci_jq='
   def latest_checks:

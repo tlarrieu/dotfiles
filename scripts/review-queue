@@ -64,7 +64,7 @@ answer=$(github_search_prs "is:pr is:open draft:false review-requested:@me -auth
 # My teams' slugs (the search matches theirs, but a pull request lists all
 # those requested)
 teams=$(timeout 30 gh api user/teams --paginate --jq '[.[].slug]' 2>/dev/null | jq -sc add) || { cat "$queue"; exit 1; }
-fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq$github_comments_jq"'
+fresh=$(jq -r --argjson teams "$teams" "$github_tsv_jq$github_ci_jq$github_comments_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
   | select(.state == "OPEN") # the search lags behind, listing one merged (or closed) moments ago
@@ -82,7 +82,7 @@ fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq$github_comments_jq"'
      ([.reviewThreads.nodes[] | select(.isResolved | not)] | length),
      open_comments,
      (if $team == null then "-" elif $team == "" then "team" else $team end)]
-  | @tsv
+  | tsv
 ' <<<"$answer" 2>/dev/null) || { cat "$queue"; exit 1; }
 
 fresh=$header$'\n'$(sort -n <<<"$fresh" | sed '/^$/d')
