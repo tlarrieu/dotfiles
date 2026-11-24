@@ -182,29 +182,53 @@ alive() {
 # its own: `claude attach` shows it (see claude-agent-jump)
 # Usage: background <pid>
 background() {
-  local pid=$1 argv
+  local pid=$1 argv ppid
   while [ "$pid" -gt 1 ] 2>/dev/null; do
     argv=()
     mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$pid/cmdline"
     [ "${argv[1]}" = daemon ] && return 0
-    pid=$(awk '{ print $4 }' "/proc/$pid/stat" 2>/dev/null) || return 1
+    read_ppid "$pid" || return 1
+    pid=$ppid
   done
   return 1
+}
+
+# Sets ppid: process <pid>'s parent. In bash, as forking for it (awk, ps)
+# costs more than the rest of a walk up the tree. Its fields after its name,
+# which may hold spaces and parentheses
+# Usage: read_ppid <pid>
+read_ppid() {
+  local stat
+  read -r stat 2>/dev/null <"/proc/$1/stat" || return 1
+  stat=${stat##*) } # <state> <ppid> …
+  stat=${stat#* }
+  ppid=${stat%% *}
 }
 
 # Whether claude process <pid>'s turn left something running: a tool's shell
 # (they source claude's shell snapshot), a Monitor's or a background Bash's.
 # Its own hooks (our callers) aside
 # Usage: monitoring <pid>
+# All from /proc, in bash: pgrep scans every process, and claude-agent-list
+# asks for each agent done or idle (rofi-github waits on it)
 monitoring() {
-  local child self=$$
+  local self=$$ ppid child children=() more argv
   local -A ancestors=()
   while [ "$self" -gt 1 ] 2>/dev/null; do
     ancestors[$self]=1
-    self=$(awk '{ print $4 }' "/proc/$self/stat" 2>/dev/null) || break
+    read_ppid "$self" || break
+    self=$ppid
   done
-  for child in $(pgrep -P "$1" -f '/\.claude/shell-snapshots/' 2>/dev/null); do
-    [ -z "${ancestors[$child]}" ] && return 0
+  for child in /proc/"$1"/task/*/children; do
+    more=()
+    read -ra more 2>/dev/null <"$child" # one line, unterminated
+    children+=("${more[@]}")
+  done
+  for child in "${children[@]}"; do
+    [ -n "${ancestors[$child]}" ] && continue
+    argv=()
+    mapfile -d '' argv 2>/dev/null <"/proc/$child/cmdline"
+    [[ "${argv[*]}" == */.claude/shell-snapshots/* ]] && return 0
   done
   return 1
 }

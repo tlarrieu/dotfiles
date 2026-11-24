@@ -30,13 +30,20 @@ declare -A agent_styles=(
 agent_fallback_style=$dimmer
 
 # Text made safe for rows with markup (-markup-rows)
-escape() { sed 's/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g' <<<"$1"; }
+# (in bash, as are the next ones: rofi-github calls them for each row's cells)
+escape() {
+  local text=${1//"&"/"&amp;"}
+  text=${text//"<"/"&lt;"}
+  printf '%s\n' "${text//">"/"&gt;"}"
+}
 
 # How many characters a row with markup shows (its longest line): the tags
 # left out, the entities (see escape) counted as one
 shown_width() {
   local plain line widest=0
-  plain=$(sed 's/<[^>]*>//g; s/&lt;/</g; s/&gt;/>/g; s/&amp;/\&/g' <<<"$1")
+  plain=$1
+  while [[ $plain =~ \<[^\>]*\> ]]; do plain=${plain/"${BASH_REMATCH[0]}"/}; done
+  plain=${plain//"&lt;"/"<"} plain=${plain//"&gt;"/">"} plain=${plain//"&amp;"/"&"}
   while IFS= read -r line; do [ ${#line} -gt "$widest" ] && widest=${#line}; done <<<"$plain"
   echo "$widest"
 }
