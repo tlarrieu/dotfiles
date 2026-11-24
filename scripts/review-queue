@@ -70,9 +70,10 @@ fresh=$(jq -r --argjson teams "$teams" "$github_ci_jq$github_comments_jq"'
   | select(.state == "OPEN") # the search lags behind, listing one merged (or closed) moments ago
   | (if any(.reviewRequests.nodes[]; .requestedReviewer.login == $me) then null
      else [.reviewRequests.nodes[].requestedReviewer.slug | select(. != null and IN($teams[]))] | join(",") end) as $team
+  | .createdAt as $created
   | ([.timelineItems.nodes[]
       | select(if $team then (.requestedReviewer.slug // "" | IN($teams[])) else .requestedReviewer.login == $me end)
-      | .createdAt] | last // .createdAt) as $requested
+      | .createdAt] | last // $created) as $requested
   | ([.timelineItems.nodes[] | select(.__typename == "ReadyForReviewEvent") | .createdAt] | last) as $ready
   | ([$requested, $ready] | max) as $at
   | [($at | fromdateiso8601), .repository.nameWithOwner, .number, (.author.login // "ghost"),
