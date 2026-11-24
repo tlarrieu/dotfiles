@@ -49,8 +49,19 @@ for f in "$agents_dir"/*; do
   [ -f "$f" ] || continue
   read_agent "$f"
   # Never half written (write_agent renames them into place): no pid means none
-  if ! alive "$pid" || continued "$transcript"; then
+  if ! alive "$pid"; then
     rm -rf "$f" "$f.subagents" "$(agent_notification "$(basename "$f")")"
+    continue
+  fi
+  # Continued in another session, it shows that one: no agent of its own
+  # anymore, a view on another (see background_terminals), kept as such
+  if [ "$state" = view ] || continued "$transcript"; then
+    if [ "$state" != view ]; then
+      state=view
+      write_agent "$f"
+      rm -rf "$f.subagents"
+      agent_unnotify "$(basename "$f")"
+    fi
     continue
   fi
   case "$state" in

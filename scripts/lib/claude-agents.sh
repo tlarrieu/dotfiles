@@ -7,7 +7,9 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 
 # A state file holds one line: these fields, space separated
 #   state         running, done, idle or attention (claude-agent-list
-#                 tells monitoring too, see monitoring)
+#                 tells monitoring too, see monitoring); view: continued in
+#                 another session, which it shows (claude-agent-list marks
+#                 them, and leaves them out)
 #   pid           the claude process
 #   started       when the session started (epoch)
 #   window        its terminal's X window id
@@ -238,11 +240,12 @@ monitoring() {
 
 # The terminals showing background session <session> (see background), one
 # per line: <X window> <kitty socket> <kitty window> (- when unknown). Claude's
-# agent view showing it (← in a session, before typing anything: it hands its
-# first prompt over to a background session, then shows those; a session
-# without a transcript, in a kitty window), by its terminal's title (the
-# session's, after a status glyph); then those attached to it (claude
-# attach). Needs $assets
+# agent view showing it, by its terminal's title (the session's, after a
+# status glyph): a session in a kitty window, sent to the background (←) as
+# it was (a view now, see claude-agent-list), or before typing anything (it
+# hands its first prompt over to a background session, then shows those; no
+# transcript of its own). Then those attached to it (claude attach). Needs
+# $assets
 # Usage: background_terminals <session> <transcript>
 # shellcheck disable=SC2154 # state file fields, set by read_agent
 background_terminals() {
@@ -251,7 +254,7 @@ background_terminals() {
   for f in "$agents_dir"/*; do
     [ -f "$f" ] || continue
     read_agent "$f" view_
-    [ -f "$view_transcript" ] && continue
+    [ "$view_state" = view ] || [ ! -f "$view_transcript" ] || continue
     alive "$view_pid" || continue
     case "$view_window" in "" | *[!0-9]*) continue ;; esac
     [ "$view_listen_on" != - ] && [ "$view_kitty_window" != - ] || continue
