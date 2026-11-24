@@ -20,8 +20,10 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 #                 (agent_pr for claude-agent-pr's agents, branch_pr for the
 #                 others), as of its last hook
 #   root          the top of its worktree (- when it holds a space)
+#   untold        yes: done, its turn over on something left running (see
+#                 monitoring), its "Done" not told yet (see claude-agent-state)
 # Missing values are written as -.
-agent_fields=(state pid started window listen_on kitty_window project transcript since pr root)
+agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold)
 
 # Sets the fields of state file <file> as variables, each name prefixed with
 # [prefix] (all empty when the file is missing)

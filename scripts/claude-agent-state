@@ -97,16 +97,20 @@ esac
 # work (claude-agent-list tells it monitoring), no "Done" to tell yet
 watching=false
 [ "$state" = "done" ] && monitoring "$pid" && watching=true
+# shellcheck disable=SC2034 # written by write_agent
+if $watching; then untold=yes; else untold=-; fi
 
 read_agent "$file" previous_
 # shellcheck disable=SC2034 # these fields are written by name (write_agent)
 started=${previous_started:-$(date +%s)} since=${previous_since:-$(date +%s)}
 # A prompt starts a new turn, even when an interrupt (which fires no hook) left
-# the session as running
-# shellcheck disable=SC2034,SC2154 # since is written by write_agent, previous_state set by read_agent
+# the session as running. And what it left running, once over, wakes it up
+# with no prompt: a turn that may use no tool either, done as the last one,
+# whose "Done" is still to tell (untold)
+# shellcheck disable=SC2034,SC2154 # since is written by write_agent, previous_ fields set by read_agent
 if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = UserPromptSubmit ]; then
   since=$(date +%s)
-elif [ "$previous_state" = "$state" ]; then
+elif [ "$previous_state" = "$state" ] && { [ "$previous_untold" != yes ] || $watching; }; then
   exit 0 # nothing changed, avoid pinging awesome
 fi
 
