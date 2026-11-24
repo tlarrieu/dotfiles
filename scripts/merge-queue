@@ -309,6 +309,9 @@ pull_request() {
   # (GitHub tells mergeable UNKNOWN for a while each time its base moves)
   mapfile -t -O "${#keys[@]}" keys < <(grep -F "$repo#$number:blocked:" "$seen" | grep -F "@$head")
   if [ "$kind" = other ]; then
+    # Ready, until its base moved: told already, as it will be again, ready
+    # (other blockers do drop it: ready again, it gets told again)
+    [ "$state" = UNKNOWN ] && grep -qxF "$repo#$number:ready" "$seen" && keys+=("$repo#$number:ready")
     local why=''
     case $state in
       CONFLICT) why='Conflicts with its base branch' ;;
