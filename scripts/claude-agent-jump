@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 # Focuses the terminal of a Claude agent: its awesome client, then its kitty tab
-# (a background session: the terminal attached to it, else a new one).
+# (a background session: claude's agent view showing it, else the terminal
+# attached to it, else a new one).
 # Usage: claude-agent-jump [session_id]
 # Without a session, picks the agent that wants us the most: the first one
 # needing attention (in claude-agent-list's order), else the first done one,
 # else the one we last focused (else the newest one). Fails (and says so) when
-# there is no such agent.
+# there is no such agent. Not one without a transcript: nothing happened there,
+# and some never will (the original of a session sent to the background as
+# its first prompt, which lives on showing it; a spare claude's daemon keeps
+# ready for the next one)
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
@@ -14,16 +18,67 @@ assets=$(dirname "$(readlink -f "$0")")
 . "$assets/lib/records.sh"
 target="$1"
 
+# Terminals attached to background sessions (see background in
+# lib/claude-agents.sh), by the session's short id (claude's, its first 8
+# characters): their X windows, space separated
+declare -A attached=()
+for client in $(pgrep -x claude); do
+  argv=()
+  mapfile -d '' argv 2>/dev/null <"/proc/$client/cmdline"
+  for i in "${!argv[@]}"; do
+    [ "${argv[$i]}" = attach ] && [ -n "${argv[$((i + 1))]}" ] || continue
+    attached_window=$(tr '\0' '\n' <"/proc/$client/environ" 2>/dev/null | sed -n 's/^WINDOWID=//p')
+    case "$attached_window" in "" | *[!0-9]*) ;; *) attached[${argv[$((i + 1))]:0:8}]+="$attached_window " ;; esac
+    break
+  done
+done
+
+# Claude's agent views (← in a session, before typing anything: it hands
+# its first prompt over to a background session, then shows those),
+# by the title of the session they show (their terminal's, its status glyph
+# off): <X window> <kitty socket> <kitty window>. Sessions without a
+# transcript, in a kitty window
+declare -A views=()
+# shellcheck disable=SC2154 # state file fields, set by read_agent
+for f in "$agents_dir"/*; do
+  [ -f "$f" ] || continue
+  read_agent "$f" view_
+  [ -f "$view_transcript" ] && continue
+  alive "$view_pid" || continue
+  case "$view_window" in "" | *[!0-9]*) continue ;; esac
+  [ "$view_listen_on" != - ] && [ "$view_kitty_window" != - ] || continue
+  shown=$(kitty @ --to "$view_listen_on" ls --match "id:$view_kitty_window" 2>/dev/null |
+    jq -r '.[0].tabs[0].windows[0].title // empty' 2>/dev/null)
+  [[ $shown == *' '* ]] || continue
+  views[${shown#* }]="$view_window $view_listen_on $view_kitty_window"
+done
+
+# The agent view showing background session <transcript>, if any (see views)
+# Usage: view_of <transcript>
+view_of() {
+  [ ${#views[@]} -gt 0 ] || return 0
+  local title
+  title=$(agent_title "$1")
+  [ -n "$title" ] && echo "${views[$title]}"
+}
+
 if [ -z "$target" ]; then
   declare -A first=()   # session, by state
   declare -A windows=() # session, by window
   newest='' newest_started=0
   # shellcheck disable=SC2154 # record and state file fields, set by each_record and read_agent
   agent() {
+    read_agent "$agents_dir/$session" agent_
+    [ -f "$agent_transcript" ] || return 0
     [ -n "${first[$state]}" ] || first[$state]=$session
     if [ "$started" -gt "$newest_started" ]; then newest=$session newest_started=$started; fi
-    read_agent "$agents_dir/$session" agent_
-    case "$agent_window" in "" | *[!0-9]*) ;; *) windows[$agent_window]=$session ;; esac
+    local window view=''
+    # A background one's: the agent view showing it, the terminals attached
+    # to it
+    [ "$agent_window" = - ] && view=$(view_of "$agent_transcript")
+    for window in "$agent_window" "${view%% *}" ${attached[${session:0:8}]}; do
+      case "$window" in "" | *[!0-9]*) ;; *) windows[$window]=$session ;; esac
+    done
   }
   each_record agent < <("$assets/claude-agent-list")
   target=${first[attention]:-${first[done]:-}}
@@ -62,18 +117,24 @@ focus() {
   " 2>/dev/null | grep -q true
 }
 
-# A background session (see background in lib/claude-agents.sh): the terminal
-# already attached to it, else a new one, in the agents' kitty (see
-# claude-agent-spawn)
+# Focuses kitty window <id> of the kitty listening on <socket> (after its X
+# window: background agents' must have a tag by the time it asks awesome to
+# activate it, see signals.lua)
+# Usage: kitty_focus <socket> <id>
+kitty_focus() { kitty @ --to "$1" focus-window --match "id:$2" 2>/dev/null; }
+
+# A background session (see background in lib/claude-agents.sh): the agent
+# view showing it, else the terminal already attached to it, else a new one,
+# in the agents' kitty (see claude-agent-spawn)
 if [ "$window" = - ] && background "$pid"; then
+  # shellcheck disable=SC2154 # set by read_agent
+  read -r view_window view_listen_on view_kitty_window <<<"$(view_of "$transcript")"
+  if [ -n "$view_window" ] && focus "$view_window"; then
+    kitty_focus "$view_listen_on" "$view_kitty_window"
+    exit 0
+  fi
   id=${target:0:8} # claude's short ids
-  for client in $(pgrep -x claude); do
-    args=" $(tr '\0' ' ' <"/proc/$client/cmdline" 2>/dev/null)"
-    [[ $args == *" attach $id "* || $args == *" attach $target "* ]] || continue
-    attached=$(tr '\0' '\n' <"/proc/$client/environ" 2>/dev/null | sed -n 's/^WINDOWID=//p')
-    case "$attached" in "" | *[!0-9]*) continue ;; esac
-    focus "$attached" && exit 0
-  done
+  for attached_window in ${attached[$id]}; do focus "$attached_window" && exit 0; done
   directory=$HOME
   # shellcheck disable=SC2154 # set by read_agent
   [ -d "$root" ] && directory=$root # (its worktree may be gone)
@@ -85,12 +146,9 @@ fi
 case "$window" in "" | *[!0-9]*) fail "Can't find this agent's terminal" ;; esac
 focus "$window" || fail "This agent's terminal is gone"
 
-# Kitty comes second: background agents must have a tag by the time it asks
-# awesome to activate their window (see signals.lua)
+# Kitty comes second (see kitty_focus)
 # shellcheck disable=SC2154 # set by read_agent
-if [ "$listen_on" != - ] && [ "$kitty_window" != - ]; then
-  kitty @ --to "$listen_on" focus-window --match "id:$kitty_window" 2>/dev/null
-fi
+[ "$listen_on" != - ] && [ "$kitty_window" != - ] && kitty_focus "$listen_on" "$kitty_window"
 
 # The panel turns the done agent we just displayed into an idle one
 awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1
