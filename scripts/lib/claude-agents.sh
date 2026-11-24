@@ -90,7 +90,8 @@ agent_title() {
     (map(select(.type == "custom-title")) | last | .customTitle)
     // (map(select(.type == "agent-name")) | last | .agentName)
     // (map(select(.type == "ai-title")) | last | .aiTitle) // empty
-  ' 2>/dev/null | awk '{ print substr($0, 1, 90) }' # multibyte-safe
+    | .[0:90]
+  ' 2>/dev/null # (in jq: by character, where mawk cuts bytes)
 }
 
 # An agent's name, for notifications: its project, then its pull request
@@ -114,8 +115,8 @@ agent_last_words() {
   [ -f "$1" ] || return 0
   tail -n 200 "$1" | jq -rs '
     [.[] | select(.type == "assistant") | .message.content | arrays | .[] | select(.type == "text") | .text]
-    | last // empty | split("\n") | map(select(test("\\S"))) | first // empty
-  ' 2>/dev/null | awk '{ print substr($0, 1, 200) }'
+    | last // empty | split("\n") | map(select(test("\\S"))) | first // empty | .[0:200]
+  ' 2>/dev/null
 }
 
 # A notification about an agent which, clicked, jumps to it (see

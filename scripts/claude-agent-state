@@ -146,7 +146,8 @@ attention)
 done)
   $watching && exit 0
   # (a displayed one is idle by now: seen)
-  message=$(jq -r '.last_assistant_message // empty' <<<"$input" | awk 'NF { print substr($0, 1, 200); exit }')
+  # (its first line, cut in jq: by character, where mawk cuts bytes)
+  message=$(jq -r '.last_assistant_message // empty | split("\n") | map(select(test("\\S"))) | first // empty | .[0:200]' <<<"$input")
   [ -n "$message" ] || message=$(agent_last_words "$transcript")
   agent_notify "$session" low "Done: $(agent_name "$project" "$pr" "$transcript")" "${message:-Its turn is over}"
   ;;
