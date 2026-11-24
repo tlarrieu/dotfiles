@@ -63,7 +63,9 @@ header=$'#at\trepo\tnumber\tauthor\tadditions\tdeletions\turl\ttitle\tci\tthread
 answer=$(github_search_prs "is:pr is:open draft:false review-requested:@me -author:@me $repos" "$selection") || { cat "$queue"; exit 1; }
 # My teams' slugs (the search matches theirs, but a pull request lists all
 # those requested)
-teams=$(timeout 30 gh api user/teams --paginate --jq '[.[].slug]' 2>/dev/null | jq -sc add) || { cat "$queue"; exit 1; }
+# (gh's failure ours, one page a line before they're joined)
+teams=$(timeout 30 gh api user/teams --paginate --jq '[.[].slug]' 2>/dev/null) || { cat "$queue"; exit 1; }
+teams=$(jq -sc 'add // []' <<<"$teams")
 fresh=$(jq -r --argjson teams "$teams" "$github_tsv_jq$github_ci_jq$github_comments_jq"'
   .data.viewer.login as $me
   | .data.search.nodes[]
