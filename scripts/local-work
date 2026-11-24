@@ -7,10 +7,10 @@
 # the worktrees of stopped agents the sweep kept (see claude-agent-sweep).
 # Branches pushed as they are, and clean, are in too, for rofi-github to show
 # those no pull request of mine holds (its rows tell the rest), but for those
-# merged into the default branch already. Those whose upstream is gone are
-# left out (merged, likely: squashed, their commits are on no remote branch,
-# so there's no telling what's left to push), unless checked out with
-# changes, or kept.
+# merged into the default branch already (squashed too, see squashed). Those
+# whose upstream is gone are left out (merged, likely: squashed, their commits
+# are on no remote branch, so there's no telling what's left to push), unless
+# checked out with changes, or kept.
 # Local only (as of the last fetch), but not free: a git status takes a
 # quarter of a second in a large worktree (finding untracked files), so they
 # run side by side, and the result is cached for rofi-github to open at
@@ -44,6 +44,7 @@ assets=$(dirname "$(readlink -f "$0")")
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/local-work"
 slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
 cache="$state_dir/work.tsv"
+verdicts="$state_dir/squashed" # see squashed
 mkdir -p "$state_dir"
 github_repos local-work local-work "Local work not watched" "$state_dir"
 
@@ -69,6 +70,35 @@ for slot in "$slots"/*/[0-9]*; do
     *) read -r worktree base _ <"$slot" && base_of[$worktree]=$base ;;
   esac
 done
+
+# Whether <branch> was squash-merged into <default>: a commit there since they
+# forked holds its whole change (same patch id). Its remote branch may well
+# outlive the merge, as fetches here don't prune (agents fetch single refs),
+# so its upstream doesn't read gone. Costs half a second or so (patch ids of
+# all of the default branch's commits since), so verdicts are kept in
+# $verdicts, one per line: <tip> merged (for good), or <tip> <default's tip>
+# no (until the default branch moves); this run's only, rewritten at the end
+# Usage: squashed <clone> <branch ref> <default branch ref>
+declare -A known=() used=()
+if [ -f "$verdicts" ]; then
+  while read -r tip verdict; do known[$tip]=$verdict; done <"$verdicts"
+fi
+squashed() {
+  local tip onto base mine verdict
+  tip=$(git -C "$1" rev-parse "$2") onto=$(git -C "$1" rev-parse "$3")
+  verdict=${known[$tip]}
+  if [ "$verdict" != merged ] && [ "$verdict" != "$onto no" ]; then
+    verdict="$onto no"
+    if base=$(git -C "$1" merge-base "$onto" "$tip"); then
+      mine=$(git -C "$1" diff "$base" "$tip" | git patch-id --stable | cut -d' ' -f1)
+      [ -n "$mine" ] && git -C "$1" log -p --format='commit %H' "$base..$onto" | git patch-id --stable |
+        cut -d' ' -f1 | grep -qxF "$mine" && verdict=merged
+    fi
+    known[$tip]=$verdict
+  fi
+  used[$tip]=$verdict
+  [ "$verdict" = merged ]
+}
 
 rows=()
 # Usage: add <repo> <clone> <branch> <worktree> <upstream> <ahead> <changes> <time>
@@ -121,7 +151,9 @@ while read -r repo; do
   # Pushed as it is, and not merged into the default branch (as of the last
   # fetch): a pull request to open, or one rofi-github shows already
   pushed_unmerged() {
-    [ "$state" = yes ] && ! git -C "$clone" merge-base --is-ancestor "refs/heads/$branch" "refs/remotes/origin/$default"
+    [ "$state" = yes ] || return 1
+    git -C "$clone" merge-base --is-ancestor "refs/heads/$branch" "refs/remotes/origin/$default" && return 1
+    ! squashed "$clone" "refs/heads/$branch" "refs/remotes/origin/$default"
   }
 
   # (unit separators between fields: tabs are whitespace to read, which would
@@ -161,6 +193,7 @@ done < <(grep -vE '^\s*(#|$)' "$github_config")
   printf '#repo\tclone\tbranch\tworktree\tupstream\tahead\tchanges\tagent\tkept\ttime\n'
   if [ ${#rows[@]} -gt 0 ]; then printf '%s\n' "${rows[@]}" | sort -t $'\t' -k1,1nr | cut -f2-; fi
 } >"$cache.tmp" && mv "$cache.tmp" "$cache"
+for tip in "${!used[@]}"; do echo "$tip ${used[$tip]}"; done >"$verdicts.tmp" && mv "$verdicts.tmp" "$verdicts"
 cat "$cache"
 awesome-client 'awesome.emit_signal("local-work::changed")' >/dev/null 2>&1 9>&- &
 exit 0
