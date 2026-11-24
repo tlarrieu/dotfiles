@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Refreshes GitHub trackers (merge-queue, review-queue, local-work) in the
+# background, once something changed what they track: a push (see
+# config/git/hooks/pre-push), a page of GitHub's left (see
+# config/awesome/github_refresh.lua). Returns at once: the trackers run
+# detached, side by side, after <pid> exits when given (the push, which
+# hasn't happened yet when its hook runs). Each tells the panel itself; their
+# lock lets one refresh run at a time (see github_lock).
+# Usage: github-refresh [--after <pid>] <tracker>…
+
+assets=$(dirname "$(readlink -f "$0")")
+after=''
+[ "$1" = --after ] && { after=$2; shift 2; }
+[ $# -gt 0 ] || { echo "Usage: github-refresh [--after <pid>] <tracker>…" >&2; exit 2; }
+for tracker; do
+  case $tracker in merge-queue | review-queue | local-work) ;; *) echo "github-refresh: unknown tracker $tracker" >&2; exit 2 ;; esac
+done
+
+# shellcheck disable=SC2016 # $1, $2… belong to the inner bash
+setsid -f bash -c '
+  assets=$1 after=$2; shift 2
+  # The push: once over (bounded, should it hang)
+  if [ -n "$after" ]; then
+    for _ in $(seq 600); do kill -0 "$after" 2>/dev/null || break; sleep 0.2; done
+  fi
+  for tracker; do "$assets/$tracker" >/dev/null 2>&1 & done
+  wait' bash "$assets" "$after" "$@" </dev/null >/dev/null 2>&1

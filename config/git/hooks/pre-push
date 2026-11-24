@@ -1,1 +1,14 @@
-_forward
+#!/bin/sh
+# Pushing to a watched repository (~/.config/github/repos): once the push is
+# over, refresh what tracks it (see ~/scripts/github-refresh). Leaves stdin
+# (the refs pushed) to the repository's own hook
+repos="${XDG_CONFIG_HOME:-$HOME/.config}/github/repos"
+repo=$(printf '%s\n' "$2" | sed -n 's#^.*github\.com[:/]\(.*\)$#\1#p' | sed 's#/$##; s#\.git$##')
+if [ -n "$repo" ] && grep -qixF "$repo" "$repos" 2>/dev/null; then
+  "$HOME/scripts/github-refresh" --after "$PPID" merge-queue local-work </dev/null >/dev/null 2>&1
+fi
+repo_hook="$(git rev-parse --git-common-dir)/hooks/pre-push"
+if [ -x "$repo_hook" ]; then
+  exec "$repo_hook" "$@"
+fi
+exit 0
