@@ -77,14 +77,14 @@ github_lock() {
 }
 
 # A notification which, clicked, opens <url>. Given one of my pull requests
-# needing a fix, a second action: Fix with Claude (see agent-pr: back
+# needing a fix, a second action: Fix with an agent (see agent-pr: back
 # to the agent already on it, else one fixing it). Waiting for that click
 # happens detached, so that we don't hold our caller's output open (nor our
 # lock)
 # Usage: github_notify <app name> <urgency> <title> <body> <url> [<owner/repo> <number>]
 github_notify() {
   local fix=()
-  [ -n "$7" ] && fix=(--action=fix="Fix with Claude")
+  [ -n "$7" ] && fix=(--action=fix="Fix with an agent")
   # shellcheck disable=SC2016 # $1..$8 belong to the inner sh
   setsid -f sh -c 'app=$1 urgency=$2 title=$3 body=$4 url=$5 repo=$6 number=$7 assets=$8; shift 8
     case "$(notify-send --app-name="$app" --urgency="$urgency" --action=default=Open "$@" --wait "$title" "$body")" in

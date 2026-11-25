@@ -537,10 +537,10 @@ agent_when() { case $state in running | monitoring) [ "$since" != - ] && span $(
 # Adds an agent (a agent-list record): Enter and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent() {
-  local transcript
-  transcript=$(read_agent "$agents_dir/$session" agent_; echo "$agent_transcript")
+  local title
+  title=$(read_agent "$agents_dir/$session" agent_; agent_title "$agent_harness" "$agent_transcript")
   urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent)
-  lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="$(agent_title "$transcript")" agent="$state")")
+  lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="$title" agent="$state")")
 }
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it

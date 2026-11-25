@@ -8,36 +8,21 @@
 # others by name; then by start time. A line's second word, when any, is its
 # project's short name (see rofi-github): ignored here.
 # <since> is when the current turn started ("-" when unknown).
+# Each through its harness's adapter (see lib/agents.sh), as far as it goes.
 # Prunes sessions whose process died (or whose pid a new process took), and
-# those continued in another session (backgrounded).
+# those continued in another session (backgrounded, see handed_over).
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
-# session whose transcript ends with an interrupt marker is reported as idle.
+# session whose turn ended on one (see interrupted) is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
 # Sessions with live subagents are reported as running. Done (or idle) ones
 # whose turn left a Monitor or a background shell running, as monitoring
-# (see monitoring in lib/agents.sh). Subagents silent for
+# (see busy in lib/agents.sh). Subagents silent for
 # 10 minutes are deemed gone (in case their SubagentStop hook never fired),
 # even those that were waiting for us: an Esc on their prompt fires no hook.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
 . "$assets/lib/agents.sh"
-
-interrupted() {
-  [ -f "$1" ] && tail -n 50 "$1" | jq -se '
-    [.[] | select(.type == "user" or .type == "assistant")] | last | .message.content
-    | (if type == "array" then .[0].text // "" else . end)
-    | startswith("[Request interrupted by user")
-  ' >/dev/null 2>&1
-}
-
-# Backgrounding a session hands it over to a new one (in claude's daemon), while
-# the original process lives on, showing the new session. Unless resumed since
-# (claude --resume): its own messages then follow the handover
-continued() {
-  [ -f "$1" ] && [ "$(tail -n 200 "$1" | grep -E '"type":"(user|assistant|continued-in)"' |
-    jq -rs '[.[] | select(.type | IN("user", "assistant", "continued-in"))] | last | .type // empty' 2>/dev/null)" = continued-in ]
-}
 
 order="${XDG_CONFIG_HOME:-$HOME/.config}/agents/projects"
 [ -f "$order" ] || order=/dev/null
@@ -52,13 +37,13 @@ for f in "$agents_dir"/*; do
   [ -f "$f" ] || continue
   read_agent "$f"
   # Never half written (write_agent renames them into place): no pid means none
-  if ! alive "$pid"; then
+  if ! alive "$pid" "$harness"; then
     rm -rf "$f" "$f.subagents" "$(agent_notification "$(basename "$f")")"
     continue
   fi
   # Continued in another session, it shows that one: no agent of its own
-  # anymore, a view on another (see background_terminals), kept as such
-  if [ "$state" = view ] || continued "$transcript"; then
+  # anymore, a view on another (see terminals in lib/agents.sh), kept as such
+  if [ "$state" = view ] || harness_do "$harness" handed_over "$transcript"; then
     if [ "$state" != view ]; then
       state=view
       write_agent "$f"
@@ -69,14 +54,14 @@ for f in "$agents_dir"/*; do
   fi
   # No transcript, and not working on its first prompt: nothing typed in it
   # yet, or a view that handed its first prompt over to a background session
-  # (see background_terminals): no agent to show. Not marked a view, as it
+  # (see terminals in lib/agents.sh): no agent to show. Not marked a view, as it
   # may be a new one, its transcript to come. Its startup notifications
   # would tell it waiting on me (attention), for good
   [ -f "$transcript" ] || [ "$state" = running ] || continue
   case "$state" in
-  running | attention) interrupted "$transcript" && state=idle ;;
+  running | attention) harness_do "$harness" interrupted "$transcript" && state=idle ;;
   done)
-    if agent_displayed "$(basename "$f")" "$transcript" "$window" "$listen_on" "$kitty_window"; then
+    if agent_displayed "$harness" "$(basename "$f")" "$transcript" "$window" "$listen_on" "$kitty_window"; then
       # Read again: a hook may have written it while we looked (a prompt
       # coming), or removed it (the session ending)
       read_agent "$f"
@@ -94,12 +79,12 @@ for f in "$agents_dir"/*; do
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
   fi
-  case "$state" in done | idle) monitoring "$pid" && state=monitoring ;; esac
+  case "$state" in done | idle) harness_do "$harness" busy "$pid" && state=monitoring ;; esac
   # None as of its last hook: its branch may have got a pull request since
   # (its next hook saves it). And its prompt may name one: the first hooks
   # (SessionStart, UserPromptSubmit) run before the prompt lands in the
   # transcript, and the next ones save nothing while its state stays the same
-  [ "${pr:--}" = - ] && pr=$(agent_pr "$transcript")
+  [ "${pr:--}" = - ] && pr=$(agent_pr "$harness" "$transcript")
   [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '

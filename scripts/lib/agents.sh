@@ -1,38 +1,42 @@
 # shellcheck shell=bash
 # Shared by the agent scripts. Source it: . "$assets/lib/agents.sh"
 #
-# Agents are coding assistant sessions (a harness: Claude Code today), which
-# the rest knows only through the state files below: the panel
-# (config/awesome/widgets/agents.lua, through agent-list), rofi-github, the
-# GitHub notifications' Fix action, agent-jump, agent-sweep, local-work.
-# What a harness brings, and what we use it for (the contract an adapter,
-# lib/harness/<name>.sh, is to fill; Claude's still lives here and in the
-# agent-* scripts, see "Claude:" below):
+# Agents are coding assistant sessions, run by a harness (Claude Code
+# today, others side by side), which the rest knows only through the state
+# files below: the panel (config/awesome/widgets/agents.lua, through
+# agent-list), rofi-github, the GitHub notifications' Fix action, agent-jump,
+# agent-sweep, local-work.
+# Each harness has an adapter, lib/harness/<name>.sh (all sourced below),
+# filling this contract with functions named <name>_<what>, and variables
+# <name>_label, <name>_icon, <name>_sound (its branding: notifications,
+# their sound). Called through harness_do:
 #   required
 #     launch      the command running an agent in a directory, on a first
-#                 prompt (or none: interactive), with extra context (agent-spawn)
-#     alive       whether a pid is one of its sessions (agent-list, sweep)
-#     state       telling each session's state as it changes: agent-state,
-#                 called by its hooks (Claude: its settings.json); without
-#                 hooks, agent-list would have to guess from the process
+#                 prompt (or none: interactive), with extra context (agent-spawn;
+#                 still Claude's own there, for now)
+#     alive <pid>  whether a pid is one of its sessions (agent-list, sweep)
+#     state       telling each session's state as it changes, through
+#                 agent-state (its usage tells how), from its hooks (Claude:
+#                 harness/claude-hook); without hooks, agent-list would have to
+#                 guess from the process
 #   optional (what goes without it, in parentheses)
-#     title       a session's title (rofi-github's rows, notifications)
-#     last words  what it said last (the "Done" notifications' body)
-#     first prompt  the prompt it started on (agent-pr's agents tell their
-#                 pull request by it; else by branch only)
-#     interrupted whether its turn ended on an interrupt (it shows as busy
-#                 until its next state)
-#     handed over whether it continued in another session it shows (it lists
-#                 as an agent of its own)
-#     background  sessions without a terminal, and the terminals showing or
-#                 attaching to them (agent-jump can't reach them)
-#     busy        whether its turn left something running (no monitoring
+#     title <transcript>  a session's title (rofi-github's rows, notifications)
+#     last_words <transcript>  what it said last (the "Done" notifications'
+#                 body, when agent-state isn't told)
+#     first_prompt <transcript>  the prompt it started on (agent-pr's agents
+#                 tell their pull request by it; else by branch only)
+#     interrupted <transcript>  whether its turn ended on an interrupt (it
+#                 shows as busy until its next state)
+#     handed_over <transcript>  whether it continued in another session it
+#                 shows (it lists as an agent of its own)
+#     background <pid>  whether it runs without a terminal; terminals <session>
+#                 <transcript>: those showing it, one per line, <X window>
+#                 <kitty socket> <kitty window>; attach <session>: the command
+#                 showing it in a new one (agent-jump can't reach them)
+#     busy <pid>  whether its turn left something running (no monitoring
 #                 state: done at once)
-# Claude: transcripts (agent_title, agent_last_words, agent_pr, agent-list's
-# interrupted and continued), its processes (alive, background,
-# background_terminals, monitoring, agent-sweep's processes), its hook
-# payloads (agent-state), its command line (agent-spawn, agent-jump's attach),
-# its branding (claude.png, claude.ogg, notifications' title).
+# Still Claude's, outside its adapter: agent-spawn's command line, agent-pr's
+# prompts.
 
 # Live sessions, one state file each, named after the session id (see
 # agent-state, which writes them; dot files are temporary)
@@ -43,7 +47,7 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/agents"
 #                 tells monitoring too, see monitoring); view: continued in
 #                 another session, which it shows (agent-list marks
 #                 them, and leaves them out)
-#   pid           the agent's process (claude's)
+#   pid           the agent's process (the harness's)
 #   started       when the session started (epoch)
 #   window        its terminal's X window id
 #   listen_on     its kitty's remote control socket
@@ -57,8 +61,41 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/agents"
 #   root          the top of its worktree (- when it holds a space)
 #   untold        yes: done, its turn over on something left running (see
 #                 monitoring), its "Done" not told yet (see agent-state)
+#   harness       the harness running it (see above); missing in older files:
+#                 $default_harness
 # Missing values are written as -.
-agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold)
+agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold harness)
+
+# The harness of agents told no other: the one spawning them, and the one of
+# state files older than the harness field
+default_harness=${AGENT_HARNESS:-claude}
+
+# The scripts' directory (adapters find their assets there), and the adapters
+agent_scripts=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+harnesses=()
+for adapter in "$agent_scripts"/lib/harness/*.sh; do
+  # shellcheck source=lib/harness/claude.sh
+  . "$adapter"
+  adapter=${adapter##*/}
+  harnesses+=("${adapter%.sh}")
+done
+unset adapter
+
+# Calls harness <harness>'s <what> (see the contract above); fails when it
+# has none (an optional one: what needs it goes without)
+# Usage: harness_do <harness> <what> [args...]
+harness_do() {
+  declare -F "$1_$2" >/dev/null || return 1
+  "$1_$2" "${@:3}"
+}
+
+# Harness <harness>'s <label|icon|sound> (see the contract above): empty when
+# it has none
+# Usage: harness_brand <harness> <label|icon|sound>
+harness_brand() {
+  local var="$1_$2"
+  [[ $var =~ ^[a-z0-9_]+$ ]] && echo "${!var}"
+}
 
 # Sets the fields of state file <file> as variables, each name prefixed with
 # [prefix] (all empty when the file is missing)
@@ -68,6 +105,7 @@ read_agent() {
   local name
   for name in "${names[@]}"; do printf -v "$name" ''; done
   [ -f "$1" ] && read -r "${names[@]}" <"$1"
+  [ -f "$1" ] && { [ -n "${!names[-1]}" ] || printf -v "${names[-1]}" '%s' "$default_harness"; } # (harness, last)
   return 0
 }
 
@@ -82,18 +120,17 @@ write_agent() {
   echo "${values[*]}" >"$tmp" && mv "$tmp" "$1"
 }
 
-# The pull request an agent works on, from its transcript: agent-pr's
-# agents open with "Fix <its URL>" or "Review <its URL>" (an agent merely
-# mentioning one doesn't count). Prints <owner/repo>#<number>, or nothing.
-# Reads up to the first prompt only.
-# Usage: agent_pr <transcript>
+# The pull request an agent works on, by the prompt it started on (see
+# first_prompt): agent-pr's agents open with "Fix <its URL>" or "Review <its
+# URL>" (an agent merely mentioning one doesn't count). Prints
+# <owner/repo>#<number>, or nothing
+# Usage: agent_pr <harness> <transcript>
 agent_pr() {
-  [ -f "$1" ] || return 0
-  jq -nr 'first(inputs | select(.type == "user")
-    | .message.content | if type == "array" then (.[0].text // "") else . end
-    | select(length > 0))
-    | capture("^(Fix|Review) https://github\\.com/(?<repo>[^/\\s]+/[^/\\s]+)/pull/(?<number>[0-9]+)")
-    | "\(.repo)#\(.number)"' "$1" 2>/dev/null
+  local prompt
+  prompt=$(harness_do "$1" first_prompt "$2") || return 0
+  [[ $prompt =~ ^(Fix|Review)\ https://github\.com/([^/[:space:]]+/[^/[:space:]]+)/pull/([0-9]+) ]] &&
+    echo "${BASH_REMATCH[2]}#${BASH_REMATCH[3]}"
+  return 0
 }
 
 # The pull request of mine (merge-queue's cache) whose head branch the
@@ -118,61 +155,52 @@ branch_pr() {
     }' "$cache"
 }
 
-# A session's title, from its transcript: the one given with /rename (or
-# --name), else Claude's own; cut to 90 characters
-# Usage: agent_title <transcript>
-agent_title() {
-  [ -f "$1" ] || return 0
-  grep -E '"type":"(custom-title|agent-name|ai-title)"' "$1" | jq -rs '
-    (map(select(.type == "custom-title")) | last | .customTitle)
-    // (map(select(.type == "agent-name")) | last | .agentName)
-    // (map(select(.type == "ai-title")) | last | .aiTitle) // empty
-    | .[0:90]
-  ' 2>/dev/null # (in jq: by character, where mawk cuts bytes)
-}
+# A session's title (see title), cut to 90 characters; nothing when its
+# harness tells none
+# Usage: agent_title <harness> <transcript>
+agent_title() { harness_do "$1" title "$2"; return 0; }
 
 # An agent's name, for notifications: its project, then its pull request
 # (<owner/repo>#<number>: #<number>) or its session's title
-# Usage: agent_name <project> <pr or -> <transcript>
+# Usage: agent_name <project> <pr or -> <harness> <transcript>
 agent_name() {
   local name=$1 title
   if [ -n "$2" ] && [ "$2" != - ]; then
     name+=" #${2##*#}"
   else
-    title=$(agent_title "$3")
+    title=$(agent_title "$3" "$4")
     [ -n "$title" ] && name+=" · $title"
   fi
   echo "$name"
 }
 
-# What an agent said last (the first line of its last text), from its
-# transcript; cut to 200 characters
-# Usage: agent_last_words <transcript>
-agent_last_words() {
-  [ -f "$1" ] || return 0
-  tail -n 200 "$1" | jq -rs '
-    [.[] | select(.type == "assistant") | .message.content | arrays | .[] | select(.type == "text") | .text]
-    | last // empty | split("\n") | map(select(test("\\S"))) | first // empty | .[0:200]
-  ' 2>/dev/null
-}
-
 # A notification about an agent which, clicked, jumps to it (see
 # agent-jump). One per agent: a newer one replaces it (its id kept in
 # agent_notification <session>). Waiting for the click happens detached, so
-# that hooks return at once. Needs $assets (the scripts' directory).
-# Usage: agent_notify <session> <urgency> <title> <body>
+# that hooks return at once, under its harness's icon. Needs $assets (the
+# scripts' directory).
+# Usage: agent_notify <session> <harness> <urgency> <title> <body>
 agent_notification() { echo "$agents_dir/.$1.notification"; } # a dot file: no session's
 agent_notify() {
   local id file
   file=$(agent_notification "$1")
   id=$(cat "$file" 2>/dev/null)
-  # shellcheck disable=SC2016,SC2154 # $1..$7 belong to the inner sh; $assets: the caller's
+  # shellcheck disable=SC2016,SC2154 # $1..$8 belong to the inner sh; $assets: the caller's
   setsid -f sh -c '
-    notify-send --app-name=agents --icon="$1/claude.png" --urgency="$3" ${6:+--replace-id="$6"} \
+    notify-send --app-name=agents ${8:+--icon="$8"} --urgency="$3" ${6:+--replace-id="$6"} \
       --action=default=Jump --print-id --wait "$4" "$5" | {
       read -r id && echo "$id" >"$7"
       read -r action && [ "$action" = default ] && exec "$1/agent-jump" "$2"
-    }' sh "$assets" "$1" "$2" "$3" "$4" "$id" "$file" >/dev/null 2>&1
+    }' sh "$assets" "$1" "$3" "$4" "$5" "$id" "$file" "$(harness_brand "$2" icon)" >/dev/null 2>&1
+}
+
+# A notification about agents in general (no session's), under the default
+# harness's branding
+# Usage: agents_notify <body>
+agents_notify() {
+  local icon
+  icon=$(harness_brand "$default_harness" icon)
+  notify-send --app-name=agents ${icon:+--icon="$icon"} "$(harness_brand "$default_harness" label)" "$1"
 }
 
 # A spawn's progress (see agent-pr and agent-spawn), in one
@@ -180,13 +208,15 @@ agent_notify() {
 # previous one, its id kept in AGENT_NOTIFICATION (exported: a spawn
 # started by agent-pr carries on with its notification). Its app name
 # tells its state, which awesome colors (see its theme): blue when started,
-# green when launched, red when failed (critical: it stays). Needs $assets.
+# green when launched, red when failed (critical: it stays). Under the
+# default harness's branding (the one spawning).
 # Usage: spawn_notify <started|launched|failed> <body>
 spawn_notify() {
-  local id urgency=normal
+  local id urgency=normal icon
   [ "$1" = failed ] && urgency=critical
-  id=$(notify-send --app-name="agents.spawn.$1" --icon="$assets/claude.png" --urgency="$urgency" --print-id \
-    ${AGENT_NOTIFICATION:+--replace-id="$AGENT_NOTIFICATION"} Claude "$2" 2>/dev/null)
+  icon=$(harness_brand "$default_harness" icon)
+  id=$(notify-send --app-name="agents.spawn.$1" ${icon:+--icon="$icon"} --urgency="$urgency" --print-id \
+    ${AGENT_NOTIFICATION:+--replace-id="$AGENT_NOTIFICATION"} "$(harness_brand "$default_harness" label)" "$2" 2>/dev/null)
   [ -n "$id" ] && export AGENT_NOTIFICATION=$id
   return 0
 }
@@ -202,32 +232,13 @@ agent_unnotify() {
     --method org.freedesktop.Notifications.CloseNotification "$id" >/dev/null 2>&1 &
 }
 
-# Whether <pid> is a live claude process running a session (not a dead one's
-# reused pid): one in a terminal, or a background one (in claude's daemon,
-# whose workers go by claude's version, e.g. 2.1.327). Not the daemon itself,
-# nor its pty hosts: they outlive their sessions
+# Whether <pid> is a live session of harness <harness> (of any, without
+# one; not a dead one's reused pid)
+# Usage: alive <pid> [harness]
 alive() {
-  case "$1" in "" | *[!0-9]*) return 1 ;; esac
-  local comm argv=()
-  read -r comm 2>/dev/null <"/proc/$1/comm" || return 1
-  [[ $comm == claude || $comm =~ ^[0-9]+(\.[0-9]+)+$ ]] || return 1
-  mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$1/cmdline"
-  case "${argv[1]}" in daemon | --bg-pty-host) return 1 ;; esac
-}
-
-# Whether claude process <pid> runs a background session: under claude's
-# daemon (moved there with ←, or started with --bg). It has no terminal of
-# its own: `claude attach` shows it (see agent-jump)
-# Usage: background <pid>
-background() {
-  local pid=$1 argv ppid
-  while [ "$pid" -gt 1 ] 2>/dev/null; do
-    argv=()
-    mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$pid/cmdline"
-    [ "${argv[1]}" = daemon ] && return 0
-    read_ppid "$pid" || return 1
-    pid=$ppid
-  done
+  local harness
+  if [ -n "$2" ]; then harness_do "$2" alive "$1"; return; fi
+  for harness in "${harnesses[@]}"; do harness_do "$harness" alive "$1" && return 0; done
   return 1
 }
 
@@ -243,93 +254,16 @@ read_ppid() {
   ppid=${stat%% *}
 }
 
-# Whether claude process <pid>'s turn left something running: a tool's shell
-# (they source claude's shell snapshot), a Monitor's or a background Bash's.
-# Its own hooks (our callers) aside
-# Usage: monitoring <pid>
-# All from /proc, in bash: pgrep scans every process, and agent-list
-# asks for each agent done or idle (rofi-github waits on it)
-monitoring() {
-  local self=$$ ppid child children=() more argv
-  local -A ancestors=()
-  while [ "$self" -gt 1 ] 2>/dev/null; do
-    ancestors[$self]=1
-    read_ppid "$self" || break
-    self=$ppid
-  done
-  for child in /proc/"$1"/task/*/children; do
-    more=()
-    read -ra more 2>/dev/null <"$child" # one line, unterminated
-    children+=("${more[@]}")
-  done
-  for child in "${children[@]}"; do
-    [ -n "${ancestors[$child]}" ] && continue
-    argv=()
-    mapfile -d '' argv 2>/dev/null <"/proc/$child/cmdline"
-    [[ "${argv[*]}" == */.claude/shell-snapshots/* ]] && return 0
-  done
-  return 1
-}
-
-# The terminals showing background session <session> (see background), one
-# per line: <X window> <kitty socket> <kitty window> (- when unknown). Claude's
-# agent view showing it, by its terminal's title (the session's, after a
-# status glyph): a session in a kitty window, sent to the background (←) as
-# it was (a view now, see agent-list), or before typing anything (it
-# hands its first prompt over to a background session, then shows those; no
-# transcript of its own). Then those attached to it (claude attach). Needs
-# $assets
-# Usage: background_terminals <session> <transcript>
-# shellcheck disable=SC2154 # state file fields, set by read_agent
-background_terminals() {
-  local session=$1 title='' shown f client argv i found var window socket id
-  local "${agent_fields[@]/#/view_}"
-  for f in "$agents_dir"/*; do
-    [ -f "$f" ] || continue
-    read_agent "$f" view_
-    [ "$view_state" = view ] || [ ! -f "$view_transcript" ] || continue
-    alive "$view_pid" || continue
-    case "$view_window" in "" | *[!0-9]*) continue ;; esac
-    [ "$view_listen_on" != - ] && [ "$view_kitty_window" != - ] || continue
-    shown=$(kitty @ --to "$view_listen_on" ls --match "id:$view_kitty_window" 2>/dev/null |
-      jq -r '.[0].tabs[0].windows[0].title // empty' 2>/dev/null)
-    [[ $shown == *' '* ]] || continue
-    shown=${shown#* }
-    [ -n "$title" ] || title=$(agent_title "$2")
-    [ -n "$title" ] || break
-    # (agent_title cuts it)
-    [ "$shown" = "$title" ] || { [ ${#title} -ge 90 ] && [[ $shown == "$title"* ]]; } || continue
-    echo "$view_window $view_listen_on $view_kitty_window"
-  done
-  for client in $(pgrep -x claude); do
-    argv=() found=''
-    mapfile -d '' argv 2>/dev/null <"/proc/$client/cmdline"
-    for i in "${!argv[@]}"; do
-      [ "${argv[$i]}" = attach ] && [ "${argv[$((i + 1))]:0:8}" = "${session:0:8}" ] && found=yes # claude's short ids
-    done
-    [ -n "$found" ] || continue
-    window='' socket=- id=-
-    while IFS= read -r -d '' var; do
-      case $var in
-        WINDOWID=*) window=${var#*=} ;;
-        KITTY_LISTEN_ON=*) socket=${var#*=} ;;
-        KITTY_WINDOW_ID=*) id=${var#*=} ;;
-      esac
-    done 2>/dev/null <"/proc/$client/environ"
-    case "$window" in "" | *[!0-9]*) ;; *) echo "$window $socket $id" ;; esac
-  done
-}
-
 # Whether an agent's terminal is on screen (see agent-displayed); a
-# background one's (no window of its own): one showing it (see
-# background_terminals). Needs $assets
-# Usage: agent_displayed <session> <transcript> <X window> <kitty socket> <kitty window>
+# background one's (no window of its own): one showing it (see terminals in
+# the contract). Needs $assets
+# Usage: agent_displayed <harness> <session> <transcript> <X window> <kitty socket> <kitty window>
 agent_displayed() {
   local window socket id
-  [ "$3" != - ] && { "$assets/agent-displayed" "$3" "$4" "$5"; return; }
+  [ "$4" != - ] && { "$assets/agent-displayed" "$4" "$5" "$6"; return; }
   while read -r window socket id; do
     "$assets/agent-displayed" "$window" "$socket" "$id" && return 0
-  done < <(background_terminals "$1" "$2")
+  done < <(harness_do "$1" terminals "$2" "$3")
   return 1
 }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Work lying on this machine, in the clones of the repositories listed in
-# ~/.config/github/repos (see github_clone) and their worktrees (Claude
-# agents' included, see agent-worktree): what GitHub can't tell.
+# ~/.config/github/repos (see github_clone) and their worktrees (agents'
+# included, see agent-worktree): what GitHub can't tell.
 # Branches (but the default one) holding commits not pushed, worktrees holding
 # uncommitted changes, detached worktrees holding commits on no branch, and
 # the worktrees of stopped agents the sweep kept (see agent-sweep).

@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
-# Claude Code hook: tracks agent state for the awesome panel widget.
-# Usage (from hooks): agent-state <idle|running|done|attention|end|subagent>
-# (idle: a session just started, resumed or cleared: tracked, but nothing to tell)
+# Tracks an agent's state, as its harness tells it (from its hooks: Claude's
+# go through harness/claude-hook), for the panel, rofi-github, the pickers.
+# Usage: agent-state <idle|running|done|attention|end|subagent> --harness <name>
+#          --session <id> [--transcript <path>] [--cwd <dir>] [--turn]
+#          [--message <text>] [--subagent <id> [--subagent-done]]
+#   idle        a session just started, resumed or cleared: tracked, but
+#               nothing to tell
+#   running     at work (a tool used, a prompt submitted: --turn, a new turn)
+#   done        its turn is over (--message: what it said last, else its
+#               harness's last_words)
+#   attention   it waits on me (--message: for what)
+#   end         the session is over
+#   subagent    a subagent of its started (--subagent), or stopped
+#               (--subagent-done)
+# With --subagent, running and attention are a subagent's (it used a tool,
+# it waits on me), told on its session.
+# Run as a child of the harness's process (its hooks are): it finds its
+# session's process up its parents (see alive).
 # State files: $XDG_RUNTIME_DIR/agents/<session_id>, see
 # lib/agents.sh for their fields (<since>: when the current turn
 # started, i.e. the last prompt submission).
@@ -12,13 +27,26 @@
 # agent is done still shows as running while subagents work. Subagents needing
 # us mark the session for attention, as the main agent does.
 
-state="$1"
-input=$(cat)
-
-session=$(jq -r '.session_id // empty' <<<"$input")
-[ -n "$session" ] || exit 0
-
 assets=$(dirname "$(readlink -f "$0")")
+
+state=$1 harness='' session='' transcript='' cwd='' turn=false message='' agent='' agent_done=false
+shift
+while [ $# -gt 0 ]; do
+  case $1 in
+    --harness) harness=$2; shift ;;
+    --session) session=$2; shift ;;
+    --transcript) transcript=$2; shift ;;
+    --cwd) cwd=$2; shift ;;
+    --turn) turn=true ;;
+    --message) message=$2; shift ;;
+    --subagent) agent=$2; shift ;;
+    --subagent-done) agent_done=true ;;
+    *) echo "agent-state: unknown option $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+[ -n "$session" ] && [ -n "$harness" ] || { echo "agent-state: --harness and --session are required" >&2; exit 2; }
+
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
 . "$assets/lib/agents.sh"
 
@@ -28,24 +56,16 @@ mkdir -p "$agents_dir"
 
 refresh_panel() { awesome-client 'awesome.emit_signal("agents::update")' >/dev/null 2>&1 & }
 
-# Only idle reminders and auth notices do not require attention
-if [ "$state" = attention ]; then
-  case "$(jq -r '.notification_type // empty' <<<"$input")" in
-    idle_prompt | auth_success) exit 0 ;;
-  esac
-fi
-
 # Subagents keep their session marked as running, and surface their requests
 # for attention on it. A marker holding "attention" is a subagent waiting for us:
 # its next tool use (or its end) puts the session back to running.
-agent=$(jq -r '.agent_id // empty' <<<"$input")
 if [ -n "$agent" ]; then
   marker="$subagents/$agent"
   waiting=false
   [ "$(cat "$marker" 2>/dev/null)" = attention ] && waiting=true
   case "$state" in
   subagent)
-    if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = SubagentStop ]; then
+    if $agent_done; then
       rm -f "$marker"
       rmdir "$subagents" 2>/dev/null
       $waiting || { refresh_panel; exit 0; }
@@ -74,15 +94,17 @@ if [ "$state" = end ]; then
   exit 0
 fi
 
-# Find the claude process owning this hook (used to prune crashed sessions)
+# Find the harness's process running this session, up our parents (used to
+# prune crashed sessions)
 pid=$PPID
-while [ "$pid" -gt 1 ] && ! alive "$pid"; do
-  pid=$(awk '{ print $4 }' /proc/"$pid"/stat 2>/dev/null || echo 1)
+while [ "$pid" -gt 1 ] && ! alive "$pid" "$harness"; do
+  read_ppid "$pid" || ppid=1
+  pid=$ppid
 done
 
 # A background session has no terminal: what it inherited is the one it left
 # (or the one that started it), not its
-if background "$pid"; then
+if harness_do "$harness" background "$pid"; then
   window=- listen_on=- kitty_window=-
 else
   window=${WINDOWID:--} listen_on=${KITTY_LISTEN_ON:--} kitty_window=${KITTY_WINDOW_ID:--}
@@ -90,13 +112,13 @@ fi
 
 displayed=false
 case "$state" in
-attention | done) agent_displayed "$session" "$(jq -r '.transcript_path // empty' <<<"$input")" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
+attention | done) agent_displayed "$harness" "$session" "$transcript" "$window" "$listen_on" "$kitty_window" && displayed=true ;;
 esac
 [ "$state" = "done" ] && $displayed && state=idle
 # Its turn over, on a Monitor or a background shell still running: still at
 # work (agent-list tells it monitoring), no "Done" to tell yet
 watching=false
-[ "$state" = "done" ] && monitoring "$pid" && watching=true
+[ "$state" = "done" ] && harness_do "$harness" busy "$pid" && watching=true
 # shellcheck disable=SC2034 # written by write_agent
 if $watching; then untold=yes; else untold=-; fi
 
@@ -108,16 +130,13 @@ started=${previous_started:-$(date +%s)} since=${previous_since:-$(date +%s)}
 # with no prompt: a turn that may use no tool either, done as the last one,
 # whose "Done" is still to tell (untold)
 # shellcheck disable=SC2034,SC2154 # since is written by write_agent, previous_ fields set by read_agent
-if [ "$(jq -r '.hook_event_name // empty' <<<"$input")" = UserPromptSubmit ]; then
+if $turn; then
   since=$(date +%s)
 elif [ "$previous_state" = "$state" ] && { [ "$previous_untold" != yes ] || $watching; }; then
   exit 0 # nothing changed, avoid pinging awesome
 fi
 
-# shellcheck disable=SC2034 # written by write_agent
-transcript=$(jq -r '.transcript_path // empty' <<<"$input")
 # Project: name of the git repository holding the session's cwd, else the cwd itself
-cwd=$(jq -r '.cwd // empty' <<<"$input")
 cwd=${cwd:-$PWD}
 root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || echo "$cwd")
 project=$(basename "$root")
@@ -129,7 +148,7 @@ project=${project//[[:space:]]/_}
 # the environment: agents' windows inherit their kitty's, whichever agent
 # started it (see agent-spawn)
 # shellcheck disable=SC2034 # written by write_agent
-pr=$(agent_pr "$transcript")
+pr=$(agent_pr "$harness" "$transcript")
 [ -n "$pr" ] || pr=$(branch_pr "$root")
 pr=${pr:--}
 write_agent "$file"
@@ -141,24 +160,19 @@ case "$state" in running | idle) agent_unnotify "$session" ;; esac
 # Off screen, or wanting us: tell which agent, a click away (see agent_notify)
 case "$state" in
 attention)
-  message=$(jq -r '
-    .message // .tool_input.questions[0].question //
-    (.tool_name | select(.) | "Wants to use \(.)") // "Needs your attention"
-  ' <<<"$input")
-  agent_notify "$session" normal "$(agent_name "$project" "$pr" "$transcript")" "$message"
+  agent_notify "$session" "$harness" normal "$(agent_name "$project" "$pr" "$harness" "$transcript")" "${message:-Needs your attention}"
   ;;
 done)
   $watching && exit 0
   # (a displayed one is idle by now: seen)
-  # (its first line, cut in jq: by character, where mawk cuts bytes)
-  message=$(jq -r '.last_assistant_message // empty | split("\n") | map(select(test("\\S"))) | first // empty | .[0:200]' <<<"$input")
-  [ -n "$message" ] || message=$(agent_last_words "$transcript")
-  agent_notify "$session" low "Done: $(agent_name "$project" "$pr" "$transcript")" "${message:-Its turn is over}"
+  [ -n "$message" ] || message=$(harness_do "$harness" last_words "$transcript")
+  agent_notify "$session" "$harness" low "Done: $(agent_name "$project" "$pr" "$harness" "$transcript")" "${message:-Its turn is over}"
   ;;
 esac
 
+sound=$(harness_brand "$harness" sound)
 case "$state" in
-attention | done) $displayed || setsid -f paplay "$assets/claude.ogg" >/dev/null 2>&1 ;;
+attention | done) $displayed || [ -z "$sound" ] || setsid -f paplay "$sound" >/dev/null 2>&1 ;;
 esac
 
 # A turn's end: what it left in its worktree, for local work (see local-work)

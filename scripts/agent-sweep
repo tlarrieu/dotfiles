@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Drops the worktrees of stopped agents (see agent-worktree), the
-# ones no claude runs in anymore (whatever else does, left behind by them or
+# ones no agent runs in anymore (whatever else does, left behind by them or
 # us, a rubocop server, an nvim, is stopped with them). Those holding uncommitted changes are kept
 # (we get told once), as are the branches the agent committed on, the one its
 # worktree started on (see agent-worktree), and the worktrees holding
@@ -33,8 +33,8 @@ processes() {
   done
 }
 
-# Whether a claude runs within the worktree $1, working or waiting (in a
-# terminal or in the background, see alive)
+# Whether an agent runs within the worktree $1, working or waiting (in a
+# terminal or in the background), whatever its harness (see alive)
 busy() {
   local pid
   for pid in $(processes "$1"); do
@@ -63,7 +63,7 @@ stop() {
 # run in the worktree yet (kitty takes a moment to start in it)
 fresh() { [ -n "$(find "$1" -mmin -1 -print -quit 2>/dev/null)" ]; }
 
-# Whether the worktree $1 is being set up for its agent, claude not started
+# Whether the worktree $1 is being set up for its agent, the agent not started
 # yet (it can take minutes: agent-spawn holds this lock the while)
 setting_up() {
   local lock
@@ -101,8 +101,7 @@ for repository in "$slots"/*/; do
     fi
     if [ -n "$kept" ]; then
       if [ ! -e "$slot_file.kept" ]; then
-        notify-send --app-name=agents --icon="$assets/claude.png" Claude \
-          "Kept the worktree of a stopped agent, as it holds $kept: $worktree"
+        agents_notify "Kept the worktree of a stopped agent, as it holds $kept: $worktree"
         touch "$slot_file.kept"
       fi
       continue

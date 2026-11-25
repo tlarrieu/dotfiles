@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Claude Code's hooks (see config/claude/settings.json): tells agent-state
+# what one says, its payload on stdin.
+# Usage (from hooks): claude-hook <idle|running|done|attention|end|subagent>
+# Claude's own: notifications of idle reminders and auth notices don't want
+# us; what an attention is for (a notification's message, a question, the
+# tool asking permission); a turn's last words (the Stop payload's); new
+# turns (UserPromptSubmit); subagents (agent_id, SubagentStop).
+
+state=$1
+input=$(cat)
+assets=$(dirname "$(dirname "$(readlink -f "$0")")")
+
+if [ "$state" = attention ]; then
+  case "$(jq -r '.notification_type // empty' <<<"$input")" in
+    idle_prompt | auth_success) exit 0 ;;
+  esac
+fi
+
+# One jq for all the fields, NUL separated (a message may hold line breaks).
+# The message: what an attention is for, else a turn's last words (their
+# first line, cut by character, where mawk cuts bytes)
+fields=()
+mapfile -d '' fields < <(jq -j '
+  [ .session_id // "", .transcript_path // "", .cwd // "", .hook_event_name // "", .agent_id // "",
+    ( .message // .tool_input.questions[0].question // (.tool_name | select(.) | "Wants to use \(.)")
+      // (.last_assistant_message // empty | split("\n") | map(select(test("\\S"))) | first // empty | .[0:200])
+      // "" )
+  ] | map(tostring + "\u0000") | add
+' <<<"$input" 2>/dev/null)
+session=${fields[0]} transcript=${fields[1]} cwd=${fields[2]} event=${fields[3]} agent=${fields[4]} message=${fields[5]}
+[ -n "$session" ] || exit 0
+
+args=(--harness claude --session "$session")
+[ -n "$transcript" ] && args+=(--transcript "$transcript")
+[ -n "$cwd" ] && args+=(--cwd "$cwd")
+[ "$event" = UserPromptSubmit ] && args+=(--turn)
+[ -n "$agent" ] && args+=(--subagent "$agent")
+[ "$event" = SubagentStop ] && args+=(--subagent-done)
+case "$state" in attention | done) [ -n "$message" ] && args+=(--message "$message") ;; esac
+exec "$assets/agent-state" "$state" "${args[@]}"
