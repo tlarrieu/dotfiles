@@ -46,6 +46,9 @@
 #     watch       how an agent is to wait on something that takes a while (a
 #                 CI job), in words, for prompts (agent-pr's; else: in the
 #                 background, not by sleeping in the foreground)
+#     skills [dir]  the skills a first prompt can call, one a line: <name>,
+#                 a tab, <description> (rofi-github's first prompt dialog
+#                 lists them); [dir]: the repository it would start in
 
 # Live sessions, one state file each, named after the session id (see
 # agent-state, which writes them; dot files are temporary)

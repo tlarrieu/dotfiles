@@ -95,6 +95,30 @@ claude_last_words() {
   ' 2>/dev/null
 }
 
+# The skills a first prompt can call (/<name>), one a line: <name>, a tab,
+# <description>, from their SKILL.md's frontmatter (the name defaulting to
+# their directory's): repository [dir]'s own first, then mine (~/.claude),
+# by name, one of the repository's hiding mine. Claude's built-in ones
+# (/code-review…) aside: they have no SKILL.md
+# Usage: claude_skills [dir]
+claude_skills() {
+  local roots=() root file
+  [ -n "$1" ] && roots+=("$1/.claude/skills")
+  roots+=("$HOME/.claude/skills")
+  for root in "${roots[@]}"; do
+    for file in "$root"/*/SKILL.md; do
+      [ -f "$file" ] || continue
+      awk -v dir="$(basename "$(dirname "$file")")" '
+        NR == 1 { if ($0 != "---") exit; next }
+        $0 == "---" { exit }
+        /^name:/ { sub(/^name:[ \t]*/, ""); name = $0 }
+        /^description:/ { sub(/^description:[ \t]*/, ""); description = $0 }
+        function unquote(text) { return text ~ /^(".*"|\047.*\047)$/ ? substr(text, 2, length(text) - 2) : text }
+        END { name = unquote(name); printf "%s\t%s\n", (name == "" ? dir : name), unquote(description) }' "$file"
+    done
+  done | awk -F '\t' '!seen[$1]++'
+}
+
 # The prompt it started on, from its transcript (reads up to it only)
 # Usage: claude_first_prompt <transcript>
 claude_first_prompt() {
