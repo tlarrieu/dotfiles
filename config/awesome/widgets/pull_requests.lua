@@ -15,6 +15,7 @@ local urgencies = {
   CHECKS_FAILING = 'mine',
   CHANGES_REQUESTED = 'mine',
   BOT_REVIEW_FAILED = 'mine',
+  NO_REVIEWER = 'mine', -- bots only: someone to ask
   READY = 'ready',
 }
 

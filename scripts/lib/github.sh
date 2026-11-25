@@ -121,6 +121,13 @@ github_ignored_checks=(
 github_review_workflows=(
   'Claude Code Review'
 )
+
+# Reviewers that are bots, though GitHub sees users (GitHub Apps, Bot to
+# GitHub, are bots anyway): no one to wait a review from
+# shellcheck disable=SC2034 # for the scripts sourcing this
+github_bot_users=(
+  pl-jeanclaude
+)
 github_ci_checks='nodes {
             ... on CheckRun { id name status conclusion checkSuite { workflowRun { createdAt workflow { databaseId name } } } }
             ... on StatusContext { id state }

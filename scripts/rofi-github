@@ -29,7 +29,7 @@ filter=$1
 declare -A styles=(
   [SUCCESS]="color=\"$green\"" [FAILURE]="color=\"$red\"" [PENDING]="color=\"$blue\""
   [CONFLICT]="color=\"$red\"" [CHANGES_REQUESTED]="color=\"$yellow\""
-  [APPROVED]="color=\"$green\"" [BOT_REVIEWING]="color=\"$blue\"" [BOT_REVIEW_FAILED]="color=\"$red\"" [REVIEW_REQUIRED]=$dim [UNKNOWN]="color=\"$blue\"" [QUEUED]=$dim
+  [APPROVED]="color=\"$green\"" [BOT_REVIEWING]="color=\"$blue\"" [BOT_REVIEW_FAILED]="color=\"$red\"" [REVIEW_REQUIRED]=$dim [NO_REVIEWER]="color=\"$yellow\"" [UNKNOWN]="color=\"$blue\"" [QUEUED]=$dim
   [MERGED]="color=\"$magenta\"" [DEPLOYING]="color=\"$blue\"" [DEPLOYED]="color=\"$green\""
 )
 
@@ -46,6 +46,7 @@ declare -A faces=(
   [BOT_REVIEW_FAILED]=''
   [APPROVED]='󰔓'
   [REVIEW_REQUIRED]='󰈈'
+  [NO_REVIEWER]='󰈉' # bots review it, no human
   [UNKNOWN]='󰔟' # mergeability: GitHub hasn't worked it out yet
   # Merge queue
   [QUEUED]=''
@@ -267,6 +268,7 @@ queue_concerns() {
     BOT_REVIEWING) echo "A bot is still reviewing it" ;;
     BOT_REVIEW_FAILED) echo "A bot's review failed" ;;
     REVIEW_REQUIRED) echo "It isn't approved yet" ;;
+    NO_REVIEWER) echo "Only bots review it" ;;
   esac
   [ "$3" = UNKNOWN ] && echo "GitHub can't tell whether it's mergeable"
   [ "${4:-0}" -gt 0 ] 2>/dev/null && echo "$4 review thread$([ "$4" -gt 1 ] && echo s) unresolved"
