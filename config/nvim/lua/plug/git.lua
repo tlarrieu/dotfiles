@@ -216,14 +216,17 @@ vim.keymap.set('n', '<leader>dm', '<cmd>CodeDiff origin/master...<cr>',
 vim.keymap.set('n', '<leader>dd', '<cmd>CodeDiff HEAD<cr>', { silent = true, desc = 'code(diff) review (HEAD~)' })
 
 -- Diff against the local branch this one was forked from, guessed as the one whose merge base is the fewest commits
--- behind HEAD (then the one with the fewest commits of its own, then the default branch). Prints the remote default
--- branch, the current branch, the git common dir, then "<commits ahead of HEAD> <commits HEAD is ahead> <branch>" for
--- every local branch.
+-- behind HEAD (then the one with the fewest commits of its own, then the default branch). The remote default branch
+-- competes too: the local one lags behind it until pulled, and a branch forked off the local one in between would
+-- otherwise win, its own commits showing in the diff. Prints the remote default branch, the current branch, the git
+-- common dir, then "<commits ahead of HEAD> <commits HEAD is ahead> <branch>" for every local branch and the remote
+-- default one.
 local base_candidates = [[
-  git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || echo
+  remote_default=$(git rev-parse --abbrev-ref origin/HEAD 2>/dev/null)
+  echo "$remote_default"
   git branch --show-current
   git rev-parse --path-format=absolute --git-common-dir
-  git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads
+  git for-each-ref --format='%(ahead-behind:HEAD) %(refname:short)' refs/heads ${remote_default:+"refs/remotes/$remote_default"}
 ]]
 
 -- A branch's oldest reflog entry: its time, and whether it is the branch's creation (older ones may have expired)
@@ -255,7 +258,7 @@ vim.keymap.set('n', '<leader>db', function()
     local closer = function(a, b)
       if a.distance ~= b.distance then return a.distance < b.distance end
       if a.own ~= b.own then return a.own < b.own end
-      return a.ref == default
+      return a.ref == remote_default or a.ref == default and b.ref ~= remote_default
     end
     local base
     for i = 4, #lines do
