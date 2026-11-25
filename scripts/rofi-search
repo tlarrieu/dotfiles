@@ -125,13 +125,13 @@ class YouTube < Browser
 
 end
 
-# Spawns a background Claude agent in the current project, the rest of the query
+# Spawns a background agent in the current project, the rest of the query
 # being its prompt (none: interactive session). "fix <PR>" or "review <PR>" (the
 # whole query) spawns one on that pull request instead, as rofi-github's
 # Ctrl+s does (see agent-pr: back to the agent already on it, if any).
 # <PR>: 1234 or #1234 (the current project's repository), owner/repo#1234, or
 # its URL
-class Claude
+class Agent
 
   TASK = %r{\A(fix|review)\s+(?:https://github\.com/([^/\s]+/[^/\s]+)/pull/|([^/\s#]+/[^/\s#]+)#|#)?(\d+)/?\s*\z}
 
@@ -161,8 +161,9 @@ class Claude
     nil
   end
 
+  # Under the default harness's branding (see agents_notify in lib/agents.sh)
   def notify(message)
-    system('notify-send', '--app-name=agents', "--icon=#{script('claude.png')}", 'Claude', message)
+    system('bash', '-c', '. "$1/lib/agents.sh" && agents_notify "$2"', 'notify', script(''), message)
   end
 
   def script(name)
@@ -190,7 +191,7 @@ end
 
 ENGINES = {
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
-  'cl'   => Claude.new,
+  'cl'   => Agent.new,
   'aw'   => Browser.new(
     'https://duckduckgo.com/?ia=web&q=%s',
     prefixes: ['site:https://awesomewm.org/doc'],

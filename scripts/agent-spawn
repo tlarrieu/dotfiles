@@ -17,12 +17,16 @@
 #   AGENT_CONTEXT  more instructions, appended to its system prompt
 #   AGENT_NOTIFICATION  the notification telling of this spawn, to
 #                         carry on with (see spawn_notify), instead of a new one
+#   AGENT_HARNESS  the harness running it (see lib/agents.sh), instead of the
+#                         default one, claude
 # It tells how the spawn goes in a notification, at once: launched, or why not.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
-. "$assets/lib/agents.sh" # spawn_notify
+. "$assets/lib/agents.sh" # spawn_notify, harness_do
 fail() { spawn_notify failed "Agent not started: $1"; exit 1; }
+harness=$default_harness label=$(harness_brand "$default_harness" label)
+label=${label:-$harness}
 
 prompt="$*"
 
@@ -33,7 +37,7 @@ about=${prompt%%$'\n'*}
 about=${about//'&'/'&amp;'} about=${about//'<'/'&lt;'} about=${about//'>'/'&gt;'}
 about=${about:-interactive session}
 
-# Spawning takes a while (the worktree, then claude): say so now, unless
+# Spawning takes a while (the worktree, then the harness): say so now, unless
 # agent-pr did
 [ -n "$AGENT_NOTIFICATION" ] || spawn_notify started "Starting an agent: $about"
 
@@ -53,13 +57,14 @@ project=${project/#\~/$HOME}
 spawn_dir="${XDG_RUNTIME_DIR:-/tmp}/agents-spawn"
 mkdir -p "$spawn_dir"
 session_file=$(mktemp "$spawn_dir/session.XXXXXX")
-files=$session_file reads='' setup='' claude_args='' env='' directory=$project
+files=$session_file reads='' setup='' launch=() env='' directory=$project
 
 if [ -n "$prompt" ]; then
   prompt_file=$(mktemp "$spawn_dir/prompt.XXXXXX")
   printf '%s' "$prompt" >"$prompt_file"
   reads+="set -l prompt (string collect < $prompt_file); "
   files+=" $prompt_file"
+  launch+=(--prompt)
 fi
 
 if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
@@ -77,7 +82,7 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   hook="$assets/agent-setup/$(basename "${origin:-$primary}" .git)"
   [ -x "$hook" ] || hook="$assets/agent-setup/$(basename "$primary")"
   # Holding a lock the while (see setting_up in agent-sweep): no
-  # claude runs in the worktree yet
+  # agent runs in the worktree yet
   setup_lock="$(git -C "$directory" rev-parse --absolute-git-dir)/agent-setup.lock"
   [ -x "$hook" ] && setup="flock $setup_lock $hook $primary; or echo \"Worktree setup failed, carrying on\"; "
 
@@ -97,19 +102,19 @@ CONTEXT
   [ -n "$AGENT_CONTEXT" ] && printf '\n%s\n' "$AGENT_CONTEXT" >>"$context_file"
   reads+="set -l context (string collect < $context_file); "
   files+=" $context_file"
-  claude_args="--append-system-prompt \$context "
+  launch+=(--context)
 fi
 
-# Fish loads the claude function, which brings the settings from my dotfiles.
-# Once the agent stops, its whole window goes (see agent-sweep for its
-# worktree), unless claude failed: then it waits, so that we can read why.
-# "--" ends claude's options: a prompt may start with a dash.
-agent="${reads}rm -f $files; ${setup}claude $claude_args"
-[ -n "$prompt" ] && agent+="-- \$prompt"
+# The harness's command (see launch in lib/agents.sh). Once the agent stops,
+# its whole window goes (see agent-sweep for its worktree), unless the harness
+# failed: then it waits, so that we can read why
+command=$(harness_do "$harness" launch "${launch[@]}") || fail "the $harness harness can't launch agents (no ${harness}_launch)"
+icon=$(harness_brand "$harness" icon)
+agent="${reads}rm -f $files; ${setup}$command"
 agent+="; set -l code \$status"
 agent+="; if test \$code -ne 0"
-agent+="; notify-send --app-name=agents.spawn.failed --icon=$assets/claude.png --urgency=critical ${AGENT_NOTIFICATION:+--replace-id=$AGENT_NOTIFICATION} Claude \"Agent stopped: claude exited with status \$code, in $(basename "$directory") (its window tells why)\""
-agent+="; echo; echo \"claude exited with status \$code: press Enter to close\"; read; end"
+agent+="; notify-send --app-name=agents.spawn.failed ${icon:+--icon=$icon} --urgency=critical ${AGENT_NOTIFICATION:+--replace-id=$AGENT_NOTIFICATION} $label \"Agent stopped: $label exited with status \$code, in $(basename "$directory") (its window tells why)\""
+agent+="; echo; echo \"$label exited with status \$code: press Enter to close\"; read; end"
 agent+="; $assets/agent-close-window"
 
 cat >"$session_file" <<SESSION
@@ -129,4 +134,4 @@ env -u AGENT_DIR -u AGENT_AT -u AGENT_BRANCH -u AGENT_CONTEXT -u AGENT_NOTIFICAT
   setsid -f kitty --single-instance --instance-group agents --name agent \
   --session "$session_file" >/dev/null 2>&1 || fail "could not start its kitty"
 launched=1
-spawn_notify launched "Agent launched in $(basename "$directory"), showing up in the panel once claude is up: $about"
+spawn_notify launched "Agent launched in $(basename "$directory"), showing up in the panel once $label is up: $about"

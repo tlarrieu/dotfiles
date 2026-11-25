@@ -171,3 +171,26 @@ claude_terminals() {
 # The command showing background session <session> in a terminal
 # Usage: claude_attach <session>
 claude_attach() { echo "claude attach ${1:0:8}"; } # claude's short ids
+
+# The fish command running an agent in the current directory: on fish
+# variable $prompt as its first prompt with --prompt (else interactive), with
+# fish variable $context's instructions appended to its system prompt with
+# --context. Through the claude fish function, which brings the settings from
+# my dotfiles. "--" ends claude's options: a prompt may start with a dash
+# Usage: claude_launch [--prompt] [--context]
+claude_launch() {
+  local command=claude arg
+  for arg; do
+    case $arg in
+      --context) command+=" --append-system-prompt \$context" ;;
+      --prompt) local prompt=yes ;;
+    esac
+  done
+  [ -n "$prompt" ] && command+=" -- \$prompt"
+  echo "$command"
+}
+
+# How an agent is to wait on something that takes a while (a CI job), for
+# prompts: the tools of Claude's doing it in the background
+# Usage: claude_watch
+claude_watch() { echo "in the background (Monitor, or Bash with run_in_background and an until loop), not with sleep in the foreground"; }

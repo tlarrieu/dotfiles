@@ -11,9 +11,11 @@
 # <name>_label, <name>_icon, <name>_sound (its branding: notifications,
 # their sound). Called through harness_do:
 #   required
-#     launch      the command running an agent in a directory, on a first
-#                 prompt (or none: interactive), with extra context (agent-spawn;
-#                 still Claude's own there, for now)
+#     launch [--prompt] [--context]  the fish command running an agent in the
+#                 current directory (agent-spawn): its first prompt in fish
+#                 variable $prompt with --prompt (else interactive), more
+#                 instructions in $context with --context; it exits non-zero
+#                 on failure
 #     alive <pid>  whether a pid is one of its sessions (agent-list, sweep)
 #     state       telling each session's state as it changes, through
 #                 agent-state (its usage tells how), from its hooks (Claude:
@@ -35,8 +37,9 @@
 #                 showing it in a new one (agent-jump can't reach them)
 #     busy <pid>  whether its turn left something running (no monitoring
 #                 state: done at once)
-# Still Claude's, outside its adapter: agent-spawn's command line, agent-pr's
-# prompts.
+#     watch       how an agent is to wait on something that takes a while (a
+#                 CI job), in words, for prompts (agent-pr's; else: in the
+#                 background, not by sleeping in the foreground)
 
 # Live sessions, one state file each, named after the session id (see
 # agent-state, which writes them; dot files are temporary)

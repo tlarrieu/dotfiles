@@ -35,7 +35,7 @@ assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
 . "$assets/lib/github.sh" # github_clone, github_ignored_checks (and records.sh)
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
-. "$assets/lib/agents.sh" # pr_agent, spawn_notify
+. "$assets/lib/agents.sh" # pr_agent, spawn_notify, harness_do
 fail() { spawn_notify failed "Agent to $task $repo#$number not started: $1"; exit 1; }
 
 task=$1 repo=$2 number=$3
@@ -70,7 +70,7 @@ if [ "$task" = fix ]; then
   fi
 fi
 
-# Spawning, which takes a while (the fetch, the worktree, then claude): say
+# Spawning, which takes a while (the fetch, the worktree, then the harness): say
 # so now, the notification turning into the outcome (see agent-spawn)
 spawn_notify started "Starting an agent to $task $repo#$number…"
 
@@ -84,6 +84,8 @@ head=$(git -C "$clone" rev-parse FETCH_HEAD)
 
 url="https://github.com/$repo/pull/$number"
 about="You work on pull request #$number of $repo ($url), at its latest commit."
+# How its harness waits on a CI job (see watch in lib/agents.sh)
+watch=$(harness_do "$default_harness" watch) || watch='in the background, not by sleeping in the foreground'
 
 if [ "$task" = fix ]; then
   # Its branches, for the merge (left to the agent to find out without them)
@@ -190,8 +192,7 @@ its open review comments, and its failing CI checks.
    state, time or randomness, not on the base branch):
    a. re-run its job, once, as above (unless already re-run), then watch it
       until it ends: its new job id from gh pr checks (the re-run gets
-      another one), polled in the background (Monitor, or Bash with
-      run_in_background and an until loop), not with sleep in the foreground;
+      another one), polled $watch;
    b. if it fails again, git fetch origin $base and git merge origin/$base
       (resolving any conflict as in 0), commit it (git commit --no-edit),
       then push it, with $push from your worktree, and watch
