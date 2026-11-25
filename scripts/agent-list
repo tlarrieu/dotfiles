@@ -101,7 +101,8 @@ for f in "$agents_dir"/*; do
   [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
-  FILENAME == ARGV[1] { if ($1 !~ /^(#|$)/) order[$1] = ++n; next }
+  # The projects file: by the first word of each line (-F splits on tabs only)
+  FILENAME == ARGV[1] { split($0, word, " "); if (word[1] !~ /^(#|$)/) order[word[1]] = ++n; next }
   {
     project = $5; rank = 2 * n + 1; slot = 0
     if (project in order) rank = order[project]
