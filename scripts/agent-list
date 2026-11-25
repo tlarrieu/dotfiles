@@ -52,12 +52,12 @@ for f in "$agents_dir"/*; do
     fi
     continue
   fi
-  # No transcript, and not working on its first prompt: nothing typed in it
-  # yet, or a view that handed its first prompt over to a background session
-  # (see terminals in lib/agents.sh): no agent to show. Not marked a view, as it
-  # may be a new one, its transcript to come. Its startup notifications
-  # would tell it waiting on me (attention), for good
-  [ -f "$transcript" ] || [ "$state" = running ] || continue
+  # No transcript, waiting on me: a view that handed its first prompt over to
+  # a background session (see terminals in lib/agents.sh), its startup
+  # notification telling it waiting on me (attention), for good; no agent to
+  # show. Not marked a view: a new session has none either, idle, waiting for
+  # its first prompt (shown: an agent spawned with no prompt, say)
+  [ -f "$transcript" ] || [ "$state" != attention ] || continue
   case "$state" in
   running | attention) harness_do "$harness" interrupted "$transcript" && state=idle ;;
   done)
@@ -84,8 +84,7 @@ for f in "$agents_dir"/*; do
   # (its next hook saves it). And its prompt may name one: the first hooks
   # (SessionStart, UserPromptSubmit) run before the prompt lands in the
   # transcript, and the next ones save nothing while its state stays the same
-  [ "${pr:--}" = - ] && pr=$(agent_pr "$harness" "$transcript")
-  [ -z "$pr" ] && pr=$(branch_pr "$root")
+  [ "${pr:--}" = - ] && pr=$(session_pr "$harness" "$transcript" "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
   # The projects file: by the first word of each line (-F splits on tabs only)

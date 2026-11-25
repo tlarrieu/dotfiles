@@ -61,8 +61,7 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/agents"
 #   transcript    its transcript path
 #   since         when the current turn started (epoch)
 #   pr            the pull request it works on, as <owner/repo>#<number>
-#                 (agent_pr for agent-pr's agents, branch_pr for the
-#                 others), as of its last hook
+#                 (see session_pr), as of its last hook
 #   root          the top of its worktree (- when it holds a space)
 #   untold        yes: done, its turn over on something left running (see
 #                 monitoring), its "Done" not told yet (see agent-state)
@@ -136,6 +135,31 @@ agent_pr() {
   [[ $prompt =~ ^(Fix|Review)\ https://github\.com/([^/[:space:]]+/[^/[:space:]]+)/pull/([0-9]+) ]] &&
     echo "${BASH_REMATCH[2]}#${BASH_REMATCH[3]}"
   return 0
+}
+
+# The pull request agent-pr spawned the agent working in the worktree at
+# <root> on (see AGENT_PR in agent-spawn), from the mark it leaves in its git
+# dir. Prints <owner/repo>#<number>, or nothing
+# Usage: worktree_pr <root>
+worktree_pr() {
+  local dir
+  [ -n "$1" ] && [ "$1" != - ] || return 0
+  dir=$(git -C "$1" rev-parse --absolute-git-dir 2>/dev/null) || return 0
+  [ -f "$dir/agent-pr" ] && head -n 1 "$dir/agent-pr"
+  return 0
+}
+
+# The pull request a session works on: the one its first prompt names (see
+# agent_pr), else the one agent-pr spawned it on (see worktree_pr: with no
+# prompt, or another), else the one of mine its branch is (see branch_pr).
+# Prints <owner/repo>#<number>, or nothing
+# Usage: session_pr <harness> <transcript> <root>
+session_pr() {
+  local pr
+  pr=$(agent_pr "$1" "$2")
+  [ -n "$pr" ] || pr=$(worktree_pr "$3")
+  [ -n "$pr" ] || pr=$(branch_pr "$3")
+  echo "$pr"
 }
 
 # The pull request of mine (merge-queue's cache) whose head branch the

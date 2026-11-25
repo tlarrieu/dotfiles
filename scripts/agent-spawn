@@ -19,6 +19,8 @@
 #                         carry on with (see spawn_notify), instead of a new one
 #   AGENT_HARNESS  the harness running it (see lib/agents.sh), instead of the
 #                         default one, claude
+#   AGENT_PR       the pull request it works on (<owner/repo>#<number>), marked
+#                         in its worktree's git dir (see worktree_pr)
 # It tells how the spawn goes in a notification, at once: launched, or why not.
 
 assets=$(dirname "$(readlink -f "$0")")
@@ -74,6 +76,7 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error=$(cat "$error_file")
   rm -f "$error_file"
   [ -n "$slot" ] || fail "could not create its worktree: $error"
+  [ -n "$AGENT_PR" ] && echo "$AGENT_PR" >"$(git -C "$directory" rev-parse --absolute-git-dir)/agent-pr"
   base=$(git -C "$primary" branch --show-current)
   base="${base:+$base, }$(git -C "$directory" rev-parse --short HEAD)"
   env="--env TEST_ENV_NUMBER=$slot"
@@ -130,7 +133,7 @@ SESSION
 # its focused window as unfocused (kitty deems the new one focused)
 # Its windows get its environment: not this spawn's settings, which are this
 # agent's only (the first spawn starts that kitty, the others hand it theirs)
-env -u AGENT_DIR -u AGENT_AT -u AGENT_BRANCH -u AGENT_CONTEXT -u AGENT_NOTIFICATION \
+env -u AGENT_DIR -u AGENT_AT -u AGENT_BRANCH -u AGENT_CONTEXT -u AGENT_NOTIFICATION -u AGENT_PR \
   setsid -f kitty --single-instance --instance-group agents --name agent \
   --session "$session_file" >/dev/null 2>&1 || fail "could not start its kitty"
 launched=1

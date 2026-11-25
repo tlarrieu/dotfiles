@@ -319,5 +319,5 @@ RULES
   fi
 fi
 
-AGENT_DIR=$clone AGENT_AT=$head AGENT_BRANCH=$local_branch AGENT_CONTEXT=$rules \
+AGENT_DIR=$clone AGENT_AT=$head AGENT_BRANCH=$local_branch AGENT_CONTEXT=$rules AGENT_PR="$repo#$number" \
   exec "$assets/agent-spawn" ${prompt:+"$prompt"}

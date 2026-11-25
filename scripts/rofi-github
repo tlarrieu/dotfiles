@@ -575,7 +575,7 @@ agent() {
   title=$(read_agent "$agents_dir/$session" agent_; agent_title "$agent_harness" "$agent_transcript")
   home=$(read_agent "$agents_dir/$session" agent_; [ "$agent_root" != - ] && echo "$agent_root")
   urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent) homes+=("$home")
-  lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="$title" agent="$state")")
+  lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="${title:-new session}" agent="$state")")
 }
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it

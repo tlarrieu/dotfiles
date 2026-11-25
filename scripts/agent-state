@@ -145,13 +145,11 @@ project=$(basename "$root")
 project=${project//[[:space:]]/_}
 [[ $root == *[[:space:]]* ]] && root=- # fields are space separated
 # The pull request it works on, from what it is, at each hook (it may open
-# one, or switch branches): agent-pr's agents by their first prompt,
-# the others by the branch they're on (one of my pull requests'). Not from
-# the environment: agents' windows inherit their kitty's, whichever agent
-# started it (see agent-spawn)
+# one, or switch branches): see session_pr. Not from the environment:
+# agents' windows inherit their kitty's, whichever agent started it (see
+# agent-spawn)
 # shellcheck disable=SC2034 # written by write_agent
-pr=$(agent_pr "$harness" "$transcript")
-[ -n "$pr" ] || pr=$(branch_pr "$root")
+pr=$(session_pr "$harness" "$transcript" "$root")
 pr=${pr:--}
 write_agent "$file"
 refresh_panel
