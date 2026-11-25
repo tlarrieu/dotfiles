@@ -101,6 +101,8 @@ while [ "$pid" -gt 1 ] && ! alive "$pid" "$harness"; do
   read_ppid "$pid" || ppid=1
   pid=$ppid
 done
+# None (its adapter's alive doesn't know it): agent-list would drop it at once
+[ "$pid" -gt 1 ] || { echo "agent-state: no $harness process among my parents (see ${harness}_alive)" >&2; exit 1; }
 
 # A background session has no terminal: what it inherited is the one it left
 # (or the one that started it), not its
