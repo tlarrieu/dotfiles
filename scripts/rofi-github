@@ -9,7 +9,10 @@
 # :agent)
 # Enter: open (browser; an agent's row: jump to it; local work: neovim in its
 # worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
-# page. Ctrl+s: the agent on it, else spawn one (agent-pr). Ctrl+m:
+# page. Ctrl+f: the agent on it, else spawn one to fix or review it (agent-pr).
+# Ctrl+s: the agent on it, else a new one with no prompt: on the pull request
+# (as Ctrl+f sets it up, see agent-pr --no-prompt), else in the row's
+# repository. Ctrl+m:
 # enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
 # it; for the others, their page at the merge box: GitHub's API only queues
 # ready ones, and a repository forbidding auto-merge refuses "Merge when
@@ -450,7 +453,7 @@ hints() {
 layout='content { children: [inputbar, listview, message]; }
   message { margin: 0.5em 1em 1em 1em; }
   textbox { horizontal-align: 0.5; }'
-mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m=merge ctrl+o=push)
+mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+f=fix/review ctrl+s=agent ctrl+m=merge ctrl+o=push)
 
 # A duration on a single unit, to keep the time column narrow: 42s (with
 # seconds), 42m, 5h, 12d. Rounded down, or up (for time left: never 60m)
@@ -565,12 +568,13 @@ measure_columns() {
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent_when() { case $state in running | monitoring) [ "$since" != - ] && span $(($(date +%s) - since)) seconds ;; esac; return 0; }
 
-# Adds an agent (a agent-list record): Enter and Ctrl+s go back to it
+# Adds an agent (an agent-list record): Enter, Ctrl+f and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent() {
-  local title
+  local title home
   title=$(read_agent "$agents_dir/$session" agent_; agent_title "$agent_harness" "$agent_transcript")
-  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent)
+  home=$(read_agent "$agents_dir/$session" agent_; [ "$agent_root" != - ] && echo "$agent_root")
+  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent) homes+=("$home")
   lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="$title" agent="$state")")
 }
 
@@ -596,7 +600,7 @@ mine() {
     case $queue_ci in FAILURE | PENDING) ci=$queue_ci ;; esac
   fi
   # MERGED, DEPLOYING or DEPLOYED; no queue to open, nothing for an agent to
-  # fix (Ctrl+s)
+  # fix (Ctrl+f)
   case $in in deploying | deployed) review=$state ci='' queue_url='' threads=0 comments=0 ;; esac
   # GitHub hasn't worked out whether it's mergeable yet (the approved face
   # would read ready): the review face says so, the row too. In the face
@@ -628,7 +632,7 @@ mine() {
   # branch)
   local push=${push_of[$repo#$branch]}
   case $in in deploying | deployed) push='' ;; esac
-  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number") merges+=("$merge")
+  urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number") merges+=("$merge") homes+=('')
   tags+=("$tag${agents[$repo#$number]:+ :agent}${work_of[$repo#$branch]:+ :local}${pr_work[$repo#$number]:+ :local}${push:+ :unpushed}") sessions+=('') dirs+=('') pushes+=("$push") lines+=("$line")
 }
 
@@ -654,7 +658,7 @@ local_row() {
   [ "$branch" != - ] && [ "$upstream" = yes ] && url="https://github.com/$repo/compare/$(url_path "$branch")?expand=1"
   [ "$branch" != - ] && [ "$ahead" -gt 0 ] && push="$clone $branch $upstream $ahead"
   urls+=("$url") queues+=('') prs+=('') merges+=('') sessions+=("$([ "$agent" != - ] && echo "$agent")")
-  dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push")
+  dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push") homes+=("$clone")
   tags+=(":local${push:+ :unpushed}${state:+ :agent}")
   lines+=("$(row time="$(span $((now - time)))" project="$(local_name)" title="$title" \
     work="$ahead $changes $tended" agent="$state")")
@@ -677,7 +681,7 @@ review() {
     work="${pr_work[$repo#$number]}" agent="${agents[$repo#$number]}")
   # My teams': in the background, as those with auto-merge on
   [ "$in" = team ] && line="<span fgalpha=\"80%\">$line</span>"
-  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') dirs+=('') pushes+=('')
+  urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') dirs+=('') pushes+=('') homes+=('')
   tags+=(":$([ "$in" = team ] && echo team || echo review)${agents[$repo#$number]:+ :agent}${pr_work[$repo#$number]:+ :local}")
   lines+=("$line")
 }
@@ -718,6 +722,7 @@ while :; do
   sessions=() # the agent (an agent's row), else empty
   dirs=() # the worktree to open (local work, without an agent), else empty
   pushes=() # <clone> <branch> <upstream> <commits> to push (Ctrl+o), else empty
+  homes=() # where Ctrl+s starts an agent, on a row with no pull request (an agent's worktree, local work's clone), else empty
   tags=()
   lines=()
   now=$(date +%s)
@@ -767,7 +772,8 @@ while :; do
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
     rofi -dmenu -i -markup-rows -p "$prompt" -format 'i f' -filter "$filter" \
-      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+s' -kb-custom-4 'Control+m' -kb-custom-5 'Control+o' \
+      -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+f' -kb-custom-4 'Control+m' -kb-custom-5 'Control+o' -kb-custom-6 'Control+s' \
+      -kb-move-char-forward Right \
       -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
@@ -828,6 +834,19 @@ while :; do
         fi
       elif [ -n "$choice" ]; then
         notify-send --app-name=github GitHub "Nothing to push there"
+      fi ;;
+    15)
+      # The agent on it (its own row, local work's); else a new one, with no
+      # prompt: on its pull request (agent-pr jumps to the one on it, if
+      # any), else in its repository (its main clone)
+      if [ -n "$choice" ]; then
+        [ -n "${sessions[$choice]}" ] && exec "$assets/agent-jump" "${sessions[$choice]}"
+        read -r pr_task pr_repo pr_number <<<"${prs[$choice]}"
+        [ -n "$pr_task" ] && exec "$assets/agent-pr" --no-prompt "$pr_task" "$pr_repo" "$pr_number"
+        home=${homes[$choice]}
+        common=$([ -n "$home" ] && git -C "$home" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) && home=$(dirname "$common")
+        [ -n "$home" ] && AGENT_DIR=$home exec "$assets/agent-spawn"
+        notify-send --app-name=github GitHub "No pull request nor repository to start an agent on there"
       fi ;;
     *) exit 0 ;;
   esac

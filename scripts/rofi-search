@@ -128,7 +128,7 @@ end
 # Spawns a background agent in the current project, the rest of the query
 # being its prompt (none: interactive session). "fix <PR>" or "review <PR>" (the
 # whole query) spawns one on that pull request instead, as rofi-github's
-# Ctrl+s does (see agent-pr: back to the agent already on it, if any).
+# Ctrl+f does (see agent-pr: back to the agent already on it, if any).
 # <PR>: 1234 or #1234 (the current project's repository), owner/repo#1234, or
 # its URL
 class Agent

@@ -22,26 +22,33 @@
 # Either way, it pushes nothing, and posts nothing on GitHub unless asked
 # (re-runs and the flaky spec's merge aside; reviews drafted are pending, mine
 # to submit).
+# With --no-prompt: the same agent, set up the same way (the worktree, the
+# rules: --no-prompt fix for mine, --no-prompt review for the others'), but
+# an interactive session, with no task: the user tells it what to do.
 # An agent on it already: jumps back to it instead. To fix one of mine with
 # nothing to fix (no conflict, unresolved review thread, open review comment
 # or failing CI, as
 # merge-queue's cache tells, which may lag): says so instead. Used by
-# rofi-github (Ctrl+s), rofi-search (cl fix|review <PR>) and merge-queue's
-# notifications.
+# rofi-github (Ctrl+f; Ctrl+s: --no-prompt), rofi-search (cl fix|review <PR>)
+# and merge-queue's notifications.
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
-# Usage: agent-pr <fix|review> <owner/repo> <number>
+# Usage: agent-pr [--no-prompt] <fix|review> <owner/repo> <number>
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
 . "$assets/lib/github.sh" # github_clone, github_ignored_checks (and records.sh)
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
 . "$assets/lib/agents.sh" # pr_agent, spawn_notify, harness_do
-fail() { spawn_notify failed "Agent to $task $repo#$number not started: $1"; exit 1; }
+fail() { spawn_notify failed "Agent ${what:-to $task} $repo#$number not started: $1"; exit 1; }
 
+no_prompt=''
+[ "$1" = --no-prompt ] && { no_prompt=yes; shift; }
 task=$1 repo=$2 number=$3
 case $task in fix | review) ;; *) task='' ;; esac
 [ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
-  || { echo "Usage: agent-pr <fix|review> <owner/repo> <number>" >&2; exit 2; }
+  || { echo "Usage: agent-pr [--no-prompt] <fix|review> <owner/repo> <number>" >&2; exit 2; }
+what="to $task"
+[ -n "$no_prompt" ] && what=on
 
 # An agent on it already (from rofi-github, or a notification): back to it,
 # rather than another one
@@ -51,7 +58,7 @@ session=$(pr_agent "$repo#$number")
 # Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
 # else's or in no watched repository: no telling, go ahead). Merged ones
 # (threads and comments -) have nothing either
-if [ "$task" = fix ]; then
+if [ "$task" = fix ] && [ -z "$no_prompt" ]; then
   found='' known_threads='' known_comments='' known_ci='' known_review=''
   # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
   find_pr() {
@@ -72,7 +79,7 @@ fi
 
 # Spawning, which takes a while (the fetch, the worktree, then the harness): say
 # so now, the notification turning into the outcome (see agent-spawn)
-spawn_notify started "Starting an agent to $task $repo#$number…"
+spawn_notify started "Starting an agent $what $repo#$number…"
 
 clone=$(github_clone "$repo")
 [ -n "$clone" ] || fail "no clone of $repo in ~/dev or ~/git"
@@ -288,5 +295,29 @@ review only they see until they submit it, by saying "post" (all of them) or
 PROMPT
 fi
 
+# No task (--no-prompt): the setup only, and rules fit for whatever the user
+# asks
+if [ -n "$no_prompt" ]; then
+  prompt=''
+  if [ "$task" = fix ]; then
+    read -r -d '' rules <<RULES
+$about
+$where
+Push nothing, and post nothing on GitHub (no comment, no reply, no review),
+unless the user asks you to. Leave your changes uncommitted unless they ask
+you to commit; whenever you commit and don't push, give them the command to
+push it from their clone, $clone (your worktree goes once you stop; the branch
+stays, as worktrees share their clone's branches): $push.
+RULES
+  else
+    read -r -d '' rules <<RULES
+$about
+It's someone else's: change no file and commit nothing unless the user asks
+you to, and post nothing on GitHub (no comment, no reply, no review) unless
+they ask you to.
+RULES
+  fi
+fi
+
 AGENT_DIR=$clone AGENT_AT=$head AGENT_BRANCH=$local_branch AGENT_CONTEXT=$rules \
-  exec "$assets/agent-spawn" "$prompt"
+  exec "$assets/agent-spawn" ${prompt:+"$prompt"}
