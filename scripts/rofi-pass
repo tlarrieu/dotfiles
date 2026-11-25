@@ -41,6 +41,15 @@ function account_id {
   pass show "$option" | sed -n '3p'
 }
 
+# A theme fitting the window to the longest of the given lines (markup aside,
+# plus the 1em gutters on each side), between 72 and 100 characters, and never
+# more than the screen
+function fit_width {
+  local width
+  width=$(printf '%s\n' "$@" | sed -e 's/<[^>]*>//g' \
+    | awk '{ if (length > max) max = length } END { print (max < 72 ? 72 : max > 100 ? 100 : max) }')
+  echo "window { width: calc(${width}ch + 2em min 100%); }"
+}
 
 HELP="<b>Return</b>         <i>Autofill</i>
 <b>Shift+Return</b>   <i>Insert password or login</i>
@@ -48,14 +57,19 @@ HELP="<b>Return</b>         <i>Autofill</i>
 <b>Alt+Return</b>     <i>Generate new password</i>
 <b>Control+q</b>      <i>Show QR-code</i>"
 
-option=$(\
+entries=$(\
   pass git ls-files \
   | grep '.gpg$' \
   | { sed -e 's/.gpg$//' ; echo "perso/carte-bleue"; } \
   | { sed -e 's/.gpg$//' ; echo "tmp"; } \
+)
+
+option=$(\
+  echo "$entries" \
   | rofi \
       -dmenu \
       -l 5 \
+      -theme-str "$(fit_width "$entries" "$HELP")" \
       -i \
       -p 󰟵 \
       -no-history \
@@ -173,6 +187,7 @@ if [ ${#option} -gt 0 ]; then
         | rofi \
             -dmenu \
             -l 2 \
+            -theme-str "$(fit_width Password Login)" \
             -i \
             -p  \
             -no-history \
@@ -200,6 +215,7 @@ if [ ${#option} -gt 0 ]; then
           | rofi \
               -dmenu \
               -l 2 \
+              -theme-str "$(fit_width "✔ Yes" " You are about to change password for <b>$option</b>. Is that OK?")" \
               -i \
               -p  \
               -no-history \

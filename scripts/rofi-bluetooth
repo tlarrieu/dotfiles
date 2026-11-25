@@ -1,13 +1,20 @@
 #!/bin/sh
 
-_rofi() { rofi -i -dmenu -a "$1" -selected-row "$1" -p "󰂰"; }
+# The window fits the longest device line (plus the entries' 1em gutters), up
+# between 72 and 100 characters, and never more than the screen
+_rofi() {
+  width=$(printf '%s\n' "$devices" | awk '{ if (length > max) max = length } END { print (max < 72 ? 72 : max > 100 ? 100 : max) }')
+  printf '%s\n' "$devices" |
+    rofi -i -dmenu -a "$1" -selected-row "$1" -p "󰂰" -theme-str "window { width: calc(${width}ch + 2em min 100%); }"
+}
 
 connected=$(echo info | bluetoothctl | grep 'Device ..:..:..:..:..:..' | head -n 1 | awk '{ print $2 }')
 if [ -n "$connected" ]; then
   preselected=$(bluetoothctl devices | grep 'Device' | grep -n "$connected" | awk -F':' '{print $1 - 1}')
 fi
 
-selection=$(bluetoothctl devices | grep 'Device ..:..:..:..:..:..' | sed 's/Device //' | _rofi "$preselected" | awk '{ print $1 }')
+devices=$(bluetoothctl devices | grep 'Device ..:..:..:..:..:..' | sed 's/Device //')
+selection=$(_rofi "$preselected" | awk '{ print $1 }')
 
 if [ -z "$selection" ]; then exit 0; fi
 
