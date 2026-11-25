@@ -72,12 +72,14 @@ prompt='' # rofi's, for the list and the dialogs
 # leaves, at least min_title_width
 title_and_author=92 min_title_width=70
 
-# Sets title_width from the review-queue records on stdin
+# Sets title_width, and author_width (the longest author, 0 when none), from
+# the review-queue records on stdin
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_authors() {
   local longest=0
   longest_author() { [ ${#author} -gt "$longest" ] && longest=${#author}; }
   each_record longest_author
+  author_width=$longest
   title_width=$((title_and_author - 2 - longest))
   [ "$title_width" -ge "$min_title_width" ] || title_width=$min_title_width
 }
@@ -132,7 +134,8 @@ declare -A size_styles=(
 #   project        an agent's project (or a local work's name): before the
 #                  title (<project> — <title>), "local" (dimmer) in the number's
 #                  place
-#   author         goes last, after the title (which then gets a fixed width)
+#   author         goes last, after the time (the title gets cut at a fixed
+#                  width)
 #   tint           the review face's color, instead of its style (reviews
 #                  waiting on me)
 #   auto           auto: auto-merge is on
@@ -175,13 +178,12 @@ row() {
     size=$(pr_size "${c[additions]}" "${c[deletions]}") glyph=${size_glyphs[$size]}
     [ "${c[diff]}" != plain ] && glyph="<span ${size_styles[$size]}>$glyph</span>"
   fi
-  # Last, fainter than dim. The title before it gets a fixed width (in
-  # characters, as they are cells), so that a long one can't push it out of
-  # the window
+  # Last, after the time, fainter than dim. The title gets cut at a fixed
+  # width (in characters, as they are cells), so that a long one can't push
+  # it out of the window
   if [ -n "${c[author]}" ]; then
     who="  <span fgalpha=\"40%\">$(escape "${c[author]}")</span>"
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
-    title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
   threads=$(count_cell "$thread_glyph" "${c[threads]}")
   comments=$(count_cell "$comment_glyph" "${c[comments]}")
@@ -212,14 +214,15 @@ row() {
   # The indicators first (auto-merge, comments, threads, local work, the
   # agent), one space apart in one column, right-aligned: a \x1e after them
   # stands for the padding lining the faces up (see align_columns). Then the
-  # faces and number. The time last, dimmer, right-aligned, after a \x1f
-  # standing for the padding lining all rows' times up (see align_columns)
+  # faces and number. The time, dimmer, right-aligned, after a \x1f standing
+  # for the padding lining all rows' times up (see align_columns); then the
+  # author, if any
   local indicators='' indicator
   for indicator in "$auto" "$comments" "$threads" "$work" "$agent"; do
     [ -n "$indicator" ] && indicators+="${indicators:+ }$indicator"
   done
   before=$(printf '%s\x1e%s%s%s %s ' "$indicators" "$ci" "$review" "$glyph" "$middle")
-  line="$before$(escape "$title")$who"$'\x1f'"<span $dimmer>$(printf '%*s' "$time_width" "${c[time]}")</span>"
+  line="$before$(escape "$title")"$'\x1f'"<span $dimmer>$(printf '%*s' "$time_width" "${c[time]}")</span>$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
 }
@@ -549,10 +552,13 @@ align_at() {
 }
 
 # The indicators' column (\x1e, right-aligned, then two spaces: the agent's
-# face spills over), then the times on the right (\x1f, within max_width)
+# face spills over), then the times on the right (\x1f, within max_width,
+# the authors' column after them included)
 align_columns() {
+  local authors=0
+  [ "${author_width:-0}" -gt 0 ] && authors=$((2 + author_width))
   align_at $'\x1e' "$max_width" 2 right
-  align_at $'\x1f' $((max_width - 2 - time_width)) 2
+  align_at $'\x1f' $((max_width - 2 - time_width - authors)) 2
 }
 
 # The time column of a pull request waiting on my review: for how long
