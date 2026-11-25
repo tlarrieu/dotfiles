@@ -1,5 +1,9 @@
 #!/bin/bash
 
+assets=$(dirname "$(readlink -f "$0")")
+# shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
+. "$assets/lib/rofi.sh"
+
 function copy_status {
   if [ $? = 0 ]; then
     notify-send "Pass: copied" "The clipboard will be cleared in <b>45 sec</b>"
@@ -41,21 +45,20 @@ function account_id {
   pass show "$option" | sed -n '3p'
 }
 
-# A theme fitting the window to the longest of the given lines (markup aside,
-# plus the 1em gutters on each side), between 72 and 100 characters, and never
-# more than the screen
-function fit_width {
-  local width
-  width=$(printf '%s\n' "$@" | sed -e 's/<[^>]*>//g' \
-    | awk '{ if (length > max) max = length } END { print (max < 72 ? 72 : max > 100 ? 100 : max) }')
-  echo "window { width: calc(${width}ch + 2em min 100%); }"
+# How wide a window fitting the longest of the given lines is (markup aside),
+# in characters: between 65 and 100
+function fit_chars {
+  printf '%s\n' "$@" | sed -e 's/<[^>]*>//g' \
+    | awk '{ if (length > max) max = length } END { print (max < 65 ? 65 : max > 100 ? 100 : max) }'
 }
 
-HELP="<b>Return</b>         <i>Autofill</i>
-<b>Shift+Return</b>   <i>Insert password or login</i>
-<b>Control+Return</b> <i>Edit entry</i>
-<b>Alt+Return</b>     <i>Generate new password</i>
-<b>Control+q</b>      <i>Show QR-code</i>"
+# A theme fitting the window to the given lines (see fit_chars), plus the 1em
+# gutters on each side, and never more than the screen
+function fit_width {
+  echo "window { width: calc($(fit_chars "$@")ch + 2em min 100%); }"
+}
+
+hints enter=autofill shift+enter=insert ctrl+enter=edit alt+enter=generate ctrl+q='QR code'
 
 entries=$(\
   pass git ls-files \
@@ -64,12 +67,17 @@ entries=$(\
   | { sed -e 's/.gpg$//' ; echo "tmp"; } \
 )
 
+# The hints under the list, as rofi-github shows them (see lib/rofi.sh), in
+# lines fitting the window (in the message's 90% font, as rofi-github)
+widest=$(fit_chars "$entries")
+mesg=$(hints_bar $(( (widest - 2) * 10 / 9 )))
+
 option=$(\
   echo "$entries" \
   | rofi \
       -dmenu \
       -l 5 \
-      -theme-str "$(fit_width "$entries" "$HELP")" \
+      -theme-str "$hints_layout $(fit_width "$entries") $(hints_divider "$widest")" \
       -i \
       -p 󰟵 \
       -no-history \
@@ -81,7 +89,7 @@ option=$(\
       -kb-accept-entry "" \
       -kb-accept-custom "" \
       -kb-accept-alt "" \
-      -mesg "$HELP"
+      -mesg "<span size=\"90%\">$mesg</span>"
 )
 
 rofi_signal=$?

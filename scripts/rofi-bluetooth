@@ -1,9 +1,9 @@
 #!/bin/sh
 
 # The window fits the longest device line (plus the entries' 1em gutters), up
-# between 72 and 100 characters, and never more than the screen
+# between 65 and 100 characters, and never more than the screen
 _rofi() {
-  width=$(printf '%s\n' "$devices" | awk '{ if (length > max) max = length } END { print (max < 72 ? 72 : max > 100 ? 100 : max) }')
+  width=$(printf '%s\n' "$devices" | awk '{ if (length > max) max = length } END { print (max < 65 ? 65 : max > 100 ? 100 : max) }')
   printf '%s\n' "$devices" |
     rofi -i -dmenu -a "$1" -selected-row "$1" -p "󰂰" -theme-str "window { width: calc(${width}ch + 2em min 100%); }"
 }

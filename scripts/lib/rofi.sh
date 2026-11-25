@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# Shared by the rofi pickers (rofi-github). Source it:
+# Shared by the rofi pickers (rofi-github, rofi-pass). Source it:
 # . "$assets/lib/rofi.sh"
 
 # Colors from the current rofi palette (see ~/.config/rofi/variant.rasi), in
@@ -62,4 +62,60 @@ shown_width() {
   plain=${plain//"&lt;"/"<"} plain=${plain//"&gt;"/">"} plain=${plain//"&amp;"/"&"}
   while IFS= read -r line; do [ ${#line} -gt "$widest" ] && widest=${#line}; done <<<"$plain"
   echo "$widest"
+}
+
+# Key hints: <key>=<what it does>…, the keys dimmer than what they do. Sets
+# hint_marks (each hint's markup) and hint_widths (its width, in characters)
+# for hints_bar
+hints() {
+  local hint nbsp=$'\xc2\xa0' text mark
+  hint_marks=() hint_widths=()
+  for hint; do
+    # No break within a hint, its key and its words held together (no-break
+    # spaces)
+    text=${hint#*=}
+    mark="<span $dim>$(escape "<${hint%%=*}>")</span>$nbsp$(escape "${text// /$nbsp}")"
+    hint_marks+=("$mark") hint_widths+=("$(shown_width "$mark")")
+  done
+}
+
+# The hints (see hints), as lines fitting <width> characters of the bar's
+# font: broken between hints by hand, so that no separator (a dot, dimmer
+# still) ends a line, as it would where rofi wraps them
+# Usage: hints_bar <width>
+hints_bar() {
+  local i out='' line=0 separator=' <span fgalpha="35%">•</span> '
+  for i in "${!hint_marks[@]}"; do
+    if [ "$line" -gt 0 ] && [ $((line + 3 + hint_widths[i])) -gt "$1" ]; then
+      out+=$'\n' line=0
+    fi
+    [ "$line" -gt 0 ] && out+=$separator line=$((line + 3))
+    out+=${hint_marks[$i]} line=$((line + hint_widths[i]))
+  done
+  printf '%s' "$out"
+}
+
+# The message bar goes under the list, centered (theme.rasi puts it above:
+# its gutter flips with it), in a smaller font (see -mesg)
+# A line divides it from the list, •───…───•, 40% of the window's width (see
+# divider), centered, in 60% of theme.rasi's font (a thinner row), in the
+# foreground's color at 15% on the background (an opaque blend: its glyphs
+# overlap a little, which would show translucent); the foreground's own when
+# the palette lacks them
+# shellcheck disable=SC2034 # for the scripts sourcing this
+hints_layout="content { children: [inputbar, listview, textbox-divider, message]; }
+  message { margin: 0.5em 1em 1em 1em; }
+  textbox { horizontal-align: 0.5; }
+  textbox-divider { expand: false; background-color: transparent; margin: 0.5em 0 0 0; font: \"CaskaydiaCove Nerd Font 8.7\"; horizontal-align: 0.5;${fg:+${bg:+ text-color: $(blend "$fg" "$bg" 15);}} }"
+
+# The divider's theme (see hints_layout), for a window <width> characters wide
+# Usage: hints_divider <width>
+hints_divider() {
+  local divider
+  # 40% of the window's width (of its rows' characters, 5/3 as many in its
+  # 60% font; the dots about make up for its padding's share)
+  divider=$(printf '%*s' $(($1 * 2 / 3)) '') divider="•${divider// /─}•"
+  # On a line of its own: rofi reads a string up to the line's last quote, so
+  # it would swallow the layout's font for the divider
+  printf '\n%s' "textbox-divider { content: \"$divider\"; }"
 }
