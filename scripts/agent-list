@@ -32,9 +32,11 @@ interrupted() {
 }
 
 # Backgrounding a session hands it over to a new one (in claude's daemon), while
-# the original process lives on, showing the new session
+# the original process lives on, showing the new session. Unless resumed since
+# (claude --resume): its own messages then follow the handover
 continued() {
-  [ -f "$1" ] && tail -n 20 "$1" | grep -q '"type":"continued-in"'
+  [ -f "$1" ] && [ "$(tail -n 200 "$1" | grep -E '"type":"(user|assistant|continued-in)"' |
+    jq -rs '[.[] | select(.type | IN("user", "assistant", "continued-in"))] | last | .type // empty' 2>/dev/null)" = continued-in ]
 }
 
 order="${XDG_CONFIG_HOME:-$HOME/.config}/agents/projects"
