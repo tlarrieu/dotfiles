@@ -2,9 +2,6 @@
 -- (see ~/scripts/local-work). Local only: polls often, at no cost.
 -- Panel widget, see panel.lua: returns { widget, update }
 
-local gears = require('gears')
-local github = require('github')
-
 -- What needs me: commits to push (a branch's, or a detached worktree's, on no
 -- branch), or a stopped agent's worktree kept for its changes. Changes in a
 -- worktree an agent or I still work in don't count
@@ -31,27 +28,10 @@ return require('widgets.counter').make({
   end,
 
   render = function(records, colors)
-    ---@type integer, string[]
-    local now, rows = os.time(), {}
+    local count = 0
     for _, record in ipairs(records) do
-      if pending(record) then
-        local where = record.worktree ~= '-' and record.worktree or record.clone
-        local what = {}
-        local ahead, changes = tonumber(record.ahead) or 0, tonumber(record.changes) or 0
-        if ahead > 0 then table.insert(what, ('󰅧 %d'):format(ahead)) end
-        if changes > 0 then table.insert(what, ('󱇧 %d'):format(changes)) end
-        if record.kept == 'yes' then table.insert(what, 'kept') end
-        table.insert(rows, ('<b>%5s</b>  %s  %s <span fgalpha="60%%">(%s)</span>'):format(
-          github.ago(now - (tonumber(record.time) or now)),
-          gears.string.xml_escape(record.branch ~= '-' and record.branch or 'detached HEAD'),
-          table.concat(what, ' '),
-          gears.string.xml_escape((where:gsub('^.*/', '')))))
-      end
+      if pending(record) then count = count + 1 end
     end
-    return {
-      color = #rows > 0 and colors.yellow.base or colors.fg.dim,
-      count = #rows,
-      rows = rows,
-    }
+    return { color = count > 0 and colors.yellow.base or colors.fg.dim, count = count }
   end,
 })

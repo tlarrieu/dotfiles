@@ -25,23 +25,16 @@
 ---@field stop fun(self: Timer)
 ---@field connect_signal fun(self: Timer, name: string, callback: fun())
 
----@class Tooltip An awful.tooltip
----@field text string
----@field markup string
----@field get_wibox fun(self: Tooltip): Wibox The window it shows in
-
----@class Wibox A wibox (window), e.g. a tooltip's
----@field x number
----@field width number
----@field screen Screen
----@field instance string? Its WM_CLASS instance (browser-kiosk apps: their URL, e.g. github.com__pulls)
----@field connect_signal fun(self: Wibox, name: string, callback: fun())
-
 ---@alias SpawnCallback fun(stdout: string, stderr: string, reason: 'exit'|'signal', code: integer)
 
 ---@class PanelWidget What a widgets/ module returns, for panel.lua
 ---@field widget Widget The widget to place in the wibar
 ---@field update fun() Repaint it from its source
+
+---@class Tooltip An awful.tooltip
+---@field text string
+---@field add_to_object fun(self: Tooltip, object: Widget) Show it on hovering object
+---@field remove_from_object fun(self: Tooltip, object: Widget)
 
 ---@class Screen An awesome screen
 ---@field index integer

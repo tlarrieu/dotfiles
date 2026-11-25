@@ -178,7 +178,6 @@ GRAPHQL
 # Time: estimated seconds to merge (queued), last update epoch (other), merge
 # epoch (deploying), when it reached production (deployed), or -.
 # Auto: auto when auto-merge is on, else -.
-# Label: the state in a word or two, for the picker and the panel.
 # CI: the last commit's checks, SUCCESS, FAILURE or PENDING (see github_ci_jq).
 # Review: the first of CONFLICT, DRAFT, CHANGES_REQUESTED, BOT_REVIEWING (a
 # review workflow runs, see github_review_workflows), BOT_REVIEW_FAILED (one
@@ -194,7 +193,7 @@ GRAPHQL
 selection=${selection//CI_FIELDS/$github_ci_query}
 selection=${selection//CI_ROLLUP/$github_ci_rollup}
 selection=${selection//COMMENTS_FIELDS/$github_comments_query}
-fields=(kind repo number position state label time additions deletions auto url queue_url title enqueued_at ci review threads comments branch queue_ci queue_commit head)
+fields=(kind repo number position state time additions deletions auto url queue_url title enqueued_at ci review threads comments branch queue_ci queue_commit head)
 header="#$(IFS=$'\t'; echo "${fields[*]}")"
 # Whether a human is asked to review it, or did: a team, or a user that
 # isn't a bot (see github_bot_users)
@@ -209,12 +208,6 @@ human_reviewer_jq='
 # shellcheck disable=SC2016 # $e, $c, $pr, $blocker… are jq variables
 program='
   FIELDS as $fields
-  | {QUEUED: "queued", AWAITING_CHECKS: "checks running", MERGEABLE: "checks passed",
-     UNMERGEABLE: "checks failed", LOCKED: "merging"} as $queue_labels
-  | {DRAFT: "draft", CONFLICT: "conflict", CHECKS_FAILING: "checks", CHANGES_REQUESTED: "changes",
-     CHECKS_PENDING: "running", BOT_REVIEWING: "bot review", BOT_REVIEW_FAILED: "bot review failed",
-     NO_REVIEWER: "no reviewer", REVIEW_REQUIRED: "needs review",
-     UNKNOWN: "unknown"} as $labels
   | ["DRAFT", "CONFLICT", "CHECKS_FAILING", "CHANGES_REQUESTED", "CHECKS_PENDING", "BOT_REVIEWING", "BOT_REVIEW_FAILED",
      "NO_REVIEWER", "REVIEW_REQUIRED",
      "UNKNOWN"] as $blockers
@@ -246,7 +239,6 @@ program='
           .mergeQueueEntry as $e
           | { rank: [2, $e.position],
               row: ($pr + { kind: "queued", position: $e.position, state: $e.state,
-                            label: ($queue_labels[$e.state] // ($e.state | ascii_downcase)),
                             time: $e.estimatedTimeToMerge, enqueued_at: $e.enqueuedAt,
                             queue_ci: (if $e.state == "UNMERGEABLE" then "FAILURE"
                                        elif $e.headCommit.statusCheckRollup == null then null
@@ -264,11 +256,10 @@ program='
            elif .mergeable != "MERGEABLE" then "UNKNOWN"
            else "READY" end) as $blocker
           | if $blocker == "READY" then
-              { rank: [1, .number], row: ($pr + { kind: "ready", state: "READY", label: "ready" }) }
+              { rank: [1, .number], row: ($pr + { kind: "ready", state: "READY" }) }
             else
               { rank: [0, ($blockers | index($blocker)), -(.updatedAt | fromdateiso8601)],
                 row: ($pr + { kind: "other", state: $blocker,
-                              label: $labels[$blocker],
                               time: (.updatedAt | fromdateiso8601) }) }
             end
         end ]
@@ -390,14 +381,14 @@ printf '%s' "$current" >"$queued"
 
 # Records of the deploying and deployed ones (see fields)
 deploying='' deployed=''
-deploying_row() { # <state> <label> <repo> <number> <merged at> <additions> <deletions> <url> <title>
-  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
-    "$3" "$4" "$1" "$2" "$5" "$6" "$7" "$8" "$9")$'\n'
+deploying_row() { # <state> <repo> <number> <merged at> <additions> <deletions> <url> <title>
+  deploying+=$(printf 'deploying\t%s\t%s\t-\t%s\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
+    "$2" "$3" "$1" "$4" "$5" "$6" "$7" "$8")$'\n'
 }
 # A deployed one, while it reached production less than $recent_window seconds ago
 deployed_row() { # <repo> <number> <reached production at> <additions> <deletions> <url> <title>
   [ $((now - $3)) -lt "$recent_window" ] || return 0
-  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\tdeployed\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
+  deployed+=$(printf 'deployed\t%s\t%s\t-\tDEPLOYED\t%s\t%s\t%s\t-\t%s\t-\t%s\t-\t-\t-\t-\t-\t-\t-\t-\t-' \
     "$1" "$2" "$3" "$4" "$5" "$6" "$7")$'\n'
 }
 now=$(date +%s)
@@ -432,8 +423,8 @@ track_deploys() { # <repo>
         deploying)
           keys+=("$repo#$number:deploying@$run_id")
           once "$repo#$number:deploying@$run_id" && notify normal "Deploying to production" "$title"$'\n'"$repo#$number" "$url"
-          deploying_row DEPLOYING deploying "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
-        *) deploying_row MERGED merged "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
+          deploying_row DEPLOYING "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
+        *) deploying_row MERGED "$repo" "$number" "$at" "$additions" "$deletions" "$url" "$title" ;;
       esac
     done
   } <"$file"

@@ -2,9 +2,6 @@
 -- those requested from my teams only (rofi-github lists them)
 -- Panel widget, see panel.lua: returns { widget, update }
 
-local gears = require('gears')
-local github = require('github')
-
 -- Ages (seconds) from which the oldest request turns the widget yellow, then red
 local warn_after, alert_after = 4 * 3600, 24 * 3600
 
@@ -24,20 +21,17 @@ return require('widgets.counter').make({
   end,
 
   render = function(records, colors)
-    ---@type integer, integer, string[]
-    local now, oldest, rows = os.time(), 0, {}
+    ---@type integer, integer, integer
+    local now, oldest, count = os.time(), 0, 0
     for _, review in ipairs(records) do
       if (review.team or '-') == '-' then
-        local waited = now - (tonumber(review.at) or now)
-        oldest = math.max(oldest, waited)
-        table.insert(rows, ('<b>%5s</b>  %s <span fgalpha="60%%">(%s)</span>'):format(
-          github.ago(waited), github.pull_request(review), gears.string.xml_escape(review.author)))
+        count = count + 1
+        oldest = math.max(oldest, now - (tonumber(review.at) or now))
       end
     end
     return {
       color = oldest >= alert_after and colors.red.base or oldest >= warn_after and colors.yellow.base or colors.fg.dim,
-      count = #rows,
-      rows = rows,
+      count = count,
     }
   end,
 })

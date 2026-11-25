@@ -3,8 +3,6 @@
 -- tracker's signal repaints both.
 -- Panel widget, see panel.lua: returns { widget, update }
 
-local github = require('github')
-
 return require('widgets.counter').make({
   script = 'merge-queue',
   signal = 'merge-queue::changed',
@@ -22,17 +20,14 @@ return require('widgets.counter').make({
 
   -- Blue while a deploy run ships one
   render = function(records, colors)
-    ---@type integer, boolean, string[]
-    local now, shipping, rows = os.time(), false, {}
+    ---@type boolean, integer
+    local shipping, count = false, 0
     for _, pull_request in ipairs(records) do
       if pull_request.kind == 'deploying' then
+        count = count + 1
         shipping = shipping or pull_request.state == 'DEPLOYING'
-        local merged = tonumber(pull_request.time)
-        table.insert(rows, ('<b>%9s</b>  %5s  %s'):format(
-          pull_request.label, merged and github.ago(now - merged --[[@as integer]]) or '',
-          github.pull_request(pull_request)))
       end
     end
-    return { color = shipping and colors.blue.base or colors.fg.dim, count = #rows, rows = rows }
+    return { color = shipping and colors.blue.base or colors.fg.dim, count = count }
   end,
 })

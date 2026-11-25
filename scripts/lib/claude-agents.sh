@@ -325,12 +325,3 @@ pr_agent() {
 # The face of each state (mirrored in config/awesome/widgets/agents.lua)
 # shellcheck disable=SC2034 # for the scripts sourcing us
 declare -A agent_faces=([running]='󱚣' [monitoring]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
-
-# How long since <epoch>, for turns: 42s, 4m, 1h05 (mirrored in
-# config/awesome/widgets/agents.lua)
-elapsed() {
-  local seconds=$(($(date +%s) - $1))
-  if [ "$seconds" -lt 60 ]; then echo "${seconds}s"
-  elif [ "$seconds" -lt 3600 ]; then echo "$((seconds / 60))m"
-  else printf '%dh%02d' $((seconds / 3600)) $((seconds % 3600 / 60)); fi
-}

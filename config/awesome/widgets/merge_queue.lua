@@ -2,8 +2,6 @@
 -- are in widgets/pull_requests.lua). Polls the tracker for both.
 -- Panel widget, see panel.lua: returns { widget, update }
 
-local github = require('github')
-
 return require('widgets.counter').make({
   script = 'merge-queue',
   signal = 'merge-queue::changed',
@@ -25,21 +23,18 @@ return require('widgets.counter').make({
 
   -- Green while one of mine is being tested in a merge group
   render = function(records, colors)
-    ---@type boolean, boolean, boolean, string[]
-    local testing, deploying, running, rows = false, false, false, {}
+    ---@type boolean, boolean, boolean, integer
+    local testing, deploying, running, count = false, false, false, 0
     for _, pull_request in ipairs(records) do
       deploying = deploying or pull_request.kind == 'deploying'
       running = running or ((pull_request.kind == 'other' or pull_request.kind == 'ready')
         and (pull_request.ci == 'PENDING' or pull_request.review == 'BOT_REVIEWING'))
       if pull_request.kind == 'queued' then
+        count = count + 1
         local state = pull_request.state
         testing = testing or state == 'AWAITING_CHECKS' or state == 'MERGEABLE'
-        local seconds = tonumber(pull_request.time)
-        table.insert(rows, ('<b>%4s</b>  %5s  %s %s <span fgalpha="60%%">(%s)</span>'):format(
-          '#' .. pull_request.position, seconds and github.eta(seconds --[[@as integer]]) or '?',
-          github.auto_mark(pull_request), github.pull_request(pull_request), pull_request.label))
       end
     end
-    return { color = testing and colors.green.base or colors.fg.dim, count = #rows, rows = rows, busy = #rows > 0 or deploying or running }
+    return { color = testing and colors.green.base or colors.fg.dim, count = count, busy = count > 0 or deploying or running }
   end,
 })

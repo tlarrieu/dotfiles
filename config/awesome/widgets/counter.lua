@@ -1,6 +1,7 @@
 --- Panel counters fed by a GitHub tracker (~/scripts/review-queue,
---- merge-queue): an icon and a count, a tooltip listing what's counted, left
---- click opening rofi-github on it, right click refreshing (and telling how
+--- merge-queue): an icon and a count (a red ! when the tracker has no
+--- repository to watch, its complaint on hover), left click opening
+--- rofi-github on what's counted, right click refreshing (and telling how
 --- it went). Hidden while there's nothing to count.
 --- Panel widget factory: require('widgets.counter').make(options) returns a
 --- PanelWidget.
@@ -16,7 +17,6 @@ local scripts = os.getenv('HOME') .. '/scripts'
 ---@class CounterView What a counter shows of its tracker's records
 ---@field color string #rrggbb
 ---@field count integer
----@field rows string[] Tooltip lines (markup)
 ---@field busy? boolean Poll at CounterOptions.poll.busy
 
 ---@class CounterOptions
@@ -56,7 +56,11 @@ M.make = function(options)
     visible = false,
     layout = wibox.layout.fixed.horizontal,
   })
-  local tooltip = require('widgets.tooltip').make(label)
+
+  -- The tracker's complaint, on hover, while it has no repository to watch
+  ---@type Tooltip
+  local tooltip = awful.tooltip({ margin_leftright = 12, margin_topbottom = 12 })
+  local complaining = false
 
   ---@param color string #rrggbb
   ---@param text string
@@ -87,12 +91,15 @@ M.make = function(options)
       widget.visible = not options.quiet_when_unwatched
       paint(colors.red.base, '!')
       tooltip.text = complaint(err)
+      if not complaining then tooltip:add_to_object(label) end
+      complaining = true
       return
     end
+    if complaining then tooltip:remove_from_object(label) end
+    complaining = false
 
     local view = options.render(records.parse(out), colors)
     paint(view.color, tostring(view.count))
-    tooltip.markup = table.concat(view.rows, '\n')
     widget.visible = view.count > 0
 
     local poll = options.poll

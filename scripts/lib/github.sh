@@ -245,19 +245,3 @@ github_search_prs() {
             search: {nodes: ([.[0].data.search.nodes[], (.[1:][].data.nodes[])]
                              | reduce .[] as $n ([]; if any(.[]; .id == $n.id) then . else . + [$n] end))}}}'
 }
-
-# Time since something: 42m, 5h, 1d3h (see config/awesome/github.lua, which
-# mirrors it)
-ago() {
-  if [ "$1" -lt 3600 ]; then echo "$(($1 / 60))m"
-  elif [ "$1" -lt 86400 ]; then echo "$(($1 / 3600))h"
-  else echo "$(($1 / 86400))d$(($1 % 86400 / 3600))h"; fi
-}
-
-# Time left: 4m, 1h26 (minutes rounded up, never "60m"; mirrored in
-# config/awesome/github.lua too)
-eta() {
-  local minutes=$((($1 + 59) / 60))
-  if [ "$minutes" -lt 60 ]; then echo "${minutes}m"
-  else printf '%dh%02d\n' $((minutes / 60)) $((minutes % 60)); fi
-}
