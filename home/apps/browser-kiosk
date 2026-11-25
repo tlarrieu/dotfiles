@@ -16,7 +16,23 @@ _mpv() {
   mpv "$1" || _browser "$1"
 }
 
+# Slack links (https://<workspace>.slack.com/archives/<channel>[/p<ts>][?thread_ts=<ts>]) land on a page trying to
+# open the desktop app (slack://, which nothing handles here: the browser asks about xdg-open first). The web client
+# opens them as they are instead, in the work profile: the message in its thread (the thread it's a reply in, with
+# thread_ts), else the channel. SLACK_TEAM: the workspace's team id (app.slack.com/client/<team>)
+_slack() {
+  team=${SLACK_TEAM:-TRSG8AL85}
+  channel=$(printf '%s' "$1" | sed -nE 's#^https://[^/]+/archives/([A-Z0-9]+).*#\1#p')
+  ts=$(printf '%s' "$1" | sed -nE 's#^https://[^/]+/archives/[A-Z0-9]+/p([0-9]{10})([0-9]{6}).*#\1.\2#p')
+  thread=$(printf '%s' "$1" | sed -nE 's#.*[?&]thread_ts=([0-9]+\.[0-9]+).*#\1#p')
+  url="https://app.slack.com/client/$team/$channel"
+  [ -n "${thread:-$ts}" ] && url="$url/thread/$channel-${thread:-$ts}"
+  profile=${BROWSER_WORK:-$profile}
+  _browser "$url"
+}
+
 case "$1" in
+  https://*.slack.com/archives/[A-Z0-9]*) _slack "$1";;
   *youtu.be/* | *www.youtube.com/watch\?* | *www.youtube.com/shorts/*) _browser "$1";;
   *changelog.com/podcast/feed) _browser "$1";;
   *changelog.com/*/*) _mpv "$1";;
