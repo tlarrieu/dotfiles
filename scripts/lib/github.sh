@@ -98,7 +98,9 @@ github_notify() {
 # Of each workflow, only its latest run counts, as on GitHub's pull request
 # page: a newer one (marking it ready for review, say) cancels and replaces
 # it, its cancelled checks are no failure. Commit statuses, and checks from
-# other apps, all count.
+# other apps, all count. A check with a conclusion is done, whatever its
+# status: GitHub sometimes leaves a finished one in progress, conclusion and
+# completion time set (its rollup goes by the conclusion too)
 # Some checks are left out (github_ignored_checks): the required reviewers
 # one, failing until approvals come in, which the review state tells already;
 # and the optional ones, whose failure doesn't block merging. So are the
@@ -146,7 +148,7 @@ github_ci_jq='
     ['"$(printf '"%s",' "${github_review_workflows[@]}" | sed 's/,$//')"'] as $reviewing
     | .commits.nodes[0].commit.statusCheckRollup as $rollup
     | ([$rollup.head.nodes[]?, $rollup.tail.nodes[]?] | unique_by(.id)) as $all
-    | [$all[] | select(.status != null)] as $checks
+    | [$all[] | select(.status != null) | if .conclusion != null then .status = "COMPLETED" else . end] as $checks
     | ($checks | map(.checkSuite.workflowRun | select(.)) | group_by(.workflow.databaseId)
        | map({key: (.[0].workflow.databaseId | tostring), value: (map(.createdAt) | max)})
        | from_entries) as $newest

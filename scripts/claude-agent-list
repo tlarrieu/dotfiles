@@ -5,7 +5,8 @@
 # its branch).
 # Ordered by project: those listed in ~/.config/claude/agent-projects, in its
 # order, then their agent worktrees (<project>-<slot>, by slot), then the
-# others by name; then by start time.
+# others by name; then by start time. A line's second word, when any, is its
+# project's short name (see rofi-github): ignored here.
 # <since> is when the current turn started ("-" when unknown).
 # Prunes sessions whose process died (or whose pid a new process took), and
 # those continued in another session (backgrounded).
@@ -94,7 +95,7 @@ for f in "$agents_dir"/*; do
   [ -z "$pr" ] && pr=$(branch_pr "$root")
   printf '%s\t%s\t%s\t%s\t%s\t%s\n' "$started" "$state" "${since:--}" "$(basename "$f")" "$project" "${pr:--}"
 done | awk -F'\t' -v OFS='\t' '
-  FILENAME == ARGV[1] { if ($0 !~ /^[[:space:]]*(#|$)/) order[$0] = ++n; next }
+  FILENAME == ARGV[1] { if ($1 !~ /^(#|$)/) order[$1] = ++n; next }
   {
     project = $5; rank = 2 * n + 1; slot = 0
     if (project in order) rank = order[project]
