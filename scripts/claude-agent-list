@@ -65,6 +65,12 @@ for f in "$agents_dir"/*; do
     fi
     continue
   fi
+  # No transcript, and not working on its first prompt: nothing typed in it
+  # yet, or a view that handed its first prompt over to a background session
+  # (see background_terminals): no agent to show. Not marked a view, as it
+  # may be a new one, its transcript to come. Its startup notifications
+  # would tell it waiting on me (attention), for good
+  [ -f "$transcript" ] || [ "$state" = running ] || continue
   case "$state" in
   running | attention) interrupted "$transcript" && state=idle ;;
   done)
