@@ -48,13 +48,23 @@ git init -q "$project" && git -C "$project" commit -q --allow-empty -m init
 
 echo "-- a fake agent's turns (agent-state, agent-list)"
 mkfifo "$T/stdin"
+# Its spawn under way (as agent-pr marks it), before it's up
+mkdir -p "$agents"
+: >"$agents/.spawning.acme:app#42"
+"$assets/agent-pr" review acme/app 42 >/dev/null 2>&1
+check "another spawn on its pull request, before it's up: none, told so" called 'is starting already'
+: >"$T/calls" # (told under the default harness's icon)
 (cd "$project" && exec "$assets/harness/fake-agent" -- "Fix https://github.com/acme/app/pull/42 for me" <"$T/stdin" >/dev/null) &
 exec 3>"$T/stdin" # keeps its stdin open
 check "its first turn ends: done, on the pull request its prompt names" until_ is "done" acme/app#42 fakeproject
 check "its state file tells its harness" [ "$(harness_field)" = fake ]
+check "up: its spawn's mark dropped" [ ! -e "$agents/.spawning.acme:app#42" ]
 check "told: Done, with its name and last words" until_ called 'Done: fakeproject #42 Did: Fix https://github.com/acme/app/pull/42 for me'
 check "under no icon (the fake harness has none)" bash -c "! grep -q -- --icon '$T/calls'"
 check "with no sound (none either)" bash -c "! grep -q '^paplay' '$T/calls'"
+: >"$T/calls"
+"$assets/agent-pr" review acme/app 42 >/dev/null 2>&1
+check "another spawn on its pull request, once up: jumps to it" called "Can't find this agent's terminal"
 . "$assets/lib/agents.sh"
 check "its title" [ "$(agent_title fake "$(awk '{ print $8 }' "$(state_file)")")" = "Fix https://github.com/acme/app/pull/42 for me" ]
 echo "?Which branch" >&3

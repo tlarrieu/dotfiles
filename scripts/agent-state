@@ -158,6 +158,8 @@ project=${project//[[:space:]]/_}
 pr=$(session_pr "$harness" "$transcript" "$root")
 pr=${pr:--}
 write_agent "$file"
+# Its spawn's over, if any: it's up (see pr_spawning)
+[ "$pr" = - ] || rm -f "$(pr_spawning "$pr")"
 refresh_panel
 
 # Its notification is outdated once it moves on (or got seen, as idle)

@@ -39,7 +39,12 @@ assets=$(dirname "$(readlink -f "$0")")
 . "$assets/lib/github.sh" # github_clone, github_ignored_checks (and records.sh)
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
 . "$assets/lib/agents.sh" # pr_agent, spawn_notify, harness_do
-fail() { spawn_notify failed "Agent ${what:-to $task} $repo#$number not started: $1"; exit 1; }
+fail() {
+  [ -n "$spawning" ] && rm -f "$spawning"
+  spawn_notify failed "Agent ${what:-to $task} $repo#$number not started: $1"
+  exit 1
+}
+spawning=
 
 no_prompt=''
 [ "$1" = --no-prompt ] && { no_prompt=yes; shift; }
@@ -50,10 +55,21 @@ case $task in fix | review) ;; *) task='' ;; esac
 what="to $task"
 [ -n "$no_prompt" ] && what=on
 
+# One spawn on it at a time: from telling whether an agent is on it to
+# marking this one under way (see pr_spawning), rofi-github's Ctrl+f twice,
+# or with a notification's Fix, starts only one
+mkdir -p "$agents_dir"
+exec 9>"$agents_dir/.spawning.lock"
+flock 9
+
 # An agent on it already (from rofi-github, or a notification): back to it,
-# rather than another one
+# rather than another one. Starting already (its agent not up yet): say so
 session=$(pr_agent "$repo#$number")
-[ -n "$session" ] && exec "$assets/agent-jump" "$session"
+[ -n "$session" ] && exec "$assets/agent-jump" "$session" 9>&-
+if pr_spawning_now "$repo#$number"; then
+  agents_notify "An agent ${what} $repo#$number is starting already: it shows in the panel once up"
+  exit 0
+fi
 
 # Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
 # else's or in no watched repository: no telling, go ahead). Merged ones
@@ -76,6 +92,11 @@ if [ "$task" = fix ] && [ -z "$no_prompt" ]; then
     exit 0
   fi
 fi
+
+# Going ahead: under way, until its agent is up (see pr_spawning)
+spawning=$(pr_spawning "$repo#$number")
+: >"$spawning"
+exec 9>&-
 
 # Spawning, which takes a while (the fetch, the worktree, then the harness): say
 # so now, the notification turning into the outcome (see agent-spawn)

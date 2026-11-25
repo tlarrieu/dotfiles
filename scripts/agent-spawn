@@ -25,8 +25,12 @@
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
-. "$assets/lib/agents.sh" # spawn_notify, harness_do
-fail() { spawn_notify failed "Agent not started: $1"; exit 1; }
+. "$assets/lib/agents.sh" # spawn_notify, harness_do, pr_spawning
+fail() {
+  [ -n "$AGENT_PR" ] && rm -f "$(pr_spawning "$AGENT_PR")" # (see agent-pr)
+  spawn_notify failed "Agent not started: $1"
+  exit 1
+}
 harness=$default_harness label=$(harness_brand "$default_harness" label)
 label=${label:-$harness}
 
@@ -117,6 +121,7 @@ agent="${reads}rm -f $files; ${setup}$command"
 agent+="; set -l code \$status"
 agent+="; if test \$code -ne 0"
 agent+="; notify-send --app-name=agents.spawn.failed ${icon:+--icon=$icon} --urgency=critical ${AGENT_NOTIFICATION:+--replace-id=$AGENT_NOTIFICATION} $label \"Agent stopped: $label exited with status \$code, in $(basename "$directory") (its window tells why)\""
+[ -n "$AGENT_PR" ] && agent+="; rm -f \"$(pr_spawning "$AGENT_PR")\"" # (its agent may never have been up)
 agent+="; echo; echo \"$label exited with status \$code: press Enter to close\"; read; end"
 agent+="; $assets/agent-close-window"
 

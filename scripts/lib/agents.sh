@@ -326,6 +326,19 @@ pr_agent() {
   echo "$best"
 }
 
+# Marks a pull request's spawn under way (see agent-pr), for another to tell
+# it starting already, from its going ahead until its agent first tells its
+# state on it (agent-state then drops the mark), its spawn fails, or 15
+# minutes pass (a harness failing in its window, before any state). A dot
+# file: no session's
+# Usage: pr_spawning <owner/repo>#<number>  (prints the mark's path)
+pr_spawning() { echo "$agents_dir/.spawning.${1/\//:}"; }
+
+# Whether pull request <owner/repo>#<number>'s spawn is under way (see
+# pr_spawning)
+# Usage: pr_spawning_now <owner/repo>#<number>
+pr_spawning_now() { [ -n "$(find "$(pr_spawning "$1")" -mmin -15 2>/dev/null)" ]; }
+
 # The face of each state (mirrored in config/awesome/widgets/agents.lua)
 # shellcheck disable=SC2034 # for the scripts sourcing us
 declare -A agent_faces=([running]='󱚣' [monitoring]='󱚣' [done]='󱜙' [idle]='󱜙' [attention]='󱚟')
