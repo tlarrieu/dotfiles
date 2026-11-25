@@ -33,16 +33,23 @@ links: (pending "configuration: linking files...") && (success "configuration: d
   #!/usr/bin/env bash
   shopt -s dotglob # include hidden files in globbing
 
+  # Drop the links in <dir> to what's gone from <source> (renamed or deleted here): dangling, they'd stay forever
+  prune() { find "$1" -maxdepth 1 -xtype l -lname "*/$(basename "$PWD")/$2/*" -print -delete; }
+
   for name in home/*; do ln -rsfFT "$name" ~/"$(basename $name)"; done
+  prune ~ home
 
   mkdir -p ~/.config
   for name in config/*; do ln -rsfFT "$name" ~/."$name"; done
+  prune ~/.config config
 
   mkdir -p ~/.local/share/applications
   for name in local/share/applications/*; do ln -rsfFT "$name" ~/."$name"; done
+  prune ~/.local/share/applications local/share/applications
 
   mkdir -p ~/scripts
   for name in scripts/*; do ln -rsfFT "$name" ~/"$name"; done
+  prune ~/scripts scripts
 
   git config --global core.excludesFile ~/.gitignore
   [ -f ~/.profile ] && rm ~/.profile || /bin/true
