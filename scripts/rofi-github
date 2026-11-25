@@ -155,8 +155,13 @@ row() {
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
   done
-  local ci review who='' title=${c[title]} threads comments auto=' ' line # the glyph takes one cell, like a space
-  [ "${c[auto]}" = auto ] && auto=$auto_glyph
+  local ci review who='' title=${c[title]} threads comments auto='' line
+  # Auto-merge: its glyph (one cell, like a space), dimmer, then a space; none
+  # at all when no row has it on (see measure_columns)
+  if [ "$auto_width" -gt 0 ]; then
+    auto='  '
+    [ "${c[auto]}" = auto ] && auto="<span $dimmer>$auto_glyph</span> "
+  fi
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a tint wins over the review face's own
   # style)
@@ -216,8 +221,13 @@ row() {
     title="${c[project]} — $title"
   fi
   local before
-  before=$(printf '%s%s%-*s %s %s %s %s%s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$glyph" "$middle" "$comments" "$threads" "$work" "$agent")
-  line="$before$(escape "$title")$who"
+  # The indicators first (auto-merge, comments, threads, local work, the
+  # agent: each column none at all when no row has any), then the faces and
+  # number. The
+  # time last, dimmer, right-aligned, after a \x1f standing for the padding
+  # lining all rows' times up (see align_times)
+  before=$(printf '%s%s%s%s%s%s%s%s %s ' "$auto" "$comments" "$threads" "$work" "$agent" "$ci" "$review" "$glyph" "$middle")
+  line="$before$(escape "$title")$who"$'\x1f'"<span $dimmer>$(printf '%*s' "$time_width" "${c[time]}")</span>"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
 }
@@ -472,6 +482,25 @@ mine_when() {
 }
 
 # The time column of a pull request waiting on my review: for how long
+# Lines the rows' times up on the right (see row): each row's \x1f becomes the
+# padding to the widest row's text, within max_width. A longer one's time
+# follows its text
+align_times() {
+  local i prefix widest=0 limit=$((max_width - 2 - time_width)) pad
+  local -a widths=()
+  for i in "${!lines[@]}"; do
+    [[ ${lines[$i]} == *$'\x1f'* ]] || continue
+    widths[i]=$(shown_width "${lines[$i]%%$'\x1f'*}")
+    [ "${widths[i]}" -gt "$widest" ] && widest=${widths[i]}
+  done
+  [ "$widest" -gt "$limit" ] && widest=$limit
+  for i in "${!widths[@]}"; do
+    prefix=${lines[$i]%%$'\x1f'*} pad=$((widest - widths[i]))
+    [ "$pad" -gt 0 ] || pad=0
+    lines[i]="$prefix$(printf '%*s' "$pad" '')  ${lines[$i]#*$'\x1f'}"
+  done
+}
+
 # shellcheck disable=SC2154 # record fields, set by each_record
 review_when() { span $((now - at)); }
 
@@ -480,16 +509,18 @@ review_when() { span $((now - at)); }
 # when none has any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
 # one's "#37 2h"). And agents_width: 3 when an agent works on one (see
-# agents), else 0; work_width: the widest local work (see row), 0 when none.
+# agents), else 0; work_width: the widest local work (see row), 0 when none;
+# auto_width: 2 when one of mine has auto-merge on (its glyph, a space), else 0.
 # The loose agents' rows too ($3, see find_loose_agents): their turn's
 # duration, their face, and room for their "local" (see row). And the local
 # work's rows ($4, see find_local_work): alike
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 threads_width=0 comments_width=0 agents_width=0 work_width=0
+  time_width=0 number_width=0 threads_width=0 comments_width=0 agents_width=0 work_width=0 auto_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
+    [ "$auto" = auto ] && auto_width=2
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
     if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
       threads_width=$((${#threads} + 2))
@@ -508,7 +539,7 @@ measure_columns() {
     return 0
   }
   widest_mine() { when=$(mine_when); widest "$when"; }
-  widest_review() { local branch=''; when=$(review_when); widest "$when"; } # (no branch field)
+  widest_review() { local branch='' auto=''; when=$(review_when); widest "$when"; } # (no branch nor auto field)
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
   local_room() { [ "$number_width" -ge 5 ] || number_width=5; } # "local", in the number's place
@@ -714,6 +745,7 @@ while :; do
     notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"
     exit 0
   fi
+  align_times
 
   # GitHub unreachable (exit 1): the trackers printed what they last knew
   status_line=''
