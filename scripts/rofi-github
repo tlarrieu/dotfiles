@@ -439,21 +439,43 @@ push_branch() {
   timeout 60 git -C "$1" push --quiet "${track[@]}" origin "refs/heads/$2:refs/heads/$2" 2>&1
 }
 
-# Key hints: <key>=<what it does>…, the keys dimmer than what they do, the
-# separators dimmer still
+# Key hints: <key>=<what it does>…, the keys dimmer than what they do. Sets
+# hint_marks (each hint's markup) and hint_widths (its width, in characters)
+# for hints_bar
 hints() {
-  local hint out='' separator=' <span fgalpha="35%">•</span> '
+  local hint nbsp=$'\xc2\xa0' text mark
+  hint_marks=() hint_widths=()
   for hint; do
-    out+="${out:+$separator}<span $dim>$(escape "<${hint%%=*}>")</span> $(escape "${hint#*=}")"
+    # No break within a hint, its key and its words held together (no-break
+    # spaces)
+    text=${hint#*=}
+    mark="<span $dim>$(escape "<${hint%%=*}>")</span>$nbsp$(escape "${text// /$nbsp}")"
+    hint_marks+=("$mark") hint_widths+=("$(shown_width "$mark")")
+  done
+}
+
+# The hints (see hints), as lines fitting <width> characters of the bar's
+# font: broken between hints by hand, so that no separator (a dot, dimmer
+# still) ends a line, as it would where rofi wraps them
+# Usage: hints_bar <width>
+hints_bar() {
+  local i out='' line=0 separator=' <span fgalpha="35%">•</span> '
+  for i in "${!hint_marks[@]}"; do
+    if [ "$line" -gt 0 ] && [ $((line + 3 + hint_widths[i])) -gt "$1" ]; then
+      out+=$'\n' line=0
+    fi
+    [ "$line" -gt 0 ] && out+=$separator line=$((line + 3))
+    out+=${hint_marks[$i]} line=$((line + hint_widths[i]))
   done
   printf '%s' "$out"
 }
+
 # The message bar goes under the list, centered (theme.rasi puts it above:
 # its gutter flips with it), in a smaller font (see -mesg)
 layout='content { children: [inputbar, listview, message]; }
   message { margin: 0.5em 1em 1em 1em; }
   textbox { horizontal-align: 0.5; }'
-mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+f=fix/review ctrl+s=agent ctrl+m=merge ctrl+o=push)
+hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+f=fix/review ctrl+s=agent ctrl+m=merge ctrl+o=push
 
 # A duration on a single unit, to keep the time column narrow: 42s (with
 # seconds), 42m, 5h, 12d. Rounded down, or up (for time left: never 60m)
@@ -758,16 +780,20 @@ while :; do
     status_line=$'\n'"<span color=\"$red\">Could not reach GitHub: showing the last known state</span>"
   fi
 
-  # The window: as wide as the widest row, or the message bar (in its 90%
-  # font), with their padding (theme.rasi's elem-gutter, the message's
-  # margin: 1em on each side), up to max_width, and the monitor
-  widest=$(( ($(shown_width "$mesg$status_line") * 9 + 9) / 10 ))
+  # The window: as wide as the widest row, or the status line (in the
+  # message's 90% font, with 2 characters to spare, as its font's are a
+  # little wider than 90% of the rows'), with their padding (theme.rasi's
+  # elem-gutter, the message's margin: 1em on each side), up to max_width,
+  # and the monitor. Then the hints fill lines of that width (see hints_bar)
+  widest=0
+  [ -n "$status_line" ] && widest=$(( ($(shown_width "$status_line") * 9 + 9) / 10 + 2 ))
   for line in "${lines[@]}"; do
     width=$(shown_width "$line")
     [ "$width" -gt "$widest" ] && widest=$width
   done
   [ "$widest" -gt "$max_width" ] && widest=$max_width
   window="window { width: calc(${widest}ch + 2em min 100%); }"
+  mesg=$(hints_bar $(( (widest - 2) * 10 / 9 )))
 
   # Tags go in each row's invisible search terms (meta)
   selection=$(for i in "${!lines[@]}"; do printf '%s\0meta\x1f%s\n' "${lines[$i]}" "${tags[$i]}"; done |
