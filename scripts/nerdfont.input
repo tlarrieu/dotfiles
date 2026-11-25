@@ -1,6 +1,8 @@
  account
  activate breakpoints
  add
+ add small
+ agent
  archive
  arrow both
  arrow circle down
@@ -16,6 +18,8 @@
  arrow small up
  arrow swap
  arrow up
+ ask
+ attach
  azure
  azure devops
  beaker
@@ -34,10 +38,14 @@
  broadcast
  browser
  bug
+ build
  calendar
  call incoming
  call outgoing
  case sensitive
+ chat sparkle
+ chat sparkle error
+ chat sparkle warning
  check
  check all
  checklist
@@ -58,28 +66,49 @@
  circle small
  circle small filled
  circuit board
+ claude
  clear all
  clippy
+ clockface
  close
  close all
  cloud
  cloud download
+ cloud small
  cloud upload
  code
+ code oss
+ code review
  coffee
  collapse all
+ collection
+ collection small
  color mode
  combine
  comment
  comment discussion
+ comment discussion quote
+ comment discussion sparkle
  comment draft
  comment unresolved
  compass
  compass active
  compass dot
  copilot
+ copilot blocked
+ copilot error
+ copilot in progress
+ copilot large
+ copilot not connected
+ copilot snooze
+ copilot success
+ copilot unavailable
+ copilot warning
+ copilot warning large
  copy
+ coverage
  credit card
+ cursor
  dash
  dashboard
  database
@@ -96,6 +125,7 @@
  debug breakpoint log
  debug breakpoint log unverified
  debug breakpoint unsupported
+ debug connected
  debug console
  debug continue
  debug continue small
@@ -123,19 +153,27 @@
  diff added
  diff ignored
  diff modified
+ diff multiple
  diff removed
  diff renamed
+ diff single
  discard
+ download
  edit
+ edit code
+ edit session
+ edit sparkle
  editor layout
  ellipsis
  empty window
+ eraser
  error
  error small
  exclude
  expand all
  export
  extensions
+ extensions large
  eye
  eye closed
  feedback
@@ -147,10 +185,12 @@
  file submodule
  file symlink directory
  file symlink file
+ file text
  file zip
  files
  filter
  filter filled
+ flag
  flame
  fold
  fold down
@@ -159,10 +199,16 @@
  folder active
  folder library
  folder opened
+ forward
  game
  gear
  gift
+ gist
  gist secret
+ git branch
+ git branch changes
+ git branch conflicts
+ git branch staged changes
  git commit
  git compare
  git fetch
@@ -170,15 +216,22 @@
  git pull request
  git pull request closed
  git pull request create
+ git pull request done
  git pull request draft
  git pull request go to changes
  git pull request new changes
+ git stash
+ git stash apply
+ git stash pop
  github
  github action
  github alt
  github inverted
+ github project
  globe
+ go to editing session
  go to file
+ go to search
  grabber
  graph
  graph left
@@ -194,6 +247,7 @@
  hubot
  inbox
  indent
+ index zero
  info
  insert
  inspect
@@ -205,6 +259,9 @@
  json
  kebab vertical
  key
+ keyboard tab
+ keyboard tab above
+ keyboard tab below
  law
  layers
  layers active
@@ -216,18 +273,23 @@
  layout menubar
  layout panel
  layout panel center
+ layout panel dock
  layout panel justify
  layout panel left
  layout panel off
  layout panel right
  layout sidebar left
+ layout sidebar left dock
  layout sidebar left off
  layout sidebar right
+ layout sidebar right dock
  layout sidebar right off
  layout statusbar
  library
  lightbulb
  lightbulb autofix
+ lightbulb empty
+ lightbulb sparkle
  link
  link external
  list filter
@@ -246,11 +308,15 @@
  mail read
  map
  map filled
+ map vertical
+ map vertical filled
  markdown
+ mcp
  megaphone
  mention
  menu
  merge
+ merge into
  mic
  mic filled
  milestone
@@ -260,21 +326,27 @@
  multiple windows
  music
  mute
+ new collection
  new file
  new folder
+ new session
  newline
  no newline
  note
  notebook
  notebook template
  octoface
+ open in product
+ open in window
  open preview
+ openai
  organization
  output
  package
  paintcan
  pass
  pass filled
+ percentage
  person
  person add
  piano
@@ -290,8 +362,10 @@
  primitive square
  project
  pulse
+ python
  question
  quote
+ quotes
  radio tower
  reactions
  record
@@ -304,6 +378,8 @@
  remote
  remote explorer
  remove
+ remove small
+ rename
  replace
  replace all
  reply
@@ -311,10 +387,13 @@
  repo clone
  repo force push
  repo forked
+ repo pinned
  repo pull
  repo push
+ repo selected
  report
  request changes
+ robot
  rocket
  root folder
  root folder opened
@@ -322,30 +401,41 @@
  ruby
  run above
  run all
+ run all coverage
  run below
+ run coverage
  run errors
+ run with deps
  save
  save all
  save as
+ screen cut
  screen full
  screen normal
  search
  search fuzzy
+ search large
+ search sparkle
  search stop
  send
+ send to remote agent
  server
  server environment
  server process
+ session in progress
  settings
  settings gear
+ share
  shield
  sign in
  sign out
+ skip
  smiley
  snake
  sort precedence
  source control
  sparkle
+ sparkle filled
  split horizontal
  split vertical
  squirrel
@@ -353,6 +443,8 @@
  star full
  star half
  stop circle
+ strikethrough
+ surround with
  symbol array
  symbol boolean
  symbol class
@@ -367,6 +459,7 @@
  symbol key
  symbol keyword
  symbol method
+ symbol method arrow
  symbol misc
  symbol namespace
  symbol numeric
@@ -389,11 +482,13 @@
  terminal bash
  terminal cmd
  terminal debian
+ terminal git bash
  terminal linux
  terminal powershell
  terminal tmux
  terminal ubuntu
  text size
+ thinking
  three bars
  thumbsdown
  thumbsdown filled
@@ -409,6 +504,7 @@
  type hierarchy
  type hierarchy sub
  type hierarchy super
+ unarchive
  unfold
  ungroup by ref type
  unlock
@@ -423,17 +519,23 @@
  vm connect
  vm outline
  vm running
+ vm small
  vr
+ vscode
+ vscode insiders
  wand
  warning
  watch
  whitespace
  whole word
  window
+ window active
  word wrap
  workspace trusted
  workspace unknown
  workspace untrusted
+ worktree
+ worktree small
  zoom in
  zoom out
  ada
@@ -466,6 +568,7 @@
  kotlin
  msdos
  neovim
+ obsidian
  orgmode
  play arrow
  prettier
@@ -478,11 +581,16 @@
  vim
  vitruvian
  windows
+ wireshark
+ zsh
  aarch64
  adonisjs
+ aerospike
+ aframe
  aftereffects
  akka
  algolia
+ almalinux
  alpinejs
  amazonwebservices
  anaconda
@@ -492,18 +600,22 @@
  angularjs
  angularmaterial
  ansible
+ ansys
  antdesign
  apache
  apacheairflow
  apachekafka
  apachespark
+ apex
  apl
+ apollographql
  appcelerator
  apple
  appwrite
  archlinux
  arduino
  argocd
+ artixlinux
  astro
  atom
  awk
@@ -513,13 +625,17 @@
  azuredevops
  azuresqldatabase
  babel
+ babylonjs
  backbone
  backbonejs
  ballerina
  bamboo
  bash
+ bazel
  beats
  behance
+ bevyengine
+ biome
  bitbucket
  blazor
  blender
@@ -538,16 +654,21 @@
  cassandra
  centos
  ceylon
+ chakraui
+ chartjs
  chrome
  circleci
  clarity
+ clickhouse
  clion
  clojure
  clojure alt
  clojurescript
  cloudflare
  cloudflareworkers
+ cloudrun
  cmake
+ cobol
  codeac
  codecov
  codeigniter
@@ -561,6 +682,7 @@
  cosmosdb
  couchbase
  couchdb
+ cpanel
  cplusplus
  crystal
  csharp
@@ -571,14 +693,19 @@
  d3js
  dart
  database
+ datadog
  datagrip
  dataspell
+ datatables
  dbeaver
  debian
+ delphi
  denojs
+ detaspace
  devicon
  digital ocean
  digitalocean
+ discloud
  discordjs
  django
  djangorest
@@ -587,11 +714,15 @@
  doctrine
  dotnet
  dotnetcore
+ dovecot
  dreamweaver
  dropbox
  dropwizard
  drupal
+ duckdb
+ dyalog
  dynamodb
+ dynatrace
  eclipse
  ecto
  elasticsearch
@@ -602,9 +733,11 @@
  emacs
  embeddedc
  ember
+ entityframeworkcore
  envoy
  erlang
  eslint
+ expo
  express
  facebook
  fastapi
@@ -612,17 +745,23 @@
  faunadb
  feathersjs
  fedora
+ fiber
  figma
+ filamentphp
  filezilla
  firebase
+ firebird
  firefox
  flask
  flutter
+ forgejo
  fortran
  foundation
  framermotion
  framework7
  fsharp
+ fusion
+ gardener
  gatling
  gatsby
  gazebo
@@ -643,15 +782,19 @@
  github full
  githubactions
  githubcodespaces
+ gitkraken
  gitlab
  gitpod
  gitter
+ gleam
+ glitch
  gnu
  go
  godot
  goland
  google
  googlecloud
+ googlecolab
  gradle
  grafana
  grails
@@ -662,6 +805,7 @@
  gulp
  hadoop
  handlebars
+ harbor
  hardhat
  harvester
  haskell
@@ -670,11 +814,15 @@
  heroku
  hibernate
  homebrew
+ hoppscotch
  html5
+ htmx
  hugo
+ hyperv
  ie
  ifttt
  illustrator
+ inertiajs
  influxdb
  inkscape
  insomnia
@@ -694,6 +842,7 @@
  jest
  jetbrains
  jetpackcompose
+ jhipster
  jira
  jiraalign
  jquery
@@ -706,6 +855,8 @@
  k3s
  k6
  kaggle
+ kaldi
+ kalilinux
  karatelabs
  karma
  kdeneon
@@ -717,29 +868,40 @@
  krakenjs
  krakenjs badge
  ktor
+ kubeflow
  kubernetes
  labview
+ laminas
  laravel
+ laraveljetstream
  latex
+ leetcode
  less
+ libgdx
  linkedin
  linux
+ linuxmint
  liquibase
  livewire
  llvm
  lodash
  logstash
+ love2d
  lua
  lumen
  magento
+ mapbox
  mariadb
  markdown
  materializecss
  materialui
  matlab
  matplotlib
+ mattermost
  maven
  maya
+ memcached
+ mercurial
  meteor
  meteorfull
  microsoftsqlserver
@@ -751,19 +913,25 @@
  moleculer
  mongodb
  mongoose
+ monogame
  moodle
  mootools badge
  mozilla
  msdos
  mysql
  nano
+ nats
  neo4j
  neovim
  nestjs
+ netbeans
+ netbox
  netlify
  networkx
+ newrelic
  nextjs
  nginx
+ ngrok
  ngrx
  nhibernate
  nim
@@ -772,13 +940,16 @@
  nodejs
  nodejs small
  nodemon
+ nodered
  nodewebkit
  nomad
  norg
  notion
  npm
+ npss
  nuget
  numpy
+ nuxt
  nuxtjs
  oauth
  objectivec
@@ -799,6 +970,7 @@
  p5js
  packer
  pandas
+ passport
  perl
  pfsense
  phalcon
@@ -807,8 +979,10 @@
  photoshop
  php
  phpstorm
+ pixijs
  playwright
  plotly
+ pm2
  pnpm
  podman
  poetry
@@ -819,11 +993,15 @@
  postman
  powershell
  premierepro
+ primeng
  prisma
  processing
+ processwire
  prolog
  prometheus
  protractor
+ proxmox
+ pug
  pulsar
  pulumi
  puppeteer
@@ -837,11 +1015,14 @@
  pytorch
  qodana
  qt
+ qtest
  quarkus
  quasar
  qwik
  r
  rabbitmq
+ racket
+ radstudio
  rails
  railway
  rancher
@@ -849,6 +1030,7 @@
  reach
  react
  reactbootstrap
+ reactnative
  reactnavigation
  reactrouter
  readthedocs
@@ -857,9 +1039,12 @@
  redhat
  redis
  redux
+ reflex
+ remix
  renpy
  replit
  requirejs
+ rexx
  rider
  rocksdb
  rockylinux
@@ -894,8 +1079,10 @@
  solidity
  solidjs
  sonarqube
+ sourceengine
  sourcetree
  spack
+ spicedb
  splunk
  spring
  spss
@@ -904,30 +1091,41 @@
  sqldeveloper
  sqlite
  ssh
+ stackblitz
  stackoverflow
  stata
+ stenciljs
  storybook
  streamlit
+ styledcomponents
  stylus
  sublime
  subversion
+ sulu
  supabase
+ surrealdb
  svelte
+ svgo
  swagger
  swift
  swiper
  symfony
  symfony badge
  tailwindcss
+ talos
  tauri
+ teleport
  tensorflow
  terminal
  terraform
+ terramate
  tex
  thealgorithms
  threedsmax
  threejs
+ thymeleaf
  titaniumsdk
+ tmux
  tomcat
  tortoisegit
  towergit
@@ -936,6 +1134,8 @@
  travis
  trello
  trpc
+ turbo
+ twilio
  twitter
  typescript
  typo3
@@ -948,9 +1148,11 @@
  unrealengine
  uwsgi
  v8
+ vaadin
  vagrant
  vala
  vault
+ veevalidate
  vercel
  vertx
  vim
@@ -961,18 +1163,24 @@
  vitess
  vitest
  vscode
+ vscodium
  vsphere
  vuejs
  vuestorefront
  vuetify
+ vulkan
  vyper
+ waku
  wasm
+ web3js
  webflow
+ webgpu
  weblate
  webpack
  webstorm
  windows
  windows11
+ wolfram
  woocommerce
  wordpress
  xamarin
@@ -986,6 +1194,8 @@
  yunohost
  zend
  zig
+ zsh
+ zustand
  progress empty left
  progress empty mid
  progress empty right
@@ -2738,6 +2948,7 @@
  voicemail
  volcano
  volleyball
+ volume
  volume control phone
  volume down
  volume high
@@ -3007,6 +3218,7 @@
  biglinux
  bspwm
  budgie
+ cachyos
  centos
  cinnamon
  codeberg
@@ -3024,6 +3236,7 @@
  fedora
  fedora inverse
  ferris
+ ffmpeg
  flathub
  fluxbox
  forgejo
@@ -3080,6 +3293,7 @@
  openbsd
  openscad
  opensuse
+ openwrt
  osh
  oshwa
  osi
@@ -3118,6 +3332,7 @@
  vscodium
  wayland
  wikimedia
+ wireguard
  xerolinux
  xfce
  xmonad
@@ -5294,6 +5509,8 @@
 󱢟  cards club outline
 󰣏  cards diamond
 󱀝  cards diamond outline
+󰣐  cards heart
+󱢠  cards heart outline
 󰘹  cards outline
 󱢡  cards playing
 󱢢  cards playing club
@@ -5537,6 +5754,7 @@
 󰅄  church
 󱆉  cigar
 󱐛  cigar off
+󰝥  circle
 󱗜  circle box
 󱗝  circle box outline
 󰺕  circle double
@@ -5549,6 +5767,7 @@
 󰚕  circle multiple outline
 󱃓  circle off outline
 󱡓  circle opacity
+󰝦  circle outline
 󰪞  circle slice 1
 󰪟  circle slice 2
 󰪠  circle slice 3
@@ -7937,6 +8156,7 @@
 󰍂  login
 󰍃  logout
 󰗽  logout variant
+󰗼  logout variant 2
 󰽚  longitude
 󰍄  looks
 󱖂  lotion
@@ -8241,6 +8461,7 @@
 󱐵  motion sensor off
 󰍼  motorbike
 󱖺  motorbike electric
+󰔉  mountains
 󰍽  mouse
 󰦋  mouse bluetooth
 󱕐  mouse move down
@@ -8326,6 +8547,7 @@
 󰽯  music clef bass
 󰽰  music clef treble
 󰎇  music note
+󰎈  music note 2
 󰗾  music note bluetooth
 󰗿  music note bluetooth off
 󰽱  music note eighth dotted
@@ -8355,6 +8577,7 @@
 󰎏  nature people
 󰎐  navigation
 󱘇  navigation outline
+󱣰  navigation variant
 󱣱  navigation variant outline
 󰗍  near me
 󰼋  necklace
@@ -8445,10 +8668,13 @@
 󰚤  nuke
 󰟢  null
 󰎠  numeric
+󰬹  numeric 0
 󰎡  numeric 0 box
 󰼎  numeric 0 box multiple
 󰎢  numeric 0 box multiple outline
 󰎣  numeric 0 box outline
+󰲞  numeric 0 circle
+󰲟  numeric 0 circle outline
 󰬺  numeric 1
 󰿩  numeric 10
 󰽽  numeric 10 box
@@ -9021,6 +9247,7 @@
 󱡝  radioactive circle
 󱡞  radioactive circle outline
 󰻁  radioactive off
+󰐽  radiobox blank
 󰐾  radiobox marked
 󱓅  radiology box
 󱓆  radiology box outline
@@ -9200,9 +9427,12 @@
 󰯀  rollupjs
 󱪹  rolodex
 󱪺  rolodex outline
+󱂈  roman numeral 1
+󱂑  roman numeral 10
 󱂉  roman numeral 2
 󱂊  roman numeral 3
 󱂋  roman numeral 4
+󱂌  roman numeral 5
 󱂍  roman numeral 6
 󱂎  roman numeral 7
 󱂏  roman numeral 8
@@ -9524,6 +9754,7 @@
 󰥛  sine wave
 󰒪  sitemap
 󱦜  sitemap outline
+󱎦  size l
 󱎥  size m
 󱎤  size s
 󱎧  size xl
