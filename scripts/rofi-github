@@ -12,8 +12,8 @@
 # page. Ctrl+f: the agent on it, else spawn one to fix or review it (agent-pr).
 # Ctrl+s: the agent on it, else a new one, on the first prompt it asks for
 # (none: an interactive session; cancelled: no agent, the list closed): on
-# the pull request (as Ctrl+f sets it up, see agent-pr --prompt), else in
-# the row's repository. Ctrl+m:
+# the pull request (as Ctrl+f sets it up, see agent-pr --prompt; Ctrl+f
+# there: the agent Ctrl+f starts), else in the row's repository. Ctrl+m:
 # enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
 # it; for the others, their page at the merge box: GitHub's API only queues
 # ready ones, and a repository forbidding auto-merge refuses "Merge when
@@ -410,14 +410,21 @@ local_name() { short_name "$(if [ "$worktree" != - ]; then basename "$worktree";
 
 # Asks for a new agent's first prompt (a rofi dialog, its input only), on
 # <what> (markup): prints it, nothing for none (Enter on an empty input: an
-# interactive session); fails when cancelled (Escape). Under the glyph of
-# the harness spawning it, else our prompt
-# Usage: ask_prompt <what>
+# interactive session); fails when cancelled (Escape). With a <task> (fix or
+# review, see agent-pr), Ctrl+f picks it instead of a prompt: exits 3 (rofi
+# binds Ctrl+f to moving forward: Right only does then, as in the list). Under
+# the glyph of the harness spawning it, else our prompt
+# Usage: ask_prompt <what> [task]
 ask_prompt() {
-  local glyph
+  local glyph keys=() task_hint='' answer status
   glyph=$(harness_brand "$default_harness" glyph)
-  rofi -dmenu -p "${glyph:-$prompt}" -theme-str "$layout listview { enabled: false; } window { width: calc(96ch + 2em min 100%); }" \
-    -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>Nothing: an interactive session. Escape: cancel</span>" </dev/null
+  [ -n "$2" ] && keys=(-kb-custom-1 Control+f -kb-move-char-forward Right) task_hint=" Ctrl+f: $2 it."
+  answer=$(rofi -dmenu -p "${glyph:-$prompt}" -theme-str "$layout listview { enabled: false; } window { width: calc(96ch + 2em min 100%); }" "${keys[@]}" \
+    -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>Nothing: an interactive session.$task_hint Escape: cancel</span>" </dev/null)
+  status=$?
+  [ "$status" -eq 10 ] && [ -n "$2" ] && return 3
+  [ "$status" -eq 0 ] || return 1
+  printf '%s\n' "$answer"
 }
 
 # Asks before pushing (a rofi dialog, as confirm_queue)
@@ -886,8 +893,13 @@ while :; do
           session=$(pr_agent "$pr_repo#$pr_number")
           [ -n "$session" ] && exec "$assets/agent-jump" "$session"
           pr_spawning_now "$pr_repo#$pr_number" && exec "$assets/agent-pr" --prompt '' "$pr_task" "$pr_repo" "$pr_number"
-          first=$(ask_prompt "on <b>$(escape "$pr_repo#$pr_number")</b>") || exit 0
-          exec "$assets/agent-pr" --prompt "$first" "$pr_task" "$pr_repo" "$pr_number"
+          # Ctrl+f there: the agent Ctrl+f starts, on its own task
+          first=$(ask_prompt "on <b>$(escape "$pr_repo#$pr_number")</b>" "$pr_task")
+          case $? in
+            0) exec "$assets/agent-pr" --prompt "$first" "$pr_task" "$pr_repo" "$pr_number" ;;
+            3) exec "$assets/agent-pr" "$pr_task" "$pr_repo" "$pr_number" ;;
+            *) exit 0 ;;
+          esac
         elif [ -n "$home" ]; then
           first=$(ask_prompt "in <b>$(escape "$(basename "$home")")</b>") || exit 0
           AGENT_DIR=$home exec "$assets/agent-spawn" ${first:+"$first"}
