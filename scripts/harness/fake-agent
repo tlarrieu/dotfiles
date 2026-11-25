@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+# The fake harness's agent (see lib/harness/fake.sh): answers each prompt by
+# echoing it, telling agent-state each step as a harness's hooks would.
+# Prompts come from the command line (the first one), then one a line on
+# stdin: one starting with "?" asks something back (attention, until the next
+# line); /quit, or the end of stdin, ends the session.
+# Usage: fake-agent [--context <instructions>] [-- <prompt>]
+# Environment: FAKE_AGENT_DELAY, seconds each answer takes (default 1).
+# Transcripts: $XDG_STATE_HOME/agents-fake/<session>.jsonl (see fake.sh).
+
+assets=$(dirname "$(dirname "$(readlink -f "$0")")")
+context='' prompt=''
+while [ $# -gt 0 ]; do
+  case $1 in
+    --context) context=$2; shift ;;
+    --) prompt=$2; shift; break ;;
+    *) echo "fake-agent: unknown option $1" >&2; exit 2 ;;
+  esac
+  shift
+done
+
+session=$(cat /proc/sys/kernel/random/uuid)
+dir="${XDG_STATE_HOME:-$HOME/.local/state}/agents-fake"
+mkdir -p "$dir"
+transcript="$dir/$session.jsonl"
+
+# Tells agent-state <state> [options] for this session
+tell() { "$assets/agent-state" "$1" --harness fake --session "$session" --transcript "$transcript" --cwd "$PWD" "${@:2}"; }
+# Adds <kind>'s <text> to the transcript
+record() { jq -nc --arg kind "$1" --arg text "$2" '{kind: $kind, text: $text}' >>"$transcript"; }
+
+trap 'tell end' EXIT
+tell idle
+[ -n "$context" ] && echo "(context: ${context%%$'\n'*}…)"
+
+# Answers prompt <prompt>: a turn
+turn() {
+  local first=${1%%$'\n'*}
+  record prompt "$1"
+  [ -n "$(jq -r 'select(.kind == "title")' "$transcript")" ] || record title "${first:0:60}"
+  tell running --turn
+  if [[ $1 == '?'* ]]; then
+    record said "Asked: ${first#\?}"
+    echo "Asking: ${first#\?}"
+    tell attention --message "${first#\?}"
+    return
+  fi
+  sleep "${FAKE_AGENT_DELAY:-1}"
+  record said "Did: $first"
+  echo "Did: $first"
+  tell "done" --message "Did: $first"
+}
+
+[ -n "$prompt" ] && turn "$prompt"
+while IFS= read -r line; do
+  [ "$line" = /quit ] && break
+  [ -n "$line" ] && turn "$line"
+done

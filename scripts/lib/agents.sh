@@ -9,7 +9,9 @@
 # Each harness has an adapter, lib/harness/<name>.sh (all sourced below),
 # filling this contract with functions named <name>_<what>, and variables
 # <name>_label, <name>_icon, <name>_sound (its branding: notifications,
-# their sound). Called through harness_do:
+# their sound). lib/harness/fake.sh is the smallest one (required parts and
+# transcript readers only), harness/fake-test checking the agent scripts
+# through it. Called through harness_do:
 #   required
 #     launch [--prompt] [--context]  the fish command running an agent in the
 #                 current directory (agent-spawn): its first prompt in fish

@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2016 # stubs' and kitty's text, literal
+# Drives the fake harness (see lib/harness/fake.sh) through the agent scripts,
+# to check that they need nothing Claude's: agent-state, agent-list,
+# agent-spawn, agent-sweep and agent-jump, each step's outcome checked.
+# All in a throwaway directory (state, runtime files, a git repository and its
+# agent worktree), kitty, notifications, sounds and awesome stubbed: nothing
+# shows on screen, nothing of the live agents is touched.
+# Usage: fake-test  (exits non-zero when a check fails)
+
+assets=$(dirname "$(dirname "$(readlink -f "$0")")")
+T=$(mktemp -d)
+trap 'kill $(jobs -p) 2>/dev/null; wait 2>/dev/null; rm -rf "$T"' EXIT
+
+# Stubs: each logs its call in $T/calls; kitty saves the session it's given in
+# $T/session; awesome sees no window (nothing displayed); setsid runs kitty
+# at once (its session read next), the rest in the background (local-work's
+# refresh, notifications waiting for a click)
+mkdir -p "$T/bin" "$T/run" "$T/state"
+for stub in notify-send paplay awesome-client gdbus; do
+  printf '#!/bin/sh\necho "%s $*" >>"%s/calls"\n' "$stub" "$T" >"$T/bin/$stub"
+done
+printf '#!/bin/sh\nwhile [ $# -gt 0 ]; do [ "$1" = --session ] && cp "$2" "%s/session"; shift; done\n' "$T" >"$T/bin/kitty"
+printf '#!/bin/sh\n[ "$1" = -f ] && shift\n[ "$1" = kitty ] && exec "$@"\n"$@" >/dev/null 2>&1 &\n' >"$T/bin/setsid"
+chmod +x "$T"/bin/*
+export PATH="$T/bin:$PATH" XDG_RUNTIME_DIR="$T/run" XDG_STATE_HOME="$T/state" FAKE_AGENT_DELAY=0.2
+unset WINDOWID KITTY_LISTEN_ON KITTY_WINDOW_ID AGENT_HARNESS AGENT_NOTIFICATION
+agents="$T/run/agents"
+
+failures=0
+check() { # <what> <command...>
+  if "${@:2}"; then echo "ok    $1"; else echo "FAIL  $1"; failures=$((failures + 1)); fi
+}
+# Waits (up to 10 seconds) for command <command...> to succeed
+until_() { local i; for i in $(seq 100); do "$@" && return 0; sleep 0.1; done; return 1; }
+# The only agent's record, from agent-list: <state> <pr> <project>
+record() { "$assets/agent-list" | awk -F'\t' 'NR == 2 { print $2, $6, $5 }'; }
+is() { [ "$(record)" = "$*" ]; }
+state_file() { local f; for f in "$agents"/*; do [ -f "$f" ] && { echo "$f"; return; }; done; }
+harness_field() { awk '{ print $13 }' "$(state_file)"; }
+called() { grep -qF -- "$1" "$T/calls" 2>/dev/null; }
+
+# A project to work in: a git repository
+project="$T/fakeproject"
+git init -q "$project" && git -C "$project" commit -q --allow-empty -m init
+
+echo "-- a fake agent's turns (agent-state, agent-list)"
+mkfifo "$T/stdin"
+(cd "$project" && exec "$assets/harness/fake-agent" -- "Fix https://github.com/acme/app/pull/42 for me" <"$T/stdin" >/dev/null) &
+exec 3>"$T/stdin" # keeps its stdin open
+check "its first turn ends: done, on the pull request its prompt names" until_ is "done" acme/app#42 fakeproject
+check "its state file tells its harness" [ "$(harness_field)" = fake ]
+check "told: Done, with its name and last words" until_ called 'Done: fakeproject #42 Did: Fix https://github.com/acme/app/pull/42 for me'
+check "under no icon (the fake harness has none)" bash -c "! grep -q -- --icon '$T/calls'"
+check "with no sound (none either)" bash -c "! grep -q '^paplay' '$T/calls'"
+. "$assets/lib/agents.sh"
+check "its title" [ "$(agent_title fake "$(awk '{ print $8 }' "$(state_file)")")" = "Fix https://github.com/acme/app/pull/42 for me" ]
+echo "?Which branch" >&3
+check "asking something: attention" until_ is attention acme/app#42 fakeproject
+check "told: what it asks" until_ called 'fakeproject #42 Which branch'
+echo "main" >&3
+check "answered: done again" until_ is "done" acme/app#42 fakeproject
+echo "/quit" >&3
+check "ended: gone from the list" until_ is ''
+check "its state file too" [ -z "$(state_file)" ]
+exec 3>&-
+
+echo "-- a fake agent killed (agent-list prunes it)"
+(cd "$project" && exec "$assets/harness/fake-agent" -- "Something" <"$T/stdin" >/dev/null) &
+exec 3>"$T/stdin"
+check "listed while it runs" until_ is "done" - fakeproject
+kill -9 $! 2>/dev/null
+wait $! 2>/dev/null
+check "dead: pruned" until_ is ''
+exec 3>&-
+
+echo "-- spawning one (agent-spawn)"
+AGENT_HARNESS=fake AGENT_DIR="$project" "$assets/agent-spawn" "Do it" >/dev/null 2>&1
+check "its window runs the fake agent, prompt and context passed" \
+  grep -q 'harness/fake-agent --context $context -- $prompt' "$T/session"
+check "told: launched, in the fake harness's name" called 'agents.spawn.launched --urgency=normal --print-id Fake'
+worktree=$(awk '$1 == "cd" { print $2; exit }' "$T/session")
+check "in an agent worktree of its own" [ -d "$worktree" -a "$worktree" != "$project" ]
+AGENT_HARNESS=nope AGENT_DIR="$project" "$assets/agent-spawn" "Do it" >/dev/null 2>&1
+check "a harness with no launch: not started, told why" called "the nope harness can't launch agents"
+
+echo "-- its worktree (agent-sweep)"
+slot_file=$(grep -lF "$worktree" "$T"/state/agents/slots/*/* 2>/dev/null | head -n 1)
+touch -d '2 minutes ago' "$slot_file" # not fresh: the sweep may drop it
+(cd "$worktree" && exec "$assets/harness/fake-agent" -- "Something" <"$T/stdin" >/dev/null) &
+exec 3>"$T/stdin"
+until_ is "done" - "$(basename "$worktree")" >/dev/null
+"$assets/agent-sweep"
+check "kept while a fake agent runs in it" [ -d "$worktree" ]
+echo "/quit" >&3
+exec 3>&-
+wait $! 2>/dev/null
+"$assets/agent-sweep" --wait 5
+check "dropped once it stopped" [ ! -d "$worktree" ]
+
+echo "-- jumping to one (agent-jump)"
+(cd "$project" && exec "$assets/harness/fake-agent" -- "Something" <"$T/stdin" >/dev/null) &
+exec 3>"$T/stdin"
+until_ is "done" - fakeproject >/dev/null
+: >"$T/calls"
+"$assets/agent-jump"
+check "picked (done), its terminal unknown: told so" called "Can't find this agent's terminal"
+echo "/quit" >&3
+exec 3>&-
+wait 2>/dev/null
+
+echo
+[ "$failures" -eq 0 ] && echo "All checks passed" || echo "$failures check(s) failed"
+[ "$failures" -eq 0 ]
