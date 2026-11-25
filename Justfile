@@ -175,7 +175,7 @@ fonts:
   ZIPNAME="CascadiaCode.zip"
   TMP="/tmp/$ZIPNAME"
   DIR="$HOME/.fonts/CaskaydiaCove"
-  VERSION="3.4.0"
+  VERSION="3.5.1"
   wget --quiet https://github.com/ryanoasis/nerd-fonts/releases/download/v$VERSION/$ZIPNAME -O $TMP
   rm -rf $DIR
   mkdir -p $DIR
