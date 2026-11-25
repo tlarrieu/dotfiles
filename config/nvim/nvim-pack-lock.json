@@ -53,7 +53,7 @@
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "c0862d382a35b7b45757d8d151a6a634c09bf3ce",
+      "rev": "ea38d317af34f8ffcfbaf0f0dcc1471736661a4c",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "harpoon": {
