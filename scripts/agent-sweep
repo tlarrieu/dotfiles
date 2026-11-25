@@ -2,9 +2,10 @@
 # Drops the worktrees of stopped agents (see agent-worktree), the
 # ones no agent runs in anymore (whatever else does, left behind by them or
 # us, a rubocop server, an nvim, is stopped with them). Those holding uncommitted changes are kept
-# (we get told once), as are the branches the agent committed on, the one its
-# worktree started on (see agent-worktree), and the worktrees holding
-# commits on no branch (made on the detached HEAD).
+# (we get told once), as are the branches the agent committed on, those
+# there before it (its worktree's, the ones it switched to: see
+# agent-worktree), and the worktrees holding commits on no branch (made on
+# the detached HEAD).
 # Usage: agent-sweep [--wait <seconds>]
 # --wait gives processes time to exit, e.g. right after closing an agent window.
 
@@ -82,7 +83,7 @@ for repository in "$slots"/*/; do
   [ -d "$repository" ] || continue
   for slot_file in "$repository"[0-9]*; do
     [[ $(basename "$slot_file") =~ ^[0-9]+$ ]] || continue # not the .kept markers
-    read -r worktree base started <"$slot_file"
+    read -r worktree base _ <"$slot_file"
     if [ ! -d "$worktree" ]; then
       rm -f "$slot_file" "$slot_file.kept"
       continue
@@ -116,12 +117,17 @@ for repository in "$slots"/*/; do
       branch=$(git -C "$worktree" branch --show-current)
       stop "$worktree"
       git -C "$primary" worktree remove "$worktree" || exit
+      # Its own branch (made after its slot), left with nothing on it. Not
+      # one there before it, its worktree's included: its slot lists them
+      # (slots older than that list tell none: kept)
+      if [ -n "$branch" ] && [ "$(wc -l <"$slot_file")" -gt 1 ] &&
+        ! tail -n +2 "$slot_file" | grep -qxF -- "$branch" &&
+        [ "$(git -C "$primary" rev-list --count "$base..$branch")" = 0 ]; then
+        git -C "$primary" branch --quiet -D "$branch"
+      fi
       rm -f "$slot_file" "$slot_file.kept"
       # What it held is gone: local work's cache too (see local-work)
       setsid -f "$assets/local-work" >/dev/null 2>&1 9>&-
-      if [ -n "$branch" ] && [ "$branch" != "$started" ] && [ "$(git -C "$primary" rev-list --count "$base..$branch")" = 0 ]; then
-        git -C "$primary" branch --quiet -D "$branch"
-      fi
     ) 9>"$repository/.lock"
   done
 done

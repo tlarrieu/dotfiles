@@ -9,8 +9,9 @@
 # Usage: agent-worktree <repository> [<commit> [<branch>]]  (default: its HEAD)
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
 # Slot files hold "<worktree> <base commit> [<branch>]", for agent-sweep
-# to tell whether the agent committed anything, and which branch was there
-# before it (not the agent's to delete).
+# to tell whether the agent committed anything, then the repository's
+# branches at that time, one a line: those were there before the agent, not
+# its to delete (readers of the first line only: read -r).
 
 # Slots, a range of TEST_ENV_NUMBER values clear of ours (AGENT_SLOTS
 # overrides it, e.g. 11-19)
@@ -50,5 +51,8 @@ else
   git -C "$root" worktree add --quiet --detach "$worktree" "$base" >&2 || exit 1
 fi
 
-echo "$worktree $base${branch:+ $branch}" >"$slots_dir/$slot"
+{
+  echo "$worktree $base${branch:+ $branch}"
+  git -C "$root" for-each-ref --format='%(refname:short)' refs/heads
+} >"$slots_dir/$slot"
 echo "$slot $worktree"
