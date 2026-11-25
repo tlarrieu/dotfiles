@@ -3,7 +3,10 @@
 # echoing it, telling agent-state each step as a harness's hooks would.
 # Prompts come from the command line (the first one), then one a line on
 # stdin: one starting with "?" asks something back (attention, until the next
-# line); /quit, or the end of stdin, ends the session.
+# line); one starting with "!" asks permission to run its tool (a sleep, of
+# FAKE_TOOL_SECONDS, default 2: attention, until the next line grants it,
+# then running, no hook telling, until the tool is over); /quit, or the end
+# of stdin, ends the session.
 # Usage: fake-agent [--context <instructions>] [-- <prompt>]
 # Environment: FAKE_AGENT_DELAY, seconds each answer takes (default 1).
 # Transcripts: $XDG_STATE_HOME/agents-fake/<session>.jsonl (see fake.sh).
@@ -44,6 +47,11 @@ turn() {
     echo "Asking: ${first#\?}"
     tell attention --message "${first#\?}"
     return
+  fi
+  if [[ $1 == '!'* ]]; then
+    tell attention --message "Wants to run: ${first#!}"
+    read -r _ # granted
+    sleep "${FAKE_TOOL_SECONDS:-2}" # its tool
   fi
   sleep "${FAKE_AGENT_DELAY:-1}"
   record said "Did: $first"

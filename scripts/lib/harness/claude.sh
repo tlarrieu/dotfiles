@@ -37,13 +37,18 @@ claude_background() {
   return 1
 }
 
-# Whether claude process <pid>'s turn left something running: a tool's shell
-# (they source claude's shell snapshot), a Monitor's or a background Bash's.
-# Its own hooks (our callers) aside
+# Whether claude process <pid>'s turn left something running (see
+# claude_tools)
 # Usage: claude_busy <pid>
+claude_busy() { [ -n "$(claude_tools "$1")" ]; }
+
+# The tools claude process <pid> runs, one pid a line: its tools' shells
+# (they source claude's shell snapshot), a Bash's (in the foreground or the
+# background) or a Monitor's. Its own hooks (our callers) aside
+# Usage: claude_tools <pid>
 # All from /proc, in bash: pgrep scans every process, and agent-list
-# asks for each agent done or idle (rofi-github waits on it)
-claude_busy() {
+# asks for each agent done, idle or waiting (rofi-github waits on it)
+claude_tools() {
   local self=$$ ppid child children=() more argv
   local -A ancestors=()
   while [ "$self" -gt 1 ] 2>/dev/null; do
@@ -60,9 +65,9 @@ claude_busy() {
     [ -n "${ancestors[$child]}" ] && continue
     argv=()
     mapfile -d '' argv 2>/dev/null <"/proc/$child/cmdline"
-    [[ "${argv[*]}" == */.claude/shell-snapshots/* ]] && return 0
+    [[ "${argv[*]}" == */.claude/shell-snapshots/* ]] && echo "$child"
   done
-  return 1
+  return 0
 }
 
 # A session's title, from its transcript: the one given with /rename (or

@@ -39,6 +39,9 @@
 #                 showing it in a new one (agent-jump can't reach them)
 #     busy <pid>  whether its turn left something running (no monitoring
 #                 state: done at once)
+#     tools <pid>  the tools it runs, one pid a line (a permission granted
+#                 shows as attention until the tool is over: see the tools
+#                 field)
 #     watch       how an agent is to wait on something that takes a while (a
 #                 CI job), in words, for prompts (agent-pr's; else: in the
 #                 background, not by sleeping in the foreground)
@@ -67,8 +70,12 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/agents"
 #                 monitoring), its "Done" not told yet (see agent-state)
 #   harness       the harness running it (see above); missing in older files:
 #                 $default_harness
+#   tools         attention: the tools it ran as it asked (see tools in the
+#                 contract), comma separated: a new one tells it got what it
+#                 asked for (a permission: no hook tells, until the tool is
+#                 over), see agent-list
 # Missing values are written as -.
-agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold harness)
+agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold harness tools)
 
 # The harness of agents told no other: the one spawning them, and the one of
 # state files older than the harness field
@@ -108,8 +115,9 @@ read_agent() {
   local -a names=("${agent_fields[@]/#/$2}")
   local name
   for name in "${names[@]}"; do printf -v "$name" ''; done
+  local harness_field="$2harness" # (not harness: with no prefix, that is a field)
   [ -f "$1" ] && read -r "${names[@]}" <"$1"
-  [ -f "$1" ] && { [ -n "${!names[-1]}" ] || printf -v "${names[-1]}" '%s' "$default_harness"; } # (harness, last)
+  [ -f "$1" ] && { [ -n "${!harness_field}" ] || printf -v "$harness_field" '%s' "$default_harness"; }
   return 0
 }
 

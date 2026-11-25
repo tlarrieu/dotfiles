@@ -123,6 +123,12 @@ watching=false
 [ "$state" = "done" ] && harness_do "$harness" busy "$pid" && watching=true
 # shellcheck disable=SC2034 # written by write_agent
 if $watching; then untold=yes; else untold=-; fi
+# Asking: the tools it runs the while, for agent-list to tell it granted
+# what it asked (see tools in lib/agents.sh); as of its first ask (the same
+# state again changes nothing, below)
+tools=-
+# shellcheck disable=SC2034 # written by write_agent
+[ "$state" = attention ] && tools=$(harness_do "$harness" tools "$pid" | paste -sd,) && tools=${tools:--}
 
 read_agent "$file" previous_
 # shellcheck disable=SC2034 # these fields are written by name (write_agent)

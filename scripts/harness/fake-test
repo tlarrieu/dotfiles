@@ -20,6 +20,8 @@ mkdir -p "$T/bin" "$T/run" "$T/state"
 for stub in notify-send paplay awesome-client gdbus; do
   printf '#!/bin/sh\necho "%s $*" >>"%s/calls"\n' "$stub" "$T" >"$T/bin/$stub"
 done
+# An agent's notifications (waiting for a click) get an id, to close
+printf 'case " $* " in *" --wait "*) echo 7 ;; esac\n' >>"$T/bin/notify-send"
 printf '#!/bin/sh\nwhile [ $# -gt 0 ]; do [ "$1" = --session ] && cp "$2" "%s/session"; shift; done\n' "$T" >"$T/bin/kitty"
 printf '#!/bin/sh\n[ "$1" = -f ] && shift\n[ "$1" = kitty ] && exec "$@"\n"$@" >/dev/null 2>&1 &\n' >"$T/bin/setsid"
 chmod +x "$T"/bin/*
@@ -60,6 +62,13 @@ check "asking something: attention" until_ is attention acme/app#42 fakeproject
 check "told: what it asks" until_ called 'fakeproject #42 Which branch'
 echo "main" >&3
 check "answered: done again" until_ is "done" acme/app#42 fakeproject
+echo "!Run it" >&3
+check "asking permission: attention" until_ is attention acme/app#42 fakeproject
+: >"$T/calls" # (closes before, from earlier turns)
+echo "y" >&3
+check "granted, its tool running (no hook telling): running" until_ is running acme/app#42 fakeproject
+check "its notification closed" until_ called 'CloseNotification 7'
+check "its tool over: done" until_ is "done" acme/app#42 fakeproject
 echo "/quit" >&3
 check "ended: gone from the list" until_ is ''
 check "its state file too" [ -z "$(state_file)" ]

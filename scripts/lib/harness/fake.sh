@@ -5,7 +5,7 @@
 # them), and as the smallest adapter to start a real one from: only what the
 # contract requires, and the transcript readers. No background sessions,
 # interrupts, handovers, busy turns, nor branding: what needs them goes
-# without.
+# without. Tools, for its permissions (see fake-agent).
 # Its transcripts: JSON lines, {"kind": "prompt", "said" or "title", "text"}.
 
 # shellcheck disable=SC2034 # read through harness_brand
@@ -19,6 +19,22 @@ fake_alive() {
   local argv=()
   mapfile -d '' -n 2 argv 2>/dev/null <"/proc/$1/cmdline"
   [[ ${argv[0]} == *bash && ${argv[1]} == */harness/fake-agent ]]
+}
+
+# The tools fake agent <pid> runs: its sleeps (see fake-agent), one pid a
+# line
+# Usage: fake_tools <pid>
+fake_tools() {
+  local child children=() more comm
+  for child in /proc/"$1"/task/*/children; do
+    more=()
+    read -ra more 2>/dev/null <"$child"
+    children+=("${more[@]}")
+  done
+  for child in "${children[@]}"; do
+    read -r comm 2>/dev/null <"/proc/$child/comm" && [ "$comm" = sleep ] && echo "$child"
+  done
+  return 0
 }
 
 # The fish command running a fake agent (see launch in lib/agents.sh)

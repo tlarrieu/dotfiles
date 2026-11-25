@@ -14,15 +14,28 @@
 # Interrupts (rejected question/permission, Esc) fire no hook, so a busy
 # session whose turn ended on one (see interrupted) is reported as idle.
 # Done sessions become idle (and stay so) once their terminal gets displayed.
-# Sessions with live subagents are reported as running. Done (or idle) ones
-# whose turn left a Monitor or a background shell running, as monitoring
-# (see busy in lib/agents.sh). Subagents silent for
+# Sessions with live subagents are reported as running, as are those waiting
+# on me since granted what they asked (see the tools field in lib/agents.sh).
+# Done (or idle) ones whose turn left a Monitor or a background shell
+# running, as monitoring (see busy in lib/agents.sh). Subagents silent for
 # 10 minutes are deemed gone (in case their SubagentStop hook never fired),
 # even those that were waiting for us: an Esc on their prompt fires no hook.
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
 . "$assets/lib/agents.sh"
+
+# Whether agent <pid> runs a tool it didn't run as it asked for attention
+# (<tools>: see the tools field in lib/agents.sh); never, when its harness
+# tells no tools
+# Usage: granted <harness> <pid> <tools>
+granted() {
+  local tool
+  while read -r tool; do
+    [[ ,$3, == *",$tool,"* ]] || return 0
+  done < <(harness_do "$1" tools "$2")
+  return 1
+}
 
 order="${XDG_CONFIG_HOME:-$HOME/.config}/agents/projects"
 [ -f "$order" ] || order=/dev/null
@@ -78,6 +91,14 @@ for f in "$agents_dir"/*; do
     find "$f.subagents" -type f -mmin +10 -delete
     rmdir "$f.subagents" 2>/dev/null
     case "$state" in done | idle) [ -d "$f.subagents" ] && state=running ;; esac
+  fi
+  # Waiting on me, running a tool it didn't as it asked: I granted it (a
+  # permission, which no hook tells until the tool is over), at work again,
+  # its notification outdated. Unless a subagent asks: another's tool
+  # proves nothing
+  if [ "$state" = attention ] && ! grep -qsx attention "$f.subagents"/* && granted "$harness" "$pid" "$tools"; then
+    state=running
+    agent_unnotify "$(basename "$f")"
   fi
   case "$state" in done | idle) harness_do "$harness" busy "$pid" && state=monitoring ;; esac
   # None as of its last hook: its branch may have got a pull request since
