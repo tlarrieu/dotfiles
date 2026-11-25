@@ -115,7 +115,11 @@ pr_size() {
   elif [ "$lines" -lt 1000 ]; then echo L
   else echo XL; fi
 }
-# The sizes' styles (before the pull request number): from green to red, the
+# The sizes' glyphs (before the pull request number)
+declare -A size_glyphs=(
+  [XS]='󱎣' [S]='󱎤' [M]='󱎥' [L]='󱎦' [XL]='󱎧'
+)
+# Their styles: from green to red, the
 # smallest faded
 declare -A size_styles=(
   [XS]="color=\"$green\" $dim" [S]="color=\"$green\"" [M]="color=\"$yellow\""
@@ -125,7 +129,9 @@ declare -A size_styles=(
 # A row, from named cells (<name>=<value> arguments, all optional):
 #   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
 #   time, number, additions, deletions, title
-#   project        an agent's project, instead of the number and the diff
+#   project        an agent's project (or a local work's name): before the
+#                  title (<project> — <title>), "local" (dim) in the number's
+#                  place
 #   author         goes last, after the title (which then gets a fixed width)
 #   tint           the review face's color, instead of its style (reviews
 #                  waiting on me)
@@ -148,7 +154,7 @@ row() {
       *) echo "row: unknown cell ${arg%%=*}" >&2 ;;
     esac
   done
-  local ci review number who='' title=${c[title]} threads comments auto=' ' line # the glyph takes one cell, like a space
+  local ci review who='' title=${c[title]} threads comments auto=' ' line # the glyph takes one cell, like a space
   [ "${c[auto]}" = auto ] && auto=$auto_glyph
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a tint wins over the review face's own
@@ -161,12 +167,13 @@ row() {
   [ -n "${c[tint]}" ] && style="color=\"${c[tint]}\""
   [ -n "$style" ] && [ -n "$review" ] && review="<span $style>$review</span>"
   ci="${ci:- }  " review="${review:- }  "
-  # The number, after its size (right-aligned on two cells, then a space).
-  # Padded before the markup
-  local size
-  size=$(pr_size "${c[additions]}" "${c[deletions]}")
-  number=$(printf '%2s %-*s' "$size" "$number_width" "${c[number]}")
-  [ "${c[diff]}" != plain ] && number=${number/"$size"/"<span ${size_styles[$size]}>$size</span>"}
+  # The size's glyph, a column of its own: one cell, then a space (it doesn't
+  # spill over, unlike most glyphs); blank with a project
+  local size glyph=' '
+  if [ -z "${c[project]}" ]; then
+    size=$(pr_size "${c[additions]}" "${c[deletions]}") glyph=${size_glyphs[$size]}
+    [ "${c[diff]}" != plain ] && glyph="<span ${size_styles[$size]}>$glyph</span>"
+  fi
   # Last, fainter than dim. The title before it gets a fixed width (in
   # characters, as they are cells), so that a long one can't push it out of
   # the window
@@ -199,17 +206,16 @@ row() {
     agent='   '
     [ -n "${c[agent]}" ] && agent="<span ${agent_styles[${c[agent]}]:-$agent_fallback_style}>${agent_faces[${c[agent]}]:-󰚩}</span>  "
   fi
-  # Time and number: as wide as the widest shown (see measure_columns). The
-  # project takes the number's and its size's place (measure_columns
-  # widens the number for the longest)
+  # Time and number: as wide as the widest shown (see measure_columns). No
+  # number with a project: "local" instead, the project goes before the title
   local middle
+  middle=$(printf '%-*s' "$number_width" "${c[number]}")
   if [ -n "${c[project]}" ]; then
-    middle=$(escape "$(printf '%-*s' $((number_width + 3)) "${c[project]}")")
-  else
-    middle=$number
+    middle="<span $dim>local</span>$(printf '%*s' $((number_width - 5)) '')"
+    title="${c[project]} — $title"
   fi
   local before
-  before=$(printf '%s%s%-*s %s %s %s%s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$middle" "$threads" "$comments" "$work" "$agent")
+  before=$(printf '%s%s%-*s %s %s %s %s%s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$glyph" "$middle" "$threads" "$comments" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
@@ -434,6 +440,22 @@ layout='content { children: [inputbar, listview, message]; }
   textbox { horizontal-align: 0.5; }'
 mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='merge queue' ctrl+o=push)
 
+# A duration on a single unit, to keep the time column narrow: 42s (with
+# seconds), 42m, 5h, 12d. Rounded down, or up (for time left: never 60m)
+# Usage: span <seconds> [seconds] [up]
+span() {
+  local n=$1 unit=s step
+  [ "$2" = seconds ] && [ "$n" -lt 60 ] && { echo "${n}s"; return; }
+  for step in 60:m 60:h 24:d; do
+    if [ "$3" = up ]; then n=$(((n + ${step%:*} - 1) / ${step%:*})); else n=$((n / ${step%:*})); fi
+    unit=${step#*:}
+    [ "$unit" = d ] && break
+    [ "$unit" = m ] && [ "$n" -lt 60 ] && break
+    [ "$unit" = h ] && [ "$n" -lt 24 ] && break
+  done
+  echo "$n$unit"
+}
+
 # The time column of one of my pull requests (a merge-queue record): its
 # position and when it should merge (queued), nothing (ready), else since the
 # merge (deploying), since it reached production (deployed), or the last
@@ -441,26 +463,25 @@ mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine_when() {
   case $kind in
-    queued) printf '#%s' "$position"; [ "$time" = - ] || printf ' (%s)' "$(eta "$time")" ;;
+    queued) printf '#%s' "$position"; [ "$time" = - ] || printf ' %s' "$(span "$time" '' up)" ;;
     ready) ;;
-    *) ago $((now - time)) ;;
+    *) span $((now - time)) ;;
   esac
 }
 
 # The time column of a pull request waiting on my review: for how long
 # shellcheck disable=SC2154 # record fields, set by each_record
-review_when() { ago $((now - at)); }
+review_when() { span $((now - at)); }
 
 # Sets time_width, number_width, threads_width and comments_width (0 when
 # none has any): the widest time, pull request number, unresolved threads and open comments (glyph, space and count; 0
 # when none has any) of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
-# one's "#37 (1h14)"). And agents_width: 3 when an agent works on one (see
+# one's "#37 2h"). And agents_width: 3 when an agent works on one (see
 # agents), else 0; work_width: the widest local work (see row), 0 when none.
 # The loose agents' rows too ($3, see find_loose_agents): their turn's
-# duration, their face, their project (the number widened for the longest).
-# And the local work's rows ($4, see find_local_work): alike, their name
-# (see local_name) as the project
+# duration, their face, and room for their "local" (see row). And the local
+# work's rows ($4, see find_local_work): alike
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
@@ -488,34 +509,28 @@ measure_columns() {
   widest_review() { local branch=''; when=$(review_when); widest "$when"; } # (no branch field)
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
-  local project_width=0
+  local_room() { [ "$number_width" -ge 5 ] || number_width=5; } # "local", in the number's place
   widest_agent() {
+    local_room
     agents_width=3
     when=$(agent_when); [ ${#when} -gt "$time_width" ] && time_width=${#when}
-    local name
-    name=$(short_name "$project")
-    [ ${#name} -gt "$project_width" ] && project_width=${#name}
   }
   each_record widest_agent <<<"$3"
   widest_local() {
-    when=$(ago $((now - time))); [ ${#when} -gt "$time_width" ] && time_width=${#when}
-    [ ${#name} -gt "$project_width" ] && project_width=${#name}
+    local_room
+    when=$(span $((now - time))); [ ${#when} -gt "$time_width" ] && time_width=${#when}
     widest_work "$ahead $changes"
     [ "$agent" != - ] && agents_width=3
     return 0
   }
-  local name
-  each_local() { name=$(local_name); widest_local; }
-  each_record each_local <<<"$4"
-  local room=$((number_width + 3)) # the size, a space, the number
-  [ "$project_width" -gt "$room" ] && number_width=$((number_width + project_width - room))
+  each_record widest_local <<<"$4"
   return 0
 }
 
 # The time column of an agent (a claude-agent-list record): how long its turn
 # has run, when running (or monitoring)
 # shellcheck disable=SC2154 # record fields, set by each_record
-agent_when() { case $state in running | monitoring) [ "$since" != - ] && elapsed "$since" ;; esac; return 0; }
+agent_when() { case $state in running | monitoring) [ "$since" != - ] && span $(($(date +%s) - since)) seconds ;; esac; return 0; }
 
 # Adds an agent (a claude-agent-list record): Enter and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
@@ -608,7 +623,7 @@ local_row() {
   urls+=("$url") queues+=('') prs+=('') merges+=('') sessions+=("$([ "$agent" != - ] && echo "$agent")")
   dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push")
   tags+=(":local${push:+ :unpushed}${state:+ :agent}")
-  lines+=("$(row time="$(ago $((now - time)))" project="$(local_name)" title="$title" \
+  lines+=("$(row time="$(span $((now - time)))" project="$(local_name)" title="$title" \
     work="$ahead $changes $tended" agent="$state")")
 }
 
