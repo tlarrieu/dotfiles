@@ -4,7 +4,7 @@
 
 # Colors from the current rofi palette (see ~/.config/rofi/variant.rasi), in
 # $green, $red, $yellow, $blue, $magenta and $cyan (named colors when the
-# palette lacks them).
+# palette lacks them), and $fg (empty then).
 # The palette has no gray: $dim and $dimmer are Pango attributes fading the
 # foreground, close to the panel's fg.dim and fg.dimmer (config/awesome/colors)
 rofi_dir=~/.config/rofi
@@ -12,6 +12,21 @@ rofi_variant=$(sed -n 's/^@import "\(.*\)".*/\1/p' "$rofi_dir/variant.rasi" 2>/d
 rofi_color() { sed -n "s/^\s*$1:\s*\(#[0-9a-fA-F]*\);.*/\1/p" "$rofi_dir/${rofi_variant:-dark}.rasi" 2>/dev/null | head -1; }
 green=$(rofi_color green) red=$(rofi_color red) yellow=$(rofi_color yellow) blue=$(rofi_color blue)
 magenta=$(rofi_color magenta) cyan=$(rofi_color cyan)
+# shellcheck disable=SC2034 # for the scripts sourcing this
+fg=$(rofi_color fg) bg=$(rofi_color bg)
+
+# Color <from> blended into color <to> (both #rrggbb) by <percent>%: an
+# opaque one looking like <from> at that opacity on <to>, without the darker
+# spots a translucent one leaves where glyphs overlap
+# Usage: blend <from> <to> <percent>
+blend() {
+  local i out='#' from to
+  for i in 1 3 5; do
+    from=$((16#${1:i:2})) to=$((16#${2:i:2}))
+    out+=$(printf '%02x' $(((from * $3 + to * (100 - $3) + 50) / 100)))
+  done
+  echo "$out"
+}
 green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue} magenta=${magenta:-magenta}
 cyan=${cyan:-cyan}
 # shellcheck disable=SC2034 # for the scripts sourcing this

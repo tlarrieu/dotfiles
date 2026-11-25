@@ -472,9 +472,14 @@ hints_bar() {
 
 # The message bar goes under the list, centered (theme.rasi puts it above:
 # its gutter flips with it), in a smaller font (see -mesg)
-layout='content { children: [inputbar, listview, message]; }
+# A line divides it from the list, •───…───•, 40% of the window's width (see
+# divider), centered, in the foreground's color at 15% on the background (an
+# opaque blend: its glyphs overlap a little, which would show translucent);
+# the foreground's own when the palette lacks them
+layout="content { children: [inputbar, listview, textbox-divider, message]; }
   message { margin: 0.5em 1em 1em 1em; }
-  textbox { horizontal-align: 0.5; }'
+  textbox { horizontal-align: 0.5; }
+  textbox-divider { expand: false; background-color: transparent; margin: 0.5em 0 0 0; horizontal-align: 0.5;${fg:+${bg:+ text-color: $(blend "$fg" "$bg" 15);}} }"
 hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+f=fix/review ctrl+s=agent ctrl+m=merge ctrl+o=push
 
 # A duration on a single unit, to keep the time column narrow: 42s (with
@@ -793,6 +798,10 @@ while :; do
   done
   [ "$widest" -gt "$max_width" ] && widest=$max_width
   window="window { width: calc(${widest}ch + 2em min 100%); }"
+  # 40% of the window's width (of its rows' characters; the dots about make up
+  # for its padding's share)
+  divider=$(printf '%*s' $((widest * 2 / 5)) '') divider="•${divider// /─}•"
+  divider="textbox-divider { content: \"$divider\"; }"
   mesg=$(hints_bar $(( (widest - 2) * 10 / 9 )))
 
   # Tags go in each row's invisible search terms (meta)
@@ -800,7 +809,7 @@ while :; do
     rofi -dmenu -i -markup-rows -p "$prompt" -format 'i f' -filter "$filter" \
       -kb-custom-1 'Control+r' -kb-custom-2 'Control+q' -kb-custom-3 'Control+f' -kb-custom-4 'Control+m' -kb-custom-5 'Control+o' -kb-custom-6 'Control+s' \
       -kb-move-char-forward Right \
-      -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window" -mesg "<span size=\"90%\">$mesg$status_line</span>")
+      -kb-accept-entry 'Control+j,Return,KP_Enter' -theme-str "$layout $window $divider" -mesg "<span size=\"90%\">$mesg$status_line</span>")
   code=$?
   read -r choice filter <<<"$selection" # keep the search across refreshes
   [ "$choice" -ge 0 ] 2>/dev/null || choice=''
