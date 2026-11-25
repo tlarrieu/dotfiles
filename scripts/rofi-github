@@ -138,8 +138,8 @@ declare -A size_styles=(
 #                  waiting on me)
 #   auto           auto: auto-merge is on
 #   diff           plain: the number's size (see pr_size) uncolored
-#   threads        how many review threads are unresolved
 #   comments       how many review comments are open (see github_comments_jq)
+#   threads        how many review threads are unresolved
 #   work           local work (see local-work): <commits to push> <changed
 #                  files> <yes when an agent works in its worktree, else ->
 #   italic         italic: the whole row in italics
@@ -216,7 +216,7 @@ row() {
     title="${c[project]} — $title"
   fi
   local before
-  before=$(printf '%s%s%-*s %s %s %s %s%s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$glyph" "$middle" "$threads" "$comments" "$work" "$agent")
+  before=$(printf '%s%s%-*s %s %s %s %s%s%s%s' "$ci" "$review" "$time_width" "${c[time]}" "$auto" "$glyph" "$middle" "$comments" "$threads" "$work" "$agent")
   line="$before$(escape "$title")$who"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
