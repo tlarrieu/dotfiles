@@ -91,14 +91,14 @@ work_text() {
   printf '%s' "$out"
 }
 
-# A count column of row (threads, comments): glyph, space, count, dim (blank
+# A count column of row (threads, comments): glyph, space, count, dimmer (blank
 # without any), as wide as the widest shown (see measure_columns), then a
 # space (it ends on text); none at all when no row has any (width 0)
 # Usage: count_cell <glyph> <count> <width>
 count_cell() {
   [ "$3" -gt 0 ] || return 0
   if [ "${2:-0}" -gt 0 ] 2>/dev/null; then
-    printf '<span %s>%s %s</span>%*s ' "$dim" "$1" "$2" $(($3 - 2 - ${#2})) ''
+    printf '<span %s>%s %s</span>%*s ' "$dimmer" "$1" "$2" $(($3 - 2 - ${#2})) ''
   else
     printf '%*s ' "$3" ''
   fi
@@ -131,7 +131,7 @@ declare -A size_styles=(
 #   ci, review     faces keys (unknown ones show as ?, missing ones as blank)
 #   time, number, additions, deletions, title
 #   project        an agent's project (or a local work's name): before the
-#                  title (<project> — <title>), "local" (dim) in the number's
+#                  title (<project> — <title>), "local" (dimmer) in the number's
 #                  place
 #   author         goes last, after the title (which then gets a fixed width)
 #   tint           the review face's color, instead of its style (reviews
@@ -195,7 +195,7 @@ row() {
     shown=${#work}
     [ "${ahead:-0}" -gt 0 ] && work=${work/"$unpushed_glyph $ahead"/"<span color=\"$yellow\">$unpushed_glyph $ahead</span>"}
     if [ "${changed:-0}" -gt 0 ]; then
-      local tone=$dim
+      local tone=$dimmer
       [ "$tended" = yes ] || tone="color=\"$yellow\""
       work=${work/"$changes_glyph $changed"/"<span $tone>$changes_glyph $changed</span>"}
     fi
@@ -212,7 +212,7 @@ row() {
   local middle
   middle=$(printf '%-*s' "$number_width" "${c[number]}")
   if [ -n "${c[project]}" ]; then
-    middle="<span $dim>local</span>$(printf '%*s' $((number_width - 5)) '')"
+    middle="<span $dimmer>local</span>$(printf '%*s' $((number_width - 5)) '')"
     title="${c[project]} — $title"
   fi
   local before

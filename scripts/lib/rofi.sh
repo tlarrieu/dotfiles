@@ -15,16 +15,17 @@ magenta=$(rofi_color magenta) cyan=$(rofi_color cyan)
 green=${green:-green} red=${red:-red} yellow=${yellow:-yellow} blue=${blue:-blue} magenta=${magenta:-magenta}
 cyan=${cyan:-cyan}
 # shellcheck disable=SC2034 # for the scripts sourcing this
-dim='fgalpha="60%"' dimmer='fgalpha="50%"'
+dim='fgalpha="60%"' dimmer='fgalpha="40%"'
 
 # Pango attributes for each agent state's face (see
 # lib/agents.sh), for the pickers showing agents (rofi-github): the
 # panel's colors (see config/awesome/widgets/agents.lua),
-# running and monitoring steady instead of pulsing; agent_fallback_style for unknown states
+# running and monitoring steady instead of pulsing, idle dimmer (as the rows'
+# other indicators); agent_fallback_style for unknown states
 # shellcheck disable=SC2034 # for the scripts sourcing this
 declare -A agent_styles=(
   [running]="color=\"$blue\"" [monitoring]="color=\"$cyan\"" [done]="color=\"$green\"" [attention]="color=\"$yellow\""
-  [idle]=$dim
+  [idle]=$dimmer
 )
 # shellcheck disable=SC2034 # for the scripts sourcing this
 agent_fallback_style=$dimmer
