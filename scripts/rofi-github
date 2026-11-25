@@ -10,9 +10,10 @@
 # Enter: open (browser; an agent's row: jump to it; local work: neovim in its
 # worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
 # page. Ctrl+f: the agent on it, else spawn one to fix or review it (agent-pr).
-# Ctrl+s: the agent on it, else a new one with no prompt: on the pull request
-# (as Ctrl+f sets it up, see agent-pr --no-prompt), else in the row's
-# repository. Ctrl+m:
+# Ctrl+s: the agent on it, else a new one, on the first prompt it asks for
+# (none: an interactive session; cancelled: no agent, the list closed): on
+# the pull request (as Ctrl+f sets it up, see agent-pr --prompt), else in
+# the row's repository. Ctrl+m:
 # enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
 # it; for the others, their page at the merge box: GitHub's API only queues
 # ready ones, and a repository forbidding auto-merge refuses "Merge when
@@ -24,7 +25,7 @@ assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
 . "$assets/lib/rofi.sh"
 # shellcheck source-path=SCRIPTDIR source=lib/agents.sh
-. "$assets/lib/agents.sh" # agent_faces, agent_wants
+. "$assets/lib/agents.sh" # agent_faces, agent_wants, harness_brand, pr_agent
 mode=--cached
 filter=$1
 
@@ -418,6 +419,18 @@ short_name() {
 # else its clone's (see short_name)
 # shellcheck disable=SC2154 # record fields, set by each_record
 local_name() { short_name "$(if [ "$worktree" != - ]; then basename "$worktree"; else basename "$clone"; fi)"; }
+
+# Asks for a new agent's first prompt (a rofi dialog, its input only), on
+# <what> (markup): prints it, nothing for none (Enter on an empty input: an
+# interactive session); fails when cancelled (Escape). Under the glyph of
+# the harness spawning it, else our prompt
+# Usage: ask_prompt <what>
+ask_prompt() {
+  local glyph
+  glyph=$(harness_brand "$default_harness" glyph)
+  rofi -dmenu -p "${glyph:-$prompt}" -theme-str "$layout listview { enabled: false; } window { width: calc(96ch + 2em min 100%); }" \
+    -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>Nothing: an interactive session. Escape: cancel</span>" </dev/null
+}
 
 # Asks before pushing (a rofi dialog, as confirm_queue)
 # Usage: confirm_push <branch> <commits> <upstream: yes, none or gone>
@@ -871,17 +884,30 @@ while :; do
         notify-send --app-name=github GitHub "Nothing to push there"
       fi ;;
     15)
-      # The agent on it (its own row, local work's); else a new one, with no
-      # prompt: on its pull request (agent-pr jumps to the one on it, if
-      # any), else in its repository (its main clone)
+      # The agent on it (its own row, local work's, its pull request's); else
+      # a new one, on the first prompt I give it (see ask_prompt): on its
+      # pull request, else in its repository (its main clone). Either way,
+      # the list is done with (cancelled too)
       if [ -n "$choice" ]; then
         [ -n "${sessions[$choice]}" ] && exec "$assets/agent-jump" "${sessions[$choice]}"
         read -r pr_task pr_repo pr_number <<<"${prs[$choice]}"
-        [ -n "$pr_task" ] && exec "$assets/agent-pr" --no-prompt "$pr_task" "$pr_repo" "$pr_number"
         home=${homes[$choice]}
         common=$([ -n "$home" ] && git -C "$home" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) && home=$(dirname "$common")
-        [ -n "$home" ] && AGENT_DIR=$home exec "$assets/agent-spawn"
-        notify-send --app-name=github GitHub "No pull request nor repository to start an agent on there"
+        if [ -n "$pr_task" ]; then
+          # A pull request's row holds no session: the agent on it, found
+          # before asking (agent-pr would only after); one starting already:
+          # agent-pr tells
+          session=$(pr_agent "$pr_repo#$pr_number")
+          [ -n "$session" ] && exec "$assets/agent-jump" "$session"
+          pr_spawning_now "$pr_repo#$pr_number" && exec "$assets/agent-pr" --prompt '' "$pr_task" "$pr_repo" "$pr_number"
+          first=$(ask_prompt "on <b>$(escape "$pr_repo#$pr_number")</b>") || exit 0
+          exec "$assets/agent-pr" --prompt "$first" "$pr_task" "$pr_repo" "$pr_number"
+        elif [ -n "$home" ]; then
+          first=$(ask_prompt "in <b>$(escape "$(basename "$home")")</b>") || exit 0
+          AGENT_DIR=$home exec "$assets/agent-spawn" ${first:+"$first"}
+        else
+          notify-send --app-name=github GitHub "No pull request nor repository to start an agent on there"
+        fi
       fi ;;
     *) exit 0 ;;
   esac

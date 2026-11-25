@@ -22,17 +22,18 @@
 # Either way, it pushes nothing, and posts nothing on GitHub unless asked
 # (re-runs and the flaky spec's merge aside; reviews drafted are pending, mine
 # to submit).
-# With --no-prompt: the same agent, set up the same way (the worktree, the
-# rules: --no-prompt fix for mine, --no-prompt review for the others'), but
-# an interactive session, with no task: the user tells it what to do.
+# With --prompt: the same agent, set up the same way (the worktree, the
+# rules: --prompt fix for mine, --prompt review for the others'), but on the
+# user's own task: <prompt> as its first prompt, none (empty) for an
+# interactive session.
 # An agent on it already: jumps back to it instead. To fix one of mine with
 # nothing to fix (no conflict, unresolved review thread, open review comment
 # or failing CI, as
 # merge-queue's cache tells, which may lag): says so instead. Used by
-# rofi-github (Ctrl+f; Ctrl+s: --no-prompt), rofi-search (cl fix|review <PR>)
+# rofi-github (Ctrl+f; Ctrl+s: --prompt), rofi-search (cl fix|review <PR>)
 # and merge-queue's notifications.
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
-# Usage: agent-pr [--no-prompt] <fix|review> <owner/repo> <number>
+# Usage: agent-pr [--prompt <prompt>] <fix|review> <owner/repo> <number>
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
@@ -46,14 +47,14 @@ fail() {
 }
 spawning=
 
-no_prompt=''
-[ "$1" = --no-prompt ] && { no_prompt=yes; shift; }
+own='' own_prompt=''
+[ "$1" = --prompt ] && { own=yes own_prompt=$2; shift 2; }
 task=$1 repo=$2 number=$3
 case $task in fix | review) ;; *) task='' ;; esac
 [ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
-  || { echo "Usage: agent-pr [--no-prompt] <fix|review> <owner/repo> <number>" >&2; exit 2; }
+  || { echo "Usage: agent-pr [--prompt <prompt>] <fix|review> <owner/repo> <number>" >&2; exit 2; }
 what="to $task"
-[ -n "$no_prompt" ] && what=on
+[ -n "$own" ] && what=on
 
 # One spawn on it at a time: from telling whether an agent is on it to
 # marking this one under way (see pr_spawning), rofi-github's Ctrl+f twice,
@@ -74,7 +75,7 @@ fi
 # Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
 # else's or in no watched repository: no telling, go ahead). Merged ones
 # (threads and comments -) have nothing either
-if [ "$task" = fix ] && [ -z "$no_prompt" ]; then
+if [ "$task" = fix ] && [ -z "$own" ]; then
   found='' known_threads='' known_comments='' known_ci='' known_review=''
   # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
   find_pr() {
@@ -316,10 +317,10 @@ review only they see until they submit it, by saying "post" (all of them) or
 PROMPT
 fi
 
-# No task (--no-prompt): the setup only, and rules fit for whatever the user
-# asks
-if [ -n "$no_prompt" ]; then
-  prompt=''
+# The user's own task (--prompt): the setup only, and rules fit for
+# whatever they ask
+if [ -n "$own" ]; then
+  prompt=$own_prompt
   if [ "$task" = fix ]; then
     read -r -d '' rules <<RULES
 $about

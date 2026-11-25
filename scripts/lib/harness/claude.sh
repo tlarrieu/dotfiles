@@ -6,6 +6,7 @@
 
 # shellcheck disable=SC2034,SC2154 # read through harness_brand; agent_scripts: lib/agents.sh's
 claude_label=Claude claude_icon="$agent_scripts/claude.png" claude_sound="$agent_scripts/claude.ogg"
+claude_glyph=$'\uec82' # Nerd Fonts' cod-claude (3.5 on)
 
 # Whether <pid> is a live claude process running a session (not a dead one's
 # reused pid): one in a terminal, or a background one (in claude's daemon,

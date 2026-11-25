@@ -8,10 +8,11 @@
 # agent-sweep, local-work.
 # Each harness has an adapter, lib/harness/<name>.sh (all sourced below),
 # filling this contract with functions named <name>_<what>, and variables
-# <name>_label, <name>_icon, <name>_sound (its branding: notifications,
-# their sound). lib/harness/fake.sh is the smallest one (required parts and
-# transcript readers only), harness/fake-test checking the agent scripts
-# through it. Called through harness_do:
+# <name>_label, <name>_icon, <name>_sound, <name>_glyph (its branding:
+# notifications, their sound, a Nerd Fonts glyph for rofi's prompts).
+# lib/harness/fake.sh is the smallest one (required parts and transcript
+# readers only), harness/fake-test checking the agent scripts through it.
+# Called through harness_do:
 #   required
 #     launch [--prompt] [--context]  the fish command running an agent in the
 #                 current directory (agent-spawn): its first prompt in fish
@@ -100,9 +101,9 @@ harness_do() {
   "$1_$2" "${@:3}"
 }
 
-# Harness <harness>'s <label|icon|sound> (see the contract above): empty when
-# it has none
-# Usage: harness_brand <harness> <label|icon|sound>
+# Harness <harness>'s <label|icon|sound|glyph> (see the contract above):
+# empty when it has none
+# Usage: harness_brand <harness> <label|icon|sound|glyph>
 harness_brand() {
   local var="$1_$2"
   [[ $var =~ ^[a-z0-9_]+$ ]] && echo "${!var}"
