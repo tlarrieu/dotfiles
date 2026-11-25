@@ -95,17 +95,12 @@ work_text() {
   printf '%s' "$out"
 }
 
-# A count column of row (threads, comments): glyph, space, count, dimmer (blank
-# without any), as wide as the widest shown (see measure_columns), then a
-# space (it ends on text); none at all when no row has any (width 0)
-# Usage: count_cell <glyph> <count> <width>
+# A count indicator of row (threads, comments): glyph, space, count, dimmer;
+# nothing without any
+# Usage: count_cell <glyph> <count>
 count_cell() {
-  [ "$3" -gt 0 ] || return 0
-  if [ "${2:-0}" -gt 0 ] 2>/dev/null; then
-    printf '<span %s>%s %s</span>%*s ' "$dimmer" "$1" "$2" $(($3 - 2 - ${#2})) ''
-  else
-    printf '%*s ' "$3" ''
-  fi
+  [ "${2:-0}" -gt 0 ] 2>/dev/null || return 0
+  printf '<span %s>%s %s</span>' "$dimmer" "$1" "$2"
 }
 
 # How big a pull request is, from its additions and deletions (deletions
@@ -160,12 +155,8 @@ row() {
     esac
   done
   local ci review who='' title=${c[title]} threads comments auto='' line
-  # Auto-merge: its glyph (one cell, like a space), dimmer, then a space; none
-  # at all when no row has it on (see measure_columns)
-  if [ "$auto_width" -gt 0 ]; then
-    auto='  '
-    [ "${c[auto]}" = auto ] && auto="<span $dimmer>$auto_glyph</span> "
-  fi
+  # Auto-merge: its glyph, dimmer
+  [ "${c[auto]}" = auto ] && auto="<span $dimmer>$auto_glyph</span>"
   # Faces are 3 cells wide: the glyph (one cell, blank when missing), then two
   # spaces. Style the glyphs only (a tint wins over the review face's own
   # style)
@@ -192,30 +183,23 @@ row() {
     [ ${#title} -gt "$title_width" ] && title="${title:0:title_width-1}…"
     title+=$(printf '%*s' $((title_width - ${#title})) '')
   fi
-  threads=$(count_cell "$thread_glyph" "${c[threads]}" "$threads_width")
-  comments=$(count_cell "$comment_glyph" "${c[comments]}" "$comments_width")
-  # Local work, as wide as the widest shown (see measure_columns), then a
-  # space (it ends on text); none at all when no row has any
-  local work=''
-  if [ "$work_width" -gt 0 ]; then
-    local ahead changed tended shown
-    read -r ahead changed tended <<<"${c[work]:-0 0 -}"
-    work=$(work_text "$ahead" "$changed")
-    shown=${#work}
+  threads=$(count_cell "$thread_glyph" "${c[threads]}")
+  comments=$(count_cell "$comment_glyph" "${c[comments]}")
+  # Local work
+  local work ahead changed tended
+  read -r ahead changed tended <<<"${c[work]:-0 0 -}"
+  work=$(work_text "$ahead" "$changed")
+  if [ -n "$work" ]; then
     [ "${ahead:-0}" -gt 0 ] && work=${work/"$unpushed_glyph $ahead"/"<span color=\"$yellow\">$unpushed_glyph $ahead</span>"}
     if [ "${changed:-0}" -gt 0 ]; then
       local tone=$dimmer
       [ "$tended" = yes ] || tone="color=\"$yellow\""
       work=${work/"$changes_glyph $changed"/"<span $tone>$changes_glyph $changed</span>"}
     fi
-    work+="$(printf '%*s' $((work_width - shown)) '') "
   fi
-  # The agent's face, then two spaces; none at all when no row has one
+  # The agent's face
   local agent=''
-  if [ "$agents_width" -gt 0 ]; then
-    agent='   '
-    [ -n "${c[agent]}" ] && agent="<span ${agent_styles[${c[agent]}]:-$agent_fallback_style}>${agent_faces[${c[agent]}]:-󰚩}</span>  "
-  fi
+  [ -n "${c[agent]}" ] && agent="<span ${agent_styles[${c[agent]}]:-$agent_fallback_style}>${agent_faces[${c[agent]}]:-󰚩}</span>"
   # Time and number: as wide as the widest shown (see measure_columns). No
   # number with a project: "local" instead, the project goes before the title
   local middle
@@ -226,11 +210,15 @@ row() {
   fi
   local before
   # The indicators first (auto-merge, comments, threads, local work, the
-  # agent: each column none at all when no row has any), then the faces and
-  # number. The
-  # time last, dimmer, right-aligned, after a \x1f standing for the padding
-  # lining all rows' times up (see align_times)
-  before=$(printf '%s%s%s%s%s%s%s%s %s ' "$auto" "$comments" "$threads" "$work" "$agent" "$ci" "$review" "$glyph" "$middle")
+  # agent), one space apart in one column, right-aligned: a \x1e after them
+  # stands for the padding lining the faces up (see align_columns). Then the
+  # faces and number. The time last, dimmer, right-aligned, after a \x1f
+  # standing for the padding lining all rows' times up (see align_columns)
+  local indicators='' indicator
+  for indicator in "$auto" "$comments" "$threads" "$work" "$agent"; do
+    [ -n "$indicator" ] && indicators+="${indicators:+ }$indicator"
+  done
+  before=$(printf '%s\x1e%s%s%s %s ' "$indicators" "$ci" "$review" "$glyph" "$middle")
   line="$before$(escape "$title")$who"$'\x1f'"<span $dimmer>$(printf '%*s' "$time_width" "${c[time]}")</span>"
   [ "${c[italic]}" = italic ] && line="<span style=\"italic\">$line</span>"
   printf '%s' "$line"
@@ -525,79 +513,74 @@ mine_when() {
   esac
 }
 
-# The time column of a pull request waiting on my review: for how long
-# Lines the rows' times up on the right (see row): each row's \x1f becomes the
-# padding to the widest row's text, within max_width. A longer one's time
-# follows its text
-align_times() {
-  local i prefix widest=0 limit=$((max_width - 2 - time_width)) pad
+# Lines the rows' columns up (see row): each row's <mark> becomes the padding
+# to the widest row's text before it, within <limit> characters, then <gap>
+# spaces (none when no row has any text there). A longer one's next column
+# follows its text. With right, the padding goes before the text instead (at
+# the start of the line: the text is the row's first)
+# Usage: align_at <mark> <limit> <gap> [right]
+align_at() {
+  local i prefix widest=0 pad
   local -a widths=()
   for i in "${!lines[@]}"; do
-    [[ ${lines[$i]} == *$'\x1f'* ]] || continue
-    widths[i]=$(shown_width "${lines[$i]%%$'\x1f'*}")
+    [[ ${lines[$i]} == *"$1"* ]] || continue
+    widths[i]=$(shown_width "${lines[$i]%%"$1"*}")
     [ "${widths[i]}" -gt "$widest" ] && widest=${widths[i]}
   done
-  [ "$widest" -gt "$limit" ] && widest=$limit
+  [ "$widest" -gt "$2" ] && widest=$2
+  local gap=$3
+  [ "$widest" -gt 0 ] || gap=0
   for i in "${!widths[@]}"; do
-    prefix=${lines[$i]%%$'\x1f'*} pad=$((widest - widths[i]))
+    prefix=${lines[$i]%%"$1"*} pad=$((widest - widths[i]))
     [ "$pad" -gt 0 ] || pad=0
-    lines[i]="$prefix$(printf '%*s' "$pad" '')  ${lines[$i]#*$'\x1f'}"
+    if [ "$4" = right ]; then
+      lines[i]="$(printf '%*s' "$pad" '')$prefix$(printf '%*s' "$gap" '')${lines[$i]#*"$1"}"
+    else
+      lines[i]="$prefix$(printf '%*s' $((pad + gap)) '')${lines[$i]#*"$1"}"
+    fi
   done
 }
+
+# The indicators' column (\x1e, right-aligned, then two spaces: the agent's
+# face spills over), then the times on the right (\x1f, within max_width)
+align_columns() {
+  align_at $'\x1e' "$max_width" 2 right
+  align_at $'\x1f' $((max_width - 2 - time_width)) 2
+}
+
+# The time column of a pull request waiting on my review: for how long
 
 # shellcheck disable=SC2154 # record fields, set by each_record
 review_when() { span $((now - at)); }
 
-# Sets time_width, number_width, threads_width and comments_width (0 when
-# none has any): the widest time, pull request number, unresolved threads and open comments (glyph, space and count; 0
-# when none has any) of the merge-queue records ($1) and the review-queue ones ($2), so that
+# Sets time_width and number_width: the widest time and pull request number
+# of the merge-queue records ($1) and the review-queue ones ($2), so that
 # columns line up without padding them all for the widest possible (a queued
-# one's "#37 2h"). And agents_width: 3 when an agent works on one (see
-# agents), else 0; work_width: the widest local work (see row), 0 when none;
-# auto_width: 2 when one of mine has auto-merge on (its glyph, a space), else 0.
-# The loose agents' rows too ($3, see find_loose_agents): their turn's
-# duration, their face, and room for their "local" (see row). And the local
+# one's "#37 2h"). The loose agents' rows too ($3, see find_loose_agents):
+# their turn's duration, and room for their "local" (see row). And the local
 # work's rows ($4, see find_local_work): alike
 # shellcheck disable=SC2154 # record fields, set by each_record
 measure_columns() {
   local when
-  time_width=0 number_width=0 threads_width=0 comments_width=0 agents_width=0 work_width=0 auto_width=0
+  time_width=0 number_width=0
   widest() { # <time>
     [ ${#1} -gt "$time_width" ] && time_width=${#1}
-    [ "$auto" = auto ] && auto_width=2
     [ ${#number} -gt "$number_width" ] && number_width=${#number}
-    if [ "${threads:-0}" -gt 0 ] 2>/dev/null && [ $((${#threads} + 2)) -gt "$threads_width" ]; then
-      threads_width=$((${#threads} + 2))
-    fi
-    if [ "${comments:-0}" -gt 0 ] 2>/dev/null && [ $((${#comments} + 2)) -gt "$comments_width" ]; then
-      comments_width=$((${#comments} + 2))
-    fi
-    [ -n "${agents[$repo#$number]}" ] && agents_width=3
-    widest_work "${work_of[$repo#$branch]:-${pr_work[$repo#$number]}}"
-  }
-  widest_work() { # <work cell>
-    local ahead changed text
-    read -r ahead changed _ <<<"$1"
-    text=$(work_text "$ahead" "$changed")
-    [ ${#text} -gt "$work_width" ] && work_width=${#text}
     return 0
   }
   widest_mine() { when=$(mine_when); widest "$when"; }
-  widest_review() { local branch='' auto=''; when=$(review_when); widest "$when"; } # (no branch nor auto field)
+  widest_review() { when=$(review_when); widest "$when"; }
   each_record widest_mine <<<"$1"
   each_record widest_review <<<"$2"
   local_room() { [ "$number_width" -ge 5 ] || number_width=5; } # "local", in the number's place
   widest_agent() {
     local_room
-    agents_width=3
     when=$(agent_when); [ ${#when} -gt "$time_width" ] && time_width=${#when}
   }
   each_record widest_agent <<<"$3"
   widest_local() {
     local_room
     when=$(span $((now - time))); [ ${#when} -gt "$time_width" ] && time_width=${#when}
-    widest_work "$ahead $changes"
-    [ "$agent" != - ] && agents_width=3
     return 0
   }
   each_record widest_local <<<"$4"
@@ -791,7 +774,7 @@ while :; do
     notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"
     exit 0
   fi
-  align_times
+  align_columns
 
   # GitHub unreachable (exit 1): the trackers printed what they last knew
   status_line=''
