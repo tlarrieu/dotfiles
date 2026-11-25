@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
-# Spawns a Claude agent for the current project (~/.project), in a kitty window
-# kept in the background (see the claude-agent rule in awesome), with a neovim
+# Spawns an agent for the current project (~/.project), in a kitty window
+# kept in the background (see the agent rule in awesome), with a neovim
 # tab next to the agent to inspect what it produces.
 # In a git repository, the agent works in its own worktree, with its
-# own TEST_ENV_NUMBER (see claude-agent-worktree), so neither its changes nor
-# its specs get in the way of ours. claude-agent-setup/<repository> prepares
+# own TEST_ENV_NUMBER (see agent-worktree), so neither its changes nor
+# its specs get in the way of ours. agent-setup/<repository> prepares
 # the worktree when it exists (<repository>: the name of its origin, else of
 # its folder).
-# Usage: claude-agent-spawn [prompt...]  (no prompt: interactive session)
-# Environment, for scripts spawning agents (see claude-agent-pr):
-#   CLAUDE_AGENT_DIR      where to spawn it, instead of the current project
-#   CLAUDE_AGENT_AT       the commit its worktree starts at, instead of the
+# Usage: agent-spawn [prompt...]  (no prompt: interactive session)
+# Environment, for scripts spawning agents (see agent-pr):
+#   AGENT_DIR      where to spawn it, instead of the current project
+#   AGENT_AT       the commit its worktree starts at, instead of the
 #                         current one (the agent then gets no branch rule)
-#   CLAUDE_AGENT_BRANCH   with CLAUDE_AGENT_AT, a branch at that commit for its
+#   AGENT_BRANCH   with AGENT_AT, a branch at that commit for its
 #                         worktree to check out, instead of a detached HEAD
-#   CLAUDE_AGENT_CONTEXT  more instructions, appended to its system prompt
-#   CLAUDE_AGENT_NOTIFICATION  the notification telling of this spawn, to
+#   AGENT_CONTEXT  more instructions, appended to its system prompt
+#   AGENT_NOTIFICATION  the notification telling of this spawn, to
 #                         carry on with (see spawn_notify), instead of a new one
 # It tells how the spawn goes in a notification, at once: launched, or why not.
 
 assets=$(dirname "$(readlink -f "$0")")
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh" # spawn_notify
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh" # spawn_notify
 fail() { spawn_notify failed "Agent not started: $1"; exit 1; }
 
 prompt="$*"
@@ -34,8 +34,8 @@ about=${about//'&'/'&amp;'} about=${about//'<'/'&lt;'} about=${about//'>'/'&gt;'
 about=${about:-interactive session}
 
 # Spawning takes a while (the worktree, then claude): say so now, unless
-# claude-agent-pr did
-[ -n "$CLAUDE_AGENT_NOTIFICATION" ] || spawn_notify started "Starting an agent: $about"
+# agent-pr did
+[ -n "$AGENT_NOTIFICATION" ] || spawn_notify started "Starting an agent: $about"
 
 # The agent tab removes the files passing it the prompt and context: until it
 # is launched, they're ours to clean up
@@ -43,14 +43,14 @@ files='' launched=''
 trap '[ -n "$launched" ] || rm -f $files' EXIT
 
 # Same current project as awesome's dev window (it may hold a ~)
-project=${CLAUDE_AGENT_DIR:-$(cat ~/.project 2>/dev/null)}
+project=${AGENT_DIR:-$(cat ~/.project 2>/dev/null)}
 project=${project/#\~/$HOME}
 [ -d "$project" ] || fail "no project to spawn it in (see ~/.project)"
 
 # The prompt and the agent's context go through files to dodge session
 # quoting: the agent tab reads them, then removes them along with the session
 # file, before anything else
-spawn_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents-spawn"
+spawn_dir="${XDG_RUNTIME_DIR:-/tmp}/agents-spawn"
 mkdir -p "$spawn_dir"
 session_file=$(mktemp "$spawn_dir/session.XXXXXX")
 files=$session_file reads='' setup='' claude_args='' env='' directory=$project
@@ -65,7 +65,7 @@ fi
 if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   error_file=$(mktemp "$spawn_dir/error.XXXXXX")
   files+=" $error_file"
-  read -r slot directory < <("$assets/claude-agent-worktree" "$primary" ${CLAUDE_AGENT_AT:+"$CLAUDE_AGENT_AT"} ${CLAUDE_AGENT_AT:+${CLAUDE_AGENT_BRANCH:+"$CLAUDE_AGENT_BRANCH"}} 2>"$error_file")
+  read -r slot directory < <("$assets/agent-worktree" "$primary" ${AGENT_AT:+"$AGENT_AT"} ${AGENT_AT:+${AGENT_BRANCH:+"$AGENT_BRANCH"}} 2>"$error_file")
   error=$(cat "$error_file")
   rm -f "$error_file"
   [ -n "$slot" ] || fail "could not create its worktree: $error"
@@ -74,19 +74,19 @@ if primary=$(git -C "$project" rev-parse --show-toplevel 2>/dev/null); then
   env="--env TEST_ENV_NUMBER=$slot"
 
   origin=$(git -C "$primary" remote get-url origin 2>/dev/null)
-  hook="$assets/claude-agent-setup/$(basename "${origin:-$primary}" .git)"
-  [ -x "$hook" ] || hook="$assets/claude-agent-setup/$(basename "$primary")"
-  # Holding a lock the while (see setting_up in claude-agent-sweep): no
+  hook="$assets/agent-setup/$(basename "${origin:-$primary}" .git)"
+  [ -x "$hook" ] || hook="$assets/agent-setup/$(basename "$primary")"
+  # Holding a lock the while (see setting_up in agent-sweep): no
   # claude runs in the worktree yet
-  setup_lock="$(git -C "$directory" rev-parse --absolute-git-dir)/claude-agent-setup.lock"
+  setup_lock="$(git -C "$directory" rev-parse --absolute-git-dir)/agent-setup.lock"
   [ -x "$hook" ] && setup="flock $setup_lock $hook $primary; or echo \"Worktree setup failed, carrying on\"; "
 
   head="It sits on a detached HEAD, at the user's current commit ($base): before
 your first commit, create a branch named after your work (git switch -c
 <name>), and never commit on the detached HEAD."
-  [ -n "$CLAUDE_AGENT_AT" ] && head="It sits on a detached HEAD, at $(git -C "$directory" rev-parse --short HEAD)."
-  [ -n "$CLAUDE_AGENT_AT" ] && [ -n "$CLAUDE_AGENT_BRANCH" ] &&
-    head="It sits on the branch $CLAUDE_AGENT_BRANCH, at $(git -C "$directory" rev-parse --short HEAD)."
+  [ -n "$AGENT_AT" ] && head="It sits on a detached HEAD, at $(git -C "$directory" rev-parse --short HEAD)."
+  [ -n "$AGENT_AT" ] && [ -n "$AGENT_BRANCH" ] &&
+    head="It sits on the branch $AGENT_BRANCH, at $(git -C "$directory" rev-parse --short HEAD)."
   context_file=$(mktemp "$spawn_dir/context.XXXXXX")
   cat >"$context_file" <<CONTEXT
 You work in a git worktree of your own, $directory, apart from the user's
@@ -94,23 +94,23 @@ checkout ($primary), which you must leave alone: make your changes and run your
 commands here. $head TEST_ENV_NUMBER=$slot gives your specs their own
 test databases and Redis: keep it as is.
 CONTEXT
-  [ -n "$CLAUDE_AGENT_CONTEXT" ] && printf '\n%s\n' "$CLAUDE_AGENT_CONTEXT" >>"$context_file"
+  [ -n "$AGENT_CONTEXT" ] && printf '\n%s\n' "$AGENT_CONTEXT" >>"$context_file"
   reads+="set -l context (string collect < $context_file); "
   files+=" $context_file"
   claude_args="--append-system-prompt \$context "
 fi
 
 # Fish loads the claude function, which brings the settings from my dotfiles.
-# Once the agent stops, its whole window goes (see claude-agent-sweep for its
+# Once the agent stops, its whole window goes (see agent-sweep for its
 # worktree), unless claude failed: then it waits, so that we can read why.
 # "--" ends claude's options: a prompt may start with a dash.
 agent="${reads}rm -f $files; ${setup}claude $claude_args"
 [ -n "$prompt" ] && agent+="-- \$prompt"
 agent+="; set -l code \$status"
 agent+="; if test \$code -ne 0"
-agent+="; notify-send --app-name=claude.spawn.failed --icon=$assets/claude.png --urgency=critical ${CLAUDE_AGENT_NOTIFICATION:+--replace-id=$CLAUDE_AGENT_NOTIFICATION} Claude \"Agent stopped: claude exited with status \$code, in $(basename "$directory") (its window tells why)\""
+agent+="; notify-send --app-name=agents.spawn.failed --icon=$assets/claude.png --urgency=critical ${AGENT_NOTIFICATION:+--replace-id=$AGENT_NOTIFICATION} Claude \"Agent stopped: claude exited with status \$code, in $(basename "$directory") (its window tells why)\""
 agent+="; echo; echo \"claude exited with status \$code: press Enter to close\"; read; end"
-agent+="; $assets/claude-agent-close-window"
+agent+="; $assets/agent-close-window"
 
 cat >"$session_file" <<SESSION
 new_tab
@@ -125,8 +125,8 @@ SESSION
 # its focused window as unfocused (kitty deems the new one focused)
 # Its windows get its environment: not this spawn's settings, which are this
 # agent's only (the first spawn starts that kitty, the others hand it theirs)
-env -u CLAUDE_AGENT_DIR -u CLAUDE_AGENT_AT -u CLAUDE_AGENT_BRANCH -u CLAUDE_AGENT_CONTEXT -u CLAUDE_AGENT_NOTIFICATION \
-  setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
+env -u AGENT_DIR -u AGENT_AT -u AGENT_BRANCH -u AGENT_CONTEXT -u AGENT_NOTIFICATION \
+  setsid -f kitty --single-instance --instance-group agents --name agent \
   --session "$session_file" >/dev/null 2>&1 || fail "could not start its kitty"
 launched=1
 spawn_notify launched "Agent launched in $(basename "$directory"), showing up in the panel once claude is up: $about"

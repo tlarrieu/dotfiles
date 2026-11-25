@@ -1,5 +1,5 @@
 # shellcheck shell=bash
-# Records: what the GitHub trackers and claude-agent-list print. Tab
+# Records: what the GitHub trackers and agent-list print. Tab
 # separated lines under a header naming their fields: "#<field>\t<field>…".
 # Readers go by name, so adding a field only touches the script printing them.
 # Source it: . "$assets/lib/records.sh" (see config/awesome/records.lua for

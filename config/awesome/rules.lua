@@ -222,7 +222,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
     properties = { size_hints_honor = false },
   },
 
-  -- [[ Background Claude agents (see ~/scripts/claude-agent-spawn) ]] --------
+  -- [[ Background agents (see ~/scripts/agent-spawn) ]] -----------------------
 
   -- Kept off every tag, like soft-killed clients, until we jump to them.
   -- Untagging is deferred: once rules ran, awesome puts tagless clients back
@@ -230,7 +230,7 @@ awful.rules.rules = gears.table.join(awful.rules.rules, {
   -- get tiled) there for a moment.
 
   {
-    rule = { instance = 'claude%-agent' },
+    rule = { instance = '^agent$' },
     properties = {
       focus = false,
       hidden = true,

@@ -18,7 +18,7 @@ cyan=${cyan:-cyan}
 dim='fgalpha="60%"' dimmer='fgalpha="50%"'
 
 # Pango attributes for each Claude agent state's face (see
-# lib/claude-agents.sh), for the pickers showing agents (rofi-github): the
+# lib/agents.sh), for the pickers showing agents (rofi-github): the
 # panel's colors (see config/awesome/widgets/agents.lua),
 # running and monitoring steady instead of pulsing; agent_fallback_style for unknown states
 # shellcheck disable=SC2034 # for the scripts sourcing this

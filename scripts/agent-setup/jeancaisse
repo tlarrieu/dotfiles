@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Prepares a jeancaisse worktree for a Claude agent, from within it, with
+# Prepares a jeancaisse worktree for an agent, from within it, with
 # TEST_ENV_NUMBER set to the agent's slot.
 # Usage: jeancaisse <primary_checkout>
 

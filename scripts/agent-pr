@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Spawns a Claude agent (see claude-agent-spawn) on a pull request, in a
+# Spawns an agent (see agent-spawn) on a pull request, in a
 # worktree at its latest commit, for one of these tasks:
 #   fix      fix it (mine): resolve its conflicts with its base branch (merging
 #            it in, committed on my local copy of its branch, which its worktree
@@ -29,24 +29,24 @@
 # rofi-github (Ctrl+s), rofi-search (cl fix|review <PR>) and merge-queue's
 # notifications.
 # The repository's clone: the one in ~/dev or ~/git whose origin it is.
-# Usage: claude-agent-pr <fix|review> <owner/repo> <number>
+# Usage: agent-pr <fix|review> <owner/repo> <number>
 
 assets=$(dirname "$(readlink -f "$0")")
 # shellcheck source-path=SCRIPTDIR source=lib/github.sh
 . "$assets/lib/github.sh" # github_clone, github_ignored_checks (and records.sh)
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh" # pr_agent, spawn_notify
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh" # pr_agent, spawn_notify
 fail() { spawn_notify failed "Agent to $task $repo#$number not started: $1"; exit 1; }
 
 task=$1 repo=$2 number=$3
 case $task in fix | review) ;; *) task='' ;; esac
 [ -n "$task" ] && [ -n "$repo" ] && [ -n "$number" ] \
-  || { echo "Usage: claude-agent-pr <fix|review> <owner/repo> <number>" >&2; exit 2; }
+  || { echo "Usage: agent-pr <fix|review> <owner/repo> <number>" >&2; exit 2; }
 
 # An agent on it already (from rofi-github, or a notification): back to it,
 # rather than another one
 session=$(pr_agent "$repo#$number")
-[ -n "$session" ] && exec "$assets/claude-agent-jump" "$session"
+[ -n "$session" ] && exec "$assets/agent-jump" "$session"
 
 # Nothing to fix on one of mine, by merge-queue's cache (not in it, someone
 # else's or in no watched repository: no telling, go ahead). Merged ones
@@ -71,7 +71,7 @@ if [ "$task" = fix ]; then
 fi
 
 # Spawning, which takes a while (the fetch, the worktree, then claude): say
-# so now, the notification turning into the outcome (see claude-agent-spawn)
+# so now, the notification turning into the outcome (see agent-spawn)
 spawn_notify started "Starting an agent to $task $repo#$number…"
 
 clone=$(github_clone "$repo")
@@ -287,5 +287,5 @@ review only they see until they submit it, by saying "post" (all of them) or
 PROMPT
 fi
 
-CLAUDE_AGENT_DIR=$clone CLAUDE_AGENT_AT=$head CLAUDE_AGENT_BRANCH=$local_branch CLAUDE_AGENT_CONTEXT=$rules \
-  exec "$assets/claude-agent-spawn" "$prompt"
+AGENT_DIR=$clone AGENT_AT=$head AGENT_BRANCH=$local_branch AGENT_CONTEXT=$rules \
+  exec "$assets/agent-spawn" "$prompt"

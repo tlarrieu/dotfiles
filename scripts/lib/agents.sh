@@ -1,16 +1,49 @@
 # shellcheck shell=bash
-# Shared by the Claude agent scripts. Source it: . "$assets/lib/claude-agents.sh"
+# Shared by the agent scripts. Source it: . "$assets/lib/agents.sh"
+#
+# Agents are coding assistant sessions (a harness: Claude Code today), which
+# the rest knows only through the state files below: the panel
+# (config/awesome/widgets/agents.lua, through agent-list), rofi-github, the
+# GitHub notifications' Fix action, agent-jump, agent-sweep, local-work.
+# What a harness brings, and what we use it for (the contract an adapter,
+# lib/harness/<name>.sh, is to fill; Claude's still lives here and in the
+# agent-* scripts, see "Claude:" below):
+#   required
+#     launch      the command running an agent in a directory, on a first
+#                 prompt (or none: interactive), with extra context (agent-spawn)
+#     alive       whether a pid is one of its sessions (agent-list, sweep)
+#     state       telling each session's state as it changes: agent-state,
+#                 called by its hooks (Claude: its settings.json); without
+#                 hooks, agent-list would have to guess from the process
+#   optional (what goes without it, in parentheses)
+#     title       a session's title (rofi-github's rows, notifications)
+#     last words  what it said last (the "Done" notifications' body)
+#     first prompt  the prompt it started on (agent-pr's agents tell their
+#                 pull request by it; else by branch only)
+#     interrupted whether its turn ended on an interrupt (it shows as busy
+#                 until its next state)
+#     handed over whether it continued in another session it shows (it lists
+#                 as an agent of its own)
+#     background  sessions without a terminal, and the terminals showing or
+#                 attaching to them (agent-jump can't reach them)
+#     busy        whether its turn left something running (no monitoring
+#                 state: done at once)
+# Claude: transcripts (agent_title, agent_last_words, agent_pr, agent-list's
+# interrupted and continued), its processes (alive, background,
+# background_terminals, monitoring, agent-sweep's processes), its hook
+# payloads (agent-state), its command line (agent-spawn, agent-jump's attach),
+# its branding (claude.png, claude.ogg, notifications' title).
 
 # Live sessions, one state file each, named after the session id (see
-# claude-agent-state, which writes them; dot files are temporary)
-agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
+# agent-state, which writes them; dot files are temporary)
+agents_dir="${XDG_RUNTIME_DIR:-/tmp}/agents"
 
 # A state file holds one line: these fields, space separated
-#   state         running, done, idle or attention (claude-agent-list
+#   state         running, done, idle or attention (agent-list
 #                 tells monitoring too, see monitoring); view: continued in
-#                 another session, which it shows (claude-agent-list marks
+#                 another session, which it shows (agent-list marks
 #                 them, and leaves them out)
-#   pid           the claude process
+#   pid           the agent's process (claude's)
 #   started       when the session started (epoch)
 #   window        its terminal's X window id
 #   listen_on     its kitty's remote control socket
@@ -19,11 +52,11 @@ agents_dir="${XDG_RUNTIME_DIR:-/tmp}/claude-agents"
 #   transcript    its transcript path
 #   since         when the current turn started (epoch)
 #   pr            the pull request it works on, as <owner/repo>#<number>
-#                 (agent_pr for claude-agent-pr's agents, branch_pr for the
+#                 (agent_pr for agent-pr's agents, branch_pr for the
 #                 others), as of its last hook
 #   root          the top of its worktree (- when it holds a space)
 #   untold        yes: done, its turn over on something left running (see
-#                 monitoring), its "Done" not told yet (see claude-agent-state)
+#                 monitoring), its "Done" not told yet (see agent-state)
 # Missing values are written as -.
 agent_fields=(state pid started window listen_on kitty_window project transcript since pr root untold)
 
@@ -49,7 +82,7 @@ write_agent() {
   echo "${values[*]}" >"$tmp" && mv "$tmp" "$1"
 }
 
-# The pull request an agent works on, from its transcript: claude-agent-pr's
+# The pull request an agent works on, from its transcript: agent-pr's
 # agents open with "Fix <its URL>" or "Review <its URL>" (an agent merely
 # mentioning one doesn't count). Prints <owner/repo>#<number>, or nothing.
 # Reads up to the first prompt only.
@@ -124,7 +157,7 @@ agent_last_words() {
 }
 
 # A notification about an agent which, clicked, jumps to it (see
-# claude-agent-jump). One per agent: a newer one replaces it (its id kept in
+# agent-jump). One per agent: a newer one replaces it (its id kept in
 # agent_notification <session>). Waiting for the click happens detached, so
 # that hooks return at once. Needs $assets (the scripts' directory).
 # Usage: agent_notify <session> <urgency> <title> <body>
@@ -135,26 +168,26 @@ agent_notify() {
   id=$(cat "$file" 2>/dev/null)
   # shellcheck disable=SC2016,SC2154 # $1..$7 belong to the inner sh; $assets: the caller's
   setsid -f sh -c '
-    notify-send --app-name=claude --icon="$1/claude.png" --urgency="$3" ${6:+--replace-id="$6"} \
+    notify-send --app-name=agents --icon="$1/claude.png" --urgency="$3" ${6:+--replace-id="$6"} \
       --action=default=Jump --print-id --wait "$4" "$5" | {
       read -r id && echo "$id" >"$7"
-      read -r action && [ "$action" = default ] && exec "$1/claude-agent-jump" "$2"
+      read -r action && [ "$action" = default ] && exec "$1/agent-jump" "$2"
     }' sh "$assets" "$1" "$2" "$3" "$4" "$id" "$file" >/dev/null 2>&1
 }
 
-# A spawn's progress (see claude-agent-pr and claude-agent-spawn), in one
+# A spawn's progress (see agent-pr and agent-spawn), in one
 # notification shown at once, before the slow parts: each call replaces the
-# previous one, its id kept in CLAUDE_AGENT_NOTIFICATION (exported: a spawn
-# started by claude-agent-pr carries on with its notification). Its app name
+# previous one, its id kept in AGENT_NOTIFICATION (exported: a spawn
+# started by agent-pr carries on with its notification). Its app name
 # tells its state, which awesome colors (see its theme): blue when started,
 # green when launched, red when failed (critical: it stays). Needs $assets.
 # Usage: spawn_notify <started|launched|failed> <body>
 spawn_notify() {
   local id urgency=normal
   [ "$1" = failed ] && urgency=critical
-  id=$(notify-send --app-name="claude.spawn.$1" --icon="$assets/claude.png" --urgency="$urgency" --print-id \
-    ${CLAUDE_AGENT_NOTIFICATION:+--replace-id="$CLAUDE_AGENT_NOTIFICATION"} Claude "$2" 2>/dev/null)
-  [ -n "$id" ] && export CLAUDE_AGENT_NOTIFICATION=$id
+  id=$(notify-send --app-name="agents.spawn.$1" --icon="$assets/claude.png" --urgency="$urgency" --print-id \
+    ${AGENT_NOTIFICATION:+--replace-id="$AGENT_NOTIFICATION"} Claude "$2" 2>/dev/null)
+  [ -n "$id" ] && export AGENT_NOTIFICATION=$id
   return 0
 }
 
@@ -184,7 +217,7 @@ alive() {
 
 # Whether claude process <pid> runs a background session: under claude's
 # daemon (moved there with ←, or started with --bg). It has no terminal of
-# its own: `claude attach` shows it (see claude-agent-jump)
+# its own: `claude attach` shows it (see agent-jump)
 # Usage: background <pid>
 background() {
   local pid=$1 argv ppid
@@ -214,7 +247,7 @@ read_ppid() {
 # (they source claude's shell snapshot), a Monitor's or a background Bash's.
 # Its own hooks (our callers) aside
 # Usage: monitoring <pid>
-# All from /proc, in bash: pgrep scans every process, and claude-agent-list
+# All from /proc, in bash: pgrep scans every process, and agent-list
 # asks for each agent done or idle (rofi-github waits on it)
 monitoring() {
   local self=$$ ppid child children=() more argv
@@ -242,7 +275,7 @@ monitoring() {
 # per line: <X window> <kitty socket> <kitty window> (- when unknown). Claude's
 # agent view showing it, by its terminal's title (the session's, after a
 # status glyph): a session in a kitty window, sent to the background (←) as
-# it was (a view now, see claude-agent-list), or before typing anything (it
+# it was (a view now, see agent-list), or before typing anything (it
 # hands its first prompt over to a background session, then shows those; no
 # transcript of its own). Then those attached to it (claude attach). Needs
 # $assets
@@ -287,15 +320,15 @@ background_terminals() {
   done
 }
 
-# Whether an agent's terminal is on screen (see claude-agent-displayed); a
+# Whether an agent's terminal is on screen (see agent-displayed); a
 # background one's (no window of its own): one showing it (see
 # background_terminals). Needs $assets
 # Usage: agent_displayed <session> <transcript> <X window> <kitty socket> <kitty window>
 agent_displayed() {
   local window socket id
-  [ "$3" != - ] && { "$assets/claude-agent-displayed" "$3" "$4" "$5"; return; }
+  [ "$3" != - ] && { "$assets/agent-displayed" "$3" "$4" "$5"; return; }
   while read -r window socket id; do
-    "$assets/claude-agent-displayed" "$window" "$socket" "$id" && return 0
+    "$assets/agent-displayed" "$window" "$socket" "$id" && return 0
   done < <(background_terminals "$1" "$2")
   return 1
 }
@@ -307,7 +340,7 @@ agent_displayed() {
 declare -A agent_wants=([attention]=4 [done]=3 [running]=2 [monitoring]=2 [idle]=1)
 
 # The session of the agent working on pull request <owner/repo>#<number>
-# (see claude-agent-pr), the one wanting me the most when there are several;
+# (see agent-pr), the one wanting me the most when there are several;
 # nothing when none does. Needs $assets (the scripts' directory) and
 # records.sh.
 # Usage: pr_agent <owner/repo>#<number>
@@ -318,7 +351,7 @@ pr_agent() {
     [ "$pr" = "$wanted" ] && [ "${agent_wants[$state]:-0}" -gt "$best_rank" ] && best=$session best_rank=${agent_wants[$state]:-0}
     return 0
   }
-  each_record pick < <("$assets/claude-agent-list")
+  each_record pick < <("$assets/agent-list")
   echo "$best"
 }
 

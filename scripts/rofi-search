@@ -128,7 +128,7 @@ end
 # Spawns a background Claude agent in the current project, the rest of the query
 # being its prompt (none: interactive session). "fix <PR>" or "review <PR>" (the
 # whole query) spawns one on that pull request instead, as rofi-github's
-# Ctrl+s does (see claude-agent-pr: back to the agent already on it, if any).
+# Ctrl+s does (see agent-pr: back to the agent already on it, if any).
 # <PR>: 1234 or #1234 (the current project's repository), owner/repo#1234, or
 # its URL
 class Claude
@@ -143,13 +143,13 @@ class Claude
     repo ||= url_repo || project_repo
     return notify('No repository for this pull request: not in a GitHub project (see ~/.project)') unless repo
 
-    system(script('claude-agent-pr'), task, repo, number)
+    system(script('agent-pr'), task, repo, number)
   end
 
   private
 
   def spawn(str)
-    system(script('claude-agent-spawn'), *([str] unless str.empty?))
+    system(script('agent-spawn'), *([str] unless str.empty?))
   end
 
   # The current project's repository (owner/repo), from its origin
@@ -162,7 +162,7 @@ class Claude
   end
 
   def notify(message)
-    system('notify-send', '--app-name=claude', "--icon=#{script('claude.png')}", 'Claude', message)
+    system('notify-send', '--app-name=agents', "--icon=#{script('claude.png')}", 'Claude', message)
   end
 
   def script(name)

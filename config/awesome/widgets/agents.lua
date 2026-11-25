@@ -1,4 +1,4 @@
--- Claude agents (fed by ~/scripts/claude-agent-state hooks)
+-- Agents (fed by ~/scripts/agent-state hooks)
 -- Panel widget, see panel.lua: returns { widget, update }
 
 local awful = require('awful')
@@ -24,6 +24,34 @@ local widget = wibox.widget({
 })
 
 local scripts = os.getenv('HOME') .. '/scripts'
+
+-- Projects' short names: the second word of ~/.config/agents/projects'
+-- lines, when any (as ~/scripts/rofi-github reads them). Read on each
+-- rebuild, so that an edit shows on the next one
+---@return table<string, string>
+local short_names = function()
+  local names = {}
+  local file = io.open((os.getenv('XDG_CONFIG_HOME') or os.getenv('HOME') .. '/.config') .. '/agents/projects')
+  if not file then return names end
+  for line in file:lines() do
+    local long, short = line:match('^%s*([^#%s]%S*)%s+(%S+)')
+    if long then names[long] = short end
+  end
+  file:close()
+  return names
+end
+
+-- A project's name as shown: its short name, an agent worktree's
+-- (<project>-<slot>) its project's short one then the slot, else as it is
+---@param names table<string, string> See short_names
+---@param project string
+---@return string
+local short_name = function(names, project)
+  if names[project] then return names[project] end
+  local base, slot = project:match('^(.+)%-(%d+)$')
+  if base and names[base] then return names[base] .. '-' .. slot end
+  return project
+end
 
 -- Turn duration, compact enough for the panel: 42s, 4m, 1h05
 ---@param since integer When the turn started (epoch seconds)
@@ -83,7 +111,7 @@ blink:connect_signal('timeout', function()
   for paint, name in pairs(blinking) do paint(pulse(name)) end
 end)
 
--- Rebuild the entries from claude-agent-list, and (un)schedule polling/blinking
+-- Rebuild the entries from agent-list, and (un)schedule polling/blinking
 ---@type SpawnCallback
 local rebuild = function(out)
   local colors = beautiful.colors
@@ -95,7 +123,7 @@ local rebuild = function(out)
     idle = colors.fg.dim,
     attention = colors.yellow.base,
   }
-  -- (mirrors faces in ~/scripts/lib/claude-agents.sh)
+  -- (mirrors faces in ~/scripts/lib/agents.sh)
   local faces = { running = '󱚣', monitoring = '󱚣', done = '󱜙', idle = '󱜙', attention = '󱚟', fallback = '󰚩' }
   ---@type Widget[]
   local entries = {}
@@ -109,6 +137,7 @@ local rebuild = function(out)
   end
   -- Something to follow: poll
   local busy = #shown > 0
+  local names = short_names()
 
   for _, agent in ipairs(shown) do
     local state, since, project = agent.state, agent.since, agent.project
@@ -117,10 +146,12 @@ local rebuild = function(out)
     local face = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
     local label = wibox.widget({ valign = 'center', widget = wibox.widget.textbox })
     local glyph = faces[state] or faces.fallback
-    -- On a pull request: its number, the project without the worktree's
-    -- slot (jeancaisse-11 → jeancaisse #182343), telling agents apart
+    -- Under its short name (see short_name). On a pull request: its number,
+    -- the project without the worktree's slot (jeancaisse-11 → jc #182343),
+    -- telling agents apart
     local number = (agent.pr or '-'):match('#(%d+)$')
-    local name = gears.string.xml_escape(number and ('%s #%s'):format((project:gsub('%-%d+$', '')), number) or project)
+    local name = gears.string.xml_escape(number and ('%s #%s'):format(short_name(names, (project:gsub('%-%d+$', ''))), number)
+      or short_name(names, project))
 
     ---@type integer?
     local started = tonumber(since) -- nil when not running (-)
@@ -160,11 +191,11 @@ local rebuild = function(out)
 end
 
 ---@type fun()
-local update = function() awful.spawn.easy_async({ scripts .. '/claude-agent-list' }, rebuild) end
+local update = function() awful.spawn.easy_async({ scripts .. '/agent-list' }, rebuild) end
 
 poll:connect_signal('timeout', update)
 
-awesome.connect_signal('claude::update', update)
+awesome.connect_signal('agents::update', update)
 gears.timer({ timeout = 30, autostart = true, callback = update }) -- catch crashed sessions
 
 ---@type PanelWidget

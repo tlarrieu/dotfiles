@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Work lying on this machine, in the clones of the repositories listed in
 # ~/.config/github/repos (see github_clone) and their worktrees (Claude
-# agents' included, see claude-agent-worktree): what GitHub can't tell.
+# agents' included, see agent-worktree): what GitHub can't tell.
 # Branches (but the default one) holding commits not pushed, worktrees holding
 # uncommitted changes, detached worktrees holding commits on no branch, and
-# the worktrees of stopped agents the sweep kept (see claude-agent-sweep).
+# the worktrees of stopped agents the sweep kept (see agent-sweep).
 # Branches pushed as they are, and clean, are in too, for rofi-github to show
 # those no pull request of mine holds (its rows tell the rest), but for those
 # merged into the default branch already (squashed too, see squashed). Those
@@ -15,7 +15,7 @@
 # quarter of a second in a large worktree (finding untracked files), so they
 # run side by side, and the result is cached for rofi-github to open at
 # once. Refreshed in the background: by the panel (every minute), agents'
-# hooks (a turn's end, see claude-agent-state), rofi-github as it opens (for
+# hooks (a turn's end, see agent-state), rofi-github as it opens (for
 # the next time), Ctrl+r there. One at a time (a second waits for the
 # first). Signals the panel once refreshed.
 # Usage: local-work [--cached]  (--cached: print the cache, computing it only
@@ -31,7 +31,7 @@
 #             branch (none), 0 (gone); for a detached worktree, its commits on
 #             no branch at all (an agent's: past the commit it started at)
 #   changes   uncommitted changes in its worktree (files), 0 when none
-#   agent     the session of the live Claude agent working in its worktree,
+#   agent     the session of the live agent working in its worktree,
 #             or -
 #   kept      yes: a stopped agent's worktree, kept for what it holds; else -
 #   time      its last commit (epoch)
@@ -42,7 +42,7 @@ assets=$(dirname "$(readlink -f "$0")")
 . "$assets/lib/github.sh"
 
 state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/github/local-work"
-slots="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots"
+slots="${XDG_STATE_HOME:-$HOME/.local/state}/agents/slots"
 cache="$state_dir/work.tsv"
 verdicts="$state_dir/squashed" # see squashed
 mkdir -p "$state_dir"
@@ -53,15 +53,15 @@ exec 9>"$state_dir/.lock"
 flock -w 30 9 || { cat "$cache" 2>/dev/null; exit 0; }
 
 # Agents by the project they run in: a worktree's directory name (see
-# claude-agent-list)
+# agent-list)
 declare -A agent_in=() agent_state_in=()
 # shellcheck disable=SC2154,SC2329 # record fields, set by each_record (which calls it)
 note_agent() { agent_in[$project]=$session agent_state_in[$project]=$state; }
-each_record note_agent < <("$assets/claude-agent-list")
+each_record note_agent < <("$assets/agent-list")
 
-# Agent worktrees' base commits (what claude-agent-worktree started them at:
+# Agent worktrees' base commits (what agent-worktree started them at:
 # a pull request's latest commit, fetched into no ref, for a review), from
-# their slot; and the kept ones (claude-agent-sweep marks their slot)
+# their slot; and the kept ones (agent-sweep marks their slot)
 declare -A base_of=() kept=() agent_worktree=()
 for slot in "$slots"/*/[0-9]*; do
   [ -f "$slot" ] || continue

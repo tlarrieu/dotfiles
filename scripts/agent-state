@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Claude Code hook: tracks agent state for the awesome panel widget.
-# Usage (from hooks): claude-agent-state <idle|running|done|attention|end|subagent>
+# Usage (from hooks): agent-state <idle|running|done|attention|end|subagent>
 # (idle: a session just started, resumed or cleared: tracked, but nothing to tell)
-# State files: $XDG_RUNTIME_DIR/claude-agents/<session_id>, see
-# lib/claude-agents.sh for their fields (<since>: when the current turn
+# State files: $XDG_RUNTIME_DIR/agents/<session_id>, see
+# lib/agents.sh for their fields (<since>: when the current turn
 # started, i.e. the last prompt submission).
 # A "done" session whose terminal is on screen is stored as "idle" (already seen);
 # the panel turns the remaining "done" ones into "idle" once they get displayed.
-# Live subagents are tracked as $XDG_RUNTIME_DIR/claude-agents/<session_id>.subagents/<agent_id>
+# Live subagents are tracked as $XDG_RUNTIME_DIR/agents/<session_id>.subagents/<agent_id>
 # markers (touched on each of their tool uses), so that a session whose main
 # agent is done still shows as running while subagents work. Subagents needing
 # us mark the session for attention, as the main agent does.
@@ -19,14 +19,14 @@ session=$(jq -r '.session_id // empty' <<<"$input")
 [ -n "$session" ] || exit 0
 
 assets=$(dirname "$(readlink -f "$0")")
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh"
 
 file="$agents_dir/$session"
 subagents="$file.subagents"
 mkdir -p "$agents_dir"
 
-refresh_panel() { awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1 & }
+refresh_panel() { awesome-client 'awesome.emit_signal("agents::update")' >/dev/null 2>&1 & }
 
 # Only idle reminders and auth notices do not require attention
 if [ "$state" = attention ]; then
@@ -94,7 +94,7 @@ attention | done) agent_displayed "$session" "$(jq -r '.transcript_path // empty
 esac
 [ "$state" = "done" ] && $displayed && state=idle
 # Its turn over, on a Monitor or a background shell still running: still at
-# work (claude-agent-list tells it monitoring), no "Done" to tell yet
+# work (agent-list tells it monitoring), no "Done" to tell yet
 watching=false
 [ "$state" = "done" ] && monitoring "$pid" && watching=true
 # shellcheck disable=SC2034 # written by write_agent
@@ -124,10 +124,10 @@ project=$(basename "$root")
 project=${project//[[:space:]]/_}
 [[ $root == *[[:space:]]* ]] && root=- # fields are space separated
 # The pull request it works on, from what it is, at each hook (it may open
-# one, or switch branches): claude-agent-pr's agents by their first prompt,
+# one, or switch branches): agent-pr's agents by their first prompt,
 # the others by the branch they're on (one of my pull requests'). Not from
 # the environment: agents' windows inherit their kitty's, whichever agent
-# started it (see claude-agent-spawn)
+# started it (see agent-spawn)
 # shellcheck disable=SC2034 # written by write_agent
 pr=$(agent_pr "$transcript")
 [ -n "$pr" ] || pr=$(branch_pr "$root")

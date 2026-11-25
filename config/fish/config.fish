@@ -74,7 +74,7 @@ if [ -f ~/.env ]
 end
 
 # Spec runs numbered by TEST_ENV_NUMBER (e.g. Claude agents, see
-# ~/scripts/claude-agent-worktree) need Redis databases of their own, which the
+# ~/scripts/agent-worktree) need Redis databases of their own, which the
 # cache cluster docker.env points to (in conf.d) cannot provide
 if set -q TEST_ENV_NUMBER
   set -e REDIS_CACHE_CLUSTER_URL

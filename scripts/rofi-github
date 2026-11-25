@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Rofi hub for my Claude agents and GitHub pull requests, in this order:
+# Rofi hub for my agents and GitHub pull requests, in this order:
 # agents on none of the rows below (find_loose_agents), my open pull requests
 # (merge-queue), local work none of them holds (local-work), those waiting on
 # my review (review-queue), then my teams', then mine with auto-merge on, queued, deploying,
@@ -9,7 +9,7 @@
 # :agent)
 # Enter: open (browser; an agent's row: jump to it; local work: neovim in its
 # worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
-# page. Ctrl+s: the agent on it, else spawn one (claude-agent-pr). Ctrl+m:
+# page. Ctrl+s: the agent on it, else spawn one (agent-pr). Ctrl+m:
 # enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
 # it; for the others, their page at the merge box: GitHub's API only queues
 # ready ones, and a repository forbidding auto-merge refuses "Merge when
@@ -20,8 +20,8 @@ assets=$(dirname "$(readlink -f "$0")")
 . "$assets/lib/github.sh"
 # shellcheck source-path=SCRIPTDIR source=lib/rofi.sh
 . "$assets/lib/rofi.sh"
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh" # agent_faces, agent_wants
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh" # agent_faces, agent_wants
 mode=--cached
 filter=$1
 
@@ -291,14 +291,14 @@ confirm_queue() {
 }
 
 # Sets agents: the state of the agent working on each pull request
-# (<owner/repo>#<number>, see claude-agent-pr), the one wanting me the most
+# (<owner/repo>#<number>, see agent-pr), the one wanting me the most
 # when there are several; agent_states: each agent's
 # state, by session; agent_prs: the pull request each works on, by session.
-# And agent_list: all of them (claude-agent-list's records)
+# And agent_list: all of them (agent-list's records)
 # shellcheck disable=SC2154 # record fields, set by each_record
 find_agents() {
   declare -gA agents=() agent_states=() agent_prs=()
-  agent_list=$("$assets/claude-agent-list")
+  agent_list=$("$assets/agent-list")
   rank_agent() {
     agent_states[$session]=$state
     [ "$pr" != - ] && [ -n "$pr" ] || return 0
@@ -310,7 +310,7 @@ find_agents() {
   each_record rank_agent <<<"$agent_list"
 }
 
-# Sets loose_agents: claude-agent-list's records ($agent_list) of the agents
+# Sets loose_agents: agent-list's records ($agent_list) of the agents
 # working on no pull request among the merge-queue records ($1) and the
 # review-queue ones ($2) (one gone from them: merged long ago, reviewed; or
 # none, in an agent worktree, <project>-<slot>), so that they get a row. Not
@@ -345,7 +345,7 @@ find_loose_agents() {
 # pushes (see pushes, when there's something to). And pr_work, for the local
 # work of an agent on one of those pull requests, or on one waiting on my
 # review (review-queue's records, $3), elsewhere than on its head branch (a
-# detached worktree, as claude-agent-pr falls back to), by
+# detached worktree, as agent-pr falls back to), by
 # <owner/repo>#<number>: its row's work cell. For a review, its uncommitted
 # changes only (the commits it sits on are the pull request's, fetched by
 # ref: on no branch here). And local_work: the other records, which get rows
@@ -382,12 +382,12 @@ find_local_work() {
   each_record sort_work <<<"$1"
 }
 
-# Projects' short names: the second word of ~/.config/claude/agent-projects'
-# lines (see claude-agent-list), when any
+# Projects' short names: the second word of ~/.config/agents/projects'
+# lines (see agent-list), when any
 declare -A short_names=()
 while read -r long short _; do
   [[ -n $short && $long != \#* ]] && short_names[$long]=$short
-done <"${XDG_CONFIG_HOME:-$HOME/.config}/claude/agent-projects" 2>/dev/null
+done <"${XDG_CONFIG_HOME:-$HOME/.config}/agents/projects" 2>/dev/null
 
 # A project's name as shown: its short name, an agent worktree's
 # (<project>-<slot>) its project's short one then the slot, else as it is
@@ -529,12 +529,12 @@ measure_columns() {
   return 0
 }
 
-# The time column of an agent (a claude-agent-list record): how long its turn
+# The time column of an agent (a agent-list record): how long its turn
 # has run, when running (or monitoring)
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent_when() { case $state in running | monitoring) [ "$since" != - ] && span $(($(date +%s) - since)) seconds ;; esac; return 0; }
 
-# Adds an agent (a claude-agent-list record): Enter and Ctrl+s go back to it
+# Adds an agent (a agent-list record): Enter and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent() {
   local transcript
@@ -744,7 +744,7 @@ while :; do
   case $code in
     0)
       [ -n "$choice" ] || exit 0
-      [ -n "${sessions[$choice]}" ] && exec "$assets/claude-agent-jump" "${sessions[$choice]}"
+      [ -n "${sessions[$choice]}" ] && exec "$assets/agent-jump" "${sessions[$choice]}"
       [ -n "${dirs[$choice]}" ] && exec setsid -f kitty --directory "${dirs[$choice]}" nvim >/dev/null 2>&1
       [ -n "${urls[$choice]}" ] && exec browser-kiosk "${urls[$choice]}"
       notify-send --app-name=github GitHub "Nothing to open yet: push it first (Ctrl+o)"
@@ -753,12 +753,12 @@ while :; do
     11) [ -n "$choice" ] && [ -n "${queues[$choice]}" ] && exec browser-kiosk "${queues[$choice]}" ;; # reviews: stay
     12)
       if [ -n "$choice" ] && [ -n "${sessions[$choice]}" ]; then
-        exec "$assets/claude-agent-jump" "${sessions[$choice]}"
+        exec "$assets/agent-jump" "${sessions[$choice]}"
       elif [ -n "$choice" ]; then
         # Back to the agent on it, if any; nothing to fix: says so (see
-        # claude-agent-pr)
+        # agent-pr)
         read -r pr_task pr_repo pr_number <<<"${prs[$choice]}"
-        [ -n "$pr_task" ] && exec "$assets/claude-agent-pr" "$pr_task" "$pr_repo" "$pr_number"
+        [ -n "$pr_task" ] && exec "$assets/agent-pr" "$pr_task" "$pr_repo" "$pr_number"
       fi ;;
     13)
       if [ -n "$choice" ]; then

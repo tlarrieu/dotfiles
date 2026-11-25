@@ -77,7 +77,7 @@ github_lock() {
 }
 
 # A notification which, clicked, opens <url>. Given one of my pull requests
-# needing a fix, a second action: Fix with Claude (see claude-agent-pr: back
+# needing a fix, a second action: Fix with Claude (see agent-pr: back
 # to the agent already on it, else one fixing it). Waiting for that click
 # happens detached, so that we don't hold our caller's output open (nor our
 # lock)
@@ -89,7 +89,7 @@ github_notify() {
   setsid -f sh -c 'app=$1 urgency=$2 title=$3 body=$4 url=$5 repo=$6 number=$7 assets=$8; shift 8
     case "$(notify-send --app-name="$app" --urgency="$urgency" --action=default=Open "$@" --wait "$title" "$body")" in
       default) exec browser-kiosk "$url" ;;
-      fix) exec "$assets/claude-agent-pr" fix "$repo" "$number" ;;
+      fix) exec "$assets/agent-pr" fix "$repo" "$number" ;;
     esac' sh "$1" "$2" "$3" "$4" "$5" "${6:--}" "${7:--}" "$(dirname "${BASH_SOURCE[0]}")/.." "${fix[@]}" >/dev/null 2>&1 9>&-
 }
 

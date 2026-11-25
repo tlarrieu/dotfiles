@@ -69,16 +69,16 @@ return {
     -- Notification looks, by app name (awesome matches on it, not on the category hint):
     -- - job notifications from nvim (git, see config/nvim/lua/plug/git.lua; rspec, see config/nvim/ftplugin/ruby.lua):
     --   blue when started, green when done, red when failed (still expiring, unlike errors);
-    -- - Claude agents' alike for their spawns (see spawn_notify in scripts/lib/claude-agents.sh; their failures are
-    --   critical), and all of theirs show at the bottom center, apart from the rest (see scripts/claude-agent-*).
+    -- - agents' alike for their spawns (see spawn_notify in scripts/lib/agents.sh; their failures are
+    --   critical), and all of theirs show at the bottom center, apart from the rest (see scripts/agent-*).
     local notifications = {
       ['nvim.job.started'] = { color = colors.blue },
       ['nvim.job.done'] = { color = colors.green },
       ['nvim.job.failed'] = { color = colors.red },
-      ['claude'] = { position = 'bottom_middle' },
-      ['claude.spawn.started'] = { color = colors.blue, position = 'bottom_middle' },
-      ['claude.spawn.launched'] = { color = colors.green, position = 'bottom_middle' },
-      ['claude.spawn.failed'] = { color = colors.red, position = 'bottom_middle' },
+      ['agents'] = { position = 'bottom_middle' },
+      ['agents.spawn.started'] = { color = colors.blue, position = 'bottom_middle' },
+      ['agents.spawn.launched'] = { color = colors.green, position = 'bottom_middle' },
+      ['agents.spawn.failed'] = { color = colors.red, position = 'bottom_middle' },
     }
     for appname, settings in pairs(notifications) do
       local preset = { position = settings.position }

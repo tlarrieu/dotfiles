@@ -1,30 +1,30 @@
 #!/usr/bin/env bash
-# Creates an isolated git worktree for a Claude agent, on a detached HEAD at the
+# Creates an isolated git worktree for an agent, on a detached HEAD at the
 # repository's current commit (the agent creates its branch when it first needs
 # to commit: the checked out branch can't be shared with the primary worktree,
 # whose files would fall out of sync on commits), and reserves it a slot: the TEST_ENV_NUMBER its specs run with, so they get
 # their own test databases. A slot stays taken as long as its worktree exists.
 # Given a branch (checked out nowhere else, at <commit>), the worktree checks
-# it out instead of detaching (see claude-agent-pr).
-# Usage: claude-agent-worktree <repository> [<commit> [<branch>]]  (default: its HEAD)
+# it out instead of detaching (see agent-pr).
+# Usage: agent-worktree <repository> [<commit> [<branch>]]  (default: its HEAD)
 # Prints "<slot> <worktree>" (worktree: <parent>/<repo>-agents/<repo>-<slot>)
-# Slot files hold "<worktree> <base commit> [<branch>]", for claude-agent-sweep
+# Slot files hold "<worktree> <base commit> [<branch>]", for agent-sweep
 # to tell whether the agent committed anything, and which branch was there
 # before it (not the agent's to delete).
 
-# Slots, a range of TEST_ENV_NUMBER values clear of ours (CLAUDE_AGENT_SLOTS
+# Slots, a range of TEST_ENV_NUMBER values clear of ours (AGENT_SLOTS
 # overrides it, e.g. 11-19)
-slots=${CLAUDE_AGENT_SLOTS:-11-19}
+slots=${AGENT_SLOTS:-11-19}
 first_slot=${slots%-*} last_slot=${slots#*-}
 
 root=$(git -C "$1" rev-parse --show-toplevel 2>/dev/null) || exit 1
 repo=$(basename "$root")
 agents_dir="$(dirname "$root")/$repo-agents"
-slots_dir="${XDG_STATE_HOME:-$HOME/.local/state}/claude-agents/slots/$repo"
+slots_dir="${XDG_STATE_HOME:-$HOME/.local/state}/agents/slots/$repo"
 mkdir -p "$agents_dir" "$slots_dir"
 
 # Free the slots of agents stopped without us noticing
-"$(dirname "$(readlink -f "$0")")/claude-agent-sweep"
+"$(dirname "$(readlink -f "$0")")/agent-sweep"
 
 # Serialize spawns, so two of them can't grab the same slot
 exec 9>"$slots_dir/.lock"

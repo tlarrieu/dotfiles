@@ -92,9 +92,9 @@ end)
 
 -- [[ Claude ]] ----------------------------------------------------------------
 
--- A Claude agent window going away (closed by hand, or once the agent stopped)
+-- An agent window going away (closed by hand, or once the agent stopped)
 -- leaves its worktree behind: drop it once its processes exited
 client.connect_signal('unmanage', function(c)
-  if c.instance ~= 'claude-agent' then return end
-  awful.spawn({ os.getenv('HOME') .. '/scripts/claude-agent-sweep', '--wait', '10' })
+  if c.instance ~= 'agent' then return end
+  awful.spawn({ os.getenv('HOME') .. '/scripts/agent-sweep', '--wait', '10' })
 end)

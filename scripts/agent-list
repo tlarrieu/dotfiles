@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Lists live Claude agents (fed by claude-agent-state hooks), as records (see
+# Lists live agents (fed by agent-state hooks), as records (see
 # lib/records.sh) of fields started, state, since, session, project and pr
-# (the pull request it works on, see lib/claude-agents.sh: by its prompt, or
+# (the pull request it works on, see lib/agents.sh: by its prompt, or
 # its branch).
-# Ordered by project: those listed in ~/.config/claude/agent-projects, in its
+# Ordered by project: those listed in ~/.config/agents/projects, in its
 # order, then their agent worktrees (<project>-<slot>, by slot), then the
 # others by name; then by start time. A line's second word, when any, is its
 # project's short name (see rofi-github): ignored here.
@@ -15,13 +15,13 @@
 # Done sessions become idle (and stay so) once their terminal gets displayed.
 # Sessions with live subagents are reported as running. Done (or idle) ones
 # whose turn left a Monitor or a background shell running, as monitoring
-# (see monitoring in lib/claude-agents.sh). Subagents silent for
+# (see monitoring in lib/agents.sh). Subagents silent for
 # 10 minutes are deemed gone (in case their SubagentStop hook never fired),
 # even those that were waiting for us: an Esc on their prompt fires no hook.
 
 assets=$(dirname "$(readlink -f "$0")")
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh"
 
 interrupted() {
   [ -f "$1" ] && tail -n 50 "$1" | jq -se '
@@ -37,7 +37,7 @@ continued() {
   [ -f "$1" ] && tail -n 20 "$1" | grep -q '"type":"continued-in"'
 }
 
-order="${XDG_CONFIG_HOME:-$HOME/.config}/claude/agent-projects"
+order="${XDG_CONFIG_HOME:-$HOME/.config}/agents/projects"
 [ -f "$order" ] || order=/dev/null
 
 printf '#started\tstate\tsince\tsession\tproject\tpr\n'

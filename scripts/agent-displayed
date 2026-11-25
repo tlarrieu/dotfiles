@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Whether a Claude session's terminal is on screen: its kitty window is visible
+# Whether an agent session's terminal is on screen: its kitty window is visible
 # in awesome and, when kitty remote control is reachable, its tab is active.
-# Usage: claude-agent-displayed <x_window_id> [kitty_listen_on] [kitty_window_id]
+# Usage: agent-displayed <x_window_id> [kitty_listen_on] [kitty_window_id]
 # ("-" stands for an unknown value)
 
 window="$1" listen_on="${2:--}" kitty_window="${3:--}"

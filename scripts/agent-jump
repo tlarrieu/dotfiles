@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Focuses the terminal of a Claude agent: its awesome client, then its kitty tab
+# Focuses the terminal of an agent: its awesome client, then its kitty tab
 # (a background session: claude's agent view showing it, else the terminal
 # attached to it, else a new one).
-# Usage: claude-agent-jump [session_id]
+# Usage: agent-jump [session_id]
 # Without a session, picks the agent that wants us the most: the first one
-# needing attention (in claude-agent-list's order), else the first done one,
+# needing attention (in agent-list's order), else the first done one,
 # else the one we last focused (else the newest one). Fails (and says so) when
 # there is no such agent. Not one without a transcript: nothing happened there,
 # and some never will (the original of a session sent to the background as
@@ -12,8 +12,8 @@
 # ready for the next one)
 
 assets=$(dirname "$(readlink -f "$0")")
-# shellcheck source-path=SCRIPTDIR source=lib/claude-agents.sh
-. "$assets/lib/claude-agents.sh"
+# shellcheck source-path=SCRIPTDIR source=lib/agents.sh
+. "$assets/lib/agents.sh"
 # shellcheck source-path=SCRIPTDIR source=lib/records.sh
 . "$assets/lib/records.sh"
 target="$1"
@@ -37,7 +37,7 @@ if [ -z "$target" ]; then
     [ "$agent_window" = - ] || return 0
     while read -r window _; do windows[$window]=$session; done < <(background_terminals "$session" "$agent_transcript")
   }
-  each_record agent < <("$assets/claude-agent-list")
+  each_record agent < <("$assets/agent-list")
   target=${first[attention]:-${first[done]:-}}
 
   if [ -z "$target" ] && [ ${#windows[@]} -gt 0 ]; then
@@ -53,7 +53,7 @@ if [ -z "$target" ]; then
   target=${target:-$newest}
 fi
 
-fail() { notify-send --app-name=claude --icon="$assets/claude.png" Claude "$1"; exit 1; }
+fail() { notify-send --app-name=agents --icon="$assets/claude.png" Claude "$1"; exit 1; }
 
 if [ -z "$target" ]; then fail "No agent to jump to (spawn one with 'cl' in rofi-search)"; fi
 [ -f "$agents_dir/$target" ] || fail "This agent is gone"
@@ -80,9 +80,9 @@ focus() {
 # Usage: kitty_focus <socket> <id>
 kitty_focus() { kitty @ --to "$1" focus-window --match "id:$2" 2>/dev/null; }
 
-# A background session (see background in lib/claude-agents.sh): a terminal
+# A background session (see background in lib/agents.sh): a terminal
 # showing it (see background_terminals), else a new one, in the agents'
-# kitty (see claude-agent-spawn)
+# kitty (see agent-spawn)
 if [ "$window" = - ] && background "$pid"; then
   # Focuses a terminal showing it (exits), if any
   focus_shown() {
@@ -99,9 +99,9 @@ if [ "$window" = - ] && background "$pid"; then
   directory=$HOME
   # shellcheck disable=SC2154 # set by read_agent
   [ -d "$root" ] && directory=$root # (its worktree may be gone)
-  setsid -f kitty --single-instance --instance-group claude-agents --name claude-agent \
+  setsid -f kitty --single-instance --instance-group agents --name agent \
     --directory "$directory" fish -c "claude attach $id" >/dev/null 2>&1 || fail "Could not open a terminal on this agent"
-  # Hidden, without a tag, as all claude-agent windows (see rules.lua): shown
+  # Hidden, without a tag, as all agent windows (see rules.lua): shown
   # once there (awesome manages it), as an attached one
   for _ in {1..50}; do
     sleep 0.1
@@ -118,4 +118,4 @@ focus "$window" || fail "This agent's terminal is gone"
 [ "$listen_on" != - ] && [ "$kitty_window" != - ] && kitty_focus "$listen_on" "$kitty_window"
 
 # The panel turns the done agent we just displayed into an idle one
-awesome-client 'awesome.emit_signal("claude::update")' >/dev/null 2>&1
+awesome-client 'awesome.emit_signal("agents::update")' >/dev/null 2>&1

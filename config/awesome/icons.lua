@@ -250,7 +250,7 @@ local config = {
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
   { icon = '󱄄', rule = { class = 'org.remmina.Remmina' } },
 
-  { icon = '󰚩', rule = { class = 'kitty', instance = 'claude%-agent' } },
+  { icon = '󰚩', rule = { class = 'kitty', instance = '^agent$' } },
   { icon = '󰛮', rule = { class = 'kitty', name = 'neomutt' } },
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'work' } },

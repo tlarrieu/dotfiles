@@ -1,4 +1,4 @@
---- Records: what the GitHub trackers and claude-agent-list print (see
+--- Records: what the GitHub trackers and agent-list print (see
 --- ~/scripts/lib/records.sh). Tab separated lines under a header naming their
 --- fields, "#<field>\t<field>…": read by name, so adding a field only touches
 --- the script printing them.
