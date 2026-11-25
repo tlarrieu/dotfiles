@@ -438,7 +438,7 @@ hints() {
 layout='content { children: [inputbar, listview, message]; }
   message { margin: 0.5em 1em 1em 1em; }
   textbox { horizontal-align: 0.5; }'
-mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m='merge queue' ctrl+o=push)
+mesg=$(hints enter=open ctrl+r=refresh ctrl+q='queue page' ctrl+s=agent ctrl+m=merge ctrl+o=push)
 
 # A duration on a single unit, to keep the time column narrow: 42s (with
 # seconds), 42m, 5h, 12d. Rounded down, or up (for time left: never 60m)
