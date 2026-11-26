@@ -160,6 +160,140 @@ vim.api.nvim_create_autocmd('FileType', {
 
 ------------------------------------------------------| Codediff |------------------------------------------------------
 
+-- Whether each file with uncommitted changes is staged, partially staged or unstaged, by git root then path (relative
+-- to it): the explorer shows it next to the file's status (see staging_glyphs). Read alongside each time codediff
+-- loads the changes of the working tree (its status, or a revision against it), and handed over to the explorer with
+-- them. Conflicted files get none: they have their own status. Untracked ones aren't listed (scanning for them takes
+-- most of the time in a large repository): their status (??) tells they're unstaged (see file_staging)
+local staging = {}
+
+local file_staging = function(root, path, status)
+  local state = staging[root] and staging[root][path]
+  if not state and status == '??' then state = 'unstaged' end
+  return state
+end
+
+local read_staging = function(root, done)
+  vim.system({ 'git', '--no-optional-locks', 'status', '--porcelain', '-z', '-uno' }, { cwd = root, text = true },
+    function(res)
+      local files = {}
+      local entries = vim.split(res.stdout or '', '\0', { trimempty = true })
+      local i = 1
+      while i <= #entries do
+        local index, worktree, path = entries[i]:sub(1, 1), entries[i]:sub(2, 2), entries[i]:sub(4)
+        -- A rename's (or copy's) old path comes as the next entry
+        if index == 'R' or index == 'C' or worktree == 'R' or worktree == 'C' then i = i + 1 end
+        local conflict = index == 'U' or worktree == 'U' or (index == worktree and (index == 'A' or index == 'D'))
+        if not conflict then
+          local staged, unstaged = index ~= ' ' and index ~= '?', worktree ~= ' '
+          files[path] = staged and (unstaged and 'partial' or 'staged') or 'unstaged'
+        end
+        i = i + 1
+      end
+      staging[root] = files
+      done()
+    end)
+end
+
+-- The loaders comparing against the working tree, with the position of their git root argument (their callback
+-- follows it, called with an error and the files). Not get_diff_revisions_with_line_stats: two revisions, nothing
+-- staged there. The staging is read while they load, their callback waiting for both. Each file gets its staging
+-- state too: codediff redraws its list only when the files it loads differ from the last ones, which staging alone
+-- doesn't change against a revision (see refresh_policy below)
+local codediff_git = require('codediff.core.git')
+for name, root_at in pairs({ get_status_with_line_stats = 1, get_diff_revision_with_line_stats = 2 }) do
+  local load = codediff_git[name]
+  codediff_git[name] = function(...)
+    local args, count = { ... }, select('#', ...)
+    local root, callback = args[root_at], args[root_at + 1]
+    local waiting, results, results_count = 2, {}, 0
+    local finish = vim.schedule_wrap(function()
+      waiting = waiting - 1
+      if waiting > 0 then return end
+      for _, files in pairs(type(results[2]) == 'table' and results[2] or {}) do
+        for _, file in ipairs(type(files) == 'table' and files or {}) do
+          if type(file) == 'table' and file.path then file.staging = file_staging(root, file.path, file.status) end
+        end
+      end
+      callback(unpack(results, 1, results_count))
+    end)
+    read_staging(root, finish)
+    args[root_at + 1] = function(...)
+      results, results_count = { ... }, select('#', ...)
+      finish()
+    end
+    return load(unpack(args, 1, count))
+  end
+end
+
+-- Staging (a hunk, a file) only touches the index. The staging glyphs follow it at once: the staging read again, the
+-- explorer's rows redrawn, without codediff reloading its files (slow in a large repository) when it needn't. Against
+-- a revision (HEAD, the base branch) it doesn't: the files compared stay the same. In the status view it still does,
+-- after: files move between its Changes and Staged Changes
+local restage = function(panel)
+  local data, view = panel.data, panel.view
+  read_staging(data.git_root, vim.schedule_wrap(function()
+    for _, files in pairs(data.status_result or {}) do
+      for _, file in ipairs(type(files) == 'table' and files or {}) do
+        if type(file) == 'table' and file.path then file.staging = file_staging(data.git_root, file.path, file.status) end
+      end
+    end
+    if view and view.tree and not view.is_hidden and vim.api.nvim_buf_is_valid(view.bufnr) then view.tree:render() end
+  end))
+end
+
+local refresh_policy = require('codediff.ui.refresh.policy')
+local panel_needed = refresh_policy.panel_needed
+refresh_policy.panel_needed = function(panel, event)
+  local needed = panel_needed(panel, event)
+  local data = panel and panel.name == 'explorer' and panel.data or {}
+  if event.index and data.git_root then
+    local refs = data.source_revisions or {}
+    if not data.base_revision or refresh_policy.is_working(refs.modified or data.target_revision) then restage(panel) end
+  end
+  return needed
+end
+
+-- Staging from neovim (gitsigns' hunks, fugitive) refreshes codediff at once, rather than once its watcher notices
+-- the index changed. Tabs without codediff have nothing to refresh; one not shown refreshes once it is
+vim.api.nvim_create_autocmd('User', {
+  pattern = { 'GitSignsChanged', 'FugitiveChanged' },
+  callback = function()
+    local refresh = require('codediff.ui.refresh')
+    for _, tabpage in ipairs(vim.api.nvim_list_tabpages()) do refresh.request(tabpage, { index = true }) end
+  end,
+})
+
+-- The formatter only gets a file's path: the git root it is relative to comes along from its node
+local row_root
+local explorer_nodes = require('codediff.ui.explorer.nodes')
+local prepare_node = explorer_nodes.prepare_node
+explorer_nodes.prepare_node = function(node, ...)
+  row_root = node.data and node.data.git_root
+  return prepare_node(node, ...)
+end
+
+local staging_glyphs = {
+  staged = { '●', 'CodeDiffStaged' },
+  partial = { '◐', 'CodeDiffPartiallyStaged' },
+  unstaged = { '○', 'CodeDiffUnstaged' },
+}
+
+-- codediff's file row, the staging glyph before the status (M, A, D…), its last segment.
+local default_file_row = require('codediff.ui.explorer.formatters').file
+-- Untracked files' status as a single ? (git's ??), lined up with the others' single letter
+local file_row = function(ctx)
+  local glyph = staging_glyphs[row_root and file_staging(row_root, ctx.path, ctx.status)]
+  if ctx.status == '??' then ctx = vim.tbl_extend('force', ctx, { status = '?' }) end
+  local row = default_file_row(ctx)
+  if glyph then
+    local segments = row.right[#row.right].segments
+    table.insert(segments, 1, { text = ' ', hl = 'Normal' })
+    table.insert(segments, 1, { text = glyph[1], hl = glyph[2] })
+  end
+  return row
+end
+
 require('codediff').setup({
   diff = {
     compute_moves = true,
@@ -174,6 +308,7 @@ require('codediff').setup({
     view_mode = 'tree',
     flatten_dirs = true,
     file_filter = { ignore = { '*.pdf' } },
+    formatters = { file = file_row },
   },
   keymaps = {
     view = { next_hunk = 'þ', prev_hunk = 'ß', next_file = 'Þ', prev_file = 'ẞ' },
