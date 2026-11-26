@@ -3,10 +3,12 @@
 # agents on none of the rows below (find_loose_agents), my open pull requests
 # (merge-queue), local work none of them holds (local-work), those waiting on
 # my review (review-queue), then my teams', then mine with auto-merge on, queued, deploying,
-# deployed. Columns: see row (and faces for the glyphs).
+# deployed. Columns: see row (and faces for the glyphs). My teams' reviews
+# fade less the less needs me (see surface_team_reviews).
 # Usage: rofi-github [filter]  (prefilled search; rows also match invisible
 # tags: :open, :queued, :deploying, :deployed, :review, :team, :local, :unpushed,
-# :agent)
+# :agent, :todo). Rows needing nothing from me fade (see needs_me); the others
+# get :todo
 # Enter: open (browser; an agent's row: jump to it; local work: neovim in its
 # worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
 # page. Ctrl+f: the agent on it, else spawn one to fix or review it (agent-pr).
@@ -611,14 +613,58 @@ measure_columns() {
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent_when() { case $state in running | monitoring) [ "$since" != - ] && span $(($(date +%s) - since)) seconds ;; esac; return 0; }
 
+# Whether a row needs me, given the state of the agent on it (if any) and
+# <reasons> (a word each, empty for none): never while an agent works on it
+# (it's being handled), always when one waits on me (done, idle, asking), else
+# when there's a reason
+# Usage: needs_me <agent state> [reason...]
+needs_me() {
+  case $1 in
+    running | monitoring) return 1 ;;
+    ?*) return 0 ;;
+  esac
+  shift
+  local reason
+  for reason; do [ -n "$reason" ] && return 0; done
+  return 1
+}
+
+# Fades the caller's line unless needs_me says it needs me (same arguments),
+# setting the caller's todo (" :todo", else empty) for its tags
+# Usage: attend <agent state> [reason...]
+attend() {
+  if needs_me "$@"; then todo=' :todo'
+  else todo='' line="<span fgalpha=\"40%\">$line</span>"; fi
+}
+
+# What needs me on one of my open pull requests (a merge-queue record),
+# auto-merge on or not: failing CI, feedback (changes requested, unresolved
+# threads, open comments), conflicts, a draft to finish, no human reviewer;
+# and, without auto-merge (it would do it), being ready to queue. One word
+# each
+# shellcheck disable=SC2154 # record fields, set by each_record
+open_reasons() {
+  [ "$ci" = FAILURE ] && echo ci
+  case $state in CHECKS_FAILING | BOT_REVIEW_FAILED) echo ci ;; esac
+  case $review in BOT_REVIEW_FAILED) echo ci ;; CHANGES_REQUESTED) echo feedback ;; CONFLICT) echo conflict ;; DRAFT) echo draft ;; NO_REVIEWER) echo reviewer ;; esac
+  case $state in CHANGES_REQUESTED) echo feedback ;; CONFLICT) echo conflict ;; DRAFT) echo draft ;; NO_REVIEWER) echo reviewer ;; esac
+  [ "${threads:-0}" -gt 0 ] 2>/dev/null && echo threads
+  [ "${comments:-0}" -gt 0 ] 2>/dev/null && echo comments
+  [ "$kind" = ready ] && [ "$auto" != auto ] && echo ready
+  return 0
+}
+
 # Adds an agent (an agent-list record): Enter, Ctrl+f and Ctrl+s go back to it
 # shellcheck disable=SC2154 # record fields, set by each_record
 agent() {
   local title home
   title=$(read_agent "$agents_dir/$session" agent_; agent_title "$agent_harness" "$agent_transcript")
   home=$(read_agent "$agents_dir/$session" agent_; [ "$agent_root" != - ] && echo "$agent_root")
-  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(:agent) homes+=("$home")
-  lines+=("$(row time="$(agent_when)" project="$(short_name "$project")" title="${title:-new session}" agent="$state")")
+  local todo line
+  line=$(row time="$(agent_when)" project="$(short_name "$project")" title="${title:-new session}" agent="$state")
+  attend "$state"
+  urls+=('') queues+=('') prs+=('') merges+=('') sessions+=("$session") dirs+=('') pushes+=('') tags+=(":agent$todo") homes+=("$home")
+  lines+=("$line")
 }
 
 # Adds one of my pull requests (a merge-queue record, see each_record) if it
@@ -627,7 +673,7 @@ agent() {
 # yet) or deployed (in production lately)
 # shellcheck disable=SC2154 # record fields, set by each_record
 mine() {
-  local in=open when tag=:open diff='' face italic='' line
+  local in=open when tag=:open diff='' face italic='' line todo
   case $kind in queued | deploying | deployed) in=$kind ;; *) [ "$auto" = auto ] && in=auto ;; esac
   [ "$in" = "$group" ] || return 0
   case $kind in queued | deploying | deployed) tag=:$kind ;; esac
@@ -653,14 +699,16 @@ mine() {
   line=$(row ci="$ci" review="$face" time="$when" number="$number" additions="$additions" deletions="$deletions" \
     title="$title" auto="$auto" diff="$diff" threads="$threads" comments="$comments" italic="$italic" \
     work="${work_of[$repo#$branch]:-${pr_work[$repo#$number]}}" agent="${agents[$repo#$number]}")
-  # Queued and merged ones stay in the background: they move on their own;
-  # those with auto-merge on, a bit less (they will join the queue by
-  # themselves)
+  # Open ones (auto-merge on too) need me when blocked on me (see
+  # open_reasons); queued ones, when their merge group fails (about to be
+  # kicked out: back to open then); merged ones never
+  local reasons=''
   case $in in
-    open) ;;
-    auto) line="<span fgalpha=\"80%\">$line</span>" ;;
-    *) line="<span fgalpha=\"60%\">$line</span>" ;;
+    open | auto) reasons=$(open_reasons) ;;
+    queued) [ "$queue_ci" = FAILURE ] && reasons=queue ;;
   esac
+  # shellcheck disable=SC2086 # one reason a word
+  attend "${agents[$repo#$number]}" $reasons
   # The merge queue: can join it (ready ones; and what Ctrl+m checks first),
   # waits for GitHub's page (other open ones), can leave it (queued), or
   # neither (merged)
@@ -676,7 +724,7 @@ mine() {
   local push=${push_of[$repo#$branch]}
   case $in in deploying | deployed) push='' ;; esac
   urls+=("$url") queues+=("$queue_url") prs+=("fix $repo $number") merges+=("$merge") homes+=('')
-  tags+=("$tag${agents[$repo#$number]:+ :agent}${work_of[$repo#$branch]:+ :local}${pr_work[$repo#$number]:+ :local}${push:+ :unpushed}") sessions+=('') dirs+=('') pushes+=("$push") lines+=("$line")
+  tags+=("$tag${agents[$repo#$number]:+ :agent}${work_of[$repo#$branch]:+ :local}${pr_work[$repo#$number]:+ :local}${push:+ :unpushed}$todo") sessions+=('') dirs+=('') pushes+=("$push") lines+=("$line")
 }
 
 # Adds local work no pull request of mine holds (a local-work record, see
@@ -693,7 +741,7 @@ url_path() {
 
 # shellcheck disable=SC2154 # record fields, set by each_record
 local_row() {
-  local title state='' url='' push='' tended=-
+  local title state='' url='' push='' tended=- line todo
   if [ "$branch" = - ]; then title='detached HEAD'; else title=$branch; fi
   [ "$branch" != - ] && [ "$upstream" = none ] && title+=' (never pushed)'
   [ "$kept" = yes ] && title+=" (a stopped agent's, kept)"
@@ -702,9 +750,12 @@ local_row() {
   [ "$branch" != - ] && [ "$ahead" -gt 0 ] && push="$clone $branch $upstream $ahead"
   urls+=("$url") queues+=('') prs+=('') merges+=('') sessions+=("$([ "$agent" != - ] && echo "$agent")")
   dirs+=("$([ "$worktree" != - ] && echo "$worktree")") pushes+=("$push") homes+=("$clone")
-  tags+=(":local${push:+ :unpushed}${state:+ :agent}")
-  lines+=("$(row time="$(span $((now - time)))" project="$(local_name)" title="$title" \
-    work="$ahead $changes $tended" agent="$state")")
+  line=$(row time="$(span $((now - time)))" project="$(local_name)" title="$title" \
+    work="$ahead $changes $tended" agent="$state")
+  # Needs me: commits to push, or changes no agent tends
+  attend "$state" "$([ "${ahead:-0}" -gt 0 ] && echo unpushed)" "$([ "${changes:-0}" -gt 0 ] && [ "$tended" != yes ] && echo changes)"
+  tags+=(":local${push:+ :unpushed}${state:+ :agent}$todo")
+  lines+=("$line")
 }
 
 # Adds a pull request waiting on my review (a review-queue record) if it
@@ -712,21 +763,69 @@ local_row() {
 # only)
 # shellcheck disable=SC2154 # record fields, set by each_record
 review() {
-  local in=mine waited=$((now - at)) tint='' line
+  local in=mine waited=$((now - at)) tint='' line todo
   [ "${team:--}" = - ] || in=team
   [ "$in" = "$group" ] || return 0
   # The review face, warmer as the wait grows: 4h, then a day (mine only)
   if [ "$in" = team ]; then :
   elif [ "$waited" -ge 86400 ]; then tint=$red
   elif [ "$waited" -ge 14400 ]; then tint=$yellow; fi
-  line=$(row ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions" \
-    deletions="$deletions" author="$author" title="$title" tint="$tint" threads="$threads" comments="$comments" \
+  local cells=(ci="$ci" review=REVIEW_REQUIRED time="$(review_when)" number="$number" additions="$additions"
+    deletions="$deletions" author="$author" title="$title" threads="$threads" comments="$comments"
     work="${pr_work[$repo#$number]}" agent="${agents[$repo#$number]}")
-  # My teams': in the background, as those with auto-merge on
-  [ "$in" = team ] && line="<span fgalpha=\"80%\">$line</span>"
+  line=$(row "${cells[@]}" tint="$tint")
+  # My teams', CI green and no agent on it: faded for now, maybe lifted once
+  # all rows are in (see surface_team_reviews), its review face blue then. A
+  # step up each when small (XS, S) and when neglected (waiting for a day,
+  # nobody on it yet: no thread, no comment)
+  if [ "$in" = team ] && [ -z "${agents[$repo#$number]}" ] && [ "$ci" != FAILURE ] && [ "$ci" != PENDING ]; then
+    local steps=0
+    case $(pr_size "$additions" "$deletions") in XS | S) steps=$((steps + 1)) ;; esac
+    [ "$waited" -ge 86400 ] && [ "${threads:-0}" -eq 0 ] && [ "${comments:-0}" -eq 0 ] && steps=$((steps + 1))
+    team_steps[${#lines[@]}]=$steps
+    team_lines[${#lines[@]}]=$(row "${cells[@]}" tint="$blue")
+  fi
+  # Needs me: requested from me (first time or again: GitHub drops me from
+  # the request once I review), its CI green (failing or pending: the
+  # author's turn first). My teams': never
+  attend "${agents[$repo#$number]}" "$([ "$in" = mine ] && [ "$ci" != FAILURE ] && [ "$ci" != PENDING ] && echo requested)"
   urls+=("$url") queues+=('') prs+=("review $repo $number") merges+=('') sessions+=('') dirs+=('') pushes+=('') homes+=('')
-  tags+=(":$([ "$in" = team ] && echo team || echo review)${agents[$repo#$number]:+ :agent}${pr_work[$repo#$number]:+ :local}")
+  tags+=(":$([ "$in" = team ] && echo team || echo review)${agents[$repo#$number]:+ :agent}${pr_work[$repo#$number]:+ :local}$todo")
   lines+=("$line")
+}
+
+# Records (see lib/records.sh) smallest first by size (see pr_size: XS, S,
+# M, L, XL), keeping their order within a size; the header first, lines
+# without a tab (failure messages) dropped
+# Usage: by_size <<<"$records"
+by_size() {
+  awk -F'\t' '
+    /^#/ && !h { h = 1; print "0\t0\t" $0
+                 for (i = 1; i <= NF; i++) { f = $i; sub(/^#/, "", f); col[f] = i }; next }
+    h && /\t/ { n = $col["additions"] + int($col["deletions"] / 2)
+                 size = n < 10 ? 1 : n < 50 ? 2 : n < 250 ? 3 : n < 1000 ? 4 : 5
+                 print size "\t" NR "\t" $0 }' |
+    sort -t$'\t' -k1,1n -k2,2n | cut -f3-
+}
+
+# Team reviews' fades, dimmest first: the last means nothing lifts them
+team_fades=(90 70 50 40)
+# Lifts my teams' reviews worth a look (see review), less the more rows
+# need me (:todo ones): 0, 90%; 1-2, 70%; 3-4, 50%; else they stay faded
+# (40%). Each of their steps (small, neglected) lifts one fade more, up to
+# 90%: never as bright as what needs me
+surface_team_reviews() {
+  local i todos=0 base fade
+  for i in "${!tags[@]}"; do [[ ${tags[$i]} == *:todo* ]] && todos=$((todos + 1)); done
+  if [ "$todos" -eq 0 ]; then base=0
+  elif [ "$todos" -le 2 ]; then base=1
+  elif [ "$todos" -le 4 ]; then base=2
+  else return 0; fi
+  for i in "${!team_steps[@]}"; do
+    fade=$((base - team_steps[i]))
+    [ "$fade" -ge 0 ] || fade=0
+    lines[i]="<span fgalpha=\"${team_fades[fade]}%\">${team_lines[$i]}</span>"
+  done
 }
 
 while :; do
@@ -768,6 +867,7 @@ while :; do
   homes=() # where Ctrl+s starts an agent, on a row with no pull request (an agent's worktree, local work's clone), else empty
   tags=()
   lines=()
+  team_steps=() team_lines=() # my teams' reviews to lift, by row (see review)
   now=$(date +%s)
   find_agents
   find_local_work "$work" "$mine" "$reviews"
@@ -780,7 +880,8 @@ while :; do
   group=open each_record mine <<<"$mine"
   # Then what lies here, unpublished, or left behind
   each_record local_row <<<"$local_work"
-  group=mine each_record review <<<"$reviews"
+  # Requested from me: the smallest first (quick ones), else oldest first
+  group=mine each_record review < <(by_size <<<"$reviews")
   group=team each_record review <<<"$reviews"
   # Last, as they need nothing from me: on their way to the queue, in it,
   # merged, then in production
@@ -788,6 +889,7 @@ while :; do
   group=queued each_record mine <<<"$mine"
   group=deploying each_record mine <<<"$mine"
   group=deployed each_record mine <<<"$mine"
+  surface_team_reviews
 
   if [ ${#lines[@]} -eq 0 ]; then
     notify-send --app-name=github GitHub "No agent, no open pull request, nothing lying here, nothing waiting on your review 🎉"
