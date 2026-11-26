@@ -13,7 +13,7 @@
 # worktree). Ctrl+r: refresh from GitHub. Ctrl+q: the repository's merge queue
 # page. Ctrl+f: the agent on it, else spawn one to fix or review it (agent-pr).
 # Ctrl+s: the agent on it, else a new one, on the first prompt it asks for
-# (none: an interactive session; cancelled: no agent, the list closed): on
+# (cancelled: no agent, the list closed): on
 # the pull request (as Ctrl+f sets it up, see agent-pr --prompt; Ctrl+f
 # there: the agent Ctrl+f starts), else in the row's repository. Ctrl+m:
 # enqueue a ready one of mine (asking first, see queue_concerns) or dequeue
@@ -414,19 +414,17 @@ short_name() {
 local_name() { short_name "$(if [ "$worktree" != - ]; then basename "$worktree"; else basename "$clone"; fi)"; }
 
 # Asks for a new agent's first prompt (a rofi dialog), on <what> (markup):
-# prints it, nothing for none (an interactive session); fails when cancelled
-# (Escape). With a <task> (fix or review, see agent-pr), Ctrl+f picks it
+# prints it; fails when cancelled (Escape, or nothing typed). With a <task> (fix or review, see agent-pr), Ctrl+f picks it
 # instead of a prompt: exits 3 (rofi binds Ctrl+f to moving forward: Right
 # only does then, as in the list). Under the glyph of the harness spawning
 # it, else our prompt.
 # The skills it can call in [dir] (see skills in lib/agents.sh) go in a list
-# under the input, after an interactive session's row. Enter takes the row
-# highlighted when the input is empty or a single /word (filtering the
-# skills: /name), else what was typed, matching rows or not (a prompt that
-# happens to match a description stays a prompt). Ctrl+space on a skill's
-# row: the dialog again, /<name> typed in, to add arguments (rofi's own
-# Ctrl+space would put the whole row there). Without any skill: the input
-# only, Enter on it empty an interactive session
+# under the input. Enter takes the row highlighted when the input is empty or
+# a single /word (filtering the skills: /name), else what was typed, matching
+# rows or not (a prompt that happens to match a description stays a prompt).
+# Ctrl+space on a skill's row: the dialog again, /<name> typed in, to add
+# arguments (rofi's own Ctrl+space would put the whole row there). Without
+# any skill: the input only
 # Usage: ask_prompt <what> [task] [dir]
 ask_prompt() {
   local glyph keys=() task_hint='' answer status skill name description
@@ -438,10 +436,10 @@ ask_prompt() {
   done < <(harness_do "$default_harness" skills "$3")
   if [ ${#names[@]} -eq 0 ]; then
     answer=$(rofi -dmenu -p "${glyph:-$prompt}" -theme-str "$layout listview { enabled: false; } window { width: calc(96ch + 2em min 100%); }" "${keys[@]}" \
-      -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>Nothing: an interactive session.$task_hint Escape: cancel</span>" </dev/null)
+      -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>${task_hint# }${task_hint:+ }Escape: cancel</span>" </dev/null)
     status=$?
     [ "$status" -eq 10 ] && [ -n "$2" ] && return 3
-    [ "$status" -eq 0 ] || return 1
+    [ "$status" -eq 0 ] && [ -n "$answer" ] || return 1
     printf '%s\n' "$answer"
     return 0
   fi
@@ -457,25 +455,26 @@ ask_prompt() {
   done
   local filter='' index typed
   while :; do
-    answer=$(printf '%s\n' "<span $dim>Interactive session</span>" "${rows[@]}" |
+    answer=$(printf '%s\n' "${rows[@]}" |
       rofi -dmenu -i -markup-rows -p "${glyph:-$prompt}" -format 'i f' -filter "$filter" \
         -kb-row-select '' -kb-custom-2 Control+space \
-        -theme-str "$layout listview { lines: $((${#names[@]} + 1 < 10 ? ${#names[@]} + 1 : 10)); } window { width: calc(96ch + 2em min 100%); }" "${keys[@]}" \
+        -theme-str "$layout listview { lines: $((${#names[@]} < 10 ? ${#names[@]} : 10)); } window { width: calc(96ch + 2em min 100%); }" "${keys[@]}" \
         -mesg "First prompt for an agent $1"$'\n'"<span size=\"90%\" $dim>Typing: a prompt. Ctrl+space: a skill's arguments.$task_hint Escape: cancel</span>")
     status=$? index=${answer%% *} typed=${answer#* }
     [ "$status" -eq 10 ] && [ -n "$2" ] && return 3
     if [ "$status" -eq 11 ]; then
-      [ "$index" -gt 0 ] 2>/dev/null && typed="/${names[index - 1]} "
+      [ "$index" -ge 0 ] 2>/dev/null && typed="/${names[index]} "
       filter=$typed
       continue
     fi
     [ "$status" -eq 0 ] || return 1
+    if [ "$index" -ge 0 ] 2>/dev/null && [[ -z $typed || $typed =~ ^/[^[:space:]]*$ ]]; then
+      printf '/%s\n' "${names[index]}"
+      return 0
+    fi
+    [ -n "$typed" ] || return 1 # nothing typed, no skill
     break
   done
-  if [ "$index" -ge 0 ] 2>/dev/null && [[ -z $typed || $typed =~ ^/[^[:space:]]*$ ]]; then
-    [ "$index" -gt 0 ] && printf '/%s\n' "${names[index - 1]}"
-    return 0
-  fi
   printf '%s\n' "$typed"
 }
 

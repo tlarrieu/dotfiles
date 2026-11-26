@@ -97,14 +97,14 @@ claude_last_words() {
 
 # The skills a first prompt can call (/<name>), one a line: <name>, a tab,
 # <description>, from their SKILL.md's frontmatter (the name defaulting to
-# their directory's): repository [dir]'s own first, then mine (~/.claude),
-# by name, one of the repository's hiding mine. Claude's built-in ones
+# their directory's): mine (~/.claude) first, then repository [dir]'s own,
+# by name, one of mine hiding the repository's (as Claude ranks them:
+# personal over project). Claude's built-in ones
 # (/code-review…) aside: they have no SKILL.md
 # Usage: claude_skills [dir]
 claude_skills() {
-  local roots=() root file
+  local roots=("$HOME/.claude/skills") root file
   [ -n "$1" ] && roots+=("$1/.claude/skills")
-  roots+=("$HOME/.claude/skills")
   for root in "${roots[@]}"; do
     for file in "$root"/*/SKILL.md; do
       [ -f "$file" ] || continue
