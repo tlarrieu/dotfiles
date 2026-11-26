@@ -8,7 +8,7 @@ local ignore = ''
 local lock = '󰈡'
 local xdefaults = ''
 
-local ruby = ''
+local ruby = '󰴭'
 local sh = '󱆃'
 local css = '󰐣'
 local html = '󰗀'
