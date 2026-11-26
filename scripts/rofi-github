@@ -932,7 +932,7 @@ while :; do
     0)
       [ -n "$choice" ] || exit 0
       [ -n "${sessions[$choice]}" ] && exec "$assets/agent-jump" "${sessions[$choice]}"
-      [ -n "${dirs[$choice]}" ] && exec setsid -f kitty --directory "${dirs[$choice]}" nvim >/dev/null 2>&1
+      [ -n "${dirs[$choice]}" ] && exec setsid -f kitty --directory "${dirs[$choice]}" fish -c nvim >/dev/null 2>&1
       [ -n "${urls[$choice]}" ] && exec browser-kiosk "${urls[$choice]}"
       notify-send --app-name=github GitHub "Nothing to open yet: push it first (Ctrl+o)"
       exit 0 ;;
