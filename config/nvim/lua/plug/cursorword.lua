@@ -11,6 +11,6 @@ require('stcursorword').setup({
   highlight = { link = 'Cursorword' },
 })
 
-vim.keymap.set('n', '<c-space>', '<cmd>Cursorword toggle<cr>', { desc = 'Toggle cursorword', silent = true })
+vim.keymap.set('n', ' ', '<cmd>Cursorword toggle<cr>', { desc = 'Toggle cursorword', silent = true })
 
 vim.cmd.Cursorword('disable')

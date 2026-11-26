@@ -231,7 +231,7 @@ local keyboard = {
     spawner.key({ super }, 'u', 'agent-jump'),
     -- rofi-github, on the agents (search cleared: everything else)
     spawner.key({ super, shift }, ' ', 'rofi-github :agent'),
-    spawner.key({ super, ctrl }, ' ', 'rofi-github'),
+    spawner.key({ ctrl }, ' ', 'rofi-github'),
     spawner.key({ super }, 'Return', spawner.shell('rofi-theme')),
 
     spawner.key({ super, ctrl }, 'b', {
