@@ -179,11 +179,14 @@ claude_terminals() {
     [ "$shown" = "$title" ] || { [ ${#title} -ge 90 ] && [[ $shown == "$title"* ]]; } || continue
     echo "$view_window $view_listen_on $view_kitty_window"
   done
+  local short=''
   for client in $(pgrep -x claude); do
     argv=() found=''
     mapfile -d '' argv 2>/dev/null <"/proc/$client/cmdline"
     for i in "${!argv[@]}"; do
-      [ "${argv[$i]}" = attach ] && [ "${argv[$((i + 1))]:0:8}" = "${session:0:8}" ] && found=yes # claude's short ids
+      [ "${argv[$i]}" = attach ] || continue
+      [ -n "$short" ] || short=$(claude_short_id "$session")
+      [ "${argv[$((i + 1))]:0:8}" = "$short" ] && found=yes
     done
     [ -n "$found" ] || continue
     window='' socket=- id=-
@@ -198,9 +201,20 @@ claude_terminals() {
   done
 }
 
+# The id claude's daemon knows background session <session> by (attach
+# takes it): the one it was started with, which a session resumed as a fork
+# (--fork-session) no longer starts with, else its first 8 characters
+# Usage: claude_short_id <session>
+claude_short_id() {
+  local id
+  id=$(timeout 10 claude agents --json 2>/dev/null |
+    jq -r --arg session "$1" 'first(.[] | select(.kind == "background" and .sessionId == $session) | .id) // empty' 2>/dev/null)
+  echo "${id:-${1:0:8}}"
+}
+
 # The command showing background session <session> in a terminal
 # Usage: claude_attach <session>
-claude_attach() { echo "claude attach ${1:0:8}"; } # claude's short ids
+claude_attach() { echo "claude attach $(claude_short_id "$1")"; }
 
 # The fish command running an agent in the current directory: on fish
 # variable $prompt as its first prompt with --prompt (else interactive), with
