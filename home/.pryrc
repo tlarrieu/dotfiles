@@ -10,9 +10,9 @@ prompt = lambda do |level, instance|
       ['[31m', '-dbg']
     end
   if level.positive?
-    "\e#{color}\e[0m \e[3m(pry#{suffix}:#{level})\e[0m"
+    "\e#{color}\e[0m \e[3m(pry#{suffix}:#{level})\e[0m"
   else
-    "\e#{color}\e[0m \e[3m(pry#{suffix})\e[0m"
+    "\e#{color}\e[0m \e[3m(pry#{suffix})\e[0m"
   end
 end
 
