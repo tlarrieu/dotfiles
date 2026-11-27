@@ -218,8 +218,7 @@ local config = {
   { icon = '', rule = { class = 'dungeondraft.exe' } },
   { icon = '', rule = { class = 'Nemo' } },
   { icon = '', rule = { class = 'config' } },
-  { icon = '󰚐', rule = { class = 'dev' } },
-  { icon = '', rule = { class = 'code%-assistant' } },
+  { icon = '', rule = { class = 'dev' } },
   { icon = '', rule = { class = 'firefox' } },
   { icon = '', rule = { class = 'thunderbird_thunderbird' } },
   { icon = '󰭠', rule = { class = 'Lxappearance' } },
@@ -250,7 +249,7 @@ local config = {
   { icon = '󰍛', rule = { class = 'VirtualBox Machine' } },
   { icon = '󱄄', rule = { class = 'org.remmina.Remmina' } },
 
-  { icon = '󰚩', rule = { class = 'kitty', instance = '^agent$' } },
+  { icon = '', rule = { class = 'kitty', instance = '^agent$' } },
   { icon = '󰛮', rule = { class = 'kitty', name = 'neomutt' } },
   { icon = '', rule = { class = 'kitty', name = 'psql' } },
   { icon = '󰫏', rule = { class = 'work' } },
