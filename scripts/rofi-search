@@ -190,8 +190,8 @@ class Dictionary
 end
 
 ENGINES = {
+  'ai'   => Agent.new,
   'am'   => Browser.new('https://www.amazon.fr/s?k=%s', profile: 'perso'),
-  'cl'   => Agent.new,
   'aw'   => Browser.new(
     'https://duckduckgo.com/?ia=web&q=%s',
     prefixes: ['site:https://awesomewm.org/doc'],
