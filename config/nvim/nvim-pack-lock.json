@@ -49,7 +49,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "fyler.nvim": {
-      "rev": "8fe34a34fdd307ee762a2099be90b259fce39d21",
+      "rev": "87f817cba80970bea5f75c6af119b8ecd748d4f2",
       "src": "https://github.com/FylerOrg/fyler.nvim"
     },
     "gitsigns.nvim": {
